@@ -1,0 +1,69 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27130.2027
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{A858548D-B2C2-4CE9-872C-251E405FCCE4}"
+	ProjectSection(SolutionItems) = preProject
+		.nuget\packages.config = .nuget\packages.config
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{BA4BDEEC-4CF6-4538-9381-1D9517BAADD5}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Docs", "Docs", "{263E79D0-663D-4183-A0B6-B4E564622F82}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Licenses", "Licenses", "{DA68E384-A145-4652-9BFE-23C24E6CB7B2}"
+	ProjectSection(SolutionItems) = preProject
+		Licenses\ABP.License.txt = Licenses\ABP.License.txt
+		Licenses\Castle.Core.License.txt = Licenses\Castle.Core.License.txt
+		Licenses\Castle.LoggingFacility.License.txt = Licenses\Castle.LoggingFacility.License.txt
+		Licenses\Castle.Windsor-log4net.License.txt = Licenses\Castle.Windsor-log4net.License.txt
+		Licenses\Castle.Windsor.License.txt = Licenses\Castle.Windsor.License.txt
+		Licenses\CodeProject.SequentialGuid.License.txt = Licenses\CodeProject.SequentialGuid.License.txt
+		Licenses\Common Logging.License.txt = Licenses\Common Logging.License.txt
+		FluentAssertions.License.txt = FluentAssertions.License.txt
+		Licenses\log4net.License.txt = Licenses\log4net.License.txt
+		Licenses\Microsoft.System.Collections.Immutable.License.txt = Licenses\Microsoft.System.Collections.Immutable.License.txt
+		Licenses\NCommon.License.txt = Licenses\NCommon.License.txt
+		Xunit.License.txt = Xunit.License.txt
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Libs", "Libs", "{D0558D6C-0754-4B1A-B6F0-7E525AFEF0DD}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{82629D38-5FB2-4DAF-9B67-3C766D419811}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Src", "Src", "{442BFA02-FB67-4078-AA7D-C8796C5D074B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LaunchPad.Shared.Common", "src\DeploySoftware.LaunchPad.Shared.Common\LaunchPad.Shared.Common.csproj", "{E6B59D9B-C320-427A-A552-7DAEAEFB4013}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DeploySoftware.LaunchPad.Shared.Tests", "tests\DeploySoftware.LaunchPad.Shared.Tests\DeploySoftware.LaunchPad.Shared.Tests.csproj", "{B68F2E53-5EB0-4469-A062-DF8F832CF6E2}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E6B59D9B-C320-427A-A552-7DAEAEFB4013}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E6B59D9B-C320-427A-A552-7DAEAEFB4013}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E6B59D9B-C320-427A-A552-7DAEAEFB4013}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E6B59D9B-C320-427A-A552-7DAEAEFB4013}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B68F2E53-5EB0-4469-A062-DF8F832CF6E2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B68F2E53-5EB0-4469-A062-DF8F832CF6E2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B68F2E53-5EB0-4469-A062-DF8F832CF6E2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B68F2E53-5EB0-4469-A062-DF8F832CF6E2}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{263E79D0-663D-4183-A0B6-B4E564622F82} = {BA4BDEEC-4CF6-4538-9381-1D9517BAADD5}
+		{DA68E384-A145-4652-9BFE-23C24E6CB7B2} = {BA4BDEEC-4CF6-4538-9381-1D9517BAADD5}
+		{D0558D6C-0754-4B1A-B6F0-7E525AFEF0DD} = {BA4BDEEC-4CF6-4538-9381-1D9517BAADD5}
+		{E6B59D9B-C320-427A-A552-7DAEAEFB4013} = {442BFA02-FB67-4078-AA7D-C8796C5D074B}
+		{B68F2E53-5EB0-4469-A062-DF8F832CF6E2} = {82629D38-5FB2-4DAF-9B67-3C766D419811}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {89FD47F4-AA98-4C45-852A-0CFC7404BBA3}
+	EndGlobalSection
+EndGlobal
