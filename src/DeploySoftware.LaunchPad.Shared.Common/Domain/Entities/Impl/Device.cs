@@ -16,7 +16,7 @@
 
 
 
-namespace DeploySoftware.LaunchPad.Common.Domain.Entities
+namespace DeploySoftware.LaunchPad.Shared.Domain
 {
     using System;
     using System.Collections.Generic;

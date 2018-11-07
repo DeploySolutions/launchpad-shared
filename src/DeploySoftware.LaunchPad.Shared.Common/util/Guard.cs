@@ -18,7 +18,7 @@
 
 using System;
 
-namespace DeploySoftware.LaunchPad.Common.Util
+namespace DeploySoftware.LaunchPad.Shared.Util
 {
     /// <summary>
     /// Provides utility methods to guard parameter and local variables.

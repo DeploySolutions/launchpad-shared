@@ -18,7 +18,7 @@
 
 using System.Linq;
 
-namespace DeploySoftware.LaunchPad.Common.Repositories
+namespace DeploySoftware.LaunchPad.Shared.Repositories
 {
     /// <summary>
     /// Defines the transaction mode when creating a new <see cref="UnitOfWorkScope"/> instance.

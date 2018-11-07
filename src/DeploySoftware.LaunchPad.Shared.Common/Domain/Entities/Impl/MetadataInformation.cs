@@ -15,9 +15,9 @@
 //limitations under the License. 
 #endregion
 
-namespace DeploySoftware.LaunchPad.Common.Domain.Entities
+namespace DeploySoftware.LaunchPad.Shared.Domain
 {
-    using DeploySoftware.LaunchPad.Common.Util;
+    using DeploySoftware.LaunchPad.Shared.Util;
     using System;
     using System.ComponentModel;
     using System.ComponentModel.DataAnnotations.Schema;

@@ -15,7 +15,7 @@
 //limitations under the License. 
 #endregion
 
-namespace DeploySoftware.LaunchPad.Common.Domain.Entities
+namespace DeploySoftware.LaunchPad.Shared.Domain
 {
     using Abp.Domain.Entities;
     using System;

@@ -22,7 +22,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 
-namespace DeploySoftware.LaunchPad.Common.Specifications
+namespace DeploySoftware.LaunchPad.Shared.Specifications
 {
     /// <summary>
     /// The <see cref="ISpecification{TEntity}"/> interface defines a basic contract to express specifications declaratively.

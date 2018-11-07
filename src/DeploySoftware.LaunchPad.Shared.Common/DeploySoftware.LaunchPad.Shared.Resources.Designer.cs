@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace DeploySoftware.LaunchPad.Common {
+namespace DeploySoftware.LaunchPad.Shared {
     using System;
     
     
@@ -22,14 +22,14 @@ namespace DeploySoftware.LaunchPad.Common {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public class DeploySoftware_LaunchPad_Shared_Common_Resources {
+    public class DeploySoftware_LaunchPad_Shared_Resources {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal DeploySoftware_LaunchPad_Shared_Common_Resources() {
+        internal DeploySoftware_LaunchPad_Shared_Resources() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace DeploySoftware.LaunchPad.Common {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("DeploySoftware.LaunchPad.Common.DeploySoftware.LaunchPad.Shared.Common.Resources", typeof(DeploySoftware_LaunchPad_Shared_Common_Resources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("DeploySoftware.LaunchPad.Shared.DeploySoftware.LaunchPad.Shared.Resources", typeof(DeploySoftware_LaunchPad_Shared_Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;

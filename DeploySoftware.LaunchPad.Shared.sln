@@ -34,7 +34,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{82629D38
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Src", "Src", "{442BFA02-FB67-4078-AA7D-C8796C5D074B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LaunchPad.Shared.Common", "src\DeploySoftware.LaunchPad.Shared.Common\LaunchPad.Shared.Common.csproj", "{E6B59D9B-C320-427A-A552-7DAEAEFB4013}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LaunchPad.Shared", "src\DeploySoftware.LaunchPad.Shared.Common\LaunchPad.Shared.csproj", "{E6B59D9B-C320-427A-A552-7DAEAEFB4013}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DeploySoftware.LaunchPad.Shared.Tests", "tests\DeploySoftware.LaunchPad.Shared.Tests\DeploySoftware.LaunchPad.Shared.Tests.csproj", "{B68F2E53-5EB0-4469-A062-DF8F832CF6E2}"
 EndProject

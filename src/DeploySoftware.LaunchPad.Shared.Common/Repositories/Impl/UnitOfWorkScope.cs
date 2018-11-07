@@ -18,13 +18,11 @@
 
 using Common.Logging;
 
-namespace DeploySoftware.LaunchPad.Common.Repositories
+namespace DeploySoftware.LaunchPad.Shared.Repositories
 {
     using System;
-
-    using DeploySoftware.LaunchPad.Common.Domain.Entities;
-    using DeploySoftware.LaunchPad.Common.Util;
-    using DeploySoftware.LaunchPad.Common;
+    
+    using DeploySoftware.LaunchPad.Shared.Util;
 
     /// <summary>
     /// Helper class that allows starting and using a unit of work like:
@@ -90,10 +88,10 @@ namespace DeploySoftware.LaunchPad.Common.Repositories
         public T CurrentUnitOfWork<T>()
         {
             var currentUow = UnitOfWorkManager.CurrentUnitOfWork;
-            Guard.Against<InvalidOperationException>(currentUow == null, DeploySoftware_LaunchPad_Shared_Common_Resources.Guard_UnitOfWorkScope_CurrentUnitOfWork_NoCompatibleTypeFound);
+            Guard.Against<InvalidOperationException>(currentUow == null, DeploySoftware_LaunchPad_Shared_Resources.Guard_UnitOfWorkScope_CurrentUnitOfWork_NoCompatibleTypeFound);
 
             Guard.TypeOf<T>(currentUow,
-                String.Format(DeploySoftware_LaunchPad_Shared_Common_Resources.Guard_UnitOfWorkScope_CurrentUnitOfWork_NotCompatibleType, typeof(T).FullName, currentUow.GetType().FullName));                     
+                String.Format(DeploySoftware_LaunchPad_Shared_Resources.Guard_UnitOfWorkScope_CurrentUnitOfWork_NotCompatibleType, typeof(T).FullName, currentUow.GetType().FullName));                     
             return (T) currentUow;
         }
 
@@ -102,9 +100,9 @@ namespace DeploySoftware.LaunchPad.Common.Repositories
         ///</summary>
         public void Commit()
         {
-            Guard.Against<ObjectDisposedException>(_disposed, DeploySoftware_LaunchPad_Shared_Common_Resources.Guard_UnitOfWorkScope_Commit_ObjectDisposedException);
+            Guard.Against<ObjectDisposedException>(_disposed, DeploySoftware_LaunchPad_Shared_Resources.Guard_UnitOfWorkScope_Commit_ObjectDisposedException);
             Guard.Against<InvalidOperationException>(_completed,
-                                                     DeploySoftware_LaunchPad_Shared_Common_Resources.Guard_UnitOfWorkScope_Commit_InvalidOperationException);
+                                                     DeploySoftware_LaunchPad_Shared_Resources.Guard_UnitOfWorkScope_Commit_InvalidOperationException);
 
             
             _commitAttempted = true;
@@ -125,7 +123,7 @@ namespace DeploySoftware.LaunchPad.Common.Repositories
         /// </summary>
         void OnCommit()
         {
-            _logger.Info(x => x(DeploySoftware_LaunchPad_Shared_Common_Resources.Debug_UnitOfWorkScope_OnCommit, _scopeId));
+            _logger.Info(x => x(DeploySoftware_LaunchPad_Shared_Resources.Debug_UnitOfWorkScope_OnCommit, _scopeId));
             if (ScopeComitting != null)
                 ScopeComitting(this);
         }
@@ -135,7 +133,7 @@ namespace DeploySoftware.LaunchPad.Common.Repositories
         /// </summary>
         void OnRollback()
         {
-            _logger.Info(x => x(DeploySoftware_LaunchPad_Shared_Common_Resources.Debug_UnitOfWorkScope_OnRollback, _scopeId));
+            _logger.Info(x => x(DeploySoftware_LaunchPad_Shared_Resources.Debug_UnitOfWorkScope_OnRollback, _scopeId));
             if (ScopeRollingback != null)
                 ScopeRollingback(this);
         }

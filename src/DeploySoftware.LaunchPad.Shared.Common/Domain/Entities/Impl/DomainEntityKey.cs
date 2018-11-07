@@ -15,7 +15,7 @@
 //limitations under the License. 
 #endregion
 
-namespace DeploySoftware.LaunchPad.Common.Domain.Entities
+namespace DeploySoftware.LaunchPad.Shared.Domain
 {
     using System;
     using System.ComponentModel;
@@ -25,7 +25,7 @@ namespace DeploySoftware.LaunchPad.Common.Domain.Entities
     using System.Security.Permissions;
     using System.Text;
     using System.Xml.Serialization;
-    using DeploySoftware.LaunchPad.Common.Util;
+    using DeploySoftware.LaunchPad.Shared.Util;
 
     /// <summary>
     /// This class uniquely identifies an object implementing <see cref="IDomainEntity">IDomainEntity</see>.

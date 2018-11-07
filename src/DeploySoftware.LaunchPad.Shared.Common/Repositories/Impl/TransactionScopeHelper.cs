@@ -19,7 +19,7 @@
 using Common.Logging;
 using System.Transactions;
 
-namespace DeploySoftware.LaunchPad.Common.Repositories
+namespace DeploySoftware.LaunchPad.Shared.Repositories
 { 
     /// <summary>
     /// Helper class to create <see cref="TransactionScope"/> instances.
@@ -38,15 +38,15 @@ namespace DeploySoftware.LaunchPad.Common.Repositories
         {
             if (txMode == TransactionMode.New)
             {
-                Logger.Debug(x => x(DeploySoftware_LaunchPad_Shared_Common_Resources.Debug_TransactionScopeHelper_CreateScope_with_TransactionScopeOption_RequiresNew));
+                Logger.Debug(x => x(DeploySoftware_LaunchPad_Shared_Resources.Debug_TransactionScopeHelper_CreateScope_with_TransactionScopeOption_RequiresNew));
                 return new TransactionScope(TransactionScopeOption.RequiresNew, new TransactionOptions { IsolationLevel = isolationLevel });
             }
             if (txMode == TransactionMode.Supress)
             {
-                Logger.Debug(x => x(DeploySoftware_LaunchPad_Shared_Common_Resources.Debug_TransactionScopeHelper_CreateScope_with_TransactionScopeOption_Suppress));
+                Logger.Debug(x => x(DeploySoftware_LaunchPad_Shared_Resources.Debug_TransactionScopeHelper_CreateScope_with_TransactionScopeOption_Suppress));
                 return new TransactionScope(TransactionScopeOption.Suppress);
             }
-            Logger.Debug(x => x(DeploySoftware_LaunchPad_Shared_Common_Resources.Debug_TransactionScopeHelper_CreateScope_with_TransactionScopeOption_Required));
+            Logger.Debug(x => x(DeploySoftware_LaunchPad_Shared_Resources.Debug_TransactionScopeHelper_CreateScope_with_TransactionScopeOption_Required));
             return new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = isolationLevel });
         }
     }

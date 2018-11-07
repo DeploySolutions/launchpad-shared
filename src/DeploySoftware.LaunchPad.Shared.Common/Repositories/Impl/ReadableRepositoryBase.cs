@@ -16,11 +16,11 @@
 //limitations under the License. 
 #endregion
 
-namespace DeploySoftware.LaunchPad.Common.Repositories
+namespace DeploySoftware.LaunchPad.Shared.Repositories
 {
-    using DeploySoftware.LaunchPad.Common.Domain.Entities;
-    using DeploySoftware.LaunchPad.Common.Specifications;
-    using DeploySoftware.LaunchPad.Common.Util;
+    using DeploySoftware.LaunchPad.Shared.Domain;
+    using DeploySoftware.LaunchPad.Shared.Specifications;
+    using DeploySoftware.LaunchPad.Shared.Util;
     using System;
     using System.Collections;
     using System.Collections.Generic;

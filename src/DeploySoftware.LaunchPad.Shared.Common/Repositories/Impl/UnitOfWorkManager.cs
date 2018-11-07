@@ -20,7 +20,7 @@ using Common.Logging;
 using System;
 using System.Linq;
 
-namespace DeploySoftware.LaunchPad.Common.Repositories
+namespace DeploySoftware.LaunchPad.Shared.Repositories
 {
     ///<summary>
     /// Gets an instances of <see cref="ITransactionManager"/>.
@@ -32,11 +32,11 @@ namespace DeploySoftware.LaunchPad.Common.Repositories
         private const string LocalTransactionManagerKey = "UnitOfWorkManager.LocalTransactionManager";
         static readonly Func<ITransactionManager> DefaultTransactionManager = () =>
         {
-            Logger.Debug(x => x(DeploySoftware_LaunchPad_Shared_Common_Resources.Debug_UnitOfWorkManager_DefaultTransactionManager_UsingDefaultProvider));
+            Logger.Debug(x => x(DeploySoftware_LaunchPad_Shared_Resources.Debug_UnitOfWorkManager_DefaultTransactionManager_UsingDefaultProvider));
             ITransactionManager transactionManager = null;
             if (transactionManager == null)
             {
-                Logger.Debug(x => x(DeploySoftware_LaunchPad_Shared_Common_Resources.Debug_UnitOfWorkManager_DefaultTransactionManager_CreatingNewTransactionManager));
+                Logger.Debug(x => x(DeploySoftware_LaunchPad_Shared_Resources.Debug_UnitOfWorkManager_DefaultTransactionManager_CreatingNewTransactionManager));
                 transactionManager = new TransactionManager();
                 //TODO: Store the transaction manager somewhere
                 // state.Local.Put(LocalTransactionManagerKey, transactionManager);
@@ -63,11 +63,11 @@ namespace DeploySoftware.LaunchPad.Common.Repositories
         {
             if (provider == null)
             {
-                Logger.Debug(x => x(DeploySoftware_LaunchPad_Shared_Common_Resources.Debug_UnitOfWorkManager_SetTransactionManagerProvider_SetToNull));
+                Logger.Debug(x => x(DeploySoftware_LaunchPad_Shared_Resources.Debug_UnitOfWorkManager_SetTransactionManagerProvider_SetToNull));
                 _provider = DefaultTransactionManager;
                 return;
             }
-            Logger.Debug(x => x(DeploySoftware_LaunchPad_Shared_Common_Resources.Debug_UnitOfWorkManager_SetTransactionManagerProvider_ProviderBeingOverriden));
+            Logger.Debug(x => x(DeploySoftware_LaunchPad_Shared_Resources.Debug_UnitOfWorkManager_SetTransactionManagerProvider_ProviderBeingOverriden));
             _provider = provider;
         }
 

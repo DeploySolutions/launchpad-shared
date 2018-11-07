@@ -16,14 +16,13 @@
 //limitations under the License. 
 #endregion
 
-using DeploySoftware.LaunchPad.Common.Util;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 
-namespace DeploySoftware.LaunchPad.Common.Domain.Events
+namespace DeploySoftware.LaunchPad.Shared.Domain
 {
     ///<summary>
     /// DomainEvent class that allowes raising domain events from domain entities and allow registring

@@ -19,10 +19,9 @@ namespace DeploySoftware.LaunchPad.Shared.Tests
 {
     using Xunit;
     using FluentAssertions;
-    using DeploySoftware.LaunchPad.Common.Domain.Entities;
-    using DeploySoftware.LaunchPad.Common.Util;
+    using DeploySoftware.LaunchPad.Shared.Domain;
+    using DeploySoftware.LaunchPad.Shared.Util;
     using System;
-    using DeploySoftware.LaunchPad.Common;
 
     public class GeographicLocationTests
     {
@@ -42,7 +41,7 @@ namespace DeploySoftware.LaunchPad.Shared.Tests
             
             Action act = () => location.Elevation = elevation;
             act.Should().Throw<ArgumentException>()
-                 .WithMessage("*" + DeploySoftware_LaunchPad_Shared_Common_Resources.Guard_GeographicLocation_Set_Elevation + "*");
+                 .WithMessage("*" + DeploySoftware_LaunchPad_Shared_Resources.Guard_GeographicLocation_Set_Elevation + "*");
 
         }
 
@@ -54,7 +53,7 @@ namespace DeploySoftware.LaunchPad.Shared.Tests
             
             Action act = () => location.Latitude = latitude;
             act.Should().Throw<ArgumentException>()
-                .WithMessage("*" + DeploySoftware_LaunchPad_Shared_Common_Resources.Guard_GeographicLocation_Set_Latitude_NaN + "*");
+                .WithMessage("*" + DeploySoftware_LaunchPad_Shared_Resources.Guard_GeographicLocation_Set_Latitude_NaN + "*");
         }
 
         //latitude value are wrong if < -90 || value > 90
@@ -66,7 +65,7 @@ namespace DeploySoftware.LaunchPad.Shared.Tests
             
             Action act = () => location.Latitude = latitude;
             act.Should().Throw<ArgumentException>()
-                .WithMessage("*" + DeploySoftware_LaunchPad_Shared_Common_Resources.Guard_GeographicLocation_Set_Latitude_InvalidRange + "*");
+                .WithMessage("*" + DeploySoftware_LaunchPad_Shared_Resources.Guard_GeographicLocation_Set_Latitude_InvalidRange + "*");
         }
 
         //latitude values are wrong if < -90 || value > 90
@@ -78,7 +77,7 @@ namespace DeploySoftware.LaunchPad.Shared.Tests
             
             Action act = () => location.Latitude = latitude;
             act.Should().Throw<ArgumentException>()
-                .WithMessage("*" + DeploySoftware_LaunchPad_Shared_Common_Resources.Guard_GeographicLocation_Set_Latitude_InvalidRange + "*");
+                .WithMessage("*" + DeploySoftware_LaunchPad_Shared_Resources.Guard_GeographicLocation_Set_Latitude_InvalidRange + "*");
         }
 
         [Fact]
@@ -89,7 +88,7 @@ namespace DeploySoftware.LaunchPad.Shared.Tests
 
             Action act = () => location.Longitude = longitude ;
             act.Should().Throw<ArgumentException>()
-                 .WithMessage("*" + DeploySoftware_LaunchPad_Shared_Common_Resources.Guard_GeographicLocation_Set_Longitude_NaN + "*");
+                 .WithMessage("*" + DeploySoftware_LaunchPad_Shared_Resources.Guard_GeographicLocation_Set_Longitude_NaN + "*");
         }
 
 
@@ -102,7 +101,7 @@ namespace DeploySoftware.LaunchPad.Shared.Tests
 
             Action act = () => location.Longitude = longitude;
             act.Should().Throw<ArgumentException>()
-                 .WithMessage("*" + DeploySoftware_LaunchPad_Shared_Common_Resources.Guard_GeographicLocation_Set_Longitude_InvalidRange + "*");
+                 .WithMessage("*" + DeploySoftware_LaunchPad_Shared_Resources.Guard_GeographicLocation_Set_Longitude_InvalidRange + "*");
         }
 
         //longitude value are wrong if <= -180 || value > 180
@@ -114,7 +113,7 @@ namespace DeploySoftware.LaunchPad.Shared.Tests
 
             Action act = () => location.Longitude = longitude;
             act.Should().Throw<ArgumentException>()
-                .WithMessage("*" + DeploySoftware_LaunchPad_Shared_Common_Resources.Guard_GeographicLocation_Set_Longitude_InvalidRange + "*");
+                .WithMessage("*" + DeploySoftware_LaunchPad_Shared_Resources.Guard_GeographicLocation_Set_Longitude_InvalidRange + "*");
         }
       
     }

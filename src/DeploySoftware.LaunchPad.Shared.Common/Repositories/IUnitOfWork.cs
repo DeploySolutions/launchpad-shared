@@ -19,7 +19,7 @@
 using System;
 using System.Linq;
 
-namespace DeploySoftware.LaunchPad.Common.Repositories
+namespace DeploySoftware.LaunchPad.Shared.Repositories
 {
     /// <summary>
     /// A unit of work contract that that encapsulates the Unit of Work pattern.

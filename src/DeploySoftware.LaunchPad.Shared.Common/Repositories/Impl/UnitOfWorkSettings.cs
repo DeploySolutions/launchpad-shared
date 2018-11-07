@@ -20,7 +20,7 @@ using System.Collections.Generic;
 using System.Transactions;
 using System.Linq;
 
-namespace DeploySoftware.LaunchPad.Common.Repositories
+namespace DeploySoftware.LaunchPad.Shared.Repositories
 {
     ///<summary>
     /// Contains settings for NCommon unit of work.

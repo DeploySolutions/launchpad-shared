@@ -20,7 +20,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace DeploySoftware.LaunchPad.Common.Util
+namespace DeploySoftware.LaunchPad.Shared.Util
 {
     /// <summary>
     /// This is a marker interface to support auto-registration as a IoC / Dependency Injection component.

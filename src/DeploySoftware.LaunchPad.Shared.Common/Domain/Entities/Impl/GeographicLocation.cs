@@ -17,7 +17,7 @@
 
 
 
-namespace DeploySoftware.LaunchPad.Common.Domain.Entities
+namespace DeploySoftware.LaunchPad.Shared.Domain
 {
     using System;
     using System.ComponentModel;
@@ -25,7 +25,7 @@ namespace DeploySoftware.LaunchPad.Common.Domain.Entities
     using System.Security.Permissions;
     using System.Text;
     using System.Xml.Serialization;
-    using DeploySoftware.LaunchPad.Common.Util;
+    using DeploySoftware.LaunchPad.Shared.Util;
 
     /// <summary>
     /// This class defines the physical position of something, in terms of its latitude, longitude, and elevation.
@@ -44,7 +44,7 @@ namespace DeploySoftware.LaunchPad.Common.Domain.Entities
             get { return _elevation; }
             set
             {
-                Guard.Against< ArgumentException>(double.IsNaN(value), DeploySoftware_LaunchPad_Shared_Common_Resources.Guard_GeographicLocation_Set_Elevation);
+                Guard.Against< ArgumentException>(double.IsNaN(value), DeploySoftware_LaunchPad_Shared_Resources.Guard_GeographicLocation_Set_Elevation);
                 _elevation = value;
             }
         }
@@ -56,8 +56,8 @@ namespace DeploySoftware.LaunchPad.Common.Domain.Entities
             get { return _latitude; }
             set
             {
-                Guard.Against<ArgumentException>(double.IsNaN(value), DeploySoftware_LaunchPad_Shared_Common_Resources.Guard_GeographicLocation_Set_Latitude_NaN);
-                Guard.Against<ArgumentOutOfRangeException>(value < -90 || value > 90, DeploySoftware_LaunchPad_Shared_Common_Resources.Guard_GeographicLocation_Set_Latitude_InvalidRange);                
+                Guard.Against<ArgumentException>(double.IsNaN(value), DeploySoftware_LaunchPad_Shared_Resources.Guard_GeographicLocation_Set_Latitude_NaN);
+                Guard.Against<ArgumentOutOfRangeException>(value < -90 || value > 90, DeploySoftware_LaunchPad_Shared_Resources.Guard_GeographicLocation_Set_Latitude_InvalidRange);                
                 _latitude = value;
             }
         }
@@ -69,8 +69,8 @@ namespace DeploySoftware.LaunchPad.Common.Domain.Entities
             get { return _longitude; }
             set
             {
-                Guard.Against<ArgumentException>(double.IsNaN(value), DeploySoftware_LaunchPad_Shared_Common_Resources.Guard_GeographicLocation_Set_Longitude_NaN);
-                Guard.Against<ArgumentOutOfRangeException>(value <= -180 || value > 180, DeploySoftware_LaunchPad_Shared_Common_Resources.Guard_GeographicLocation_Set_Longitude_InvalidRange);
+                Guard.Against<ArgumentException>(double.IsNaN(value), DeploySoftware_LaunchPad_Shared_Resources.Guard_GeographicLocation_Set_Longitude_NaN);
+                Guard.Against<ArgumentOutOfRangeException>(value <= -180 || value > 180, DeploySoftware_LaunchPad_Shared_Resources.Guard_GeographicLocation_Set_Longitude_InvalidRange);
                 _longitude = value;
             }
         }

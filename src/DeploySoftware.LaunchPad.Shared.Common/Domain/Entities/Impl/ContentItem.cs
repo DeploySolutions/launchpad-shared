@@ -22,7 +22,7 @@ using System.Security.Permissions;
 using System.Text;
 using System.Xml.Serialization;
 
-namespace DeploySoftware.LaunchPad.Common.Domain.Entities
+namespace DeploySoftware.LaunchPad.Shared.Domain
 {
     [Serializable()]
     public class ContentItem<TPrimaryKey> : DomainEntityBase<TPrimaryKey>, IContentItem<TPrimaryKey>

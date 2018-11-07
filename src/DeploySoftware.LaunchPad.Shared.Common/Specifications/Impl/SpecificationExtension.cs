@@ -22,7 +22,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 
-namespace DeploySoftware.LaunchPad.Common.Specifications
+namespace DeploySoftware.LaunchPad.Shared.Specifications
 {
     ///<summary>
     /// Extension methods for <see cref="ISpecification{T}"/>.

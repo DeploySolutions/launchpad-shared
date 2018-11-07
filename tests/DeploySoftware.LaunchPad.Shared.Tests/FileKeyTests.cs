@@ -20,7 +20,7 @@ namespace Exoskeleton.Common.Tests
 {
     using Xunit;
     using FluentAssertions;
-    using DeploySoftware.LaunchPad.Common.Domain.Entities;
+    using DeploySoftware.LaunchPad.Shared.Domain;
     
     public class FileKeyTests
     {

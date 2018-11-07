@@ -224,9 +224,9 @@
     <Analyzer Include="..\..\packages\xunit.analyzers.0.10.0\analyzers\dotnet\cs\xunit.analyzers.dll" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\src\DeploySoftware.LaunchPad.Shared.Common\LaunchPad.Shared.Common.csproj">
+    <ProjectReference Include="..\..\src\DeploySoftware.LaunchPad.Shared.Common\LaunchPad.Shared.csproj">
       <Project>{e6b59d9b-c320-427a-a552-7daeaefb4013}</Project>
-      <Name>LaunchPad.Shared.Common</Name>
+      <Name>LaunchPad.Shared</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />

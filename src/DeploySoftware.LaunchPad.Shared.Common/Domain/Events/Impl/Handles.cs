@@ -22,7 +22,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 
-namespace DeploySoftware.LaunchPad.Common.Domain.Events
+namespace DeploySoftware.LaunchPad.Shared.Domain
 { 
     /// <summary>
     /// Interface used by handlers of domain events.

@@ -18,7 +18,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace DeploySoftware.LaunchPad.Common.Util
+namespace DeploySoftware.LaunchPad.Shared.Util
 {
     /// <summary>
     /// Contains some usefull extensions for working will collections.

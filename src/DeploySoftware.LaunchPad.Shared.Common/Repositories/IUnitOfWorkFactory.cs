@@ -18,7 +18,7 @@
 
 using System.Linq;
 
-namespace DeploySoftware.LaunchPad.Common.Repositories
+namespace DeploySoftware.LaunchPad.Shared.Repositories
 {
     /// <summary>
     /// Factory interface that the <see cref="UnitOfWorkScope"/> uses to create instances of

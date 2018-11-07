@@ -17,7 +17,7 @@
 
 using System;
 
-namespace DeploySoftware.LaunchPad.Common.Util
+namespace DeploySoftware.LaunchPad.Shared.Util
 {
     /// <summary>
     /// This utility class facilitates mocking against dates and times.

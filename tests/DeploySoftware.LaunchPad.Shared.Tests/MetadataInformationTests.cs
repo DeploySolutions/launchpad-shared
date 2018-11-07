@@ -18,7 +18,7 @@
 namespace DeploySoftware.LaunchPad.Shared.Tests
 {
     using Xunit;
-    using DeploySoftware.LaunchPad.Common.Domain.Entities;
+    using DeploySoftware.LaunchPad.Shared.Domain;
     
     public class MetadataInformationTests
     {

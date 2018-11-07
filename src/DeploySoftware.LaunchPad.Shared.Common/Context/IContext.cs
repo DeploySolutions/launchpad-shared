@@ -18,7 +18,7 @@
 
 using System.Web;
 
-namespace DeploySoftware.LaunchPad.Common.Context
+namespace DeploySoftware.LaunchPad.Shared.Context
 {
     /// <summary>
     /// 

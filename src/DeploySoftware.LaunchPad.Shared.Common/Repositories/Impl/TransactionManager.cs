@@ -17,13 +17,13 @@
 #endregion
 
 using Common.Logging;
-using DeploySoftware.LaunchPad.Common.Repositories;
-using DeploySoftware.LaunchPad.Common.Util;
+using DeploySoftware.LaunchPad.Shared.Repositories;
+using DeploySoftware.LaunchPad.Shared.Util;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace DeploySoftware.LaunchPad.Common.Repositories
+namespace DeploySoftware.LaunchPad.Shared.Repositories
 {
     /// <summary>
     /// Default implementation of <see cref="ITransactionManager"/> interface.
@@ -41,7 +41,7 @@ namespace DeploySoftware.LaunchPad.Common.Repositories
         /// </summary>
         public TransactionManager()
         {
-            _logger.Debug(x => x(DeploySoftware_LaunchPad_Shared_Common_Resources.Debug_TransactionManager_TransactionManager, _transactionManagerId));
+            _logger.Debug(x => x(DeploySoftware_LaunchPad_Shared_Resources.Debug_TransactionManager_TransactionManager, _transactionManagerId));
         }
 
         /// <summary>
@@ -75,7 +75,7 @@ namespace DeploySoftware.LaunchPad.Common.Repositories
         /// mode of the unit of work.</param>
         public void EnlistScope(IUnitOfWorkScope scope, TransactionMode mode)
         {
-            _logger.Info(x => x(DeploySoftware_LaunchPad_Shared_Common_Resources.Info_TransactionManager_EnlistScope_EnlistingScope,
+            _logger.Info(x => x(DeploySoftware_LaunchPad_Shared_Resources.Info_TransactionManager_EnlistScope_EnlistingScope,
                                 scope.ScopeId,
                                 _transactionManagerId,
                                 mode));
@@ -85,7 +85,7 @@ namespace DeploySoftware.LaunchPad.Common.Repositories
                 mode == TransactionMode.New ||
                 mode == TransactionMode.Supress)
             {
-                _logger.Debug(x => x(DeploySoftware_LaunchPad_Shared_Common_Resources.Info_TransactionManager_EnlistScope_EnlistingScopeRequiresNewTransactionScope, scope.ScopeId, mode));
+                _logger.Debug(x => x(DeploySoftware_LaunchPad_Shared_Resources.Info_TransactionManager_EnlistScope_EnlistingScopeRequiresNewTransactionScope, scope.ScopeId, mode));
                 var txScope = TransactionScopeHelper.CreateScope(UnitOfWorkSettings.DefaultIsolation, mode);
                 var unitOfWork = uowFactory.Create();
                 var transaction = new UnitOfWorkTransaction(unitOfWork, txScope);
@@ -103,7 +103,7 @@ namespace DeploySoftware.LaunchPad.Common.Repositories
         /// <param name="transaction"></param>
         void OnTransactionDisposing(UnitOfWorkTransaction transaction)
         {
-            _logger.Info(x => x(DeploySoftware_LaunchPad_Shared_Common_Resources.Info_TransactionManager_OnTransactionDisposing,
+            _logger.Info(x => x(DeploySoftware_LaunchPad_Shared_Resources.Info_TransactionManager_OnTransactionDisposing,
                                     transaction.TransactionId, _transactionManagerId));
 
             transaction.TransactionDisposing -= OnTransactionDisposing;
@@ -133,7 +133,7 @@ namespace DeploySoftware.LaunchPad.Common.Repositories
 
             if (disposing)
             {
-                _logger.Info(x => x(DeploySoftware_LaunchPad_Shared_Common_Resources.Info_TransactionManager_Dispose, _transactionManagerId));
+                _logger.Info(x => x(DeploySoftware_LaunchPad_Shared_Resources.Info_TransactionManager_Dispose, _transactionManagerId));
                 if (_transactions != null && _transactions.Count > 0)
                 {
                     _transactions.ForEach(tx =>

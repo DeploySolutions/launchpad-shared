@@ -15,9 +15,9 @@
 //limitations under the License. 
 #endregion
 
-namespace DeploySoftware.LaunchPad.Common.Repositories
+namespace DeploySoftware.LaunchPad.Shared.Repositories
 {
-    using DeploySoftware.LaunchPad.Common.Domain.Entities;
+    using DeploySoftware.LaunchPad.Shared.Domain;
 
     /// <summary>
     /// Provides base functionality for all Repository Read and Write method classes

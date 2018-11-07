@@ -15,11 +15,11 @@
 //limitations under the License. 
 #endregion
 
-namespace DeploySoftware.LaunchPad.Common.Repositories
+namespace DeploySoftware.LaunchPad.Shared.Repositories
 {
-    using DeploySoftware.LaunchPad.Common.Domain.Entities;
-    using DeploySoftware.LaunchPad.Common.Specifications;
-    using DeploySoftware.LaunchPad.Common.Util;
+    using DeploySoftware.LaunchPad.Shared.Domain;
+    using DeploySoftware.LaunchPad.Shared.Specifications;
+    using DeploySoftware.LaunchPad.Shared.Util;
     using System;
     using System.Collections;
     using System.Collections.Generic;
@@ -140,9 +140,9 @@ namespace DeploySoftware.LaunchPad.Common.Repositories
         {
             var currentScope = UnitOfWorkManager.CurrentUnitOfWork;
             Guard.Against<InvalidOperationException>(currentScope == null,
-                                                     DeploySoftware_LaunchPad_Shared_Common_Resources.Guard_RepositoryBase_UnitOfWork_NoCompatibleTypeFound);
+                                                     DeploySoftware_LaunchPad_Shared_Resources.Guard_RepositoryBase_UnitOfWork_NoCompatibleTypeFound);
 
-            Guard.TypeOf<T>(currentScope, DeploySoftware_LaunchPad_Shared_Common_Resources.Guard_RepositoryBase_UnitOfWork_NotCompatibleType);
+            Guard.TypeOf<T>(currentScope, DeploySoftware_LaunchPad_Shared_Resources.Guard_RepositoryBase_UnitOfWork_NotCompatibleType);
             return ((T)currentScope);
         }
 

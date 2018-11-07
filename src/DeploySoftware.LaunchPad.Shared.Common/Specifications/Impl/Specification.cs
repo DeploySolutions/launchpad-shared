@@ -16,12 +16,12 @@
 //limitations under the License. 
 #endregion
 
-using DeploySoftware.LaunchPad.Common.Util;
+using DeploySoftware.LaunchPad.Shared.Util;
 using System;
 using System.Linq;
 using System.Linq.Expressions;
 
-namespace DeploySoftware.LaunchPad.Common.Specifications
+namespace DeploySoftware.LaunchPad.Shared.Specifications
 {
     /// <summary>
     /// Provides a default implementation of the <see cref="ISpecification{TEntity}"/> interface.
@@ -44,7 +44,7 @@ namespace DeploySoftware.LaunchPad.Common.Specifications
         /// satisfy the specification.</param>
         public Specification(Expression<Func<T, bool>> predicate)
         {
-            Guard.Against<ArgumentNullException>(predicate == null, DeploySoftware_LaunchPad_Shared_Common_Resources.Guard_Specification_Specification);
+            Guard.Against<ArgumentNullException>(predicate == null, DeploySoftware_LaunchPad_Shared_Resources.Guard_Specification_Specification);
             _predicate = predicate;
             _predicateCompiled = predicate.Compile();
         }

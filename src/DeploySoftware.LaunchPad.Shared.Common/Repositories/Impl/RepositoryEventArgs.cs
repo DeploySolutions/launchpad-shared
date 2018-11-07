@@ -16,9 +16,9 @@
 #endregion
 
 
-namespace DeploySoftware.LaunchPad.Common.Repositories
+namespace DeploySoftware.LaunchPad.Shared.Repositories
 {
-    using DeploySoftware.LaunchPad.Common.Domain.Entities;
+    using DeploySoftware.LaunchPad.Shared.Domain;
     using System;
     using System.Collections.Generic;
     using System.Linq;

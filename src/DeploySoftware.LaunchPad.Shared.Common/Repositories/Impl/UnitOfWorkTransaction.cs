@@ -17,13 +17,13 @@
 #endregion
 
 using Common.Logging;
-using DeploySoftware.LaunchPad.Common.Util;
+using DeploySoftware.LaunchPad.Shared.Util;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Transactions;
 
-namespace DeploySoftware.LaunchPad.Common.Repositories
+namespace DeploySoftware.LaunchPad.Shared.Repositories
 {
     /// <summary>
     /// Encapsulates a unit of work transaction.
@@ -54,11 +54,11 @@ namespace DeploySoftware.LaunchPad.Common.Repositories
         /// the <see cref="UnitOfWorkTransaction"/> instance.</param>
         public UnitOfWorkTransaction(IUnitOfWork unitOfWork, TransactionScope transaction)
         {
-            Guard.Against<ArgumentNullException>(unitOfWork == null, DeploySoftware_LaunchPad_Shared_Common_Resources.Guard_UnitOfWorkTransaction_UnitOfWorkTransaction_ArgumentNullException_unitOfWork);
-            Guard.Against<ArgumentNullException>(transaction == null, DeploySoftware_LaunchPad_Shared_Common_Resources.Guard_UnitOfWorkTransaction_UnitOfWorkTransaction_ArgumentNullException_unitOfWork);
+            Guard.Against<ArgumentNullException>(unitOfWork == null, DeploySoftware_LaunchPad_Shared_Resources.Guard_UnitOfWorkTransaction_UnitOfWorkTransaction_ArgumentNullException_unitOfWork);
+            Guard.Against<ArgumentNullException>(transaction == null, DeploySoftware_LaunchPad_Shared_Resources.Guard_UnitOfWorkTransaction_UnitOfWorkTransaction_ArgumentNullException_unitOfWork);
             _unitOfWork = unitOfWork;
             _transaction = transaction;
-            _logger.Info(x => x(DeploySoftware_LaunchPad_Shared_Common_Resources.Info_UnitOfWorkTransaction_UnitOfWorkTransaction_Created, _transactionId));
+            _logger.Info(x => x(DeploySoftware_LaunchPad_Shared_Resources.Info_UnitOfWorkTransaction_UnitOfWorkTransaction_Created, _transactionId));
         }
 
         ///<summary>
@@ -86,9 +86,9 @@ namespace DeploySoftware.LaunchPad.Common.Repositories
         /// <param name="scope">The <see cref="UnitOfWorkScope"/> instance to attach.</param>
         public void EnlistScope(IUnitOfWorkScope scope)
         {
-            Guard.Against<ArgumentNullException>(scope == null, DeploySoftware_LaunchPad_Shared_Common_Resources.Guard_UnitOfWorkTransaction_EnlistScope_ArgumentNullException);
+            Guard.Against<ArgumentNullException>(scope == null, DeploySoftware_LaunchPad_Shared_Resources.Guard_UnitOfWorkTransaction_EnlistScope_ArgumentNullException);
 
-            _logger.Info(x => x(DeploySoftware_LaunchPad_Shared_Common_Resources.Info_UnitOfWorkTransaction_EnlistScope_Enlisted, scope.ScopeId, _transactionId));
+            _logger.Info(x => x(DeploySoftware_LaunchPad_Shared_Resources.Info_UnitOfWorkTransaction_EnlistScope_Enlisted, scope.ScopeId, _transactionId));
             _attachedScopes.Add(scope);
             scope.ScopeComitting += OnScopeCommitting;
             scope.ScopeRollingback += OnScopeRollingBack;
@@ -99,13 +99,13 @@ namespace DeploySoftware.LaunchPad.Common.Repositories
         /// </summary>
         void OnScopeCommitting(IUnitOfWorkScope scope)
         {
-            Guard.Against<ObjectDisposedException>(_disposed, DeploySoftware_LaunchPad_Shared_Common_Resources.Guard_UnitOfWorkTransaction_OnScopeCommitting_ObjectDisposedException);
+            Guard.Against<ObjectDisposedException>(_disposed, DeploySoftware_LaunchPad_Shared_Resources.Guard_UnitOfWorkTransaction_OnScopeCommitting_ObjectDisposedException);
 
-            _logger.Info(x => x(DeploySoftware_LaunchPad_Shared_Common_Resources.Info_UnitOfWorkTransaction_OnScopeCommitting_Signalled, scope.ScopeId, _transactionId));
+            _logger.Info(x => x(DeploySoftware_LaunchPad_Shared_Resources.Info_UnitOfWorkTransaction_OnScopeCommitting_Signalled, scope.ScopeId, _transactionId));
            if (!_attachedScopes.Contains(scope))
            {
                Dispose();
-               throw new InvalidOperationException(DeploySoftware_LaunchPad_Shared_Common_Resources.Exception_UnitOfWorkTransaction_OnScopeCommitting_InvalidOperationException);
+               throw new InvalidOperationException(DeploySoftware_LaunchPad_Shared_Resources.Exception_UnitOfWorkTransaction_OnScopeCommitting_InvalidOperationException);
            }
             scope.ScopeComitting -= OnScopeCommitting;
             scope.ScopeRollingback -= OnScopeRollingBack;
@@ -113,7 +113,7 @@ namespace DeploySoftware.LaunchPad.Common.Repositories
             _attachedScopes.Remove(scope);
             if (_attachedScopes.Count == 0)
             {
-                _logger.Info(x => x(DeploySoftware_LaunchPad_Shared_Common_Resources.Info_UnitOfWorkTransaction_OnScopeCommitting_Committing, _transactionId));
+                _logger.Info(x => x(DeploySoftware_LaunchPad_Shared_Resources.Info_UnitOfWorkTransaction_OnScopeCommitting_Committing, _transactionId));
                 try
                 {
                     _unitOfWork.Flush();
@@ -131,9 +131,9 @@ namespace DeploySoftware.LaunchPad.Common.Repositories
         /// </summary>
         void OnScopeRollingBack(IUnitOfWorkScope scope)
         {
-            Guard.Against<ObjectDisposedException>(_disposed, DeploySoftware_LaunchPad_Shared_Common_Resources.Guard_UnitOfWorkTransaction_OnScopeRollingBack_ObjectDisposedException);
-            _logger.Info(x => x(DeploySoftware_LaunchPad_Shared_Common_Resources.Info_UnitOfWorkTransaction_OnScopeRollingBack_Signalled, scope.ScopeId, _transactionId));
-            _logger.Info(x => x(DeploySoftware_LaunchPad_Shared_Common_Resources.Info_UnitOfWorkTransaction_OnScopeRollingBack_Disposing, _transactionId));
+            Guard.Against<ObjectDisposedException>(_disposed, DeploySoftware_LaunchPad_Shared_Resources.Guard_UnitOfWorkTransaction_OnScopeRollingBack_ObjectDisposedException);
+            _logger.Info(x => x(DeploySoftware_LaunchPad_Shared_Resources.Info_UnitOfWorkTransaction_OnScopeRollingBack_Signalled, scope.ScopeId, _transactionId));
+            _logger.Info(x => x(DeploySoftware_LaunchPad_Shared_Resources.Info_UnitOfWorkTransaction_OnScopeRollingBack_Disposing, _transactionId));
 
             scope.ScopeComitting -= OnScopeCommitting;
             scope.ScopeRollingback -= OnScopeRollingBack;
@@ -159,7 +159,7 @@ namespace DeploySoftware.LaunchPad.Common.Repositories
 
             if (disposing)
             {
-                _logger.Info(x => x(DeploySoftware_LaunchPad_Shared_Common_Resources.Info_UnitOfWorkTransaction_Dispose_Disposing, _transactionId));
+                _logger.Info(x => x(DeploySoftware_LaunchPad_Shared_Resources.Info_UnitOfWorkTransaction_Dispose_Disposing, _transactionId));
                 if (_unitOfWork != null)
                     _unitOfWork.Dispose();
 

@@ -15,11 +15,11 @@
 //limitations under the License. 
 #endregion
 
-namespace DeploySoftware.LaunchPad.Common.Repositories
+namespace DeploySoftware.LaunchPad.Shared.Repositories
 {
-    using DeploySoftware.LaunchPad.Common.Domain.Entities;
-    using DeploySoftware.LaunchPad.Common.Specifications;
-    using DeploySoftware.LaunchPad.Common.Util;
+    using DeploySoftware.LaunchPad.Shared.Domain;
+    using DeploySoftware.LaunchPad.Shared.Specifications;
+    using DeploySoftware.LaunchPad.Shared.Util;
     using System;
     using System.Collections.Generic;
     using System.Linq;
@@ -91,9 +91,9 @@ namespace DeploySoftware.LaunchPad.Common.Repositories
             /// <param name="startResult">The startResult parameter sent to a query method</param>
             private static void ConstrainQueryInput(Int32 maxResults, Int32 startResult)
             {
-                Guard.Against<ArgumentOutOfRangeException>(maxResults < -1, DeploySoftware_LaunchPad_Shared_Common_Resources.Guard_InMemoryRepository_ConstrainQueryInput_MaxResult_LessThanMinus1);
-                Guard.Against<ArgumentOutOfRangeException>(maxResults == 0, DeploySoftware_LaunchPad_Shared_Common_Resources.Guard_InMemoryRepository_ConstrainQueryInput_MaxResult_Equals0);
-                Guard.Against<ArgumentOutOfRangeException>(startResult < 0, DeploySoftware_LaunchPad_Shared_Common_Resources.Guard_InMemoryRepository_ConstrainQueryInput_StartResult_LessThan0);
+                Guard.Against<ArgumentOutOfRangeException>(maxResults < -1, DeploySoftware_LaunchPad_Shared_Resources.Guard_InMemoryRepository_ConstrainQueryInput_MaxResult_LessThanMinus1);
+                Guard.Against<ArgumentOutOfRangeException>(maxResults == 0, DeploySoftware_LaunchPad_Shared_Resources.Guard_InMemoryRepository_ConstrainQueryInput_MaxResult_Equals0);
+                Guard.Against<ArgumentOutOfRangeException>(startResult < 0, DeploySoftware_LaunchPad_Shared_Resources.Guard_InMemoryRepository_ConstrainQueryInput_StartResult_LessThan0);
             }
 
             /// <summary>
@@ -105,10 +105,10 @@ namespace DeploySoftware.LaunchPad.Common.Repositories
             /// <param name="startResult">The startResult parameter sent to a query method</param>
             private static void ConstrainQueryInput(IQueryable<TLaunchPadObject> query, Int32 maxResults, Int32 startResult)
             {
-                Guard.Against<ArgumentNullException>(query == null, DeploySoftware_LaunchPad_Shared_Common_Resources.Guard_InMemoryRepository_ConstrainQueryInput_Query_IsNull);
-                Guard.Against<ArgumentOutOfRangeException>(maxResults < -1, DeploySoftware_LaunchPad_Shared_Common_Resources.Guard_InMemoryRepository_ConstrainQueryInput_MaxResult_LessThanMinus1);
-                Guard.Against<ArgumentOutOfRangeException>(maxResults == 0, DeploySoftware_LaunchPad_Shared_Common_Resources.Guard_InMemoryRepository_ConstrainQueryInput_MaxResult_Equals0);
-                Guard.Against<ArgumentOutOfRangeException>(startResult < 0, DeploySoftware_LaunchPad_Shared_Common_Resources.Guard_InMemoryRepository_ConstrainQueryInput_StartResult_LessThan0);
+                Guard.Against<ArgumentNullException>(query == null, DeploySoftware_LaunchPad_Shared_Resources.Guard_InMemoryRepository_ConstrainQueryInput_Query_IsNull);
+                Guard.Against<ArgumentOutOfRangeException>(maxResults < -1, DeploySoftware_LaunchPad_Shared_Resources.Guard_InMemoryRepository_ConstrainQueryInput_MaxResult_LessThanMinus1);
+                Guard.Against<ArgumentOutOfRangeException>(maxResults == 0, DeploySoftware_LaunchPad_Shared_Resources.Guard_InMemoryRepository_ConstrainQueryInput_MaxResult_Equals0);
+                Guard.Against<ArgumentOutOfRangeException>(startResult < 0, DeploySoftware_LaunchPad_Shared_Resources.Guard_InMemoryRepository_ConstrainQueryInput_StartResult_LessThan0);
             }
 
             /// <summary>
@@ -120,10 +120,10 @@ namespace DeploySoftware.LaunchPad.Common.Repositories
             /// <param name="startResult">The startResult parameter sent to a query method</param>
             private static void ConstrainQueryInput(ISpecification<TLaunchPadObject> query, Int32 maxResults, Int32 startResult)
             {
-                Guard.Against<ArgumentNullException>(query == null, DeploySoftware_LaunchPad_Shared_Common_Resources.Guard_InMemoryRepository_ConstrainQueryInput_Query_IsNull);
-                Guard.Against<ArgumentOutOfRangeException>(maxResults < -1, DeploySoftware_LaunchPad_Shared_Common_Resources.Guard_InMemoryRepository_ConstrainQueryInput_MaxResult_LessThanMinus1);
-                Guard.Against<ArgumentOutOfRangeException>(maxResults == 0, DeploySoftware_LaunchPad_Shared_Common_Resources.Guard_InMemoryRepository_ConstrainQueryInput_MaxResult_Equals0);
-                Guard.Against<ArgumentOutOfRangeException>(startResult < 0, DeploySoftware_LaunchPad_Shared_Common_Resources.Guard_InMemoryRepository_ConstrainQueryInput_StartResult_LessThan0);
+                Guard.Against<ArgumentNullException>(query == null, DeploySoftware_LaunchPad_Shared_Resources.Guard_InMemoryRepository_ConstrainQueryInput_Query_IsNull);
+                Guard.Against<ArgumentOutOfRangeException>(maxResults < -1, DeploySoftware_LaunchPad_Shared_Resources.Guard_InMemoryRepository_ConstrainQueryInput_MaxResult_LessThanMinus1);
+                Guard.Against<ArgumentOutOfRangeException>(maxResults == 0, DeploySoftware_LaunchPad_Shared_Resources.Guard_InMemoryRepository_ConstrainQueryInput_MaxResult_Equals0);
+                Guard.Against<ArgumentOutOfRangeException>(startResult < 0, DeploySoftware_LaunchPad_Shared_Resources.Guard_InMemoryRepository_ConstrainQueryInput_StartResult_LessThan0);
             }
 
 
@@ -189,7 +189,7 @@ namespace DeploySoftware.LaunchPad.Common.Repositories
             /// <returns>A <see cref="TLaunchPadObject"/> object, if found</returns>
             public override TLaunchPadObject GetByKey<TUniqueId>(IKey<TUniqueId> key)
             {
-                Guard.Against<ArgumentNullException>(key == null, DeploySoftware_LaunchPad_Shared_Common_Resources.Guard_InMemoryRepository_GetByKey_Key_IsNull);
+                Guard.Against<ArgumentNullException>(key == null, DeploySoftware_LaunchPad_Shared_Resources.Guard_InMemoryRepository_GetByKey_Key_IsNull);
                 ISpecification<TLaunchPadObject> specification
                     = new Specification<TLaunchPadObject>
                         (
@@ -211,7 +211,7 @@ namespace DeploySoftware.LaunchPad.Common.Repositories
             /// <returns>A <see cref="TLaunchPadObject"/> object, if found</returns>
             public override async Task<TLaunchPadObject> GetByKeyAsync<TUniqueId>(IKey<TUniqueId> key)
             {
-                Guard.Against<ArgumentNullException>(key == null, DeploySoftware_LaunchPad_Shared_Common_Resources.Guard_InMemoryRepository_GetByKey_Key_IsNull);
+                Guard.Against<ArgumentNullException>(key == null, DeploySoftware_LaunchPad_Shared_Resources.Guard_InMemoryRepository_GetByKey_Key_IsNull);
                 ISpecification<TLaunchPadObject> specification
                     = new Specification<TLaunchPadObject>
                         (

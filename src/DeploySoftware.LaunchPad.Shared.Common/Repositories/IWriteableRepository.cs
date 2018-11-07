@@ -15,9 +15,9 @@
 //limitations under the License. 
 #endregion
 
-namespace DeploySoftware.LaunchPad.Common.Repositories
+namespace DeploySoftware.LaunchPad.Shared.Repositories
 {
-    using DeploySoftware.LaunchPad.Common.Domain.Entities;
+    using DeploySoftware.LaunchPad.Shared.Domain;
 
     /// <summary>
     /// Defines the functionality for any repository whose data can be manipulated (added, edited, or deleted).

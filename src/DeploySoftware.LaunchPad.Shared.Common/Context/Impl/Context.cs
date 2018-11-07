@@ -19,7 +19,7 @@
 using System.ServiceModel.Activation;
 using System.Web;
 
-namespace DeploySoftware.LaunchPad.Common.Context
+namespace DeploySoftware.LaunchPad.Shared.Context
 {
     /// <summary>
     /// Default implementation of <see cref="IContext"/>

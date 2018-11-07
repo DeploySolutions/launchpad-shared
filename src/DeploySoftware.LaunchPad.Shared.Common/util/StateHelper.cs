@@ -16,9 +16,9 @@
 //limitations under the License. 
 #endregion
 
-namespace DeploySoftware.LaunchPad.Common.Util
+namespace DeploySoftware.LaunchPad.Shared.Util
 {
-    using DeploySoftware.LaunchPad.Common.Domain.Entities;
+    using DeploySoftware.LaunchPad.Shared.Domain;
 
     ///<summary>
     /// Utility class for NCommon.State.

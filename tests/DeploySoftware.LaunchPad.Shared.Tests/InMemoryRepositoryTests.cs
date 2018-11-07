@@ -19,13 +19,11 @@ namespace DeploySoftware.LaunchPad.Shared.Tests
 {
     using Xunit;
     using FluentAssertions;
-    using DeploySoftware.LaunchPad.Common.Domain.Entities;
+    using DeploySoftware.LaunchPad.Shared.Domain;
     using System.Collections.Generic;
-    using Common.Repositories;
-    using Common.Specifications;
-    using System.Linq;
-    using Common.Util;
-    using DeploySoftware.LaunchPad.Common.Repositories;
+    using DeploySoftware.LaunchPad.Shared.Repositories;
+    using DeploySoftware.LaunchPad.Shared.Specifications;
+    using DeploySoftware.LaunchPad.Shared.Util;
 
     public class InMemoryRepositoryTests
     {

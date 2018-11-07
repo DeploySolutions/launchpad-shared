@@ -23,7 +23,7 @@ using System.ServiceModel.Channels;
 using System.ServiceModel.Description;
 using System.ServiceModel.Dispatcher;
 
-namespace DeploySoftware.LaunchPad.Common.Context
+namespace DeploySoftware.LaunchPad.Shared.Context
 {
     /// <summary>
     /// Default <see cref="IServiceHost"/> wrapper.

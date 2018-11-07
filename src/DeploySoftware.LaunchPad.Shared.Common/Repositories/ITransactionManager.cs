@@ -19,7 +19,7 @@
 using System;
 using System.Linq;
 
-namespace DeploySoftware.LaunchPad.Common.Repositories
+namespace DeploySoftware.LaunchPad.Shared.Repositories
 {
     /// <summary>
     /// Implemented by a transaction manager that manages unit of work transactions.

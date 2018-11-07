@@ -6,7 +6,7 @@
     <ProjectGuid>{E6B59D9B-C320-427A-A552-7DAEAEFB4013}</ProjectGuid>
     <OutputType>Library</OutputType>
     <NoStandardLibraries>false</NoStandardLibraries>
-    <AssemblyName>DeploySoftware.LaunchPad.Common</AssemblyName>
+    <AssemblyName>DeploySoftware.LaunchPad.Shared</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
@@ -33,7 +33,7 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup>
-    <RootNamespace>DeploySoftware.LaunchPad.Common</RootNamespace>
+    <RootNamespace>DeploySoftware.LaunchPad.Shared</RootNamespace>
   </PropertyGroup>
   <PropertyGroup>
     <SignAssembly>true</SignAssembly>
@@ -355,10 +355,10 @@
     <Compile Include="Domain\Events\Impl\DomainEvent.cs" />
     <Compile Include="Domain\Events\Impl\Handles.cs" />
     <Compile Include="Domain\Events\IDomainEvent.cs" />
-    <Compile Include="DeploySoftware.LaunchPad.Shared.Common.Resources.Designer.cs">
+    <Compile Include="DeploySoftware.LaunchPad.Shared.Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>DeploySoftware.LaunchPad.Shared.Common.Resources.resx</DependentUpon>
+      <DependentUpon>DeploySoftware.LaunchPad.Shared.Resources.resx</DependentUpon>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -376,9 +376,9 @@
     <Compile Include="Util\SequentialGuid.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="DeploySoftware.LaunchPad.Shared.Common.Resources.resx">
+    <EmbeddedResource Include="DeploySoftware.LaunchPad.Shared.Resources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>DeploySoftware.LaunchPad.Shared.Common.Resources.Designer.cs</LastGenOutput>
+      <LastGenOutput>DeploySoftware.LaunchPad.Shared.Resources.Designer.cs</LastGenOutput>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
   </ItemGroup>

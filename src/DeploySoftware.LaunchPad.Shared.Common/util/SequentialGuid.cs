@@ -69,7 +69,7 @@ This License constitutes the entire agreement between the parties with respect t
 using System;
 using System.Security.Cryptography;
 
-namespace DeploySoftware.LaunchPad.Common.Util
+namespace DeploySoftware.LaunchPad.Shared.Util
 {
     /// <summary>
     /// This class generates Sequential aka COMB Guids, some of whose bytes have been replaced by a timestamp-based value that is guaranteed to increase, but not decrease, with each new value generated.

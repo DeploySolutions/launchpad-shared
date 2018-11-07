@@ -21,7 +21,7 @@ using System.ServiceModel;
 using System.ServiceModel.Channels;
 using System.Threading;
 
-namespace DeploySoftware.LaunchPad.Common.Context
+namespace DeploySoftware.LaunchPad.Shared.Context
 {
     /// <summary>
     /// Interface wrapper that wraps a <see cref="InstanceContext"/> instance.

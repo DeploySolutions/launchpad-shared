@@ -19,7 +19,7 @@ namespace DeploySoftware.LaunchPad.Shared.Tests
 {
     using Xunit;
     using FluentAssertions;
-    using DeploySoftware.LaunchPad.Common.Domain.Entities;
+    using DeploySoftware.LaunchPad.Shared.Domain;
     using System.Collections.Generic;
 
     public class DeviceTests
