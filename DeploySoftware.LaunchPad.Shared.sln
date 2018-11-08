@@ -38,6 +38,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LaunchPad.Shared", "src\Dep
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DeploySoftware.LaunchPad.Shared.Tests", "tests\DeploySoftware.LaunchPad.Shared.Tests\DeploySoftware.LaunchPad.Shared.Tests.csproj", "{B68F2E53-5EB0-4469-A062-DF8F832CF6E2}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DeploySoftware.LaunchPad.Space.Satellites", "src\DeploySoftware.LaunchPad.Space\DeploySoftware.LaunchPad.Space.Satellites.csproj", "{074DCF2B-F8BA-4538-BEF7-CB07CDB91AA2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -52,6 +54,10 @@ Global
 		{B68F2E53-5EB0-4469-A062-DF8F832CF6E2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B68F2E53-5EB0-4469-A062-DF8F832CF6E2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B68F2E53-5EB0-4469-A062-DF8F832CF6E2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{074DCF2B-F8BA-4538-BEF7-CB07CDB91AA2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{074DCF2B-F8BA-4538-BEF7-CB07CDB91AA2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{074DCF2B-F8BA-4538-BEF7-CB07CDB91AA2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{074DCF2B-F8BA-4538-BEF7-CB07CDB91AA2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -62,6 +68,7 @@ Global
 		{D0558D6C-0754-4B1A-B6F0-7E525AFEF0DD} = {BA4BDEEC-4CF6-4538-9381-1D9517BAADD5}
 		{E6B59D9B-C320-427A-A552-7DAEAEFB4013} = {442BFA02-FB67-4078-AA7D-C8796C5D074B}
 		{B68F2E53-5EB0-4469-A062-DF8F832CF6E2} = {82629D38-5FB2-4DAF-9B67-3C766D419811}
+		{074DCF2B-F8BA-4538-BEF7-CB07CDB91AA2} = {442BFA02-FB67-4078-AA7D-C8796C5D074B}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {89FD47F4-AA98-4C45-852A-0CFC7404BBA3}
