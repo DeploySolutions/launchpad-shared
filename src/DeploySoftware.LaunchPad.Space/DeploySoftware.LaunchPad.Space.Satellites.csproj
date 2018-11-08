@@ -166,6 +166,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CanadianSpaceAgency\Radarsat1Observation.cs" />
+    <Compile Include="Common\EarthObservationImageBase.cs" />
+    <Compile Include="Common\IEarthObservationImage.cs" />
     <Compile Include="Operators\DefenceResearchDevelopmentCanada.cs" />
     <Compile Include="Operators\CanadianSpaceAgency.cs" />
     <Compile Include="CanadianSpaceAgency\NeossatSatellite.cs" />
