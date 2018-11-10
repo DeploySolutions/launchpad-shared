@@ -15,7 +15,7 @@
 //limitations under the License. 
 #endregion
 
-namespace DeploySoftware.LaunchPad.Space.Satellites.CanadianSpaceAgency
+namespace DeploySoftware.LaunchPad.Space.Satellites.Canada
 {
     using System;
     using System.Collections.Generic;

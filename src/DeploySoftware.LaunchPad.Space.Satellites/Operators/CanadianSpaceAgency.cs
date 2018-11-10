@@ -22,7 +22,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DeploySoftware.LaunchPad.Space.Satellites.Operators
+namespace DeploySoftware.LaunchPad.Space.Satellites.Canada
 {
     public class CanadianSpaceAgency : ISatelliteOperator
     {

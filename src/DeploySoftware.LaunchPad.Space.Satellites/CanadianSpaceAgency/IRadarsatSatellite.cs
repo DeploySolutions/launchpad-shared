@@ -1,5 +1,5 @@
-﻿//LaunchPad Space
-// Copyright (c) 2018 Deploy Software Solutions, inc. 
+﻿//LaunchPad Shared
+// Copyright (c) 2016 Deploy Software Solutions, inc. 
 
 #region license
 //Licensed under the Apache License, Version 2.0 (the "License"); 
@@ -21,15 +21,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DeploySoftware.LaunchPad.Space.Satellites.Common;
-using DeploySoftware.LaunchPad.Space.Satellites.Operators;
 
-namespace DeploySoftware.LaunchPad.Space.Satellites.Operators
+namespace DeploySoftware.LaunchPad.Space.Satellites.Canada
 {
-    public class RadarsatConstellationMissionSatellite : SatelliteBase
+    public interface IRadarsatSatellite : IEarthObservationSatellite
     {
-        protected RadarsatConstellationMissionSatellite() : base()
-        {
-            Operators = new List<ISatelliteOperator>() { new CanadianSpaceAgency() };
-        }
     }
 }

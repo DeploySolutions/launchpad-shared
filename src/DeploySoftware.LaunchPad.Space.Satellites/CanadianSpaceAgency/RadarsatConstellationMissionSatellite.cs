@@ -22,9 +22,13 @@ using System.Text;
 using System.Threading.Tasks;
 using DeploySoftware.LaunchPad.Space.Satellites.Common;
 
-namespace DeploySoftware.LaunchPad.Space.Satellites.Operators
+namespace DeploySoftware.LaunchPad.Space.Satellites.Canada
 {
-    public interface INeossatSatellite : IAsteroidObservationSatellite
+    public class RadarsatConstellationMissionSatellite : SatelliteBase
     {
+        protected RadarsatConstellationMissionSatellite() : base()
+        {
+            Operators = new List<ISatelliteOperator>() { new CanadianSpaceAgency() };
+        }
     }
 }

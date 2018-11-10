@@ -22,9 +22,19 @@ using System.Text;
 using System.Threading.Tasks;
 using DeploySoftware.LaunchPad.Space.Satellites.Common;
 
-namespace DeploySoftware.LaunchPad.Space.Satellites.Operators
+namespace DeploySoftware.LaunchPad.Space.Satellites.Canada
 {
-    public class Radarsat2Satellite
+    public class NeossatSatellite : SatelliteBase
     {
+        protected NeossatSatellite() : base()
+        {
+            Operators = new List<ISatelliteOperator>() {
+                new CanadianSpaceAgency(),
+                new DefenceResearchDevelopmentCanada()
+            };
+            SatelliteCatalogNumber = "39089";
+            CosparID = "2013-009D";
+            Website = "http://neossat.ca/";
+        }
     }
 }

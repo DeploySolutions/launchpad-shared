@@ -1,5 +1,5 @@
-﻿//LaunchPad Shared
-// Copyright (c) 2016 Deploy Software Solutions, inc. 
+﻿//LaunchPad Space
+// Copyright (c) 2018 Deploy Software Solutions, inc.  
 
 #region license
 //Licensed under the Apache License, Version 2.0 (the "License"); 
@@ -21,10 +21,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DeploySoftware.LaunchPad.Space.Satellites.Common;
-
-namespace DeploySoftware.LaunchPad.Space.Satellites.Operators
+namespace DeploySoftware.LaunchPad.Space.Satellites.Canada
 {
-    public interface IRadarsatSatellite : IEarthObservationSatellite
+    public class Radarsat1Satellite : SatelliteBase
     {
+        
+        protected Radarsat1Satellite() : base()
+        {
+            Operators = new List<ISatelliteOperator>() { new CanadianSpaceAgency() };
+            SatelliteCatalogNumber = "23710";
+            CosparID = "1995-059A";
+            Website = "http://www.asc-csa.gc.ca/eng/satellites/radarsat1/";
+        }
+
     }
 }

@@ -38,7 +38,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LaunchPad.Shared", "src\Dep
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DeploySoftware.LaunchPad.Shared.Tests", "tests\DeploySoftware.LaunchPad.Shared.Tests\DeploySoftware.LaunchPad.Shared.Tests.csproj", "{B68F2E53-5EB0-4469-A062-DF8F832CF6E2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DeploySoftware.LaunchPad.Space.Satellites", "src\DeploySoftware.LaunchPad.Space\DeploySoftware.LaunchPad.Space.Satellites.csproj", "{074DCF2B-F8BA-4538-BEF7-CB07CDB91AA2}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DeploySoftware.LaunchPad.Space.Satellites", "src\DeploySoftware.LaunchPad.Space.Satellites\DeploySoftware.LaunchPad.Space.Satellites.csproj", "{074DCF2B-F8BA-4538-BEF7-CB07CDB91AA2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

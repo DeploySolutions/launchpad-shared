@@ -27,7 +27,6 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
     using System.Text;
     using System.Xml.Serialization;
 
-
     /// <summary>
     /// Base class for Entities. Implements <see cref="IDomainEntity">IDomainEntity</see> and provides
     /// base functionality for many of its methods. Inherits from ASP.NET Boilerplate's IEntity interface.
