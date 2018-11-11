@@ -26,6 +26,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DeploySoftware.LaunchPad.Space.Satellites.Common;
+using DeploySoftware.LaunchPad.Space.Organizations.Canada;
+using DeploySoftware.LaunchPad.Shared.Domain;
 
 namespace DeploySoftware.LaunchPad.Space.Satellites.Canada
 {
@@ -33,9 +35,9 @@ namespace DeploySoftware.LaunchPad.Space.Satellites.Canada
     {
         protected NeossatSatellite() : base()
         {
-            Operators = new List<ISatelliteOperator>() {
-                new CanadianSpaceAgency(),
-                new DefenceResearchDevelopmentCanada()
+            Operators = new List<ISatelliteOperator<Guid>>() {
+                new CanadaSpaceAgency() as ISatelliteOperator<Guid>,
+                new DefenceResearchDevelopmentCanada() as ISatelliteOperator<Guid>
             };
             SatelliteCatalogNumber = "39089";
             CosparID = "2013-009D";

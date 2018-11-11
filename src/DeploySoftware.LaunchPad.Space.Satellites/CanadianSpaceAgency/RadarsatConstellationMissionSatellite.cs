@@ -25,6 +25,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DeploySoftware.LaunchPad.Space.Satellites.Common;
+using DeploySoftware.LaunchPad.Space.Organizations.Canada;
 
 namespace DeploySoftware.LaunchPad.Space.Satellites.Canada
 {
@@ -32,7 +33,7 @@ namespace DeploySoftware.LaunchPad.Space.Satellites.Canada
     {
         protected RadarsatConstellationMissionSatellite() : base()
         {
-            Operators = new List<ISatelliteOperator>() { new CanadianSpaceAgency() };
+            Operators = new List<ISatelliteOperator<Guid>>() { new CanadaSpaceAgency() as ISatelliteOperator<Guid> };
         }
     }
 }

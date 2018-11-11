@@ -15,7 +15,7 @@
 //limitations under the License. 
 #endregion
 
-using DeploySoftware.LaunchPad.Space.Satellites.Common;
+using DeploySoftware.LaunchPad.Shared.Domain;
 using Schema.NET;
 using System;
 using System.Collections.Generic;
@@ -23,22 +23,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DeploySoftware.LaunchPad.Space.Satellites.Canada
+namespace DeploySoftware.LaunchPad.Space.Organizations.Canada
 {
-    public class CanadianSpaceAgency : IGovernmentSatelliteOperator
+    public class CanadaSpaceAgency : GovernmentOrganizationBase<Guid>
     {
-        private GovernmentOrganization _organizationSchema;
-
-
-        public string OperatorFullName { get => _organizationSchema.LegalName.ToString(); }
-        public string OperatorAbbreviation { get => _organizationSchema.AlternateName.ToString(); }
-        public string OperatorWebsite { get => _organizationSchema.Url.ToString(); }
-        public string OperatorHeadquartersAddress { get => _organizationSchema.Address.ToString(); }
-
-        public IList<string> OperatorOffices { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public GovernmentOrganization OrganizationSchema { get => _organizationSchema; set => _organizationSchema = value; }
-       
-        public CanadianSpaceAgency()
+        
+        public CanadaSpaceAgency()
         {
             GovernmentOrganization org = new GovernmentOrganization()
             {
@@ -59,7 +49,7 @@ namespace DeploySoftware.LaunchPad.Space.Satellites.Canada
                 Email = "asc.info.csa@canada.ca"
 
             };
-            OrganizationSchema = org;
+            Schema = org;
             
 
 

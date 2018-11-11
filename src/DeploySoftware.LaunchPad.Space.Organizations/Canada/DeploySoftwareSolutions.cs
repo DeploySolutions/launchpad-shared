@@ -23,10 +23,35 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DeploySoftware.LaunchPad.Space.Satellites.Common
+namespace DeploySoftware.LaunchPad.Space.Organizations.Canada
 {
-    public interface IGovernmentSatelliteOperator<TPrimaryKey> : IGovernmentOrganization<TPrimaryKey>, ISatelliteOperator<TPrimaryKey>
+    public class DeploySoftwareSolutions : OrganizationBase<Guid>
     {
- 
+
+        public DeploySoftwareSolutions()
+        {
+            Organization org = new Organization()
+            {
+                Name = "Deploy Software Solutions, inc.",
+                LegalName = "Deploy Software Solutions, inc.",
+                
+                Address = new PostalAddress()
+                {
+                    AddressLocality = "Ottawa",
+                    AddressRegion = "Ontario",
+                    AddressCountry = "Canada",
+                },
+                Url = new Uri("https://www.deploy.solutions"),
+                Email = "support@deploy.solutions"
+
+            };
+            Schema = org;
+            
+
+
+        }
+
+
+
     }
 }

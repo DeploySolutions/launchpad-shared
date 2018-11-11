@@ -21,16 +21,19 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DeploySoftware.LaunchPad.Space.Satellites.Common
+namespace DeploySoftware.LaunchPad.Shared.Domain
 {
-    public interface ISatellite
+    public interface IOrganization<TPrimaryKey> : IDomainEntity<TPrimaryKey>
     {
-        IEnumerable<ISatelliteOperator<Guid>> Operators { get; set; }
+        string FullName { get; }
 
-        string CosparID {get;set;}
+        string Abbreviation { get; }
 
-        string SatelliteCatalogNumber { get; set; }
+        string Website { get; }
 
-        string Website { get; set; }
+        string HeadquartersAddress { get; }
+
+        IList<string> Offices { get; set; }
+
     }
 }

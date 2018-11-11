@@ -15,6 +15,7 @@
 //limitations under the License. 
 #endregion
 
+using DeploySoftware.LaunchPad.Shared.Domain;
 using Schema.NET;
 using System;
 using System.Collections.Generic;
@@ -24,18 +25,9 @@ using System.Threading.Tasks;
 
 namespace DeploySoftware.LaunchPad.Space.Satellites.Common
 {
-    public interface ISatelliteOperator
+    public interface ISatelliteOperator<TPrimaryKey> : IOrganization<TPrimaryKey>
     {
-        string OperatorFullName { get;}
 
-        string OperatorAbbreviation { get; }
-
-        string OperatorWebsite { get; }
-
-        string OperatorHeadquartersAddress { get; }
-
-        IList<string> OperatorOffices { get; set; }
-        
 
     }
 }

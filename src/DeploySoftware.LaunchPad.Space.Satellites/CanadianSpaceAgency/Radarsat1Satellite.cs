@@ -25,6 +25,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DeploySoftware.LaunchPad.Space.Satellites.Common;
+using DeploySoftware.LaunchPad.Space.Organizations.Canada;
+
 namespace DeploySoftware.LaunchPad.Space.Satellites.Canada
 {
     public class Radarsat1Satellite : SatelliteBase
@@ -32,7 +34,7 @@ namespace DeploySoftware.LaunchPad.Space.Satellites.Canada
         
         protected Radarsat1Satellite() : base()
         {
-            Operators = new List<ISatelliteOperator>() { new CanadianSpaceAgency() };
+            Operators = new List<ISatelliteOperator<Guid>>() { new CanadaSpaceAgency() as ISatelliteOperator<Guid> };
             SatelliteCatalogNumber = "23710";
             CosparID = "1995-059A";
             Website = "http://www.asc-csa.gc.ca/eng/satellites/radarsat1/";

@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.27130.2027
+VisualStudioVersion = 15.0.27004.2010
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{A858548D-B2C2-4CE9-872C-251E405FCCE4}"
 	ProjectSection(SolutionItems) = preProject
@@ -41,6 +41,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DeploySoftware.LaunchPad.Sh
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DeploySoftware.LaunchPad.Space.Satellites", "src\DeploySoftware.LaunchPad.Space.Satellites\DeploySoftware.LaunchPad.Space.Satellites.csproj", "{074DCF2B-F8BA-4538-BEF7-CB07CDB91AA2}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DeploySoftware.LaunchPad.Space.Organizations", "src\DeploySoftware.LaunchPad.Space.Organizations\DeploySoftware.LaunchPad.Space.Organizations.csproj", "{CC116117-8760-4FA5-9197-F290115704D4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -59,6 +61,10 @@ Global
 		{074DCF2B-F8BA-4538-BEF7-CB07CDB91AA2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{074DCF2B-F8BA-4538-BEF7-CB07CDB91AA2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{074DCF2B-F8BA-4538-BEF7-CB07CDB91AA2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CC116117-8760-4FA5-9197-F290115704D4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CC116117-8760-4FA5-9197-F290115704D4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CC116117-8760-4FA5-9197-F290115704D4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CC116117-8760-4FA5-9197-F290115704D4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -70,6 +76,7 @@ Global
 		{E6B59D9B-C320-427A-A552-7DAEAEFB4013} = {442BFA02-FB67-4078-AA7D-C8796C5D074B}
 		{B68F2E53-5EB0-4469-A062-DF8F832CF6E2} = {82629D38-5FB2-4DAF-9B67-3C766D419811}
 		{074DCF2B-F8BA-4538-BEF7-CB07CDB91AA2} = {442BFA02-FB67-4078-AA7D-C8796C5D074B}
+		{CC116117-8760-4FA5-9197-F290115704D4} = {442BFA02-FB67-4078-AA7D-C8796C5D074B}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {89FD47F4-AA98-4C45-852A-0CFC7404BBA3}

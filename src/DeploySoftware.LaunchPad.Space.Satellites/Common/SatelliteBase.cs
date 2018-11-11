@@ -27,14 +27,14 @@ namespace DeploySoftware.LaunchPad.Space.Satellites.Common
 {
     public abstract class SatelliteBase : DomainEntityBase<int>, ISatellite
     {
-        private IEnumerable<ISatelliteOperator> _operators;
+        private IEnumerable<ISatelliteOperator<Guid>> _operators;
         private string _satelliteCatalogNumber;
         private string _cosparID;
         private string _website;
         
         [System.ComponentModel.DataObjectField(true)]
         [XmlAttribute]
-        public IEnumerable<ISatelliteOperator> Operators
+        public IEnumerable<ISatelliteOperator<Guid>> Operators
         {
             get { return _operators; }
             set { _operators = value; }

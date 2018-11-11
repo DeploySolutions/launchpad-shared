@@ -15,22 +15,18 @@
 //limitations under the License. 
 #endregion
 
+using Schema.NET;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DeploySoftware.LaunchPad.Space.Satellites.Common
+namespace DeploySoftware.LaunchPad.Shared.Domain
 {
-    public interface ISatellite
+    public interface IGovernmentOrganization<TPrimaryKey> : IOrganization<TPrimaryKey>
     {
-        IEnumerable<ISatelliteOperator<Guid>> Operators { get; set; }
+        GovernmentOrganization Schema { get; set; }
 
-        string CosparID {get;set;}
-
-        string SatelliteCatalogNumber { get; set; }
-
-        string Website { get; set; }
     }
 }

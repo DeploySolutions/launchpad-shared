@@ -306,10 +306,14 @@
     <Compile Include="Domain\Entities\IContentItem.cs" />
     <Compile Include="Domain\Entities\IDataSet.cs" />
     <Compile Include="Domain\Entities\IDataCatalogue.cs" />
+    <Compile Include="Domain\Entities\IGovernmentOrganization.cs" />
     <Compile Include="Domain\Entities\Impl\DataCatalogue.cs" />
     <Compile Include="Domain\Entities\Impl\Dataset.cs" />
     <Compile Include="Domain\Entities\Impl\DevicePower.cs" />
+    <Compile Include="Domain\Entities\Impl\GovernmentOrganizationBase.cs" />
+    <Compile Include="Domain\Entities\Impl\OrganizationBase.cs" />
     <Compile Include="Domain\Entities\Impl\TagBase.cs" />
+    <Compile Include="Domain\Entities\IOrganization.cs" />
     <Compile Include="Repositories\IFetchingStrategy.cs" />
     <Compile Include="Domain\Entities\IMetadataInformation.cs" />
     <Compile Include="Domain\Entities\Impl\Device.cs" />
