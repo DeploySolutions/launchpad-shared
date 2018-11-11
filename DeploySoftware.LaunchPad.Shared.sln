@@ -25,6 +25,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Licenses", "Licenses", "{DA
 		Licenses\log4net.License.txt = Licenses\log4net.License.txt
 		Licenses\Microsoft.System.Collections.Immutable.License.txt = Licenses\Microsoft.System.Collections.Immutable.License.txt
 		Licenses\NCommon.License.txt = Licenses\NCommon.License.txt
+		schemaNET.License.txt = schemaNET.License.txt
 		Xunit.License.txt = Xunit.License.txt
 	EndProjectSection
 EndProject

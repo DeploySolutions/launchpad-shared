@@ -15,6 +15,11 @@
 //limitations under the License. 
 #endregion
 
+// Radarsat metadata is licensed under the Open Government License of the Canadian Federal Government, 2.0
+// For more information, please consult the terms and conditions of this license at
+// https://open.canada.ca/en/open-government-licence-canada 
+
+
 namespace DeploySoftware.LaunchPad.Space.Satellites.Canada
 {
     using System;

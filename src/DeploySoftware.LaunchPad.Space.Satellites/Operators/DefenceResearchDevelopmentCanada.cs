@@ -16,6 +16,7 @@
 #endregion
 
 using DeploySoftware.LaunchPad.Space.Satellites.Common;
+using Schema.NET;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,17 +25,42 @@ using System.Threading.Tasks;
 
 namespace DeploySoftware.LaunchPad.Space.Satellites.Canada
 {
-    public class DefenceResearchDevelopmentCanada : ISatelliteOperator
+    public class DefenceResearchDevelopmentCanada : IGovernmentSatelliteOperator
     {
-        private string _operatorFullName;
-        private string _operatorAbbreviation;
-        private string _operatorWebsite;
+        private GovernmentOrganization _organizationSchema;
 
-        public string OperatorFullName { get => _operatorFullName; set => _operatorFullName = "Defence Research and Development Canada/Recherche et développement pour la défense Canada"; }
-        
-        public string OperatorAbbreviation { get => _operatorAbbreviation; set => _operatorAbbreviation = "DRDC/RDDC"; }
-        public string OperatorWebsite { get => _operatorWebsite; set => _operatorWebsite = "http://www.drdc-rddc.gc.ca/"; }
-        public string OperatorHeadquartersAddress { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public string OperatorFullName { get => _organizationSchema.LegalName.ToString(); }
+        public string OperatorAbbreviation { get => _organizationSchema.AlternateName.ToString(); }
+        public string OperatorWebsite { get => _organizationSchema.Url.ToString(); }
+        public string OperatorHeadquartersAddress { get => _organizationSchema.Address.ToString(); }
         public IList<string> OperatorOffices { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public GovernmentOrganization OrganizationSchema { get => _organizationSchema; set => _organizationSchema = value; }
+
+        public DefenceResearchDevelopmentCanada()
+        {
+            GovernmentOrganization org = new GovernmentOrganization()
+            {
+                Name = "Defence Research and Development Canada/Recherche et développement pour la défense Canada",
+                LegalName = "Defence Research and Development Canada/Recherche et développement pour la défense Canada",
+                NumberOfEmployees = new QuantitativeValue()
+                {
+                    MinValue = 1400,
+                    MaxValue = 1450
+                },
+                Address = new PostalAddress()
+                {
+                    AddressLocality = "Ottawa",
+                    AddressRegion = "Ontario",
+                    AddressCountry = "Canada",
+                    PostalCode = "K1A 0K2",
+                    StreetAddress = "National Defence Headquarters Major - General George R.Pearkes Building 101 Colonel By Dr" 
+                },
+                Url = new Uri("http://www.drdc-rddc.gc.ca/"),
+                Email = "information@forces.gc.ca"
+
+            };
+            OrganizationSchema = org;
+
+        }
     }
 }

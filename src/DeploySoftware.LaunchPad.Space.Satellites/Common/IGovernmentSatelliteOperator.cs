@@ -15,21 +15,18 @@
 //limitations under the License. 
 #endregion
 
-// Radarsat metadata is licensed under the Open Government License of the Canadian Federal Government, 2.0
-// For more information, please consult the terms and conditions of this license at
-// https://open.canada.ca/en/open-government-licence-canada 
-
-
+using Schema.NET;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using DeploySoftware.LaunchPad.Space.Satellites.Common;
 
-namespace DeploySoftware.LaunchPad.Space.Satellites.Canada
+namespace DeploySoftware.LaunchPad.Space.Satellites.Common
 {
-    public class Radarsat2Satellite
+    public interface IGovernmentSatelliteOperator : ISatelliteOperator
     {
+        GovernmentOrganization OrganizationSchema { get; set; }
+
     }
 }

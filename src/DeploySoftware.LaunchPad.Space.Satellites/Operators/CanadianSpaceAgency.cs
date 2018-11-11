@@ -16,6 +16,7 @@
 #endregion
 
 using DeploySoftware.LaunchPad.Space.Satellites.Common;
+using Schema.NET;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,17 +25,47 @@ using System.Threading.Tasks;
 
 namespace DeploySoftware.LaunchPad.Space.Satellites.Canada
 {
-    public class CanadianSpaceAgency : ISatelliteOperator
+    public class CanadianSpaceAgency : IGovernmentSatelliteOperator
     {
-        private string _operatorFullName;
-        private string _operatorAbbreviation;
-        private string _operatorWebsite;
+        private GovernmentOrganization _organizationSchema;
 
-        public string OperatorFullName { get => _operatorFullName; set => _operatorFullName = "Canada Space Agency/Agence spatiale canadienne"; }
-        
-        public string OperatorAbbreviation { get => _operatorAbbreviation; set => _operatorAbbreviation = "CSA/ASC"; }
-        public string OperatorWebsite { get => _operatorWebsite; set => _operatorWebsite = "http://www.asc-csa.gc.ca/"; }
-        public string OperatorHeadquartersAddress { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+
+        public string OperatorFullName { get => _organizationSchema.LegalName.ToString(); }
+        public string OperatorAbbreviation { get => _organizationSchema.AlternateName.ToString(); }
+        public string OperatorWebsite { get => _organizationSchema.Url.ToString(); }
+        public string OperatorHeadquartersAddress { get => _organizationSchema.Address.ToString(); }
+
         public IList<string> OperatorOffices { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public GovernmentOrganization OrganizationSchema { get => _organizationSchema; set => _organizationSchema = value; }
+       
+        public CanadianSpaceAgency()
+        {
+            GovernmentOrganization org = new GovernmentOrganization()
+            {
+                Name = "Canada Space Agency/Agence spatiale canadienne",
+                LegalName = "Canada Space Agency/Agence spatiale canadienne",
+                NumberOfEmployees = new QuantitativeValue()
+                {
+                    MinValue = 670,
+                    MaxValue = 690
+                },
+                Address = new PostalAddress()
+                {
+                    AddressLocality = "St Hubert",
+                    AddressRegion = "Quebec",
+                    AddressCountry = "Canada",
+                },
+                Url = new Uri("http://www.asc-csa.gc.ca/"),
+                Email = "asc.info.csa@canada.ca"
+
+            };
+            OrganizationSchema = org;
+            
+
+
+        }
+
+
+
     }
 }
