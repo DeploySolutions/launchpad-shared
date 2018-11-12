@@ -14,9 +14,9 @@
 //See the License for the specific language governing permissions and 
 //limitations under the License. 
 #endregion
-    
 
-namespace Exoskeleton.Common.Tests
+
+namespace DeploySoftware.LaunchPad.Shared.Tests
 {
     using Xunit;
     using FluentAssertions;
