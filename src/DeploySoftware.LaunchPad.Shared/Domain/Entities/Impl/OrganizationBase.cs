@@ -94,11 +94,10 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         /// </summary>
         /// <param name="info">The serialization info</param>
         /// <param name="context">The context of the stream</param>
-        protected OrganizationBase(SerializationInfo info, StreamingContext context)
+        protected OrganizationBase(SerializationInfo info, StreamingContext context) : base(info,context)
         {
-            GlobalKey = (DomainEntityKey)info.GetValue("GlobalKey", typeof(DomainEntityKey));
-            Metadata = (MetadataInformation)info.GetValue("Metadata", typeof(MetadataInformation));
-            Tags = (IEnumerable<MetadataTag<TPrimaryKey>>)info.GetValue("Metadata", typeof(IEnumerable<MetadataTag<TPrimaryKey>>));
+            Schema = (Organization)info.GetValue("Organization", typeof(Organization));
+            Offices = (IList<String>)info.GetValue("Offices", typeof(IList<String>));
         }
 
         /// <summary>
@@ -107,30 +106,20 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         /// <param name="info"></param>
         /// <param name="context"></param>
         [SecurityPermission(SecurityAction.Demand, SerializationFormatter = true)]
-        public virtual void GetObjectData(SerializationInfo info, StreamingContext context)
+        public new virtual void GetObjectData(SerializationInfo info, StreamingContext context) 
         {
-            info.AddValue("GlobalKey", GlobalKey);
-            info.AddValue("Metadata", Metadata);
-            info.AddValue("Tags", Tags);
+            base.GetObjectData(info, context);
+            info.AddValue("Schema", Schema);
+            info.AddValue("Offices", Offices);
         }
-
-        /// <summary>
-        /// Event called once deserialization constructor finishes.
-        /// Useful for reattaching connections and other finite resources that 
-        /// can't be serialized and deserialized.
-        /// </summary>
-        /// <param name="sender">The object that has been deserialized</param>
-        public virtual void OnDeserialization(object sender)
-        {
-            // reconnect connection strings and other resources that won't be serialized
-        }
+        
 
         /// <summary>
         /// Shallow clones the entity
         /// </summary>
         /// <typeparam name="TEntity">The source entity to clone</typeparam>
         /// <returns>A shallow clone of the entity and its serializable properties</returns>
-        protected virtual TEntity Clone<TEntity>() where TEntity : IDomainEntity<TPrimaryKey>, new()
+        protected new virtual TEntity Clone<TEntity>() where TEntity : IOrganization<TPrimaryKey>, new()
         {
             TEntity clone = new TEntity();
             foreach (PropertyInfo info in GetType().GetProperties())
@@ -152,11 +141,10 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         /// </summary>
         /// <param name="other">The other object of this type we are comparing to</param>
         /// <returns></returns>
-        public virtual int CompareTo(DomainEntityBase<TPrimaryKey> other)
+        public virtual int CompareTo(OrganizationBase<TPrimaryKey> other)
         {
-            // put comparison of properties in here 
-            // for base object we'll just sort by title
-            return Metadata.DisplayName.CompareTo(other.Metadata.DisplayName);
+            if (other == null) return 1;
+            return FullName.CompareTo(other.FullName);
         }
 
         /// <summary>  
@@ -174,29 +162,15 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         }
 
         /// <summary>
-        /// This method makes it easy for any child class to generate a ToString() representation of
-        /// the common base properties
-        /// </summary>
-        /// <returns>A string description of the entity</returns>
-        protected virtual String ToStringBaseProperties()
-        {
-            StringBuilder sb = new StringBuilder();
-            sb.AppendFormat("GlobalKey={0};", GlobalKey);
-            sb.AppendFormat("Metadata={0};", Metadata);
-            sb.AppendFormat("Tags={0};", Tags);
-            return sb.ToString();
-        }
-
-        /// <summary>
         /// Override the legacy Equals. Must cast obj in this case.
         /// </summary>
         /// <param name="obj">A type to check equivalency of (hopefully) an Entity</param>
         /// <returns>True if the entities are the same according to business key value</returns>
         public override bool Equals(object obj)
         {
-            if (obj != null && obj is DomainEntityBase<TPrimaryKey>)
+            if (obj != null && obj is OrganizationBase<TPrimaryKey>)
             {
-                return Equals(obj as DomainEntityBase<TPrimaryKey>);
+                return Equals(obj as OrganizationBase<TPrimaryKey>);
             }
             return false;
         }
@@ -210,7 +184,7 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         /// </summary>
         /// <param name="obj">The other object of this type that we are testing equality with</param>
         /// <returns></returns>
-        public virtual bool Equals(DomainEntityBase<TPrimaryKey> obj)
+        public virtual bool Equals(OrganizationBase<TPrimaryKey> obj)
         {
             if (obj != null)
             {
@@ -225,11 +199,44 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
                     // For safe equality we need to match on business key equality.
                     // Base domain entities are functionally equal if their key and metadata and tags are equal.
                     // Subclasses should extend to include their own enhanced equality checks, as required.
-                    return GlobalKey.Equals(obj.GlobalKey) && Metadata.Equals(obj.Metadata) && Tags.Equals(obj.Tags);
+                    return GlobalKey.Equals(obj.GlobalKey) 
+                        && Metadata.Equals(obj.Metadata) 
+                        && Tags.Equals(obj.Tags)
+                        && Schema.Equals(obj.Schema);
                 }
                 
             }
             return false;
+        }
+
+        /// <summary>
+        /// Override the == operator to test for equality
+        /// </summary>
+        /// <param name="x">The first value</param>
+        /// <param name="y">The second value</param>
+        /// <returns>True if both objects are fully equal based on the Equals logic</returns>
+        public static bool operator ==(OrganizationBase<TPrimaryKey> x, OrganizationBase<TPrimaryKey> y)
+        {
+            if (System.Object.ReferenceEquals(x, null))
+            {
+                if (System.Object.ReferenceEquals(y, null))
+                {
+                    return true;
+                }
+                return false;
+            }
+            return x.Equals(y);
+        }
+
+        /// <summary>
+        /// Override the != operator to test for inequality
+        /// </summary>
+        /// <param name="x">The first value</param>
+        /// <param name="y">The second value</param>
+        /// <returns>True if both objects are not equal based on the Equals logic</returns>
+        public static bool operator !=(OrganizationBase<TPrimaryKey> x, OrganizationBase<TPrimaryKey> y)
+        {
+            return !(x == y);
         }
 
         /// <summary>  

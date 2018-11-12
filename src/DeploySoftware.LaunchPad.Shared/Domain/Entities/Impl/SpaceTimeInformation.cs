@@ -179,6 +179,31 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
             return false;
         }
 
+        /// <summary>
+        /// Override the == operator to test for equality
+        /// </summary>
+        /// <param name="x">The first value</param>
+        /// <param name="y">The second value</param>
+        /// <returns>True if both objects are fully equal based on the Equals logic</returns>
+        public static bool operator ==(SpaceTimeInformation x, SpaceTimeInformation y)
+        {
+            if (System.Object.ReferenceEquals(x, null))
+            {
+                if (System.Object.ReferenceEquals(y, null))
+                {
+                    return true;
+                }
+                return false;
+            }
+            return x.Equals(y);
+        }
+
+        public static bool operator !=(SpaceTimeInformation x, SpaceTimeInformation y)
+        {
+            return !(x == y);
+        }
+
+
         /// <summary>  
         /// Computes and retrieves a hash code for an object.  
         /// </summary>  

@@ -83,7 +83,10 @@ namespace DeploySoftware.LaunchPad.Shared.Tests
         [Fact]
         public void Should_Allow_PreviousPhysicalLocations_To_Be_Added()
         {
-            Device<int> device = new Device<int>();
+            Device<int> device = new Device<int>()
+            {
+                Id = 1
+            };
             device.Id = 1;
             SpaceTimeInformation sydney = new SpaceTimeInformation(new GeographicLocation(33.8650,151.2094));
             SpaceTimeInformation london = new SpaceTimeInformation(new GeographicLocation(51.5072, 0.1275));
@@ -99,7 +102,7 @@ namespace DeploySoftware.LaunchPad.Shared.Tests
             device.PreviousLocations.Should().HaveCount(5);
             device.PreviousLocations[0].Should().Be(sydney);
             device.PreviousLocations[4].Should().Be(halifax);
-            Assert.Equal(device.PreviousLocations.Count, 5);
+            Assert.Equal(5, device.PreviousLocations.Count);
         }
     }
 }
