@@ -20,7 +20,6 @@ namespace DeploySoftware.LaunchPad.Shared.Tests
     using Xunit;
     using FluentAssertions;
     using DeploySoftware.LaunchPad.Shared.Domain;
-    using DeploySoftware.LaunchPad.Shared.Util;
     using System;
 
     public class GeographicLocationTests

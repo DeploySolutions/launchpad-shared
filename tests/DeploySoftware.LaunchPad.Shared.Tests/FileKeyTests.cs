@@ -21,7 +21,7 @@ namespace Exoskeleton.Common.Tests
     using Xunit;
     using FluentAssertions;
     using DeploySoftware.LaunchPad.Shared.Domain;
-    
+
     public class FileKeyTests
     {
         #region "Test Classes"

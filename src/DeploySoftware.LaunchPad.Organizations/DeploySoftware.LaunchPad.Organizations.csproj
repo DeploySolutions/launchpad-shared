@@ -5,7 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\DeploySoftware.LaunchPad.Organizations\DeploySoftware.LaunchPad.Organizations.csproj" />
     <ProjectReference Include="..\DeploySoftware.LaunchPad.Shared\DeploySoftware.LaunchPad.Shared.csproj" />
   </ItemGroup>
 
