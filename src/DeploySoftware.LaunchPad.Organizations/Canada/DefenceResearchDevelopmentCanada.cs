@@ -23,35 +23,36 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DeploySoftware.LaunchPad.Organizations.Space.Canada
+namespace DeploySoftware.LaunchPad.Organizations.Canada
 {
-    public class DeploySoftwareSolutions : OrganizationBase<Guid>
+    public class DefenceResearchDevelopmentCanada : GovernmentOrganizationBase<Guid>
     {
-
-        public DeploySoftwareSolutions()
+        
+        public DefenceResearchDevelopmentCanada()
         {
-            Organization org = new Organization()
+            GovernmentOrganization org = new GovernmentOrganization()
             {
-                Name = "Deploy Software Solutions, inc.",
-                LegalName = "Deploy Software Solutions, inc.",
-                
+                Name = "Defence Research and Development Canada/Recherche et développement pour la défense Canada",
+                LegalName = "Defence Research and Development Canada/Recherche et développement pour la défense Canada",
+                NumberOfEmployees = new QuantitativeValue()
+                {
+                    MinValue = 1400,
+                    MaxValue = 1450
+                },
                 Address = new PostalAddress()
                 {
                     AddressLocality = "Ottawa",
                     AddressRegion = "Ontario",
                     AddressCountry = "Canada",
+                    PostalCode = "K1A 0K2",
+                    StreetAddress = "National Defence Headquarters Major - General George R.Pearkes Building 101 Colonel By Dr" 
                 },
-                Url = new Uri("https://www.deploy.solutions"),
-                Email = "support@deploy.solutions"
+                Url = new Uri("http://www.drdc-rddc.gc.ca/"),
+                Email = "information@forces.gc.ca"
 
             };
             Schema = org;
-            
-
 
         }
-
-
-
     }
 }

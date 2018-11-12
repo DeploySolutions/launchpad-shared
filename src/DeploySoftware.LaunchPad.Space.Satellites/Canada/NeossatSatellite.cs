@@ -23,7 +23,7 @@
 using System;
 using System.Collections.Generic;
 using DeploySoftware.LaunchPad.Space.Satellites.Common;
-using DeploySoftware.LaunchPad.Organizations.Space.Canada;
+using DeploySoftware.LaunchPad.Organizations.Canada;
 
 namespace DeploySoftware.LaunchPad.Space.Satellites.Canada
 {

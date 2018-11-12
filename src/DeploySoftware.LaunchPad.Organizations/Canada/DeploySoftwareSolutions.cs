@@ -23,30 +23,26 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DeploySoftware.LaunchPad.Organizations.Space.Canada
+namespace DeploySoftware.LaunchPad.Organizations.Canada
 {
-    public class CanadaSpaceAgency : GovernmentOrganizationBase<Guid>
+    public class DeploySoftwareSolutions : OrganizationBase<Guid>
     {
-        
-        public CanadaSpaceAgency()
+
+        public DeploySoftwareSolutions()
         {
-            GovernmentOrganization org = new GovernmentOrganization()
+            Organization org = new Organization()
             {
-                Name = "Canada Space Agency/Agence spatiale canadienne",
-                LegalName = "Canada Space Agency/Agence spatiale canadienne",
-                NumberOfEmployees = new QuantitativeValue()
-                {
-                    MinValue = 670,
-                    MaxValue = 690
-                },
+                Name = "Deploy Software Solutions, inc.",
+                LegalName = "Deploy Software Solutions, inc.",
+                
                 Address = new PostalAddress()
                 {
-                    AddressLocality = "St Hubert",
-                    AddressRegion = "Quebec",
+                    AddressLocality = "Ottawa",
+                    AddressRegion = "Ontario",
                     AddressCountry = "Canada",
                 },
-                Url = new Uri("http://www.asc-csa.gc.ca/"),
-                Email = "asc.info.csa@canada.ca"
+                Url = new Uri("https://www.deploy.solutions"),
+                Email = "support@deploy.solutions"
 
             };
             Schema = org;

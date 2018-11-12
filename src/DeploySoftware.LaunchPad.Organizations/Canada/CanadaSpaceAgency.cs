@@ -23,36 +23,39 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DeploySoftware.LaunchPad.Organizations.Space.Canada
+namespace DeploySoftware.LaunchPad.Organizations.Canada
 {
-    public class DefenceResearchDevelopmentCanada : GovernmentOrganizationBase<Guid>
+    public class CanadaSpaceAgency : GovernmentOrganizationBase<Guid>
     {
         
-        public DefenceResearchDevelopmentCanada()
+        public CanadaSpaceAgency()
         {
             GovernmentOrganization org = new GovernmentOrganization()
             {
-                Name = "Defence Research and Development Canada/Recherche et développement pour la défense Canada",
-                LegalName = "Defence Research and Development Canada/Recherche et développement pour la défense Canada",
+                Name = "Canada Space Agency/Agence spatiale canadienne",
+                LegalName = "Canada Space Agency/Agence spatiale canadienne",
                 NumberOfEmployees = new QuantitativeValue()
                 {
-                    MinValue = 1400,
-                    MaxValue = 1450
+                    MinValue = 670,
+                    MaxValue = 690
                 },
                 Address = new PostalAddress()
                 {
-                    AddressLocality = "Ottawa",
-                    AddressRegion = "Ontario",
+                    AddressLocality = "St Hubert",
+                    AddressRegion = "Quebec",
                     AddressCountry = "Canada",
-                    PostalCode = "K1A 0K2",
-                    StreetAddress = "National Defence Headquarters Major - General George R.Pearkes Building 101 Colonel By Dr" 
                 },
-                Url = new Uri("http://www.drdc-rddc.gc.ca/"),
-                Email = "information@forces.gc.ca"
+                Url = new Uri("http://www.asc-csa.gc.ca/"),
+                Email = "asc.info.csa@canada.ca"
 
             };
             Schema = org;
+            
+
 
         }
+
+
+
     }
 }
