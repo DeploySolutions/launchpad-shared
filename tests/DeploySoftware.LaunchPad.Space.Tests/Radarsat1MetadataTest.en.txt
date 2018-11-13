@@ -1,0 +1,34 @@
+         RADARSAT 1 SCENE DESCRIPTION
+                    
+SCENE_ID           m0700836
+MDA ORDER NUMBER   OGD_12546
+GEOGRAPHICAL AREA  Toronto
+SCENE START TIME   AUG 20 1997 23:14:59.649
+SCENE STOP TIME    AUG 20 1997 23:15:15.369
+ORBIT              9367 ASCENDING
+ORBIT DATA TYPE    DEFINITIVE
+APPLICATION LUT    LAND
+BEAM MODE          SAR STANDARD 5
+PRODUCT TYPE       PATH IMAGE (SGF)
+FORMAT             RADARSAT CEOS
+# OF IMAGE LINES   8334
+# OF IMAGE PIXELS  9021
+PIXEL SPACING      12.500 m
+SCENE CENTRE       43°31'N    79°45'W
+CORNER COORDINATES:
+                    
+       43°53'55.57" N      44°04'26.49" N
+       80°34'16.05" W      79°11'11.96" W
+  
+       42°58'32.06" N      43°09'03.77" N
+       80°20'04.85" W      78°58'18.53" W
+  
+
+(c) Canadian Space Agency 1997 Agence spatiale canadienne. Processed and distributed by MDA Geospatial Services Inc. Please see http://www.asc-csa.gc.ca and http://gs.mdacorporation.com
+
+This information has been made freely available by the Canadian Federal Government under its Open Government initiative, subject to the following license terms:
+https://open.canada.ca/en/open-government-licence-canada
+
+
+
+

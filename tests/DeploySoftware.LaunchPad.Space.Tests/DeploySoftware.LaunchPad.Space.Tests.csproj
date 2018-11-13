@@ -7,6 +7,16 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Radarsat1MetadataTest.en.txt" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Radarsat1MetadataTest.en.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="FluentAssertions" Version="5.5.0" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.9.0" />
     <PackageReference Include="xunit" Version="2.4.1" />
@@ -14,7 +24,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\src\DeploySoftware.LaunchPad.Organizations\DeploySoftware.LaunchPad.Organizations.csproj" />
     <ProjectReference Include="..\..\src\DeploySoftware.LaunchPad.Shared\DeploySoftware.LaunchPad.Shared.csproj" />
+    <ProjectReference Include="..\..\src\DeploySoftware.LaunchPad.Space.Satellites\DeploySoftware.LaunchPad.Space.Satellites.csproj" />
   </ItemGroup>
 
 </Project>
