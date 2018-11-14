@@ -1,5 +1,5 @@
 ﻿//LaunchPad Shared
-// Copyright (c) 2016 Deploy Software Solutions, inc. 
+// Copyright (c) 2018 Deploy Software Solutions, inc. 
 
 #region license
 //Licensed under the Apache License, Version 2.0 (the "License"); 
@@ -34,8 +34,6 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
     [Serializable()]
     public class GeographicLocation : IGeographicLocation, IEquatable<GeographicLocation>
     {
-        private double _latitude;
-        private double _longitude;
         private double _elevation;
         private Coordinate _earthCoordinate;
 
@@ -71,7 +69,8 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
             {
                 Guard.Against<ArgumentException>(double.IsNaN(value), DeploySoftware_LaunchPad_Shared_Resources.Guard_GeographicLocation_Set_Latitude_NaN);
                 Guard.Against<ArgumentOutOfRangeException>(value < -90 || value > 90, DeploySoftware_LaunchPad_Shared_Resources.Guard_GeographicLocation_Set_Latitude_InvalidRange);                
-                _latitude = value;
+                CoordinatePart cpLatitude = new CoordinatePart(value, CoordinateType.Lat, EarthCoordinate);
+                _earthCoordinate.Latitude = cpLatitude;
             }
         }
 
@@ -84,7 +83,9 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
             {
                 Guard.Against<ArgumentException>(double.IsNaN(value), DeploySoftware_LaunchPad_Shared_Resources.Guard_GeographicLocation_Set_Longitude_NaN);
                 Guard.Against<ArgumentOutOfRangeException>(value <= -180 || value > 180, DeploySoftware_LaunchPad_Shared_Resources.Guard_GeographicLocation_Set_Longitude_InvalidRange);
-                _longitude = value;
+                CoordinatePart cpLongitude = new CoordinatePart(CoordinateType.Long, EarthCoordinate);
+                CoordinatePart.TryParse(value.ToString(), out cpLongitude);
+                _earthCoordinate.Longitude = cpLongitude;
             }
         }
 
@@ -92,21 +93,27 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         {
             // We will set the elevation, latitude, and longitude of Greenwich
             _elevation = 46;
-            _latitude = 51.476852;
-            _longitude = -0.000500;
-            EagerLoad load = new EagerLoad();
-            load.Celestial = false;
-            EarthCoordinate = new Coordinate(_latitude, _longitude, load);
+            EagerLoad load = new EagerLoad
+            {
+                Cartesian = false,
+                Celestial = false,
+                UTM_MGRS = false
+            };
+            EarthCoordinate = new Coordinate(51.476852, -0.000500, load);
         }
 
         public GeographicLocation(double latitude, double longitude)
         {
             Elevation = 0;
-            Latitude = latitude;
-            Longitude = longitude;
-            EagerLoad load = new EagerLoad();
-            load.Celestial = false;
-            EarthCoordinate = new Coordinate(_latitude, _longitude, load);
+            EagerLoad load = new EagerLoad
+            {
+                Cartesian = false,
+                Celestial = false,
+                UTM_MGRS = false
+            };
+            EarthCoordinate = new Coordinate(latitude, longitude, load);
+            EarthCoordinate = new Coordinate(latitude, longitude, new DateTime(2000, 1, 1));
+            EarthCoordinate = new Coordinate(latitude, longitude, new DateTime(1800, 2, 1));
         }
 
         /// <summary>

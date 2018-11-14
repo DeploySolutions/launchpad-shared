@@ -24,7 +24,11 @@ CORNER COORDINATES:
        80°20'04.85" W      78°58'18.53" W
   
 
-(c) Canadian Space Agency 1997 Agence spatiale canadienne. Processed and distributed by MDA Geospatial Services Inc. Please see http://www.asc-csa.gc.ca and http://gs.mdacorporation.com
+For information on RADARSAT CEOS format see README.TXT
+(c) Canadian Space Agency 1997 Agence spatiale canadienne. Processed and distributed by MDA Geospatial Services Inc.
+
+Use of the data and the trademarks associated herewith are governed by the MDA GSI General Terms of Use and the License Agreement and is subject to the applicable satellite copyrights. Please see http://gs.mdacorporation.com/about/legal/licence.asp
+Please see http://www.asc-csa.gc.ca and http://gs.mdacorporation.com
 
 This information has been made freely available by the Canadian Federal Government under its Open Government initiative, subject to the following license terms:
 https://open.canada.ca/en/open-government-licence-canada

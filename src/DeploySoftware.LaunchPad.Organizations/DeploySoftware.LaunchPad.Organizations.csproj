@@ -9,9 +9,10 @@
     <RepositoryUrl>https://github.com/DeploySolutions/launchpad-shared</RepositoryUrl>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
-    <Version>1.0.1</Version>
+    <Version>1.0.2</Version>
     <Description>Organization-related code for LaunchPad framework.</Description>
     <Copyright>2018 Deploy Software Solutions, inc.</Copyright>
+    <PackageReleaseNotes>Rationalize namespaces.</PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>

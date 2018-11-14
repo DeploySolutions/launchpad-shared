@@ -15,16 +15,18 @@
 //limitations under the License. 
 #endregion
 
-using DeploySoftware.LaunchPad.Shared.Domain;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Serialization;
 
 namespace DeploySoftware.LaunchPad.Space.Satellites.Common
 {
+
+    using DeploySoftware.LaunchPad.Shared.Domain;
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Text;
+    using System.Threading.Tasks;
+    using System.Xml.Serialization;
+
     public abstract class SatelliteBase : DomainEntityBase<int>, ISatellite
     {
         private IEnumerable<ISatelliteOperator<Guid>> _operators;

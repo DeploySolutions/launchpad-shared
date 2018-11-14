@@ -15,23 +15,29 @@
 //limitations under the License. 
 #endregion
 
-// Radarsat metadata is licensed under the Open Government License of the Canadian Federal Government, 2.0
-// For more information, please consult the terms and conditions of this license at
-// https://open.canada.ca/en/open-government-licence-canada 
-
-namespace DeploySoftware.LaunchPad.Space.Satellites.Canada
+namespace DeploySoftware.LaunchPad.Space.Satellites.Common
 {
-
+    using CoordinateSharp;
+    using DeploySoftware.LaunchPad.Shared.Domain;
     using System;
     using System.Collections.Generic;
-    using DeploySoftware.LaunchPad.Space.Satellites.Common;
-    using DeploySoftware.LaunchPad.Organizations.Canada;
+    using System.Linq;
+    using System.Text;
+    using System.Threading.Tasks;
 
-    public class RadarsatConstellationMissionSatellite : SatelliteBase
+    public class ImageObservationCornerCoordinates
     {
-        protected RadarsatConstellationMissionSatellite() : base()
+        public Coordinate UpperLeft { get; set; }
+        public Coordinate UpperRight { get; set; }
+        public Coordinate LowerLeft { get; set; }
+        public Coordinate LowerRight { get; set; }
+
+        public ImageObservationCornerCoordinates()
         {
-            Operators = new List<ISatelliteOperator<Guid>>() { new CanadaSpaceAgency() as ISatelliteOperator<Guid> };
+            UpperLeft = new Coordinate();
+            UpperRight = new Coordinate();
+            LowerLeft = new Coordinate();
+            LowerRight = new Coordinate();
         }
     }
 }

@@ -12,7 +12,7 @@
     <Version>1.0.2</Version>
     <Description>Shared code for LaunchPad framework.</Description>
     <Copyright>2018 Deploy Software Solutions, inc.</Copyright>
-    <PackageReleaseNotes>1.0.2 =&gt; Add String comparison</PackageReleaseNotes>
+    <PackageReleaseNotes>1.0.2 =&gt; Add CoordinateSharp assembly references. Add StringParser.</PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>

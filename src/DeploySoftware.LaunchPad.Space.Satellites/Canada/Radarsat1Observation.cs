@@ -35,7 +35,7 @@ namespace DeploySoftware.LaunchPad.Space.Satellites.Canada
     [Table("Radarsat1Observations")]
     public class Radarsat1Observation : EarthObservationImageBase<Guid>, IHasCreationTime, IHasModificationTime
     {
-        
+
         [Required]
         public string SceneId { get; set; }
 
@@ -115,7 +115,7 @@ namespace DeploySoftware.LaunchPad.Space.Satellites.Canada
            int _numberImagePixels,
            string _pixelSpacing,
            GeographicLocation _sceneCentre,
-           List<GeographicLocation> _cornerCoordinates
+           ImageObservationCornerCoordinates _cornerCoordinates
         )
         {
             Id = Guid.NewGuid();
@@ -135,7 +135,7 @@ namespace DeploySoftware.LaunchPad.Space.Satellites.Canada
             NumberImagePixels = _numberImagePixels;
             PixelSpacing = _pixelSpacing;
             SceneCentre = _sceneCentre;
-            CornerCoordinates = _cornerCoordinates;
+            Corners = _cornerCoordinates;
             CreationTime = Clock.Now;
             LastModificationTime = Clock.Now;
         }
@@ -144,5 +144,6 @@ namespace DeploySoftware.LaunchPad.Space.Satellites.Canada
         {
 
         }
+        
     }
 }

@@ -15,16 +15,10 @@
 //limitations under the License. 
 #endregion
 
-using DeploySoftware.LaunchPad.Shared.Domain;
-using Schema.NET;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 namespace DeploySoftware.LaunchPad.Space.Satellites.Common
 {
+    using DeploySoftware.LaunchPad.Shared.Domain;
+
     public interface IGovernmentSatelliteOperator<TPrimaryKey> : IGovernmentOrganization<TPrimaryKey>, ISatelliteOperator<TPrimaryKey>
     {
  

@@ -1,5 +1,5 @@
 ﻿//LaunchPad Shared
-// Copyright (c) 2016 Deploy Software Solutions, inc. 
+// Copyright (c) 2018 Deploy Software Solutions, inc. 
 
 #region license
 //Licensed under the Apache License, Version 2.0 (the "License"); 
@@ -15,20 +15,15 @@
 //limitations under the License. 
 #endregion
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Xunit;
-using FluentAssertions;
-using DeploySoftware.LaunchPad.Shared.Domain;
-using DeploySoftware.LaunchPad.Space.Satellites.Canada;
-using DeploySoftware.LaunchPad.Shared.Util;
-using System.Globalization;
 
 namespace DeploySoftware.LaunchPad.Space.Tests
 {
+
+    using System;
+    using Xunit;
+    using FluentAssertions;
+    using DeploySoftware.LaunchPad.Shared.Domain;
+
     public class Radarsat1MetadataParserTests : IClassFixture<Radarsat1MetadataFileFixture>
     {
         #region "Test Classes"

@@ -9,14 +9,21 @@
     <RepositoryUrl>https://github.com/DeploySolutions/launchpad-shared</RepositoryUrl>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
-    <Version>1.0.1</Version>
+    <Version>1.0.2</Version>
     <Description>Satellite-related code for LaunchPad framework.</Description>
     <Copyright>2018 Deploy Software Solutions, inc.</Copyright>
+    <PackageReleaseNotes>1.0.2 =&gt; Add CoordinateSharp assembly references. Add Radarsat1Observation parser.</PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\DeploySoftware.LaunchPad.Organizations\DeploySoftware.LaunchPad.Organizations.csproj" />
     <ProjectReference Include="..\DeploySoftware.LaunchPad.Shared\DeploySoftware.LaunchPad.Shared.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="CoordinateSharpCore">
+      <HintPath>..\..\..\..\External Repos\CoordinateSharp\CoordinateSharpCore\bin\Debug\netcoreapp2.0\CoordinateSharpCore.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
 </Project>
