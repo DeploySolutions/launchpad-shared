@@ -21,6 +21,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Licenses", "Licenses", "{DA
 		Licenses\Castle.Windsor.License.txt = Licenses\Castle.Windsor.License.txt
 		Licenses\CodeProject.SequentialGuid.License.txt = Licenses\CodeProject.SequentialGuid.License.txt
 		Licenses\Common Logging.License.txt = Licenses\Common Logging.License.txt
+		CoordinateSharp.License.txt = CoordinateSharp.License.txt
 		FluentAssertions.License.txt = FluentAssertions.License.txt
 		Licenses\log4net.License.txt = Licenses\log4net.License.txt
 		Licenses\Microsoft.System.Collections.Immutable.License.txt = Licenses\Microsoft.System.Collections.Immutable.License.txt

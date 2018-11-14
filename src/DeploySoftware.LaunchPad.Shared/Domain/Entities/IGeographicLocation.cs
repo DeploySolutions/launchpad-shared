@@ -19,12 +19,17 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
 {
     using System;
     using System.Runtime.Serialization;
+    using CoordinateSharp;
 
     /// <summary>
     /// This interface defines the physical position of something, in terms of its latitude, longitude, and elevation.
     /// </summary>
     public interface IGeographicLocation : ISerializable
     {
+        /// <summary>
+        /// The Coordinates of this object on Earth
+        /// </summary>
+        Coordinate EarthCoordinate { get; set; }
 
         /// <summary>
         /// The latitude of this object

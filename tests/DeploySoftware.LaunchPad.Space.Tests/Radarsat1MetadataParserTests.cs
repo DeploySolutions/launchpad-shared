@@ -25,6 +25,7 @@ using FluentAssertions;
 using DeploySoftware.LaunchPad.Shared.Domain;
 using DeploySoftware.LaunchPad.Space.Satellites.Canada;
 using DeploySoftware.LaunchPad.Shared.Util;
+using System.Globalization;
 
 namespace DeploySoftware.LaunchPad.Space.Tests
 {
@@ -69,12 +70,51 @@ namespace DeploySoftware.LaunchPad.Space.Tests
             _fixture.Observation.MdaOrderNumber.Should().NotBeNullOrEmpty();
         }
 
-
         [Fact]
         public void Mda_Order_Number_Should_Have_Correct_Value()
         {
 
             _fixture.Observation.MdaOrderNumber.Should().Be("OGD_12546");
+        }
+  
+        [Fact]
+        public void Geographical_Area_Should_Not_Be_NullOrEmpty()
+        {
+            _fixture.Observation.GeographicalArea.Should().NotBeNullOrEmpty();
+        }
+
+        [Fact]
+        public void Geographical_Area_Should_Have_Correct_Value()
+        {
+
+            _fixture.Observation.GeographicalArea.Should().Be("Toronto");
+        }
+
+        [Fact]
+        public void Scene_Start_Time_Should_Not_Be_NullOrEmpty()
+        {
+            _fixture.Observation.SceneStartTime.Should().NotHaveYear(0001);
+        }
+
+        [Fact]
+        public void Scene_Start_Time_Should_Have_Correct_Value()
+        {
+            DateTime startDate = new DateTime(1997, 08, 20, 23, 14, 59, 649);
+            _fixture.Observation.SceneStartTime.Should().Be(startDate);
+        }
+
+
+        [Fact]
+        public void Scene_Stop_Time_Should_Not_Be_NullOrEmpty()
+        {
+            _fixture.Observation.SceneStopTime.Should().NotHaveYear(0001);
+        }
+
+        [Fact]
+        public void Scene_Stop_Time_Should_Have_Correct_Value()
+        {
+            DateTime stopDate = new DateTime(1997, 08, 20, 23, 15, 15, 369);
+            _fixture.Observation.SceneStopTime.Should().Be(stopDate);
         }
     }
 }

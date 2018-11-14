@@ -77,7 +77,6 @@ namespace DeploySoftware.LaunchPad.Space.Satellites.Canada
 
         [Required]
         public string PixelSpacing { get; set; }
-        
 
         public Radarsat1Observation(
             string _tifImagePath,

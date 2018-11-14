@@ -26,6 +26,7 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
     using System.Text;
     using System.Xml.Serialization;
     using DeploySoftware.LaunchPad.Shared.Util;
+    using CoordinateSharp;
 
     /// <summary>
     /// This class defines the physical position of something, in terms of its latitude, longitude, and elevation.
@@ -36,6 +37,18 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         private double _latitude;
         private double _longitude;
         private double _elevation;
+        private Coordinate _earthCoordinate;
+
+        [DataObjectField(false)]
+        [XmlAttribute]
+        public virtual Coordinate EarthCoordinate
+        {
+            get { return _earthCoordinate; }
+            set
+            {
+                _earthCoordinate = value;
+            }
+        }
 
         [DataObjectField(false)]
         [XmlAttribute]
@@ -53,7 +66,7 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         [XmlAttribute]
         public virtual double Latitude
         {
-            get { return _latitude; }
+            get { return _earthCoordinate.Latitude.ToDouble(); }
             set
             {
                 Guard.Against<ArgumentException>(double.IsNaN(value), DeploySoftware_LaunchPad_Shared_Resources.Guard_GeographicLocation_Set_Latitude_NaN);
@@ -66,7 +79,7 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         [XmlAttribute]
         public virtual double Longitude
         {
-            get { return _longitude; }
+            get { return _earthCoordinate.Longitude.ToDouble(); }
             set
             {
                 Guard.Against<ArgumentException>(double.IsNaN(value), DeploySoftware_LaunchPad_Shared_Resources.Guard_GeographicLocation_Set_Longitude_NaN);
@@ -81,6 +94,9 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
             _elevation = 46;
             _latitude = 51.476852;
             _longitude = -0.000500;
+            EagerLoad load = new EagerLoad();
+            load.Celestial = false;
+            EarthCoordinate = new Coordinate(_latitude, _longitude, load);
         }
 
         public GeographicLocation(double latitude, double longitude)
@@ -88,6 +104,9 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
             Elevation = 0;
             Latitude = latitude;
             Longitude = longitude;
+            EagerLoad load = new EagerLoad();
+            load.Celestial = false;
+            EarthCoordinate = new Coordinate(_latitude, _longitude, load);
         }
 
         /// <summary>
@@ -100,6 +119,7 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
             Elevation = (double)info.GetDouble("Elevation");
             Latitude = (double)info.GetDouble("Latitude");
             Longitude = (double)info.GetDouble("Longitude");
+            EarthCoordinate = (Coordinate)info.GetValue("EarthCoordinate",typeof(Coordinate));
         }
 
         /// <summary>
@@ -113,6 +133,7 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
             info.AddValue("Elevation", Elevation);
             info.AddValue("Latitude", Latitude);
             info.AddValue("Longitude", Longitude);
+            info.AddValue("EarthCoordinate", EarthCoordinate);
         }
 
         /// Event called once deserialization constructor finishes.

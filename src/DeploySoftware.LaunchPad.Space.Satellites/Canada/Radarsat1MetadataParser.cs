@@ -22,10 +22,9 @@ namespace DeploySoftware.LaunchPad.Space.Satellites.Canada
                     metadataFileText = sr.ReadToEnd();
                 }
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                //Console.WriteLine("The file could not be read:");
-                //Console.WriteLine(e.Message);
+                throw new FileLoadException(ex.Message);
             }
             String sceneID = metadataFileText.FindStringWithinAnchorText("SCENE_ID", "MDA ORDER NUMBER", true, true);
             String mdaOrderNumber = metadataFileText.FindStringWithinAnchorText("MDA ORDER NUMBER", "GEOGRAPHICAL AREA", true, true);
@@ -60,6 +59,28 @@ namespace DeploySoftware.LaunchPad.Space.Satellites.Canada
                                        DateTimeStyles.None,
                                        out sceneStopTime);
             }
+            String orbit = metadataFileText.FindStringWithinAnchorText("ORBIT", "ORBIT DATA TYPE", true, true);
+            String orbitDataType = metadataFileText.FindStringWithinAnchorText("ORBIT DATA TYPE", "APPLICATION LUT", true, true);
+            String applicationLut = metadataFileText.FindStringWithinAnchorText("APPLICATION LUT", "BEAM MODE", true, true);
+            String beamMode = metadataFileText.FindStringWithinAnchorText("BEAM MODE", "PRODUCT TYPE", true, true);
+            String productType = metadataFileText.FindStringWithinAnchorText("PRODUCT TYPE","FORMAT", true, true);
+            String format = metadataFileText.FindStringWithinAnchorText("FORMAT", "# OF IMAGE LINES", true, true);
+            Int32 numberImageLines = -1;
+            Int32.TryParse(metadataFileText.FindStringWithinAnchorText("# OF IMAGE LINES", "# OF IMAGE PIXELS", true, true), out numberImageLines);
+            Int32 numberImagePixels = -1;
+            Int32.TryParse(metadataFileText.FindStringWithinAnchorText("# OF IMAGE PIXELS","PIXEL SPACING", true, true), out numberImagePixels);
+            String pixelSpacing = metadataFileText.FindStringWithinAnchorText("PIXEL SPACING","SCENE CENTRE", true, true);
+            String sceneCentre = metadataFileText.FindStringWithinAnchorText("SCENE CENTRE", "CORNER COORDINATES", true, true);
+            string[] split = sceneCentre.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+            foreach(string s in split)
+            {
+                GeographicLocation centre = new GeographicLocation
+               (
+                    s[0],
+                    s[1]
+               );
+            }
+           
             Radarsat1Observation observation = new Radarsat1Observation(
                 String.Empty,
                 sceneID,
@@ -67,7 +88,19 @@ namespace DeploySoftware.LaunchPad.Space.Satellites.Canada
                 geographicalArea,
                 sceneStartTime,
                 sceneStopTime
-            );                
+            )
+            {
+                Orbit = orbit,
+                OrbitDataType = orbitDataType,
+                ApplicationLut = applicationLut,
+                BeamMode = beamMode,
+                ProductType = productType,
+                Format =  format,
+                NumberImageLines = numberImageLines,
+                NumberImagePixels = numberImagePixels,
+                PixelSpacing = pixelSpacing
+            };
+            
             return observation;
         }
     }
