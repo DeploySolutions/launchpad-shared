@@ -34,7 +34,8 @@ namespace DeploySoftware.LaunchPad.Space.Tests
         public void Initialize(FileKey _radarsat1MetadataKey)
         {
             Radarsat1MetadataFileKey = _radarsat1MetadataKey;
-            Observation = Radarsat1MetadataParser.GetRadarsat1ObservationFromMetadataFile(Radarsat1MetadataFileKey);
+            Radarsat1MetadataParser parser = new Radarsat1MetadataParser();
+            Observation = parser.GetRadarsat1ObservationFromMetadataFile(Radarsat1MetadataFileKey);
         }
 
         public void Dispose()

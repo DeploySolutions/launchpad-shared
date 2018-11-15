@@ -23,6 +23,9 @@ namespace DeploySoftware.LaunchPad.Space.Tests
     using Xunit;
     using FluentAssertions;
     using DeploySoftware.LaunchPad.Shared.Domain;
+    using System.Collections.Generic;
+    using DeploySoftware.LaunchPad.Space.Satellites.Canada;
+    using System.IO;
 
     public class Radarsat1MetadataParserTests : IClassFixture<Radarsat1MetadataFileFixture>
     {
@@ -111,5 +114,6 @@ namespace DeploySoftware.LaunchPad.Space.Tests
             DateTime stopDate = new DateTime(1997, 08, 20, 23, 15, 15, 369);
             _fixture.Observation.SceneStopTime.Should().Be(stopDate);
         }
+        
     }
 }

@@ -196,6 +196,15 @@ namespace DeploySoftware.LaunchPad.Shared {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Should not throw FormatException due to DateString.
+        /// </summary>
+        public static string Guard_GeographicLocation_Instantiate_FormatException {
+            get {
+                return ResourceManager.GetString("Guard_GeographicLocation_Instantiate_FormatException", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Elevation must be a valid number..
         /// </summary>
         public static string Guard_GeographicLocation_Set_Elevation {

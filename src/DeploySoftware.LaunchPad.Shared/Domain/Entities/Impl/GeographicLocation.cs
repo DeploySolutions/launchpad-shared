@@ -89,6 +89,9 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
             }
         }
 
+        /// <summary>
+        /// The default location is always Greenwich.
+        /// </summary>
         public GeographicLocation()
         {
             // We will set the elevation, latitude, and longitude of Greenwich
@@ -96,10 +99,10 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
             EagerLoad load = new EagerLoad
             {
                 Cartesian = false,
-                Celestial = false,
-                UTM_MGRS = false
+                Celestial = true,
+                UTM_MGRS = true
             };
-            EarthCoordinate = new Coordinate(51.476852, -0.000500, load);
+            EarthCoordinate = new Coordinate(51.476852, -0.000500, new DateTime(2000, 1, 1).ToUniversalTime(), load);
         }
 
         public GeographicLocation(double latitude, double longitude)
@@ -108,12 +111,16 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
             EagerLoad load = new EagerLoad
             {
                 Cartesian = false,
-                Celestial = false,
-                UTM_MGRS = false
+                Celestial = true,
+                UTM_MGRS = true
             };
             EarthCoordinate = new Coordinate(latitude, longitude, load);
-            EarthCoordinate = new Coordinate(latitude, longitude, new DateTime(2000, 1, 1));
-            EarthCoordinate = new Coordinate(latitude, longitude, new DateTime(1800, 2, 1));
+        }
+
+        public GeographicLocation(double latitude, double longitude, EagerLoad load)
+        {
+            Elevation = 0;
+            EarthCoordinate = new Coordinate(latitude, longitude, load);
         }
 
         /// <summary>

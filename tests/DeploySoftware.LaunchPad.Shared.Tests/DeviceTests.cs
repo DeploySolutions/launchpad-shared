@@ -22,87 +22,86 @@ namespace DeploySoftware.LaunchPad.Shared.Tests
     using DeploySoftware.LaunchPad.Shared.Domain;
     using System.Collections.Generic;
 
-    public class DeviceTests
+    public class DeviceTests : IClassFixture<DeviceTestsFixture>
     {
         #region "Test Classes"
 
-       
+
 
         #endregion
 
-       
+        private DeviceTestsFixture _fixture;
+
+        public DeviceTests(DeviceTestsFixture fixture)
+        {
+            this._fixture = fixture;
+            Device<int> device = new Device<int>
+            {
+                Id = 1
+            };
+            this._fixture.Initialize(device);
+        }
+
         [Fact]
         public void Should_Have_NotNull_Key_When_Instantiated()
         {
-            Device<int> device = new Device<int>();
-            device.GlobalKey.Should().NotBeNull();
+            _fixture.SUT.GlobalKey.Should().NotBeNull();
         }
 
         [Fact]
         public void Should_Have_NotNull_Metadata_When_Instantiated()
         {
-            Device<int> device = new Device<int>();
-            device.Metadata.Should().NotBeNull();
+            _fixture.SUT.Metadata.Should().NotBeNull();
         }
 
         [Fact]
         public void Should_Have_NotNull_CurrentPhysicalLocation_When_Instantiated()
         {
-            Device<int> device = new Device<int>();
-            device.CurrentLocation.Should().NotBeNull();
+            _fixture.SUT.CurrentLocation.Should().NotBeNull();
         }
 
         [Fact]
         public void Should_Have_NotNull_PowerLevel_When_Instantiated()
         {
-            Device<int> device = new Device<int>();
-            device.Power.Should().NotBeNull();
+            _fixture.SUT.Power.Should().NotBeNull();
         }
 
         [Fact]
         public void Should_Have_Unknown_PowerLevel_When_Instantiated()
         {
-            Device<int> device = new Device<int>();
-            device.Power.PowerLevel.Should().Be(DevicePower.PowerChargeLevel.Unknown);
+            _fixture.SUT.Power.PowerLevel.Should().Be(DevicePower.PowerChargeLevel.Unknown);
         }
 
         [Fact]
         public void Should_Have_Unknown_Power_RemainingChargeTime_When_Instantiated_Without_Providing_Value_In_Constructor()
         {
-            Device<int> device = new Device<int>();
-            device.Power.RemainingChargeTime.Should().NotHaveValue();
+            _fixture.SUT.Power.RemainingChargeTime.Should().NotHaveValue();
         }
 
         [Fact]
         public void Should_Have_PreviousPhysicalLocations_When_Instantiated_Without_Providing_Value_In_Constructor()
         {
-            Device<int> device = new Device<int>();
-            device.PreviousLocations.Should().HaveCount(0);
+            _fixture.SUT.PreviousLocations.Should().HaveCount(0);
         }
 
         [Fact]
         public void Should_Allow_PreviousPhysicalLocations_To_Be_Added()
         {
-            Device<int> device = new Device<int>()
-            {
-                Id = 1
-            };
-            device.Id = 1;
             SpaceTimeInformation sydney = new SpaceTimeInformation(new GeographicLocation(33.8650,151.2094));
             SpaceTimeInformation london = new SpaceTimeInformation(new GeographicLocation(51.5072, 0.1275));
             SpaceTimeInformation newyork = new SpaceTimeInformation(new GeographicLocation(40.7127,74.0059));
             SpaceTimeInformation kingston = new SpaceTimeInformation(new GeographicLocation(44.2333,76.5000));
             SpaceTimeInformation halifax = new SpaceTimeInformation(new GeographicLocation(44.6478,63.5714));
             IList<SpaceTimeInformation> previousLocations = new List<SpaceTimeInformation>();
-            device.PreviousLocations.Add(sydney);
-            device.PreviousLocations.Add(london);
-            device.PreviousLocations.Add(newyork);
-            device.PreviousLocations.Add(kingston);
-            device.PreviousLocations.Add(halifax);
-            device.PreviousLocations.Should().HaveCount(5);
-            device.PreviousLocations[0].Should().Be(sydney);
-            device.PreviousLocations[4].Should().Be(halifax);
-            Assert.Equal(5, device.PreviousLocations.Count);
+            _fixture.SUT.PreviousLocations.Add(sydney);
+            _fixture.SUT.PreviousLocations.Add(london);
+            _fixture.SUT.PreviousLocations.Add(newyork);
+            _fixture.SUT.PreviousLocations.Add(kingston);
+            _fixture.SUT.PreviousLocations.Add(halifax);
+            _fixture.SUT.PreviousLocations.Should().HaveCount(5);
+            _fixture.SUT.PreviousLocations[0].Should().Be(sydney);
+            _fixture.SUT.PreviousLocations[4].Should().Be(halifax);
+            Assert.Equal(5, _fixture.SUT.PreviousLocations.Count);
         }
     }
 }

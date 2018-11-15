@@ -21,6 +21,7 @@ namespace DeploySoftware.LaunchPad.Shared.Tests
     using FluentAssertions;
     using DeploySoftware.LaunchPad.Shared.Domain;
     using System;
+    using CoordinateSharp;
 
     public class GeographicLocationTests
     {
@@ -49,8 +50,8 @@ namespace DeploySoftware.LaunchPad.Shared.Tests
         {
             GeographicLocation location = new GeographicLocation();
             double latitude = double.NaN;
-            
-            Action act = () => location.Latitude = latitude;
+            CoordinatePart.TryParse(latitude.ToString(), out CoordinatePart cp);
+            Action act = () => location.EarthCoordinate.Latitude = cp;
             act.Should().Throw<ArgumentException>()
                 .WithMessage("*" + DeploySoftware_LaunchPad_Shared_Resources.Guard_GeographicLocation_Set_Latitude_NaN + "*");
         }
@@ -61,8 +62,8 @@ namespace DeploySoftware.LaunchPad.Shared.Tests
         {
             GeographicLocation location = new GeographicLocation();
             double latitude = -90.001;
-            
-            Action act = () => location.Latitude = latitude;
+            CoordinatePart.TryParse(latitude.ToString(), out CoordinatePart cp);
+            Action act = () => location.EarthCoordinate.Latitude = cp;
             act.Should().Throw<ArgumentException>()
                 .WithMessage("*" + DeploySoftware_LaunchPad_Shared_Resources.Guard_GeographicLocation_Set_Latitude_InvalidRange + "*");
         }
@@ -73,8 +74,8 @@ namespace DeploySoftware.LaunchPad.Shared.Tests
         {
             GeographicLocation location = new GeographicLocation();
             double latitude = 90.001;
-            
-            Action act = () => location.Latitude = latitude;
+            CoordinatePart.TryParse(latitude.ToString(), out CoordinatePart cp);
+            Action act = () => location.EarthCoordinate.Latitude = cp;
             act.Should().Throw<ArgumentException>()
                 .WithMessage("*" + DeploySoftware_LaunchPad_Shared_Resources.Guard_GeographicLocation_Set_Latitude_InvalidRange + "*");
         }
@@ -84,8 +85,8 @@ namespace DeploySoftware.LaunchPad.Shared.Tests
         {
             GeographicLocation location = new GeographicLocation();
             double longitude = double.NaN;
-
-            Action act = () => location.Longitude = longitude ;
+            CoordinatePart.TryParse(longitude.ToString(), out CoordinatePart cp);
+            Action act = () => location.EarthCoordinate.Longitude = cp;
             act.Should().Throw<ArgumentException>()
                  .WithMessage("*" + DeploySoftware_LaunchPad_Shared_Resources.Guard_GeographicLocation_Set_Longitude_NaN + "*");
         }
@@ -97,8 +98,8 @@ namespace DeploySoftware.LaunchPad.Shared.Tests
         {
             GeographicLocation location = new GeographicLocation();
             double longitude = -180.001;
-
-            Action act = () => location.Longitude = longitude;
+            CoordinatePart.TryParse(longitude.ToString(), out CoordinatePart cp);
+            Action act = () => location.EarthCoordinate.Longitude = cp;
             act.Should().Throw<ArgumentException>()
                  .WithMessage("*" + DeploySoftware_LaunchPad_Shared_Resources.Guard_GeographicLocation_Set_Longitude_InvalidRange + "*");
         }
@@ -109,11 +110,20 @@ namespace DeploySoftware.LaunchPad.Shared.Tests
         {
             GeographicLocation location = new GeographicLocation();
             double longitude = 180.001;
-
-            Action act = () => location.Longitude = longitude;
+            CoordinatePart.TryParse(longitude.ToString(), out CoordinatePart cp);
+            Action act = () => location.EarthCoordinate.Longitude = cp;
             act.Should().Throw<ArgumentException>()
                 .WithMessage("*" + DeploySoftware_LaunchPad_Shared_Resources.Guard_GeographicLocation_Set_Longitude_InvalidRange + "*");
         }
-      
+        
+        [Fact]
+        public void Should_Not_Throw_FormatException_When_Instantiated()
+        {
+            GeographicLocation location = new GeographicLocation();
+
+            Action act = () => location.EarthCoordinate = new Coordinate(51.476852, -0.000500, new DateTime(2000, 1, 1));
+            act.Should().NotThrow<FormatException>();
+        }
+
     }
 }

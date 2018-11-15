@@ -34,11 +34,11 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         /// <summary>
         /// The latitude of this object
         /// </summary>
-        double Latitude { get; set; }
+        double Latitude { get; }
         /// <summary>
         /// The longitude of this object
         /// </summary>
-        double Longitude { get; set; }
+        double Longitude { get; }
 
         /// <summary>
         /// The elevation of this object (compared to "sea level" on Earth, or an arbitrary point on another body)

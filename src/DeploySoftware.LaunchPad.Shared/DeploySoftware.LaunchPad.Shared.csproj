@@ -9,10 +9,11 @@
     <RepositoryUrl>https://github.com/DeploySolutions/launchpad-shared</RepositoryUrl>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
-    <Version>1.0.2</Version>
+    <Version>1.0.3</Version>
     <Description>Shared code for LaunchPad framework.</Description>
     <Copyright>2018 Deploy Software Solutions, inc.</Copyright>
-    <PackageReleaseNotes>1.0.2 =&gt; Add CoordinateSharp assembly references. Add StringParser.</PackageReleaseNotes>
+    <PackageReleaseNotes>1.0.3  =&gt; Add CoordinateSharp assembly references. Add StringParser.</PackageReleaseNotes>
+    <PackageIconUrl>https://www.deploy.solutions/wp-content/uploads/dynamik-gen/theme/images/y-icon-blue.png</PackageIconUrl>
   </PropertyGroup>
 
   <ItemGroup>
@@ -21,8 +22,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Reference Include="CoordinateSharpCore">
-      <HintPath>..\..\..\..\External Repos\CoordinateSharp\CoordinateSharpCore\bin\Debug\netcoreapp2.0\CoordinateSharpCore.dll</HintPath>
+    <Reference Include="CoordinateSharp">
+      <HintPath>..\..\..\..\External Repos\CoordinateSharp\CoordinateSharp\bin\Debug\netstandard2.0\CoordinateSharp.dll</HintPath>
     </Reference>
   </ItemGroup>
 

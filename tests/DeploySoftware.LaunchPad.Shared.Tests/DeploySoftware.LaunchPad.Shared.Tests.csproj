@@ -17,4 +17,10 @@
     <ProjectReference Include="..\..\src\DeploySoftware.LaunchPad.Shared\DeploySoftware.LaunchPad.Shared.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Reference Include="CoordinateSharp">
+      <HintPath>..\..\..\..\External Repos\CoordinateSharp\CoordinateSharp\bin\Debug\netstandard2.0\CoordinateSharp.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
 </Project>

@@ -31,7 +31,7 @@ namespace DeploySoftware.LaunchPad.Space.Satellites.Canada
     /// <summary>
     /// Utility to parse a Radarsat1 image observation metadata file and populate a Radarsat1Observation object from it.
     /// </summary>
-    public static class Radarsat1MetadataParser
+    public class Radarsat1MetadataParser
     {
         /// <summary>
         /// Main utility method to parse a Radarsat1 Metadata text file and populate the Radarsat1 Image Observation from the information
@@ -42,106 +42,120 @@ namespace DeploySoftware.LaunchPad.Space.Satellites.Canada
         /// subject to the following license terms: https://open.canada.ca/en/open-government-licence-canada
         /// </summary>
         /// <param name="metadataFileKey">The filepath/filename of the Radarsat1 metadata file</param>
-        /// <returns>A populated Radarsat1Observation object containing the metadata values</returns>
-        public static Radarsat1Observation GetRadarsat1ObservationFromMetadataFile(FileKey metadataFileKey)
+        /// <returns>A populated Radarsat1Observation object containing the metadata values, or null if the object couldn't be populated</returns>
+        /// <throws>A FileLoadException if the file cannot be found or loaded</throws>
+        public Radarsat1Observation GetRadarsat1ObservationFromMetadataFile(FileKey metadataFileKey)
         {
-            String metadataFileText = String.Empty;
-            try
-            {   // Open the Radarsat1 Metadata text file
-                using (StreamReader sr = new StreamReader(metadataFileKey.UniqueKey, Encoding.GetEncoding("iso-8859-1")))
-                {
-                    metadataFileText = sr.ReadToEnd();
+            Radarsat1Observation observation = null;
+            // Radarsat 1 metadata files are in .txt format
+            if (metadataFileKey.UniqueKey.EndsWith(".txt"))
+            {
+                String metadataFileText = String.Empty;
+                try
+                {   // Open the Radarsat1 Metadata text file
+                    using (StreamReader sr = new StreamReader(metadataFileKey.UniqueKey, Encoding.GetEncoding("iso-8859-1")))
+                    {
+                        metadataFileText = sr.ReadToEnd();
+                    }
                 }
-            }
-            catch (Exception ex)
-            {
-                throw new FileLoadException(ex.Message);
-            }
-            String sceneID = metadataFileText.FindStringWithinAnchorText("SCENE_ID", "MDA ORDER NUMBER", true, true);
-            String mdaOrderNumber = metadataFileText.FindStringWithinAnchorText("MDA ORDER NUMBER", "GEOGRAPHICAL AREA", true, true);
-            String geographicalArea = metadataFileText.FindStringWithinAnchorText("GEOGRAPHICAL AREA","SCENE START TIME", true, true);
-            String sceneStartTimeText = metadataFileText.FindStringWithinAnchorText("SCENE START TIME","SCENE STOP TIME", true, true);
-            String dateFormatPattern = "MMM dd yyyy HH:mm:ss.FFF";
-            DateTime sceneStartTime;
-            if (String.IsNullOrEmpty(sceneStartTimeText))
-            {
-                throw new Exception("Radarsat1 Scene Start Time Cannot be null");
-            }
-            else
-            {
-                DateTime.TryParseExact(sceneStartTimeText,
-                                       dateFormatPattern,
-                                       CultureInfo.InvariantCulture,
-                                       DateTimeStyles.None,
-                                       out sceneStartTime);
-            }
-            String sceneStopTimeText = metadataFileText.FindStringWithinAnchorText("SCENE STOP TIME", "ORBIT", true, true);
-            DateTime sceneStopTime;
-            if (String.IsNullOrEmpty(sceneStartTimeText))
-            {
-                throw new Exception("Radarsat1 Scene End Time Cannot be null");
-            }
-            else
-            {
+                catch (Exception ex)
+                {
+                    throw new FileLoadException(ex.Message);
+                }
+                String sceneID = metadataFileText.FindStringWithinAnchorText("SCENE_ID", "MDA ORDER NUMBER", true, true);
+                String mdaOrderNumber = metadataFileText.FindStringWithinAnchorText("MDA ORDER NUMBER", "GEOGRAPHICAL AREA", true, true);
+                String geographicalArea = metadataFileText.FindStringWithinAnchorText("GEOGRAPHICAL AREA", "SCENE START TIME", true, true);
+                String sceneStartTimeText = metadataFileText.FindStringWithinAnchorText("SCENE START TIME", "SCENE STOP TIME", true, true);
+                String dateFormatPattern = "MMM dd yyyy HH:mm:ss.FFF";
+                DateTime sceneStartTime;
+                if (String.IsNullOrEmpty(sceneStartTimeText))
+                {
+                    throw new ArgumentNullException("Radarsat1 Scene Start Time Cannot be null");
+                }
+                else
+                {
+                    DateTime.TryParseExact(sceneStartTimeText,
+                                           dateFormatPattern,
+                                           CultureInfo.InvariantCulture,
+                                           DateTimeStyles.None,
+                                           out sceneStartTime);
+                }
+                String sceneStopTimeText = metadataFileText.FindStringWithinAnchorText("SCENE STOP TIME", "ORBIT", true, true);
+                DateTime sceneStopTime;
+                if (String.IsNullOrEmpty(sceneStartTimeText))
+                {
+                    throw new ArgumentNullException("Radarsat1 Scene End Time Cannot be null");
+                }
+                else
+                {
 
-                DateTime.TryParseExact(sceneStopTimeText,
-                                       dateFormatPattern,
-                                       CultureInfo.InvariantCulture,
-                                       DateTimeStyles.None,
-                                       out sceneStopTime);
-            }
-            String orbit = metadataFileText.FindStringWithinAnchorText("ORBIT", "ORBIT DATA TYPE", true, true);
-            String orbitDataType = metadataFileText.FindStringWithinAnchorText("ORBIT DATA TYPE", "APPLICATION LUT", true, true);
-            String applicationLut = metadataFileText.FindStringWithinAnchorText("APPLICATION LUT", "BEAM MODE", true, true);
-            String beamMode = metadataFileText.FindStringWithinAnchorText("BEAM MODE", "PRODUCT TYPE", true, true);
-            String productType = metadataFileText.FindStringWithinAnchorText("PRODUCT TYPE","FORMAT", true, true);
-            String format = metadataFileText.FindStringWithinAnchorText("FORMAT", "# OF IMAGE LINES", true, true);
-            Int32 numberImageLines = -1;
-            Int32.TryParse(metadataFileText.FindStringWithinAnchorText("# OF IMAGE LINES", "# OF IMAGE PIXELS", true, true), out numberImageLines);
-            Int32 numberImagePixels = -1;
-            Int32.TryParse(metadataFileText.FindStringWithinAnchorText("# OF IMAGE PIXELS","PIXEL SPACING", true, true), out numberImagePixels);
-            String pixelSpacing = metadataFileText.FindStringWithinAnchorText("PIXEL SPACING","SCENE CENTRE", true, true);
+                    DateTime.TryParseExact(sceneStopTimeText,
+                                           dateFormatPattern,
+                                           CultureInfo.InvariantCulture,
+                                           DateTimeStyles.None,
+                                           out sceneStopTime);
+                }
+                String orbit = metadataFileText.FindStringWithinAnchorText("ORBIT", "ORBIT DATA TYPE", true, true);
+                String orbitDataType = metadataFileText.FindStringWithinAnchorText("ORBIT DATA TYPE", "APPLICATION LUT", true, true);
+                String applicationLut = metadataFileText.FindStringWithinAnchorText("APPLICATION LUT", "BEAM MODE", true, true);
+                String beamMode = metadataFileText.FindStringWithinAnchorText("BEAM MODE", "PRODUCT TYPE", true, true);
+                String productType = metadataFileText.FindStringWithinAnchorText("PRODUCT TYPE", "FORMAT", true, true);
+                String format = metadataFileText.FindStringWithinAnchorText("FORMAT", "# OF IMAGE LINES", true, true);
+                Int32 numberImageLines = -1;
+                Int32.TryParse(metadataFileText.FindStringWithinAnchorText("# OF IMAGE LINES", "# OF IMAGE PIXELS", true, true), out numberImageLines);
+                Int32 numberImagePixels = -1;
+                Int32.TryParse(metadataFileText.FindStringWithinAnchorText("# OF IMAGE PIXELS", "PIXEL SPACING", true, true), out numberImagePixels);
+                String pixelSpacing = metadataFileText.FindStringWithinAnchorText("PIXEL SPACING", "SCENE CENTRE", true, true);
 
-            // get the scene centre coordinates
-            String sceneCentre = metadataFileText.FindStringWithinAnchorText("SCENE CENTRE", "CORNER COORDINATES", true, true);
-            Coordinate c = new Coordinate();
-            string[] latLongSplit = sceneCentre.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
-            // latitude first
-            c.Latitude = GetLatitude(latLongSplit[0], c);
-            // longitude
-            c.Longitude = GetLongitude(latLongSplit[1],c);
-            GeographicLocation centre = new GeographicLocation
-            (
-                c.Latitude.ToDouble(),
-                c.Longitude.ToDouble()
-            );
-            
-            // now get the corner coordinates
-            String cornerCoordinatesString = metadataFileText.FindStringWithinAnchorText("CORNER COORDINATES:", "For information on RADARSAT CEOS format see README.TXT", true, true);
-            ImageObservationCornerCoordinates cornerCoords = GetCornerCoordinates(cornerCoordinatesString);
-            
-            Radarsat1Observation observation = new Radarsat1Observation(
-                String.Empty,
-                sceneID,
-                mdaOrderNumber,
-                geographicalArea,
-                sceneStartTime,
-                sceneStopTime
-            )
-            {
-                Orbit = orbit,
-                OrbitDataType = orbitDataType,
-                ApplicationLut = applicationLut,
-                BeamMode = beamMode,
-                ProductType = productType,
-                Format = format,
-                NumberImageLines = numberImageLines,
-                NumberImagePixels = numberImagePixels,
-                PixelSpacing = pixelSpacing,
-                SceneCentre = centre,
-                Corners = cornerCoords
-            };
-            
+                // when loading coordinates, disable celestial calculations (not needed)
+                EagerLoad load = new EagerLoad
+                {
+                    Celestial = false,
+                    Cartesian = true,
+                    UTM_MGRS = true
+                };
+
+                // get the scene centre coordinates. Centre is spelled properly in Canadian, eh.
+                String sceneCentre = metadataFileText.FindStringWithinAnchorText("SCENE CENTRE", "CORNER COORDINATES", true, true);
+                string[] latLongSplit = sceneCentre.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+                Coordinate c = new Coordinate(load);
+                c.Latitude = GetLatitude(latLongSplit[0], c);
+                c.Longitude = GetLongitude(latLongSplit[1], c);
+                GeographicLocation centre = new GeographicLocation
+                (
+                    c.Latitude.ToDouble(),
+                    c.Longitude.ToDouble(),
+                    c.EagerLoadSettings
+                );
+
+                // get the image corner coordinates
+                String cornerCoordinatesString = metadataFileText.FindStringWithinAnchorText("CORNER COORDINATES:", "For information on RADARSAT CEOS format see README.TXT", true, true);
+                ImageObservationCornerCoordinates cornerCoords = GetCornerCoordinates(cornerCoordinatesString);
+
+                // Create a new Radarsat1 Earth Observation image
+                observation = new Radarsat1Observation(
+                    String.Empty,
+                    sceneID,
+                    mdaOrderNumber,
+                    geographicalArea,
+                    sceneStartTime,
+                    sceneStopTime
+                )
+                {
+                    Orbit = orbit,
+                    OrbitDataType = orbitDataType,
+                    ApplicationLut = applicationLut,
+                    BeamMode = beamMode,
+                    ProductType = productType,
+                    Format = format,
+                    NumberImageLines = numberImageLines,
+                    NumberImagePixels = numberImagePixels,
+                    PixelSpacing = pixelSpacing,
+                    SceneCentre = centre,
+                    Corners = cornerCoords
+                };
+                
+            }
             return observation;
         }
 
@@ -150,16 +164,22 @@ namespace DeploySoftware.LaunchPad.Space.Satellites.Canada
         /// </summary>
         /// <param name="cornerCoordinatesString">The coordinate information to parse</param>
         /// <returns>An ImageObservationCornerCoordinates object containing four coordinate points for each side of a square</returns>
-        private static ImageObservationCornerCoordinates GetCornerCoordinates(string cornerCoordinatesString)
+        protected ImageObservationCornerCoordinates GetCornerCoordinates(string cornerCoordinatesString)
         {
             string[] coordinates = Regex.Split(cornerCoordinatesString, @"(?<=[N,S,E,W])");
-            ImageObservationCornerCoordinates cornerCoords = new ImageObservationCornerCoordinates();
+            // disable the celestial information (not needed)
+            EagerLoad load = new EagerLoad
+            {
+                Celestial = false,
+                Cartesian = true,
+                UTM_MGRS = true
+            };
+            ImageObservationCornerCoordinates cornerCoords = new ImageObservationCornerCoordinates(load);
 
             // upper left latitude
             if (!String.IsNullOrEmpty(coordinates[0]))
             {
                 cornerCoords.UpperLeft.Latitude = GetLatitude(coordinates[0].Trim(), cornerCoords.UpperLeft);
-
             }
             // upper left longitude
             if (!String.IsNullOrEmpty(coordinates[2]))
@@ -207,7 +227,7 @@ namespace DeploySoftware.LaunchPad.Space.Satellites.Canada
         /// <param name="v">The latitude value to attempt to populate from</param>
         /// <param name="c">The coordinate which contains this latitude coordinate part</param>
         /// <returns>A coordinate containing the parsed latitude</returns>
-        private static CoordinatePart GetLatitude(string v, Coordinate c)
+        protected CoordinatePart GetLatitude(string v, Coordinate c)
         {
             CoordinatePart cp = null;
             string latitudeCoordinatesPosition = v.Substring(v.Length - 1, 1);
@@ -236,7 +256,7 @@ namespace DeploySoftware.LaunchPad.Space.Satellites.Canada
         /// <param name="v">The longitude value to attempt to populate from</param>
         /// <param name="c">The coordinate which contains this longitude coordinate part</param>
         /// <returns>A coordinate containing the parsed longitude</returns>
-        private static CoordinatePart GetLongitude(string v, Coordinate c)
+        protected CoordinatePart GetLongitude(string v, Coordinate c)
         {
             CoordinatePart cp = null;
             string longitudeCoordinatesPosition = v.Substring(v.Length - 1, 1);

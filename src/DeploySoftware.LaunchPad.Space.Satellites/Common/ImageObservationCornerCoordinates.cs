@@ -35,9 +35,21 @@ namespace DeploySoftware.LaunchPad.Space.Satellites.Common
         public ImageObservationCornerCoordinates()
         {
             UpperLeft = new Coordinate();
+            UpperLeft.EagerLoadSettings.Celestial = false;
             UpperRight = new Coordinate();
+            UpperRight.EagerLoadSettings.Celestial = false;
             LowerLeft = new Coordinate();
+            LowerLeft.EagerLoadSettings.Celestial = false;
             LowerRight = new Coordinate();
+            LowerRight.EagerLoadSettings.Celestial = false;
+        }
+
+        public ImageObservationCornerCoordinates(EagerLoad load)
+        {
+            UpperLeft = new Coordinate(load);
+            UpperRight = new Coordinate(load);
+            LowerLeft = new Coordinate(load);
+            LowerRight = new Coordinate(load);
         }
     }
 }
