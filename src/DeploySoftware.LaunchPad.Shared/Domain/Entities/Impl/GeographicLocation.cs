@@ -65,13 +65,6 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         public virtual double Latitude
         {
             get { return _earthCoordinate.Latitude.ToDouble(); }
-            set
-            {
-                Guard.Against<ArgumentException>(double.IsNaN(value), DeploySoftware_LaunchPad_Shared_Resources.Guard_GeographicLocation_Set_Latitude_NaN);
-                Guard.Against<ArgumentOutOfRangeException>(value < -90 || value > 90, DeploySoftware_LaunchPad_Shared_Resources.Guard_GeographicLocation_Set_Latitude_InvalidRange);                
-                CoordinatePart cpLatitude = new CoordinatePart(value, CoordinateType.Lat, EarthCoordinate);
-                _earthCoordinate.Latitude = cpLatitude;
-            }
         }
 
         [DataObjectField(false)]
@@ -79,14 +72,6 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         public virtual double Longitude
         {
             get { return _earthCoordinate.Longitude.ToDouble(); }
-            set
-            {
-                Guard.Against<ArgumentException>(double.IsNaN(value), DeploySoftware_LaunchPad_Shared_Resources.Guard_GeographicLocation_Set_Longitude_NaN);
-                Guard.Against<ArgumentOutOfRangeException>(value <= -180 || value > 180, DeploySoftware_LaunchPad_Shared_Resources.Guard_GeographicLocation_Set_Longitude_InvalidRange);
-                CoordinatePart cpLongitude = new CoordinatePart(CoordinateType.Long, EarthCoordinate);
-                CoordinatePart.TryParse(value.ToString(), out cpLongitude);
-                _earthCoordinate.Longitude = cpLongitude;
-            }
         }
 
         /// <summary>
@@ -99,8 +84,8 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
             EagerLoad load = new EagerLoad
             {
                 Cartesian = false,
-                Celestial = true,
-                UTM_MGRS = true
+                Celestial = false,
+                UTM_MGRS = false
             };
             EarthCoordinate = new Coordinate(51.476852, -0.000500, new DateTime(2000, 1, 1).ToUniversalTime(), load);
         }
@@ -111,8 +96,8 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
             EagerLoad load = new EagerLoad
             {
                 Cartesian = false,
-                Celestial = true,
-                UTM_MGRS = true
+                Celestial = false,
+                UTM_MGRS = false
             };
             EarthCoordinate = new Coordinate(latitude, longitude, load);
         }
@@ -131,8 +116,6 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         public GeographicLocation(SerializationInfo info, StreamingContext context)
         {
             Elevation = (double)info.GetDouble("Elevation");
-            Latitude = (double)info.GetDouble("Latitude");
-            Longitude = (double)info.GetDouble("Longitude");
             EarthCoordinate = (Coordinate)info.GetValue("EarthCoordinate",typeof(Coordinate));
         }
 

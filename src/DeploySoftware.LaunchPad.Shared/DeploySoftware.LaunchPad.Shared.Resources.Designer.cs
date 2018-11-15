@@ -214,16 +214,7 @@ namespace DeploySoftware.LaunchPad.Shared {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Value must be between -90(inclusive) and 90(inclusive)..
-        /// </summary>
-        public static string Guard_GeographicLocation_Set_Latitude_InvalidRange {
-            get {
-                return ResourceManager.GetString("Guard_GeographicLocation_Set_Latitude_InvalidRange", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Latitude must be a valid number..
+        ///   Looks up a localized string similar to Value was either too large or too small for a Decimal..
         /// </summary>
         public static string Guard_GeographicLocation_Set_Latitude_NaN {
             get {
@@ -232,20 +223,47 @@ namespace DeploySoftware.LaunchPad.Shared {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Value must be between -180 and 180 (inclusive)..
+        ///   Looks up a localized string similar to Latitudinal coordinate decimal cannot be greater than 90.
         /// </summary>
-        public static string Guard_GeographicLocation_Set_Longitude_InvalidRange {
+        public static string Guard_GeographicLocation_Set_Latitude_Not_GreaterThan_90 {
             get {
-                return ResourceManager.GetString("Guard_GeographicLocation_Set_Longitude_InvalidRange", resourceCulture);
+                return ResourceManager.GetString("Guard_GeographicLocation_Set_Latitude_Not_GreaterThan_90", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Longitude must be a valid number..
+        ///   Looks up a localized string similar to Latitudinal coordinate decimal cannot be less than 90..
+        /// </summary>
+        public static string Guard_GeographicLocation_Set_Latitude_Not_LessThan_Minus_90 {
+            get {
+                return ResourceManager.GetString("Guard_GeographicLocation_Set_Latitude_Not_LessThan_Minus_90", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Value was either too large or too small for a Decimal..
         /// </summary>
         public static string Guard_GeographicLocation_Set_Longitude_NaN {
             get {
                 return ResourceManager.GetString("Guard_GeographicLocation_Set_Longitude_NaN", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Longitudinal coordinate decimal cannot be less than 180..
+        /// </summary>
+        public static string Guard_GeographicLocation_Set_Longitude_Not_LessThan_Minus180 {
+            get {
+                return ResourceManager.GetString("Guard_GeographicLocation_Set_Longitude_Not_LessThan_Minus180", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Longitudinal coordinate decimal cannot be greater than 180..
+        /// </summary>
+        public static string Guard_GeographicLocation_Set_Longitude_Not_MoreThan_180 {
+            get {
+                return ResourceManager.GetString("Guard_GeographicLocation_Set_Longitude_Not_MoreThan_180", resourceCulture);
             }
         }
         

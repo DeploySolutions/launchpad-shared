@@ -22,6 +22,7 @@ namespace DeploySoftware.LaunchPad.Shared.Tests
     using DeploySoftware.LaunchPad.Shared.Domain;
     using System;
     using CoordinateSharp;
+    using Xunit.Sdk;
 
     public class GeographicLocationTests
     {
@@ -32,6 +33,20 @@ namespace DeploySoftware.LaunchPad.Shared.Tests
         #endregion
 
 
+        [Fact]
+        public void Eager_Loading_GeographicLocation_Should_Not_Throw_Error()
+        {
+            double lat = 0.0;
+            double longi = 0.0;
+            EagerLoad load = new EagerLoad()
+            {
+                UTM_MGRS = true,
+                Cartesian = true,
+                Celestial = true
+            };
+            Action act = () => new GeographicLocation(lat, longi, load);
+            act.Should().NotThrow<Exception>();
+        }
 
         [Fact]
         public void Should_Have_Valid_Elevation_Number_When_Instantiated()
@@ -48,72 +63,75 @@ namespace DeploySoftware.LaunchPad.Shared.Tests
         [Fact]
         public void Should_Have_Valid_Latitude_Number_When_Instantiated()
         {
-            GeographicLocation location = new GeographicLocation();
             double latitude = double.NaN;
-            CoordinatePart.TryParse(latitude.ToString(), out CoordinatePart cp);
-            Action act = () => location.EarthCoordinate.Latitude = cp;
-            act.Should().Throw<ArgumentException>()
-                .WithMessage("*" + DeploySoftware_LaunchPad_Shared_Resources.Guard_GeographicLocation_Set_Latitude_NaN + "*");
+            double longitude = 0.0;
+            OverflowException ex = Assert.Throws<OverflowException>(
+                () => new GeographicLocation(latitude, longitude)
+            );
+            Assert.Contains(DeploySoftware_LaunchPad_Shared_Resources.Guard_GeographicLocation_Set_Latitude_NaN, ex.Message);
         }
 
         //latitude value are wrong if < -90 || value > 90
         [Fact]
-        public void Should_Have_Latitude_Less_Than_Minus90_When_Instantiated()
+        public void Should_Not_Allow_Latitude_Less_Than_Minus_90()
         {
             GeographicLocation location = new GeographicLocation();
             double latitude = -90.001;
-            CoordinatePart.TryParse(latitude.ToString(), out CoordinatePart cp);
-            Action act = () => location.EarthCoordinate.Latitude = cp;
-            act.Should().Throw<ArgumentException>()
-                .WithMessage("*" + DeploySoftware_LaunchPad_Shared_Resources.Guard_GeographicLocation_Set_Latitude_InvalidRange + "*");
+            double longitude = 0.0;
+            ArgumentOutOfRangeException ex = Assert.Throws<ArgumentOutOfRangeException>(
+               () => new GeographicLocation(latitude, longitude)
+            );
+            Assert.Contains(DeploySoftware_LaunchPad_Shared_Resources.Guard_GeographicLocation_Set_Latitude_Not_LessThan_Minus_90, ex.Message);
         }
 
         //latitude values are wrong if < -90 || value > 90
         [Fact]
-        public void Should_Have_Latitude_Less_Than_90_When_Instantiated()
+        public void Should_Not_Allow_Latitude_Greater_Than_90()
         {
             GeographicLocation location = new GeographicLocation();
             double latitude = 90.001;
-            CoordinatePart.TryParse(latitude.ToString(), out CoordinatePart cp);
-            Action act = () => location.EarthCoordinate.Latitude = cp;
-            act.Should().Throw<ArgumentException>()
-                .WithMessage("*" + DeploySoftware_LaunchPad_Shared_Resources.Guard_GeographicLocation_Set_Latitude_InvalidRange + "*");
+            double longitude = 0.0;
+            ArgumentOutOfRangeException ex = Assert.Throws<ArgumentOutOfRangeException>(
+               () => new GeographicLocation(latitude, longitude)
+            );
+            Assert.Contains(DeploySoftware_LaunchPad_Shared_Resources.Guard_GeographicLocation_Set_Latitude_Not_GreaterThan_90, ex.Message);
         }
 
         [Fact]
         public void Should_Have_Valid_Longitude_Number_When_Instantiated()
         {
-            GeographicLocation location = new GeographicLocation();
+            double latitude = 0.0;
             double longitude = double.NaN;
-            CoordinatePart.TryParse(longitude.ToString(), out CoordinatePart cp);
-            Action act = () => location.EarthCoordinate.Longitude = cp;
-            act.Should().Throw<ArgumentException>()
-                 .WithMessage("*" + DeploySoftware_LaunchPad_Shared_Resources.Guard_GeographicLocation_Set_Longitude_NaN + "*");
+            OverflowException ex = Assert.Throws<OverflowException>(
+                () => new GeographicLocation(latitude, longitude)
+            ); 
+            Assert.Contains(DeploySoftware_LaunchPad_Shared_Resources.Guard_GeographicLocation_Set_Longitude_NaN,ex.Message);
         }
-
 
         //longitude value are wrong if <= -180 || value > 180
         [Fact]
-        public void Should_Have_Longitude_Less_Than_Minus180_When_Instantiated()
+        public void Should_Not_Allow_Longitude_LessThan_Minus180()
         {
             GeographicLocation location = new GeographicLocation();
+            double latitude = 0.0;
             double longitude = -180.001;
-            CoordinatePart.TryParse(longitude.ToString(), out CoordinatePart cp);
-            Action act = () => location.EarthCoordinate.Longitude = cp;
-            act.Should().Throw<ArgumentException>()
-                 .WithMessage("*" + DeploySoftware_LaunchPad_Shared_Resources.Guard_GeographicLocation_Set_Longitude_InvalidRange + "*");
+            ArgumentOutOfRangeException ex = Assert.Throws<ArgumentOutOfRangeException>(
+               () => new GeographicLocation(latitude, longitude)
+            );
+            Assert.Contains(DeploySoftware_LaunchPad_Shared_Resources.Guard_GeographicLocation_Set_Longitude_Not_LessThan_Minus180, ex.Message);
         }
 
         //longitude value are wrong if <= -180 || value > 180
         [Fact]
-        public void Should_Have_Longitude_Less_Than_180_When_Instantiated()
+        public void Should_Not_Allow_Longitude_MoreThan_180()
         {
             GeographicLocation location = new GeographicLocation();
+            double latitude = 0.0;
             double longitude = 180.001;
-            CoordinatePart.TryParse(longitude.ToString(), out CoordinatePart cp);
-            Action act = () => location.EarthCoordinate.Longitude = cp;
-            act.Should().Throw<ArgumentException>()
-                .WithMessage("*" + DeploySoftware_LaunchPad_Shared_Resources.Guard_GeographicLocation_Set_Longitude_InvalidRange + "*");
+            ArgumentOutOfRangeException ex = Assert.Throws<ArgumentOutOfRangeException>(
+               () => new GeographicLocation(latitude, longitude)
+            );
+            Assert.Contains(DeploySoftware_LaunchPad_Shared_Resources.Guard_GeographicLocation_Set_Longitude_Not_MoreThan_180, ex.Message);
         }
         
         [Fact]
