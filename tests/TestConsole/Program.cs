@@ -49,7 +49,8 @@ namespace DeploySoftware.LaunchPad.Space.Tests.TestConsole
             }
 
             // setup Elasticsearch
-            var pool = new SingleNodeConnectionPool(new Uri("http://localhost:9200"));
+            var pool = new SingleNodeConnectionPool(
+                new Uri(System.Configuration.ConfigurationManager.AppSettings["ElasticSearchUri"]));
             var settings = new ConnectionSettings(pool, (builtInSerializer, connectionSettings) =>
             new JsonNetSerializer(builtInSerializer, connectionSettings, () => new JsonSerializerSettings
             {

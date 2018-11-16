@@ -21,8 +21,9 @@ namespace DeploySoftware.LaunchPad.Space.Satellites.Common
     using System;
     using System.ComponentModel.DataAnnotations;
     using DeploySoftware.LaunchPad.Shared.Domain;
+    using System.Collections.Generic;
 
-    public abstract class EarthObservationImageBase<TPrimaryKey> : DomainEntityBase<TPrimaryKey>, IEarthObservationImage<TPrimaryKey>
+    public abstract class EarthObservationBase<TPrimaryKey> : DomainEntityBase<TPrimaryKey>, IEarthObservation<TPrimaryKey>
     {
         public const int MaxNameLength = 4 * 1024; //4KB
         public const int MaxDescriptionLength = 4 * 1024; //4KB
@@ -32,10 +33,7 @@ namespace DeploySoftware.LaunchPad.Space.Satellites.Common
 
         [Required]
         public virtual ImageObservationCornerCoordinates Corners { get; set; }
-
-        [Required]
-        public virtual string TIFImagePath { get; set; }
-
+        
         [Required]
         [StringLength(MaxNameLength)]
         public virtual string Name { get; set; }
@@ -48,5 +46,13 @@ namespace DeploySoftware.LaunchPad.Space.Satellites.Common
 
         public virtual DateTime? LastModificationTime { get; set; }
         
+        [Required]
+        public IObservationFiles<TPrimaryKey> ObservationFiles { get; set; }
+
+        public EarthObservationBase() : base()
+        {
+
+        }
+
     }
 }

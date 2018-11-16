@@ -44,14 +44,14 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         /// <summary>
         /// Each entity can have an open-ended set of metadata applied to it, that helps to describe it.
         /// </summary>
-        [DataObjectField(true)]
+        [DataObjectField(false)]
         [XmlAttribute]
         public virtual MetadataInformation Metadata { get; set; }
 
         /// <summary>
         /// Each entity can have an open-ended set of tags applied to it, that help users find, markup, and display its information
         /// </summary>
-        [DataObjectField(true)]
+        [DataObjectField(false)]
         [XmlAttribute]
         public virtual IEnumerable<MetadataTag<TPrimaryKey>> Tags { get; set; }
 

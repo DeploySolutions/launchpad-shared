@@ -18,17 +18,18 @@
 namespace DeploySoftware.LaunchPad.Shared.Domain
 {
     using System;
+    using System.Collections.Generic;
 
     /// <summary>
     /// Marks any object as a file that can be manipulated by the platform.
     /// Each file is uniquely identified by its FileKey.
     /// </summary>
-    public interface IFile : ILaunchPadObject
+    public interface IFile<TPrimaryKey> : ILaunchPadObject
     {
         /// <summary>
         /// The ID that uniquely identifies this object (usually the full file path and filename).
         /// </summary>
-        FileKey Key { get; set; }        
+        FileKey GlobalKey { get; set; }        
 
         /// <summary>
         /// The size of the file, in bytes
@@ -39,10 +40,22 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         /// The name of the file
         /// </summary>
         String FileName { get; set; }
+        
+        /// <summary>
+        /// The full path of the file
+        /// </summary>
+        String FilePath { get; }
+
+        /// <summary>
+        /// The extension of the file
+        /// </summary>
+        String FileExtension { get; }
 
         /// <summary>
         /// The byte-array content of the file
         /// </summary>
         Byte[] Data { get; set; }
+
+        IEnumerable<MetadataTag<TPrimaryKey>> Tags { get; set; }
     }
 }

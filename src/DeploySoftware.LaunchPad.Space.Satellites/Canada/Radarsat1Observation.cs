@@ -31,10 +31,21 @@ namespace DeploySoftware.LaunchPad.Space.Satellites.Canada
     using Abp.Timing;
     using DeploySoftware.LaunchPad.Shared.Domain;
     using DeploySoftware.LaunchPad.Space.Satellites.Common;
+    using DeploySoftware.LaunchPad.Space.Satellites.Common.ObservationFiles;
 
     [Table("Radarsat1Observations")]
-    public class Radarsat1Observation : EarthObservationImageBase<Guid>, IHasCreationTime, IHasModificationTime
+    public class Radarsat1Observation : EarthObservationBase<Guid>, IHasCreationTime, IHasModificationTime
     {
+        public enum FileTypes
+        {
+            nvol = 0,
+            sard = 1,
+            sarl = 2,
+            sart = 3,
+            tif = 4,
+            tfw = 5,
+            vol = 6 
+        }
 
         [Required]
         public string SceneId { get; set; }
@@ -77,9 +88,10 @@ namespace DeploySoftware.LaunchPad.Space.Satellites.Canada
 
         [Required]
         public string PixelSpacing { get; set; }
+       
+        public Radarsat1ObservationFiles<Guid> Files { get; set; }
 
         public Radarsat1Observation(
-            string _tifImagePath,
            string _sceneId,
            string _mdaOrderNumber,
            string _geographicalArea,
@@ -88,7 +100,6 @@ namespace DeploySoftware.LaunchPad.Space.Satellites.Canada
         )
         {
             Id = Guid.NewGuid();
-            TIFImagePath = _tifImagePath;
             SceneId = _sceneId;
             MdaOrderNumber = _mdaOrderNumber;
             GeographicalArea = _geographicalArea;
@@ -99,7 +110,6 @@ namespace DeploySoftware.LaunchPad.Space.Satellites.Canada
         }
 
         public Radarsat1Observation(
-           string _tifImagePath,
            string _sceneId,
            string _mdaOrderNumber,
            string _geographicalArea,
@@ -119,7 +129,6 @@ namespace DeploySoftware.LaunchPad.Space.Satellites.Canada
         )
         {
             Id = Guid.NewGuid();
-            TIFImagePath = _tifImagePath;
             SceneId = _sceneId;
             MdaOrderNumber = _mdaOrderNumber;
             GeographicalArea = _geographicalArea;
@@ -139,11 +148,35 @@ namespace DeploySoftware.LaunchPad.Space.Satellites.Canada
             CreationTime = Clock.Now;
             LastModificationTime = Clock.Now;
         }
+        
 
         protected Radarsat1Observation()
         {
 
         }
-        
+
+        public class Radarsat1ObservationFiles<Guid> : IObservationFiles<Guid>
+        {
+            public NvolFile<Guid> Nvol { get; set; }
+
+            public SardFile<Guid> Sard { get; set; }
+
+            public SarlFile<Guid> Sarl { get; set; }
+
+            public SartFile<Guid> Sart { get; set; }
+
+            public TifFile<Guid> TifOriginal { get; set; }
+
+            public TifFile<Guid> TifThumbnail { get; set; }
+
+            public TifFile<Guid> TifMedium { get; set; }
+
+            public TifFile<Guid> TifLarge { get; set; }
+
+            public TfwFile<Guid> Tfw { get; set; }
+
+            public VolFile<Guid> Vol { get; set; }
+        }
+
     }
 }

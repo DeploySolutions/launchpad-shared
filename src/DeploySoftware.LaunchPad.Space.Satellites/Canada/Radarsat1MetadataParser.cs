@@ -22,7 +22,10 @@ namespace DeploySoftware.LaunchPad.Space.Satellites.Canada
     using DeploySoftware.LaunchPad.Shared.Domain;
     using DeploySoftware.LaunchPad.Shared.Util;
     using DeploySoftware.LaunchPad.Space.Satellites.Common;
+    using DeploySoftware.LaunchPad.Space.Satellites.Common.ObservationFiles;
     using System;
+    using System.Collections;
+    using System.Collections.Generic;
     using System.Globalization;
     using System.IO;
     using System.Text;
@@ -62,6 +65,7 @@ namespace DeploySoftware.LaunchPad.Space.Satellites.Canada
                 {
                     throw new FileLoadException(ex.Message);
                 }
+                String radarsatUniqueID = Path.GetFileNameWithoutExtension(metadataFileKey.UniqueKey);
                 String sceneID = metadataFileText.FindStringWithinAnchorText("SCENE_ID", "MDA ORDER NUMBER", true, true);
                 String mdaOrderNumber = metadataFileText.FindStringWithinAnchorText("MDA ORDER NUMBER", "GEOGRAPHICAL AREA", true, true);
                 String geographicalArea = metadataFileText.FindStringWithinAnchorText("GEOGRAPHICAL AREA", "SCENE START TIME", true, true);
@@ -131,32 +135,147 @@ namespace DeploySoftware.LaunchPad.Space.Satellites.Canada
                 // get the image corner coordinates
                 String cornerCoordinatesString = metadataFileText.FindStringWithinAnchorText("CORNER COORDINATES:", "For information on RADARSAT CEOS format see README.TXT", true, true);
                 ImageObservationCornerCoordinates cornerCoords = GetCornerCoordinates(cornerCoordinatesString);
+                
 
                 // Create a new Radarsat1 Earth Observation image
                 observation = new Radarsat1Observation(
-                    String.Empty,
                     sceneID,
                     mdaOrderNumber,
                     geographicalArea,
                     sceneStartTime,
-                    sceneStopTime
+                    sceneStopTime,
+                    orbit,
+                    orbitDataType,
+                    applicationLut,
+                    beamMode,
+                    productType,
+                    format,
+                    numberImageLines,
+                    numberImagePixels,
+                    pixelSpacing,
+                    centre,
+                    cornerCoords
                 )
                 {
-                    Orbit = orbit,
-                    OrbitDataType = orbitDataType,
-                    ApplicationLut = applicationLut,
-                    BeamMode = beamMode,
-                    ProductType = productType,
-                    Format = format,
-                    NumberImageLines = numberImageLines,
-                    NumberImagePixels = numberImagePixels,
-                    PixelSpacing = pixelSpacing,
-                    SceneCentre = centre,
-                    Corners = cornerCoords
+                    Name = radarsatUniqueID,
+                    Description = radarsatUniqueID
                 };
                 
             }
+            observation.Files = LoadExpectedObservationFiles(observation, metadataFileKey);
             return observation;
+        }
+
+        protected Radarsat1Observation.Radarsat1ObservationFiles<Guid> LoadExpectedObservationFiles(Radarsat1Observation observation, FileKey metadataFileKey)
+        {
+            // get the list of related observation files
+            String baseFilePath = metadataFileKey.UniqueKey.Substring(0, metadataFileKey.UniqueKey.Length - 4);
+            IList<KeyValuePair<Radarsat1Observation.FileTypes, String>> expectedFiles = new List<KeyValuePair<Radarsat1Observation.FileTypes, String>>();
+            expectedFiles.Add(new KeyValuePair<Radarsat1Observation.FileTypes, string>(
+                Radarsat1Observation.FileTypes.nvol,
+                baseFilePath + ".nvol"
+                )
+            );
+            expectedFiles.Add(new KeyValuePair<Radarsat1Observation.FileTypes, string>(
+                Radarsat1Observation.FileTypes.sard, baseFilePath + "." + Radarsat1Observation.FileTypes.sard
+                )
+            );
+            expectedFiles.Add(new KeyValuePair<Radarsat1Observation.FileTypes, string>(
+                Radarsat1Observation.FileTypes.sarl, baseFilePath + "." + Radarsat1Observation.FileTypes.sarl
+                )
+            );
+            expectedFiles.Add(new KeyValuePair<Radarsat1Observation.FileTypes, string>(
+                Radarsat1Observation.FileTypes.sart, baseFilePath + "." + Radarsat1Observation.FileTypes.sart
+                )
+            );
+            expectedFiles.Add(new KeyValuePair<Radarsat1Observation.FileTypes, string>(
+                Radarsat1Observation.FileTypes.tfw, baseFilePath + "." + Radarsat1Observation.FileTypes.tfw
+                )
+            );
+            expectedFiles.Add(new KeyValuePair<Radarsat1Observation.FileTypes, string>(
+                Radarsat1Observation.FileTypes.tif, baseFilePath + "." + Radarsat1Observation.FileTypes.tif
+                )
+            );
+            expectedFiles.Add(new KeyValuePair<Radarsat1Observation.FileTypes, string>(
+                Radarsat1Observation.FileTypes.vol, baseFilePath + "." + Radarsat1Observation.FileTypes.vol
+                )
+            );
+
+            // initialize the list of observation files
+            Radarsat1Observation.Radarsat1ObservationFiles<Guid> observationFiles = new Radarsat1Observation.Radarsat1ObservationFiles<Guid>();
+
+            // add each expected file type (if it exists)
+            if (File.Exists(expectedFiles[0].Value))
+            {
+                observationFiles.Nvol = new NvolFile<Guid>()
+                {
+                    Id = Guid.NewGuid(),
+                    ParentObservationKey = observation.GlobalKey,
+                    FileName = Path.GetFileName(expectedFiles[0].Value),
+                    FilePath = expectedFiles[0].Value
+                };
+            }
+            if (File.Exists(expectedFiles[1].Value))
+            {
+                observationFiles.Sard = new SardFile<Guid>()
+                {
+                    Id = Guid.NewGuid(),
+                    ParentObservationKey = observation.GlobalKey,
+                    FileName = Path.GetFileName(expectedFiles[1].Value),
+                    FilePath = expectedFiles[1].Value
+                };
+            }
+            if (File.Exists(expectedFiles[2].Value))
+            {
+                observationFiles.Sarl = new SarlFile<Guid>()
+                {
+                    Id = Guid.NewGuid(),
+                    ParentObservationKey = observation.GlobalKey,
+                    FileName = Path.GetFileName(expectedFiles[2].Value),
+                    FilePath = expectedFiles[2].Value
+                };
+            }
+            if (File.Exists(expectedFiles[3].Value))
+            {
+                observationFiles.Sart = new SartFile<Guid>()
+                {
+                    Id = Guid.NewGuid(),
+                    ParentObservationKey = observation.GlobalKey,
+                    FileName = Path.GetFileName(expectedFiles[3].Value),
+                    FilePath = expectedFiles[3].Value
+                };
+            }
+            if (File.Exists(expectedFiles[4].Value))
+            {
+                observationFiles.Tfw = new TfwFile<Guid>()
+                {
+                    Id = Guid.NewGuid(),
+                    ParentObservationKey = observation.GlobalKey,
+                    FileName = Path.GetFileName(expectedFiles[4].Value),
+                    FilePath = expectedFiles[4].Value
+                };
+            }
+            if (File.Exists(expectedFiles[5].Value))
+            {
+                observationFiles.TifOriginal = new TifFile<Guid>()
+                {
+                    Id = Guid.NewGuid(),
+                    ParentObservationKey = observation.GlobalKey,
+                    FileName = Path.GetFileName(expectedFiles[5].Value),
+                    FilePath = expectedFiles[5].Value
+                };
+            }
+            if (File.Exists(expectedFiles[6].Value))
+            {
+                observationFiles.Vol = new VolFile<Guid>()
+                {
+                    Id = Guid.NewGuid(),
+                    ParentObservationKey = observation.GlobalKey,
+                    FileName = Path.GetFileName(expectedFiles[6].Value),
+                    FilePath = expectedFiles[6].Value
+                };
+            }
+            return observationFiles;
         }
 
         /// <summary>
