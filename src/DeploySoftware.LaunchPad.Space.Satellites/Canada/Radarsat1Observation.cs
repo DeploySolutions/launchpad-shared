@@ -165,12 +165,16 @@ namespace DeploySoftware.LaunchPad.Space.Satellites.Canada
 
             public SartFile<Guid> Sart { get; set; }
 
+            // Original image resolution (unmodified)
             public TifFile<Guid> TifOriginal { get; set; }
 
+            // Thumbnail(default 150px x 150px max)
             public TifFile<Guid> TifThumbnail { get; set; }
 
+            // Medium resolution (default 300px x 300px max)
             public TifFile<Guid> TifMedium { get; set; }
 
+            // Large resolution (default 1024px x 1024px max)
             public TifFile<Guid> TifLarge { get; set; }
 
             public TfwFile<Guid> Tfw { get; set; }

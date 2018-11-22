@@ -23,19 +23,29 @@ using Newtonsoft.Json;
 
 namespace DeploySoftware.LaunchPad.Space.Tests.TestConsole
 {
+    using DeploySoftware.LaunchPad.Images;
+    using ImageMagick;
     using System;
     using System.Collections.Generic;
     using System.IO;
 
     class Program
     {
+        protected static readonly string DataRootPath = @"F:\Data\Radarsat1\";
+
         static void Main(string[] args)
+        {
+            RadarsatImageSearchExample();
+            CompareSatelliteImageExample();
+        }
+
+        private static void RadarsatImageSearchExample()
         {
             // Load a set of images from Radarsat1 metadata
             List<Radarsat1Observation> images = new List<Radarsat1Observation>();
             Radarsat1Observation image = null;
             Radarsat1MetadataParser parser = new Radarsat1MetadataParser();
-            string[] files = Directory.GetFiles("F:\\Data\\Radarsat1", "*", SearchOption.AllDirectories);
+            string[] files = Directory.GetFiles(DataRootPath, "*", SearchOption.AllDirectories);
             foreach (string file in files)
             {
                 if (file.EndsWith(".txt")) // only load the metadata files
@@ -66,7 +76,37 @@ namespace DeploySoftware.LaunchPad.Space.Tests.TestConsole
             {
                 _elasticSearch.IndexDocument(img); // add the images to the index
             }
+        }
 
+        private static void CompareSatelliteImageExample()
+        {
+            MagickImage imageA = new MagickImage(new FileInfo(DataRootPath + @"Tuktoyaktuk\Radarsat1_Images\RS1_m0700829_S7_19970329_151016_HH_SGF\RS1_m0700829_S7_19970329_151016_HH_SGF.tif"));
+            MagickImage imageB = new MagickImage(new FileInfo(DataRootPath + @"Tuktoyaktuk\Radarsat1_Images\RS1_m0700835_S5_20120919_152932_HH_SGF\RS1_m0700835_S5_20120919_152932_HH_SGF.tif"));
+            CompareSettings compareSettings = new CompareSettings()
+            {
+                Metric = ErrorMetric.Absolute,
+                HighlightColor = MagickColor.FromRgb(255, 255, 255), // white
+                LowlightColor = MagickColor.FromRgb(0, 0, 0), // black
+
+            };
+            FileInfo info = new FileInfo(DataRootPath + @"Tuktoyaktuk\compareA.tif");
+            byte[] diffImage = ImageComparer.Compare(imageA, imageB, compareSettings, info);
+            byte[] thumbImage = new ThumbnailGenerator().GetThumbnailMedium(diffImage, MagickFormat.Jpeg);
+            FileInfo thumbFile = new FileInfo(DataRootPath + @"Tuktoyaktuk\compareA_thumb_medium.jpeg");
+            using (var fs = new FileStream(thumbFile.FullName, FileMode.Create, FileAccess.Write))
+            {
+                fs.Write(thumbImage, 0, thumbImage.Length);
+            }
+
+            compareSettings.Metric = ErrorMetric.Fuzz;
+            FileInfo info2 = new FileInfo(DataRootPath + @"Tuktoyaktuk\compareFuzz.tif");
+            ImageComparer.Compare(imageA, imageB, compareSettings, info2);
+
+            compareSettings.Metric = ErrorMetric.MeanAbsolute;
+            FileInfo info3 = new FileInfo(DataRootPath + @"Tuktoyaktuk\compareMeanAbsolute.tif");
+            ImageComparer.Compare(imageA, imageB, compareSettings, info3);
+
+            
         }
     }
 }
