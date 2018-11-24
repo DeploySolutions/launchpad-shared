@@ -5,6 +5,7 @@ namespace DeploySoftware.LaunchPad.Images
 {
     using Abp.Domain.Services;
     using ImageMagick;
+    using System.IO;
     using static DeploySoftware.LaunchPad.Images.ImageManager;
 
     /// <summary>
@@ -12,6 +13,12 @@ namespace DeploySoftware.LaunchPad.Images
     /// </summary>
     public interface IImageManager : IDomainService
     {
+        /// <summary>
+        /// Get a MagickImage object from the provided file
+        /// </summary>
+        /// <param name="imageFile">The image we wish to load</param>
+        /// <returns>The image, in MagickImage format</returns>
+        MagickImage GetMagickImageFromFile(FileInfo imageFile);
 
         /// <summary>
         /// Compare two images, using the provided comparison settings

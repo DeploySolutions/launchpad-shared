@@ -21,6 +21,7 @@ namespace DeploySoftware.LaunchPad.Images.Tests
     using FluentAssertions;
     using ImageMagick;
     using System;
+    using System.IO;
     using Xunit;
 
     public class ImageManagerTests : IClassFixture<ImageManagerTestsFixture>
@@ -65,5 +66,17 @@ namespace DeploySoftware.LaunchPad.Images.Tests
             act.Should().Throw<NullReferenceException>()
                  .WithMessage(DeploySoftware_LaunchPad_Images_Resources.Guard_ImageManager_Thumbnail_ImageB_NullReferenceException);
         }
+
+
+        [Fact]
+        public void GetMagickImageFromFile_Invalid_FilePath_Should_Throw_InvalidOperationException()
+        {
+            FileInfo info = new FileInfo(@"not_a_valid_path");
+
+            Action act = () => _fixture.SUT.GetMagickImageFromFile(info);
+            act.Should().Throw<InvalidOperationException>()
+                .WithMessage(DeploySoftware_LaunchPad_Images_Resources.Exception_ImageManager_GetMagickImageFromFile_InvalidOperationException);
+        }
+
     }
 }

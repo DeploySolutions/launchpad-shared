@@ -70,6 +70,15 @@ namespace DeploySoftware.LaunchPad.Images {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to ImageMagick threw an error when attempting to create a new MagickImage from the provide information.
+        /// </summary>
+        public static string Exception_ImageManager_GetMagickImageFromFile_InvalidOperationException {
+            get {
+                return ResourceManager.GetString("Exception_ImageManager_GetMagickImageFromFile_InvalidOperationException", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Height must be greater than 0.
         /// </summary>
         public static string Guard_ImageManager_Thumbnail_Height_ArgumentOutOfRangeException {

@@ -47,7 +47,6 @@ namespace DeploySoftware.LaunchPad.Images
         /// <returns>A byte array of a new image displaying the differences, if any</returns>
         public byte[] Compare(MagickImage imageA, MagickImage imageB, CompareSettings compareSettings )
         {
-            new ImageMagickConfiguration();
             using (MagickImage magicDiffImage = new MagickImage())
             {
                 magicDiffImage.Format = MagickFormat.Tif;

@@ -21,6 +21,7 @@ namespace DeploySoftware.LaunchPad.Images
     using Abp.Domain.Services;
     using DeploySoftware.LaunchPad.Shared.Util;
     using System;
+    using System.IO;
 
     /// <summary>
     /// Domain service for handling Image domain entities
@@ -61,6 +62,25 @@ namespace DeploySoftware.LaunchPad.Images
             ImageMagickConfiguration config = new ImageMagickConfiguration(policyMap, temporaryImagesFilePath);
             _comparer = new ImageComparer(config);
             _thumbnail = new ThumbnailGenerator(config);
+        }
+
+        /// <summary>
+        /// Get a MagickImage object from the provided file
+        /// </summary>
+        /// <param name="imageFile">The image we wish to load</param>
+        /// <returns>The image, in MagickImage format</returns>
+        public MagickImage GetMagickImageFromFile(FileInfo imageFile)
+        {
+            MagickImage image = null;
+            try
+            {
+                image = new MagickImage(imageFile);
+            }
+            catch (MagickException)
+            {
+                throw new InvalidOperationException(DeploySoftware_LaunchPad_Images_Resources.Exception_ImageManager_GetMagickImageFromFile_InvalidOperationException);
+            }
+            return image;
         }
 
         /// <summary>

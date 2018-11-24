@@ -82,8 +82,10 @@ namespace DeploySoftware.LaunchPad.Space.Tests.TestConsole
         private static void CompareSatelliteImageExample()
         {
             ImageManager imageMan = new ImageManager();
-            MagickImage imageA = new MagickImage(new FileInfo(DataRootPath + @"Tuktoyaktuk\Radarsat1_Images\RS1_m0700829_S7_19970329_151016_HH_SGF\RS1_m0700829_S7_19970329_151016_HH_SGF.tif"));
-            MagickImage imageB = new MagickImage(new FileInfo(DataRootPath + @"Tuktoyaktuk\Radarsat1_Images\RS1_m0700835_S5_20120919_152932_HH_SGF\RS1_m0700835_S5_20120919_152932_HH_SGF.tif"));
+            MagickImage imageA = imageMan.GetMagickImageFromFile(
+                new FileInfo(DataRootPath + @"Tuktoyaktuk\Radarsat1_Images\RS1_m0700829_S7_19970329_151016_HH_SGF\RS1_m0700829_S7_19970329_151016_HH_SGF.tif"));
+            MagickImage imageB = imageMan.GetMagickImageFromFile(
+                new FileInfo(DataRootPath + @"Tuktoyaktuk\Radarsat1_Images\RS1_m0700835_S5_20120919_152932_HH_SGF\RS1_m0700835_S5_20120919_152932_HH_SGF.tif"));
             CompareSettings compareSettings = new CompareSettings()
             {
                 Metric = ErrorMetric.Absolute,
