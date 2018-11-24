@@ -115,11 +115,11 @@ namespace DeploySoftware.LaunchPad.Space.Tests.TestConsole
 
             compareSettings.Metric = ErrorMetric.Fuzz;
             FileInfo info2 = new FileInfo(DataRootPath + @"Tuktoyaktuk\compareFuzz.tif");
-            imageMan.CompareImages(imageA.ToByteArray(), imageB.ToByteArray(), compareSettings);
+            imageMan.CompareImages(imageA, imageB, compareSettings);
 
             compareSettings.Metric = ErrorMetric.MeanAbsolute;
             FileInfo info3 = new FileInfo(DataRootPath + @"Tuktoyaktuk\compareMeanAbsolute.tif");
-            imageMan.CompareImages(imageA.ToByteArray(), imageB.ToByteArray(), compareSettings);
+            imageMan.CompareImages(imageA, imageB, compareSettings);
 
 
         }

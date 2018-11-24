@@ -22,6 +22,8 @@ namespace DeploySoftware.LaunchPad.Images
     using DeploySoftware.LaunchPad.Shared.Util;
     using System;
     using System.IO;
+    using Castle.Core.Logging;
+    using Castle.Facilities.Logging;
 
     /// <summary>
     /// Domain service for handling Image domain entities
@@ -47,7 +49,7 @@ namespace DeploySoftware.LaunchPad.Images
         /// A reference to the ThumbnailGenerator object which makes thumbnails out of provided images
         /// </summary>
         protected readonly ThumbnailGenerator _thumbnail = null;
-
+        
         public ImageManager()
         {
             // Create the default ImageMagick configuration, which also initializes the underlying ImageMagick utility
@@ -62,7 +64,8 @@ namespace DeploySoftware.LaunchPad.Images
             ImageMagickConfiguration config = new ImageMagickConfiguration(policyMap, temporaryImagesFilePath);
             _comparer = new ImageComparer(config);
             _thumbnail = new ThumbnailGenerator(config);
-        }
+            Logger = NullLogger.Instance; // logger should be loaded by ABP property injection, but if not don't raise errors
+    }
 
         /// <summary>
         /// Get a MagickImage object from the provided file
@@ -76,8 +79,13 @@ namespace DeploySoftware.LaunchPad.Images
             {
                 image = new MagickImage(imageFile);
             }
-            catch (MagickException)
+            catch (MagickException ex)
             {
+                Logger.Error(
+                    DeploySoftware_LaunchPad_Images_Resources.Exception_ImageManager_GetMagickImageFromFile_InvalidOperationException
+                    + " : "
+                    + ex.Message
+                );
                 throw new InvalidOperationException(DeploySoftware_LaunchPad_Images_Resources.Exception_ImageManager_GetMagickImageFromFile_InvalidOperationException);
             }
             return image;
@@ -101,8 +109,13 @@ namespace DeploySoftware.LaunchPad.Images
             {
                 diffImage = CompareImages(new MagickImage(imageA), new MagickImage(imageB), settings);
             }
-            catch (MagickMissingDelegateErrorException)
+            catch (MagickMissingDelegateErrorException ex)
             {
+                Logger.Error(
+                    DeploySoftware_LaunchPad_Images_Resources.Exception_ImageManager_CompareImages_MagickMissingDelegateErrorException
+                    + " : "
+                   + ex.Message
+                );
                 throw new ArgumentException(DeploySoftware_LaunchPad_Images_Resources.Exception_ImageManager_CompareImages_MagickMissingDelegateErrorException);
             }
             return diffImage;
@@ -124,8 +137,13 @@ namespace DeploySoftware.LaunchPad.Images
             {
                 diffImage = _comparer.Compare(imageA, imageB, settings);
             }
-            catch (MagickMissingDelegateErrorException)
+            catch (MagickMissingDelegateErrorException ex)
             {
+                Logger.Error(
+                   DeploySoftware_LaunchPad_Images_Resources.Exception_ImageManager_CompareImages_MagickMissingDelegateErrorException
+                   + " : "
+                   + ex.Message
+               );
                 throw new ArgumentException(DeploySoftware_LaunchPad_Images_Resources.Exception_ImageManager_CompareImages_MagickMissingDelegateErrorException);
             }
             return diffImage;
