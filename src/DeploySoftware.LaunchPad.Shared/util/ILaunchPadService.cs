@@ -14,7 +14,8 @@
 //See the License for the specific language governing permissions and 
 //limitations under the License. 
 #endregion
-    
+
+using Abp.Domain.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,9 +27,9 @@ namespace DeploySoftware.LaunchPad.Shared.Util
     /// This is a marker interface to support auto-registration as a IoC / Dependency Injection component.
     /// By convention, any interface under a namespace ending with "Services" will be registered upon application startup.
     /// However, some component services may wish to autoregister while under another namespace.
-    /// Implementing the IService interface will ensure they are auto-registered. 
+    /// Implementing the ILaunchPadService interface will ensure they are auto-registered. 
     /// </summary>
-    public interface IService
+    public interface ILaunchPadService: IDomainService
     {
     }
 }

@@ -24,8 +24,20 @@ namespace DeploySoftware.LaunchPad.Images
     /// <summary>
     /// This class compares two provided images, using Magick.NET library (ImageMagick wrapper).
     /// </summary>
-    public static class ImageComparer
+    public class ImageComparer
     {
+
+        private readonly ImageMagickConfiguration _config;
+
+        protected ImageComparer()
+        {
+      
+        }
+
+        public ImageComparer(ImageMagickConfiguration config)
+        {
+            _config = config;
+        }
 
         /// <summary>
         /// Utility method to compare two images
@@ -33,7 +45,7 @@ namespace DeploySoftware.LaunchPad.Images
         /// <param name="imageA">A reference to the first image which will be compared against, in MagickImage format</param>
         /// <param name="imageB">A reference to the second image which will be compared against, in MagickImage format</param>
         /// <returns>A byte array of a new image displaying the differences, if any</returns>
-        public static byte[] Compare(MagickImage imageA, MagickImage imageB, CompareSettings compareSettings, FileInfo fileToSave)
+        public byte[] Compare(MagickImage imageA, MagickImage imageB, CompareSettings compareSettings )
         {
             new ImageMagickConfiguration();
             using (MagickImage magicDiffImage = new MagickImage())
@@ -42,7 +54,6 @@ namespace DeploySoftware.LaunchPad.Images
                 imageA.ColorFuzz = new Percentage(50); // set a fairly low percentage to identify differences, without picking up every tiny artefact
                 
                 imageA.Compare(imageB, compareSettings, magicDiffImage);
-                magicDiffImage.Write(fileToSave);
                 return  magicDiffImage.ToByteArray();
             }
         }

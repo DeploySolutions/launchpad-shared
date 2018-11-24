@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>net461;netcoreapp2.0</TargetFrameworks>
+    <TargetFrameworks>netstandard2;net461</TargetFrameworks>
     <Company>Deploy Software Solutions, inc.</Company>
     <Authors>Nicholas Kellett</Authors>
     <Description>Shared code for manipulating images in the LaunchPad framework.</Description>
@@ -14,7 +14,27 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Magick.NET-Q16-HDRI-AnyCPU" Version="7.9.0.1" />
+    <PackageReference Include="Magick.NET-Q16-HDRI-AnyCPU" Version="7.9.0.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\DeploySoftware.LaunchPad.Shared\DeploySoftware.LaunchPad.Shared.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="DeploySoftware.LaunchPad.Images.Resources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>DeploySoftware.LaunchPad.Images.Resources.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="DeploySoftware.LaunchPad.Images.Resources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>DeploySoftware.LaunchPad.Images.Resources.Designer.cs</LastGenOutput>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
   </ItemGroup>
 
 </Project>

@@ -30,7 +30,7 @@ namespace DeploySoftware.LaunchPad.Shared.Tests
 
         #endregion
 
-        private DeviceTestsFixture _fixture;
+        private readonly DeviceTestsFixture _fixture;
 
         public DeviceTests(DeviceTestsFixture fixture)
         {

@@ -35,7 +35,7 @@ namespace DeploySoftware.LaunchPad.Space.Tests
 
         #endregion
 
-        private Radarsat1MetadataFileFixture _fixture;
+        private readonly Radarsat1MetadataFileFixture _fixture;
 
         public Radarsat1MetadataParserTests(Radarsat1MetadataFileFixture fixture)
         {

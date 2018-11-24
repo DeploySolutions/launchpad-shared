@@ -18,15 +18,17 @@
 
 namespace DeploySoftware.LaunchPad.Images
 {
+    using DeploySoftware.LaunchPad.Shared.Util;
     using ImageMagick;
     using System.IO;
 
     /// <summary>
     /// This class creates thumbnails from provided images, using Magick.NET library (ImageMagick wrapper)
     /// </summary>
-    public class ThumbnailGenerator
+    public class ThumbnailGenerator : ILaunchPadService
     {
-        
+        private readonly ImageMagickConfiguration _config;
+
         /// <summary>
         /// The width of the small thumbnail format, in pixels
         /// </summary>
@@ -58,9 +60,14 @@ namespace DeploySoftware.LaunchPad.Images
 
         public int ThumbnailLargeHeight { get; set; } = 600;
 
-        public ThumbnailGenerator()
+        protected ThumbnailGenerator()
         {
-            new ImageMagickConfiguration();
+            
+        }
+
+        public ThumbnailGenerator(ImageMagickConfiguration config)
+        {
+            _config = config;
         }
 
         /// <summary>

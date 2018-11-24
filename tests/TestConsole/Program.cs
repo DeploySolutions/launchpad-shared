@@ -28,6 +28,7 @@ namespace DeploySoftware.LaunchPad.Space.Tests.TestConsole
     using System;
     using System.Collections.Generic;
     using System.IO;
+    using static DeploySoftware.LaunchPad.Images.ImageManager;
 
     class Program
     {
@@ -80,6 +81,7 @@ namespace DeploySoftware.LaunchPad.Space.Tests.TestConsole
 
         private static void CompareSatelliteImageExample()
         {
+            ImageManager imageMan = new ImageManager();
             MagickImage imageA = new MagickImage(new FileInfo(DataRootPath + @"Tuktoyaktuk\Radarsat1_Images\RS1_m0700829_S7_19970329_151016_HH_SGF\RS1_m0700829_S7_19970329_151016_HH_SGF.tif"));
             MagickImage imageB = new MagickImage(new FileInfo(DataRootPath + @"Tuktoyaktuk\Radarsat1_Images\RS1_m0700835_S5_20120919_152932_HH_SGF\RS1_m0700835_S5_20120919_152932_HH_SGF.tif"));
             CompareSettings compareSettings = new CompareSettings()
@@ -90,23 +92,34 @@ namespace DeploySoftware.LaunchPad.Space.Tests.TestConsole
 
             };
             FileInfo info = new FileInfo(DataRootPath + @"Tuktoyaktuk\compareA.tif");
-            byte[] diffImage = ImageComparer.Compare(imageA, imageB, compareSettings, info);
-            byte[] thumbImage = new ThumbnailGenerator().GetThumbnailMedium(diffImage, MagickFormat.Jpeg);
+            byte[] diffImage = imageMan.CompareImages(imageA, imageB, compareSettings);
+            byte[] thumbImage = imageMan.GetThumbnailFromImage(diffImage, ThumbnailSize.Large);
             FileInfo thumbFile = new FileInfo(DataRootPath + @"Tuktoyaktuk\compareA_thumb_medium.jpeg");
-            using (var fs = new FileStream(thumbFile.FullName, FileMode.Create, FileAccess.Write))
+            
+            if (diffImage.Length > 0)
             {
-                fs.Write(thumbImage, 0, thumbImage.Length);
+                using (var fs = new FileStream(info.FullName, FileMode.Create, FileAccess.Write))
+                {
+                    fs.Write(diffImage, 0, diffImage.Length);
+                }
+            }
+            if (thumbImage.Length > 0)
+            {
+                using (var fs = new FileStream(thumbFile.FullName, FileMode.Create, FileAccess.Write))
+                {
+                    fs.Write(thumbImage, 0, thumbImage.Length);
+                }
             }
 
             compareSettings.Metric = ErrorMetric.Fuzz;
             FileInfo info2 = new FileInfo(DataRootPath + @"Tuktoyaktuk\compareFuzz.tif");
-            ImageComparer.Compare(imageA, imageB, compareSettings, info2);
+            imageMan.CompareImages(imageA.ToByteArray(), imageB.ToByteArray(), compareSettings);
 
             compareSettings.Metric = ErrorMetric.MeanAbsolute;
             FileInfo info3 = new FileInfo(DataRootPath + @"Tuktoyaktuk\compareMeanAbsolute.tif");
-            ImageComparer.Compare(imageA, imageB, compareSettings, info3);
+            imageMan.CompareImages(imageA.ToByteArray(), imageB.ToByteArray(), compareSettings);
 
-            
+
         }
     }
 }
