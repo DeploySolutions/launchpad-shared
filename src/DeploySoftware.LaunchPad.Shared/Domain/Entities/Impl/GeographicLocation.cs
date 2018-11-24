@@ -210,9 +210,9 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         /// <returns>True if both objects are fully equal based on the Equals logic</returns>
         public static bool operator ==(GeographicLocation x, GeographicLocation y)
         {
-            if (System.Object.ReferenceEquals(x, null))
+            if (ReferenceEquals(x, null))
             {
-                if (System.Object.ReferenceEquals(y, null))
+                if (ReferenceEquals(y, null))
                 {
                     return true;
                 }
