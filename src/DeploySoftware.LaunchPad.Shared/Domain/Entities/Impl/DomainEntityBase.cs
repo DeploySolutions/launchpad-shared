@@ -39,21 +39,21 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         /// </summary>
         [DataObjectField(true)]
         [XmlAttribute]
-        public virtual DomainEntityKey GlobalKey { get; set; }
+        public DomainEntityKey GlobalKey { get; set; }
 
         /// <summary>
         /// Each entity can have an open-ended set of metadata applied to it, that helps to describe it.
         /// </summary>
         [DataObjectField(false)]
         [XmlAttribute]
-        public virtual MetadataInformation Metadata { get; set; }
+        public MetadataInformation Metadata { get; set; }
 
         /// <summary>
         /// Each entity can have an open-ended set of tags applied to it, that help users find, markup, and display its information
         /// </summary>
         [DataObjectField(false)]
         [XmlAttribute]
-        public virtual IEnumerable<MetadataTag<TPrimaryKey>> Tags { get; set; }
+        public IEnumerable<MetadataTag<TPrimaryKey>> Tags { get; set; }
 
         #region Implementation of ASP.NET Boilerplate's IEntity interface
 
@@ -62,7 +62,7 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         #endregion
 
         /// <summary>  
-        /// Initializes a new instance of the <see cref="EntityBase">Entity</see> class
+        /// Initializes a new instance of the <see cref="DomainEntityBase">Entity</see> class
         /// </summary>
         protected DomainEntityBase()
         {
@@ -72,7 +72,7 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         }
 
         /// <summary>
-        /// Creates a new instance of the <see cref="EntityBase">Entity</see> class given a key, and some metadata. 
+        /// Creates a new instance of the <see cref="DomainEntityBase">Entity</see> class given a key, and some metadata. 
         /// </summary>
         /// <param name="key">The unique identifier for this entity</param>
         /// <param name="metadata">The desired metadata for this entity</param>

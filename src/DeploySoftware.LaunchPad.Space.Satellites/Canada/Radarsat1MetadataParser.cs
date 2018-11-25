@@ -15,6 +15,7 @@
 //limitations under the License. 
 #endregion
 
+
 namespace DeploySoftware.LaunchPad.Space.Satellites.Canada
 {
 
@@ -24,7 +25,6 @@ namespace DeploySoftware.LaunchPad.Space.Satellites.Canada
     using DeploySoftware.LaunchPad.Space.Satellites.Common;
     using DeploySoftware.LaunchPad.Space.Satellites.Common.ObservationFiles;
     using System;
-    using System.Collections;
     using System.Collections.Generic;
     using System.Globalization;
     using System.IO;
@@ -45,15 +45,17 @@ namespace DeploySoftware.LaunchPad.Space.Satellites.Canada
         /// subject to the following license terms: https://open.canada.ca/en/open-government-licence-canada
         /// </summary>
         /// <param name="metadataFileKey">The filepath/filename of the Radarsat1 metadata file</param>
+        /// <exception cref="ArgumentNullException"></exception>
         /// <returns>A populated Radarsat1Observation object containing the metadata values, or null if the object couldn't be populated</returns>
         /// <throws>A FileLoadException if the file cannot be found or loaded</throws>
         public Radarsat1Observation GetRadarsat1ObservationFromMetadataFile(FileKey metadataFileKey)
         {
             Radarsat1Observation observation = null;
             // Radarsat 1 metadata files are in .txt format
+            // ReSharper disable once RedundantAssignment
+            var metadataFileText = string.Empty;
             if (metadataFileKey.UniqueKey.EndsWith(".txt"))
             {
-                String metadataFileText = String.Empty;
                 try
                 {   // Open the Radarsat1 Metadata text file
                     using (StreamReader sr = new StreamReader(metadataFileKey.UniqueKey, Encoding.GetEncoding("iso-8859-1")))
@@ -65,50 +67,39 @@ namespace DeploySoftware.LaunchPad.Space.Satellites.Canada
                 {
                     throw new FileLoadException(ex.Message);
                 }
-                String radarsatUniqueID = Path.GetFileNameWithoutExtension(metadataFileKey.UniqueKey);
-                String sceneID = metadataFileText.FindStringWithinAnchorText("SCENE_ID", "MDA ORDER NUMBER", true, true);
+                String radarsatUniqueId = Path.GetFileNameWithoutExtension(metadataFileKey.UniqueKey);
+                String sceneId = metadataFileText.FindStringWithinAnchorText("SCENE_ID", "MDA ORDER NUMBER", true, true);
                 String mdaOrderNumber = metadataFileText.FindStringWithinAnchorText("MDA ORDER NUMBER", "GEOGRAPHICAL AREA", true, true);
                 String geographicalArea = metadataFileText.FindStringWithinAnchorText("GEOGRAPHICAL AREA", "SCENE START TIME", true, true);
                 String sceneStartTimeText = metadataFileText.FindStringWithinAnchorText("SCENE START TIME", "SCENE STOP TIME", true, true);
-                String dateFormatPattern = "MMM dd yyyy HH:mm:ss.FFF";
-                DateTime sceneStartTime;
-                if (String.IsNullOrEmpty(sceneStartTimeText))
-                {
-                    throw new ArgumentNullException("Radarsat1 Scene Start Time Cannot be null");
-                }
-                else
-                {
-                    DateTime.TryParseExact(sceneStartTimeText,
-                                           dateFormatPattern,
-                                           CultureInfo.InvariantCulture,
-                                           DateTimeStyles.None,
-                                           out sceneStartTime);
-                }
+                const string dateFormatPattern = "MMM dd yyyy HH:mm:ss.FFF";
+                Guard.Against<ArgumentNullException>(
+                    String.IsNullOrEmpty(sceneStartTimeText),
+                    DeploySoftware_LaunchPad_Space_Resources.Exception_Radarsat1MetadataParser_GetRadarsat1ObservationFromMetadataFile_SceneStartTime_ArgumentNullExpection
+                );
+                DateTime.TryParseExact(sceneStartTimeText,
+                                       dateFormatPattern,
+                                       CultureInfo.InvariantCulture,
+                                       DateTimeStyles.None,
+                                       out DateTime sceneStartTime);
                 String sceneStopTimeText = metadataFileText.FindStringWithinAnchorText("SCENE STOP TIME", "ORBIT", true, true);
-                DateTime sceneStopTime;
-                if (String.IsNullOrEmpty(sceneStartTimeText))
-                {
-                    throw new ArgumentNullException("Radarsat1 Scene End Time Cannot be null");
-                }
-                else
-                {
-
-                    DateTime.TryParseExact(sceneStopTimeText,
+                Guard.Against<ArgumentNullException>(
+                    String.IsNullOrEmpty(sceneStopTimeText),
+                    DeploySoftware_LaunchPad_Space_Resources.Exception_Radarsat1MetadataParser_GetRadarsat1ObservationFromMetadataFile_SceneStopTime_ArgumentNullExpection
+                    );
+                DateTime.TryParseExact(sceneStopTimeText,
                                            dateFormatPattern,
                                            CultureInfo.InvariantCulture,
                                            DateTimeStyles.None,
-                                           out sceneStopTime);
-                }
+                                           out DateTime sceneStopTime);
                 String orbit = metadataFileText.FindStringWithinAnchorText("ORBIT", "ORBIT DATA TYPE", true, true);
                 String orbitDataType = metadataFileText.FindStringWithinAnchorText("ORBIT DATA TYPE", "APPLICATION LUT", true, true);
                 String applicationLut = metadataFileText.FindStringWithinAnchorText("APPLICATION LUT", "BEAM MODE", true, true);
                 String beamMode = metadataFileText.FindStringWithinAnchorText("BEAM MODE", "PRODUCT TYPE", true, true);
                 String productType = metadataFileText.FindStringWithinAnchorText("PRODUCT TYPE", "FORMAT", true, true);
                 String format = metadataFileText.FindStringWithinAnchorText("FORMAT", "# OF IMAGE LINES", true, true);
-                Int32 numberImageLines = -1;
-                Int32.TryParse(metadataFileText.FindStringWithinAnchorText("# OF IMAGE LINES", "# OF IMAGE PIXELS", true, true), out numberImageLines);
-                Int32 numberImagePixels = -1;
-                Int32.TryParse(metadataFileText.FindStringWithinAnchorText("# OF IMAGE PIXELS", "PIXEL SPACING", true, true), out numberImagePixels);
+                Int32.TryParse(metadataFileText.FindStringWithinAnchorText("# OF IMAGE LINES", "# OF IMAGE PIXELS", true, true), out var numberImageLines);
+                Int32.TryParse(metadataFileText.FindStringWithinAnchorText("# OF IMAGE PIXELS", "PIXEL SPACING", true, true), out var numberImagePixels);
                 String pixelSpacing = metadataFileText.FindStringWithinAnchorText("PIXEL SPACING", "SCENE CENTRE", true, true);
 
                 // when loading coordinates, disable celestial calculations (not needed)
@@ -121,7 +112,12 @@ namespace DeploySoftware.LaunchPad.Space.Satellites.Canada
 
                 // get the scene centre coordinates. Centre is spelled properly in Canadian, eh.
                 String sceneCentre = metadataFileText.FindStringWithinAnchorText("SCENE CENTRE", "CORNER COORDINATES", true, true);
-                string[] latLongSplit = sceneCentre.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+                Guard.Against<ArgumentNullException>(
+                    String.IsNullOrEmpty(sceneCentre),
+                    DeploySoftware_LaunchPad_Space_Resources.Exception_Radarsat1MetadataParser_GetRadarsat1ObservationFromMetadataFile_SceneCentre_ArgumentNullExpection
+                );
+                // ReSharper disable once PossibleNullReferenceException
+                string[] latLongSplit = sceneCentre.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
                 Coordinate c = new Coordinate(load);
                 c.Latitude = GetLatitude(latLongSplit[0], c);
                 c.Longitude = GetLongitude(latLongSplit[1], c);
@@ -134,12 +130,16 @@ namespace DeploySoftware.LaunchPad.Space.Satellites.Canada
 
                 // get the image corner coordinates
                 String cornerCoordinatesString = metadataFileText.FindStringWithinAnchorText("CORNER COORDINATES:", "For information on RADARSAT CEOS format see README.TXT", true, true);
+                Guard.Against<ArgumentNullException>(
+                    String.IsNullOrEmpty(cornerCoordinatesString),
+                    DeploySoftware_LaunchPad_Space_Resources.Exception_Radarsat1MetadataParser_GetRadarsat1ObservationFromMetadataFile_CornerCoordinates_ArgumentNullExpection
+                );
                 ImageObservationCornerCoordinates cornerCoords = GetCornerCoordinates(cornerCoordinatesString);
                 
 
                 // Create a new Radarsat1 Earth Observation image
                 observation = new Radarsat1Observation(
-                    sceneID,
+                    sceneId,
                     mdaOrderNumber,
                     geographicalArea,
                     sceneStartTime,
@@ -157,47 +157,49 @@ namespace DeploySoftware.LaunchPad.Space.Satellites.Canada
                     cornerCoords
                 )
                 {
-                    Name = radarsatUniqueID,
-                    Description = radarsatUniqueID
+                    Name = radarsatUniqueId,
+                    Description = radarsatUniqueId
                 };
                 
             }
+            
+            // ReSharper disable once PossibleNullReferenceException
             observation.Files = LoadExpectedObservationFiles(observation, metadataFileKey);
             return observation;
         }
 
-        protected Radarsat1Observation.Radarsat1ObservationFiles<Guid> LoadExpectedObservationFiles(Radarsat1Observation observation, FileKey metadataFileKey)
+        protected Radarsat1Observation.Radarsat1ObservationFiles LoadExpectedObservationFiles(Radarsat1Observation observation, FileKey metadataFileKey)
         {
             // get the list of related observation files
             String baseFilePath = metadataFileKey.UniqueKey.Substring(0, metadataFileKey.UniqueKey.Length - 4);
             IList<KeyValuePair<Radarsat1Observation.FileTypes, String>> expectedFiles = new List<KeyValuePair<Radarsat1Observation.FileTypes, String>>
             {
                 new KeyValuePair<Radarsat1Observation.FileTypes, string>(
-                Radarsat1Observation.FileTypes.nvol,
-                baseFilePath + "." + Radarsat1Observation.FileTypes.nvol
+                Radarsat1Observation.FileTypes.Nvol,
+                baseFilePath + "." + Radarsat1Observation.FileTypes.Nvol
                 ),
                 new KeyValuePair<Radarsat1Observation.FileTypes, string>(
-                Radarsat1Observation.FileTypes.sard, baseFilePath + "." + Radarsat1Observation.FileTypes.sard
+                Radarsat1Observation.FileTypes.Sard, baseFilePath + "." + Radarsat1Observation.FileTypes.Sard
                 ),
                 new KeyValuePair<Radarsat1Observation.FileTypes, string>(
-                Radarsat1Observation.FileTypes.sarl, baseFilePath + "." + Radarsat1Observation.FileTypes.sarl
+                Radarsat1Observation.FileTypes.Sarl, baseFilePath + "." + Radarsat1Observation.FileTypes.Sarl
                 ),
                 new KeyValuePair<Radarsat1Observation.FileTypes, string>(
-                Radarsat1Observation.FileTypes.sart, baseFilePath + "." + Radarsat1Observation.FileTypes.sart
+                Radarsat1Observation.FileTypes.Sart, baseFilePath + "." + Radarsat1Observation.FileTypes.Sart
                 ),
                 new KeyValuePair<Radarsat1Observation.FileTypes, string>(
-                Radarsat1Observation.FileTypes.tfw, baseFilePath + "." + Radarsat1Observation.FileTypes.tfw
+                Radarsat1Observation.FileTypes.Tfw, baseFilePath + "." + Radarsat1Observation.FileTypes.Tfw
                 ),
                 new KeyValuePair<Radarsat1Observation.FileTypes, string>(
-                Radarsat1Observation.FileTypes.tif, baseFilePath + "." + Radarsat1Observation.FileTypes.tif
+                Radarsat1Observation.FileTypes.Tif, baseFilePath + "." + Radarsat1Observation.FileTypes.Tif
                 ),
                 new KeyValuePair<Radarsat1Observation.FileTypes, string>(
-                Radarsat1Observation.FileTypes.vol, baseFilePath + "." + Radarsat1Observation.FileTypes.vol
+                Radarsat1Observation.FileTypes.Vol, baseFilePath + "." + Radarsat1Observation.FileTypes.Vol
                 )
             };
 
             // initialize the list of observation files
-            Radarsat1Observation.Radarsat1ObservationFiles<Guid> observationFiles = new Radarsat1Observation.Radarsat1ObservationFiles<Guid>();
+            Radarsat1Observation.Radarsat1ObservationFiles observationFiles = new Radarsat1Observation.Radarsat1ObservationFiles();
 
             // add each expected file type (if it exists)
             if (File.Exists(expectedFiles[0].Value))
@@ -343,14 +345,13 @@ namespace DeploySoftware.LaunchPad.Space.Satellites.Canada
         /// <returns>A coordinate containing the parsed latitude</returns>
         protected CoordinatePart GetLatitude(string v, Coordinate c)
         {
-            CoordinatePart cp = null;
+            CoordinatePart cp;
             string latitudeCoordinatesPosition = v.Substring(v.Length - 1, 1);
-            string latitudeCoordinates = v.Substring(0, v.Length - 1);
-            string degreeString = StringParser.FindStringWithinAnchorText(v, String.Empty, "°", true, true);
+            string degreeString = v.FindStringWithinAnchorText(String.Empty, "°", true, true);
             Int32.TryParse(degreeString, out int degree);
-            string minuteString = StringParser.FindStringWithinAnchorText(v, "°", "'", true, true);
+            string minuteString = v.FindStringWithinAnchorText("°", "'", true, true);
             Int32.TryParse(minuteString, out int minute);
-            string secondString = StringParser.FindStringWithinAnchorText(v, "'", "\"", true, true);
+            string secondString = v.FindStringWithinAnchorText("'", "\"", true, true);
             Double.TryParse(secondString, out double second);
 
             if (latitudeCoordinatesPosition == "N")
@@ -372,14 +373,13 @@ namespace DeploySoftware.LaunchPad.Space.Satellites.Canada
         /// <returns>A coordinate containing the parsed longitude</returns>
         protected CoordinatePart GetLongitude(string v, Coordinate c)
         {
-            CoordinatePart cp = null;
+            CoordinatePart cp;
             string longitudeCoordinatesPosition = v.Substring(v.Length - 1, 1);
-            string longitudeCoordinates = v.Substring(0, v.Length - 1);
-            string degreeString = StringParser.FindStringWithinAnchorText(v,String.Empty,"°",true,true);
+            string degreeString = v.FindStringWithinAnchorText(String.Empty,"°",true,true);
             Int32.TryParse(degreeString, out int degree);
-            string minuteString = StringParser.FindStringWithinAnchorText(v, "°", "'", true, true);
+            string minuteString = v.FindStringWithinAnchorText("°", "'", true, true);
             Int32.TryParse(minuteString, out int minute);
-            string secondString = StringParser.FindStringWithinAnchorText(v, "'", "\"", true, true);
+            string secondString = v.FindStringWithinAnchorText("'", "\"", true, true);
             Double.TryParse(secondString, out double second);
             
             if (longitudeCoordinatesPosition == "W")

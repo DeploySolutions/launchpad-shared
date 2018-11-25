@@ -30,4 +30,20 @@
     </Reference>
   </ItemGroup>
 
+  <ItemGroup>
+    <Compile Update="DeploySoftware.LaunchPad.Space.Resources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>DeploySoftware.LaunchPad.Space.Resources.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="DeploySoftware.LaunchPad.Space.Resources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>DeploySoftware.LaunchPad.Space.Resources.Designer.cs</LastGenOutput>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+  </ItemGroup>
+
 </Project>

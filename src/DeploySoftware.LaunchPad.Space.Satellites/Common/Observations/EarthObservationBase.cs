@@ -31,7 +31,7 @@ namespace DeploySoftware.LaunchPad.Space.Satellites.Common
         private GeographicLocation _sceneCentre;
 
         [Required]
-        public virtual GeographicLocation SceneCentre {
+        public GeographicLocation SceneCentre {
             get
             {
                 return _sceneCentre;
@@ -44,27 +44,27 @@ namespace DeploySoftware.LaunchPad.Space.Satellites.Common
         }
 
         [Required]
-        public virtual ImageObservationCornerCoordinates Corners { get; set; }
+        public ImageObservationCornerCoordinates Corners { get; set; }
         
         [Required]
         [StringLength(MaxNameLength)]
-        public virtual string Name { get; set; }
+        public string Name { get; set; }
 
         [Required]
         [StringLength(MaxDescriptionLength)]
-        public virtual string Description { get; set; }
+        public string Description { get; set; }
 
-        public virtual DateTime CreationTime { get; set; }
+        public DateTime CreationTime { get; set; }
 
-        public virtual DateTime? LastModificationTime { get; set; }
+        public DateTime? LastModificationTime { get; set; }
         
         [Required]
         public IObservationFiles<TPrimaryKey> ObservationFiles { get; set; }
 
         [Required]
-        public virtual SpaceTimeInformation CurrentLocation { get; set; }
+        public SpaceTimeInformation CurrentLocation { get; set; }
 
-        public virtual IList<SpaceTimeInformation> PreviousLocations { get; set; }
+        public IList<SpaceTimeInformation> PreviousLocations { get; set; }
 
         protected EarthObservationBase() : base()
         {

@@ -23,9 +23,6 @@ namespace DeploySoftware.LaunchPad.Space.Tests
     using Xunit;
     using FluentAssertions;
     using DeploySoftware.LaunchPad.Shared.Domain;
-    using System.Collections.Generic;
-    using DeploySoftware.LaunchPad.Space.Satellites.Canada;
-    using System.IO;
 
     public class Radarsat1MetadataParserTests : IClassFixture<Radarsat1MetadataFileFixture>
     {
@@ -39,8 +36,8 @@ namespace DeploySoftware.LaunchPad.Space.Tests
 
         public Radarsat1MetadataParserTests(Radarsat1MetadataFileFixture fixture)
         {
-            this._fixture = fixture;
-            this._fixture.Initialize(new FileKey("Radarsat1MetadataTest.en.txt"));
+            _fixture = fixture;
+            _fixture.Initialize(new FileKey("Radarsat1MetadataTest.en.txt"));
         }
         
         [Fact]

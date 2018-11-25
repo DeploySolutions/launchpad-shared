@@ -15,6 +15,8 @@
 //limitations under the License. 
 #endregion
 
+using System.Diagnostics.CodeAnalysis;
+
 namespace DeploySoftware.LaunchPad.Images
 {
     using ImageMagick;
@@ -98,6 +100,7 @@ namespace DeploySoftware.LaunchPad.Images
         /// <param name="imageB">The second image in the comparison, in byte array format</param>
         /// <param name="settings">ImageMagick comparison settings</param>
         /// <returns>A byte array containing a new image that represents the *difference* between image a and b</returns>
+        [SuppressMessage("ReSharper", "PossibleNullReferenceException")]
         public byte[] CompareImages(byte[] imageA, byte[] imageB, CompareSettings settings)
         {
             Guard.Against<NullReferenceException>(imageA == null, DeploySoftware_LaunchPad_Images_Resources.Guard_ImageManager_Thumbnail_ImageA_NullReferenceException);
@@ -153,8 +156,9 @@ namespace DeploySoftware.LaunchPad.Images
         /// Creates a thumbnail file from the provide image, set to the specified dimensions
         /// </summary>
         /// <param name="originalImage">The image source from which we will create the thumbnail</param>
-        /// <param name="size">The general size category of the resultin thumbnail. Default dimensions are set for each size, but can be overriden by a user or developer</param>
-        /// <returns>A byte array containing a new image that represents the thumbnail, in the appropriate size</returns>
+        /// <param name="size">The general size category of the resulting thumbnail.
+        /// Default dimensions are set for each size, but can be overriden by a user or developer</param>
+        /// <returns>A <see cref="byte"/> array containing a new image that represents the thumbnail, in the appropriate size</returns>
         public byte[] GetThumbnailFromImage(byte[] originalImage, ThumbnailSize size)
         {
             Guard.Against<ArgumentOutOfRangeException>(originalImage.Length <= 0, DeploySoftware_LaunchPad_Images_Resources.Guard_ImageManager_Thumbnail_OriginalImage_ArgumentOutOfRangeException);

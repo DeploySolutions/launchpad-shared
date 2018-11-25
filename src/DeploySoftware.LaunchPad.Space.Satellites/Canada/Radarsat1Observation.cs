@@ -23,28 +23,25 @@
 namespace DeploySoftware.LaunchPad.Space.Satellites.Canada
 {
     using System;
-    using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
-    using Abp.Domain.Entities;
-    using Abp.Domain.Entities.Auditing;
     using Abp.Timing;
     using DeploySoftware.LaunchPad.Shared.Domain;
     using DeploySoftware.LaunchPad.Space.Satellites.Common;
     using DeploySoftware.LaunchPad.Space.Satellites.Common.ObservationFiles;
 
     [Table("Radarsat1Observations")]
-    public class Radarsat1Observation : EarthObservationBase<Guid>, IRadarsatObservation<Guid>, IHasCreationTime, IHasModificationTime
+    public class Radarsat1Observation : EarthObservationBase<Guid>, IRadarsatObservation<Guid>
     {
         public enum FileTypes
         {
-            nvol = 0,
-            sard = 1,
-            sarl = 2,
-            sart = 3,
-            tif = 4,
-            tfw = 5,
-            vol = 6 
+            Nvol = 0,
+            Sard = 1,
+            Sarl = 2,
+            Sart = 3,
+            Tif = 4,
+            Tfw = 5,
+            Vol = 6 
         }
 
         [Required]
@@ -89,45 +86,45 @@ namespace DeploySoftware.LaunchPad.Space.Satellites.Canada
         [Required]
         public string PixelSpacing { get; set; }
        
-        public Radarsat1ObservationFiles<Guid> Files { get; set; }
+        public Radarsat1ObservationFiles Files { get; set; }
         
         public Radarsat1Observation(
-           string _sceneId,
-           string _mdaOrderNumber,
-           string _geographicalArea,
-           DateTime _sceneStart,
-           DateTime _sceneStop,
-           string _orbit,
-           string _orbitDataType,
-           string _applicationLut,
-           string _beamMode,
-           string _productType,
-           string _format,
-           int _numberImageLines,
-           int _numberImagePixels,
-           string _pixelSpacing,
-           GeographicLocation _sceneCentre,
-           ImageObservationCornerCoordinates _cornerCoordinates
+           string sceneId,
+           string mdaOrderNumber,
+           string geographicalArea,
+           DateTime sceneStart,
+           DateTime sceneStop,
+           string orbit,
+           string orbitDataType,
+           string applicationLut,
+           string beamMode,
+           string productType,
+           string format,
+           int numberImageLines,
+           int numberImagePixels,
+           string pixelSpacing,
+           GeographicLocation sceneCentre,
+           ImageObservationCornerCoordinates cornerCoordinates
         )
         {
             Id = Guid.NewGuid();
             CurrentLocation = new SpaceTimeInformation();
-            SceneId = _sceneId;
-            MdaOrderNumber = _mdaOrderNumber;
-            GeographicalArea = _geographicalArea;
-            SceneStartTime = _sceneStart;
-            SceneStopTime = _sceneStop;
-            Orbit = _orbit;
-            OrbitDataType = _orbitDataType;
-            ApplicationLut = _applicationLut;
-            BeamMode = _beamMode;
-            ProductType = _productType;
-            Format = _format;
-            NumberImageLines = _numberImageLines;
-            NumberImagePixels = _numberImagePixels;
-            PixelSpacing = _pixelSpacing;
-            SceneCentre = _sceneCentre;
-            Corners = _cornerCoordinates;
+            SceneId = sceneId;
+            MdaOrderNumber = mdaOrderNumber;
+            GeographicalArea = geographicalArea;
+            SceneStartTime = sceneStart;
+            SceneStopTime = sceneStop;
+            Orbit = orbit;
+            OrbitDataType = orbitDataType;
+            ApplicationLut = applicationLut;
+            BeamMode = beamMode;
+            ProductType = productType;
+            Format = format;
+            NumberImageLines = numberImageLines;
+            NumberImagePixels = numberImagePixels;
+            PixelSpacing = pixelSpacing;
+            SceneCentre = sceneCentre;
+            Corners = cornerCoordinates;
             CreationTime = Clock.Now;
             LastModificationTime = Clock.Now;
             CurrentLocation.PhysicalLocation = SceneCentre;
@@ -140,7 +137,7 @@ namespace DeploySoftware.LaunchPad.Space.Satellites.Canada
             CurrentLocation = new SpaceTimeInformation();
         }
 
-        public class Radarsat1ObservationFiles<Guid> : IObservationFiles<Guid>
+        public class Radarsat1ObservationFiles : IObservationFiles<Guid>
         {
             public NvolFile<Guid> Nvol { get; set; }
 

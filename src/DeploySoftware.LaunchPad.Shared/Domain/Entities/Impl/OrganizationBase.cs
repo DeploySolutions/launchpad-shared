@@ -29,37 +29,36 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
     using System.Xml.Serialization;
 
     /// <summary>
-    /// Base class for Entities. Implements <see cref="IDomainEntity">IDomainEntity</see> and provides
-    /// base functionality for many of its methods. Inherits from ASP.NET Boilerplate's IEntity interface.
+    /// Base class for Organizations.
+    /// Implements <see cref="IOrganization&lt;TPrimaryKey&gt;">IOrganization&lt;TPrimaryKey&gt;</see> and provides
+    /// base functionality for many of its methods.
     /// </summary>
     public abstract partial class OrganizationBase<TPrimaryKey> :  DomainEntityBase<TPrimaryKey>, IOrganization<TPrimaryKey>
     {
-
-        private Organization _schema;
         [DataObjectField(false)]
         [XmlAttribute]
-        public Organization Schema { get => _schema; set => _schema = value; }
+        public Organization Schema { get; set; }
 
         [DataObjectField(false)]
         [XmlAttribute]
-        public string FullName { get => _schema.LegalName.ToString(); }
+        public string FullName { get => Schema.LegalName.ToString(); }
 
         [DataObjectField(false)]
         [XmlAttribute]
-        public string Abbreviation { get => _schema.AlternateName.ToString(); }
+        public string Abbreviation { get => Schema.AlternateName.ToString(); }
 
         [DataObjectField(false)]
         [XmlAttribute]
-        public string Website { get => _schema.Url.ToString(); }
+        public string Website { get => Schema.Url.ToString(); }
 
         [DataObjectField(false)]
         [XmlAttribute]
-        public string HeadquartersAddress { get => _schema.Address.ToString(); }
+        public string HeadquartersAddress { get => Schema.Address.ToString(); }
 
         [DataObjectField(false)]
         [XmlAttribute]
         public IList<string> Offices { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        
+
 
         #region Implementation of ASP.NET Boilerplate's IEntity interface
 
@@ -68,7 +67,7 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         #endregion
 
         /// <summary>  
-        /// Initializes a new instance of the <see cref="EntityBase">Entity</see> class
+        /// Initializes a new instance of the <see cref="OrganizationBase&lt;TPrimaryKey&gt;">OrganizationBase&lt;TPrimaryKey&gt;</see> class
         /// </summary>
         protected OrganizationBase()
         {
@@ -78,7 +77,8 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         }
 
         /// <summary>
-        /// Creates a new instance of the <see cref="EntityBase">Entity</see> class given a key, and some metadata. 
+        /// Creates a new instance of the <see cref="OrganizationBase&lt;TPrimaryKey&gt;">OrganizationBase&lt;TPrimaryKey&gt;</see>
+        /// class given a key, and some metadata. 
         /// </summary>
         /// <param name="key">The unique identifier for this entity</param>
         /// <param name="metadata">The desired metadata for this entity</param>
@@ -97,7 +97,7 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         protected OrganizationBase(SerializationInfo info, StreamingContext context) : base(info,context)
         {
             Schema = (Organization)info.GetValue("Organization", typeof(Organization));
-            Offices = (IList<String>)info.GetValue("Offices", typeof(IList<String>));
+            Offices = (IList<string>)info.GetValue("Offices", typeof(IList<string>));
         }
 
         /// <summary>
@@ -128,7 +128,7 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
                 if (info.GetType().IsSerializable)
                 {
                     PropertyInfo cloneInfo = GetType().GetProperty(info.Name);
-                    cloneInfo.SetValue(clone, info.GetValue(this, null), null);
+                    if (cloneInfo != null) cloneInfo.SetValue(clone, info.GetValue(this, null), null);
                 }
             }
             return clone;
@@ -143,8 +143,7 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         /// <returns></returns>
         public virtual int CompareTo(OrganizationBase<TPrimaryKey> other)
         {
-            if (other == null) return 1;
-            return FullName.CompareTo(other.FullName);
+            return other == null ? 1 : String.Compare(FullName, other.FullName, StringComparison.InvariantCulture);
         }
 
         /// <summary>  
@@ -170,7 +169,7 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         {
             if (obj != null && obj is OrganizationBase<TPrimaryKey>)
             {
-                return Equals(obj as OrganizationBase<TPrimaryKey>);
+                return Equals((OrganizationBase<TPrimaryKey>) obj);
             }
             return false;
         }

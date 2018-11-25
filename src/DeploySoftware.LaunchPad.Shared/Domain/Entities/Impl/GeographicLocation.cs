@@ -41,11 +41,8 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         [XmlAttribute]
         public virtual Coordinate EarthCoordinate
         {
-            get { return _earthCoordinate; }
-            set
-            {
-                _earthCoordinate = value;
-            }
+            get => _earthCoordinate;
+            set => _earthCoordinate = value;
         }
 
         [DataObjectField(false)]
@@ -62,17 +59,11 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
 
         [DataObjectField(false)]
         [XmlAttribute]
-        public virtual double Latitude
-        {
-            get { return _earthCoordinate.Latitude.ToDouble(); }
-        }
+        public virtual double Latitude => _earthCoordinate.Latitude.ToDouble();
 
         [DataObjectField(false)]
         [XmlAttribute]
-        public virtual double Longitude
-        {
-            get { return _earthCoordinate.Longitude.ToDouble(); }
-        }
+        public virtual double Longitude => _earthCoordinate.Longitude.ToDouble();
 
         /// <summary>
         /// The default location is always Greenwich.
