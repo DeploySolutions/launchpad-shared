@@ -44,6 +44,7 @@ TestResult.xml
 [Dd]ebugPS/
 [Rr]eleasePS/
 dlldata.c
+*.dotCover
 
 # Benchmark Results
 BenchmarkDotNet.Artifacts/
@@ -127,6 +128,7 @@ _TeamCity*
 
 # DotCover is a Code Coverage Tool
 *.dotCover
+*.dcvr
 
 # AxoCover is a Code Coverage Tool
 .axoCover/*
