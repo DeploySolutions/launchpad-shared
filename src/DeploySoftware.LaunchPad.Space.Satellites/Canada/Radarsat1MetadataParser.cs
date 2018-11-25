@@ -170,36 +170,31 @@ namespace DeploySoftware.LaunchPad.Space.Satellites.Canada
         {
             // get the list of related observation files
             String baseFilePath = metadataFileKey.UniqueKey.Substring(0, metadataFileKey.UniqueKey.Length - 4);
-            IList<KeyValuePair<Radarsat1Observation.FileTypes, String>> expectedFiles = new List<KeyValuePair<Radarsat1Observation.FileTypes, String>>();
-            expectedFiles.Add(new KeyValuePair<Radarsat1Observation.FileTypes, string>(
+            IList<KeyValuePair<Radarsat1Observation.FileTypes, String>> expectedFiles = new List<KeyValuePair<Radarsat1Observation.FileTypes, String>>
+            {
+                new KeyValuePair<Radarsat1Observation.FileTypes, string>(
                 Radarsat1Observation.FileTypes.nvol,
-                baseFilePath + ".nvol"
-                )
-            );
-            expectedFiles.Add(new KeyValuePair<Radarsat1Observation.FileTypes, string>(
+                baseFilePath + "." + Radarsat1Observation.FileTypes.nvol
+                ),
+                new KeyValuePair<Radarsat1Observation.FileTypes, string>(
                 Radarsat1Observation.FileTypes.sard, baseFilePath + "." + Radarsat1Observation.FileTypes.sard
-                )
-            );
-            expectedFiles.Add(new KeyValuePair<Radarsat1Observation.FileTypes, string>(
+                ),
+                new KeyValuePair<Radarsat1Observation.FileTypes, string>(
                 Radarsat1Observation.FileTypes.sarl, baseFilePath + "." + Radarsat1Observation.FileTypes.sarl
-                )
-            );
-            expectedFiles.Add(new KeyValuePair<Radarsat1Observation.FileTypes, string>(
+                ),
+                new KeyValuePair<Radarsat1Observation.FileTypes, string>(
                 Radarsat1Observation.FileTypes.sart, baseFilePath + "." + Radarsat1Observation.FileTypes.sart
-                )
-            );
-            expectedFiles.Add(new KeyValuePair<Radarsat1Observation.FileTypes, string>(
+                ),
+                new KeyValuePair<Radarsat1Observation.FileTypes, string>(
                 Radarsat1Observation.FileTypes.tfw, baseFilePath + "." + Radarsat1Observation.FileTypes.tfw
-                )
-            );
-            expectedFiles.Add(new KeyValuePair<Radarsat1Observation.FileTypes, string>(
+                ),
+                new KeyValuePair<Radarsat1Observation.FileTypes, string>(
                 Radarsat1Observation.FileTypes.tif, baseFilePath + "." + Radarsat1Observation.FileTypes.tif
-                )
-            );
-            expectedFiles.Add(new KeyValuePair<Radarsat1Observation.FileTypes, string>(
+                ),
+                new KeyValuePair<Radarsat1Observation.FileTypes, string>(
                 Radarsat1Observation.FileTypes.vol, baseFilePath + "." + Radarsat1Observation.FileTypes.vol
                 )
-            );
+            };
 
             // initialize the list of observation files
             Radarsat1Observation.Radarsat1ObservationFiles<Guid> observationFiles = new Radarsat1Observation.Radarsat1ObservationFiles<Guid>();
@@ -257,7 +252,7 @@ namespace DeploySoftware.LaunchPad.Space.Satellites.Canada
             }
             if (File.Exists(expectedFiles[5].Value))
             {
-                observationFiles.TifOriginal = new TifFile<Guid>()
+                observationFiles.Tif = new TifFile<Guid>()
                 {
                     Id = Guid.NewGuid(),
                     ParentObservationKey = observation.GlobalKey,

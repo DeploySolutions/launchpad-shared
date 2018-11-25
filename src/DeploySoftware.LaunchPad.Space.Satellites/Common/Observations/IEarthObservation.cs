@@ -22,11 +22,9 @@ namespace DeploySoftware.LaunchPad.Space.Satellites.Common
     using Abp.Domain.Entities;
     using Abp.Domain.Entities.Auditing;
     using DeploySoftware.LaunchPad.Shared.Domain;
-    using DeploySoftware.LaunchPad.Space.Satellites.Common.ObservationFiles;
-    using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
 
-    public interface IEarthObservation<TPrimaryKey> : IEntity<TPrimaryKey>, IHasCreationTime, IHasModificationTime
+    public interface IEarthObservation<TPrimaryKey> : IDomainEntity<TPrimaryKey>, IPhysicallyLocatable, IHasCreationTime, IHasModificationTime
     {
         [Required]
         GeographicLocation SceneCentre { get; set; }

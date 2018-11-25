@@ -34,7 +34,7 @@ namespace DeploySoftware.LaunchPad.Space.Satellites.Canada
     using DeploySoftware.LaunchPad.Space.Satellites.Common.ObservationFiles;
 
     [Table("Radarsat1Observations")]
-    public class Radarsat1Observation : EarthObservationBase<Guid>, IHasCreationTime, IHasModificationTime
+    public class Radarsat1Observation : EarthObservationBase<Guid>, IRadarsatObservation<Guid>, IHasCreationTime, IHasModificationTime
     {
         public enum FileTypes
         {
@@ -90,25 +90,7 @@ namespace DeploySoftware.LaunchPad.Space.Satellites.Canada
         public string PixelSpacing { get; set; }
        
         public Radarsat1ObservationFiles<Guid> Files { get; set; }
-
-        public Radarsat1Observation(
-           string _sceneId,
-           string _mdaOrderNumber,
-           string _geographicalArea,
-           DateTime _sceneStart,
-           DateTime _sceneStop
-        )
-        {
-            Id = Guid.NewGuid();
-            SceneId = _sceneId;
-            MdaOrderNumber = _mdaOrderNumber;
-            GeographicalArea = _geographicalArea;
-            SceneStartTime = _sceneStart;
-            SceneStopTime = _sceneStop;
-            CreationTime = Clock.Now;
-            LastModificationTime = Clock.Now;
-        }
-
+        
         public Radarsat1Observation(
            string _sceneId,
            string _mdaOrderNumber,
@@ -129,6 +111,7 @@ namespace DeploySoftware.LaunchPad.Space.Satellites.Canada
         )
         {
             Id = Guid.NewGuid();
+            CurrentLocation = new SpaceTimeInformation();
             SceneId = _sceneId;
             MdaOrderNumber = _mdaOrderNumber;
             GeographicalArea = _geographicalArea;
@@ -147,12 +130,14 @@ namespace DeploySoftware.LaunchPad.Space.Satellites.Canada
             Corners = _cornerCoordinates;
             CreationTime = Clock.Now;
             LastModificationTime = Clock.Now;
+            CurrentLocation.PhysicalLocation = SceneCentre;
+            CurrentLocation.PointInTime = SceneStartTime;
         }
         
-
-        protected Radarsat1Observation()
+        protected Radarsat1Observation() : base()
         {
-
+            Id = Guid.NewGuid();
+            CurrentLocation = new SpaceTimeInformation();
         }
 
         public class Radarsat1ObservationFiles<Guid> : IObservationFiles<Guid>
@@ -164,18 +149,8 @@ namespace DeploySoftware.LaunchPad.Space.Satellites.Canada
             public SarlFile<Guid> Sarl { get; set; }
 
             public SartFile<Guid> Sart { get; set; }
-
-            // Original image resolution (unmodified)
-            public TifFile<Guid> TifOriginal { get; set; }
-
-            // Thumbnail(default 150px x 150px max)
-            public TifFile<Guid> TifThumbnail { get; set; }
-
-            // Medium resolution (default 300px x 300px max)
-            public TifFile<Guid> TifMedium { get; set; }
-
-            // Large resolution (default 1024px x 1024px max)
-            public TifFile<Guid> TifLarge { get; set; }
+            
+            public TifFile<Guid> Tif { get; set; }
 
             public TfwFile<Guid> Tfw { get; set; }
 

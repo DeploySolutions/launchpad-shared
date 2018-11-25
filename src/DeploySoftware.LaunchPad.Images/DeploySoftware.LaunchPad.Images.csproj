@@ -11,6 +11,8 @@
     <PackageIconUrl>https://www.deploy.solutions/wp-content/uploads/dynamik-gen/theme/images/y-icon-blue.png</PackageIconUrl>
     <RepositoryUrl>https://github.com/DeploySolutions/launchpad-shared</RepositoryUrl>
     <PackageReleaseNotes>1.0.0: Initial release; basic manipulation logic for creating thumbnails from TIF files.</PackageReleaseNotes>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
   </PropertyGroup>
 
   <ItemGroup>
@@ -35,6 +37,10 @@
       <LastGenOutput>DeploySoftware.LaunchPad.Images.Resources.Designer.cs</LastGenOutput>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Application\DTO\" />
   </ItemGroup>
 
 </Project>

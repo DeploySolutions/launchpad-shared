@@ -27,9 +27,21 @@ namespace DeploySoftware.LaunchPad.Space.Satellites.Common
     {
         public const int MaxNameLength = 4 * 1024; //4KB
         public const int MaxDescriptionLength = 4 * 1024; //4KB
-        
+
+        private GeographicLocation _sceneCentre;
+
         [Required]
-        public virtual GeographicLocation SceneCentre { get; set; }
+        public virtual GeographicLocation SceneCentre {
+            get
+            {
+                return _sceneCentre;
+            }
+            set
+            {
+                _sceneCentre = value;
+                CurrentLocation.PhysicalLocation = _sceneCentre;
+            }
+        }
 
         [Required]
         public virtual ImageObservationCornerCoordinates Corners { get; set; }
@@ -49,7 +61,12 @@ namespace DeploySoftware.LaunchPad.Space.Satellites.Common
         [Required]
         public IObservationFiles<TPrimaryKey> ObservationFiles { get; set; }
 
-        public EarthObservationBase() : base()
+        [Required]
+        public virtual SpaceTimeInformation CurrentLocation { get; set; }
+
+        public virtual IList<SpaceTimeInformation> PreviousLocations { get; set; }
+
+        protected EarthObservationBase() : base()
         {
 
         }
