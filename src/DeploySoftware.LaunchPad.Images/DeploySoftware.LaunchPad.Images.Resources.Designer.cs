@@ -124,6 +124,15 @@ namespace DeploySoftware.LaunchPad.Images {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Original image is null.
+        /// </summary>
+        public static string Guard_ImageManager_Thumbnail_OriginalImage_ArgumentNullException {
+            get {
+                return ResourceManager.GetString("Guard_ImageManager_Thumbnail_OriginalImage_ArgumentNullException", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Original image is empty - byte size must be greater than 0.
         /// </summary>
         public static string Guard_ImageManager_Thumbnail_OriginalImage_ArgumentOutOfRangeException {

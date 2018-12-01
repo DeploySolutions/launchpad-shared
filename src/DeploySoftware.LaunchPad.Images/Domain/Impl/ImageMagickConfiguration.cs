@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DeploySoftware.LaunchPad.Images
+namespace DeploySoftware.LaunchPad.Images.Domain
 {
     /// <summary>
     /// Configuration class for specifying the default settings of the ImageMagick utility

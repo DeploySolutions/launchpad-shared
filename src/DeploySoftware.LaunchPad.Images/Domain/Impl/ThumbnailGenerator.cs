@@ -16,7 +16,7 @@
 #endregion
 
 
-namespace DeploySoftware.LaunchPad.Images
+namespace DeploySoftware.LaunchPad.Images.Domain
 {
     using DeploySoftware.LaunchPad.Shared.Util;
     using ImageMagick;
@@ -27,7 +27,7 @@ namespace DeploySoftware.LaunchPad.Images
     /// </summary>
     public class ThumbnailGenerator : ILaunchPadService
     {
-        private readonly ImageMagickConfiguration _config;
+        public readonly ImageMagickConfiguration Configuration;
 
         /// <summary>
         /// The width of the small thumbnail format, in pixels
@@ -60,14 +60,23 @@ namespace DeploySoftware.LaunchPad.Images
 
         public int ThumbnailLargeHeight { get; set; } = 600;
 
-        protected ThumbnailGenerator()
+        public ThumbnailGenerator()
         {
+            string temporaryImagesFilePath = @"f:\data\launchpad\images\temp";
+            string policyMap = @"
+                <policymap>
+                   <policy domain=""resource"" name=""memory"" value=""3GiB""/> 
+                   <policy domain=""resource"" name=""map"" value=""4GiB""/> 
+                   <policy domain=""resource"" name=""time"" value=""unlimited""/> 
+                </policymap>
+            ";
+            Configuration = new ImageMagickConfiguration(policyMap, temporaryImagesFilePath);
             
         }
 
         public ThumbnailGenerator(ImageMagickConfiguration config)
         {
-            _config = config;
+            Configuration = config;
         }
 
         /// <summary>

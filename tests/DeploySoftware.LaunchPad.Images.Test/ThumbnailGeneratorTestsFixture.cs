@@ -28,32 +28,41 @@ namespace DeploySoftware.LaunchPad.Images.Tests
     using System;
     using DeploySoftware.LaunchPad.Images.Domain;
 
-    public class ImageManagerTestsFixture : IDisposable
+    public class ThumbnailGeneratorTestsFixture : IDisposable
     {
-        public ImageManager SUT { get; set; }
+        public ThumbnailGenerator SUT { get; set; }
 
         public CompareSettings Settings { get; set; }
 
         public byte[] NotEmptyBytes { get; set; }
 
         public byte[] Logo { get; set; }
-        
-        
-        public void Initialize(ImageManager imageMan, CompareSettings compareSettings)
+
+        public readonly string LogoFilePath;
+
+        public readonly string LogoFileName;
+
+        public ThumbnailGeneratorTestsFixture()
         {
-            SUT = imageMan;
-            Settings = compareSettings;
             NotEmptyBytes = new byte[1] { 0x20 };
             System.Reflection.Assembly a = 
                 System.Reflection.Assembly.GetExecutingAssembly();
-            string fileName = a.GetName().Name + "." + "logoWhite.png";
-            Stream s = a.GetManifestResourceStream(fileName);
+            LogoFileName = a.GetName().Name + "." + "logoWhite.png";
+            string path = System.IO.Path.GetDirectoryName( 
+                System.Reflection.Assembly.GetExecutingAssembly().GetName().CodeBase);
+            LogoFilePath = path.Substring((6)) + "\\" + "logoWhite.png";
+            Stream s = a.GetManifestResourceStream(LogoFileName);
             Guard.Against< ArgumentException>(s == null, "Logo not found");
             using (BinaryReader br = new BinaryReader(s))
             {
-
                 Logo = br.ReadBytes((int)s.Length);
             }
+        }
+        
+        public void Initialize(ThumbnailGenerator generator, CompareSettings compareSettings)
+        {
+            SUT = generator;
+            Settings = compareSettings;
         }
 
         public void Dispose()

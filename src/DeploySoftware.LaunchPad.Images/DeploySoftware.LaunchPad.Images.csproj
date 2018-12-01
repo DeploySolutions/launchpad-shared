@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>netstandard2;net461</TargetFrameworks>
+    <TargetFramework>netstandard2.0</TargetFramework>
     <Company>Deploy Software Solutions, inc.</Company>
     <Authors>Nicholas Kellett</Authors>
     <Description>Shared code for manipulating images in the LaunchPad framework.</Description>

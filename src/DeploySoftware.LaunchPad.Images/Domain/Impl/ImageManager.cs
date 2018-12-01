@@ -17,7 +17,7 @@
 
 using System.Diagnostics.CodeAnalysis;
 
-namespace DeploySoftware.LaunchPad.Images
+namespace DeploySoftware.LaunchPad.Images.Domain
 {
     using ImageMagick;
     using Abp.Domain.Services;
@@ -25,7 +25,6 @@ namespace DeploySoftware.LaunchPad.Images
     using System;
     using System.IO;
     using Castle.Core.Logging;
-    using Castle.Facilities.Logging;
 
     /// <summary>
     /// Domain service for handling Image domain entities
@@ -45,12 +44,12 @@ namespace DeploySoftware.LaunchPad.Images
         /// <summary>
         /// A reference to the ImageComparer object which compares various images
         /// </summary>
-        protected readonly ImageComparer _comparer = null;
+        private readonly ImageComparer _comparer;
 
         /// <summary>
         /// A reference to the ThumbnailGenerator object which makes thumbnails out of provided images
         /// </summary>
-        protected readonly ThumbnailGenerator _thumbnail = null;
+        public readonly ThumbnailGenerator ThumbnailGenerator;
         
         public ImageManager()
         {
@@ -65,7 +64,7 @@ namespace DeploySoftware.LaunchPad.Images
             ";
             ImageMagickConfiguration config = new ImageMagickConfiguration(policyMap, temporaryImagesFilePath);
             _comparer = new ImageComparer(config);
-            _thumbnail = new ThumbnailGenerator(config);
+            ThumbnailGenerator = new ThumbnailGenerator(config);
             Logger = NullLogger.Instance; // logger should be loaded by ABP property injection, but if not don't raise errors
     }
 
@@ -76,7 +75,7 @@ namespace DeploySoftware.LaunchPad.Images
         /// <returns>The image, in MagickImage format</returns>
         public MagickImage GetMagickImageFromFile(FileInfo imageFile)
         {
-            MagickImage image = null;
+            MagickImage image;
             try
             {
                 image = new MagickImage(imageFile);
@@ -107,7 +106,7 @@ namespace DeploySoftware.LaunchPad.Images
             Guard.Against<NullReferenceException>(imageB == null, DeploySoftware_LaunchPad_Images_Resources.Guard_ImageManager_Thumbnail_ImageB_NullReferenceException);
             Guard.Against<ArgumentOutOfRangeException>(imageA.Length <= 0, DeploySoftware_LaunchPad_Images_Resources.Guard_ImageManager_Thumbnail_ImageA_ArgumentOutOfRangeException);
             Guard.Against<ArgumentOutOfRangeException>(imageB.Length <= 0, DeploySoftware_LaunchPad_Images_Resources.Guard_ImageManager_Thumbnail_ImageB_ArgumentOutOfRangeException);
-            byte[] diffImage = null;
+            byte[] diffImage;
             try
             {
                 diffImage = CompareImages(new MagickImage(imageA), new MagickImage(imageB), settings);
@@ -135,7 +134,7 @@ namespace DeploySoftware.LaunchPad.Images
         {
             Guard.Against<NullReferenceException>(imageA == null, DeploySoftware_LaunchPad_Images_Resources.Guard_ImageManager_Thumbnail_ImageA_NullReferenceException);
             Guard.Against<NullReferenceException>(imageB == null, DeploySoftware_LaunchPad_Images_Resources.Guard_ImageManager_Thumbnail_ImageB_NullReferenceException);
-            byte[] diffImage = null;
+            byte[] diffImage;
             try
             {
                 diffImage = _comparer.Compare(imageA, imageB, settings);
@@ -153,7 +152,7 @@ namespace DeploySoftware.LaunchPad.Images
         }
 
         /// <summary>
-        /// Creates a thumbnail file from the provide image, set to the specified dimensions
+        /// Creates a thumbnail file from the provide image, set to the specified dimensions. The default format is JPEG.
         /// </summary>
         /// <param name="originalImage">The image source from which we will create the thumbnail</param>
         /// <param name="size">The general size category of the resulting thumbnail.
@@ -165,15 +164,97 @@ namespace DeploySoftware.LaunchPad.Images
             byte[] thumbImage = null;
             if (size == ThumbnailSize.Small)
             {
-                thumbImage = _thumbnail.GetThumbnailSmall(originalImage, MagickFormat.Jpeg);
+                thumbImage = ThumbnailGenerator.GetThumbnailSmall(originalImage, MagickFormat.Jpeg);
             }
             else if (size == ThumbnailSize.Medium)
             {
-                thumbImage = _thumbnail.GetThumbnailMedium(originalImage, MagickFormat.Jpeg);
+                thumbImage = ThumbnailGenerator.GetThumbnailMedium(originalImage, MagickFormat.Jpeg);
             }
             else if (size == ThumbnailSize.Large)
             {
-                thumbImage = _thumbnail.GetThumbnailLarge(originalImage, MagickFormat.Jpeg);
+                thumbImage = ThumbnailGenerator.GetThumbnailLarge(originalImage, MagickFormat.Jpeg);
+            }
+            return thumbImage;
+        }
+
+        
+        /// <summary>
+        /// Creates a thumbnail file from the provide image, set to the specified dimensions
+        /// </summary>
+        /// <param name="originalImage">The image source from which we will create the thumbnail</param>
+        /// <param name="size">The general size category of the resulting thumbnail.
+        /// Default dimensions are set for each size, but can be overriden by a user or developer</param>
+        /// <param name="format">The file format of the resulting thumbnail.</param>
+        /// <returns>A <see cref="byte"/> array containing a new image that represents the thumbnail, in the appropriate size</returns>
+        public byte[] GetThumbnailFromImage(byte[] originalImage, ThumbnailSize size, MagickFormat format)
+        {
+            Guard.Against<ArgumentOutOfRangeException>(originalImage.Length <= 0, DeploySoftware_LaunchPad_Images_Resources.Guard_ImageManager_Thumbnail_OriginalImage_ArgumentOutOfRangeException);
+            byte[] thumbImage = null;
+            if (size == ThumbnailSize.Small)
+            {
+                thumbImage = ThumbnailGenerator.GetThumbnailSmall(originalImage, format);
+            }
+            else if (size == ThumbnailSize.Medium)
+            {
+                thumbImage = ThumbnailGenerator.GetThumbnailMedium(originalImage, format);
+            }
+            else if (size == ThumbnailSize.Large)
+            {
+                thumbImage = ThumbnailGenerator.GetThumbnailLarge(originalImage, format);
+            }
+            return thumbImage;
+        }
+
+        /// <summary>
+        /// Creates a thumbnail file from the provide image, set to the specified dimensions. The default format is JPEG.
+        /// </summary>
+        /// <param name="originalImage">The image source from which we will create the thumbnail</param>
+        /// <param name="size">The general size category of the resulting thumbnail.
+        /// Default dimensions are set for each size, but can be overriden by a user or developer</param>
+        /// <returns>A <see cref="byte"/> array containing a new image that represents the thumbnail, in the appropriate size</returns>
+        public byte[] GetThumbnailFromImage(MagickImage originalImage, ThumbnailSize size)
+        {
+            byte[] thumbImage = null;
+            Guard.Against<ArgumentNullException>(originalImage == null, DeploySoftware_LaunchPad_Images_Resources.Guard_ImageManager_Thumbnail_OriginalImage_ArgumentNullException);  
+            if (size == ThumbnailSize.Small)
+            {
+                thumbImage = ThumbnailGenerator.GetThumbnailSmall(originalImage, MagickFormat.Jpeg);
+            }
+            else if (size == ThumbnailSize.Medium)
+            {
+                thumbImage = ThumbnailGenerator.GetThumbnailMedium(originalImage, MagickFormat.Jpeg);
+            }
+            else if (size == ThumbnailSize.Large)
+            {
+                thumbImage = ThumbnailGenerator.GetThumbnailLarge(originalImage, MagickFormat.Jpeg);
+            }
+            return thumbImage;
+        }
+
+        
+        /// <summary>
+        /// Creates a thumbnail file from the provide image, set to the specified dimensions
+        /// </summary>
+        /// <param name="originalImage">The image source from which we will create the thumbnail</param>
+        /// <param name="size">The general size category of the resulting thumbnail.
+        /// Default dimensions are set for each size, but can be overriden by a user or developer</param>
+        /// <param name="format">The file format of the resulting thumbnail.</param>
+        /// <returns>A <see cref="byte"/> array containing a new image that represents the thumbnail, in the appropriate size</returns>
+        public byte[] GetThumbnailFromImage(MagickImage originalImage, ThumbnailSize size, MagickFormat format)
+        {
+            Guard.Against<ArgumentOutOfRangeException>(originalImage == null, DeploySoftware_LaunchPad_Images_Resources.Guard_ImageManager_Thumbnail_OriginalImage_ArgumentNullException);
+            byte[] thumbImage = null;
+            if (size == ThumbnailSize.Small)
+            {
+                thumbImage = ThumbnailGenerator.GetThumbnailSmall(originalImage, format);
+            }
+            else if (size == ThumbnailSize.Medium)
+            {
+                thumbImage = ThumbnailGenerator.GetThumbnailMedium(originalImage, format);
+            }
+            else if (size == ThumbnailSize.Large)
+            {
+                thumbImage = ThumbnailGenerator.GetThumbnailLarge(originalImage, format);
             }
             return thumbImage;
         }
@@ -190,18 +271,18 @@ namespace DeploySoftware.LaunchPad.Images
             Guard.Against<ArgumentOutOfRangeException>(height <= 0, DeploySoftware_LaunchPad_Images_Resources.Guard_ImageManager_Thumbnail_Height_ArgumentOutOfRangeException);
             if (size == ThumbnailSize.Small)
             {
-                _thumbnail.ThumbnailSmallWidth = width;
-                _thumbnail.ThumbnailSmallHeight = height;
+                ThumbnailGenerator.ThumbnailSmallWidth = width;
+                ThumbnailGenerator.ThumbnailSmallHeight = height;
             }
             else if (size == ThumbnailSize.Medium)
             {
-                _thumbnail.ThumbnailMediumWidth = width;
-                _thumbnail.ThumbnailMediumHeight = height;
+                ThumbnailGenerator.ThumbnailMediumWidth = width;
+                ThumbnailGenerator.ThumbnailMediumHeight = height;
             }
             else if (size == ThumbnailSize.Large)
             {
-                _thumbnail.ThumbnailLargeWidth = width;
-                _thumbnail.ThumbnailLargeHeight = height;
+                ThumbnailGenerator.ThumbnailLargeWidth = width;
+                ThumbnailGenerator.ThumbnailLargeHeight = height;
             }
             
         }

@@ -138,6 +138,9 @@
   <data name="Guard_ImageManager_Thumbnail_ImageB_NullReferenceException" xml:space="preserve">
     <value>Image B is null</value>
   </data>
+  <data name="Guard_ImageManager_Thumbnail_OriginalImage_ArgumentNullException" xml:space="preserve">
+    <value>Original image is null</value>
+  </data>
   <data name="Guard_ImageManager_Thumbnail_OriginalImage_ArgumentOutOfRangeException" xml:space="preserve">
     <value>Original image is empty - byte size must be greater than 0</value>
   </data>

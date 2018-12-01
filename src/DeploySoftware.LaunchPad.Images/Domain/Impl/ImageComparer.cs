@@ -16,7 +16,7 @@
 #endregion
 
 
-namespace DeploySoftware.LaunchPad.Images
+namespace DeploySoftware.LaunchPad.Images.Domain
 {
     using ImageMagick;
     using System.IO;
