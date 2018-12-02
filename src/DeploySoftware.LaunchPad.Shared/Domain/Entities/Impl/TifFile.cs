@@ -15,14 +15,11 @@
 //limitations under the License. 
 #endregion
 
-namespace DeploySoftware.LaunchPad.Space.Satellites.Common.ObservationFiles
+namespace DeploySoftware.LaunchPad.Shared.Domain
 {
-    public class TifFile<TPrimaryKey> : ObservationFileBase<TPrimaryKey>
+    public class TifFile<TPrimaryKey> : FileBase<TPrimaryKey>
     {
-        public override string FileExtension
-        {
-            get { return ".tif";  }
-        }
+        public override string FileExtension => ".tif";
 
     }
 }

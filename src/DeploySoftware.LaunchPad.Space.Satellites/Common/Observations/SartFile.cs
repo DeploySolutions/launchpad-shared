@@ -15,9 +15,13 @@
 //limitations under the License. 
 #endregion
 
-namespace DeploySoftware.LaunchPad.Space.Satellites.Common.ObservationFiles
+
+namespace DeploySoftware.LaunchPad.Space.Satellites.Common
 {
-    public class SartFile<TPrimaryKey> : ObservationFileBase<TPrimaryKey>
+    
+    using DeploySoftware.LaunchPad.Shared.Domain;
+
+    public class SartFile<TPrimaryKey> : FileBase<TPrimaryKey>
     {
         public override string FileExtension
         {

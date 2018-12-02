@@ -15,9 +15,12 @@
 //limitations under the License. 
 #endregion
 
-namespace DeploySoftware.LaunchPad.Space.Satellites.Common.ObservationFiles
+namespace DeploySoftware.LaunchPad.Space.Satellites.Common
 {
-    public class VolFile<TPrimaryKey> : ObservationFileBase<TPrimaryKey>
+
+    using DeploySoftware.LaunchPad.Shared.Domain;
+
+    public class VolFile<TPrimaryKey> : FileBase<TPrimaryKey>
     {
         public new string FileExtension
         {

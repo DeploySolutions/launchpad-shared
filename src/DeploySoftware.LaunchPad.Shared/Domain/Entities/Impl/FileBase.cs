@@ -21,7 +21,7 @@ using System.ComponentModel;
 using System.Runtime.Serialization;
 using System.Xml.Serialization;
 
-namespace DeploySoftware.LaunchPad.Shared.Domain.Entities.Impl
+namespace DeploySoftware.LaunchPad.Shared.Domain
 {
     public abstract partial class FileBase<TPrimaryKey> : Entity<TPrimaryKey>, IFile<TPrimaryKey>
     {
