@@ -16,15 +16,16 @@
 #endregion
 
 
-using DeploySoftware.LaunchPad.Shared.Domain.Licenses;
-
 namespace DeploySoftware.LaunchPad.Space.Tests
 {
 
     using System;
     using Xunit;
     using FluentAssertions;
-    using DeploySoftware.LaunchPad.Shared.Domain;
+    using DeploySoftware.LaunchPad.Shared.Domain.Files;
+    using DeploySoftware.LaunchPad.Shared.Domain.Licenses;
+    using DeploySoftware.LaunchPad.Shared;
+    using DeploySoftware.LaunchPad.Space.Satellites;
 
     public class Radarsat1MetadataParserTests : IClassFixture<Radarsat1MetadataFileFixture>
     {
@@ -117,32 +118,43 @@ namespace DeploySoftware.LaunchPad.Space.Tests
         [Fact]
         public void License_Should_Be_Open_Government_Canada()
         {
-            _fixture.Observation.License.Should().BeOfType(typeof(OpenGovernmentCanadaLicense));
+            _fixture.Observation.Copyright.GoverningLicense.Should().BeOfType(typeof(OpenGovernmentCanadaLicense));
         }
         
         [Fact]
         public void License_Name_Should_Be_Open_Government_Canada()
         {
-            string name = "Open Government License - Canada";
-            _fixture.Observation.License.LicenseName.Should().Be(name);
+            string name = DeploySoftware_LaunchPad_Shared_Resources.Text_OpenGovernmentCanadaLicense_LicenseName;
+            _fixture.Observation.Copyright.GoverningLicense.LicenseName.Should().Be(name);
         }
          
         [Fact]
         public void License_Description_Should_Be_Open_Government_Canada()
         {
-            string description = @"Open Government is about making government more accessible to everyone. 
-                                        This means giving greater access to government data and information to the Canadian public and the businesses community. 
-                                        The Information Provider grants you a worldwide, royalty-free, perpetual, non-exclusive licence to use the Information, 
-                                        including for commercial purposes, subject to the license terms. 
-                                        This licence is governed by the laws of the province of Ontario and the applicable laws of Canada.";
-            _fixture.Observation.License.LicenseDescription.Should().Be(description);
+            string description = DeploySoftware_LaunchPad_Shared_Resources.Text_OpenGovernmentCanadaLicense_LicenseDescription;
+            _fixture.Observation.Copyright.GoverningLicense.LicenseDescription.Should().Be(description);
         }
 
         [Fact]
         public void License_Uri_Should_Be_To_Open_Government_Canada_Online()
         {
-            Uri openGovtTerms = new Uri("https://open.canada.ca/en/open-government-licence-canada");
-            _fixture.Observation.License.LicenseTerms.Should().Be(openGovtTerms);
+            Uri openGovtTerms = new Uri(DeploySoftware_LaunchPad_Shared_Resources.Text_OpenGovernmentCanadaLicense_LicenseTerms);
+            _fixture.Observation.Copyright.GoverningLicense.LicenseTerms.Should().Be(openGovtTerms);
         }
+
+        
+        [Fact]
+        public void Copyright_Owner_Should_Be_To_Canada_Space_Agency()
+        {
+            
+            _fixture.Observation.Copyright.Owner.Should().Be(DeploySoftware_LaunchPad_Space_Resources.Text_Radarsat1DataUsageRights_Owner);
+        }
+        
+        [Fact]
+        public void Copyright_Information_Should_Be_To_Canada_Space_Agency()
+        {
+            _fixture.Observation.Copyright.Attribution.Should().Be(DeploySoftware_LaunchPad_Space_Resources.Text_Radarsat1DataUsageRights_Attribution);
+        }
+
     }
 }

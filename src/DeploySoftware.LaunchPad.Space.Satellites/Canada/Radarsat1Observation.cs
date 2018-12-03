@@ -20,6 +20,7 @@
 // https://open.canada.ca/en/open-government-licence-canada 
 
 
+
 namespace DeploySoftware.LaunchPad.Space.Satellites.Canada
 {
     using System;
@@ -27,7 +28,8 @@ namespace DeploySoftware.LaunchPad.Space.Satellites.Canada
     using System.ComponentModel.DataAnnotations.Schema;
     using Abp.Timing;
     using DeploySoftware.LaunchPad.Shared.Domain;
-    using DeploySoftware.LaunchPad.Space.Satellites.Common;
+    using DeploySoftware.LaunchPad.Space.Satellites.Common;    
+    using DeploySoftware.LaunchPad.Shared.Domain.Files;
 
     [Table("Radarsat1Observations")]
     public class Radarsat1Observation : EarthObservationBase<Guid>, IRadarsatObservation<Guid>

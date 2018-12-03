@@ -520,5 +520,36 @@ namespace DeploySoftware.LaunchPad.Shared {
                 return ResourceManager.GetString("Info_UnitOfWorkTransaction_UnitOfWorkTransaction_Created", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Open Government is about making government more accessible to everyone. 
+        ///                                        This means giving greater access to government data and information to the Canadian public and the businesses community. 
+        ///                                        The Information Provider grants you a worldwide, royalty-free, perpetual, non-exclusive licence to use the Information, 
+        ///                                        including for commercial purposes, subject to the license terms. 
+        ///       [rest of string was truncated]&quot;;.
+        /// </summary>
+        public static string Text_OpenGovernmentCanadaLicense_LicenseDescription {
+            get {
+                return ResourceManager.GetString("Text_OpenGovernmentCanadaLicense_LicenseDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Open Government License - Canada.
+        /// </summary>
+        public static string Text_OpenGovernmentCanadaLicense_LicenseName {
+            get {
+                return ResourceManager.GetString("Text_OpenGovernmentCanadaLicense_LicenseName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to https://open.canada.ca/en/open-government-licence-canada.
+        /// </summary>
+        public static string Text_OpenGovernmentCanadaLicense_LicenseTerms {
+            get {
+                return ResourceManager.GetString("Text_OpenGovernmentCanadaLicense_LicenseTerms", resourceCulture);
+            }
+        }
     }
 }

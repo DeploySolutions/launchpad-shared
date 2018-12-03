@@ -129,4 +129,10 @@
   <data name="Exception_Radarsat1MetadataParser_GetRadarsat1ObservationFromMetadataFile_SceneStopTime_ArgumentNullExpection" xml:space="preserve">
     <value>Radarsat1 Scene Stop Time cannot be null</value>
   </data>
+  <data name="Text_Radarsat1DataUsageRights_Attribution" xml:space="preserve">
+    <value>(c) Canadian Space Agency 1997 Agence spatiale canadienne. Processed and distributed by MDA Geospatial Services Inc. Contains information licensed under the Open Government Licence – Canada.</value>
+  </data>
+  <data name="Text_Radarsat1DataUsageRights_Owner" xml:space="preserve">
+    <value>Her Majesty the Queen in right of Canada</value>
+  </data>
 </root>

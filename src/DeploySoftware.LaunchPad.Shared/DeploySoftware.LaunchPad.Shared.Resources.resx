@@ -270,4 +270,17 @@
   <data name="Info_UnitOfWorkTransaction_UnitOfWorkTransaction_Created" xml:space="preserve">
     <value>New UnitOfWorkTransction created with Id {0}.</value>
   </data>
+  <data name="Text_OpenGovernmentCanadaLicense_LicenseDescription" xml:space="preserve">
+    <value>Open Government is about making government more accessible to everyone. 
+                                        This means giving greater access to government data and information to the Canadian public and the businesses community. 
+                                        The Information Provider grants you a worldwide, royalty-free, perpetual, non-exclusive licence to use the Information, 
+                                        including for commercial purposes, subject to the license terms. 
+                                        This licence is governed by the laws of the province of Ontario and the applicable laws of Canada.</value>
+  </data>
+  <data name="Text_OpenGovernmentCanadaLicense_LicenseName" xml:space="preserve">
+    <value>Open Government License - Canada</value>
+  </data>
+  <data name="Text_OpenGovernmentCanadaLicense_LicenseTerms" xml:space="preserve">
+    <value>https://open.canada.ca/en/open-government-licence-canada</value>
+  </data>
 </root>

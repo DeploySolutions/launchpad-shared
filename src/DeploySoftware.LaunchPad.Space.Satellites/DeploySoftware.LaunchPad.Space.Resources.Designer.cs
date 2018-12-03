@@ -100,5 +100,23 @@ namespace DeploySoftware.LaunchPad.Space.Satellites {
                         "opTime_ArgumentNullExpection", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to (c) Canadian Space Agency 1997 Agence spatiale canadienne. Processed and distributed by MDA Geospatial Services Inc. Contains information licensed under the Open Government Licence – Canada..
+        /// </summary>
+        public static string Text_Radarsat1DataUsageRights_Attribution {
+            get {
+                return ResourceManager.GetString("Text_Radarsat1DataUsageRights_Attribution", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Her Majesty the Queen in right of Canada.
+        /// </summary>
+        public static string Text_Radarsat1DataUsageRights_Owner {
+            get {
+                return ResourceManager.GetString("Text_Radarsat1DataUsageRights_Owner", resourceCulture);
+            }
+        }
     }
 }

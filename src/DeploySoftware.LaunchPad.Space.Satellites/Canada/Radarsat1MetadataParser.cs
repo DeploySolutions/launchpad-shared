@@ -16,8 +16,6 @@
 #endregion
 
 
-using DeploySoftware.LaunchPad.Shared.Domain.Licenses;
-
 namespace DeploySoftware.LaunchPad.Space.Satellites.Canada
 {
 
@@ -31,6 +29,8 @@ namespace DeploySoftware.LaunchPad.Space.Satellites.Canada
     using System.IO;
     using System.Text;
     using System.Text.RegularExpressions;
+    using DeploySoftware.LaunchPad.Shared.Domain.Files;
+    using DeploySoftware.LaunchPad.Shared.Domain.Licenses;
 
     /// <summary>
     /// Utility to parse a Radarsat1 image observation metadata file and populate a Radarsat1Observation object from it.
@@ -138,6 +138,7 @@ namespace DeploySoftware.LaunchPad.Space.Satellites.Canada
                 ImageObservationCornerCoordinates cornerCoords = GetCornerCoordinates(cornerCoordinatesString);
 
                 ILicense license = new OpenGovernmentCanadaLicense();
+                IUsageRights copyright = new Radarsat1DataUsageRights();
 
                 // Create a new Radarsat1 Earth Observation image
                 observation = new Radarsat1Observation(
@@ -161,7 +162,7 @@ namespace DeploySoftware.LaunchPad.Space.Satellites.Canada
                 {
                     Name = radarsatUniqueId,
                     Description = radarsatUniqueId,
-                    License =  license
+                    Copyright = copyright
                 };
                 
             }
