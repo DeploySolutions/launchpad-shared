@@ -16,6 +16,8 @@
 #endregion
 
 
+using DeploySoftware.LaunchPad.Shared.Domain.Licenses;
+
 namespace DeploySoftware.LaunchPad.Space.Satellites.Canada
 {
 
@@ -23,7 +25,6 @@ namespace DeploySoftware.LaunchPad.Space.Satellites.Canada
     using DeploySoftware.LaunchPad.Shared.Domain;
     using DeploySoftware.LaunchPad.Shared.Util;
     using DeploySoftware.LaunchPad.Space.Satellites.Common;
-    using DeploySoftware.LaunchPad.Space.Satellites.Common.ObservationFiles;
     using System;
     using System.Collections.Generic;
     using System.Globalization;
@@ -135,7 +136,8 @@ namespace DeploySoftware.LaunchPad.Space.Satellites.Canada
                     DeploySoftware_LaunchPad_Space_Resources.Exception_Radarsat1MetadataParser_GetRadarsat1ObservationFromMetadataFile_CornerCoordinates_ArgumentNullExpection
                 );
                 ImageObservationCornerCoordinates cornerCoords = GetCornerCoordinates(cornerCoordinatesString);
-                
+
+                ILicense license = new OpenGovernmentCanadaLicense();
 
                 // Create a new Radarsat1 Earth Observation image
                 observation = new Radarsat1Observation(
@@ -158,7 +160,8 @@ namespace DeploySoftware.LaunchPad.Space.Satellites.Canada
                 )
                 {
                     Name = radarsatUniqueId,
-                    Description = radarsatUniqueId
+                    Description = radarsatUniqueId,
+                    License =  license
                 };
                 
             }
@@ -207,7 +210,6 @@ namespace DeploySoftware.LaunchPad.Space.Satellites.Canada
                 observationFiles.Nvol = new NvolFile<Guid>()
                 {
                     Id = Guid.NewGuid(),
-                    ParentObservationKey = observation.GlobalKey,
                     FileName = Path.GetFileName(expectedFiles[0].Value),
                     FilePath = expectedFiles[0].Value
                 };
@@ -217,7 +219,6 @@ namespace DeploySoftware.LaunchPad.Space.Satellites.Canada
                 observationFiles.Sard = new SardFile<Guid>()
                 {
                     Id = Guid.NewGuid(),
-                    ParentObservationKey = observation.GlobalKey,
                     FileName = Path.GetFileName(expectedFiles[1].Value),
                     FilePath = expectedFiles[1].Value
                 };
@@ -227,7 +228,6 @@ namespace DeploySoftware.LaunchPad.Space.Satellites.Canada
                 observationFiles.Sarl = new SarlFile<Guid>()
                 {
                     Id = Guid.NewGuid(),
-                    ParentObservationKey = observation.GlobalKey,
                     FileName = Path.GetFileName(expectedFiles[2].Value),
                     FilePath = expectedFiles[2].Value
                 };
@@ -237,17 +237,15 @@ namespace DeploySoftware.LaunchPad.Space.Satellites.Canada
                 observationFiles.Sart = new SartFile<Guid>()
                 {
                     Id = Guid.NewGuid(),
-                    ParentObservationKey = observation.GlobalKey,
                     FileName = Path.GetFileName(expectedFiles[3].Value),
                     FilePath = expectedFiles[3].Value
                 };
             }
             if (File.Exists(expectedFiles[4].Value))
             {
-                observationFiles.Tfw = new TfwFile<Guid>()
+                observationFiles.Tfw = new TifWorldFile<Guid>()
                 {
                     Id = Guid.NewGuid(),
-                    ParentObservationKey = observation.GlobalKey,
                     FileName = Path.GetFileName(expectedFiles[4].Value),
                     FilePath = expectedFiles[4].Value
                 };
@@ -257,7 +255,6 @@ namespace DeploySoftware.LaunchPad.Space.Satellites.Canada
                 observationFiles.Tif = new TifFile<Guid>()
                 {
                     Id = Guid.NewGuid(),
-                    ParentObservationKey = observation.GlobalKey,
                     FileName = Path.GetFileName(expectedFiles[5].Value),
                     FilePath = expectedFiles[5].Value
                 };
@@ -267,7 +264,6 @@ namespace DeploySoftware.LaunchPad.Space.Satellites.Canada
                 observationFiles.Vol = new VolFile<Guid>()
                 {
                     Id = Guid.NewGuid(),
-                    ParentObservationKey = observation.GlobalKey,
                     FileName = Path.GetFileName(expectedFiles[6].Value),
                     FilePath = expectedFiles[6].Value
                 };

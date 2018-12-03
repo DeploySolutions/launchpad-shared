@@ -66,6 +66,12 @@ namespace DeploySoftware.LaunchPad.Space.Satellites.Common
 
         public IList<SpaceTimeInformation> PreviousLocations { get; set; }
 
+        /// <summary>
+        /// The license under which this observation may be used
+        /// </summary>
+        [Required]
+        public ILicense License { get; set; }
+
         protected EarthObservationBase() : base()
         {
 

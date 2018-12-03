@@ -16,6 +16,8 @@
 #endregion
 
 
+using DeploySoftware.LaunchPad.Shared.Domain.Licenses;
+
 namespace DeploySoftware.LaunchPad.Space.Tests
 {
 
@@ -112,5 +114,35 @@ namespace DeploySoftware.LaunchPad.Space.Tests
             _fixture.Observation.SceneStopTime.Should().Be(stopDate);
         }
         
+        [Fact]
+        public void License_Should_Be_Open_Government_Canada()
+        {
+            _fixture.Observation.License.Should().BeOfType(typeof(OpenGovernmentCanadaLicense));
+        }
+        
+        [Fact]
+        public void License_Name_Should_Be_Open_Government_Canada()
+        {
+            string name = "Open Government License - Canada";
+            _fixture.Observation.License.LicenseName.Should().Be(name);
+        }
+         
+        [Fact]
+        public void License_Description_Should_Be_Open_Government_Canada()
+        {
+            string description = @"Open Government is about making government more accessible to everyone. 
+                                        This means giving greater access to government data and information to the Canadian public and the businesses community. 
+                                        The Information Provider grants you a worldwide, royalty-free, perpetual, non-exclusive licence to use the Information, 
+                                        including for commercial purposes, subject to the license terms. 
+                                        This licence is governed by the laws of the province of Ontario and the applicable laws of Canada.";
+            _fixture.Observation.License.LicenseDescription.Should().Be(description);
+        }
+
+        [Fact]
+        public void License_Uri_Should_Be_To_Open_Government_Canada_Online()
+        {
+            Uri openGovtTerms = new Uri("https://open.canada.ca/en/open-government-licence-canada");
+            _fixture.Observation.License.LicenseTerms.Should().Be(openGovtTerms);
+        }
     }
 }

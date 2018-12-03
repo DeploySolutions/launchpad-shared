@@ -28,7 +28,6 @@ namespace DeploySoftware.LaunchPad.Space.Satellites.Canada
     using Abp.Timing;
     using DeploySoftware.LaunchPad.Shared.Domain;
     using DeploySoftware.LaunchPad.Space.Satellites.Common;
-    using DeploySoftware.LaunchPad.Space.Satellites.Common.ObservationFiles;
 
     [Table("Radarsat1Observations")]
     public class Radarsat1Observation : EarthObservationBase<Guid>, IRadarsatObservation<Guid>
@@ -149,7 +148,7 @@ namespace DeploySoftware.LaunchPad.Space.Satellites.Canada
             
             public TifFile<Guid> Tif { get; set; }
 
-            public TfwFile<Guid> Tfw { get; set; }
+            public TifWorldFile<Guid> Tfw { get; set; }
 
             public VolFile<Guid> Vol { get; set; }
         }

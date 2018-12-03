@@ -16,6 +16,8 @@
 #endregion
 
 
+using System.Collections;
+
 namespace DeploySoftware.LaunchPad.Space.Satellites.Common
 {
 
@@ -39,6 +41,13 @@ namespace DeploySoftware.LaunchPad.Space.Satellites.Common
 
         [Required]
         IObservationFiles<TPrimaryKey> ObservationFiles { get; set; }
+
+        /// <summary>
+        /// The license under which this observation may be used
+        /// </summary>
+        [Required]
+        ILicense License { get; set; }
+
 
     }
 }
