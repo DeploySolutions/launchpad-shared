@@ -15,10 +15,12 @@
 //limitations under the License. 
 #endregion
 
+
 namespace DeploySoftware.LaunchPad.Shared.Domain
 {
     using System.Runtime.Serialization;
     using System.ComponentModel;
+    using DeploySoftware.LaunchPad.Shared.Domain.Metadata;
 
     /// <summary>
     /// Every entity or file managed by the platform must implement this interface.    

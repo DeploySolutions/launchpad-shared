@@ -16,7 +16,7 @@
 #endregion
 
 
-namespace DeploySoftware.LaunchPad.Shared.Domain
+namespace DeploySoftware.LaunchPad.Shared.Domain.Data
 {
     using System;
     using Abp.Timing;

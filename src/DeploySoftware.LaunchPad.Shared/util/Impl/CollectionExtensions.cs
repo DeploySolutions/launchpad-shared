@@ -15,13 +15,14 @@
 //limitations under the License. 
 #endregion
 
+using Castle.Core.Logging;
 using System;
 using System.Collections.Generic;
 
 namespace DeploySoftware.LaunchPad.Shared.Util
 {
     /// <summary>
-    /// Contains some usefull extensions for working will collections.
+    /// Contains some useful extensions for working with collections.
     /// </summary>
     public static class CollectionExtensions
     {
@@ -57,15 +58,12 @@ namespace DeploySoftware.LaunchPad.Shared.Util
         /// </summary>
         /// <typeparam name="T">The type that this extension is applicable for.</typeparam>
         /// <param name="collection">The IEnumerable instance that ths extension operates on.</param>
-        /// <param name="action">The action excecuted for each item in the enumerable.</param>
+        /// <param name="action">The action executed for each item in the enumerable.</param>
         public static void TryForEach<T>(this IEnumerable<T> collection, Action<T> action)
         {
             foreach (var item in collection)
             {
-                try
-                {
-                    action(item);
-                }catch{}
+                action(item);
             }
         }
 
@@ -74,16 +72,13 @@ namespace DeploySoftware.LaunchPad.Shared.Util
         /// action delegate and if the action throws an exception, continues executing.
         /// </summary>
         /// <typeparam name="T">The type that this extension is applicable for.</typeparam>
-        /// <param name="enumerator">The IEnumerator instace</param>
+        /// <param name="enumerator">The IEnumerator instance</param>
         /// <param name="action">The action executed for each item in the enumerator.</param>
         public static void TryForEach<T>(this IEnumerator<T> enumerator, Action<T> action)
         {
             while (enumerator.MoveNext())
             {
-                try
-                {
-                    action(enumerator.Current);
-                }catch{}
+               action(enumerator.Current);
             }
         }
     }

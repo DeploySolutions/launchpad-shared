@@ -15,13 +15,11 @@
 //limitations under the License. 
 #endregion
 
-
-using System.Collections;
-
 namespace DeploySoftware.LaunchPad.Space.Satellites.Common
 {
 
-    using Abp.Domain.Entities;
+    
+    using DeploySoftware.LaunchPad.Shared.Domain.Licenses;
     using Abp.Domain.Entities.Auditing;
     using DeploySoftware.LaunchPad.Shared.Domain;
     using System.ComponentModel.DataAnnotations;
@@ -43,11 +41,10 @@ namespace DeploySoftware.LaunchPad.Space.Satellites.Common
         IObservationFiles<TPrimaryKey> ObservationFiles { get; set; }
 
         /// <summary>
-        /// The license under which this observation may be used
+        /// The copyright information and license under which this observation may be used
         /// </summary>
         [Required]
-        ILicense License { get; set; }
-
-
+        IUsageRights Copyright { get; set; }
+        
     }
 }

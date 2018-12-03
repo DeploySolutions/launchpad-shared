@@ -17,8 +17,8 @@
 
 namespace DeploySoftware.LaunchPad.Space.Satellites.Common
 {
-
-    using DeploySoftware.LaunchPad.Shared.Domain;
+    
+    using DeploySoftware.LaunchPad.Shared.Domain.Files;
 
     public class VolFile<TPrimaryKey> : FileBase<TPrimaryKey>
     {

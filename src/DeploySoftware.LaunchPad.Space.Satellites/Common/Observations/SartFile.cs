@@ -16,10 +16,11 @@
 #endregion
 
 
+
 namespace DeploySoftware.LaunchPad.Space.Satellites.Common
 {
     
-    using DeploySoftware.LaunchPad.Shared.Domain;
+    using DeploySoftware.LaunchPad.Shared.Domain.Files;
 
     public class SartFile<TPrimaryKey> : FileBase<TPrimaryKey>
     {

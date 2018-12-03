@@ -23,12 +23,11 @@ using Newtonsoft.Json;
 
 namespace DeploySoftware.LaunchPad.Space.Tests.TestConsole
 {
-    using DeploySoftware.LaunchPad.Images;
     using ImageMagick;
     using System;
     using System.Collections.Generic;
     using System.IO;
-    using static DeploySoftware.LaunchPad.Images.ImageManager;
+    using DeploySoftware.LaunchPad.Images.Domain;
 
     class Program
     {
@@ -44,7 +43,7 @@ namespace DeploySoftware.LaunchPad.Space.Tests.TestConsole
         {
             // Load a set of images from Radarsat1 metadata
             List<Radarsat1Observation> images = new List<Radarsat1Observation>();
-            Radarsat1Observation image = null;
+            Radarsat1Observation image;
             Radarsat1MetadataParser parser = new Radarsat1MetadataParser();
             string[] files = Directory.GetFiles(DataRootPath, "*", SearchOption.AllDirectories);
             foreach (string file in files)
@@ -60,9 +59,9 @@ namespace DeploySoftware.LaunchPad.Space.Tests.TestConsole
             }
 
             // setup Elasticsearch
-            var pool = new SingleNodeConnectionPool(
+            SingleNodeConnectionPool pool = new SingleNodeConnectionPool(
                 new Uri(System.Configuration.ConfigurationManager.AppSettings["ElasticSearchUri"]));
-            var settings = new ConnectionSettings(pool, (builtInSerializer, connectionSettings) =>
+            ConnectionSettings settings = new ConnectionSettings(pool, (builtInSerializer, connectionSettings) =>
             new JsonNetSerializer(builtInSerializer, connectionSettings, () => new JsonSerializerSettings
             {
                 ReferenceLoopHandling = ReferenceLoopHandling.Ignore
@@ -70,12 +69,12 @@ namespace DeploySoftware.LaunchPad.Space.Tests.TestConsole
             .DefaultIndex("radarsat1")
             ;
 
-            ElasticClient _elasticSearch = new ElasticClient(settings);
-            _elasticSearch.DeleteIndex("radarsat1"); // delete previous index for testing purposes
-            _elasticSearch.CreateIndex("radarsat1"); // create the new index
+            ElasticClient elasticSearch = new ElasticClient(settings);
+            elasticSearch.DeleteIndex("radarsat1"); // delete previous index for testing purposes
+            elasticSearch.CreateIndex("radarsat1"); // create the new index
             foreach (Radarsat1Observation img in images)
             {
-                _elasticSearch.IndexDocument(img); // add the images to the index
+                elasticSearch.IndexDocument(img); // add the images to the index
             }
         }
 
@@ -95,19 +94,19 @@ namespace DeploySoftware.LaunchPad.Space.Tests.TestConsole
             };
             FileInfo info = new FileInfo(DataRootPath + @"Tuktoyaktuk\compareA.tif");
             byte[] diffImage = imageMan.CompareImages(imageA, imageB, compareSettings);
-            byte[] thumbImage = imageMan.GetThumbnailFromImage(diffImage, ThumbnailSize.Large);
+            byte[] thumbImage = imageMan.GetThumbnailFromImage(diffImage, ImageManager.ThumbnailSize.Large);
             FileInfo thumbFile = new FileInfo(DataRootPath + @"Tuktoyaktuk\compareA_thumb_medium.jpeg");
             
             if (diffImage.Length > 0)
             {
-                using (var fs = new FileStream(info.FullName, FileMode.Create, FileAccess.Write))
+                using (FileStream fs = new FileStream(info.FullName, FileMode.Create, FileAccess.Write))
                 {
                     fs.Write(diffImage, 0, diffImage.Length);
                 }
             }
             if (thumbImage.Length > 0)
             {
-                using (var fs = new FileStream(thumbFile.FullName, FileMode.Create, FileAccess.Write))
+                using (FileStream fs = new FileStream(thumbFile.FullName, FileMode.Create, FileAccess.Write))
                 {
                     fs.Write(thumbImage, 0, thumbImage.Length);
                 }
@@ -115,12 +114,24 @@ namespace DeploySoftware.LaunchPad.Space.Tests.TestConsole
 
             compareSettings.Metric = ErrorMetric.Fuzz;
             FileInfo info2 = new FileInfo(DataRootPath + @"Tuktoyaktuk\compareFuzz.tif");
-            imageMan.CompareImages(imageA, imageB, compareSettings);
-
+            diffImage = imageMan.CompareImages(imageA, imageB, compareSettings);
+            if (diffImage.Length > 0)
+            {
+                using (FileStream fs = new FileStream(info.FullName, FileMode.Create, FileAccess.Write))
+                {
+                    fs.Write(diffImage, 0, diffImage.Length);
+                }
+            }
             compareSettings.Metric = ErrorMetric.MeanAbsolute;
             FileInfo info3 = new FileInfo(DataRootPath + @"Tuktoyaktuk\compareMeanAbsolute.tif");
-            imageMan.CompareImages(imageA, imageB, compareSettings);
-
+            diffImage = imageMan.CompareImages(imageA, imageB, compareSettings);
+            if (diffImage.Length > 0)
+            {
+                using (FileStream fs = new FileStream(info.FullName, FileMode.Create, FileAccess.Write))
+                {
+                    fs.Write(diffImage, 0, diffImage.Length);
+                }
+            }
 
         }
     }

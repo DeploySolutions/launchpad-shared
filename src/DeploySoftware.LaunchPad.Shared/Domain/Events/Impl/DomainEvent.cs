@@ -22,7 +22,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 
-namespace DeploySoftware.LaunchPad.Shared.Domain
+namespace DeploySoftware.LaunchPad.Shared.Domain 
 {
     ///<summary>
     /// DomainEvent class that allowes raising domain events from domain entities and allow registring

@@ -1,4 +1,4 @@
-﻿namespace DeploySoftware.LaunchPad.Shared.Domain
+﻿namespace DeploySoftware.LaunchPad.Shared.Domain.Metadata
 {
 
     //LaunchPad Shared

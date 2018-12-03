@@ -26,6 +26,7 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
     using System.Security.Permissions;
     using System.Text;
     using System.Xml.Serialization;
+    using DeploySoftware.LaunchPad.Shared.Domain.Metadata;
 
     /// <summary>
     /// Base class for Entities. Implements <see cref="IDomainEntity">IDomainEntity</see> and provides

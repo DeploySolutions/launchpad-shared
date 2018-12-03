@@ -15,13 +15,13 @@
 //limitations under the License. 
 #endregion
 
-using System.IO;
-using System.Reflection;
-using DeploySoftware.LaunchPad.Shared.Util;
-
 namespace DeploySoftware.LaunchPad.Shared.Tests
 {
-    using DeploySoftware.LaunchPad.Shared.Domain;
+
+    using System.IO;
+    using System.Reflection;
+    using DeploySoftware.LaunchPad.Shared.Domain.Files;
+    using DeploySoftware.LaunchPad.Shared.Util;
     using System;
 
     public class TfwWorldFileTestsFixture : IDisposable

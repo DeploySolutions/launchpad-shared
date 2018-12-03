@@ -25,6 +25,7 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
     using System.Security.Permissions;
     using System.Text;
     using System.Xml.Serialization;
+    using DeploySoftware.LaunchPad.Shared.Domain.Metadata;
 
     /// <summary>
     /// This class represents a programmable hardware/software device (that is part of the Internet-of-Things or Web-of-Things world).

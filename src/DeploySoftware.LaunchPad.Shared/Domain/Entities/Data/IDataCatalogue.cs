@@ -15,14 +15,14 @@
 //limitations under the License. 
 #endregion
 
-namespace DeploySoftware.LaunchPad.Shared.Domain
+namespace DeploySoftware.LaunchPad.Shared.Domain.Data
 {
     using Abp.Domain.Entities;
     using Abp.Domain.Entities.Auditing;
     using System;
     using System.ComponentModel;
 
-    public interface IDataSet<TPrimaryKey> : IDomainEntity<TPrimaryKey>, IHasCreationTime, IHasModificationTime
+    public interface IDataCatalogue<TPrimaryKey> : IDomainEntity<TPrimaryKey>, IHasCreationTime, IHasModificationTime
     {
         
         int? TotalCount { get; set; }

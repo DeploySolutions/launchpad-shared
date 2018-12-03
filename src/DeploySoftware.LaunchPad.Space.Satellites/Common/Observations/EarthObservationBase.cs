@@ -15,12 +15,14 @@
 //limitations under the License. 
 #endregion
 
+
 namespace DeploySoftware.LaunchPad.Space.Satellites.Common
 {
 
     using System;
     using System.ComponentModel.DataAnnotations;
     using DeploySoftware.LaunchPad.Shared.Domain;
+    using DeploySoftware.LaunchPad.Shared.Domain.Licenses;
     using System.Collections.Generic;
 
     public abstract class EarthObservationBase<TPrimaryKey> : DomainEntityBase<TPrimaryKey>, IEarthObservation<TPrimaryKey>
@@ -67,10 +69,10 @@ namespace DeploySoftware.LaunchPad.Space.Satellites.Common
         public IList<SpaceTimeInformation> PreviousLocations { get; set; }
 
         /// <summary>
-        /// The license under which this observation may be used
+        /// The copyright information and license under which this observation may be used
         /// </summary>
         [Required]
-        public ILicense License { get; set; }
+        public IUsageRights Copyright { get; set; }
 
         protected EarthObservationBase() : base()
         {
