@@ -32,7 +32,7 @@ namespace DeploySoftware.LaunchPad.Space.Satellites.Common
         private IEnumerable<ISatelliteOperator<Guid>> _operators;
         private string _satelliteCatalogNumber;
         private string _cosparID;
-        private string _website;
+        private Uri _website;
         
         [System.ComponentModel.DataObjectField(true)]
         [XmlAttribute]
@@ -60,7 +60,7 @@ namespace DeploySoftware.LaunchPad.Space.Satellites.Common
 
         [System.ComponentModel.DataObjectField(true)]
         [XmlAttribute]
-        public string Website
+        public Uri Website
         {
             get { return _website; }
             set { _website = value; }

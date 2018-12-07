@@ -16,6 +16,9 @@
 #endregion
 
 
+using System.Collections.Generic;
+using System.Linq;
+
 namespace DeploySoftware.LaunchPad.Shared.Domain.Data
 {
     using System;
@@ -34,6 +37,8 @@ namespace DeploySoftware.LaunchPad.Shared.Domain.Data
         public DateTime CreationTime { get; set; }
         
         public DateTime? LastModificationTime { get; set; }
+
+        public IEnumerable<DataSet<TPrimaryKey>> DataSets { get; set; } 
 
         public DataCatalogue(
             string _datacatalogueName,
@@ -57,7 +62,7 @@ namespace DeploySoftware.LaunchPad.Shared.Domain.Data
             Description = String.Empty;
             CreationTime = DateTime.Now;
             LastModificationTime = DateTime.Now;
-            NumberofDatasets = 0;
+            NumberofDatasets = DataSets.Count();
             TotalCount = 0;
         }
             

@@ -33,6 +33,6 @@ namespace DeploySoftware.LaunchPad.Space.Satellites.Common
 
         string SatelliteCatalogNumber { get; set; }
 
-        string Website { get; set; }
+        Uri Website { get; set; }
     }
 }

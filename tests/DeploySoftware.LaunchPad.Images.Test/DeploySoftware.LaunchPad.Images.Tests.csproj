@@ -7,10 +7,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="logoDark.png" />
     <None Remove="logoWhite.png" />
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Include="logoDark.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
     <EmbeddedResource Include="logoWhite.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>

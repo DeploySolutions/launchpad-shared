@@ -37,7 +37,7 @@ namespace DeploySoftware.LaunchPad.Space.Satellites.Canada
             };
             SatelliteCatalogNumber = "39089";
             CosparID = "2013-009D";
-            Website = "http://neossat.ca/";
+            Website = new Uri("http://neossat.ca/");
         }
     }
 }

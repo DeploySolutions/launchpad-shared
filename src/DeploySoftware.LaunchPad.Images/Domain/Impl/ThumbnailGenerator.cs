@@ -25,7 +25,7 @@ namespace DeploySoftware.LaunchPad.Images.Domain
     /// <summary>
     /// This class creates thumbnails from provided images, using Magick.NET library (ImageMagick wrapper)
     /// </summary>
-    public class ThumbnailGenerator : ILaunchPadService
+    public class ThumbnailGenerator : ILaunchPadDomainService
     {
         public readonly ImageMagickConfiguration Configuration;
 

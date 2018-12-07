@@ -36,8 +36,9 @@ namespace DeploySoftware.LaunchPad.Images.Tests
 
         public byte[] NotEmptyBytes { get; set; }
 
-        public byte[] Logo { get; set; }
+        public byte[] LogoWhite { get; set; }
         
+        public byte[] LogoDark { get; set; }
         
         public void Initialize(ImageManager imageMan, CompareSettings compareSettings)
         {
@@ -48,12 +49,22 @@ namespace DeploySoftware.LaunchPad.Images.Tests
                 System.Reflection.Assembly.GetExecutingAssembly();
             string fileName = a.GetName().Name + "." + "logoWhite.png";
             Stream s = a.GetManifestResourceStream(fileName);
-            Guard.Against< ArgumentException>(s == null, "Logo not found");
+            Guard.Against< ArgumentException>(s == null, "Logo White not found");
             using (BinaryReader br = new BinaryReader(s))
             {
 
-                Logo = br.ReadBytes((int)s.Length);
+                LogoWhite = br.ReadBytes((int)s.Length);
             }
+            
+            string logoDarkFilename = a.GetName().Name + "." + "logoDark.png";
+            Stream s2 = a.GetManifestResourceStream(logoDarkFilename);
+            Guard.Against< ArgumentException>(s2 == null, "Logo Dark not found");
+            using (BinaryReader br2 = new BinaryReader(s2))
+            {
+
+                LogoDark = br2.ReadBytes((int)s2.Length);
+            }
+
         }
 
         public void Dispose()

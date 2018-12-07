@@ -37,7 +37,7 @@ namespace DeploySoftware.LaunchPad.Space.Satellites.Canada
             Operators = new List<ISatelliteOperator<Guid>>() { new CanadaSpaceAgency() as ISatelliteOperator<Guid> };
             SatelliteCatalogNumber = "23710";
             CosparID = "1995-059A";
-            Website = "http://www.asc-csa.gc.ca/eng/satellites/radarsat1/";
+            Website = new Uri("http://www.asc-csa.gc.ca/eng/satellites/radarsat1/");
         }
 
     }

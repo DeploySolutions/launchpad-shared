@@ -29,7 +29,7 @@ namespace DeploySoftware.LaunchPad.Shared.Util
     /// However, some component services may wish to autoregister while under another namespace.
     /// Implementing the ILaunchPadService interface will ensure they are auto-registered. 
     /// </summary>
-    public interface ILaunchPadService: IDomainService
+    public interface ILaunchPadDomainService: IDomainService
     {
     }
 }
