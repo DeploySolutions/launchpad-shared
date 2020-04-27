@@ -28,6 +28,7 @@ namespace DeploySoftware.LaunchPad.Space.Tests.TestConsole
     using System.Collections.Generic;
     using System.IO;
     using DeploySoftware.LaunchPad.Images.Domain;
+    using DeploySoftware.LaunchPad.Shared.Domain.Files;
 
     class Program
     {

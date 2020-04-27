@@ -30,7 +30,7 @@ namespace DeploySoftware.LaunchPad.Shared.Domain.Data
 
         string Description { get; set; }
 
-        IEnumerable<DataSet<TPrimaryKey>> DataSets { get; set; } 
+        IEnumerable<IDataSet<TPrimaryKey>> DataSets { get; set; } 
 
     }
 }

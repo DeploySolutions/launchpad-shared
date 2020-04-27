@@ -38,7 +38,7 @@ namespace DeploySoftware.LaunchPad.Shared.Domain.Data
         
         public DateTime? LastModificationTime { get; set; }
 
-        public IEnumerable<DataSet<TPrimaryKey>> DataSets { get; set; } 
+        public IEnumerable<IDataSet<TPrimaryKey>> DataSets { get; set; } 
 
         public DataCatalogue(
             string _datacatalogueName,
