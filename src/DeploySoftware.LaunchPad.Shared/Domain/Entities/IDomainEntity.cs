@@ -38,7 +38,7 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         /// </summary>
         [DataObjectField(true)]
         [XmlAttribute]
-        String CultureName { get; set; }
+        String Culture { get; set; }
 
     }
 }

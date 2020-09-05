@@ -109,7 +109,7 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         /// <param name="previousLocations">The previous physical location(s) of this device</param>
         public Device(DomainEntityKey key, MetadataInformation metadata, SpaceTimeInformation currentLocation, IList<SpaceTimeInformation> previousLocations)
         {
-            CultureName = "en";
+            Culture = "en";
             Metadata = metadata;
             CurrentLocation = currentLocation;
             PreviousLocations = previousLocations;
@@ -125,7 +125,7 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         /// <param name="power">The current power level of this device</param>
         public Device(DomainEntityKey key, MetadataInformation metadata, SpaceTimeInformation currentLocation, DevicePower power)
         {
-            CultureName = "en";
+            Culture = "en";
             Metadata = metadata;
             CurrentLocation = currentLocation;
             PreviousLocations = new List<SpaceTimeInformation>();
@@ -140,7 +140,7 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         protected Device(SerializationInfo info, StreamingContext context)
         {
             Id = (TPrimaryKey)info.GetValue("Id", typeof(TPrimaryKey));
-            CultureName = info.GetString("CultureName");
+            Culture = info.GetString("CultureName");
             Metadata = (MetadataInformation)info.GetValue("Metadata", typeof(MetadataInformation));
             CurrentLocation = (SpaceTimeInformation)info.GetValue("CurrentLocation", typeof(SpaceTimeInformation));
             PreviousLocations = (IList<SpaceTimeInformation>)info.GetValue("PreviousLocations", typeof(IList<SpaceTimeInformation>));

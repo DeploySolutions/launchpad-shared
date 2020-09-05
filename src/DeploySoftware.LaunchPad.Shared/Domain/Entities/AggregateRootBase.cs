@@ -80,7 +80,7 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         protected AggregateRootBase(SerializationInfo info, StreamingContext context)
         {
             Id = (TPrimaryKey)info.GetValue("Id", typeof(TPrimaryKey));
-            CultureName = info.GetString("CultureName");
+            Culture = info.GetString("CultureName");
             Metadata = (MetadataInformation)info.GetValue("Metadata", typeof(MetadataInformation));
         }
 
@@ -172,7 +172,7 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
                     // For safe equality we need to match on business key equality.
                     // Base domain entities are functionally equal if their key and metadata are equal.
                     // Subclasses should extend to include their own enhanced equality checks, as required.
-                    return Id.Equals(obj.Id) && CultureName.Equals(obj.CultureName) && Metadata.Equals(obj.Metadata);
+                    return Id.Equals(obj.Id) && Culture.Equals(obj.Culture) && Metadata.Equals(obj.Metadata);
                 }
                 
             }
@@ -218,7 +218,7 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         /// <returns>A hash code for an object.</returns>
         public override int GetHashCode()
         {
-            return CultureName.GetHashCode()+Id.GetHashCode();
+            return Culture.GetHashCode()+Id.GetHashCode();
         }
 
     }

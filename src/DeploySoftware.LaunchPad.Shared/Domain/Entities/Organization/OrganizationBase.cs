@@ -71,7 +71,7 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         /// </summary>
         protected OrganizationBase() : base()
         {
-            CultureName = "en";
+            Culture = "en";
             Metadata = new MetadataInformation();
         }
 
@@ -94,7 +94,7 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         protected OrganizationBase(SerializationInfo info, StreamingContext context) : base(info,context)
         {
             Id = (TPrimaryKey)info.GetValue("Id", typeof(TPrimaryKey));
-            CultureName = info.GetString("CultureName"); 
+            Culture = info.GetString("CultureName"); 
             Schema = (Organization)info.GetValue("Organization", typeof(Organization));
             Offices = (IList<string>)info.GetValue("Offices", typeof(IList<string>));
         }
@@ -197,7 +197,7 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
                     // Base domain entities are functionally equal if their key and metadata and tags are equal.
                     // Subclasses should extend to include their own enhanced equality checks, as required.
                     return Id.Equals(obj.Id)
-                        && CultureName.Equals(obj.CultureName)
+                        && Culture.Equals(obj.Culture)
                         && Metadata.Equals(obj.Metadata) 
                         && Schema.Equals(obj.Schema);
                 }

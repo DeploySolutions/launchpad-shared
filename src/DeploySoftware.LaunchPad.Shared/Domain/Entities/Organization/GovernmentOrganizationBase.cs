@@ -75,7 +75,7 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         protected GovernmentOrganizationBase(SerializationInfo info, StreamingContext context) 
         {
             Id = (TPrimaryKey)info.GetValue("Id", typeof(TPrimaryKey));
-            CultureName = info.GetString("CultureName");
+            Culture = info.GetString("CultureName");
             Metadata = (MetadataInformation)info.GetValue("Metadata", typeof(MetadataInformation));
             Schema = (GovernmentOrganization)info.GetValue("Organization", typeof(GovernmentOrganization));
             Offices = (IList<String>)info.GetValue("Offices", typeof(IList<String>));
@@ -89,7 +89,7 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         [SecurityPermission(SecurityAction.Demand, SerializationFormatter = true)]
         public new virtual void GetObjectData(SerializationInfo info, StreamingContext context)
         {
-            info.AddValue("CultureName", CultureName);
+            info.AddValue("CultureName", Culture);
             info.AddValue("Metadata", Metadata);
             info.AddValue("Schema", Schema);
             info.AddValue("Offices", Offices);
@@ -178,7 +178,7 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
                 else
                 {
                     return Id.Equals(obj.Id)
-                        && CultureName.Equals(obj.CultureName)
+                        && Culture.Equals(obj.Culture)
                         && Metadata.Equals(obj.Metadata)
                         && Schema.Equals(obj.Schema);
                 }

@@ -59,7 +59,7 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         protected ContentItem(SerializationInfo info, StreamingContext context)
         {
             Id = (TPrimaryKey)info.GetValue("Id", typeof(TPrimaryKey));
-            CultureName = info.GetString("CultureName");
+            Culture = info.GetString("CultureName");
             Metadata = (MetadataInformation)info.GetValue("Metadata", typeof(MetadataInformation));
             Text = info.GetString("Text");
         }
