@@ -48,7 +48,6 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
             : base()
         {
             UniqueId = SequentialGuid.Generate(SequentialGuid.SequentialGuidType.SequentialAsString);
-            //UniqueKey = Guid.NewGuid();
             CultureName = "en";
         }
 

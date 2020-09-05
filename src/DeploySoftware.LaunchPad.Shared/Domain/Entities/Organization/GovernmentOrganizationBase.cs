@@ -87,9 +87,9 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         /// <param name="info"></param>
         /// <param name="context"></param>
         [SecurityPermission(SecurityAction.Demand, SerializationFormatter = true)]
-        public new virtual void GetObjectData(SerializationInfo info, StreamingContext context)
+        public override void GetObjectData(SerializationInfo info, StreamingContext context)
         {
-            info.AddValue("CultureName", Culture);
+            base.GetObjectData(info,context);
             info.AddValue("Metadata", Metadata);
             info.AddValue("Schema", Schema);
             info.AddValue("Offices", Offices);

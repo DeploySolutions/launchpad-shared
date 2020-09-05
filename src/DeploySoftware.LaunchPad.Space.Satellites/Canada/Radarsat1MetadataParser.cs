@@ -159,7 +159,8 @@ namespace DeploySoftware.LaunchPad.Space.Satellites.Canada
                 )
                 {
                     Name = radarsatUniqueId,
-                    Description = radarsatUniqueId,
+                    
+                    //Metadata.Description = radarsatUniqueId,
                     Copyright = copyright
                 };
                 
@@ -208,7 +209,7 @@ namespace DeploySoftware.LaunchPad.Space.Satellites.Canada
             {
                 observationFiles.Nvol = new NvolFile<Guid>()
                 {
-                    Id = Guid.NewGuid(),
+                    Id = SequentialGuid.NewGuid(),
                     FileName = Path.GetFileName(expectedFiles[0].Value),
                     FilePath = expectedFiles[0].Value
                 };
@@ -217,7 +218,7 @@ namespace DeploySoftware.LaunchPad.Space.Satellites.Canada
             {
                 observationFiles.Sard = new SardFile<Guid>()
                 {
-                    Id = Guid.NewGuid(),
+                    Id = SequentialGuid.NewGuid(),
                     FileName = Path.GetFileName(expectedFiles[1].Value),
                     FilePath = expectedFiles[1].Value
                 };
@@ -226,7 +227,7 @@ namespace DeploySoftware.LaunchPad.Space.Satellites.Canada
             {
                 observationFiles.Sarl = new SarlFile<Guid>()
                 {
-                    Id = Guid.NewGuid(),
+                    Id = SequentialGuid.NewGuid(),
                     FileName = Path.GetFileName(expectedFiles[2].Value),
                     FilePath = expectedFiles[2].Value
                 };
@@ -235,7 +236,7 @@ namespace DeploySoftware.LaunchPad.Space.Satellites.Canada
             {
                 observationFiles.Sart = new SartFile<Guid>()
                 {
-                    Id = Guid.NewGuid(),
+                    Id = SequentialGuid.NewGuid(),
                     FileName = Path.GetFileName(expectedFiles[3].Value),
                     FilePath = expectedFiles[3].Value
                 };
@@ -244,7 +245,7 @@ namespace DeploySoftware.LaunchPad.Space.Satellites.Canada
             {
                 observationFiles.Tfw = new TifWorldFile<Guid>()
                 {
-                    Id = Guid.NewGuid(),
+                    Id = SequentialGuid.NewGuid(),
                     FileName = Path.GetFileName(expectedFiles[4].Value),
                     FilePath = expectedFiles[4].Value
                 };
@@ -253,7 +254,7 @@ namespace DeploySoftware.LaunchPad.Space.Satellites.Canada
             {
                 observationFiles.Tif = new TifFile<Guid>()
                 {
-                    Id = Guid.NewGuid(),
+                    Id = SequentialGuid.NewGuid(),
                     FileName = Path.GetFileName(expectedFiles[5].Value),
                     FilePath = expectedFiles[5].Value
                 };
@@ -262,7 +263,7 @@ namespace DeploySoftware.LaunchPad.Space.Satellites.Canada
             {
                 observationFiles.Vol = new VolFile<Guid>()
                 {
-                    Id = Guid.NewGuid(),
+                    Id = SequentialGuid.NewGuid(),
                     FileName = Path.GetFileName(expectedFiles[6].Value),
                     FilePath = expectedFiles[6].Value
                 };

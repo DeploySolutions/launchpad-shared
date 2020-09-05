@@ -51,13 +51,6 @@ namespace DeploySoftware.LaunchPad.Space.Satellites.Common
         [StringLength(MaxNameLength)]
         public string Name { get; set; }
 
-        [Required]
-        [StringLength(MaxDescriptionLength)]
-        public string Description { get; set; }
-
-        public DateTime CreationTime { get; set; }
-
-        public DateTime? LastModificationTime { get; set; }
         
         [Required]
         public IObservationFiles<TPrimaryKey> ObservationFiles { get; set; }

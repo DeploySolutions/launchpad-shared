@@ -22,7 +22,7 @@ namespace DeploySoftware.LaunchPad.Space.Satellites.Common
     using DeploySoftware.LaunchPad.Shared.Domain;
     using System.ComponentModel.DataAnnotations;
 
-    public interface IEarthObservation<TPrimaryKey> : IDomainEntity<TPrimaryKey>, IPhysicallyLocatable, IHasCreationTime, IHasModificationTime
+    public interface IEarthObservation<TPrimaryKey> : IDomainEntity<TPrimaryKey>, IPhysicallyLocatable
     {
         [Required]
         GeographicLocation SceneCentre { get; set; }
@@ -33,7 +33,6 @@ namespace DeploySoftware.LaunchPad.Space.Satellites.Common
         [Required]
         string Name { get; set; }
         
-        string Description { get; set; }
 
         [Required]
         IObservationFiles<TPrimaryKey> ObservationFiles { get; set; }

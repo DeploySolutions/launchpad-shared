@@ -105,7 +105,7 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         /// <param name="info"></param>
         /// <param name="context"></param>
         [SecurityPermission(SecurityAction.Demand, SerializationFormatter = true)]
-        public new virtual void GetObjectData(SerializationInfo info, StreamingContext context) 
+        public override void GetObjectData(SerializationInfo info, StreamingContext context) 
         {
             base.GetObjectData(info, context);
             info.AddValue("Schema", Schema);

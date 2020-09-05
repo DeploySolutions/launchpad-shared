@@ -91,6 +91,15 @@ namespace DeploySoftware.LaunchPad.Shared.Util
             SequentialAtEnd
         }
 
+        /// <summary>
+        /// Convenience method to quickly generate a sequential GUID using the SequentialAsString approach)
+        /// </summary>
+        /// <returns></returns>
+        public static Guid NewGuid()
+        {
+            return Generate(SequentialGuidType.SequentialAsString);
+        }
+
         ///<summary>
         /// Generates a GuidComb (COMBined GUID/timestamp). This is a Guid generation model, suggested by Jimmy Nilsson, where some bytes have been replaced by a timestamp-based value that is guaranteed to increase, but not decrease, with each new value generated.
         /// The goal is to remove the database performance limitations of using GUIDS as surrogate primary keys.
