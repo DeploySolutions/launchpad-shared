@@ -1,5 +1,5 @@
 ﻿//LaunchPad Shared
-// Copyright (c) 2016 Deploy Software Solutions, inc. 
+// Copyright (c) 2016-2021 Deploy Software Solutions, inc. 
 
 #region license
 //Licensed under the Apache License, Version 2.0 (the "License"); 
@@ -41,12 +41,12 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
 
 #region "Constructors"
 
-        public ContentItem()
+        public ContentItem() : base()
         {
             Text = String.Empty;            
         }
 
-        public ContentItem(String text)
+        public ContentItem(string cultureName, String text) : base(cultureName)
         {
             Text = text;
         }
@@ -58,7 +58,8 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         /// <param name="context">The context of the stream</param>
         protected ContentItem(SerializationInfo info, StreamingContext context)
         {
-            GlobalKey = (DomainEntityKey)info.GetValue("GlobalKey", typeof(DomainEntityKey));
+            Id = (TPrimaryKey)info.GetValue("Id", typeof(TPrimaryKey));
+            CultureName = info.GetString("CultureName");
             Metadata = (MetadataInformation)info.GetValue("Metadata", typeof(MetadataInformation));
             Text = info.GetString("Text");
         }

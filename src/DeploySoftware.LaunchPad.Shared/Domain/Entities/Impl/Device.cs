@@ -1,4 +1,4 @@
-﻿// Copyright (c) 2016 Deploy Software Solutions, inc. 
+﻿// Copyright (c) 2016-2021 Deploy Software Solutions, inc. 
 
 #region license
 //Licensed under the Apache License, Version 2.0 (the "License"); 
@@ -67,10 +67,8 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         /// <summary>  
         /// Initializes a new instance of the <see cref="Device">Device</see> class
         /// </summary>
-        public Device()
+        public Device() : base()
         {
-            GlobalKey = new DomainEntityKey();
-            Metadata = new MetadataInformation();
             CurrentLocation = new SpaceTimeInformation();
             PreviousLocations = new List<SpaceTimeInformation>();
             Power = new DevicePower();
@@ -80,38 +78,22 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         /// Creates a new instance of the <see cref="Device">Device</see> class given some metadata. 
         /// </summary>
         /// <param name="metadata">The desired metadata for this Device</param>
-        public Device(MetadataInformation metadata)
+        public Device(MetadataInformation metadata) : base()
         {
-            GlobalKey = new DomainEntityKey();
             Metadata = metadata;
             CurrentLocation = new SpaceTimeInformation();
             PreviousLocations = new List<SpaceTimeInformation>();
             Power = new DevicePower();
         }
-
-        /// <summary>
-        /// Creates a new instance of the <see cref="Device">Device</see> class given a key, and some metadata. 
-        /// </summary>
-        /// <param name="key">The unique identifier for this Device</param>
-        /// <param name="metadata">The desired metadata for this Device</param>
-        public Device(DomainEntityKey key, MetadataInformation metadata)
-        {
-            GlobalKey = key;
-            Metadata = metadata;
-            CurrentLocation = new SpaceTimeInformation();
-            PreviousLocations = new List<SpaceTimeInformation>();
-            Power = new DevicePower();
-        }
-
         /// <summary>
         /// Creates a new instance of the <see cref="Device">Device</see> class given a key, and some metadata. 
         /// </summary>
         /// <param name="key">The unique identifier for this device</param>
         /// <param name="metadata">The desired metadata for this device</param>
         /// <param name="currentLocation">The current physical location of this device</param>
-        public Device(DomainEntityKey key, MetadataInformation metadata, SpaceTimeInformation currentLocation)
+        public Device(TPrimaryKey id, MetadataInformation metadata, SpaceTimeInformation currentLocation)
         {
-            GlobalKey = key;
+            Id = id;
             Metadata = metadata;
             CurrentLocation = currentLocation;
             PreviousLocations = new List<SpaceTimeInformation>();
@@ -127,7 +109,7 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         /// <param name="previousLocations">The previous physical location(s) of this device</param>
         public Device(DomainEntityKey key, MetadataInformation metadata, SpaceTimeInformation currentLocation, IList<SpaceTimeInformation> previousLocations)
         {
-            GlobalKey = key;
+            CultureName = "en";
             Metadata = metadata;
             CurrentLocation = currentLocation;
             PreviousLocations = previousLocations;
@@ -143,7 +125,7 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         /// <param name="power">The current power level of this device</param>
         public Device(DomainEntityKey key, MetadataInformation metadata, SpaceTimeInformation currentLocation, DevicePower power)
         {
-            GlobalKey = new DomainEntityKey();
+            CultureName = "en";
             Metadata = metadata;
             CurrentLocation = currentLocation;
             PreviousLocations = new List<SpaceTimeInformation>();
@@ -157,7 +139,8 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         /// <param name="context">The context of the stream</param>
         protected Device(SerializationInfo info, StreamingContext context)
         {
-            GlobalKey = (DomainEntityKey)info.GetValue("GlobalKey", typeof(DomainEntityKey));
+            Id = (TPrimaryKey)info.GetValue("Id", typeof(TPrimaryKey));
+            CultureName = info.GetString("CultureName");
             Metadata = (MetadataInformation)info.GetValue("Metadata", typeof(MetadataInformation));
             CurrentLocation = (SpaceTimeInformation)info.GetValue("CurrentLocation", typeof(SpaceTimeInformation));
             PreviousLocations = (IList<SpaceTimeInformation>)info.GetValue("PreviousLocations", typeof(IList<SpaceTimeInformation>));

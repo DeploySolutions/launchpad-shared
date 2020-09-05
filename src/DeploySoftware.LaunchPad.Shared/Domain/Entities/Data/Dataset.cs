@@ -18,40 +18,29 @@
 namespace DeploySoftware.LaunchPad.Shared.Domain.Data
 {
     using System;
-    using Abp.Timing;
 
     public abstract class DataSet<TPrimaryKey> : DomainEntityBase<TPrimaryKey>, IDataSet<TPrimaryKey>
     {
         
-        public int? TotalCount { get; set; }
+        public int? TotalItemsCount { get; set; }
         
         public string Name { get; set; }
 
-        public string Description { get; set; }
-
-        public DateTime CreationTime { get; set; }
-        
-        public DateTime? LastModificationTime { get; set; }
-
         public DataSet(
-           string _datasetName,
-           string _datasetDescription
+           string datasetName,
+           string datasetDescription
         ) : base()
         {
-            Name = _datasetName;
-            Description = _datasetDescription;
-            TotalCount = 0;
-            CreationTime = Clock.Now;
-            LastModificationTime = Clock.Now;
+            Name = datasetName;
+            Metadata.DescriptionShort = datasetDescription;
+            Metadata.DescriptionFull = datasetDescription;
+            TotalItemsCount = 0;
         }
             
         protected DataSet() : base()
         {
             Name = String.Empty;
-            Description = String.Empty;
-            CreationTime = DateTime.Now;
-            LastModificationTime = DateTime.Now;
-            TotalCount = 0;
+            TotalItemsCount = 0;
         }
             
     }

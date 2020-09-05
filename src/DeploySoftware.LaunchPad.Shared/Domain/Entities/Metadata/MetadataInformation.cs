@@ -1,5 +1,5 @@
 ﻿//LaunchPad Shared
-// Copyright (c) 2016 Deploy Software Solutions, inc. 
+// Copyright (c) 2016-2021 Deploy Software Solutions, inc. 
 
 #region license
 //Licensed under the Apache License, Version 2.0 (the "License"); 
@@ -19,6 +19,7 @@ namespace DeploySoftware.LaunchPad.Shared.Domain.Metadata
 {
     using DeploySoftware.LaunchPad.Shared.Util;
     using System;
+    using System.Collections.Generic;
     using System.ComponentModel;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Runtime.Serialization;
@@ -34,26 +35,27 @@ namespace DeploySoftware.LaunchPad.Shared.Domain.Metadata
     [ComplexType]
     public partial class MetadataInformation : IMetadataInformation
     {
-        /// <summary>
-        /// The unique id of this metadata tag
-        /// </summary>
-        [DataObjectField(false)]
-        [XmlAttribute]
-        public virtual Guid UniqueId { get; set; }
-
+        
         /// <summary>
         /// The id of the User Agent which created this entity
         /// </summary>
         [DataObjectField(false)]
         [XmlAttribute]
-        public virtual String Creator { get; set; }
+        public virtual long? CreatorId { get; set; }
            
         /// <summary>
-        /// A description of this item.
+        /// A full description of this item.
         /// </summary>
         [DataObjectField(false)]
         [XmlAttribute]
-        public virtual String Description { get; set; }
+        public virtual String DescriptionFull { get; set; }
+
+        /// <summary>
+        /// A short description of this item.
+        /// </summary>
+        [DataObjectField(false)]
+        [XmlAttribute]
+        public virtual String DescriptionShort { get; set; }
 
         /// <summary>
         /// The display name that can be displayed as a label externally to users when referring to this object
@@ -75,14 +77,14 @@ namespace DeploySoftware.LaunchPad.Shared.Domain.Metadata
         /// </summary>
         [DataObjectField(false)]
         [XmlAttribute]
-        public virtual DateTime DateLastModified { get; set; }
+        public virtual DateTime? DateLastModified { get; set; }
 
         /// <summary>
         /// The id of the User Agent which last modified this object.
         /// </summary>
         [DataObjectField(false)]
         [XmlAttribute]
-        public virtual String LastModifiedBy { get; set; }
+        public virtual Int64? LastModifiedById { get; set; }
 
         /// <summary>
         /// Each entity in the framework can have a MIME type which is used to help display
@@ -92,6 +94,13 @@ namespace DeploySoftware.LaunchPad.Shared.Domain.Metadata
         [XmlAttribute]
         public virtual String MimeType { get; set; }
 
+        /// <summary>
+        /// Each entity can have an open-ended set of tags applied to it, that help users find, markup, and display its information
+        /// </summary>
+        [DataObjectField(false)]
+        [XmlAttribute]
+        public IEnumerable<MetadataTag> Tags { get; set; }
+
 
         #region Constructors
 
@@ -100,16 +109,13 @@ namespace DeploySoftware.LaunchPad.Shared.Domain.Metadata
         /// </summary>
         public MetadataInformation()
         {
-            //UniqueId = SequentialGuid.Generate(SequentialGuid.SequentialGuidType.SequentialAsString);
-            UniqueId = Guid.NewGuid();
-            Creator = String.Empty;
-            Description = String.Empty;
+            DescriptionFull = String.Empty;
+            DescriptionShort = String.Empty;
             DisplayName = String.Empty;
-
-            LastModifiedBy = String.Empty;
             DateCreated = DateTime.Now;
             DateLastModified = DateTime.Now;
             MimeType = String.Empty;
+            Tags = new List<MetadataTag>();
         }
 
         /// <summary>
@@ -119,14 +125,15 @@ namespace DeploySoftware.LaunchPad.Shared.Domain.Metadata
         /// <param name="context">The context of the stream</param>
         public MetadataInformation(SerializationInfo info, StreamingContext context)
         {
-            UniqueId = new Guid(info.GetString("UniqueId"));
             MimeType = info.GetString("MimeType");
             DisplayName = info.GetString("DisplayName");
-            Description = info.GetString("Description");
-            Creator = info.GetString("Creator");            
-            LastModifiedBy = info.GetString("LastModifiedBy");
+            DescriptionFull = info.GetString("DescriptionFull");
+            DescriptionShort = info.GetString("DescriptionShort");
+            CreatorId = info.GetInt64("CreatorId");            
+            LastModifiedById = info.GetInt64("LastModifiedById");
             DateCreated = info.GetDateTime("DateCreated");
-            DateLastModified = info.GetDateTime("DateLastModified");       
+            DateLastModified = info.GetDateTime("DateLastModified");
+            Tags = (IEnumerable<MetadataTag>)info.GetValue("Metadata", typeof(IEnumerable<MetadataTag>));
         }
 
         #endregion
@@ -139,14 +146,15 @@ namespace DeploySoftware.LaunchPad.Shared.Domain.Metadata
         [SecurityPermission(SecurityAction.Demand, SerializationFormatter = true)]
         public void GetObjectData(SerializationInfo info, StreamingContext context)
         {
-            info.AddValue("UniqueId", UniqueId);
             info.AddValue("MimeType", MimeType);
             info.AddValue("DisplayName", DisplayName);
-            info.AddValue("Description", Description);            
-            info.AddValue("LastModifiedBy", LastModifiedBy);
-            info.AddValue("Creator", Creator);
+            info.AddValue("DescriptionFull", DescriptionFull);
+            info.AddValue("DescriptionShort", DescriptionShort);
+            info.AddValue("LastModifiedById", LastModifiedById);
+            info.AddValue("CreatorId", CreatorId);
             info.AddValue("DateCreated", DateCreated);
             info.AddValue("DateLastModified", DateLastModified);
+            info.AddValue("Tags", Tags);
         }
 
         /// Event called once deserialization constructor finishes.
@@ -168,20 +176,24 @@ namespace DeploySoftware.LaunchPad.Shared.Domain.Metadata
         {
             StringBuilder sb = new StringBuilder();
             sb.Append("[MetadataInformation: ");
-            sb.AppendFormat("UniqueId={0};", UniqueId);
-            sb.AppendFormat("Creator={0};", Creator);
+            sb.AppendFormat("CreatorId={0};", CreatorId);
             sb.AppendFormat(" DisplayName={0};", DisplayName);
-            if (!String.IsNullOrEmpty(Description))
+            if (!String.IsNullOrEmpty(DescriptionFull))
             {
-                sb.AppendFormat(" Description={0};", Description);
-            }            
-            sb.AppendFormat(" LastModifiedBy={0};", LastModifiedBy);
+                sb.AppendFormat(" DescriptionFull={0};", DescriptionFull);
+            }
+            if (!String.IsNullOrEmpty(DescriptionShort))
+            {
+                sb.AppendFormat(" DescriptionShort={0};", DescriptionShort);
+            }
+            sb.AppendFormat(" LastModifiedById={0};", LastModifiedById);
             if (!String.IsNullOrEmpty(MimeType))
             {
                 sb.AppendFormat(" MimeType={0};", MimeType);
             }
             sb.AppendFormat(" DateCreated={0};", DateCreated);
-            sb.AppendFormat(" DateLastModified={0};", DateLastModified); 
+            sb.AppendFormat(" DateLastModified={0};", DateLastModified);
+            sb.AppendFormat(" Tags={0};", Tags.ToString());
             sb.Append("]");
             return sb.ToString();
         }
@@ -231,14 +243,16 @@ namespace DeploySoftware.LaunchPad.Shared.Domain.Metadata
             // Note that the base class is not invoked because it is
             // System.Object, which defines Equals as reference equality.
            return 
-                (UniqueId.Equals(obj.UniqueId)
-                    && Creator.Equals(obj.Creator)
+                (CreatorId.Equals(obj.CreatorId)
                     && DisplayName.Equals(obj.DisplayName)
-                    && Description.Equals(obj.Description)
-                    && LastModifiedBy.Equals(obj.LastModifiedBy)
+                    && DescriptionFull.Equals(obj.DescriptionFull)
+                    && DescriptionShort.Equals(obj.DescriptionShort)
+                    && LastModifiedById.Equals(obj.LastModifiedById)
                     && MimeType.Equals(obj.MimeType) &&
                     DateCreated.Equals(obj.DateCreated) &&
-                    DateLastModified.Equals(obj.DateLastModified)
+                    DateLastModified.Equals(obj.DateLastModified) &&
+                    Tags.Equals(obj.Tags)
+
                 )
             ;
         }
@@ -276,14 +290,15 @@ namespace DeploySoftware.LaunchPad.Shared.Domain.Metadata
         /// <returns>A hash code for an object.</returns>
         public override int GetHashCode()
         {
-            return UniqueId.GetHashCode() 
-                + Creator.GetHashCode() 
+            return CreatorId.GetHashCode() 
                 + DisplayName.GetHashCode() 
-                + Description.GetHashCode() 
-                + LastModifiedBy.GetHashCode() 
+                + DescriptionFull.GetHashCode()
+                + DescriptionShort.GetHashCode()
+                + LastModifiedById.GetHashCode() 
                 + MimeType.GetHashCode() 
                 + DateCreated.GetHashCode() 
-                + DateLastModified.GetHashCode();
+                + DateLastModified.GetHashCode()
+                + Tags.GetHashCode();
         }
     }
 }

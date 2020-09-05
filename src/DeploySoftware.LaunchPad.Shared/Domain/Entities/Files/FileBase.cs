@@ -40,13 +40,6 @@ namespace DeploySoftware.LaunchPad.Shared.Domain.Files
         [XmlAttribute]
         public virtual MetadataInformation Metadata { get; set; }
 
-        /// <summary>
-        /// Each entity can have an open-ended set of tags applied to it, that help users find, markup, and display its information
-        /// </summary>
-        [DataObjectField(false)]
-        [XmlAttribute]
-        public virtual IEnumerable<MetadataTag<TPrimaryKey>> Tags { get; set; }
-
         [DataObjectField(false)]
         [XmlAttribute]
         public long FileSize { get; set; }
@@ -71,7 +64,6 @@ namespace DeploySoftware.LaunchPad.Shared.Domain.Files
         {
             GlobalKey = new FileKey();
             Metadata = new MetadataInformation();
-            Tags = new List<MetadataTag<TPrimaryKey>>();
         }
 
         /// <summary>
@@ -83,7 +75,6 @@ namespace DeploySoftware.LaunchPad.Shared.Domain.Files
         {
             GlobalKey = (FileKey)info.GetValue("FileKey", typeof(FileKey));
             Metadata = (MetadataInformation)info.GetValue("Metadata", typeof(MetadataInformation));
-            Tags = (IEnumerable<MetadataTag<TPrimaryKey>>)info.GetValue("Metadata", typeof(IEnumerable<MetadataTag<TPrimaryKey>>));
             Data = (byte[])info.GetValue("Data", typeof(byte[]));
             FileName = info.GetString("FileName");
             FileSize = info.GetInt64("FileSize");
@@ -96,7 +87,6 @@ namespace DeploySoftware.LaunchPad.Shared.Domain.Files
             info.AddValue("FileName", FileName);
             info.AddValue("Data", Data);
             info.AddValue("Metadata", Metadata);
-            info.AddValue("Tags", Tags);
         }
     }
 }

@@ -1,5 +1,5 @@
 ﻿//LaunchPad Shared
-// Copyright (c) 2016 Deploy Software Solutions, inc. 
+// Copyright (c) 2016-2021 Deploy Software Solutions, inc. 
 
 #region license
 //Licensed under the Apache License, Version 2.0 (the "License"); 
@@ -39,7 +39,7 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         /// </summary>
         [DataObjectField(true)]
         [XmlAttribute]
-        public override Guid UniqueKey { get; set; }
+        public override Guid UniqueId { get; set; }
         
         /// <summary>  
         /// Initializes a new instance of the <see cref="DomainEntityKey">DomainEntityKey</see> class.  
@@ -47,8 +47,8 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         public DomainEntityKey()
             : base()
         {
-            //UniqueId = SequentialGuid.Generate(SequentialGuid.SequentialGuidType.SequentialAsString);
-            UniqueKey = Guid.NewGuid();
+            UniqueId = SequentialGuid.Generate(SequentialGuid.SequentialGuidType.SequentialAsString);
+            //UniqueKey = Guid.NewGuid();
             CultureName = "en";
         }
 
@@ -60,7 +60,7 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         public DomainEntityKey(Guid id)
             : base()
         {
-            UniqueKey = id;
+            UniqueId = id;
             CultureName = "en";
         }
 
@@ -73,7 +73,7 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         public DomainEntityKey(Guid id, String cultureName)
             : base(cultureName)
         {
-            UniqueKey = id;
+            UniqueId = id;
             CultureName = cultureName;
         }
         
@@ -85,7 +85,7 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         protected DomainEntityKey(SerializationInfo info, StreamingContext context)
             : base(info, context)
         {
-            UniqueKey = (Guid)info.GetValue("UniqueId", typeof(Guid));
+            UniqueId = (Guid)info.GetValue("UniqueId", typeof(Guid));
             CultureName = info.GetString("CultureName");
         }
 
@@ -98,7 +98,7 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         public override void GetObjectData(SerializationInfo info, StreamingContext context)
         {
             base.GetObjectData(info, context);
-            info.AddValue("UniqueId", UniqueKey);
+            info.AddValue("UniqueId", UniqueId);
             info.AddValue("CultureName", CultureName);
         }
 
@@ -110,7 +110,7 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         {
             StringBuilder sb = new StringBuilder();
             sb.Append("[DomainEntityKey: ");
-            sb.AppendFormat("UniqueId={0};", UniqueKey);
+            sb.AppendFormat("UniqueId={0};", UniqueId);
             sb.AppendFormat("CultureName={0};", CultureName);   
             sb.Append("]");
             return sb.ToString();
@@ -147,7 +147,7 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
                 // for safe equality we need to match on business key equality.
                 // These entities are functionally equal if the Id and Culture and BaseUri are equal
                 return (
-                    UniqueKey.Equals(obj.UniqueKey) &&
+                    UniqueId.Equals(obj.UniqueId) &&
                     CultureName.Equals(obj.CultureName) 
                     );
             }
@@ -193,7 +193,7 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         /// <returns>A hash code for an object.</returns>
         public override int GetHashCode()
         {
-            return UniqueKey.GetHashCode() + Culture.GetHashCode();
+            return UniqueId.GetHashCode() + Culture.GetHashCode();
         }
     }
 }

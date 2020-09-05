@@ -2,7 +2,7 @@
 {
 
     //LaunchPad Shared
-    // Copyright (c) 2016 Deploy Software Solutions, inc. 
+    // Copyright (c) 2016-2021 Deploy Software Solutions, inc. 
 
     #region license
     //Licensed under the Apache License, Version 2.0 (the "License"); 
@@ -28,35 +28,37 @@
 
 
     [Serializable()]
-    public class MetadataTag<TPrimaryKey> : TagBase<TPrimaryKey>, ILaunchPadMetadataTag<TPrimaryKey>
+    public class MetadataTag : TagBase, ILaunchPadMetadataTag
     {
-        
-#region "Constructors"
 
-        public MetadataTag()
+        #region "Constructors"
+
+        /// <summary>  
+        /// Initializes a new instance of the <see cref="MetadataTag">MetadataTag</see> class
+        /// </summary>
+        public MetadataTag() : base()
         {
-            GlobalKey = new DomainEntityKey();
-            Metadata = new MetadataInformation();
-            Name = String.Empty;
-            Value = null;
-            Scheme = String.Empty;
+           
+            
         }
 
-        public MetadataTag(String name, String value)
+        /// <summary>
+        /// Creates a new instance of the <see cref="MetadataTag">MetadataTag</see> class given a key, and some metadata. 
+        /// </summary>
+        /// <param name="key">The key for this tag</param>
+        /// <param name="value">The desired value for this tag</param>
+        public MetadataTag(String key, String value) : base(key, value)
         {
-            GlobalKey = new DomainEntityKey();
-            Metadata = new MetadataInformation();
-            Name = name;
-            Value = value;
-            Scheme = String.Empty;
         }
-        public MetadataTag(String name, String value, String scheme)
+
+        /// <summary>
+        /// Creates a new instance of the <see cref="MetadataTag">MetadataTag</see> class given a key, and some metadata. 
+        /// </summary>
+        /// <param name="key">The key for this tag</param>
+        /// <param name="value">The desired value for this tag</param>
+        ///  <param name="schema">The desired schema for this tag</param>
+        public MetadataTag(String key, String value, String schema) : base(key,value,schema)
         {
-            GlobalKey = new DomainEntityKey();
-            Metadata = new MetadataInformation();
-            Name = name;
-            Value = value;
-            Scheme = scheme;
         }
 
         /// <summary>
@@ -66,11 +68,9 @@
         /// <param name="context">The context of the stream</param>
         protected MetadataTag(SerializationInfo info, StreamingContext context)
         {
-            GlobalKey = (DomainEntityKey)info.GetValue("GlobalKey", typeof(DomainEntityKey));
-            Metadata = (MetadataInformation)info.GetValue("Metadata", typeof(MetadataInformation));
-            Name = info.GetString("Name");
+            Key = info.GetString("Key");
             Value = info.GetString("Value");
-            Scheme = info.GetString("Scheme");
+            Schema = info.GetString("Schema");
         }
 
 #endregion
@@ -84,8 +84,8 @@
         public override void GetObjectData(SerializationInfo info, StreamingContext context)
         {
             base.GetObjectData(info, context);
-            info.AddValue("Name", Name);
-            info.AddValue("Scheme", Scheme);
+            info.AddValue("Key", Key);
+            info.AddValue("Schema", Schema);
             info.AddValue("Value", Value);
         }
 

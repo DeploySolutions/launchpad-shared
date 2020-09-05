@@ -1,5 +1,5 @@
 ﻿//LaunchPad Shared
-// Copyright (c) 2016 Deploy Software Solutions, inc. 
+// Copyright (c) 2016-2021 Deploy Software Solutions, inc. 
 
 #region license
 //Licensed under the Apache License, Version 2.0 (the "License"); 
@@ -27,20 +27,34 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
     using System.Text;
     using System.Xml.Serialization;
     using DeploySoftware.LaunchPad.Shared.Domain.Metadata;
+    using Abp.Domain.Entities.Auditing;
+    using System.Globalization;
+    using System.ComponentModel.DataAnnotations;
 
     /// <summary>
     /// Base class for Entities. Implements <see cref="IDomainEntity">IDomainEntity</see> and provides
-    /// base functionality for many of its methods. Inherits from ASP.NET Boilerplate's IEntity interface.
+    /// base functionality for many of its methods. Inherits from AspNetBoilerplate's Entity class.
+    /// Implements AspNetBoilerplate's auditing interfaces.
     /// </summary>
-    public abstract partial class DomainEntityBase<TPrimaryKey> : Entity<TPrimaryKey>, IDomainEntity<TPrimaryKey>, IComparable<DomainEntityBase<TPrimaryKey>>, IEquatable<DomainEntityBase<TPrimaryKey>>
-        
+    public abstract partial class DomainEntityBase<TPrimaryKey> : 
+        Entity<TPrimaryKey>, IDomainEntity<TPrimaryKey>, 
+        IComparable<DomainEntityBase<TPrimaryKey>>, IEquatable<DomainEntityBase<TPrimaryKey>>,
+        IHasCreationTime, ICreationAudited, IHasModificationTime, IModificationAudited, ISoftDelete, IDeletionAudited
+
     {
         /// <summary>
-        /// The DomainEntityKey that uniquely identifies this entity
+        /// The Culture code of this object
         /// </summary>
         [DataObjectField(true)]
         [XmlAttribute]
-        public DomainEntityKey GlobalKey { get; set; }
+        [Key]
+        public virtual String CultureName { get; set; }
+
+        /// <summary>
+        /// A convenience readonly property to get a <see cref="CultureInfo">CultureInfo</see> instance from the current 
+        /// culture code
+        /// </summary>
+        public virtual CultureInfo Culture { get { return new CultureInfo(CultureName); } }
 
         /// <summary>
         /// Each entity can have an open-ended set of metadata applied to it, that helps to describe it.
@@ -49,39 +63,85 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         [XmlAttribute]
         public MetadataInformation Metadata { get; set; }
 
-        /// <summary>
-        /// Each entity can have an open-ended set of tags applied to it, that help users find, markup, and display its information
-        /// </summary>
-        [DataObjectField(false)]
-        [XmlAttribute]
-        public IEnumerable<MetadataTag<TPrimaryKey>> Tags { get; set; }
+        #region Implementation of ASP.NET Boilerplate's deletion and auditing interfaces
 
-        #region Implementation of ASP.NET Boilerplate's IEntity interface
+        private DateTime creationTime;
+        public DateTime CreationTime
+        {
+            get { return Metadata.DateCreated; }
+            set
+            { 
+                creationTime = value;
+                Metadata.DateCreated = value;
+            }
+        }
 
+        private Int64? creatorUserId;
+        public long? CreatorUserId
+        {
+            get { return Metadata.CreatorId; }
+            set
+            {
+                creatorUserId = value;
+                Metadata.CreatorId = value;
+            }
+        }
 
+        private DateTime? lastModificationTime;
+        public DateTime? LastModificationTime
+        {
+            get { return Metadata.DateLastModified; }
+            set
+            {
+                lastModificationTime = value;
+                Metadata.DateLastModified = value;
+            }
+        }
+
+        private Int64? lastModifierUserId;
+        public long? LastModifierUserId
+        {
+            get { return Metadata.LastModifiedById; }
+            set
+            {
+                lastModifierUserId = value;
+                Metadata.LastModifiedById = value;
+            }
+        }
+
+        public bool IsDeleted { get;set; }
+        public long? DeleterUserId { get; set; }
+        public DateTime? DeletionTime { get;set; }
 
         #endregion
 
         /// <summary>  
         /// Initializes a new instance of the <see cref="DomainEntityBase">Entity</see> class
         /// </summary>
-        protected DomainEntityBase()
+        protected DomainEntityBase() : base()
         {
-            GlobalKey = new DomainEntityKey();
+            CultureName = "en";
             Metadata = new MetadataInformation();
-            Tags = new List<MetadataTag<TPrimaryKey>>();
         }
 
         /// <summary>
         /// Creates a new instance of the <see cref="DomainEntityBase">Entity</see> class given a key, and some metadata. 
         /// </summary>
-        /// <param name="key">The unique identifier for this entity</param>
-        /// <param name="metadata">The desired metadata for this entity</param>
-        protected DomainEntityBase(DomainEntityKey key, MetadataInformation metadata)
+        /// <param name="cultureName">The culture for this entity</param>
+        protected DomainEntityBase(string cultureName) : base()
         {
-            GlobalKey = new DomainEntityKey();
+            CultureName = cultureName;
+        }
+
+        /// <summary>
+        /// Creates a new instance of the <see cref="DomainEntityBase">Entity</see> class given a key, and some metadata. 
+        /// </summary>
+        /// <param name="cultureName">The culture for this entity</param>
+        /// <param name="metadata">The desired metadata for this entity</param>
+        protected DomainEntityBase(string cultureName, MetadataInformation metadata) : base()
+        {
+            CultureName = cultureName;
             Metadata = metadata;
-            Tags = new List<MetadataTag<TPrimaryKey>>();
         }
 
         /// <summary>
@@ -91,9 +151,9 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         /// <param name="context">The context of the stream</param>
         protected DomainEntityBase(SerializationInfo info, StreamingContext context)
         {
-            GlobalKey = (DomainEntityKey)info.GetValue("GlobalKey", typeof(DomainEntityKey));
+            Id = (TPrimaryKey)info.GetValue("Id", typeof(TPrimaryKey));
+            CultureName = info.GetString("CultureName");
             Metadata = (MetadataInformation)info.GetValue("Metadata", typeof(MetadataInformation));
-            Tags = (IEnumerable<MetadataTag<TPrimaryKey>>)info.GetValue("Metadata", typeof(IEnumerable<MetadataTag<TPrimaryKey>>));
         }
 
         /// <summary>
@@ -104,9 +164,9 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         [SecurityPermission(SecurityAction.Demand, SerializationFormatter = true)]
         public virtual void GetObjectData(SerializationInfo info, StreamingContext context)
         {
-            info.AddValue("GlobalKey", GlobalKey);
+            info.AddValue("Id", Id);
+            info.AddValue("CultureName", CultureName);
             info.AddValue("Metadata", Metadata);
-            info.AddValue("Tags", Tags);
         }
 
         /// <summary>
@@ -163,7 +223,6 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
             StringBuilder sb = new StringBuilder();
             sb.Append("[DomainEntity: ");
             sb.Append(ToStringBaseProperties());
-            sb.Append(Tags.ToString());
             sb.Append("]");
             return sb.ToString();
         }
@@ -176,9 +235,9 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         protected virtual String ToStringBaseProperties()
         {
             StringBuilder sb = new StringBuilder();
-            sb.AppendFormat("GlobalKey={0};", GlobalKey);
+            sb.AppendFormat("Id={0};", Id);
+            sb.AppendFormat("CultureName={0};", CultureName);
             sb.AppendFormat("Metadata={0};", Metadata);
-            sb.AppendFormat("Tags={0};", Tags);
             return sb.ToString();
         }
 
@@ -218,9 +277,9 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
                 else
                 {
                     // For safe equality we need to match on business key equality.
-                    // Base domain entities are functionally equal if their key and metadata and tags are equal.
+                    // Base domain entities are functionally equal if their key and metadata are equal.
                     // Subclasses should extend to include their own enhanced equality checks, as required.
-                    return GlobalKey.Equals(obj.GlobalKey) && Metadata.Equals(obj.Metadata) && Tags.Equals(obj.Tags);
+                    return Id.Equals(obj.Id) && CultureName.Equals(obj.CultureName) && Metadata.Equals(obj.Metadata);
                 }
                 
             }
@@ -266,7 +325,7 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         /// <returns>A hash code for an object.</returns>
         public override int GetHashCode()
         {
-            return GlobalKey.GetHashCode();
+            return CultureName.GetHashCode()+Id.GetHashCode();
         }
 
     }

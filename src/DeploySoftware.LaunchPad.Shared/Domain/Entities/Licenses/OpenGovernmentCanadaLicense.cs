@@ -10,13 +10,13 @@ namespace DeploySoftware.LaunchPad.Shared.Domain.Licenses
     public class OpenGovernmentCanadaLicense : License
     {
 
-        public override string LicenseName =>
+        public override string Name =>
             DeploySoftware_LaunchPad_Shared_Resources.Text_OpenGovernmentCanadaLicense_LicenseName;
 
-        public override string LicenseDescription => DeploySoftware_LaunchPad_Shared_Resources
+        public override string Summary => DeploySoftware_LaunchPad_Shared_Resources
             .Text_OpenGovernmentCanadaLicense_LicenseDescription;
 
-        public override Uri LicenseTerms => new Uri(DeploySoftware_LaunchPad_Shared_Resources.Text_OpenGovernmentCanadaLicense_LicenseTerms);
+        public override Uri FullTermsUrl => new Uri(DeploySoftware_LaunchPad_Shared_Resources.Text_OpenGovernmentCanadaLicense_LicenseTerms);
         
     }
 }

@@ -1,5 +1,5 @@
 ﻿//LaunchPad Shared
-// Copyright (c) 2016 Deploy Software Solutions, inc. 
+// Copyright (c) 2016-2021 Deploy Software Solutions, inc. 
 
 #region license
 //Licensed under the Apache License, Version 2.0 (the "License"); 
@@ -17,7 +17,6 @@
 
 namespace DeploySoftware.LaunchPad.Shared.Domain
 {
-    using Abp.Domain.Entities;
     using Schema.NET;
     using System;
     using System.Collections.Generic;
@@ -70,11 +69,10 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         /// <summary>  
         /// Initializes a new instance of the <see cref="OrganizationBase&lt;TPrimaryKey&gt;">OrganizationBase&lt;TPrimaryKey&gt;</see> class
         /// </summary>
-        protected OrganizationBase()
+        protected OrganizationBase() : base()
         {
-            GlobalKey = new DomainEntityKey();
+            CultureName = "en";
             Metadata = new MetadataInformation();
-            Tags = new List<MetadataTag<TPrimaryKey>>();
         }
 
         /// <summary>
@@ -83,11 +81,9 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         /// </summary>
         /// <param name="key">The unique identifier for this entity</param>
         /// <param name="metadata">The desired metadata for this entity</param>
-        protected OrganizationBase(DomainEntityKey key, MetadataInformation metadata)
+        protected OrganizationBase(DomainEntityKey key, MetadataInformation metadata) : base()
         {
-            GlobalKey = new DomainEntityKey();
             Metadata = metadata;
-            Tags = new List<MetadataTag<TPrimaryKey>>();
         }
 
         /// <summary>
@@ -97,6 +93,8 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         /// <param name="context">The context of the stream</param>
         protected OrganizationBase(SerializationInfo info, StreamingContext context) : base(info,context)
         {
+            Id = (TPrimaryKey)info.GetValue("Id", typeof(TPrimaryKey));
+            CultureName = info.GetString("CultureName"); 
             Schema = (Organization)info.GetValue("Organization", typeof(Organization));
             Offices = (IList<string>)info.GetValue("Offices", typeof(IList<string>));
         }
@@ -156,7 +154,6 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
             StringBuilder sb = new StringBuilder();
             sb.Append("[OrganizationBase: ");
             sb.Append(ToStringBaseProperties());
-            sb.Append(Tags.ToString());
             sb.Append("]");
             return sb.ToString();
         }
@@ -199,9 +196,9 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
                     // For safe equality we need to match on business key equality.
                     // Base domain entities are functionally equal if their key and metadata and tags are equal.
                     // Subclasses should extend to include their own enhanced equality checks, as required.
-                    return GlobalKey.Equals(obj.GlobalKey) 
+                    return Id.Equals(obj.Id)
+                        && CultureName.Equals(obj.CultureName)
                         && Metadata.Equals(obj.Metadata) 
-                        && Tags.Equals(obj.Tags)
                         && Schema.Equals(obj.Schema);
                 }
                 
@@ -248,7 +245,7 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         /// <returns>A hash code for an object.</returns>
         public override int GetHashCode()
         {
-            return GlobalKey.GetHashCode();
+            return Id.GetHashCode();
         }
 
     }

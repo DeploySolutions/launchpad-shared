@@ -1,5 +1,5 @@
 ﻿//LaunchPad Shared
-// Copyright (c) 2016 Deploy Software Solutions, inc. 
+// Copyright (c) 2016-2021 Deploy Software Solutions, inc. 
 
 #region license
 //Licensed under the Apache License, Version 2.0 (the "License"); 
@@ -25,14 +25,14 @@ namespace DeploySoftware.LaunchPad.Shared.Domain.Metadata
     /// This interface represents a "tag" applied to an entity. Tags provide additional metadata information about
     /// an entity, and can be formal (as in some form of taxonomy) or informal ("Folksonomy").
     /// </summary>
-    public interface ILaunchPadMetadataTag<TPrimaryKey> : ILaunchPadObject
+    public interface ILaunchPadMetadataTag
     {
         /// <summary>
         /// The name of this metadata tag
         /// </summary>
         [DataObjectField(false)]
         [XmlAttribute]
-        String Name { get; set; }
+        String Key { get; set; }
 
         /// <summary>
         /// The value of this metadata tag
@@ -46,7 +46,7 @@ namespace DeploySoftware.LaunchPad.Shared.Domain.Metadata
         /// </summary>
         [DataObjectField(false)]
         [XmlAttribute]
-        String Scheme { get; set; }
+        String Schema { get; set; }
 
     }
 }

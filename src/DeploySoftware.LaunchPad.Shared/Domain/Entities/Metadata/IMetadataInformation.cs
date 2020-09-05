@@ -1,5 +1,5 @@
 ﻿//LaunchPad Shared
-// Copyright (c) 2016 Deploy Software Solutions, inc. 
+// Copyright (c) 2016-2021 Deploy Software Solutions, inc. 
 
 #region license
 //Licensed under the Apache License, Version 2.0 (the "License"); 
@@ -18,6 +18,7 @@
 namespace DeploySoftware.LaunchPad.Shared.Domain.Metadata
 {
     using System;
+    using System.Collections.Generic;
     using System.ComponentModel;
     using System.Xml.Serialization;
 
@@ -29,25 +30,25 @@ namespace DeploySoftware.LaunchPad.Shared.Domain.Metadata
     {
         
             /// <summary>
-            /// The unique id of this metadata tag
-            /// </summary>
-            [DataObjectField(false)]
-            [XmlAttribute]
-            Guid UniqueId { get; set; }
-
-            /// <summary>
             /// The author of this entity
             /// </summary>
             [DataObjectField(false)]
             [XmlAttribute]
-            String Creator { get; set; }
+            Int64? CreatorId { get; set; }
 
             /// <summary>
-            /// A description of this item.
+            /// A full description of this item.
             /// </summary>
             [DataObjectField(false)]
             [XmlAttribute]
-            String Description { get; set; }
+            String DescriptionFull { get; set; }
+
+            /// <summary>
+            /// A short description of this item.
+            /// </summary>
+            [DataObjectField(false)]
+            [XmlAttribute]
+            String DescriptionShort { get; set; }
 
             /// <summary>
             /// The display name that can be displayed as a label externally to users when referring to this object
@@ -69,14 +70,14 @@ namespace DeploySoftware.LaunchPad.Shared.Domain.Metadata
             /// </summary>
             [DataObjectField(false)]
             [XmlAttribute]
-            DateTime DateLastModified { get; set; }
+            DateTime? DateLastModified { get; set; }
 
             /// <summary>
-            /// The name of the person who last modified this object.
+            /// The id of the person who last modified this object.
             /// </summary>
             [DataObjectField(false)]
             [XmlAttribute]
-            String LastModifiedBy { get; set; }
+            Int64? LastModifiedById { get; set; }
 
             /// <summary>
             /// Each entity in the framework can have a MIME type which is used to help display
@@ -85,6 +86,15 @@ namespace DeploySoftware.LaunchPad.Shared.Domain.Metadata
             [DataObjectField(false)]
             [XmlAttribute]
             String MimeType { get; set; }
-        
+
+            /// <summary>
+            /// Each entity can have an open-ended set of tags applied to it, that help users find, markup, and display its information
+            /// </summary>
+            [DataObjectField(false)]
+            [XmlAttribute]
+            IEnumerable<MetadataTag> Tags { get; set; }
+
+
+
     }
 }

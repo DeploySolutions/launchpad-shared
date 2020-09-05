@@ -1,5 +1,5 @@
 ﻿//LaunchPad Shared
-// Copyright (c) 2016 Deploy Software Solutions, inc. 
+// Copyright (c) 2016-2021 Deploy Software Solutions, inc. 
 
 #region license
 //Licensed under the Apache License, Version 2.0 (the "License"); 
@@ -34,7 +34,7 @@ namespace DeploySoftware.LaunchPad.Shared.Domain.Files
         /// </summary>
         [DataObjectField(true)]
         [XmlAttribute]
-        public override String UniqueKey { get; set; }
+        public override String UniqueId { get; set; }
 
         /// <summary>  
         /// Initializes a new instance of the <see cref="FileKey">FileKey</see> class.  
@@ -43,7 +43,7 @@ namespace DeploySoftware.LaunchPad.Shared.Domain.Files
             : base()
         {
             // if no key is provided, use a sequential guid as the file key
-            UniqueKey = SequentialGuid.Generate(SequentialGuid.SequentialGuidType.SequentialAsString).ToString();
+            UniqueId = SequentialGuid.Generate(SequentialGuid.SequentialGuidType.SequentialAsString).ToString();
         }
 
         /// <summary>  
@@ -54,7 +54,7 @@ namespace DeploySoftware.LaunchPad.Shared.Domain.Files
         public FileKey(String id)
             : base()
         {
-            UniqueKey = id;
+            UniqueId = id;
         }
 
         /// <summary>
@@ -66,7 +66,7 @@ namespace DeploySoftware.LaunchPad.Shared.Domain.Files
         public FileKey(String id, String cultureName)
             : base(cultureName)
         {
-            UniqueKey = id;
+            UniqueId = id;
         }
 
         /// <summary>
@@ -77,7 +77,7 @@ namespace DeploySoftware.LaunchPad.Shared.Domain.Files
         protected FileKey(SerializationInfo info, StreamingContext context)
             : base(info, context)
         {
-            UniqueKey = info.GetString("Id");
+            UniqueId = info.GetString("Id");
             CultureName = info.GetString("CultureName");
         }
 
@@ -90,7 +90,7 @@ namespace DeploySoftware.LaunchPad.Shared.Domain.Files
         public override void GetObjectData(SerializationInfo info, StreamingContext context)
         {
             base.GetObjectData(info, context);
-            info.AddValue("UniqueId", UniqueKey);
+            info.AddValue("UniqueId", UniqueId);
         }
 
         /// <summary>  
@@ -101,7 +101,7 @@ namespace DeploySoftware.LaunchPad.Shared.Domain.Files
         {
             StringBuilder sb = new StringBuilder();
             sb.Append("[FileKey: ");
-            sb.AppendFormat("UniqueId={0};", UniqueKey);
+            sb.AppendFormat("UniqueId={0};", UniqueId);
             sb.AppendFormat("CultureName={0};", CultureName);
             sb.Append("]");
             return sb.ToString();
@@ -138,7 +138,7 @@ namespace DeploySoftware.LaunchPad.Shared.Domain.Files
                 // for safe equality we need to match on business key equality.
                 // These entities are functionally equal if the Id and Culture are equal
                 return (
-                    UniqueKey.Equals(obj.UniqueKey) &&
+                    UniqueId.Equals(obj.UniqueId) &&
                     CultureName.Equals(obj.CultureName));
             }
             return false;
@@ -183,7 +183,7 @@ namespace DeploySoftware.LaunchPad.Shared.Domain.Files
         /// <returns>A hash code for an object.</returns>
         public override int GetHashCode()
         {
-            return UniqueKey.GetHashCode() + Culture.GetHashCode();
+            return UniqueId.GetHashCode() + Culture.GetHashCode();
         }
     }
 }

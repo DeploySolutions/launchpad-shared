@@ -1,5 +1,5 @@
 ﻿//LaunchPad Shared
-// Copyright (c) 2016 Deploy Software Solutions, inc. 
+// Copyright (c) 2016-2021 Deploy Software Solutions, inc. 
 
 #region license
 //Licensed under the Apache License, Version 2.0 (the "License"); 
@@ -43,9 +43,9 @@ namespace DeploySoftware.LaunchPad.Shared.Tests
         }
 
         [Fact]
-        public void Should_Have_NotNull_Key_When_Instantiated()
+        public void Should_Have_NotNull_Culture_When_Instantiated()
         {
-            _fixture.SUT.GlobalKey.Should().NotBeNull();
+            _fixture.SUT.CultureName.Should().NotBeNullOrEmpty();
         }
 
         [Fact]

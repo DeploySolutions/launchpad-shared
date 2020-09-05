@@ -1,5 +1,5 @@
 //LaunchPad Shared
-// Copyright (c) 2016 Deploy Software Solutions, inc. 
+// Copyright (c) 2016-2021 Deploy Software Solutions, inc. 
 
 //This file is a derivative work from Jeremy Todd as described in Code Project website at
 //http://www.codeproject.com/Articles/388157/GUIDs-as-fast-primary-keys-under-multiple-database 

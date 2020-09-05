@@ -1,5 +1,5 @@
 ﻿//LaunchPad Shared
-// Copyright (c) 2016 Deploy Software Solutions, inc. 
+// Copyright (c) 2016-2021 Deploy Software Solutions, inc. 
 
 #region license
 //Licensed under the Apache License, Version 2.0 (the "License"); 
@@ -56,7 +56,5 @@ namespace DeploySoftware.LaunchPad.Shared.Domain.Files
         /// The byte-array content of the file
         /// </summary>
         Byte[] Data { get; set; }
-
-        IEnumerable<MetadataTag<TPrimaryKey>> Tags { get; set; }
     }
 }

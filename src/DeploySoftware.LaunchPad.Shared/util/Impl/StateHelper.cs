@@ -1,5 +1,5 @@
 //LaunchPad Shared
-// Copyright (c) 2016 Deploy Software Solutions, inc. 
+// Copyright (c) 2016-2021 Deploy Software Solutions, inc. 
 //This file is a derivative work from the original created in NCommon and copyright 2010 by Ritesh Rao 
 
 #region license

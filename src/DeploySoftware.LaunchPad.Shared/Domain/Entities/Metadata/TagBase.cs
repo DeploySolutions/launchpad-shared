@@ -1,5 +1,5 @@
 ﻿//LaunchPad Shared
-// Copyright (c) 2016 Deploy Software Solutions, inc. 
+// Copyright (c) 2016-2021 Deploy Software Solutions, inc. 
 
 #region license
 //Licensed under the Apache License, Version 2.0 (the "License"); 
@@ -18,6 +18,7 @@
 namespace DeploySoftware.LaunchPad.Shared.Domain.Metadata
 {
     using Abp.Domain.Entities;
+    using JetBrains.Annotations;
     using System;
     using System.ComponentModel;
     using System.Reflection;
@@ -31,29 +32,17 @@ namespace DeploySoftware.LaunchPad.Shared.Domain.Metadata
     /// Base class for Metadata Tags. Implements <see cref="ILaunchPadMetadataTag">ILaunchPadMetadataTag</see> and provides
     /// base functionality for many of its methods. Inherits from ASP.NET Boilerplate's IEntity interface.
     /// </summary>
-    public abstract partial class TagBase<TPrimaryKey> : Entity<TPrimaryKey>, ILaunchPadMetadataTag<TPrimaryKey>, IComparable<TagBase<TPrimaryKey>>, IEquatable<TagBase<TPrimaryKey>>    
+    public abstract partial class TagBase : 
+        ILaunchPadMetadataTag, 
+        IComparable<TagBase>, IEquatable<TagBase>    
     {
         
         /// <summary>
-        /// The DomainEntityKey that uniquely identifies this entity
-        /// </summary>
-        [DataObjectField(true)]
-        [XmlAttribute]
-        public virtual DomainEntityKey GlobalKey { get; set; }
-
-        /// <summary>
-        /// Each entity can have an open-ended set of metadata applied to it, that helps to describe it.
-        /// </summary>
-        [DataObjectField(true)]
-        [XmlAttribute]
-        public virtual MetadataInformation Metadata { get; set; }
-
-        /// <summary>
-        /// The name of this metadata tag
+        /// The key (name) of this metadata tag
         /// </summary>
         [DataObjectField(false)]
         [XmlAttribute]
-        public virtual String Name { get; set; }
+        public virtual String Key { get; set; }
 
         /// <summary>
         /// The value of this metadata tag
@@ -67,32 +56,41 @@ namespace DeploySoftware.LaunchPad.Shared.Domain.Metadata
         /// </summary>
         [DataObjectField(false)]
         [XmlAttribute]
-        public virtual String Scheme { get; set; }
-
-        #region Implementation of ASP.NET Boilerplate's IEntity interface
-
-
-
-        #endregion
+        public virtual String Schema { get; set; }
 
         /// <summary>  
-        /// Initializes a new instance of the <see cref="TagBase">Entity</see> class
+        /// Initializes a new instance of the <see cref="TagBase">Tag</see> class
         /// </summary>
         protected TagBase()
         {
-            GlobalKey = new DomainEntityKey();
-            Metadata = new MetadataInformation();
+            Key = String.Empty;
+            Value = String.Empty;
+            Schema = String.Empty;
         }
 
         /// <summary>
-        /// Creates a new instance of the <see cref="TagBase">Entity</see> class given a key, and some metadata. 
+        /// Creates a new instance of the <see cref="TagBase">TagBase</see> class given a key, and some value. 
         /// </summary>
-        /// <param name="key">The unique identifier for this entity</param>
-        /// <param name="metadata">The desired metadata for this entity</param>
-        protected TagBase(DomainEntityKey key, MetadataInformation metadata)
+        /// <param name="key">The unique identifier for this tag</param>
+        /// <param name="value">The desired value for this tag</param>
+        protected TagBase(String key, String value)
         {
-            GlobalKey = new DomainEntityKey();
-            Metadata = metadata;
+            Key = key;
+            Value = value;
+            Schema = String.Empty;
+        }
+
+        /// <summary>
+        /// Creates a new instance of the <see cref="TagBase">Tag</see> class given a key, and some metadata. 
+        /// </summary>
+        /// <param name="key">The key for this tag</param>
+        /// <param name="value">The desired value for this tag</param>
+        ///  <param name="schema">The desired schema for this tag</param>
+        protected TagBase(String key, String value, string schema)
+        {
+            Key = key;
+            Value = value;
+            Schema = schema;
         }
 
         /// <summary>
@@ -102,8 +100,9 @@ namespace DeploySoftware.LaunchPad.Shared.Domain.Metadata
         /// <param name="context">The context of the stream</param>
         protected TagBase(SerializationInfo info, StreamingContext context)
         {
-            GlobalKey = (DomainEntityKey)info.GetValue("GlobalKey", typeof(DomainEntityKey));
-            Metadata = (MetadataInformation)info.GetValue("Metadata", typeof(MetadataInformation));            
+            Key = info.GetString("Key");
+            Value = info.GetString("Value");
+            Schema = info.GetString("Schema");
         }
 
         /// <summary>
@@ -114,9 +113,10 @@ namespace DeploySoftware.LaunchPad.Shared.Domain.Metadata
         [SecurityPermission(SecurityAction.Demand, SerializationFormatter = true)]
         public virtual void GetObjectData(SerializationInfo info, StreamingContext context)
         {
-            info.AddValue("GlobalKey", GlobalKey);
-            info.AddValue("Metadata", Metadata);
-            
+            info.AddValue("Key", Key);
+            info.AddValue("Value", Value);
+            info.AddValue("Schema", Schema);
+
         }
 
         /// <summary>
@@ -135,7 +135,7 @@ namespace DeploySoftware.LaunchPad.Shared.Domain.Metadata
         /// </summary>
         /// <typeparam name="TEntity">The source entity to clone</typeparam>
         /// <returns>A shallow clone of the entity and its serializable properties</returns>
-        protected virtual TEntity Clone<TEntity>() where TEntity : ILaunchPadMetadataTag<TPrimaryKey>, new()
+        protected virtual TEntity Clone<TEntity>() where TEntity : ILaunchPadMetadataTag, new()
         {
             TEntity clone = new TEntity();
             foreach (PropertyInfo info in GetType().GetProperties())
@@ -157,11 +157,15 @@ namespace DeploySoftware.LaunchPad.Shared.Domain.Metadata
         /// </summary>
         /// <param name="other">The other object of this type we are comparing to</param>
         /// <returns></returns>
-        public virtual int CompareTo(ILaunchPadMetadataTag<TPrimaryKey> other)
+        public virtual int CompareTo(ILaunchPadMetadataTag other)
         {
-            // put comparison of properties in here 
-            // for base object we'll just sort by title
-            return Metadata.DisplayName.CompareTo(other.Metadata.DisplayName);
+             int result;
+            result = Key.CompareTo(other.Key);
+            if (result == 0)
+                result = Value.CompareTo(other.Value);
+            if (result == 0)
+                result = Schema.CompareTo(other.Schema);
+            return result;
         }
 
         /// <summary>  
@@ -171,8 +175,8 @@ namespace DeploySoftware.LaunchPad.Shared.Domain.Metadata
         public override String ToString()
         {
             StringBuilder sb = new StringBuilder();
-            sb.Append("[DomainEntity: ");
-            sb.Append(ToStringBaseProperties());
+            sb.Append("[Tag: ");
+            sb.Append(Key);
             sb.Append("]");
             return sb.ToString();
         }
@@ -185,11 +189,9 @@ namespace DeploySoftware.LaunchPad.Shared.Domain.Metadata
         protected virtual String ToStringBaseProperties()
         {
             StringBuilder sb = new StringBuilder();
-            sb.AppendFormat("GlobalKey={0};", GlobalKey);
-            sb.AppendFormat("Metadata={0};", Metadata);
-            sb.AppendFormat("Name={0};", Name);
+            sb.AppendFormat("Name={0};", Key);
             sb.AppendFormat("Value={0};", Value);
-            sb.AppendFormat("Scheme={0};", Scheme);
+            sb.AppendFormat("Scheme={0};", Schema);
             return sb.ToString();
         }
 
@@ -200,11 +202,15 @@ namespace DeploySoftware.LaunchPad.Shared.Domain.Metadata
         /// </summary>
         /// <param name="other">The other object of this type we are comparing to</param>
         /// <returns></returns>
-        public virtual int CompareTo(TagBase<TPrimaryKey> other)
+        public virtual int CompareTo(TagBase other)
         {
-            // put comparison of properties in here 
-            // for base object we'll just sort by title
-            return Metadata.DisplayName.CompareTo(other.Name);
+            int result;
+            result = Key.CompareTo(other.Key);
+            if (result ==0)
+                result = Value.CompareTo(other.Value);
+            if (result == 0)
+                result = Schema.CompareTo(other.Schema);
+            return result;
         }
 
         /// <summary>
@@ -214,9 +220,9 @@ namespace DeploySoftware.LaunchPad.Shared.Domain.Metadata
         /// <returns>True if the entities are the same according to business key value</returns>
         public override bool Equals(object obj)
         {
-            if (obj != null && obj is TagBase<TPrimaryKey>)
+            if (obj != null && obj is TagBase)
             {
-                return Equals(obj as TagBase<TPrimaryKey>);
+                return Equals(obj as TagBase);
             }
             return false;
         }
@@ -230,24 +236,11 @@ namespace DeploySoftware.LaunchPad.Shared.Domain.Metadata
         /// </summary>
         /// <param name="obj">The other object of this type that we are testing equality with</param>
         /// <returns></returns>
-        public virtual bool Equals(TagBase<TPrimaryKey> obj)
+        public virtual bool Equals(TagBase obj)
         {
             if (obj != null)
             {
-
-                // Transient objects are not considered as equal
-                if (IsTransient() && obj.IsTransient())
-                {
-                    return false;
-                }
-                else
-                {
-                    // For safe equality we need to match on business key equality.
-                    // Base domain entities are functionally equal if their key and metadata is equal.
-                    // Subclasses should extend to include their own enhanced equality checks, as required.
-                    return GlobalKey.Equals(obj.GlobalKey) && Metadata.Equals(obj.Metadata) && Name.Equals(obj.Name) && Value.Equals(obj.Value);
-                }
-                
+                return Key.Equals(obj.Key) && Value.Equals(obj.Value) && Schema.Equals(obj.Schema); 
             }
             return false;
         }
@@ -261,7 +254,11 @@ namespace DeploySoftware.LaunchPad.Shared.Domain.Metadata
         /// <returns>A hash code for an object.</returns>
         public override int GetHashCode()
         {
-            return GlobalKey.GetHashCode();
+            return 
+                Key.GetHashCode() + 
+                Value.GetHashCode() +
+                Schema.GetHashCode()
+           ;
         }
 
     }

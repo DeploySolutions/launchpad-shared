@@ -1,5 +1,5 @@
 ﻿//LaunchPad Shared
-// Copyright (c) 2016 Deploy Software Solutions, inc. 
+// Copyright (c) 2016-2021 Deploy Software Solutions, inc. 
 
 #region license
 //Licensed under the Apache License, Version 2.0 (the "License"); 
@@ -18,7 +18,11 @@
 namespace DeploySoftware.LaunchPad.Shared.Domain
 {
     using Abp.Domain.Entities;
+    using Abp.Domain.Entities.Auditing;
+    using System;
     using System.ComponentModel;
+    using System.Globalization;
+    using System.Xml.Serialization;
 
     /// <summary>
     /// Marks any object as a Domain Entity that can be manipulated by the LaunchPad platform.
@@ -26,13 +30,15 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
     /// set of <see cref="MetadataInformation">MetadataInformation</see>.
     /// Each entity also implements ASP.NET Boilerplate's IEntity interface.
     /// </summary>
-    public interface IDomainEntity<TPrimaryKey> : ILaunchPadObject, IEntity<TPrimaryKey>
+    public interface IDomainEntity<TPrimaryKey> : ILaunchPadObject, IEntity<TPrimaryKey>,
+        IHasCreationTime, ICreationAudited, IHasModificationTime, IModificationAudited, ISoftDelete, IDeletionAudited
     {
         /// <summary>
-        /// The DomainEntityKey that uniquely identifies this entity
+        /// The Culture code of this object
         /// </summary>
         [DataObjectField(true)]
-        DomainEntityKey GlobalKey { get; set; }
+        [XmlAttribute]
+        String CultureName { get; set; }
 
     }
 }

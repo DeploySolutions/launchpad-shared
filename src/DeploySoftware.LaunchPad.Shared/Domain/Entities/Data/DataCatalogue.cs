@@ -22,21 +22,14 @@ using System.Linq;
 namespace DeploySoftware.LaunchPad.Shared.Domain.Data
 {
     using System;
-    using Abp.Timing;
 
     public abstract class DataCatalogue<TPrimaryKey> : DomainEntityBase<TPrimaryKey>, IDataCatalogue<TPrimaryKey>
     {
         
         public int NumberofDatasets { get; set; }
-        public int? TotalCount { get; set; }
+        public int? TotalItemsCount { get; set; }
         
         public string Name { get; set; }
-
-        public string Description { get; set; }
-
-        public DateTime CreationTime { get; set; }
-        
-        public DateTime? LastModificationTime { get; set; }
 
         public IEnumerable<DataSet<TPrimaryKey>> DataSets { get; set; } 
 
@@ -44,26 +37,21 @@ namespace DeploySoftware.LaunchPad.Shared.Domain.Data
             string _datacatalogueName,
             string _datacatalogueDescription,
             int _numberOfDatasets, 
-            int _totalNumberOfRecords,
-            DateTime _lastModificationTime
+            int _totalNumberOfRecords
             ) : base()
         {
             Name = _datacatalogueName;
-            Description = _datacatalogueDescription;
+            Metadata.DescriptionShort = _datacatalogueDescription; 
+            Metadata.DescriptionFull = _datacatalogueDescription;
             NumberofDatasets = _numberOfDatasets;
-            TotalCount = _totalNumberOfRecords;
-            CreationTime = Clock.Now;
-            LastModificationTime = _lastModificationTime;
+            TotalItemsCount = _totalNumberOfRecords;
         }
             
         protected DataCatalogue() :base()
         {
             Name = String.Empty;
-            Description = String.Empty;
-            CreationTime = DateTime.Now;
-            LastModificationTime = DateTime.Now;
             NumberofDatasets = DataSets.Count();
-            TotalCount = 0;
+            TotalItemsCount = 0;
         }
             
     }

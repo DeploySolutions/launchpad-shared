@@ -46,7 +46,7 @@ namespace DeploySoftware.LaunchPad.Space.Tests
         [Fact]
         public void Should_Have_NotNull_FileKey_When_Instantiated()
         {
-            _fixture.Radarsat1MetadataFileKey.UniqueKey.Should().NotBeNull();
+            _fixture.Radarsat1MetadataFileKey.UniqueId.Should().NotBeNull();
         }
 
         [Fact]
@@ -125,21 +125,21 @@ namespace DeploySoftware.LaunchPad.Space.Tests
         public void License_Name_Should_Be_Open_Government_Canada()
         {
             string name = DeploySoftware_LaunchPad_Shared_Resources.Text_OpenGovernmentCanadaLicense_LicenseName;
-            _fixture.Observation.Copyright.GoverningLicense.LicenseName.Should().Be(name);
+            _fixture.Observation.Copyright.GoverningLicense.Name.Should().Be(name);
         }
          
         [Fact]
         public void License_Description_Should_Be_Open_Government_Canada()
         {
             string description = DeploySoftware_LaunchPad_Shared_Resources.Text_OpenGovernmentCanadaLicense_LicenseDescription;
-            _fixture.Observation.Copyright.GoverningLicense.LicenseDescription.Should().Be(description);
+            _fixture.Observation.Copyright.GoverningLicense.Summary.Should().Be(description);
         }
 
         [Fact]
         public void License_Uri_Should_Be_To_Open_Government_Canada_Online()
         {
             Uri openGovtTerms = new Uri(DeploySoftware_LaunchPad_Shared_Resources.Text_OpenGovernmentCanadaLicense_LicenseTerms);
-            _fixture.Observation.Copyright.GoverningLicense.LicenseTerms.Should().Be(openGovtTerms);
+            _fixture.Observation.Copyright.GoverningLicense.FullTermsUrl.Should().Be(openGovtTerms);
         }
 
         

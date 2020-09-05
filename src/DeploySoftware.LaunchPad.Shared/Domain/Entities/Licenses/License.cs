@@ -28,17 +28,17 @@ namespace DeploySoftware.LaunchPad.Shared.Domain.Licenses
         /// <summary>
         /// The name of the license
         /// </summary>
-        public abstract string LicenseName { get; }
+        public abstract string Name { get; }
 
         /// <summary>
         /// A brief human-readable description of the license
         /// </summary>
-        public abstract string LicenseDescription { get; }    
+        public abstract string Summary { get; }    
         
         /// <summary>
         /// A link to the full terms of the license
         /// </summary>
-        public abstract Uri LicenseTerms { get; }
+        public abstract Uri FullTermsUrl { get; }
         
     }
 }
