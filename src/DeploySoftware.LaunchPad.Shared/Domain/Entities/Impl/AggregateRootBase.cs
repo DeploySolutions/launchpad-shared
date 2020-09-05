@@ -20,98 +20,30 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
     using Abp.Domain.Entities;
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel;
     using System.Reflection;
     using System.Runtime.Serialization;
     using System.Security.Permissions;
     using System.Text;
-    using System.Xml.Serialization;
     using DeploySoftware.LaunchPad.Shared.Domain.Metadata;
-    using Abp.Domain.Entities.Auditing;
-    using System.Globalization;
-    using System.ComponentModel.DataAnnotations;
+    using Abp.Events.Bus;
+    using System.ComponentModel.DataAnnotations.Schema;
+    using System.Collections.ObjectModel;
 
     /// <summary>
-    /// Base class for Aggregate Root Entities (in Domain Driven Design). Implements <see cref="IDomainEntity">IDomainEntity</see> and provides
-    /// base functionality for many of its methods. Inherits from ASP.NET Boilerplate's AggregateRoot class.
+    /// Base class for Aggregate Root Entities (in Domain Driven Design). Inherits from <see cref="DomainEntityBase">DomainEntityBase</see>
+    /// Implemenn ASP.NET Boilerplate's <see cref="IAggregateRoot">IAggregateRoot</see> interface.
     /// Implements AspNetBoilerplate's auditing interfaces.
     /// </summary>
     public abstract partial class AggregateRootBase<TPrimaryKey> : 
-        AggregateRoot<TPrimaryKey>, IDomainEntity<TPrimaryKey>, 
-        IComparable<DomainEntityBase<TPrimaryKey>>, IEquatable<DomainEntityBase<TPrimaryKey>>,
-        IHasCreationTime, ICreationAudited, IHasModificationTime, IModificationAudited, ISoftDelete, IDeletionAudited
+        DomainEntityBase<TPrimaryKey>, 
+        IAggregateRoot<TPrimaryKey>
 
     {
-        /// <summary>
-        /// The Culture code of this object
-        /// </summary>
-        [DataObjectField(true)]
-        [XmlAttribute]
-        [Key]
-        public virtual String CultureName { get; set; }
 
-        /// <summary>
-        /// A convenience readonly property to get a <see cref="CultureInfo">CultureInfo</see> instance from the current 
-        /// culture code
-        /// </summary>
-        public virtual CultureInfo Culture { get { return new CultureInfo(CultureName); } }
+        #region Implementation of ASP.NET Boilerplate's IAggregateRoot interface
 
-        /// <summary>
-        /// Each entity can have an open-ended set of metadata applied to it, that helps to describe it.
-        /// </summary>
-        [DataObjectField(false)]
-        [XmlAttribute]
-        public MetadataInformation Metadata { get; set; }
-
-        #region Implementation of ASP.NET Boilerplate's deletion and auditing interfaces
-
-        private DateTime creationTime;
-        public DateTime CreationTime
-        {
-            get { return Metadata.DateCreated; }
-            set
-            { 
-                creationTime = value;
-                Metadata.DateCreated = value;
-            }
-        }
-
-        private Int64? creatorUserId;
-        public long? CreatorUserId
-        {
-            get { return Metadata.CreatorId; }
-            set
-            {
-                creatorUserId = value;
-                Metadata.CreatorId = value;
-            }
-        }
-
-        private DateTime? lastModificationTime;
-        public DateTime? LastModificationTime
-        {
-            get { return Metadata.DateLastModified; }
-            set
-            {
-                lastModificationTime = value;
-                Metadata.DateLastModified = value;
-            }
-        }
-
-        private Int64? lastModifierUserId;
-        public long? LastModifierUserId
-        {
-            get { return Metadata.LastModifiedById; }
-            set
-            {
-                lastModifierUserId = value;
-                Metadata.LastModifiedById = value;
-            }
-        }
-
-        public bool IsDeleted { get;set; }
-        public long? DeleterUserId { get; set; }
-        public DateTime? DeletionTime { get;set; }
+        [NotMapped]
+        public ICollection<IEventData> DomainEvents { get; }
 
         #endregion
 
@@ -120,17 +52,16 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         /// </summary>
         protected AggregateRootBase() : base()
         {
-            CultureName = "en";
-            Metadata = new MetadataInformation();
+            DomainEvents = new Collection<IEventData>();
         }
 
         /// <summary>
         /// Creates a new instance of the <see cref="AggregateRootBase">AggregateRootBase</see> class given a key, and some metadata. 
         /// </summary>
         /// <param name="cultureName">The culture for this entity</param>
-        protected AggregateRootBase(string cultureName) : base()
+        protected AggregateRootBase(string cultureName) : base(cultureName)
         {
-            CultureName = cultureName;
+            DomainEvents = new Collection<IEventData>();
         }
 
         /// <summary>
@@ -138,10 +69,9 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         /// </summary>
         /// <param name="cultureName">The culture for this entity</param>
         /// <param name="metadata">The desired metadata for this entity</param>
-        protected AggregateRootBase(string cultureName, MetadataInformation metadata) : base()
+        protected AggregateRootBase(string cultureName, MetadataInformation metadata) : base(cultureName,metadata)
         {
-            CultureName = cultureName;
-            Metadata = metadata;
+            DomainEvents = new Collection<IEventData>();
         }
 
         /// <summary>
@@ -162,10 +92,10 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         /// <param name="info"></param>
         /// <param name="context"></param>
         [SecurityPermission(SecurityAction.Demand, SerializationFormatter = true)]
-        public virtual void GetObjectData(SerializationInfo info, StreamingContext context)
+        public override void GetObjectData(SerializationInfo info, StreamingContext context)
         {
             info.AddValue("Id", Id);
-            info.AddValue("CultureName", CultureName);
+            info.AddValue("DomainEvents", DomainEvents);
             info.AddValue("Metadata", Metadata);
         }
 
@@ -175,29 +105,9 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         /// can't be serialized and deserialized.
         /// </summary>
         /// <param name="sender">The object that has been deserialized</param>
-        public virtual void OnDeserialization(object sender)
+        public override void OnDeserialization(object sender)
         {
             // reconnect connection strings and other resources that won't be serialized
-        }
-
-        /// <summary>
-        /// Shallow clones the entity
-        /// </summary>
-        /// <typeparam name="TEntity">The source entity to clone</typeparam>
-        /// <returns>A shallow clone of the entity and its serializable properties</returns>
-        protected virtual TEntity Clone<TEntity>() where TEntity : IDomainEntity<TPrimaryKey>, new()
-        {
-            TEntity clone = new TEntity();
-            foreach (PropertyInfo info in GetType().GetProperties())
-            {
-                // ensure the property type is serializable
-                if (info.GetType().IsSerializable)
-                {
-                    PropertyInfo cloneInfo = GetType().GetProperty(info.Name);
-                    cloneInfo.SetValue(clone, info.GetValue(this, null), null);
-                }
-            }
-            return clone;
         }
 
         /// <summary>
@@ -207,7 +117,7 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         /// </summary>
         /// <param name="other">The other object of this type we are comparing to</param>
         /// <returns></returns>
-        public virtual int CompareTo(DomainEntityBase<TPrimaryKey> other)
+        public virtual int CompareTo(AggregateRootBase<TPrimaryKey> other)
         {
             // put comparison of properties in here 
             // for base object we'll just sort by title
@@ -221,23 +131,8 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         public override String ToString()
         {
             StringBuilder sb = new StringBuilder();
-            sb.Append("[DomainEntity: ");
-            sb.Append(ToStringBaseProperties());
-            sb.Append("]");
-            return sb.ToString();
-        }
-
-        /// <summary>
-        /// This method makes it easy for any child class to generate a ToString() representation of
-        /// the common base properties
-        /// </summary>
-        /// <returns>A string description of the entity</returns>
-        protected virtual String ToStringBaseProperties()
-        {
-            StringBuilder sb = new StringBuilder();
-            sb.AppendFormat("Id={0};", Id);
-            sb.AppendFormat("CultureName={0};", CultureName);
-            sb.AppendFormat("Metadata={0};", Metadata);
+            sb.AppendFormat(base.ToStringBaseProperties());
+            sb.AppendFormat("DomainEvents={0};", DomainEvents);
             return sb.ToString();
         }
 
