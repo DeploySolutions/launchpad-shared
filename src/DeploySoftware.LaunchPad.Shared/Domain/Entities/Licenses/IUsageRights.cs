@@ -17,7 +17,7 @@
 
 using System;
 
-namespace DeploySoftware.LaunchPad.Shared.Domain.Licenses
+namespace DeploySoftware.LaunchPad.Shared.Domain
 {
     public interface IUsageRights
     {

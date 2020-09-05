@@ -22,9 +22,6 @@ namespace DeploySoftware.LaunchPad.Space.Satellites.Common
     using DeploySoftware.LaunchPad.Shared.Domain;
     using System;
     using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
     using System.Xml.Serialization;
 
     public abstract class SatelliteBase : DomainEntityBase<int>, ISatellite

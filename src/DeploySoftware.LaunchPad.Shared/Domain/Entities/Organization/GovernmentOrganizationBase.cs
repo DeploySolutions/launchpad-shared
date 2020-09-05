@@ -18,60 +18,53 @@
 namespace DeploySoftware.LaunchPad.Shared.Domain
 {
     using Abp.Domain.Entities;
+    using Schema.NET;
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel;
     using System.Reflection;
     using System.Runtime.Serialization;
     using System.Security.Permissions;
     using System.Text;
-    using DeploySoftware.LaunchPad.Shared.Domain.Metadata;
-    using Abp.Events.Bus;
-    using System.ComponentModel.DataAnnotations.Schema;
-    using System.Collections.ObjectModel;
+    using System.Xml.Serialization;
+    
 
     /// <summary>
-    /// Base class for Aggregate Root Entities (in Domain Driven Design). Inherits from <see cref="DomainEntityBase">DomainEntityBase</see>
-    /// Implemenn ASP.NET Boilerplate's <see cref="IAggregateRoot">IAggregateRoot</see> interface.
-    /// Implements AspNetBoilerplate's auditing interfaces.
+    /// Base class for Entities. Implements <see cref="IDomainEntity">IDomainEntity</see> and provides
+    /// base functionality for many of its methods. Inherits from ASP.NET Boilerplate's IEntity interface.
     /// </summary>
-    public abstract partial class AggregateRootBase<TPrimaryKey> : 
-        DomainEntityBase<TPrimaryKey>, 
-        IAggregateRoot<TPrimaryKey>
-
+    public abstract partial class GovernmentOrganizationBase<TPrimaryKey> : OrganizationBase<TPrimaryKey>, IOrganization<TPrimaryKey>
     {
 
-        #region Implementation of ASP.NET Boilerplate's IAggregateRoot interface
+        private GovernmentOrganization _schema;
+        [DataObjectField(false)]
+        [XmlAttribute]
+        public new GovernmentOrganization Schema { get => _schema; set => _schema = value; }
 
-        [NotMapped]
-        public ICollection<IEventData> DomainEvents { get; }
+
+        #region Implementation of ASP.NET Boilerplate's IEntity interface
+
+
 
         #endregion
 
         /// <summary>  
-        /// Initializes a new instance of the <see cref="AggregateRootBase">AggregateRootBase</see> class
+        /// Initializes a new instance of the <see cref="EntityBase">Entity</see> class
         /// </summary>
-        protected AggregateRootBase() : base()
+        protected GovernmentOrganizationBase() : base()
         {
-            DomainEvents = new Collection<IEventData>();
+            
         }
 
         /// <summary>
-        /// Creates a new instance of the <see cref="AggregateRootBase">AggregateRootBase</see> class given a key, and some metadata. 
+        /// Creates a new instance of the <see cref="EntityBase">Entity</see> class given a key, and some metadata. 
         /// </summary>
-        /// <param name="cultureName">The culture for this entity</param>
-        protected AggregateRootBase(string cultureName) : base(cultureName)
-        {
-            DomainEvents = new Collection<IEventData>();
-        }
-
-        /// <summary>
-        /// Creates a new instance of the <see cref="AggregateRootBase">AggregateRootBase</see> class given a key, and some metadata. 
-        /// </summary>
-        /// <param name="cultureName">The culture for this entity</param>
+        /// <param name="key">The unique identifier for this entity</param>
         /// <param name="metadata">The desired metadata for this entity</param>
-        protected AggregateRootBase(string cultureName, MetadataInformation metadata) : base(cultureName,metadata)
+        protected GovernmentOrganizationBase(TPrimaryKey id, MetadataInformation metadata) : base()
         {
-            DomainEvents = new Collection<IEventData>();
+            Id = id;
+            Metadata = metadata;
         }
 
         /// <summary>
@@ -79,11 +72,13 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         /// </summary>
         /// <param name="info">The serialization info</param>
         /// <param name="context">The context of the stream</param>
-        protected AggregateRootBase(SerializationInfo info, StreamingContext context)
+        protected GovernmentOrganizationBase(SerializationInfo info, StreamingContext context) 
         {
             Id = (TPrimaryKey)info.GetValue("Id", typeof(TPrimaryKey));
             CultureName = info.GetString("CultureName");
             Metadata = (MetadataInformation)info.GetValue("Metadata", typeof(MetadataInformation));
+            Schema = (GovernmentOrganization)info.GetValue("Organization", typeof(GovernmentOrganization));
+            Offices = (IList<String>)info.GetValue("Offices", typeof(IList<String>));
         }
 
         /// <summary>
@@ -92,22 +87,33 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         /// <param name="info"></param>
         /// <param name="context"></param>
         [SecurityPermission(SecurityAction.Demand, SerializationFormatter = true)]
-        public override void GetObjectData(SerializationInfo info, StreamingContext context)
+        public new virtual void GetObjectData(SerializationInfo info, StreamingContext context)
         {
-            info.AddValue("Id", Id);
-            info.AddValue("DomainEvents", DomainEvents);
+            info.AddValue("CultureName", CultureName);
             info.AddValue("Metadata", Metadata);
+            info.AddValue("Schema", Schema);
+            info.AddValue("Offices", Offices);
         }
+        
 
         /// <summary>
-        /// Event called once deserialization constructor finishes.
-        /// Useful for reattaching connections and other finite resources that 
-        /// can't be serialized and deserialized.
+        /// Shallow clones the entity
         /// </summary>
-        /// <param name="sender">The object that has been deserialized</param>
-        public override void OnDeserialization(object sender)
+        /// <typeparam name="TEntity">The source entity to clone</typeparam>
+        /// <returns>A shallow clone of the entity and its serializable properties</returns>
+        protected new virtual TEntity Clone<TEntity>() where TEntity : IGovernmentOrganization<TPrimaryKey>, new()
         {
-            // reconnect connection strings and other resources that won't be serialized
+            TEntity clone = new TEntity();
+            foreach (PropertyInfo info in GetType().GetProperties())
+            {
+                // ensure the property type is serializable
+                if (info.GetType().IsSerializable)
+                {
+                    PropertyInfo cloneInfo = GetType().GetProperty(info.Name);
+                    cloneInfo.SetValue(clone, info.GetValue(this, null), null);
+                }
+            }
+            return clone;
         }
 
         /// <summary>
@@ -117,11 +123,10 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         /// </summary>
         /// <param name="other">The other object of this type we are comparing to</param>
         /// <returns></returns>
-        public virtual int CompareTo(AggregateRootBase<TPrimaryKey> other)
+        public virtual int CompareTo(GovernmentOrganizationBase<TPrimaryKey> other)
         {
-            // put comparison of properties in here 
-            // for base object we'll just sort by title
-            return Metadata.DisplayName.CompareTo(other.Metadata.DisplayName);
+            if (other == null) return 1;
+            return FullName.CompareTo(other.FullName);
         }
 
         /// <summary>  
@@ -131,11 +136,12 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         public override String ToString()
         {
             StringBuilder sb = new StringBuilder();
-            sb.AppendFormat(base.ToStringBaseProperties());
-            sb.AppendFormat("DomainEvents={0};", DomainEvents);
+            sb.Append("[GovernmentOrganizationBase: ");
+            sb.Append(ToStringBaseProperties());
+            sb.Append("]");
             return sb.ToString();
         }
-
+        
         /// <summary>
         /// Override the legacy Equals. Must cast obj in this case.
         /// </summary>
@@ -143,9 +149,9 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         /// <returns>True if the entities are the same according to business key value</returns>
         public override bool Equals(object obj)
         {
-            if (obj != null && obj is DomainEntityBase<TPrimaryKey>)
+            if (obj != null && obj is GovernmentOrganizationBase<TPrimaryKey>)
             {
-                return Equals(obj as DomainEntityBase<TPrimaryKey>);
+                return Equals(obj as GovernmentOrganizationBase<TPrimaryKey>);
             }
             return false;
         }
@@ -159,7 +165,7 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         /// </summary>
         /// <param name="obj">The other object of this type that we are testing equality with</param>
         /// <returns></returns>
-        public virtual bool Equals(DomainEntityBase<TPrimaryKey> obj)
+        public virtual bool Equals(GovernmentOrganizationBase<TPrimaryKey> obj)
         {
             if (obj != null)
             {
@@ -171,23 +177,24 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
                 }
                 else
                 {
-                    // For safe equality we need to match on business key equality.
-                    // Base domain entities are functionally equal if their key and metadata are equal.
-                    // Subclasses should extend to include their own enhanced equality checks, as required.
-                    return Id.Equals(obj.Id) && CultureName.Equals(obj.CultureName) && Metadata.Equals(obj.Metadata);
+                    return Id.Equals(obj.Id)
+                        && CultureName.Equals(obj.CultureName)
+                        && Metadata.Equals(obj.Metadata)
+                        && Schema.Equals(obj.Schema);
                 }
                 
             }
             return false;
         }
-        
+
+
         /// <summary>
         /// Override the == operator to test for equality
         /// </summary>
         /// <param name="x">The first value</param>
         /// <param name="y">The second value</param>
         /// <returns>True if both objects are fully equal based on the Equals logic</returns>
-        public static bool operator ==(AggregateRootBase<TPrimaryKey> x, AggregateRootBase<TPrimaryKey> y)
+        public static bool operator ==(GovernmentOrganizationBase<TPrimaryKey> x, GovernmentOrganizationBase<TPrimaryKey> y)
         {
             if (System.Object.ReferenceEquals(x, null))
             {
@@ -206,10 +213,11 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         /// <param name="x">The first value</param>
         /// <param name="y">The second value</param>
         /// <returns>True if both objects are not equal based on the Equals logic</returns>
-        public static bool operator !=(AggregateRootBase<TPrimaryKey> x, AggregateRootBase<TPrimaryKey> y)
+        public static bool operator !=(GovernmentOrganizationBase<TPrimaryKey> x, GovernmentOrganizationBase<TPrimaryKey> y)
         {
             return !(x == y);
         }
+        
 
         /// <summary>  
         /// Computes and retrieves a hash code for an object.  
@@ -220,7 +228,7 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         /// <returns>A hash code for an object.</returns>
         public override int GetHashCode()
         {
-            return CultureName.GetHashCode()+Id.GetHashCode();
+            return Id.GetHashCode();
         }
 
     }

@@ -15,11 +15,10 @@
 //limitations under the License. 
 #endregion
 
-using DeploySoftware.LaunchPad.Shared.Domain.Files;
-
 namespace DeploySoftware.LaunchPad.Space.Tests
 {
     using DeploySoftware.LaunchPad.Space.Satellites.Canada;
+    using DeploySoftware.LaunchPad.Shared.Domain;
     using System;
 
     public class Radarsat1MetadataFileFixture : IDisposable

@@ -19,7 +19,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace DeploySoftware.LaunchPad.Shared.Domain.Data
+namespace DeploySoftware.LaunchPad.Shared.Domain
 {
     using System;
 

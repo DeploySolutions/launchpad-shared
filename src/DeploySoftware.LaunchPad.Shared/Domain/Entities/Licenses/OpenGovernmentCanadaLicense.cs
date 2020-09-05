@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace DeploySoftware.LaunchPad.Shared.Domain.Licenses
+namespace DeploySoftware.LaunchPad.Shared.Domain
 {
     /// <summary>
     /// Implements the Canadian Open Government license term information.

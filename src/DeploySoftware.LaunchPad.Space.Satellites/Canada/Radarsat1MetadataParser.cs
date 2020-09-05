@@ -29,8 +29,6 @@ namespace DeploySoftware.LaunchPad.Space.Satellites.Canada
     using System.IO;
     using System.Text;
     using System.Text.RegularExpressions;
-    using DeploySoftware.LaunchPad.Shared.Domain.Files;
-    using DeploySoftware.LaunchPad.Shared.Domain.Licenses;
 
     /// <summary>
     /// Utility to parse a Radarsat1 image observation metadata file and populate a Radarsat1Observation object from it.

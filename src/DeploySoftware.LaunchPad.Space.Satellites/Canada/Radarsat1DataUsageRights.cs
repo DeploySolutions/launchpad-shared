@@ -17,8 +17,8 @@
 namespace DeploySoftware.LaunchPad.Space.Satellites.Canada
 {
     using System;
-    using DeploySoftware.LaunchPad.Shared.Domain.Licenses;
-    
+    using DeploySoftware.LaunchPad.Shared.Domain;
+
     /// <summary>
     /// Implements the Radarsat1 observation data copyright information.
     /// </summary>

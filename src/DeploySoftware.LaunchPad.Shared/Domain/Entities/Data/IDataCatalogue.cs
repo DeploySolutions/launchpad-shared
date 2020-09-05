@@ -16,7 +16,7 @@
 #endregion
 
 
-namespace DeploySoftware.LaunchPad.Shared.Domain.Data
+namespace DeploySoftware.LaunchPad.Shared.Domain
 {
     using System.Collections.Generic;
 

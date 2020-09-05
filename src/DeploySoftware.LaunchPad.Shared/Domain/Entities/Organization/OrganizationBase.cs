@@ -17,7 +17,7 @@
 
 namespace DeploySoftware.LaunchPad.Shared.Domain
 {
-    using Abp.Domain.Entities;
+    using Schema.NET;
     using System;
     using System.Collections.Generic;
     using System.ComponentModel;
@@ -26,121 +26,63 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
     using System.Security.Permissions;
     using System.Text;
     using System.Xml.Serialization;
-    using DeploySoftware.LaunchPad.Shared.Domain.Metadata;
-    using Abp.Domain.Entities.Auditing;
-    using System.Globalization;
-    using System.ComponentModel.DataAnnotations;
+    
 
     /// <summary>
-    /// Base class for Entities. Implements <see cref="IDomainEntity">IDomainEntity</see> and provides
-    /// base functionality for many of its methods. Inherits from AspNetBoilerplate's Entity class.
-    /// Implements AspNetBoilerplate's auditing interfaces.
+    /// Base class for Organizations.
+    /// Implements <see cref="IOrganization&lt;TPrimaryKey&gt;">IOrganization&lt;TPrimaryKey&gt;</see> and provides
+    /// base functionality for many of its methods.
     /// </summary>
-    public abstract partial class DomainEntityBase<TPrimaryKey> : 
-        Entity<TPrimaryKey>, IDomainEntity<TPrimaryKey>, 
-        IComparable<DomainEntityBase<TPrimaryKey>>, IEquatable<DomainEntityBase<TPrimaryKey>>,
-        IHasCreationTime, ICreationAudited, IHasModificationTime, IModificationAudited, ISoftDelete, IDeletionAudited
-
+    public abstract partial class OrganizationBase<TPrimaryKey> :  DomainEntityBase<TPrimaryKey>, IOrganization<TPrimaryKey>
     {
-        /// <summary>
-        /// The Culture code of this object
-        /// </summary>
-        [DataObjectField(true)]
-        [XmlAttribute]
-        [Key]
-        public virtual String CultureName { get; set; }
-
-        /// <summary>
-        /// A convenience readonly property to get a <see cref="CultureInfo">CultureInfo</see> instance from the current 
-        /// culture code
-        /// </summary>
-        public virtual CultureInfo Culture { get { return new CultureInfo(CultureName); } }
-
-        /// <summary>
-        /// Each entity can have an open-ended set of metadata applied to it, that helps to describe it.
-        /// </summary>
         [DataObjectField(false)]
         [XmlAttribute]
-        public MetadataInformation Metadata { get; set; }
+        public Organization Schema { get; set; }
 
-        #region Implementation of ASP.NET Boilerplate's deletion and auditing interfaces
+        [DataObjectField(false)]
+        [XmlAttribute]
+        public string FullName { get => Schema.LegalName.ToString(); }
 
-        private DateTime creationTime;
-        public DateTime CreationTime
-        {
-            get { return Metadata.DateCreated; }
-            set
-            { 
-                creationTime = value;
-                Metadata.DateCreated = value;
-            }
-        }
+        [DataObjectField(false)]
+        [XmlAttribute]
+        public string Abbreviation { get => Schema.AlternateName.ToString(); }
 
-        private Int64? creatorUserId;
-        public long? CreatorUserId
-        {
-            get { return Metadata.CreatorId; }
-            set
-            {
-                creatorUserId = value;
-                Metadata.CreatorId = value;
-            }
-        }
+        [DataObjectField(false)]
+        [XmlAttribute]
+        public string Website { get => Schema.Url.ToString(); }
 
-        private DateTime? lastModificationTime;
-        public DateTime? LastModificationTime
-        {
-            get { return Metadata.DateLastModified; }
-            set
-            {
-                lastModificationTime = value;
-                Metadata.DateLastModified = value;
-            }
-        }
+        [DataObjectField(false)]
+        [XmlAttribute]
+        public string HeadquartersAddress { get => Schema.Address.ToString(); }
 
-        private Int64? lastModifierUserId;
-        public long? LastModifierUserId
-        {
-            get { return Metadata.LastModifiedById; }
-            set
-            {
-                lastModifierUserId = value;
-                Metadata.LastModifiedById = value;
-            }
-        }
+        [DataObjectField(false)]
+        [XmlAttribute]
+        public IList<string> Offices { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
-        public bool IsDeleted { get;set; }
-        public long? DeleterUserId { get; set; }
-        public DateTime? DeletionTime { get;set; }
+
+        #region Implementation of ASP.NET Boilerplate's IEntity interface
+
+
 
         #endregion
 
         /// <summary>  
-        /// Initializes a new instance of the <see cref="DomainEntityBase">Entity</see> class
+        /// Initializes a new instance of the <see cref="OrganizationBase&lt;TPrimaryKey&gt;">OrganizationBase&lt;TPrimaryKey&gt;</see> class
         /// </summary>
-        protected DomainEntityBase() : base()
+        protected OrganizationBase() : base()
         {
             CultureName = "en";
             Metadata = new MetadataInformation();
         }
 
         /// <summary>
-        /// Creates a new instance of the <see cref="DomainEntityBase">Entity</see> class given a key, and some metadata. 
+        /// Creates a new instance of the <see cref="OrganizationBase&lt;TPrimaryKey&gt;">OrganizationBase&lt;TPrimaryKey&gt;</see>
+        /// class given a key, and some metadata. 
         /// </summary>
-        /// <param name="cultureName">The culture for this entity</param>
-        protected DomainEntityBase(string cultureName) : base()
-        {
-            CultureName = cultureName;
-        }
-
-        /// <summary>
-        /// Creates a new instance of the <see cref="DomainEntityBase">Entity</see> class given a key, and some metadata. 
-        /// </summary>
-        /// <param name="cultureName">The culture for this entity</param>
+        /// <param name="key">The unique identifier for this entity</param>
         /// <param name="metadata">The desired metadata for this entity</param>
-        protected DomainEntityBase(string cultureName, MetadataInformation metadata) : base()
+        protected OrganizationBase(DomainEntityKey key, MetadataInformation metadata) : base()
         {
-            CultureName = cultureName;
             Metadata = metadata;
         }
 
@@ -149,11 +91,12 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         /// </summary>
         /// <param name="info">The serialization info</param>
         /// <param name="context">The context of the stream</param>
-        protected DomainEntityBase(SerializationInfo info, StreamingContext context)
+        protected OrganizationBase(SerializationInfo info, StreamingContext context) : base(info,context)
         {
             Id = (TPrimaryKey)info.GetValue("Id", typeof(TPrimaryKey));
-            CultureName = info.GetString("CultureName");
-            Metadata = (MetadataInformation)info.GetValue("Metadata", typeof(MetadataInformation));
+            CultureName = info.GetString("CultureName"); 
+            Schema = (Organization)info.GetValue("Organization", typeof(Organization));
+            Offices = (IList<string>)info.GetValue("Offices", typeof(IList<string>));
         }
 
         /// <summary>
@@ -162,30 +105,20 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         /// <param name="info"></param>
         /// <param name="context"></param>
         [SecurityPermission(SecurityAction.Demand, SerializationFormatter = true)]
-        public virtual void GetObjectData(SerializationInfo info, StreamingContext context)
+        public new virtual void GetObjectData(SerializationInfo info, StreamingContext context) 
         {
-            info.AddValue("Id", Id);
-            info.AddValue("CultureName", CultureName);
-            info.AddValue("Metadata", Metadata);
+            base.GetObjectData(info, context);
+            info.AddValue("Schema", Schema);
+            info.AddValue("Offices", Offices);
         }
-
-        /// <summary>
-        /// Event called once deserialization constructor finishes.
-        /// Useful for reattaching connections and other finite resources that 
-        /// can't be serialized and deserialized.
-        /// </summary>
-        /// <param name="sender">The object that has been deserialized</param>
-        public virtual void OnDeserialization(object sender)
-        {
-            // reconnect connection strings and other resources that won't be serialized
-        }
+        
 
         /// <summary>
         /// Shallow clones the entity
         /// </summary>
         /// <typeparam name="TEntity">The source entity to clone</typeparam>
         /// <returns>A shallow clone of the entity and its serializable properties</returns>
-        protected virtual TEntity Clone<TEntity>() where TEntity : IDomainEntity<TPrimaryKey>, new()
+        protected new virtual TEntity Clone<TEntity>() where TEntity : IOrganization<TPrimaryKey>, new()
         {
             TEntity clone = new TEntity();
             foreach (PropertyInfo info in GetType().GetProperties())
@@ -194,7 +127,7 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
                 if (info.GetType().IsSerializable)
                 {
                     PropertyInfo cloneInfo = GetType().GetProperty(info.Name);
-                    cloneInfo.SetValue(clone, info.GetValue(this, null), null);
+                    if (cloneInfo != null) cloneInfo.SetValue(clone, info.GetValue(this, null), null);
                 }
             }
             return clone;
@@ -207,11 +140,9 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         /// </summary>
         /// <param name="other">The other object of this type we are comparing to</param>
         /// <returns></returns>
-        public virtual int CompareTo(DomainEntityBase<TPrimaryKey> other)
+        public virtual int CompareTo(OrganizationBase<TPrimaryKey> other)
         {
-            // put comparison of properties in here 
-            // for base object we'll just sort by title
-            return Metadata.DisplayName.CompareTo(other.Metadata.DisplayName);
+            return other == null ? 1 : String.Compare(FullName, other.FullName, StringComparison.InvariantCulture);
         }
 
         /// <summary>  
@@ -221,23 +152,9 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         public override String ToString()
         {
             StringBuilder sb = new StringBuilder();
-            sb.Append("[DomainEntity: ");
+            sb.Append("[OrganizationBase: ");
             sb.Append(ToStringBaseProperties());
             sb.Append("]");
-            return sb.ToString();
-        }
-
-        /// <summary>
-        /// This method makes it easy for any child class to generate a ToString() representation of
-        /// the common base properties
-        /// </summary>
-        /// <returns>A string description of the entity</returns>
-        protected virtual String ToStringBaseProperties()
-        {
-            StringBuilder sb = new StringBuilder();
-            sb.AppendFormat("Id={0};", Id);
-            sb.AppendFormat("CultureName={0};", CultureName);
-            sb.AppendFormat("Metadata={0};", Metadata);
             return sb.ToString();
         }
 
@@ -248,9 +165,9 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         /// <returns>True if the entities are the same according to business key value</returns>
         public override bool Equals(object obj)
         {
-            if (obj != null && obj is DomainEntityBase<TPrimaryKey>)
+            if (obj != null && obj is OrganizationBase<TPrimaryKey>)
             {
-                return Equals(obj as DomainEntityBase<TPrimaryKey>);
+                return Equals((OrganizationBase<TPrimaryKey>) obj);
             }
             return false;
         }
@@ -264,7 +181,7 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         /// </summary>
         /// <param name="obj">The other object of this type that we are testing equality with</param>
         /// <returns></returns>
-        public virtual bool Equals(DomainEntityBase<TPrimaryKey> obj)
+        public virtual bool Equals(OrganizationBase<TPrimaryKey> obj)
         {
             if (obj != null)
             {
@@ -277,22 +194,25 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
                 else
                 {
                     // For safe equality we need to match on business key equality.
-                    // Base domain entities are functionally equal if their key and metadata are equal.
+                    // Base domain entities are functionally equal if their key and metadata and tags are equal.
                     // Subclasses should extend to include their own enhanced equality checks, as required.
-                    return Id.Equals(obj.Id) && CultureName.Equals(obj.CultureName) && Metadata.Equals(obj.Metadata);
+                    return Id.Equals(obj.Id)
+                        && CultureName.Equals(obj.CultureName)
+                        && Metadata.Equals(obj.Metadata) 
+                        && Schema.Equals(obj.Schema);
                 }
                 
             }
             return false;
         }
-        
+
         /// <summary>
         /// Override the == operator to test for equality
         /// </summary>
         /// <param name="x">The first value</param>
         /// <param name="y">The second value</param>
         /// <returns>True if both objects are fully equal based on the Equals logic</returns>
-        public static bool operator ==(DomainEntityBase<TPrimaryKey> x, DomainEntityBase<TPrimaryKey> y)
+        public static bool operator ==(OrganizationBase<TPrimaryKey> x, OrganizationBase<TPrimaryKey> y)
         {
             if (System.Object.ReferenceEquals(x, null))
             {
@@ -311,7 +231,7 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         /// <param name="x">The first value</param>
         /// <param name="y">The second value</param>
         /// <returns>True if both objects are not equal based on the Equals logic</returns>
-        public static bool operator !=(DomainEntityBase<TPrimaryKey> x, DomainEntityBase<TPrimaryKey> y)
+        public static bool operator !=(OrganizationBase<TPrimaryKey> x, OrganizationBase<TPrimaryKey> y)
         {
             return !(x == y);
         }
@@ -325,7 +245,7 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         /// <returns>A hash code for an object.</returns>
         public override int GetHashCode()
         {
-            return CultureName.GetHashCode()+Id.GetHashCode();
+            return Id.GetHashCode();
         }
 
     }

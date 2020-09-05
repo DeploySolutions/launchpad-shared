@@ -15,9 +15,8 @@
 //limitations under the License. 
 #endregion
 
-namespace DeploySoftware.LaunchPad.Shared.Domain.Metadata
+namespace DeploySoftware.LaunchPad.Shared.Domain
 {
-    using DeploySoftware.LaunchPad.Shared.Util;
     using System;
     using System.Collections.Generic;
     using System.ComponentModel;

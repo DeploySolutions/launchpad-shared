@@ -20,7 +20,7 @@ namespace DeploySoftware.LaunchPad.Shared.Tests
 
     using System.IO;
     using System.Reflection;
-    using DeploySoftware.LaunchPad.Shared.Domain.Files;
+    using DeploySoftware.LaunchPad.Shared.Domain;
     using DeploySoftware.LaunchPad.Shared.Util;
     using System;
 

@@ -20,12 +20,6 @@ namespace DeploySoftware.LaunchPad.Space.Satellites.Common
 {
 
     using DeploySoftware.LaunchPad.Shared.Domain;
-    using Schema.NET;
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
 
     public interface ISatelliteOperator<TPrimaryKey> : IOrganization<TPrimaryKey>
     {

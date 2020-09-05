@@ -15,7 +15,7 @@
 //limitations under the License. 
 #endregion
 
-namespace DeploySoftware.LaunchPad.Shared.Domain.Licenses
+namespace DeploySoftware.LaunchPad.Shared.Domain
 {
     
     using System;

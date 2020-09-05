@@ -15,11 +15,9 @@
 //limitations under the License. 
 #endregion
 
-namespace DeploySoftware.LaunchPad.Shared.Domain.Files
+namespace DeploySoftware.LaunchPad.Shared.Domain
 {
-    using DeploySoftware.LaunchPad.Shared.Domain.Metadata;
     using System;
-    using System.Collections.Generic;
 
     /// <summary>
     /// Marks any object as a file that can be manipulated by the platform.

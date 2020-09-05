@@ -16,13 +16,11 @@
 #endregion
 
 using Abp.Domain.Entities;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.Serialization;
 using System.Xml.Serialization;
-using DeploySoftware.LaunchPad.Shared.Domain.Metadata;
 
-namespace DeploySoftware.LaunchPad.Shared.Domain.Files
+namespace DeploySoftware.LaunchPad.Shared.Domain
 {
     public abstract partial class FileBase<TPrimaryKey> : Entity<TPrimaryKey>, IFile<TPrimaryKey>
     {

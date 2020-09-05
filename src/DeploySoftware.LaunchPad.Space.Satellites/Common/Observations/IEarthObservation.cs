@@ -18,8 +18,6 @@
 namespace DeploySoftware.LaunchPad.Space.Satellites.Common
 {
 
-    
-    using DeploySoftware.LaunchPad.Shared.Domain.Licenses;
     using Abp.Domain.Entities.Auditing;
     using DeploySoftware.LaunchPad.Shared.Domain;
     using System.ComponentModel.DataAnnotations;

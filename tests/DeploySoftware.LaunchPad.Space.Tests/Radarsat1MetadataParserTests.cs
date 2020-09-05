@@ -22,8 +22,7 @@ namespace DeploySoftware.LaunchPad.Space.Tests
     using System;
     using Xunit;
     using FluentAssertions;
-    using DeploySoftware.LaunchPad.Shared.Domain.Files;
-    using DeploySoftware.LaunchPad.Shared.Domain.Licenses;
+    using DeploySoftware.LaunchPad.Shared.Domain;
     using DeploySoftware.LaunchPad.Shared;
     using DeploySoftware.LaunchPad.Space.Satellites;
 

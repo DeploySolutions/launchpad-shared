@@ -15,7 +15,7 @@
 //limitations under the License. 
 #endregion
 
-namespace DeploySoftware.LaunchPad.Shared.Domain.Files
+namespace DeploySoftware.LaunchPad.Shared.Domain
 {
     // Tiff World File (TFW)
     //

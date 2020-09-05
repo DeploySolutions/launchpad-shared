@@ -20,7 +20,7 @@ using System;
 using System.Globalization;
 using System.IO;
 using System.Text;
-using DeploySoftware.LaunchPad.Shared.Domain.Files;
+using DeploySoftware.LaunchPad.Shared.Domain;
 
 namespace DeploySoftware.LaunchPad.Shared.Util
 {
