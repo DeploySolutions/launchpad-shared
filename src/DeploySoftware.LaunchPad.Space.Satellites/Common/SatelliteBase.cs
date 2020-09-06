@@ -24,7 +24,7 @@ namespace DeploySoftware.LaunchPad.Space.Satellites.Common
     using System.Collections.Generic;
     using System.Xml.Serialization;
 
-    public abstract class SatelliteBase : DomainEntityBase<int>, ISatellite
+    public abstract class SatelliteBase<TPrimaryKey> : DomainEntityBase<TPrimaryKey>, ISatellite
     {
         private IEnumerable<ISatelliteOperator<Guid>> _operators;
         private string _satelliteCatalogNumber;

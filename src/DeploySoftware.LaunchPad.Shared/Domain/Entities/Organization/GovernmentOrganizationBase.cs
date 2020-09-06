@@ -137,7 +137,7 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         {
             StringBuilder sb = new StringBuilder();
             sb.Append("[GovernmentOrganizationBase: ");
-            sb.Append(ToStringBaseProperties());
+            sb.Append(base.ToStringBaseProperties());
             sb.Append("]");
             return sb.ToString();
         }

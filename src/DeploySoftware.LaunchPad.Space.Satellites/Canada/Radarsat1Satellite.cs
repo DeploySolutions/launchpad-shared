@@ -29,7 +29,7 @@ using DeploySoftware.LaunchPad.Organizations.Canada;
 
 namespace DeploySoftware.LaunchPad.Space.Satellites.Canada
 {
-    public class Radarsat1Satellite : SatelliteBase
+    public class Radarsat1Satellite<TPrimaryKey> : SatelliteBase<TPrimaryKey>
     {
         
         protected Radarsat1Satellite() : base()

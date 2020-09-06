@@ -27,7 +27,7 @@ using DeploySoftware.LaunchPad.Organizations.Canada;
 
 namespace DeploySoftware.LaunchPad.Space.Satellites.Canada
 {
-    public class NeossatSatellite : SatelliteBase
+    public class NeossatSatellite<TPrimaryKey> : SatelliteBase<TPrimaryKey>
     {
         protected NeossatSatellite() : base()
         {

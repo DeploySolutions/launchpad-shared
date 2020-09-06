@@ -145,16 +145,20 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
             return other == null ? 1 : String.Compare(FullName, other.FullName, StringComparison.InvariantCulture);
         }
 
-        /// <summary>  
-        /// Displays information about the <c>Field</c> in readable format.  
-        /// </summary>  
-        /// <returns>A string representation of the object.</returns>
-        public override String ToString()
+        /// <summary>
+        /// This method makes it easy for any child class to generate a ToString() representation of
+        /// the common base properties
+        /// </summary>
+        /// <returns>A string description of the entity</returns>
+        protected override String ToStringBaseProperties()
         {
             StringBuilder sb = new StringBuilder();
-            sb.Append("[OrganizationBase: ");
             sb.Append(ToStringBaseProperties());
-            sb.Append("]");
+            sb.AppendFormat("Schema={0};", Schema);
+            sb.AppendFormat("FullName={0};", FullName);
+            sb.AppendFormat("Abbreviation={0};", Abbreviation);
+            sb.AppendFormat("HeadquartersAddress={0};", HeadquartersAddress);
+            sb.AppendFormat("Website={0};", Website);
             return sb.ToString();
         }
 

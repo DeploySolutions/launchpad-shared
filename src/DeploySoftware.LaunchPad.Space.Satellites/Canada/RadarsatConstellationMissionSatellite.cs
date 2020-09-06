@@ -27,7 +27,7 @@ namespace DeploySoftware.LaunchPad.Space.Satellites.Canada
     using DeploySoftware.LaunchPad.Space.Satellites.Common;
     using DeploySoftware.LaunchPad.Organizations.Canada;
 
-    public class RadarsatConstellationMissionSatellite : SatelliteBase
+    public class RadarsatConstellationMissionSatellite<TPrimaryKey> : SatelliteBase<TPrimaryKey>
     {
         protected RadarsatConstellationMissionSatellite() : base()
         {

@@ -25,16 +25,14 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
     using System.Security.Permissions;
     using System.Text;
     using System.Xml.Serialization;
-    using DeploySoftware.LaunchPad.Shared.Util;
-    using CoordinateSharp;
-    using System.Collections;
     using System.Collections.Generic;
 
     /// <summary>
     /// This class defines the geographical boundaries of an Area of Interest being observed.
     /// </summary>
     [Serializable()]
-    public class AreaOfInterest<TPrimaryKey> : DomainEntityBase<TPrimaryKey>
+    public class AreaOfInterest<TPrimaryKey> : 
+        DomainEntityBase<TPrimaryKey>, IAreaOfInterest<TPrimaryKey>
     {
         
         [DataObjectField(false)]
@@ -107,7 +105,7 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         {
             StringBuilder sb = new StringBuilder();
             sb.Append("[AreaOfInterest : ");
-           
+            sb.AppendFormat(base.ToStringBaseProperties());
             sb.AppendFormat("BoundingBoxCoordinates={0};", BoundingBoxCoordinates);
             sb.Append("]");
             return sb.ToString();
