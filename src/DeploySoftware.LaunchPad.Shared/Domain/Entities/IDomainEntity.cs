@@ -31,7 +31,7 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
     /// Each entity also implements ASP.NET Boilerplate's IEntity interface.
     /// </summary>
     public interface IDomainEntity<TPrimaryKey> : ILaunchPadObject, IEntity<TPrimaryKey>,
-        IHasCreationTime, ICreationAudited, IHasModificationTime, IModificationAudited, ISoftDelete, IDeletionAudited
+        IHasCreationTime, ICreationAudited, IHasModificationTime, IModificationAudited, ISoftDelete, IDeletionAudited, IPassivable
     {
         /// <summary>
         /// The Culture code of this object
@@ -39,6 +39,13 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         [DataObjectField(true)]
         [XmlAttribute]
         String Culture { get; set; }
+
+        /// <summary>
+        /// The id of the tenant that domain entity this belongs to (null if not known/applicable)
+        /// </summary>
+        [DataObjectField(false)]
+        [XmlAttribute]
+        TPrimaryKey TenantId { get; set; }
 
     }
 }

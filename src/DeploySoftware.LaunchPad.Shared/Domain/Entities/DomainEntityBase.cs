@@ -38,8 +38,7 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
     public abstract partial class DomainEntityBase<TPrimaryKey> : 
         Entity<TPrimaryKey>, IDomainEntity<TPrimaryKey>, 
         IComparable<DomainEntityBase<TPrimaryKey>>, IEquatable<DomainEntityBase<TPrimaryKey>>,
-        IHasCreationTime, ICreationAudited, IHasModificationTime, IModificationAudited, ISoftDelete, IDeletionAudited
-
+        IHasCreationTime, ICreationAudited, IHasModificationTime, IModificationAudited, ISoftDelete, IDeletionAudited, IPassivable
     {
         /// <summary>
         /// The .NET Culture code of this object
@@ -49,12 +48,7 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         [Key]
         public virtual String Culture { get; set; }
 
-        /// <summary>
-        /// A convenience readonly method to get a <see cref="CultureInfo">CultureInfo</see> instance from the current 
-        /// culture code
-        /// </summary>
-        public CultureInfo GetCultureInfo { get { return new CultureInfo(Culture); } }
-
+      
         /// <summary>
         /// Each entity can have an open-ended set of metadata applied to it, that helps to describe it.
         /// </summary>
@@ -62,9 +56,27 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         [XmlAttribute]
         public MetadataInformation Metadata { get; set; }
 
-        #region Implementation of ASP.NET Boilerplate's deletion and auditing interfaces
+        /// <summary>
+        /// A convenience readonly method to get a <see cref="CultureInfo">CultureInfo</see> instance from the current 
+        /// culture code
+        /// </summary>
+        [DataObjectField(false)]
+        [XmlAttribute] 
+        public CultureInfo GetCultureInfo { get { return new CultureInfo(Culture); } }
+
+        /// <summary>
+        /// The id of the tenant that domain entity this belongs to (null if not known/applicable)
+        /// </summary>
+        [DataObjectField(false)]
+        [XmlAttribute]
+        public TPrimaryKey TenantId { get; set; }
+
+
+        #region Implementation of ASP.NET Boilerplate's domain entity interfaces
 
         private DateTime creationTime;
+        [DataObjectField(false)]
+        [XmlAttribute]
         public DateTime CreationTime
         {
             get { return Metadata.DateCreated; }
@@ -76,6 +88,8 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         }
 
         private Int64? creatorUserId;
+        [DataObjectField(false)]
+        [XmlAttribute]
         public long? CreatorUserId
         {
             get { return Metadata.CreatorId; }
@@ -87,6 +101,8 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         }
 
         private DateTime? lastModificationTime;
+        [DataObjectField(false)]
+        [XmlAttribute]
         public DateTime? LastModificationTime
         {
             get { return Metadata.DateLastModified; }
@@ -98,6 +114,8 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         }
 
         private Int64? lastModifierUserId;
+        [DataObjectField(false)]
+        [XmlAttribute]
         public long? LastModifierUserId
         {
             get { return Metadata.LastModifiedById; }
@@ -108,9 +126,21 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
             }
         }
 
+        [DataObjectField(false)]
+        [XmlAttribute]
         public bool IsDeleted { get;set; }
+
+        [DataObjectField(false)]
+        [XmlAttribute]
         public long? DeleterUserId { get; set; }
+
+        [DataObjectField(false)]
+        [XmlAttribute]
         public DateTime? DeletionTime { get;set; }
+
+        [DataObjectField(false)]
+        [XmlAttribute]
+        public bool IsActive { get; set; }
 
         #endregion
 
@@ -121,6 +151,8 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         {
             Culture = "en";
             Metadata = new MetadataInformation();
+            IsDeleted = false;
+            IsActive = true;
         }
 
         /// <summary>
@@ -130,6 +162,9 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         protected DomainEntityBase(string cultureName) : base()
         {
             Culture = cultureName;
+            Metadata = new MetadataInformation();
+            IsDeleted = false;
+            IsActive = true;
         }
 
         /// <summary>
@@ -141,6 +176,8 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         {
             Culture = cultureName;
             Metadata = metadata;
+            IsDeleted = false;
+            IsActive = true;
         }
 
         /// <summary>
@@ -153,6 +190,9 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
             Id = (TPrimaryKey)info.GetValue("Id", typeof(TPrimaryKey));
             Culture = info.GetString("CultureName");
             Metadata = (MetadataInformation)info.GetValue("Metadata", typeof(MetadataInformation));
+            TenantId = (TPrimaryKey)info.GetValue("TenantId", typeof(TPrimaryKey));
+            IsDeleted = info.GetBoolean("IsDeleted"); 
+            IsActive = info.GetBoolean("IsActive");
         }
 
         /// <summary>
@@ -166,6 +206,9 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
             info.AddValue("Id", Id);
             info.AddValue("CultureName", Culture);
             info.AddValue("Metadata", Metadata);
+            info.AddValue("TenantId", TenantId);
+            info.AddValue("IsActive", IsActive);
+            info.AddValue("IsDeleted", IsDeleted);
         }
 
         /// <summary>
@@ -237,6 +280,9 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
             sb.AppendFormat("Id={0};", Id);
             sb.AppendFormat("CultureName={0};", Culture);
             sb.AppendFormat("Metadata={0};", Metadata);
+            sb.AppendFormat("TenantId={0};", TenantId);
+            sb.AppendFormat("IsActive={0};", IsActive);
+            sb.AppendFormat("IsDeleted={0};", IsDeleted);
             return sb.ToString();
         }
 
@@ -278,7 +324,8 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
                     // For safe equality we need to match on business key equality.
                     // Base domain entities are functionally equal if their key and metadata are equal.
                     // Subclasses should extend to include their own enhanced equality checks, as required.
-                    return Id.Equals(obj.Id) && Culture.Equals(obj.Culture) && Metadata.Equals(obj.Metadata);
+                    return Id.Equals(obj.Id) && Culture.Equals(obj.Culture) && Metadata.Equals(obj.Metadata)
+                        && IsActive.Equals(obj.IsActive) && IsDeleted.Equals(obj.IsDeleted);
                 }
                 
             }

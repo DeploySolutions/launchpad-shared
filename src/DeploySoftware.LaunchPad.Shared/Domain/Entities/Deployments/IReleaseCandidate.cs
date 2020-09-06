@@ -21,47 +21,44 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
     using System.ComponentModel;
     using System.Xml.Serialization;
 
-    public interface IDeployment<TPrimaryKey> : IDomainEntity<TPrimaryKey>
+    public interface IReleaseCandidate<TPrimaryKey> : IDomainEntity<TPrimaryKey>
     {
-       
+
         /// <summary>
-        /// The id of the release candidate this deployment is for
+        /// The checksum of this release candidate
         /// </summary>
         [DataObjectField(false)]
         [XmlAttribute]
-        TPrimaryKey ReleaseCandidateId { get; set; }
+        String Checksum { get; set; }
+
 
         /// <summary>
-        /// The id of the process that will be followed during the deployment (if known)
+        /// The version of this release candidate
         /// </summary>
         [DataObjectField(false)]
         [XmlAttribute]
-        TPrimaryKey DeploymentProcessId { get; set; }
+        String Version { get; set; }
 
         /// <summary>
-        /// The current state of the deployment
+        /// The current state of the release candidate
         /// </summary>
         [DataObjectField(false)]
         [XmlAttribute]
         String State { get; set; }
 
         /// <summary>
-        /// The intended deployment date and time
+        /// The release date and time
         /// </summary>
         [DataObjectField(false)]
         [XmlAttribute]
-        DateTime? DateScheduled { get; set; }
+        DateTime? DateReleased { get; set; }
 
         /// <summary>
-        /// The actual deployment date and time
+        /// The URI where the release candidate package is located
         /// </summary>
         [DataObjectField(false)]
         [XmlAttribute]
-        DateTime? DateDeployed { get; set; }
-
-        [DataObjectField(false)]
-        [XmlAttribute]
-        long? PrimaryDeployerUserId { get; set; }
+        Uri PackageUri { get; set; }
 
     }
 }

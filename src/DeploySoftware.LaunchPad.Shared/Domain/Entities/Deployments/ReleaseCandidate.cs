@@ -25,59 +25,25 @@ using System.Xml.Serialization;
 
 namespace DeploySoftware.LaunchPad.Shared.Domain
 {
-    public class Deployment<TPrimaryKey> : DomainEntityBase<TPrimaryKey>, IDeployment<TPrimaryKey>
+    public class ReleaseCandidate<TPrimaryKey> : DomainEntityBase<TPrimaryKey>, IReleaseCandidate<TPrimaryKey>
     {
 
-        /// <summary>
-        /// The release candidate this deployment is for
-        /// </summary>
-        [DataObjectField(false)]
-        [XmlAttribute]
-        public TPrimaryKey ReleaseCandidateId { get; set; }
 
-        /// <summary>
-        /// The id of the process that will be followed during the deployment (if known)
-        /// </summary>
-        [DataObjectField(false)]
-        [XmlAttribute]
-        public TPrimaryKey DeploymentProcessId { get; set; }
+        public string Checksum { get; set; }
+        public string Version { get; set; }
+        public string State { get; set; }
+        public DateTime? DateReleased { get; set; }
+        public Uri PackageUri { get; set; }
 
-        /// <summary>
-        /// The current state of the deployment
-        /// </summary>
-        [DataObjectField(false)]
-        [XmlAttribute]
-        public String State { get; set; }
-
-        /// <summary>
-        /// The intended deployment date and time
-        /// </summary>
-        [DataObjectField(false)]
-        [XmlAttribute]
-        public DateTime? DateScheduled { get; set; }
-
-        /// <summary>
-        /// The actual deployment date and time
-        /// </summary>
-        [DataObjectField(false)]
-        [XmlAttribute]
-        public DateTime? DateDeployed { get; set; }
-
-        /// <summary>
-        /// The person primarily responsible for doing the deployment (if known)
-        /// </summary>
-        [DataObjectField(false)]
-        [XmlAttribute]
-        public long? PrimaryDeployerUserId { get; set; }
 
         #region "Constructors"
 
-        public Deployment() : base()
+        public ReleaseCandidate() : base()
         {
          
         }
 
-        public Deployment(string cultureName, String text) : base(cultureName)
+        public ReleaseCandidate(string cultureName, String text) : base(cultureName)
         {
 
         }
@@ -87,12 +53,12 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         /// </summary>
         /// <param name="info">The serialization info</param>
         /// <param name="context">The context of the stream</param>
-        protected Deployment(SerializationInfo info, StreamingContext context)
+        protected ReleaseCandidate(SerializationInfo info, StreamingContext context)
         {
     
         }
 
-#endregion
+        #endregion
 
         /// <summary>
         /// The method required for implementing ISerializable
@@ -103,8 +69,11 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         public override void GetObjectData(SerializationInfo info, StreamingContext context)
         {
             base.GetObjectData(info, context);
-            info.AddValue("DateScheduled", DateScheduled); 
-            info.AddValue("DateDeployed", DateDeployed);            
+            info.AddValue("Version", Version);
+            info.AddValue("Checksum", Checksum);
+            info.AddValue("State", State);
+            info.AddValue("PackageUri", PackageUri);
+            info.AddValue("DateReleased", DateReleased);
         }
 
         /// <summary>  
@@ -114,10 +83,13 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         public override string ToString()
         {
             StringBuilder sb = new StringBuilder();
-            sb.Append("[Deployment : ");
+            sb.Append("[ReleaseCandidate : ");
             sb.AppendFormat(ToStringBaseProperties());
-            sb.AppendFormat(" DateScheduled={0};", DateScheduled); 
-            sb.AppendFormat(" DateDeployed={0};", DateDeployed);            
+            sb.AppendFormat(" Version={0};", Version);
+            sb.AppendFormat(" Checksum={0};", Checksum);
+            sb.AppendFormat(" State={0};", State);
+            sb.AppendFormat(" PackageUri={0};", PackageUri);
+            sb.AppendFormat(" DateReleased={0};", DateReleased);       
             sb.Append("]");
             return sb.ToString();
         }
