@@ -15,31 +15,27 @@
 //limitations under the License. 
 #endregion
 
-
 namespace DeploySoftware.LaunchPad.Shared.Domain
 {
     using System;
     using System.ComponentModel;
     using System.Xml.Serialization;
 
-    /// <summary>
-    /// Represents a deployment activity.
-    /// </summary>
-    /// <typeparam name="TPrimaryKey"></typeparam>
-    public interface IContentItem<TPrimaryKey> : IDomainEntity<TPrimaryKey>
+    public interface IDeployment<TPrimaryKey> : IDomainEntity<TPrimaryKey>
     {
-
         /// <summary>
-        /// The name of this metadata tag
+        /// The intended deployment date and time
         /// </summary>
         [DataObjectField(false)]
         [XmlAttribute]
-        String Text
-        {
-            get; set;
-        }
+        DateTime? ScheduledDeploymentDate { get; set; }
 
-        
+        /// <summary>
+        /// The actual deployment date and time
+        /// </summary>
+        [DataObjectField(false)]
+        [XmlAttribute]
+        DateTime? ActualDeploymentDate { get; set; }
 
     }
 }
