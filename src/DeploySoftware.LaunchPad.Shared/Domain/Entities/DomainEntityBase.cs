@@ -36,9 +36,8 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
     /// Implements AspNetBoilerplate's auditing interfaces.
     /// </summary>
     public abstract partial class DomainEntityBase<TPrimaryKey> : 
-        Entity<TPrimaryKey>, IDomainEntity<TPrimaryKey>, 
-        IComparable<DomainEntityBase<TPrimaryKey>>, IEquatable<DomainEntityBase<TPrimaryKey>>,
-        IHasCreationTime, ICreationAudited, IHasModificationTime, IModificationAudited, ISoftDelete, IDeletionAudited, IPassivable
+        Entity<TPrimaryKey>, IDomainEntity<TPrimaryKey>
+        
     {
         /// <summary>
         /// The .NET Culture code of this object
@@ -69,7 +68,7 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         /// </summary>
         [DataObjectField(false)]
         [XmlAttribute]
-        public TPrimaryKey TenantId { get; set; }
+        public int? TenantId { get; set; }
 
 
         #region Implementation of ASP.NET Boilerplate's domain entity interfaces
@@ -190,7 +189,7 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
             Id = (TPrimaryKey)info.GetValue("Id", typeof(TPrimaryKey));
             Culture = info.GetString("CultureName");
             Metadata = (MetadataInformation)info.GetValue("Metadata", typeof(MetadataInformation));
-            TenantId = (TPrimaryKey)info.GetValue("TenantId", typeof(TPrimaryKey));
+            TenantId = info.GetInt32("TenantId");
             IsDeleted = info.GetBoolean("IsDeleted"); 
             IsActive = info.GetBoolean("IsActive");
         }
@@ -325,7 +324,7 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
                     // Base domain entities are functionally equal if their key and metadata are equal.
                     // Subclasses should extend to include their own enhanced equality checks, as required.
                     return Id.Equals(obj.Id) && Culture.Equals(obj.Culture) && Metadata.Equals(obj.Metadata)
-                        && IsActive.Equals(obj.IsActive) && IsDeleted.Equals(obj.IsDeleted);
+                        && IsActive.Equals(obj.IsActive) && IsDeleted.Equals(obj.IsDeleted) && TenantId.Equals(obj.TenantId);
                 }
                 
             }
