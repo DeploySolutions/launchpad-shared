@@ -15,49 +15,68 @@
 //limitations under the License. 
 #endregion
 
+
 namespace DeploySoftware.LaunchPad.Shared.Domain
 {
+    using Newtonsoft.Json.Linq;
     using System;
+    using System.Collections.Generic;
     using System.ComponentModel;
     using System.Xml.Serialization;
 
-    public interface IReleaseCandidate<TPrimaryKey> : IDomainEntity<TPrimaryKey>
+    /// <summary>
+    /// Represents a tenant in an application.
+    /// </summary>
+    /// <typeparam name="TPrimaryKey"></typeparam>
+    public interface ITenant<TPrimaryKey> : IDomainEntity<TPrimaryKey>
     {
 
         /// <summary>
-        /// The checksum of this release candidate
+        /// The default culture of this tenant
         /// </summary>
         [DataObjectField(false)]
         [XmlAttribute]
-        String Checksum { get; set; }
+        String CultureDefault
+        {
+            get; set;
+        }
 
         /// <summary>
-        /// The version of this release candidate
+        /// The supported cultures of this tenant
         /// </summary>
         [DataObjectField(false)]
         [XmlAttribute]
-        String Version { get; set; }
+        IEnumerable<String> CultureSupported
+        {
+            get; set;
+        }
 
         /// <summary>
-        /// The current state of the release candidate
+        /// The account or primary owner of this tenant
         /// </summary>
         [DataObjectField(false)]
         [XmlAttribute]
-        String State { get; set; }
+        long? PrimaryOwnerId { get; set; }
 
         /// <summary>
-        /// The release date and time
+        /// The Uri for the logo to display in this tenant
         /// </summary>
         [DataObjectField(false)]
         [XmlAttribute]
-        DateTime? DateReleased { get; set; }
+        Uri DisplayLogoUri
+        {
+            get; set;
+        }
 
         /// <summary>
-        /// The URI where the release candidate package is located
+        /// The primary colour (in HEX) for displays in this tenant
         /// </summary>
         [DataObjectField(false)]
         [XmlAttribute]
-        Uri PackageUri { get; set; }
+        String DisplayPrimaryColourHex
+        {
+            get; set;
+        }
 
     }
 }
