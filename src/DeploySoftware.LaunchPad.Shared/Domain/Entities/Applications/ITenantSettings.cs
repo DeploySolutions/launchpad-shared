@@ -28,7 +28,7 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
     /// Represents a tenant in an application.
     /// </summary>
     /// <typeparam name="TPrimaryKey"></typeparam>
-    public interface ITenant<TPrimaryKey> : IDomainEntity<TPrimaryKey>
+    public interface ITenantSettings<TPrimaryKey> : IDomainEntity<TPrimaryKey>
     {
 
         /// <summary>

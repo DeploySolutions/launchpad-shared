@@ -27,7 +27,7 @@ using System.Xml.Serialization;
 namespace DeploySoftware.LaunchPad.Shared.Domain
 {
     [Serializable()]
-    public class Tenant<TPrimaryKey> : DomainEntityBase<TPrimaryKey>, ITenant<TPrimaryKey>
+    public class TenantSettings<TPrimaryKey> : DomainEntityBase<TPrimaryKey>, ITenantSettings<TPrimaryKey>
     {
         
         [DataObjectField(false)]
@@ -52,7 +52,7 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
 
         #region "Constructors"
 
-        public Tenant() : base()
+        public TenantSettings() : base()
         {
             DisplayPrimaryColourHex = ApplicationSettings<TPrimaryKey>.DEFAULT_HEX_COlOUR;
             CultureDefault = ApplicationSettings<TPrimaryKey>.DEFAULT_CULTURE;
@@ -63,7 +63,7 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
 
         }
 
-        public Tenant(string cultureName, String cultureDefault) : base(cultureName)
+        public TenantSettings(string cultureName, String cultureDefault) : base(cultureName)
         {
             DisplayPrimaryColourHex = ApplicationSettings<TPrimaryKey>.DEFAULT_HEX_COlOUR;
             CultureDefault = cultureDefault;
@@ -73,7 +73,7 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
             };
         }
 
-        public Tenant(string cultureName, String cultureDefault, IEnumerable<string> cultureSupported) : base(cultureName)
+        public TenantSettings(string cultureName, String cultureDefault, IEnumerable<string> cultureSupported) : base(cultureName)
         {
             DisplayPrimaryColourHex = ApplicationSettings<TPrimaryKey>.DEFAULT_HEX_COlOUR;
             CultureDefault = cultureDefault;
@@ -85,7 +85,7 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         /// </summary>
         /// <param name="info">The serialization info</param>
         /// <param name="context">The context of the stream</param>
-        protected Tenant(SerializationInfo info, StreamingContext context) : base(info, context)
+        protected TenantSettings(SerializationInfo info, StreamingContext context) : base(info, context)
         {
             CultureDefault = info.GetString("CultureDefault");
             CultureSupported = (IEnumerable<string>)info.GetValue("CultureSupported", typeof(IEnumerable<string>));
@@ -121,7 +121,7 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         public override string ToString()
         {
             StringBuilder sb = new StringBuilder();
-            sb.Append("[Tenant : ");
+            sb.Append("[TenantSettings : ");
             sb.AppendFormat(ToStringBaseProperties());
             sb.AppendFormat(" CultureDefault={0};", CultureDefault);
             sb.AppendFormat(" CultureSupported={0};", CultureSupported);
