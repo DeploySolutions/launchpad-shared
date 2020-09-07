@@ -72,11 +72,8 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         /// </summary>
         /// <param name="info">The serialization info</param>
         /// <param name="context">The context of the stream</param>
-        protected GovernmentOrganizationBase(SerializationInfo info, StreamingContext context) 
+        protected GovernmentOrganizationBase(SerializationInfo info, StreamingContext context) : base(info, context)
         {
-            Id = (TPrimaryKey)info.GetValue("Id", typeof(TPrimaryKey));
-            Culture = info.GetString("CultureName");
-            Metadata = (MetadataInformation)info.GetValue("Metadata", typeof(MetadataInformation));
             Schema = (GovernmentOrganization)info.GetValue("Organization", typeof(GovernmentOrganization));
             Offices = (IList<String>)info.GetValue("Offices", typeof(IList<String>));
         }

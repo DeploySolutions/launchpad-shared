@@ -65,11 +65,8 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         /// </summary>
         /// <param name="info">The serialization info</param>
         /// <param name="context">The context of the stream</param>
-        public AreaOfInterest(SerializationInfo info, StreamingContext context)
+        public AreaOfInterest(SerializationInfo info, StreamingContext context) : base(info, context)
         {
-            Id = (TPrimaryKey)info.GetValue("Id", typeof(TPrimaryKey));
-            Culture = info.GetString("CultureName");
-            Metadata = (MetadataInformation)info.GetValue("Metadata", typeof(MetadataInformation));
             BoundingBoxCoordinates = (IEnumerable<IGeographicLocation>)info.GetValue("BoundingBoxCoordinates", typeof(IEnumerable<IGeographicLocation>));
         }
 

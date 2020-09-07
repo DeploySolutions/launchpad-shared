@@ -93,8 +93,6 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         /// <param name="context">The context of the stream</param>
         protected OrganizationBase(SerializationInfo info, StreamingContext context) : base(info,context)
         {
-            Id = (TPrimaryKey)info.GetValue("Id", typeof(TPrimaryKey));
-            Culture = info.GetString("CultureName"); 
             Schema = (Organization)info.GetValue("Organization", typeof(Organization));
             Offices = (IList<string>)info.GetValue("Offices", typeof(IList<string>));
         }

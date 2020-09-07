@@ -149,7 +149,7 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         /// </summary>
         protected DomainEntityBase() : base()
         {
-            Culture = "en";
+            Culture = ApplicationSettings<TPrimaryKey>.DEFAULT_CULTURE;
             Metadata = new MetadataInformation();
             IsDeleted = false;
             IsActive = true;

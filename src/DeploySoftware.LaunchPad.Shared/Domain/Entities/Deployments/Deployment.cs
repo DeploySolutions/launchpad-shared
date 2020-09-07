@@ -87,9 +87,14 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         /// </summary>
         /// <param name="info">The serialization info</param>
         /// <param name="context">The context of the stream</param>
-        protected Deployment(SerializationInfo info, StreamingContext context)
+        protected Deployment(SerializationInfo info, StreamingContext context) : base(info, context)
         {
-    
+            State = info.GetString("State");
+            PrimaryDeployerUserId = info.GetInt64("PrimaryDeployerUserId");
+            ReleaseCandidateId = (TPrimaryKey)info.GetValue("ReleaseCandidateId", typeof(TPrimaryKey));
+            DeploymentProcessId = (TPrimaryKey)info.GetValue("DeploymentProcessId", typeof(TPrimaryKey));
+            DateDeployed = info.GetDateTime("DateDeployed");
+            DateScheduled = info.GetDateTime("DateScheduled");
         }
 
 #endregion
@@ -102,9 +107,12 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         [SecurityPermission(SecurityAction.Demand, SerializationFormatter = true)]
         public override void GetObjectData(SerializationInfo info, StreamingContext context)
         {
-            base.GetObjectData(info, context);
-            info.AddValue("DateScheduled", DateScheduled); 
-            info.AddValue("DateDeployed", DateDeployed);            
+            info.AddValue("State", State); 
+            info.AddValue("PrimaryDeployerUserId", PrimaryDeployerUserId);
+            info.AddValue("ReleaseCandidateId", ReleaseCandidateId);
+            info.AddValue("DeploymentProcessId", DeploymentProcessId);
+            info.AddValue("DateDeployed", DateDeployed);
+            info.AddValue("DateScheduled", DateScheduled);
         }
 
         /// <summary>  
@@ -116,6 +124,10 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
             StringBuilder sb = new StringBuilder();
             sb.Append("[Deployment : ");
             sb.AppendFormat(ToStringBaseProperties());
+            sb.AppendFormat(" State={0};", State);
+            sb.AppendFormat(" PrimaryDeployerUserId={0};", PrimaryDeployerUserId);
+            sb.AppendFormat(" ReleaseCandidateId={0};", ReleaseCandidateId);
+            sb.AppendFormat(" DeploymentProcessId={0};", DeploymentProcessId);
             sb.AppendFormat(" DateScheduled={0};", DateScheduled); 
             sb.AppendFormat(" DateDeployed={0};", DateDeployed);            
             sb.Append("]");

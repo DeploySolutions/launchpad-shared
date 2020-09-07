@@ -137,11 +137,8 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         /// </summary>
         /// <param name="info">The serialization info</param>
         /// <param name="context">The context of the stream</param>
-        protected Device(SerializationInfo info, StreamingContext context)
+        protected Device(SerializationInfo info, StreamingContext context) : base(info, context)
         {
-            Id = (TPrimaryKey)info.GetValue("Id", typeof(TPrimaryKey));
-            Culture = info.GetString("CultureName");
-            Metadata = (MetadataInformation)info.GetValue("Metadata", typeof(MetadataInformation));
             CurrentLocation = (SpaceTimeInformation)info.GetValue("CurrentLocation", typeof(SpaceTimeInformation));
             PreviousLocations = (IList<SpaceTimeInformation>)info.GetValue("PreviousLocations", typeof(IList<SpaceTimeInformation>));
             Power = (DevicePower)info.GetValue("Power", typeof(DevicePower));
@@ -157,7 +154,6 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         [SecurityPermission(SecurityAction.Demand, SerializationFormatter = true)]
         public override void GetObjectData(SerializationInfo info, StreamingContext context)
         {
-            base.GetObjectData(info, context);
             info.AddValue("CurrentLocation", CurrentLocation);
             info.AddValue("PreviousLocations", PreviousLocations);
             info.AddValue("Power", Power);

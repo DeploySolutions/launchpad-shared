@@ -133,11 +133,8 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         /// </summary>
         /// <param name="info">The serialization info</param>
         /// <param name="context">The context of the stream</param>
-        protected ApplicationSettings(SerializationInfo info, StreamingContext context)
+        protected ApplicationSettings(SerializationInfo info, StreamingContext context) : base(info,context)
         {
-            Id = (TPrimaryKey)info.GetValue("Id", typeof(TPrimaryKey));
-            Culture = info.GetString("CultureName");
-            Metadata = (MetadataInformation)info.GetValue("Metadata", typeof(MetadataInformation));
             CultureDefault = info.GetString("CultureDefault");
             CultureSupported = (IEnumerable<string>)info.GetValue("CultureSupported", typeof(IEnumerable<string>));
             DisplayPrimaryColourHex = info.GetString("DisplayPrimaryColourHex");

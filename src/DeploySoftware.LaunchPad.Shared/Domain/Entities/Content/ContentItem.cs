@@ -56,11 +56,8 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         /// </summary>
         /// <param name="info">The serialization info</param>
         /// <param name="context">The context of the stream</param>
-        protected ContentItem(SerializationInfo info, StreamingContext context)
+        protected ContentItem(SerializationInfo info, StreamingContext context) : base(info, context)
         {
-            Id = (TPrimaryKey)info.GetValue("Id", typeof(TPrimaryKey));
-            Culture = info.GetString("CultureName");
-            Metadata = (MetadataInformation)info.GetValue("Metadata", typeof(MetadataInformation));
             Text = info.GetString("Text");
         }
 

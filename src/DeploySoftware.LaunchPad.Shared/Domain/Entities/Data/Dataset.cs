@@ -18,6 +18,9 @@
 namespace DeploySoftware.LaunchPad.Shared.Domain
 {
     using System;
+    using System.Runtime.Serialization;
+    using System.Security.Permissions;
+    using System.Text;
 
     public abstract class DataSet<TPrimaryKey> : DomainEntityBase<TPrimaryKey>, IDataSet<TPrimaryKey>
     {
@@ -42,7 +45,45 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
             Name = String.Empty;
             TotalItemsCount = 0;
         }
-            
+
+
+        /// <summary>
+        /// Serialization constructor used for deserialization
+        /// </summary>
+        /// <param name="info">The serialization info</param>
+        /// <param name="context">The context of the stream</param>
+        protected DataSet(SerializationInfo info, StreamingContext context) : base(info, context)
+        {
+            TotalItemsCount = info.GetInt32("TotalItemsCount");
+        }
+
+
+        /// <summary>
+        /// The method required for implementing ISerializable
+        /// </summary>
+        /// <param name="info"></param>
+        /// <param name="context"></param>
+        [SecurityPermission(SecurityAction.Demand, SerializationFormatter = true)]
+        public override void GetObjectData(SerializationInfo info, StreamingContext context)
+        {
+            base.GetObjectData(info, context);         
+            info.AddValue("TotalItemsCount", TotalItemsCount);
+        }
+
+        /// <summary>  
+        /// Displays information about the class in readable format.  
+        /// </summary>  
+        /// <returns>A string representation of the object.</returns>
+        public override string ToString()
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.Append("[Dataset : ");
+            sb.AppendFormat(ToStringBaseProperties());
+            sb.AppendFormat(" TotalItemsCount={0};", TotalItemsCount);
+            sb.Append("]");
+            return sb.ToString();
+        }
+
     }
 
 }
