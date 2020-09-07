@@ -20,7 +20,8 @@ namespace DeploySoftware.LaunchPad.Shared.Tests
     using Xunit;
     using FluentAssertions;
     using DeploySoftware.LaunchPad.Shared.Domain;
-    
+    using DeploySoftware.LaunchPad.Shared.Util;
+
     public class DomainEntityKeyTests
     {
         #region "Test Classes"
@@ -33,23 +34,27 @@ namespace DeploySoftware.LaunchPad.Shared.Tests
         [Fact]
         public void Should_Have_NotEmpty_Id_When_Instantiated()
         {
-            DomainEntityKey key = new DomainEntityKey();
-            key.UniqueId.Should().NotBeEmpty();
+            DomainEntityKey<System.Guid> key = new DomainEntityKey<System.Guid>(
+                SequentialGuid.NewGuid(), ApplicationSettings<System.Guid>.DEFAULT_CULTURE);
+            key.Id.Should().NotBeEmpty();
 
         }
 
         [Fact]
         public void Should_Have_Unique_Id_When_Instantiated()
         {
-            DomainEntityKey key1 = new DomainEntityKey();
-            DomainEntityKey key2 = new DomainEntityKey();
+            DomainEntityKey<System.Guid> key1 = new DomainEntityKey<System.Guid>(SequentialGuid.NewGuid()
+                , ApplicationSettings<System.Guid>.DEFAULT_CULTURE);
+            DomainEntityKey<System.Guid> key2 = new DomainEntityKey<System.Guid>(SequentialGuid.NewGuid()
+                , ApplicationSettings<System.Guid>.DEFAULT_CULTURE);
             key1.Should().NotBe(key2);
         }
 
         [Fact]
         public void Should_Have_NotNull_Culture_When_Instantiated()
         {
-            DomainEntityKey key = new DomainEntityKey();
+            DomainEntityKey<System.Guid> key = new DomainEntityKey<System.Guid>(SequentialGuid.NewGuid()
+                , ApplicationSettings<System.Guid>.DEFAULT_CULTURE);
             key.Culture.Should().NotBeNull();
         }
     }

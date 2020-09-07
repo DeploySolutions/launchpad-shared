@@ -32,9 +32,9 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
     /// Implemenn ASP.NET Boilerplate's <see cref="IAggregateRoot">IAggregateRoot</see> interface.
     /// Implements AspNetBoilerplate's auditing interfaces.
     /// </summary>
-    public abstract partial class AggregateRootBase<TPrimaryKey> : 
-        DomainEntityBase<TPrimaryKey>, 
-        IAggregateRoot<TPrimaryKey>
+    public abstract partial class AggregateRootBase<TIdType> : 
+        DomainEntityBase<TIdType>, 
+        IAggregateRoot<TIdType>
 
     {
 
@@ -67,7 +67,7 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         /// </summary>
         /// <param name="cultureName">The culture for this entity</param>
         /// <param name="metadata">The desired metadata for this entity</param>
-        protected AggregateRootBase(string cultureName, MetadataInformation metadata) : base(cultureName,metadata)
+        protected AggregateRootBase(DomainEntityKey<TIdType> key, MetadataInformation metadata) : base(key,metadata)
         {
             DomainEvents = new Collection<IEventData>();
         }
@@ -90,9 +90,8 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         [SecurityPermission(SecurityAction.Demand, SerializationFormatter = true)]
         public override void GetObjectData(SerializationInfo info, StreamingContext context)
         {
-            info.AddValue("Id", Id);
+            base.GetObjectData(info, context);
             info.AddValue("DomainEvents", DomainEvents);
-            info.AddValue("Metadata", Metadata);
         }
 
         /// <summary>
@@ -113,7 +112,7 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         /// </summary>
         /// <param name="other">The other object of this type we are comparing to</param>
         /// <returns></returns>
-        public virtual int CompareTo(AggregateRootBase<TPrimaryKey> other)
+        public virtual int CompareTo(AggregateRootBase<TIdType> other)
         {
             // put comparison of properties in here 
             // for base object we'll just sort by title
@@ -139,9 +138,9 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         /// <returns>True if the entities are the same according to business key value</returns>
         public override bool Equals(object obj)
         {
-            if (obj != null && obj is DomainEntityBase<TPrimaryKey>)
+            if (obj != null && obj is DomainEntityBase<TIdType>)
             {
-                return Equals(obj as DomainEntityBase<TPrimaryKey>);
+                return Equals(obj as DomainEntityBase<TIdType>);
             }
             return false;
         }
@@ -155,7 +154,7 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         /// </summary>
         /// <param name="obj">The other object of this type that we are testing equality with</param>
         /// <returns></returns>
-        public virtual bool Equals(DomainEntityBase<TPrimaryKey> obj)
+        public virtual bool Equals(DomainEntityBase<TIdType> obj)
         {
             if (obj != null)
             {
@@ -170,7 +169,7 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
                     // For safe equality we need to match on business key equality.
                     // Base domain entities are functionally equal if their key and metadata are equal.
                     // Subclasses should extend to include their own enhanced equality checks, as required.
-                    return Id.Equals(obj.Id) && Culture.Equals(obj.Culture) && Metadata.Equals(obj.Metadata);
+                    return Id.Equals(obj.Id) && Key.Culture.Equals(obj.Key.Culture) && Metadata.Equals(obj.Metadata);
                 }
                 
             }
@@ -183,7 +182,7 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         /// <param name="x">The first value</param>
         /// <param name="y">The second value</param>
         /// <returns>True if both objects are fully equal based on the Equals logic</returns>
-        public static bool operator ==(AggregateRootBase<TPrimaryKey> x, AggregateRootBase<TPrimaryKey> y)
+        public static bool operator ==(AggregateRootBase<TIdType> x, AggregateRootBase<TIdType> y)
         {
             if (System.Object.ReferenceEquals(x, null))
             {
@@ -202,7 +201,7 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         /// <param name="x">The first value</param>
         /// <param name="y">The second value</param>
         /// <returns>True if both objects are not equal based on the Equals logic</returns>
-        public static bool operator !=(AggregateRootBase<TPrimaryKey> x, AggregateRootBase<TPrimaryKey> y)
+        public static bool operator !=(AggregateRootBase<TIdType> x, AggregateRootBase<TIdType> y)
         {
             return !(x == y);
         }
@@ -216,7 +215,7 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         /// <returns>A hash code for an object.</returns>
         public override int GetHashCode()
         {
-            return Culture.GetHashCode()+Id.GetHashCode();
+            return Key.Culture.GetHashCode()+Id.GetHashCode();
         }
 
     }

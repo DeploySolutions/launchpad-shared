@@ -34,7 +34,7 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         /// </summary>
         [DataObjectField(true)]
         [XmlAttribute]
-        public override String UniqueId { get; set; }
+        public override String Id { get; set; }
 
         /// <summary>  
         /// Initializes a new instance of the <see cref="FileKey">FileKey</see> class.  
@@ -43,7 +43,7 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
             : base()
         {
             // if no key is provided, use a sequential guid as the file key
-            UniqueId = SequentialGuid.Generate(SequentialGuid.SequentialGuidType.SequentialAsString).ToString();
+            Id = SequentialGuid.Generate(SequentialGuid.SequentialGuidType.SequentialAsString).ToString();
         }
 
         /// <summary>  
@@ -54,7 +54,7 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         public FileKey(String id)
             : base()
         {
-            UniqueId = id;
+            Id = id;
         }
 
         /// <summary>
@@ -64,9 +64,9 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         /// <param name="id">The unique Id of this file (usually the full file path and filename)</param>
         /// <param name="cultureName">The culture code of this entity</param>
         public FileKey(String id, String cultureName)
-            : base(cultureName)
+            : base(id, cultureName)
         {
-            UniqueId = id;
+            Id = id;
         }
 
         /// <summary>
@@ -77,8 +77,7 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         protected FileKey(SerializationInfo info, StreamingContext context)
             : base(info, context)
         {
-            UniqueId = info.GetString("Id");
-            CultureName = info.GetString("CultureName");
+
         }
 
         /// <summary>
@@ -90,7 +89,6 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         public override void GetObjectData(SerializationInfo info, StreamingContext context)
         {
             base.GetObjectData(info, context);
-            info.AddValue("UniqueId", UniqueId);
         }
 
         /// <summary>  
@@ -101,8 +99,8 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         {
             StringBuilder sb = new StringBuilder();
             sb.Append("[FileKey: ");
-            sb.AppendFormat("UniqueId={0};", UniqueId);
-            sb.AppendFormat("CultureName={0};", CultureName);
+            sb.AppendFormat("Id={0};", Id);
+            sb.AppendFormat("Culture={0};", Culture);
             sb.Append("]");
             return sb.ToString();
         }
@@ -138,8 +136,8 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
                 // for safe equality we need to match on business key equality.
                 // These entities are functionally equal if the Id and Culture are equal
                 return (
-                    UniqueId.Equals(obj.UniqueId) &&
-                    CultureName.Equals(obj.CultureName));
+                    Id.Equals(obj.Id) &&
+                    Culture.Equals(obj.Culture));
             }
             return false;
         }
@@ -183,7 +181,7 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         /// <returns>A hash code for an object.</returns>
         public override int GetHashCode()
         {
-            return UniqueId.GetHashCode() + Culture.GetHashCode();
+            return Id.GetHashCode() + Culture.GetHashCode();
         }
     }
 }

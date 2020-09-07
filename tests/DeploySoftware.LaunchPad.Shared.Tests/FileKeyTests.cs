@@ -35,7 +35,7 @@ namespace DeploySoftware.LaunchPad.Shared.Tests
         public void Should_Have_NotNull_Id_When_Instantiated()
         {
             FileKey key = new FileKey();
-            key.UniqueId.Should().NotBeNull();
+            key.Id.Should().NotBeNull();
 
         }
 

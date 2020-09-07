@@ -31,7 +31,7 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
     /// This class represents a programmable hardware/software device (that is part of the Internet-of-Things or Web-of-Things world).
     /// </summary>
     [Serializable()]
-    public partial class Device<TPrimaryKey> : DomainEntityBase<TPrimaryKey>, IPhysicallyLocatable
+    public partial class Device<TIdType> : DomainEntityBase<TIdType>, IPhysicallyLocatable
 
     {
         /// <summary>
@@ -91,7 +91,7 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         /// <param name="key">The unique identifier for this device</param>
         /// <param name="metadata">The desired metadata for this device</param>
         /// <param name="currentLocation">The current physical location of this device</param>
-        public Device(TPrimaryKey id, MetadataInformation metadata, SpaceTimeInformation currentLocation)
+        public Device(TIdType id, MetadataInformation metadata, SpaceTimeInformation currentLocation)
         {
             Id = id;
             Metadata = metadata;
@@ -107,10 +107,8 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         /// <param name="metadata">The desired metadata for this Device</param>
         /// <param name="currentLocation">The current physical location of this device</param>
         /// <param name="previousLocations">The previous physical location(s) of this device</param>
-        public Device(DomainEntityKey key, MetadataInformation metadata, SpaceTimeInformation currentLocation, IList<SpaceTimeInformation> previousLocations)
+        public Device(DomainEntityKey<TIdType> key, MetadataInformation metadata, SpaceTimeInformation currentLocation, IList<SpaceTimeInformation> previousLocations)
         {
-            Culture = "en";
-            Metadata = metadata;
             CurrentLocation = currentLocation;
             PreviousLocations = previousLocations;
             Power = new DevicePower();
@@ -119,13 +117,14 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         /// <summary>
         /// Creates a new instance of the <see cref="Device">Device</see> class given a key, metadata, its current location, and its power level. 
         /// </summary>
-        /// <param name="key">The unique identifier for this Device</param>
+        /// <param name="id">The unique identifier for this Device</param>
         /// <param name="metadata">The desired metadata for this Device</param>
         /// <param name="currentLocation">The current physical location of this device</param>
         /// <param name="power">The current power level of this device</param>
-        public Device(DomainEntityKey key, MetadataInformation metadata, SpaceTimeInformation currentLocation, DevicePower power)
+        public Device(TIdType id, MetadataInformation metadata, SpaceTimeInformation currentLocation, DevicePower power)
         {
-            Culture = "en";
+            Id = id;
+            Key.Culture = "en";
             Metadata = metadata;
             CurrentLocation = currentLocation;
             PreviousLocations = new List<SpaceTimeInformation>();

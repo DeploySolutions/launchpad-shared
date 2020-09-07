@@ -35,19 +35,37 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
     /// base functionality for many of its methods. Inherits from AspNetBoilerplate's Entity class.
     /// Implements AspNetBoilerplate's auditing interfaces.
     /// </summary>
-    public abstract partial class DomainEntityBase<TPrimaryKey> : 
-        Entity<TPrimaryKey>, IDomainEntity<TPrimaryKey>
+    public abstract partial class DomainEntityBase<TIdType> : 
+        Entity<TIdType>, IDomainEntity<TIdType>
         
     {
+
+        private TIdType id;
+
         /// <summary>
-        /// The .NET Culture code of this object
+        /// The id field for this object. Inherited from ABP. Note that for our LaunchPad framework we actually require
+        /// both an id and a culture field to uniquely identify an entity. This functionality is encapsulated in the <see cref="IKey">IKey</see> interface.
+        /// We therefore ensure that the Id field is also stored in the Key property, for consistency. 
         /// </summary>
         [DataObjectField(true)]
         [XmlAttribute]
-        [Key]
-        public virtual String Culture { get; set; }
+        public new TIdType Id
+        {
+            get { return Key.Id; }
+            set
+            {
+                id = value;
+                Key.Id = value;
+            }
+        }
 
-      
+            /// <summary>
+            /// The key (culture and Id) that uniquely identifies this object
+            /// </summary>
+            [DataObjectField(true)]
+        [XmlAttribute]
+        public DomainEntityKey<TIdType> Key { get; set; }
+
         /// <summary>
         /// Each entity can have an open-ended set of metadata applied to it, that helps to describe it.
         /// </summary>
@@ -61,7 +79,7 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         /// </summary>
         [DataObjectField(false)]
         [XmlAttribute] 
-        public CultureInfo GetCultureInfo { get { return new CultureInfo(Culture); } }
+        public CultureInfo GetCultureInfo { get { return new CultureInfo(Key.Culture); } }
 
         /// <summary>
         /// The id of the tenant that domain entity this belongs to (null if not known/applicable)
@@ -148,7 +166,7 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         /// </summary>
         protected DomainEntityBase() : base()
         {
-            Culture = ApplicationSettings<TPrimaryKey>.DEFAULT_CULTURE;
+            Key = new DomainEntityKey<TIdType>(ApplicationSettings<TIdType>.DEFAULT_CULTURE);
             Metadata = new MetadataInformation();
             IsDeleted = false;
             IsActive = true;
@@ -157,10 +175,10 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         /// <summary>
         /// Creates a new instance of the <see cref="DomainEntityBase">Entity</see> class given a key, and some metadata. 
         /// </summary>
-        /// <param name="cultureName">The culture for this entity</param>
-        protected DomainEntityBase(string cultureName) : base()
+        /// <param name="culture">The culture for this entity</param>
+        protected DomainEntityBase(string culture) : base()
         {
-            Culture = cultureName;
+            Key = new DomainEntityKey<TIdType>(culture);
             Metadata = new MetadataInformation();
             IsDeleted = false;
             IsActive = true;
@@ -169,11 +187,12 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         /// <summary>
         /// Creates a new instance of the <see cref="DomainEntityBase">Entity</see> class given a key, and some metadata. 
         /// </summary>
-        /// <param name="cultureName">The culture for this entity</param>
+        /// <param name="key">The key for this entity</param>
+        /// <param name="culture">The culture for this entity</param>
         /// <param name="metadata">The desired metadata for this entity</param>
-        protected DomainEntityBase(string cultureName, MetadataInformation metadata) : base()
+        protected DomainEntityBase(DomainEntityKey<TIdType> key, MetadataInformation metadata) : base()
         {
-            Culture = cultureName;
+            Key = key;
             Metadata = metadata;
             IsDeleted = false;
             IsActive = true;
@@ -186,8 +205,7 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         /// <param name="context">The context of the stream</param>
         protected DomainEntityBase(SerializationInfo info, StreamingContext context)
         {
-            Id = (TPrimaryKey)info.GetValue("Id", typeof(TPrimaryKey));
-            Culture = info.GetString("CultureName");
+            Key = (DomainEntityKey<TIdType>)info.GetValue("Key", typeof(DomainEntityKey<TIdType>));
             Metadata = (MetadataInformation)info.GetValue("Metadata", typeof(MetadataInformation));
             TenantId = info.GetInt32("TenantId");
             IsDeleted = info.GetBoolean("IsDeleted"); 
@@ -202,8 +220,7 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         [SecurityPermission(SecurityAction.Demand, SerializationFormatter = true)]
         public virtual void GetObjectData(SerializationInfo info, StreamingContext context)
         {
-            info.AddValue("Id", Id);
-            info.AddValue("CultureName", Culture);
+            info.AddValue("Key", Key);
             info.AddValue("Metadata", Metadata);
             info.AddValue("TenantId", TenantId);
             info.AddValue("IsActive", IsActive);
@@ -226,7 +243,7 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         /// </summary>
         /// <typeparam name="TEntity">The source entity to clone</typeparam>
         /// <returns>A shallow clone of the entity and its serializable properties</returns>
-        protected virtual TEntity Clone<TEntity>() where TEntity : IDomainEntity<TPrimaryKey>, new()
+        protected virtual TEntity Clone<TEntity>() where TEntity : IDomainEntity<TIdType>, new()
         {
             TEntity clone = new TEntity();
             foreach (PropertyInfo info in GetType().GetProperties())
@@ -248,7 +265,7 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         /// </summary>
         /// <param name="other">The other object of this type we are comparing to</param>
         /// <returns></returns>
-        public virtual int CompareTo(DomainEntityBase<TPrimaryKey> other)
+        public virtual int CompareTo(DomainEntityBase<TIdType> other)
         {
             // put comparison of properties in here 
             // for base object we'll just sort by title
@@ -276,8 +293,7 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         protected virtual String ToStringBaseProperties()
         {
             StringBuilder sb = new StringBuilder();
-            sb.AppendFormat("Id={0};", Id);
-            sb.AppendFormat("CultureName={0};", Culture);
+            sb.AppendFormat("Key={0};", Key);
             sb.AppendFormat("Metadata={0};", Metadata);
             sb.AppendFormat("TenantId={0};", TenantId);
             sb.AppendFormat("IsActive={0};", IsActive);
@@ -292,9 +308,9 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         /// <returns>True if the entities are the same according to business key value</returns>
         public override bool Equals(object obj)
         {
-            if (obj != null && obj is DomainEntityBase<TPrimaryKey>)
+            if (obj != null && obj is DomainEntityBase<TIdType>)
             {
-                return Equals(obj as DomainEntityBase<TPrimaryKey>);
+                return Equals(obj as DomainEntityBase<TIdType>);
             }
             return false;
         }
@@ -308,7 +324,7 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         /// </summary>
         /// <param name="obj">The other object of this type that we are testing equality with</param>
         /// <returns></returns>
-        public virtual bool Equals(DomainEntityBase<TPrimaryKey> obj)
+        public virtual bool Equals(DomainEntityBase<TIdType> obj)
         {
             if (obj != null)
             {
@@ -323,7 +339,7 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
                     // For safe equality we need to match on business key equality.
                     // Base domain entities are functionally equal if their key and metadata are equal.
                     // Subclasses should extend to include their own enhanced equality checks, as required.
-                    return Id.Equals(obj.Id) && Culture.Equals(obj.Culture) && Metadata.Equals(obj.Metadata)
+                    return Id.Equals(obj.Id) && Key.Culture.Equals(obj.Key.Culture) && Metadata.Equals(obj.Metadata)
                         && IsActive.Equals(obj.IsActive) && IsDeleted.Equals(obj.IsDeleted) && TenantId.Equals(obj.TenantId);
                 }
                 
@@ -337,7 +353,7 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         /// <param name="x">The first value</param>
         /// <param name="y">The second value</param>
         /// <returns>True if both objects are fully equal based on the Equals logic</returns>
-        public static bool operator ==(DomainEntityBase<TPrimaryKey> x, DomainEntityBase<TPrimaryKey> y)
+        public static bool operator ==(DomainEntityBase<TIdType> x, DomainEntityBase<TIdType> y)
         {
             if (System.Object.ReferenceEquals(x, null))
             {
@@ -356,7 +372,7 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         /// <param name="x">The first value</param>
         /// <param name="y">The second value</param>
         /// <returns>True if both objects are not equal based on the Equals logic</returns>
-        public static bool operator !=(DomainEntityBase<TPrimaryKey> x, DomainEntityBase<TPrimaryKey> y)
+        public static bool operator !=(DomainEntityBase<TIdType> x, DomainEntityBase<TIdType> y)
         {
             return !(x == y);
         }
@@ -370,7 +386,7 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         /// <returns>A hash code for an object.</returns>
         public override int GetHashCode()
         {
-            return Culture.GetHashCode()+Id.GetHashCode();
+            return Key.Culture.GetHashCode()+Key.Id.GetHashCode();
         }
 
     }

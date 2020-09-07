@@ -187,7 +187,7 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         /// <returns>A hash code for an object.</returns>
         public override int GetHashCode()
         {
-            return Id.GetHashCode() + Culture.GetHashCode() + BoundingBoxCoordinates.GetHashCode();
+            return Id.GetHashCode() + Key.Culture.GetHashCode() + BoundingBoxCoordinates.GetHashCode();
         }
     }
 }

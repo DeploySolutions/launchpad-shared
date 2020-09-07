@@ -33,7 +33,7 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
     /// Implements <see cref="IOrganization&lt;TPrimaryKey&gt;">IOrganization&lt;TPrimaryKey&gt;</see> and provides
     /// base functionality for many of its methods.
     /// </summary>
-    public abstract partial class OrganizationBase<TPrimaryKey> :  DomainEntityBase<TPrimaryKey>, IOrganization<TPrimaryKey>
+    public abstract partial class OrganizationBase<TIdType> :  DomainEntityBase<TIdType>, IOrganization<TIdType>
     {
         [DataObjectField(false)]
         [XmlAttribute]
@@ -71,7 +71,7 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         /// </summary>
         protected OrganizationBase() : base()
         {
-            Culture = "en";
+            Key.Culture = "en";
             Metadata = new MetadataInformation();
         }
 
@@ -81,7 +81,7 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         /// </summary>
         /// <param name="key">The unique identifier for this entity</param>
         /// <param name="metadata">The desired metadata for this entity</param>
-        protected OrganizationBase(DomainEntityKey key, MetadataInformation metadata) : base()
+        protected OrganizationBase(TIdType id, MetadataInformation metadata) : base()
         {
             Metadata = metadata;
         }
@@ -116,7 +116,7 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         /// </summary>
         /// <typeparam name="TEntity">The source entity to clone</typeparam>
         /// <returns>A shallow clone of the entity and its serializable properties</returns>
-        protected new virtual TEntity Clone<TEntity>() where TEntity : IOrganization<TPrimaryKey>, new()
+        protected new virtual TEntity Clone<TEntity>() where TEntity : IOrganization<TIdType>, new()
         {
             TEntity clone = new TEntity();
             foreach (PropertyInfo info in GetType().GetProperties())
@@ -138,7 +138,7 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         /// </summary>
         /// <param name="other">The other object of this type we are comparing to</param>
         /// <returns></returns>
-        public virtual int CompareTo(OrganizationBase<TPrimaryKey> other)
+        public virtual int CompareTo(OrganizationBase<TIdType> other)
         {
             return other == null ? 1 : String.Compare(FullName, other.FullName, StringComparison.InvariantCulture);
         }
@@ -167,9 +167,9 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         /// <returns>True if the entities are the same according to business key value</returns>
         public override bool Equals(object obj)
         {
-            if (obj != null && obj is OrganizationBase<TPrimaryKey>)
+            if (obj != null && obj is OrganizationBase<TIdType>)
             {
-                return Equals((OrganizationBase<TPrimaryKey>) obj);
+                return Equals((OrganizationBase<TIdType>) obj);
             }
             return false;
         }
@@ -183,7 +183,7 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         /// </summary>
         /// <param name="obj">The other object of this type that we are testing equality with</param>
         /// <returns></returns>
-        public virtual bool Equals(OrganizationBase<TPrimaryKey> obj)
+        public virtual bool Equals(OrganizationBase<TIdType> obj)
         {
             if (obj != null)
             {
@@ -199,7 +199,7 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
                     // Base domain entities are functionally equal if their key and metadata and tags are equal.
                     // Subclasses should extend to include their own enhanced equality checks, as required.
                     return Id.Equals(obj.Id)
-                        && Culture.Equals(obj.Culture)
+                        && Key.Culture.Equals(obj.Key.Culture)
                         && Metadata.Equals(obj.Metadata) 
                         && Schema.Equals(obj.Schema);
                 }
@@ -214,7 +214,7 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         /// <param name="x">The first value</param>
         /// <param name="y">The second value</param>
         /// <returns>True if both objects are fully equal based on the Equals logic</returns>
-        public static bool operator ==(OrganizationBase<TPrimaryKey> x, OrganizationBase<TPrimaryKey> y)
+        public static bool operator ==(OrganizationBase<TIdType> x, OrganizationBase<TIdType> y)
         {
             if (System.Object.ReferenceEquals(x, null))
             {
@@ -233,7 +233,7 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         /// <param name="x">The first value</param>
         /// <param name="y">The second value</param>
         /// <returns>True if both objects are not equal based on the Equals logic</returns>
-        public static bool operator !=(OrganizationBase<TPrimaryKey> x, OrganizationBase<TPrimaryKey> y)
+        public static bool operator !=(OrganizationBase<TIdType> x, OrganizationBase<TIdType> y)
         {
             return !(x == y);
         }

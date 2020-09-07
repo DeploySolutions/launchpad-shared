@@ -53,11 +53,11 @@ namespace DeploySoftware.LaunchPad.Space.Satellites.Canada
             // Radarsat 1 metadata files are in .txt format
             // ReSharper disable once RedundantAssignment
             var metadataFileText = string.Empty;
-            if (metadataFileKey.UniqueId.EndsWith(".txt"))
+            if (metadataFileKey.Id.EndsWith(".txt"))
             {
                 try
                 {   // Open the Radarsat1 Metadata text file
-                    using (StreamReader sr = new StreamReader(metadataFileKey.UniqueId, Encoding.GetEncoding("iso-8859-1")))
+                    using (StreamReader sr = new StreamReader(metadataFileKey.Id, Encoding.GetEncoding("iso-8859-1")))
                     {
                         metadataFileText = sr.ReadToEnd();
                     }
@@ -66,7 +66,7 @@ namespace DeploySoftware.LaunchPad.Space.Satellites.Canada
                 {
                     throw new FileLoadException(ex.Message);
                 }
-                String radarsatUniqueId = Path.GetFileNameWithoutExtension(metadataFileKey.UniqueId);
+                String radarsatUniqueId = Path.GetFileNameWithoutExtension(metadataFileKey.Id);
                 String sceneId = metadataFileText.FindStringWithinAnchorText("SCENE_ID", "MDA ORDER NUMBER", true, true);
                 String mdaOrderNumber = metadataFileText.FindStringWithinAnchorText("MDA ORDER NUMBER", "GEOGRAPHICAL AREA", true, true);
                 String geographicalArea = metadataFileText.FindStringWithinAnchorText("GEOGRAPHICAL AREA", "SCENE START TIME", true, true);
@@ -174,7 +174,7 @@ namespace DeploySoftware.LaunchPad.Space.Satellites.Canada
         protected Radarsat1Observation.Radarsat1ObservationFiles LoadExpectedObservationFiles(Radarsat1Observation observation, FileKey metadataFileKey)
         {
             // get the list of related observation files
-            String baseFilePath = metadataFileKey.UniqueId.Substring(0, metadataFileKey.UniqueId.Length - 4);
+            String baseFilePath = metadataFileKey.Id.Substring(0, metadataFileKey.Id.Length - 4);
             IList<KeyValuePair<Radarsat1Observation.FileTypes, String>> expectedFiles = new List<KeyValuePair<Radarsat1Observation.FileTypes, String>>
             {
                 new KeyValuePair<Radarsat1Observation.FileTypes, string>(

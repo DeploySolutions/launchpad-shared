@@ -18,6 +18,7 @@
 
 namespace DeploySoftware.LaunchPad.Shared.Domain
 {
+    using Castle.MicroKernel.ModelBuilder.Descriptors;
     using System;
     using System.ComponentModel;
     using System.ComponentModel.DataAnnotations;
@@ -31,7 +32,7 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
     /// The base class for all Keys used by the entities and files in the LaunchPad platform 
     /// </summary>
     /// <typeparam name="TUniqueId">The Type of the Id field</typeparam>
-    public abstract class KeyBase<TUniqueId> : IKey<TUniqueId>
+    public abstract class KeyBase<TIdType> : IKey<TIdType>
     {
         #region IKey Members
 
@@ -40,14 +41,14 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         /// </summary>
         [DataObjectField(true)]
         [XmlAttribute]
-        public abstract TUniqueId UniqueId { get; set; }
+        public abstract TIdType Id { get; set; }
 
         /// <summary>
-        /// The Culture code of this object
+        /// The ISO Culture code of this object
         /// </summary>
         [DataObjectField(true)]
         [XmlAttribute]
-        public virtual String CultureName { get; set; }
+        public virtual String Culture { get; set; }
 
         #endregion
 
@@ -55,7 +56,7 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         /// A convenience readonly property to get a <see cref="CultureInfo">CultureInfo</see> instance from the current 
         /// culture code
         /// </summary>
-        public virtual CultureInfo Culture { get { return new CultureInfo(CultureName); } }
+        public CultureInfo GetCultureInfo { get { return new CultureInfo(Culture); } }
 
         /// <summary>  
         /// Initializes a new instance of the <see cref="DataKeyBase{TUniqueId}">KeyBase{TUniqueId}</see> class. 
@@ -65,7 +66,7 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         {
             //TODO: set up default settings from dependency injection
             //CultureName = IApplicationState.Get<IApplicationContext>("ApplicationContext").Settings.DefaultCultureName;
-            CultureName = "en";
+            Culture = "en";
         }
 
         /// <summary>  
@@ -73,9 +74,10 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         /// with the given culture code.  
         /// </summary>
         /// <param name="cultureName">The culture code of the key</param>
-        protected KeyBase(String cultureName)
+        protected KeyBase(TIdType id, String cultureName)
         {
-            CultureName = cultureName;
+            Id = id;
+            Culture = cultureName;
         }
 
         /// <summary>
@@ -85,7 +87,8 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         /// <param name="context">The context of the stream</param>
         protected KeyBase(SerializationInfo info, StreamingContext context)
         {
-            CultureName = info.GetString("CultureName");
+            Id = (TIdType)info.GetValue("Id", typeof(TIdType));
+            Culture = info.GetString("Culture");
         }
 
         /// <summary>
@@ -96,7 +99,8 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         [SecurityPermission(SecurityAction.Demand, SerializationFormatter = true)]
         public virtual void GetObjectData(SerializationInfo info, StreamingContext context)
         {
-            info.AddValue("CultureName", CultureName);
+            info.AddValue("Id", Id); 
+            info.AddValue("Culture", Culture);
         }
     }
 }

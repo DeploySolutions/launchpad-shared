@@ -31,7 +31,7 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
     /// This class uniquely identifies an object implementing <see cref="IDomainEntity">IDomainEntity</see>.
     /// </summary>
     [ComplexType]
-    public partial class DomainEntityKey : KeyBase<Guid>
+    public partial class DomainEntityKey<TIdType> : KeyBase<TIdType>
     {
 
         /// <summary>
@@ -39,28 +39,15 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         /// </summary>
         [DataObjectField(true)]
         [XmlAttribute]
-        public override Guid UniqueId { get; set; }
-        
-        /// <summary>  
-        /// Initializes a new instance of the <see cref="DomainEntityKey">DomainEntityKey</see> class.  
-        /// </summary>
-        public DomainEntityKey()
-            : base()
-        {
-            UniqueId = SequentialGuid.Generate(SequentialGuid.SequentialGuidType.SequentialAsString);
-            CultureName = "en";
-        }
+        public override TIdType Id { get; set; }
 
         /// <summary>  
-        /// Initializes a new instance of the <see cref="DomainEntityKey">DomainEntityKey</see> class
-        /// with the given Id. 
-        /// </summary>
-        /// <param name="id">The unique Id of this entity</param>
-        public DomainEntityKey(Guid id)
+         /// Initializes a new instance of the <see cref="DomainEntityKey">DomainEntityKey</see> class.  
+         /// </summary>
+        public DomainEntityKey(string culture)
             : base()
         {
-            UniqueId = id;
-            CultureName = "en";
+            Culture = culture;
         }
 
         /// <summary>
@@ -69,11 +56,11 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         /// </summary>
         /// <param name="id">The unique Id of this entity</param>
         /// <param name="cultureName">The culture code of this entity</param>        
-        public DomainEntityKey(Guid id, String cultureName)
-            : base(cultureName)
+        public DomainEntityKey(TIdType id, String cultureName)
+            : base(id, cultureName)
         {
-            UniqueId = id;
-            CultureName = cultureName;
+            Id = id;
+            Culture = cultureName;
         }
         
         /// <summary>
@@ -84,8 +71,8 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         protected DomainEntityKey(SerializationInfo info, StreamingContext context)
             : base(info, context)
         {
-            UniqueId = (Guid)info.GetValue("UniqueId", typeof(Guid));
-            CultureName = info.GetString("CultureName");
+            Id = (TIdType)info.GetValue("Id", typeof(TIdType));
+            Culture = info.GetString("Culture");
         }
 
         /// <summary>
@@ -97,8 +84,8 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         public override void GetObjectData(SerializationInfo info, StreamingContext context)
         {
             base.GetObjectData(info, context);
-            info.AddValue("UniqueId", UniqueId);
-            info.AddValue("CultureName", CultureName);
+            info.AddValue("Id", Id);
+            info.AddValue("Culture", Culture);
         }
 
         /// <summary>  
@@ -108,9 +95,9 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         public override String ToString()
         {
             StringBuilder sb = new StringBuilder();
-            sb.Append("[DomainEntityKey: ");
-            sb.AppendFormat("UniqueId={0};", UniqueId);
-            sb.AppendFormat("CultureName={0};", CultureName);   
+            sb.Append("[Key: ");
+            sb.AppendFormat("Id={0};", Id);
+            sb.AppendFormat("Culture={0};", Culture);   
             sb.Append("]");
             return sb.ToString();
         }
@@ -122,9 +109,9 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         /// <returns>True if the entities are the same according to business key value</returns>
         public override bool Equals(object obj)
         {
-            if (obj != null && obj is DomainEntityKey)
+            if (obj != null && obj is DomainEntityKey<TIdType>)
             {
-                return Equals(obj as DomainEntityKey);
+                return Equals(obj as DomainEntityKey<TIdType>);
             }
             return false;
         }
@@ -139,15 +126,15 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         /// </summary>
         /// <param name="obj">The other object of this type that we are testing equality with</param>
         /// <returns></returns>
-        public virtual bool Equals(DomainEntityKey obj)
+        public virtual bool Equals(DomainEntityKey<TIdType> obj)
         {
             if (obj != null)
             {
                 // for safe equality we need to match on business key equality.
                 // These entities are functionally equal if the Id and Culture and BaseUri are equal
                 return (
-                    UniqueId.Equals(obj.UniqueId) &&
-                    CultureName.Equals(obj.CultureName) 
+                    Id.Equals(obj.Id) &&
+                    Culture.Equals(obj.Culture) 
                     );
             }
             return false;
@@ -159,7 +146,7 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         /// <param name="x">The first value</param>
         /// <param name="y">The second value</param>
         /// <returns>True if both objects are fully equal based on the Equals logic</returns>
-        public static bool operator ==(DomainEntityKey x, DomainEntityKey y)
+        public static bool operator ==(DomainEntityKey<TIdType> x, DomainEntityKey<TIdType> y)
         {
             if (System.Object.ReferenceEquals(x, null))
             {
@@ -178,7 +165,7 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         /// <param name="x">The first value</param>
         /// <param name="y">The second value</param>
         /// <returns>True if both objects are not equal based on the Equals logic</returns>
-        public static bool operator !=(DomainEntityKey x, DomainEntityKey y)
+        public static bool operator !=(DomainEntityKey<TIdType> x, DomainEntityKey<TIdType> y)
         {
             return !(x == y);
         }
@@ -192,7 +179,7 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         /// <returns>A hash code for an object.</returns>
         public override int GetHashCode()
         {
-            return UniqueId.GetHashCode() + Culture.GetHashCode();
+            return Id.GetHashCode() + Culture.GetHashCode();
         }
     }
 }

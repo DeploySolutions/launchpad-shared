@@ -27,21 +27,21 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
     /// The key is composite and contains two required properties - its Id field, of a generic type, and
     /// a culture code. This allows us to match related content in different cultures.
     /// </summary>
-    /// <typeparam name="TUniqueId">The type of the Id field (often a GUID)</typeparam>
-    public interface IKey<TUniqueId> : ISerializable
+    /// <typeparam name="TIdType">The type of the Id field (often a GUID)</typeparam>
+    public interface IKey<TIdType> : ISerializable
     {
         /// <summary>
         /// The globally unique identifier that identifies this object.
         /// </summary>
         [DataObjectField(true)]
         [XmlAttribute]
-        TUniqueId UniqueId { get; set; }
+        TIdType Id { get; set; }
 
         /// <summary>
         /// The Culture code of this object
         /// </summary>
         [DataObjectField(true)]
         [XmlAttribute]
-        String CultureName { get; set; }
+        String Culture { get; set; }
     }
 }
