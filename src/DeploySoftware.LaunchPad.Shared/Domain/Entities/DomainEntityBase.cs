@@ -59,10 +59,10 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
             }
         }
 
-            /// <summary>
-            /// The key (culture and Id) that uniquely identifies this object
-            /// </summary>
-            [DataObjectField(true)]
+        /// <summary>
+        /// The key (culture and Id) that uniquely identifies this object
+        /// </summary>
+        [DataObjectField(true)]
         [XmlAttribute]
         public DomainEntityKey<TIdType> Key { get; set; }
 

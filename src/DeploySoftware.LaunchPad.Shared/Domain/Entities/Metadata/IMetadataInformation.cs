@@ -28,71 +28,78 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
     /// </summary>
     public interface IMetadataInformation : IEquatable<MetadataInformation>
     {
-        
-            /// <summary>
-            /// The author of this entity
-            /// </summary>
-            [DataObjectField(false)]
-            [XmlAttribute]
-            Int64? CreatorId { get; set; }
 
-            /// <summary>
-            /// A full description of this item.
-            /// </summary>
-            [DataObjectField(false)]
-            [XmlAttribute]
-            String DescriptionFull { get; set; }
+        /// <summary>
+        /// The id of the metadata information
+        /// </summary>
+        [DataObjectField(false)]
+        [XmlAttribute]
+        long MetadataId { get; set; }
 
-            /// <summary>
-            /// A short description of this item.
-            /// </summary>
-            [DataObjectField(false)]
-            [XmlAttribute]
-            String DescriptionShort { get; set; }
+        /// <summary>
+        /// The author of this entity
+        /// </summary>
+        [DataObjectField(false)]
+        [XmlAttribute]
+        Int64? CreatorId { get; set; }
 
-            /// <summary>
-            /// The display name that can be displayed as a label externally to users when referring to this object
-            /// (rather than using a GUID, which is unfriendly but unique)
-            /// </summary>
-            [DataObjectField(false)]
-            [XmlAttribute]
-            String DisplayName { get; set; }
+        /// <summary>
+        /// A full description of this item.
+        /// </summary>
+        [DataObjectField(false)]
+        [XmlAttribute]
+        String DescriptionFull { get; set; }
 
-            /// <summary>
-            /// The date and time that this object was created.
-            /// </summary>
-            [DataObjectField(false)]
-            [XmlAttribute]
-            DateTime DateCreated { get; set; }
+        /// <summary>
+        /// A short description of this item.
+        /// </summary>
+        [DataObjectField(false)]
+        [XmlAttribute]
+        String DescriptionShort { get; set; }
 
-            /// <summary>
-            /// The date and time that the location and/or properties of this object were last modified.
-            /// </summary>
-            [DataObjectField(false)]
-            [XmlAttribute]
-            DateTime? DateLastModified { get; set; }
+        /// <summary>
+        /// The display name that can be displayed as a label externally to users when referring to this object
+        /// (rather than using a GUID, which is unfriendly but unique)
+        /// </summary>
+        [DataObjectField(false)]
+        [XmlAttribute]
+        String DisplayName { get; set; }
 
-            /// <summary>
-            /// The id of the person who last modified this object.
-            /// </summary>
-            [DataObjectField(false)]
-            [XmlAttribute]
-            Int64? LastModifiedById { get; set; }
+        /// <summary>
+        /// The date and time that this object was created.
+        /// </summary>
+        [DataObjectField(false)]
+        [XmlAttribute]
+        DateTime DateCreated { get; set; }
 
-            /// <summary>
-            /// Each entity in the framework can have a MIME type which is used to help display
-            /// its information to Http-capable browsers. 
-            /// </summary>
-            [DataObjectField(false)]
-            [XmlAttribute]
-            String MimeType { get; set; }
+        /// <summary>
+        /// The date and time that the location and/or properties of this object were last modified.
+        /// </summary>
+        [DataObjectField(false)]
+        [XmlAttribute]
+        DateTime? DateLastModified { get; set; }
 
-            /// <summary>
-            /// Each entity can have an open-ended set of tags applied to it, that help users find, markup, and display its information
-            /// </summary>
-            [DataObjectField(false)]
-            [XmlAttribute]
-            IEnumerable<MetadataTag> Tags { get; set; }
+        /// <summary>
+        /// The id of the person who last modified this object.
+        /// </summary>
+        [DataObjectField(false)]
+        [XmlAttribute]
+        Int64? LastModifiedById { get; set; }
+
+        /// <summary>
+        /// Each entity in the framework can have a MIME type which is used to help display
+        /// its information to Http-capable browsers. 
+        /// </summary>
+        [DataObjectField(false)]
+        [XmlAttribute]
+        String MimeType { get; set; }
+
+        /// <summary>
+        /// Each entity can have an open-ended set of tags applied to it, that help users find, markup, and display its information
+        /// </summary>
+        [DataObjectField(false)]
+        [XmlAttribute]
+        IEnumerable<MetadataTag> Tags { get; set; }
 
 
 

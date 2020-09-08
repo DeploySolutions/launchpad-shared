@@ -34,7 +34,14 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
     [ComplexType]
     public partial class MetadataInformation : IMetadataInformation
     {
-        
+
+        /// <summary>
+        /// The id of the metadata information
+        /// </summary>
+        [DataObjectField(false)]
+        [XmlAttribute]
+        public virtual long MetadataId { get; set; }
+
         /// <summary>
         /// The id of the User Agent which created this entity
         /// </summary>
