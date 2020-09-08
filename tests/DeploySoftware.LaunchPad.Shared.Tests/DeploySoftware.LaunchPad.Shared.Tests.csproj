@@ -4,6 +4,8 @@
     <TargetFramework>net461</TargetFramework>
 
     <IsPackable>false</IsPackable>
+
+    <Version>2.0.0-alpha</Version>
   </PropertyGroup>
 
   <ItemGroup>
