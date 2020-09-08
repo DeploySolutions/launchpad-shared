@@ -72,6 +72,7 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         [SecurityPermission(SecurityAction.Demand, SerializationFormatter = true)]
         public override void GetObjectData(SerializationInfo info, StreamingContext context)
         {
+            base.GetObjectData(info, context);
             info.AddValue("Version", Version);
             info.AddValue("Checksum", Checksum);
             info.AddValue("State", State);

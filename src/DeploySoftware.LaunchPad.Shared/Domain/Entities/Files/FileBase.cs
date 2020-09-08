@@ -29,7 +29,7 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         /// </summary>
         [DataObjectField(true)]
         [XmlAttribute]
-        public virtual FileKey GlobalKey { get; set; }
+        public virtual FileKey Key { get; set; }
 
         /// <summary>
         /// Each entity can have an open-ended set of metadata applied to it, that helps to describe it.
@@ -60,7 +60,7 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
 
         protected FileBase()
         {
-            GlobalKey = new FileKey();
+            Key = new FileKey();
             Metadata = new MetadataInformation();
         }
 
@@ -71,7 +71,7 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         /// <param name="context">The context of the stream</param>
         protected FileBase(SerializationInfo info, StreamingContext context)
         {
-            GlobalKey = (FileKey)info.GetValue("FileKey", typeof(FileKey));
+            Key = (FileKey)info.GetValue("Key", typeof(FileKey));
             Metadata = (MetadataInformation)info.GetValue("Metadata", typeof(MetadataInformation));
             Data = (byte[])info.GetValue("Data", typeof(byte[]));
             FileName = info.GetString("FileName");
@@ -80,7 +80,7 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
 
         public void GetObjectData(SerializationInfo info, StreamingContext context)
         {
-            info.AddValue("GlobalKey", GlobalKey);
+            info.AddValue("Key", Key);
             info.AddValue("FileSize", FileSize);
             info.AddValue("FileName", FileName);
             info.AddValue("Data", Data);

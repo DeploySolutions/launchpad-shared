@@ -107,6 +107,7 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         [SecurityPermission(SecurityAction.Demand, SerializationFormatter = true)]
         public override void GetObjectData(SerializationInfo info, StreamingContext context)
         {
+            base.GetObjectData(info, context);
             info.AddValue("State", State); 
             info.AddValue("PrimaryDeployerUserId", PrimaryDeployerUserId);
             info.AddValue("ReleaseCandidateId", ReleaseCandidateId);

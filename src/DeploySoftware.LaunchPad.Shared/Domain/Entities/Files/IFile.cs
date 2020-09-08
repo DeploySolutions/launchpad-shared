@@ -28,7 +28,7 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         /// <summary>
         /// The ID that uniquely identifies this object (usually the full file path and filename).
         /// </summary>
-        FileKey GlobalKey { get; set; }        
+        FileKey Key { get; set; }        
 
         /// <summary>
         /// The size of the file, in bytes
