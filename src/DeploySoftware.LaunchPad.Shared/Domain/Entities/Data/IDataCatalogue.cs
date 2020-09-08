@@ -25,15 +25,8 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         
         int? TotalItemsCount { get; set; }
 
-        string Name { get; set; }
-
-<<<<<<< HEAD
-        IEnumerable<DataSet<TPrimaryKey>> DataSets { get; set; }
-=======
-        string Description { get; set; }
 
         IEnumerable<IDataSet<TPrimaryKey>> DataSets { get; set; } 
->>>>>>> b2c1488f9feacc568becc39204ccd08f44256e51
 
     }
 }

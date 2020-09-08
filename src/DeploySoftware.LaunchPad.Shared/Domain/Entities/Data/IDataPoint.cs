@@ -15,7 +15,7 @@
 //limitations under the License. 
 #endregion
 
-namespace DeploySoftware.LaunchPad.Shared.Domain.Data
+namespace DeploySoftware.LaunchPad.Shared.Domain
 {
     using Abp.Domain.Entities.Auditing;
     public interface IDataPoint<TPrimaryKey> : IDomainEntity<TPrimaryKey>, IHasCreationTime, IHasModificationTime

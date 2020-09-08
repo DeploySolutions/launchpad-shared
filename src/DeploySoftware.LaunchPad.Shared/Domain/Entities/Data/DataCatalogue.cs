@@ -32,9 +32,8 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         public int NumberofDatasets { get; set; }
         public int? TotalItemsCount { get; set; }
         
-        public string Name { get; set; }
 
-        public IEnumerable<DataSet<TPrimaryKey>> DataSets { get; set; } 
+        public IEnumerable<IDataSet<TPrimaryKey>> DataSets { get; set; } 
 
         public DataCatalogue(
             string _datacatalogueName,
@@ -43,7 +42,7 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
             int _totalNumberOfRecords
             ) : base()
         {
-            Name = _datacatalogueName;
+            Metadata.DisplayName = _datacatalogueName;
             Metadata.DescriptionShort = _datacatalogueDescription; 
             Metadata.DescriptionFull = _datacatalogueDescription;
             NumberofDatasets = _numberOfDatasets;
@@ -52,7 +51,7 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
             
         protected DataCatalogue() :base()
         {
-            Name = String.Empty;
+            Metadata.DisplayName = String.Empty;
             NumberofDatasets = DataSets.Count();
             TotalItemsCount = 0;
         }
