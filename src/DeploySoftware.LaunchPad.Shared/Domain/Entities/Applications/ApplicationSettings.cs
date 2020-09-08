@@ -47,7 +47,7 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         /// </summary>
         [DataObjectField(false)]
         [XmlAttribute]
-        public IEnumerable<String> CultureSupported
+        public String CultureSupported
         {
             get; set;
         }
@@ -95,33 +95,24 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         {
             DisplayPrimaryColourHex = DEFAULT_HEX_COlOUR;
             CultureDefault = DEFAULT_CULTURE;
-            CultureSupported = new List<string>
-            {
-                DEFAULT_CULTURE
-            };
+            CultureSupported = DEFAULT_CULTURE;
         }
 
         public ApplicationSettings(string cultureName) : base(cultureName)
         {
             DisplayPrimaryColourHex = DEFAULT_HEX_COlOUR;
             CultureDefault = DEFAULT_CULTURE;
-            CultureSupported = new List<string>
-            {
-                DEFAULT_CULTURE
-            };
+            CultureSupported = DEFAULT_CULTURE;
         }
 
         public ApplicationSettings(string cultureName, String cultureDefault) : base(cultureName)
         {
             DisplayPrimaryColourHex = ApplicationSettings<TPrimaryKey>.DEFAULT_HEX_COlOUR;
             CultureDefault = cultureDefault;
-            CultureSupported = new List<string>
-            {
-                cultureDefault
-            };
+            CultureSupported = cultureDefault;
         }
 
-        public ApplicationSettings(string cultureName, String cultureDefault, IEnumerable<string> cultureSupported) : base(cultureName)
+        public ApplicationSettings(string cultureName, String cultureDefault, String cultureSupported) : base(cultureName)
         {
             DisplayPrimaryColourHex = ApplicationSettings<TPrimaryKey>.DEFAULT_HEX_COlOUR;
             CultureDefault = cultureDefault;
@@ -136,7 +127,7 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         protected ApplicationSettings(SerializationInfo info, StreamingContext context) : base(info,context)
         {
             CultureDefault = info.GetString("CultureDefault");
-            CultureSupported = (IEnumerable<string>)info.GetValue("CultureSupported", typeof(IEnumerable<string>));
+            CultureSupported = info.GetString("CultureSupported");
             DisplayPrimaryColourHex = info.GetString("DisplayPrimaryColourHex");
             DisplayLogoUri = (Uri)info.GetValue("DisplayLogoUri", typeof(Uri));
             DisplayThemeName = info.GetString("DisplayThemeName");

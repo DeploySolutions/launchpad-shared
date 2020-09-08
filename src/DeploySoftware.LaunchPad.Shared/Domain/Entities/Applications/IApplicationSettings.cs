@@ -42,11 +42,11 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         }
 
         /// <summary>
-        /// The supported cultures of this application
+        /// The comma-delimited list of cultures supported by this application
         /// </summary>
         [DataObjectField(false)]
         [XmlAttribute]
-        IEnumerable<String> CultureSupported
+        String CultureSupported
         {
             get; set;
         }

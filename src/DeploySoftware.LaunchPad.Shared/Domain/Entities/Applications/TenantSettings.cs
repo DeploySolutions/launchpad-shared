@@ -36,7 +36,7 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
 
         [DataObjectField(false)]
         [XmlAttribute]
-        public IEnumerable<string> CultureSupported { get; set; }
+        public String CultureSupported { get; set; }
 
         [DataObjectField(false)]
         [XmlAttribute]
@@ -56,10 +56,7 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         {
             DisplayPrimaryColourHex = ApplicationSettings<TPrimaryKey>.DEFAULT_HEX_COlOUR;
             CultureDefault = ApplicationSettings<TPrimaryKey>.DEFAULT_CULTURE;
-            CultureSupported = new List<string>
-            {
-                ApplicationSettings<TPrimaryKey>.DEFAULT_CULTURE
-            };
+            CultureSupported = ApplicationSettings<TPrimaryKey>.DEFAULT_CULTURE;
 
         }
 
@@ -67,13 +64,10 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         {
             DisplayPrimaryColourHex = ApplicationSettings<TPrimaryKey>.DEFAULT_HEX_COlOUR;
             CultureDefault = cultureDefault;
-            CultureSupported = new List<string>
-            {
-                cultureDefault
-            };
+            CultureSupported = cultureDefault;
         }
 
-        public TenantSettings(string cultureName, String cultureDefault, IEnumerable<string> cultureSupported) : base(cultureName)
+        public TenantSettings(string cultureName, String cultureDefault, String cultureSupported) : base(cultureName)
         {
             DisplayPrimaryColourHex = ApplicationSettings<TPrimaryKey>.DEFAULT_HEX_COlOUR;
             CultureDefault = cultureDefault;
@@ -88,7 +82,7 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         protected TenantSettings(SerializationInfo info, StreamingContext context) : base(info, context)
         {
             CultureDefault = info.GetString("CultureDefault");
-            CultureSupported = (IEnumerable<string>)info.GetValue("CultureSupported", typeof(IEnumerable<string>));
+            CultureSupported = info.GetString("CultureSupported");
             DisplayPrimaryColourHex = info.GetString("DisplayPrimaryColourHex");
             PrimaryOwnerId = info.GetInt64("PrimaryOwnerId");
             DisplayLogoUri = (Uri)info.GetValue("DisplayLogoUri", typeof(Uri));

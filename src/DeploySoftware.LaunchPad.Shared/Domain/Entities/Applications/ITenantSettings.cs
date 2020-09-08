@@ -46,7 +46,7 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         /// </summary>
         [DataObjectField(false)]
         [XmlAttribute]
-        IEnumerable<String> CultureSupported
+        String CultureSupported
         {
             get; set;
         }
