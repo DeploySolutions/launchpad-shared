@@ -18,9 +18,14 @@
 namespace DeploySoftware.LaunchPad.Shared.Domain
 {
     using System;
+<<<<<<< HEAD
     using System.Runtime.Serialization;
     using System.Security.Permissions;
     using System.Text;
+=======
+    using System.Collections.Generic;
+    using Abp.Timing;
+>>>>>>> b2c1488f9feacc568becc39204ccd08f44256e51
 
     public abstract class DataSet<TPrimaryKey> : DomainEntityBase<TPrimaryKey>, IDataSet<TPrimaryKey>
     {
@@ -29,6 +34,17 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         
         public string Name { get; set; }
 
+<<<<<<< HEAD
+=======
+        public string Description { get; set; }
+
+        public DateTime CreationTime { get; set; }
+        
+        public DateTime? LastModificationTime { get; set; }
+
+        public IEnumerable<IDataPoint<TPrimaryKey>> DataPoints { get; set; }
+
+>>>>>>> b2c1488f9feacc568becc39204ccd08f44256e51
         public DataSet(
            string datasetName,
            string datasetDescription

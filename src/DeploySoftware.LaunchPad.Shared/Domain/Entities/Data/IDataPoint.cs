@@ -1,5 +1,5 @@
 ﻿//LaunchPad Shared
-// Copyright (c) 2016-2021 Deploy Software Solutions, inc. 
+// Copyright (c) 2016 Deploy Software Solutions, inc. 
 
 #region license
 //Licensed under the Apache License, Version 2.0 (the "License"); 
@@ -15,25 +15,13 @@
 //limitations under the License. 
 #endregion
 
-
-namespace DeploySoftware.LaunchPad.Shared.Domain
+namespace DeploySoftware.LaunchPad.Shared.Domain.Data
 {
-    using System.Collections.Generic;
-
-    public interface IDataCatalogue<TPrimaryKey> : IDomainEntity<TPrimaryKey>
+    using Abp.Domain.Entities.Auditing;
+    public interface IDataPoint<TPrimaryKey> : IDomainEntity<TPrimaryKey>, IHasCreationTime, IHasModificationTime
     {
-        
-        int? TotalItemsCount { get; set; }
-
         string Name { get; set; }
 
-<<<<<<< HEAD
-        IEnumerable<DataSet<TPrimaryKey>> DataSets { get; set; }
-=======
         string Description { get; set; }
-
-        IEnumerable<IDataSet<TPrimaryKey>> DataSets { get; set; } 
->>>>>>> b2c1488f9feacc568becc39204ccd08f44256e51
-
     }
 }

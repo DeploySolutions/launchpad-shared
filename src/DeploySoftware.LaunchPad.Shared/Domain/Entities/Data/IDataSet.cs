@@ -17,12 +17,29 @@
 
 namespace DeploySoftware.LaunchPad.Shared.Domain
 {
+<<<<<<< HEAD
     public interface IDataSet<TPrimaryKey> : IDomainEntity<TPrimaryKey>
+=======
+    using Abp.Domain.Entities;
+    using Abp.Domain.Entities.Auditing;
+    using System;
+    using System.Collections.Generic;
+    using System.ComponentModel;
+
+    public interface IDataSet<TPrimaryKey> : IDomainEntity<TPrimaryKey>, IHasCreationTime, IHasModificationTime
+>>>>>>> b2c1488f9feacc568becc39204ccd08f44256e51
     {
         
         int? TotalItemsCount { get; set; }
 
         string Name { get; set; }
 
+<<<<<<< HEAD
+=======
+        string Description { get; set; }
+
+        IEnumerable<IDataPoint<TPrimaryKey>> DataPoints { get; set; }
+
+>>>>>>> b2c1488f9feacc568becc39204ccd08f44256e51
     }
 }
