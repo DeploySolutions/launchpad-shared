@@ -29,11 +29,11 @@ namespace DeploySoftware.LaunchPad.Space.Satellites.Canada
 {
     public class NeossatSatellite<TPrimaryKey> : SatelliteBase<TPrimaryKey>
     {
-        protected NeossatSatellite() : base()
+        protected NeossatSatellite(int? tenantId) : base(tenantId)
         {
             Operators = new List<ISatelliteOperator<Guid>>() {
-                new CanadaSpaceAgency() as ISatelliteOperator<Guid>,
-                new DefenceResearchDevelopmentCanada() as ISatelliteOperator<Guid>
+                new CanadaSpaceAgency(tenantId) as ISatelliteOperator<Guid>,
+                new DefenceResearchDevelopmentCanada(tenantId) as ISatelliteOperator<Guid>
             };
             SatelliteCatalogNumber = "39089";
             CosparID = "2013-009D";

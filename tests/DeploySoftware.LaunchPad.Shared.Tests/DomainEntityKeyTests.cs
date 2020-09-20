@@ -35,7 +35,7 @@ namespace DeploySoftware.LaunchPad.Shared.Tests
         public void Should_Have_NotEmpty_Id_When_Instantiated()
         {
             DomainEntityKey<System.Guid> key = new DomainEntityKey<System.Guid>(
-                SequentialGuid.NewGuid(), ApplicationSettings<System.Guid>.DEFAULT_CULTURE);
+                SequentialGuid.NewGuid(), ApplicationInformation<System.Guid>.DEFAULT_CULTURE);
             key.Id.Should().NotBeEmpty();
 
         }
@@ -44,9 +44,9 @@ namespace DeploySoftware.LaunchPad.Shared.Tests
         public void Should_Have_Unique_Id_When_Instantiated()
         {
             DomainEntityKey<System.Guid> key1 = new DomainEntityKey<System.Guid>(SequentialGuid.NewGuid()
-                , ApplicationSettings<System.Guid>.DEFAULT_CULTURE);
+                , ApplicationInformation<System.Guid>.DEFAULT_CULTURE);
             DomainEntityKey<System.Guid> key2 = new DomainEntityKey<System.Guid>(SequentialGuid.NewGuid()
-                , ApplicationSettings<System.Guid>.DEFAULT_CULTURE);
+                , ApplicationInformation<System.Guid>.DEFAULT_CULTURE);
             key1.Should().NotBe(key2);
         }
 
@@ -54,7 +54,7 @@ namespace DeploySoftware.LaunchPad.Shared.Tests
         public void Should_Have_NotNull_Culture_When_Instantiated()
         {
             DomainEntityKey<System.Guid> key = new DomainEntityKey<System.Guid>(SequentialGuid.NewGuid()
-                , ApplicationSettings<System.Guid>.DEFAULT_CULTURE);
+                , ApplicationInformation<System.Guid>.DEFAULT_CULTURE);
             key.Culture.Should().NotBeNull();
         }
     }

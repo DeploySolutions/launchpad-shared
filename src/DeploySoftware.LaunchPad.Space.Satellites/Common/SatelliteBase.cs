@@ -63,7 +63,7 @@ namespace DeploySoftware.LaunchPad.Space.Satellites.Common
             set { _website = value; }
         }
 
-        protected SatelliteBase()
+        protected SatelliteBase(int? tenantId) : base(tenantId)
         {
             Operators = null; 
             SatelliteCatalogNumber = string.Empty;

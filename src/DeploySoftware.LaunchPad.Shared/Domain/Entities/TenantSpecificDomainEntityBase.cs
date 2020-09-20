@@ -19,57 +19,61 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
 {
     using Abp.Domain.Entities;
     using System;
-    using System.Collections.Generic;
+    using System.ComponentModel;
+    using System.Reflection;
     using System.Runtime.Serialization;
     using System.Security.Permissions;
     using System.Text;
-    using Abp.Events.Bus;
-    using System.ComponentModel.DataAnnotations.Schema;
-    using System.Collections.ObjectModel;
+    using System.Xml.Serialization;
 
     /// <summary>
-    /// Base class for Aggregate Root Entities (in Domain Driven Design). Inherits from <see cref="DomainEntityBase">DomainEntityBase</see>
-    /// Implemenn ASP.NET Boilerplate's <see cref="IAggregateRoot">IAggregateRoot</see> interface.
-    /// Implements AspNetBoilerplate's auditing interfaces.
+    /// Base class for Entities that must be specifically related to tenants. Inherits from <see cref="DomainEntityBase{TIdType}">DomainEntityBase{TIdType}</see> and provides
+    /// base functionality for many of its methods. 
+    /// Implements AspNetBoilerplate's <see cref="IMustHaveTenant">IMustHaveTenant interface</see>, overriding the base interface where tenant may or may not exist.
     /// </summary>
-    public abstract partial class AggregateRootBase<TIdType> : 
-        DomainEntityBase<TIdType>, 
-        IAggregateRoot<TIdType>
-
+    public abstract partial class TenantSpecificDomainEntityBase<TIdType> : 
+        DomainEntityBase<TIdType>, IMustHaveTenant
+        
     {
 
-        #region Implementation of ASP.NET Boilerplate's IAggregateRoot interface
+        /// <summary>
+        /// The id of the tenant that domain entity this belongs to
+        /// </summary>
+        [DataObjectField(false)]
+        [XmlAttribute]
+        public new int TenantId { get; set; }
 
-        [NotMapped]
-        public ICollection<IEventData> DomainEvents { get; }
-
-        #endregion
 
         /// <summary>  
-        /// Initializes a new instance of the <see cref="AggregateRootBase">AggregateRootBase</see> class
+        /// Initializes a new instance of the <see cref="DomainEntityBase{TIdType}">DomainEntityBase{TIdType}</see> abstract class
         /// </summary>
-        protected AggregateRootBase(int? tenantId) : base(tenantId)
+        /// <param name="tenantId">The id of the tenant to which this entity belongs</param>
+        protected TenantSpecificDomainEntityBase(int tenantId) : base(tenantId)
         {
-            DomainEvents = new Collection<IEventData>();
+            TenantId = tenantId;
         }
 
         /// <summary>
-        /// Creates a new instance of the <see cref="AggregateRootBase">AggregateRootBase</see> class given a key, and some metadata. 
+        /// Creates a new instance of the <see cref="DomainEntityBase{TIdType}">DomainEntityBase{TIdType}</see> abstract class given a key, and some metadata. 
         /// </summary>
-        /// <param name="cultureName">The culture for this entity</param>
-        protected AggregateRootBase(int? tenantId, string cultureName) : base(tenantId, cultureName)
+        /// <param name="culture">The culture for this entity</param>
+        /// <param name="tenantId">The id of the tenant to which this entity belongs</param>
+        protected TenantSpecificDomainEntityBase(int tenantId, string culture) : base(tenantId,culture)
         {
-            DomainEvents = new Collection<IEventData>();
+            TenantId = tenantId;
         }
 
         /// <summary>
-        /// Creates a new instance of the <see cref="AggregateRootBase">AggregateRootBase</see> class given a key, and some metadata. 
+        /// Creates a new instance of the <see cref="DomainEntityBase{TIdType}">DomainEntityBase{TIdType}</see> abstract class given a key, and some metadata. 
         /// </summary>
-        /// <param name="cultureName">The culture for this entity</param>
+        /// <param name="key">The key for this entity</param>
+        /// <param name="culture">The culture for this entity</param>
         /// <param name="metadata">The desired metadata for this entity</param>
-        protected AggregateRootBase(int? tenantId, DomainEntityKey<TIdType> key, MetadataInformation metadata) : base(tenantId, key,metadata)
+        /// <param name="tenantId">The id of the tenant to which this entity belongs</param>
+        protected TenantSpecificDomainEntityBase(int tenantId, DomainEntityKey<TIdType> key, MetadataInformation metadata) 
+            : base(tenantId, key,metadata)
         {
-            DomainEvents = new Collection<IEventData>();
+            TenantId = tenantId;
         }
 
         /// <summary>
@@ -77,9 +81,9 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         /// </summary>
         /// <param name="info">The serialization info</param>
         /// <param name="context">The context of the stream</param>
-        protected AggregateRootBase(SerializationInfo info, StreamingContext context) : base(info, context)
+        protected TenantSpecificDomainEntityBase(SerializationInfo info, StreamingContext context) :base(info,context)
         {
-            DomainEvents = (Collection<IEventData>)info.GetValue("DomainEvents", typeof(Collection<IEventData>));
+            TenantId = info.GetInt32("TenantId");
         }
 
         /// <summary>
@@ -88,10 +92,10 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         /// <param name="info"></param>
         /// <param name="context"></param>
         [SecurityPermission(SecurityAction.Demand, SerializationFormatter = true)]
-        public override void GetObjectData(SerializationInfo info, StreamingContext context)
+        public virtual void GetObjectData(SerializationInfo info, StreamingContext context)
         {
-            base.GetObjectData(info, context);
-            info.AddValue("DomainEvents", DomainEvents);
+            base.GetObjectData(info,context);
+            info.AddValue("TenantId", TenantId);
         }
 
         /// <summary>
@@ -100,9 +104,29 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         /// can't be serialized and deserialized.
         /// </summary>
         /// <param name="sender">The object that has been deserialized</param>
-        public override void OnDeserialization(object sender)
+        public new void OnDeserialization(object sender)
         {
             // reconnect connection strings and other resources that won't be serialized
+        }
+
+        /// <summary>
+        /// Shallow clones the entity
+        /// </summary>
+        /// <typeparam name="TEntity">The source entity to clone</typeparam>
+        /// <returns>A shallow clone of the entity and its serializable properties</returns>
+        protected virtual TEntity Clone<TEntity>() where TEntity : TenantSpecificDomainEntityBase<TIdType>, new()
+        {
+            TEntity clone = new TEntity();
+            foreach (PropertyInfo info in GetType().GetProperties())
+            {
+                // ensure the property type is serializable
+                if (info.GetType().IsSerializable)
+                {
+                    PropertyInfo cloneInfo = GetType().GetProperty(info.Name);
+                    cloneInfo.SetValue(clone, info.GetValue(this, null), null);
+                }
+            }
+            return clone;
         }
 
         /// <summary>
@@ -112,7 +136,7 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         /// </summary>
         /// <param name="other">The other object of this type we are comparing to</param>
         /// <returns></returns>
-        public virtual int CompareTo(AggregateRootBase<TIdType> other)
+        public virtual int CompareTo(TenantSpecificDomainEntityBase<TIdType> other)
         {
             // put comparison of properties in here 
             // for base object we'll just sort by title
@@ -126,8 +150,8 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         public override String ToString()
         {
             StringBuilder sb = new StringBuilder();
-            sb.AppendFormat(base.ToStringBaseProperties());
-            sb.AppendFormat("DomainEvents={0};", DomainEvents);
+            sb.Append(ToStringBaseProperties());
+            sb.AppendFormat("TenantId={0};", TenantId);
             return sb.ToString();
         }
 
@@ -138,9 +162,9 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         /// <returns>True if the entities are the same according to business key value</returns>
         public override bool Equals(object obj)
         {
-            if (obj != null && obj is DomainEntityBase<TIdType>)
+            if (obj != null && obj is TenantSpecificDomainEntityBase<TIdType>)
             {
-                return Equals(obj as DomainEntityBase<TIdType>);
+                return Equals(obj as TenantSpecificDomainEntityBase<TIdType>);
             }
             return false;
         }
@@ -154,7 +178,7 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         /// </summary>
         /// <param name="obj">The other object of this type that we are testing equality with</param>
         /// <returns></returns>
-        public virtual bool Equals(DomainEntityBase<TIdType> obj)
+        public virtual bool Equals(TenantSpecificDomainEntityBase<TIdType> obj)
         {
             if (obj != null)
             {
@@ -169,7 +193,8 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
                     // For safe equality we need to match on business key equality.
                     // Base domain entities are functionally equal if their key and metadata are equal.
                     // Subclasses should extend to include their own enhanced equality checks, as required.
-                    return Id.Equals(obj.Id) && Key.Culture.Equals(obj.Key.Culture) && Metadata.Equals(obj.Metadata);
+                    return Id.Equals(obj.Id) && Key.Culture.Equals(obj.Key.Culture) && Metadata.Equals(obj.Metadata)
+                        && IsActive.Equals(obj.IsActive) && IsDeleted.Equals(obj.IsDeleted) && TenantId.Equals(obj.TenantId);
                 }
                 
             }
@@ -182,7 +207,7 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         /// <param name="x">The first value</param>
         /// <param name="y">The second value</param>
         /// <returns>True if both objects are fully equal based on the Equals logic</returns>
-        public static bool operator ==(AggregateRootBase<TIdType> x, AggregateRootBase<TIdType> y)
+        public static bool operator ==(TenantSpecificDomainEntityBase<TIdType> x, TenantSpecificDomainEntityBase<TIdType> y)
         {
             if (System.Object.ReferenceEquals(x, null))
             {
@@ -201,7 +226,7 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         /// <param name="x">The first value</param>
         /// <param name="y">The second value</param>
         /// <returns>True if both objects are not equal based on the Equals logic</returns>
-        public static bool operator !=(AggregateRootBase<TIdType> x, AggregateRootBase<TIdType> y)
+        public static bool operator !=(TenantSpecificDomainEntityBase<TIdType> x, TenantSpecificDomainEntityBase<TIdType> y)
         {
             return !(x == y);
         }
@@ -215,7 +240,7 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         /// <returns>A hash code for an object.</returns>
         public override int GetHashCode()
         {
-            return Key.Culture.GetHashCode()+Id.GetHashCode();
+            return Key.Culture.GetHashCode()+Key.Id.GetHashCode();
         }
 
     }

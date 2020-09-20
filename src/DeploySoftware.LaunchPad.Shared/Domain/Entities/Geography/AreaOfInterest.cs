@@ -46,16 +46,16 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         /// <summary>
         /// 
         /// </summary>
-        public AreaOfInterest() :base ()
+        public AreaOfInterest(int? tenantId) :base (tenantId)
         {
             
         }
 
-        public AreaOfInterest(IEnumerable<IGeographicLocation> boundingBox) : base()
+        public AreaOfInterest(int? tenantId, IEnumerable<IGeographicLocation> boundingBox) : base(tenantId)
         {
             BoundingBoxCoordinates = boundingBox;
         }
-        public AreaOfInterest(String culture, IEnumerable<IGeographicLocation> boundingBox) : base(culture)
+        public AreaOfInterest(int? tenantId, String culture, IEnumerable<IGeographicLocation> boundingBox) : base(tenantId, culture)
         {
             BoundingBoxCoordinates = boundingBox;
         }

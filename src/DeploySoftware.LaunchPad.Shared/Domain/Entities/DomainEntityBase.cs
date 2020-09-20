@@ -36,7 +36,7 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
     /// Implements AspNetBoilerplate's auditing interfaces.
     /// </summary>
     public abstract partial class DomainEntityBase<TIdType> : 
-        Entity<TIdType>, IDomainEntity<TIdType>
+        Entity<TIdType>, IDomainEntity<TIdType>, IMayHaveTenant
         
     {
 
@@ -164,9 +164,10 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         /// <summary>  
         /// Initializes a new instance of the <see cref="DomainEntityBase">Entity</see> class
         /// </summary>
-        protected DomainEntityBase() : base()
+        protected DomainEntityBase(int? tenantId) : base()
         {
-            Key = new DomainEntityKey<TIdType>(ApplicationSettings<TIdType>.DEFAULT_CULTURE);
+            TenantId = tenantId;
+            Key = new DomainEntityKey<TIdType>(ApplicationInformation<TIdType>.DEFAULT_CULTURE);
             Metadata = new MetadataInformation();
             IsDeleted = false;
             IsActive = true;
@@ -176,8 +177,9 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         /// Creates a new instance of the <see cref="DomainEntityBase">Entity</see> class given a key, and some metadata. 
         /// </summary>
         /// <param name="culture">The culture for this entity</param>
-        protected DomainEntityBase(string culture) : base()
+        protected DomainEntityBase(int? tenantId, string culture) : base()
         {
+            TenantId = tenantId;
             Key = new DomainEntityKey<TIdType>(culture);
             Metadata = new MetadataInformation();
             IsDeleted = false;
@@ -190,8 +192,9 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         /// <param name="key">The key for this entity</param>
         /// <param name="culture">The culture for this entity</param>
         /// <param name="metadata">The desired metadata for this entity</param>
-        protected DomainEntityBase(DomainEntityKey<TIdType> key, MetadataInformation metadata) : base()
+        protected DomainEntityBase(int? tenantId, DomainEntityKey<TIdType> key, MetadataInformation metadata) : base()
         {
+            TenantId = tenantId;
             Key = key;
             Metadata = metadata;
             IsDeleted = false;

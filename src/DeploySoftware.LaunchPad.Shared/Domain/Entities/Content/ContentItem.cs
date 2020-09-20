@@ -41,12 +41,12 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
 
 #region "Constructors"
 
-        public ContentItem() : base()
+        public ContentItem(int? tenantId) : base(tenantId)
         {
             Text = String.Empty;            
         }
 
-        public ContentItem(string cultureName, String text) : base(cultureName)
+        public ContentItem(int? tenantId, string cultureName, String text) : base(tenantId, cultureName)
         {
             Text = text;
         }

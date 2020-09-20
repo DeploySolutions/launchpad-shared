@@ -25,7 +25,7 @@ using System.Xml.Serialization;
 
 namespace DeploySoftware.LaunchPad.Shared.Domain
 {
-    public class Deployment<TPrimaryKey> : DomainEntityBase<TPrimaryKey>, IDeployment<TPrimaryKey>
+    public class Deployment<TPrimaryKey> : TenantSpecificDomainEntityBase<TPrimaryKey>, IDeployment<TPrimaryKey>
     {
 
         /// <summary>
@@ -72,12 +72,12 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
 
         #region "Constructors"
 
-        public Deployment() : base()
+        public Deployment(int tenantId) : base(tenantId)
         {
          
         }
 
-        public Deployment(string cultureName, String text) : base(cultureName)
+        public Deployment(int tenantId, string cultureName, String text) : base(tenantId, cultureName)
         {
 
         }

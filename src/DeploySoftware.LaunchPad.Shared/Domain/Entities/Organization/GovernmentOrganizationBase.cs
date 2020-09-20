@@ -51,7 +51,7 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         /// <summary>  
         /// Initializes a new instance of the <see cref="EntityBase">Entity</see> class
         /// </summary>
-        protected GovernmentOrganizationBase() : base()
+        protected GovernmentOrganizationBase(int? tenantId) : base(tenantId)
         {
             
         }
@@ -61,7 +61,7 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         /// </summary>
         /// <param name="key">The unique identifier for this entity</param>
         /// <param name="metadata">The desired metadata for this entity</param>
-        protected GovernmentOrganizationBase(TPrimaryKey id, MetadataInformation metadata) : base()
+        protected GovernmentOrganizationBase(int? tenantId, TPrimaryKey id, MetadataInformation metadata) : base(tenantId)
         {
             Id = id;
             Metadata = metadata;

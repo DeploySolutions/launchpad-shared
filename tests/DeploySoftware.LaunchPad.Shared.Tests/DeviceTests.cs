@@ -31,11 +31,12 @@ namespace DeploySoftware.LaunchPad.Shared.Tests
         #endregion
 
         private readonly DeviceTestsFixture _fixture;
+        private int? tenantId = 1;
 
         public DeviceTests(DeviceTestsFixture fixture)
         {
             this._fixture = fixture;
-            Device<int> device = new Device<int>
+            Device<int> device = new Device<int>(tenantId)
             {
                 Id = 1
             };

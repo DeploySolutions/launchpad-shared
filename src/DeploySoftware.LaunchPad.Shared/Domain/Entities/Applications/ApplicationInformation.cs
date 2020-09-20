@@ -26,50 +26,99 @@ using System.Xml.Serialization;
 
 namespace DeploySoftware.LaunchPad.Shared.Domain
 {
+    /// <summary>
+    /// Base class for application-specific information
+    /// </summary>
+    /// <typeparam name="TPrimaryKey">The type of the key id field</typeparam>
     [Serializable()]
-    public class TenantSettings<TPrimaryKey> : DomainEntityBase<TPrimaryKey>, ITenantSettings<TPrimaryKey>
+    public class ApplicationInformation<TPrimaryKey> : DomainEntityBase<TPrimaryKey>, IApplicationInformation<TPrimaryKey>
     {
-        
-        [DataObjectField(false)]
-        [XmlAttribute]
-        public string CultureDefault { get; set; }
+        public const string DEFAULT_CULTURE = "en";
+        public const string DEFAULT_HEX_COlOUR = "1dbff0";
 
+        /// <summary>
+        /// The default culture of this application
+        /// </summary>
         [DataObjectField(false)]
         [XmlAttribute]
-        public String CultureSupported { get; set; }
+        public String CultureDefault
+        {
+            get; set;
+        }
 
+        /// <summary>
+        /// The supported cultures of this application
+        /// </summary>
         [DataObjectField(false)]
         [XmlAttribute]
-        public long? PrimaryOwnerId { get; set; }
+        public String CultureSupported
+        {
+            get; set;
+        }
 
+        /// <summary>
+        /// The main theme
+        /// </summary>
         [DataObjectField(false)]
         [XmlAttribute]
-        public Uri DisplayLogoUri { get; set; }
+        public string DisplayThemeName { get; set; }
 
+        /// <summary>
+        /// The Uri for the logo to display in this application
+        /// </summary>
         [DataObjectField(false)]
         [XmlAttribute]
-        public string DisplayPrimaryColourHex { get; set; }
+        public Uri DisplayLogoUri
+        {
+            get; set;
+        }
+
+        /// <summary>
+        /// The primary colour (in HEX) for displays in this application
+        /// </summary>
+        [DataObjectField(false)]
+        [XmlAttribute]
+        public String DisplayPrimaryColourHex
+        {
+            get; set;
+        }
+
+        /// <summary>
+        /// The default display time zone of the application
+        /// </summary>
+        [DataObjectField(false)]
+        [XmlAttribute]
+        public String DisplayDefaultTimeZone
+        {
+            get; set;
+        }
 
         #region "Constructors"
 
-        public TenantSettings() : base()
+        public ApplicationInformation(int? tenantId) : base(tenantId)
         {
-            DisplayPrimaryColourHex = ApplicationSettings<TPrimaryKey>.DEFAULT_HEX_COlOUR;
-            CultureDefault = ApplicationSettings<TPrimaryKey>.DEFAULT_CULTURE;
-            CultureSupported = ApplicationSettings<TPrimaryKey>.DEFAULT_CULTURE;
-
+            DisplayPrimaryColourHex = DEFAULT_HEX_COlOUR;
+            CultureDefault = DEFAULT_CULTURE;
+            CultureSupported = DEFAULT_CULTURE;
         }
 
-        public TenantSettings(string cultureName, String cultureDefault) : base(cultureName)
+        public ApplicationInformation(int? tenantId, string cultureName) : base(tenantId, cultureName)
         {
-            DisplayPrimaryColourHex = ApplicationSettings<TPrimaryKey>.DEFAULT_HEX_COlOUR;
+            DisplayPrimaryColourHex = DEFAULT_HEX_COlOUR;
+            CultureDefault = DEFAULT_CULTURE;
+            CultureSupported = DEFAULT_CULTURE;
+        }
+
+        public ApplicationInformation(int? tenantId,string cultureName, String cultureDefault) : base(tenantId, cultureName)
+        {
+            DisplayPrimaryColourHex = ApplicationInformation<TPrimaryKey>.DEFAULT_HEX_COlOUR;
             CultureDefault = cultureDefault;
             CultureSupported = cultureDefault;
         }
 
-        public TenantSettings(string cultureName, String cultureDefault, String cultureSupported) : base(cultureName)
+        public ApplicationInformation(int? tenantId, string cultureName, String cultureDefault, String cultureSupported) : base(tenantId, cultureName)
         {
-            DisplayPrimaryColourHex = ApplicationSettings<TPrimaryKey>.DEFAULT_HEX_COlOUR;
+            DisplayPrimaryColourHex = ApplicationInformation<TPrimaryKey>.DEFAULT_HEX_COlOUR;
             CultureDefault = cultureDefault;
             CultureSupported = cultureSupported;
         }
@@ -79,15 +128,14 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         /// </summary>
         /// <param name="info">The serialization info</param>
         /// <param name="context">The context of the stream</param>
-        protected TenantSettings(SerializationInfo info, StreamingContext context) : base(info, context)
+        protected ApplicationInformation(SerializationInfo info, StreamingContext context) : base(info,context)
         {
             CultureDefault = info.GetString("CultureDefault");
             CultureSupported = info.GetString("CultureSupported");
             DisplayPrimaryColourHex = info.GetString("DisplayPrimaryColourHex");
-            PrimaryOwnerId = info.GetInt64("PrimaryOwnerId");
             DisplayLogoUri = (Uri)info.GetValue("DisplayLogoUri", typeof(Uri));
-
-            
+            DisplayThemeName = info.GetString("DisplayThemeName");
+            DisplayDefaultTimeZone = info.GetString("DisplayDefaultTimeZone");
         }
 
         #endregion
@@ -105,7 +153,8 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
             info.AddValue("CultureSupported", CultureSupported);
             info.AddValue("DisplayPrimaryColourHex", DisplayPrimaryColourHex);
             info.AddValue("DisplayLogoUri", DisplayLogoUri);
-            info.AddValue("PrimaryOwnerId", PrimaryOwnerId);
+            info.AddValue("DisplayThemeName", DisplayThemeName);
+            info.AddValue("DisplayDefaultTimeZone", DisplayDefaultTimeZone);
         }
 
         /// <summary>  
@@ -115,13 +164,14 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         public override string ToString()
         {
             StringBuilder sb = new StringBuilder();
-            sb.Append("[TenantSettings : ");
+            sb.Append("[ApplicationSettings : ");
             sb.AppendFormat(ToStringBaseProperties());
             sb.AppendFormat(" CultureDefault={0};", CultureDefault);
             sb.AppendFormat(" CultureSupported={0};", CultureSupported);
             sb.AppendFormat(" DisplayPrimaryColourHex={0};", DisplayPrimaryColourHex);
             sb.AppendFormat(" DisplayLogoUri={0};", DisplayLogoUri);
-            sb.AppendFormat(" PrimaryOwnerId={0};", PrimaryOwnerId);
+            sb.AppendFormat(" DisplayThemeName={0};", DisplayThemeName);
+            sb.AppendFormat(" DisplayDefaultTimeZone={0};", DisplayDefaultTimeZone);
             sb.Append("]");
             return sb.ToString();
         }

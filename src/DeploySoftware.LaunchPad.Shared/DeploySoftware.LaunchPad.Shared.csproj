@@ -22,6 +22,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Domain\Entities\DomainEntityBase.cs~RF1df0f88b.TMP" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Abp" Version="5.12.0" />
     <PackageReference Include="CoordinateSharp" Version="2.7.3.2" />
     <PackageReference Include="Schema.NET" Version="7.2.0" />

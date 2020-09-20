@@ -28,7 +28,7 @@ namespace DeploySoftware.LaunchPad.Organizations.Canada
     public class DeploySoftwareSolutions : OrganizationBase<Guid>
     {
 
-        public DeploySoftwareSolutions()
+        public DeploySoftwareSolutions(int? tenantId) : base(tenantId)
         {
             Organization org = new Organization()
             {

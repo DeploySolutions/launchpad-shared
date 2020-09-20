@@ -89,6 +89,7 @@ namespace DeploySoftware.LaunchPad.Space.Satellites.Canada
         public Radarsat1ObservationFiles Files { get; set; }
         
         public Radarsat1Observation(
+            int? tenantId,
            string sceneId,
            string mdaOrderNumber,
            string geographicalArea,
@@ -105,7 +106,7 @@ namespace DeploySoftware.LaunchPad.Space.Satellites.Canada
            string pixelSpacing,
            GeographicLocation sceneCentre,
            ImageObservationCornerCoordinates cornerCoordinates
-        )
+        ) : base(tenantId)
         {
             Id = Guid.NewGuid();
             CurrentLocation = new SpaceTimeInformation();
@@ -131,7 +132,7 @@ namespace DeploySoftware.LaunchPad.Space.Satellites.Canada
             CurrentLocation.PointInTime = SceneStartTime;
         }
         
-        protected Radarsat1Observation() : base()
+        protected Radarsat1Observation(int? tenantId) : base(tenantId)
         {
             Id = Guid.NewGuid();
             CurrentLocation = new SpaceTimeInformation();

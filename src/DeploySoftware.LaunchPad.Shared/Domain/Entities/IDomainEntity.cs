@@ -33,7 +33,7 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
     public interface IDomainEntity<TIdType> : 
         ILaunchPadObject, IEntity<TIdType>,
         IHasCreationTime, ICreationAudited, IHasModificationTime, IModificationAudited, IDeletionAudited,
-        ISoftDelete, IPassivable, IMayHaveTenant,
+        ISoftDelete, IPassivable,
         IComparable<DomainEntityBase<TIdType>>, IEquatable<DomainEntityBase<TIdType>>
     {
 

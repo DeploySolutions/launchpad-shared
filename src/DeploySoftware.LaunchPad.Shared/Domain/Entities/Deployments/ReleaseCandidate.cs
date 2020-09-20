@@ -25,7 +25,7 @@ using System.Xml.Serialization;
 
 namespace DeploySoftware.LaunchPad.Shared.Domain
 {
-    public class ReleaseCandidate<TPrimaryKey> : DomainEntityBase<TPrimaryKey>, IReleaseCandidate<TPrimaryKey>
+    public class ReleaseCandidate<TPrimaryKey> : TenantSpecificDomainEntityBase<TPrimaryKey>, IReleaseCandidate<TPrimaryKey>
     {
 
 
@@ -38,12 +38,12 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
 
         #region "Constructors"
 
-        public ReleaseCandidate() : base()
+        public ReleaseCandidate(int tenantId) : base(tenantId)
         {
          
         }
 
-        public ReleaseCandidate(string cultureName, String text) : base(cultureName)
+        public ReleaseCandidate(int tenantId,string cultureName, String text) : base(tenantId, cultureName)
         {
 
         }

@@ -1,5 +1,5 @@
 ﻿//LaunchPad Shared
-// Copyright (c) 2018-2020 Deploy Software Solutions, inc. 
+// Copyright (c) 2016-2021 Deploy Software Solutions, inc. 
 
 #region license
 //Licensed under the Apache License, Version 2.0 (the "License"); 
@@ -15,49 +15,57 @@
 //limitations under the License. 
 #endregion
     
+using System;
+using System.ComponentModel;
+using System.Runtime.Serialization;
+using System.Security.Permissions;
+using System.Text;
+using System.Xml.Serialization;
+
+
 namespace DeploySoftware.LaunchPad.Shared.Domain
 {
-    using System;
-
-    using System.Runtime.Serialization;
-    using System.Security.Permissions;
-    using System.Text;
-
-    public abstract class DataSet<TPrimaryKey> : DomainEntityBase<TPrimaryKey>, IDataSet<TPrimaryKey>
+    public class DeploymentProcess<TPrimaryKey> : DomainEntityBase<TPrimaryKey>, IDeploymentProcess<TPrimaryKey>
     {
-        
-        public int? TotalItemsCount { get; set; }
-        
+        /// <summary>
+        /// The URI to the deployment documentation
+        /// </summary>
+        [DataObjectField(false)]
+        [XmlAttribute]
+        public Uri DocumentationUrl { get; set; }
 
-        public DataSet(
-            int? tenantId,
-           string datasetName,
-           string datasetDescription
-        ) : base(tenantId)
+        /// <summary>
+        /// The URI to the diagram
+        /// </summary>
+        [DataObjectField(false)]
+        [XmlAttribute]
+        public Uri DiagramUrl { get; set; }
+
+
+        #region "Constructors"
+
+        public DeploymentProcess(int? tenantId) : base(tenantId)
         {
-            Metadata.DisplayName = datasetName;
-            Metadata.DescriptionShort = datasetDescription;
-            Metadata.DescriptionFull = datasetDescription;
-            TotalItemsCount = 0;
+         
         }
-            
-        protected DataSet(int? tenantId) : base(tenantId)
+
+        public DeploymentProcess(int? tenantId, string cultureName, String text) : base(tenantId, cultureName)
         {
-            Metadata.DisplayName = String.Empty;
-            TotalItemsCount = 0;
+
         }
-
-
+     
         /// <summary>
         /// Serialization constructor used for deserialization
         /// </summary>
         /// <param name="info">The serialization info</param>
         /// <param name="context">The context of the stream</param>
-        protected DataSet(SerializationInfo info, StreamingContext context) : base(info, context)
+        protected DeploymentProcess(SerializationInfo info, StreamingContext context) : base(info, context)
         {
-            TotalItemsCount = info.GetInt32("TotalItemsCount");
+            DocumentationUrl = (Uri)info.GetValue("DocumentationUrl", typeof(Uri));
+            DiagramUrl = (Uri)info.GetValue("DiagramUrl", typeof(Uri));
         }
 
+#endregion
 
         /// <summary>
         /// The method required for implementing ISerializable
@@ -67,8 +75,9 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         [SecurityPermission(SecurityAction.Demand, SerializationFormatter = true)]
         public override void GetObjectData(SerializationInfo info, StreamingContext context)
         {
-            base.GetObjectData(info, context);         
-            info.AddValue("TotalItemsCount", TotalItemsCount);
+            base.GetObjectData(info, context);
+            info.AddValue("DiagramUrl", DiagramUrl);
+            info.AddValue("DocumentationUrl", DocumentationUrl);
         }
 
         /// <summary>  
@@ -78,13 +87,12 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         public override string ToString()
         {
             StringBuilder sb = new StringBuilder();
-            sb.Append("[Dataset : ");
+            sb.Append("[DeploymentProcess : ");
             sb.AppendFormat(ToStringBaseProperties());
-            sb.AppendFormat(" TotalItemsCount={0};", TotalItemsCount);
+            sb.AppendFormat(" DocumentationUrl={0};", DocumentationUrl);
+            sb.AppendFormat(" DiagramUrl={0};", DiagramUrl);
             sb.Append("]");
             return sb.ToString();
         }
-
     }
-
 }

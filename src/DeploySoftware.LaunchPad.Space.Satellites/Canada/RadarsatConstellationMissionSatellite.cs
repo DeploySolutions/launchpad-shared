@@ -29,9 +29,9 @@ namespace DeploySoftware.LaunchPad.Space.Satellites.Canada
 
     public class RadarsatConstellationMissionSatellite<TPrimaryKey> : SatelliteBase<TPrimaryKey>
     {
-        protected RadarsatConstellationMissionSatellite() : base()
+        protected RadarsatConstellationMissionSatellite(int? tenantId) : base(tenantId)
         {
-            Operators = new List<ISatelliteOperator<Guid>>() { new CanadaSpaceAgency() as ISatelliteOperator<Guid> };
+            Operators = new List<ISatelliteOperator<Guid>>() { new CanadaSpaceAgency(tenantId) as ISatelliteOperator<Guid> };
         }
     }
 }

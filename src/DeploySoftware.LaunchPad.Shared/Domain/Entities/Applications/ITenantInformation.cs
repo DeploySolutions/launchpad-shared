@@ -18,9 +18,7 @@
 
 namespace DeploySoftware.LaunchPad.Shared.Domain
 {
-    using Newtonsoft.Json.Linq;
     using System;
-    using System.Collections.Generic;
     using System.ComponentModel;
     using System.Xml.Serialization;
 
@@ -28,7 +26,7 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
     /// Represents a tenant in an application.
     /// </summary>
     /// <typeparam name="TPrimaryKey"></typeparam>
-    public interface ITenantSettings<TPrimaryKey> : IDomainEntity<TPrimaryKey>
+    public interface ITenantInformation<TPrimaryKey> : IDomainEntity<TPrimaryKey>
     {
 
         /// <summary>

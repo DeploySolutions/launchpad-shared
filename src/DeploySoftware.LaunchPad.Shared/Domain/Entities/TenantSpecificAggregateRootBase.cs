@@ -19,57 +19,55 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
 {
     using Abp.Domain.Entities;
     using System;
-    using System.Collections.Generic;
     using System.Runtime.Serialization;
     using System.Security.Permissions;
     using System.Text;
-    using Abp.Events.Bus;
-    using System.ComponentModel.DataAnnotations.Schema;
-    using System.Collections.ObjectModel;
+    using System.ComponentModel;
+    using System.Xml.Serialization;
 
     /// <summary>
-    /// Base class for Aggregate Root Entities (in Domain Driven Design). Inherits from <see cref="DomainEntityBase">DomainEntityBase</see>
-    /// Implemenn ASP.NET Boilerplate's <see cref="IAggregateRoot">IAggregateRoot</see> interface.
-    /// Implements AspNetBoilerplate's auditing interfaces.
+    /// Base class for Aggregate Root entities that must be specifically related to tenants. 
+    /// Inherits from <see cref="AggregateRootBase{TIdType}{TIdType}">AggregateRootBase{TIdType}</see> and provides
+    /// base functionality for many of its methods. 
+    /// Implements AspNetBoilerplate's <see cref="IMustHaveTenant">IMustHaveTenant interface</see>, overriding the base interface where tenant may or may not exist.
     /// </summary>
-    public abstract partial class AggregateRootBase<TIdType> : 
-        DomainEntityBase<TIdType>, 
-        IAggregateRoot<TIdType>
+    public abstract partial class TenantSpecificAggregateRootBase<TIdType> :
+        AggregateRootBase<TIdType>, IMustHaveTenant
 
     {
 
-        #region Implementation of ASP.NET Boilerplate's IAggregateRoot interface
-
-        [NotMapped]
-        public ICollection<IEventData> DomainEvents { get; }
-
-        #endregion
+        /// <summary>
+        /// The id of the tenant that domain entity this belongs to
+        /// </summary>
+        [DataObjectField(false)]
+        [XmlAttribute]
+        public new int TenantId { get; set; }
 
         /// <summary>  
         /// Initializes a new instance of the <see cref="AggregateRootBase">AggregateRootBase</see> class
         /// </summary>
-        protected AggregateRootBase(int? tenantId) : base(tenantId)
+        protected TenantSpecificAggregateRootBase(int tenantId) : base(tenantId)
         {
-            DomainEvents = new Collection<IEventData>();
+
         }
 
         /// <summary>
-        /// Creates a new instance of the <see cref="AggregateRootBase">AggregateRootBase</see> class given a key, and some metadata. 
+        /// Creates a new instance of the <see cref="TenantSpecificAggregateRootBase">TenantSpecificAggregateRootBase</see> class given a key, and some metadata. 
         /// </summary>
         /// <param name="cultureName">The culture for this entity</param>
-        protected AggregateRootBase(int? tenantId, string cultureName) : base(tenantId, cultureName)
+        protected TenantSpecificAggregateRootBase(int tenantId, string cultureName) : base(tenantId, cultureName)
         {
-            DomainEvents = new Collection<IEventData>();
+
         }
 
         /// <summary>
-        /// Creates a new instance of the <see cref="AggregateRootBase">AggregateRootBase</see> class given a key, and some metadata. 
+        /// Creates a new instance of the <see cref="TenantSpecificAggregateRootBase">TenantSpecificAggregateRootBase</see> class given a key, and some metadata. 
         /// </summary>
         /// <param name="cultureName">The culture for this entity</param>
         /// <param name="metadata">The desired metadata for this entity</param>
-        protected AggregateRootBase(int? tenantId, DomainEntityKey<TIdType> key, MetadataInformation metadata) : base(tenantId, key,metadata)
+        protected TenantSpecificAggregateRootBase(int tenantId, DomainEntityKey<TIdType> key, MetadataInformation metadata) : base(tenantId, key,metadata)
         {
-            DomainEvents = new Collection<IEventData>();
+
         }
 
         /// <summary>
@@ -77,9 +75,9 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         /// </summary>
         /// <param name="info">The serialization info</param>
         /// <param name="context">The context of the stream</param>
-        protected AggregateRootBase(SerializationInfo info, StreamingContext context) : base(info, context)
+        protected TenantSpecificAggregateRootBase(SerializationInfo info, StreamingContext context) : base(info, context)
         {
-            DomainEvents = (Collection<IEventData>)info.GetValue("DomainEvents", typeof(Collection<IEventData>));
+
         }
 
         /// <summary>
@@ -112,7 +110,7 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         /// </summary>
         /// <param name="other">The other object of this type we are comparing to</param>
         /// <returns></returns>
-        public virtual int CompareTo(AggregateRootBase<TIdType> other)
+        public virtual int CompareTo(TenantSpecificAggregateRootBase<TIdType> other)
         {
             // put comparison of properties in here 
             // for base object we'll just sort by title
@@ -138,9 +136,9 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         /// <returns>True if the entities are the same according to business key value</returns>
         public override bool Equals(object obj)
         {
-            if (obj != null && obj is DomainEntityBase<TIdType>)
+            if (obj != null && obj is TenantSpecificAggregateRootBase<TIdType>)
             {
-                return Equals(obj as DomainEntityBase<TIdType>);
+                return Equals(obj as TenantSpecificAggregateRootBase<TIdType>);
             }
             return false;
         }
@@ -154,7 +152,7 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         /// </summary>
         /// <param name="obj">The other object of this type that we are testing equality with</param>
         /// <returns></returns>
-        public virtual bool Equals(DomainEntityBase<TIdType> obj)
+        public virtual bool Equals(TenantSpecificAggregateRootBase<TIdType> obj)
         {
             if (obj != null)
             {
@@ -182,7 +180,7 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         /// <param name="x">The first value</param>
         /// <param name="y">The second value</param>
         /// <returns>True if both objects are fully equal based on the Equals logic</returns>
-        public static bool operator ==(AggregateRootBase<TIdType> x, AggregateRootBase<TIdType> y)
+        public static bool operator ==(TenantSpecificAggregateRootBase<TIdType> x, TenantSpecificAggregateRootBase<TIdType> y)
         {
             if (System.Object.ReferenceEquals(x, null))
             {
@@ -201,7 +199,7 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         /// <param name="x">The first value</param>
         /// <param name="y">The second value</param>
         /// <returns>True if both objects are not equal based on the Equals logic</returns>
-        public static bool operator !=(AggregateRootBase<TIdType> x, AggregateRootBase<TIdType> y)
+        public static bool operator !=(TenantSpecificAggregateRootBase<TIdType> x, TenantSpecificAggregateRootBase<TIdType> y)
         {
             return !(x == y);
         }

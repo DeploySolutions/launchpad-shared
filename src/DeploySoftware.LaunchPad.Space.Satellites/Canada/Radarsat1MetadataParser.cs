@@ -140,6 +140,7 @@ namespace DeploySoftware.LaunchPad.Space.Satellites.Canada
 
                 // Create a new Radarsat1 Earth Observation image
                 observation = new Radarsat1Observation(
+                    null, // tenant Id - not used in this application
                     sceneId,
                     mdaOrderNumber,
                     geographicalArea,

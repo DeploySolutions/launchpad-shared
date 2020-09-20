@@ -28,7 +28,7 @@ namespace DeploySoftware.LaunchPad.Organizations.Canada
     public class CanadaSpaceAgency : GovernmentOrganizationBase<Guid>
     {
         
-        public CanadaSpaceAgency()
+        public CanadaSpaceAgency(int? tenantId) : base (tenantId)
         {
             GovernmentOrganization org = new GovernmentOrganization()
             {

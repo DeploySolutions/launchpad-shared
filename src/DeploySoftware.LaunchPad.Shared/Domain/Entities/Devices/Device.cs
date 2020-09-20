@@ -67,7 +67,7 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         /// <summary>  
         /// Initializes a new instance of the <see cref="Device">Device</see> class
         /// </summary>
-        public Device() : base()
+        public Device(int? tenantId) : base(tenantId)
         {
             CurrentLocation = new SpaceTimeInformation();
             PreviousLocations = new List<SpaceTimeInformation>();
@@ -78,7 +78,7 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         /// Creates a new instance of the <see cref="Device">Device</see> class given some metadata. 
         /// </summary>
         /// <param name="metadata">The desired metadata for this Device</param>
-        public Device(MetadataInformation metadata) : base()
+        public Device(int? tenantId,MetadataInformation metadata) : base(tenantId)
         {
             Metadata = metadata;
             CurrentLocation = new SpaceTimeInformation();
@@ -91,7 +91,8 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         /// <param name="key">The unique identifier for this device</param>
         /// <param name="metadata">The desired metadata for this device</param>
         /// <param name="currentLocation">The current physical location of this device</param>
-        public Device(TIdType id, MetadataInformation metadata, SpaceTimeInformation currentLocation)
+        public Device(int? tenantId, TIdType id, MetadataInformation metadata, SpaceTimeInformation currentLocation) 
+            :base(tenantId)
         {
             Id = id;
             Metadata = metadata;
@@ -107,7 +108,8 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         /// <param name="metadata">The desired metadata for this Device</param>
         /// <param name="currentLocation">The current physical location of this device</param>
         /// <param name="previousLocations">The previous physical location(s) of this device</param>
-        public Device(DomainEntityKey<TIdType> key, MetadataInformation metadata, SpaceTimeInformation currentLocation, IList<SpaceTimeInformation> previousLocations)
+        public Device(int? tenantId,DomainEntityKey<TIdType> key, MetadataInformation metadata, SpaceTimeInformation currentLocation, IList<SpaceTimeInformation> previousLocations)
+            :  base(tenantId,key,metadata)
         {
             CurrentLocation = currentLocation;
             PreviousLocations = previousLocations;
@@ -121,7 +123,8 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         /// <param name="metadata">The desired metadata for this Device</param>
         /// <param name="currentLocation">The current physical location of this device</param>
         /// <param name="power">The current power level of this device</param>
-        public Device(TIdType id, MetadataInformation metadata, SpaceTimeInformation currentLocation, DevicePower power)
+        public Device(int? tenantId, TIdType id, MetadataInformation metadata, SpaceTimeInformation currentLocation, DevicePower power):
+            base (tenantId)
         {
             Id = id;
             Key.Culture = "en";

@@ -69,7 +69,7 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         /// <summary>  
         /// Initializes a new instance of the <see cref="OrganizationBase&lt;TPrimaryKey&gt;">OrganizationBase&lt;TPrimaryKey&gt;</see> class
         /// </summary>
-        protected OrganizationBase() : base()
+        protected OrganizationBase(int? tenantId) : base(tenantId)
         {
             Key.Culture = "en";
             Metadata = new MetadataInformation();
@@ -81,7 +81,7 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         /// </summary>
         /// <param name="key">The unique identifier for this entity</param>
         /// <param name="metadata">The desired metadata for this entity</param>
-        protected OrganizationBase(TIdType id, MetadataInformation metadata) : base()
+        protected OrganizationBase(int? tenantId, TIdType id, MetadataInformation metadata) : base(tenantId)
         {
             Metadata = metadata;
         }
