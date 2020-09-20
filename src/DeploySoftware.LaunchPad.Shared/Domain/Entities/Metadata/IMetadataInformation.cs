@@ -63,7 +63,7 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         /// </summary>
         [DataObjectField(false)]
         [XmlAttribute]
-        DateTime DateCreated { get; set; }
+        DateTime CreationTime { get; set; }
 
         /// <summary>
         /// The date and time that the location and/or properties of this object were last modified.

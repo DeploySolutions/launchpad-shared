@@ -25,7 +25,7 @@ using System.Xml.Serialization;
 
 namespace DeploySoftware.LaunchPad.Shared.Domain
 {
-    public class Deployment<TPrimaryKey> : TenantSpecificDomainEntityBase<TPrimaryKey>, IDeployment<TPrimaryKey>
+    public class Deployment<TIdType> : TenantSpecificDomainEntityBase<TIdType>, IDeployment<TIdType>
     {
 
         /// <summary>
@@ -33,14 +33,14 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         /// </summary>
         [DataObjectField(false)]
         [XmlAttribute]
-        public TPrimaryKey ReleaseCandidateId { get; set; }
+        public TIdType ReleaseCandidateId { get; set; }
 
         /// <summary>
         /// The id of the process that will be followed during the deployment (if known)
         /// </summary>
         [DataObjectField(false)]
         [XmlAttribute]
-        public TPrimaryKey DeploymentProcessId { get; set; }
+        public TIdType DeploymentProcessId { get; set; }
 
         /// <summary>
         /// The current state of the deployment
@@ -77,7 +77,7 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
          
         }
 
-        public Deployment(int tenantId, string cultureName, String text) : base(tenantId, cultureName)
+        public Deployment(int tenantId, TIdType id, string cultureName, String text) : base(tenantId, id, cultureName)
         {
 
         }
@@ -91,8 +91,8 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         {
             State = info.GetString("State");
             PrimaryDeployerUserId = info.GetInt64("PrimaryDeployerUserId");
-            ReleaseCandidateId = (TPrimaryKey)info.GetValue("ReleaseCandidateId", typeof(TPrimaryKey));
-            DeploymentProcessId = (TPrimaryKey)info.GetValue("DeploymentProcessId", typeof(TPrimaryKey));
+            ReleaseCandidateId = (TIdType)info.GetValue("ReleaseCandidateId", typeof(TIdType));
+            DeploymentProcessId = (TIdType)info.GetValue("DeploymentProcessId", typeof(TIdType));
             DateDeployed = info.GetDateTime("DateDeployed");
             DateScheduled = info.GetDateTime("DateScheduled");
         }

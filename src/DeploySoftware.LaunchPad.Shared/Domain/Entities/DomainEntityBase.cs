@@ -44,6 +44,9 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
 
         private TIdType id;
         private string culture;
+        private string displayName;
+        private string descriptionShort;
+        private string descriptionFull;
 
         /// <summary>
         /// The id field for this object. Inherited from ABP. Note that for our LaunchPad framework we actually require
@@ -55,7 +58,7 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         [Key]
         public new TIdType Id
         {
-            get { return Key.Id; }
+            get { return id; }
             set
             {
                 id = value;
@@ -71,7 +74,7 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         [Key]
         public String Culture
         {
-            get { return Key.Culture; }
+            get { return culture; }
             set
             {
                 culture = value;
@@ -84,24 +87,45 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         /// </summary>
         [DataObjectField(false)]
         [XmlAttribute]
-        public String DisplayName { get; set; }
+        public String DisplayName {
+            get { return displayName; }
+            set
+            {
+                displayName = value;
+                Metadata.DisplayName = value;
+            }
+        }
 
         /// <summary>
         /// A short description for this entity
         /// </summary>
         [DataObjectField(false)]
         [XmlAttribute]
-        public String DescriptionShort { get; set; }
+        public String DescriptionShort {
+            get { return descriptionShort; }
+            set
+            {
+                descriptionShort = value;
+                Metadata.DescriptionShort = value;
+            }
+        }
 
         /// <summary>
         /// The full description for this entity
         /// </summary>
         [DataObjectField(false)]
         [XmlElement]
-        public String DescriptionFull { get; set; }
+        public String DescriptionFull {
+            get { return descriptionFull; }
+            set
+            {
+                descriptionFull = value;
+                Metadata.DescriptionFull = value;
+            }
+        }
 
         /// <summary>
-        /// The key (culture and Id) that uniquely identifies this object
+        /// The key (culture and Id) that uniquely identifies this object - convenience wrapper to combine both fields
         /// </summary>
         [DataObjectField(false)]
         [XmlAttribute]
@@ -147,11 +171,11 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         [XmlAttribute]
         public DateTime CreationTime
         {
-            get { return Metadata.DateCreated; }
+            get { return creationTime; }
             set
-            { 
+            {
                 creationTime = value;
-                Metadata.DateCreated = value;
+                Metadata.CreationTime = value;
             }
         }
 
@@ -160,7 +184,7 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         [XmlAttribute]
         public long? CreatorUserId
         {
-            get { return Metadata.CreatorId; }
+            get { return creatorUserId; }
             set
             {
                 creatorUserId = value;
@@ -173,7 +197,7 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         [XmlAttribute]
         public DateTime? LastModificationTime
         {
-            get { return Metadata.DateLastModified; }
+            get { return lastModificationTime; }
             set
             {
                 lastModificationTime = value;
@@ -186,7 +210,7 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         [XmlAttribute]
         public long? LastModifierUserId
         {
-            get { return Metadata.LastModifiedById; }
+            get { return lastModifierUserId; }
             set
             {
                 lastModifierUserId = value;
@@ -215,24 +239,33 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         /// <summary>  
         /// Initializes a new instance of the <see cref="DomainEntityBase">Entity</see> class
         /// </summary>
+        protected DomainEntityBase() : base()
+        {
+            Key = new DomainEntityKey<TIdType>(ApplicationInformation<TIdType>.DEFAULT_CULTURE);
+            Metadata = new MetadataInformation();
+            Tags = new List<MetadataTag>();
+            IsDeleted = false;
+            IsActive = true;
+        }
+
+        /// <summary>  
+        /// Initializes a new instance of the <see cref="DomainEntityBase">Entity</see> class
+        /// </summary>
         protected DomainEntityBase(int? tenantId) : base()
         {
             TenantId = tenantId;
             Key = new DomainEntityKey<TIdType>(ApplicationInformation<TIdType>.DEFAULT_CULTURE);
             Metadata = new MetadataInformation();
-            IsDeleted = false;
-            IsActive = true;
-            Tags = new List<MetadataTag>();
         }
 
         /// <summary>
         /// Creates a new instance of the <see cref="DomainEntityBase">Entity</see> class given a key, and some metadata. 
         /// </summary>
         /// <param name="culture">The culture for this entity</param>
-        protected DomainEntityBase(int? tenantId, string culture) : base()
+        protected DomainEntityBase(int? tenantId, TIdType id, string culture) : base()
         {
             TenantId = tenantId;
-            Key = new DomainEntityKey<TIdType>(culture);
+            Key = new DomainEntityKey<TIdType>(id,culture);
             Metadata = new MetadataInformation();
             IsDeleted = false;
             IsActive = true;

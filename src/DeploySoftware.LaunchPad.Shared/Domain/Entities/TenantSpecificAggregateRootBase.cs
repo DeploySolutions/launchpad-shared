@@ -55,7 +55,7 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         /// Creates a new instance of the <see cref="TenantSpecificAggregateRootBase">TenantSpecificAggregateRootBase</see> class given a key, and some metadata. 
         /// </summary>
         /// <param name="cultureName">The culture for this entity</param>
-        protected TenantSpecificAggregateRootBase(int tenantId, string cultureName) : base(tenantId, cultureName)
+        protected TenantSpecificAggregateRootBase(int tenantId, TIdType id, string cultureName) : base(tenantId, id, cultureName)
         {
 
         }

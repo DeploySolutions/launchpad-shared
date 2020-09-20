@@ -26,7 +26,7 @@ using System.Xml.Serialization;
 namespace DeploySoftware.LaunchPad.Shared.Domain
 {
     [Serializable()]
-    public class ContentItem<TPrimaryKey> : DomainEntityBase<TPrimaryKey>, IContentItem<TPrimaryKey>
+    public class ContentItem<TIdType> : DomainEntityBase<TIdType>, IContentItem<TIdType>
     {
         /// <summary>
         /// The name of this metadata tag
@@ -46,7 +46,7 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
             Text = String.Empty;            
         }
 
-        public ContentItem(int? tenantId, string cultureName, String text) : base(tenantId, cultureName)
+        public ContentItem(int? tenantId, TIdType id, string cultureName, String text) : base(tenantId, id, cultureName)
         {
             Text = text;
         }

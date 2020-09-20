@@ -29,9 +29,9 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
     /// <summary>
     /// Base class for tenant-specific information
     /// </summary>
-    /// <typeparam name="TPrimaryKey">The type of the key id field</typeparam>
+    /// <typeparam name="TIdType">The type of the key id field</typeparam>
     [Serializable()]
-    public class TenantInformation<TPrimaryKey> : TenantSpecificDomainEntityBase<TPrimaryKey>, ITenantInformation<TPrimaryKey>
+    public class TenantInformation<TIdType> : TenantSpecificDomainEntityBase<TIdType>, ITenantInformation<TIdType>
     {
         
         [DataObjectField(false)]
@@ -58,22 +58,22 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
 
         public TenantInformation(int tenantId) : base(tenantId)
         {
-            DisplayPrimaryColourHex = ApplicationInformation<TPrimaryKey>.DEFAULT_HEX_COlOUR;
-            CultureDefault = ApplicationInformation<TPrimaryKey>.DEFAULT_CULTURE;
-            CultureSupported = ApplicationInformation<TPrimaryKey>.DEFAULT_CULTURE;
+            DisplayPrimaryColourHex = ApplicationInformation<TIdType>.DEFAULT_HEX_COlOUR;
+            CultureDefault = ApplicationInformation<TIdType>.DEFAULT_CULTURE;
+            CultureSupported = ApplicationInformation<TIdType>.DEFAULT_CULTURE;
 
         }
 
-        public TenantInformation(int tenantId, string cultureName, String cultureDefault) : base(tenantId, cultureName)
+        public TenantInformation(int tenantId, TIdType id, string cultureName, String cultureDefault) : base(tenantId, id, cultureName)
         {
-            DisplayPrimaryColourHex = ApplicationInformation<TPrimaryKey>.DEFAULT_HEX_COlOUR;
+            DisplayPrimaryColourHex = ApplicationInformation<TIdType>.DEFAULT_HEX_COlOUR;
             CultureDefault = cultureDefault;
             CultureSupported = cultureDefault;
         }
 
-        public TenantInformation(int tenantId, string cultureName, String cultureDefault, String cultureSupported) : base(tenantId, cultureName)
+        public TenantInformation(int tenantId, TIdType id, string cultureName, String cultureDefault, String cultureSupported) : base(tenantId, id, cultureName)
         {
-            DisplayPrimaryColourHex = ApplicationInformation<TPrimaryKey>.DEFAULT_HEX_COlOUR;
+            DisplayPrimaryColourHex = ApplicationInformation<TIdType>.DEFAULT_HEX_COlOUR;
             CultureDefault = cultureDefault;
             CultureSupported = cultureSupported;
         }

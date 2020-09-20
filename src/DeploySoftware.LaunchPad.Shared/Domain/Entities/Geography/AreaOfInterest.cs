@@ -31,8 +31,8 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
     /// This class defines the geographical boundaries of an Area of Interest being observed.
     /// </summary>
     [Serializable()]
-    public class AreaOfInterest<TPrimaryKey> : 
-        DomainEntityBase<TPrimaryKey>, IAreaOfInterest<TPrimaryKey>
+    public class AreaOfInterest<TIdType> : 
+        DomainEntityBase<TIdType>, IAreaOfInterest<TIdType>
     {
         
         [DataObjectField(false)]
@@ -55,7 +55,7 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         {
             BoundingBoxCoordinates = boundingBox;
         }
-        public AreaOfInterest(int? tenantId, String culture, IEnumerable<IGeographicLocation> boundingBox) : base(tenantId, culture)
+        public AreaOfInterest(int? tenantId, TIdType id, String culture, IEnumerable<IGeographicLocation> boundingBox) : base(tenantId, id, culture)
         {
             BoundingBoxCoordinates = boundingBox;
         }
@@ -115,9 +115,9 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         /// <returns>True if the objects are the same</returns>
         public override bool Equals(object obj)
         {
-            if (obj != null && obj is AreaOfInterest<TPrimaryKey>)
+            if (obj != null && obj is AreaOfInterest<TIdType>)
             {
-                return Equals(obj as AreaOfInterest<TPrimaryKey>);
+                return Equals(obj as AreaOfInterest<TIdType>);
             }
             return false;
         }
@@ -130,7 +130,7 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         /// </summary>
         /// <param name="obj">The other object of this type we are testing equality with</param>
         /// <returns></returns>
-        public bool Equals(AreaOfInterest<TPrimaryKey> obj)
+        public bool Equals(AreaOfInterest<TIdType> obj)
         {
             if (obj != null)
             {
@@ -154,7 +154,7 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         /// <param name="x">The first value</param>
         /// <param name="y">The second value</param>
         /// <returns>True if both objects are fully equal based on the Equals logic</returns>
-        public static bool operator ==(AreaOfInterest<TPrimaryKey> x, AreaOfInterest<TPrimaryKey> y)
+        public static bool operator ==(AreaOfInterest<TIdType> x, AreaOfInterest<TIdType> y)
         {
             if (ReferenceEquals(x, null))
             {
@@ -173,7 +173,7 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         /// <param name="x">The first value</param>
         /// <param name="y">The second value</param>
         /// <returns>True if both objects are not equal based on the Equals logic</returns>
-        public static bool operator !=(AreaOfInterest<TPrimaryKey> x, AreaOfInterest<TPrimaryKey> y)
+        public static bool operator !=(AreaOfInterest<TIdType> x, AreaOfInterest<TIdType> y)
         {
             return !(x == y);
         }

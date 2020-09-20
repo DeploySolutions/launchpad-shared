@@ -69,7 +69,7 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         /// </summary>
         [DataObjectField(false)]
         [XmlAttribute]
-        public virtual DateTime DateCreated { get; set; }
+        public virtual DateTime CreationTime { get; set; }
 
         /// <summary>
         /// The date and time that the location and/or properties of this object were last modified.
@@ -104,7 +104,7 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
             DescriptionFull = String.Empty;
             DescriptionShort = String.Empty;
             DisplayName = String.Empty;
-            DateCreated = DateTime.Now;
+            CreationTime = DateTime.Now;
             DateLastModified = DateTime.Now;
             MimeType = String.Empty;
         }
@@ -122,7 +122,7 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
             DescriptionShort = info.GetString("DescriptionShort");
             CreatorId = info.GetInt64("CreatorId");            
             LastModifiedById = info.GetInt64("LastModifiedById");
-            DateCreated = info.GetDateTime("DateCreated");
+            CreationTime = info.GetDateTime("DateCreated");
             DateLastModified = info.GetDateTime("DateLastModified");
         }
 
@@ -142,7 +142,7 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
             info.AddValue("DescriptionShort", DescriptionShort);
             info.AddValue("LastModifiedById", LastModifiedById);
             info.AddValue("CreatorId", CreatorId);
-            info.AddValue("DateCreated", DateCreated);
+            info.AddValue("DateCreated", CreationTime);
             info.AddValue("DateLastModified", DateLastModified);
         }
 
@@ -180,7 +180,7 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
             {
                 sb.AppendFormat(" MimeType={0};", MimeType);
             }
-            sb.AppendFormat(" DateCreated={0};", DateCreated);
+            sb.AppendFormat(" DateCreated={0};", CreationTime);
             sb.AppendFormat(" DateLastModified={0};", DateLastModified);
             sb.Append("]");
             return sb.ToString();
@@ -237,7 +237,7 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
                     && DescriptionShort.Equals(obj.DescriptionShort)
                     && LastModifiedById.Equals(obj.LastModifiedById)
                     && MimeType.Equals(obj.MimeType) &&
-                    DateCreated.Equals(obj.DateCreated) &&
+                    CreationTime.Equals(obj.CreationTime) &&
                     DateLastModified.Equals(obj.DateLastModified) 
 
                 )
@@ -283,7 +283,7 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
                 + DescriptionShort.GetHashCode()
                 + LastModifiedById.GetHashCode()
                 + MimeType.GetHashCode()
-                + DateCreated.GetHashCode()
+                + CreationTime.GetHashCode()
                 + DateLastModified.GetHashCode();
         }
     }

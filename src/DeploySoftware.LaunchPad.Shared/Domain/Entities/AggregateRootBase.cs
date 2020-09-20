@@ -57,7 +57,7 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         /// Creates a new instance of the <see cref="AggregateRootBase">AggregateRootBase</see> class given a key, and some metadata. 
         /// </summary>
         /// <param name="cultureName">The culture for this entity</param>
-        protected AggregateRootBase(int? tenantId, string cultureName) : base(tenantId, cultureName)
+        protected AggregateRootBase(int? tenantId, TIdType id, string cultureName) : base(tenantId, id, cultureName)
         {
             DomainEvents = new Collection<IEventData>();
         }

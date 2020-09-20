@@ -31,7 +31,7 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
     /// </summary>
     /// <typeparam name="TPrimaryKey">The type of the key id field</typeparam>
     [Serializable()]
-    public class ApplicationInformation<TPrimaryKey> : DomainEntityBase<TPrimaryKey>, IApplicationInformation<TPrimaryKey>
+    public class ApplicationInformation<TIdType> : DomainEntityBase<TIdType>, IApplicationInformation<TIdType>
     {
         public const string DEFAULT_CULTURE = "en";
         public const string DEFAULT_HEX_COlOUR = "1dbff0";
@@ -102,23 +102,23 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
             CultureSupported = DEFAULT_CULTURE;
         }
 
-        public ApplicationInformation(int? tenantId, string cultureName) : base(tenantId, cultureName)
+        public ApplicationInformation(int? tenantId, TIdType id, string cultureName) : base(tenantId, id, cultureName)
         {
             DisplayPrimaryColourHex = DEFAULT_HEX_COlOUR;
             CultureDefault = DEFAULT_CULTURE;
             CultureSupported = DEFAULT_CULTURE;
         }
 
-        public ApplicationInformation(int? tenantId,string cultureName, String cultureDefault) : base(tenantId, cultureName)
+        public ApplicationInformation(int? tenantId, TIdType id, string cultureName, String cultureDefault) : base(tenantId, id, cultureName)
         {
-            DisplayPrimaryColourHex = ApplicationInformation<TPrimaryKey>.DEFAULT_HEX_COlOUR;
+            DisplayPrimaryColourHex = ApplicationInformation<TIdType>.DEFAULT_HEX_COlOUR;
             CultureDefault = cultureDefault;
             CultureSupported = cultureDefault;
         }
 
-        public ApplicationInformation(int? tenantId, string cultureName, String cultureDefault, String cultureSupported) : base(tenantId, cultureName)
+        public ApplicationInformation(int? tenantId, TIdType id, string cultureName, String cultureDefault, String cultureSupported) : base(tenantId, id, cultureName)
         {
-            DisplayPrimaryColourHex = ApplicationInformation<TPrimaryKey>.DEFAULT_HEX_COlOUR;
+            DisplayPrimaryColourHex = ApplicationInformation<TIdType>.DEFAULT_HEX_COlOUR;
             CultureDefault = cultureDefault;
             CultureSupported = cultureSupported;
         }

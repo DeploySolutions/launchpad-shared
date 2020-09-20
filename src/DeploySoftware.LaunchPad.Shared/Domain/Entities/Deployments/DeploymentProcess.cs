@@ -25,7 +25,7 @@ using System.Xml.Serialization;
 
 namespace DeploySoftware.LaunchPad.Shared.Domain
 {
-    public class DeploymentProcess<TPrimaryKey> : DomainEntityBase<TPrimaryKey>, IDeploymentProcess<TPrimaryKey>
+    public class DeploymentProcess<TIdType> : DomainEntityBase<TIdType>, IDeploymentProcess<TIdType>
     {
         /// <summary>
         /// The URI to the deployment documentation
@@ -49,7 +49,7 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
          
         }
 
-        public DeploymentProcess(int? tenantId, string cultureName, String text) : base(tenantId, cultureName)
+        public DeploymentProcess(int? tenantId, TIdType id, string cultureName, String text) : base(tenantId, id, cultureName)
         {
 
         }

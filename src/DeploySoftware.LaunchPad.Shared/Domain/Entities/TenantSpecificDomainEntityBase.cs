@@ -58,7 +58,7 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         /// </summary>
         /// <param name="culture">The culture for this entity</param>
         /// <param name="tenantId">The id of the tenant to which this entity belongs</param>
-        protected TenantSpecificDomainEntityBase(int tenantId, string culture) : base(tenantId,culture)
+        protected TenantSpecificDomainEntityBase(int tenantId, TIdType id, string culture) : base(tenantId,id,culture)
         {
             TenantId = tenantId;
         }
