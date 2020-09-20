@@ -138,9 +138,9 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         /// <returns>True if the entities are the same according to business key value</returns>
         public override bool Equals(object obj)
         {
-            if (obj != null && obj is DomainEntityBase<TIdType>)
+            if (obj != null && obj is AggregateRootBase<TIdType>)
             {
-                return Equals(obj as DomainEntityBase<TIdType>);
+                return Equals(obj as AggregateRootBase<TIdType>);
             }
             return false;
         }
@@ -154,7 +154,7 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         /// </summary>
         /// <param name="obj">The other object of this type that we are testing equality with</param>
         /// <returns></returns>
-        public virtual bool Equals(DomainEntityBase<TIdType> obj)
+        public virtual bool Equals(AggregateRootBase<TIdType> obj)
         {
             if (obj != null)
             {
