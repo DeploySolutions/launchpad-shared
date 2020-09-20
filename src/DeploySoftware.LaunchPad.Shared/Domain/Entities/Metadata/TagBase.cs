@@ -33,7 +33,7 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
     /// base functionality for many of its methods. Inherits from ASP.NET Boilerplate's IEntity interface.
     /// </summary>
     public abstract partial class TagBase : 
-        ILaunchPadMetadataTag, 
+        ILaunchPadMetadataTag,
         IComparable<TagBase>, IEquatable<TagBase>    
     {
         

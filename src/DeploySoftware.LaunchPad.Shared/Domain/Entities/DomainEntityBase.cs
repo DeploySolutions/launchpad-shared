@@ -29,6 +29,8 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
     using Abp.Domain.Entities.Auditing;
     using System.Globalization;
     using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
+    using System.Collections.Generic;
 
     /// <summary>
     /// Base class for Entities. Implements <see cref="IDomainEntity">IDomainEntity</see> and provides
@@ -41,6 +43,7 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
     {
 
         private TIdType id;
+        private string culture;
 
         /// <summary>
         /// The id field for this object. Inherited from ABP. Note that for our LaunchPad framework we actually require
@@ -49,6 +52,7 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         /// </summary>
         [DataObjectField(true)]
         [XmlAttribute]
+        [Key]
         public new TIdType Id
         {
             get { return Key.Id; }
@@ -60,10 +64,48 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         }
 
         /// <summary>
-        /// The key (culture and Id) that uniquely identifies this object
+        /// The culture of this object
         /// </summary>
         [DataObjectField(true)]
         [XmlAttribute]
+        [Key]
+        public String Culture
+        {
+            get { return Key.Culture; }
+            set
+            {
+                culture = value;
+                Key.Culture = value;
+            }
+        }
+
+        /// <summary>
+        /// The display name of this object
+        /// </summary>
+        [DataObjectField(false)]
+        [XmlAttribute]
+        public String DisplayName { get; set; }
+
+        /// <summary>
+        /// A short description for this entity
+        /// </summary>
+        [DataObjectField(false)]
+        [XmlAttribute]
+        public String DescriptionShort { get; set; }
+
+        /// <summary>
+        /// The full description for this entity
+        /// </summary>
+        [DataObjectField(false)]
+        [XmlElement]
+        public String DescriptionFull { get; set; }
+
+        /// <summary>
+        /// The key (culture and Id) that uniquely identifies this object
+        /// </summary>
+        [DataObjectField(false)]
+        [XmlAttribute]
+        [NotMapped]
         public DomainEntityKey<TIdType> Key { get; set; }
 
         /// <summary>
@@ -71,7 +113,16 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         /// </summary>
         [DataObjectField(false)]
         [XmlAttribute]
+        [NotMapped]
         public MetadataInformation Metadata { get; set; }
+
+
+        /// <summary>
+        /// Each entity can have an open-ended set of tags applied to it, that help users find, markup, and display its information
+        /// </summary>
+        [DataObjectField(false)]
+        [XmlAttribute]
+        public IEnumerable<MetadataTag> Tags { get; set; }
 
         /// <summary>
         /// A convenience readonly method to get a <see cref="CultureInfo">CultureInfo</see> instance from the current 
@@ -171,6 +222,7 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
             Metadata = new MetadataInformation();
             IsDeleted = false;
             IsActive = true;
+            Tags = new List<MetadataTag>();
         }
 
         /// <summary>
@@ -184,6 +236,7 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
             Metadata = new MetadataInformation();
             IsDeleted = false;
             IsActive = true;
+            Tags = new List<MetadataTag>();
         }
 
         /// <summary>
@@ -199,6 +252,7 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
             Metadata = metadata;
             IsDeleted = false;
             IsActive = true;
+            Tags = new List<MetadataTag>();
         }
 
         /// <summary>
@@ -213,6 +267,7 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
             TenantId = info.GetInt32("TenantId");
             IsDeleted = info.GetBoolean("IsDeleted"); 
             IsActive = info.GetBoolean("IsActive");
+            Tags = (IEnumerable<MetadataTag>)info.GetValue("Metadata", typeof(IEnumerable<MetadataTag>));
         }
 
         /// <summary>
@@ -228,6 +283,7 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
             info.AddValue("TenantId", TenantId);
             info.AddValue("IsActive", IsActive);
             info.AddValue("IsDeleted", IsDeleted);
+            info.AddValue("Tags", Tags);
         }
 
         /// <summary>
@@ -301,6 +357,7 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
             sb.AppendFormat("TenantId={0};", TenantId);
             sb.AppendFormat("IsActive={0};", IsActive);
             sb.AppendFormat("IsDeleted={0};", IsDeleted);
+            sb.AppendFormat(" Tags={0};", Tags.ToString());
             return sb.ToString();
         }
 
@@ -343,7 +400,8 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
                     // Base domain entities are functionally equal if their key and metadata are equal.
                     // Subclasses should extend to include their own enhanced equality checks, as required.
                     return Id.Equals(obj.Id) && Key.Culture.Equals(obj.Key.Culture) && Metadata.Equals(obj.Metadata)
-                        && IsActive.Equals(obj.IsActive) && IsDeleted.Equals(obj.IsDeleted) && TenantId.Equals(obj.TenantId);
+                        && IsActive.Equals(obj.IsActive) && IsDeleted.Equals(obj.IsDeleted) && TenantId.Equals(obj.TenantId) &&
+                        Tags.Equals(obj.Tags);
                 }
                 
             }
@@ -389,7 +447,11 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         /// <returns>A hash code for an object.</returns>
         public override int GetHashCode()
         {
-            return Key.Culture.GetHashCode()+Key.Id.GetHashCode();
+            return Culture.GetHashCode()
+                + Id.GetHashCode()
+                + DisplayName.GetHashCode()
+                + LastModifierUserId.GetHashCode()
+                + LastModificationTime.GetHashCode();
         }
 
     }

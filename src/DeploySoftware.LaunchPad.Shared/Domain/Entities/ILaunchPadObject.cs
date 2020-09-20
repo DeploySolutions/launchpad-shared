@@ -20,6 +20,7 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
 {
     using System.Runtime.Serialization;
     using System.ComponentModel;
+    using System.ComponentModel.DataAnnotations.Schema;
 
     /// <summary>
     /// Every entity or file managed by the platform must implement this interface.    
@@ -31,6 +32,7 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         /// Each Entity or File object can have an open-ended set of metadata applied to it, that helps to describe it.
         /// </summary>
         [DataObjectField(false)]
+        [NotMapped]
         MetadataInformation Metadata { get; set; }        
 
     }

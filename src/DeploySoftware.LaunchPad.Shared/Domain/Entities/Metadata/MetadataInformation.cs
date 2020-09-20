@@ -36,13 +36,6 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
     {
 
         /// <summary>
-        /// The id of the metadata information
-        /// </summary>
-        [DataObjectField(false)]
-        [XmlAttribute]
-        public virtual long MetadataId { get; set; }
-
-        /// <summary>
         /// The id of the User Agent which created this entity
         /// </summary>
         [DataObjectField(false)]
@@ -100,13 +93,6 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         [XmlAttribute]
         public virtual String MimeType { get; set; }
 
-        /// <summary>
-        /// Each entity can have an open-ended set of tags applied to it, that help users find, markup, and display its information
-        /// </summary>
-        [DataObjectField(false)]
-        [XmlAttribute]
-        public IEnumerable<MetadataTag> Tags { get; set; }
-
 
         #region Constructors
 
@@ -121,7 +107,6 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
             DateCreated = DateTime.Now;
             DateLastModified = DateTime.Now;
             MimeType = String.Empty;
-            Tags = new List<MetadataTag>();
         }
 
         /// <summary>
@@ -139,7 +124,6 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
             LastModifiedById = info.GetInt64("LastModifiedById");
             DateCreated = info.GetDateTime("DateCreated");
             DateLastModified = info.GetDateTime("DateLastModified");
-            Tags = (IEnumerable<MetadataTag>)info.GetValue("Metadata", typeof(IEnumerable<MetadataTag>));
         }
 
         #endregion
@@ -160,7 +144,6 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
             info.AddValue("CreatorId", CreatorId);
             info.AddValue("DateCreated", DateCreated);
             info.AddValue("DateLastModified", DateLastModified);
-            info.AddValue("Tags", Tags);
         }
 
         /// Event called once deserialization constructor finishes.
@@ -199,7 +182,6 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
             }
             sb.AppendFormat(" DateCreated={0};", DateCreated);
             sb.AppendFormat(" DateLastModified={0};", DateLastModified);
-            sb.AppendFormat(" Tags={0};", Tags.ToString());
             sb.Append("]");
             return sb.ToString();
         }
@@ -256,8 +238,7 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
                     && LastModifiedById.Equals(obj.LastModifiedById)
                     && MimeType.Equals(obj.MimeType) &&
                     DateCreated.Equals(obj.DateCreated) &&
-                    DateLastModified.Equals(obj.DateLastModified) &&
-                    Tags.Equals(obj.Tags)
+                    DateLastModified.Equals(obj.DateLastModified) 
 
                 )
             ;
@@ -296,15 +277,14 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         /// <returns>A hash code for an object.</returns>
         public override int GetHashCode()
         {
-            return CreatorId.GetHashCode() 
-                + DisplayName.GetHashCode() 
+            return CreatorId.GetHashCode()
+                + DisplayName.GetHashCode()
                 + DescriptionFull.GetHashCode()
                 + DescriptionShort.GetHashCode()
-                + LastModifiedById.GetHashCode() 
-                + MimeType.GetHashCode() 
-                + DateCreated.GetHashCode() 
-                + DateLastModified.GetHashCode()
-                + Tags.GetHashCode();
+                + LastModifiedById.GetHashCode()
+                + MimeType.GetHashCode()
+                + DateCreated.GetHashCode()
+                + DateLastModified.GetHashCode();
         }
     }
 }

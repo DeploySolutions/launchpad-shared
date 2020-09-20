@@ -30,13 +30,6 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
     {
 
         /// <summary>
-        /// The id of the metadata information
-        /// </summary>
-        [DataObjectField(false)]
-        [XmlAttribute]
-        long MetadataId { get; set; }
-
-        /// <summary>
         /// The author of this entity
         /// </summary>
         [DataObjectField(false)]
@@ -93,14 +86,6 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         [DataObjectField(false)]
         [XmlAttribute]
         String MimeType { get; set; }
-
-        /// <summary>
-        /// Each entity can have an open-ended set of tags applied to it, that help users find, markup, and display its information
-        /// </summary>
-        [DataObjectField(false)]
-        [XmlAttribute]
-        IEnumerable<MetadataTag> Tags { get; set; }
-
 
 
     }
