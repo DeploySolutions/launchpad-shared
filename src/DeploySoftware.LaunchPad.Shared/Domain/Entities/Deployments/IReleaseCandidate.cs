@@ -21,7 +21,11 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
     using System.ComponentModel;
     using System.Xml.Serialization;
 
-    public interface IReleaseCandidate<TPrimaryKey> : IDomainEntity<TPrimaryKey>
+    /// <summary>
+    /// Represents a release (set of code, data, and resources) that is a candidate to be deployed to a destination environment.
+    /// </summary>
+    /// <typeparam name="TIdType">The type of the Id</typeparam>
+    public interface IReleaseCandidate<TIdType> : IDomainEntity<TIdType>
     {
 
         /// <summary>
@@ -43,14 +47,14 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         /// </summary>
         [DataObjectField(false)]
         [XmlAttribute]
-        String State { get; set; }
+        ReleaseCandidate<TIdType>.ReleaseStates ReleaseState { get; set; }
 
         /// <summary>
         /// The release date and time
         /// </summary>
         [DataObjectField(false)]
         [XmlAttribute]
-        DateTime? DateReleased { get; set; }
+        DateTime? ReleaseDate { get; set; }
 
         /// <summary>
         /// The URI where the release candidate package is located

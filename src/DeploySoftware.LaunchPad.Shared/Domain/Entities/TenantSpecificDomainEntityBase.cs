@@ -20,6 +20,8 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
     using Abp.Domain.Entities;
     using System;
     using System.ComponentModel;
+    using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
     using System.Reflection;
     using System.Runtime.Serialization;
     using System.Security.Permissions;
@@ -41,6 +43,8 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         /// </summary>
         [DataObjectField(false)]
         [XmlAttribute]
+        [Required]
+        [ForeignKey(nameof(TenantId))]
         public new int TenantId { get; set; }
 
 

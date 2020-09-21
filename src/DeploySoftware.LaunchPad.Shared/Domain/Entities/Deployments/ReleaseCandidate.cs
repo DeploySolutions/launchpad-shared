@@ -25,15 +25,41 @@ using System.Xml.Serialization;
 
 namespace DeploySoftware.LaunchPad.Shared.Domain
 {
+    /// <summary>
+    /// Represents a release (set of code, data, and resources) that is a candidate to be deployed to a destination environment.
+    /// </summary>
+    /// <typeparam name="TIdType">The type of the Id</typeparam>
     public class ReleaseCandidate<TIdType> : TenantSpecificDomainEntityBase<TIdType>, IReleaseCandidate<TIdType>
     {
 
-
+        /// <summary>
+        /// The checksum (from git or elsewhere)
+        /// </summary>
         public string Checksum { get; set; }
+
+        /// <summary>
+        /// The version of this release
+        /// </summary>
         public string Version { get; set; }
-        public string State { get; set; }
-        public DateTime? DateReleased { get; set; }
+        public ReleaseStates ReleaseState { get; set; }
+
+        /// <summary>
+        /// The date and time this release occurred
+        /// </summary>
+        public DateTime? ReleaseDate { get; set; }
+
+        /// <summary>
+        /// The URI to the release package
+        /// </summary>
         public Uri PackageUri { get; set; }
+
+        public enum ReleaseStates
+        {
+            Not_Started = 0,
+            In_Progress = 1,
+            Succeeded = 2,
+            Failed = 3
+        }
 
 
         #region "Constructors"
@@ -57,9 +83,9 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         {
             Version = info.GetString("Version");
             Checksum = info.GetString("Checksum");
-            State = info.GetString("State");
+            ReleaseState = (ReleaseStates)info.GetValue("ReleaseState", typeof(ReleaseStates));
             PackageUri = (Uri)info.GetValue("PackageUri", typeof(Uri));
-            DateReleased = info.GetDateTime("DateReleased");
+            ReleaseDate = info.GetDateTime("ReleaseDate");
         }
 
         #endregion
@@ -75,9 +101,9 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
             base.GetObjectData(info, context);
             info.AddValue("Version", Version);
             info.AddValue("Checksum", Checksum);
-            info.AddValue("State", State);
+            info.AddValue("ReleaseState", ReleaseState);
             info.AddValue("PackageUri", PackageUri);
-            info.AddValue("DateReleased", DateReleased);
+            info.AddValue("ReleaseDate", ReleaseDate);
         }
 
         /// <summary>  
@@ -91,9 +117,9 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
             sb.AppendFormat(ToStringBaseProperties());
             sb.AppendFormat(" Version={0};", Version);
             sb.AppendFormat(" Checksum={0};", Checksum);
-            sb.AppendFormat(" State={0};", State);
+            sb.AppendFormat(" ReleaseState={0};", ReleaseState);
             sb.AppendFormat(" PackageUri={0};", PackageUri);
-            sb.AppendFormat(" DateReleased={0};", DateReleased);       
+            sb.AppendFormat(" ReleaseDate={0};", ReleaseDate);       
             sb.Append("]");
             return sb.ToString();
         }

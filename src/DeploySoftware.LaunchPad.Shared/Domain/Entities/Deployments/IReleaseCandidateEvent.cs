@@ -19,28 +19,50 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
 {
     using System;
     using System.ComponentModel;
+    using System.ComponentModel.DataAnnotations;
     using System.Xml.Serialization;
 
     /// <summary>
-    /// Represents the process which a deployment will follow as it takes a release candidate (set of code, data, and resources) and places it in a destination environment.
+    /// Represents a an event that is related to a release candidate.
     /// </summary>
     /// <typeparam name="TIdType">The type of the Id</typeparam>
-    public interface IDeploymentProcess<TPrimaryKey> : IDomainEntity<TPrimaryKey>
+    public interface IReleaseCandidateEvent<TIdType> : IDomainEntity<TIdType>
     {
-
         /// <summary>
-        /// The URI to the deployment documentation
+        /// The id of the release candidate this deployment is for
         /// </summary>
         [DataObjectField(false)]
         [XmlAttribute]
-        Uri DocumentationUri { get; set; }
+        [Required]
+        TIdType ReleaseCandidateId { get; set; }
 
         /// <summary>
-        /// The URI to the diagram
+        /// The category of this release candidate event
         /// </summary>
         [DataObjectField(false)]
         [XmlAttribute]
-        Uri DiagramUri { get; set; }
+        String EventCategory { get; set; }
+
+        /// <summary>
+        /// The event start date and time
+        /// </summary>
+        [DataObjectField(false)]
+        [XmlAttribute]
+        DateTime? Started { get; set; }
+
+        /// <summary>
+        /// The event end date and time. May be null if the event is ongoing
+        /// </summary>
+        [DataObjectField(false)]
+        [XmlAttribute]
+        DateTime? Ended { get; set; }
+
+        /// <summary>
+        /// The URI where the release candidate event log is located
+        /// </summary>
+        [DataObjectField(false)]
+        [XmlAttribute]
+        Uri LogUri { get; set; }
 
     }
 }

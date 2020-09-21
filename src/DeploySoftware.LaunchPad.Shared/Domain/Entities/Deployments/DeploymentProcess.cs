@@ -25,6 +25,10 @@ using System.Xml.Serialization;
 
 namespace DeploySoftware.LaunchPad.Shared.Domain
 {
+    /// <summary>
+    /// Represents the process which a deployment will follow as it takes a release candidate (set of code, data, and resources) and places it in a destination environment.
+    /// </summary>
+    /// <typeparam name="TIdType">The type of the Id</typeparam>
     public class DeploymentProcess<TIdType> : DomainEntityBase<TIdType>, IDeploymentProcess<TIdType>
     {
         /// <summary>
@@ -32,14 +36,14 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         /// </summary>
         [DataObjectField(false)]
         [XmlAttribute]
-        public Uri DocumentationUrl { get; set; }
+        public Uri DocumentationUri { get; set; }
 
         /// <summary>
         /// The URI to the diagram
         /// </summary>
         [DataObjectField(false)]
         [XmlAttribute]
-        public Uri DiagramUrl { get; set; }
+        public Uri DiagramUri { get; set; }
 
 
         #region "Constructors"
@@ -61,8 +65,8 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         /// <param name="context">The context of the stream</param>
         protected DeploymentProcess(SerializationInfo info, StreamingContext context) : base(info, context)
         {
-            DocumentationUrl = (Uri)info.GetValue("DocumentationUrl", typeof(Uri));
-            DiagramUrl = (Uri)info.GetValue("DiagramUrl", typeof(Uri));
+            DocumentationUri = (Uri)info.GetValue("DocumentationUrl", typeof(Uri));
+            DiagramUri = (Uri)info.GetValue("DiagramUrl", typeof(Uri));
         }
 
 #endregion
@@ -76,8 +80,8 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         public override void GetObjectData(SerializationInfo info, StreamingContext context)
         {
             base.GetObjectData(info, context);
-            info.AddValue("DiagramUrl", DiagramUrl);
-            info.AddValue("DocumentationUrl", DocumentationUrl);
+            info.AddValue("DiagramUrl", DiagramUri);
+            info.AddValue("DocumentationUrl", DocumentationUri);
         }
 
         /// <summary>  
@@ -89,8 +93,8 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
             StringBuilder sb = new StringBuilder();
             sb.Append("[DeploymentProcess : ");
             sb.AppendFormat(ToStringBaseProperties());
-            sb.AppendFormat(" DocumentationUrl={0};", DocumentationUrl);
-            sb.AppendFormat(" DiagramUrl={0};", DiagramUrl);
+            sb.AppendFormat(" DocumentationUrl={0};", DocumentationUri);
+            sb.AppendFormat(" DiagramUrl={0};", DiagramUri);
             sb.Append("]");
             return sb.ToString();
         }

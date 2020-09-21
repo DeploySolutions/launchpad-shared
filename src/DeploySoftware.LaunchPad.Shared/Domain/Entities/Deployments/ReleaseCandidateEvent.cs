@@ -28,14 +28,13 @@ using System.Xml.Serialization;
 namespace DeploySoftware.LaunchPad.Shared.Domain
 {
     /// <summary>
-    /// Represents a deployment that will take a release candidate (set of code, data, and resources) and place it in a destination environment.
+    /// Represents an event related to a release (set of code, data, and resources).
     /// </summary>
     /// <typeparam name="TIdType">The type of the Id</typeparam>
-    public class Deployment<TIdType> : TenantSpecificDomainEntityBase<TIdType>, IDeployment<TIdType>
+    public class ReleaseCandidateEvent<TIdType> : TenantSpecificDomainEntityBase<TIdType>, IReleaseCandidateEvent<TIdType>
     {
-
         /// <summary>
-        /// The release candidate this deployment is for
+        /// The id of the release candidate this deployment is for
         /// </summary>
         [DataObjectField(false)]
         [XmlAttribute]
@@ -44,68 +43,45 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         public TIdType ReleaseCandidateId { get; set; }
 
         /// <summary>
-        /// The id of the process that will be followed during the deployment (if known)
+        /// The category of this release candidate event
         /// </summary>
         [DataObjectField(false)]
         [XmlAttribute]
-        [ForeignKey(nameof(DeploymentProcessId))]
-        public TIdType DeploymentProcessId { get; set; }
+        public String EventCategory { get; set; }
 
         /// <summary>
-        /// The intended deployment date and time
+        /// The event start date and time
         /// </summary>
         [DataObjectField(false)]
         [XmlAttribute]
-        public DateTime? DateScheduled { get; set; }
+        public DateTime? Started { get; set; }
 
         /// <summary>
-        /// The actual deployment date and time
+        /// The event end date and time. May be null if the event is ongoing
         /// </summary>
         [DataObjectField(false)]
         [XmlAttribute]
-        public DateTime? DateDeployed { get; set; }
-
+        public DateTime? Ended { get; set; }
 
         /// <summary>
-        /// The current state of the deployment
+        /// The URI where the release candidate event log is located
         /// </summary>
         [DataObjectField(false)]
         [XmlAttribute]
-        public DeploymentStates DeploymentState { get; set; }
+        public Uri LogUri { get; set; }
 
-        /// <summary>
-        /// The person primarily responsible for doing the deployment (if known)
-        /// </summary>
-        [DataObjectField(false)]
-        [XmlAttribute]
-        [ForeignKey(nameof(PrimaryDeployerUserId))]
-        public long? PrimaryDeployerUserId { get; set; }
 
-        /// <summary>
-        /// The possible states in which this deployment can be
-        /// </summary>
-        public enum DeploymentStates
-        {
-            Not_Started= 0,
-            In_Progress =1,
-            Succeeded = 2,
-            Failed = 3
-        }
 
         #region "Constructors"
 
-        /// <summary>
-        /// Default constructor where the tenant id is known
-        /// </summary>
-        /// <param name="tenantId"></param>
-        public Deployment(int tenantId) : base(tenantId)
+        public ReleaseCandidateEvent(int tenantId) : base(tenantId)
         {
-            DeploymentState = DeploymentStates.Not_Started;
+         
         }
 
-        public Deployment(int tenantId, TIdType id, string cultureName, String text) : base(tenantId, id, cultureName)
+        public ReleaseCandidateEvent(int tenantId, TIdType id, string cultureName, String text) : base(tenantId, id, cultureName)
         {
-            DeploymentState = DeploymentStates.Not_Started;
+
         }
      
         /// <summary>
@@ -113,17 +89,16 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         /// </summary>
         /// <param name="info">The serialization info</param>
         /// <param name="context">The context of the stream</param>
-        protected Deployment(SerializationInfo info, StreamingContext context) : base(info, context)
+        protected ReleaseCandidateEvent(SerializationInfo info, StreamingContext context) : base(info, context)
         {
-            PrimaryDeployerUserId = info.GetInt64("PrimaryDeployerUserId");
             ReleaseCandidateId = (TIdType)info.GetValue("ReleaseCandidateId", typeof(TIdType));
-            DeploymentProcessId = (TIdType)info.GetValue("DeploymentProcessId", typeof(TIdType));
-            DeploymentState = (DeploymentStates)info.GetValue("DeploymentState", typeof(DeploymentStates));
-            DateDeployed = info.GetDateTime("DateDeployed");
-            DateScheduled = info.GetDateTime("DateScheduled");
+            LogUri = (Uri)info.GetValue("LogUri", typeof(Uri));
+            EventCategory = info.GetString("EventCategory");
+            Started = info.GetDateTime("Started");
+            Ended = info.GetDateTime("Ended");
         }
 
-#endregion
+        #endregion
 
         /// <summary>
         /// The method required for implementing ISerializable
@@ -134,12 +109,11 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         public override void GetObjectData(SerializationInfo info, StreamingContext context)
         {
             base.GetObjectData(info, context);
-            info.AddValue("PrimaryDeployerUserId", PrimaryDeployerUserId);
             info.AddValue("ReleaseCandidateId", ReleaseCandidateId);
-            info.AddValue("DeploymentProcessId", DeploymentProcessId);
-            info.AddValue("DeploymentState", DeploymentState);
-            info.AddValue("DateDeployed", DateDeployed);
-            info.AddValue("DateScheduled", DateScheduled);
+            info.AddValue("EventCategory", EventCategory);
+            info.AddValue("LogUri", LogUri);
+            info.AddValue("Started", Started);
+            info.AddValue("Ended", Ended);
         }
 
         /// <summary>  
@@ -149,14 +123,13 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         public override string ToString()
         {
             StringBuilder sb = new StringBuilder();
-            sb.Append("[Deployment : ");
+            sb.Append("[ReleaseCandidateEvent : ");
             sb.AppendFormat(ToStringBaseProperties());
-            sb.AppendFormat(" PrimaryDeployerUserId={0};", PrimaryDeployerUserId);
             sb.AppendFormat(" ReleaseCandidateId={0};", ReleaseCandidateId);
-            sb.AppendFormat(" DeploymentProcessId={0};", DeploymentProcessId);
-            sb.AppendFormat(" DeploymentState={0};", DeploymentState);
-            sb.AppendFormat(" DateScheduled={0};", DateScheduled); 
-            sb.AppendFormat(" DateDeployed={0};", DateDeployed);            
+            sb.AppendFormat(" EventCategory={0};", EventCategory);
+            sb.AppendFormat(" LogUri={0};", LogUri);
+            sb.AppendFormat(" Started={0};", Started);
+            sb.AppendFormat(" Ended={0};", Ended);
             sb.Append("]");
             return sb.ToString();
         }

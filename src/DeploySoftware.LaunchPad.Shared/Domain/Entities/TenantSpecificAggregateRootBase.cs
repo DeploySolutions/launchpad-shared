@@ -24,6 +24,8 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
     using System.Text;
     using System.ComponentModel;
     using System.Xml.Serialization;
+    using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
 
     /// <summary>
     /// Base class for Aggregate Root entities that must be specifically related to tenants. 
@@ -41,6 +43,8 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         /// </summary>
         [DataObjectField(false)]
         [XmlAttribute]
+        [Required]
+        [ForeignKey(nameof(TenantId))]
         public new int TenantId { get; set; }
 
         /// <summary>  

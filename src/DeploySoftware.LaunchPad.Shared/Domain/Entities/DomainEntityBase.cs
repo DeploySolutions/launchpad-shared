@@ -153,7 +153,8 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         /// culture code
         /// </summary>
         [DataObjectField(false)]
-        [XmlAttribute] 
+        [XmlAttribute]
+        [NotMapped]
         public CultureInfo GetCultureInfo { get { return new CultureInfo(Key.Culture); } }
 
         /// <summary>
@@ -161,6 +162,7 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         /// </summary>
         [DataObjectField(false)]
         [XmlAttribute]
+        [ForeignKey(nameof(TenantId))]
         public int? TenantId { get; set; }
 
 
@@ -182,6 +184,7 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         private Int64? creatorUserId;
         [DataObjectField(false)]
         [XmlAttribute]
+        [ForeignKey(nameof(CreatorUserId))]
         public long? CreatorUserId
         {
             get { return creatorUserId; }
@@ -208,6 +211,7 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         private Int64? lastModifierUserId;
         [DataObjectField(false)]
         [XmlAttribute]
+        [ForeignKey(nameof(LastModifierUserId))]
         public long? LastModifierUserId
         {
             get { return lastModifierUserId; }

@@ -19,9 +19,15 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
 {
     using System;
     using System.ComponentModel;
+    using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
     using System.Xml.Serialization;
 
-    public interface IDeployment<TPrimaryKey> : IDomainEntity<TPrimaryKey>
+    /// <summary>
+    /// Represents a deployment that will take a release candidate (set of code, data, and resources) and place it in a destination environment.
+    /// </summary>
+    /// <typeparam name="TIdType">The type of the Id</typeparam>
+    public interface IDeployment<TIdType> : IDomainEntity<TIdType>
     {
        
         /// <summary>
@@ -29,21 +35,22 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         /// </summary>
         [DataObjectField(false)]
         [XmlAttribute]
-        TPrimaryKey ReleaseCandidateId { get; set; }
+        [Required]
+        TIdType ReleaseCandidateId { get; set; }
 
         /// <summary>
         /// The id of the process that will be followed during the deployment (if known)
         /// </summary>
         [DataObjectField(false)]
         [XmlAttribute]
-        TPrimaryKey DeploymentProcessId { get; set; }
+        TIdType DeploymentProcessId { get; set; }
 
         /// <summary>
         /// The current state of the deployment
         /// </summary>
         [DataObjectField(false)]
         [XmlAttribute]
-        String State { get; set; }
+        Deployment<TIdType>.DeploymentStates DeploymentState { get; set; }
 
         /// <summary>
         /// The intended deployment date and time
