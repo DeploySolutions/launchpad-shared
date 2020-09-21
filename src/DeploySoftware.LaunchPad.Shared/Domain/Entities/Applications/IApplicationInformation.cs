@@ -28,7 +28,7 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
     /// Represents the specific settings of an application.
     /// </summary>
     /// <typeparam name="TPrimaryKey"></typeparam>
-    public interface IApplicationInformation<TPrimaryKey> : IDomainEntity<TPrimaryKey>
+    public interface IApplicationInformation<TIdType> : IDomainEntity<TIdType>
     {
 
         /// <summary>

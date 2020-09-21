@@ -164,7 +164,7 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         public override string ToString()
         {
             StringBuilder sb = new StringBuilder();
-            sb.Append("[ApplicationSettings : ");
+            sb.Append("[ApplicationInformation : ");
             sb.AppendFormat(ToStringBaseProperties());
             sb.AppendFormat(" CultureDefault={0};", CultureDefault);
             sb.AppendFormat(" CultureSupported={0};", CultureSupported);

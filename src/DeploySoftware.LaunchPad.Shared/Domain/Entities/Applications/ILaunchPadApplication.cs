@@ -1,5 +1,5 @@
 ﻿//LaunchPad Shared
-// Copyright (c) 2018-2020 Deploy Software Solutions, inc. 
+// Copyright (c) 2016-2021 Deploy Software Solutions, inc. 
 
 #region license
 //Licensed under the Apache License, Version 2.0 (the "License"); 
@@ -18,34 +18,42 @@
 
 namespace DeploySoftware.LaunchPad.Shared.Domain
 {
+    using Newtonsoft.Json.Linq;
     using System;
     using System.Collections.Generic;
     using System.ComponentModel;
     using System.Xml.Serialization;
 
     /// <summary>
-    /// Represents a module in an application.
+    /// Represents an application in the LaunchPad RAD framework.
     /// </summary>
-    /// <typeparam name="TIdType"></typeparam>
-    public interface IModule<TIdType> : IDomainEntity<TIdType>
+    /// <typeparam name="TPrimaryKey">The type of the id</typeparam>
+    public interface ILaunchPadApplication<TIdType> : IDomainEntity<TIdType>
     {
 
         /// <summary>
-        /// The default culture of this tenant
+        /// The default culture of this application
         /// </summary>
         [DataObjectField(false)]
         [XmlAttribute]
-        String CultureDefault
+        IApplicationInformation<TIdType> Info
         {
             get; set;
         }
 
         /// <summary>
-        /// Each module can have an open-ended set of components within that provide the functionality
+        /// Each application can have an open-ended set of modules within that provide the functionality
         /// </summary>
         [DataObjectField(false)]
         [XmlAttribute]
-        IEnumerable<MetadataTag> Components { get; set; }
+        IEnumerable<ITenantInformation<TIdType>> TenantInfo { get; set; }
+
+        /// <summary>
+        /// Each application can have an open-ended set of modules within that provide the functionality
+        /// </summary>
+        [DataObjectField(false)]
+        [XmlAttribute]
+        IEnumerable<IModule<TIdType>> Modules { get; set; }
 
     }
 }
