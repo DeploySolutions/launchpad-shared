@@ -269,6 +269,7 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         protected DomainEntityBase(int? tenantId, TIdType id, string culture) : base()
         {
             TenantId = tenantId;
+            Id = id;
             Key = new DomainEntityKey<TIdType>(id,culture);
             Metadata = new MetadataInformation();
             IsDeleted = false;
@@ -286,6 +287,8 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         {
             TenantId = tenantId;
             Key = key;
+            Id = key.Id;
+            Culture = key.Culture;
             Metadata = metadata;
             IsDeleted = false;
             IsActive = true;
@@ -299,12 +302,25 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         /// <param name="context">The context of the stream</param>
         protected DomainEntityBase(SerializationInfo info, StreamingContext context)
         {
-            Key = (DomainEntityKey<TIdType>)info.GetValue("Key", typeof(DomainEntityKey<TIdType>));
-            Metadata = (MetadataInformation)info.GetValue("Metadata", typeof(MetadataInformation));
+            Id = (TIdType)info.GetValue("Id", typeof(TIdType));
+            Culture = info.GetString("Culture");
             TenantId = info.GetInt32("TenantId");
-            IsDeleted = info.GetBoolean("IsDeleted"); 
-            IsActive = info.GetBoolean("IsActive");
+            DisplayName = info.GetString("DisplayName");
+            DescriptionShort = info.GetString("DescriptionShort");
+            DescriptionFull = info.GetString("DescriptionFull");
             Tags = (IEnumerable<MetadataTag>)info.GetValue("Metadata", typeof(IEnumerable<MetadataTag>));
+            CreationTime = info.GetDateTime("CreationTime");
+            CreatorUserId = info.GetInt64("CreatorUserId");
+            LastModificationTime = info.GetDateTime("LastModificationTime");
+            LastModifierUserId = info.GetInt64("LastModifierUserId");
+            IsDeleted = info.GetBoolean("IsDeleted");
+            DeleterUserId = info.GetInt64("DeleterUserId");
+            DeletionTime = info.GetDateTime("DeletionTime");
+            IsActive = info.GetBoolean("IsActive");
+
+            //Key = (DomainEntityKey<TIdType>)info.GetValue("Key", typeof(DomainEntityKey<TIdType>));
+            //Metadata = (MetadataInformation)info.GetValue("Metadata", typeof(MetadataInformation));
+
         }
 
         /// <summary>
@@ -315,12 +331,25 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         [SecurityPermission(SecurityAction.Demand, SerializationFormatter = true)]
         public virtual void GetObjectData(SerializationInfo info, StreamingContext context)
         {
-            info.AddValue("Key", Key);
-            info.AddValue("Metadata", Metadata);
+            info.AddValue("Id", Id);
+            info.AddValue("Culture", Culture);
             info.AddValue("TenantId", TenantId);
-            info.AddValue("IsActive", IsActive);
-            info.AddValue("IsDeleted", IsDeleted);
+            info.AddValue("DisplayName", DisplayName);
+            info.AddValue("DescriptionShort", DescriptionShort);
+            info.AddValue("DescriptionFull", DescriptionFull);
             info.AddValue("Tags", Tags);
+            info.AddValue("CreationTime", CreationTime);
+            info.AddValue("CreatorUserId", CreatorUserId);
+            info.AddValue("LastModificationTime", LastModificationTime);
+            info.AddValue("LastModifierUserId", LastModifierUserId);
+            info.AddValue("IsDeleted", IsDeleted); 
+            info.AddValue("DeleterUserId", DeleterUserId);
+            info.AddValue("DeletionTime", DeletionTime);
+            info.AddValue("IsActive", IsActive);
+            
+            //info.AddValue("Key", Key);
+            //info.AddValue("Metadata", Metadata);
+
         }
 
         /// <summary>
@@ -390,10 +419,12 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         {
             StringBuilder sb = new StringBuilder();
             sb.AppendFormat("Key={0};", Key);
-            sb.AppendFormat("Metadata={0};", Metadata);
             sb.AppendFormat("TenantId={0};", TenantId);
+            sb.AppendFormat("Metadata={0};", Metadata);
             sb.AppendFormat("IsActive={0};", IsActive);
             sb.AppendFormat("IsDeleted={0};", IsDeleted);
+            sb.AppendFormat("DeleterUserId={0};", DeleterUserId);
+            sb.AppendFormat("DeletionTime={0};", DeletionTime);
             sb.AppendFormat(" Tags={0};", Tags.ToString());
             return sb.ToString();
         }
