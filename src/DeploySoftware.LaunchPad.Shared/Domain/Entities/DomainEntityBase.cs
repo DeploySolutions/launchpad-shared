@@ -191,7 +191,7 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
             set
             {
                 creatorUserId = value;
-                Metadata.CreatorId = value;
+                Metadata.CreatorUserId = value;
             }
         }
 
@@ -204,7 +204,7 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
             set
             {
                 lastModificationTime = value;
-                Metadata.DateLastModified = value;
+                Metadata.LastModificationTime = value;
             }
         }
 
@@ -218,25 +218,61 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
             set
             {
                 lastModifierUserId = value;
-                Metadata.LastModifiedById = value;
+                Metadata.LastModifierUserId = value;
             }
         }
 
+        private Int64? deleterUserId;
         [DataObjectField(false)]
         [XmlAttribute]
-        public bool IsDeleted { get;set; }
+        public long? DeleterUserId
+        {
+            get { return deleterUserId; }
+            set
+            {
+                deleterUserId = value;
+                Metadata.DeleterUserId = value;
+            }
+        }
 
+        private DateTime? deletionTime;
         [DataObjectField(false)]
         [XmlAttribute]
-        public long? DeleterUserId { get; set; }
+        public DateTime? DeletionTime
+        {
+            get { return deletionTime; }
+            set
+            {
+                deletionTime = value;
+                Metadata.DeletionTime = value;
+            }
+        }
 
+        private Boolean isActive;
         [DataObjectField(false)]
         [XmlAttribute]
-        public DateTime? DeletionTime { get;set; }
+        public bool IsActive
+        {
+            get { return isActive; }
+            set
+            {
+                isActive = value;
+                Metadata.IsActive = value;
+            }
+        }
 
+        private Boolean isDeleted;
         [DataObjectField(false)]
         [XmlAttribute]
-        public bool IsActive { get; set; }
+        public bool IsDeleted
+        {
+            get { return isDeleted; }
+            set
+            {
+                isDeleted = value;
+                Metadata.IsDeleted = value;
+            }
+        }
 
         #endregion
 
@@ -246,6 +282,7 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         protected DomainEntityBase() : base()
         {
             Key = new DomainEntityKey<TIdType>(ApplicationInformation<TIdType>.DEFAULT_CULTURE);
+            Culture = ApplicationInformation<TIdType>.DEFAULT_CULTURE;
             Metadata = new MetadataInformation();
             Tags = new List<MetadataTag>();
             IsDeleted = false;
@@ -259,7 +296,9 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         {
             TenantId = tenantId;
             Key = new DomainEntityKey<TIdType>(ApplicationInformation<TIdType>.DEFAULT_CULTURE);
+            Culture = ApplicationInformation<TIdType>.DEFAULT_CULTURE;
             Metadata = new MetadataInformation();
+            CreatorUserId = 1; // TODO - default user account?
         }
 
         /// <summary>
@@ -270,29 +309,49 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         {
             TenantId = tenantId;
             Id = id;
+            Culture = culture;
             Key = new DomainEntityKey<TIdType>(id,culture);
             Metadata = new MetadataInformation();
+            CreatorUserId = 1; // TODO - default user account?
             IsDeleted = false;
             IsActive = true;
             Tags = new List<MetadataTag>();
         }
 
         /// <summary>
-        /// Creates a new instance of the <see cref="DomainEntityBase">Entity</see> class given a key, and some metadata. 
+        /// Creates a new instance of the <see cref="DomainEntityBase">Entity</see> class given a key, and using the exact values
+        /// passed in via the metadata object.
         /// </summary>
         /// <param name="key">The key for this entity</param>
         /// <param name="culture">The culture for this entity</param>
-        /// <param name="metadata">The desired metadata for this entity</param>
+        /// <param name="metadata">The metadata containing the values for this entity</param>
         protected DomainEntityBase(int? tenantId, DomainEntityKey<TIdType> key, MetadataInformation metadata) : base()
         {
             TenantId = tenantId;
-            Key = key;
+            
             Id = key.Id;
             Culture = key.Culture;
+
+            // populate the fields with any values that are passed in via the metadata
             Metadata = metadata;
-            IsDeleted = false;
-            IsActive = true;
+            CreatorUserId = metadata.CreatorUserId;
+            CreationTime = metadata.CreationTime;
+            descriptionShort = metadata.DescriptionShort;
+            descriptionFull = metadata.DescriptionFull;
+            DisplayName = metadata.DisplayName;
+            LastModificationTime = metadata.LastModificationTime;
+            LastModifierUserId = metadata.LastModifierUserId;
+            DeleterUserId = metadata.DeleterUserId;
+            DeletionTime = metadata.DeletionTime;
+            IsDeleted = metadata.IsDeleted;
+            IsActive = metadata.IsActive;
+
             Tags = new List<MetadataTag>();
+
+
+
+
+
         }
 
         /// <summary>

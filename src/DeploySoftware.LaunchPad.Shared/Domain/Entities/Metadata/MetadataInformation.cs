@@ -36,12 +36,13 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
     {
 
         /// <summary>
-        /// The id of the User Agent which created this entity
+        /// The display name that can be displayed as a label externally to users when referring to this object
+        /// (rather than using a GUID, which is unfriendly but unique)
         /// </summary>
         [DataObjectField(false)]
         [XmlAttribute]
-        public virtual long? CreatorId { get; set; }
-           
+        public virtual String DisplayName { get; set; }
+
         /// <summary>
         /// A full description of this item.
         /// </summary>
@@ -57,14 +58,6 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         public virtual String DescriptionShort { get; set; }
 
         /// <summary>
-        /// The display name that can be displayed as a label externally to users when referring to this object
-        /// (rather than using a GUID, which is unfriendly but unique)
-        /// </summary>
-        [DataObjectField(false)]
-        [XmlAttribute]
-        public virtual String DisplayName { get; set; }
-
-        /// <summary>
         /// The date and time that this object was created.
         /// </summary>
         [DataObjectField(false)]
@@ -72,27 +65,48 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         public virtual DateTime CreationTime { get; set; }
 
         /// <summary>
+        /// The id of the User Agent which created this entity
+        /// </summary>
+        [DataObjectField(false)]
+        [XmlAttribute]
+        public virtual long? CreatorUserId { get; set; }
+
+        /// <summary>
         /// The date and time that the location and/or properties of this object were last modified.
         /// </summary>
         [DataObjectField(false)]
         [XmlAttribute]
-        public virtual DateTime? DateLastModified { get; set; }
+        public virtual DateTime? LastModificationTime { get; set; }
 
         /// <summary>
         /// The id of the User Agent which last modified this object.
         /// </summary>
         [DataObjectField(false)]
         [XmlAttribute]
-        public virtual Int64? LastModifiedById { get; set; }
+        public virtual Int64? LastModifierUserId { get; set; }
+
 
         /// <summary>
-        /// Each entity in the framework can have a MIME type which is used to help display
-        /// its information to Http-capable browsers. 
+        /// The date and time that this object was deleted.
         /// </summary>
         [DataObjectField(false)]
         [XmlAttribute]
-        public virtual String MimeType { get; set; }
+        public virtual DateTime? DeletionTime { get; set; }
 
+        /// <summary>
+        /// The id of the user which deleted this entity
+        /// </summary>
+        [DataObjectField(false)]
+        [XmlAttribute]
+        public virtual long? DeleterUserId { get; set; }
+
+        [DataObjectField(false)]
+        [XmlAttribute]
+        public bool IsActive { get; set; }
+
+        [DataObjectField(false)]
+        [XmlAttribute]
+        public bool IsDeleted { get; set; }
 
         #region Constructors
 
@@ -104,9 +118,10 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
             DescriptionFull = String.Empty;
             DescriptionShort = String.Empty;
             DisplayName = String.Empty;
-            CreationTime = DateTime.Now;
-            DateLastModified = DateTime.Now;
-            MimeType = String.Empty;
+            CreationTime = DateTime.UtcNow;
+            CreatorUserId = 1; // TODO - default user account?
+            IsDeleted = false;
+            IsActive = true;
         }
 
         /// <summary>
@@ -116,14 +131,17 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         /// <param name="context">The context of the stream</param>
         public MetadataInformation(SerializationInfo info, StreamingContext context)
         {
-            MimeType = info.GetString("MimeType");
             DisplayName = info.GetString("DisplayName");
             DescriptionFull = info.GetString("DescriptionFull");
             DescriptionShort = info.GetString("DescriptionShort");
-            CreatorId = info.GetInt64("CreatorId");            
-            LastModifiedById = info.GetInt64("LastModifiedById");
-            CreationTime = info.GetDateTime("DateCreated");
-            DateLastModified = info.GetDateTime("DateLastModified");
+            CreationTime = info.GetDateTime("CreationTime");
+            CreatorUserId = info.GetInt64("CreatorUserId");            
+            LastModifierUserId = info.GetInt64("LastModifierUserId");
+            LastModificationTime = info.GetDateTime("LastModificationTime");
+            DeletionTime = info.GetDateTime("DeletionTime");
+            DeleterUserId = info.GetInt64("DeleterUserId");
+            IsDeleted = info.GetBoolean("IsDeleted"); 
+            IsActive = info.GetBoolean("IsActive");
         }
 
         #endregion
@@ -136,14 +154,17 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         [SecurityPermission(SecurityAction.Demand, SerializationFormatter = true)]
         public void GetObjectData(SerializationInfo info, StreamingContext context)
         {
-            info.AddValue("MimeType", MimeType);
             info.AddValue("DisplayName", DisplayName);
             info.AddValue("DescriptionFull", DescriptionFull);
             info.AddValue("DescriptionShort", DescriptionShort);
-            info.AddValue("LastModifiedById", LastModifiedById);
-            info.AddValue("CreatorId", CreatorId);
-            info.AddValue("DateCreated", CreationTime);
-            info.AddValue("DateLastModified", DateLastModified);
+            info.AddValue("CreationTime", CreationTime); 
+            info.AddValue("CreatorUserId", CreatorUserId);
+            info.AddValue("LastModifierUserId", LastModifierUserId);
+            info.AddValue("LastModificationTime", LastModificationTime);
+            info.AddValue("DeleterUserId", DeleterUserId);
+            info.AddValue("DeletionTime", DeletionTime);
+            info.AddValue("IsDeleted", IsDeleted);
+            info.AddValue("IsActive", IsActive);
         }
 
         /// Event called once deserialization constructor finishes.
@@ -165,7 +186,7 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         {
             StringBuilder sb = new StringBuilder();
             sb.Append("[MetadataInformation: ");
-            sb.AppendFormat("CreatorId={0};", CreatorId);
+            sb.AppendFormat("CreatorId={0};", CreatorUserId);
             sb.AppendFormat(" DisplayName={0};", DisplayName);
             if (!String.IsNullOrEmpty(DescriptionFull))
             {
@@ -175,13 +196,12 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
             {
                 sb.AppendFormat(" DescriptionShort={0};", DescriptionShort);
             }
-            sb.AppendFormat(" LastModifiedById={0};", LastModifiedById);
-            if (!String.IsNullOrEmpty(MimeType))
-            {
-                sb.AppendFormat(" MimeType={0};", MimeType);
-            }
+            sb.AppendFormat(" LastModifiedById={0};", LastModifierUserId);
+           
             sb.AppendFormat(" DateCreated={0};", CreationTime);
-            sb.AppendFormat(" DateLastModified={0};", DateLastModified);
+            sb.AppendFormat(" DateLastModified={0};", LastModificationTime);
+            sb.AppendFormat(" IsActive={0};", IsActive);
+            sb.AppendFormat(" IsDeleted={0};", IsDeleted);
             sb.Append("]");
             return sb.ToString();
         }
@@ -231,15 +251,15 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
             // Note that the base class is not invoked because it is
             // System.Object, which defines Equals as reference equality.
            return 
-                (CreatorId.Equals(obj.CreatorId)
-                    && DisplayName.Equals(obj.DisplayName)
-                    && DescriptionFull.Equals(obj.DescriptionFull)
-                    && DescriptionShort.Equals(obj.DescriptionShort)
-                    && LastModifiedById.Equals(obj.LastModifiedById)
-                    && MimeType.Equals(obj.MimeType) &&
+                (CreatorUserId.Equals(obj.CreatorUserId) &&
+                    DisplayName.Equals(obj.DisplayName) &&
+                    DescriptionFull.Equals(obj.DescriptionFull) &&
+                    DescriptionShort.Equals(obj.DescriptionShort) &&
+                    LastModifierUserId.Equals(obj.LastModifierUserId) &&
                     CreationTime.Equals(obj.CreationTime) &&
-                    DateLastModified.Equals(obj.DateLastModified) 
-
+                    LastModificationTime.Equals(obj.LastModificationTime) &&
+                    IsDeleted.Equals(obj.IsDeleted) &&
+                    IsActive.Equals(obj.IsActive)
                 )
             ;
         }
@@ -277,14 +297,16 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         /// <returns>A hash code for an object.</returns>
         public override int GetHashCode()
         {
-            return CreatorId.GetHashCode()
+            return CreatorUserId.GetHashCode()
+                + CreationTime.GetHashCode() 
                 + DisplayName.GetHashCode()
                 + DescriptionFull.GetHashCode()
                 + DescriptionShort.GetHashCode()
-                + LastModifiedById.GetHashCode()
-                + MimeType.GetHashCode()
-                + CreationTime.GetHashCode()
-                + DateLastModified.GetHashCode();
+                + LastModifierUserId.GetHashCode()                
+                + LastModificationTime.GetHashCode()
+                + DeletionTime.GetHashCode()
+                + DeleterUserId.GetHashCode()
+                ;
         }
     }
 }

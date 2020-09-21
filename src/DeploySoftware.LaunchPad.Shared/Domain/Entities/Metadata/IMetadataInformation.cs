@@ -30,11 +30,12 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
     {
 
         /// <summary>
-        /// The author of this entity
+        /// The display name that can be displayed as a label externally to users when referring to this object
+        /// (rather than using a GUID, which is unfriendly but unique)
         /// </summary>
         [DataObjectField(false)]
         [XmlAttribute]
-        Int64? CreatorId { get; set; }
+        String DisplayName { get; set; }
 
         /// <summary>
         /// A full description of this item.
@@ -50,13 +51,6 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         [XmlAttribute]
         String DescriptionShort { get; set; }
 
-        /// <summary>
-        /// The display name that can be displayed as a label externally to users when referring to this object
-        /// (rather than using a GUID, which is unfriendly but unique)
-        /// </summary>
-        [DataObjectField(false)]
-        [XmlAttribute]
-        String DisplayName { get; set; }
 
         /// <summary>
         /// The date and time that this object was created.
@@ -66,27 +60,46 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         DateTime CreationTime { get; set; }
 
         /// <summary>
-        /// The date and time that the location and/or properties of this object were last modified.
+        /// The author of this entity
         /// </summary>
         [DataObjectField(false)]
         [XmlAttribute]
-        DateTime? DateLastModified { get; set; }
+        Int64? CreatorUserId { get; set; }
+
+        /// <summary>
+        /// The date and time that this object was last modified.
+        /// </summary>
+        [DataObjectField(false)]
+        [XmlAttribute]
+        DateTime? LastModificationTime { get; set; }
 
         /// <summary>
         /// The id of the person who last modified this object.
         /// </summary>
         [DataObjectField(false)]
         [XmlAttribute]
-        Int64? LastModifiedById { get; set; }
+        Int64? LastModifierUserId { get; set; }
 
         /// <summary>
-        /// Each entity in the framework can have a MIME type which is used to help display
-        /// its information to Http-capable browsers. 
+        /// The deleter of this entity
         /// </summary>
         [DataObjectField(false)]
         [XmlAttribute]
-        String MimeType { get; set; }
+        Int64? DeleterUserId { get; set; }
 
+        /// <summary>
+        /// The date and time that this object were deleted.
+        /// </summary>
+        [DataObjectField(false)]
+        [XmlAttribute]
+        DateTime? DeletionTime { get; set; }
 
+        [DataObjectField(false)]
+        [XmlAttribute]
+        bool IsActive { get; set; }
+
+        [DataObjectField(false)]
+        [XmlAttribute]
+        bool IsDeleted { get; set; }
     }
 }
