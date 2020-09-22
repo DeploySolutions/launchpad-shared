@@ -36,6 +36,13 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
     {
 
         /// <summary>
+        /// The id of the tenant that domain entity this belongs to (null if not known/applicable)
+        /// </summary>
+        [DataObjectField(false)]
+        [XmlAttribute]
+        public int? TenantId { get; set; }
+
+        /// <summary>
         /// The display name that can be displayed as a label externally to users when referring to this object
         /// (rather than using a GUID, which is unfriendly but unique)
         /// </summary>
@@ -131,6 +138,7 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         /// <param name="context">The context of the stream</param>
         public MetadataInformation(SerializationInfo info, StreamingContext context)
         {
+            TenantId = info.GetInt32("TenantId");
             DisplayName = info.GetString("DisplayName");
             DescriptionFull = info.GetString("DescriptionFull");
             DescriptionShort = info.GetString("DescriptionShort");
@@ -154,6 +162,7 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         [SecurityPermission(SecurityAction.Demand, SerializationFormatter = true)]
         public void GetObjectData(SerializationInfo info, StreamingContext context)
         {
+            info.AddValue("TenantId", TenantId);
             info.AddValue("DisplayName", DisplayName);
             info.AddValue("DescriptionFull", DescriptionFull);
             info.AddValue("DescriptionShort", DescriptionShort);
@@ -186,6 +195,7 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         {
             StringBuilder sb = new StringBuilder();
             sb.Append("[MetadataInformation: ");
+            sb.AppendFormat("TenantId={0};", TenantId);
             sb.AppendFormat("CreatorId={0};", CreatorUserId);
             sb.AppendFormat(" DisplayName={0};", DisplayName);
             if (!String.IsNullOrEmpty(DescriptionFull))
@@ -251,7 +261,9 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
             // Note that the base class is not invoked because it is
             // System.Object, which defines Equals as reference equality.
            return 
-                (CreatorUserId.Equals(obj.CreatorUserId) &&
+                (
+                    TenantId.Equals(obj.TenantId) &&
+                    CreatorUserId.Equals(obj.CreatorUserId) &&
                     DisplayName.Equals(obj.DisplayName) &&
                     DescriptionFull.Equals(obj.DescriptionFull) &&
                     DescriptionShort.Equals(obj.DescriptionShort) &&
@@ -297,7 +309,9 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         /// <returns>A hash code for an object.</returns>
         public override int GetHashCode()
         {
-            return CreatorUserId.GetHashCode()
+            return
+                TenantId.GetHashCode()
+                + CreatorUserId.GetHashCode()
                 + CreationTime.GetHashCode() 
                 + DisplayName.GetHashCode()
                 + DescriptionFull.GetHashCode()

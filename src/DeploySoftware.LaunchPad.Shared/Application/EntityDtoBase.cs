@@ -140,6 +140,15 @@ namespace DeploySoftware.LaunchPad.Shared.Application
         public bool IsDeleted { get; set; }
 
         #region "Constructors"
+        
+        /// <summary>
+        /// Default constructor
+        /// </summary>
+        /// <param name="tenantId"></param>
+        protected EntityDtoBase() : base()
+        {
+
+        }
 
         /// <summary>
         /// Default constructor where the tenant id is known

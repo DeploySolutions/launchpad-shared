@@ -44,9 +44,19 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
 
         private TIdType id;
         private string culture;
+        private int? tenantId;
         private string displayName;
         private string descriptionShort;
         private string descriptionFull;
+        private DateTime creationTime;
+        private Int64? creatorUserId;
+        private DateTime? lastModificationTime;
+        private Int64? lastModifierUserId;
+        private Int64? deleterUserId;
+        private DateTime? deletionTime;
+        private Boolean isActive;
+        private Boolean isDeleted;
+
 
         /// <summary>
         /// The id field for this object. Inherited from ABP. Note that for our LaunchPad framework we actually require
@@ -157,18 +167,26 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         [NotMapped]
         public CultureInfo GetCultureInfo { get { return new CultureInfo(Key.Culture); } }
 
+        
         /// <summary>
         /// The id of the tenant that domain entity this belongs to (null if not known/applicable)
         /// </summary>
         [DataObjectField(false)]
         [XmlAttribute]
         [ForeignKey(nameof(TenantId))]
-        public int? TenantId { get; set; }
+        public int? TenantId
+        {
+            get { return tenantId; }
+            set
+            {
+                tenantId = value;
+                Metadata.TenantId = value;
+            }
+        }
 
 
         #region Implementation of ASP.NET Boilerplate's domain entity interfaces
 
-        private DateTime creationTime;
         [DataObjectField(false)]
         [XmlAttribute]
         public DateTime CreationTime
@@ -181,7 +199,6 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
             }
         }
 
-        private Int64? creatorUserId;
         [DataObjectField(false)]
         [XmlAttribute]
         [ForeignKey(nameof(CreatorUserId))]
@@ -195,7 +212,6 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
             }
         }
 
-        private DateTime? lastModificationTime;
         [DataObjectField(false)]
         [XmlAttribute]
         public DateTime? LastModificationTime
@@ -208,7 +224,6 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
             }
         }
 
-        private Int64? lastModifierUserId;
         [DataObjectField(false)]
         [XmlAttribute]
         [ForeignKey(nameof(LastModifierUserId))]
@@ -222,7 +237,6 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
             }
         }
 
-        private Int64? deleterUserId;
         [DataObjectField(false)]
         [XmlAttribute]
         public long? DeleterUserId
@@ -235,7 +249,6 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
             }
         }
 
-        private DateTime? deletionTime;
         [DataObjectField(false)]
         [XmlAttribute]
         public DateTime? DeletionTime
@@ -248,7 +261,6 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
             }
         }
 
-        private Boolean isActive;
         [DataObjectField(false)]
         [XmlAttribute]
         public bool IsActive
@@ -261,7 +273,6 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
             }
         }
 
-        private Boolean isDeleted;
         [DataObjectField(false)]
         [XmlAttribute]
         public bool IsDeleted
@@ -281,9 +292,9 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         /// </summary>
         protected DomainEntityBase() : base()
         {
+            Metadata = new MetadataInformation();
             Key = new DomainEntityKey<TIdType>(ApplicationInformation<TIdType>.DEFAULT_CULTURE);
             Culture = ApplicationInformation<TIdType>.DEFAULT_CULTURE;
-            Metadata = new MetadataInformation();
             Tags = new List<MetadataTag>();
             IsDeleted = false;
             IsActive = true;
@@ -294,10 +305,10 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         /// </summary>
         protected DomainEntityBase(int? tenantId) : base()
         {
+            Metadata = new MetadataInformation();
             TenantId = tenantId;
             Key = new DomainEntityKey<TIdType>(ApplicationInformation<TIdType>.DEFAULT_CULTURE);
             Culture = ApplicationInformation<TIdType>.DEFAULT_CULTURE;
-            Metadata = new MetadataInformation();
             CreatorUserId = 1; // TODO - default user account?
         }
 
@@ -307,11 +318,11 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         /// <param name="culture">The culture for this entity</param>
         protected DomainEntityBase(int? tenantId, TIdType id, string culture) : base()
         {
+            Metadata = new MetadataInformation();
             TenantId = tenantId;
             Id = id;
             Culture = culture;
             Key = new DomainEntityKey<TIdType>(id,culture);
-            Metadata = new MetadataInformation();
             CreatorUserId = 1; // TODO - default user account?
             IsDeleted = false;
             IsActive = true;
@@ -327,13 +338,13 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
         /// <param name="metadata">The metadata containing the values for this entity</param>
         protected DomainEntityBase(int? tenantId, DomainEntityKey<TIdType> key, MetadataInformation metadata) : base()
         {
+            Metadata = metadata;
             TenantId = tenantId;
             
             Id = key.Id;
             Culture = key.Culture;
 
             // populate the fields with any values that are passed in via the metadata
-            Metadata = metadata;
             CreatorUserId = metadata.CreatorUserId;
             CreationTime = metadata.CreationTime;
             descriptionShort = metadata.DescriptionShort;

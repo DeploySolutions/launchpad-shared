@@ -28,6 +28,12 @@ namespace DeploySoftware.LaunchPad.Shared.Domain
     /// </summary>
     public interface IMetadataInformation : IEquatable<MetadataInformation>
     {
+        /// <summary>
+        /// The id of the tenant that domain entity this belongs to (null if not known/applicable)
+        /// </summary>
+        [DataObjectField(false)]
+        [XmlAttribute]
+        int? TenantId { get; set; }
 
         /// <summary>
         /// The display name that can be displayed as a label externally to users when referring to this object

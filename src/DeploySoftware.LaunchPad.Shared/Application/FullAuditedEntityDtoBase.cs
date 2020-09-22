@@ -39,9 +39,18 @@ namespace DeploySoftware.LaunchPad.Shared.Application
         ISoftDelete, IPassivable,
         IComparable<EntityDtoBase<TIdType>>, IEquatable<EntityDtoBase<TIdType>>
     {
-        
+
 
         #region "Constructors"
+
+        /// <summary>
+        /// Default constructor
+        /// </summary>
+        /// <param name="tenantId"></param>
+        protected FullAuditedEntityDtoBase() : base()
+        {
+
+        }
 
         /// <summary>
         /// Default constructor where the tenant id is known
