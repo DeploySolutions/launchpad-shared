@@ -15,14 +15,15 @@
 //limitations under the License. 
 #endregion
 
-namespace DeploySoftware.LaunchPad.Shared.Tests
+namespace DeploySoftware.LaunchPad.Core.Tests
 {
     using Xunit;
     using FluentAssertions;
-    using DeploySoftware.LaunchPad.Shared.Domain;
     using System;
     using CoordinateSharp;
     using Xunit.Sdk;
+    using DeploySoftware.LaunchPad.Core;
+    using DeploySoftware.LaunchPad.Core.Domain;
 
     public class GeographicLocationTests
     {
@@ -56,7 +57,7 @@ namespace DeploySoftware.LaunchPad.Shared.Tests
             
             Action act = () => location.Elevation = elevation;
             act.Should().Throw<ArgumentException>()
-                 .WithMessage("*" + DeploySoftware_LaunchPad_Shared_Resources.Guard_GeographicLocation_Set_Elevation + "*");
+                 .WithMessage("*" + DeploySoftware_LaunchPad_Core_Resources.Guard_GeographicLocation_Set_Elevation + "*");
 
         }
 
@@ -68,7 +69,7 @@ namespace DeploySoftware.LaunchPad.Shared.Tests
             OverflowException ex = Assert.Throws<OverflowException>(
                 () => new GeographicLocation(latitude, longitude)
             );
-            Assert.Contains(DeploySoftware_LaunchPad_Shared_Resources.Guard_GeographicLocation_Set_Latitude_NaN, ex.Message);
+            Assert.Contains(DeploySoftware_LaunchPad_Core_Resources.Guard_GeographicLocation_Set_Latitude_NaN, ex.Message);
         }
 
         //latitude value are wrong if < -90 || value > 90
@@ -81,7 +82,7 @@ namespace DeploySoftware.LaunchPad.Shared.Tests
             ArgumentOutOfRangeException ex = Assert.Throws<ArgumentOutOfRangeException>(
                () => new GeographicLocation(latitude, longitude)
             );
-            Assert.Contains(DeploySoftware_LaunchPad_Shared_Resources.Guard_GeographicLocation_Set_Latitude_Not_LessThan_Minus_90, ex.Message);
+            Assert.Contains(DeploySoftware_LaunchPad_Core_Resources.Guard_GeographicLocation_Set_Latitude_Not_LessThan_Minus_90, ex.Message);
         }
 
         //latitude values are wrong if < -90 || value > 90
@@ -94,7 +95,7 @@ namespace DeploySoftware.LaunchPad.Shared.Tests
             ArgumentOutOfRangeException ex = Assert.Throws<ArgumentOutOfRangeException>(
                () => new GeographicLocation(latitude, longitude)
             );
-            Assert.Contains(DeploySoftware_LaunchPad_Shared_Resources.Guard_GeographicLocation_Set_Latitude_Not_GreaterThan_90, ex.Message);
+            Assert.Contains(DeploySoftware_LaunchPad_Core_Resources.Guard_GeographicLocation_Set_Latitude_Not_GreaterThan_90, ex.Message);
         }
 
         [Fact]
@@ -105,7 +106,7 @@ namespace DeploySoftware.LaunchPad.Shared.Tests
             OverflowException ex = Assert.Throws<OverflowException>(
                 () => new GeographicLocation(latitude, longitude)
             ); 
-            Assert.Contains(DeploySoftware_LaunchPad_Shared_Resources.Guard_GeographicLocation_Set_Longitude_NaN,ex.Message);
+            Assert.Contains(DeploySoftware_LaunchPad_Core_Resources.Guard_GeographicLocation_Set_Longitude_NaN,ex.Message);
         }
 
         //longitude value are wrong if <= -180 || value > 180
@@ -118,7 +119,7 @@ namespace DeploySoftware.LaunchPad.Shared.Tests
             ArgumentOutOfRangeException ex = Assert.Throws<ArgumentOutOfRangeException>(
                () => new GeographicLocation(latitude, longitude)
             );
-            Assert.Contains(DeploySoftware_LaunchPad_Shared_Resources.Guard_GeographicLocation_Set_Longitude_Not_LessThan_Minus180, ex.Message);
+            Assert.Contains(DeploySoftware_LaunchPad_Core_Resources.Guard_GeographicLocation_Set_Longitude_Not_LessThan_Minus180, ex.Message);
         }
 
         //longitude value are wrong if <= -180 || value > 180
@@ -131,7 +132,7 @@ namespace DeploySoftware.LaunchPad.Shared.Tests
             ArgumentOutOfRangeException ex = Assert.Throws<ArgumentOutOfRangeException>(
                () => new GeographicLocation(latitude, longitude)
             );
-            Assert.Contains(DeploySoftware_LaunchPad_Shared_Resources.Guard_GeographicLocation_Set_Longitude_Not_MoreThan_180, ex.Message);
+            Assert.Contains(DeploySoftware_LaunchPad_Core_Resources.Guard_GeographicLocation_Set_Longitude_Not_MoreThan_180, ex.Message);
         }
         
         [Fact]

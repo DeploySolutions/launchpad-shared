@@ -15,11 +15,11 @@
 //limitations under the License. 
 #endregion
 
-namespace DeploySoftware.LaunchPad.Shared.Tests
+namespace DeploySoftware.LaunchPad.Core.Tests
 {
     using Xunit;
     using FluentAssertions;
-    using DeploySoftware.LaunchPad.Shared.Domain;
+    using DeploySoftware.LaunchPad.Core.Domain;
     using System.Collections.Generic;
 
     public class DeviceTests : IClassFixture<DeviceTestsFixture>

@@ -20,8 +20,8 @@ namespace DeploySoftware.LaunchPad.Space.Satellites.Canada
 {
 
     using CoordinateSharp;
-    using DeploySoftware.LaunchPad.Shared.Domain;
-    using DeploySoftware.LaunchPad.Shared.Util;
+    using DeploySoftware.LaunchPad.Core.Domain;
+    using DeploySoftware.LaunchPad.Core.Util;
     using DeploySoftware.LaunchPad.Space.Satellites.Common;
     using System;
     using System.Collections.Generic;

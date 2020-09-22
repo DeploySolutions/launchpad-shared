@@ -21,7 +21,7 @@ namespace DeploySoftware.LaunchPad.Space.Satellites.Common
 
     using System;
     using System.ComponentModel.DataAnnotations;
-    using DeploySoftware.LaunchPad.Shared.Domain;
+    using DeploySoftware.LaunchPad.Core.Domain;
     using System.Collections.Generic;
 
     public abstract class EarthObservationBase<TPrimaryKey> : DomainEntityBase<TPrimaryKey>, IEarthObservation<TPrimaryKey>

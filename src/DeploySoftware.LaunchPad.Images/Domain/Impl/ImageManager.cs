@@ -21,7 +21,7 @@ namespace DeploySoftware.LaunchPad.Images.Domain
 {
     using ImageMagick;
     using Abp.Domain.Services;
-    using DeploySoftware.LaunchPad.Shared.Util;
+    using DeploySoftware.LaunchPad.Core.Util;
     using System;
     using System.IO;
     using Castle.Core.Logging;

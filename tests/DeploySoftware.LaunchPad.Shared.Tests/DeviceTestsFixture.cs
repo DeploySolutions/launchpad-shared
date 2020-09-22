@@ -1,9 +1,9 @@
-﻿using DeploySoftware.LaunchPad.Shared.Domain;
+﻿using DeploySoftware.LaunchPad.Core.Domain;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace DeploySoftware.LaunchPad.Shared.Tests
+namespace DeploySoftware.LaunchPad.Core.Tests
 {
     public class DeviceTestsFixture : IDisposable
     {

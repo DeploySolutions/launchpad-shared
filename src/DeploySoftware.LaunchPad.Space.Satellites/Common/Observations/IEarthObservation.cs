@@ -19,7 +19,7 @@ namespace DeploySoftware.LaunchPad.Space.Satellites.Common
 {
 
     using Abp.Domain.Entities.Auditing;
-    using DeploySoftware.LaunchPad.Shared.Domain;
+    using DeploySoftware.LaunchPad.Core.Domain;
     using System.ComponentModel.DataAnnotations;
 
     public interface IEarthObservation<TPrimaryKey> : IDomainEntity<TPrimaryKey>, IPhysicallyLocatable

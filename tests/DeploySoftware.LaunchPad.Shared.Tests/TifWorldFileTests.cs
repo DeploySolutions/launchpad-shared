@@ -16,7 +16,7 @@
 #endregion
 
 
-namespace DeploySoftware.LaunchPad.Shared.Tests
+namespace DeploySoftware.LaunchPad.Core.Tests
 {
     
     using FluentAssertions;

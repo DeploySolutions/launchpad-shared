@@ -18,7 +18,7 @@
 namespace DeploySoftware.LaunchPad.Space.Tests
 {
     using DeploySoftware.LaunchPad.Space.Satellites.Canada;
-    using DeploySoftware.LaunchPad.Shared.Domain;
+    using DeploySoftware.LaunchPad.Core.Domain;
     using System;
 
     public class Radarsat1MetadataFileFixture : IDisposable

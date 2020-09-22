@@ -15,10 +15,10 @@
 //limitations under the License. 
 #endregion
 
-namespace DeploySoftware.LaunchPad.Shared.Tests
+namespace DeploySoftware.LaunchPad.Core.Tests
 {
     using Xunit;
-    using DeploySoftware.LaunchPad.Shared;
+    using DeploySoftware.LaunchPad.Core;
     
     public class MetadataInformationTests
     {

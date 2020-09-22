@@ -17,7 +17,7 @@
 
 namespace DeploySoftware.LaunchPad.Space.Satellites.Common
 {
-    using DeploySoftware.LaunchPad.Shared.Domain;
+    using DeploySoftware.LaunchPad.Core.Domain;
     using System.Collections.Generic;
 
     public interface IObservationFiles<TPrimaryKey> 

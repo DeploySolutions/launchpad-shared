@@ -27,7 +27,7 @@ namespace DeploySoftware.LaunchPad.Space.Satellites.Canada
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
     using Abp.Timing;
-    using DeploySoftware.LaunchPad.Shared.Domain;
+    using DeploySoftware.LaunchPad.Core.Domain;
     using DeploySoftware.LaunchPad.Space.Satellites.Common;  
 
     [Table("Radarsat1Observations")]

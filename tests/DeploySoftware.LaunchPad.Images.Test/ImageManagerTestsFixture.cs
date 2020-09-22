@@ -19,8 +19,8 @@
 using System.Drawing;
 using System.IO;
 using System.Resources;
-using DeploySoftware.LaunchPad.Shared;
-using DeploySoftware.LaunchPad.Shared.Util;
+using DeploySoftware.LaunchPad.Core;
+using DeploySoftware.LaunchPad.Core.Util;
 
 namespace DeploySoftware.LaunchPad.Images.Tests
 {

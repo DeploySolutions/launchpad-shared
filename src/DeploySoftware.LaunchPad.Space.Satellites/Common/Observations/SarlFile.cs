@@ -18,7 +18,7 @@
 
 namespace DeploySoftware.LaunchPad.Space.Satellites.Common
 {
-    using DeploySoftware.LaunchPad.Shared.Domain;
+    using DeploySoftware.LaunchPad.Core.Domain;
 
     public class SarlFile<TPrimaryKey> : FileBase<TPrimaryKey>
     {

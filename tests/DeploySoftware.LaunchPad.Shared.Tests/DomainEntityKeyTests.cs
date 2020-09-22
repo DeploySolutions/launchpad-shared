@@ -15,12 +15,12 @@
 //limitations under the License. 
 #endregion
 
-namespace DeploySoftware.LaunchPad.Shared.Tests
+namespace DeploySoftware.LaunchPad.Core.Tests
 {
     using Xunit;
     using FluentAssertions;
-    using DeploySoftware.LaunchPad.Shared.Domain;
-    using DeploySoftware.LaunchPad.Shared.Util;
+    using DeploySoftware.LaunchPad.Core.Domain;
+    using DeploySoftware.LaunchPad.Core.Util;
 
     public class DomainEntityKeyTests
     {

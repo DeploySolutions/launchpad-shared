@@ -18,7 +18,7 @@
 namespace DeploySoftware.LaunchPad.Organizations.Canada
 {
 
-    using DeploySoftware.LaunchPad.Shared.Domain;
+    using DeploySoftware.LaunchPad.Core.Domain;
     using Schema.NET;
     using System;
 

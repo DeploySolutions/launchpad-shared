@@ -37,7 +37,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{82629D38
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Src", "Src", "{442BFA02-FB67-4078-AA7D-C8796C5D074B}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DeploySoftware.LaunchPad.Shared", "src\DeploySoftware.LaunchPad.Shared\DeploySoftware.LaunchPad.Shared.csproj", "{4EA44E22-D6AC-4E8E-A1FC-5115FD3F7D7C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DeploySoftware.LaunchPad.Core", "src\DeploySoftware.LaunchPad.Core\DeploySoftware.LaunchPad.Core.csproj", "{4EA44E22-D6AC-4E8E-A1FC-5115FD3F7D7C}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DeploySoftware.LaunchPad.Organizations", "src\DeploySoftware.LaunchPad.Organizations\DeploySoftware.LaunchPad.Organizations.csproj", "{88F7779B-0DCA-473A-8AAA-D3AF1FF3D949}"
 EndProject
@@ -45,7 +45,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DeploySoftware.LaunchPad.Sp
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DeploySoftware.LaunchPad.Space.Tests", "tests\DeploySoftware.LaunchPad.Space.Tests\DeploySoftware.LaunchPad.Space.Tests.csproj", "{768F46ED-784A-4D72-BFC8-A9E37FBB2F7A}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DeploySoftware.LaunchPad.Shared.Tests", "tests\DeploySoftware.LaunchPad.Shared.Tests\DeploySoftware.LaunchPad.Shared.Tests.csproj", "{A4E349C5-5F9B-4D6E-940C-50B251D9B1A6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DeploySoftware.LaunchPad.Core.Tests", "tests\DeploySoftware.LaunchPad.Shared.Tests\DeploySoftware.LaunchPad.Core.Tests.csproj", "{A4E349C5-5F9B-4D6E-940C-50B251D9B1A6}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DeploySoftware.LaunchPad.Images", "src\DeploySoftware.LaunchPad.Images\DeploySoftware.LaunchPad.Images.csproj", "{2FF22785-C306-4788-B147-F5B59C1A1134}"
 EndProject

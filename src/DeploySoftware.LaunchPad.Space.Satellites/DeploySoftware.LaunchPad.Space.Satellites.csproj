@@ -9,7 +9,7 @@
     <RepositoryUrl>https://github.com/DeploySolutions/launchpad-shared</RepositoryUrl>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
-    <Version>2.0.3-alpha</Version>
+    <Version>2.0.4-alpha</Version>
     <Description>Satellite-related code for LaunchPad framework.</Description>
     <Copyright>2018-2021 Deploy Software Solutions, inc.</Copyright>
     <PackageReleaseNotes>1.0.5: Add observation file support
@@ -21,8 +21,9 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\DeploySoftware.LaunchPad.Core\DeploySoftware.LaunchPad.Core.csproj" />
     <ProjectReference Include="..\DeploySoftware.LaunchPad.Organizations\DeploySoftware.LaunchPad.Organizations.csproj" />
-    <ProjectReference Include="..\DeploySoftware.LaunchPad.Shared\DeploySoftware.LaunchPad.Shared.csproj" />
+    <ProjectReference Include="..\DeploySoftware.LaunchPad.Shared\DeploySoftware.LaunchPad.Core.csproj" />
   </ItemGroup>
 
   <ItemGroup>
