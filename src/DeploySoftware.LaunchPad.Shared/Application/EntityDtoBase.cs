@@ -145,12 +145,12 @@ namespace DeploySoftware.LaunchPad.Shared.Application
         /// Default constructor where the tenant id is known
         /// </summary>
         /// <param name="tenantId"></param>
-        public EntityDtoBase(int tenantId) : base()
+        public EntityDtoBase(int? tenantId) : base()
         {
 
         }
 
-        public EntityDtoBase(int tenantId, TIdType id) : base()
+        public EntityDtoBase(int? tenantId, TIdType id) : base()
         {
            
         }

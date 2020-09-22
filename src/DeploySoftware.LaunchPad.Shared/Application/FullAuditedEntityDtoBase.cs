@@ -47,12 +47,12 @@ namespace DeploySoftware.LaunchPad.Shared.Application
         /// Default constructor where the tenant id is known
         /// </summary>
         /// <param name="tenantId"></param>
-        public FullAuditedEntityDtoBase(int tenantId) : base(tenantId)
+        public FullAuditedEntityDtoBase(int? tenantId) : base(tenantId)
         {
 
         }
 
-        public FullAuditedEntityDtoBase(int tenantId, TIdType id) : base(tenantId, id)
+        public FullAuditedEntityDtoBase(int? tenantId, TIdType id) : base(tenantId, id)
         {
            
         }
