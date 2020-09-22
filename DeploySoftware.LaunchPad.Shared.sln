@@ -37,19 +37,19 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{82629D38
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Src", "Src", "{442BFA02-FB67-4078-AA7D-C8796C5D074B}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DeploySoftware.LaunchPad.Core", "src\DeploySoftware.LaunchPad.Core\DeploySoftware.LaunchPad.Core.csproj", "{4EA44E22-D6AC-4E8E-A1FC-5115FD3F7D7C}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DeploySoftware.LaunchPad.Organizations", "src\DeploySoftware.LaunchPad.Organizations\DeploySoftware.LaunchPad.Organizations.csproj", "{88F7779B-0DCA-473A-8AAA-D3AF1FF3D949}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DeploySoftware.LaunchPad.Space.Satellites", "src\DeploySoftware.LaunchPad.Space.Satellites\DeploySoftware.LaunchPad.Space.Satellites.csproj", "{75EA3872-9A55-4E46-AFA5-F5CD758CD7F9}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DeploySoftware.LaunchPad.Space.Tests", "tests\DeploySoftware.LaunchPad.Space.Tests\DeploySoftware.LaunchPad.Space.Tests.csproj", "{768F46ED-784A-4D72-BFC8-A9E37FBB2F7A}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DeploySoftware.LaunchPad.Core.Tests", "tests\DeploySoftware.LaunchPad.Shared.Tests\DeploySoftware.LaunchPad.Core.Tests.csproj", "{A4E349C5-5F9B-4D6E-940C-50B251D9B1A6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DeploySoftware.LaunchPad.Core.Tests", "tests\DeploySoftware.LaunchPad.Core.Tests\DeploySoftware.LaunchPad.Core.Tests.csproj", "{A4E349C5-5F9B-4D6E-940C-50B251D9B1A6}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DeploySoftware.LaunchPad.Images", "src\DeploySoftware.LaunchPad.Images\DeploySoftware.LaunchPad.Images.csproj", "{2FF22785-C306-4788-B147-F5B59C1A1134}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DeploySoftware.LaunchPad.Images.Tests", "tests\DeploySoftware.LaunchPad.Images.Test\DeploySoftware.LaunchPad.Images.Tests.csproj", "{19F8D0A1-A6FD-45C3-8F18-6283C609584B}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DeploySoftware.LaunchPad.Core", "src\DeploySoftware.LaunchPad.Core\DeploySoftware.LaunchPad.Core.csproj", "{C3CCE29C-FF79-4433-9947-F797FD46039A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -57,10 +57,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{4EA44E22-D6AC-4E8E-A1FC-5115FD3F7D7C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{4EA44E22-D6AC-4E8E-A1FC-5115FD3F7D7C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{4EA44E22-D6AC-4E8E-A1FC-5115FD3F7D7C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{4EA44E22-D6AC-4E8E-A1FC-5115FD3F7D7C}.Release|Any CPU.Build.0 = Release|Any CPU
 		{88F7779B-0DCA-473A-8AAA-D3AF1FF3D949}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{88F7779B-0DCA-473A-8AAA-D3AF1FF3D949}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{88F7779B-0DCA-473A-8AAA-D3AF1FF3D949}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -85,6 +81,10 @@ Global
 		{19F8D0A1-A6FD-45C3-8F18-6283C609584B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{19F8D0A1-A6FD-45C3-8F18-6283C609584B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{19F8D0A1-A6FD-45C3-8F18-6283C609584B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C3CCE29C-FF79-4433-9947-F797FD46039A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C3CCE29C-FF79-4433-9947-F797FD46039A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C3CCE29C-FF79-4433-9947-F797FD46039A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C3CCE29C-FF79-4433-9947-F797FD46039A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -93,13 +93,13 @@ Global
 		{263E79D0-663D-4183-A0B6-B4E564622F82} = {BA4BDEEC-4CF6-4538-9381-1D9517BAADD5}
 		{DA68E384-A145-4652-9BFE-23C24E6CB7B2} = {BA4BDEEC-4CF6-4538-9381-1D9517BAADD5}
 		{D0558D6C-0754-4B1A-B6F0-7E525AFEF0DD} = {BA4BDEEC-4CF6-4538-9381-1D9517BAADD5}
-		{4EA44E22-D6AC-4E8E-A1FC-5115FD3F7D7C} = {442BFA02-FB67-4078-AA7D-C8796C5D074B}
 		{88F7779B-0DCA-473A-8AAA-D3AF1FF3D949} = {442BFA02-FB67-4078-AA7D-C8796C5D074B}
 		{75EA3872-9A55-4E46-AFA5-F5CD758CD7F9} = {442BFA02-FB67-4078-AA7D-C8796C5D074B}
 		{768F46ED-784A-4D72-BFC8-A9E37FBB2F7A} = {82629D38-5FB2-4DAF-9B67-3C766D419811}
 		{A4E349C5-5F9B-4D6E-940C-50B251D9B1A6} = {82629D38-5FB2-4DAF-9B67-3C766D419811}
 		{2FF22785-C306-4788-B147-F5B59C1A1134} = {442BFA02-FB67-4078-AA7D-C8796C5D074B}
 		{19F8D0A1-A6FD-45C3-8F18-6283C609584B} = {82629D38-5FB2-4DAF-9B67-3C766D419811}
+		{C3CCE29C-FF79-4433-9947-F797FD46039A} = {442BFA02-FB67-4078-AA7D-C8796C5D074B}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {89FD47F4-AA98-4C45-852A-0CFC7404BBA3}
