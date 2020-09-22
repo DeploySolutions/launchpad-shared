@@ -37,7 +37,6 @@
   <ItemGroup>
     <ProjectReference Include="..\..\src\DeploySoftware.LaunchPad.Core\DeploySoftware.LaunchPad.Core.csproj" />
     <ProjectReference Include="..\..\src\DeploySoftware.LaunchPad.Organizations\DeploySoftware.LaunchPad.Organizations.csproj" />
-    <ProjectReference Include="..\..\src\DeploySoftware.LaunchPad.Shared\DeploySoftware.LaunchPad.Core.csproj" />
     <ProjectReference Include="..\..\src\DeploySoftware.LaunchPad.Space.Satellites\DeploySoftware.LaunchPad.Space.Satellites.csproj" />
   </ItemGroup>
 

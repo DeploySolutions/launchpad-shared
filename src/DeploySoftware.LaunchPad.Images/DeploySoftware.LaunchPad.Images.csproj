@@ -23,7 +23,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\DeploySoftware.LaunchPad.Core\DeploySoftware.LaunchPad.Core.csproj" />
-    <ProjectReference Include="..\DeploySoftware.LaunchPad.Shared\DeploySoftware.LaunchPad.Core.csproj" />
   </ItemGroup>
 
   <ItemGroup>

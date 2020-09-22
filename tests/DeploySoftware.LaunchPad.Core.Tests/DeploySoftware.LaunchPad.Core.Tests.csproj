@@ -34,7 +34,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\src\DeploySoftware.LaunchPad.Core\DeploySoftware.LaunchPad.Core.csproj" />
-    <ProjectReference Include="..\..\src\DeploySoftware.LaunchPad.Shared\DeploySoftware.LaunchPad.Core.csproj" />
   </ItemGroup>
 
   <ItemGroup>
