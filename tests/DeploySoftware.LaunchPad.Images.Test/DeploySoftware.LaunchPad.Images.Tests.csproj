@@ -6,11 +6,17 @@
     <IsPackable>false</IsPackable>
 
     <Version>2.0.0-alpha</Version>
+
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
   </PropertyGroup>
 
   <ItemGroup>
     <None Remove="logoDark.png" />
     <None Remove="logoWhite.png" />
+    <None Include="..\..\LICENSE">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
   </ItemGroup>
 
   <ItemGroup>

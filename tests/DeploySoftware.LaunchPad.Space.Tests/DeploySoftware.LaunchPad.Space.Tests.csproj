@@ -6,6 +6,12 @@
     <IsPackable>false</IsPackable>
 
     <Version>2.0.0-alpha</Version>
+
+    <PackageLicenseFile></PackageLicenseFile>
+
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
   </PropertyGroup>
 
   <ItemGroup>
