@@ -66,7 +66,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         [DataObjectField(true)]
         [XmlAttribute]
         [Key]
-        public new TIdType Id
+        public override TIdType Id
         {
             get { return id; }
             set
@@ -297,7 +297,8 @@ namespace DeploySoftware.LaunchPad.Core.Domain
             Culture = ApplicationInformation<TIdType>.DEFAULT_CULTURE;
             Tags = new List<MetadataTag>();
             IsDeleted = false;
-            IsActive = true;
+            IsActive = true; 
+            DisplayName = String.Empty;
         }
 
         /// <summary>  
@@ -310,6 +311,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
             Key = new DomainEntityKey<TIdType>(ApplicationInformation<TIdType>.DEFAULT_CULTURE);
             Culture = ApplicationInformation<TIdType>.DEFAULT_CULTURE;
             CreatorUserId = 1; // TODO - default user account?
+            DisplayName = String.Empty;
         }
 
         /// <summary>
@@ -327,6 +329,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
             IsDeleted = false;
             IsActive = true;
             Tags = new List<MetadataTag>();
+            DisplayName = String.Empty;
         }
 
         /// <summary>
@@ -537,9 +540,9 @@ namespace DeploySoftware.LaunchPad.Core.Domain
                     // For safe equality we need to match on business key equality.
                     // Base domain entities are functionally equal if their key and metadata are equal.
                     // Subclasses should extend to include their own enhanced equality checks, as required.
-                    return Id.Equals(obj.Id) && Key.Culture.Equals(obj.Key.Culture) && Metadata.Equals(obj.Metadata)
-                        && IsActive.Equals(obj.IsActive) && IsDeleted.Equals(obj.IsDeleted) && TenantId.Equals(obj.TenantId) &&
-                        Tags.Equals(obj.Tags);
+                    return Id.Equals(obj.Id) && Culture.Equals(obj.Culture)
+                        && IsActive.Equals(obj.IsActive) && IsDeleted.Equals(obj.IsDeleted)
+                        && TenantId.Equals(obj.TenantId);
                 }
                 
             }
@@ -587,9 +590,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         {
             return Culture.GetHashCode()
                 + Id.GetHashCode()
-                + DisplayName.GetHashCode()
-                + LastModifierUserId.GetHashCode()
-                + LastModificationTime.GetHashCode();
+                + DisplayName.GetHashCode();
         }
 
     }

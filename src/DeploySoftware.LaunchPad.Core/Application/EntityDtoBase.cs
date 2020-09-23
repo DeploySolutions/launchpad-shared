@@ -16,6 +16,8 @@
 #endregion
 
 using Abp.Application.Services.Dto;
+using DeploySoftware.LaunchPad.Core.Domain;
+using DeploySoftware.LaunchPad.Core.Util;
 using System;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
@@ -36,16 +38,6 @@ namespace DeploySoftware.LaunchPad.Core.Application
     public abstract class EntityDtoBase<TIdType> : EntityDto<TIdType>,
         IComparable<EntityDtoBase<TIdType>>, IEquatable<EntityDtoBase<TIdType>>
     {
-        /// <summary>
-        /// The id field for this object. Inherited from ABP. 
-        /// Note that for our LaunchPad framework we actually require both an id and a culture field to uniquely identify an entity. 
-        /// In the Domain Entities, this functionality is encapsulated in the <see cref="IKey">IKey</see> property.
-        /// To keep our DTO simple, we will pass around Id and Culture as individual fields.
-        /// </summary>
-        [DataObjectField(true)]
-        [XmlAttribute]
-        [Required]
-        public new TIdType Id { get; set; }
 
         /// <summary>
         /// The culture of this object
@@ -147,21 +139,37 @@ namespace DeploySoftware.LaunchPad.Core.Application
         /// <param name="tenantId"></param>
         protected EntityDtoBase() : base()
         {
-
+            Culture = ApplicationInformation<TIdType>.DEFAULT_CULTURE;
+            CreatorUserId = 1; // TODO - default user account?
+            IsDeleted = false;
+            IsActive = true;
+            DisplayName = String.Empty;
         }
 
         /// <summary>
         /// Default constructor where the tenant id is known
         /// </summary>
         /// <param name="tenantId"></param>
-        public EntityDtoBase(int? tenantId) : base()
-        {
-
-        }
-
         public EntityDtoBase(int? tenantId, TIdType id) : base()
         {
-           
+            Id = id;
+            Culture = ApplicationInformation<TIdType>.DEFAULT_CULTURE;
+            TenantId = tenantId;
+            CreatorUserId = 1; // TODO - default user account?
+            IsDeleted = false;
+            IsActive = true;
+            DisplayName = String.Empty;
+        }
+
+        public EntityDtoBase(int? tenantId, TIdType id, String culture) : base()
+        {
+            Id = id;
+            Culture = culture;
+            TenantId = tenantId;
+            CreatorUserId = 1; // TODO - default user account?
+            IsDeleted = false;
+            IsActive = true;
+            DisplayName = String.Empty;
         }
      
         /// <summary>
@@ -355,9 +363,7 @@ namespace DeploySoftware.LaunchPad.Core.Application
         {
             return Culture.GetHashCode()
                 + Id.GetHashCode()
-                + DisplayName.GetHashCode()
-                + LastModifierUserId.GetHashCode()
-                + LastModificationTime.GetHashCode();
+                + DisplayName.GetHashCode();
         }
 
     }
