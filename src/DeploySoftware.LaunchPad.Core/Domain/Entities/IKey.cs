@@ -35,7 +35,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         /// </summary>
         [DataObjectField(true)]
         [XmlAttribute]
-        TIdType Id { get; set; }
+        TIdType LaunchPadId { get; set; }
 
         /// <summary>
         /// The Culture code of this object

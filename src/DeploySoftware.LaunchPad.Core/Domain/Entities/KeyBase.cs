@@ -41,7 +41,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         /// </summary>
         [DataObjectField(true)]
         [XmlAttribute]
-        public abstract TIdType Id { get; set; }
+        public virtual TIdType LaunchPadId { get; set; }
 
         /// <summary>
         /// The ISO Culture code of this object
@@ -76,7 +76,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         /// <param name="cultureName">The culture code of the key</param>
         protected KeyBase(TIdType id, String cultureName)
         {
-            Id = id;
+            LaunchPadId = id;
             Culture = cultureName;
         }
 
@@ -87,7 +87,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         /// <param name="context">The context of the stream</param>
         protected KeyBase(SerializationInfo info, StreamingContext context)
         {
-            Id = (TIdType)info.GetValue("Id", typeof(TIdType));
+            LaunchPadId = (TIdType)info.GetValue("LaunchPadId", typeof(TIdType));
             Culture = info.GetString("Culture");
         }
 
@@ -99,7 +99,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         [SecurityPermission(SecurityAction.Demand, SerializationFormatter = true)]
         public virtual void GetObjectData(SerializationInfo info, StreamingContext context)
         {
-            info.AddValue("Id", Id); 
+            info.AddValue("LaunchPadId", LaunchPadId); 
             info.AddValue("Culture", Culture);
         }
     }

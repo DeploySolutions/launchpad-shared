@@ -33,14 +33,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
     [ComplexType]
     public partial class DomainEntityKey<TIdType> : KeyBase<TIdType>
     {
-
-        /// <summary>
-        /// The Globally-Unique ID that uniquely identifies this object.
-        /// </summary>
-        [DataObjectField(true)]
-        [XmlAttribute]
-        public override TIdType Id { get; set; }
-
+       
         /// <summary>  
          /// Initializes a new instance of the <see cref="DomainEntityKey">DomainEntityKey</see> class.  
          /// </summary>
@@ -59,7 +52,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         public DomainEntityKey(TIdType id, String cultureName)
             : base(id, cultureName)
         {
-            Id = id;
+            LaunchPadId = id;
             Culture = cultureName;
         }
         
@@ -71,7 +64,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         protected DomainEntityKey(SerializationInfo info, StreamingContext context)
             : base(info, context)
         {
-            Id = (TIdType)info.GetValue("Id", typeof(TIdType));
+            LaunchPadId = (TIdType)info.GetValue("LaunchPadId", typeof(TIdType));
             Culture = info.GetString("Culture");
         }
 
@@ -84,7 +77,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         public override void GetObjectData(SerializationInfo info, StreamingContext context)
         {
             base.GetObjectData(info, context);
-            info.AddValue("Id", Id);
+            info.AddValue("LaunchPadId", LaunchPadId);
             info.AddValue("Culture", Culture);
         }
 
@@ -96,7 +89,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         {
             StringBuilder sb = new StringBuilder();
             sb.Append("[Key: ");
-            sb.AppendFormat("Id={0};", Id);
+            sb.AppendFormat("LaunchPadId={0};", LaunchPadId);
             sb.AppendFormat("Culture={0};", Culture);   
             sb.Append("]");
             return sb.ToString();
@@ -133,7 +126,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
                 // for safe equality we need to match on business key equality.
                 // These entities are functionally equal if the Id and Culture and BaseUri are equal
                 return (
-                    Id.Equals(obj.Id) &&
+                    LaunchPadId.Equals(obj.LaunchPadId) &&
                     Culture.Equals(obj.Culture) 
                     );
             }
@@ -179,7 +172,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         /// <returns>A hash code for an object.</returns>
         public override int GetHashCode()
         {
-            return Id.GetHashCode() + Culture.GetHashCode();
+            return LaunchPadId.GetHashCode() + Culture.GetHashCode();
         }
     }
 }

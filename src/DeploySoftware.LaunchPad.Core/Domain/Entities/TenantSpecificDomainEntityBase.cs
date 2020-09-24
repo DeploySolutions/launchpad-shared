@@ -244,7 +244,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         /// <returns>A hash code for an object.</returns>
         public override int GetHashCode()
         {
-            return Key.Culture.GetHashCode()+Key.Id.GetHashCode();
+            return Key.Culture.GetHashCode()+Key.LaunchPadId.GetHashCode();
         }
 
     }

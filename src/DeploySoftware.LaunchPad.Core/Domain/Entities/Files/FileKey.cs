@@ -34,7 +34,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         /// </summary>
         [DataObjectField(true)]
         [XmlAttribute]
-        public override String Id { get; set; }
+        public override String LaunchPadId { get; set; }
 
         /// <summary>  
         /// Initializes a new instance of the <see cref="FileKey">FileKey</see> class.  
@@ -43,7 +43,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
             : base()
         {
             // if no key is provided, use a sequential guid as the file key
-            Id = SequentialGuid.Generate(SequentialGuid.SequentialGuidType.SequentialAsString).ToString();
+            LaunchPadId = SequentialGuid.Generate(SequentialGuid.SequentialGuidType.SequentialAsString).ToString();
         }
 
         /// <summary>  
@@ -54,7 +54,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         public FileKey(String id)
             : base()
         {
-            Id = id;
+            LaunchPadId = id;
         }
 
         /// <summary>
@@ -66,7 +66,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         public FileKey(String id, String cultureName)
             : base(id, cultureName)
         {
-            Id = id;
+            LaunchPadId = id;
         }
 
         /// <summary>
@@ -99,7 +99,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         {
             StringBuilder sb = new StringBuilder();
             sb.Append("[FileKey: ");
-            sb.AppendFormat("Id={0};", Id);
+            sb.AppendFormat("LaunchPadId={0};", LaunchPadId);
             sb.AppendFormat("Culture={0};", Culture);
             sb.Append("]");
             return sb.ToString();
@@ -136,7 +136,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
                 // for safe equality we need to match on business key equality.
                 // These entities are functionally equal if the Id and Culture are equal
                 return (
-                    Id.Equals(obj.Id) &&
+                    LaunchPadId.Equals(obj.LaunchPadId) &&
                     Culture.Equals(obj.Culture));
             }
             return false;
@@ -181,7 +181,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         /// <returns>A hash code for an object.</returns>
         public override int GetHashCode()
         {
-            return Id.GetHashCode() + Culture.GetHashCode();
+            return LaunchPadId.GetHashCode() + Culture.GetHashCode();
         }
     }
 }

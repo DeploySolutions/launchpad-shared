@@ -45,7 +45,7 @@ namespace DeploySoftware.LaunchPad.Space.Tests
         [Fact]
         public void Should_Have_NotNull_FileKey_When_Instantiated()
         {
-            _fixture.Radarsat1MetadataFileKey.Id.Should().NotBeNull();
+            _fixture.Radarsat1MetadataFileKey.LaunchPadId.Should().NotBeNull();
         }
 
         [Fact]

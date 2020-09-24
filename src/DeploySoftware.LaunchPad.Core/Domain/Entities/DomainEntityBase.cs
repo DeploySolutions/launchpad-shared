@@ -57,7 +57,6 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         private Boolean isActive;
         private Boolean isDeleted;
 
-
         /// <summary>
         /// The id field for this object. Inherited from ABP. Note that for our LaunchPad framework we actually require
         /// both an id and a culture field to uniquely identify an entity. This functionality is encapsulated in the <see cref="IKey">IKey</see> interface.
@@ -66,13 +65,14 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         [DataObjectField(true)]
         [XmlAttribute]
         [Key]
+        [Column(Order =1)]
         public override TIdType Id
         {
             get { return id; }
             set
             {
                 id = value;
-                Key.Id = value;
+                Key.LaunchPadId = value;
             }
         }
 
@@ -81,7 +81,8 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         /// </summary>
         [DataObjectField(true)]
         [XmlAttribute]
-        [Key]
+        //[Key]
+        //[Column(Order = 2)]
         public String Culture
         {
             get { return culture; }
@@ -292,13 +293,15 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         /// </summary>
         protected DomainEntityBase() : base()
         {
-            Metadata = new MetadataInformation();
             Key = new DomainEntityKey<TIdType>(ApplicationInformation<TIdType>.DEFAULT_CULTURE);
+            Metadata = new MetadataInformation();
             Culture = ApplicationInformation<TIdType>.DEFAULT_CULTURE;
+            TenantId = 0; // default tenant
             Tags = new List<MetadataTag>();
             IsDeleted = false;
             IsActive = true; 
             DisplayName = String.Empty;
+
         }
 
         /// <summary>  
@@ -306,11 +309,47 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         /// </summary>
         protected DomainEntityBase(int? tenantId) : base()
         {
-            Metadata = new MetadataInformation();
-            TenantId = tenantId;
             Key = new DomainEntityKey<TIdType>(ApplicationInformation<TIdType>.DEFAULT_CULTURE);
+            Metadata = new MetadataInformation();
             Culture = ApplicationInformation<TIdType>.DEFAULT_CULTURE;
+            if (tenantId != null)
+            { 
+                TenantId = tenantId; 
+            } 
+            else
+            {
+                TenantId = 0;
+            }
             CreatorUserId = 1; // TODO - default user account?
+            DisplayName = String.Empty;
+            IsDeleted = false;
+            IsActive = true;
+        }
+
+
+        /// <summary>
+        /// Creates a new instance of the <see cref="DomainEntityBase">Entity</see> class given a key, and some metadata. 
+        /// </summary>
+        /// <param name="culture">The culture for this entity</param>
+        protected DomainEntityBase(int? tenantId, TIdType id) : base()
+        {
+            Key = new DomainEntityKey<TIdType>(id, culture); 
+            Metadata = new MetadataInformation();
+            Id = id;
+            Culture = ApplicationInformation<TIdType>.DEFAULT_CULTURE;
+            if (tenantId != null)
+            {
+                TenantId = tenantId;
+            }
+            else
+            {
+                TenantId = 0;
+            }
+            
+            CreatorUserId = 1; // TODO - default user account?
+            IsDeleted = false;
+            IsActive = true;
+            Tags = new List<MetadataTag>();
             DisplayName = String.Empty;
         }
 
@@ -320,11 +359,18 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         /// <param name="culture">The culture for this entity</param>
         protected DomainEntityBase(int? tenantId, TIdType id, string culture) : base()
         {
+            Key = new DomainEntityKey<TIdType>(id, culture);
             Metadata = new MetadataInformation();
-            TenantId = tenantId;
             Id = id;
             Culture = culture;
-            Key = new DomainEntityKey<TIdType>(id,culture);
+            if (tenantId != null)
+            {
+                TenantId = tenantId;
+            }
+            else
+            {
+                TenantId = 0;
+            }
             CreatorUserId = 1; // TODO - default user account?
             IsDeleted = false;
             IsActive = true;
@@ -339,12 +385,46 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         /// <param name="key">The key for this entity</param>
         /// <param name="culture">The culture for this entity</param>
         /// <param name="metadata">The metadata containing the values for this entity</param>
+        protected DomainEntityBase(int? tenantId, DomainEntityKey<TIdType> key) : base()
+        {
+            Key = new DomainEntityKey<TIdType>(id, culture);
+            Metadata = new MetadataInformation();
+            Id = key.LaunchPadId;
+            Culture = key.Culture;
+            if (tenantId != null)
+            {
+                TenantId = tenantId;
+            }
+            else
+            {
+                TenantId = 0;
+            }
+            IsDeleted = false;
+            IsActive = true;
+            DisplayName = String.Empty;
+            Tags = new List<MetadataTag>();
+        }
+
+        /// <summary>
+        /// Creates a new instance of the <see cref="DomainEntityBase">Entity</see> class given a key, and using the exact values
+        /// passed in via the metadata object.
+        /// </summary>
+        /// <param name="key">The key for this entity</param>
+        /// <param name="culture">The culture for this entity</param>
+        /// <param name="metadata">The metadata containing the values for this entity</param>
         protected DomainEntityBase(int? tenantId, DomainEntityKey<TIdType> key, MetadataInformation metadata) : base()
         {
             Metadata = metadata;
-            TenantId = tenantId;
-            
-            Id = key.Id;
+            if (tenantId != null)
+            {
+                TenantId = tenantId;
+            }
+            else
+            {
+                TenantId = 0;
+            }
+
+            Id = key.LaunchPadId;
             Culture = key.Culture;
 
             // populate the fields with any values that are passed in via the metadata
@@ -361,10 +441,6 @@ namespace DeploySoftware.LaunchPad.Core.Domain
             IsActive = metadata.IsActive;
 
             Tags = new List<MetadataTag>();
-
-
-
-
 
         }
 
@@ -590,6 +666,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         {
             return Culture.GetHashCode()
                 + Id.GetHashCode()
+                + TenantId.GetHashCode()
                 + DisplayName.GetHashCode();
         }
 

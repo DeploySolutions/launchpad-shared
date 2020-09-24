@@ -36,7 +36,7 @@ namespace DeploySoftware.LaunchPad.Core.Tests
         {
             DomainEntityKey<System.Guid> key = new DomainEntityKey<System.Guid>(
                 SequentialGuid.NewGuid(), ApplicationInformation<System.Guid>.DEFAULT_CULTURE);
-            key.Id.Should().NotBeEmpty();
+            key.LaunchPadId.Should().NotBeEmpty();
 
         }
 

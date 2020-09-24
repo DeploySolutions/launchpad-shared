@@ -21,6 +21,7 @@ namespace DeploySoftware.LaunchPad.Core.Tests
     using FluentAssertions;
     using DeploySoftware.LaunchPad.Core.Domain;
     using System.Collections.Generic;
+    using System;
 
     public class DeviceTests : IClassFixture<DeviceTestsFixture>
     {
@@ -36,7 +37,7 @@ namespace DeploySoftware.LaunchPad.Core.Tests
         public DeviceTests(DeviceTestsFixture fixture)
         {
             this._fixture = fixture;
-            Device<int> device = new Device<int>(tenantId)
+            Device<int> device = new Device<int>()
             {
                 Id = 1
             };
@@ -88,11 +89,11 @@ namespace DeploySoftware.LaunchPad.Core.Tests
         [Fact]
         public void Should_Allow_PreviousPhysicalLocations_To_Be_Added()
         {
-            SpaceTimeInformation sydney = new SpaceTimeInformation(new GeographicLocation(33.8650,151.2094));
+            SpaceTimeInformation sydney = new SpaceTimeInformation(new GeographicLocation(33.8650, 151.2094));
             SpaceTimeInformation london = new SpaceTimeInformation(new GeographicLocation(51.5072, 0.1275));
-            SpaceTimeInformation newyork = new SpaceTimeInformation(new GeographicLocation(40.7127,74.0059));
-            SpaceTimeInformation kingston = new SpaceTimeInformation(new GeographicLocation(44.2333,76.5000));
-            SpaceTimeInformation halifax = new SpaceTimeInformation(new GeographicLocation(44.6478,63.5714));
+            SpaceTimeInformation newyork = new SpaceTimeInformation(new GeographicLocation(40.7127, 74.0059));
+            SpaceTimeInformation kingston = new SpaceTimeInformation(new GeographicLocation(44.2333, 76.5000));
+            SpaceTimeInformation halifax = new SpaceTimeInformation(new GeographicLocation(44.6478, 63.5714));
             IList<SpaceTimeInformation> previousLocations = new List<SpaceTimeInformation>();
             _fixture.SUT.PreviousLocations.Add(sydney);
             _fixture.SUT.PreviousLocations.Add(london);
@@ -103,6 +104,19 @@ namespace DeploySoftware.LaunchPad.Core.Tests
             _fixture.SUT.PreviousLocations[0].Should().Be(sydney);
             _fixture.SUT.PreviousLocations[4].Should().Be(halifax);
             Assert.Equal(5, _fixture.SUT.PreviousLocations.Count);
+            
+        }
+
+        [Fact]
+        public void Should_Be_Equal()
+        {
+            Device<Guid> a = new Device<Guid>();
+            a.Culture = "en-CA";
+            a.Id = new Guid("9fa65d30-ecc4-446f-b9ad-6ca29be9dab8");
+            Device<Guid> b = new Device<Guid>();
+            b.Culture = "en-CA";
+            b.Id = new Guid("9fa65d30-ecc4-446f-b9ad-6ca29be9dab8");
+            Assert.Equal(a, b);
         }
     }
 }
