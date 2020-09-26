@@ -65,6 +65,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         /// <param name="context">The context of the stream</param>
         protected MetadataTag(SerializationInfo info, StreamingContext context)
         {
+            Id = info.GetInt64("Id"); 
             Key = info.GetString("Key");
             Value = info.GetString("Value");
             Schema = info.GetString("Schema");
@@ -81,6 +82,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         public override void GetObjectData(SerializationInfo info, StreamingContext context)
         {
             base.GetObjectData(info, context);
+            info.AddValue("Id", Id); 
             info.AddValue("Key", Key);
             info.AddValue("Schema", Schema);
             info.AddValue("Value", Value);

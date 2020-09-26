@@ -61,7 +61,7 @@ namespace DeploySoftware.LaunchPad.Core.Application
         /// </summary>
         [DataObjectField(false)]
         [XmlAttribute]
-        public virtual String DisplayName { get; set; }
+        public virtual String Name { get; set; }
 
         /// <summary>
         /// A full description of this item.
@@ -131,8 +131,17 @@ namespace DeploySoftware.LaunchPad.Core.Application
         [XmlAttribute]
         public bool IsDeleted { get; set; }
 
+        /// <summary>
+        /// If this object is not a translation this field will be null. 
+        /// If this object is a translation, this id references the parent object.
+        /// </summary>
+        [DataObjectField(true)]
+        [XmlAttribute]
+        public TIdType TranslatedFromId { get; set; }
+
+
         #region "Constructors"
-        
+
         /// <summary>
         /// Default constructor
         /// </summary>
@@ -143,7 +152,8 @@ namespace DeploySoftware.LaunchPad.Core.Application
             CreatorUserId = 1; // TODO - default user account?
             IsDeleted = false;
             IsActive = true;
-            DisplayName = String.Empty;
+            Name = String.Empty;
+            TenantId = 1;
         }
 
         /// <summary>
@@ -154,22 +164,36 @@ namespace DeploySoftware.LaunchPad.Core.Application
         {
             Id = id;
             Culture = ApplicationInformation<TIdType>.DEFAULT_CULTURE;
-            TenantId = tenantId;
+            if (tenantId != null)
+            {
+                TenantId = tenantId;
+            }
+            else
+            {
+                TenantId = 1;
+            }
             CreatorUserId = 1; // TODO - default user account?
             IsDeleted = false;
             IsActive = true;
-            DisplayName = String.Empty;
+            Name = String.Empty;
         }
 
         public EntityDtoBase(int? tenantId, TIdType id, String culture) : base()
         {
             Id = id;
             Culture = culture;
-            TenantId = tenantId;
+            if (tenantId != null)
+            {
+                TenantId = tenantId;
+            }
+            else
+            {
+                TenantId = 1;
+            }
             CreatorUserId = 1; // TODO - default user account?
             IsDeleted = false;
             IsActive = true;
-            DisplayName = String.Empty;
+            Name = String.Empty;
         }
      
         /// <summary>
@@ -182,7 +206,7 @@ namespace DeploySoftware.LaunchPad.Core.Application
             Id = (TIdType)info.GetValue("Id", typeof(TIdType));
             Culture = info.GetString("Culture");
             TenantId = info.GetInt32("TenantId");
-            DisplayName = info.GetString("DisplayName");
+            Name = info.GetString("DisplayName");
             DescriptionFull = info.GetString("DescriptionFull");
             DescriptionShort = info.GetString("DescriptionShort");
             CreationTime = info.GetDateTime("CreationTime");
@@ -193,6 +217,7 @@ namespace DeploySoftware.LaunchPad.Core.Application
             DeleterUserId = info.GetInt64("DeleterUserId");
             IsDeleted = info.GetBoolean("IsDeleted");
             IsActive = info.GetBoolean("IsActive");
+            TranslatedFromId = (TIdType)info.GetValue("TranslatedFromId", typeof(TIdType));
         }
 
 #endregion
@@ -208,7 +233,7 @@ namespace DeploySoftware.LaunchPad.Core.Application
             info.AddValue("Id", Id);
             info.AddValue("Culture", Culture);
             info.AddValue("TenantId", TenantId);
-            info.AddValue("DisplayName", DisplayName);
+            info.AddValue("DisplayName", Name);
             info.AddValue("DescriptionFull", DescriptionFull);
             info.AddValue("DescriptionShort", DescriptionShort);
             info.AddValue("CreationTime", CreationTime);
@@ -219,6 +244,7 @@ namespace DeploySoftware.LaunchPad.Core.Application
             info.AddValue("DeletionTime", DeletionTime);
             info.AddValue("IsDeleted", IsDeleted);
             info.AddValue("IsActive", IsActive);
+            info.AddValue("TranslatedFromId", TranslatedFromId);
         }
 
         /// <summary>  
@@ -233,7 +259,7 @@ namespace DeploySoftware.LaunchPad.Core.Application
             sb.AppendFormat("Culture={0};", Culture);
             sb.AppendFormat("TenantId={0};", TenantId);
             sb.AppendFormat("CreatorId={0};", CreatorUserId);
-            sb.AppendFormat(" DisplayName={0};", DisplayName);
+            sb.AppendFormat(" DisplayName={0};", Name);
             if (!String.IsNullOrEmpty(DescriptionFull))
             {
                 sb.AppendFormat(" DescriptionFull={0};", DescriptionFull);
@@ -248,6 +274,7 @@ namespace DeploySoftware.LaunchPad.Core.Application
             sb.AppendFormat(" DateLastModified={0};", LastModificationTime);
             sb.AppendFormat(" IsActive={0};", IsActive);
             sb.AppendFormat(" IsDeleted={0};", IsDeleted);
+            sb.AppendFormat("TranslatedFromId={0};", TranslatedFromId);
             sb.Append("]");
             return sb.ToString();
         }
@@ -283,7 +310,7 @@ namespace DeploySoftware.LaunchPad.Core.Application
         {
             // put comparison of properties in here 
             // for base object we'll just sort by title
-            return DisplayName.CompareTo(other.DisplayName);
+            return Name.CompareTo(other.Name);
         }
 
         /// <summary>
@@ -363,7 +390,7 @@ namespace DeploySoftware.LaunchPad.Core.Application
         {
             return Culture.GetHashCode()
                 + Id.GetHashCode()
-                + DisplayName.GetHashCode();
+                + TenantId.GetHashCode();
         }
 
     }

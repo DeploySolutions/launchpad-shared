@@ -27,6 +27,14 @@ namespace DeploySoftware.LaunchPad.Core.Domain
     /// </summary>
     public interface ILaunchPadMetadataTag
     {
+
+        /// <summary>
+        /// The unique id of this metadata tag
+        /// </summary>
+        [DataObjectField(false)]
+        [XmlAttribute]
+        long Id { get; set; }
+
         /// <summary>
         /// The name of this metadata tag
         /// </summary>

@@ -69,7 +69,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         /// </summary>
         /// <param name="cultureName">The culture for this entity</param>
         /// <param name="metadata">The desired metadata for this entity</param>
-        protected TenantSpecificAggregateRootBase(int tenantId, MetadataInformation metadata) : base(tenantId, metadata)
+        protected TenantSpecificAggregateRootBase(int tenantId, TIdType id, MetadataInformation metadata) : base(tenantId, id, metadata)
         {
 
         }

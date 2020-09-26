@@ -101,7 +101,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         /// Creates a new instance of the <see cref="Device">Device</see> class given some metadata. 
         /// </summary>
         /// <param name="metadata">The desired metadata for this Device</param>
-        public Device(int? tenantId, MetadataInformation metadata) : base(tenantId, metadata)
+        public Device(int? tenantId, TIdType id, MetadataInformation metadata) : base(tenantId, id, metadata)
         {
             Metadata = metadata;
             CurrentLocation = new SpaceTimeInformation();
@@ -132,8 +132,8 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         /// <param name="metadata">The desired metadata for this Device</param>
         /// <param name="currentLocation">The current physical location of this device</param>
         /// <param name="previousLocations">The previous physical location(s) of this device</param>
-        public Device(int? tenantId, MetadataInformation metadata, SpaceTimeInformation currentLocation, IList<SpaceTimeInformation> previousLocations)
-            :  base(tenantId,metadata)
+        public Device(int? tenantId, TIdType id, MetadataInformation metadata, SpaceTimeInformation currentLocation, IList<SpaceTimeInformation> previousLocations)
+            :  base(tenantId,id,metadata)
         {
             CurrentLocation = currentLocation;
             PreviousLocations = previousLocations;

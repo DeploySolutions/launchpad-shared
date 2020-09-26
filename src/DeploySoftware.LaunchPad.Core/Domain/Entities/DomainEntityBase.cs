@@ -38,7 +38,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
     /// Implements AspNetBoilerplate's auditing interfaces.
     /// </summary>
     public abstract partial class DomainEntityBase<TIdType> : 
-        Entity<TIdType>, IDomainEntity<TIdType>, IMayHaveTenant
+        FullAuditedEntity<TIdType>, IDomainEntity<TIdType>, IMayHaveTenant
         
     {
 
@@ -63,8 +63,6 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         /// </summary>
         [DataObjectField(true)]
         [XmlAttribute]
-        //[Key]
-        //[Column(Order = 2)]
         public String Culture
         {
             get { return culture; }
@@ -170,80 +168,6 @@ namespace DeploySoftware.LaunchPad.Core.Domain
 
         [DataObjectField(false)]
         [XmlAttribute]
-        public DateTime CreationTime
-        {
-            get { return creationTime; }
-            set
-            {
-                creationTime = value;
-                Metadata.CreationTime = value;
-            }
-        }
-
-        [DataObjectField(false)]
-        [XmlAttribute]
-        [ForeignKey(nameof(CreatorUserId))]
-        public long? CreatorUserId
-        {
-            get { return creatorUserId; }
-            set
-            {
-                creatorUserId = value;
-                Metadata.CreatorUserId = value;
-            }
-        }
-
-        [DataObjectField(false)]
-        [XmlAttribute]
-        public DateTime? LastModificationTime
-        {
-            get { return lastModificationTime; }
-            set
-            {
-                lastModificationTime = value;
-                Metadata.LastModificationTime = value;
-            }
-        }
-
-        [DataObjectField(false)]
-        [XmlAttribute]
-        [ForeignKey(nameof(LastModifierUserId))]
-        public long? LastModifierUserId
-        {
-            get { return lastModifierUserId; }
-            set
-            {
-                lastModifierUserId = value;
-                Metadata.LastModifierUserId = value;
-            }
-        }
-
-        [DataObjectField(false)]
-        [XmlAttribute]
-        public long? DeleterUserId
-        {
-            get { return deleterUserId; }
-            set
-            {
-                deleterUserId = value;
-                Metadata.DeleterUserId = value;
-            }
-        }
-
-        [DataObjectField(false)]
-        [XmlAttribute]
-        public DateTime? DeletionTime
-        {
-            get { return deletionTime; }
-            set
-            {
-                deletionTime = value;
-                Metadata.DeletionTime = value;
-            }
-        }
-
-        [DataObjectField(false)]
-        [XmlAttribute]
         public bool IsActive
         {
             get { return isActive; }
@@ -251,18 +175,6 @@ namespace DeploySoftware.LaunchPad.Core.Domain
             {
                 isActive = value;
                 Metadata.IsActive = value;
-            }
-        }
-
-        [DataObjectField(false)]
-        [XmlAttribute]
-        public bool IsDeleted
-        {
-            get { return isDeleted; }
-            set
-            {
-                isDeleted = value;
-                Metadata.IsDeleted = value;
             }
         }
 
@@ -285,12 +197,11 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         {
             Metadata = new MetadataInformation();
             Culture = ApplicationInformation<TIdType>.DEFAULT_CULTURE;
-            TenantId = 0; // default tenant
+            TenantId = 1; // default tenant
             Tags = new List<MetadataTag>();
             IsDeleted = false;
             IsActive = true; 
             Name = String.Empty;
-
         }
 
         /// <summary>  
@@ -306,7 +217,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
             } 
             else
             {
-                TenantId = 0;
+                TenantId = 1;
             }
             CreatorUserId = 1; // TODO - default user account?
             Name = String.Empty;
@@ -330,7 +241,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
             }
             else
             {
-                TenantId = 0;
+                TenantId = 1;
             }
             
             CreatorUserId = 1; // TODO - default user account?
@@ -355,7 +266,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
             }
             else
             {
-                TenantId = 0;
+                TenantId = 1;
             }
             CreatorUserId = 1; // TODO - default user account?
             IsDeleted = false;
@@ -370,7 +281,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         /// </summary>
         /// <param name="culture">The culture for this entity</param>
         /// <param name="metadata">The metadata containing the values for this entity</param>
-        protected DomainEntityBase(int? tenantId, MetadataInformation metadata) : base()
+        protected DomainEntityBase(int? tenantId, TIdType id, MetadataInformation metadata) : base()
         {
             if (tenantId != null)
             {
@@ -378,8 +289,9 @@ namespace DeploySoftware.LaunchPad.Core.Domain
             }
             else
             {
-                TenantId = 0;
+                TenantId = 1;
             }
+            Id = id;
             Culture = metadata.Culture;
             // populate the fields with any values that are passed in via the metadata
             CreatorUserId = metadata.CreatorUserId;
@@ -393,7 +305,6 @@ namespace DeploySoftware.LaunchPad.Core.Domain
             DeletionTime = metadata.DeletionTime;
             IsDeleted = metadata.IsDeleted;
             IsActive = metadata.IsActive;
-
             Tags = new List<MetadataTag>();
 
         }
@@ -420,8 +331,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
             DeleterUserId = info.GetInt64("DeleterUserId");
             DeletionTime = info.GetDateTime("DeletionTime");
             IsActive = info.GetBoolean("IsActive");
-
-            //Key = (DomainEntityKey<TIdType>)info.GetValue("Key", typeof(DomainEntityKey<TIdType>));
+            TranslatedFromId = (TIdType)info.GetValue("TranslatedFromId", typeof(TIdType));
             //Metadata = (MetadataInformation)info.GetValue("Metadata", typeof(MetadataInformation));
 
         }
@@ -449,9 +359,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
             info.AddValue("DeleterUserId", DeleterUserId);
             info.AddValue("DeletionTime", DeletionTime);
             info.AddValue("IsActive", IsActive);
-            
-            //info.AddValue("Key", Key);
-            //info.AddValue("Metadata", Metadata);
+            info.AddValue("TranslatedFromId", TranslatedFromId);
 
         }
 
@@ -620,8 +528,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         {
             return Culture.GetHashCode()
                 + Id.GetHashCode()
-                + TenantId.GetHashCode()
-                + Name.GetHashCode();
+                + TenantId.GetHashCode();
         }
 
     }

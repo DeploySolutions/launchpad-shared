@@ -74,8 +74,8 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         /// <param name="culture">The culture for this entity</param>
         /// <param name="metadata">The desired metadata for this entity</param>
         /// <param name="tenantId">The id of the tenant to which this entity belongs</param>
-        protected TenantSpecificDomainEntityBase(int tenantId, MetadataInformation metadata) 
-            : base(tenantId, metadata)
+        protected TenantSpecificDomainEntityBase(int tenantId, TIdType id, MetadataInformation metadata) 
+            : base(tenantId, id, metadata)
         {
             TenantId = tenantId;
         }
@@ -96,7 +96,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         /// <param name="info"></param>
         /// <param name="context"></param>
         [SecurityPermission(SecurityAction.Demand, SerializationFormatter = true)]
-        public virtual void GetObjectData(SerializationInfo info, StreamingContext context)
+        public override void GetObjectData(SerializationInfo info, StreamingContext context)
         {
             base.GetObjectData(info,context);
             info.AddValue("TenantId", TenantId);

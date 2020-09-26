@@ -36,7 +36,15 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         ILaunchPadMetadataTag,
         IComparable<TagBase>, IEquatable<TagBase>    
     {
-        
+
+
+        /// <summary>
+        /// The unique id of this metadata tag
+        /// </summary>
+        [DataObjectField(false)]
+        [XmlAttribute]
+        public virtual long Id { get; set; }
+
         /// <summary>
         /// The key (name) of this metadata tag
         /// </summary>
@@ -189,7 +197,8 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         protected virtual String ToStringBaseProperties()
         {
             StringBuilder sb = new StringBuilder();
-            sb.AppendFormat("Name={0};", Key);
+            sb.AppendFormat("Id={0};", Id); 
+            sb.AppendFormat("Key={0};", Key);
             sb.AppendFormat("Value={0};", Value);
             sb.AppendFormat("Scheme={0};", Schema);
             return sb.ToString();
@@ -240,7 +249,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         {
             if (obj != null)
             {
-                return Key.Equals(obj.Key) && Value.Equals(obj.Value) && Schema.Equals(obj.Schema); 
+                return Id.Equals(obj.Id) && Key.Equals(obj.Key) && Value.Equals(obj.Value) && Schema.Equals(obj.Schema); 
             }
             return false;
         }
@@ -255,6 +264,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         public override int GetHashCode()
         {
             return 
+                Id.GetHashCode() +
                 Key.GetHashCode() + 
                 Value.GetHashCode() +
                 Schema.GetHashCode()
