@@ -45,7 +45,8 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         private TIdType id;
         private string culture;
         private int? tenantId;
-        private string displayName;
+        private TIdType translatedFromId;
+        private string name;
         private string descriptionShort;
         private string descriptionFull;
         private DateTime creationTime;
@@ -56,25 +57,6 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         private DateTime? deletionTime;
         private Boolean isActive;
         private Boolean isDeleted;
-
-        /// <summary>
-        /// The id field for this object. Inherited from ABP. Note that for our LaunchPad framework we actually require
-        /// both an id and a culture field to uniquely identify an entity. This functionality is encapsulated in the <see cref="IKey">IKey</see> interface.
-        /// We therefore ensure that the Id field is also stored in the Key property, for consistency. 
-        /// </summary>
-        [DataObjectField(true)]
-        [XmlAttribute]
-        [Key]
-        [Column(Order =1)]
-        public override TIdType Id
-        {
-            get { return id; }
-            set
-            {
-                id = value;
-                Key.LaunchPadId = value;
-            }
-        }
 
         /// <summary>
         /// The culture of this object
@@ -89,7 +71,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
             set
             {
                 culture = value;
-                Key.Culture = value;
+                Metadata.Culture = value;
             }
         }
 
@@ -98,12 +80,12 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         /// </summary>
         [DataObjectField(false)]
         [XmlAttribute]
-        public String DisplayName {
-            get { return displayName; }
+        public String Name {
+            get { return name; }
             set
             {
-                displayName = value;
-                Metadata.DisplayName = value;
+                name = value;
+                Metadata.Name = value;
             }
         }
 
@@ -136,14 +118,6 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         }
 
         /// <summary>
-        /// The key (culture and Id) that uniquely identifies this object - convenience wrapper to combine both fields
-        /// </summary>
-        [DataObjectField(false)]
-        [XmlAttribute]
-        [NotMapped]
-        public DomainEntityKey<TIdType> Key { get; set; }
-
-        /// <summary>
         /// Each entity can have an open-ended set of metadata applied to it, that helps to describe it.
         /// </summary>
         [DataObjectField(false)]
@@ -159,16 +133,22 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         [XmlAttribute]
         public IEnumerable<MetadataTag> Tags { get; set; }
 
-        /// <summary>
-        /// A convenience readonly method to get a <see cref="CultureInfo">CultureInfo</see> instance from the current 
-        /// culture code
-        /// </summary>
-        [DataObjectField(false)]
-        [XmlAttribute]
-        [NotMapped]
-        public CultureInfo GetCultureInfo { get { return new CultureInfo(Key.Culture); } }
 
-        
+        /// <summary>
+        /// If this object is not a translation this field will be null. 
+        /// If this object is a translation, this id references the parent object.
+        /// </summary>
+        [DataObjectField(true)]
+        [XmlAttribute]
+        public TIdType TranslatedFromId
+        {
+            get { return translatedFromId; }
+            set
+            {
+                translatedFromId = value;
+            }
+        }
+
         /// <summary>
         /// The id of the tenant that domain entity this belongs to (null if not known/applicable)
         /// </summary>
@@ -288,19 +268,28 @@ namespace DeploySoftware.LaunchPad.Core.Domain
 
         #endregion
 
+
+        /// <summary>
+        /// A convenience readonly method to get a <see cref="CultureInfo">CultureInfo</see> instance from the current 
+        /// culture code
+        /// </summary>
+        [DataObjectField(false)]
+        [XmlAttribute]
+        [NotMapped]
+        public CultureInfo GetCultureInfo { get { return new CultureInfo(Culture); } }
+
         /// <summary>  
         /// Initializes a new instance of the <see cref="DomainEntityBase">Entity</see> class
         /// </summary>
         protected DomainEntityBase() : base()
         {
-            Key = new DomainEntityKey<TIdType>(ApplicationInformation<TIdType>.DEFAULT_CULTURE);
             Metadata = new MetadataInformation();
             Culture = ApplicationInformation<TIdType>.DEFAULT_CULTURE;
             TenantId = 0; // default tenant
             Tags = new List<MetadataTag>();
             IsDeleted = false;
             IsActive = true; 
-            DisplayName = String.Empty;
+            Name = String.Empty;
 
         }
 
@@ -309,7 +298,6 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         /// </summary>
         protected DomainEntityBase(int? tenantId) : base()
         {
-            Key = new DomainEntityKey<TIdType>(ApplicationInformation<TIdType>.DEFAULT_CULTURE);
             Metadata = new MetadataInformation();
             Culture = ApplicationInformation<TIdType>.DEFAULT_CULTURE;
             if (tenantId != null)
@@ -321,7 +309,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
                 TenantId = 0;
             }
             CreatorUserId = 1; // TODO - default user account?
-            DisplayName = String.Empty;
+            Name = String.Empty;
             IsDeleted = false;
             IsActive = true;
         }
@@ -333,7 +321,6 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         /// <param name="culture">The culture for this entity</param>
         protected DomainEntityBase(int? tenantId, TIdType id) : base()
         {
-            Key = new DomainEntityKey<TIdType>(id, culture); 
             Metadata = new MetadataInformation();
             Id = id;
             Culture = ApplicationInformation<TIdType>.DEFAULT_CULTURE;
@@ -350,7 +337,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
             IsDeleted = false;
             IsActive = true;
             Tags = new List<MetadataTag>();
-            DisplayName = String.Empty;
+            Name = String.Empty;
         }
 
         /// <summary>
@@ -359,7 +346,6 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         /// <param name="culture">The culture for this entity</param>
         protected DomainEntityBase(int? tenantId, TIdType id, string culture) : base()
         {
-            Key = new DomainEntityKey<TIdType>(id, culture);
             Metadata = new MetadataInformation();
             Id = id;
             Culture = culture;
@@ -375,22 +361,17 @@ namespace DeploySoftware.LaunchPad.Core.Domain
             IsDeleted = false;
             IsActive = true;
             Tags = new List<MetadataTag>();
-            DisplayName = String.Empty;
+            Name = String.Empty;
         }
 
         /// <summary>
         /// Creates a new instance of the <see cref="DomainEntityBase">Entity</see> class given a key, and using the exact values
         /// passed in via the metadata object.
         /// </summary>
-        /// <param name="key">The key for this entity</param>
         /// <param name="culture">The culture for this entity</param>
         /// <param name="metadata">The metadata containing the values for this entity</param>
-        protected DomainEntityBase(int? tenantId, DomainEntityKey<TIdType> key) : base()
+        protected DomainEntityBase(int? tenantId, MetadataInformation metadata) : base()
         {
-            Key = new DomainEntityKey<TIdType>(id, culture);
-            Metadata = new MetadataInformation();
-            Id = key.LaunchPadId;
-            Culture = key.Culture;
             if (tenantId != null)
             {
                 TenantId = tenantId;
@@ -399,40 +380,13 @@ namespace DeploySoftware.LaunchPad.Core.Domain
             {
                 TenantId = 0;
             }
-            IsDeleted = false;
-            IsActive = true;
-            DisplayName = String.Empty;
-            Tags = new List<MetadataTag>();
-        }
-
-        /// <summary>
-        /// Creates a new instance of the <see cref="DomainEntityBase">Entity</see> class given a key, and using the exact values
-        /// passed in via the metadata object.
-        /// </summary>
-        /// <param name="key">The key for this entity</param>
-        /// <param name="culture">The culture for this entity</param>
-        /// <param name="metadata">The metadata containing the values for this entity</param>
-        protected DomainEntityBase(int? tenantId, DomainEntityKey<TIdType> key, MetadataInformation metadata) : base()
-        {
-            Metadata = metadata;
-            if (tenantId != null)
-            {
-                TenantId = tenantId;
-            }
-            else
-            {
-                TenantId = 0;
-            }
-
-            Id = key.LaunchPadId;
-            Culture = key.Culture;
-
+            Culture = metadata.Culture;
             // populate the fields with any values that are passed in via the metadata
             CreatorUserId = metadata.CreatorUserId;
             CreationTime = metadata.CreationTime;
             descriptionShort = metadata.DescriptionShort;
             descriptionFull = metadata.DescriptionFull;
-            DisplayName = metadata.DisplayName;
+            Name = metadata.Name;
             LastModificationTime = metadata.LastModificationTime;
             LastModifierUserId = metadata.LastModifierUserId;
             DeleterUserId = metadata.DeleterUserId;
@@ -454,7 +408,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
             Id = (TIdType)info.GetValue("Id", typeof(TIdType));
             Culture = info.GetString("Culture");
             TenantId = info.GetInt32("TenantId");
-            DisplayName = info.GetString("DisplayName");
+            Name = info.GetString("DisplayName");
             DescriptionShort = info.GetString("DescriptionShort");
             DescriptionFull = info.GetString("DescriptionFull");
             Tags = (IEnumerable<MetadataTag>)info.GetValue("Metadata", typeof(IEnumerable<MetadataTag>));
@@ -483,7 +437,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
             info.AddValue("Id", Id);
             info.AddValue("Culture", Culture);
             info.AddValue("TenantId", TenantId);
-            info.AddValue("DisplayName", DisplayName);
+            info.AddValue("DisplayName", Name);
             info.AddValue("DescriptionShort", DescriptionShort);
             info.AddValue("DescriptionFull", DescriptionFull);
             info.AddValue("Tags", Tags);
@@ -543,7 +497,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         {
             // put comparison of properties in here 
             // for base object we'll just sort by title
-            return Metadata.DisplayName.CompareTo(other.Metadata.DisplayName);
+            return Metadata.Name.CompareTo(other.Metadata.Name);
         }
 
         /// <summary>  
@@ -567,13 +521,13 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         protected virtual String ToStringBaseProperties()
         {
             StringBuilder sb = new StringBuilder();
-            sb.AppendFormat("Key={0};", Key);
             sb.AppendFormat("TenantId={0};", TenantId);
             sb.AppendFormat("Metadata={0};", Metadata);
             sb.AppendFormat("IsActive={0};", IsActive);
             sb.AppendFormat("IsDeleted={0};", IsDeleted);
             sb.AppendFormat("DeleterUserId={0};", DeleterUserId);
             sb.AppendFormat("DeletionTime={0};", DeletionTime);
+            sb.AppendFormat("TranslatedFromId={0};", TranslatedFromId);
             sb.AppendFormat(" Tags={0};", Tags.ToString());
             return sb.ToString();
         }
@@ -667,7 +621,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
             return Culture.GetHashCode()
                 + Id.GetHashCode()
                 + TenantId.GetHashCode()
-                + DisplayName.GetHashCode();
+                + Name.GetHashCode();
         }
 
     }

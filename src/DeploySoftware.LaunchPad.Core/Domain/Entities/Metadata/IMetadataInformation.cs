@@ -28,6 +28,14 @@ namespace DeploySoftware.LaunchPad.Core.Domain
     /// </summary>
     public interface IMetadataInformation : IEquatable<MetadataInformation>
     {
+
+        /// <summary>
+        /// The culture of this entity
+        /// </summary>
+        [DataObjectField(true)]
+        [XmlAttribute]
+        String Culture { get; set; }
+
         /// <summary>
         /// The id of the tenant that domain entity this belongs to (null if not known/applicable)
         /// </summary>
@@ -41,7 +49,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         /// </summary>
         [DataObjectField(false)]
         [XmlAttribute]
-        String DisplayName { get; set; }
+        String Name { get; set; }
 
         /// <summary>
         /// A full description of this item.
@@ -107,5 +115,6 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         [DataObjectField(false)]
         [XmlAttribute]
         bool IsDeleted { get; set; }
+
     }
 }

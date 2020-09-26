@@ -74,8 +74,8 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         /// <param name="culture">The culture for this entity</param>
         /// <param name="metadata">The desired metadata for this entity</param>
         /// <param name="tenantId">The id of the tenant to which this entity belongs</param>
-        protected TenantSpecificDomainEntityBase(int tenantId, DomainEntityKey<TIdType> key, MetadataInformation metadata) 
-            : base(tenantId, key,metadata)
+        protected TenantSpecificDomainEntityBase(int tenantId, MetadataInformation metadata) 
+            : base(tenantId, metadata)
         {
             TenantId = tenantId;
         }
@@ -144,7 +144,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         {
             // put comparison of properties in here 
             // for base object we'll just sort by title
-            return Metadata.DisplayName.CompareTo(other.Metadata.DisplayName);
+            return Metadata.Name.CompareTo(other.Metadata.Name);
         }
 
         /// <summary>  
@@ -197,7 +197,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
                     // For safe equality we need to match on business key equality.
                     // Base domain entities are functionally equal if their key and metadata are equal.
                     // Subclasses should extend to include their own enhanced equality checks, as required.
-                    return Id.Equals(obj.Id) && Key.Culture.Equals(obj.Key.Culture) && Metadata.Equals(obj.Metadata)
+                    return Id.Equals(obj.Id) && Culture.Equals(obj.Culture) && Metadata.Equals(obj.Metadata)
                         && IsActive.Equals(obj.IsActive) && IsDeleted.Equals(obj.IsDeleted) && TenantId.Equals(obj.TenantId);
                 }
                 
@@ -233,18 +233,6 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         public static bool operator !=(TenantSpecificDomainEntityBase<TIdType> x, TenantSpecificDomainEntityBase<TIdType> y)
         {
             return !(x == y);
-        }
-
-        /// <summary>  
-        /// Computes and retrieves a hash code for an object.  
-        /// </summary>  
-        /// <remarks>  
-        /// This method implements the <see cref="Object">Object</see> method.  
-        /// </remarks>  
-        /// <returns>A hash code for an object.</returns>
-        public override int GetHashCode()
-        {
-            return Key.Culture.GetHashCode()+Key.LaunchPadId.GetHashCode();
         }
 
     }

@@ -53,7 +53,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         /// </summary>
         [DataObjectField(false)]
         [XmlAttribute]
-        String DisplayName { get; set; }
+        String Name { get; set; }
 
         /// <summary>
         /// A short description for this entity
@@ -70,19 +70,19 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         String DescriptionFull { get; set; }
 
         /// <summary>
-        /// The key (culture and Id) that uniquely identifies this object
-        /// </summary>
-        [DataObjectField(false)]
-        [XmlAttribute]
-        [NotMapped]
-        DomainEntityKey<TIdType> Key { get; set; }
-
-        /// <summary>
         /// Each entity can have an open-ended set of tags applied to it, that help users find, markup, and display its information
         /// </summary>
         [DataObjectField(false)]
         [XmlAttribute]
         IEnumerable<MetadataTag> Tags { get; set; }
+
+        /// <summary>
+        /// If this object is not a translation this field will be null. 
+        /// If this object is a translation, this id references the parent object.
+        /// </summary>
+        [DataObjectField(false)]
+        [XmlAttribute]
+        TIdType TranslatedFromId { get; set; }
 
     }
 }

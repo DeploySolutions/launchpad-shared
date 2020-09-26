@@ -67,7 +67,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         /// </summary>
         /// <param name="cultureName">The culture for this entity</param>
         /// <param name="metadata">The desired metadata for this entity</param>
-        protected AggregateRootBase(int? tenantId, DomainEntityKey<TIdType> key, MetadataInformation metadata) : base(tenantId, key,metadata)
+        protected AggregateRootBase(int? tenantId, MetadataInformation metadata) : base(tenantId,metadata)
         {
             DomainEvents = new Collection<IEventData>();
         }
@@ -116,7 +116,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         {
             // put comparison of properties in here 
             // for base object we'll just sort by title
-            return Metadata.DisplayName.CompareTo(other.Metadata.DisplayName);
+            return Metadata.Name.CompareTo(other.Metadata.Name);
         }
 
         /// <summary>  
@@ -169,7 +169,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
                     // For safe equality we need to match on business key equality.
                     // Base domain entities are functionally equal if their key and metadata are equal.
                     // Subclasses should extend to include their own enhanced equality checks, as required.
-                    return Id.Equals(obj.Id) && Key.Culture.Equals(obj.Key.Culture) && Metadata.Equals(obj.Metadata);
+                    return Id.Equals(obj.Id) && Metadata.Equals(obj.Metadata);
                 }
                 
             }
@@ -215,7 +215,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         /// <returns>A hash code for an object.</returns>
         public override int GetHashCode()
         {
-            return Key.Culture.GetHashCode()+Id.GetHashCode();
+            return Culture.GetHashCode()+Id.GetHashCode();
         }
 
     }

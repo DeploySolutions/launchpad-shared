@@ -175,7 +175,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
                 else
                 {
                     return Id.Equals(obj.Id)
-                        && Key.Culture.Equals(obj.Key.Culture)
+                        && Culture.Equals(obj.Culture)
                         && Metadata.Equals(obj.Metadata)
                         && Schema.Equals(obj.Schema);
                 }

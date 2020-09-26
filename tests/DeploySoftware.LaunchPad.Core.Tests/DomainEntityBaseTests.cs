@@ -46,28 +46,12 @@ namespace DeploySoftware.LaunchPad.Core.Tests
         }
 
         [Fact]
-        public void Should_Have_Empty_LaunchPadId_When_Instantiated()
-        {
-            Device<System.Guid> a = new Device<System.Guid>();
-            a.Key.LaunchPadId.Should().BeEmpty();
-        }
-
-        [Fact]
         public void Should_NotHave_Empty_Id_When_Instantiated_With_Id()
         {
             var id = SequentialGuid.NewGuid();
             Device<System.Guid> a = new Device<System.Guid>(null, id);
             a.Id.Should().NotBeEmpty();
         }
-
-        [Fact]
-        public void Should_NotHave_Empty_LaunchPadId_When_Instantiated_With_Id()
-        {
-            var id = SequentialGuid.NewGuid();
-            Device<System.Guid> a = new Device<System.Guid>(null, id);
-            a.Key.LaunchPadId.Should().NotBeEmpty();
-        }
-
 
         [Fact]
         public void Should_Have_Unique_Id_When_Instantiated_With_Id()

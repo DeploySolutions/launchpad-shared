@@ -34,6 +34,12 @@ namespace DeploySoftware.LaunchPad.Core.Domain
     [ComplexType]
     public partial class MetadataInformation : IMetadataInformation
     {
+        /// <summary>
+        /// The culture of this entity
+        /// </summary>
+        [DataObjectField(true)]
+        [XmlAttribute]
+        public String Culture { get; set; }
 
         /// <summary>
         /// The id of the tenant that domain entity this belongs to (null if not known/applicable)
@@ -48,7 +54,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         /// </summary>
         [DataObjectField(false)]
         [XmlAttribute]
-        public virtual String DisplayName { get; set; }
+        public virtual String Name { get; set; }
 
         /// <summary>
         /// A full description of this item.
@@ -124,7 +130,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         {
             DescriptionFull = String.Empty;
             DescriptionShort = String.Empty;
-            DisplayName = String.Empty;
+            Name = String.Empty;
             CreationTime = DateTime.UtcNow;
             CreatorUserId = 1; // TODO - default user account?
             IsDeleted = false;
@@ -139,7 +145,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         public MetadataInformation(SerializationInfo info, StreamingContext context)
         {
             TenantId = info.GetInt32("TenantId");
-            DisplayName = info.GetString("DisplayName");
+            Name = info.GetString("DisplayName");
             DescriptionFull = info.GetString("DescriptionFull");
             DescriptionShort = info.GetString("DescriptionShort");
             CreationTime = info.GetDateTime("CreationTime");
@@ -163,7 +169,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         public void GetObjectData(SerializationInfo info, StreamingContext context)
         {
             info.AddValue("TenantId", TenantId);
-            info.AddValue("DisplayName", DisplayName);
+            info.AddValue("DisplayName", Name);
             info.AddValue("DescriptionFull", DescriptionFull);
             info.AddValue("DescriptionShort", DescriptionShort);
             info.AddValue("CreationTime", CreationTime); 
@@ -197,7 +203,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
             sb.Append("[MetadataInformation: ");
             sb.AppendFormat("TenantId={0};", TenantId);
             sb.AppendFormat("CreatorId={0};", CreatorUserId);
-            sb.AppendFormat(" DisplayName={0};", DisplayName);
+            sb.AppendFormat(" DisplayName={0};", Name);
             if (!String.IsNullOrEmpty(DescriptionFull))
             {
                 sb.AppendFormat(" DescriptionFull={0};", DescriptionFull);
@@ -264,7 +270,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
                 (
                     TenantId.Equals(obj.TenantId) &&
                     CreatorUserId.Equals(obj.CreatorUserId) &&
-                    DisplayName.Equals(obj.DisplayName) &&
+                    Name.Equals(obj.Name) &&
                     DescriptionFull.Equals(obj.DescriptionFull) &&
                     DescriptionShort.Equals(obj.DescriptionShort) &&
                     LastModifierUserId.Equals(obj.LastModifierUserId) &&
@@ -313,7 +319,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
                 TenantId.GetHashCode()
                 + CreatorUserId.GetHashCode()
                 + CreationTime.GetHashCode() 
-                + DisplayName.GetHashCode()
+                + Name.GetHashCode()
                 + DescriptionFull.GetHashCode()
                 + DescriptionShort.GetHashCode()
                 + LastModifierUserId.GetHashCode()                

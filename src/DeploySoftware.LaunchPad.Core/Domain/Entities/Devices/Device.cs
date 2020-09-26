@@ -75,6 +75,17 @@ namespace DeploySoftware.LaunchPad.Core.Domain
             Power = new DevicePower();
         }
 
+        /// <summary>
+        /// Creates a new instance of the <see cref="Device">Device</see> class given some metadata. 
+        /// </summary>
+        /// <param name="metadata">The desired metadata for this Device</param>
+        public Device(int? tenantId) : base(tenantId)
+        {
+            CurrentLocation = new SpaceTimeInformation();
+            PreviousLocations = new List<SpaceTimeInformation>();
+            Power = new DevicePower();
+        }
+
         /// <summary>  
         /// Initializes a new instance of the <see cref="Device">Device</see> class
         /// </summary>
@@ -90,21 +101,8 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         /// Creates a new instance of the <see cref="Device">Device</see> class given some metadata. 
         /// </summary>
         /// <param name="metadata">The desired metadata for this Device</param>
-        public Device(int? tenantId, DomainEntityKey<TIdType> key) : base(tenantId, key)
+        public Device(int? tenantId, MetadataInformation metadata) : base(tenantId, metadata)
         {
-            Key = key;
-            CurrentLocation = new SpaceTimeInformation();
-            PreviousLocations = new List<SpaceTimeInformation>();
-            Power = new DevicePower();
-        }
-
-        /// <summary>
-        /// Creates a new instance of the <see cref="Device">Device</see> class given some metadata. 
-        /// </summary>
-        /// <param name="metadata">The desired metadata for this Device</param>
-        public Device(int? tenantId, DomainEntityKey<TIdType> key, MetadataInformation metadata) : base(tenantId, key, metadata)
-        {
-            Key = key;
             Metadata = metadata;
             CurrentLocation = new SpaceTimeInformation();
             PreviousLocations = new List<SpaceTimeInformation>();
@@ -134,8 +132,8 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         /// <param name="metadata">The desired metadata for this Device</param>
         /// <param name="currentLocation">The current physical location of this device</param>
         /// <param name="previousLocations">The previous physical location(s) of this device</param>
-        public Device(int? tenantId,DomainEntityKey<TIdType> key, MetadataInformation metadata, SpaceTimeInformation currentLocation, IList<SpaceTimeInformation> previousLocations)
-            :  base(tenantId,key,metadata)
+        public Device(int? tenantId, MetadataInformation metadata, SpaceTimeInformation currentLocation, IList<SpaceTimeInformation> previousLocations)
+            :  base(tenantId,metadata)
         {
             CurrentLocation = currentLocation;
             PreviousLocations = previousLocations;
@@ -153,7 +151,6 @@ namespace DeploySoftware.LaunchPad.Core.Domain
             base (tenantId)
         {
             Id = id;
-            Key.Culture = "en";
             Metadata = metadata;
             CurrentLocation = currentLocation;
             PreviousLocations = new List<SpaceTimeInformation>();

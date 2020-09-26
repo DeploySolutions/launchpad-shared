@@ -43,7 +43,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
             int _totalNumberOfRecords
             ) : base(tenantId)
         {
-            Metadata.DisplayName = _datacatalogueName;
+            Metadata.Name = _datacatalogueName;
             Metadata.DescriptionShort = _datacatalogueDescription; 
             Metadata.DescriptionFull = _datacatalogueDescription;
             NumberofDatasets = _numberOfDatasets;
@@ -52,7 +52,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
             
         protected DataCatalogue(int? tenantId) :base(tenantId)
         {
-            Metadata.DisplayName = String.Empty;
+            Metadata.Name = String.Empty;
             NumberofDatasets = DataSets.Count();
             TotalItemsCount = 0;
         }

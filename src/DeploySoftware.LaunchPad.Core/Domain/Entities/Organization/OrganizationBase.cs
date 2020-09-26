@@ -71,7 +71,6 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         /// </summary>
         protected OrganizationBase(int? tenantId) : base(tenantId)
         {
-            Key.Culture = "en";
             Metadata = new MetadataInformation();
         }
 
@@ -199,7 +198,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
                     // Base domain entities are functionally equal if their key and metadata and tags are equal.
                     // Subclasses should extend to include their own enhanced equality checks, as required.
                     return Id.Equals(obj.Id)
-                        && Key.Culture.Equals(obj.Key.Culture)
+                        && Culture.Equals(obj.Culture)
                         && Metadata.Equals(obj.Metadata) 
                         && Schema.Equals(obj.Schema);
                 }

@@ -47,7 +47,7 @@ namespace DeploySoftware.LaunchPad.Core.Tests
         [Fact]
         public void Should_Have_NotNull_Culture_When_Instantiated()
         {
-            _fixture.SUT.Key.Culture.Should().NotBeNullOrEmpty();
+            _fixture.SUT.Culture.Should().NotBeNullOrEmpty();
         }
 
         [Fact]

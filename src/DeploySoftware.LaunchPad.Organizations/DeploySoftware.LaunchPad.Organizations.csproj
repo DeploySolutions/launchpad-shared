@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
@@ -9,7 +9,7 @@
     <RepositoryUrl>https://github.com/DeploySolutions/launchpad-shared</RepositoryUrl>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
-    <Version>2.0.4-alpha</Version>
+    <Version>2.0.5-alpha</Version>
     <Description>Organization-related code for LaunchPad framework.</Description>
     <Copyright>2018-2021 Deploy Software Solutions, inc.</Copyright>
     <PackageReleaseNotes>1.0.5: 

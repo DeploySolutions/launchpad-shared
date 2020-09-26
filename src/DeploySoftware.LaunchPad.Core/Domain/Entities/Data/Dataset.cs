@@ -35,7 +35,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
            string datasetDescription
         ) : base(tenantId)
         {
-            Metadata.DisplayName = datasetName;
+            Metadata.Name = datasetName;
             Metadata.DescriptionShort = datasetDescription;
             Metadata.DescriptionFull = datasetDescription;
             TotalItemsCount = 0;
@@ -43,7 +43,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
             
         protected DataSet(int? tenantId) : base(tenantId)
         {
-            Metadata.DisplayName = String.Empty;
+            Metadata.Name = String.Empty;
             TotalItemsCount = 0;
         }
 
