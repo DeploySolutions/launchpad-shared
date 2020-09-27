@@ -32,77 +32,44 @@ using System.Xml.Serialization;
 namespace DeploySoftware.LaunchPad.Core.Application
 {
     /// <summary>
-    /// Represents the minimum amount of base properties a LaunchPad Data Transfer Object should possess.
+    /// Represents the base class an LaunchPad Data Transfer Object should inherit from.
     /// Of course subclassing DTOs will contain additional properties.
     /// </summary>
     /// <typeparam name="TIdType">The type of the Id</typeparam>
-    public abstract class MinimalEntityDtoBase<TIdType> : EntityDtoBase<TIdType>,
-        IComparable<MinimalEntityDtoBase<TIdType>>, IEquatable<MinimalEntityDtoBase<TIdType>>
+    public abstract class EntityDtoBase<TIdType> : EntityDto<TIdType>,
+        IEquatable<EntityDtoBase<TIdType>>
     {
 
-        /// <summary>
-        /// The culture of this object
-        /// </summary>
-        [DataObjectField(true)]
-        [XmlAttribute]
-        public virtual String Culture { get; set; }
-
-
-        /// <summary>
-        /// The display name that can be displayed as a label externally to users when referring to this object
-        /// (rather than using a GUID, which is unfriendly but unique)
-        /// </summary>
-        [DataObjectField(false)]
-        [XmlAttribute]
-        public virtual String Name { get; set; }
-
-        /// <summary>
-        /// A short description of this item.
-        /// </summary>
-        [DataObjectField(false)]
-        [XmlAttribute]
-        public virtual String DescriptionShort { get; set; }
+        
 
         #region "Constructors"
 
         /// <summary>
         /// Default constructor
         /// </summary>
-        protected MinimalEntityDtoBase() : base()
+        protected EntityDtoBase() : base()
         {
-            Culture = ApplicationInformation<TIdType>.DEFAULT_CULTURE;
-            
-            Name = String.Empty;
+           
         }
 
         /// <summary>
-        /// Default constructor where the tenant id is known
+        /// Default constructor where the id is known
         /// </summary>
         /// <param name="tenantId"></param>
-        public MinimalEntityDtoBase(TIdType id) : base()
+        public EntityDtoBase(TIdType id) : base()
         {
             Id = id;
-            Culture = ApplicationInformation<TIdType>.DEFAULT_CULTURE;
-            Name = String.Empty;
+            
         }
 
-        public MinimalEntityDtoBase( TIdType id, String culture) : base()
-        {
-            Id = id;
-            Culture = culture;
-            Name = String.Empty;
-        }
-     
         /// <summary>
         /// Serialization constructor used for deserialization
         /// </summary>
         /// <param name="info">The serialization info</param>
         /// <param name="context">The context of the stream</param>
-        protected MinimalEntityDtoBase(SerializationInfo info, StreamingContext context) : base(info,context)
+        protected EntityDtoBase(SerializationInfo info, StreamingContext context) : base()
         {
-            Culture = info.GetString("Culture");
-            Name = info.GetString("DisplayName");
-            DescriptionShort = info.GetString("DescriptionShort");
+            Id = (TIdType)info.GetValue("Id", typeof(TIdType));
         }
 
 #endregion
@@ -116,22 +83,6 @@ namespace DeploySoftware.LaunchPad.Core.Application
         public virtual void GetObjectData(SerializationInfo info, StreamingContext context)
         {
             info.AddValue("Id", Id);
-            info.AddValue("Culture", Culture);
-            info.AddValue("DisplayName", Name);
-            info.AddValue("DescriptionShort", DescriptionShort);
-        }
-
-        /// <summary>  
-        /// Displays information about the class in readable format.  
-        /// </summary>  
-        /// <returns>A string representation of the object.</returns>
-        public override string ToString()
-        {
-            StringBuilder sb = new StringBuilder();
-            sb.Append("[MinimalEntityDtoBase : ");
-            sb.Append(ToStringBaseProperties());
-            sb.Append("]");
-            return sb.ToString();
         }
 
         /// <summary>
@@ -139,16 +90,14 @@ namespace DeploySoftware.LaunchPad.Core.Application
         /// the common base properties
         /// </summary>
         /// <returns>A string description of the entity</returns>
-        protected override String ToStringBaseProperties()
+        protected virtual String ToStringBaseProperties()
         {
             StringBuilder sb = new StringBuilder();
             // LaunchPAD RAD properties
-            sb.AppendFormat("Id={0};", Id);
-            sb.AppendFormat("Culture={0};", Culture); 
-            sb.AppendFormat("Name={0};", Name);
-            sb.AppendFormat("DescriptionShort={0};", DescriptionShort);
+
             // ABP Properties
-            
+            sb.AppendFormat("Id={0};", Id);
+
             return sb.ToString();
         }
 
@@ -157,7 +106,7 @@ namespace DeploySoftware.LaunchPad.Core.Application
         /// </summary>
         /// <typeparam name="TEntity">The source entity to clone</typeparam>
         /// <returns>A shallow clone of the entity and its serializable properties</returns>
-        protected virtual TEntity Clone<TEntity>() where TEntity : MinimalEntityDtoBase<TIdType>, new()
+        protected virtual TEntity Clone<TEntity>() where TEntity : EntityDtoBase<TIdType>, new()
         {
             TEntity clone = new TEntity();
             foreach (PropertyInfo info in GetType().GetProperties())
@@ -173,29 +122,15 @@ namespace DeploySoftware.LaunchPad.Core.Application
         }
 
         /// <summary>
-        /// Comparison method between two objects of the same type, used for sorting.
-        /// Because the CompareTo method is strongly typed by generic constraints,
-        /// it is not necessary to test for the correct object type.
-        /// </summary>
-        /// <param name="other">The other object of this type we are comparing to</param>
-        /// <returns></returns>
-        public virtual int CompareTo(MinimalEntityDtoBase<TIdType> other)
-        {
-            // put comparison of properties in here 
-            // for base object we'll just sort by name and description short
-            return Name.CompareTo(other.Name) + DescriptionShort.CompareTo(other.DescriptionShort);
-        }
-
-        /// <summary>
         /// Override the legacy Equals. Must cast obj in this case.
         /// </summary>
         /// <param name="obj">A type to check equivalency of (hopefully) an Entity</param>
         /// <returns>True if the entities are the same according to business key value</returns>
         public override bool Equals(object obj)
         {
-            if (obj != null && obj is MinimalEntityDtoBase<TIdType>)
+            if (obj != null && obj is EntityDtoBase<TIdType>)
             {
-                return Equals(obj as MinimalEntityDtoBase<TIdType>);
+                return Equals(obj as EntityDtoBase<TIdType>);
             }
             return false;
         }
@@ -209,14 +144,14 @@ namespace DeploySoftware.LaunchPad.Core.Application
         /// </summary>
         /// <param name="obj">The other object of this type that we are testing equality with</param>
         /// <returns></returns>
-        public virtual bool Equals(MinimalEntityDtoBase<TIdType> obj)
+        public virtual bool Equals(EntityDtoBase<TIdType> obj)
         {
             if (obj != null)
             {
                 // For safe equality we need to match on business key equality.
                 // Base domain entities are functionally equal if their key and metadata are equal.
                 // Subclasses should extend to include their own enhanced equality checks, as required.
-                return Id.Equals(obj.Id) && Culture.Equals(obj.Culture);
+                return Id.Equals(obj.Id);
             }
             return false;
         }
@@ -227,7 +162,7 @@ namespace DeploySoftware.LaunchPad.Core.Application
         /// <param name="x">The first value</param>
         /// <param name="y">The second value</param>
         /// <returns>True if both objects are fully equal based on the Equals logic</returns>
-        public static bool operator ==(MinimalEntityDtoBase<TIdType> x, MinimalEntityDtoBase<TIdType> y)
+        public static bool operator ==(EntityDtoBase<TIdType> x, EntityDtoBase<TIdType> y)
         {
             if (System.Object.ReferenceEquals(x, null))
             {
@@ -246,7 +181,7 @@ namespace DeploySoftware.LaunchPad.Core.Application
         /// <param name="x">The first value</param>
         /// <param name="y">The second value</param>
         /// <returns>True if both objects are not equal based on the Equals logic</returns>
-        public static bool operator !=(MinimalEntityDtoBase<TIdType> x, MinimalEntityDtoBase<TIdType> y)
+        public static bool operator !=(EntityDtoBase<TIdType> x, EntityDtoBase<TIdType> y)
         {
             return !(x == y);
         }
@@ -260,7 +195,7 @@ namespace DeploySoftware.LaunchPad.Core.Application
         /// <returns>A hash code for an object.</returns>
         public override int GetHashCode()
         {
-            return Id.GetHashCode() + Culture.GetHashCode();
+            return Id.GetHashCode();
         }
 
     }
