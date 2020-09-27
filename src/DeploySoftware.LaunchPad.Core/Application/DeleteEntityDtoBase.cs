@@ -37,7 +37,7 @@ namespace DeploySoftware.LaunchPad.Core.Application
     /// Of course subclassing DTOs may contain additional properties.
     /// </summary>
     /// <typeparam name="TIdType">The type of the Id</typeparam>
-    public abstract class DeleteEntityDtoBase<TIdType> : EntityDtoBase<TIdType>,
+    public abstract partial class DeleteEntityDtoBase<TIdType> : EntityDtoBase<TIdType>,
         IEquatable<DeleteEntityDtoBase<TIdType>>
     {
 
