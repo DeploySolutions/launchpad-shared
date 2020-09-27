@@ -17,11 +17,9 @@
 
 namespace DeploySoftware.LaunchPad.Core.Domain
 {
+    using Abp.Domain.Entities;
     using Abp.Domain.Entities.Auditing;
-    public interface IDataPoint<TPrimaryKey> : IDomainEntity<TPrimaryKey>, IHasCreationTime, IHasModificationTime
+    public interface IDataPoint<TPrimaryKey> : IDomainEntity<TPrimaryKey>, IMustHaveTenant
     {
-        string Name { get; set; }
-
-        string Description { get; set; }
     }
 }

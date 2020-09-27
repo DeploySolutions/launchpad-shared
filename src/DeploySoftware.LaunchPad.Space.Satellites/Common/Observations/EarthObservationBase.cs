@@ -66,7 +66,7 @@ namespace DeploySoftware.LaunchPad.Space.Satellites.Common
         [Required]
         public IUsageRights Copyright { get; set; }
 
-        protected EarthObservationBase(int? tenantId) : base(tenantId)
+        protected EarthObservationBase() : base()
         {
 
         }

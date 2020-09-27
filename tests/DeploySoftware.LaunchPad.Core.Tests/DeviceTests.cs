@@ -51,12 +51,6 @@ namespace DeploySoftware.LaunchPad.Core.Tests
         }
 
         [Fact]
-        public void Should_Have_NotNull_Metadata_When_Instantiated()
-        {
-            _fixture.SUT.Metadata.Should().NotBeNull();
-        }
-
-        [Fact]
         public void Should_Have_NotNull_CurrentPhysicalLocation_When_Instantiated()
         {
             _fixture.SUT.CurrentLocation.Should().NotBeNull();

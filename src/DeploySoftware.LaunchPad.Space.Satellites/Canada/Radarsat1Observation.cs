@@ -106,7 +106,7 @@ namespace DeploySoftware.LaunchPad.Space.Satellites.Canada
            string pixelSpacing,
            GeographicLocation sceneCentre,
            ImageObservationCornerCoordinates cornerCoordinates
-        ) : base(tenantId)
+        ) : base()
         {
             Id = Guid.NewGuid();
             CurrentLocation = new SpaceTimeInformation();
@@ -132,7 +132,7 @@ namespace DeploySoftware.LaunchPad.Space.Satellites.Canada
             CurrentLocation.PointInTime = SceneStartTime;
         }
         
-        protected Radarsat1Observation(int? tenantId) : base(tenantId)
+        protected Radarsat1Observation(int? tenantId) : base()
         {
             Id = Guid.NewGuid();
             CurrentLocation = new SpaceTimeInformation();

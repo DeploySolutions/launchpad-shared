@@ -14,7 +14,8 @@
 //See the License for the specific language governing permissions and 
 //limitations under the License. 
 #endregion
-    
+
+using Abp.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -31,7 +32,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
     /// </summary>
     /// <typeparam name="TPrimaryKey">The type of the key id field</typeparam>
     [Serializable()]
-    public class Module<TIdType> : DomainEntityBase<TIdType>, IModule<TIdType>
+    public class Module<TIdType> : DomainEntityBase<TIdType>, IModule<TIdType>, IMayHaveTenant
     {
         /// <summary>
         /// The default culture of this tenant
@@ -49,21 +50,24 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         [DataObjectField(false)]
         [XmlAttribute]
         public IEnumerable<MetadataTag> Components { get; set; }
+        public int? TenantId { get; set; }
 
         #region "Constructors"
 
-        public Module(int? tenantId) : base(tenantId)
+        public Module(int? tenantId) : base()
         {
+            TenantId = tenantId;
             Components = new List<MetadataTag>();
         }
 
-        public Module(int? tenantId, TIdType id, string cultureName) : base(tenantId, id, cultureName)
+        public Module(int? tenantId, TIdType id, string cultureName) : base(id, cultureName)
         {
+            TenantId = tenantId;
             CultureDefault = cultureName;
             Components = new List<MetadataTag>();
         }
 
-        public Module(int? tenantId, TIdType id, string cultureName, String cultureDefault) : base(tenantId, id, cultureName)
+        public Module(int? tenantId, TIdType id, string cultureName, String cultureDefault) : base(id, cultureName)
         {
             CultureDefault = cultureDefault;
             Components = new List<MetadataTag>();

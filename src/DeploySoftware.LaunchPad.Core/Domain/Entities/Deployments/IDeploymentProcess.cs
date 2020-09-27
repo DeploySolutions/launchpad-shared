@@ -17,6 +17,7 @@
 
 namespace DeploySoftware.LaunchPad.Core.Domain
 {
+    using Abp.Domain.Entities;
     using System;
     using System.ComponentModel;
     using System.Xml.Serialization;

@@ -17,6 +17,7 @@
     
 namespace DeploySoftware.LaunchPad.Core.Domain
 {
+    using Abp.Domain.Entities;
     using System;
 
     using System.Runtime.Serialization;
@@ -27,23 +28,29 @@ namespace DeploySoftware.LaunchPad.Core.Domain
     {
         
         public int? TotalItemsCount { get; set; }
-        
+        public int TenantId { get;set; }
+
+        public DataSet() : base()
+        {
+
+        }
 
         public DataSet(
-            int? tenantId,
+            int tenantId,
            string datasetName,
            string datasetDescription
-        ) : base(tenantId)
+        ) : base()
         {
-            Metadata.Name = datasetName;
-            Metadata.DescriptionShort = datasetDescription;
-            Metadata.DescriptionFull = datasetDescription;
+            Name = datasetName;
+            DescriptionShort = datasetDescription;
+            DescriptionFull = datasetDescription;
             TotalItemsCount = 0;
         }
             
-        protected DataSet(int? tenantId) : base(tenantId)
+        protected DataSet(int tenantId) : base()
         {
-            Metadata.Name = String.Empty;
+            TenantId = tenantId;
+            Name = String.Empty;
             TotalItemsCount = 0;
         }
 

@@ -48,8 +48,17 @@ namespace DeploySoftware.LaunchPad.Core.Domain
 
         #endregion
 
+
         /// <summary>  
-        /// Initializes a new instance of the <see cref="EntityBase">Entity</see> class
+        /// Initializes a new instance of the <see cref="GovernmentOrganizationBase">GovernmentOrganizationBase</see> class
+        /// </summary>
+        protected GovernmentOrganizationBase() : base()
+        {
+
+        }
+
+        /// <summary>  
+        /// Initializes a new instance of the <see cref="GovernmentOrganizationBase">GovernmentOrganizationBase</see> class
         /// </summary>
         protected GovernmentOrganizationBase(int? tenantId) : base(tenantId)
         {
@@ -57,14 +66,13 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         }
 
         /// <summary>
-        /// Creates a new instance of the <see cref="EntityBase">Entity</see> class given a key, and some metadata. 
+        /// Creates a new instance of the <see cref="GovernmentOrganizationBase">GovernmentOrganizationBase</see> class given an id, and some metadata. 
         /// </summary>
         /// <param name="key">The unique identifier for this entity</param>
         /// <param name="metadata">The desired metadata for this entity</param>
-        protected GovernmentOrganizationBase(int? tenantId, TPrimaryKey id, MetadataInformation metadata) : base(tenantId)
+        protected GovernmentOrganizationBase(int? tenantId, TPrimaryKey id) : base(tenantId)
         {
             Id = id;
-            Metadata = metadata;
         }
 
         /// <summary>
@@ -87,7 +95,6 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         public override void GetObjectData(SerializationInfo info, StreamingContext context)
         {
             base.GetObjectData(info,context);
-            info.AddValue("Metadata", Metadata);
             info.AddValue("Schema", Schema);
             info.AddValue("Offices", Offices);
         }
@@ -134,7 +141,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         {
             StringBuilder sb = new StringBuilder();
             sb.Append("[GovernmentOrganizationBase: ");
-            sb.Append(base.ToStringBaseProperties());
+          //  sb.Append(base.ToStringBaseProperties());
             sb.Append("]");
             return sb.ToString();
         }
@@ -176,7 +183,6 @@ namespace DeploySoftware.LaunchPad.Core.Domain
                 {
                     return Id.Equals(obj.Id)
                         && Culture.Equals(obj.Culture)
-                        && Metadata.Equals(obj.Metadata)
                         && Schema.Equals(obj.Schema);
                 }
                 

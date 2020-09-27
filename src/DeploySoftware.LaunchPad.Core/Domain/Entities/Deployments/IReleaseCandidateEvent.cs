@@ -17,6 +17,7 @@
 
 namespace DeploySoftware.LaunchPad.Core.Domain
 {
+    using Abp.Domain.Entities;
     using System;
     using System.ComponentModel;
     using System.ComponentModel.DataAnnotations;
@@ -26,7 +27,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
     /// Represents a an event that is related to a release candidate.
     /// </summary>
     /// <typeparam name="TIdType">The type of the Id</typeparam>
-    public interface IReleaseCandidateEvent<TIdType> : IDomainEntity<TIdType>
+    public interface IReleaseCandidateEvent<TIdType> : IDomainEntity<TIdType>, IMustHaveTenant
     {
         /// <summary>
         /// The id of the release candidate this deployment is for

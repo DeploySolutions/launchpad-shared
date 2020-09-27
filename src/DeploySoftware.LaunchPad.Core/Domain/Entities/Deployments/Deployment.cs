@@ -95,6 +95,15 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         #region "Constructors"
 
         /// <summary>
+        /// Default constructor
+        /// </summary>
+        public Deployment() : base()
+        {
+            DeploymentState = DeploymentStates.Not_Started;
+        }
+
+
+        /// <summary>
         /// Default constructor where the tenant id is known
         /// </summary>
         /// <param name="tenantId"></param>

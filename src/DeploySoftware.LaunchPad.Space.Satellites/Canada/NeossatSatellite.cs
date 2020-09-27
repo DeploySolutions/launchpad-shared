@@ -29,7 +29,7 @@ namespace DeploySoftware.LaunchPad.Space.Satellites.Canada
 {
     public class NeossatSatellite<TPrimaryKey> : SatelliteBase<TPrimaryKey>
     {
-        protected NeossatSatellite(int? tenantId) : base(tenantId)
+        protected NeossatSatellite(int? tenantId) : base()
         {
             Operators = new List<ISatelliteOperator<Guid>>() {
                 new CanadaSpaceAgency(tenantId) as ISatelliteOperator<Guid>,

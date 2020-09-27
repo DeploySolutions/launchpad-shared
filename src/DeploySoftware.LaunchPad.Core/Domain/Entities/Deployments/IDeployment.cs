@@ -17,6 +17,7 @@
 
 namespace DeploySoftware.LaunchPad.Core.Domain
 {
+    using Abp.Domain.Entities;
     using System;
     using System.ComponentModel;
     using System.ComponentModel.DataAnnotations;
@@ -27,7 +28,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
     /// Represents a deployment that will take a release candidate (set of code, data, and resources) and place it in a destination environment.
     /// </summary>
     /// <typeparam name="TIdType">The type of the Id</typeparam>
-    public interface IDeployment<TIdType> : IDomainEntity<TIdType>
+    public interface IDeployment<TIdType> : IDomainEntity<TIdType>, IMustHaveTenant
     {
        
         /// <summary>

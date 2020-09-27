@@ -48,26 +48,17 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         /// <summary>  
         /// Initializes a new instance of the <see cref="AggregateRootBase">AggregateRootBase</see> class
         /// </summary>
-        protected AggregateRootBase(int? tenantId) : base(tenantId)
+        protected AggregateRootBase() : base()
         {
             DomainEvents = new Collection<IEventData>();
         }
+
 
         /// <summary>
         /// Creates a new instance of the <see cref="AggregateRootBase">AggregateRootBase</see> class given a key, and some metadata. 
         /// </summary>
         /// <param name="cultureName">The culture for this entity</param>
-        protected AggregateRootBase(int? tenantId, TIdType id, string cultureName) : base(tenantId, id, cultureName)
-        {
-            DomainEvents = new Collection<IEventData>();
-        }
-
-        /// <summary>
-        /// Creates a new instance of the <see cref="AggregateRootBase">AggregateRootBase</see> class given a key, and some metadata. 
-        /// </summary>
-        /// <param name="cultureName">The culture for this entity</param>
-        /// <param name="metadata">The desired metadata for this entity</param>
-        protected AggregateRootBase(int? tenantId, TIdType id, MetadataInformation metadata) : base(tenantId,id, metadata)
+        protected AggregateRootBase(TIdType id, string cultureName) : base(id, cultureName)
         {
             DomainEvents = new Collection<IEventData>();
         }
@@ -105,19 +96,6 @@ namespace DeploySoftware.LaunchPad.Core.Domain
             // reconnect connection strings and other resources that won't be serialized
         }
 
-        /// <summary>
-        /// Comparison method between two objects of the same type, used for sorting.
-        /// Because the CompareTo method is strongly typed by generic constraints,
-        /// it is not necessary to test for the correct object type.
-        /// </summary>
-        /// <param name="other">The other object of this type we are comparing to</param>
-        /// <returns></returns>
-        public virtual int CompareTo(AggregateRootBase<TIdType> other)
-        {
-            // put comparison of properties in here 
-            // for base object we'll just sort by title
-            return Metadata.Name.CompareTo(other.Metadata.Name);
-        }
 
         /// <summary>  
         /// Displays information about the <c>Field</c> in readable format.  
@@ -126,7 +104,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         public override String ToString()
         {
             StringBuilder sb = new StringBuilder();
-            sb.AppendFormat(base.ToStringBaseProperties());
+           // sb.AppendFormat(base.ToStringBaseProperties());
             sb.AppendFormat("DomainEvents={0};", DomainEvents);
             return sb.ToString();
         }
@@ -169,7 +147,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
                     // For safe equality we need to match on business key equality.
                     // Base domain entities are functionally equal if their key and metadata are equal.
                     // Subclasses should extend to include their own enhanced equality checks, as required.
-                    return Id.Equals(obj.Id) && Metadata.Equals(obj.Metadata);
+                    return Id.Equals(obj.Id);
                 }
                 
             }

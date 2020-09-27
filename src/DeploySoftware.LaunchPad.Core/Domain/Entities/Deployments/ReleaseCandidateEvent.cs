@@ -74,14 +74,19 @@ namespace DeploySoftware.LaunchPad.Core.Domain
 
         #region "Constructors"
 
-        public ReleaseCandidateEvent(int tenantId) : base(tenantId)
+        public ReleaseCandidateEvent() : base()
         {
-         
+
+        }
+
+        public ReleaseCandidateEvent(int tenantId) : base()
+        {
+            TenantId = tenantId;
         }
 
         public ReleaseCandidateEvent(int tenantId, TIdType id, string cultureName, String text) : base(tenantId, id, cultureName)
         {
-
+            TenantId = tenantId;
         }
      
         /// <summary>
@@ -124,7 +129,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         {
             StringBuilder sb = new StringBuilder();
             sb.Append("[ReleaseCandidateEvent : ");
-            sb.AppendFormat(ToStringBaseProperties());
+           sb.AppendFormat(ToStringBaseProperties());
             sb.AppendFormat(" ReleaseCandidateId={0};", ReleaseCandidateId);
             sb.AppendFormat(" EventCategory={0};", EventCategory);
             sb.AppendFormat(" LogUri={0};", LogUri);

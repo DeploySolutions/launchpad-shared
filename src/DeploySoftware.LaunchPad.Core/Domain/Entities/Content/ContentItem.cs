@@ -14,7 +14,8 @@
 //See the License for the specific language governing permissions and 
 //limitations under the License. 
 #endregion
-    
+
+using Abp.Domain.Entities;
 using System;
 using System.ComponentModel;
 using System.Runtime.Serialization;
@@ -36,19 +37,27 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         public virtual String Text
         {
             get;set;
-        }        
-        
+        }
+        public int TenantId { get; set; }
 
-#region "Constructors"
 
-        public ContentItem(int? tenantId) : base(tenantId)
+        #region "Constructors"
+
+        public ContentItem() : base()
         {
-            Text = String.Empty;            
+            Text = String.Empty;
         }
 
-        public ContentItem(int? tenantId, TIdType id, string cultureName, String text) : base(tenantId, id, cultureName)
+        public ContentItem(int tenantId) : base()
+        {
+            Text = String.Empty;
+            TenantId = tenantId;
+        }
+
+        public ContentItem(int tenantId, TIdType id, string cultureName, String text) : base(id, cultureName)
         {
             Text = text;
+            TenantId = tenantId;
         }
      
         /// <summary>
@@ -83,7 +92,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         {
             StringBuilder sb = new StringBuilder();
             sb.Append("[ContentItem : ");
-            sb.AppendFormat(ToStringBaseProperties());
+           sb.AppendFormat(ToStringBaseProperties());
             sb.AppendFormat(" Text={0};", Text);            
             sb.Append("]");
             return sb.ToString();

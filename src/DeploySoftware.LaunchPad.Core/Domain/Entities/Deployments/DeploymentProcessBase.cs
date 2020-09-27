@@ -14,7 +14,8 @@
 //See the License for the specific language governing permissions and 
 //limitations under the License. 
 #endregion
-    
+
+using Abp.Domain.Entities;
 using System;
 using System.ComponentModel;
 using System.Runtime.Serialization;
@@ -29,7 +30,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
     /// Represents the process which a deployment will follow as it takes a release candidate (set of code, data, and resources) and places it in a destination environment.
     /// </summary>
     /// <typeparam name="TIdType">The type of the Id</typeparam>
-    public class DeploymentProcess<TIdType> : DomainEntityBase<TIdType>, IDeploymentProcess<TIdType>
+    public abstract partial class DeploymentProcessBase<TIdType> : DomainEntityBase<TIdType>, IDeploymentProcess<TIdType>
     {
         /// <summary>
         /// The URI to the deployment documentation
@@ -48,14 +49,13 @@ namespace DeploySoftware.LaunchPad.Core.Domain
 
         #region "Constructors"
 
-        public DeploymentProcess(int? tenantId) : base(tenantId)
+        protected DeploymentProcessBase() : base()
         {
-         
         }
 
-        public DeploymentProcess(int? tenantId, TIdType id, string cultureName, String text) : base(tenantId, id, cultureName)
-        {
 
+        protected DeploymentProcessBase(TIdType id, string cultureName, String text) : base(id, cultureName)
+        {
         }
      
         /// <summary>
@@ -63,7 +63,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         /// </summary>
         /// <param name="info">The serialization info</param>
         /// <param name="context">The context of the stream</param>
-        protected DeploymentProcess(SerializationInfo info, StreamingContext context) : base(info, context)
+        protected DeploymentProcessBase(SerializationInfo info, StreamingContext context) : base(info, context)
         {
             DocumentationUri = (Uri)info.GetValue("DocumentationUrl", typeof(Uri));
             DiagramUri = (Uri)info.GetValue("DiagramUrl", typeof(Uri));

@@ -38,91 +38,37 @@ namespace DeploySoftware.LaunchPad.Core.Domain
     /// Implements AspNetBoilerplate's auditing interfaces.
     /// </summary>
     public abstract partial class DomainEntityBase<TIdType> : 
-        FullAuditedEntity<TIdType>, IDomainEntity<TIdType>, IMayHaveTenant
+        FullAuditedEntity<TIdType>, IDomainEntity<TIdType>//, IMayHaveTenant
         
     {
-
-        private TIdType id;
-        private string culture;
-        private int? tenantId;
-        private TIdType translatedFromId;
-        private string name;
-        private string descriptionShort;
-        private string descriptionFull;
-        private DateTime creationTime;
-        private Int64? creatorUserId;
-        private DateTime? lastModificationTime;
-        private Int64? lastModifierUserId;
-        private Int64? deleterUserId;
-        private DateTime? deletionTime;
-        private Boolean isActive;
-        private Boolean isDeleted;
 
         /// <summary>
         /// The culture of this object
         /// </summary>
         [DataObjectField(true)]
         [XmlAttribute]
-        public String Culture
-        {
-            get { return culture; }
-            set
-            {
-                culture = value;
-                Metadata.Culture = value;
-            }
-        }
+        public String Culture { get; set; }
 
         /// <summary>
         /// The display name of this object
         /// </summary>
         [DataObjectField(false)]
         [XmlAttribute]
-        public String Name {
-            get { return name; }
-            set
-            {
-                name = value;
-                Metadata.Name = value;
-            }
-        }
+        public String Name { get; set; }
 
         /// <summary>
         /// A short description for this entity
         /// </summary>
         [DataObjectField(false)]
         [XmlAttribute]
-        public String DescriptionShort {
-            get { return descriptionShort; }
-            set
-            {
-                descriptionShort = value;
-                Metadata.DescriptionShort = value;
-            }
-        }
+        public String DescriptionShort { get; set; }
 
         /// <summary>
         /// The full description for this entity
         /// </summary>
         [DataObjectField(false)]
         [XmlElement]
-        public String DescriptionFull {
-            get { return descriptionFull; }
-            set
-            {
-                descriptionFull = value;
-                Metadata.DescriptionFull = value;
-            }
-        }
-
-        /// <summary>
-        /// Each entity can have an open-ended set of metadata applied to it, that helps to describe it.
-        /// </summary>
-        [DataObjectField(false)]
-        [XmlAttribute]
-        [NotMapped]
-        public MetadataInformation Metadata { get; set; }
-
+        public String DescriptionFull { get; set; }
 
         /// <summary>
         /// Each entity can have an open-ended set of tags applied to it, that help users find, markup, and display its information
@@ -138,47 +84,12 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         /// </summary>
         [DataObjectField(true)]
         [XmlAttribute]
-        public TIdType TranslatedFromId
-        {
-            get { return translatedFromId; }
-            set
-            {
-                translatedFromId = value;
-            }
-        }
-
-        /// <summary>
-        /// The id of the tenant that domain entity this belongs to (null if not known/applicable)
-        /// </summary>
-        [DataObjectField(false)]
-        [XmlAttribute]
-        [ForeignKey(nameof(TenantId))]
-        public int? TenantId
-        {
-            get { return tenantId; }
-            set
-            {
-                tenantId = value;
-                Metadata.TenantId = value;
-            }
-        }
-
-
-        #region Implementation of ASP.NET Boilerplate's domain entity interfaces
+        public TIdType TranslatedFromId { get; set; }
 
         [DataObjectField(false)]
         [XmlAttribute]
-        public bool IsActive
-        {
-            get { return isActive; }
-            set
-            {
-                isActive = value;
-                Metadata.IsActive = value;
-            }
-        }
+        public bool IsActive { get; set; }
 
-        #endregion
 
 
         /// <summary>
@@ -195,55 +106,24 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         /// </summary>
         protected DomainEntityBase() : base()
         {
-            Metadata = new MetadataInformation();
             Culture = ApplicationInformation<TIdType>.DEFAULT_CULTURE;
-            TenantId = 1; // default tenant
+            //TenantId = 0; // default tenant
             Tags = new List<MetadataTag>();
             IsDeleted = false;
             IsActive = true; 
             Name = String.Empty;
-        }
 
-        /// <summary>  
-        /// Initializes a new instance of the <see cref="DomainEntityBase">Entity</see> class
-        /// </summary>
-        protected DomainEntityBase(int? tenantId) : base()
-        {
-            Metadata = new MetadataInformation();
-            Culture = ApplicationInformation<TIdType>.DEFAULT_CULTURE;
-            if (tenantId != null)
-            { 
-                TenantId = tenantId; 
-            } 
-            else
-            {
-                TenantId = 1;
-            }
-            CreatorUserId = 1; // TODO - default user account?
-            Name = String.Empty;
-            IsDeleted = false;
-            IsActive = true;
         }
-
 
         /// <summary>
         /// Creates a new instance of the <see cref="DomainEntityBase">Entity</see> class given a key, and some metadata. 
         /// </summary>
         /// <param name="culture">The culture for this entity</param>
-        protected DomainEntityBase(int? tenantId, TIdType id) : base()
+        protected DomainEntityBase(TIdType id) : base()
         {
-            Metadata = new MetadataInformation();
             Id = id;
             Culture = ApplicationInformation<TIdType>.DEFAULT_CULTURE;
-            if (tenantId != null)
-            {
-                TenantId = tenantId;
-            }
-            else
-            {
-                TenantId = 1;
-            }
-            
+           
             CreatorUserId = 1; // TODO - default user account?
             IsDeleted = false;
             IsActive = true;
@@ -255,19 +135,10 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         /// Creates a new instance of the <see cref="DomainEntityBase">Entity</see> class given a key, and some metadata. 
         /// </summary>
         /// <param name="culture">The culture for this entity</param>
-        protected DomainEntityBase(int? tenantId, TIdType id, string culture) : base()
+        protected DomainEntityBase(TIdType id, string culture) : base()
         {
-            Metadata = new MetadataInformation();
             Id = id;
             Culture = culture;
-            if (tenantId != null)
-            {
-                TenantId = tenantId;
-            }
-            else
-            {
-                TenantId = 1;
-            }
             CreatorUserId = 1; // TODO - default user account?
             IsDeleted = false;
             IsActive = true;
@@ -275,39 +146,6 @@ namespace DeploySoftware.LaunchPad.Core.Domain
             Name = String.Empty;
         }
 
-        /// <summary>
-        /// Creates a new instance of the <see cref="DomainEntityBase">Entity</see> class given a key, and using the exact values
-        /// passed in via the metadata object.
-        /// </summary>
-        /// <param name="culture">The culture for this entity</param>
-        /// <param name="metadata">The metadata containing the values for this entity</param>
-        protected DomainEntityBase(int? tenantId, TIdType id, MetadataInformation metadata) : base()
-        {
-            if (tenantId != null)
-            {
-                TenantId = tenantId;
-            }
-            else
-            {
-                TenantId = 1;
-            }
-            Id = id;
-            Culture = metadata.Culture;
-            // populate the fields with any values that are passed in via the metadata
-            CreatorUserId = metadata.CreatorUserId;
-            CreationTime = metadata.CreationTime;
-            descriptionShort = metadata.DescriptionShort;
-            descriptionFull = metadata.DescriptionFull;
-            Name = metadata.Name;
-            LastModificationTime = metadata.LastModificationTime;
-            LastModifierUserId = metadata.LastModifierUserId;
-            DeleterUserId = metadata.DeleterUserId;
-            DeletionTime = metadata.DeletionTime;
-            IsDeleted = metadata.IsDeleted;
-            IsActive = metadata.IsActive;
-            Tags = new List<MetadataTag>();
-
-        }
 
         /// <summary>
         /// Serialization constructor used for deserialization
@@ -318,7 +156,6 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         {
             Id = (TIdType)info.GetValue("Id", typeof(TIdType));
             Culture = info.GetString("Culture");
-            TenantId = info.GetInt32("TenantId");
             Name = info.GetString("DisplayName");
             DescriptionShort = info.GetString("DescriptionShort");
             DescriptionFull = info.GetString("DescriptionFull");
@@ -346,7 +183,6 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         {
             info.AddValue("Id", Id);
             info.AddValue("Culture", Culture);
-            info.AddValue("TenantId", TenantId);
             info.AddValue("DisplayName", Name);
             info.AddValue("DescriptionShort", DescriptionShort);
             info.AddValue("DescriptionFull", DescriptionFull);
@@ -405,7 +241,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         {
             // put comparison of properties in here 
             // for base object we'll just sort by title
-            return Metadata.Name.CompareTo(other.Metadata.Name);
+            return Name.CompareTo(other.Name);
         }
 
         /// <summary>  
@@ -429,8 +265,6 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         protected virtual String ToStringBaseProperties()
         {
             StringBuilder sb = new StringBuilder();
-            sb.AppendFormat("TenantId={0};", TenantId);
-            sb.AppendFormat("Metadata={0};", Metadata);
             sb.AppendFormat("IsActive={0};", IsActive);
             sb.AppendFormat("IsDeleted={0};", IsDeleted);
             sb.AppendFormat("DeleterUserId={0};", DeleterUserId);
@@ -479,8 +313,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
                     // Base domain entities are functionally equal if their key and metadata are equal.
                     // Subclasses should extend to include their own enhanced equality checks, as required.
                     return Id.Equals(obj.Id) && Culture.Equals(obj.Culture)
-                        && IsActive.Equals(obj.IsActive) && IsDeleted.Equals(obj.IsDeleted)
-                        && TenantId.Equals(obj.TenantId);
+                        && IsActive.Equals(obj.IsActive) && IsDeleted.Equals(obj.IsDeleted);
                 }
                 
             }
@@ -527,8 +360,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         public override int GetHashCode()
         {
             return Culture.GetHashCode()
-                + Id.GetHashCode()
-                + TenantId.GetHashCode();
+                + Id.GetHashCode();
         }
 
     }

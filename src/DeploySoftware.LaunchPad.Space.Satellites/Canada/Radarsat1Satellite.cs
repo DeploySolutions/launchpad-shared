@@ -32,7 +32,7 @@ namespace DeploySoftware.LaunchPad.Space.Satellites.Canada
     public class Radarsat1Satellite<TPrimaryKey> : SatelliteBase<TPrimaryKey>
     {
         
-        protected Radarsat1Satellite(int? tenantId) : base(tenantId)
+        protected Radarsat1Satellite(int? tenantId) : base()
         {
             Operators = new List<ISatelliteOperator<Guid>>() { new CanadaSpaceAgency(tenantId) as ISatelliteOperator<Guid> };
             SatelliteCatalogNumber = "23710";

@@ -21,6 +21,7 @@ using System.Linq;
 
 namespace DeploySoftware.LaunchPad.Core.Domain
 {
+    using Abp.Domain.Entities;
     using System;
     using System.Runtime.Serialization;
     using System.Security.Permissions;
@@ -33,26 +34,34 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         public int? TotalItemsCount { get; set; }
         
 
-        public IEnumerable<IDataSet<TPrimaryKey>> DataSets { get; set; } 
+        public IEnumerable<IDataSet<TPrimaryKey>> DataSets { get; set; }
+        public int TenantId { get;set; }
+
+        public DataCatalogue() : base()
+        {
+
+        }
 
         public DataCatalogue(
-            int? tenantId,
+            int tenantId,
             string _datacatalogueName,
             string _datacatalogueDescription,
             int _numberOfDatasets, 
             int _totalNumberOfRecords
-            ) : base(tenantId)
+            ) : base()
         {
-            Metadata.Name = _datacatalogueName;
-            Metadata.DescriptionShort = _datacatalogueDescription; 
-            Metadata.DescriptionFull = _datacatalogueDescription;
+            TenantId = tenantId;
+            Name = _datacatalogueName;
+            DescriptionShort = _datacatalogueDescription; 
+            DescriptionFull = _datacatalogueDescription;
             NumberofDatasets = _numberOfDatasets;
             TotalItemsCount = _totalNumberOfRecords;
         }
             
-        protected DataCatalogue(int? tenantId) :base(tenantId)
+        protected DataCatalogue(int tenantId) :base()
         {
-            Metadata.Name = String.Empty;
+            TenantId = tenantId;
+            Name = String.Empty;
             NumberofDatasets = DataSets.Count();
             TotalItemsCount = 0;
         }

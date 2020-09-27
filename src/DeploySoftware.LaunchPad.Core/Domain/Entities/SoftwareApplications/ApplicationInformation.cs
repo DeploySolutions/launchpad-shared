@@ -14,7 +14,8 @@
 //See the License for the specific language governing permissions and 
 //limitations under the License. 
 #endregion
-    
+
+using Abp.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -31,7 +32,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
     /// </summary>
     /// <typeparam name="TPrimaryKey">The type of the key id field</typeparam>
     [Serializable()]
-    public class ApplicationInformation<TIdType> : DomainEntityBase<TIdType>, IApplicationInformation<TIdType>
+    public class ApplicationInformation<TIdType> : DomainEntityBase<TIdType>, IApplicationInformation<TIdType>, IMayHaveTenant
     {
         public const string DEFAULT_CULTURE = "en";
         public const string DEFAULT_HEX_COlOUR = "1dbff0";
@@ -92,32 +93,38 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         {
             get; set;
         }
-
+        public int? TenantId { get; set; }
         #region "Constructors"
 
-        public ApplicationInformation(int? tenantId) : base(tenantId)
+        public ApplicationInformation(int? tenantId) : base()
         {
+            TenantId = tenantId;
             DisplayPrimaryColourHex = DEFAULT_HEX_COlOUR;
             CultureDefault = DEFAULT_CULTURE;
             CultureSupported = DEFAULT_CULTURE;
         }
 
-        public ApplicationInformation(int? tenantId, TIdType id, string cultureName) : base(tenantId, id, cultureName)
+        public ApplicationInformation(int? tenantId, TIdType id, string cultureName) : base(id, cultureName)
         {
+            TenantId = tenantId;
             DisplayPrimaryColourHex = DEFAULT_HEX_COlOUR;
             CultureDefault = DEFAULT_CULTURE;
             CultureSupported = DEFAULT_CULTURE;
         }
 
-        public ApplicationInformation(int? tenantId, TIdType id, string cultureName, String cultureDefault) : base(tenantId, id, cultureName)
+        public ApplicationInformation(int? tenantId, TIdType id, string cultureName, String cultureDefault) : base(id, cultureName)
         {
+            TenantId = tenantId;
+            Id = id;
             DisplayPrimaryColourHex = ApplicationInformation<TIdType>.DEFAULT_HEX_COlOUR;
             CultureDefault = cultureDefault;
             CultureSupported = cultureDefault;
         }
 
-        public ApplicationInformation(int? tenantId, TIdType id, string cultureName, String cultureDefault, String cultureSupported) : base(tenantId, id, cultureName)
+        public ApplicationInformation(int? tenantId, TIdType id, string cultureName, String cultureDefault, String cultureSupported) : base(id, cultureName)
         {
+            TenantId = tenantId;
+            Id = id;
             DisplayPrimaryColourHex = ApplicationInformation<TIdType>.DEFAULT_HEX_COlOUR;
             CultureDefault = cultureDefault;
             CultureSupported = cultureSupported;

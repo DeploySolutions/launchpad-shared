@@ -18,10 +18,10 @@
 
 namespace DeploySoftware.LaunchPad.Core.Domain
 {
-    
+    using Abp.Domain.Entities;
     using System.Collections.Generic;
 
-    public interface IDataSet<TPrimaryKey> : IDomainEntity<TPrimaryKey>
+    public interface IDataSet<TPrimaryKey> : IDomainEntity<TPrimaryKey>, IMustHaveTenant
     { 
 
         int? TotalItemsCount { get; set; }

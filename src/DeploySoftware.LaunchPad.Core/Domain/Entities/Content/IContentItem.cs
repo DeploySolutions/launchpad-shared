@@ -18,6 +18,7 @@
 
 namespace DeploySoftware.LaunchPad.Core.Domain
 {
+    using Abp.Domain.Entities;
     using System;
     using System.ComponentModel;
     using System.Xml.Serialization;
@@ -26,7 +27,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
     /// Represents a deployment activity.
     /// </summary>
     /// <typeparam name="TPrimaryKey"></typeparam>
-    public interface IContentItem<TPrimaryKey> : IDomainEntity<TPrimaryKey>
+    public interface IContentItem<TPrimaryKey> : IDomainEntity<TPrimaryKey>, IMustHaveTenant
     {
 
         /// <summary>

@@ -14,7 +14,8 @@
 //See the License for the specific language governing permissions and 
 //limitations under the License. 
 #endregion
-    
+
+using Abp.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -31,7 +32,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
     /// </summary>
     /// <typeparam name="TPrimaryKey">The type of the key id field</typeparam>
     [Serializable()]
-    public class LaunchPadApplication<TIdType> : DomainEntityBase<TIdType>, ILaunchPadApplication<TIdType>
+    public class LaunchPadApplication<TIdType> : DomainEntityBase<TIdType>, ILaunchPadApplication<TIdType>, IMayHaveTenant
     {
 
         /// <summary>
@@ -58,18 +59,20 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         [DataObjectField(false)]
         [XmlAttribute]
         public IEnumerable<ITenantInformation<TIdType>> TenantInfo { get; set; }
+        public int? TenantId { get; set; }
 
 
         #region "Constructors"
 
-        public LaunchPadApplication(int? tenantId) : base(tenantId)
+        public LaunchPadApplication(int? tenantId) : base()
         {
+            TenantId = tenantId;
             Info = new ApplicationInformation<TIdType>(tenantId);
             TenantInfo = new List<ITenantInformation<TIdType>>();
             Modules = new List<IModule<TIdType>>();
         }
 
-        public LaunchPadApplication(int? tenantId, TIdType id, string cultureName) : base(tenantId, id, cultureName)
+        public LaunchPadApplication(int? tenantId, TIdType id, string cultureName) : base(id, cultureName)
         {
             Info = new ApplicationInformation<TIdType>(tenantId);
             TenantInfo = new List<ITenantInformation<TIdType>>();

@@ -26,13 +26,14 @@ namespace DeploySoftware.LaunchPad.Core.Domain
     using System.Text;
     using System.Xml.Serialization;
     using System.Collections.Generic;
+    using Abp.Domain.Entities;
 
     /// <summary>
     /// This class defines the geographical boundaries of an Area of Interest being observed.
     /// </summary>
     [Serializable()]
     public class AreaOfInterest<TIdType> : 
-        DomainEntityBase<TIdType>, IAreaOfInterest<TIdType>
+        DomainEntityBase<TIdType>, IAreaOfInterest<TIdType>,IMayHaveTenant
     {
         
         [DataObjectField(false)]
@@ -41,23 +42,26 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         {
             get;set;
         }
+        public int? TenantId { get; set; }
 
 
         /// <summary>
         /// 
         /// </summary>
-        public AreaOfInterest(int? tenantId) :base (tenantId)
+        public AreaOfInterest(int? tenantId) :base ()
         {
-            
+            TenantId = tenantId;
         }
 
-        public AreaOfInterest(int? tenantId, IEnumerable<IGeographicLocation> boundingBox) : base(tenantId)
+        public AreaOfInterest(int? tenantId, IEnumerable<IGeographicLocation> boundingBox) : base()
         {
             BoundingBoxCoordinates = boundingBox;
+            TenantId = tenantId;
         }
-        public AreaOfInterest(int? tenantId, TIdType id, String culture, IEnumerable<IGeographicLocation> boundingBox) : base(tenantId, id, culture)
+        public AreaOfInterest(int? tenantId, TIdType id, String culture, IEnumerable<IGeographicLocation> boundingBox) : base(id, culture)
         {
             BoundingBoxCoordinates = boundingBox;
+            TenantId = tenantId;
         }
 
         /// <summary>
@@ -102,7 +106,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         {
             StringBuilder sb = new StringBuilder();
             sb.Append("[AreaOfInterest : ");
-            sb.AppendFormat(base.ToStringBaseProperties());
+           // sb.AppendFormat(base.ToStringBaseProperties());
             sb.AppendFormat("BoundingBoxCoordinates={0};", BoundingBoxCoordinates);
             sb.Append("]");
             return sb.ToString();

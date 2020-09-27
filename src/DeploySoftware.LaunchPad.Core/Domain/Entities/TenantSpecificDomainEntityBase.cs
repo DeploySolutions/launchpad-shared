@@ -45,14 +45,23 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         [XmlAttribute]
         [Required]
         [ForeignKey(nameof(TenantId))]
-        public new int TenantId { get; set; }
+        public int TenantId { get; set; }
+
+        /// <summary>  
+        /// Initializes a new instance of the <see cref="DomainEntityBase{TIdType}">DomainEntityBase{TIdType}</see> abstract class
+        /// </summary>
+        /// <param name="tenantId">The id of the tenant to which this entity belongs</param>
+        protected TenantSpecificDomainEntityBase() : base()
+        {
+
+        }
 
 
         /// <summary>  
         /// Initializes a new instance of the <see cref="DomainEntityBase{TIdType}">DomainEntityBase{TIdType}</see> abstract class
         /// </summary>
         /// <param name="tenantId">The id of the tenant to which this entity belongs</param>
-        protected TenantSpecificDomainEntityBase(int tenantId) : base(tenantId)
+        protected TenantSpecificDomainEntityBase(int tenantId) : base()
         {
             TenantId = tenantId;
         }
@@ -62,7 +71,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         /// </summary>
         /// <param name="culture">The culture for this entity</param>
         /// <param name="tenantId">The id of the tenant to which this entity belongs</param>
-        protected TenantSpecificDomainEntityBase(int tenantId, TIdType id, string culture) : base(tenantId,id,culture)
+        protected TenantSpecificDomainEntityBase(int tenantId, TIdType id, string culture) : base(id,culture)
         {
             TenantId = tenantId;
         }
@@ -75,7 +84,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         /// <param name="metadata">The desired metadata for this entity</param>
         /// <param name="tenantId">The id of the tenant to which this entity belongs</param>
         protected TenantSpecificDomainEntityBase(int tenantId, TIdType id, MetadataInformation metadata) 
-            : base(tenantId, id, metadata)
+            : base(id, metadata.Culture)
         {
             TenantId = tenantId;
         }
@@ -144,7 +153,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         {
             // put comparison of properties in here 
             // for base object we'll just sort by title
-            return Metadata.Name.CompareTo(other.Metadata.Name);
+            return Name.CompareTo(other.Name);
         }
 
         /// <summary>  
@@ -154,7 +163,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         public override String ToString()
         {
             StringBuilder sb = new StringBuilder();
-            sb.Append(ToStringBaseProperties());
+           // sb.Append(ToStringBaseProperties());
             sb.AppendFormat("TenantId={0};", TenantId);
             return sb.ToString();
         }
@@ -197,7 +206,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
                     // For safe equality we need to match on business key equality.
                     // Base domain entities are functionally equal if their key and metadata are equal.
                     // Subclasses should extend to include their own enhanced equality checks, as required.
-                    return Id.Equals(obj.Id) && Culture.Equals(obj.Culture) && Metadata.Equals(obj.Metadata)
+                    return Id.Equals(obj.Id) && Culture.Equals(obj.Culture) 
                         && IsActive.Equals(obj.IsActive) && IsDeleted.Equals(obj.IsDeleted) && TenantId.Equals(obj.TenantId);
                 }
                 

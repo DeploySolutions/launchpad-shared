@@ -27,13 +27,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
     /// </summary>
     public interface ILaunchPadObject : ISerializable
     {
-
-        /// <summary>
-        /// Each Entity or File object can have an open-ended set of metadata applied to it, that helps to describe it.
-        /// </summary>
-        [DataObjectField(false)]
-        [NotMapped]
-        MetadataInformation Metadata { get; set; }        
+   
 
     }
 }

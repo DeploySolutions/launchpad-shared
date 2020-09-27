@@ -17,6 +17,7 @@
 
 namespace DeploySoftware.LaunchPad.Core.Domain
 {
+    using Abp.Domain.Entities;
     using Schema.NET;
     using System;
     using System.Collections.Generic;
@@ -33,7 +34,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
     /// Implements <see cref="IOrganization&lt;TPrimaryKey&gt;">IOrganization&lt;TPrimaryKey&gt;</see> and provides
     /// base functionality for many of its methods.
     /// </summary>
-    public abstract partial class OrganizationBase<TIdType> :  DomainEntityBase<TIdType>, IOrganization<TIdType>
+    public abstract partial class OrganizationBase<TIdType> :  DomainEntityBase<TIdType>, IOrganization<TIdType>, IMayHaveTenant
     {
         [DataObjectField(false)]
         [XmlAttribute]
@@ -58,20 +59,22 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         [DataObjectField(false)]
         [XmlAttribute]
         public IList<string> Offices { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-
-
-        #region Implementation of ASP.NET Boilerplate's IEntity interface
-
-
-
-        #endregion
+        public int? TenantId { get;set; }
 
         /// <summary>  
         /// Initializes a new instance of the <see cref="OrganizationBase&lt;TPrimaryKey&gt;">OrganizationBase&lt;TPrimaryKey&gt;</see> class
         /// </summary>
-        protected OrganizationBase(int? tenantId) : base(tenantId)
+        protected OrganizationBase() : base()
         {
-            Metadata = new MetadataInformation();
+        }
+
+
+        /// <summary>  
+        /// Initializes a new instance of the <see cref="OrganizationBase&lt;TPrimaryKey&gt;">OrganizationBase&lt;TPrimaryKey&gt;</see> class
+        /// </summary>
+        protected OrganizationBase(int? tenantId) : base()
+        {
+            TenantId = tenantId;
         }
 
         /// <summary>
@@ -80,9 +83,9 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         /// </summary>
         /// <param name="key">The unique identifier for this entity</param>
         /// <param name="metadata">The desired metadata for this entity</param>
-        protected OrganizationBase(int? tenantId, TIdType id, MetadataInformation metadata) : base(tenantId)
+        protected OrganizationBase(int? tenantId, TIdType id) : base()
         {
-            Metadata = metadata;
+            TenantId = tenantId;
         }
 
         /// <summary>
@@ -142,22 +145,22 @@ namespace DeploySoftware.LaunchPad.Core.Domain
             return other == null ? 1 : String.Compare(FullName, other.FullName, StringComparison.InvariantCulture);
         }
 
-        /// <summary>
-        /// This method makes it easy for any child class to generate a ToString() representation of
-        /// the common base properties
-        /// </summary>
-        /// <returns>A string description of the entity</returns>
-        protected override String ToStringBaseProperties()
-        {
-            StringBuilder sb = new StringBuilder();
-            sb.Append(ToStringBaseProperties());
-            sb.AppendFormat("Schema={0};", Schema);
-            sb.AppendFormat("FullName={0};", FullName);
-            sb.AppendFormat("Abbreviation={0};", Abbreviation);
-            sb.AppendFormat("HeadquartersAddress={0};", HeadquartersAddress);
-            sb.AppendFormat("Website={0};", Website);
-            return sb.ToString();
-        }
+        ///// <summary>
+        ///// This method makes it easy for any child class to generate a ToString() representation of
+        ///// the common base properties
+        ///// </summary>
+        ///// <returns>A string description of the entity</returns>
+        //protected override String ToStringBaseProperties()
+        //{
+        //    StringBuilder sb = new StringBuilder();
+        //    sb.Append(ToStringBaseProperties());
+        //    sb.AppendFormat("Schema={0};", Schema);
+        //    sb.AppendFormat("FullName={0};", FullName);
+        //    sb.AppendFormat("Abbreviation={0};", Abbreviation);
+        //    sb.AppendFormat("HeadquartersAddress={0};", HeadquartersAddress);
+        //    sb.AppendFormat("Website={0};", Website);
+        //    return sb.ToString();
+        //}
 
         /// <summary>
         /// Override the legacy Equals. Must cast obj in this case.
@@ -199,7 +202,6 @@ namespace DeploySoftware.LaunchPad.Core.Domain
                     // Subclasses should extend to include their own enhanced equality checks, as required.
                     return Id.Equals(obj.Id)
                         && Culture.Equals(obj.Culture)
-                        && Metadata.Equals(obj.Metadata) 
                         && Schema.Equals(obj.Schema);
                 }
                 

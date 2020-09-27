@@ -64,14 +64,20 @@ namespace DeploySoftware.LaunchPad.Core.Domain
 
         #region "Constructors"
 
-        public ReleaseCandidate(int tenantId) : base(tenantId)
+        public ReleaseCandidate() : base()
         {
-         
+
+        }
+
+
+        public ReleaseCandidate(int tenantId) : base()
+        {
+            TenantId = tenantId;
         }
 
         public ReleaseCandidate(int tenantId, TIdType id, string cultureName, String text) : base(tenantId, id, cultureName)
         {
-
+            TenantId = tenantId;
         }
      
         /// <summary>
