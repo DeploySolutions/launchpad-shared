@@ -76,9 +76,9 @@ namespace DeploySoftware.LaunchPad.Core.Application
         }
 
         /// <summary>
-        /// Default constructor where the tenant id is known
+        /// Default constructor where the id is known
         /// </summary>
-        /// <param name="tenantId"></param>
+        /// <param name="id"></param>
         public MinimalEntityDtoBase(TIdType id) : base()
         {
             Id = id;
@@ -100,6 +100,7 @@ namespace DeploySoftware.LaunchPad.Core.Application
         /// <param name="context">The context of the stream</param>
         protected MinimalEntityDtoBase(SerializationInfo info, StreamingContext context) : base(info,context)
         {
+            Id = (TIdType)info.GetValue("Id", typeof(TIdType));
             Culture = info.GetString("Culture");
             Name = info.GetString("DisplayName");
             DescriptionShort = info.GetString("DescriptionShort");
@@ -113,7 +114,7 @@ namespace DeploySoftware.LaunchPad.Core.Application
         /// <param name="info"></param>
         /// <param name="context"></param>
         [SecurityPermission(SecurityAction.Demand, SerializationFormatter = true)]
-        public virtual void GetObjectData(SerializationInfo info, StreamingContext context)
+        public override void GetObjectData(SerializationInfo info, StreamingContext context)
         {
             info.AddValue("Id", Id);
             info.AddValue("Culture", Culture);
@@ -183,7 +184,7 @@ namespace DeploySoftware.LaunchPad.Core.Application
         {
             // put comparison of properties in here 
             // for base object we'll just sort by name and description short
-            return Name.CompareTo(other.Name) + DescriptionShort.CompareTo(other.DescriptionShort);
+            return Name.CompareTo(other.Name);
         }
 
         /// <summary>

@@ -31,48 +31,16 @@ using System.Xml.Serialization;
 namespace DeploySoftware.LaunchPad.Core.Application
 {
     /// <summary>
-    /// Represents the entire amount of base properties a LaunchPad Data Transfer Object would possess.
-    /// Of course subclassing DTOs will contain additional properties.
+    /// Represents the base properties a LaunchPad Data Transfer Object would possess in order to edit an existing entity
+    /// It does not include properties that are set by ABP on Deletion.
+    /// Of course subclassing DTOs may contain additional properties.
     /// </summary>
     /// <typeparam name="TIdType">The type of the Id</typeparam>
-    public abstract class FullEntityDtoBase<TIdType> : MinimalEntityDtoBase<TIdType>,
-        IHasCreationTime, ICreationAudited, IHasModificationTime, IModificationAudited, IDeletionAudited,
-        ISoftDelete, IPassivable,
-        IComparable<MinimalEntityDtoBase<TIdType>>, IEquatable<MinimalEntityDtoBase<TIdType>>
+    public abstract class EditEntityDtoBase<TIdType> : CreateEntityDtoBase<TIdType>,
+        IHasModificationTime, IModificationAudited, IPassivable,
+        IComparable<EditEntityDtoBase<TIdType>>, IEquatable<EditEntityDtoBase<TIdType>>
     {
-        public static readonly long? DEFAULT_CREATOR_USER_ID = 1;
-
-
-        /// <summary>
-        /// A full description of this item.
-        /// </summary>
-        [DataObjectField(false)]
-        [XmlAttribute]
-        public virtual String DescriptionFull { get; set; }
-
-        /// <summary>
-        /// If this object is not a translation this field will be null. 
-        /// If this object is a translation, this id references the parent object.
-        /// </summary>
-        [DataObjectField(true)]
-        [XmlAttribute]
-        public virtual TIdType TranslatedFromId { get; set; }
-
-        /// <summary>
-        /// The date and time that this object was created.
-        /// </summary>
-        [DataObjectField(false)]
-        [XmlAttribute]
-        public virtual DateTime CreationTime { get; set; }
-
-        /// <summary>
-        /// The id of the User Agent which created this entity
-        /// </summary>
-        [DataObjectField(false)]
-        [XmlAttribute]
-        [ForeignKey(nameof(CreatorUserId))]
-        public virtual long? CreatorUserId { get; set; }
-
+       
         /// <summary>
         /// The date and time that the location and/or properties of this object were last modified.
         /// </summary>
@@ -88,56 +56,30 @@ namespace DeploySoftware.LaunchPad.Core.Application
         [ForeignKey(nameof(LastModifierUserId))]
         public virtual Int64? LastModifierUserId { get; set; }
 
-        /// <summary>
-        /// The date and time that this object was deleted.
-        /// </summary>
-        [DataObjectField(false)]
-        [XmlAttribute]
-        public virtual DateTime? DeletionTime { get; set; }
-
-        /// <summary>
-        /// The id of the user which deleted this entity
-        /// </summary>
-        [DataObjectField(false)]
-        [XmlAttribute]
-        [ForeignKey(nameof(DeleterUserId))]
-        public virtual long? DeleterUserId { get; set; }
-
-
-        [DataObjectField(false)]
-        [XmlAttribute]
-        public virtual bool IsActive { get; set; }
-
-        [DataObjectField(false)]
-        [XmlAttribute]
-        public virtual bool IsDeleted { get; set; }
-
+   
         #region "Constructors"
 
         /// <summary>
         /// Default constructor
         /// </summary>
-        protected FullEntityDtoBase() : base()
+        protected EditEntityDtoBase() : base()
         {
             CreatorUserId = DEFAULT_CREATOR_USER_ID; // TODO - default user account?
-            IsDeleted = false;
             IsActive = true;
         }
 
         /// <summary>
         /// Default constructor where the tenant id is known
         /// </summary>
-        public FullEntityDtoBase(TIdType id) : base(id)
+        public EditEntityDtoBase(TIdType id) : base(id)
         {
             CreatorUserId = DEFAULT_CREATOR_USER_ID; // TODO - default user account?
-            IsDeleted = false;
             IsActive = true;
         }
 
-        public FullEntityDtoBase( TIdType id, string culture) : base( id,culture)
+        public EditEntityDtoBase( TIdType id, string culture) : base( id,culture)
         {
             CreatorUserId = DEFAULT_CREATOR_USER_ID; // TODO - default user account?
-            IsDeleted = false;
             IsActive = true;
         }
 
@@ -146,19 +88,16 @@ namespace DeploySoftware.LaunchPad.Core.Application
         /// </summary>
         /// <param name="info">The serialization info</param>
         /// <param name="context">The context of the stream</param>
-        protected FullEntityDtoBase(SerializationInfo info, StreamingContext context) : base(info, context)
+        protected EditEntityDtoBase(SerializationInfo info, StreamingContext context) : base(info, context)
         {
 
             DescriptionFull = info.GetString("DescriptionFull");
             TranslatedFromId = (TIdType)info.GetValue("TranslatedFromId", typeof(TIdType));
-            IsDeleted = info.GetBoolean("IsDeleted");
             IsActive = info.GetBoolean("IsActive");
             CreationTime = info.GetDateTime("CreationTime");
             CreatorUserId = info.GetInt64("CreatorUserId");
             LastModifierUserId = info.GetInt64("LastModifierUserId");
             LastModificationTime = info.GetDateTime("LastModificationTime");
-            DeletionTime = info.GetDateTime("DeletionTime");
-            DeleterUserId = info.GetInt64("DeleterUserId");
         }
 
 
@@ -183,9 +122,6 @@ namespace DeploySoftware.LaunchPad.Core.Application
             info.AddValue("CreatorUserId", CreatorUserId);
             info.AddValue("LastModifierUserId", LastModifierUserId);
             info.AddValue("LastModificationTime", LastModificationTime);
-            info.AddValue("DeleterUserId", DeleterUserId);
-            info.AddValue("DeletionTime", DeletionTime);
-            info.AddValue("IsDeleted", IsDeleted);
             info.AddValue("IsActive", IsActive);
         }
 
@@ -196,7 +132,7 @@ namespace DeploySoftware.LaunchPad.Core.Application
         public override string ToString()
         {
             StringBuilder sb = new StringBuilder();
-            sb.Append("[FullAuditedEntityDtoBase : ");
+            sb.Append("[EditEntityDtoBase : ");
             sb.Append(ToStringBaseProperties());
             sb.Append("]");
             return sb.ToString();
@@ -214,11 +150,26 @@ namespace DeploySoftware.LaunchPad.Core.Application
             // LaunchPAD RAD properties
             //
             // ABP properties
-            sb.AppendFormat("IsDeleted={0};", IsDeleted); 
-            sb.AppendFormat("DeleterUserId={0};", DeleterUserId);
-            sb.AppendFormat("DeletionTime={0};", DeletionTime);
+            sb.AppendFormat("LastModificationTime={0};", LastModificationTime);
+            sb.AppendFormat("LastModifierUserId={0};", LastModifierUserId);
             return sb.ToString();
         }
+
+
+        /// <summary>
+        /// Comparison method between two objects of the same type, used for sorting.
+        /// Because the CompareTo method is strongly typed by generic constraints,
+        /// it is not necessary to test for the correct object type.
+        /// </summary>
+        /// <param name="other">The other object of this type we are comparing to</param>
+        /// <returns></returns>
+        public virtual int CompareTo(EditEntityDtoBase<TIdType> other)
+        {
+            // put comparison of properties in here 
+            // for base object we'll just sort by title
+            return Name.CompareTo(other.Name);
+        }
+
 
         /// <summary>
         /// Equality method between two objects of the same type.
@@ -229,15 +180,14 @@ namespace DeploySoftware.LaunchPad.Core.Application
         /// </summary>
         /// <param name="obj">The other object of this type that we are testing equality with</param>
         /// <returns></returns>
-        public virtual bool Equals(FullEntityDtoBase<TIdType> obj)
+        public virtual bool Equals(EditEntityDtoBase<TIdType> obj)
         {
             if (obj != null)
             {
                 // For safe equality we need to match on business key equality.
                 // Base domain entities are functionally equal if their key and metadata are equal.
                 // Subclasses should extend to include their own enhanced equality checks, as required.
-                return Id.Equals(obj.Id) && Culture.Equals(obj.Culture) && IsActive.Equals(obj.IsActive)
-                    && IsDeleted.Equals(obj.IsDeleted);
+                return Id.Equals(obj.Id) && Culture.Equals(obj.Culture) && IsActive.Equals(obj.IsActive);
             }
             return false;
         }

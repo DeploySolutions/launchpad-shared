@@ -39,7 +39,7 @@ namespace DeploySoftware.LaunchPad.Core.Application
     /// <typeparam name="TIdType">The type of the Id</typeparam>
     public abstract class CreateEntityDtoBase<TIdType> : MinimalEntityDtoBase<TIdType>,
         IHasCreationTime, ICreationAudited, IPassivable,
-        IEquatable<CreateEntityDtoBase<TIdType>>
+        IComparable<CreateEntityDtoBase<TIdType>>, IEquatable<CreateEntityDtoBase<TIdType>>
     {
         public static readonly long? DEFAULT_CREATOR_USER_ID = 1;
 
@@ -165,18 +165,28 @@ namespace DeploySoftware.LaunchPad.Core.Application
         protected override String ToStringBaseProperties()
         {
             StringBuilder sb = new StringBuilder();
+            sb.Append(base.ToStringBaseProperties());
             // LaunchPAD RAD properties
-            sb.AppendFormat("Id={0};", Id);
-            sb.AppendFormat("Name={0};", Name);
-            sb.AppendFormat("DescriptionShort={0};", DescriptionShort);
-            sb.AppendFormat("DescriptionFull={0};", DescriptionFull);
-            sb.AppendFormat("TranslatedFromId={0};", TranslatedFromId);
-            //sb.AppendFormat(" Tags={0};", Tags.ToString());
+            //
             // ABP properties
-            sb.AppendFormat("IsActive={0};", IsActive); 
             sb.AppendFormat("CreationTime={0};", CreationTime);
             sb.AppendFormat("CreatorUserId={0};", CreatorUserId);            
             return sb.ToString();
+        }
+
+
+        /// <summary>
+        /// Comparison method between two objects of the same type, used for sorting.
+        /// Because the CompareTo method is strongly typed by generic constraints,
+        /// it is not necessary to test for the correct object type.
+        /// </summary>
+        /// <param name="other">The other object of this type we are comparing to</param>
+        /// <returns></returns>
+        public virtual int CompareTo(CreateEntityDtoBase<TIdType> other)
+        {
+            // put comparison of properties in here 
+            // for base object we'll just sort by name and description short
+            return Name.CompareTo(other.Name);
         }
 
         /// <summary>
