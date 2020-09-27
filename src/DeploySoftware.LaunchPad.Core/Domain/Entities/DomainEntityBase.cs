@@ -183,7 +183,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         {
             info.AddValue("Id", Id);
             info.AddValue("Culture", Culture);
-            info.AddValue("DisplayName", Name);
+            info.AddValue("Name", Name);
             info.AddValue("DescriptionShort", DescriptionShort);
             info.AddValue("DescriptionFull", DescriptionFull);
             info.AddValue("Tags", Tags);
@@ -251,7 +251,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         public override String ToString()
         {
             StringBuilder sb = new StringBuilder();
-            sb.Append("[DomainEntity: ");
+            sb.Append("[DomainEntityBase: ");
             sb.Append(ToStringBaseProperties());
             sb.Append("]");
             return sb.ToString();
@@ -265,12 +265,22 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         protected virtual String ToStringBaseProperties()
         {
             StringBuilder sb = new StringBuilder();
+            // LaunchPAD RAD properties
+            sb.AppendFormat("Id={0};", Id);
+            sb.AppendFormat("Name={0};", Name);
+            sb.AppendFormat("DescriptionShort={0};", DescriptionShort);
+            sb.AppendFormat("DescriptionFull={0};", DescriptionFull);
+            sb.AppendFormat("TranslatedFromId={0};", TranslatedFromId);
+            sb.AppendFormat(" Tags={0};", Tags.ToString());
+            // ABP properties
+            sb.AppendFormat("CreationTime={0};", CreationTime);
+            sb.AppendFormat("CreatorUserId={0};", CreatorUserId);
+            sb.AppendFormat("LastModificationTime={0};", LastModificationTime);
+            sb.AppendFormat("LastModifierUserId={0};", LastModifierUserId);
             sb.AppendFormat("IsActive={0};", IsActive);
             sb.AppendFormat("IsDeleted={0};", IsDeleted);
             sb.AppendFormat("DeleterUserId={0};", DeleterUserId);
             sb.AppendFormat("DeletionTime={0};", DeletionTime);
-            sb.AppendFormat("TranslatedFromId={0};", TranslatedFromId);
-            sb.AppendFormat(" Tags={0};", Tags.ToString());
             return sb.ToString();
         }
 

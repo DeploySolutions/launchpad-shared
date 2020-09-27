@@ -32,11 +32,12 @@ using System.Xml.Serialization;
 namespace DeploySoftware.LaunchPad.Core.Application
 {
     /// <summary>
-    /// Represents a Data Transfer Object
+    /// Represents the minimum amount of base properties a LaunchPad Data Transfer Object should possess.
+    /// Of course subclassing DTOs will contain additional properties.
     /// </summary>
     /// <typeparam name="TIdType">The type of the Id</typeparam>
-    public abstract class EntityDtoBase<TIdType> : EntityDto<TIdType>,
-        IComparable<EntityDtoBase<TIdType>>, IEquatable<EntityDtoBase<TIdType>>
+    public abstract class MinimalEntityDtoBase<TIdType> : EntityDto<TIdType>,
+        IComparable<MinimalEntityDtoBase<TIdType>>, IEquatable<MinimalEntityDtoBase<TIdType>>
     {
 
         /// <summary>
@@ -44,16 +45,8 @@ namespace DeploySoftware.LaunchPad.Core.Application
         /// </summary>
         [DataObjectField(true)]
         [XmlAttribute]
-        [Required]
-        public String Culture { get; set; }
+        public virtual String Culture { get; set; }
 
-        /// <summary>
-        /// The id of the tenant that domain entity this belongs to (null if not known/applicable)
-        /// </summary>
-        [DataObjectField(false)]
-        [XmlAttribute]
-        [ForeignKey(nameof(TenantId))]
-        public int? TenantId { get; set; }
 
         /// <summary>
         /// The display name that can be displayed as a label externally to users when referring to this object
@@ -64,135 +57,39 @@ namespace DeploySoftware.LaunchPad.Core.Application
         public virtual String Name { get; set; }
 
         /// <summary>
-        /// A full description of this item.
-        /// </summary>
-        [DataObjectField(false)]
-        [XmlAttribute]
-        public virtual String DescriptionFull { get; set; }
-
-        /// <summary>
         /// A short description of this item.
         /// </summary>
         [DataObjectField(false)]
         [XmlAttribute]
         public virtual String DescriptionShort { get; set; }
 
-        /// <summary>
-        /// The date and time that this object was created.
-        /// </summary>
-        [DataObjectField(false)]
-        [XmlAttribute]
-        public virtual DateTime CreationTime { get; set; }
-
-        /// <summary>
-        /// The id of the User Agent which created this entity
-        /// </summary>
-        [DataObjectField(false)]
-        [XmlAttribute]
-        [ForeignKey(nameof(CreatorUserId))]
-        public virtual long? CreatorUserId { get; set; }
-
-        /// <summary>
-        /// The date and time that the location and/or properties of this object were last modified.
-        /// </summary>
-        [DataObjectField(false)]
-        [XmlAttribute]
-        public virtual DateTime? LastModificationTime { get; set; }
-
-        /// <summary>
-        /// The id of the User Agent which last modified this object.
-        /// </summary>
-        [DataObjectField(false)]
-        [XmlAttribute]
-        [ForeignKey(nameof(LastModifierUserId))]
-        public virtual Int64? LastModifierUserId { get; set; }
-
-
-        /// <summary>
-        /// The date and time that this object was deleted.
-        /// </summary>
-        [DataObjectField(false)]
-        [XmlAttribute]
-        public virtual DateTime? DeletionTime { get; set; }
-
-        /// <summary>
-        /// The id of the user which deleted this entity
-        /// </summary>
-        [DataObjectField(false)]
-        [XmlAttribute]
-        [ForeignKey(nameof(DeleterUserId))]
-        public virtual long? DeleterUserId { get; set; }
-
-        [DataObjectField(false)]
-        [XmlAttribute]
-        public bool IsActive { get; set; }
-
-        [DataObjectField(false)]
-        [XmlAttribute]
-        public bool IsDeleted { get; set; }
-
-        /// <summary>
-        /// If this object is not a translation this field will be null. 
-        /// If this object is a translation, this id references the parent object.
-        /// </summary>
-        [DataObjectField(true)]
-        [XmlAttribute]
-        public TIdType TranslatedFromId { get; set; }
-
-
         #region "Constructors"
 
         /// <summary>
         /// Default constructor
         /// </summary>
-        /// <param name="tenantId"></param>
-        protected EntityDtoBase() : base()
+        protected MinimalEntityDtoBase() : base()
         {
             Culture = ApplicationInformation<TIdType>.DEFAULT_CULTURE;
-            CreatorUserId = 1; // TODO - default user account?
-            IsDeleted = false;
-            IsActive = true;
+            
             Name = String.Empty;
-            TenantId = 1;
         }
 
         /// <summary>
         /// Default constructor where the tenant id is known
         /// </summary>
         /// <param name="tenantId"></param>
-        public EntityDtoBase(int? tenantId, TIdType id) : base()
+        public MinimalEntityDtoBase(TIdType id) : base()
         {
             Id = id;
             Culture = ApplicationInformation<TIdType>.DEFAULT_CULTURE;
-            if (tenantId != null)
-            {
-                TenantId = tenantId;
-            }
-            else
-            {
-                TenantId = 1;
-            }
-            CreatorUserId = 1; // TODO - default user account?
-            IsDeleted = false;
-            IsActive = true;
             Name = String.Empty;
         }
 
-        public EntityDtoBase(int? tenantId, TIdType id, String culture) : base()
+        public MinimalEntityDtoBase( TIdType id, String culture) : base()
         {
             Id = id;
             Culture = culture;
-            if (tenantId != null)
-            {
-                TenantId = tenantId;
-            }
-            else
-            {
-                TenantId = 1;
-            }
-            CreatorUserId = 1; // TODO - default user account?
-            IsDeleted = false;
-            IsActive = true;
             Name = String.Empty;
         }
      
@@ -201,23 +98,12 @@ namespace DeploySoftware.LaunchPad.Core.Application
         /// </summary>
         /// <param name="info">The serialization info</param>
         /// <param name="context">The context of the stream</param>
-        protected EntityDtoBase(SerializationInfo info, StreamingContext context) : base()
+        protected MinimalEntityDtoBase(SerializationInfo info, StreamingContext context) : base()
         {
             Id = (TIdType)info.GetValue("Id", typeof(TIdType));
             Culture = info.GetString("Culture");
-            TenantId = info.GetInt32("TenantId");
             Name = info.GetString("DisplayName");
-            DescriptionFull = info.GetString("DescriptionFull");
             DescriptionShort = info.GetString("DescriptionShort");
-            CreationTime = info.GetDateTime("CreationTime");
-            CreatorUserId = info.GetInt64("CreatorUserId");
-            LastModifierUserId = info.GetInt64("LastModifierUserId");
-            LastModificationTime = info.GetDateTime("LastModificationTime");
-            DeletionTime = info.GetDateTime("DeletionTime");
-            DeleterUserId = info.GetInt64("DeleterUserId");
-            IsDeleted = info.GetBoolean("IsDeleted");
-            IsActive = info.GetBoolean("IsActive");
-            TranslatedFromId = (TIdType)info.GetValue("TranslatedFromId", typeof(TIdType));
         }
 
 #endregion
@@ -228,23 +114,12 @@ namespace DeploySoftware.LaunchPad.Core.Application
         /// <param name="info"></param>
         /// <param name="context"></param>
         [SecurityPermission(SecurityAction.Demand, SerializationFormatter = true)]
-        public void GetObjectData(SerializationInfo info, StreamingContext context)
+        public virtual void GetObjectData(SerializationInfo info, StreamingContext context)
         {
             info.AddValue("Id", Id);
             info.AddValue("Culture", Culture);
-            info.AddValue("TenantId", TenantId);
             info.AddValue("DisplayName", Name);
-            info.AddValue("DescriptionFull", DescriptionFull);
             info.AddValue("DescriptionShort", DescriptionShort);
-            info.AddValue("CreationTime", CreationTime);
-            info.AddValue("CreatorUserId", CreatorUserId);
-            info.AddValue("LastModifierUserId", LastModifierUserId);
-            info.AddValue("LastModificationTime", LastModificationTime);
-            info.AddValue("DeleterUserId", DeleterUserId);
-            info.AddValue("DeletionTime", DeletionTime);
-            info.AddValue("IsDeleted", IsDeleted);
-            info.AddValue("IsActive", IsActive);
-            info.AddValue("TranslatedFromId", TranslatedFromId);
         }
 
         /// <summary>  
@@ -254,28 +129,27 @@ namespace DeploySoftware.LaunchPad.Core.Application
         public override string ToString()
         {
             StringBuilder sb = new StringBuilder();
-            sb.Append("[EntityDtoBase : ");
-            sb.AppendFormat("Id={0};", Id);
-            sb.AppendFormat("Culture={0};", Culture);
-            sb.AppendFormat("TenantId={0};", TenantId);
-            sb.AppendFormat("CreatorId={0};", CreatorUserId);
-            sb.AppendFormat(" DisplayName={0};", Name);
-            if (!String.IsNullOrEmpty(DescriptionFull))
-            {
-                sb.AppendFormat(" DescriptionFull={0};", DescriptionFull);
-            }
-            if (!String.IsNullOrEmpty(DescriptionShort))
-            {
-                sb.AppendFormat(" DescriptionShort={0};", DescriptionShort);
-            }
-            sb.AppendFormat(" LastModifiedById={0};", LastModifierUserId);
-
-            sb.AppendFormat(" DateCreated={0};", CreationTime);
-            sb.AppendFormat(" DateLastModified={0};", LastModificationTime);
-            sb.AppendFormat(" IsActive={0};", IsActive);
-            sb.AppendFormat(" IsDeleted={0};", IsDeleted);
-            sb.AppendFormat("TranslatedFromId={0};", TranslatedFromId);
+            sb.Append("[MinimalEntityDtoBase : ");
+            sb.Append(ToStringBaseProperties());
             sb.Append("]");
+            return sb.ToString();
+        }
+
+        /// <summary>
+        /// This method makes it easy for any child class to generate a ToString() representation of
+        /// the common base properties
+        /// </summary>
+        /// <returns>A string description of the entity</returns>
+        protected virtual String ToStringBaseProperties()
+        {
+            StringBuilder sb = new StringBuilder();
+            // LaunchPAD RAD properties
+            sb.AppendFormat("Id={0};", Id);
+            sb.AppendFormat("Culture={0};", Culture); 
+            sb.AppendFormat("Name={0};", Name);
+            sb.AppendFormat("DescriptionShort={0};", DescriptionShort);
+            // ABP Properties
+            
             return sb.ToString();
         }
 
@@ -284,7 +158,7 @@ namespace DeploySoftware.LaunchPad.Core.Application
         /// </summary>
         /// <typeparam name="TEntity">The source entity to clone</typeparam>
         /// <returns>A shallow clone of the entity and its serializable properties</returns>
-        protected virtual TEntity Clone<TEntity>() where TEntity : EntityDtoBase<TIdType>, new()
+        protected virtual TEntity Clone<TEntity>() where TEntity : MinimalEntityDtoBase<TIdType>, new()
         {
             TEntity clone = new TEntity();
             foreach (PropertyInfo info in GetType().GetProperties())
@@ -306,11 +180,11 @@ namespace DeploySoftware.LaunchPad.Core.Application
         /// </summary>
         /// <param name="other">The other object of this type we are comparing to</param>
         /// <returns></returns>
-        public virtual int CompareTo(EntityDtoBase<TIdType> other)
+        public virtual int CompareTo(MinimalEntityDtoBase<TIdType> other)
         {
             // put comparison of properties in here 
-            // for base object we'll just sort by title
-            return Name.CompareTo(other.Name);
+            // for base object we'll just sort by name and description short
+            return Name.CompareTo(other.Name) + DescriptionShort.CompareTo(other.DescriptionShort);
         }
 
         /// <summary>
@@ -320,9 +194,9 @@ namespace DeploySoftware.LaunchPad.Core.Application
         /// <returns>True if the entities are the same according to business key value</returns>
         public override bool Equals(object obj)
         {
-            if (obj != null && obj is EntityDtoBase<TIdType>)
+            if (obj != null && obj is MinimalEntityDtoBase<TIdType>)
             {
-                return Equals(obj as EntityDtoBase<TIdType>);
+                return Equals(obj as MinimalEntityDtoBase<TIdType>);
             }
             return false;
         }
@@ -336,15 +210,14 @@ namespace DeploySoftware.LaunchPad.Core.Application
         /// </summary>
         /// <param name="obj">The other object of this type that we are testing equality with</param>
         /// <returns></returns>
-        public virtual bool Equals(EntityDtoBase<TIdType> obj)
+        public virtual bool Equals(MinimalEntityDtoBase<TIdType> obj)
         {
             if (obj != null)
             {
                 // For safe equality we need to match on business key equality.
                 // Base domain entities are functionally equal if their key and metadata are equal.
                 // Subclasses should extend to include their own enhanced equality checks, as required.
-                return Id.Equals(obj.Id) && Culture.Equals(obj.Culture) && IsActive.Equals(obj.IsActive)
-                    && IsDeleted.Equals(obj.IsDeleted) && TenantId.Equals(obj.TenantId);
+                return Id.Equals(obj.Id) && Culture.Equals(obj.Culture);
             }
             return false;
         }
@@ -355,7 +228,7 @@ namespace DeploySoftware.LaunchPad.Core.Application
         /// <param name="x">The first value</param>
         /// <param name="y">The second value</param>
         /// <returns>True if both objects are fully equal based on the Equals logic</returns>
-        public static bool operator ==(EntityDtoBase<TIdType> x, EntityDtoBase<TIdType> y)
+        public static bool operator ==(MinimalEntityDtoBase<TIdType> x, MinimalEntityDtoBase<TIdType> y)
         {
             if (System.Object.ReferenceEquals(x, null))
             {
@@ -374,7 +247,7 @@ namespace DeploySoftware.LaunchPad.Core.Application
         /// <param name="x">The first value</param>
         /// <param name="y">The second value</param>
         /// <returns>True if both objects are not equal based on the Equals logic</returns>
-        public static bool operator !=(EntityDtoBase<TIdType> x, EntityDtoBase<TIdType> y)
+        public static bool operator !=(MinimalEntityDtoBase<TIdType> x, MinimalEntityDtoBase<TIdType> y)
         {
             return !(x == y);
         }
@@ -388,9 +261,7 @@ namespace DeploySoftware.LaunchPad.Core.Application
         /// <returns>A hash code for an object.</returns>
         public override int GetHashCode()
         {
-            return Culture.GetHashCode()
-                + Id.GetHashCode()
-                + TenantId.GetHashCode();
+            return Id.GetHashCode() + Culture.GetHashCode();
         }
 
     }
