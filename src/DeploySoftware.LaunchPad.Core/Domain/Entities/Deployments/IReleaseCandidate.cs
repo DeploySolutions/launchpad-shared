@@ -48,7 +48,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         /// </summary>
         [DataObjectField(false)]
         [XmlAttribute]
-        ReleaseCandidate<TIdType>.ReleaseStates ReleaseState { get; set; }
+        ReleaseCandidateBase<TIdType>.ReleaseStates ReleaseState { get; set; }
 
         /// <summary>
         /// The release date and time

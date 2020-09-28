@@ -29,7 +29,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
     /// Represents a release (set of code, data, and resources) that is a candidate to be deployed to a destination environment.
     /// </summary>
     /// <typeparam name="TIdType">The type of the Id</typeparam>
-    public class ReleaseCandidate<TIdType> : TenantSpecificDomainEntityBase<TIdType>, IReleaseCandidate<TIdType>
+    public abstract partial class ReleaseCandidateBase<TIdType> : TenantSpecificDomainEntityBase<TIdType>, IReleaseCandidate<TIdType>
     {
 
         /// <summary>
@@ -64,18 +64,18 @@ namespace DeploySoftware.LaunchPad.Core.Domain
 
         #region "Constructors"
 
-        public ReleaseCandidate() : base()
+        public ReleaseCandidateBase() : base()
         {
 
         }
 
 
-        public ReleaseCandidate(int tenantId) : base()
+        public ReleaseCandidateBase(int tenantId) : base()
         {
             TenantId = tenantId;
         }
 
-        public ReleaseCandidate(int tenantId, TIdType id, string cultureName, String text) : base(tenantId, id, cultureName)
+        public ReleaseCandidateBase(int tenantId, TIdType id, string cultureName, String text) : base(tenantId, id, cultureName)
         {
             TenantId = tenantId;
         }
@@ -85,7 +85,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         /// </summary>
         /// <param name="info">The serialization info</param>
         /// <param name="context">The context of the stream</param>
-        protected ReleaseCandidate(SerializationInfo info, StreamingContext context) : base(info, context)
+        protected ReleaseCandidateBase(SerializationInfo info, StreamingContext context) : base(info, context)
         {
             Version = info.GetString("Version");
             Checksum = info.GetString("Checksum");
@@ -119,7 +119,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         public override string ToString()
         {
             StringBuilder sb = new StringBuilder();
-            sb.Append("[ReleaseCandidate : ");
+            sb.Append("[ReleaseCandidateBase : ");
             sb.AppendFormat(ToStringBaseProperties());
             sb.AppendFormat(" Version={0};", Version);
             sb.AppendFormat(" Checksum={0};", Checksum);

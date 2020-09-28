@@ -21,55 +21,49 @@ namespace DeploySoftware.LaunchPad.Core.Domain
     using System;
     using System.ComponentModel;
     using System.ComponentModel.DataAnnotations;
-    using System.ComponentModel.DataAnnotations.Schema;
     using System.Xml.Serialization;
 
     /// <summary>
-    /// Represents a deployment that will take a release candidate (set of code, data, and resources) and place it in a destination environment.
+    /// Represents a an event that is related to a deployment
     /// </summary>
     /// <typeparam name="TIdType">The type of the Id</typeparam>
-    public interface IDeployment<TIdType> : IDomainEntity<TIdType>, IMustHaveTenant
+    public interface IDeploymentEvent<TIdType> : IDomainEntity<TIdType>, IMustHaveTenant
     {
-       
         /// <summary>
         /// The id of the release candidate this deployment is for
         /// </summary>
         [DataObjectField(false)]
         [XmlAttribute]
         [Required]
-        TIdType ReleaseCandidateId { get; set; }
+        TIdType DeploymentId { get; set; }
 
         /// <summary>
-        /// The id of the process that will be followed during the deployment (if known)
+        /// The category of this deployment event
         /// </summary>
         [DataObjectField(false)]
         [XmlAttribute]
-        TIdType DeploymentProcessId { get; set; }
+        String EventCategory { get; set; }
 
         /// <summary>
-        /// The current state of the deployment
+        /// The deployment event start date and time
         /// </summary>
         [DataObjectField(false)]
         [XmlAttribute]
-        DeploymentBase<TIdType>.DeploymentStates DeploymentState { get; set; }
+        DateTime? Started { get; set; }
 
         /// <summary>
-        /// The intended deployment date and time
+        /// The deployment end date and time. May be null if the event is ongoing
         /// </summary>
         [DataObjectField(false)]
         [XmlAttribute]
-        DateTime? DateScheduled { get; set; }
+        DateTime? Ended { get; set; }
 
         /// <summary>
-        /// The actual deployment date and time
+        /// The URI where the deployment event log is located
         /// </summary>
         [DataObjectField(false)]
         [XmlAttribute]
-        DateTime? DateDeployed { get; set; }
-
-        [DataObjectField(false)]
-        [XmlAttribute]
-        long? PrimaryDeployerUserId { get; set; }
+        Uri LogUri { get; set; }
 
     }
 }

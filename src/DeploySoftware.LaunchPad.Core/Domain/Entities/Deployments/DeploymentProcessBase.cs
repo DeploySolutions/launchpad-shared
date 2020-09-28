@@ -91,7 +91,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         public override string ToString()
         {
             StringBuilder sb = new StringBuilder();
-            sb.Append("[DeploymentProcess : ");
+            sb.Append("[DeploymentProcessBase : ");
             sb.AppendFormat(ToStringBaseProperties());
             sb.AppendFormat(" DocumentationUrl={0};", DocumentationUri);
             sb.AppendFormat(" DiagramUrl={0};", DiagramUri);

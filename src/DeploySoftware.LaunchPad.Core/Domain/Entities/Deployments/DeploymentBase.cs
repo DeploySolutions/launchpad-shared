@@ -31,7 +31,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
     /// Represents a deployment that will take a release candidate (set of code, data, and resources) and place it in a destination environment.
     /// </summary>
     /// <typeparam name="TIdType">The type of the Id</typeparam>
-    public class Deployment<TIdType> : TenantSpecificDomainEntityBase<TIdType>, IDeployment<TIdType>
+    public abstract partial class DeploymentBase<TIdType> : TenantSpecificDomainEntityBase<TIdType>, IDeployment<TIdType>
     {
 
         /// <summary>
@@ -97,7 +97,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         /// <summary>
         /// Default constructor
         /// </summary>
-        public Deployment() : base()
+        public DeploymentBase() : base()
         {
             DeploymentState = DeploymentStates.Not_Started;
         }
@@ -107,12 +107,12 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         /// Default constructor where the tenant id is known
         /// </summary>
         /// <param name="tenantId"></param>
-        public Deployment(int tenantId) : base(tenantId)
+        public DeploymentBase(int tenantId) : base(tenantId)
         {
             DeploymentState = DeploymentStates.Not_Started;
         }
 
-        public Deployment(int tenantId, TIdType id, string cultureName, String text) : base(tenantId, id, cultureName)
+        public DeploymentBase(int tenantId, TIdType id, string cultureName, String text) : base(tenantId, id, cultureName)
         {
             DeploymentState = DeploymentStates.Not_Started;
         }
@@ -122,7 +122,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         /// </summary>
         /// <param name="info">The serialization info</param>
         /// <param name="context">The context of the stream</param>
-        protected Deployment(SerializationInfo info, StreamingContext context) : base(info, context)
+        protected DeploymentBase(SerializationInfo info, StreamingContext context) : base(info, context)
         {
             PrimaryDeployerUserId = info.GetInt64("PrimaryDeployerUserId");
             ReleaseCandidateId = (TIdType)info.GetValue("ReleaseCandidateId", typeof(TIdType));
@@ -158,7 +158,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         public override string ToString()
         {
             StringBuilder sb = new StringBuilder();
-            sb.Append("[Deployment : ");
+            sb.Append("[DeploymentBase : ");
             sb.AppendFormat(ToStringBaseProperties());
             sb.AppendFormat(" PrimaryDeployerUserId={0};", PrimaryDeployerUserId);
             sb.AppendFormat(" ReleaseCandidateId={0};", ReleaseCandidateId);

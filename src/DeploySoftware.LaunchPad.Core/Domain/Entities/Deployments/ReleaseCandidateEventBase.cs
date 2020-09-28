@@ -31,7 +31,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
     /// Represents an event related to a release (set of code, data, and resources).
     /// </summary>
     /// <typeparam name="TIdType">The type of the Id</typeparam>
-    public class ReleaseCandidateEvent<TIdType> : TenantSpecificDomainEntityBase<TIdType>, IReleaseCandidateEvent<TIdType>
+    public abstract partial class ReleaseCandidateEventBase<TIdType> : TenantSpecificDomainEntityBase<TIdType>, IReleaseCandidateEvent<TIdType>
     {
         /// <summary>
         /// The id of the release candidate this deployment is for
@@ -74,17 +74,17 @@ namespace DeploySoftware.LaunchPad.Core.Domain
 
         #region "Constructors"
 
-        public ReleaseCandidateEvent() : base()
+        public ReleaseCandidateEventBase() : base()
         {
 
         }
 
-        public ReleaseCandidateEvent(int tenantId) : base()
+        public ReleaseCandidateEventBase(int tenantId) : base()
         {
             TenantId = tenantId;
         }
 
-        public ReleaseCandidateEvent(int tenantId, TIdType id, string cultureName, String text) : base(tenantId, id, cultureName)
+        public ReleaseCandidateEventBase(int tenantId, TIdType id, string cultureName, String text) : base(tenantId, id, cultureName)
         {
             TenantId = tenantId;
         }
@@ -94,7 +94,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         /// </summary>
         /// <param name="info">The serialization info</param>
         /// <param name="context">The context of the stream</param>
-        protected ReleaseCandidateEvent(SerializationInfo info, StreamingContext context) : base(info, context)
+        protected ReleaseCandidateEventBase(SerializationInfo info, StreamingContext context) : base(info, context)
         {
             ReleaseCandidateId = (TIdType)info.GetValue("ReleaseCandidateId", typeof(TIdType));
             LogUri = (Uri)info.GetValue("LogUri", typeof(Uri));
@@ -128,7 +128,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         public override string ToString()
         {
             StringBuilder sb = new StringBuilder();
-            sb.Append("[ReleaseCandidateEvent : ");
+            sb.Append("[ReleaseCandidateEventBase : ");
            sb.AppendFormat(ToStringBaseProperties());
             sb.AppendFormat(" ReleaseCandidateId={0};", ReleaseCandidateId);
             sb.AppendFormat(" EventCategory={0};", EventCategory);
