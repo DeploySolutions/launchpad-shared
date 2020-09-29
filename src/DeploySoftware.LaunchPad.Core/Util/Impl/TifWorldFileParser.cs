@@ -33,11 +33,11 @@ namespace DeploySoftware.LaunchPad.Core.Util
             // ReSharper disable once RedundantAssignment
             var metadataFileText = string.Empty;
 
-            if (!metadataFileKey.LaunchPadId.EndsWith(".tfw")) return null;
+            if (!metadataFileKey.Name.EndsWith(".tfw")) return null;
             try
             {
                 // Open the Metadata text file
-                using (StreamReader sr = new StreamReader(metadataFileKey.LaunchPadId,
+                using (StreamReader sr = new StreamReader(metadataFileKey.Name,
                     Encoding.GetEncoding("iso-8859-1")))
                 {
                     decimal a = new decimal();

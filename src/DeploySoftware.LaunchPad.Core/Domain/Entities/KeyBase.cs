@@ -41,43 +41,22 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         /// </summary>
         [DataObjectField(true)]
         [XmlAttribute]
-        public virtual TIdType LaunchPadId { get; set; }
-
-        /// <summary>
-        /// The ISO Culture code of this object
-        /// </summary>
-        [DataObjectField(true)]
-        [XmlAttribute]
-        public virtual String Culture { get; set; }
+        public virtual TIdType Name { get; set; }
 
         #endregion
 
-        /// <summary>
-        /// A convenience readonly property to get a <see cref="CultureInfo">CultureInfo</see> instance from the current 
-        /// culture code
-        /// </summary>
-        public CultureInfo GetCultureInfo { get { return new CultureInfo(Culture); } }
-
-        /// <summary>  
-        /// Initializes a new instance of the <see cref="DataKeyBase{TUniqueId}">KeyBase{TUniqueId}</see> class. 
-        /// The culture code will default to the application's DefaultCultureName setting. 
-        /// </summary>
         protected KeyBase()
         {
-            //TODO: set up default settings from dependency injection
-            //CultureName = IApplicationState.Get<IApplicationContext>("ApplicationContext").Settings.DefaultCultureName;
-            Culture = "en";
+
         }
 
         /// <summary>  
         /// Initializes a new instance of the <see cref="DataKeyBase{TUniqueId}">KeyBase{TUniqueId}</see> class
-        /// with the given culture code.  
+        /// with the given name
         /// </summary>
-        /// <param name="cultureName">The culture code of the key</param>
-        protected KeyBase(TIdType id, String cultureName)
+        protected KeyBase(TIdType name)
         {
-            LaunchPadId = id;
-            Culture = cultureName;
+            Name = name;
         }
 
         /// <summary>
@@ -87,8 +66,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         /// <param name="context">The context of the stream</param>
         protected KeyBase(SerializationInfo info, StreamingContext context)
         {
-            LaunchPadId = (TIdType)info.GetValue("LaunchPadId", typeof(TIdType));
-            Culture = info.GetString("Culture");
+            Name = (TIdType)info.GetValue("Name", typeof(TIdType));
         }
 
         /// <summary>
@@ -99,8 +77,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         [SecurityPermission(SecurityAction.Demand, SerializationFormatter = true)]
         public virtual void GetObjectData(SerializationInfo info, StreamingContext context)
         {
-            info.AddValue("LaunchPadId", LaunchPadId); 
-            info.AddValue("Culture", Culture);
+            info.AddValue("Name", Name); 
         }
     }
 }

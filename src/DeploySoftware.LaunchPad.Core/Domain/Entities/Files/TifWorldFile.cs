@@ -21,7 +21,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
     //
     public class TifWorldFile<TPrimaryKey> : FileBase<TPrimaryKey>
     {
-        public override string FileExtension => ".tfw";
+        public override string Extension => ".tfw";
 
         /// <summary>
         /// Line 1: A: x-scale

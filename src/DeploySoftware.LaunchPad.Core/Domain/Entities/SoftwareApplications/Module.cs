@@ -32,7 +32,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
     /// </summary>
     /// <typeparam name="TPrimaryKey">The type of the key id field</typeparam>
     [Serializable()]
-    public class Module<TIdType> : DomainEntityBase<TIdType>, IModule<TIdType>, IMayHaveTenant
+    public partial class Module<TIdType> : DomainEntityBase<TIdType>, IModule<TIdType>, IMayHaveTenant
     {
         /// <summary>
         /// The default culture of this tenant
@@ -53,6 +53,10 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         public int? TenantId { get; set; }
 
         #region "Constructors"
+        public Module() : base()
+        {
+            Components = new List<MetadataTag>();
+        }
 
         public Module(int? tenantId) : base()
         {

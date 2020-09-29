@@ -38,7 +38,6 @@ namespace DeploySoftware.LaunchPad.Core.Application
     /// </summary>
     /// <typeparam name="TIdType">The type of the Id</typeparam>
     public abstract partial class CreateEntityDtoBase<TIdType> : MinimalEntityDtoBase<TIdType>,
-        IHasCreationTime, ICreationAudited, IPassivable,
         IComparable<CreateEntityDtoBase<TIdType>>, IEquatable<CreateEntityDtoBase<TIdType>>
     {
         public static readonly long? DEFAULT_CREATOR_USER_ID = 1;
@@ -59,25 +58,6 @@ namespace DeploySoftware.LaunchPad.Core.Application
         [XmlAttribute]
         public virtual TIdType TranslatedFromId { get; set; }
 
-        /// <summary>
-        /// The date and time that this object was created.
-        /// </summary>
-        [DataObjectField(false)]
-        [XmlAttribute]
-        public virtual DateTime CreationTime { get; set; }
-
-        /// <summary>
-        /// The id of the User Agent which created this entity
-        /// </summary>
-        [DataObjectField(false)]
-        [XmlAttribute]
-        [ForeignKey(nameof(CreatorUserId))]
-        public virtual long? CreatorUserId { get; set; }
-
-        [DataObjectField(false)]
-        [XmlAttribute]
-        public virtual bool IsActive { get; set; }
-
 
         #region "Constructors"
 
@@ -86,8 +66,6 @@ namespace DeploySoftware.LaunchPad.Core.Application
         /// </summary>
         protected CreateEntityDtoBase() : base()
         {
-            CreatorUserId = DEFAULT_CREATOR_USER_ID; // TODO - default user account?
-            IsActive = true;
         }
 
         /// <summary>
@@ -96,14 +74,12 @@ namespace DeploySoftware.LaunchPad.Core.Application
         /// </summary>
         public CreateEntityDtoBase(TIdType id) : base(id)
         {
-            CreatorUserId = DEFAULT_CREATOR_USER_ID; // TODO - default user account?
-            IsActive = true;
+
         }
 
         public CreateEntityDtoBase( TIdType id, string culture) : base( id,culture)
         {
-            CreatorUserId = DEFAULT_CREATOR_USER_ID; // TODO - default user account?
-            IsActive = true;
+
         }
 
         /// <summary>
@@ -116,9 +92,6 @@ namespace DeploySoftware.LaunchPad.Core.Application
 
             DescriptionFull = info.GetString("DescriptionFull");
             TranslatedFromId = (TIdType)info.GetValue("TranslatedFromId", typeof(TIdType));
-            IsActive = info.GetBoolean("IsActive");
-            CreationTime = info.GetDateTime("CreationTime");
-            CreatorUserId = info.GetInt64("CreatorUserId");
         }
 
 
@@ -139,9 +112,6 @@ namespace DeploySoftware.LaunchPad.Core.Application
             info.AddValue("DescriptionFull", DescriptionFull);
             info.AddValue("DescriptionShort", DescriptionShort);
             info.AddValue("TranslatedFromId", TranslatedFromId);
-            info.AddValue("CreationTime", CreationTime);
-            info.AddValue("CreatorUserId", CreatorUserId);
-            info.AddValue("IsActive", IsActive);
         }
 
         /// <summary>  
@@ -168,9 +138,7 @@ namespace DeploySoftware.LaunchPad.Core.Application
             sb.Append(base.ToStringBaseProperties());
             // LaunchPAD RAD properties
             //
-            // ABP properties
-            sb.AppendFormat("CreationTime={0};", CreationTime);
-            sb.AppendFormat("CreatorUserId={0};", CreatorUserId);            
+            // ABP properties        
             return sb.ToString();
         }
 
@@ -205,7 +173,7 @@ namespace DeploySoftware.LaunchPad.Core.Application
                 // For safe equality we need to match on business key equality.
                 // Base domain entities are functionally equal if their key and metadata are equal.
                 // Subclasses should extend to include their own enhanced equality checks, as required.
-                return Id.Equals(obj.Id) && Culture.Equals(obj.Culture) && IsActive.Equals(obj.IsActive);
+                return Id.Equals(obj.Id) && Culture.Equals(obj.Culture);
             }
             return false;
         }

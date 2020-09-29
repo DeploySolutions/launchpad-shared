@@ -36,7 +36,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         /// </summary>
         [DataObjectField(false)]
         [XmlAttribute]
-        IApplicationInformation<TIdType> Info
+        IApplicationInformation<TIdType> AppInfo
         {
             get; set;
         }

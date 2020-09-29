@@ -37,26 +37,9 @@ namespace DeploySoftware.LaunchPad.Core.Application
     /// </summary>
     /// <typeparam name="TIdType">The type of the Id</typeparam>
     public abstract partial class EditEntityDtoBase<TIdType> : CreateEntityDtoBase<TIdType>,
-        IHasModificationTime, IModificationAudited, IPassivable,
         IComparable<EditEntityDtoBase<TIdType>>, IEquatable<EditEntityDtoBase<TIdType>>
     {
        
-        /// <summary>
-        /// The date and time that the location and/or properties of this object were last modified.
-        /// </summary>
-        [DataObjectField(false)]
-        [XmlAttribute]
-        public virtual DateTime? LastModificationTime { get; set; }
-
-        /// <summary>
-        /// The id of the User Agent which last modified this object.
-        /// </summary>
-        [DataObjectField(false)]
-        [XmlAttribute]
-        [ForeignKey(nameof(LastModifierUserId))]
-        public virtual Int64? LastModifierUserId { get; set; }
-
-   
         #region "Constructors"
 
         /// <summary>
@@ -64,8 +47,6 @@ namespace DeploySoftware.LaunchPad.Core.Application
         /// </summary>
         protected EditEntityDtoBase() : base()
         {
-            CreatorUserId = DEFAULT_CREATOR_USER_ID; // TODO - default user account?
-            IsActive = true;
         }
 
         /// <summary>
@@ -73,14 +54,12 @@ namespace DeploySoftware.LaunchPad.Core.Application
         /// </summary>
         public EditEntityDtoBase(TIdType id) : base(id)
         {
-            CreatorUserId = DEFAULT_CREATOR_USER_ID; // TODO - default user account?
-            IsActive = true;
+
         }
 
         public EditEntityDtoBase( TIdType id, string culture) : base( id,culture)
         {
-            CreatorUserId = DEFAULT_CREATOR_USER_ID; // TODO - default user account?
-            IsActive = true;
+
         }
 
         /// <summary>
@@ -93,11 +72,6 @@ namespace DeploySoftware.LaunchPad.Core.Application
 
             DescriptionFull = info.GetString("DescriptionFull");
             TranslatedFromId = (TIdType)info.GetValue("TranslatedFromId", typeof(TIdType));
-            IsActive = info.GetBoolean("IsActive");
-            CreationTime = info.GetDateTime("CreationTime");
-            CreatorUserId = info.GetInt64("CreatorUserId");
-            LastModifierUserId = info.GetInt64("LastModifierUserId");
-            LastModificationTime = info.GetDateTime("LastModificationTime");
         }
 
 
@@ -118,11 +92,6 @@ namespace DeploySoftware.LaunchPad.Core.Application
             info.AddValue("DescriptionFull", DescriptionFull);
             info.AddValue("DescriptionShort", DescriptionShort);
             info.AddValue("TranslatedFromId", TranslatedFromId);
-            info.AddValue("CreationTime", CreationTime);
-            info.AddValue("CreatorUserId", CreatorUserId);
-            info.AddValue("LastModifierUserId", LastModifierUserId);
-            info.AddValue("LastModificationTime", LastModificationTime);
-            info.AddValue("IsActive", IsActive);
         }
 
         /// <summary>  
@@ -150,8 +119,7 @@ namespace DeploySoftware.LaunchPad.Core.Application
             // LaunchPAD RAD properties
             //
             // ABP properties
-            sb.AppendFormat("LastModificationTime={0};", LastModificationTime);
-            sb.AppendFormat("LastModifierUserId={0};", LastModifierUserId);
+
             return sb.ToString();
         }
 
@@ -187,7 +155,7 @@ namespace DeploySoftware.LaunchPad.Core.Application
                 // For safe equality we need to match on business key equality.
                 // Base domain entities are functionally equal if their key and metadata are equal.
                 // Subclasses should extend to include their own enhanced equality checks, as required.
-                return Id.Equals(obj.Id) && Culture.Equals(obj.Culture) && IsActive.Equals(obj.IsActive);
+                return Id.Equals(obj.Id) && Culture.Equals(obj.Culture);
             }
             return false;
         }

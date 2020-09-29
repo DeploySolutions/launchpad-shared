@@ -40,7 +40,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         /// </summary>
         [DataObjectField(false)]
         [XmlAttribute]
-        public IApplicationInformation<TIdType> Info
+        public IApplicationInformation<TIdType> AppInfo
         {
             get; set;
         }
@@ -64,17 +64,24 @@ namespace DeploySoftware.LaunchPad.Core.Domain
 
         #region "Constructors"
 
+        public LaunchPadApplication() : base()
+        {
+            AppInfo = new ApplicationInformation<TIdType>();
+            TenantInfo = new List<ITenantInformation<TIdType>>();
+            Modules = new List<IModule<TIdType>>();
+        }
+
         public LaunchPadApplication(int? tenantId) : base()
         {
             TenantId = tenantId;
-            Info = new ApplicationInformation<TIdType>(tenantId);
+            AppInfo = new ApplicationInformation<TIdType>(tenantId);
             TenantInfo = new List<ITenantInformation<TIdType>>();
             Modules = new List<IModule<TIdType>>();
         }
 
         public LaunchPadApplication(int? tenantId, TIdType id, string cultureName) : base(id, cultureName)
         {
-            Info = new ApplicationInformation<TIdType>(tenantId);
+            AppInfo = new ApplicationInformation<TIdType>(tenantId);
             TenantInfo = new List<ITenantInformation<TIdType>>();
             Modules = new List<IModule<TIdType>>();
         }
@@ -86,7 +93,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         /// <param name="context">The context of the stream</param>
         protected LaunchPadApplication(SerializationInfo info, StreamingContext context) : base(info,context)
         {
-            Info = (ApplicationInformation<TIdType>)info.GetValue("Info", typeof(ApplicationInformation<TIdType>));
+            AppInfo = (ApplicationInformation<TIdType>)info.GetValue("Info", typeof(ApplicationInformation<TIdType>));
             TenantInfo = (IEnumerable<ITenantInformation<TIdType>>)info.GetValue("TenantInfo", typeof(IEnumerable<ITenantInformation<TIdType>>)); 
             Modules = (IEnumerable<IModule<TIdType>>)info.GetValue("Modules", typeof(IEnumerable<IModule<TIdType>>));
         }
@@ -102,7 +109,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         public override void GetObjectData(SerializationInfo info, StreamingContext context)
         {
             base.GetObjectData(info, context);
-            info.AddValue("Info", Info);
+            info.AddValue("Info", AppInfo);
             info.AddValue("TenantInfo", TenantInfo); 
             info.AddValue("Modules", Modules);
         }
@@ -116,7 +123,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
             StringBuilder sb = new StringBuilder();
             sb.Append("[Application : ");
             sb.AppendFormat(ToStringBaseProperties());
-            sb.AppendFormat(" Info={0};", Info);
+            sb.AppendFormat(" Info={0};", AppInfo);
             sb.AppendFormat(" TenantInfo={0};", TenantInfo);
             sb.AppendFormat(" Modules={0};", Modules);
             sb.Append("]");

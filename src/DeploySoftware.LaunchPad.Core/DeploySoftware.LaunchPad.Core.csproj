@@ -11,7 +11,7 @@
     <GenerateBindingRedirectsOutputType>true</GenerateBindingRedirectsOutputType>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
-    <Version>2.0.0</Version>
+    <Version>2.0.40-alpha</Version>
     <Description>Shared code for LaunchPad framework.</Description>
     <Copyright>2018-2021 Deploy Software Solutions, inc.</Copyright>
     <PackageReleaseNotes>1.0.6: Reorganize hierarchy
@@ -32,7 +32,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Abp" Version="5.12.0" />
+    <PackageReference Include="Abp" Version="5.13.0" />
     <PackageReference Include="CoordinateSharp" Version="2.7.3.2" />
     <PackageReference Include="Schema.NET" Version="7.2.0" />
   </ItemGroup>

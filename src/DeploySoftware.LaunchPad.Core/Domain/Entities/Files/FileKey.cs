@@ -30,11 +30,11 @@ namespace DeploySoftware.LaunchPad.Core.Domain
     public class FileKey : KeyBase<String>
     {
         /// <summary>
-        /// The ID that uniquely identifies this object (usually the full file path and filename).
+        /// The name or key that uniquely identifies this file (usually the full file path and filename, or the filename).
         /// </summary>
         [DataObjectField(true)]
         [XmlAttribute]
-        public override String LaunchPadId { get; set; }
+        public override String Name { get; set; }
 
         /// <summary>  
         /// Initializes a new instance of the <see cref="FileKey">FileKey</see> class.  
@@ -43,30 +43,18 @@ namespace DeploySoftware.LaunchPad.Core.Domain
             : base()
         {
             // if no key is provided, use a sequential guid as the file key
-            LaunchPadId = SequentialGuid.Generate(SequentialGuid.SequentialGuidType.SequentialAsString).ToString();
+            Name = SequentialGuid.Generate(SequentialGuid.SequentialGuidType.SequentialAsString).ToString();
         }
 
         /// <summary>  
         /// Initializes a new instance of the <see cref="FileKey">FileKey</see> class
         /// with the given Id. 
         /// </summary>
-        /// <param name="id">The unique Id of this file (usually the full file path and filename)</param>
-        public FileKey(String id)
+        /// <param name="name">The unique name of this file (usually the full file path and filename, or the filename)</param>
+        public FileKey(String name)
             : base()
         {
-            LaunchPadId = id;
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="FileKey">FileKey</see> class
-        /// with the provided Id and Culture Name
-        /// </summary>
-        /// <param name="id">The unique Id of this file (usually the full file path and filename)</param>
-        /// <param name="cultureName">The culture code of this entity</param>
-        public FileKey(String id, String cultureName)
-            : base(id, cultureName)
-        {
-            LaunchPadId = id;
+            Name = name;
         }
 
         /// <summary>
@@ -99,8 +87,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         {
             StringBuilder sb = new StringBuilder();
             sb.Append("[FileKey: ");
-            sb.AppendFormat("LaunchPadId={0};", LaunchPadId);
-            sb.AppendFormat("Culture={0};", Culture);
+            sb.AppendFormat("Name={0};", Name);
             sb.Append("]");
             return sb.ToString();
         }
@@ -136,8 +123,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
                 // for safe equality we need to match on business key equality.
                 // These entities are functionally equal if the Id and Culture are equal
                 return (
-                    LaunchPadId.Equals(obj.LaunchPadId) &&
-                    Culture.Equals(obj.Culture));
+                    Name.Equals(obj.Name));
             }
             return false;
         }
@@ -181,7 +167,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         /// <returns>A hash code for an object.</returns>
         public override int GetHashCode()
         {
-            return LaunchPadId.GetHashCode() + Culture.GetHashCode();
+            return Name.GetHashCode();
         }
     }
 }

@@ -22,7 +22,7 @@ namespace DeploySoftware.LaunchPad.Space.Satellites.Common
 
     public class SarlFile<TPrimaryKey> : FileBase<TPrimaryKey>
     {
-        public override string FileExtension
+        public override string Extension
         {
             get { return ".sarl";  }
         }

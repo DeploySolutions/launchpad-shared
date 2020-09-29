@@ -53,11 +53,11 @@ namespace DeploySoftware.LaunchPad.Space.Satellites.Canada
             // Radarsat 1 metadata files are in .txt format
             // ReSharper disable once RedundantAssignment
             var metadataFileText = string.Empty;
-            if (metadataFileKey.LaunchPadId.EndsWith(".txt"))
+            if (metadataFileKey.Name.EndsWith(".txt"))
             {
                 try
                 {   // Open the Radarsat1 Metadata text file
-                    using (StreamReader sr = new StreamReader(metadataFileKey.LaunchPadId, Encoding.GetEncoding("iso-8859-1")))
+                    using (StreamReader sr = new StreamReader(metadataFileKey.Name, Encoding.GetEncoding("iso-8859-1")))
                     {
                         metadataFileText = sr.ReadToEnd();
                     }
@@ -66,7 +66,7 @@ namespace DeploySoftware.LaunchPad.Space.Satellites.Canada
                 {
                     throw new FileLoadException(ex.Message);
                 }
-                String radarsatUniqueId = Path.GetFileNameWithoutExtension(metadataFileKey.LaunchPadId);
+                String radarsatUniqueId = Path.GetFileNameWithoutExtension(metadataFileKey.Name);
                 String sceneId = metadataFileText.FindStringWithinAnchorText("SCENE_ID", "MDA ORDER NUMBER", true, true);
                 String mdaOrderNumber = metadataFileText.FindStringWithinAnchorText("MDA ORDER NUMBER", "GEOGRAPHICAL AREA", true, true);
                 String geographicalArea = metadataFileText.FindStringWithinAnchorText("GEOGRAPHICAL AREA", "SCENE START TIME", true, true);
@@ -175,7 +175,7 @@ namespace DeploySoftware.LaunchPad.Space.Satellites.Canada
         protected Radarsat1Observation.Radarsat1ObservationFiles LoadExpectedObservationFiles(Radarsat1Observation observation, FileKey metadataFileKey)
         {
             // get the list of related observation files
-            String baseFilePath = metadataFileKey.LaunchPadId.Substring(0, metadataFileKey.LaunchPadId.Length - 4);
+            String baseFilePath = metadataFileKey.Name.Substring(0, metadataFileKey.Name.Length - 4);
             IList<KeyValuePair<Radarsat1Observation.FileTypes, String>> expectedFiles = new List<KeyValuePair<Radarsat1Observation.FileTypes, String>>
             {
                 new KeyValuePair<Radarsat1Observation.FileTypes, string>(
@@ -211,8 +211,8 @@ namespace DeploySoftware.LaunchPad.Space.Satellites.Canada
                 observationFiles.Nvol = new NvolFile<Guid>()
                 {
                     Id = SequentialGuid.NewGuid(),
-                    FileName = Path.GetFileName(expectedFiles[0].Value),
-                    FilePath = expectedFiles[0].Value
+                    Name = Path.GetFileName(expectedFiles[0].Value),
+                    Path = expectedFiles[0].Value
                 };
             }
             if (File.Exists(expectedFiles[1].Value))
@@ -220,8 +220,8 @@ namespace DeploySoftware.LaunchPad.Space.Satellites.Canada
                 observationFiles.Sard = new SardFile<Guid>()
                 {
                     Id = SequentialGuid.NewGuid(),
-                    FileName = Path.GetFileName(expectedFiles[1].Value),
-                    FilePath = expectedFiles[1].Value
+                    Name = Path.GetFileName(expectedFiles[1].Value),
+                    Path = expectedFiles[1].Value
                 };
             }
             if (File.Exists(expectedFiles[2].Value))
@@ -229,8 +229,8 @@ namespace DeploySoftware.LaunchPad.Space.Satellites.Canada
                 observationFiles.Sarl = new SarlFile<Guid>()
                 {
                     Id = SequentialGuid.NewGuid(),
-                    FileName = Path.GetFileName(expectedFiles[2].Value),
-                    FilePath = expectedFiles[2].Value
+                    Name = Path.GetFileName(expectedFiles[2].Value),
+                    Path = expectedFiles[2].Value
                 };
             }
             if (File.Exists(expectedFiles[3].Value))
@@ -238,8 +238,8 @@ namespace DeploySoftware.LaunchPad.Space.Satellites.Canada
                 observationFiles.Sart = new SartFile<Guid>()
                 {
                     Id = SequentialGuid.NewGuid(),
-                    FileName = Path.GetFileName(expectedFiles[3].Value),
-                    FilePath = expectedFiles[3].Value
+                    Name = Path.GetFileName(expectedFiles[3].Value),
+                    Path = expectedFiles[3].Value
                 };
             }
             if (File.Exists(expectedFiles[4].Value))
@@ -247,8 +247,8 @@ namespace DeploySoftware.LaunchPad.Space.Satellites.Canada
                 observationFiles.Tfw = new TifWorldFile<Guid>()
                 {
                     Id = SequentialGuid.NewGuid(),
-                    FileName = Path.GetFileName(expectedFiles[4].Value),
-                    FilePath = expectedFiles[4].Value
+                    Name = Path.GetFileName(expectedFiles[4].Value),
+                    Path = expectedFiles[4].Value
                 };
             }
             if (File.Exists(expectedFiles[5].Value))
@@ -256,8 +256,8 @@ namespace DeploySoftware.LaunchPad.Space.Satellites.Canada
                 observationFiles.Tif = new TifFile<Guid>()
                 {
                     Id = SequentialGuid.NewGuid(),
-                    FileName = Path.GetFileName(expectedFiles[5].Value),
-                    FilePath = expectedFiles[5].Value
+                    Name = Path.GetFileName(expectedFiles[5].Value),
+                    Path = expectedFiles[5].Value
                 };
             }
             if (File.Exists(expectedFiles[6].Value))
@@ -265,8 +265,8 @@ namespace DeploySoftware.LaunchPad.Space.Satellites.Canada
                 observationFiles.Vol = new VolFile<Guid>()
                 {
                     Id = SequentialGuid.NewGuid(),
-                    FileName = Path.GetFileName(expectedFiles[6].Value),
-                    FilePath = expectedFiles[6].Value
+                    Name = Path.GetFileName(expectedFiles[6].Value),
+                    Path = expectedFiles[6].Value
                 };
             }
             return observationFiles;

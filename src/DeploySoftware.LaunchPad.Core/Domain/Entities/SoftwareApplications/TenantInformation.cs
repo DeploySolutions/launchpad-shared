@@ -31,7 +31,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
     /// </summary>
     /// <typeparam name="TIdType">The type of the key id field</typeparam>
     [Serializable()]
-    public class TenantInformation<TIdType> : TenantSpecificDomainEntityBase<TIdType>, ITenantInformation<TIdType>
+    public partial class TenantInformation<TIdType> : TenantSpecificDomainEntityBase<TIdType>, ITenantInformation<TIdType>
     {
         
         [DataObjectField(false)]
@@ -48,17 +48,31 @@ namespace DeploySoftware.LaunchPad.Core.Domain
 
         [DataObjectField(false)]
         [XmlAttribute]
-        public Uri DisplayLogoUri { get; set; }
+        public Uri LogoUri { get; set; }
 
         [DataObjectField(false)]
         [XmlAttribute]
-        public string DisplayPrimaryColourHex { get; set; }
+        public string PrimaryColourHex { get; set; }
+
+
+        /// <summary>
+        /// The main theme (if Tenant is allowed to modify theme)
+        /// </summary>
+        [DataObjectField(false)]
+        [XmlAttribute]
+        public string Theme { get; set; }
 
         #region "Constructors"
+        public TenantInformation() : base()
+        {
+            PrimaryColourHex = ApplicationInformation<TIdType>.DEFAULT_HEX_COlOUR;
+            CultureDefault = ApplicationInformation<TIdType>.DEFAULT_CULTURE;
+            CultureSupported = ApplicationInformation<TIdType>.DEFAULT_CULTURE;
+        }
 
         public TenantInformation(int tenantId) : base(tenantId)
         {
-            DisplayPrimaryColourHex = ApplicationInformation<TIdType>.DEFAULT_HEX_COlOUR;
+            PrimaryColourHex = ApplicationInformation<TIdType>.DEFAULT_HEX_COlOUR;
             CultureDefault = ApplicationInformation<TIdType>.DEFAULT_CULTURE;
             CultureSupported = ApplicationInformation<TIdType>.DEFAULT_CULTURE;
 
@@ -66,14 +80,14 @@ namespace DeploySoftware.LaunchPad.Core.Domain
 
         public TenantInformation(int tenantId, TIdType id, string cultureName, String cultureDefault) : base(tenantId, id, cultureName)
         {
-            DisplayPrimaryColourHex = ApplicationInformation<TIdType>.DEFAULT_HEX_COlOUR;
+            PrimaryColourHex = ApplicationInformation<TIdType>.DEFAULT_HEX_COlOUR;
             CultureDefault = cultureDefault;
             CultureSupported = cultureDefault;
         }
 
         public TenantInformation(int tenantId, TIdType id, string cultureName, String cultureDefault, String cultureSupported) : base(tenantId, id, cultureName)
         {
-            DisplayPrimaryColourHex = ApplicationInformation<TIdType>.DEFAULT_HEX_COlOUR;
+            PrimaryColourHex = ApplicationInformation<TIdType>.DEFAULT_HEX_COlOUR;
             CultureDefault = cultureDefault;
             CultureSupported = cultureSupported;
         }
@@ -87,10 +101,10 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         {
             CultureDefault = info.GetString("CultureDefault");
             CultureSupported = info.GetString("CultureSupported");
-            DisplayPrimaryColourHex = info.GetString("DisplayPrimaryColourHex");
+            PrimaryColourHex = info.GetString("DisplayPrimaryColourHex");
             PrimaryOwnerId = info.GetInt64("PrimaryOwnerId");
-            DisplayLogoUri = (Uri)info.GetValue("DisplayLogoUri", typeof(Uri));
-
+            LogoUri = (Uri)info.GetValue("DisplayLogoUri", typeof(Uri));
+            Theme = info.GetString("DisplayThemeName");
         }
 
         #endregion
@@ -106,8 +120,9 @@ namespace DeploySoftware.LaunchPad.Core.Domain
             base.GetObjectData(info, context);
             info.AddValue("CultureDefault", CultureDefault);
             info.AddValue("CultureSupported", CultureSupported);
-            info.AddValue("DisplayPrimaryColourHex", DisplayPrimaryColourHex);
-            info.AddValue("DisplayLogoUri", DisplayLogoUri);
+            info.AddValue("DisplayPrimaryColourHex", PrimaryColourHex);
+            info.AddValue("DisplayLogoUri", LogoUri);
+            info.AddValue("Theme", Theme);
             info.AddValue("PrimaryOwnerId", PrimaryOwnerId);
         }
 
@@ -122,8 +137,9 @@ namespace DeploySoftware.LaunchPad.Core.Domain
             sb.AppendFormat(ToStringBaseProperties());
             sb.AppendFormat(" CultureDefault={0};", CultureDefault);
             sb.AppendFormat(" CultureSupported={0};", CultureSupported);
-            sb.AppendFormat(" DisplayPrimaryColourHex={0};", DisplayPrimaryColourHex);
-            sb.AppendFormat(" DisplayLogoUri={0};", DisplayLogoUri);
+            sb.AppendFormat(" DisplayPrimaryColourHex={0};", PrimaryColourHex);
+            sb.AppendFormat(" DisplayLogoUri={0};", LogoUri);
+            sb.AppendFormat(" Theme={0};", Theme);
             sb.AppendFormat(" PrimaryOwnerId={0};", PrimaryOwnerId);
             sb.Append("]");
             return sb.ToString();

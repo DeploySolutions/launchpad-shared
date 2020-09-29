@@ -22,7 +22,7 @@ using System.Xml.Serialization;
 
 namespace DeploySoftware.LaunchPad.Core.Domain
 {
-    public abstract partial class FileBase<TPrimaryKey> : Entity<TPrimaryKey>, IFile<TPrimaryKey>
+    public abstract partial class FileBase<TIdType> : DomainEntityBase<TIdType>, IFile<TIdType>
     {
         /// <summary>
         /// The FileKey that uniquely identifies this entity
@@ -31,28 +31,17 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         [XmlAttribute]
         public virtual FileKey Key { get; set; }
 
-        /// <summary>
-        /// Each entity can have an open-ended set of metadata applied to it, that helps to describe it.
-        /// </summary>
         [DataObjectField(false)]
         [XmlAttribute]
-        public virtual MetadataInformation Metadata { get; set; }
-
-        [DataObjectField(false)]
-        [XmlAttribute]
-        public long FileSize { get; set; }
-
-        [DataObjectField(false)]
-        [XmlAttribute]
-        public string FileName { get; set; }
+        public long Size { get; set; }
         
         [DataObjectField(false)]
         [XmlAttribute]
-        public string FilePath { get; set; }
+        public string Path { get; set; }
 
         [DataObjectField(false)]
         [XmlAttribute]
-        public virtual string FileExtension { get; }
+        public virtual string Extension { get; }
 
         [DataObjectField(false)]
         [XmlAttribute]
@@ -61,7 +50,24 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         protected FileBase()
         {
             Key = new FileKey();
-            Metadata = new MetadataInformation();
+        }
+
+        protected FileBase(TIdType id) : base(id)
+        {
+            Id = id;
+            Key = new FileKey();
+        }
+        protected FileBase(string fileName) : base()
+        {
+            Name = fileName;
+            Key = new FileKey(fileName);
+        }
+
+        protected FileBase(TIdType id, string fileName) : base()
+        {
+            Id = id;
+            Name = fileName;
+            Key = new FileKey(fileName);
         }
 
         /// <summary>
@@ -69,22 +75,21 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         /// </summary>
         /// <param name="info">The serialization info</param>
         /// <param name="context">The context of the stream</param>
-        protected FileBase(SerializationInfo info, StreamingContext context)
+        protected FileBase(SerializationInfo info, StreamingContext context) :base(info,context)
         {
             Key = (FileKey)info.GetValue("Key", typeof(FileKey));
-            Metadata = (MetadataInformation)info.GetValue("Metadata", typeof(MetadataInformation));
             Data = (byte[])info.GetValue("Data", typeof(byte[]));
-            FileName = info.GetString("FileName");
-            FileSize = info.GetInt64("FileSize");
+            Name = info.GetString("Name");
+            Size = info.GetInt64("FileSize");
         }
 
-        public void GetObjectData(SerializationInfo info, StreamingContext context)
+        public override void GetObjectData(SerializationInfo info, StreamingContext context)
         {
+            base.GetObjectData(info, context);
             info.AddValue("Key", Key);
-            info.AddValue("FileSize", FileSize);
-            info.AddValue("FileName", FileName);
+            info.AddValue("FileSize", Size);
+            info.AddValue("Name", Name);
             info.AddValue("Data", Data);
-            info.AddValue("Metadata", Metadata);
         }
     }
 }

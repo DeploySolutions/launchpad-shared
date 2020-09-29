@@ -17,9 +17,22 @@
 
 namespace DeploySoftware.LaunchPad.Core.Domain
 {
-    public class TifFile<TPrimaryKey> : FileBase<TPrimaryKey>
+    public class TifFile<TIdType> : FileBase<TIdType>
     {
-        public override string FileExtension => ".tif";
+        public override string Extension => ".tif";
 
+        public TifFile() : base()
+        {
+
+        }
+        public TifFile(string fileName) : base(fileName)
+        {
+
+        }
+
+        public TifFile(TIdType id, string fileName) : base(id, fileName)
+        {
+
+        }
     }
 }

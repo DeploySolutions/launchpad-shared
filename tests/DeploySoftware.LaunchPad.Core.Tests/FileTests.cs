@@ -21,7 +21,7 @@ namespace DeploySoftware.LaunchPad.Core.Tests
     using FluentAssertions;
     using DeploySoftware.LaunchPad.Core.Domain;
 
-    public class FileKeyTests
+    public class FileTests
     {
         #region "Test Classes"
 
@@ -32,15 +32,15 @@ namespace DeploySoftware.LaunchPad.Core.Tests
 
 
         [Fact]
-        public void Should_Have_NotNull_Id_When_Instantiated()
+        public void Should_Have_NotNull_Key_Name_When_Instantiated()
         {
             FileKey key = new FileKey();
-            key.LaunchPadId.Should().NotBeNull();
+            key.Name.Should().NotBeNull();
 
         }
 
         [Fact]
-        public void Should_Have_Unique_Id_When_Instantiated()
+        public void Should_Have_Unique_Key_Name_When_Instantiated()
         {
             FileKey key1 = new FileKey();
             FileKey key2 = new FileKey();
@@ -48,10 +48,17 @@ namespace DeploySoftware.LaunchPad.Core.Tests
         }
 
         [Fact]
-        public void Should_Have_NotNull_Culture_When_Instantiated()
+        public void ShouldNot_Have_Equal_Name_And_Key_Name_When_Instantiated_Without_Name()
         {
-            FileKey key = new FileKey();
-            key.Culture.Should().NotBeNull();
+            TifFile<int> file = new TifFile<int>();
+            file.Name.Should().NotBeSameAs(file.Key.Name);
+        }
+
+        [Fact]
+        public void Should_Have_Equal_Name_And_Key_Name_When_Instantiated_With_Name()
+        {
+            TifFile<int> file = new TifFile<int>("SameName");
+            file.Name.Should().BeSameAs(file.Key.Name);
         }
     }
 }

@@ -56,24 +56,25 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         /// </summary>
         [DataObjectField(false)]
         [XmlAttribute]
-        string DisplayThemeName { get; set; }
+        string Theme { get; set; }
 
         /// <summary>
         /// The Uri for the logo to display in this application
         /// </summary>
         [DataObjectField(false)]
         [XmlAttribute]
-        Uri DisplayLogoUri
+        Uri LogoUri
         {
             get; set;
         }
 
         /// <summary>
-        /// The primary colour (in HEX) for displays in this application
+        /// The primary colour (in HEX) for displays in this application.
+        /// (Colour is spelled correctly in Canadian, eh.)
         /// </summary>
         [DataObjectField(false)]
         [XmlAttribute]
-        String DisplayPrimaryColourHex
+        String PrimaryColourHex
         {
             get; set;
         }
@@ -83,7 +84,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         /// </summary>
         [DataObjectField(false)]
         [XmlAttribute]
-        String DisplayDefaultTimeZone
+        String DefaultTimeZone
         {
             get; set;
         }

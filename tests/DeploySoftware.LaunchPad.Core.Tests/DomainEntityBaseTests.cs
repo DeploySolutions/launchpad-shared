@@ -63,12 +63,5 @@ namespace DeploySoftware.LaunchPad.Core.Tests
             a.Id.Should().NotBe(b.Id);
         }
 
-        [Fact]
-        public void Should_Have_NotNull_Culture_When_Instantiated()
-        {
-            DomainEntityKey<System.Guid> key = new DomainEntityKey<System.Guid>(SequentialGuid.NewGuid()
-                , ApplicationInformation<System.Guid>.DEFAULT_CULTURE);
-            key.Culture.Should().NotBeNull();
-        }
     }
 }

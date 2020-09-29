@@ -33,22 +33,22 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         /// <summary>
         /// The size of the file, in bytes
         /// </summary>
-        Int64 FileSize { get; set; }
+        Int64 Size { get; set; }
 
         /// <summary>
         /// The name of the file
         /// </summary>
-        String FileName { get; set; }
+        String Name { get; set; }
         
         /// <summary>
         /// The full path of the file
         /// </summary>
-        String FilePath { get; }
+        String Path { get; }
 
         /// <summary>
         /// The extension of the file
         /// </summary>
-        String FileExtension { get; }
+        String Extension { get; }
 
         /// <summary>
         /// The byte-array content of the file

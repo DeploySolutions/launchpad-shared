@@ -57,11 +57,18 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         long? PrimaryOwnerId { get; set; }
 
         /// <summary>
+        /// The main theme
+        /// </summary>
+        [DataObjectField(false)]
+        [XmlAttribute]
+        string Theme { get; set; }
+
+        /// <summary>
         /// The Uri for the logo to display in this tenant
         /// </summary>
         [DataObjectField(false)]
         [XmlAttribute]
-        Uri DisplayLogoUri
+        Uri LogoUri
         {
             get; set;
         }
@@ -71,7 +78,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         /// </summary>
         [DataObjectField(false)]
         [XmlAttribute]
-        String DisplayPrimaryColourHex
+        String PrimaryColourHex
         {
             get; set;
         }

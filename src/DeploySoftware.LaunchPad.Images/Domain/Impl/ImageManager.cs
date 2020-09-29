@@ -27,7 +27,9 @@ namespace DeploySoftware.LaunchPad.Images.Domain
     using Castle.Core.Logging;
 
     /// <summary>
-    /// Domain service for handling Image domain entities
+    /// Domain service for handling Image domain entities.
+    /// Important: MagickImage which we use has a dependency on ImageMagick, which you can download here: https://imagemagick.org/script/download.php#windows 
+    /// (please ensure you are compliant with their licensing).
     /// </summary>
     public class ImageManager : DomainService, IImageManager
     {

@@ -36,7 +36,7 @@ namespace DeploySoftware.LaunchPad.Core.Tests
         public void FileExtension_Should_Be_DotTFW()
         {
             
-            _fixture.TfwFile.FileExtension.Should().Be(".tfw");
+            _fixture.TfwFile.Extension.Should().Be(".tfw");
         }
        
         [Fact]

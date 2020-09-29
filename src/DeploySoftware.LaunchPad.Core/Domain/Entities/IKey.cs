@@ -24,8 +24,6 @@ namespace DeploySoftware.LaunchPad.Core.Domain
 
     /// <summary>
     /// Any object in the platform can be uniquely identified by its DomainEntityKey. 
-    /// The key is composite and contains two required properties - its Id field, of a generic type, and
-    /// a culture code. This allows us to match related content in different cultures.
     /// </summary>
     /// <typeparam name="TIdType">The type of the Id field (often a GUID)</typeparam>
     public interface IKey<TIdType> : ISerializable
@@ -35,13 +33,6 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         /// </summary>
         [DataObjectField(true)]
         [XmlAttribute]
-        TIdType LaunchPadId { get; set; }
-
-        /// <summary>
-        /// The Culture code of this object
-        /// </summary>
-        [DataObjectField(true)]
-        [XmlAttribute]
-        String Culture { get; set; }
+        TIdType Name { get; set; }
     }
 }

@@ -183,8 +183,7 @@ namespace DeploySoftware.LaunchPad.Images.Tests
         [Fact]
         public void Get_Small_Thumbnail_From_MagickImage_ShouldReturn_JpegFormat()
         {
-            MagickImage image = new MagickImage(_fixture.LogoWhite);
-            MagickImage result = new MagickImage(_fixture.SUT.GetThumbnailFromImage(image, ImageManager.ThumbnailSize.Small,MagickFormat.Png));
+            MagickImage result = new MagickImage(_fixture.SUT.GetThumbnailFromImage(new MagickImage(_fixture.LogoWhite), ImageManager.ThumbnailSize.Small,MagickFormat.Png));
             result.Format.Should().Be(MagickFormat.Png);
 
         }
@@ -192,7 +191,8 @@ namespace DeploySoftware.LaunchPad.Images.Tests
         [Fact]
         public void Get_Small_Thumbnail_From_MagickImage_ShouldReturn_Image()
         {
-            MagickImage image = new MagickImage(_fixture.LogoWhite);
+            byte[] logo = _fixture.LogoDark;
+            MagickImage image = new MagickImage(logo);
             byte[] thumbImage = _fixture.SUT.GetThumbnailFromImage(image, ImageManager.ThumbnailSize.Small);
             thumbImage.Length.Should().BeGreaterThan(0);
         }
