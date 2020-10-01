@@ -205,6 +205,9 @@ namespace DeploySoftware.LaunchPad.Space.Satellites.Canada
             // initialize the list of observation files
             Radarsat1Observation.Radarsat1ObservationFiles observationFiles = new Radarsat1Observation.Radarsat1ObservationFiles();
 
+            var location = new WindowsFileStorageLocation();
+            location.RootPath = new System.Uri(Directory.GetCurrentDirectory());
+
             // add each expected file type (if it exists)
             if (File.Exists(expectedFiles[0].Value))
             {
@@ -212,7 +215,8 @@ namespace DeploySoftware.LaunchPad.Space.Satellites.Canada
                 {
                     Id = SequentialGuid.NewGuid(),
                     Name = Path.GetFileName(expectedFiles[0].Value),
-                    Path = expectedFiles[0].Value
+                    Location = location,
+                    Key = new FileKey(expectedFiles[0].Value)
                 };
             }
             if (File.Exists(expectedFiles[1].Value))
@@ -221,7 +225,8 @@ namespace DeploySoftware.LaunchPad.Space.Satellites.Canada
                 {
                     Id = SequentialGuid.NewGuid(),
                     Name = Path.GetFileName(expectedFiles[1].Value),
-                    Path = expectedFiles[1].Value
+                    Location = location,
+                    Key = new FileKey(expectedFiles[1].Value)
                 };
             }
             if (File.Exists(expectedFiles[2].Value))
@@ -230,7 +235,8 @@ namespace DeploySoftware.LaunchPad.Space.Satellites.Canada
                 {
                     Id = SequentialGuid.NewGuid(),
                     Name = Path.GetFileName(expectedFiles[2].Value),
-                    Path = expectedFiles[2].Value
+                    Location = location,
+                    Key = new FileKey(expectedFiles[2].Value)
                 };
             }
             if (File.Exists(expectedFiles[3].Value))
@@ -239,7 +245,8 @@ namespace DeploySoftware.LaunchPad.Space.Satellites.Canada
                 {
                     Id = SequentialGuid.NewGuid(),
                     Name = Path.GetFileName(expectedFiles[3].Value),
-                    Path = expectedFiles[3].Value
+                    Location = location,
+                    Key = new FileKey(expectedFiles[3].Value)
                 };
             }
             if (File.Exists(expectedFiles[4].Value))
@@ -248,7 +255,8 @@ namespace DeploySoftware.LaunchPad.Space.Satellites.Canada
                 {
                     Id = SequentialGuid.NewGuid(),
                     Name = Path.GetFileName(expectedFiles[4].Value),
-                    Path = expectedFiles[4].Value
+                    Location = location,
+                    Key = new FileKey(expectedFiles[4].Value)
                 };
             }
             if (File.Exists(expectedFiles[5].Value))
@@ -257,7 +265,8 @@ namespace DeploySoftware.LaunchPad.Space.Satellites.Canada
                 {
                     Id = SequentialGuid.NewGuid(),
                     Name = Path.GetFileName(expectedFiles[5].Value),
-                    Path = expectedFiles[5].Value
+                    Location = location,
+                    Key = new FileKey(expectedFiles[5].Value)
                 };
             }
             if (File.Exists(expectedFiles[6].Value))
@@ -266,7 +275,8 @@ namespace DeploySoftware.LaunchPad.Space.Satellites.Canada
                 {
                     Id = SequentialGuid.NewGuid(),
                     Name = Path.GetFileName(expectedFiles[6].Value),
-                    Path = expectedFiles[6].Value
+                    Location = location,
+                    Key = new FileKey(expectedFiles[6].Value)
                 };
             }
             return observationFiles;

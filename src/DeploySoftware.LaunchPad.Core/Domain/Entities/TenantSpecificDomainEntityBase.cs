@@ -244,5 +244,21 @@ namespace DeploySoftware.LaunchPad.Core.Domain
             return !(x == y);
         }
 
+
+        /// <summary>  
+        /// Computes and retrieves a hash code for an object.  
+        /// </summary>  
+        /// <remarks>  
+        /// This method implements the <see cref="Object">Object</see> method.  
+        /// </remarks>  
+        /// <returns>A hash code for an object.</returns>
+        public override int GetHashCode()
+        {
+            return Culture.GetHashCode()
+                + Id.GetHashCode()
+                + TenantId.GetHashCode();
+        }
+
+
     }
 }

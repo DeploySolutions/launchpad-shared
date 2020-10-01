@@ -18,6 +18,8 @@
 namespace DeploySoftware.LaunchPad.Core.Domain
 {
     using System;
+    using System.ComponentModel;
+    using System.Xml.Serialization;
 
     /// <summary>
     /// Marks any object as a file that can be manipulated by the platform.
@@ -28,31 +30,45 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         /// <summary>
         /// The ID that uniquely identifies this object (usually the full file path and filename).
         /// </summary>
-        FileKey Key { get; set; }        
+        [DataObjectField(false)]
+        [XmlAttribute]
+        FileKey Key { get; set; }
 
         /// <summary>
         /// The size of the file, in bytes
         /// </summary>
+        [DataObjectField(false)]
+        [XmlAttribute]
         Int64 Size { get; set; }
 
         /// <summary>
         /// The name of the file
         /// </summary>
+        [DataObjectField(false)]
+        [XmlAttribute]
         String Name { get; set; }
-        
-        /// <summary>
-        /// The full path of the file
-        /// </summary>
-        String Path { get; }
 
         /// <summary>
         /// The extension of the file
         /// </summary>
-        String Extension { get; }
+        [DataObjectField(false)]
+        [XmlAttribute]
+        String Extension { get; set; }
 
         /// <summary>
-        /// The byte-array content of the file
+        /// The content / mime type of the file
         /// </summary>
-        Byte[] Data { get; set; }
+        [DataObjectField(false)]
+        [XmlAttribute]
+        String MimeType { get; set; }
+
+        /// <summary>
+        /// The location of the file content
+        /// </summary>
+        [DataObjectField(false)]
+        [XmlAttribute]
+        FileStorageLocationBase Location { get; set; }
+
+        Uri GetFullPathUri();
     }
 }

@@ -1,4 +1,4 @@
-﻿//LaunchPad Space
+﻿//LaunchPad Shared
 // Copyright (c) 2018-2020 Deploy Software Solutions, inc. 
 
 #region license
@@ -15,24 +15,31 @@
 //limitations under the License. 
 #endregion
 
+using Abp.Domain.Entities;
+using System;
+using System.ComponentModel;
+using System.IO;
+using System.Runtime.Serialization;
+using System.Xml.Serialization;
+
 namespace DeploySoftware.LaunchPad.Core.Domain
 {
-    public class TifFile<TIdType> : FileBase<TIdType>
+    public partial class WindowsFileStorageLocation : FileStorageLocationBase
     {
-        public override string Extension => ".tif";
 
-        public TifFile() : base()
+        public WindowsFileStorageLocation()
+        {
+        }
+
+        /// <summary>
+        /// Serialization constructor used for deserialization
+        /// </summary>
+        /// <param name="info">The serialization info</param>
+        /// <param name="context">The context of the stream</param>
+        protected WindowsFileStorageLocation(SerializationInfo info, StreamingContext context) :base (info,context)
         {
 
         }
-        public TifFile(string fileName) : base(fileName)
-        {
-            this.Location = new S3BucketStorageLocation();
-        }
 
-        public TifFile(TIdType id, string fileName) : base(id, fileName)
-        {
-
-        }
     }
 }

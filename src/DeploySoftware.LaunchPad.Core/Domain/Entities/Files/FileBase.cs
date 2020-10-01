@@ -16,6 +16,7 @@
 #endregion
 
 using Abp.Domain.Entities;
+using System;
 using System.ComponentModel;
 using System.Runtime.Serialization;
 using System.Xml.Serialization;
@@ -33,19 +34,22 @@ namespace DeploySoftware.LaunchPad.Core.Domain
 
         [DataObjectField(false)]
         [XmlAttribute]
-        public long Size { get; set; }
-        
-        [DataObjectField(false)]
-        [XmlAttribute]
-        public string Path { get; set; }
+        public virtual long Size { get; set; }        
 
         [DataObjectField(false)]
         [XmlAttribute]
-        public virtual string Extension { get; }
+        public virtual string Extension { get; set;  }
+
+        /// <summary>
+        /// The content / mime type of the file
+        /// </summary>
+        [DataObjectField(false)]
+        [XmlAttribute]
+        public virtual String MimeType { get; set; }
 
         [DataObjectField(false)]
         [XmlAttribute]
-        public byte[] Data { get; set; }
+        public virtual FileStorageLocationBase Location { get; set; }
 
         protected FileBase()
         {
@@ -70,6 +74,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
             Key = new FileKey(fileName);
         }
 
+
         /// <summary>
         /// Serialization constructor used for deserialization
         /// </summary>
@@ -78,18 +83,32 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         protected FileBase(SerializationInfo info, StreamingContext context) :base(info,context)
         {
             Key = (FileKey)info.GetValue("Key", typeof(FileKey));
-            Data = (byte[])info.GetValue("Data", typeof(byte[]));
+            Location = (FileStorageLocationBase)info.GetValue("Data", typeof(FileStorageLocationBase));
             Name = info.GetString("Name");
-            Size = info.GetInt64("FileSize");
+            Size = info.GetInt64("Size");
+            MimeType = info.GetString("MimeType");
+            Extension = info.GetString("Extension");
         }
 
         public override void GetObjectData(SerializationInfo info, StreamingContext context)
         {
             base.GetObjectData(info, context);
             info.AddValue("Key", Key);
-            info.AddValue("FileSize", Size);
+            info.AddValue("Size", Size);
             info.AddValue("Name", Name);
-            info.AddValue("Data", Data);
+            info.AddValue("MimeType", MimeType);
+            info.AddValue("Extension", Extension);
+            info.AddValue("Location", Location);
         }
+
+
+        /// <summary>
+        /// The full path of the file
+        /// </summary>
+        public virtual Uri GetFullPathUri()
+        {
+            return Location.GetFullPathUri(Key.Name);
+        }
+
     }
 }
