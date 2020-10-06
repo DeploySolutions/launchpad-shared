@@ -127,7 +127,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         /// </summary>
         /// <typeparam name="TEntity">The source entity to clone</typeparam>
         /// <returns>A shallow clone of the entity and its serializable properties</returns>
-        protected virtual TEntity Clone<TEntity>() where TEntity : TenantSpecificDomainEntityBase<TIdType>, new()
+        protected new TEntity Clone<TEntity>() where TEntity : TenantSpecificDomainEntityBase<TIdType>, new()
         {
             TEntity clone = new TEntity();
             foreach (PropertyInfo info in GetType().GetProperties())

@@ -15,13 +15,8 @@
 //limitations under the License. 
 #endregion
 
-using Abp.Application.Services.Dto;
-using Abp.Domain.Entities;
-using Abp.Domain.Entities.Auditing;
 using System;
 using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Runtime.Serialization;
 using System.Security.Permissions;
 using System.Text;
@@ -31,33 +26,51 @@ using System.Xml.Serialization;
 namespace DeploySoftware.LaunchPad.Core.Application
 {
     /// <summary>
-    /// Represents the base properties a LaunchPad Data Transfer Object would possess in order to edit an existing entity
-    /// It does not include properties that are set by ABP on Deletion.
+    /// Represents the base properties a LaunchPad Data Transfer Object would possess in order to create an entity
+    /// It does not include properties that are likely to be set on creating by ABP, such as Creator information, or 
+    /// ABP properties that are not likely to be set, such as Deletion or Last Modified information.
     /// Of course subclassing DTOs may contain additional properties.
     /// </summary>
     /// <typeparam name="TIdType">The type of the Id</typeparam>
-    public abstract partial class EditEntityDtoBase<TIdType> : CreateEntityDtoBase<TIdType>,
-        IComparable<EditEntityDtoBase<TIdType>>, IEquatable<EditEntityDtoBase<TIdType>>
+    public abstract partial class CreateEntityDtoBase<TIdType> : MinimalEntityDtoBase<TIdType>,
+        IComparable<CreateEntityDtoBase<TIdType>>, IEquatable<CreateEntityDtoBase<TIdType>>
     {
        
+        /// <summary>
+        /// A full description of this item.
+        /// </summary>
+        [DataObjectField(false)]
+        [XmlAttribute]
+        public virtual String DescriptionFull { get; set; }
+
+        /// <summary>
+        /// If this object is not a translation this field will be null. 
+        /// If this object is a translation, this id references the parent object.
+        /// </summary>
+        [DataObjectField(true)]
+        [XmlAttribute]
+        public virtual TIdType TranslatedFromId { get; set; }
+
+
         #region "Constructors"
 
         /// <summary>
         /// Default constructor
         /// </summary>
-        protected EditEntityDtoBase() : base()
+        protected CreateEntityDtoBase() : base()
         {
         }
 
         /// <summary>
-        /// Default constructor where the tenant id is known
+        /// Default constructor where the id is known
+        /// <param name="id">The id of the  entity being created</param>
         /// </summary>
-        public EditEntityDtoBase(TIdType id) : base(id)
+        public CreateEntityDtoBase(TIdType id) : base(id)
         {
 
         }
 
-        public EditEntityDtoBase( TIdType id, string culture) : base( id,culture)
+        public CreateEntityDtoBase( TIdType id, string culture) : base( id,culture)
         {
 
         }
@@ -67,7 +80,7 @@ namespace DeploySoftware.LaunchPad.Core.Application
         /// </summary>
         /// <param name="info">The serialization info</param>
         /// <param name="context">The context of the stream</param>
-        protected EditEntityDtoBase(SerializationInfo info, StreamingContext context) : base(info, context)
+        protected CreateEntityDtoBase(SerializationInfo info, StreamingContext context) : base(info, context)
         {
 
             DescriptionFull = info.GetString("DescriptionFull");
@@ -101,7 +114,7 @@ namespace DeploySoftware.LaunchPad.Core.Application
         public override string ToString()
         {
             StringBuilder sb = new StringBuilder();
-            sb.Append("[EditEntityDtoBase : ");
+            sb.Append("[CreateEntityDtoBase : ");
             sb.Append(ToStringBaseProperties());
             sb.Append("]");
             return sb.ToString();
@@ -118,8 +131,7 @@ namespace DeploySoftware.LaunchPad.Core.Application
             sb.Append(base.ToStringBaseProperties());
             // LaunchPAD RAD properties
             //
-            // ABP properties
-
+            // ABP properties        
             return sb.ToString();
         }
 
@@ -131,13 +143,12 @@ namespace DeploySoftware.LaunchPad.Core.Application
         /// </summary>
         /// <param name="other">The other object of this type we are comparing to</param>
         /// <returns></returns>
-        public virtual int CompareTo(EditEntityDtoBase<TIdType> other)
+        public virtual int CompareTo(CreateEntityDtoBase<TIdType> other)
         {
             // put comparison of properties in here 
-            // for base object we'll just sort by title
+            // for base object we'll just sort by name and description short
             return Name.CompareTo(other.Name);
         }
-
 
         /// <summary>
         /// Equality method between two objects of the same type.
@@ -148,7 +159,7 @@ namespace DeploySoftware.LaunchPad.Core.Application
         /// </summary>
         /// <param name="obj">The other object of this type that we are testing equality with</param>
         /// <returns></returns>
-        public virtual bool Equals(EditEntityDtoBase<TIdType> obj)
+        public virtual bool Equals(CreateEntityDtoBase<TIdType> obj)
         {
             if (obj != null)
             {

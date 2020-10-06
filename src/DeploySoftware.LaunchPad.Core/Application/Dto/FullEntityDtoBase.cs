@@ -15,12 +15,10 @@
 //limitations under the License. 
 #endregion
 
-using Abp.Application.Services.Dto;
 using Abp.Domain.Entities;
 using Abp.Domain.Entities.Auditing;
 using System;
 using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Runtime.Serialization;
 using System.Security.Permissions;
@@ -36,13 +34,10 @@ namespace DeploySoftware.LaunchPad.Core.Application
     /// </summary>
     /// <typeparam name="TIdType">The type of the Id</typeparam>
     public abstract partial class FullEntityDtoBase<TIdType> : MinimalEntityDtoBase<TIdType>,
-        IHasCreationTime, ICreationAudited, IHasModificationTime, IModificationAudited, IDeletionAudited,
-        ISoftDelete, IPassivable,
+        IDeletionAudited, ISoftDelete, IPassivable,
         IComparable<MinimalEntityDtoBase<TIdType>>, IEquatable<MinimalEntityDtoBase<TIdType>>
     {
-        public static readonly long? DEFAULT_CREATOR_USER_ID = 1;
-
-
+      
         /// <summary>
         /// A full description of this item.
         /// </summary>
@@ -58,35 +53,7 @@ namespace DeploySoftware.LaunchPad.Core.Application
         [XmlAttribute]
         public virtual TIdType TranslatedFromId { get; set; }
 
-        /// <summary>
-        /// The date and time that this object was created.
-        /// </summary>
-        [DataObjectField(false)]
-        [XmlAttribute]
-        public virtual DateTime CreationTime { get; set; }
-
-        /// <summary>
-        /// The id of the User Agent which created this entity
-        /// </summary>
-        [DataObjectField(false)]
-        [XmlAttribute]
-        [ForeignKey(nameof(CreatorUserId))]
-        public virtual long? CreatorUserId { get; set; }
-
-        /// <summary>
-        /// The date and time that the location and/or properties of this object were last modified.
-        /// </summary>
-        [DataObjectField(false)]
-        [XmlAttribute]
-        public virtual DateTime? LastModificationTime { get; set; }
-
-        /// <summary>
-        /// The id of the User Agent which last modified this object.
-        /// </summary>
-        [DataObjectField(false)]
-        [XmlAttribute]
-        [ForeignKey(nameof(LastModifierUserId))]
-        public virtual Int64? LastModifierUserId { get; set; }
+        
 
         /// <summary>
         /// The date and time that this object was deleted.
@@ -119,7 +86,6 @@ namespace DeploySoftware.LaunchPad.Core.Application
         /// </summary>
         protected FullEntityDtoBase() : base()
         {
-            CreatorUserId = DEFAULT_CREATOR_USER_ID; // TODO - default user account?
             IsDeleted = false;
             IsActive = true;
         }
@@ -129,14 +95,12 @@ namespace DeploySoftware.LaunchPad.Core.Application
         /// </summary>
         public FullEntityDtoBase(TIdType id) : base(id)
         {
-            CreatorUserId = DEFAULT_CREATOR_USER_ID; // TODO - default user account?
             IsDeleted = false;
             IsActive = true;
         }
 
         public FullEntityDtoBase( TIdType id, string culture) : base( id,culture)
         {
-            CreatorUserId = DEFAULT_CREATOR_USER_ID; // TODO - default user account?
             IsDeleted = false;
             IsActive = true;
         }
@@ -153,10 +117,6 @@ namespace DeploySoftware.LaunchPad.Core.Application
             TranslatedFromId = (TIdType)info.GetValue("TranslatedFromId", typeof(TIdType));
             IsDeleted = info.GetBoolean("IsDeleted");
             IsActive = info.GetBoolean("IsActive");
-            CreationTime = info.GetDateTime("CreationTime");
-            CreatorUserId = info.GetInt64("CreatorUserId");
-            LastModifierUserId = info.GetInt64("LastModifierUserId");
-            LastModificationTime = info.GetDateTime("LastModificationTime");
             DeletionTime = info.GetDateTime("DeletionTime");
             DeleterUserId = info.GetInt64("DeleterUserId");
         }
@@ -179,10 +139,6 @@ namespace DeploySoftware.LaunchPad.Core.Application
             info.AddValue("DescriptionFull", DescriptionFull);
             info.AddValue("DescriptionShort", DescriptionShort);
             info.AddValue("TranslatedFromId", TranslatedFromId);
-            info.AddValue("CreationTime", CreationTime);
-            info.AddValue("CreatorUserId", CreatorUserId);
-            info.AddValue("LastModifierUserId", LastModifierUserId);
-            info.AddValue("LastModificationTime", LastModificationTime);
             info.AddValue("DeleterUserId", DeleterUserId);
             info.AddValue("DeletionTime", DeletionTime);
             info.AddValue("IsDeleted", IsDeleted);

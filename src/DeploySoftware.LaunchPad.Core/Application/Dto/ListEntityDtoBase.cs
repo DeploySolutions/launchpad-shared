@@ -15,12 +15,10 @@
 //limitations under the License. 
 #endregion
 
-using Abp.Application.Services.Dto;
 using Abp.Domain.Entities;
 using Abp.Domain.Entities.Auditing;
 using System;
 using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Runtime.Serialization;
 using System.Security.Permissions;
@@ -31,25 +29,15 @@ using System.Xml.Serialization;
 namespace DeploySoftware.LaunchPad.Core.Application
 {
     /// <summary>
-    /// Represents the base properties a LaunchPad Data Transfer Object would possess in order to create an entity
-    /// It does not include properties that are likely to be set on creating by ABP, such as Creator information, or 
-    /// ABP properties that are not likely to be set, such as Deletion or Last Modified information.
-    /// Of course subclassing DTOs may contain additional properties.
+    /// Represents the base properties a LaunchPad Data Transfer Object would show in a list.
+    /// Of course subclassing DTOs will contain additional properties.
     /// </summary>
     /// <typeparam name="TIdType">The type of the Id</typeparam>
-    public abstract partial class CreateEntityDtoBase<TIdType> : MinimalEntityDtoBase<TIdType>,
-        IComparable<CreateEntityDtoBase<TIdType>>, IEquatable<CreateEntityDtoBase<TIdType>>
+    public abstract partial class ListEntityDtoBase<TIdType> : MinimalEntityDtoBase<TIdType>,
+        IHasCreationTime, ICreationAudited, IHasModificationTime, IModificationAudited, IPassivable,
+        IComparable<ListEntityDtoBase<TIdType>>, IEquatable<ListEntityDtoBase<TIdType>>
     {
-        public static readonly long? DEFAULT_CREATOR_USER_ID = 1;
-
-
-        /// <summary>
-        /// A full description of this item.
-        /// </summary>
-        [DataObjectField(false)]
-        [XmlAttribute]
-        public virtual String DescriptionFull { get; set; }
-
+   
         /// <summary>
         /// If this object is not a translation this field will be null. 
         /// If this object is a translation, this id references the parent object.
@@ -58,28 +46,33 @@ namespace DeploySoftware.LaunchPad.Core.Application
         [XmlAttribute]
         public virtual TIdType TranslatedFromId { get; set; }
 
+    
+
+        [DataObjectField(false)]
+        [XmlAttribute]
+        public virtual bool IsActive { get; set; }
 
         #region "Constructors"
 
         /// <summary>
         /// Default constructor
         /// </summary>
-        protected CreateEntityDtoBase() : base()
+        protected ListEntityDtoBase() : base()
         {
+            IsActive = true;
         }
 
         /// <summary>
-        /// Default constructor where the id is known
-        /// <param name="id">The id of the  entity being created</param>
+        /// Default constructor where the tenant id is known
         /// </summary>
-        public CreateEntityDtoBase(TIdType id) : base(id)
+        public ListEntityDtoBase(TIdType id) : base(id)
         {
-
+            IsActive = true;
         }
 
-        public CreateEntityDtoBase( TIdType id, string culture) : base( id,culture)
+        public ListEntityDtoBase( TIdType id, string culture) : base( id,culture)
         {
-
+            IsActive = true;
         }
 
         /// <summary>
@@ -87,11 +80,12 @@ namespace DeploySoftware.LaunchPad.Core.Application
         /// </summary>
         /// <param name="info">The serialization info</param>
         /// <param name="context">The context of the stream</param>
-        protected CreateEntityDtoBase(SerializationInfo info, StreamingContext context) : base(info, context)
+        protected ListEntityDtoBase(SerializationInfo info, StreamingContext context) : base(info, context)
         {
 
-            DescriptionFull = info.GetString("DescriptionFull");
             TranslatedFromId = (TIdType)info.GetValue("TranslatedFromId", typeof(TIdType));
+            IsActive = info.GetBoolean("IsActive");
+
         }
 
 
@@ -109,9 +103,9 @@ namespace DeploySoftware.LaunchPad.Core.Application
             info.AddValue("Id", Id);
             info.AddValue("Culture", Culture);
             info.AddValue("DisplayName", Name);
-            info.AddValue("DescriptionFull", DescriptionFull);
             info.AddValue("DescriptionShort", DescriptionShort);
             info.AddValue("TranslatedFromId", TranslatedFromId);
+            info.AddValue("IsActive", IsActive);
         }
 
         /// <summary>  
@@ -121,7 +115,7 @@ namespace DeploySoftware.LaunchPad.Core.Application
         public override string ToString()
         {
             StringBuilder sb = new StringBuilder();
-            sb.Append("[CreateEntityDtoBase : ");
+            sb.Append("[ListEntityDtoBase : ");
             sb.Append(ToStringBaseProperties());
             sb.Append("]");
             return sb.ToString();
@@ -138,10 +132,9 @@ namespace DeploySoftware.LaunchPad.Core.Application
             sb.Append(base.ToStringBaseProperties());
             // LaunchPAD RAD properties
             //
-            // ABP properties        
+            // ABP properties
             return sb.ToString();
         }
-
 
         /// <summary>
         /// Comparison method between two objects of the same type, used for sorting.
@@ -150,10 +143,10 @@ namespace DeploySoftware.LaunchPad.Core.Application
         /// </summary>
         /// <param name="other">The other object of this type we are comparing to</param>
         /// <returns></returns>
-        public virtual int CompareTo(CreateEntityDtoBase<TIdType> other)
+        public virtual int CompareTo(ListEntityDtoBase<TIdType> other)
         {
             // put comparison of properties in here 
-            // for base object we'll just sort by name and description short
+            // for base object we'll just sort by title
             return Name.CompareTo(other.Name);
         }
 
@@ -166,14 +159,14 @@ namespace DeploySoftware.LaunchPad.Core.Application
         /// </summary>
         /// <param name="obj">The other object of this type that we are testing equality with</param>
         /// <returns></returns>
-        public virtual bool Equals(CreateEntityDtoBase<TIdType> obj)
+        public virtual bool Equals(ListEntityDtoBase<TIdType> obj)
         {
             if (obj != null)
             {
                 // For safe equality we need to match on business key equality.
                 // Base domain entities are functionally equal if their key and metadata are equal.
                 // Subclasses should extend to include their own enhanced equality checks, as required.
-                return Id.Equals(obj.Id) && Culture.Equals(obj.Culture);
+                return Id.Equals(obj.Id) && Culture.Equals(obj.Culture) && IsActive.Equals(obj.IsActive);
             }
             return false;
         }
