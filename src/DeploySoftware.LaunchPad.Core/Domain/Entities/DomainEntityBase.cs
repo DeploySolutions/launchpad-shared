@@ -112,6 +112,8 @@ namespace DeploySoftware.LaunchPad.Core.Domain
             IsDeleted = false;
             IsActive = true; 
             Name = String.Empty;
+            DescriptionShort = String.Empty;
+            DescriptionFull = String.Empty;
 
         }
 
@@ -129,6 +131,8 @@ namespace DeploySoftware.LaunchPad.Core.Domain
             IsActive = true;
             Tags = new List<MetadataTag>();
             Name = String.Empty;
+            DescriptionShort = String.Empty;
+            DescriptionFull = String.Empty;
         }
 
         /// <summary>
@@ -144,6 +148,8 @@ namespace DeploySoftware.LaunchPad.Core.Domain
             IsActive = true;
             Tags = new List<MetadataTag>();
             Name = String.Empty;
+            DescriptionShort = String.Empty;
+            DescriptionFull = String.Empty;
         }
 
 

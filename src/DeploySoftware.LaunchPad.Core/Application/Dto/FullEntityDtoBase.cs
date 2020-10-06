@@ -123,6 +123,7 @@ namespace DeploySoftware.LaunchPad.Core.Application
             CreatorUserId = DEFAULT_CREATOR_USER_ID;
             IsDeleted = false;
             IsActive = true;
+            DescriptionFull = String.Empty;
         }
 
         /// <summary>
@@ -133,6 +134,7 @@ namespace DeploySoftware.LaunchPad.Core.Application
             CreatorUserId = DEFAULT_CREATOR_USER_ID;
             IsDeleted = false;
             IsActive = true;
+            DescriptionFull = String.Empty;
         }
 
         public FullEntityDtoBase( TIdType id, string culture) : base( id,culture)
@@ -140,6 +142,7 @@ namespace DeploySoftware.LaunchPad.Core.Application
             CreatorUserId = DEFAULT_CREATOR_USER_ID; 
             IsDeleted = false;
             IsActive = true;
+            DescriptionFull = String.Empty;
         }
 
         /// <summary>

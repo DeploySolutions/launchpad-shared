@@ -70,6 +70,7 @@ namespace DeploySoftware.LaunchPad.Core.Application
         {
             Culture = ApplicationInformation<TIdType>.DEFAULT_CULTURE;
             Name = String.Empty;
+            DescriptionShort = String.Empty;
         }
 
         /// <summary>
@@ -81,6 +82,7 @@ namespace DeploySoftware.LaunchPad.Core.Application
             Id = id;
             Culture = ApplicationInformation<TIdType>.DEFAULT_CULTURE;
             Name = String.Empty;
+            DescriptionShort = String.Empty;
         }
 
         public MinimalEntityDtoBase( TIdType id, String culture) : base()
@@ -88,6 +90,7 @@ namespace DeploySoftware.LaunchPad.Core.Application
             Id = id;
             Culture = culture;
             Name = String.Empty;
+            DescriptionShort = String.Empty;
         }
      
         /// <summary>
