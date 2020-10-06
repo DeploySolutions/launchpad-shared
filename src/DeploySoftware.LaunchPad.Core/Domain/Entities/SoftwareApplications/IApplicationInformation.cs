@@ -36,6 +36,16 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         /// </summary>
         [DataObjectField(false)]
         [XmlAttribute]
+        String ApplicationKey
+        {
+            get; set;
+        }
+
+        /// <summary>
+        /// The default culture of this application
+        /// </summary>
+        [DataObjectField(false)]
+        [XmlAttribute]
         String CultureDefault
         {
             get; set;

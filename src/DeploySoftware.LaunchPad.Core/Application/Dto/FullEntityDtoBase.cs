@@ -34,10 +34,44 @@ namespace DeploySoftware.LaunchPad.Core.Application
     /// </summary>
     /// <typeparam name="TIdType">The type of the Id</typeparam>
     public abstract partial class FullEntityDtoBase<TIdType> : MinimalEntityDtoBase<TIdType>,
+        IHasCreationTime, ICreationAudited, IHasModificationTime, IModificationAudited,
         IDeletionAudited, ISoftDelete, IPassivable,
         IComparable<MinimalEntityDtoBase<TIdType>>, IEquatable<MinimalEntityDtoBase<TIdType>>
     {
-      
+        public static readonly long? DEFAULT_CREATOR_USER_ID = 1;
+
+
+        /// <summary>
+        /// The date and time that this object was created.
+        /// </summary>
+        [DataObjectField(false)]
+        [XmlAttribute]
+        public virtual DateTime CreationTime { get; set; }
+
+        /// <summary>
+        /// The id of the User Agent which created this entity
+        /// </summary>
+        [DataObjectField(false)]
+        [XmlAttribute]
+        [ForeignKey(nameof(CreatorUserId))]
+        public virtual long? CreatorUserId { get; set; }
+
+        /// <summary>
+        /// The date and time that the location and/or properties of this object were last modified.
+        /// </summary>
+        [DataObjectField(false)]
+        [XmlAttribute]
+        public virtual DateTime? LastModificationTime { get; set; }
+
+        /// <summary>
+        /// The id of the User Agent which last modified this object.
+        /// </summary>
+        [DataObjectField(false)]
+        [XmlAttribute]
+        [ForeignKey(nameof(LastModifierUserId))]
+        public virtual Int64? LastModifierUserId { get; set; }
+
+
         /// <summary>
         /// A full description of this item.
         /// </summary>
@@ -86,6 +120,7 @@ namespace DeploySoftware.LaunchPad.Core.Application
         /// </summary>
         protected FullEntityDtoBase() : base()
         {
+            CreatorUserId = DEFAULT_CREATOR_USER_ID;
             IsDeleted = false;
             IsActive = true;
         }
@@ -95,12 +130,14 @@ namespace DeploySoftware.LaunchPad.Core.Application
         /// </summary>
         public FullEntityDtoBase(TIdType id) : base(id)
         {
+            CreatorUserId = DEFAULT_CREATOR_USER_ID;
             IsDeleted = false;
             IsActive = true;
         }
 
         public FullEntityDtoBase( TIdType id, string culture) : base( id,culture)
         {
+            CreatorUserId = DEFAULT_CREATOR_USER_ID; 
             IsDeleted = false;
             IsActive = true;
         }
@@ -112,7 +149,10 @@ namespace DeploySoftware.LaunchPad.Core.Application
         /// <param name="context">The context of the stream</param>
         protected FullEntityDtoBase(SerializationInfo info, StreamingContext context) : base(info, context)
         {
-
+            CreationTime = info.GetDateTime("CreationTime");
+            CreatorUserId = info.GetInt64("CreatorUserId");
+            LastModifierUserId = info.GetInt64("LastModifierUserId");
+            LastModificationTime = info.GetDateTime("LastModificationTime");
             DescriptionFull = info.GetString("DescriptionFull");
             TranslatedFromId = (TIdType)info.GetValue("TranslatedFromId", typeof(TIdType));
             IsDeleted = info.GetBoolean("IsDeleted");
@@ -135,7 +175,11 @@ namespace DeploySoftware.LaunchPad.Core.Application
         {
             info.AddValue("Id", Id);
             info.AddValue("Culture", Culture);
-            info.AddValue("DisplayName", Name);
+            info.AddValue("Name", Name);
+            info.AddValue("CreationTime", CreationTime);
+            info.AddValue("CreatorUserId", CreatorUserId);
+            info.AddValue("LastModifierUserId", LastModifierUserId);
+            info.AddValue("LastModificationTime", LastModificationTime); 
             info.AddValue("DescriptionFull", DescriptionFull);
             info.AddValue("DescriptionShort", DescriptionShort);
             info.AddValue("TranslatedFromId", TranslatedFromId);
@@ -169,10 +213,18 @@ namespace DeploySoftware.LaunchPad.Core.Application
             sb.Append(base.ToStringBaseProperties());
             // LaunchPAD RAD properties
             //
+            sb.AppendFormat("DescriptionFull={0};", DescriptionFull);
+            sb.AppendFormat("TranslatedFromId={0};", TranslatedFromId);
             // ABP properties
+            //
+            sb.AppendFormat("CreationTime={0};", CreationTime);
+            sb.AppendFormat("CreatorUserId={0};", CreatorUserId);
+            sb.AppendFormat("LastModifierUserId={0};", LastModifierUserId);
+            sb.AppendFormat("LastModificationTime={0};", LastModificationTime);
             sb.AppendFormat("IsDeleted={0};", IsDeleted); 
             sb.AppendFormat("DeleterUserId={0};", DeleterUserId);
             sb.AppendFormat("DeletionTime={0};", DeletionTime);
+            sb.AppendFormat("IsActive={0};", IsActive);
             return sb.ToString();
         }
 
@@ -193,7 +245,10 @@ namespace DeploySoftware.LaunchPad.Core.Application
                 // Base domain entities are functionally equal if their key and metadata are equal.
                 // Subclasses should extend to include their own enhanced equality checks, as required.
                 return Id.Equals(obj.Id) && Culture.Equals(obj.Culture) && IsActive.Equals(obj.IsActive)
-                    && IsDeleted.Equals(obj.IsDeleted);
+                    && IsDeleted.Equals(obj.IsDeleted)
+                    && CreationTime.Equals(obj.CreationTime)
+                    && LastModificationTime.Equals(obj.LastModificationTime)
+                    ;
             }
             return false;
         }
@@ -207,7 +262,11 @@ namespace DeploySoftware.LaunchPad.Core.Application
         /// <returns>A hash code for an object.</returns>
         public override int GetHashCode()
         {
-            return Id.GetHashCode() + Culture.GetHashCode() + Name.GetHashCode() + DescriptionShort.GetHashCode();
+            return Id.GetHashCode() 
+                + Culture.GetHashCode() 
+                + Name.GetHashCode() 
+                + DescriptionShort.GetHashCode() 
+                + CreationTime.GetHashCode();
         }
     }
 }

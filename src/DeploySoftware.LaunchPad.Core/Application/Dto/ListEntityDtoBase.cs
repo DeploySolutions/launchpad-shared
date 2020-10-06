@@ -34,19 +34,9 @@ namespace DeploySoftware.LaunchPad.Core.Application
     /// </summary>
     /// <typeparam name="TIdType">The type of the Id</typeparam>
     public abstract partial class ListEntityDtoBase<TIdType> : MinimalEntityDtoBase<TIdType>,
-        IHasCreationTime, ICreationAudited, IHasModificationTime, IModificationAudited, IPassivable,
+        IPassivable,
         IComparable<ListEntityDtoBase<TIdType>>, IEquatable<ListEntityDtoBase<TIdType>>
     {
-   
-        /// <summary>
-        /// If this object is not a translation this field will be null. 
-        /// If this object is a translation, this id references the parent object.
-        /// </summary>
-        [DataObjectField(true)]
-        [XmlAttribute]
-        public virtual TIdType TranslatedFromId { get; set; }
-
-    
 
         [DataObjectField(false)]
         [XmlAttribute]
@@ -82,10 +72,7 @@ namespace DeploySoftware.LaunchPad.Core.Application
         /// <param name="context">The context of the stream</param>
         protected ListEntityDtoBase(SerializationInfo info, StreamingContext context) : base(info, context)
         {
-
-            TranslatedFromId = (TIdType)info.GetValue("TranslatedFromId", typeof(TIdType));
             IsActive = info.GetBoolean("IsActive");
-
         }
 
 
@@ -104,7 +91,6 @@ namespace DeploySoftware.LaunchPad.Core.Application
             info.AddValue("Culture", Culture);
             info.AddValue("DisplayName", Name);
             info.AddValue("DescriptionShort", DescriptionShort);
-            info.AddValue("TranslatedFromId", TranslatedFromId);
             info.AddValue("IsActive", IsActive);
         }
 

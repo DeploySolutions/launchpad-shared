@@ -35,12 +35,9 @@ namespace DeploySoftware.LaunchPad.Core.Application
     /// </summary>
     /// <typeparam name="TIdType">The type of the Id</typeparam>
     public abstract partial class MinimalEntityDtoBase<TIdType> : EntityDtoBase<TIdType>,
-        IHasCreationTime, ICreationAudited, IHasModificationTime, IModificationAudited,
         IComparable<MinimalEntityDtoBase<TIdType>>, IEquatable<MinimalEntityDtoBase<TIdType>>
     {
-        public static readonly long? DEFAULT_CREATOR_USER_ID = 1;
-
-
+       
         /// <summary>
         /// The culture of this object
         /// </summary>
@@ -64,36 +61,6 @@ namespace DeploySoftware.LaunchPad.Core.Application
         [XmlAttribute]
         public virtual String DescriptionShort { get; set; }
 
-        /// <summary>
-        /// The date and time that this object was created.
-        /// </summary>
-        [DataObjectField(false)]
-        [XmlAttribute]
-        public virtual DateTime CreationTime { get; set; }
-
-        /// <summary>
-        /// The id of the User Agent which created this entity
-        /// </summary>
-        [DataObjectField(false)]
-        [XmlAttribute]
-        [ForeignKey(nameof(CreatorUserId))]
-        public virtual long? CreatorUserId { get; set; }
-
-        /// <summary>
-        /// The date and time that the location and/or properties of this object were last modified.
-        /// </summary>
-        [DataObjectField(false)]
-        [XmlAttribute]
-        public virtual DateTime? LastModificationTime { get; set; }
-
-        /// <summary>
-        /// The id of the User Agent which last modified this object.
-        /// </summary>
-        [DataObjectField(false)]
-        [XmlAttribute]
-        [ForeignKey(nameof(LastModifierUserId))]
-        public virtual Int64? LastModifierUserId { get; set; }
-
         #region "Constructors"
 
         /// <summary>
@@ -102,8 +69,6 @@ namespace DeploySoftware.LaunchPad.Core.Application
         protected MinimalEntityDtoBase() : base()
         {
             Culture = ApplicationInformation<TIdType>.DEFAULT_CULTURE;
-            CreatorUserId = DEFAULT_CREATOR_USER_ID; // TODO - default user account?
-
             Name = String.Empty;
         }
 
@@ -115,7 +80,6 @@ namespace DeploySoftware.LaunchPad.Core.Application
         {
             Id = id;
             Culture = ApplicationInformation<TIdType>.DEFAULT_CULTURE;
-            CreatorUserId = DEFAULT_CREATOR_USER_ID; // TODO - default user account?
             Name = String.Empty;
         }
 
@@ -123,7 +87,6 @@ namespace DeploySoftware.LaunchPad.Core.Application
         {
             Id = id;
             Culture = culture;
-            CreatorUserId = DEFAULT_CREATOR_USER_ID; // TODO - default user account?
             Name = String.Empty;
         }
      
@@ -137,10 +100,6 @@ namespace DeploySoftware.LaunchPad.Core.Application
             Id = (TIdType)info.GetValue("Id", typeof(TIdType));
             Culture = info.GetString("Culture");
             Name = info.GetString("DisplayName");
-            CreationTime = info.GetDateTime("CreationTime");
-            CreatorUserId = info.GetInt64("CreatorUserId");
-            LastModifierUserId = info.GetInt64("LastModifierUserId");
-            LastModificationTime = info.GetDateTime("LastModificationTime");
             DescriptionShort = info.GetString("DescriptionShort");
         }
 
@@ -157,10 +116,6 @@ namespace DeploySoftware.LaunchPad.Core.Application
             info.AddValue("Id", Id);
             info.AddValue("Culture", Culture);
             info.AddValue("DisplayName", Name);
-            info.AddValue("CreationTime", CreationTime);
-            info.AddValue("CreatorUserId", CreatorUserId);
-            info.AddValue("LastModifierUserId", LastModifierUserId);
-            info.AddValue("LastModificationTime", LastModificationTime);
             info.AddValue("DescriptionShort", DescriptionShort);
         }
 
@@ -188,10 +143,6 @@ namespace DeploySoftware.LaunchPad.Core.Application
             // LaunchPAD RAD properties
             sb.AppendFormat("Id={0};", Id);
             sb.AppendFormat("Culture={0};", Culture); 
-            sb.AppendFormat("CreationTime={0};", CreationTime);
-            sb.AppendFormat("CreatorUserId={0};", CreatorUserId);
-            sb.AppendFormat("LastModifierUserId={0};", LastModifierUserId);
-            sb.AppendFormat("LastModificationTime={0};", LastModificationTime);
             sb.AppendFormat("Name={0};", Name);
             sb.AppendFormat("DescriptionShort={0};", DescriptionShort);
             // ABP Properties
@@ -263,7 +214,7 @@ namespace DeploySoftware.LaunchPad.Core.Application
                 // For safe equality we need to match on business key equality.
                 // Base domain entities are functionally equal if their key and metadata are equal.
                 // Subclasses should extend to include their own enhanced equality checks, as required.
-                return Id.Equals(obj.Id) && Culture.Equals(obj.Culture) && CreationTime.Equals(obj.CreationTime);
+                return Id.Equals(obj.Id) && Culture.Equals(obj.Culture);
             }
             return false;
         }
