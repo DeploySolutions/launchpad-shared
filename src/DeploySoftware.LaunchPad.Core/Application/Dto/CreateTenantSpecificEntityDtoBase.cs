@@ -46,7 +46,7 @@ namespace DeploySoftware.LaunchPad.Core.Application
         [XmlAttribute]
         [Required]
         [ForeignKey(nameof(TenantId))]
-        public int TenantId { get; set; }
+        public new int TenantId { get; set; }
 
         #region "Constructors"
 
@@ -62,12 +62,12 @@ namespace DeploySoftware.LaunchPad.Core.Application
         /// Default constructor where the id is known
         /// <param name="id">The id of the  entity being created</param>
         /// </summary>
-        public CreateTenantSpecificEntityDtoBase(int tenantId, TIdType id) : base(id)
+        public CreateTenantSpecificEntityDtoBase(int tenantId, TIdType id) : base(tenantId, id)
         {
             TenantId = tenantId;
         }
 
-        public CreateTenantSpecificEntityDtoBase(int tenantId, TIdType id, string culture) : base( id,culture)
+        public CreateTenantSpecificEntityDtoBase(int tenantId, TIdType id, string culture) : base(tenantId, id,culture)
         {
             TenantId = tenantId;
             Id = id;

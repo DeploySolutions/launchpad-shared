@@ -16,9 +16,11 @@
 #endregion
 
 using System;
+using System.ComponentModel;
 using System.Runtime.Serialization;
 using System.Security.Permissions;
 using System.Text;
+using System.Xml.Serialization;
 
 namespace DeploySoftware.LaunchPad.Core.Application
 {
@@ -31,7 +33,8 @@ namespace DeploySoftware.LaunchPad.Core.Application
     public abstract partial class EditEntityDtoBase<TIdType> : CreateEntityDtoBase<TIdType>,
         IComparable<EditEntityDtoBase<TIdType>>, IEquatable<EditEntityDtoBase<TIdType>>
     {
-       
+
+
         #region "Constructors"
 
         /// <summary>
@@ -39,19 +42,18 @@ namespace DeploySoftware.LaunchPad.Core.Application
         /// </summary>
         protected EditEntityDtoBase() : base()
         {
+
         }
 
         /// <summary>
         /// Default constructor where the tenant id is known
         /// </summary>
-        public EditEntityDtoBase(TIdType id) : base(id)
+        public EditEntityDtoBase(int? tenantId, TIdType id) : base(tenantId, id)
         {
-
         }
 
-        public EditEntityDtoBase( TIdType id, string culture) : base( id,culture)
+        public EditEntityDtoBase(int? tenantId, TIdType id, string culture) : base(tenantId, id,culture)
         {
-
         }
 
         /// <summary>
@@ -62,8 +64,6 @@ namespace DeploySoftware.LaunchPad.Core.Application
         protected EditEntityDtoBase(SerializationInfo info, StreamingContext context) : base(info, context)
         {
 
-            DescriptionFull = info.GetString("DescriptionFull");
-            TranslatedFromId = (TIdType)info.GetValue("TranslatedFromId", typeof(TIdType));
         }
 
 
@@ -78,12 +78,7 @@ namespace DeploySoftware.LaunchPad.Core.Application
         [SecurityPermission(SecurityAction.Demand, SerializationFormatter = true)]
         public override void GetObjectData(SerializationInfo info, StreamingContext context)
         {
-            info.AddValue("Id", Id);
-            info.AddValue("Culture", Culture);
-            info.AddValue("DisplayName", Name);
-            info.AddValue("DescriptionFull", DescriptionFull);
-            info.AddValue("DescriptionShort", DescriptionShort);
-            info.AddValue("TranslatedFromId", TranslatedFromId);
+            base.GetObjectData(info, context);
         }
 
         /// <summary>  
@@ -147,7 +142,14 @@ namespace DeploySoftware.LaunchPad.Core.Application
                 // For safe equality we need to match on business key equality.
                 // Base domain entities are functionally equal if their key and metadata are equal.
                 // Subclasses should extend to include their own enhanced equality checks, as required.
-                return Id.Equals(obj.Id) && Culture.Equals(obj.Culture);
+                if (TenantId != null)
+                {
+                    return Id.Equals(obj.Id) && Culture.Equals(obj.Culture) && TenantId.Equals(obj.TenantId);
+                }
+                else
+                {
+                    return Id.Equals(obj.Id) && Culture.Equals(obj.Culture);
+                }
             }
             return false;
         }

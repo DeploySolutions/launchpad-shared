@@ -15,6 +15,7 @@
 //limitations under the License. 
 #endregion
 
+using Abp.Domain.Entities;
 using Abp.Domain.Entities.Auditing;
 using DeploySoftware.LaunchPad.Core.Domain;
 using System;
@@ -35,6 +36,7 @@ namespace DeploySoftware.LaunchPad.Core.Application
     /// </summary>
     /// <typeparam name="TIdType">The type of the Id</typeparam>
     public abstract partial class MinimalEntityDtoBase<TIdType> : EntityDtoBase<TIdType>,
+        IMayHaveTenant,
         IComparable<MinimalEntityDtoBase<TIdType>>, IEquatable<MinimalEntityDtoBase<TIdType>>
     {
        
@@ -45,6 +47,7 @@ namespace DeploySoftware.LaunchPad.Core.Application
         [XmlAttribute]
         public virtual String Culture { get; set; }
 
+        public virtual int? TenantId { get; set; }
 
         /// <summary>
         /// The display name that can be displayed as a label externally to users when referring to this object
@@ -77,16 +80,19 @@ namespace DeploySoftware.LaunchPad.Core.Application
         /// Default constructor where the id is known
         /// </summary>
         /// <param name="id"></param>
-        public MinimalEntityDtoBase(TIdType id) : base()
+        public MinimalEntityDtoBase(int? tenantId, TIdType id) : base()
         {
+            
+            TenantId = tenantId;
             Id = id;
             Culture = ApplicationInformation<TIdType>.DEFAULT_CULTURE;
             Name = String.Empty;
             DescriptionShort = String.Empty;
         }
 
-        public MinimalEntityDtoBase( TIdType id, String culture) : base()
+        public MinimalEntityDtoBase(int? tenantId, TIdType id, String culture) : base()
         {
+            TenantId = tenantId;
             Id = id;
             Culture = culture;
             Name = String.Empty;
@@ -104,6 +110,7 @@ namespace DeploySoftware.LaunchPad.Core.Application
             Culture = info.GetString("Culture");
             Name = info.GetString("DisplayName");
             DescriptionShort = info.GetString("DescriptionShort");
+            TenantId = info.GetInt32("TenantId");
         }
 
 #endregion
@@ -116,6 +123,7 @@ namespace DeploySoftware.LaunchPad.Core.Application
         [SecurityPermission(SecurityAction.Demand, SerializationFormatter = true)]
         public override void GetObjectData(SerializationInfo info, StreamingContext context)
         {
+            info.AddValue("TenantId", TenantId);
             info.AddValue("Id", Id);
             info.AddValue("Culture", Culture);
             info.AddValue("DisplayName", Name);
@@ -149,7 +157,8 @@ namespace DeploySoftware.LaunchPad.Core.Application
             sb.AppendFormat("Name={0};", Name);
             sb.AppendFormat("DescriptionShort={0};", DescriptionShort);
             // ABP Properties
-            
+            sb.AppendFormat("TenantId={0};", TenantId);
+
             return sb.ToString();
         }
 
@@ -217,7 +226,15 @@ namespace DeploySoftware.LaunchPad.Core.Application
                 // For safe equality we need to match on business key equality.
                 // Base domain entities are functionally equal if their key and metadata are equal.
                 // Subclasses should extend to include their own enhanced equality checks, as required.
-                return Id.Equals(obj.Id) && Culture.Equals(obj.Culture);
+                if(TenantId != null)
+                {
+                    return Id.Equals(obj.Id) && Culture.Equals(obj.Culture) && TenantId.Equals(obj.TenantId);
+                }
+                else
+                {
+                    return Id.Equals(obj.Id) && Culture.Equals(obj.Culture);
+                }
+                
             }
             return false;
         }

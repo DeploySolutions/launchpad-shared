@@ -55,13 +55,15 @@ namespace DeploySoftware.LaunchPad.Core.Application
         /// <summary>
         /// Default constructor where the tenant id is known
         /// </summary>
-        public ListEntityDtoBase(TIdType id) : base(id)
+        public ListEntityDtoBase(int? tenantId, TIdType id) : base(tenantId, id)
         {
+            TenantId = tenantId;
             IsActive = true;
         }
 
-        public ListEntityDtoBase( TIdType id, string culture) : base( id,culture)
+        public ListEntityDtoBase(int? tenantId, TIdType id, string culture) : base(tenantId, id,culture)
         {
+            TenantId = tenantId; 
             IsActive = true;
         }
 
@@ -72,6 +74,7 @@ namespace DeploySoftware.LaunchPad.Core.Application
         /// <param name="context">The context of the stream</param>
         protected ListEntityDtoBase(SerializationInfo info, StreamingContext context) : base(info, context)
         {
+            TenantId = info.GetInt32("TenantId");
             IsActive = info.GetBoolean("IsActive");
         }
 

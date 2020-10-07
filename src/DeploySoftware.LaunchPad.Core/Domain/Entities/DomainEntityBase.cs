@@ -38,7 +38,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
     /// Implements AspNetBoilerplate's auditing interfaces.
     /// </summary>
     public abstract partial class DomainEntityBase<TIdType> : 
-        FullAuditedEntity<TIdType>, IDomainEntity<TIdType>//, IMayHaveTenant
+        FullAuditedEntity<TIdType>, IDomainEntity<TIdType>
         
     {
 

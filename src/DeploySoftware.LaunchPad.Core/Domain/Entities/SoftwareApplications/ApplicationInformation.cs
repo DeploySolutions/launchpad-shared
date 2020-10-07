@@ -19,6 +19,8 @@ using Abp.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Reflection;
 using System.Runtime.Serialization;
 using System.Security.Permissions;
@@ -37,6 +39,15 @@ namespace DeploySoftware.LaunchPad.Core.Domain
     {
         public const string DEFAULT_CULTURE = "en";
         public const string DEFAULT_HEX_COlOUR = "1dbff0";
+
+        /// <summary>
+        /// The id of the tenant that domain entity this belongs to (if any)
+        /// </summary>
+        [DataObjectField(false)]
+        [XmlAttribute]
+        [Required]
+        [ForeignKey(nameof(TenantId))]
+        public int? TenantId { get; set; }
 
         /// <summary>
         /// The default culture of this application
@@ -104,7 +115,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         {
             get; set;
         }
-        public int? TenantId { get; set; }
+
         #region "Constructors"
         public ApplicationInformation() : base()
         {
@@ -154,6 +165,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         /// <param name="context">The context of the stream</param>
         protected ApplicationInformation(SerializationInfo info, StreamingContext context) : base(info,context)
         {
+            TenantId = info.GetInt32("TenantId"); 
             ApplicationKey = info.GetString("ApplicationKey"); 
             CultureDefault = info.GetString("CultureDefault");
             CultureSupported = info.GetString("CultureSupported");
@@ -174,6 +186,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         public override void GetObjectData(SerializationInfo info, StreamingContext context)
         {
             base.GetObjectData(info, context);
+            info.AddValue("TenantId", TenantId);
             info.AddValue("ApplicationKey", ApplicationKey);
             info.AddValue("CultureDefault", CultureDefault);
             info.AddValue("CultureSupported", CultureSupported);
@@ -192,6 +205,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
             StringBuilder sb = new StringBuilder();
             sb.Append("[ApplicationInformation : ");
             sb.AppendFormat(ToStringBaseProperties());
+            sb.AppendFormat(" TenantId={0};", TenantId);
             sb.AppendFormat(" ApplicationKey={0};", ApplicationKey);
             sb.AppendFormat(" CultureDefault={0};", CultureDefault);
             sb.AppendFormat(" CultureSupported={0};", CultureSupported);
@@ -273,10 +287,22 @@ namespace DeploySoftware.LaunchPad.Core.Domain
                     // For safe equality we need to match on business key equality.
                     // Base domain entities are functionally equal if their key and metadata and tags are equal.
                     // Subclasses should extend to include their own enhanced equality checks, as required.
-                    return Id.Equals(obj.Id)
-                        && Culture.Equals(obj.Culture) 
+                    if (TenantId != null)
+                    {
+                        return Id.Equals(obj.Id)
+                        && Culture.Equals(obj.Culture)
                         && ApplicationKey.Equals(obj.ApplicationKey)
                         && Name.Equals(obj.Name);
+                    }
+                    else
+                    {
+                        return Id.Equals(obj.Id)
+                        && Culture.Equals(obj.Culture)
+                        && ApplicationKey.Equals(obj.ApplicationKey)
+                        && Name.Equals(obj.Name)
+                        && TenantId.Equals(obj.TenantId);
+                    }
+                    
                 }
 
             }

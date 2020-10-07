@@ -35,7 +35,7 @@ namespace DeploySoftware.LaunchPad.Core.Application
     public abstract partial class CreateEntityDtoBase<TIdType> : MinimalEntityDtoBase<TIdType>,
         IComparable<CreateEntityDtoBase<TIdType>>, IEquatable<CreateEntityDtoBase<TIdType>>
     {
-       
+
         /// <summary>
         /// A full description of this item.
         /// </summary>
@@ -51,7 +51,6 @@ namespace DeploySoftware.LaunchPad.Core.Application
         [XmlAttribute]
         public virtual TIdType TranslatedFromId { get; set; }
 
-
         #region "Constructors"
 
         /// <summary>
@@ -59,20 +58,21 @@ namespace DeploySoftware.LaunchPad.Core.Application
         /// </summary>
         protected CreateEntityDtoBase() : base()
         {
+            DescriptionFull = String.Empty;
         }
 
         /// <summary>
         /// Default constructor where the id is known
         /// <param name="id">The id of the  entity being created</param>
         /// </summary>
-        public CreateEntityDtoBase(TIdType id) : base(id)
+        public CreateEntityDtoBase(int? tenantId, TIdType id) : base(tenantId, id)
         {
-
+            DescriptionFull = String.Empty;
         }
 
-        public CreateEntityDtoBase( TIdType id, string culture) : base( id,culture)
+        public CreateEntityDtoBase(int? tenantId, TIdType id, string culture) : base(tenantId, id,culture)
         {
-
+            DescriptionFull = String.Empty;
         }
 
         /// <summary>
@@ -82,14 +82,12 @@ namespace DeploySoftware.LaunchPad.Core.Application
         /// <param name="context">The context of the stream</param>
         protected CreateEntityDtoBase(SerializationInfo info, StreamingContext context) : base(info, context)
         {
-
             DescriptionFull = info.GetString("DescriptionFull");
             TranslatedFromId = (TIdType)info.GetValue("TranslatedFromId", typeof(TIdType));
         }
 
 
         #endregion
-
 
         /// <summary>
         /// The method required for implementing ISerializable
@@ -99,11 +97,8 @@ namespace DeploySoftware.LaunchPad.Core.Application
         [SecurityPermission(SecurityAction.Demand, SerializationFormatter = true)]
         public override void GetObjectData(SerializationInfo info, StreamingContext context)
         {
-            info.AddValue("Id", Id);
-            info.AddValue("Culture", Culture);
-            info.AddValue("DisplayName", Name);
+            base.GetObjectData(info, context);
             info.AddValue("DescriptionFull", DescriptionFull);
-            info.AddValue("DescriptionShort", DescriptionShort);
             info.AddValue("TranslatedFromId", TranslatedFromId);
         }
 
@@ -163,24 +158,17 @@ namespace DeploySoftware.LaunchPad.Core.Application
         {
             if (obj != null)
             {
-                // For safe equality we need to match on business key equality.
-                // Base domain entities are functionally equal if their key and metadata are equal.
-                // Subclasses should extend to include their own enhanced equality checks, as required.
-                return Id.Equals(obj.Id) && Culture.Equals(obj.Culture);
+                if (TenantId != null)
+                {
+                    return Id.Equals(obj.Id) && Culture.Equals(obj.Culture) && TenantId.Equals(obj.TenantId);
+                }
+                else
+                {
+                    return Id.Equals(obj.Id) && Culture.Equals(obj.Culture);
+                }
             }
             return false;
         }
 
-        /// <summary>  
-        /// Computes and retrieves a hash code for an object.  
-        /// </summary>  
-        /// <remarks>  
-        /// This method implements the <see cref="Object">Object</see> method.  
-        /// </remarks>  
-        /// <returns>A hash code for an object.</returns>
-        public override int GetHashCode()
-        {
-            return Id.GetHashCode() + Culture.GetHashCode() + Name.GetHashCode() + DescriptionShort.GetHashCode();
-        }
     }
 }
