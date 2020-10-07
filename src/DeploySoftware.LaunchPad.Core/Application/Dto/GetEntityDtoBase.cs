@@ -65,36 +65,7 @@ namespace DeploySoftware.LaunchPad.Core.Application
         [XmlAttribute]
         public virtual String DescriptionShort { get; set; }
 
-        /// <summary>
-        /// The date and time that this object was created.
-        /// </summary>
-        [DataObjectField(false)]
-        [XmlAttribute]
-        public virtual DateTime CreationTime { get; set; }
-
-        /// <summary>
-        /// The id of the User Agent which created this entity
-        /// </summary>
-        [DataObjectField(false)]
-        [XmlAttribute]
-        [ForeignKey(nameof(CreatorUserId))]
-        public virtual long? CreatorUserId { get; set; }
-
-        /// <summary>
-        /// The date and time that the location and/or properties of this object were last modified.
-        /// </summary>
-        [DataObjectField(false)]
-        [XmlAttribute]
-        public virtual DateTime? LastModificationTime { get; set; }
-
-        /// <summary>
-        /// The id of the User Agent which last modified this object.
-        /// </summary>
-        [DataObjectField(false)]
-        [XmlAttribute]
-        [ForeignKey(nameof(LastModifierUserId))]
-        public virtual Int64? LastModifierUserId { get; set; }
-
+        
         #region "Constructors"
 
         /// <summary>
@@ -140,10 +111,6 @@ namespace DeploySoftware.LaunchPad.Core.Application
             Id = (TIdType)info.GetValue("Id", typeof(TIdType));
             Culture = info.GetString("Culture");
             Name = info.GetString("DisplayName");
-            CreationTime = info.GetDateTime("CreationTime");
-            CreatorUserId = info.GetInt64("CreatorUserId");
-            LastModifierUserId = info.GetInt64("LastModifierUserId");
-            LastModificationTime = info.GetDateTime("LastModificationTime");
             DescriptionShort = info.GetString("DescriptionShort");
             TenantId = info.GetInt32("TenantId");
         }
@@ -161,11 +128,7 @@ namespace DeploySoftware.LaunchPad.Core.Application
             info.AddValue("TenantId", TenantId);
             info.AddValue("Id", Id);
             info.AddValue("Culture", Culture);
-            info.AddValue("DisplayName", Name);
-            info.AddValue("CreationTime", CreationTime);
-            info.AddValue("CreatorUserId", CreatorUserId);
-            info.AddValue("LastModifierUserId", LastModifierUserId);
-            info.AddValue("LastModificationTime", LastModificationTime);
+            info.AddValue("Name", Name);
             info.AddValue("DescriptionShort", DescriptionShort);
         }
 
@@ -176,7 +139,7 @@ namespace DeploySoftware.LaunchPad.Core.Application
         public override string ToString()
         {
             StringBuilder sb = new StringBuilder();
-            sb.Append("[MinimalEntityDtoBase : ");
+            sb.Append("[GetEntityDtoBase : ");
             sb.Append(ToStringBaseProperties());
             sb.Append("]");
             return sb.ToString();
@@ -193,10 +156,6 @@ namespace DeploySoftware.LaunchPad.Core.Application
             // LaunchPAD RAD properties
             sb.AppendFormat("Id={0};", Id);
             sb.AppendFormat("Culture={0};", Culture); 
-            sb.AppendFormat("CreationTime={0};", CreationTime);
-            sb.AppendFormat("CreatorUserId={0};", CreatorUserId);
-            sb.AppendFormat("LastModifierUserId={0};", LastModifierUserId);
-            sb.AppendFormat("LastModificationTime={0};", LastModificationTime);
             sb.AppendFormat("Name={0};", Name);
             sb.AppendFormat("DescriptionShort={0};", DescriptionShort);
             // ABP Properties
@@ -279,9 +238,9 @@ namespace DeploySoftware.LaunchPad.Core.Application
         /// <returns>True if both objects are fully equal based on the Equals logic</returns>
         public static bool operator ==(GetEntityDtoBase<TIdType> x, GetEntityDtoBase<TIdType> y)
         {
-            if (System.Object.ReferenceEquals(x, null))
+            if (x is null)
             {
-                if (System.Object.ReferenceEquals(y, null))
+                if (y is null)
                 {
                     return true;
                 }

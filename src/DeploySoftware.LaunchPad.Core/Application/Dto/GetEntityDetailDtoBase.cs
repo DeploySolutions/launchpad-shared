@@ -56,8 +56,36 @@ namespace DeploySoftware.LaunchPad.Core.Application
         [XmlAttribute]
         public virtual TIdType TranslatedFromId { get; set; }
 
-    
 
+        /// <summary>
+        /// The date and time that this object was created.
+        /// </summary>
+        [DataObjectField(false)]
+        [XmlAttribute]
+        public virtual DateTime CreationTime { get; set; }
+
+        /// <summary>
+        /// The id of the User Agent which created this entity
+        /// </summary>
+        [DataObjectField(false)]
+        [XmlAttribute]
+        [ForeignKey(nameof(CreatorUserId))]
+        public virtual long? CreatorUserId { get; set; }
+
+        /// <summary>
+        /// The date and time that the location and/or properties of this object were last modified.
+        /// </summary>
+        [DataObjectField(false)]
+        [XmlAttribute]
+        public virtual DateTime? LastModificationTime { get; set; }
+
+        /// <summary>
+        /// The id of the User Agent which last modified this object.
+        /// </summary>
+        [DataObjectField(false)]
+        [XmlAttribute]
+        [ForeignKey(nameof(LastModifierUserId))]
+        public virtual Int64? LastModifierUserId { get; set; }
 
         [DataObjectField(false)]
         [XmlAttribute]
@@ -104,6 +132,10 @@ namespace DeploySoftware.LaunchPad.Core.Application
             DescriptionFull = info.GetString("DescriptionFull");
             TranslatedFromId = (TIdType)info.GetValue("TranslatedFromId", typeof(TIdType));
             IsActive = info.GetBoolean("IsActive");
+            CreationTime = info.GetDateTime("CreationTime");
+            CreatorUserId = info.GetInt64("CreatorUserId");
+            LastModifierUserId = info.GetInt64("LastModifierUserId");
+            LastModificationTime = info.GetDateTime("LastModificationTime");
         }
 
 
@@ -121,6 +153,10 @@ namespace DeploySoftware.LaunchPad.Core.Application
             base.GetObjectData(info, context);
             info.AddValue("TranslatedFromId", TranslatedFromId);
             info.AddValue("IsActive", IsActive);
+            info.AddValue("CreationTime", CreationTime);
+            info.AddValue("CreatorUserId", CreatorUserId);
+            info.AddValue("LastModifierUserId", LastModifierUserId);
+            info.AddValue("LastModificationTime", LastModificationTime);
         }
 
         /// <summary>  
@@ -150,7 +186,7 @@ namespace DeploySoftware.LaunchPad.Core.Application
             sb.AppendFormat("DescriptionFull={0};", DescriptionFull);
             sb.AppendFormat("TranslatedFromId={0};", TranslatedFromId);
             // ABP properties
-            //
+            //           
             sb.AppendFormat("CreationTime={0};", CreationTime);
             sb.AppendFormat("CreatorUserId={0};", CreatorUserId);
             sb.AppendFormat("LastModifierUserId={0};", LastModifierUserId);
@@ -235,9 +271,9 @@ namespace DeploySoftware.LaunchPad.Core.Application
         /// <returns>True if both objects are fully equal based on the Equals logic</returns>
         public static bool operator ==(GetEntityDetailDtoBase<TIdType> x, GetEntityDetailDtoBase<TIdType> y)
         {
-            if (System.Object.ReferenceEquals(x, null))
+            if (x is null)
             {
-                if (System.Object.ReferenceEquals(y, null))
+                if (y is null)
                 {
                     return true;
                 }

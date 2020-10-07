@@ -119,9 +119,9 @@ namespace DeploySoftware.LaunchPad.Core.Application
         /// <returns>True if both objects are fully equal based on the Equals logic</returns>
         public static bool operator ==(DeleteEntityDtoBase<TIdType> x, DeleteEntityDtoBase<TIdType> y)
         {
-            if (System.Object.ReferenceEquals(x, null))
+            if (x is null)
             {
-                if (System.Object.ReferenceEquals(y, null))
+                if (y is null)
                 {
                     return true;
                 }
