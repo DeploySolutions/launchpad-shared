@@ -36,7 +36,6 @@ namespace DeploySoftware.LaunchPad.Core.Application
         IComparable<CreateEntityDtoBase<TIdType>>, IEquatable<CreateEntityDtoBase<TIdType>>
     {
 
-        
 
         #region "Constructors"
 

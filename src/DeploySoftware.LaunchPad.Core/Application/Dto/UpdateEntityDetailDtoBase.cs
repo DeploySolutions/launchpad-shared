@@ -16,11 +16,10 @@
 #endregion
 
 using System;
-using System.ComponentModel;
+
 using System.Runtime.Serialization;
 using System.Security.Permissions;
 using System.Text;
-using System.Xml.Serialization;
 
 namespace DeploySoftware.LaunchPad.Core.Application
 {

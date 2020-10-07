@@ -16,7 +16,7 @@
 #endregion
 
 using Abp.Domain.Entities;
-using Abp.Domain.Entities.Auditing;
+
 using DeploySoftware.LaunchPad.Core.Domain;
 using System;
 using System.ComponentModel;
@@ -35,11 +35,12 @@ namespace DeploySoftware.LaunchPad.Core.Application
     /// Of course subclassing DTOs will contain additional properties.
     /// </summary>
     /// <typeparam name="TIdType">The type of the Id</typeparam>
+
     public abstract partial class GetEntityDtoBase<TIdType> : EntityDtoBase<TIdType>,
         IMustHaveTenant,
         IComparable<GetEntityDtoBase<TIdType>>, IEquatable<GetEntityDtoBase<TIdType>>
     {
-       
+      
         /// <summary>
         /// The culture of this object
         /// </summary>
@@ -63,6 +64,36 @@ namespace DeploySoftware.LaunchPad.Core.Application
         [DataObjectField(false)]
         [XmlAttribute]
         public virtual String DescriptionShort { get; set; }
+
+        /// <summary>
+        /// The date and time that this object was created.
+        /// </summary>
+        [DataObjectField(false)]
+        [XmlAttribute]
+        public virtual DateTime CreationTime { get; set; }
+
+        /// <summary>
+        /// The id of the User Agent which created this entity
+        /// </summary>
+        [DataObjectField(false)]
+        [XmlAttribute]
+        [ForeignKey(nameof(CreatorUserId))]
+        public virtual long? CreatorUserId { get; set; }
+
+        /// <summary>
+        /// The date and time that the location and/or properties of this object were last modified.
+        /// </summary>
+        [DataObjectField(false)]
+        [XmlAttribute]
+        public virtual DateTime? LastModificationTime { get; set; }
+
+        /// <summary>
+        /// The id of the User Agent which last modified this object.
+        /// </summary>
+        [DataObjectField(false)]
+        [XmlAttribute]
+        [ForeignKey(nameof(LastModifierUserId))]
+        public virtual Int64? LastModifierUserId { get; set; }
 
         #region "Constructors"
 
@@ -109,6 +140,10 @@ namespace DeploySoftware.LaunchPad.Core.Application
             Id = (TIdType)info.GetValue("Id", typeof(TIdType));
             Culture = info.GetString("Culture");
             Name = info.GetString("DisplayName");
+            CreationTime = info.GetDateTime("CreationTime");
+            CreatorUserId = info.GetInt64("CreatorUserId");
+            LastModifierUserId = info.GetInt64("LastModifierUserId");
+            LastModificationTime = info.GetDateTime("LastModificationTime");
             DescriptionShort = info.GetString("DescriptionShort");
             TenantId = info.GetInt32("TenantId");
         }
@@ -127,6 +162,10 @@ namespace DeploySoftware.LaunchPad.Core.Application
             info.AddValue("Id", Id);
             info.AddValue("Culture", Culture);
             info.AddValue("DisplayName", Name);
+            info.AddValue("CreationTime", CreationTime);
+            info.AddValue("CreatorUserId", CreatorUserId);
+            info.AddValue("LastModifierUserId", LastModifierUserId);
+            info.AddValue("LastModificationTime", LastModificationTime);
             info.AddValue("DescriptionShort", DescriptionShort);
         }
 
@@ -154,6 +193,10 @@ namespace DeploySoftware.LaunchPad.Core.Application
             // LaunchPAD RAD properties
             sb.AppendFormat("Id={0};", Id);
             sb.AppendFormat("Culture={0};", Culture); 
+            sb.AppendFormat("CreationTime={0};", CreationTime);
+            sb.AppendFormat("CreatorUserId={0};", CreatorUserId);
+            sb.AppendFormat("LastModifierUserId={0};", LastModifierUserId);
+            sb.AppendFormat("LastModificationTime={0};", LastModificationTime);
             sb.AppendFormat("Name={0};", Name);
             sb.AppendFormat("DescriptionShort={0};", DescriptionShort);
             // ABP Properties
@@ -224,7 +267,6 @@ namespace DeploySoftware.LaunchPad.Core.Application
             if (obj != null)
             {
                 return Id.Equals(obj.Id) && Culture.Equals(obj.Culture) && TenantId.Equals(obj.TenantId);
-
             }
             return false;
         }

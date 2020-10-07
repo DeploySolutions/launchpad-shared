@@ -34,11 +34,12 @@ namespace DeploySoftware.LaunchPad.Core.Application
     /// Of course subclassing DTOs will contain additional properties.
     /// </summary>
     /// <typeparam name="TIdType">The type of the Id</typeparam>
+
     public abstract partial class GetEntityFullDtoBase<TIdType> : GetEntityDetailDtoBase<TIdType>,
         IDeletionAudited, ISoftDelete,
         IComparable<GetEntityFullDtoBase<TIdType>>, IEquatable<GetEntityFullDtoBase<TIdType>>
     {
-        
+     
         /// <summary>
         /// The date and time that this object was deleted.
         /// </summary>
@@ -66,7 +67,7 @@ namespace DeploySoftware.LaunchPad.Core.Application
         /// </summary>
         protected GetEntityFullDtoBase() : base()
         {
-            CreatorUserId = DEFAULT_CREATOR_USER_ID;
+
             IsDeleted = false;
             IsActive = true;
 
@@ -77,14 +78,12 @@ namespace DeploySoftware.LaunchPad.Core.Application
         /// </summary>
         public GetEntityFullDtoBase(int tenantId, TIdType id) : base(tenantId, id)
         {
-            CreatorUserId = DEFAULT_CREATOR_USER_ID;
             IsDeleted = false;
             IsActive = true;
         }
 
         public GetEntityFullDtoBase(int tenantId, TIdType id, string culture) : base(tenantId, id,culture)
         {
-            CreatorUserId = DEFAULT_CREATOR_USER_ID; 
             IsDeleted = false;
             IsActive = true;
         }
@@ -96,10 +95,6 @@ namespace DeploySoftware.LaunchPad.Core.Application
         /// <param name="context">The context of the stream</param>
         protected GetEntityFullDtoBase(SerializationInfo info, StreamingContext context) : base(info, context)
         {
-            CreationTime = info.GetDateTime("CreationTime");
-            CreatorUserId = info.GetInt64("CreatorUserId");
-            LastModifierUserId = info.GetInt64("LastModifierUserId");
-            LastModificationTime = info.GetDateTime("LastModificationTime");
             IsDeleted = info.GetBoolean("IsDeleted");
             IsActive = info.GetBoolean("IsActive");
             DeletionTime = info.GetDateTime("DeletionTime");
@@ -119,10 +114,6 @@ namespace DeploySoftware.LaunchPad.Core.Application
         public override void GetObjectData(SerializationInfo info, StreamingContext context)
         {
             base.GetObjectData(info, context);
-            info.AddValue("CreationTime", CreationTime);
-            info.AddValue("CreatorUserId", CreatorUserId);
-            info.AddValue("LastModifierUserId", LastModifierUserId);
-            info.AddValue("LastModificationTime", LastModificationTime); 
             info.AddValue("DeleterUserId", DeleterUserId);
             info.AddValue("DeletionTime", DeletionTime);
             info.AddValue("IsDeleted", IsDeleted);

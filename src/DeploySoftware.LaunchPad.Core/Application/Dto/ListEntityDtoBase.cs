@@ -15,15 +15,11 @@
 //limitations under the License. 
 #endregion
 
-using Abp.Domain.Entities;
-using Abp.Domain.Entities.Auditing;
 using System;
-using System.ComponentModel;
-using System.ComponentModel.DataAnnotations.Schema;
+using System.Reflection;
 using System.Runtime.Serialization;
 using System.Security.Permissions;
 using System.Text;
-using System.Xml.Serialization;
 
 
 namespace DeploySoftware.LaunchPad.Core.Application
@@ -37,15 +33,15 @@ namespace DeploySoftware.LaunchPad.Core.Application
         IComparable<ListEntityDtoBase<TIdType>>, IEquatable<ListEntityDtoBase<TIdType>>
     {
 
-        
-
         #region "Constructors"
 
         /// <summary>
         /// Default constructor
         /// </summary>
+
         protected ListEntityDtoBase() : base()
         {
+
         }
 
         /// <summary>
@@ -59,6 +55,7 @@ namespace DeploySoftware.LaunchPad.Core.Application
         public ListEntityDtoBase(int tenantId, TIdType id, string culture) : base(tenantId, id,culture)
         {
             TenantId = tenantId; 
+
         }
 
         /// <summary>
@@ -115,6 +112,26 @@ namespace DeploySoftware.LaunchPad.Core.Application
         }
 
         /// <summary>
+        /// Shallow clones the entity
+        /// </summary>
+        /// <typeparam name="TEntity">The source entity to clone</typeparam>
+        /// <returns>A shallow clone of the entity and its serializable properties</returns>
+        protected new TEntity Clone<TEntity>() where TEntity : GetEntityDetailDtoBase<TIdType>, new()
+        {
+            TEntity clone = new TEntity();
+            foreach (PropertyInfo info in GetType().GetProperties())
+            {
+                // ensure the property type is serializable
+                if (info.GetType().IsSerializable)
+                {
+                    PropertyInfo cloneInfo = GetType().GetProperty(info.Name);
+                    cloneInfo.SetValue(clone, info.GetValue(this, null), null);
+                }
+            }
+            return clone;
+        }
+
+        /// <summary>
         /// Comparison method between two objects of the same type, used for sorting.
         /// Because the CompareTo method is strongly typed by generic constraints,
         /// it is not necessary to test for the correct object type.
@@ -128,7 +145,6 @@ namespace DeploySoftware.LaunchPad.Core.Application
             return Name.CompareTo(other.Name);
         }
 
-        /// <summary>
         /// Equality method between two objects of the same type.
         /// Because the Equals method is strongly typed by generic constraints,
         /// it is not necessary to test for the correct object type.
@@ -158,7 +174,7 @@ namespace DeploySoftware.LaunchPad.Core.Application
         /// <returns>A hash code for an object.</returns>
         public override int GetHashCode()
         {
-            return Id.GetHashCode() + Culture.GetHashCode() + Name.GetHashCode() + DescriptionShort.GetHashCode();
+            return Id.GetHashCode() + Culture.GetHashCode() + TenantId.GetHashCode() + Name.GetHashCode();
         }
     }
 }
