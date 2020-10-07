@@ -111,14 +111,14 @@ namespace DeploySoftware.LaunchPad.Core.Application
         /// <summary>
         /// Default constructor where the tenant id is known
         /// </summary>
-        public FullEntityDtoBase(int? tenantId, TIdType id) : base(tenantId, id)
+        public FullEntityDtoBase(int tenantId, TIdType id) : base(tenantId, id)
         {
             CreatorUserId = DEFAULT_CREATOR_USER_ID;
             IsDeleted = false;
             IsActive = true;
         }
 
-        public FullEntityDtoBase(int? tenantId, TIdType id, string culture) : base(tenantId, id,culture)
+        public FullEntityDtoBase(int tenantId, TIdType id, string culture) : base(tenantId, id,culture)
         {
             CreatorUserId = DEFAULT_CREATOR_USER_ID; 
             IsDeleted = false;

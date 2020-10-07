@@ -36,17 +36,9 @@ namespace DeploySoftware.LaunchPad.Core.Application
     /// </summary>
     /// <typeparam name="TIdType">The type of the Id</typeparam>
     public abstract partial class CreateTenantSpecificEntityDtoBase<TIdType> : 
-        CreateEntityDtoBase<TIdType>, IMustHaveTenant
+        CreateEntityDtoBase<TIdType>
     {
 
-        /// <summary>
-        /// The id of the tenant that domain entity this belongs to
-        /// </summary>
-        [DataObjectField(false)]
-        [XmlAttribute]
-        [Required]
-        [ForeignKey(nameof(TenantId))]
-        public new int TenantId { get; set; }
 
         #region "Constructors"
 

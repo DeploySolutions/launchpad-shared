@@ -48,11 +48,11 @@ namespace DeploySoftware.LaunchPad.Core.Application
         /// <summary>
         /// Default constructor where the tenant id is known
         /// </summary>
-        public EditEntityDtoBase(int? tenantId, TIdType id) : base(tenantId, id)
+        public EditEntityDtoBase(int tenantId, TIdType id) : base(tenantId, id)
         {
         }
 
-        public EditEntityDtoBase(int? tenantId, TIdType id, string culture) : base(tenantId, id,culture)
+        public EditEntityDtoBase(int tenantId, TIdType id, string culture) : base(tenantId, id,culture)
         {
         }
 

@@ -55,13 +55,13 @@ namespace DeploySoftware.LaunchPad.Core.Application
         /// <summary>
         /// Default constructor where the tenant id is known
         /// </summary>
-        public ListEntityDtoBase(int? tenantId, TIdType id) : base(tenantId, id)
+        public ListEntityDtoBase(int tenantId, TIdType id) : base(tenantId, id)
         {
             TenantId = tenantId;
             IsActive = true;
         }
 
-        public ListEntityDtoBase(int? tenantId, TIdType id, string culture) : base(tenantId, id,culture)
+        public ListEntityDtoBase(int tenantId, TIdType id, string culture) : base(tenantId, id,culture)
         {
             TenantId = tenantId; 
             IsActive = true;

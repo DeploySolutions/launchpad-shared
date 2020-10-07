@@ -65,12 +65,12 @@ namespace DeploySoftware.LaunchPad.Core.Application
         /// Default constructor where the id is known
         /// <param name="id">The id of the  entity being created</param>
         /// </summary>
-        public CreateEntityDtoBase(int? tenantId, TIdType id) : base(tenantId, id)
+        public CreateEntityDtoBase(int tenantId, TIdType id) : base(tenantId, id)
         {
             DescriptionFull = String.Empty;
         }
 
-        public CreateEntityDtoBase(int? tenantId, TIdType id, string culture) : base(tenantId, id,culture)
+        public CreateEntityDtoBase(int tenantId, TIdType id, string culture) : base(tenantId, id,culture)
         {
             DescriptionFull = String.Empty;
         }

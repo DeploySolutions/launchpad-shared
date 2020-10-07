@@ -36,7 +36,7 @@ namespace DeploySoftware.LaunchPad.Core.Application
     /// </summary>
     /// <typeparam name="TIdType">The type of the Id</typeparam>
     public abstract partial class MinimalEntityDtoBase<TIdType> : EntityDtoBase<TIdType>,
-        IMayHaveTenant,
+        IMustHaveTenant,
         IComparable<MinimalEntityDtoBase<TIdType>>, IEquatable<MinimalEntityDtoBase<TIdType>>
     {
        
@@ -47,7 +47,7 @@ namespace DeploySoftware.LaunchPad.Core.Application
         [XmlAttribute]
         public virtual String Culture { get; set; }
 
-        public virtual int? TenantId { get; set; }
+        public virtual int TenantId { get; set; }
 
         /// <summary>
         /// The display name that can be displayed as a label externally to users when referring to this object
@@ -80,7 +80,7 @@ namespace DeploySoftware.LaunchPad.Core.Application
         /// Default constructor where the id is known
         /// </summary>
         /// <param name="id"></param>
-        public MinimalEntityDtoBase(int? tenantId, TIdType id) : base()
+        public MinimalEntityDtoBase(int tenantId, TIdType id) : base()
         {
             
             TenantId = tenantId;
@@ -90,7 +90,7 @@ namespace DeploySoftware.LaunchPad.Core.Application
             DescriptionShort = String.Empty;
         }
 
-        public MinimalEntityDtoBase(int? tenantId, TIdType id, String culture) : base()
+        public MinimalEntityDtoBase(int tenantId, TIdType id, String culture) : base()
         {
             TenantId = tenantId;
             Id = id;
