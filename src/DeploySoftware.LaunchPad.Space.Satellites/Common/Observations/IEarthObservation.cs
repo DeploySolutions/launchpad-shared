@@ -30,9 +30,6 @@ namespace DeploySoftware.LaunchPad.Space.Satellites.Common
         [Required]
         ImageObservationCornerCoordinates Corners { get; set; }
         
-        [Required]
-        string Name { get; set; }
-        
 
         [Required]
         IObservationFiles<TPrimaryKey> ObservationFiles { get; set; }

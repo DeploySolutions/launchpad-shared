@@ -46,10 +46,7 @@ namespace DeploySoftware.LaunchPad.Space.Satellites.Common
 
         [Required]
         public ImageObservationCornerCoordinates Corners { get; set; }
-        
-        [Required]
-        [StringLength(MaxNameLength)]
-        public string Name { get; set; }
+  
 
         
         [Required]

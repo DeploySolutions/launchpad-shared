@@ -8,13 +8,15 @@
     <Copyright>2016-2021 Deploy Software Solutions, inc.</Copyright>
     <PackageLicenseUrl></PackageLicenseUrl>
     <PackageProjectUrl>https://github.com/DeploySolutions/launchpad-shared</PackageProjectUrl>
-    <PackageIconUrl>https://www.deploy.solutions/wp-content/uploads/dynamik-gen/theme/images/y-icon-blue.png</PackageIconUrl>
+    <PackageIconUrl></PackageIconUrl>
     <RepositoryUrl>https://github.com/DeploySolutions/launchpad-shared</RepositoryUrl>
-    <PackageReleaseNotes>1.0.0: Initial release; basic manipulation logic for creating thumbnails from TIF files.</PackageReleaseNotes>
+    <PackageReleaseNotes>2.0.0: Refactor to inherit more fully from ABP and updated LaunchPad Core library.
+1.0.0: Initial release; basic manipulation logic for creating thumbnails from TIF files.</PackageReleaseNotes>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
-    <Version>2.0.0</Version>
+    <Version>2.0.1-alpha</Version>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
+    <PackageIcon>icon.png</PackageIcon>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -24,6 +26,10 @@
     <Compile Remove="Application\**" />
     <EmbeddedResource Remove="Application\**" />
     <None Remove="Application\**" />
+    <None Include="..\icon.png">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DeploySoftware.LaunchPad.Core\DeploySoftware.LaunchPad.Core.csproj" />

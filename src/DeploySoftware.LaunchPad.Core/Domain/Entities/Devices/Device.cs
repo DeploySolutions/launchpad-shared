@@ -209,5 +209,9 @@ namespace DeploySoftware.LaunchPad.Core.Domain
             return sb.ToString();
         }
 
+        public static implicit operator Device<TIdType>(Device<int> v)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

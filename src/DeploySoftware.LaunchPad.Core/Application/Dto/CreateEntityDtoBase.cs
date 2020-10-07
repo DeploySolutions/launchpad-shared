@@ -32,24 +32,11 @@ namespace DeploySoftware.LaunchPad.Core.Application
     /// Of course subclassing DTOs may contain additional properties.
     /// </summary>
     /// <typeparam name="TIdType">The type of the Id</typeparam>
-    public abstract partial class CreateEntityDtoBase<TIdType> : MinimalEntityDtoBase<TIdType>,
+    public abstract partial class CreateEntityDtoBase<TIdType> : GetEntityDtoBase<TIdType>,
         IComparable<CreateEntityDtoBase<TIdType>>, IEquatable<CreateEntityDtoBase<TIdType>>
     {
 
-        /// <summary>
-        /// A full description of this item.
-        /// </summary>
-        [DataObjectField(false)]
-        [XmlAttribute]
-        public virtual String DescriptionFull { get; set; }
-
-        /// <summary>
-        /// If this object is not a translation this field will be null. 
-        /// If this object is a translation, this id references the parent object.
-        /// </summary>
-        [DataObjectField(true)]
-        [XmlAttribute]
-        public virtual TIdType TranslatedFromId { get; set; }
+        
 
         #region "Constructors"
 
@@ -58,7 +45,6 @@ namespace DeploySoftware.LaunchPad.Core.Application
         /// </summary>
         protected CreateEntityDtoBase() : base()
         {
-            DescriptionFull = String.Empty;
         }
 
         /// <summary>
@@ -67,12 +53,12 @@ namespace DeploySoftware.LaunchPad.Core.Application
         /// </summary>
         public CreateEntityDtoBase(int tenantId, TIdType id) : base(tenantId, id)
         {
-            DescriptionFull = String.Empty;
+
         }
 
         public CreateEntityDtoBase(int tenantId, TIdType id, string culture) : base(tenantId, id,culture)
         {
-            DescriptionFull = String.Empty;
+
         }
 
         /// <summary>
@@ -82,8 +68,7 @@ namespace DeploySoftware.LaunchPad.Core.Application
         /// <param name="context">The context of the stream</param>
         protected CreateEntityDtoBase(SerializationInfo info, StreamingContext context) : base(info, context)
         {
-            DescriptionFull = info.GetString("DescriptionFull");
-            TranslatedFromId = (TIdType)info.GetValue("TranslatedFromId", typeof(TIdType));
+
         }
 
 
@@ -98,8 +83,6 @@ namespace DeploySoftware.LaunchPad.Core.Application
         public override void GetObjectData(SerializationInfo info, StreamingContext context)
         {
             base.GetObjectData(info, context);
-            info.AddValue("DescriptionFull", DescriptionFull);
-            info.AddValue("TranslatedFromId", TranslatedFromId);
         }
 
         /// <summary>  
@@ -158,14 +141,7 @@ namespace DeploySoftware.LaunchPad.Core.Application
         {
             if (obj != null)
             {
-                if (TenantId != null)
-                {
-                    return Id.Equals(obj.Id) && Culture.Equals(obj.Culture) && TenantId.Equals(obj.TenantId);
-                }
-                else
-                {
-                    return Id.Equals(obj.Id) && Culture.Equals(obj.Culture);
-                }
+                return Id.Equals(obj.Id) && Culture.Equals(obj.Culture) && TenantId.Equals(obj.TenantId);
             }
             return false;
         }

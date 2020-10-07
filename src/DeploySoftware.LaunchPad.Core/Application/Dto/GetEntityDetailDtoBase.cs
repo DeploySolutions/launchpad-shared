@@ -20,6 +20,7 @@ using Abp.Domain.Entities.Auditing;
 using System;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Reflection;
 using System.Runtime.Serialization;
 using System.Security.Permissions;
 using System.Text;
@@ -33,13 +34,27 @@ namespace DeploySoftware.LaunchPad.Core.Application
     /// Of course subclassing DTOs will contain additional properties.
     /// </summary>
     /// <typeparam name="TIdType">The type of the Id</typeparam>
-    public abstract partial class FullEntityDtoBase<TIdType> : EditEntityDtoBase<TIdType>,
+    public abstract partial class GetEntityDetailDtoBase<TIdType> : GetEntityDtoBase<TIdType>,
         IHasCreationTime, ICreationAudited, IHasModificationTime, IModificationAudited,
-        IDeletionAudited, ISoftDelete, IPassivable,
-        IComparable<MinimalEntityDtoBase<TIdType>>, IEquatable<MinimalEntityDtoBase<TIdType>>
+        IPassivable,
+        IComparable<GetEntityDetailDtoBase<TIdType>>, IEquatable<GetEntityDetailDtoBase<TIdType>>
     {
         public static readonly long? DEFAULT_CREATOR_USER_ID = 1;
 
+        /// <summary>
+        /// A full description of this item.
+        /// </summary>
+        [DataObjectField(false)]
+        [XmlAttribute]
+        public virtual String DescriptionFull { get; set; }
+
+        /// <summary>
+        /// If this object is not a translation this field will be null. 
+        /// If this object is a translation, this id references the parent object.
+        /// </summary>
+        [DataObjectField(true)]
+        [XmlAttribute]
+        public virtual TIdType TranslatedFromId { get; set; }
 
         /// <summary>
         /// The date and time that this object was created.
@@ -71,39 +86,21 @@ namespace DeploySoftware.LaunchPad.Core.Application
         [ForeignKey(nameof(LastModifierUserId))]
         public virtual Int64? LastModifierUserId { get; set; }
 
-        /// <summary>
-        /// The date and time that this object was deleted.
-        /// </summary>
-        [DataObjectField(false)]
-        [XmlAttribute]
-        public virtual DateTime? DeletionTime { get; set; }
-
-        /// <summary>
-        /// The id of the user which deleted this entity
-        /// </summary>
-        [DataObjectField(false)]
-        [XmlAttribute]
-        [ForeignKey(nameof(DeleterUserId))]
-        public virtual long? DeleterUserId { get; set; }
-
 
         [DataObjectField(false)]
         [XmlAttribute]
         public virtual bool IsActive { get; set; }
 
-        [DataObjectField(false)]
-        [XmlAttribute]
-        public virtual bool IsDeleted { get; set; }
 
         #region "Constructors"
 
         /// <summary>
         /// Default constructor
         /// </summary>
-        protected FullEntityDtoBase() : base()
+        protected GetEntityDetailDtoBase() : base()
         {
+            DescriptionFull = String.Empty;
             CreatorUserId = DEFAULT_CREATOR_USER_ID;
-            IsDeleted = false;
             IsActive = true;
 
         }
@@ -111,17 +108,17 @@ namespace DeploySoftware.LaunchPad.Core.Application
         /// <summary>
         /// Default constructor where the tenant id is known
         /// </summary>
-        public FullEntityDtoBase(int tenantId, TIdType id) : base(tenantId, id)
+        public GetEntityDetailDtoBase(int tenantId, TIdType id) : base(tenantId, id)
         {
+            DescriptionFull = String.Empty;
             CreatorUserId = DEFAULT_CREATOR_USER_ID;
-            IsDeleted = false;
             IsActive = true;
         }
 
-        public FullEntityDtoBase(int tenantId, TIdType id, string culture) : base(tenantId, id,culture)
+        public GetEntityDetailDtoBase(int tenantId, TIdType id, string culture) : base(tenantId, id,culture)
         {
+            DescriptionFull = String.Empty;
             CreatorUserId = DEFAULT_CREATOR_USER_ID; 
-            IsDeleted = false;
             IsActive = true;
         }
 
@@ -130,16 +127,15 @@ namespace DeploySoftware.LaunchPad.Core.Application
         /// </summary>
         /// <param name="info">The serialization info</param>
         /// <param name="context">The context of the stream</param>
-        protected FullEntityDtoBase(SerializationInfo info, StreamingContext context) : base(info, context)
+        protected GetEntityDetailDtoBase(SerializationInfo info, StreamingContext context) : base(info, context)
         {
+            DescriptionFull = info.GetString("DescriptionFull");
+            TranslatedFromId = (TIdType)info.GetValue("TranslatedFromId", typeof(TIdType));
             CreationTime = info.GetDateTime("CreationTime");
             CreatorUserId = info.GetInt64("CreatorUserId");
             LastModifierUserId = info.GetInt64("LastModifierUserId");
             LastModificationTime = info.GetDateTime("LastModificationTime");
-            IsDeleted = info.GetBoolean("IsDeleted");
             IsActive = info.GetBoolean("IsActive");
-            DeletionTime = info.GetDateTime("DeletionTime");
-            DeleterUserId = info.GetInt64("DeleterUserId");
         }
 
 
@@ -159,9 +155,6 @@ namespace DeploySoftware.LaunchPad.Core.Application
             info.AddValue("CreatorUserId", CreatorUserId);
             info.AddValue("LastModifierUserId", LastModifierUserId);
             info.AddValue("LastModificationTime", LastModificationTime); 
-            info.AddValue("DeleterUserId", DeleterUserId);
-            info.AddValue("DeletionTime", DeletionTime);
-            info.AddValue("IsDeleted", IsDeleted);
             info.AddValue("IsActive", IsActive);
         }
 
@@ -172,7 +165,7 @@ namespace DeploySoftware.LaunchPad.Core.Application
         public override string ToString()
         {
             StringBuilder sb = new StringBuilder();
-            sb.Append("[FullAuditedEntityDtoBase : ");
+            sb.Append("[GetEntityDetailDtoBase : ");
             sb.Append(ToStringBaseProperties());
             sb.Append("]");
             return sb.ToString();
@@ -197,11 +190,56 @@ namespace DeploySoftware.LaunchPad.Core.Application
             sb.AppendFormat("CreatorUserId={0};", CreatorUserId);
             sb.AppendFormat("LastModifierUserId={0};", LastModifierUserId);
             sb.AppendFormat("LastModificationTime={0};", LastModificationTime);
-            sb.AppendFormat("IsDeleted={0};", IsDeleted); 
-            sb.AppendFormat("DeleterUserId={0};", DeleterUserId);
-            sb.AppendFormat("DeletionTime={0};", DeletionTime);
             sb.AppendFormat("IsActive={0};", IsActive);
             return sb.ToString();
+        }
+
+        /// <summary>
+        /// Shallow clones the entity
+        /// </summary>
+        /// <typeparam name="TEntity">The source entity to clone</typeparam>
+        /// <returns>A shallow clone of the entity and its serializable properties</returns>
+        protected new TEntity Clone<TEntity>() where TEntity : GetEntityDetailDtoBase<TIdType>, new()
+        {
+            TEntity clone = new TEntity();
+            foreach (PropertyInfo info in GetType().GetProperties())
+            {
+                // ensure the property type is serializable
+                if (info.GetType().IsSerializable)
+                {
+                    PropertyInfo cloneInfo = GetType().GetProperty(info.Name);
+                    cloneInfo.SetValue(clone, info.GetValue(this, null), null);
+                }
+            }
+            return clone;
+        }
+
+        /// <summary>
+        /// Comparison method between two objects of the same type, used for sorting.
+        /// Because the CompareTo method is strongly typed by generic constraints,
+        /// it is not necessary to test for the correct object type.
+        /// </summary>
+        /// <param name="other">The other object of this type we are comparing to</param>
+        /// <returns></returns>
+        public virtual int CompareTo(GetEntityDetailDtoBase<TIdType> other)
+        {
+            // put comparison of properties in here 
+            // for base object we'll just sort by name and description short
+            return Name.CompareTo(other.Name);
+        }
+
+        /// <summary>
+        /// Override the legacy Equals. Must cast obj in this case.
+        /// </summary>
+        /// <param name="obj">A type to check equivalency of (hopefully) an Entity</param>
+        /// <returns>True if the entities are the same according to business key value</returns>
+        public override bool Equals(object obj)
+        {
+            if (obj != null && obj is GetEntityDtoBase<TIdType>)
+            {
+                return Equals(obj as GetEntityDtoBase<TIdType>);
+            }
+            return false;
         }
 
         /// <summary>
@@ -213,32 +251,45 @@ namespace DeploySoftware.LaunchPad.Core.Application
         /// </summary>
         /// <param name="obj">The other object of this type that we are testing equality with</param>
         /// <returns></returns>
-        public virtual bool Equals(FullEntityDtoBase<TIdType> obj)
+        public virtual bool Equals(GetEntityDetailDtoBase<TIdType> obj)
         {
             if (obj != null)
             {
-                // For safe equality we need to match on business key equality.
-                // Base domain entities are functionally equal if their key and metadata are equal.
-                // Subclasses should extend to include their own enhanced equality checks, as required.
-                if (TenantId != null)
-                {
-                   return Id.Equals(obj.Id) && Culture.Equals(obj.Culture) && IsActive.Equals(obj.IsActive)
-                       && IsDeleted.Equals(obj.IsDeleted)
-                       && CreationTime.Equals(obj.CreationTime)
-                       && LastModificationTime.Equals(obj.LastModificationTime)
-                       && TenantId.Equals(obj.TenantId);
-                }
-                else
-                {
-                   return Id.Equals(obj.Id) && Culture.Equals(obj.Culture) && IsActive.Equals(obj.IsActive)
-                       && IsDeleted.Equals(obj.IsDeleted)
-                       && CreationTime.Equals(obj.CreationTime)
-                       && LastModificationTime.Equals(obj.LastModificationTime)
-                   ;
-                }
-               
+                return Id.Equals(obj.Id) && Culture.Equals(obj.Culture) && TenantId.Equals(obj.TenantId)
+                    && TranslatedFromId.Equals(obj.TranslatedFromId);
+
             }
             return false;
+        }
+
+        /// <summary>
+        /// Override the == operator to test for equality
+        /// </summary>
+        /// <param name="x">The first value</param>
+        /// <param name="y">The second value</param>
+        /// <returns>True if both objects are fully equal based on the Equals logic</returns>
+        public static bool operator ==(GetEntityDetailDtoBase<TIdType> x, GetEntityDetailDtoBase<TIdType> y)
+        {
+            if (System.Object.ReferenceEquals(x, null))
+            {
+                if (System.Object.ReferenceEquals(y, null))
+                {
+                    return true;
+                }
+                return false;
+            }
+            return x.Equals(y);
+        }
+
+        /// <summary>
+        /// Override the != operator to test for inequality
+        /// </summary>
+        /// <param name="x">The first value</param>
+        /// <param name="y">The second value</param>
+        /// <returns>True if both objects are not equal based on the Equals logic</returns>
+        public static bool operator !=(GetEntityDetailDtoBase<TIdType> x, GetEntityDetailDtoBase<TIdType> y)
+        {
+            return !(x == y);
         }
 
         /// <summary>  
@@ -250,11 +301,7 @@ namespace DeploySoftware.LaunchPad.Core.Application
         /// <returns>A hash code for an object.</returns>
         public override int GetHashCode()
         {
-            return Id.GetHashCode() 
-                + Culture.GetHashCode() 
-                + Name.GetHashCode() 
-                + DescriptionShort.GetHashCode() 
-                + CreationTime.GetHashCode();
+            return Id.GetHashCode() + Culture.GetHashCode() + TenantId.GetHashCode() + TranslatedFromId.GetHashCode();
         }
     }
 }

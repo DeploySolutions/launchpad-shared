@@ -35,9 +35,9 @@ namespace DeploySoftware.LaunchPad.Core.Application
     /// Of course subclassing DTOs will contain additional properties.
     /// </summary>
     /// <typeparam name="TIdType">The type of the Id</typeparam>
-    public abstract partial class MinimalEntityDtoBase<TIdType> : EntityDtoBase<TIdType>,
+    public abstract partial class GetEntityDtoBase<TIdType> : EntityDtoBase<TIdType>,
         IMustHaveTenant,
-        IComparable<MinimalEntityDtoBase<TIdType>>, IEquatable<MinimalEntityDtoBase<TIdType>>
+        IComparable<GetEntityDtoBase<TIdType>>, IEquatable<GetEntityDtoBase<TIdType>>
     {
        
         /// <summary>
@@ -69,7 +69,7 @@ namespace DeploySoftware.LaunchPad.Core.Application
         /// <summary>
         /// Default constructor
         /// </summary>
-        protected MinimalEntityDtoBase() : base()
+        protected GetEntityDtoBase() : base()
         {
             Culture = ApplicationInformation<TIdType>.DEFAULT_CULTURE;
             Name = String.Empty;
@@ -80,7 +80,7 @@ namespace DeploySoftware.LaunchPad.Core.Application
         /// Default constructor where the id is known
         /// </summary>
         /// <param name="id"></param>
-        public MinimalEntityDtoBase(int tenantId, TIdType id) : base()
+        public GetEntityDtoBase(int tenantId, TIdType id) : base()
         {
             
             TenantId = tenantId;
@@ -90,7 +90,7 @@ namespace DeploySoftware.LaunchPad.Core.Application
             DescriptionShort = String.Empty;
         }
 
-        public MinimalEntityDtoBase(int tenantId, TIdType id, String culture) : base()
+        public GetEntityDtoBase(int tenantId, TIdType id, String culture) : base()
         {
             TenantId = tenantId;
             Id = id;
@@ -104,7 +104,7 @@ namespace DeploySoftware.LaunchPad.Core.Application
         /// </summary>
         /// <param name="info">The serialization info</param>
         /// <param name="context">The context of the stream</param>
-        protected MinimalEntityDtoBase(SerializationInfo info, StreamingContext context) : base(info,context)
+        protected GetEntityDtoBase(SerializationInfo info, StreamingContext context) : base(info,context)
         {
             Id = (TIdType)info.GetValue("Id", typeof(TIdType));
             Culture = info.GetString("Culture");
@@ -167,7 +167,7 @@ namespace DeploySoftware.LaunchPad.Core.Application
         /// </summary>
         /// <typeparam name="TEntity">The source entity to clone</typeparam>
         /// <returns>A shallow clone of the entity and its serializable properties</returns>
-        protected new TEntity Clone<TEntity>() where TEntity : MinimalEntityDtoBase<TIdType>, new()
+        protected new TEntity Clone<TEntity>() where TEntity : GetEntityDtoBase<TIdType>, new()
         {
             TEntity clone = new TEntity();
             foreach (PropertyInfo info in GetType().GetProperties())
@@ -189,7 +189,7 @@ namespace DeploySoftware.LaunchPad.Core.Application
         /// </summary>
         /// <param name="other">The other object of this type we are comparing to</param>
         /// <returns></returns>
-        public virtual int CompareTo(MinimalEntityDtoBase<TIdType> other)
+        public virtual int CompareTo(GetEntityDtoBase<TIdType> other)
         {
             // put comparison of properties in here 
             // for base object we'll just sort by name and description short
@@ -203,9 +203,9 @@ namespace DeploySoftware.LaunchPad.Core.Application
         /// <returns>True if the entities are the same according to business key value</returns>
         public override bool Equals(object obj)
         {
-            if (obj != null && obj is MinimalEntityDtoBase<TIdType>)
+            if (obj != null && obj is GetEntityDtoBase<TIdType>)
             {
-                return Equals(obj as MinimalEntityDtoBase<TIdType>);
+                return Equals(obj as GetEntityDtoBase<TIdType>);
             }
             return false;
         }
@@ -219,22 +219,12 @@ namespace DeploySoftware.LaunchPad.Core.Application
         /// </summary>
         /// <param name="obj">The other object of this type that we are testing equality with</param>
         /// <returns></returns>
-        public virtual bool Equals(MinimalEntityDtoBase<TIdType> obj)
+        public virtual bool Equals(GetEntityDtoBase<TIdType> obj)
         {
             if (obj != null)
             {
-                // For safe equality we need to match on business key equality.
-                // Base domain entities are functionally equal if their key and metadata are equal.
-                // Subclasses should extend to include their own enhanced equality checks, as required.
-                if(TenantId != null)
-                {
-                    return Id.Equals(obj.Id) && Culture.Equals(obj.Culture) && TenantId.Equals(obj.TenantId);
-                }
-                else
-                {
-                    return Id.Equals(obj.Id) && Culture.Equals(obj.Culture);
-                }
-                
+                return Id.Equals(obj.Id) && Culture.Equals(obj.Culture) && TenantId.Equals(obj.TenantId);
+
             }
             return false;
         }
@@ -245,7 +235,7 @@ namespace DeploySoftware.LaunchPad.Core.Application
         /// <param name="x">The first value</param>
         /// <param name="y">The second value</param>
         /// <returns>True if both objects are fully equal based on the Equals logic</returns>
-        public static bool operator ==(MinimalEntityDtoBase<TIdType> x, MinimalEntityDtoBase<TIdType> y)
+        public static bool operator ==(GetEntityDtoBase<TIdType> x, GetEntityDtoBase<TIdType> y)
         {
             if (System.Object.ReferenceEquals(x, null))
             {
@@ -264,7 +254,7 @@ namespace DeploySoftware.LaunchPad.Core.Application
         /// <param name="x">The first value</param>
         /// <param name="y">The second value</param>
         /// <returns>True if both objects are not equal based on the Equals logic</returns>
-        public static bool operator !=(MinimalEntityDtoBase<TIdType> x, MinimalEntityDtoBase<TIdType> y)
+        public static bool operator !=(GetEntityDtoBase<TIdType> x, GetEntityDtoBase<TIdType> y)
         {
             return !(x == y);
         }
@@ -278,7 +268,7 @@ namespace DeploySoftware.LaunchPad.Core.Application
         /// <returns>A hash code for an object.</returns>
         public override int GetHashCode()
         {
-            return Id.GetHashCode() + Culture.GetHashCode();
+            return Id.GetHashCode() + Culture.GetHashCode() + TenantId.GetHashCode();
         }
 
     }

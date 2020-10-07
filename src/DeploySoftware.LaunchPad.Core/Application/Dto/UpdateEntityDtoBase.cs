@@ -30,8 +30,8 @@ namespace DeploySoftware.LaunchPad.Core.Application
     /// Of course subclassing DTOs may contain additional properties.
     /// </summary>
     /// <typeparam name="TIdType">The type of the Id</typeparam>
-    public abstract partial class EditEntityDtoBase<TIdType> : CreateEntityDtoBase<TIdType>,
-        IComparable<EditEntityDtoBase<TIdType>>, IEquatable<EditEntityDtoBase<TIdType>>
+    public abstract partial class UpdateEntityDtoBase<TIdType> : CreateEntityDtoBase<TIdType>,
+        IComparable<UpdateEntityDtoBase<TIdType>>, IEquatable<UpdateEntityDtoBase<TIdType>>
     {
 
 
@@ -40,7 +40,7 @@ namespace DeploySoftware.LaunchPad.Core.Application
         /// <summary>
         /// Default constructor
         /// </summary>
-        protected EditEntityDtoBase() : base()
+        protected UpdateEntityDtoBase() : base()
         {
 
         }
@@ -48,11 +48,11 @@ namespace DeploySoftware.LaunchPad.Core.Application
         /// <summary>
         /// Default constructor where the tenant id is known
         /// </summary>
-        public EditEntityDtoBase(int tenantId, TIdType id) : base(tenantId, id)
+        public UpdateEntityDtoBase(int tenantId, TIdType id) : base(tenantId, id)
         {
         }
 
-        public EditEntityDtoBase(int tenantId, TIdType id, string culture) : base(tenantId, id,culture)
+        public UpdateEntityDtoBase(int tenantId, TIdType id, string culture) : base(tenantId, id,culture)
         {
         }
 
@@ -61,7 +61,7 @@ namespace DeploySoftware.LaunchPad.Core.Application
         /// </summary>
         /// <param name="info">The serialization info</param>
         /// <param name="context">The context of the stream</param>
-        protected EditEntityDtoBase(SerializationInfo info, StreamingContext context) : base(info, context)
+        protected UpdateEntityDtoBase(SerializationInfo info, StreamingContext context) : base(info, context)
         {
 
         }
@@ -88,7 +88,7 @@ namespace DeploySoftware.LaunchPad.Core.Application
         public override string ToString()
         {
             StringBuilder sb = new StringBuilder();
-            sb.Append("[EditEntityDtoBase : ");
+            sb.Append("[UpdateEntityDtoBase : ");
             sb.Append(ToStringBaseProperties());
             sb.Append("]");
             return sb.ToString();
@@ -118,7 +118,7 @@ namespace DeploySoftware.LaunchPad.Core.Application
         /// </summary>
         /// <param name="other">The other object of this type we are comparing to</param>
         /// <returns></returns>
-        public virtual int CompareTo(EditEntityDtoBase<TIdType> other)
+        public virtual int CompareTo(UpdateEntityDtoBase<TIdType> other)
         {
             // put comparison of properties in here 
             // for base object we'll just sort by title
@@ -135,21 +135,14 @@ namespace DeploySoftware.LaunchPad.Core.Application
         /// </summary>
         /// <param name="obj">The other object of this type that we are testing equality with</param>
         /// <returns></returns>
-        public virtual bool Equals(EditEntityDtoBase<TIdType> obj)
+        public virtual bool Equals(UpdateEntityDtoBase<TIdType> obj)
         {
             if (obj != null)
             {
                 // For safe equality we need to match on business key equality.
                 // Base domain entities are functionally equal if their key and metadata are equal.
                 // Subclasses should extend to include their own enhanced equality checks, as required.
-                if (TenantId != null)
-                {
-                    return Id.Equals(obj.Id) && Culture.Equals(obj.Culture) && TenantId.Equals(obj.TenantId);
-                }
-                else
-                {
-                    return Id.Equals(obj.Id) && Culture.Equals(obj.Culture);
-                }
+                return Id.Equals(obj.Id) && Culture.Equals(obj.Culture) && TenantId.Equals(obj.TenantId);
             }
             return false;
         }

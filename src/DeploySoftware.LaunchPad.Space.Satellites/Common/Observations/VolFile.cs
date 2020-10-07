@@ -21,7 +21,7 @@ namespace DeploySoftware.LaunchPad.Space.Satellites.Common
 
     public class VolFile<TPrimaryKey> : FileBase<TPrimaryKey>
     {
-        public new string FileExtension
+        public new string Extension
         {
             get { return ".vol";  }
         }

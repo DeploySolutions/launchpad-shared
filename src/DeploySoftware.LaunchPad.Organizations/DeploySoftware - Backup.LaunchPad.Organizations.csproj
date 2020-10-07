@@ -12,12 +12,11 @@
     <Version>2.0.1-alpha</Version>
     <Description>Organization-related code for LaunchPad framework.</Description>
     <Copyright>2018-2021 Deploy Software Solutions, inc.</Copyright>
-    <PackageReleaseNotes>2.0.0: Refactor to inherit more fully from ABP and updated LaunchPad Core library.
+    <PackageReleaseNotes>1.0.5: 
 1.0.4: Change CoordinateSharp ref to standard (non-core).
 1.0.3: Rationalize namespaces.</PackageReleaseNotes>
-    <PackageIconUrl></PackageIconUrl>
+    <PackageIconUrl>https://www.deploy.solutions/wp-content/uploads/dynamik-gen/theme/images/y-icon-blue.png</PackageIconUrl>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
-    <PackageIcon>icon.png</PackageIcon>
   </PropertyGroup>
 
   <ItemGroup>
@@ -26,10 +25,6 @@
 
   <ItemGroup>
     <None Include="..\..\LICENSE">
-      <Pack>True</Pack>
-      <PackagePath></PackagePath>
-    </None>
-    <None Include="..\icon.png">
       <Pack>True</Pack>
       <PackagePath></PackagePath>
     </None>

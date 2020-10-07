@@ -32,7 +32,6 @@ namespace DeploySoftware.LaunchPad.Core.Tests
         #endregion
 
         private readonly DeviceTestsFixture _fixture;
-        private int? tenantId = 1;
 
         public DeviceTests(DeviceTestsFixture fixture)
         {

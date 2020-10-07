@@ -15,11 +15,8 @@
 //limitations under the License. 
 #endregion
 
-using Abp.Domain.Entities;
 using System;
 using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Runtime.Serialization;
 using System.Security.Permissions;
 using System.Text;
@@ -35,35 +32,29 @@ namespace DeploySoftware.LaunchPad.Core.Application
     /// Of course subclassing DTOs may contain additional properties.
     /// </summary>
     /// <typeparam name="TIdType">The type of the Id</typeparam>
-    public abstract partial class CreateTenantSpecificEntityDtoBase<TIdType> : 
-        CreateEntityDtoBase<TIdType>
+    public abstract partial class CreateEntityDetailDtoBase<TIdType> : GetEntityDetailDtoBase<TIdType>
     {
-
 
         #region "Constructors"
 
         /// <summary>
         /// Default constructor
         /// </summary>
-        protected CreateTenantSpecificEntityDtoBase() : base()
+        protected CreateEntityDetailDtoBase() : base()
         {
-            
         }
 
         /// <summary>
         /// Default constructor where the id is known
         /// <param name="id">The id of the  entity being created</param>
         /// </summary>
-        public CreateTenantSpecificEntityDtoBase(int tenantId, TIdType id) : base(tenantId, id)
+        public CreateEntityDetailDtoBase(int tenantId, TIdType id) : base(tenantId, id)
         {
-            TenantId = tenantId;
         }
 
-        public CreateTenantSpecificEntityDtoBase(int tenantId, TIdType id, string culture) : base(tenantId, id,culture)
+        public CreateEntityDetailDtoBase(int tenantId, TIdType id, string culture) : base(tenantId, id,culture)
         {
-            TenantId = tenantId;
-            Id = id;
-            Culture = culture;
+
         }
 
         /// <summary>
@@ -71,14 +62,12 @@ namespace DeploySoftware.LaunchPad.Core.Application
         /// </summary>
         /// <param name="info">The serialization info</param>
         /// <param name="context">The context of the stream</param>
-        protected CreateTenantSpecificEntityDtoBase(SerializationInfo info, StreamingContext context) : base(info, context)
+        protected CreateEntityDetailDtoBase(SerializationInfo info, StreamingContext context) : base(info, context)
         {
-            TenantId = info.GetInt32("TenantId");
+            
         }
 
-
         #endregion
-
 
         /// <summary>
         /// The method required for implementing ISerializable
@@ -89,7 +78,7 @@ namespace DeploySoftware.LaunchPad.Core.Application
         public override void GetObjectData(SerializationInfo info, StreamingContext context)
         {
             base.GetObjectData(info, context);
-            info.AddValue("TenantId", TenantId);
+
         }
 
         /// <summary>  
@@ -99,9 +88,8 @@ namespace DeploySoftware.LaunchPad.Core.Application
         public override string ToString()
         {
             StringBuilder sb = new StringBuilder();
-            sb.Append("[CreateTenantSpecificEntityDtoBase : ");
+            sb.Append("[CreateEntityDetailDtoBase : ");
             sb.Append(ToStringBaseProperties());
-            sb.AppendFormat("TenantId={0};", TenantId);
             sb.Append("]");
             return sb.ToString();
         }
@@ -129,7 +117,7 @@ namespace DeploySoftware.LaunchPad.Core.Application
         /// </summary>
         /// <param name="other">The other object of this type we are comparing to</param>
         /// <returns></returns>
-        public virtual int CompareTo(CreateTenantSpecificEntityDtoBase<TIdType> other)
+        public virtual int CompareTo(CreateEntityDtoBase<TIdType> other)
         {
             // put comparison of properties in here 
             // for base object we'll just sort by name and description short
@@ -145,28 +133,14 @@ namespace DeploySoftware.LaunchPad.Core.Application
         /// </summary>
         /// <param name="obj">The other object of this type that we are testing equality with</param>
         /// <returns></returns>
-        public virtual bool Equals(CreateTenantSpecificEntityDtoBase<TIdType> obj)
+        public virtual bool Equals(CreateEntityDtoBase<TIdType> obj)
         {
             if (obj != null)
             {
-                // For safe equality we need to match on business key equality.
-                // Base domain entities are functionally equal if their key and metadata are equal.
-                // Subclasses should extend to include their own enhanced equality checks, as required.
                 return Id.Equals(obj.Id) && Culture.Equals(obj.Culture) && TenantId.Equals(obj.TenantId);
             }
             return false;
         }
 
-        /// <summary>  
-        /// Computes and retrieves a hash code for an object.  
-        /// </summary>  
-        /// <remarks>  
-        /// This method implements the <see cref="Object">Object</see> method.  
-        /// </remarks>  
-        /// <returns>A hash code for an object.</returns>
-        public override int GetHashCode()
-        {
-            return Id.GetHashCode() + Culture.GetHashCode() + Name.GetHashCode() + DescriptionShort.GetHashCode() + TenantId.GetHashCode();
-        }
     }
 }

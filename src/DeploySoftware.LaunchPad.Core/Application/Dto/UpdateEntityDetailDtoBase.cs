@@ -15,50 +15,45 @@
 //limitations under the License. 
 #endregion
 
-using Abp.Domain.Entities;
-using Abp.Domain.Entities.Auditing;
 using System;
 using System.ComponentModel;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Runtime.Serialization;
 using System.Security.Permissions;
 using System.Text;
 using System.Xml.Serialization;
 
-
 namespace DeploySoftware.LaunchPad.Core.Application
 {
     /// <summary>
-    /// Represents the base properties a LaunchPad Data Transfer Object would show in a list.
-    /// Of course subclassing DTOs will contain additional properties.
+    /// Represents the base properties a LaunchPad Data Transfer Object would possess in order to edit an existing entity
+    /// It does not include properties that are set by ABP on Deletion.
+    /// Of course subclassing DTOs may contain additional properties.
     /// </summary>
     /// <typeparam name="TIdType">The type of the Id</typeparam>
-    public abstract partial class ListEntityDtoBase<TIdType> : GetEntityDtoBase<TIdType>,
-        IComparable<ListEntityDtoBase<TIdType>>, IEquatable<ListEntityDtoBase<TIdType>>
+    public abstract partial class UpdateEntityDetailDtoBase<TIdType> : CreateEntityDetailDtoBase<TIdType>,
+        IComparable<UpdateEntityDetailDtoBase<TIdType>>, IEquatable<UpdateEntityDetailDtoBase<TIdType>>
     {
 
-        
 
         #region "Constructors"
 
         /// <summary>
         /// Default constructor
         /// </summary>
-        protected ListEntityDtoBase() : base()
+        protected UpdateEntityDetailDtoBase() : base()
         {
+
         }
 
         /// <summary>
         /// Default constructor where the tenant id is known
         /// </summary>
-        public ListEntityDtoBase(int tenantId, TIdType id) : base(tenantId, id)
+        public UpdateEntityDetailDtoBase(int tenantId, TIdType id) : base(tenantId, id)
         {
-            TenantId = tenantId;
         }
 
-        public ListEntityDtoBase(int tenantId, TIdType id, string culture) : base(tenantId, id,culture)
+        public UpdateEntityDetailDtoBase(int tenantId, TIdType id, string culture) : base(tenantId, id,culture)
         {
-            TenantId = tenantId; 
         }
 
         /// <summary>
@@ -66,9 +61,9 @@ namespace DeploySoftware.LaunchPad.Core.Application
         /// </summary>
         /// <param name="info">The serialization info</param>
         /// <param name="context">The context of the stream</param>
-        protected ListEntityDtoBase(SerializationInfo info, StreamingContext context) : base(info, context)
+        protected UpdateEntityDetailDtoBase(SerializationInfo info, StreamingContext context) : base(info, context)
         {
-            TenantId = info.GetInt32("TenantId");
+
         }
 
 
@@ -93,7 +88,7 @@ namespace DeploySoftware.LaunchPad.Core.Application
         public override string ToString()
         {
             StringBuilder sb = new StringBuilder();
-            sb.Append("[ListEntityDtoBase : ");
+            sb.Append("[UpdateEntityDetailDtoBase : ");
             sb.Append(ToStringBaseProperties());
             sb.Append("]");
             return sb.ToString();
@@ -111,8 +106,10 @@ namespace DeploySoftware.LaunchPad.Core.Application
             // LaunchPAD RAD properties
             //
             // ABP properties
+
             return sb.ToString();
         }
+
 
         /// <summary>
         /// Comparison method between two objects of the same type, used for sorting.
@@ -121,12 +118,13 @@ namespace DeploySoftware.LaunchPad.Core.Application
         /// </summary>
         /// <param name="other">The other object of this type we are comparing to</param>
         /// <returns></returns>
-        public virtual int CompareTo(ListEntityDtoBase<TIdType> other)
+        public virtual int CompareTo(UpdateEntityDetailDtoBase<TIdType> other)
         {
             // put comparison of properties in here 
             // for base object we'll just sort by title
             return Name.CompareTo(other.Name);
         }
+
 
         /// <summary>
         /// Equality method between two objects of the same type.
@@ -137,7 +135,7 @@ namespace DeploySoftware.LaunchPad.Core.Application
         /// </summary>
         /// <param name="obj">The other object of this type that we are testing equality with</param>
         /// <returns></returns>
-        public virtual bool Equals(ListEntityDtoBase<TIdType> obj)
+        public virtual bool Equals(UpdateEntityDetailDtoBase<TIdType> obj)
         {
             if (obj != null)
             {
