@@ -15,10 +15,8 @@
 //limitations under the License. 
 #endregion
 
-using Abp.Application.Services.Dto;
 using Abp.Domain.Entities;
-
-using DeploySoftware.LaunchPad.Core.Domain;
+using Abp.Domain.Entities.Auditing;
 using System;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -32,93 +30,80 @@ using System.Xml.Serialization;
 namespace DeploySoftware.LaunchPad.Core.Application
 {
     /// <summary>
-    /// Represents the minimum amount of base properties a LaunchPad Data Transfer Object should possess.
+    /// Represents the entire amount of base properties a LaunchPad Data Transfer Object would possess.
     /// Of course subclassing DTOs will contain additional properties.
     /// </summary>
     /// <typeparam name="TIdType">The type of the Id</typeparam>
 
-    public abstract partial class EntityDtoBase<TIdType> : EntityDto<TIdType>,
-        IMustHaveTenant,
-        IComparable<EntityDtoBase<TIdType>>, IEquatable<EntityDtoBase<TIdType>>
+    public abstract partial class EntityAdminDtoBase<TIdType> : EntityFullDtoBase<TIdType>,
+        IDeletionAudited, ISoftDelete,
+        IComparable<EntityAdminDtoBase<TIdType>>, IEquatable<EntityAdminDtoBase<TIdType>>
     {
-      
+     
         /// <summary>
-        /// The culture of this object
-        /// </summary>
-        [DataObjectField(true)]
-        [XmlAttribute]
-        public virtual String Culture { get; set; }
-
-        [DataMember(EmitDefaultValue = false, Name = "TenantId")]
-        public virtual int TenantId { get; set; }
-
-        /// <summary>
-        /// The display name that can be displayed as a label externally to users when referring to this object
-        /// (rather than using a GUID, which is unfriendly but unique)
+        /// The date and time that this object was deleted.
         /// </summary>
         [DataObjectField(false)]
         [XmlAttribute]
-        [DataMember(EmitDefaultValue =false, Name="Name")]
-        public virtual String Name { get; set; }
+        public virtual DateTime? DeletionTime { get; set; }
 
         /// <summary>
-        /// A short description of this item.
+        /// The id of the user which deleted this entity
         /// </summary>
         [DataObjectField(false)]
         [XmlAttribute]
-        public virtual String DescriptionShort { get; set; }
+        [ForeignKey(nameof(DeleterUserId))]
+        public virtual long? DeleterUserId { get; set; }
 
-        
+
+        [DataObjectField(false)]
+        [XmlAttribute]
+        public virtual bool IsDeleted { get; set; }
+
         #region "Constructors"
 
         /// <summary>
         /// Default constructor
         /// </summary>
-        protected EntityDtoBase() : base()
+        protected EntityAdminDtoBase() : base()
         {
-            Culture = ApplicationInformation<TIdType>.DEFAULT_CULTURE;
-            Name = String.Empty;
-            DescriptionShort = String.Empty;
+
+            IsDeleted = false;
+            IsActive = true;
+
         }
 
         /// <summary>
-        /// Default constructor where the id is known
+        /// Default constructor where the tenant id is known
         /// </summary>
-        /// <param name="id"></param>
-        public EntityDtoBase(int tenantId, TIdType id) : base()
+        public EntityAdminDtoBase(int tenantId, TIdType id) : base(tenantId, id)
         {
-            
-            TenantId = tenantId;
-            Id = id;
-            Culture = ApplicationInformation<TIdType>.DEFAULT_CULTURE;
-            Name = String.Empty;
-            DescriptionShort = String.Empty;
+            IsDeleted = false;
+            IsActive = true;
         }
 
-        public EntityDtoBase(int tenantId, TIdType id, String culture) : base()
+        public EntityAdminDtoBase(int tenantId, TIdType id, string culture) : base(tenantId, id,culture)
         {
-            TenantId = tenantId;
-            Id = id;
-            Culture = culture;
-            Name = String.Empty;
-            DescriptionShort = String.Empty;
+            IsDeleted = false;
+            IsActive = true;
         }
-     
+
         /// <summary>
         /// Serialization constructor used for deserialization
         /// </summary>
         /// <param name="info">The serialization info</param>
         /// <param name="context">The context of the stream</param>
-        protected EntityDtoBase(SerializationInfo info, StreamingContext context)
+        protected EntityAdminDtoBase(SerializationInfo info, StreamingContext context) : base(info, context)
         {
-            Id = (TIdType)info.GetValue("Id", typeof(TIdType));
-            Culture = info.GetString("Culture");
-            Name = info.GetString("DisplayName");
-            DescriptionShort = info.GetString("DescriptionShort");
-            TenantId = info.GetInt32("TenantId");
+            IsDeleted = info.GetBoolean("IsDeleted");
+            IsActive = info.GetBoolean("IsActive");
+            DeletionTime = info.GetDateTime("DeletionTime");
+            DeleterUserId = info.GetInt64("DeleterUserId");
         }
 
-#endregion
+
+        #endregion
+
 
         /// <summary>
         /// The method required for implementing ISerializable
@@ -126,13 +111,13 @@ namespace DeploySoftware.LaunchPad.Core.Application
         /// <param name="info"></param>
         /// <param name="context"></param>
         [SecurityPermission(SecurityAction.Demand, SerializationFormatter = true)]
-        public virtual void GetObjectData(SerializationInfo info, StreamingContext context)
+        public override void GetObjectData(SerializationInfo info, StreamingContext context)
         {
-            info.AddValue("TenantId", TenantId);
-            info.AddValue("Id", Id);
-            info.AddValue("Culture", Culture);
-            info.AddValue("Name", Name);
-            info.AddValue("DescriptionShort", DescriptionShort);
+            base.GetObjectData(info, context);
+            info.AddValue("DeleterUserId", DeleterUserId);
+            info.AddValue("DeletionTime", DeletionTime);
+            info.AddValue("IsDeleted", IsDeleted);
+            info.AddValue("IsActive", IsActive);
         }
 
         /// <summary>  
@@ -142,7 +127,7 @@ namespace DeploySoftware.LaunchPad.Core.Application
         public override string ToString()
         {
             StringBuilder sb = new StringBuilder();
-            sb.Append("[GetEntityDtoBase : ");
+            sb.Append("[FullAuditedEntityDtoBase : ");
             sb.Append(ToStringBaseProperties());
             sb.Append("]");
             return sb.ToString();
@@ -153,26 +138,27 @@ namespace DeploySoftware.LaunchPad.Core.Application
         /// the common base properties
         /// </summary>
         /// <returns>A string description of the entity</returns>
-        protected virtual String ToStringBaseProperties()
+        protected override String ToStringBaseProperties()
         {
             StringBuilder sb = new StringBuilder();
+            sb.Append(base.ToStringBaseProperties());
             // LaunchPAD RAD properties
-            sb.AppendFormat("Id={0};", Id);
-            sb.AppendFormat("Culture={0};", Culture); 
-            sb.AppendFormat("Name={0};", Name);
-            sb.AppendFormat("DescriptionShort={0};", DescriptionShort);
-            // ABP Properties
-            sb.AppendFormat("TenantId={0};", TenantId);
-
+            //
+            // ABP properties
+            //
+            sb.AppendFormat("IsDeleted={0};", IsDeleted); 
+            sb.AppendFormat("DeleterUserId={0};", DeleterUserId);
+            sb.AppendFormat("DeletionTime={0};", DeletionTime);
             return sb.ToString();
         }
+
 
         /// <summary>
         /// Shallow clones the entity
         /// </summary>
         /// <typeparam name="TEntity">The source entity to clone</typeparam>
         /// <returns>A shallow clone of the entity and its serializable properties</returns>
-        protected virtual TEntity Clone<TEntity>() where TEntity : EntityDtoBase<TIdType>, new()
+        protected new TEntity Clone<TEntity>() where TEntity : EntityAdminDtoBase<TIdType>, new()
         {
             TEntity clone = new TEntity();
             foreach (PropertyInfo info in GetType().GetProperties())
@@ -194,7 +180,7 @@ namespace DeploySoftware.LaunchPad.Core.Application
         /// </summary>
         /// <param name="other">The other object of this type we are comparing to</param>
         /// <returns></returns>
-        public virtual int CompareTo(EntityDtoBase<TIdType> other)
+        public virtual int CompareTo(EntityAdminDtoBase<TIdType> other)
         {
             // put comparison of properties in here 
             // for base object we'll just sort by name and description short
@@ -208,9 +194,9 @@ namespace DeploySoftware.LaunchPad.Core.Application
         /// <returns>True if the entities are the same according to business key value</returns>
         public override bool Equals(object obj)
         {
-            if (obj != null && obj is EntityDtoBase<TIdType>)
+            if (obj != null && obj is EntityAdminDtoBase<TIdType>)
             {
-                return Equals(obj as EntityDtoBase<TIdType>);
+                return Equals(obj as EntityAdminDtoBase<TIdType>);
             }
             return false;
         }
@@ -224,11 +210,11 @@ namespace DeploySoftware.LaunchPad.Core.Application
         /// </summary>
         /// <param name="obj">The other object of this type that we are testing equality with</param>
         /// <returns></returns>
-        public virtual bool Equals(EntityDtoBase<TIdType> obj)
+        public virtual bool Equals(EntityAdminDtoBase<TIdType> obj)
         {
             if (obj != null)
             {
-                return Id.Equals(obj.Id) && Culture.Equals(obj.Culture) && TenantId.Equals(obj.TenantId);
+                return Id.Equals(obj.Id) && Culture.Equals(obj.Culture) && TenantId.Equals(obj.TenantId) && IsDeleted.Equals(obj.IsDeleted);
             }
             return false;
         }
@@ -239,7 +225,7 @@ namespace DeploySoftware.LaunchPad.Core.Application
         /// <param name="x">The first value</param>
         /// <param name="y">The second value</param>
         /// <returns>True if both objects are fully equal based on the Equals logic</returns>
-        public static bool operator ==(EntityDtoBase<TIdType> x, EntityDtoBase<TIdType> y)
+        public static bool operator ==(EntityAdminDtoBase<TIdType> x, EntityAdminDtoBase<TIdType> y)
         {
             if (x is null)
             {
@@ -258,7 +244,7 @@ namespace DeploySoftware.LaunchPad.Core.Application
         /// <param name="x">The first value</param>
         /// <param name="y">The second value</param>
         /// <returns>True if both objects are not equal based on the Equals logic</returns>
-        public static bool operator !=(EntityDtoBase<TIdType> x, EntityDtoBase<TIdType> y)
+        public static bool operator !=(EntityAdminDtoBase<TIdType> x, EntityAdminDtoBase<TIdType> y)
         {
             return !(x == y);
         }
@@ -274,6 +260,5 @@ namespace DeploySoftware.LaunchPad.Core.Application
         {
             return Id.GetHashCode() + Culture.GetHashCode() + TenantId.GetHashCode();
         }
-
     }
 }

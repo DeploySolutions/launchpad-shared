@@ -35,17 +35,16 @@ namespace DeploySoftware.LaunchPad.Core.Application
     /// </summary>
     /// <typeparam name="TIdType">The type of the Id</typeparam>
     public abstract partial class EntityDetailDtoBase<TIdType> : EntityDtoBase<TIdType>,
-        IHasCreationTime, ICreationAudited, IHasModificationTime, IModificationAudited,
         IPassivable,
         IComparable<EntityDetailDtoBase<TIdType>>, IEquatable<EntityDetailDtoBase<TIdType>>
     {
-        public static readonly long? DEFAULT_CREATOR_USER_ID = 1;
-
+       
         /// <summary>
         /// A full description of this item.
         /// </summary>
         [DataObjectField(false)]
         [XmlAttribute]
+        [DataMember(EmitDefaultValue = false, Name = "DESCRIPTIONFULL")]
         public virtual String DescriptionFull { get; set; }
 
         /// <summary>
@@ -57,35 +56,7 @@ namespace DeploySoftware.LaunchPad.Core.Application
         public virtual TIdType TranslatedFromId { get; set; }
 
 
-        /// <summary>
-        /// The date and time that this object was created.
-        /// </summary>
-        [DataObjectField(false)]
-        [XmlAttribute]
-        public virtual DateTime CreationTime { get; set; }
-
-        /// <summary>
-        /// The id of the User Agent which created this entity
-        /// </summary>
-        [DataObjectField(false)]
-        [XmlAttribute]
-        [ForeignKey(nameof(CreatorUserId))]
-        public virtual long? CreatorUserId { get; set; }
-
-        /// <summary>
-        /// The date and time that the location and/or properties of this object were last modified.
-        /// </summary>
-        [DataObjectField(false)]
-        [XmlAttribute]
-        public virtual DateTime? LastModificationTime { get; set; }
-
-        /// <summary>
-        /// The id of the User Agent which last modified this object.
-        /// </summary>
-        [DataObjectField(false)]
-        [XmlAttribute]
-        [ForeignKey(nameof(LastModifierUserId))]
-        public virtual Int64? LastModifierUserId { get; set; }
+        
 
         [DataObjectField(false)]
         [XmlAttribute]
@@ -100,7 +71,6 @@ namespace DeploySoftware.LaunchPad.Core.Application
         protected EntityDetailDtoBase() : base()
         {
             DescriptionFull = String.Empty;
-            CreatorUserId = DEFAULT_CREATOR_USER_ID;
             IsActive = true;
 
         }
@@ -111,14 +81,12 @@ namespace DeploySoftware.LaunchPad.Core.Application
         public EntityDetailDtoBase(int tenantId, TIdType id) : base(tenantId, id)
         {
             DescriptionFull = String.Empty;
-            CreatorUserId = DEFAULT_CREATOR_USER_ID;
             IsActive = true;
         }
 
         public EntityDetailDtoBase(int tenantId, TIdType id, string culture) : base(tenantId, id,culture)
         {
             DescriptionFull = String.Empty;
-            CreatorUserId = DEFAULT_CREATOR_USER_ID; 
             IsActive = true;
         }
 
@@ -132,10 +100,7 @@ namespace DeploySoftware.LaunchPad.Core.Application
             DescriptionFull = info.GetString("DescriptionFull");
             TranslatedFromId = (TIdType)info.GetValue("TranslatedFromId", typeof(TIdType));
             IsActive = info.GetBoolean("IsActive");
-            CreationTime = info.GetDateTime("CreationTime");
-            CreatorUserId = info.GetInt64("CreatorUserId");
-            LastModifierUserId = info.GetInt64("LastModifierUserId");
-            LastModificationTime = info.GetDateTime("LastModificationTime");
+            
         }
 
 
@@ -153,10 +118,7 @@ namespace DeploySoftware.LaunchPad.Core.Application
             base.GetObjectData(info, context);
             info.AddValue("TranslatedFromId", TranslatedFromId);
             info.AddValue("IsActive", IsActive);
-            info.AddValue("CreationTime", CreationTime);
-            info.AddValue("CreatorUserId", CreatorUserId);
-            info.AddValue("LastModifierUserId", LastModifierUserId);
-            info.AddValue("LastModificationTime", LastModificationTime);
+
         }
 
         /// <summary>  
@@ -187,10 +149,7 @@ namespace DeploySoftware.LaunchPad.Core.Application
             sb.AppendFormat("TranslatedFromId={0};", TranslatedFromId);
             // ABP properties
             //           
-            sb.AppendFormat("CreationTime={0};", CreationTime);
-            sb.AppendFormat("CreatorUserId={0};", CreatorUserId);
-            sb.AppendFormat("LastModifierUserId={0};", LastModifierUserId);
-            sb.AppendFormat("LastModificationTime={0};", LastModificationTime);
+           
             sb.AppendFormat("IsActive={0};", IsActive);
             return sb.ToString();
         }

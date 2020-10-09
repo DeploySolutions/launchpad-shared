@@ -19,11 +19,12 @@ using Abp.Application.Services.Dto;
 using Abp.Domain.Entities;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Reflection;
 using System.Runtime.Serialization;
 using System.Security.Permissions;
 using System.Text;
-
+using System.Xml.Serialization;
 
 namespace DeploySoftware.LaunchPad.Core.Application
 {
@@ -32,9 +33,15 @@ namespace DeploySoftware.LaunchPad.Core.Application
     /// Of course subclassing DTOs will contain additional properties.
     /// </summary>
     /// <typeparam name="TEntityType">The type of the Id</typeparam>
-    public abstract partial class ListResultDtoBase<TEntityType> : ListResultDto<TEntityType>
+    public abstract partial class ListResultDtoBase<TEntityType> : ListResultDto<TEntityType>, IHasTotalCount
     {
-       
+        /// <summary>
+        /// The total Count of the items contained in this list.
+        /// </summary>
+        [DataObjectField(false)]
+        [XmlAttribute]
+        public int TotalCount { get; set; }
+
 
         #region "Constructors"
 
@@ -63,6 +70,7 @@ namespace DeploySoftware.LaunchPad.Core.Application
         protected ListResultDtoBase(SerializationInfo info, StreamingContext context) 
         {
             Items = (IReadOnlyList<TEntityType>)info.GetValue("Items", typeof(IReadOnlyList<TEntityType>));
+            TotalCount = info.GetInt32("TotalCount");
         }
 
 
@@ -77,7 +85,8 @@ namespace DeploySoftware.LaunchPad.Core.Application
         [SecurityPermission(SecurityAction.Demand, SerializationFormatter = true)]
         public virtual void GetObjectData(SerializationInfo info, StreamingContext context)
         {
-            info.AddValue("Items", Items);            
+            info.AddValue("Items", Items);
+            info.AddValue("TotalCount", TotalCount);
         }
 
         /// <summary>  

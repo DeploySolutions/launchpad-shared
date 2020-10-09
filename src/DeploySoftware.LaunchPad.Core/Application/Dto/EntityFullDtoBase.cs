@@ -36,29 +36,40 @@ namespace DeploySoftware.LaunchPad.Core.Application
     /// <typeparam name="TIdType">The type of the Id</typeparam>
 
     public abstract partial class EntityFullDtoBase<TIdType> : EntityDetailDtoBase<TIdType>,
-        IDeletionAudited, ISoftDelete,
+        IHasCreationTime, ICreationAudited, IHasModificationTime, IModificationAudited,
         IComparable<EntityFullDtoBase<TIdType>>, IEquatable<EntityFullDtoBase<TIdType>>
     {
-     
+        public static readonly long? DEFAULT_CREATOR_USER_ID = 1;
+
         /// <summary>
-        /// The date and time that this object was deleted.
+        /// The date and time that this object was created.
         /// </summary>
         [DataObjectField(false)]
         [XmlAttribute]
-        public virtual DateTime? DeletionTime { get; set; }
+        public virtual DateTime CreationTime { get; set; }
 
         /// <summary>
-        /// The id of the user which deleted this entity
+        /// The id of the User Agent which created this entity
         /// </summary>
         [DataObjectField(false)]
         [XmlAttribute]
-        [ForeignKey(nameof(DeleterUserId))]
-        public virtual long? DeleterUserId { get; set; }
+        [ForeignKey(nameof(CreatorUserId))]
+        public virtual long? CreatorUserId { get; set; }
 
-
+        /// <summary>
+        /// The date and time that the location and/or properties of this object were last modified.
+        /// </summary>
         [DataObjectField(false)]
         [XmlAttribute]
-        public virtual bool IsDeleted { get; set; }
+        public virtual DateTime? LastModificationTime { get; set; }
+
+        /// <summary>
+        /// The id of the User Agent which last modified this object.
+        /// </summary>
+        [DataObjectField(false)]
+        [XmlAttribute]
+        [ForeignKey(nameof(LastModifierUserId))]
+        public virtual Int64? LastModifierUserId { get; set; }
 
         #region "Constructors"
 
@@ -67,8 +78,7 @@ namespace DeploySoftware.LaunchPad.Core.Application
         /// </summary>
         protected EntityFullDtoBase() : base()
         {
-
-            IsDeleted = false;
+            CreatorUserId = DEFAULT_CREATOR_USER_ID;
             IsActive = true;
 
         }
@@ -78,13 +88,13 @@ namespace DeploySoftware.LaunchPad.Core.Application
         /// </summary>
         public EntityFullDtoBase(int tenantId, TIdType id) : base(tenantId, id)
         {
-            IsDeleted = false;
+            CreatorUserId = DEFAULT_CREATOR_USER_ID;
             IsActive = true;
         }
 
         public EntityFullDtoBase(int tenantId, TIdType id, string culture) : base(tenantId, id,culture)
         {
-            IsDeleted = false;
+            CreatorUserId = DEFAULT_CREATOR_USER_ID;
             IsActive = true;
         }
 
@@ -95,10 +105,12 @@ namespace DeploySoftware.LaunchPad.Core.Application
         /// <param name="context">The context of the stream</param>
         protected EntityFullDtoBase(SerializationInfo info, StreamingContext context) : base(info, context)
         {
-            IsDeleted = info.GetBoolean("IsDeleted");
+            CreationTime = info.GetDateTime("CreationTime");
+            CreatorUserId = info.GetInt64("CreatorUserId");
+            LastModifierUserId = info.GetInt64("LastModifierUserId");
+            LastModificationTime = info.GetDateTime("LastModificationTime");
             IsActive = info.GetBoolean("IsActive");
-            DeletionTime = info.GetDateTime("DeletionTime");
-            DeleterUserId = info.GetInt64("DeleterUserId");
+
         }
 
 
@@ -114,9 +126,10 @@ namespace DeploySoftware.LaunchPad.Core.Application
         public override void GetObjectData(SerializationInfo info, StreamingContext context)
         {
             base.GetObjectData(info, context);
-            info.AddValue("DeleterUserId", DeleterUserId);
-            info.AddValue("DeletionTime", DeletionTime);
-            info.AddValue("IsDeleted", IsDeleted);
+            info.AddValue("CreationTime", CreationTime);
+            info.AddValue("CreatorUserId", CreatorUserId);
+            info.AddValue("LastModifierUserId", LastModifierUserId);
+            info.AddValue("LastModificationTime", LastModificationTime);
             info.AddValue("IsActive", IsActive);
         }
 
@@ -146,9 +159,10 @@ namespace DeploySoftware.LaunchPad.Core.Application
             //
             // ABP properties
             //
-            sb.AppendFormat("IsDeleted={0};", IsDeleted); 
-            sb.AppendFormat("DeleterUserId={0};", DeleterUserId);
-            sb.AppendFormat("DeletionTime={0};", DeletionTime);
+            sb.AppendFormat("CreationTime={0};", CreationTime);
+            sb.AppendFormat("CreatorUserId={0};", CreatorUserId);
+            sb.AppendFormat("LastModifierUserId={0};", LastModifierUserId);
+            sb.AppendFormat("LastModificationTime={0};", LastModificationTime);
             return sb.ToString();
         }
 
@@ -214,7 +228,7 @@ namespace DeploySoftware.LaunchPad.Core.Application
         {
             if (obj != null)
             {
-                return Id.Equals(obj.Id) && Culture.Equals(obj.Culture) && TenantId.Equals(obj.TenantId) && IsDeleted.Equals(obj.IsDeleted);
+                return Id.Equals(obj.Id) && Culture.Equals(obj.Culture) && TenantId.Equals(obj.TenantId);
             }
             return false;
         }
