@@ -246,13 +246,13 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         public virtual bool Equals(MetadataInformation obj)
         {
             // If parameter is null, return false.
-            if (Object.ReferenceEquals(obj, null))
+            if (obj is null)
             {
                 return false;
             }
 
             // Optimization for a common success case.
-            if (Object.ReferenceEquals(this, obj))
+            if (ReferenceEquals(this, obj))
             {
                 return true;
             }
@@ -290,9 +290,9 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         /// <returns>True if both objects are fully equal based on the Equals logic</returns>
         public static bool operator ==(MetadataInformation x, MetadataInformation y)
         {
-            if (System.Object.ReferenceEquals(x, null))
+            if (x is null)
             {
-                if (System.Object.ReferenceEquals(y, null))
+                if (y is null)
                 {
                     return true;
                 }

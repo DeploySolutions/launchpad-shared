@@ -15,7 +15,10 @@
 //limitations under the License. 
 #endregion
 
+using Abp.Application.Services.Dto;
+using Abp.Domain.Entities;
 using System;
+using System.Collections.Generic;
 using System.Reflection;
 using System.Runtime.Serialization;
 using System.Security.Permissions;
@@ -28,10 +31,10 @@ namespace DeploySoftware.LaunchPad.Core.Application
     /// Represents the base properties a LaunchPad Data Transfer Object would show in a list.
     /// Of course subclassing DTOs will contain additional properties.
     /// </summary>
-    /// <typeparam name="TIdType">The type of the Id</typeparam>
-    public abstract partial class ListEntityDtoBase<TIdType> : GetEntityDtoBase<TIdType>,
-        IComparable<ListEntityDtoBase<TIdType>>, IEquatable<ListEntityDtoBase<TIdType>>
+    /// <typeparam name="TEntityType">The type of the Id</typeparam>
+    public abstract partial class ListResultDtoBase<TEntityType> : ListResultDto<TEntityType>
     {
+       
 
         #region "Constructors"
 
@@ -39,7 +42,7 @@ namespace DeploySoftware.LaunchPad.Core.Application
         /// Default constructor
         /// </summary>
 
-        protected ListEntityDtoBase() : base()
+        public ListResultDtoBase() : base()
         {
 
         }
@@ -47,14 +50,8 @@ namespace DeploySoftware.LaunchPad.Core.Application
         /// <summary>
         /// Default constructor where the tenant id is known
         /// </summary>
-        public ListEntityDtoBase(int tenantId, TIdType id) : base(tenantId, id)
+        public ListResultDtoBase(IReadOnlyList<TEntityType> items) : base(items)
         {
-            TenantId = tenantId;
-        }
-
-        public ListEntityDtoBase(int tenantId, TIdType id, string culture) : base(tenantId, id,culture)
-        {
-            TenantId = tenantId; 
 
         }
 
@@ -63,9 +60,9 @@ namespace DeploySoftware.LaunchPad.Core.Application
         /// </summary>
         /// <param name="info">The serialization info</param>
         /// <param name="context">The context of the stream</param>
-        protected ListEntityDtoBase(SerializationInfo info, StreamingContext context) : base(info, context)
+        protected ListResultDtoBase(SerializationInfo info, StreamingContext context) 
         {
-            TenantId = info.GetInt32("TenantId");
+            Items = (IReadOnlyList<TEntityType>)info.GetValue("Items", typeof(IReadOnlyList<TEntityType>));
         }
 
 
@@ -78,9 +75,9 @@ namespace DeploySoftware.LaunchPad.Core.Application
         /// <param name="info"></param>
         /// <param name="context"></param>
         [SecurityPermission(SecurityAction.Demand, SerializationFormatter = true)]
-        public override void GetObjectData(SerializationInfo info, StreamingContext context)
+        public virtual void GetObjectData(SerializationInfo info, StreamingContext context)
         {
-            base.GetObjectData(info, context);
+            info.AddValue("Items", Items);            
         }
 
         /// <summary>  
@@ -90,7 +87,7 @@ namespace DeploySoftware.LaunchPad.Core.Application
         public override string ToString()
         {
             StringBuilder sb = new StringBuilder();
-            sb.Append("[ListEntityDtoBase : ");
+            sb.Append("[ListResultDtoBase : ");
             sb.Append(ToStringBaseProperties());
             sb.Append("]");
             return sb.ToString();
@@ -101,10 +98,9 @@ namespace DeploySoftware.LaunchPad.Core.Application
         /// the common base properties
         /// </summary>
         /// <returns>A string description of the entity</returns>
-        protected override String ToStringBaseProperties()
+        protected virtual String ToStringBaseProperties()
         {
             StringBuilder sb = new StringBuilder();
-            sb.Append(base.ToStringBaseProperties());
             // LaunchPAD RAD properties
             //
             // ABP properties
@@ -116,7 +112,7 @@ namespace DeploySoftware.LaunchPad.Core.Application
         /// </summary>
         /// <typeparam name="TEntity">The source entity to clone</typeparam>
         /// <returns>A shallow clone of the entity and its serializable properties</returns>
-        protected new TEntity Clone<TEntity>() where TEntity : GetEntityDetailDtoBase<TIdType>, new()
+        protected TEntity Clone<TEntity>() where TEntity : ListResultDtoBase<TEntityType>, new()
         {
             TEntity clone = new TEntity();
             foreach (PropertyInfo info in GetType().GetProperties())
@@ -131,50 +127,5 @@ namespace DeploySoftware.LaunchPad.Core.Application
             return clone;
         }
 
-        /// <summary>
-        /// Comparison method between two objects of the same type, used for sorting.
-        /// Because the CompareTo method is strongly typed by generic constraints,
-        /// it is not necessary to test for the correct object type.
-        /// </summary>
-        /// <param name="other">The other object of this type we are comparing to</param>
-        /// <returns></returns>
-        public virtual int CompareTo(ListEntityDtoBase<TIdType> other)
-        {
-            // put comparison of properties in here 
-            // for base object we'll just sort by title
-            return Name.CompareTo(other.Name);
-        }
-
-        /// Equality method between two objects of the same type.
-        /// Because the Equals method is strongly typed by generic constraints,
-        /// it is not necessary to test for the correct object type.
-        /// For safety we just want to match on business key value - in this case the fields
-        /// that cannot be different between the two objects if they are supposedly equal.        
-        /// </summary>
-        /// <param name="obj">The other object of this type that we are testing equality with</param>
-        /// <returns></returns>
-        public virtual bool Equals(ListEntityDtoBase<TIdType> obj)
-        {
-            if (obj != null)
-            {
-                // For safe equality we need to match on business key equality.
-                // Base domain entities are functionally equal if their key and metadata are equal.
-                // Subclasses should extend to include their own enhanced equality checks, as required.
-                return Id.Equals(obj.Id) && Culture.Equals(obj.Culture) && TenantId.Equals(obj.TenantId);
-            }
-            return false;
-        }
-
-        /// <summary>  
-        /// Computes and retrieves a hash code for an object.  
-        /// </summary>  
-        /// <remarks>  
-        /// This method implements the <see cref="Object">Object</see> method.  
-        /// </remarks>  
-        /// <returns>A hash code for an object.</returns>
-        public override int GetHashCode()
-        {
-            return Id.GetHashCode() + Culture.GetHashCode() + TenantId.GetHashCode() + Name.GetHashCode();
-        }
     }
 }

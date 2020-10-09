@@ -34,10 +34,10 @@ namespace DeploySoftware.LaunchPad.Core.Application
     /// Of course subclassing DTOs will contain additional properties.
     /// </summary>
     /// <typeparam name="TIdType">The type of the Id</typeparam>
-    public abstract partial class GetEntityDetailDtoBase<TIdType> : GetEntityDtoBase<TIdType>,
+    public abstract partial class EntityDetailDtoBase<TIdType> : EntityDtoBase<TIdType>,
         IHasCreationTime, ICreationAudited, IHasModificationTime, IModificationAudited,
         IPassivable,
-        IComparable<GetEntityDetailDtoBase<TIdType>>, IEquatable<GetEntityDetailDtoBase<TIdType>>
+        IComparable<EntityDetailDtoBase<TIdType>>, IEquatable<EntityDetailDtoBase<TIdType>>
     {
         public static readonly long? DEFAULT_CREATOR_USER_ID = 1;
 
@@ -97,7 +97,7 @@ namespace DeploySoftware.LaunchPad.Core.Application
         /// <summary>
         /// Default constructor
         /// </summary>
-        protected GetEntityDetailDtoBase() : base()
+        protected EntityDetailDtoBase() : base()
         {
             DescriptionFull = String.Empty;
             CreatorUserId = DEFAULT_CREATOR_USER_ID;
@@ -108,14 +108,14 @@ namespace DeploySoftware.LaunchPad.Core.Application
         /// <summary>
         /// Default constructor where the tenant id is known
         /// </summary>
-        public GetEntityDetailDtoBase(int tenantId, TIdType id) : base(tenantId, id)
+        public EntityDetailDtoBase(int tenantId, TIdType id) : base(tenantId, id)
         {
             DescriptionFull = String.Empty;
             CreatorUserId = DEFAULT_CREATOR_USER_ID;
             IsActive = true;
         }
 
-        public GetEntityDetailDtoBase(int tenantId, TIdType id, string culture) : base(tenantId, id,culture)
+        public EntityDetailDtoBase(int tenantId, TIdType id, string culture) : base(tenantId, id,culture)
         {
             DescriptionFull = String.Empty;
             CreatorUserId = DEFAULT_CREATOR_USER_ID; 
@@ -127,7 +127,7 @@ namespace DeploySoftware.LaunchPad.Core.Application
         /// </summary>
         /// <param name="info">The serialization info</param>
         /// <param name="context">The context of the stream</param>
-        protected GetEntityDetailDtoBase(SerializationInfo info, StreamingContext context) : base(info, context)
+        protected EntityDetailDtoBase(SerializationInfo info, StreamingContext context) : base(info, context)
         {
             DescriptionFull = info.GetString("DescriptionFull");
             TranslatedFromId = (TIdType)info.GetValue("TranslatedFromId", typeof(TIdType));
@@ -200,7 +200,7 @@ namespace DeploySoftware.LaunchPad.Core.Application
         /// </summary>
         /// <typeparam name="TEntity">The source entity to clone</typeparam>
         /// <returns>A shallow clone of the entity and its serializable properties</returns>
-        protected new TEntity Clone<TEntity>() where TEntity : GetEntityDetailDtoBase<TIdType>, new()
+        protected new TEntity Clone<TEntity>() where TEntity : EntityDetailDtoBase<TIdType>, new()
         {
             TEntity clone = new TEntity();
             foreach (PropertyInfo info in GetType().GetProperties())
@@ -222,7 +222,7 @@ namespace DeploySoftware.LaunchPad.Core.Application
         /// </summary>
         /// <param name="other">The other object of this type we are comparing to</param>
         /// <returns></returns>
-        public virtual int CompareTo(GetEntityDetailDtoBase<TIdType> other)
+        public virtual int CompareTo(EntityDetailDtoBase<TIdType> other)
         {
             // put comparison of properties in here 
             // for base object we'll just sort by name and description short
@@ -236,9 +236,9 @@ namespace DeploySoftware.LaunchPad.Core.Application
         /// <returns>True if the entities are the same according to business key value</returns>
         public override bool Equals(object obj)
         {
-            if (obj != null && obj is GetEntityDtoBase<TIdType>)
+            if (obj != null && obj is EntityDtoBase<TIdType>)
             {
-                return Equals(obj as GetEntityDtoBase<TIdType>);
+                return Equals(obj as EntityDtoBase<TIdType>);
             }
             return false;
         }
@@ -252,7 +252,7 @@ namespace DeploySoftware.LaunchPad.Core.Application
         /// </summary>
         /// <param name="obj">The other object of this type that we are testing equality with</param>
         /// <returns></returns>
-        public virtual bool Equals(GetEntityDetailDtoBase<TIdType> obj)
+        public virtual bool Equals(EntityDetailDtoBase<TIdType> obj)
         {
             if (obj != null)
             {
@@ -269,7 +269,7 @@ namespace DeploySoftware.LaunchPad.Core.Application
         /// <param name="x">The first value</param>
         /// <param name="y">The second value</param>
         /// <returns>True if both objects are fully equal based on the Equals logic</returns>
-        public static bool operator ==(GetEntityDetailDtoBase<TIdType> x, GetEntityDetailDtoBase<TIdType> y)
+        public static bool operator ==(EntityDetailDtoBase<TIdType> x, EntityDetailDtoBase<TIdType> y)
         {
             if (x is null)
             {
@@ -288,7 +288,7 @@ namespace DeploySoftware.LaunchPad.Core.Application
         /// <param name="x">The first value</param>
         /// <param name="y">The second value</param>
         /// <returns>True if both objects are not equal based on the Equals logic</returns>
-        public static bool operator !=(GetEntityDetailDtoBase<TIdType> x, GetEntityDetailDtoBase<TIdType> y)
+        public static bool operator !=(EntityDetailDtoBase<TIdType> x, EntityDetailDtoBase<TIdType> y)
         {
             return !(x == y);
         }

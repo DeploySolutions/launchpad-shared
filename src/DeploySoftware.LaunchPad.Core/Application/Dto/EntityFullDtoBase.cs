@@ -35,9 +35,9 @@ namespace DeploySoftware.LaunchPad.Core.Application
     /// </summary>
     /// <typeparam name="TIdType">The type of the Id</typeparam>
 
-    public abstract partial class GetEntityFullDtoBase<TIdType> : GetEntityDetailDtoBase<TIdType>,
+    public abstract partial class EntityFullDtoBase<TIdType> : EntityDetailDtoBase<TIdType>,
         IDeletionAudited, ISoftDelete,
-        IComparable<GetEntityFullDtoBase<TIdType>>, IEquatable<GetEntityFullDtoBase<TIdType>>
+        IComparable<EntityFullDtoBase<TIdType>>, IEquatable<EntityFullDtoBase<TIdType>>
     {
      
         /// <summary>
@@ -65,7 +65,7 @@ namespace DeploySoftware.LaunchPad.Core.Application
         /// <summary>
         /// Default constructor
         /// </summary>
-        protected GetEntityFullDtoBase() : base()
+        protected EntityFullDtoBase() : base()
         {
 
             IsDeleted = false;
@@ -76,13 +76,13 @@ namespace DeploySoftware.LaunchPad.Core.Application
         /// <summary>
         /// Default constructor where the tenant id is known
         /// </summary>
-        public GetEntityFullDtoBase(int tenantId, TIdType id) : base(tenantId, id)
+        public EntityFullDtoBase(int tenantId, TIdType id) : base(tenantId, id)
         {
             IsDeleted = false;
             IsActive = true;
         }
 
-        public GetEntityFullDtoBase(int tenantId, TIdType id, string culture) : base(tenantId, id,culture)
+        public EntityFullDtoBase(int tenantId, TIdType id, string culture) : base(tenantId, id,culture)
         {
             IsDeleted = false;
             IsActive = true;
@@ -93,7 +93,7 @@ namespace DeploySoftware.LaunchPad.Core.Application
         /// </summary>
         /// <param name="info">The serialization info</param>
         /// <param name="context">The context of the stream</param>
-        protected GetEntityFullDtoBase(SerializationInfo info, StreamingContext context) : base(info, context)
+        protected EntityFullDtoBase(SerializationInfo info, StreamingContext context) : base(info, context)
         {
             IsDeleted = info.GetBoolean("IsDeleted");
             IsActive = info.GetBoolean("IsActive");
@@ -158,7 +158,7 @@ namespace DeploySoftware.LaunchPad.Core.Application
         /// </summary>
         /// <typeparam name="TEntity">The source entity to clone</typeparam>
         /// <returns>A shallow clone of the entity and its serializable properties</returns>
-        protected new TEntity Clone<TEntity>() where TEntity : GetEntityFullDtoBase<TIdType>, new()
+        protected new TEntity Clone<TEntity>() where TEntity : EntityFullDtoBase<TIdType>, new()
         {
             TEntity clone = new TEntity();
             foreach (PropertyInfo info in GetType().GetProperties())
@@ -180,7 +180,7 @@ namespace DeploySoftware.LaunchPad.Core.Application
         /// </summary>
         /// <param name="other">The other object of this type we are comparing to</param>
         /// <returns></returns>
-        public virtual int CompareTo(GetEntityFullDtoBase<TIdType> other)
+        public virtual int CompareTo(EntityFullDtoBase<TIdType> other)
         {
             // put comparison of properties in here 
             // for base object we'll just sort by name and description short
@@ -194,9 +194,9 @@ namespace DeploySoftware.LaunchPad.Core.Application
         /// <returns>True if the entities are the same according to business key value</returns>
         public override bool Equals(object obj)
         {
-            if (obj != null && obj is GetEntityFullDtoBase<TIdType>)
+            if (obj != null && obj is EntityFullDtoBase<TIdType>)
             {
-                return Equals(obj as GetEntityFullDtoBase<TIdType>);
+                return Equals(obj as EntityFullDtoBase<TIdType>);
             }
             return false;
         }
@@ -210,7 +210,7 @@ namespace DeploySoftware.LaunchPad.Core.Application
         /// </summary>
         /// <param name="obj">The other object of this type that we are testing equality with</param>
         /// <returns></returns>
-        public virtual bool Equals(GetEntityFullDtoBase<TIdType> obj)
+        public virtual bool Equals(EntityFullDtoBase<TIdType> obj)
         {
             if (obj != null)
             {
@@ -225,7 +225,7 @@ namespace DeploySoftware.LaunchPad.Core.Application
         /// <param name="x">The first value</param>
         /// <param name="y">The second value</param>
         /// <returns>True if both objects are fully equal based on the Equals logic</returns>
-        public static bool operator ==(GetEntityFullDtoBase<TIdType> x, GetEntityFullDtoBase<TIdType> y)
+        public static bool operator ==(EntityFullDtoBase<TIdType> x, EntityFullDtoBase<TIdType> y)
         {
             if (x is null)
             {
@@ -244,7 +244,7 @@ namespace DeploySoftware.LaunchPad.Core.Application
         /// <param name="x">The first value</param>
         /// <param name="y">The second value</param>
         /// <returns>True if both objects are not equal based on the Equals logic</returns>
-        public static bool operator !=(GetEntityFullDtoBase<TIdType> x, GetEntityFullDtoBase<TIdType> y)
+        public static bool operator !=(EntityFullDtoBase<TIdType> x, EntityFullDtoBase<TIdType> y)
         {
             return !(x == y);
         }
