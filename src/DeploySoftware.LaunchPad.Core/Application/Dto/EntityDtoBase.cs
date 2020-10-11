@@ -21,7 +21,6 @@ using Abp.Domain.Entities;
 using DeploySoftware.LaunchPad.Core.Domain;
 using System;
 using System.ComponentModel;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Reflection;
 using System.Runtime.Serialization;
 using System.Security.Permissions;
@@ -38,6 +37,7 @@ namespace DeploySoftware.LaunchPad.Core.Application
     /// <typeparam name="TIdType">The type of the Id</typeparam>
 
     public abstract partial class EntityDtoBase<TIdType> : EntityDto<TIdType>,
+        ICanBeAppServiceMethodInput, ICanBeAppServiceMethodOutput,
         IMustHaveTenant,
         IComparable<EntityDtoBase<TIdType>>, IEquatable<EntityDtoBase<TIdType>>
     {

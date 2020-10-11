@@ -27,7 +27,8 @@ namespace DeploySoftware.LaunchPad.Core.Application
     /// Represents the detail properties that may be used in order to filter an entity
     /// </summary>
     /// <typeparam name="TIdType">The type of the Id</typeparam>
-    public abstract partial class FilterDetailDtoBase<TIdType> : EntityDetailDtoBase<TIdType>, IPagedResultRequest
+    public abstract partial class FilterDetailDtoBase<TIdType> : EntityDetailDtoBase<TIdType>,
+        ICanBeAppServiceMethodOutput, IPagedResultRequest
     {
 
 

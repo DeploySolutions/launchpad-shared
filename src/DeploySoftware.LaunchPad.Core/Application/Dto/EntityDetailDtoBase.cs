@@ -35,6 +35,7 @@ namespace DeploySoftware.LaunchPad.Core.Application
     /// </summary>
     /// <typeparam name="TIdType">The type of the Id</typeparam>
     public abstract partial class EntityDetailDtoBase<TIdType> : EntityDtoBase<TIdType>,
+        ICanBeAppServiceMethodInput, ICanBeAppServiceMethodOutput,
         IPassivable,
         IComparable<EntityDetailDtoBase<TIdType>>, IEquatable<EntityDetailDtoBase<TIdType>>
     {

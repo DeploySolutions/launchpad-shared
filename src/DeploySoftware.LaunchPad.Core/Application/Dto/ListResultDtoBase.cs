@@ -16,7 +16,6 @@
 #endregion
 
 using Abp.Application.Services.Dto;
-using Abp.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -33,7 +32,7 @@ namespace DeploySoftware.LaunchPad.Core.Application
     /// Of course subclassing DTOs will contain additional properties.
     /// </summary>
     /// <typeparam name="TEntityType">The type of the Id</typeparam>
-    public abstract partial class ListResultDtoBase<TEntityType> : ListResultDto<TEntityType>, IHasTotalCount
+    public abstract partial class ListResultDtoBase<TEntityType> : ListResultDto<TEntityType>, IHasTotalCount, ICanBeAppServiceMethodOutput
     {
         /// <summary>
         /// The total Count of the items contained in this list.
