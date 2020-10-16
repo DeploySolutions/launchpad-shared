@@ -31,7 +31,8 @@ namespace DeploySoftware.LaunchPad.Space.Satellites.Canada
     using DeploySoftware.LaunchPad.Space.Satellites.Common;  
 
     [Table("Radarsat1Observations")]
-    public class Radarsat1Observation : EarthObservationBase<Guid>, IRadarsatObservation<Guid>
+    public class Radarsat1Observation<TFileStorageLocationType> : EarthObservationBase<Guid>, IRadarsatObservation<Guid>
+            where TFileStorageLocationType : IFileStorageLocation, new()
     {
         public enum FileTypes
         {
@@ -140,19 +141,19 @@ namespace DeploySoftware.LaunchPad.Space.Satellites.Canada
 
         public class Radarsat1ObservationFiles : IObservationFiles<Guid>
         {
-            public NvolFile<Guid> Nvol { get; set; }
+            public NvolFile<Guid, TFileStorageLocationType> Nvol { get; set; }
 
-            public SardFile<Guid> Sard { get; set; }
+            public SardFile<Guid, TFileStorageLocationType> Sard { get; set; }
 
-            public SarlFile<Guid> Sarl { get; set; }
+            public SarlFile<Guid, TFileStorageLocationType> Sarl { get; set; }
 
-            public SartFile<Guid> Sart { get; set; }
+            public SartFile<Guid, TFileStorageLocationType> Sart { get; set; }
             
-            public TifFile<Guid> Tif { get; set; }
+            public TifFile<Guid, TFileStorageLocationType> Tif { get; set; }
 
-            public TifWorldFile<Guid> Tfw { get; set; }
+            public TifWorldFile<Guid, TFileStorageLocationType> Tfw { get; set; }
 
-            public VolFile<Guid> Vol { get; set; }
+            public VolFile<Guid, TFileStorageLocationType> Vol { get; set; }
         }
 
     }

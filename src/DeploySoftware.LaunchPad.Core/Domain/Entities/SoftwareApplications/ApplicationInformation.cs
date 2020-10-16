@@ -40,6 +40,11 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         public const string DEFAULT_CULTURE = "en";
         public const string DEFAULT_HEX_COlOUR = "1dbff0";
 
+        [DataObjectField(false)]
+        [XmlAttribute]
+        [ForeignKey(nameof(LaunchPadApplicationId))]
+        public TIdType LaunchPadApplicationId { get; set; }
+
         /// <summary>
         /// The id of the tenant that domain entity this belongs to (if any)
         /// </summary>

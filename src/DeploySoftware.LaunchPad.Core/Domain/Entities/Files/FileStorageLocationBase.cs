@@ -16,6 +16,7 @@
 #endregion
 
 using Abp.Domain.Entities;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.ComponentModel;
 using System.IO;
@@ -24,15 +25,23 @@ using System.Xml.Serialization;
 
 namespace DeploySoftware.LaunchPad.Core.Domain
 {
+    [Owned]
     public abstract partial class FileStorageLocationBase : IFileStorageLocation
     {
         [DataObjectField(false)]
         [XmlAttribute]
-        public Uri RootPath { get; set; }
+        public virtual Uri RootPath { get; set; }
 
         [DataObjectField(false)]
         [XmlAttribute]
-        public byte[] Data { get; set; }
+        public virtual byte[] Data { get; set; }
+
+        /// <summary>
+        /// Returns a Uri to the complete filepath, for a given filename
+        /// </summary>
+        /// <param name="fileName"></param>
+        /// <returns></returns>
+        public abstract Uri GetFullPathUri(string fileName);
 
         protected FileStorageLocationBase()
         {
@@ -55,15 +64,6 @@ namespace DeploySoftware.LaunchPad.Core.Domain
             info.AddValue("Data", Data);
         }
 
-        /// <summary>
-        /// Returns a Uri to the complete filepath, for a given filename
-        /// </summary>
-        /// <param name="fileName"></param>
-        /// <returns></returns>
-        public virtual Uri GetFullPathUri(string fileName)
-        {
-            return new Uri(RootPath.AbsolutePath + Path.DirectorySeparatorChar + fileName);
-        }
 
     }
 }

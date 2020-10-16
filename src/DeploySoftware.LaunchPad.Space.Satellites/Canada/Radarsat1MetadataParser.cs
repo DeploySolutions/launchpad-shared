@@ -33,7 +33,8 @@ namespace DeploySoftware.LaunchPad.Space.Satellites.Canada
     /// <summary>
     /// Utility to parse a Radarsat1 image observation metadata file and populate a Radarsat1Observation object from it.
     /// </summary>
-    public class Radarsat1MetadataParser
+    public class Radarsat1MetadataParser<TFileStorageLocationType>
+            where TFileStorageLocationType : IFileStorageLocation, new()
     {
         /// <summary>
         /// Main utility method to parse a Radarsat1 Metadata text file and populate the Radarsat1 Image Observation from the information
@@ -47,17 +48,17 @@ namespace DeploySoftware.LaunchPad.Space.Satellites.Canada
         /// <exception cref="ArgumentNullException"></exception>
         /// <returns>A populated Radarsat1Observation object containing the metadata values, or null if the object couldn't be populated</returns>
         /// <throws>A FileLoadException if the file cannot be found or loaded</throws>
-        public Radarsat1Observation GetRadarsat1ObservationFromMetadataFile(FileKey metadataFileKey)
+        public Radarsat1Observation<TFileStorageLocationType> GetRadarsat1ObservationFromMetadataFile(string radarsat1MetadataFilename)
         {
-            Radarsat1Observation observation = null;
+            Radarsat1Observation<TFileStorageLocationType> observation = null;
             // Radarsat 1 metadata files are in .txt format
             // ReSharper disable once RedundantAssignment
             var metadataFileText = string.Empty;
-            if (metadataFileKey.Name.EndsWith(".txt"))
+            if (radarsat1MetadataFilename.EndsWith(".txt"))
             {
                 try
                 {   // Open the Radarsat1 Metadata text file
-                    using (StreamReader sr = new StreamReader(metadataFileKey.Name, Encoding.GetEncoding("iso-8859-1")))
+                    using (StreamReader sr = new StreamReader(radarsat1MetadataFilename, Encoding.GetEncoding("iso-8859-1")))
                     {
                         metadataFileText = sr.ReadToEnd();
                     }
@@ -66,7 +67,7 @@ namespace DeploySoftware.LaunchPad.Space.Satellites.Canada
                 {
                     throw new FileLoadException(ex.Message);
                 }
-                String radarsatUniqueId = Path.GetFileNameWithoutExtension(metadataFileKey.Name);
+                String radarsatUniqueId = Path.GetFileNameWithoutExtension(radarsat1MetadataFilename);
                 String sceneId = metadataFileText.FindStringWithinAnchorText("SCENE_ID", "MDA ORDER NUMBER", true, true);
                 String mdaOrderNumber = metadataFileText.FindStringWithinAnchorText("MDA ORDER NUMBER", "GEOGRAPHICAL AREA", true, true);
                 String geographicalArea = metadataFileText.FindStringWithinAnchorText("GEOGRAPHICAL AREA", "SCENE START TIME", true, true);
@@ -139,7 +140,7 @@ namespace DeploySoftware.LaunchPad.Space.Satellites.Canada
                 IUsageRights copyright = new Radarsat1DataUsageRights();
 
                 // Create a new Radarsat1 Earth Observation image
-                observation = new Radarsat1Observation(
+                observation = new Radarsat1Observation<TFileStorageLocationType>(
                     null, // tenant Id - not used in this application
                     sceneId,
                     mdaOrderNumber,
@@ -168,115 +169,108 @@ namespace DeploySoftware.LaunchPad.Space.Satellites.Canada
             }
             
             // ReSharper disable once PossibleNullReferenceException
-            observation.Files = LoadExpectedObservationFiles(observation, metadataFileKey);
+            observation.Files = LoadExpectedObservationFiles(observation, radarsat1MetadataFilename);
             return observation;
         }
 
-        protected Radarsat1Observation.Radarsat1ObservationFiles LoadExpectedObservationFiles(Radarsat1Observation observation, FileKey metadataFileKey)
+        protected Radarsat1Observation<TFileStorageLocationType>.Radarsat1ObservationFiles LoadExpectedObservationFiles(Radarsat1Observation<TFileStorageLocationType> observation, string radarsat1MetadataFilename)
         {
             // get the list of related observation files
-            String baseFilePath = metadataFileKey.Name.Substring(0, metadataFileKey.Name.Length - 4);
-            IList<KeyValuePair<Radarsat1Observation.FileTypes, String>> expectedFiles = new List<KeyValuePair<Radarsat1Observation.FileTypes, String>>
+            String baseFilePath = radarsat1MetadataFilename.Substring(0, radarsat1MetadataFilename.Length - 4);
+            IList<KeyValuePair<Radarsat1Observation<TFileStorageLocationType>.FileTypes, String>> expectedFiles = new List<KeyValuePair<Radarsat1Observation<TFileStorageLocationType>.FileTypes, String>>
             {
-                new KeyValuePair<Radarsat1Observation.FileTypes, string>(
-                Radarsat1Observation.FileTypes.Nvol,
-                baseFilePath + "." + Radarsat1Observation.FileTypes.Nvol
+                new KeyValuePair<Radarsat1Observation<TFileStorageLocationType>.FileTypes, string>(
+                Radarsat1Observation<TFileStorageLocationType>.FileTypes.Nvol,
+                baseFilePath + "." + Radarsat1Observation<TFileStorageLocationType>.FileTypes.Nvol
                 ),
-                new KeyValuePair<Radarsat1Observation.FileTypes, string>(
-                Radarsat1Observation.FileTypes.Sard, baseFilePath + "." + Radarsat1Observation.FileTypes.Sard
+                new KeyValuePair<Radarsat1Observation<TFileStorageLocationType>.FileTypes, string>(
+                Radarsat1Observation<TFileStorageLocationType>.FileTypes.Sard, baseFilePath + "." + Radarsat1Observation<TFileStorageLocationType>.FileTypes.Sard
                 ),
-                new KeyValuePair<Radarsat1Observation.FileTypes, string>(
-                Radarsat1Observation.FileTypes.Sarl, baseFilePath + "." + Radarsat1Observation.FileTypes.Sarl
+                new KeyValuePair<Radarsat1Observation<TFileStorageLocationType>.FileTypes, string>(
+                Radarsat1Observation<TFileStorageLocationType>.FileTypes.Sarl, baseFilePath + "." + Radarsat1Observation<TFileStorageLocationType>.FileTypes.Sarl
                 ),
-                new KeyValuePair<Radarsat1Observation.FileTypes, string>(
-                Radarsat1Observation.FileTypes.Sart, baseFilePath + "." + Radarsat1Observation.FileTypes.Sart
+                new KeyValuePair<Radarsat1Observation<TFileStorageLocationType>.FileTypes, string>(
+                Radarsat1Observation<TFileStorageLocationType>.FileTypes.Sart, baseFilePath + "." + Radarsat1Observation<TFileStorageLocationType>.FileTypes.Sart
                 ),
-                new KeyValuePair<Radarsat1Observation.FileTypes, string>(
-                Radarsat1Observation.FileTypes.Tfw, baseFilePath + "." + Radarsat1Observation.FileTypes.Tfw
+                new KeyValuePair<Radarsat1Observation<TFileStorageLocationType>.FileTypes, string>(
+                Radarsat1Observation<TFileStorageLocationType>.FileTypes.Tfw, baseFilePath + "." + Radarsat1Observation<TFileStorageLocationType>.FileTypes.Tfw
                 ),
-                new KeyValuePair<Radarsat1Observation.FileTypes, string>(
-                Radarsat1Observation.FileTypes.Tif, baseFilePath + "." + Radarsat1Observation.FileTypes.Tif
+                new KeyValuePair<Radarsat1Observation<TFileStorageLocationType>.FileTypes, string>(
+                Radarsat1Observation<TFileStorageLocationType>.FileTypes.Tif, baseFilePath + "." + Radarsat1Observation<TFileStorageLocationType>.FileTypes.Tif
                 ),
-                new KeyValuePair<Radarsat1Observation.FileTypes, string>(
-                Radarsat1Observation.FileTypes.Vol, baseFilePath + "." + Radarsat1Observation.FileTypes.Vol
+                new KeyValuePair<Radarsat1Observation<TFileStorageLocationType>.FileTypes, string>(
+                Radarsat1Observation<TFileStorageLocationType>.FileTypes.Vol, baseFilePath + "." + Radarsat1Observation<TFileStorageLocationType>.FileTypes.Vol
                 )
             };
 
             // initialize the list of observation files
-            Radarsat1Observation.Radarsat1ObservationFiles observationFiles = new Radarsat1Observation.Radarsat1ObservationFiles();
+            Radarsat1Observation<TFileStorageLocationType>.Radarsat1ObservationFiles observationFiles = new Radarsat1Observation<TFileStorageLocationType>.Radarsat1ObservationFiles();
 
-            var location = new WindowsFileStorageLocation();
+            var location = new TFileStorageLocationType();
             location.RootPath = new System.Uri(Directory.GetCurrentDirectory());
 
             // add each expected file type (if it exists)
             if (File.Exists(expectedFiles[0].Value))
             {
-                observationFiles.Nvol = new NvolFile<Guid>()
+                observationFiles.Nvol = new NvolFile<Guid,TFileStorageLocationType>()
                 {
                     Id = SequentialGuid.NewGuid(),
                     Name = Path.GetFileName(expectedFiles[0].Value),
-                    Location = location,
-                    Key = new FileKey(expectedFiles[0].Value)
+                    Location = location
                 };
             }
             if (File.Exists(expectedFiles[1].Value))
             {
-                observationFiles.Sard = new SardFile<Guid>()
+                observationFiles.Sard = new SardFile<Guid, TFileStorageLocationType>()
                 {
                     Id = SequentialGuid.NewGuid(),
                     Name = Path.GetFileName(expectedFiles[1].Value),
-                    Location = location,
-                    Key = new FileKey(expectedFiles[1].Value)
+                    Location = location
                 };
             }
             if (File.Exists(expectedFiles[2].Value))
             {
-                observationFiles.Sarl = new SarlFile<Guid>()
+                observationFiles.Sarl = new SarlFile<Guid, TFileStorageLocationType>()
                 {
                     Id = SequentialGuid.NewGuid(),
                     Name = Path.GetFileName(expectedFiles[2].Value),
-                    Location = location,
-                    Key = new FileKey(expectedFiles[2].Value)
+                    Location = location
                 };
             }
             if (File.Exists(expectedFiles[3].Value))
             {
-                observationFiles.Sart = new SartFile<Guid>()
+                observationFiles.Sart = new SartFile<Guid, TFileStorageLocationType>()
                 {
                     Id = SequentialGuid.NewGuid(),
                     Name = Path.GetFileName(expectedFiles[3].Value),
-                    Location = location,
-                    Key = new FileKey(expectedFiles[3].Value)
+                    Location = location
                 };
             }
             if (File.Exists(expectedFiles[4].Value))
             {
-                observationFiles.Tfw = new TifWorldFile<Guid>()
+                observationFiles.Tfw = new TifWorldFile<Guid, TFileStorageLocationType>()
                 {
                     Id = SequentialGuid.NewGuid(),
                     Name = Path.GetFileName(expectedFiles[4].Value),
-                    Location = location,
-                    Key = new FileKey(expectedFiles[4].Value)
+                    Location = location
                 };
             }
             if (File.Exists(expectedFiles[5].Value))
             {
-                observationFiles.Tif = new TifFile<Guid>()
+                observationFiles.Tif = new TifFile<Guid, TFileStorageLocationType>()
                 {
                     Id = SequentialGuid.NewGuid(),
                     Name = Path.GetFileName(expectedFiles[5].Value),
-                    Location = location,
-                    Key = new FileKey(expectedFiles[5].Value)
+                    Location = location
                 };
             }
             if (File.Exists(expectedFiles[6].Value))
             {
-                observationFiles.Vol = new VolFile<Guid>()
+                observationFiles.Vol = new VolFile<Guid, TFileStorageLocationType>()
                 {
                     Id = SequentialGuid.NewGuid(),
                     Name = Path.GetFileName(expectedFiles[6].Value),
-                    Location = location,
-                    Key = new FileKey(expectedFiles[6].Value)
+                    Location = location
                 };
             }
             return observationFiles;

@@ -36,7 +36,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         /// </summary>
         [DataObjectField(false)]
         [XmlAttribute]
-        IApplicationInformation<TIdType> AppInfo
+        ApplicationInformation<TIdType> AppInfo
         {
             get; set;
         }
@@ -46,14 +46,14 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         /// </summary>
         [DataObjectField(false)]
         [XmlAttribute]
-        IEnumerable<ITenantInformation<TIdType>> TenantInfo { get; set; }
+        List<TenantInformation<TIdType>> TenantInfo { get; set; }
 
         /// <summary>
         /// Each application can have an open-ended set of modules within that provide the functionality
         /// </summary>
         [DataObjectField(false)]
         [XmlAttribute]
-        IEnumerable<IModule<TIdType>> Modules { get; set; }
+        List<Module<TIdType>> Modules { get; set; }
 
     }
 }

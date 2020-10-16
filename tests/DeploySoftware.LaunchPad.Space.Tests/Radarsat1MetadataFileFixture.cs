@@ -23,16 +23,12 @@ namespace DeploySoftware.LaunchPad.Space.Tests
 
     public class Radarsat1MetadataFileFixture : IDisposable
     {
-        public Radarsat1Observation Observation { get; set; }
+        public Radarsat1Observation<WindowsFileStorageLocation> Observation { get; set; }
 
-        public FileKey Radarsat1MetadataFileKey { get; set; }
-        
-
-        public void Initialize(FileKey radarsat1MetadataKey)
+        public void Initialize(string radarsat1MetadataFilename)
         {
-            Radarsat1MetadataFileKey = radarsat1MetadataKey;
-            Radarsat1MetadataParser parser = new Radarsat1MetadataParser();
-            Observation = parser.GetRadarsat1ObservationFromMetadataFile(Radarsat1MetadataFileKey);
+            Radarsat1MetadataParser<WindowsFileStorageLocation> parser = new Radarsat1MetadataParser<WindowsFileStorageLocation>();
+            Observation = parser.GetRadarsat1ObservationFromMetadataFile(radarsat1MetadataFilename);
         }
 
         public void Dispose()

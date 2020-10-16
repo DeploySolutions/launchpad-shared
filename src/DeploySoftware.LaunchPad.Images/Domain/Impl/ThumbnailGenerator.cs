@@ -63,6 +63,8 @@ namespace DeploySoftware.LaunchPad.Images.Domain
         public ThumbnailGenerator()
         {
             string temporaryImagesFilePath = @"f:\data\launchpad\images\temp";
+            MagickNET.SetTempDirectory(temporaryImagesFilePath);
+            MagickAnyCPU.CacheDirectory = temporaryImagesFilePath;
             string policyMap = @"
                 <policymap>
                    <policy domain=""resource"" name=""memory"" value=""3GiB""/> 

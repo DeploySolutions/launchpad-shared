@@ -16,6 +16,7 @@
 #endregion
 
 using Abp.Domain.Entities;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.ComponentModel;
 using System.Runtime.Serialization;
@@ -23,6 +24,7 @@ using System.Xml.Serialization;
 
 namespace DeploySoftware.LaunchPad.Core.Domain
 {
+    [Owned]
     public partial class S3BucketStorageLocation : FileStorageLocationBase
     {
         public const string DEFAULT_REGION = "us-east-1";

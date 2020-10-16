@@ -17,7 +17,8 @@
 
 namespace DeploySoftware.LaunchPad.Core.Domain
 {
-    public class TifFile<TIdType> : FileBase<TIdType>
+    public class TifFile<TIdType, TFileStorageLocationType> : FileBase<TIdType, TFileStorageLocationType>
+        where TFileStorageLocationType: IFileStorageLocation, new()
     {
         public override string Extension => ".tif";
 
@@ -27,7 +28,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         }
         public TifFile(string fileName) : base(fileName)
         {
-            this.Location = new S3BucketStorageLocation();
+
         }
 
         public TifFile(TIdType id, string fileName) : base(id, fileName)

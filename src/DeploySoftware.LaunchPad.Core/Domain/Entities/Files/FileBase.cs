@@ -23,14 +23,9 @@ using System.Xml.Serialization;
 
 namespace DeploySoftware.LaunchPad.Core.Domain
 {
-    public abstract partial class FileBase<TIdType> : DomainEntityBase<TIdType>, IFile<TIdType>
+    public abstract partial class FileBase<TIdType, TFileStorageLocationType> : DomainEntityBase<TIdType>, IFile<TIdType, TFileStorageLocationType>
+        where TFileStorageLocationType: IFileStorageLocation, new()
     {
-        /// <summary>
-        /// The FileKey that uniquely identifies this entity
-        /// </summary>
-        [DataObjectField(true)]
-        [XmlAttribute]
-        public virtual FileKey Key { get; set; }
 
         [DataObjectField(false)]
         [XmlAttribute]
@@ -49,29 +44,29 @@ namespace DeploySoftware.LaunchPad.Core.Domain
 
         [DataObjectField(false)]
         [XmlAttribute]
-        public virtual FileStorageLocationBase Location { get; set; }
+        public virtual TFileStorageLocationType Location { get; set; }
 
         protected FileBase()
         {
-            Key = new FileKey();
+            Location = new TFileStorageLocationType();
         }
 
         protected FileBase(TIdType id) : base(id)
         {
             Id = id;
-            Key = new FileKey();
+            Location = new TFileStorageLocationType();
         }
         protected FileBase(string fileName) : base()
         {
             Name = fileName;
-            Key = new FileKey(fileName);
+            Location = new TFileStorageLocationType();
         }
 
         protected FileBase(TIdType id, string fileName) : base()
         {
             Id = id;
             Name = fileName;
-            Key = new FileKey(fileName);
+            Location = new TFileStorageLocationType();
         }
 
 
@@ -82,8 +77,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         /// <param name="context">The context of the stream</param>
         protected FileBase(SerializationInfo info, StreamingContext context) :base(info,context)
         {
-            Key = (FileKey)info.GetValue("Key", typeof(FileKey));
-            Location = (FileStorageLocationBase)info.GetValue("Data", typeof(FileStorageLocationBase));
+            Location = (TFileStorageLocationType)info.GetValue("Data", typeof(TFileStorageLocationType));
             Name = info.GetString("Name");
             Size = info.GetInt64("Size");
             MimeType = info.GetString("MimeType");
@@ -93,7 +87,6 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         public override void GetObjectData(SerializationInfo info, StreamingContext context)
         {
             base.GetObjectData(info, context);
-            info.AddValue("Key", Key);
             info.AddValue("Size", Size);
             info.AddValue("Name", Name);
             info.AddValue("MimeType", MimeType);
@@ -105,9 +98,9 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         /// <summary>
         /// The full path of the file
         /// </summary>
-        public virtual Uri GetFullPathUri()
+        public Uri GetFullPathUri()
         {
-            return Location.GetFullPathUri(Key.Name);
+            return Location.GetFullPathUri(Name);
         }
 
     }

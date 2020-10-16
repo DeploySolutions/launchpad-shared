@@ -39,14 +39,9 @@ namespace DeploySoftware.LaunchPad.Space.Tests
         public Radarsat1MetadataParserTests(Radarsat1MetadataFileFixture fixture)
         {
             _fixture = fixture;
-            _fixture.Initialize(new FileKey("Radarsat1MetadataTest.en.txt"));
+            _fixture.Initialize("Radarsat1MetadataTest.en.txt");
         }
-        
-        [Fact]
-        public void Should_Have_NotNull_FileKey_When_Instantiated()
-        {
-            _fixture.Radarsat1MetadataFileKey.Name.Should().NotBeNull();
-        }
+      
 
         [Fact]
         public void Scene_ID_Should_Not_Be_NullOrEmpty()

@@ -15,13 +15,16 @@
 //limitations under the License. 
 #endregion
 
+using Schema.NET;
+
 namespace DeploySoftware.LaunchPad.Core.Domain
 {
     // Tiff World File (TFW)
     //
-    public class TifWorldFile<TPrimaryKey> : FileBase<TPrimaryKey>
+    public class TifWorldFile<TPrimaryKey, TFileStorageLocationType> : FileBase<TPrimaryKey,TFileStorageLocationType>
+        where TFileStorageLocationType: IFileStorageLocation, new()
     {
-        public override string Extension => ".tfw";
+        public override string Extension { get => ".tfw"; }
 
         /// <summary>
         /// Line 1: A: x-scale

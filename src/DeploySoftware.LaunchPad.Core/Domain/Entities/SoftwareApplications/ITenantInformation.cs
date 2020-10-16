@@ -20,14 +20,19 @@ namespace DeploySoftware.LaunchPad.Core.Domain
 {
     using System;
     using System.ComponentModel;
+    using System.ComponentModel.DataAnnotations.Schema;
     using System.Xml.Serialization;
 
     /// <summary>
     /// Represents a tenant in an application.
     /// </summary>
-    /// <typeparam name="TPrimaryKey"></typeparam>
-    public interface ITenantInformation<TPrimaryKey> : IDomainEntity<TPrimaryKey>
+    /// <typeparam name="TIdType"></typeparam>
+    public interface ITenantInformation<TIdType> : IDomainEntity<TIdType>
     {
+        [DataObjectField(false)]
+        [XmlAttribute]
+        [ForeignKey(nameof(LaunchPadApplicationId))]
+        TIdType LaunchPadApplicationId { get; set; }
 
         /// <summary>
         /// The default culture of this tenant

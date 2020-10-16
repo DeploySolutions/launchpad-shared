@@ -22,6 +22,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
     using System;
     using System.Collections.Generic;
     using System.ComponentModel;
+    using System.ComponentModel.DataAnnotations.Schema;
     using System.Xml.Serialization;
 
     /// <summary>
@@ -30,6 +31,10 @@ namespace DeploySoftware.LaunchPad.Core.Domain
     /// <typeparam name="TPrimaryKey"></typeparam>
     public interface IApplicationInformation<TIdType> : IDomainEntity<TIdType>
     {
+        [DataObjectField(false)]
+        [XmlAttribute]
+        [ForeignKey(nameof(LaunchPadApplicationId))]
+        TIdType LaunchPadApplicationId { get; set; }
 
         /// <summary>
         /// The default culture of this application

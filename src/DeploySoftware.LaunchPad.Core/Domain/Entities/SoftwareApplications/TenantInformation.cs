@@ -18,6 +18,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Reflection;
 using System.Runtime.Serialization;
 using System.Security.Permissions;
@@ -34,7 +35,12 @@ namespace DeploySoftware.LaunchPad.Core.Domain
     [Serializable()]
     public partial class TenantInformation<TIdType> : TenantSpecificDomainEntityBase<TIdType>, ITenantInformation<TIdType>
     {
-        
+
+        [DataObjectField(false)]
+        [XmlAttribute]
+        [ForeignKey(nameof(LaunchPadApplicationId))]
+        public TIdType LaunchPadApplicationId { get; set; }
+
         [DataObjectField(false)]
         [XmlAttribute]
         public string CultureDefault { get; set; }

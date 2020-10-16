@@ -21,7 +21,8 @@ namespace DeploySoftware.LaunchPad.Space.Satellites.Common
 {
     using DeploySoftware.LaunchPad.Core.Domain;
 
-    public class SartFile<TPrimaryKey> : FileBase<TPrimaryKey>
+    public class SartFile<TPrimaryKey, TFileStorageLocationType> : FileBase<TPrimaryKey, TFileStorageLocationType>
+        where TFileStorageLocationType:IFileStorageLocation, new()
     {
         public override string Extension
         {

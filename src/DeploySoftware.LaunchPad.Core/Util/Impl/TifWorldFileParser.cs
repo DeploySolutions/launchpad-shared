@@ -24,20 +24,21 @@ using DeploySoftware.LaunchPad.Core.Domain;
 
 namespace DeploySoftware.LaunchPad.Core.Util
 {
-    public class TifWorldFileParser<TPrimaryKey>
+    public class TifWorldFileParser<TPrimaryKey, TFileStorageLocationType>
+        where TFileStorageLocationType: IFileStorageLocation, new()
     {
-        public TifWorldFile<TPrimaryKey> GetTifWorldFileFromMetadataFile(FileKey metadataFileKey)
+        public TifWorldFile<TPrimaryKey, TFileStorageLocationType> GetTifWorldFileFromMetadataFile(string metadataFileName)
         {
-            TifWorldFile<TPrimaryKey> file = null;
+            TifWorldFile<TPrimaryKey, TFileStorageLocationType> file = null;
             // Tif World File metadata files are in .tfw format
             // ReSharper disable once RedundantAssignment
             var metadataFileText = string.Empty;
 
-            if (!metadataFileKey.Name.EndsWith(".tfw")) return null;
+            if (!metadataFileName.EndsWith(".tfw")) return null;
             try
             {
                 // Open the Metadata text file
-                using (StreamReader sr = new StreamReader(metadataFileKey.Name,
+                using (StreamReader sr = new StreamReader(metadataFileName,
                     Encoding.GetEncoding("iso-8859-1")))
                 {
                     decimal a = new decimal();
@@ -78,7 +79,7 @@ namespace DeploySoftware.LaunchPad.Core.Util
                         lineNumber++;
                     }
 
-                    file = new TifWorldFile<TPrimaryKey>()
+                    file = new TifWorldFile<TPrimaryKey, TFileStorageLocationType>()
                     {
                         A = a,
                         D = d,

@@ -16,6 +16,7 @@
 #endregion
 
 using Abp.Domain.Entities;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.ComponentModel;
 using System.IO;
@@ -24,8 +25,20 @@ using System.Xml.Serialization;
 
 namespace DeploySoftware.LaunchPad.Core.Domain
 {
+    [Owned]
     public partial class WindowsFileStorageLocation : FileStorageLocationBase
     {
+
+
+        /// <summary>
+        /// Returns a Uri to the complete filepath, for a given filename
+        /// </summary>
+        /// <param name="fileName"></param>
+        /// <returns></returns>
+        public override Uri GetFullPathUri(string fileName)
+        {
+            return new Uri(RootPath.AbsolutePath + Path.DirectorySeparatorChar + fileName);
+        }
 
         public WindowsFileStorageLocation()
         {

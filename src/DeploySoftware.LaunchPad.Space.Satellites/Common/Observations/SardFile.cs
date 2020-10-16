@@ -21,12 +21,16 @@ namespace DeploySoftware.LaunchPad.Space.Satellites.Common
 {
     using DeploySoftware.LaunchPad.Core.Domain;
 
-    public class SardFile<TPrimaryKey> : FileBase<TPrimaryKey>
+    public class SardFile<TPrimaryKey, TFileStorageLocationType> : FileBase<TPrimaryKey, TFileStorageLocationType>
+        where TFileStorageLocationType: IFileStorageLocation, new()
     {
         public override string Extension
         {
             get { return ".sard";  }
         }
 
+        public SardFile() : base()
+        {
+        }
     }
 }

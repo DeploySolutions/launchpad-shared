@@ -24,19 +24,19 @@ namespace DeploySoftware.LaunchPad.Core.Tests
     using DeploySoftware.LaunchPad.Core.Util;
     using System;
 
-    public class TfwWorldFileTestsFixture : IDisposable
+    public class S3FileStorageTestsFixture : IDisposable
     {
-        public readonly TifWorldFileParser<Guid,WindowsFileStorageLocation> TfwParser;
+        public readonly TifWorldFileParser<Guid,S3BucketStorageLocation> TfwParser;
 
-        public readonly TifWorldFile<Guid,WindowsFileStorageLocation> TfwFile;
+        public readonly TifWorldFile<Guid, S3BucketStorageLocation> TfwFile;
 
-        public TfwWorldFileTestsFixture()
+        public S3FileStorageTestsFixture()
         {
             string codeBase = Assembly.GetExecutingAssembly().CodeBase;
             UriBuilder uri = new UriBuilder(codeBase);
             string path = Uri.UnescapeDataString(uri.Path);
             string fileName = Path.GetDirectoryName(path) + "\\" + "TifWorldFileTest.tfw";
-            TfwParser = new TifWorldFileParser<Guid,WindowsFileStorageLocation>();
+            TfwParser = new TifWorldFileParser<Guid,S3BucketStorageLocation>();
             TfwFile = TfwParser.GetTifWorldFileFromMetadataFile(fileName);
         }
 
