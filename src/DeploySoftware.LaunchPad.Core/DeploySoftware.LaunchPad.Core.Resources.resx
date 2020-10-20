@@ -283,4 +283,16 @@
   <data name="Text_OpenGovernmentCanadaLicense_LicenseTerms" xml:space="preserve">
     <value>https://open.canada.ca/en/open-government-licence-canada</value>
   </data>
+  <data name="Validation_Culture_5CharsOrLess" xml:space="preserve">
+    <value>Culture must be 5 characters or less</value>
+  </data>
+  <data name="Validation_DescriptionFull_8096CharsOrLess" xml:space="preserve">
+    <value>Description Full must be 8096 characters or less</value>
+  </data>
+  <data name="Validation_DescriptionShort_256CharsOrLess" xml:space="preserve">
+    <value>Description Short must be 256 characters or less</value>
+  </data>
+  <data name="Validation_Name_100CharsOrLess" xml:space="preserve">
+    <value>Name must be 100 characters or less</value>
+  </data>
 </root>

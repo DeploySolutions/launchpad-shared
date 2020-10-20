@@ -31,6 +31,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Collections.Generic;
+    using System.Linq;
 
     /// <summary>
     /// Base class for Entities. Implements <see cref="IDomainEntity">IDomainEntity</see> and provides
@@ -39,19 +40,21 @@ namespace DeploySoftware.LaunchPad.Core.Domain
     /// </summary>
     public abstract partial class DomainEntityBase<TIdType> : 
         FullAuditedEntity<TIdType>, IDomainEntity<TIdType>
-        
-    {
+    { 
 
         /// <summary>
         /// The culture of this object
         /// </summary>
+        [MaxLength(5, ErrorMessageResourceName = "Validation_Culture_5CharsOrLess", ErrorMessageResourceType = typeof(DeploySoftware_LaunchPad_Core_Resources))]
         [DataObjectField(true)]
         [XmlAttribute]
         public String Culture { get; set; }
 
+
         /// <summary>
         /// The display name of this object
         /// </summary>
+        [MaxLength(100, ErrorMessageResourceName = "Validation_Name_100CharsOrLess", ErrorMessageResourceType = typeof(DeploySoftware_LaunchPad_Core_Resources))]
         [DataObjectField(false)]
         [XmlAttribute]
         public String Name { get; set; }
@@ -59,6 +62,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         /// <summary>
         /// A short description for this entity
         /// </summary>
+        [MaxLength(256, ErrorMessageResourceName = "Validation_DescriptionShort_256CharsOrLess", ErrorMessageResourceType = typeof(DeploySoftware_LaunchPad_Core_Resources))]
         [DataObjectField(false)]
         [XmlAttribute]
         public String DescriptionShort { get; set; }
@@ -66,6 +70,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         /// <summary>
         /// The full description for this entity
         /// </summary>
+        [MaxLength(8096, ErrorMessageResourceName = "Validation_DescriptionFull_8096CharsOrLess", ErrorMessageResourceType = typeof(DeploySoftware_LaunchPad_Core_Resources))]
         [DataObjectField(false)]
         [XmlElement]
         public String DescriptionFull { get; set; }
@@ -100,6 +105,19 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         [XmlAttribute]
         [NotMapped]
         public CultureInfo GetCultureInfo { get { return new CultureInfo(Culture); } }
+
+        /// <summary>
+        /// Ensure the culture is one of the supported ones
+        /// </summary>
+        /// <param name="culture"></param>
+        /// <returns></returns>
+        private static bool IsValidCultureInfoName(string name)
+        {
+            return
+                CultureInfo
+                .GetCultures(CultureTypes.SpecificCultures)
+                .Any(c => c.Name == name);
+        }
 
         /// <summary>  
         /// Initializes a new instance of the <see cref="DomainEntityBase">Entity</see> class

@@ -63,5 +63,7 @@ namespace DeploySoftware.LaunchPad.Core.Tests
             a.Id.Should().NotBe(b.Id);
         }
 
+
+
     }
 }

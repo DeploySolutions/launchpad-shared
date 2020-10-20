@@ -551,5 +551,41 @@ namespace DeploySoftware.LaunchPad.Core {
                 return ResourceManager.GetString("Text_OpenGovernmentCanadaLicense_LicenseTerms", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Culture must be 5 characters or less.
+        /// </summary>
+        public static string Validation_Culture_5CharsOrLess {
+            get {
+                return ResourceManager.GetString("Validation_Culture_5CharsOrLess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Description Full must be 8096 characters or less.
+        /// </summary>
+        public static string Validation_DescriptionFull_8096CharsOrLess {
+            get {
+                return ResourceManager.GetString("Validation_DescriptionFull_8096CharsOrLess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Description Short must be 256 characters or less.
+        /// </summary>
+        public static string Validation_DescriptionShort_256CharsOrLess {
+            get {
+                return ResourceManager.GetString("Validation_DescriptionShort_256CharsOrLess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Name must be 100 characters or less.
+        /// </summary>
+        public static string Validation_Name_100CharsOrLess {
+            get {
+                return ResourceManager.GetString("Validation_Name_100CharsOrLess", resourceCulture);
+            }
+        }
     }
 }

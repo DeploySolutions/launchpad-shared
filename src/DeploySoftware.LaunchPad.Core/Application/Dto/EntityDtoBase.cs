@@ -21,6 +21,7 @@ using Abp.Domain.Entities;
 using DeploySoftware.LaunchPad.Core.Domain;
 using System;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.Reflection;
 using System.Runtime.Serialization;
 using System.Security.Permissions;
@@ -47,9 +48,9 @@ namespace DeploySoftware.LaunchPad.Core.Application
         /// </summary>
         [DataObjectField(true)]
         [XmlAttribute]
+        [MaxLength(5, ErrorMessageResourceName = "Validation_Culture_5CharsOrLess", ErrorMessageResourceType = typeof(DeploySoftware_LaunchPad_Core_Resources))]
         public virtual String Culture { get; set; }
 
-        [DataMember(EmitDefaultValue = false, Name = "TenantId")]
         public virtual int TenantId { get; set; }
 
         /// <summary>
@@ -58,7 +59,7 @@ namespace DeploySoftware.LaunchPad.Core.Application
         /// </summary>
         [DataObjectField(false)]
         [XmlAttribute]
-        [DataMember(EmitDefaultValue =false, Name="Name")]
+        [MaxLength(100, ErrorMessageResourceName = "Validation_Name_100CharsOrLess", ErrorMessageResourceType = typeof(DeploySoftware_LaunchPad_Core_Resources))]
         public virtual String Name { get; set; }
 
         /// <summary>
@@ -66,6 +67,7 @@ namespace DeploySoftware.LaunchPad.Core.Application
         /// </summary>
         [DataObjectField(false)]
         [XmlAttribute]
+        [MaxLength(256, ErrorMessageResourceName = "Validation_DescriptionShort_256CharsOrLess", ErrorMessageResourceType = typeof(DeploySoftware_LaunchPad_Core_Resources))]
         public virtual String DescriptionShort { get; set; }
 
         

@@ -19,6 +19,7 @@ using Abp.Domain.Entities;
 using Abp.Domain.Entities.Auditing;
 using System;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Reflection;
 using System.Runtime.Serialization;
@@ -45,7 +46,7 @@ namespace DeploySoftware.LaunchPad.Core.Application
         /// </summary>
         [DataObjectField(false)]
         [XmlAttribute]
-        [DataMember(EmitDefaultValue = false, Name = "DESCRIPTIONFULL")]
+        [MaxLength(8096, ErrorMessageResourceName = "Validation_DescriptionFull_8096CharsOrLess", ErrorMessageResourceType = typeof(DeploySoftware_LaunchPad_Core_Resources))]
         public virtual String DescriptionFull { get; set; }
 
         /// <summary>

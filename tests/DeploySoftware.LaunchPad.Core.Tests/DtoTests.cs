@@ -22,6 +22,7 @@ namespace DeploySoftware.LaunchPad.Core.Tests
     using DeploySoftware.LaunchPad.Core.Domain;
     using System.Collections.Generic;
     using System;
+    using Abp.Application.Services.Dto;
 
     public class DtoTests : IClassFixture<DeviceTestsFixture>
     {
