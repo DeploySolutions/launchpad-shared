@@ -29,7 +29,6 @@ namespace DeploySoftware.LaunchPad.Core.Domain
     public partial class S3BucketStorageLocation : FileStorageLocationBase
     {
         public const string DEFAULT_REGION = "us-east-1";
-        public const string DEFAULT_BUCKET_ROOT = "https://s3-us-east-1.amazonaws.com";
         
         [DataObjectField(false)]
         [XmlAttribute]
@@ -52,7 +51,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         public S3BucketStorageLocation()
         {
             Region = DEFAULT_REGION;
-            RootPath = new Uri(DEFAULT_BUCKET_ROOT);
+            RootPath = new Uri("https://s3" + Region + ".amazonaws.com/");
         }
 
         /// <summary>
@@ -63,8 +62,8 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         public S3BucketStorageLocation(string bucketName) : base()
         {
             Region = DEFAULT_REGION;
-            RootPath = new Uri(DEFAULT_BUCKET_ROOT);
             BucketName = bucketName;
+            RootPath = new Uri("https://s3" + Region + ".amazonaws.com/" + bucketName);
         }
 
         /// <summary>
@@ -74,11 +73,11 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         /// <param name="region">The region in which the bucket will be created.</param>
         /// <param name="bucketRoot">the URI root of the bucket</param>
         /// <param name="bucketName">The globally-unique name of the bucket</param>
-        public S3BucketStorageLocation(string region, Uri bucketRoot, string bucketName) : base()
+        public S3BucketStorageLocation(string region, string bucketName) : base()
         {
             Region = region;
-            RootPath = new Uri("https://s3-" + bucketRoot + ".amazonaws.com");
             BucketName = bucketName;
+            RootPath = new Uri("https://s3" + Region + ".amazonaws.com/" + bucketName);
         }
 
 
@@ -89,11 +88,11 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         /// <param name="region">The region in which the bucket will be created.</param>
         /// <param name="bucketRoot">the URI root of the bucket</param>
         /// <param name="bucketName">The globally-unique name of the bucket</param>
-        public S3BucketStorageLocation(string region, Uri bucketRoot, string bucketName, string prefix) : base()
+        public S3BucketStorageLocation(string region, string bucketName, string prefix) : base()
         {
             Region = region;
-            RootPath = new Uri("https://s3-" + bucketRoot + ".amazonaws.com");
             BucketName = bucketName;
+            RootPath = new Uri("https://s3" + Region + ".amazonaws.com/" + bucketName);
             Prefix = prefix;
         }
 

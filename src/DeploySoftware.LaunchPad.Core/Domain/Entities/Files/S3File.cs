@@ -6,8 +6,33 @@ using System.Xml.Serialization;
 
 namespace DeploySoftware.LaunchPad.Core.Domain
 {
-    public class S3File<TIdType> : FileBase<TIdType, S3BucketStorageLocation>
+    public partial class S3File<TIdType> : FileBase<TIdType, S3BucketStorageLocation>
     {
+        /// <summary>
+        /// The full path of the file
+        /// </summary>
+        [DataObjectField(false)]
+        [XmlAttribute]
+        public virtual String ObjectKey
+        {
+            get
+            {
+                return Location.Prefix + "/" + Name;
+            }
+        }
+
+        /// <summary>
+        /// The full path of the file
+        /// </summary>
+        [DataObjectField(false)]
+        [XmlAttribute]
+        public virtual Uri VirtualPathUri
+        {
+            get
+            {
+                return new Uri("https://" + Location.BucketName + ".s3.amazonaws.com/" + Location.Prefix + "/" + Name.Replace(" ","+"));
+            }
+        }
 
         /// <summary>
         /// The full path of the file
@@ -18,7 +43,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         {
             get
             {
-                return new Uri("https://" + Location.BucketName + "-files.s3.amazonaws.com/" + Location.Prefix + "/" + Name);
+                return new Uri("https://s3." + Location.Region + ".amazonaws.com/" + Location.BucketName + "/" + Location.Prefix + "/" + Name.Replace(" ", "+"));
             }
         }
 
