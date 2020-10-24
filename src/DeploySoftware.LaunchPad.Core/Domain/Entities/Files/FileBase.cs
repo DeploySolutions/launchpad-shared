@@ -18,6 +18,7 @@
 using Abp.Domain.Entities;
 using System;
 using System.ComponentModel;
+using System.IO;
 using System.Runtime.Serialization;
 using System.Xml.Serialization;
 
@@ -26,6 +27,19 @@ namespace DeploySoftware.LaunchPad.Core.Domain
     public abstract partial class FileBase<TIdType, TFileStorageLocationType> : DomainEntityBase<TIdType>, IFile<TIdType, TFileStorageLocationType>
         where TFileStorageLocationType: IFileStorageLocation, new()
     {
+
+        /// <summary>
+        /// The full path of the file
+        /// </summary>
+        [DataObjectField(false)]
+        [XmlAttribute]
+        public virtual Uri FullPathUri
+        {
+            get
+            {
+                return new Uri(Location.RootPath.AbsolutePath + Path.DirectorySeparatorChar + Name);
+            }
+        }
 
         [DataObjectField(false)]
         [XmlAttribute]
@@ -81,7 +95,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
             Name = info.GetString("Name");
             Size = info.GetInt64("Size");
             MimeType = info.GetString("MimeType");
-            Extension = info.GetString("Extension");
+            Extension = info.GetString("Extension");           
         }
 
         public override void GetObjectData(SerializationInfo info, StreamingContext context)
@@ -92,16 +106,9 @@ namespace DeploySoftware.LaunchPad.Core.Domain
             info.AddValue("MimeType", MimeType);
             info.AddValue("Extension", Extension);
             info.AddValue("Location", Location);
+            info.AddValue("FullPathUri", FullPathUri);
         }
 
-
-        /// <summary>
-        /// The full path of the file
-        /// </summary>
-        public Uri GetFullPathUri()
-        {
-            return Location.GetFullPathUri(Name);
-        }
 
     }
 }

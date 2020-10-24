@@ -30,16 +30,6 @@ namespace DeploySoftware.LaunchPad.Core.Domain
     {
 
 
-        /// <summary>
-        /// Returns a Uri to the complete filepath, for a given filename
-        /// </summary>
-        /// <param name="fileName"></param>
-        /// <returns></returns>
-        public override Uri GetFullPathUri(string fileName)
-        {
-            return new Uri(RootPath.AbsolutePath + Path.DirectorySeparatorChar + fileName);
-        }
-
         public WindowsFileStorageLocation()
         {
         }

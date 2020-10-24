@@ -28,6 +28,9 @@ namespace DeploySoftware.LaunchPad.Core.Domain
     public interface IFile<TPrimaryKey, TFileStorageLocationType> : ILaunchPadObject
         where TFileStorageLocationType : IFileStorageLocation
     {
+        [DataObjectField(false)]
+        [XmlAttribute]
+        Uri FullPathUri { get; }
 
         /// <summary>
         /// The size of the file, in bytes
@@ -64,6 +67,5 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         [XmlAttribute]
         TFileStorageLocationType Location { get; set; }
 
-        Uri GetFullPathUri();
     }
 }

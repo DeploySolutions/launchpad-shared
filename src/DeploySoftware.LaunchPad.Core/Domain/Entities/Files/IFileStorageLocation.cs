@@ -36,11 +36,5 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         /// </summary>
         Byte[] Data { get; set; }
 
-        /// <summary>
-        /// Returns a Uri to the complete filepath, for a given filename
-        /// </summary>
-        /// <param name="fileName"></param>
-        /// <returns></returns>
-        Uri GetFullPathUri(string fileName);
     }
 }

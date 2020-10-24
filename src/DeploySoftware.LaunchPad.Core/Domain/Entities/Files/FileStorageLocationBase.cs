@@ -38,13 +38,6 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         [NotMapped]
         public virtual byte[] Data { get; set; }
 
-        /// <summary>
-        /// Returns a Uri to the complete filepath, for a given filename
-        /// </summary>
-        /// <param name="fileName"></param>
-        /// <returns></returns>
-        public abstract Uri GetFullPathUri(string fileName);
-
         protected FileStorageLocationBase()
         {
         }
