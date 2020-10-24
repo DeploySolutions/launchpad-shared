@@ -32,6 +32,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Collections.Generic;
     using System.Linq;
+    using Newtonsoft.Json;
 
     /// <summary>
     /// Base class for Entities. Implements <see cref="IDomainEntity">IDomainEntity</see> and provides
@@ -95,16 +96,14 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         [XmlAttribute]
         public bool IsActive { get; set; }
 
-
-
         /// <summary>
         /// A convenience readonly method to get a <see cref="CultureInfo">CultureInfo</see> instance from the current 
         /// culture code
         /// </summary>
-        [DataObjectField(false)]
-        [XmlAttribute]
-        [NotMapped]
-        public CultureInfo GetCultureInfo { get { return new CultureInfo(Culture); } }
+        public CultureInfo GetCultureInfo()
+        {
+            return new CultureInfo(Culture); 
+        }
 
         /// <summary>
         /// Ensure the culture is one of the supported ones
