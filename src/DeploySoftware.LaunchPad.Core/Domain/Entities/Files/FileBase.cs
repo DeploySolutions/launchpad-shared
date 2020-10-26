@@ -18,6 +18,7 @@
 using Abp.Domain.Entities;
 using System;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.IO;
 using System.Runtime.Serialization;
 using System.Xml.Serialization;
@@ -54,10 +55,12 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         /// </summary>
         [DataObjectField(false)]
         [XmlAttribute]
+        [Required]
         public virtual String MimeType { get; set; }
 
         [DataObjectField(false)]
         [XmlAttribute]
+        [Required]
         public virtual TFileStorageLocationType Location { get; set; }
 
         protected FileBase()

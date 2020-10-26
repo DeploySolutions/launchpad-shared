@@ -84,7 +84,7 @@ namespace DeploySoftware.LaunchPad.Core.Tests
         [Fact]
         public void Location_Bucket_Root_Should_Be_Us_East()
         {
-            _fixture.TfwFile.Location.RootPath.Should().Be("https://s3-us-east-1.amazonaws.com");
+            _fixture.TfwFile.Location.RootPath.Should().Be("https://s3.us-east-1.amazonaws.com");
         }
 
     }

@@ -41,11 +41,12 @@ namespace DeploySoftware.LaunchPad.Core.Domain
     /// </summary>
     public abstract partial class DomainEntityBase<TIdType> : 
         FullAuditedEntity<TIdType>, IDomainEntity<TIdType>
-    { 
+    {
 
         /// <summary>
         /// The culture of this object
         /// </summary>
+        [Required]
         [MaxLength(5, ErrorMessageResourceName = "Validation_Culture_5CharsOrLess", ErrorMessageResourceType = typeof(DeploySoftware_LaunchPad_Core_Resources))]
         [DataObjectField(true)]
         [XmlAttribute]
@@ -55,6 +56,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         /// <summary>
         /// The display name of this object
         /// </summary>
+        [Required]
         [MaxLength(100, ErrorMessageResourceName = "Validation_Name_100CharsOrLess", ErrorMessageResourceType = typeof(DeploySoftware_LaunchPad_Core_Resources))]
         [DataObjectField(false)]
         [XmlAttribute]
@@ -63,6 +65,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         /// <summary>
         /// A short description for this entity
         /// </summary>
+        [Required]
         [MaxLength(256, ErrorMessageResourceName = "Validation_DescriptionShort_256CharsOrLess", ErrorMessageResourceType = typeof(DeploySoftware_LaunchPad_Core_Resources))]
         [DataObjectField(false)]
         [XmlAttribute]

@@ -51,7 +51,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         public S3BucketStorageLocation()
         {
             Region = DEFAULT_REGION;
-            RootPath = new Uri("https://s3" + Region + ".amazonaws.com/");
+            RootPath = new Uri("https://s3." + Region + ".amazonaws.com/");
         }
 
         /// <summary>
@@ -63,7 +63,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         {
             Region = DEFAULT_REGION;
             BucketName = bucketName;
-            RootPath = new Uri("https://s3" + Region + ".amazonaws.com/" + bucketName);
+            RootPath = new Uri("https://s3." + Region + ".amazonaws.com/" + bucketName);
         }
 
         /// <summary>
@@ -77,7 +77,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         {
             Region = region;
             BucketName = bucketName;
-            RootPath = new Uri("https://s3" + Region + ".amazonaws.com/" + bucketName);
+            RootPath = new Uri("https://s3." + Region + ".amazonaws.com/" + bucketName);
         }
 
 
@@ -92,7 +92,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         {
             Region = region;
             BucketName = bucketName;
-            RootPath = new Uri("https://s3" + Region + ".amazonaws.com/" + bucketName);
+            RootPath = new Uri("https://s3." + Region + ".amazonaws.com/" + bucketName);
             Prefix = prefix;
         }
 

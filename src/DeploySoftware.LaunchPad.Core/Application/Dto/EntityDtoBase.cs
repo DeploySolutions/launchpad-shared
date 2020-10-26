@@ -48,9 +48,13 @@ namespace DeploySoftware.LaunchPad.Core.Application
         /// </summary>
         [DataObjectField(true)]
         [XmlAttribute]
+        [Required]
         [MaxLength(5, ErrorMessageResourceName = "Validation_Culture_5CharsOrLess", ErrorMessageResourceType = typeof(DeploySoftware_LaunchPad_Core_Resources))]
         public virtual String Culture { get; set; }
 
+        [DataObjectField(true)]
+        [XmlAttribute]
+        [Required]
         public virtual int TenantId { get; set; }
 
         /// <summary>
@@ -59,6 +63,7 @@ namespace DeploySoftware.LaunchPad.Core.Application
         /// </summary>
         [DataObjectField(false)]
         [XmlAttribute]
+        [Required]
         [MaxLength(100, ErrorMessageResourceName = "Validation_Name_100CharsOrLess", ErrorMessageResourceType = typeof(DeploySoftware_LaunchPad_Core_Resources))]
         public virtual String Name { get; set; }
 
@@ -67,6 +72,7 @@ namespace DeploySoftware.LaunchPad.Core.Application
         /// </summary>
         [DataObjectField(false)]
         [XmlAttribute]
+        [Required]
         [MaxLength(256, ErrorMessageResourceName = "Validation_DescriptionShort_256CharsOrLess", ErrorMessageResourceType = typeof(DeploySoftware_LaunchPad_Core_Resources))]
         public virtual String DescriptionShort { get; set; }
 
