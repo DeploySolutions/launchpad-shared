@@ -17,7 +17,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         {
             get
             {
-                return Location.Prefix + "/" + Name;
+                return Location.Prefix + "/" + Name.Replace(" ", "+");
             }
         }
 
