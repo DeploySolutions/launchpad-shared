@@ -1,88 +1,101 @@
-﻿//LaunchPad Shared
-// Copyright (c) 2016-2021 Deploy Software Solutions, inc. 
-
-#region license
-//Licensed under the Apache License, Version 2.0 (the "License"); 
-//you may not use this file except in compliance with the License. 
-//You may obtain a copy of the License at 
-
-//http://www.apache.org/licenses/LICENSE-2.0 
-
-//Unless required by applicable law or agreed to in writing, software 
-//distributed under the License is distributed on an "AS IS" BASIS, 
-//WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. 
-//See the License for the specific language governing permissions and 
-//limitations under the License. 
-#endregion
-
-using Abp.Application.Services.Dto;
-
+﻿
 using DeploySoftware.LaunchPad.Core.Domain;
 using System;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Reflection;
 using System.Runtime.Serialization;
 using System.Security.Permissions;
 using System.Text;
 using System.Xml.Serialization;
 
-
 namespace DeploySoftware.LaunchPad.Core.Application
 {
-    /// <summary>
-    /// Represents the minimum amount of base properties a LaunchPad Data Transfer Object should possess.
-    /// Of course subclassing DTOs will contain additional properties.
-    /// </summary>
-    /// <typeparam name="TIdType">The type of the Id</typeparam>
-
-    public abstract partial class EntityDtoBase<TIdType> : EntityDto<TIdType>,
-        IComparable<EntityDtoBase<TIdType>>, IEquatable<EntityDtoBase<TIdType>>
+    public abstract partial class GetFullOutputDtoBase<TIdType> : GetDetailOutputDtoBase<TIdType>
     {
-      
         /// <summary>
-        /// The culture of this object
+        /// A short description of this item.
         /// </summary>
-        [DataObjectField(true)]
+        [DataObjectField(false)]
         [XmlAttribute]
-        [MaxLength(5, ErrorMessageResourceName = "Validation_Culture_5CharsOrLess", ErrorMessageResourceType = typeof(DeploySoftware_LaunchPad_Core_Resources))]
-        [Required] 
-        public virtual String Culture { get; set; }
+        [MaxLength(256, ErrorMessageResourceName = "Validation_DescriptionFull_8096CharsOrLess", ErrorMessageResourceType = typeof(DeploySoftware_LaunchPad_Core_Resources))]
+        public virtual String DescriptionFull { get; set; }
 
-        
+        [DataObjectField(false)]
+        [XmlAttribute]
+        public virtual bool IsActive { get; set; }
+
+        /// <summary>
+        /// The id of the User Agent which created this entity
+        /// </summary>
+        [DataObjectField(false)]
+        [XmlAttribute]
+        [ForeignKey(nameof(CreatorUserId))]
+        public virtual long? CreatorUserId { get; set; }
+
+        /// <summary>
+        /// The id of the User Agent which last modified this object.
+        /// </summary>
+        [DataObjectField(false)]
+        [XmlAttribute]
+        [ForeignKey(nameof(LastModifierUserId))]
+        public virtual Int64? LastModifierUserId { get; set; }
+
         #region "Constructors"
 
         /// <summary>
         /// Default constructor
         /// </summary>
-        protected EntityDtoBase() : base()
+        protected GetFullOutputDtoBase() : base()
         {
             Culture = ApplicationInformation<TIdType>.DEFAULT_CULTURE;
+            IsActive = true;
         }
 
         /// <summary>
         /// Default constructor where the id is known
         /// </summary>
         /// <param name="id"></param>
-        public EntityDtoBase(int tenantId, TIdType id) : base()
+        public GetFullOutputDtoBase(int tenantId, TIdType id) : base(tenantId, id)
         {
+            TenantId = tenantId;
             Id = id;
             Culture = ApplicationInformation<TIdType>.DEFAULT_CULTURE;
+            IsActive = true;
         }
 
-     
+        public GetFullOutputDtoBase(int tenantId, TIdType id, String culture) : base(tenantId, id, culture)
+        {
+            TenantId = tenantId;
+            Id = id;
+            Culture = culture;
+            IsActive = true;
+        }
+
         /// <summary>
         /// Serialization constructor used for deserialization
         /// </summary>
         /// <param name="info">The serialization info</param>
         /// <param name="context">The context of the stream</param>
-        protected EntityDtoBase(SerializationInfo info, StreamingContext context)
+        protected GetFullOutputDtoBase(SerializationInfo info, StreamingContext context) : base(info,context)
         {
             Id = (TIdType)info.GetValue("Id", typeof(TIdType));
             Culture = info.GetString("Culture");
+            Name = info.GetString("DisplayName");
+            TenantId = info.GetInt32("TenantId");
+            DescriptionShort = info.GetString("DescriptionShort");
+            DescriptionFull = info.GetString("DescriptionFull");
+            CreationTime = info.GetDateTime("CreationTime");
+            CreatorUserId = info.GetInt64("CreatorUserId");
+            CreatorUserName = info.GetString("CreatorUserName");
+            LastModifierUserName = info.GetString("LastModifierUserName");
+            LastModifierUserId = info.GetInt64("LastModifierUserId");
+            LastModificationTime = info.GetDateTime("LastModificationTime");
+            IsActive = info.GetBoolean("IsActive");
         }
 
-#endregion
+        #endregion
 
         /// <summary>
         /// The method required for implementing ISerializable
@@ -90,11 +103,21 @@ namespace DeploySoftware.LaunchPad.Core.Application
         /// <param name="info"></param>
         /// <param name="context"></param>
         [SecurityPermission(SecurityAction.Demand, SerializationFormatter = true)]
-        public virtual void GetObjectData(SerializationInfo info, StreamingContext context)
+        public override void GetObjectData(SerializationInfo info, StreamingContext context)
         {
+            info.AddValue("TenantId", TenantId);
             info.AddValue("Id", Id);
             info.AddValue("Culture", Culture);
-
+            info.AddValue("Name", Name);
+            info.AddValue("DescriptionShort", DescriptionShort);
+            info.AddValue("DescriptionFull", DescriptionFull);
+            info.AddValue("CreationTime", CreationTime);
+            info.AddValue("CreatorUserName", CreatorUserName); 
+            info.AddValue("CreatorUserId", CreatorUserId);
+            info.AddValue("LastModifierUserId", LastModifierUserId);
+            info.AddValue("LastModifierUserName", LastModifierUserName);
+            info.AddValue("LastModificationTime", LastModificationTime);
+            info.AddValue("IsActive", IsActive);
         }
 
         /// <summary>  
@@ -104,7 +127,7 @@ namespace DeploySoftware.LaunchPad.Core.Application
         public override string ToString()
         {
             StringBuilder sb = new StringBuilder();
-            sb.Append("[EntityDtoBase : ");
+            sb.Append("[GetFullOutputDtoBase : ");
             sb.Append(ToStringBaseProperties());
             sb.Append("]");
             return sb.ToString();
@@ -115,12 +138,26 @@ namespace DeploySoftware.LaunchPad.Core.Application
         /// the common base properties
         /// </summary>
         /// <returns>A string description of the entity</returns>
-        protected virtual String ToStringBaseProperties()
+        protected override String ToStringBaseProperties()
         {
             StringBuilder sb = new StringBuilder();
             // LaunchPAD RAD properties
             sb.AppendFormat("Id={0};", Id);
-            sb.AppendFormat("Culture={0};", Culture); 
+            sb.AppendFormat("Culture={0};", Culture);
+            sb.AppendFormat("Name={0};", Name);
+            sb.AppendFormat("DescriptionShort={0};", DescriptionShort);
+            sb.AppendFormat("DescriptionFull={0};", DescriptionFull);
+            sb.AppendFormat("CreatorUserName={0};", CreatorUserName);
+            sb.AppendFormat("LastModifierUserName={0};", LastModifierUserName);
+
+            // ABP properties
+            //
+            sb.AppendFormat("IsActive={0};", IsActive);
+            sb.AppendFormat("CreatorUserId={0};", CreatorUserId);
+            sb.AppendFormat("CreationTime={0};", CreationTime);
+            sb.AppendFormat("LastModificationTime={0};", LastModificationTime);
+            sb.AppendFormat("LastModifierUserId={0};", LastModifierUserId); 
+            sb.AppendFormat("TenantId={0};", TenantId);
 
             return sb.ToString();
         }
@@ -130,7 +167,7 @@ namespace DeploySoftware.LaunchPad.Core.Application
         /// </summary>
         /// <typeparam name="TEntity">The source entity to clone</typeparam>
         /// <returns>A shallow clone of the entity and its serializable properties</returns>
-        protected virtual TEntity Clone<TEntity>() where TEntity : EntityDtoBase<TIdType>, new()
+        protected new TEntity Clone<TEntity>() where TEntity : GetFullOutputDtoBase<TIdType>, new()
         {
             TEntity clone = new TEntity();
             foreach (PropertyInfo info in GetType().GetProperties())
@@ -152,13 +189,11 @@ namespace DeploySoftware.LaunchPad.Core.Application
         /// </summary>
         /// <param name="other">The other object of this type we are comparing to</param>
         /// <returns></returns>
-        public virtual int CompareTo(EntityDtoBase<TIdType> other)
+        public virtual int CompareTo(GetFullOutputDtoBase<TIdType> other)
         {
             // put comparison of properties in here 
-            // for base object we'll just sort by id and culture
-            return Id.ToString().CompareTo(other.Id.ToString())
-                + Culture.CompareTo(other.Culture)
-                ;
+            // for base object we'll just sort by name and description short
+            return Name.CompareTo(other.Name);
         }
 
         /// <summary>
@@ -168,9 +203,9 @@ namespace DeploySoftware.LaunchPad.Core.Application
         /// <returns>True if the entities are the same according to business key value</returns>
         public override bool Equals(object obj)
         {
-            if (obj != null && obj is EntityDtoBase<TIdType>)
+            if (obj != null && obj is GetFullOutputDtoBase<TIdType>)
             {
-                return Equals(obj as EntityDtoBase<TIdType>);
+                return Equals(obj as GetFullOutputDtoBase<TIdType>);
             }
             return false;
         }
@@ -184,11 +219,20 @@ namespace DeploySoftware.LaunchPad.Core.Application
         /// </summary>
         /// <param name="obj">The other object of this type that we are testing equality with</param>
         /// <returns></returns>
-        public virtual bool Equals(EntityDtoBase<TIdType> obj)
+        public virtual bool Equals(GetFullOutputDtoBase<TIdType> obj)
         {
             if (obj != null)
             {
-                return Id.Equals(obj.Id) && Culture.Equals(obj.Culture);
+                return Id.Equals(obj.Id) && Culture.Equals(obj.Culture) && TenantId.Equals(obj.TenantId)
+                    && IsActive.Equals(obj.IsActive) 
+                    && DescriptionFull.Equals(obj.DescriptionFull)
+                    && CreationTime.Equals(obj.CreationTime)
+                    && CreatorUserId.Equals(obj.CreatorUserId)
+                    && CreatorUserName.Equals(obj.CreatorUserName)
+                    && LastModifierUserId.Equals(obj.LastModifierUserId)
+                    && LastModifierUserName.Equals(obj.LastModifierUserName)
+                    && LastModificationTime.Equals(obj.LastModificationTime)
+                ;
             }
             return false;
         }
@@ -199,7 +243,7 @@ namespace DeploySoftware.LaunchPad.Core.Application
         /// <param name="x">The first value</param>
         /// <param name="y">The second value</param>
         /// <returns>True if both objects are fully equal based on the Equals logic</returns>
-        public static bool operator ==(EntityDtoBase<TIdType> x, EntityDtoBase<TIdType> y)
+        public static bool operator ==(GetFullOutputDtoBase<TIdType> x, GetFullOutputDtoBase<TIdType> y)
         {
             if (x is null)
             {
@@ -218,7 +262,7 @@ namespace DeploySoftware.LaunchPad.Core.Application
         /// <param name="x">The first value</param>
         /// <param name="y">The second value</param>
         /// <returns>True if both objects are not equal based on the Equals logic</returns>
-        public static bool operator !=(EntityDtoBase<TIdType> x, EntityDtoBase<TIdType> y)
+        public static bool operator !=(GetFullOutputDtoBase<TIdType> x, GetFullOutputDtoBase<TIdType> y)
         {
             return !(x == y);
         }
@@ -232,7 +276,7 @@ namespace DeploySoftware.LaunchPad.Core.Application
         /// <returns>A hash code for an object.</returns>
         public override int GetHashCode()
         {
-            return Id.GetHashCode() + Culture.GetHashCode();
+            return Id.GetHashCode() + Culture.GetHashCode() + TenantId.GetHashCode() + CreatorUserName.GetHashCode() + LastModifierUserName.GetHashCode();
         }
 
     }

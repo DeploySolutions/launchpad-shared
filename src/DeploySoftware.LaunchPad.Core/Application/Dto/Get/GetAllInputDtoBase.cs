@@ -1,46 +1,42 @@
-﻿//LaunchPad Shared
-// Copyright (c) 2016-2021 Deploy Software Solutions, inc. 
-
-#region license
-//Licensed under the Apache License, Version 2.0 (the "License"); 
-//you may not use this file except in compliance with the License. 
-//You may obtain a copy of the License at 
-
-//http://www.apache.org/licenses/LICENSE-2.0 
-
-//Unless required by applicable law or agreed to in writing, software 
-//distributed under the License is distributed on an "AS IS" BASIS, 
-//WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. 
-//See the License for the specific language governing permissions and 
-//limitations under the License. 
-#endregion
-
-using Abp.Domain.Entities;
-using Abp.Domain.Entities.Auditing;
+﻿using Abp.Domain.Entities;
+using DeploySoftware.LaunchPad.Core.Domain;
 using System;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Reflection;
 using System.Runtime.Serialization;
 using System.Security.Permissions;
 using System.Text;
 using System.Xml.Serialization;
 
-
 namespace DeploySoftware.LaunchPad.Core.Application
 {
-    /// <summary>
-    /// Represents the entire amount of base properties a LaunchPad Data Transfer Object would possess.
-    /// Of course subclassing DTOs will contain additional properties.
-    /// </summary>
-    /// <typeparam name="TIdType">The type of the Id</typeparam>
-    public abstract partial class EntityDetailDtoBase<TIdType> : EntityDtoBase<TIdType>,
-        ICanBeAppServiceMethodInput, ICanBeAppServiceMethodOutput,
-        IPassivable,
-        IComparable<EntityDetailDtoBase<TIdType>>, IEquatable<EntityDetailDtoBase<TIdType>>
+    public abstract partial class GetAllInputDtoBase<TIdType> : EntityDtoBase<TIdType>,
+        IMustHaveTenant,
+        ICanBeAppServiceMethodInput
     {
-       
+        [DataObjectField(true)]
+        [XmlAttribute]
+        public virtual int TenantId { get; set; }
+
+        /// <summary>
+        /// The display name that can be displayed as a label externally to users when referring to this object
+        /// (rather than using a GUID, which is unfriendly but unique)
+        /// </summary>
+        [DataObjectField(false)]
+        [XmlAttribute]
+        [MaxLength(100, ErrorMessageResourceName = "Validation_Name_100CharsOrLess", ErrorMessageResourceType = typeof(DeploySoftware_LaunchPad_Core_Resources))]
+        public virtual String Name { get; set; }
+
+        /// <summary>
+        /// A short description of this item.
+        /// </summary>
+        [DataObjectField(false)]
+        [XmlAttribute]
+        [MaxLength(256, ErrorMessageResourceName = "Validation_DescriptionShort_256CharsOrLess", ErrorMessageResourceType = typeof(DeploySoftware_LaunchPad_Core_Resources))]
+        public virtual String DescriptionShort { get; set; }
+
+
         /// <summary>
         /// A full description of this item.
         /// </summary>
@@ -49,47 +45,65 @@ namespace DeploySoftware.LaunchPad.Core.Application
         [MaxLength(8096, ErrorMessageResourceName = "Validation_DescriptionFull_8096CharsOrLess", ErrorMessageResourceType = typeof(DeploySoftware_LaunchPad_Core_Resources))]
         public virtual String DescriptionFull { get; set; }
 
-        /// <summary>
-        /// If this object is not a translation this field will be null. 
-        /// If this object is a translation, this id references the parent object.
-        /// </summary>
-        [DataObjectField(true)]
-        [XmlAttribute]
-        public virtual TIdType TranslatedFromId { get; set; }
-
-
-        
-
         [DataObjectField(false)]
         [XmlAttribute]
         public virtual bool IsActive { get; set; }
 
+        /// <summary>
+        /// The date and time that this object was created.
+        /// </summary>
+        [DataObjectField(false)]
+        [XmlAttribute]
+        public virtual DateTime CreationTime { get; set; }
+
+        /// <summary>
+        /// The user name that created the entity
+        /// </summary>
+        [DataObjectField(false)]
+        [XmlAttribute]
+        public virtual String CreatorUserName { get; set; }
+
+        /// <summary>
+        /// The date and time that the location and/or properties of this object were last modified.
+        /// </summary>
+        [DataObjectField(false)]
+        [XmlAttribute]
+        public virtual DateTime? LastModificationTime { get; set; }
+
+        /// <summary>
+        /// The user name that last modified the entity
+        /// </summary>
+        [DataObjectField(false)]
+        [XmlAttribute]
+        public virtual String LastModifierUserName { get; set; }
 
         #region "Constructors"
 
         /// <summary>
         /// Default constructor
         /// </summary>
-        protected EntityDetailDtoBase() : base()
+        protected GetAllInputDtoBase() : base()
         {
-            DescriptionFull = String.Empty;
-            IsActive = true;
-
+            Culture = ApplicationInformation<TIdType>.DEFAULT_CULTURE;
         }
 
         /// <summary>
-        /// Default constructor where the tenant id is known
+        /// Default constructor where the id is known
         /// </summary>
-        public EntityDetailDtoBase(int tenantId, TIdType id) : base(tenantId, id)
+        /// <param name="id"></param>
+        public GetAllInputDtoBase(int tenantId, TIdType id) : base()
         {
-            DescriptionFull = String.Empty;
-            IsActive = true;
+            TenantId = tenantId;
+            Id = id;
+            Culture = ApplicationInformation<TIdType>.DEFAULT_CULTURE;
+
         }
 
-        public EntityDetailDtoBase(int tenantId, TIdType id, string culture) : base(tenantId, id,culture)
+        public GetAllInputDtoBase(int tenantId, TIdType id, String culture) : base()
         {
-            DescriptionFull = String.Empty;
-            IsActive = true;
+            TenantId = tenantId;
+            Id = id;
+            Culture = culture;
         }
 
         /// <summary>
@@ -97,16 +111,23 @@ namespace DeploySoftware.LaunchPad.Core.Application
         /// </summary>
         /// <param name="info">The serialization info</param>
         /// <param name="context">The context of the stream</param>
-        protected EntityDetailDtoBase(SerializationInfo info, StreamingContext context) : base(info, context)
+        protected GetAllInputDtoBase(SerializationInfo info, StreamingContext context)
         {
+            Id = (TIdType)info.GetValue("Id", typeof(TIdType));
+            Culture = info.GetString("Culture");
+            TenantId = info.GetInt32("TenantId");
+            Name = info.GetString("DisplayName");
+            DescriptionShort = info.GetString("DescriptionShort");
             DescriptionFull = info.GetString("DescriptionFull");
-            TranslatedFromId = (TIdType)info.GetValue("TranslatedFromId", typeof(TIdType));
+            CreationTime = info.GetDateTime("CreationTime");
+            CreatorUserName = info.GetString("CreatorUserName");
+            LastModifierUserName = info.GetString("LastModifierUserName");
+            LastModificationTime = info.GetDateTime("LastModificationTime");
             IsActive = info.GetBoolean("IsActive");
-            
         }
 
-
         #endregion
+
 
 
         /// <summary>
@@ -117,10 +138,17 @@ namespace DeploySoftware.LaunchPad.Core.Application
         [SecurityPermission(SecurityAction.Demand, SerializationFormatter = true)]
         public override void GetObjectData(SerializationInfo info, StreamingContext context)
         {
-            base.GetObjectData(info, context);
-            info.AddValue("TranslatedFromId", TranslatedFromId);
+            info.AddValue("Id", Id);
+            info.AddValue("Culture", Culture);
+            info.AddValue("TenantId", TenantId);
+            info.AddValue("Name", Name);
+            info.AddValue("DescriptionShort", DescriptionShort);
+            info.AddValue("DescriptionFull", DescriptionFull);
+            info.AddValue("CreationTime", CreationTime);
+            info.AddValue("CreatorUserName", CreatorUserName);
+            info.AddValue("LastModifierUserName", LastModifierUserName);
+            info.AddValue("LastModificationTime", LastModificationTime);
             info.AddValue("IsActive", IsActive);
-
         }
 
         /// <summary>  
@@ -130,7 +158,7 @@ namespace DeploySoftware.LaunchPad.Core.Application
         public override string ToString()
         {
             StringBuilder sb = new StringBuilder();
-            sb.Append("[GetEntityDetailDtoBase : ");
+            sb.Append("[GetAllInputDtoBase : ");
             sb.Append(ToStringBaseProperties());
             sb.Append("]");
             return sb.ToString();
@@ -147,12 +175,16 @@ namespace DeploySoftware.LaunchPad.Core.Application
             sb.Append(base.ToStringBaseProperties());
             // LaunchPAD RAD properties
             //
+            sb.AppendFormat("DescriptionShort={0};", DescriptionShort);
             sb.AppendFormat("DescriptionFull={0};", DescriptionFull);
-            sb.AppendFormat("TranslatedFromId={0};", TranslatedFromId);
+            sb.AppendFormat("CreatorUserName={0};", CreatorUserName);
+            sb.AppendFormat("LastModifierUserName={0};", LastModifierUserName);
+            
             // ABP properties
-            //           
-           
+            //
             sb.AppendFormat("IsActive={0};", IsActive);
+            sb.AppendFormat("CreationTime={0};", CreationTime);
+            sb.AppendFormat("LastModificationTime={0};", LastModificationTime);
             return sb.ToString();
         }
 
@@ -161,7 +193,7 @@ namespace DeploySoftware.LaunchPad.Core.Application
         /// </summary>
         /// <typeparam name="TEntity">The source entity to clone</typeparam>
         /// <returns>A shallow clone of the entity and its serializable properties</returns>
-        protected new TEntity Clone<TEntity>() where TEntity : EntityDetailDtoBase<TIdType>, new()
+        protected new TEntity Clone<TEntity>() where TEntity : GetAllInputDtoBase<TIdType>, new()
         {
             TEntity clone = new TEntity();
             foreach (PropertyInfo info in GetType().GetProperties())
@@ -183,11 +215,13 @@ namespace DeploySoftware.LaunchPad.Core.Application
         /// </summary>
         /// <param name="other">The other object of this type we are comparing to</param>
         /// <returns></returns>
-        public virtual int CompareTo(EntityDetailDtoBase<TIdType> other)
+        public virtual int CompareTo(GetAllInputDtoBase<TIdType> other)
         {
             // put comparison of properties in here 
-            // for base object we'll just sort by name and description short
-            return Name.CompareTo(other.Name);
+            // for base object we'll just sort by id and culture
+            return Id.ToString().CompareTo(other.Id.ToString())
+                + Culture.CompareTo(other.Culture)
+                ;
         }
 
         /// <summary>
@@ -197,9 +231,9 @@ namespace DeploySoftware.LaunchPad.Core.Application
         /// <returns>True if the entities are the same according to business key value</returns>
         public override bool Equals(object obj)
         {
-            if (obj != null && obj is EntityDtoBase<TIdType>)
+            if (obj != null && obj is GetAllInputDtoBase<TIdType>)
             {
-                return Equals(obj as EntityDtoBase<TIdType>);
+                return Equals(obj as GetAllInputDtoBase<TIdType>);
             }
             return false;
         }
@@ -213,13 +247,19 @@ namespace DeploySoftware.LaunchPad.Core.Application
         /// </summary>
         /// <param name="obj">The other object of this type that we are testing equality with</param>
         /// <returns></returns>
-        public virtual bool Equals(EntityDetailDtoBase<TIdType> obj)
+        public virtual bool Equals(GetAllInputDtoBase<TIdType> obj)
         {
             if (obj != null)
             {
                 return Id.Equals(obj.Id) && Culture.Equals(obj.Culture) && TenantId.Equals(obj.TenantId)
-                    && TranslatedFromId.Equals(obj.TranslatedFromId);
-
+                    && DescriptionShort.Equals(obj.DescriptionShort)
+                    && DescriptionFull.Equals(obj.DescriptionFull)
+                    && IsActive.Equals(obj.IsActive)
+                    && CreationTime.Equals(obj.CreationTime)
+                    && CreatorUserName.Equals(obj.CreatorUserName)
+                    && LastModifierUserName.Equals(obj.LastModifierUserName)
+                    && LastModificationTime.Equals(obj.LastModificationTime)
+                ;
             }
             return false;
         }
@@ -230,7 +270,7 @@ namespace DeploySoftware.LaunchPad.Core.Application
         /// <param name="x">The first value</param>
         /// <param name="y">The second value</param>
         /// <returns>True if both objects are fully equal based on the Equals logic</returns>
-        public static bool operator ==(EntityDetailDtoBase<TIdType> x, EntityDetailDtoBase<TIdType> y)
+        public static bool operator ==(GetAllInputDtoBase<TIdType> x, GetAllInputDtoBase<TIdType> y)
         {
             if (x is null)
             {
@@ -249,7 +289,7 @@ namespace DeploySoftware.LaunchPad.Core.Application
         /// <param name="x">The first value</param>
         /// <param name="y">The second value</param>
         /// <returns>True if both objects are not equal based on the Equals logic</returns>
-        public static bool operator !=(EntityDetailDtoBase<TIdType> x, EntityDetailDtoBase<TIdType> y)
+        public static bool operator !=(GetAllInputDtoBase<TIdType> x, GetAllInputDtoBase<TIdType> y)
         {
             return !(x == y);
         }
@@ -263,7 +303,7 @@ namespace DeploySoftware.LaunchPad.Core.Application
         /// <returns>A hash code for an object.</returns>
         public override int GetHashCode()
         {
-            return Id.GetHashCode() + Culture.GetHashCode() + TenantId.GetHashCode() + TranslatedFromId.GetHashCode();
+            return Id.GetHashCode() + Culture.GetHashCode() + TenantId.GetHashCode() + CreatorUserName.GetHashCode() + LastModifierUserName.GetHashCode();
         }
     }
 }
