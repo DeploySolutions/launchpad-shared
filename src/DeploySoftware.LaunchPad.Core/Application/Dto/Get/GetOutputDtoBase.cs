@@ -12,14 +12,8 @@ using System.Xml.Serialization;
 namespace DeploySoftware.LaunchPad.Core.Application
 {
     public abstract partial class GetOutputDtoBase<TIdType> : EntityDtoBase<TIdType>, 
-        IMustHaveTenant,
         ICanBeAppServiceMethodOutput
     {
-
-        [DataObjectField(true)]
-        [XmlAttribute]
-        [Required]
-        public virtual int TenantId { get; set; }
 
         /// <summary>
         /// The display name that can be displayed as a label externally to users when referring to this object
@@ -46,16 +40,14 @@ namespace DeploySoftware.LaunchPad.Core.Application
         /// Default constructor where the id is known
         /// </summary>
         /// <param name="id"></param>
-        public GetOutputDtoBase(int tenantId, TIdType id) : base()
+        public GetOutputDtoBase(TIdType id) : base()
         {
-            TenantId = tenantId;
             Id = id;
             Culture = ApplicationInformation<TIdType>.DEFAULT_CULTURE;
         }
 
-        public GetOutputDtoBase(int tenantId, TIdType id, String culture) : base()
+        public GetOutputDtoBase(TIdType id, String culture) : base()
         {
-            TenantId = tenantId;
             Id = id;
             Culture = culture;
         }
@@ -65,12 +57,9 @@ namespace DeploySoftware.LaunchPad.Core.Application
         /// </summary>
         /// <param name="info">The serialization info</param>
         /// <param name="context">The context of the stream</param>
-        protected GetOutputDtoBase(SerializationInfo info, StreamingContext context)
+        protected GetOutputDtoBase(SerializationInfo info, StreamingContext context) : base(info,context)
         {
-            Id = (TIdType)info.GetValue("Id", typeof(TIdType));
-            Culture = info.GetString("Culture");
             Name = info.GetString("DisplayName");
-            TenantId = info.GetInt32("TenantId");
         }
 
         #endregion
@@ -83,9 +72,7 @@ namespace DeploySoftware.LaunchPad.Core.Application
         [SecurityPermission(SecurityAction.Demand, SerializationFormatter = true)]
         public override void GetObjectData(SerializationInfo info, StreamingContext context)
         {
-            info.AddValue("TenantId", TenantId);
-            info.AddValue("Id", Id);
-            info.AddValue("Culture", Culture);
+            base.GetObjectData(info, context);
             info.AddValue("Name", Name);
         }
 
@@ -115,7 +102,6 @@ namespace DeploySoftware.LaunchPad.Core.Application
             sb.AppendFormat("Culture={0};", Culture);
             sb.AppendFormat("Name={0};", Name);
             // ABP Properties
-            sb.AppendFormat("TenantId={0};", TenantId);
 
             return sb.ToString();
         }
@@ -125,7 +111,7 @@ namespace DeploySoftware.LaunchPad.Core.Application
         /// </summary>
         /// <typeparam name="TEntity">The source entity to clone</typeparam>
         /// <returns>A shallow clone of the entity and its serializable properties</returns>
-        protected virtual TEntity Clone<TEntity>() where TEntity : GetOutputDtoBase<TIdType>, new()
+        protected new TEntity Clone<TEntity>() where TEntity : GetOutputDtoBase<TIdType>, new()
         {
             TEntity clone = new TEntity();
             foreach (PropertyInfo info in GetType().GetProperties())
@@ -181,7 +167,7 @@ namespace DeploySoftware.LaunchPad.Core.Application
         {
             if (obj != null)
             {
-                return Id.Equals(obj.Id) && Culture.Equals(obj.Culture) && TenantId.Equals(obj.TenantId);
+                return Id.Equals(obj.Id) && Culture.Equals(obj.Culture) && Name.Equals(obj.Name);
             }
             return false;
         }
@@ -225,7 +211,7 @@ namespace DeploySoftware.LaunchPad.Core.Application
         /// <returns>A hash code for an object.</returns>
         public override int GetHashCode()
         {
-            return Id.GetHashCode() + Culture.GetHashCode() + TenantId.GetHashCode();
+            return Id.GetHashCode() + Culture.GetHashCode() + Name.GetHashCode();
         }
 
     }

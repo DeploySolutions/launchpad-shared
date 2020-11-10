@@ -1,21 +1,4 @@
-﻿//LaunchPad Shared
-// Copyright (c) 2016-2021 Deploy Software Solutions, inc. 
-
-#region license
-//Licensed under the Apache License, Version 2.0 (the "License"); 
-//you may not use this file except in compliance with the License. 
-//You may obtain a copy of the License at 
-
-//http://www.apache.org/licenses/LICENSE-2.0 
-
-//Unless required by applicable law or agreed to in writing, software 
-//distributed under the License is distributed on an "AS IS" BASIS, 
-//WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. 
-//See the License for the specific language governing permissions and 
-//limitations under the License. 
-#endregion
-
-using Abp.Application.Services.Dto;
+﻿using Abp.Domain.Entities;
 using DeploySoftware.LaunchPad.Core.Domain;
 using System;
 using System.ComponentModel;
@@ -26,34 +9,51 @@ using System.Security.Permissions;
 using System.Text;
 using System.Xml.Serialization;
 
-
 namespace DeploySoftware.LaunchPad.Core.Application
 {
-    /// <summary>
-    /// Represents the minimum amount of base properties a LaunchPad Data Transfer Object should possess.
-    /// Of course subclassing DTOs will contain additional properties.
-    /// </summary>
-    /// <typeparam name="TIdType">The type of the Id</typeparam>
-
-    public abstract partial class EntityDtoBase<TIdType> : EntityDto<TIdType>,
-        IComparable<EntityDtoBase<TIdType>>, IEquatable<EntityDtoBase<TIdType>>
+    public abstract partial class CreateUpdateInputDtoBase<TIdType> : EntityDtoBase<TIdType>,
+        ICanBeAppServiceMethodInput
     {
-        
+
         /// <summary>
-        /// The culture of this object
+        /// If this object is not a translation this field will be null. 
+        /// If this object is a translation, this id references the parent object.
         /// </summary>
         [DataObjectField(true)]
         [XmlAttribute]
-        [MaxLength(5, ErrorMessageResourceName = "Validation_Culture_5CharsOrLess", ErrorMessageResourceType = typeof(DeploySoftware_LaunchPad_Core_Resources))]
-        public virtual String Culture { get; set; }
+        public virtual TIdType TranslatedFromId { get; set; }
 
-        
+        /// <summary>
+        /// The display name that can be displayed as a label externally to users when referring to this object
+        /// (rather than using a GUID, which is unfriendly but unique)
+        /// </summary>
+        [DataObjectField(false)]
+        [XmlAttribute]
+        [MaxLength(100, ErrorMessageResourceName = "Validation_Name_100CharsOrLess", ErrorMessageResourceType = typeof(DeploySoftware_LaunchPad_Core_Resources))]
+        public virtual String Name { get; set; }
+
+        /// <summary>
+        /// A short description of this item.
+        /// </summary>
+        [DataObjectField(false)]
+        [XmlAttribute]
+        [MaxLength(256, ErrorMessageResourceName = "Validation_DescriptionShort_256CharsOrLess", ErrorMessageResourceType = typeof(DeploySoftware_LaunchPad_Core_Resources))]
+        public virtual String DescriptionShort { get; set; }
+
+        /// <summary>
+        /// A full description of this item.
+        /// </summary>
+        [DataObjectField(false)]
+        [XmlAttribute]
+        [MaxLength(8096, ErrorMessageResourceName = "Validation_DescriptionFull_8096CharsOrLess", ErrorMessageResourceType = typeof(DeploySoftware_LaunchPad_Core_Resources))]
+        public virtual String DescriptionFull { get; set; }
+
         #region "Constructors"
 
         /// <summary>
         /// Default constructor
         /// </summary>
-        protected EntityDtoBase() : base()
+        protected CreateUpdateInputDtoBase() : base()
         {
             Culture = ApplicationInformation<TIdType>.DEFAULT_CULTURE;
         }
@@ -62,25 +62,37 @@ namespace DeploySoftware.LaunchPad.Core.Application
         /// Default constructor where the id is known
         /// </summary>
         /// <param name="id"></param>
-        public EntityDtoBase(TIdType id) : base(id)
+        public CreateUpdateInputDtoBase(TIdType id) : base()
         {
             Id = id;
             Culture = ApplicationInformation<TIdType>.DEFAULT_CULTURE;
+
         }
 
-     
+        public CreateUpdateInputDtoBase(TIdType id, String culture) : base()
+        {
+            Id = id;
+            Culture = culture;
+        }
+
         /// <summary>
         /// Serialization constructor used for deserialization
         /// </summary>
         /// <param name="info">The serialization info</param>
         /// <param name="context">The context of the stream</param>
-        protected EntityDtoBase(SerializationInfo info, StreamingContext context)
+        protected CreateUpdateInputDtoBase(SerializationInfo info, StreamingContext context)
         {
             Id = (TIdType)info.GetValue("Id", typeof(TIdType));
+            TranslatedFromId = (TIdType)info.GetValue("TranslatedFromId", typeof(TIdType));
             Culture = info.GetString("Culture");
+            Name = info.GetString("DisplayName");
+            DescriptionShort = info.GetString("DescriptionShort");
+            DescriptionFull = info.GetString("DescriptionFull");
         }
 
         #endregion
+
+
 
         /// <summary>
         /// The method required for implementing ISerializable
@@ -88,11 +100,14 @@ namespace DeploySoftware.LaunchPad.Core.Application
         /// <param name="info"></param>
         /// <param name="context"></param>
         [SecurityPermission(SecurityAction.Demand, SerializationFormatter = true)]
-        public virtual void GetObjectData(SerializationInfo info, StreamingContext context)
+        public override void GetObjectData(SerializationInfo info, StreamingContext context)
         {
             info.AddValue("Id", Id);
             info.AddValue("Culture", Culture);
-
+            info.AddValue("TranslatedFromId", TranslatedFromId); 
+            info.AddValue("Name", Name);
+            info.AddValue("DescriptionShort", DescriptionShort);
+            info.AddValue("DescriptionFull", DescriptionFull);
         }
 
         /// <summary>  
@@ -102,7 +117,7 @@ namespace DeploySoftware.LaunchPad.Core.Application
         public override string ToString()
         {
             StringBuilder sb = new StringBuilder();
-            sb.Append("[EntityDtoBase : ");
+            sb.Append("[CreateUpdateInputDtoBase : ");
             sb.Append(ToStringBaseProperties());
             sb.Append("]");
             return sb.ToString();
@@ -113,14 +128,18 @@ namespace DeploySoftware.LaunchPad.Core.Application
         /// the common base properties
         /// </summary>
         /// <returns>A string description of the entity</returns>
-        protected virtual String ToStringBaseProperties()
+        protected override String ToStringBaseProperties()
         {
             StringBuilder sb = new StringBuilder();
+            sb.Append(base.ToStringBaseProperties());
             // LaunchPAD RAD properties
-            sb.AppendFormat("Id={0};", Id);
-            sb.AppendFormat("Culture={0};", Culture);
+            //
+            sb.AppendFormat("Name={0};", Name);
+            sb.AppendFormat("DescriptionShort={0};", DescriptionShort);
+            sb.AppendFormat("DescriptionFull={0};", DescriptionFull);
+            sb.AppendFormat("TranslatedFromId={0};", TranslatedFromId);
             // ABP properties
-
+            //
             return sb.ToString();
         }
 
@@ -129,7 +148,7 @@ namespace DeploySoftware.LaunchPad.Core.Application
         /// </summary>
         /// <typeparam name="TEntity">The source entity to clone</typeparam>
         /// <returns>A shallow clone of the entity and its serializable properties</returns>
-        protected virtual TEntity Clone<TEntity>() where TEntity : EntityDtoBase<TIdType>, new()
+        protected new TEntity Clone<TEntity>() where TEntity : CreateUpdateInputDtoBase<TIdType>, new()
         {
             TEntity clone = new TEntity();
             foreach (PropertyInfo info in GetType().GetProperties())
@@ -151,7 +170,7 @@ namespace DeploySoftware.LaunchPad.Core.Application
         /// </summary>
         /// <param name="other">The other object of this type we are comparing to</param>
         /// <returns></returns>
-        public virtual int CompareTo(EntityDtoBase<TIdType> other)
+        public virtual int CompareTo(CreateUpdateInputDtoBase<TIdType> other)
         {
             // put comparison of properties in here 
             // for base object we'll just sort by id and culture
@@ -167,9 +186,9 @@ namespace DeploySoftware.LaunchPad.Core.Application
         /// <returns>True if the entities are the same according to business key value</returns>
         public override bool Equals(object obj)
         {
-            if (obj != null && obj is EntityDtoBase<TIdType>)
+            if (obj != null && obj is CreateUpdateInputDtoBase<TIdType>)
             {
-                return Equals(obj as EntityDtoBase<TIdType>);
+                return Equals(obj as CreateUpdateInputDtoBase<TIdType>);
             }
             return false;
         }
@@ -183,11 +202,13 @@ namespace DeploySoftware.LaunchPad.Core.Application
         /// </summary>
         /// <param name="obj">The other object of this type that we are testing equality with</param>
         /// <returns></returns>
-        public virtual bool Equals(EntityDtoBase<TIdType> obj)
+        public virtual bool Equals(CreateUpdateInputDtoBase<TIdType> obj)
         {
             if (obj != null)
             {
-                return Id.Equals(obj.Id) && Culture.Equals(obj.Culture);
+                return Id.Equals(obj.Id) && Culture.Equals(obj.Culture)
+                    && DescriptionShort.Equals(obj.DescriptionShort) && Name.Equals(obj.Name) && TranslatedFromId.Equals(obj.TranslatedFromId)
+                ;
             }
             return false;
         }
@@ -198,7 +219,7 @@ namespace DeploySoftware.LaunchPad.Core.Application
         /// <param name="x">The first value</param>
         /// <param name="y">The second value</param>
         /// <returns>True if both objects are fully equal based on the Equals logic</returns>
-        public static bool operator ==(EntityDtoBase<TIdType> x, EntityDtoBase<TIdType> y)
+        public static bool operator ==(CreateUpdateInputDtoBase<TIdType> x, CreateUpdateInputDtoBase<TIdType> y)
         {
             if (x is null)
             {
@@ -217,7 +238,7 @@ namespace DeploySoftware.LaunchPad.Core.Application
         /// <param name="x">The first value</param>
         /// <param name="y">The second value</param>
         /// <returns>True if both objects are not equal based on the Equals logic</returns>
-        public static bool operator !=(EntityDtoBase<TIdType> x, EntityDtoBase<TIdType> y)
+        public static bool operator !=(CreateUpdateInputDtoBase<TIdType> x, CreateUpdateInputDtoBase<TIdType> y)
         {
             return !(x == y);
         }
@@ -231,8 +252,11 @@ namespace DeploySoftware.LaunchPad.Core.Application
         /// <returns>A hash code for an object.</returns>
         public override int GetHashCode()
         {
-            return Id.GetHashCode() + Culture.GetHashCode();
+            return Id.GetHashCode() + Culture.GetHashCode()
+                + Name.GetHashCode()
+                + DescriptionShort.GetHashCode()
+                + TranslatedFromId.GetHashCode()
+           ;
         }
-
     }
 }

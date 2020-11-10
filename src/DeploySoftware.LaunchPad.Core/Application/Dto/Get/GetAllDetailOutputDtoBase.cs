@@ -1,12 +1,5 @@
 ﻿
-using DeploySoftware.LaunchPad.Core.Domain;
-using System;
-using System.ComponentModel;
-using System.Reflection;
 using System.Runtime.Serialization;
-using System.Security.Permissions;
-using System.Text;
-using System.Xml.Serialization;
 
 namespace DeploySoftware.LaunchPad.Core.Application
 {

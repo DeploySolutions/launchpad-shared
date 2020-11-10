@@ -1,14 +1,15 @@
 ﻿
 namespace DeploySoftware.LaunchPad.Core.Application
 {
-    public abstract partial class GetAdminInputDtoBase<TIdType> : GetFullInputDtoBase<TIdType>
+    public abstract partial class DeleteOutputDtoBase<TIdType> : ICanBeAppServiceMethodOutput
     {
+
         #region "Constructors"
 
         /// <summary>
         /// Default constructor
         /// </summary>
-        protected GetAdminInputDtoBase() : base()
+        protected DeleteOutputDtoBase() : base()
         {
 
         }

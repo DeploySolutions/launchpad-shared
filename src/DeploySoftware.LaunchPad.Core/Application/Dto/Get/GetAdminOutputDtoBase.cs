@@ -58,18 +58,16 @@ namespace DeploySoftware.LaunchPad.Core.Application
         /// Default constructor where the id is known
         /// </summary>
         /// <param name="id"></param>
-        public GetAdminOutputDtoBase(int tenantId, TIdType id) : base(tenantId, id)
+        public GetAdminOutputDtoBase(TIdType id) : base()
         {
-            TenantId = tenantId;
             Id = id;
             Culture = ApplicationInformation<TIdType>.DEFAULT_CULTURE;
             IsActive = true;
             IsDeleted = false;
         }
 
-        public GetAdminOutputDtoBase(int tenantId, TIdType id, String culture) : base(tenantId, id, culture)
+        public GetAdminOutputDtoBase(TIdType id, String culture) : base()
         {
-            TenantId = tenantId;
             Id = id;
             Culture = culture;
             IsActive = true;
@@ -86,7 +84,6 @@ namespace DeploySoftware.LaunchPad.Core.Application
             Id = (TIdType)info.GetValue("Id", typeof(TIdType));
             Culture = info.GetString("Culture");
             Name = info.GetString("DisplayName");
-            TenantId = info.GetInt32("TenantId");
             DescriptionShort = info.GetString("DescriptionShort");
             DescriptionFull = info.GetString("DescriptionFull");
             CreationTime = info.GetDateTime("CreationTime");
@@ -112,7 +109,6 @@ namespace DeploySoftware.LaunchPad.Core.Application
         [SecurityPermission(SecurityAction.Demand, SerializationFormatter = true)]
         public override void GetObjectData(SerializationInfo info, StreamingContext context)
         {
-            info.AddValue("TenantId", TenantId);
             info.AddValue("Id", Id);
             info.AddValue("Culture", Culture);
             info.AddValue("Name", Name);
@@ -169,7 +165,6 @@ namespace DeploySoftware.LaunchPad.Core.Application
             sb.AppendFormat("CreationTime={0};", CreationTime);
             sb.AppendFormat("LastModificationTime={0};", LastModificationTime);
             sb.AppendFormat("LastModifierUserId={0};", LastModifierUserId); 
-            sb.AppendFormat("TenantId={0};", TenantId);
             sb.AppendFormat("IsDeleted={0};", IsDeleted);
             sb.AppendFormat("DeleterUserId={0};", DeleterUserId);
             sb.AppendFormat("DeletionTime={0};", DeletionTime);
@@ -238,7 +233,7 @@ namespace DeploySoftware.LaunchPad.Core.Application
         {
             if (obj != null)
             {
-                return Id.Equals(obj.Id) && Culture.Equals(obj.Culture) && TenantId.Equals(obj.TenantId)
+                return Id.Equals(obj.Id) && Culture.Equals(obj.Culture)
                     && TranslatedFromId.Equals(obj.TranslatedFromId)
                     && IsActive.Equals(obj.IsActive)
                     && IsDeleted.Equals(obj.IsDeleted)
@@ -293,7 +288,7 @@ namespace DeploySoftware.LaunchPad.Core.Application
         /// <returns>A hash code for an object.</returns>
         public override int GetHashCode()
         {
-            return Id.GetHashCode() + Culture.GetHashCode() + TenantId.GetHashCode() + CreatorUserName.GetHashCode() + LastModifierUserName.GetHashCode();
+            return Id.GetHashCode() + Culture.GetHashCode() + Name.GetHashCode() + DescriptionShort.GetHashCode() + CreatorUserName.GetHashCode() + LastModifierUserName.GetHashCode();
         }
 
     }

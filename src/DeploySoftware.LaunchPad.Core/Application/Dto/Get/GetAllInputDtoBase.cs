@@ -1,8 +1,10 @@
-﻿using Abp.Domain.Entities;
+﻿using Abp.Application.Services.Dto;
+using Abp.Domain.Entities;
 using DeploySoftware.LaunchPad.Core.Domain;
 using System;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Reflection;
 using System.Runtime.Serialization;
 using System.Security.Permissions;
@@ -11,13 +13,36 @@ using System.Xml.Serialization;
 
 namespace DeploySoftware.LaunchPad.Core.Application
 {
-    public abstract partial class GetAllInputDtoBase<TIdType> : EntityDtoBase<TIdType>,
-        IMustHaveTenant,
-        ICanBeAppServiceMethodInput
+    public abstract partial class GetAllInputDtoBase<TIdType> : ListResultDtoBase<TIdType>,
+        ICanBeAppServiceMethodInput, IPagedResultRequest
     {
-        [DataObjectField(true)]
+
+        [DataObjectField(false)]
+        [XmlAttribute]
+        [NotMapped]
+        public string Sort { get; set; }
+
+        [DataObjectField(false)]
+        [XmlAttribute]
+        [NotMapped]
+
+        public int SkipCount { get; set; }
+        [DataObjectField(false)]
+        [XmlAttribute]
+        [NotMapped]
+        public int MaxResultCount { get; set; }
+
+        [DataObjectField(false)]
         [XmlAttribute]
         public virtual int TenantId { get; set; }
+
+        /// <summary>
+        /// The culture of this object
+        /// </summary>
+        [DataObjectField(true)]
+        [XmlAttribute]
+        [MaxLength(5, ErrorMessageResourceName = "Validation_Culture_5CharsOrLess", ErrorMessageResourceType = typeof(DeploySoftware_LaunchPad_Core_Resources))]
+        public virtual String Culture { get; set; }
 
         /// <summary>
         /// The display name that can be displayed as a label externally to users when referring to this object
@@ -35,7 +60,6 @@ namespace DeploySoftware.LaunchPad.Core.Application
         [XmlAttribute]
         [MaxLength(256, ErrorMessageResourceName = "Validation_DescriptionShort_256CharsOrLess", ErrorMessageResourceType = typeof(DeploySoftware_LaunchPad_Core_Resources))]
         public virtual String DescriptionShort { get; set; }
-
 
         /// <summary>
         /// A full description of this item.
@@ -85,25 +109,40 @@ namespace DeploySoftware.LaunchPad.Core.Application
         protected GetAllInputDtoBase() : base()
         {
             Culture = ApplicationInformation<TIdType>.DEFAULT_CULTURE;
+            Name = string.Empty;
+            DescriptionShort = string.Empty;
+            DescriptionFull = string.Empty;
+            CreatorUserName = string.Empty;
+            LastModifierUserName = string.Empty;
+            CreationTime = DateTime.UtcNow;
         }
 
         /// <summary>
         /// Default constructor where the id is known
         /// </summary>
         /// <param name="id"></param>
-        public GetAllInputDtoBase(int tenantId, TIdType id) : base()
+        public GetAllInputDtoBase(int tenantId) : base()
         {
             TenantId = tenantId;
-            Id = id;
             Culture = ApplicationInformation<TIdType>.DEFAULT_CULTURE;
-
+            Name = String.Empty;
+            DescriptionShort = string.Empty;
+            DescriptionFull = string.Empty;
+            CreatorUserName = string.Empty;
+            LastModifierUserName = string.Empty;
+            CreationTime = DateTime.UtcNow;
         }
 
-        public GetAllInputDtoBase(int tenantId, TIdType id, String culture) : base()
+        public GetAllInputDtoBase(int tenantId, String culture) : base()
         {
             TenantId = tenantId;
-            Id = id;
             Culture = culture;
+            Name = string.Empty;
+            DescriptionShort = string.Empty;
+            DescriptionFull = string.Empty;
+            CreatorUserName = string.Empty;
+            LastModifierUserName = string.Empty;
+            CreationTime = DateTime.UtcNow;
         }
 
         /// <summary>
@@ -113,7 +152,6 @@ namespace DeploySoftware.LaunchPad.Core.Application
         /// <param name="context">The context of the stream</param>
         protected GetAllInputDtoBase(SerializationInfo info, StreamingContext context)
         {
-            Id = (TIdType)info.GetValue("Id", typeof(TIdType));
             Culture = info.GetString("Culture");
             TenantId = info.GetInt32("TenantId");
             Name = info.GetString("DisplayName");
@@ -138,7 +176,6 @@ namespace DeploySoftware.LaunchPad.Core.Application
         [SecurityPermission(SecurityAction.Demand, SerializationFormatter = true)]
         public override void GetObjectData(SerializationInfo info, StreamingContext context)
         {
-            info.AddValue("Id", Id);
             info.AddValue("Culture", Culture);
             info.AddValue("TenantId", TenantId);
             info.AddValue("Name", Name);
@@ -182,6 +219,7 @@ namespace DeploySoftware.LaunchPad.Core.Application
             
             // ABP properties
             //
+
             sb.AppendFormat("IsActive={0};", IsActive);
             sb.AppendFormat("CreationTime={0};", CreationTime);
             sb.AppendFormat("LastModificationTime={0};", LastModificationTime);
@@ -219,7 +257,7 @@ namespace DeploySoftware.LaunchPad.Core.Application
         {
             // put comparison of properties in here 
             // for base object we'll just sort by id and culture
-            return Id.ToString().CompareTo(other.Id.ToString())
+            return Name.CompareTo(other.Name)
                 + Culture.CompareTo(other.Culture)
                 ;
         }
@@ -251,7 +289,7 @@ namespace DeploySoftware.LaunchPad.Core.Application
         {
             if (obj != null)
             {
-                return Id.Equals(obj.Id) && Culture.Equals(obj.Culture) && TenantId.Equals(obj.TenantId)
+                return Name.Equals(obj.Name) && Culture.Equals(obj.Culture) && TenantId.Equals(obj.TenantId)
                     && DescriptionShort.Equals(obj.DescriptionShort)
                     && DescriptionFull.Equals(obj.DescriptionFull)
                     && IsActive.Equals(obj.IsActive)
@@ -303,7 +341,7 @@ namespace DeploySoftware.LaunchPad.Core.Application
         /// <returns>A hash code for an object.</returns>
         public override int GetHashCode()
         {
-            return Id.GetHashCode() + Culture.GetHashCode() + TenantId.GetHashCode() + CreatorUserName.GetHashCode() + LastModifierUserName.GetHashCode();
+            return Name.GetHashCode() + Culture.GetHashCode() + TenantId.GetHashCode() + CreatorUserName.GetHashCode() + LastModifierUserName.GetHashCode();
         }
     }
 }

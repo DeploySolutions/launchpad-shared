@@ -19,7 +19,6 @@ namespace DeploySoftware.LaunchPad.Core.Application
         [DataObjectField(false)]
         [XmlAttribute]
         [MaxLength(256, ErrorMessageResourceName = "Validation_DescriptionShort_256CharsOrLess", ErrorMessageResourceType = typeof(DeploySoftware_LaunchPad_Core_Resources))]
-        [Required]
         public virtual String DescriptionShort { get; set; }
 
         /// <summary>
@@ -65,16 +64,14 @@ namespace DeploySoftware.LaunchPad.Core.Application
         /// Default constructor where the id is known
         /// </summary>
         /// <param name="id"></param>
-        public GetDetailOutputDtoBase(int tenantId, TIdType id) : base(tenantId, id)
+        public GetDetailOutputDtoBase(TIdType id) : base(id)
         {
-            TenantId = tenantId;
             Id = id;
             Culture = ApplicationInformation<TIdType>.DEFAULT_CULTURE;
         }
 
-        public GetDetailOutputDtoBase(int tenantId, TIdType id, String culture) : base(tenantId, id, culture)
+        public GetDetailOutputDtoBase(TIdType id, String culture) : base(id, culture)
         {
-            TenantId = tenantId;
             Id = id;
             Culture = culture;
         }
@@ -89,7 +86,6 @@ namespace DeploySoftware.LaunchPad.Core.Application
             Id = (TIdType)info.GetValue("Id", typeof(TIdType));
             Culture = info.GetString("Culture");
             Name = info.GetString("DisplayName");
-            TenantId = info.GetInt32("TenantId");
             DescriptionShort = info.GetString("DescriptionShort");
             CreationTime = info.GetDateTime("CreationTime");
             CreatorUserName = info.GetString("CreatorUserName");
@@ -107,7 +103,6 @@ namespace DeploySoftware.LaunchPad.Core.Application
         [SecurityPermission(SecurityAction.Demand, SerializationFormatter = true)]
         public override void GetObjectData(SerializationInfo info, StreamingContext context)
         {
-            info.AddValue("TenantId", TenantId);
             info.AddValue("Id", Id);
             info.AddValue("Culture", Culture);
             info.AddValue("Name", Name);
@@ -151,7 +146,6 @@ namespace DeploySoftware.LaunchPad.Core.Application
             //
             sb.AppendFormat("CreationTime={0};", CreationTime);
             sb.AppendFormat("LastModificationTime={0};", LastModificationTime);
-            sb.AppendFormat("TenantId={0};", TenantId);
 
             return sb.ToString();
         }
@@ -217,7 +211,7 @@ namespace DeploySoftware.LaunchPad.Core.Application
         {
             if (obj != null)
             {
-                return Id.Equals(obj.Id) && Culture.Equals(obj.Culture) && TenantId.Equals(obj.TenantId)
+                return Id.Equals(obj.Id) && Culture.Equals(obj.Culture)
                     && DescriptionShort.Equals(obj.DescriptionShort)
                     && CreationTime.Equals(obj.CreationTime)
                     && CreatorUserName.Equals(obj.CreatorUserName)
@@ -267,7 +261,7 @@ namespace DeploySoftware.LaunchPad.Core.Application
         /// <returns>A hash code for an object.</returns>
         public override int GetHashCode()
         {
-            return Id.GetHashCode() + Culture.GetHashCode() + TenantId.GetHashCode() + CreatorUserName.GetHashCode() + LastModifierUserName.GetHashCode();
+            return Id.GetHashCode() + Culture.GetHashCode() + Name.GetHashCode() + CreatorUserName.GetHashCode() + LastModifierUserName.GetHashCode();
         }
 
     }

@@ -1,13 +1,15 @@
 ﻿
 using DeploySoftware.LaunchPad.Core.Domain;
 using System;
+using System.ComponentModel;
 using System.Runtime.Serialization;
+using System.Xml.Serialization;
 
 namespace DeploySoftware.LaunchPad.Core.Application
 {
     public abstract partial class GetAllDetailInputDtoBase<TIdType> : GetAllInputDtoBase<TIdType>
     {
-       
+        
 
         #region "Constructors"
 
@@ -23,17 +25,15 @@ namespace DeploySoftware.LaunchPad.Core.Application
         /// Default constructor where the id is known
         /// </summary>
         /// <param name="id"></param>
-        public GetAllDetailInputDtoBase(int tenantId, TIdType id) : base()
+        public GetAllDetailInputDtoBase(int tenantId) : base()
         {
             TenantId = tenantId;
-            Id = id;
             Culture = ApplicationInformation<TIdType>.DEFAULT_CULTURE;
         }
 
-        public GetAllDetailInputDtoBase(int tenantId, TIdType id, String culture) : base()
+        public GetAllDetailInputDtoBase(int tenantId, String culture) : base()
         {
             TenantId = tenantId;
-            Id = id;
             Culture = culture;
         }
 
