@@ -56,6 +56,9 @@ namespace DeploySoftware.LaunchPad.Core.Application
         protected CreateUpdateInputDtoBase() : base()
         {
             Culture = ApplicationInformation<TIdType>.DEFAULT_CULTURE;
+            Name = string.Empty;
+            DescriptionShort = string.Empty;
+            DescriptionFull = string.Empty;
         }
 
         /// <summary>
@@ -66,13 +69,18 @@ namespace DeploySoftware.LaunchPad.Core.Application
         {
             Id = id;
             Culture = ApplicationInformation<TIdType>.DEFAULT_CULTURE;
-
+            Name = string.Empty;
+            DescriptionShort = string.Empty;
+            DescriptionFull = string.Empty;
         }
 
         public CreateUpdateInputDtoBase(TIdType id, String culture) : base()
         {
             Id = id;
             Culture = culture;
+            Name = string.Empty;
+            DescriptionShort = string.Empty;
+            DescriptionFull = string.Empty;
         }
 
         /// <summary>

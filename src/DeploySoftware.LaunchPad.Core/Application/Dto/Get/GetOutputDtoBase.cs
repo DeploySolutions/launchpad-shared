@@ -34,6 +34,7 @@ namespace DeploySoftware.LaunchPad.Core.Application
         protected GetOutputDtoBase() : base()
         {
             Culture = ApplicationInformation<TIdType>.DEFAULT_CULTURE;
+            Name = string.Empty;
         }
 
         /// <summary>
@@ -44,12 +45,14 @@ namespace DeploySoftware.LaunchPad.Core.Application
         {
             Id = id;
             Culture = ApplicationInformation<TIdType>.DEFAULT_CULTURE;
+            Name = string.Empty;
         }
 
         public GetOutputDtoBase(TIdType id, String culture) : base()
         {
             Id = id;
             Culture = culture;
+            Name = string.Empty;
         }
 
         /// <summary>
