@@ -13,7 +13,7 @@ using System.Xml.Serialization;
 
 namespace DeploySoftware.LaunchPad.Core.Application
 {
-    public abstract partial class GetAllInputDtoBase<TIdType> : ListResultDtoBase<TIdType>,
+    public abstract partial class GetAllInputDtoBase<TIdType> : 
         ICanBeAppServiceMethodInput, IPagedResultRequest
     {
 
@@ -37,23 +37,6 @@ namespace DeploySoftware.LaunchPad.Core.Application
         public virtual int TenantId { get; set; }
 
         /// <summary>
-        /// The culture of this object
-        /// </summary>
-        [DataObjectField(true)]
-        [XmlAttribute]
-        [MaxLength(5, ErrorMessageResourceName = "Validation_Culture_5CharsOrLess", ErrorMessageResourceType = typeof(DeploySoftware_LaunchPad_Core_Resources))]
-        public virtual String Culture { get; set; }
-
-        /// <summary>
-        /// The display name that can be displayed as a label externally to users when referring to this object
-        /// (rather than using a GUID, which is unfriendly but unique)
-        /// </summary>
-        [DataObjectField(false)]
-        [XmlAttribute]
-        [MaxLength(100, ErrorMessageResourceName = "Validation_Name_100CharsOrLess", ErrorMessageResourceType = typeof(DeploySoftware_LaunchPad_Core_Resources))]
-        public virtual String Name { get; set; }
-
-        /// <summary>
         /// A short description of this item.
         /// </summary>
         [DataObjectField(false)]
@@ -62,16 +45,12 @@ namespace DeploySoftware.LaunchPad.Core.Application
         public virtual String DescriptionShort { get; set; }
 
         /// <summary>
-        /// A full description of this item.
+        /// A short description of this item.
         /// </summary>
         [DataObjectField(false)]
         [XmlAttribute]
-        [MaxLength(8096, ErrorMessageResourceName = "Validation_DescriptionFull_8096CharsOrLess", ErrorMessageResourceType = typeof(DeploySoftware_LaunchPad_Core_Resources))]
+        [MaxLength(256, ErrorMessageResourceName = "Validation_DescriptionFull_8096CharsOrLess", ErrorMessageResourceType = typeof(DeploySoftware_LaunchPad_Core_Resources))]
         public virtual String DescriptionFull { get; set; }
-
-        [DataObjectField(false)]
-        [XmlAttribute]
-        public virtual bool IsActive { get; set; }
 
         /// <summary>
         /// The date and time that this object was created.
@@ -100,6 +79,27 @@ namespace DeploySoftware.LaunchPad.Core.Application
         [DataObjectField(false)]
         [XmlAttribute]
         public virtual String LastModifierUserName { get; set; }
+
+        [DataObjectField(false)]
+        [XmlAttribute]
+        public virtual bool IsActive { get; set; }
+
+        /// <summary>
+        /// The culture of this object
+        /// </summary>
+        [DataObjectField(true)]
+        [XmlAttribute]
+        [MaxLength(5, ErrorMessageResourceName = "Validation_Culture_5CharsOrLess", ErrorMessageResourceType = typeof(DeploySoftware_LaunchPad_Core_Resources))]
+        public virtual String Culture { get; set; }
+
+        /// <summary>
+        /// The display name that can be displayed as a label externally to users when referring to this object
+        /// (rather than using a GUID, which is unfriendly but unique)
+        /// </summary>
+        [DataObjectField(false)]
+        [XmlAttribute]
+        [MaxLength(100, ErrorMessageResourceName = "Validation_Name_100CharsOrLess", ErrorMessageResourceType = typeof(DeploySoftware_LaunchPad_Core_Resources))]
+        public virtual String Name { get; set; }
 
         #region "Constructors"
 
@@ -174,7 +174,7 @@ namespace DeploySoftware.LaunchPad.Core.Application
         /// <param name="info"></param>
         /// <param name="context"></param>
         [SecurityPermission(SecurityAction.Demand, SerializationFormatter = true)]
-        public override void GetObjectData(SerializationInfo info, StreamingContext context)
+        public virtual void GetObjectData(SerializationInfo info, StreamingContext context)
         {
             info.AddValue("Culture", Culture);
             info.AddValue("TenantId", TenantId);
@@ -206,10 +206,9 @@ namespace DeploySoftware.LaunchPad.Core.Application
         /// the common base properties
         /// </summary>
         /// <returns>A string description of the entity</returns>
-        protected override String ToStringBaseProperties()
+        protected virtual String ToStringBaseProperties()
         {
             StringBuilder sb = new StringBuilder();
-            sb.Append(base.ToStringBaseProperties());
             // LaunchPAD RAD properties
             //
             sb.AppendFormat("DescriptionShort={0};", DescriptionShort);

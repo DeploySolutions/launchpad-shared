@@ -32,7 +32,7 @@ namespace DeploySoftware.LaunchPad.Core.Application
     /// Of course subclassing DTOs will contain additional properties.
     /// </summary>
     /// <typeparam name="TEntityType">The type of the Id</typeparam>
-    public abstract partial class ListResultDtoBase<TEntityType> : ListResultDto<TEntityType>, IHasTotalCount, ICanBeAppServiceMethodOutput
+    public abstract partial class ListResultDtoBase<TEntityType> : ListResultDto<TEntityType>, IHasTotalCount, ICanBeAppServiceMethodOutput        
     {
         /// <summary>
         /// The total Count of the items contained in this list.

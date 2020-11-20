@@ -1,15 +1,26 @@
 ﻿
 using DeploySoftware.LaunchPad.Core.Domain;
 using System;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.Reflection;
 using System.Runtime.Serialization;
 using System.Security.Permissions;
 using System.Text;
+using System.Xml.Serialization;
 
 namespace DeploySoftware.LaunchPad.Core.Application
 {
-    public abstract partial class GetAllOutputDtoBase<TIdType> : ListResultDtoBase<TIdType>
+    public abstract partial class GetAllOutputDtoBase<TIdType> : GetOutputDtoBase<TIdType>
     {
+        /// <summary>
+        /// A short description of this item.
+        /// </summary>
+        [DataObjectField(false)]
+        [XmlAttribute]
+        [MaxLength(256, ErrorMessageResourceName = "Validation_DescriptionShort_256CharsOrLess", ErrorMessageResourceType = typeof(DeploySoftware_LaunchPad_Core_Resources))]
+        public virtual String DescriptionShort { get; set; }
+
 
         #region "Constructors"
 

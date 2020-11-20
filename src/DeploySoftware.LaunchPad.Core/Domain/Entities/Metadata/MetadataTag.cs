@@ -19,12 +19,14 @@ namespace DeploySoftware.LaunchPad.Core.Domain
 {
 
     using System;
+    using System.ComponentModel.DataAnnotations.Schema;
     using System.Runtime.Serialization;
     using System.Security.Permissions;
     using System.Text;
 
 
     [Serializable()]
+    [Table("DSMetadataTag")]
     public class MetadataTag : TagBase, ILaunchPadMetadataTag
     {
 
