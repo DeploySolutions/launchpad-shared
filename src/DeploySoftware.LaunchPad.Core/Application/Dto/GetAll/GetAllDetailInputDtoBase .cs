@@ -5,7 +5,7 @@ using System.ComponentModel;
 using System.Runtime.Serialization;
 using System.Xml.Serialization;
 
-namespace DeploySoftware.LaunchPad.Core.Application
+namespace DeploySoftware.LaunchPad.Core.Application.Dto
 {
     public abstract partial class GetAllDetailInputDtoBase<TIdType> : GetAllInputDtoBase<TIdType>
     {

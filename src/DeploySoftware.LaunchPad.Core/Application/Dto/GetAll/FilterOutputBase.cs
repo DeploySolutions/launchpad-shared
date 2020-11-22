@@ -15,34 +15,27 @@
 //limitations under the License. 
 #endregion
 
-using Abp.Application.Services.Dto;
-using System;
-using System.Runtime.Serialization;
-using System.Security.Permissions;
 
+using DeploySoftware.LaunchPad.Core.Domain;
+using System.Collections.Generic;
 
-namespace DeploySoftware.LaunchPad.Core.Application
+namespace DeploySoftware.LaunchPad.Core.Application.Dto
 {
     /// <summary>
-    /// Represents the minimal properties that may be used in order to filter an entity
+    /// Represents the minimal properties that may be used in order to filter an entity in a list
     /// </summary>
-    /// <typeparam name="TIdType">The type of the Id</typeparam>
-    public abstract partial class FilterDtoBase<TIdType> : EntityDtoBase<TIdType>,
-         ICanBeAppServiceMethodOutput, IPagedResultRequest
+    public abstract partial class FilterOutputBase<TEntityType,TIdType>
+        where TEntityType: DomainEntityBase<TIdType>
     {
-
-        public string Sort { get; set; }
-
-        public int SkipCount { get; set; }
-
-        public int MaxResultCount { get; set; }
+        public IEnumerable<TEntityType> Filter { get; set; }
+        public int TotalCount { get; set; }
 
         #region "Constructors"
 
         /// <summary>
         /// Default constructor
         /// </summary>
-        protected FilterDtoBase() : base()
+        protected FilterOutputBase() : base()
         {
            
         }

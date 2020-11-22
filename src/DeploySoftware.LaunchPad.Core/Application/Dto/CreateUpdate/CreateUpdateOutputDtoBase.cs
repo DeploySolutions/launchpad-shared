@@ -9,10 +9,9 @@ using System.Security.Permissions;
 using System.Text;
 using System.Xml.Serialization;
 
-namespace DeploySoftware.LaunchPad.Core.Application
+namespace DeploySoftware.LaunchPad.Core.Application.Dto
 {
-    public abstract partial class CreateUpdateOutputDtoBase<TIdType> : GetOutputDtoBase<TIdType>,
-        ICanBeAppServiceMethodInput
+    public abstract partial class CreateUpdateOutputDtoBase<TIdType> : GetOutputDtoBase<TIdType>
     {
         /// <summary>
         /// A short description of this item.

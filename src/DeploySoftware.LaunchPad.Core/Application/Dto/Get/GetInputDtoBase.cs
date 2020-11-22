@@ -1,7 +1,7 @@
 ﻿
 using Abp.Domain.Entities;
 
-namespace DeploySoftware.LaunchPad.Core.Application
+namespace DeploySoftware.LaunchPad.Core.Application.Dto
 {
     public abstract partial class GetInputDtoBase<TIdType> : EntityDtoBase<TIdType>,
         ICanBeAppServiceMethodInput

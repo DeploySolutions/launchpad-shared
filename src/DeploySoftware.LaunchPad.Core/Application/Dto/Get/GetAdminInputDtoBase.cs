@@ -1,7 +1,8 @@
 ﻿
-namespace DeploySoftware.LaunchPad.Core.Application
+namespace DeploySoftware.LaunchPad.Core.Application.Dto
 {
-    public abstract partial class GetAdminInputDtoBase<TIdType> : GetFullInputDtoBase<TIdType>
+    public abstract partial class GetAdminInputDtoBase<TIdType> : GetFullInputDtoBase<TIdType>,
+        ICanBeAppServiceMethodInput
     {
         #region "Constructors"
 

@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace DeploySoftware.LaunchPad.Core.Application
+namespace DeploySoftware.LaunchPad.Core.Application.Dto
 {
     /// <summary>
     /// This interface marks all LaunchPad App Services and ensures a consistent set of methods for manipulating the domain entities.

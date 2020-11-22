@@ -1,8 +1,7 @@
 ﻿
-namespace DeploySoftware.LaunchPad.Core.Application
+namespace DeploySoftware.LaunchPad.Core.Application.Dto
 {
-    public abstract partial class DeleteInputDtoBase<TIdType> : EntityDtoBase<TIdType>,
-        ICanBeAppServiceMethodInput
+    public abstract partial class DeleteInputDtoBase<TIdType> : EntityDtoBase<TIdType>
     {
 
         #region "Constructors"

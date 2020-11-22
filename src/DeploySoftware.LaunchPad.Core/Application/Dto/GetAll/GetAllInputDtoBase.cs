@@ -1,5 +1,4 @@
 ﻿using Abp.Application.Services.Dto;
-using Abp.Domain.Entities;
 using DeploySoftware.LaunchPad.Core.Domain;
 using System;
 using System.ComponentModel;
@@ -11,12 +10,12 @@ using System.Security.Permissions;
 using System.Text;
 using System.Xml.Serialization;
 
-namespace DeploySoftware.LaunchPad.Core.Application
+namespace DeploySoftware.LaunchPad.Core.Application.Dto
 {
     public abstract partial class GetAllInputDtoBase<TIdType> : 
-        ICanBeAppServiceMethodInput, IPagedResultRequest
+        ICanBeAppServiceMethodInput, 
+        IPagedResultRequest
     {
-
         [DataObjectField(false)]
         [XmlAttribute]
         [NotMapped]

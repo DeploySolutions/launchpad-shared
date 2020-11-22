@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Runtime.Serialization;
 using System.Xml.Serialization;
 
-namespace DeploySoftware.LaunchPad.Core.Application
+namespace DeploySoftware.LaunchPad.Core.Application.Dto
 {
     public abstract partial class GetAllAdminInputDtoBase<TIdType> : GetAllDetailInputDtoBase<TIdType>
     {

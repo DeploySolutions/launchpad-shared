@@ -1,15 +1,11 @@
 ﻿
-using DeploySoftware.LaunchPad.Core.Domain;
 using System;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
-using System.Reflection;
 using System.Runtime.Serialization;
-using System.Security.Permissions;
-using System.Text;
 using System.Xml.Serialization;
 
-namespace DeploySoftware.LaunchPad.Core.Application
+namespace DeploySoftware.LaunchPad.Core.Application.Dto
 {
     public abstract partial class GetAllOutputDtoBase<TIdType> : GetOutputDtoBase<TIdType>
     {

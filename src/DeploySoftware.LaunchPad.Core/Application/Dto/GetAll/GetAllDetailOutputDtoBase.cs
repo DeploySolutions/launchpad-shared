@@ -1,11 +1,11 @@
 ﻿
 using System;
 using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Runtime.Serialization;
 using System.Xml.Serialization;
 
-namespace DeploySoftware.LaunchPad.Core.Application
+namespace DeploySoftware.LaunchPad.Core.Application.Dto
 {
     public abstract partial class GetAllDetailOutputDtoBase<TIdType> : GetAllOutputDtoBase<TIdType>
     {
@@ -23,6 +23,22 @@ namespace DeploySoftware.LaunchPad.Core.Application
         [DataObjectField(false)]
         [XmlAttribute]
         public virtual String CreatorUserName { get; set; }
+
+        /// <summary>
+        /// The id of the User Agent which created this entity
+        /// </summary>
+        [DataObjectField(false)]
+        [XmlAttribute]
+        [ForeignKey(nameof(CreatorUserId))]
+        public virtual long? CreatorUserId { get; set; }
+
+        /// <summary>
+        /// The id of the User Agent which last modified this object.
+        /// </summary>
+        [DataObjectField(false)]
+        [XmlAttribute]
+        [ForeignKey(nameof(LastModifierUserId))]
+        public virtual Int64? LastModifierUserId { get; set; }
 
         /// <summary>
         /// The date and time that the location and/or properties of this object were last modified.

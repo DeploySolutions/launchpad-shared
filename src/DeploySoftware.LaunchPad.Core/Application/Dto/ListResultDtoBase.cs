@@ -25,7 +25,7 @@ using System.Security.Permissions;
 using System.Text;
 using System.Xml.Serialization;
 
-namespace DeploySoftware.LaunchPad.Core.Application
+namespace DeploySoftware.LaunchPad.Core.Application.Dto
 {
     /// <summary>
     /// Represents the base properties a LaunchPad Data Transfer Object would show in a list.

@@ -9,7 +9,7 @@ using System.Security.Permissions;
 using System.Text;
 using System.Xml.Serialization;
 
-namespace DeploySoftware.LaunchPad.Core.Application
+namespace DeploySoftware.LaunchPad.Core.Application.Dto
 {
     public abstract partial class GetOutputDtoBase<TIdType> : EntityDtoBase<TIdType>, 
         ICanBeAppServiceMethodOutput

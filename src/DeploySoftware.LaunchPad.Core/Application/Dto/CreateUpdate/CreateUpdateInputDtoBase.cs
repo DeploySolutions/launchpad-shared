@@ -9,10 +9,9 @@ using System.Security.Permissions;
 using System.Text;
 using System.Xml.Serialization;
 
-namespace DeploySoftware.LaunchPad.Core.Application
+namespace DeploySoftware.LaunchPad.Core.Application.Dto
 {
-    public abstract partial class CreateUpdateInputDtoBase<TIdType> : EntityDtoBase<TIdType>,
-        ICanBeAppServiceMethodInput
+    public abstract partial class CreateUpdateInputDtoBase<TIdType> : EntityDtoBase<TIdType>
     {
 
         /// <summary>
