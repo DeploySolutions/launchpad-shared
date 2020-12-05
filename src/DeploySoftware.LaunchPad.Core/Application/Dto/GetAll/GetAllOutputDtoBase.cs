@@ -1,4 +1,5 @@
 ﻿
+using Abp.Domain.Entities;
 using System;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
@@ -7,7 +8,7 @@ using System.Xml.Serialization;
 
 namespace DeploySoftware.LaunchPad.Core.Application.Dto
 {
-    public abstract partial class GetAllOutputDtoBase<TIdType> : GetOutputDtoBase<TIdType>
+    public abstract partial class GetAllOutputDtoBase<TIdType> : GetOutputDtoBase<TIdType>, IMayHaveTenant
     {
         /// <summary>
         /// A short description of this item.
@@ -17,6 +18,13 @@ namespace DeploySoftware.LaunchPad.Core.Application.Dto
         [MaxLength(256, ErrorMessageResourceName = "Validation_DescriptionShort_256CharsOrLess", ErrorMessageResourceType = typeof(DeploySoftware_LaunchPad_Core_Resources))]
         public virtual String DescriptionShort { get; set; }
 
+        [DataObjectField(false)]
+        [XmlAttribute]
+        public virtual string TenantName { get; set; } = string.Empty;
+
+        [DataObjectField(false)]
+        [XmlAttribute] 
+        public virtual int? TenantId { get; set; }
 
         #region "Constructors"
 

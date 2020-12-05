@@ -1,4 +1,5 @@
 ﻿using Abp.Application.Services.Dto;
+using Abp.Domain.Entities;
 using DeploySoftware.LaunchPad.Core.Domain;
 using System;
 using System.ComponentModel;
@@ -14,7 +15,8 @@ namespace DeploySoftware.LaunchPad.Core.Application.Dto
 {
     public abstract partial class GetAllInputDtoBase<TIdType> : 
         ICanBeAppServiceMethodInput, 
-        IPagedResultRequest
+        IPagedResultRequest,
+        IMayHaveTenant
     {
         [DataObjectField(false)]
         [XmlAttribute]
@@ -33,7 +35,7 @@ namespace DeploySoftware.LaunchPad.Core.Application.Dto
 
         [DataObjectField(false)]
         [XmlAttribute]
-        public virtual int TenantId { get; set; }
+        public virtual int? TenantId { get; set; }
 
         /// <summary>
         /// A short description of this item.
