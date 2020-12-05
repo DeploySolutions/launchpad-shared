@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
     <Company>Deploy Software Solutions, inc.</Company>
     <Authors>Nicholas Kellett</Authors>
     <PackageLicenseUrl></PackageLicenseUrl>
@@ -11,15 +11,15 @@
     <GenerateBindingRedirectsOutputType>true</GenerateBindingRedirectsOutputType>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
-    <Version>2.1.0-alpha</Version>
+    <Version>3.0.0</Version>
     <Description>Shared code for LaunchPad framework.</Description>
     <Copyright>2018-2021 Deploy Software Solutions, inc.</Copyright>
-    <PackageReleaseNotes>
-      2.0.0: Refactor to inherit more fully from ABP. Simplify by removing Keys and MetadataInformation.
-      1.0.6: Reorganize hierarchy
-      1.0.5: Update file logic
-      1.0.4: Change CoordinateSharp ref to standard (non-core).
-      1.0.3: Add CoordinateSharp assembly references. Add StringParser.</PackageReleaseNotes>
+    <PackageReleaseNotes>3.0.0: Switch to .net core 3.1
+2.0.0: Refactor to inherit more fully from ABP. Simplify by removing Keys and MetadataInformation.
+1.0.6: Reorganize hierarchy
+1.0.5: Update file logic
+1.0.4: Change CoordinateSharp ref to standard (non-core).
+1.0.3: Add CoordinateSharp assembly references. Add StringParser.</PackageReleaseNotes>
     <PackageIconUrl></PackageIconUrl>
     <PackageLicenseExpression></PackageLicenseExpression>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
@@ -39,10 +39,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Abp" Version="5.13.0" />
-    <PackageReference Include="CoordinateSharp" Version="2.7.3.2" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Abstractions" Version="3.1.9" />
-    <PackageReference Include="Schema.NET" Version="7.2.0" />
+    <PackageReference Include="Abp" Version="6.0.0" />
+    <PackageReference Include="CoordinateSharp" Version="2.9.4.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Abstractions" Version="5.0.0" />
+    <PackageReference Include="Schema.NET" Version="8.0.0" />
   </ItemGroup>
 
   <ItemGroup>

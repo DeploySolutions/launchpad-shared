@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
     <Company>Deploy Software Solutions, inc.</Company>
     <Authors>Nicholas Kellett</Authors>
     <PackageLicenseUrl></PackageLicenseUrl>
@@ -9,10 +9,11 @@
     <RepositoryUrl>https://github.com/DeploySolutions/launchpad-shared</RepositoryUrl>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
-    <Version>2.0.6-alpha</Version>
+    <Version>3.0.0</Version>
     <Description>Satellite-related code for LaunchPad framework.</Description>
     <Copyright>2018-2021 Deploy Software Solutions, inc.</Copyright>
-    <PackageReleaseNotes>2.0.0: Refactor to inherit more fully from ABP and updated LaunchPad Core library.
+    <PackageReleaseNotes>3.0.0: Switch to .net core 3.1
+2.0.0: Refactor to inherit more fully from ABP and updated LaunchPad Core library.
 1.0.4: Change CoordinateSharp ref to standard (non-core). Update parser to be instance-based.
 1.0.3: Add static Radarsat1 Metadata parser.</PackageReleaseNotes>
     <PackageIconUrl></PackageIconUrl>
