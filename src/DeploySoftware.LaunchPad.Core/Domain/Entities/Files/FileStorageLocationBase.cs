@@ -15,8 +15,6 @@
 //limitations under the License. 
 #endregion
 
-using Abp.Domain.Entities;
-using Microsoft.EntityFrameworkCore;
 using System;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -26,7 +24,6 @@ using System.Xml.Serialization;
 
 namespace DeploySoftware.LaunchPad.Core.Domain
 {
-    [Owned]
     public abstract partial class FileStorageLocationBase : IFileStorageLocation
     {
         [DataObjectField(false)]

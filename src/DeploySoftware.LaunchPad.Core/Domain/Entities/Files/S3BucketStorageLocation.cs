@@ -15,7 +15,6 @@
 //limitations under the License. 
 #endregion
 
-using Abp.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.ComponentModel;

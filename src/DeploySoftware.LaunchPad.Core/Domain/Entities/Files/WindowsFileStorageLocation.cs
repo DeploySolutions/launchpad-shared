@@ -15,13 +15,8 @@
 //limitations under the License. 
 #endregion
 
-using Abp.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.ComponentModel;
-using System.IO;
 using System.Runtime.Serialization;
-using System.Xml.Serialization;
 
 namespace DeploySoftware.LaunchPad.Core.Domain
 {
