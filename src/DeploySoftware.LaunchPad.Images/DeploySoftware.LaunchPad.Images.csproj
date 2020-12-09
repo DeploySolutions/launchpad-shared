@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>netcoreapp3.1</TargetFrameworks>
+    <TargetFrameworks>netstandard2.1</TargetFrameworks>
     <Company>Deploy Software Solutions, inc.</Company>
     <Authors>Nicholas Kellett</Authors>
     <Description>Shared code for manipulating images in the LaunchPad framework.</Description>
@@ -15,7 +15,7 @@
 1.0.0: Initial release; basic manipulation logic for creating thumbnails from TIF files.</PackageReleaseNotes>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
-    <Version>3.1.0</Version>
+    <Version>3.4.0</Version>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <PackageIcon>icon.png</PackageIcon>
   </PropertyGroup>
