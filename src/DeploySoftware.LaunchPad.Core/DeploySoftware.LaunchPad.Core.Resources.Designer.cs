@@ -313,6 +313,24 @@ namespace DeploySoftware.LaunchPad.Core {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Original Text cannot be empty or null..
+        /// </summary>
+        public static string Guard_LaunchPadTokenizer_ArgumentException_OriginalText {
+            get {
+                return ResourceManager.GetString("Guard_LaunchPadTokenizer_ArgumentException_OriginalText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to At least one token must be provided..
+        /// </summary>
+        public static string Guard_LaunchPadTokenizer_ArgumentException_Tokens {
+            get {
+                return ResourceManager.GetString("Guard_LaunchPadTokenizer_ArgumentException_Tokens", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to No compatible UnitOfWork was found. Please start a compatible UnitOfWorkScope before using the repository..
         /// </summary>
         public static string Guard_RepositoryBase_UnitOfWork_NoCompatibleTypeFound {
@@ -553,7 +571,7 @@ namespace DeploySoftware.LaunchPad.Core {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Culture must be 5 characters or less.
+        ///   Looks up a localized string similar to Culture must be 5 characters or less..
         /// </summary>
         public static string Validation_Culture_5CharsOrLess {
             get {
@@ -562,7 +580,7 @@ namespace DeploySoftware.LaunchPad.Core {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Description Full must be 8096 characters or less.
+        ///   Looks up a localized string similar to Description Full must be 8096 characters or less..
         /// </summary>
         public static string Validation_DescriptionFull_8096CharsOrLess {
             get {
@@ -571,7 +589,7 @@ namespace DeploySoftware.LaunchPad.Core {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Description Short must be 256 characters or less.
+        ///   Looks up a localized string similar to Description Short must be 256 characters or less..
         /// </summary>
         public static string Validation_DescriptionShort_256CharsOrLess {
             get {
@@ -580,7 +598,7 @@ namespace DeploySoftware.LaunchPad.Core {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Name must be 100 characters or less.
+        ///   Looks up a localized string similar to Name must be 100 characters or less..
         /// </summary>
         public static string Validation_Name_100CharsOrLess {
             get {

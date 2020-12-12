@@ -201,6 +201,12 @@
   <data name="Guard_InMemoryRepository_GetByKey_Key_IsNull" xml:space="preserve">
     <value>The key must not be null.</value>
   </data>
+  <data name="Guard_LaunchPadTokenizer_ArgumentException_OriginalText" xml:space="preserve">
+    <value>Original Text cannot be empty or null.</value>
+  </data>
+  <data name="Guard_LaunchPadTokenizer_ArgumentException_Tokens" xml:space="preserve">
+    <value>At least one token must be provided.</value>
+  </data>
   <data name="Guard_RepositoryBase_UnitOfWork_NoCompatibleTypeFound" xml:space="preserve">
     <value>No compatible UnitOfWork was found. Please start a compatible UnitOfWorkScope before using the repository.</value>
   </data>
@@ -284,15 +290,15 @@
     <value>https://open.canada.ca/en/open-government-licence-canada</value>
   </data>
   <data name="Validation_Culture_5CharsOrLess" xml:space="preserve">
-    <value>Culture must be 5 characters or less</value>
+    <value>Culture must be 5 characters or less.</value>
   </data>
   <data name="Validation_DescriptionFull_8096CharsOrLess" xml:space="preserve">
-    <value>Description Full must be 8096 characters or less</value>
+    <value>Description Full must be 8096 characters or less.</value>
   </data>
   <data name="Validation_DescriptionShort_256CharsOrLess" xml:space="preserve">
-    <value>Description Short must be 256 characters or less</value>
+    <value>Description Short must be 256 characters or less.</value>
   </data>
   <data name="Validation_Name_100CharsOrLess" xml:space="preserve">
-    <value>Name must be 100 characters or less</value>
+    <value>Name must be 100 characters or less.</value>
   </data>
 </root>
