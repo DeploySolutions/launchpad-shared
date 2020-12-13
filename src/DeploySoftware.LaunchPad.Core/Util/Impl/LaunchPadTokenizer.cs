@@ -8,45 +8,52 @@ namespace DeploySoftware.LaunchPad.Core.Util
 {
     public class LaunchPadTokenizer
     {
-        public SortedDictionary<string, string> MatchedTokens { get; set; }
-        public SortedDictionary<string, string> UnmatchedTokens { get; set; }
+        public IList<LaunchPadToken> MatchedTokens { get; set; }
+        public IList<LaunchPadToken> UnmatchedTokens { get; set; }
 
         public string TokenizedText { get; set; }
 
         public LaunchPadTokenizer()
         {
             TokenizedText = string.Empty;
-            MatchedTokens = new SortedDictionary<string, string>();
-            UnmatchedTokens = new SortedDictionary<string, string>();
+            MatchedTokens = new List<LaunchPadToken>();
+            UnmatchedTokens = new List<LaunchPadToken>();
         }
 
-        public string Tokenize(string originalText, SortedDictionary<string, string> tokens)
+        public string Tokenize(string originalText, IList<LaunchPadToken> tokens)
         {
             Guard.Against<ArgumentException>(String.IsNullOrEmpty(originalText), DeploySoftware_LaunchPad_Core_Resources.Guard_LaunchPadTokenizer_ArgumentException_OriginalText);
             Guard.Against<ArgumentException>(tokens.Count == 0, DeploySoftware_LaunchPad_Core_Resources.Guard_LaunchPadTokenizer_ArgumentException_Tokens);
-            MatchedTokens = new SortedDictionary<string, string>();
-            UnmatchedTokens = new SortedDictionary<string, string>();
+            MatchedTokens = new List<LaunchPadToken>();
+            UnmatchedTokens = new List<LaunchPadToken>();
             Stopwatch sw;
             string modifiedText = originalText;
             foreach (var token in tokens)
             {
-                var regex = new Regex(Regex.Escape(token.Key), RegexOptions.Compiled | RegexOptions.IgnoreCase);
-                modifiedText = regex.Replace(modifiedText, token.Value);
+                var regex = new Regex(Regex.Escape(token.ToString()), RegexOptions.Compiled | RegexOptions.IgnoreCase);
                 sw = Stopwatch.StartNew();
-                Match m = Regex.Match(originalText, token.Key, RegexOptions.IgnoreCase | RegexOptions.IgnoreCase);
+                Match m = Regex.Match(originalText, token.ToString(), RegexOptions.IgnoreCase | RegexOptions.IgnoreCase);
                 sw.Stop();
                 if (m.Success)
                 {
-                    if(!MatchedTokens.ContainsKey(token.Key))
+                    if (string.IsNullOrEmpty(token.Value))
                     {
-                        MatchedTokens.Add(token.Key, token.Value);
+                        modifiedText = regex.Replace(modifiedText, token.DefaultValue);
+                    }
+                    else
+                    {
+                        modifiedText = regex.Replace(modifiedText, token.Value);
+                    }
+                    if (!MatchedTokens.Contains(token))
+                    {
+                        MatchedTokens.Add(token);
                     }
                 }                    
                 else
                 {
-                    if (!UnmatchedTokens.ContainsKey(token.Key))
+                    if (!UnmatchedTokens.Contains(token))
                     {
-                        UnmatchedTokens.Add(token.Key, token.Value);
+                        UnmatchedTokens.Add(token);
                     }
                 }
             }

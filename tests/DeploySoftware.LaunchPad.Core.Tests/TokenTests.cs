@@ -22,6 +22,7 @@ namespace DeploySoftware.LaunchPad.Core.Tests
     using DeploySoftware.LaunchPad.Core.Domain;
     using DeploySoftware.LaunchPad.Core.Util;
     using System;
+    using System.Collections.Generic;
 
     public class TokenTests : IClassFixture<TokenTestsFixture>
     {
@@ -83,6 +84,63 @@ namespace DeploySoftware.LaunchPad.Core.Tests
             var ex = Record.Exception(() => new LaunchPadToken("{{p:dss|domain_entity_name}}"));
             Assert.IsType<ArgumentException>(ex);
             Assert.Contains("Token string must contain a name section, beginning with 'n:'.", ex.Message);
+        }
+
+        [Fact]
+        public void Should_Match_Tokens()
+        {
+            string originalText = @"using System.Collections.Generic;
+                                    using System.ComponentModel.DataAnnotations.Schema;
+                                    using DeploySoftware.LaunchPad.Core.Domain;
+
+                                    namespace {{p:dss|n:domain_namespace}}
+                                    {
+                                        /// <summary>
+                                        /// {{p:dss|n:domain_entity_description}}
+                                        /// </summary>
+                                        {{p:dss|n:domain_entity_annotations}}
+                                        public class {{p:dss|n:domain_entity_name}} : {{p:dss|n:domain_entity_inherits_from|dv:IDomainEntity<TIdType>}}
+                                        {
+                                            /// <summary>
+                                            /// Creates a default {{p:dss|n:domain_entity_name}} entity
+                                            /// </summary>
+                                            public {{p:dss|n:domain_entity_name}}() : base()
+                                            {
+
+                                            }
+                                        }
+                                    }";
+            string expectedResult = @"using System.Collections.Generic;
+                                    using System.ComponentModel.DataAnnotations.Schema;
+                                    using DeploySoftware.LaunchPad.Core.Domain;
+
+                                    namespace Deploy.DeploymentGateway
+                                    {
+                                        /// <summary>
+                                        /// {{p:dss|n:domain_entity_description}}
+                                        /// </summary>
+                                        {{p:dss|n:domain_entity_annotations}}
+                                        public class {{p:dss|n:domain_entity_name}} : {{p:dss|n:domain_entity_inherits_from|dv:IDomainEntity<TIdType>}}
+                                        {
+                                            /// <summary>
+                                            /// Creates a default {{p:dss|n:domain_entity_name}} entity
+                                            /// </summary>
+                                            public {{p:dss|n:domain_entity_name}}() : base()
+                                            {
+
+                                            }
+                                        }
+                                    }";
+            var token = new LaunchPadToken("{{p:dss|n:domain_namespace}}");
+            token.Value = "Deploy.DeploymentGateway";
+            List<LaunchPadToken> tokens = new List<LaunchPadToken>
+            {
+                token
+            };
+            LaunchPadTokenizer tokenizer = new LaunchPadTokenizer();
+            tokenizer.Tokenize(originalText, tokens);
+            Assert.Equal(expectedResult, tokenizer.TokenizedText);
+
         }
 
     }

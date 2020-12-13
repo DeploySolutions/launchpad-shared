@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.Text;
 using System.Xml.Serialization;
 
 namespace DeploySoftware.LaunchPad.Core.Util
@@ -49,11 +50,23 @@ namespace DeploySoftware.LaunchPad.Core.Util
         public LaunchPadToken(string tokenString)
         {
             Validate(tokenString);
-            string tokenInnerSections = tokenString.Substring(3, tokenString.Length - 3);
+            Parse(tokenString);
+        }
+
+        public LaunchPadToken(string tokenString, string value)
+        {
+            Validate(tokenString);
+            Parse(tokenString);
+            Value = value;
+        }
+
+        protected void Parse(string tokenString)
+        {
+            string tokenInnerSections = tokenString.Substring(2, tokenString.Length - 4);
             string[] tokens = tokenInnerSections.Split("|");
-            foreach(string token in tokens)
+            foreach (string token in tokens)
             {
-                if(token.StartsWith("p:"))
+                if (token.StartsWith("p:"))
                 {
                     Prefix = token.Substring(2);
                 }
@@ -67,6 +80,7 @@ namespace DeploySoftware.LaunchPad.Core.Util
                 }
             }
         }
+
         protected void Validate(string tokenString)
         {
             Guard.Against<ArgumentException>(string.IsNullOrEmpty(tokenString), DeploySoftware_LaunchPad_Core_Resources.Guard_LaunchPadToken_ArgumentException_Empty);
@@ -95,6 +109,21 @@ namespace DeploySoftware.LaunchPad.Core.Util
             Value = value;
         }
         
+        public override string ToString()
+        {
+            StringBuilder sb = new StringBuilder("{{");
+            sb.Append("p:");
+            sb.Append(Prefix);
+            sb.Append("|n:");
+            sb.Append(Name);
+            if(!String.IsNullOrEmpty(DefaultValue))
+            {
+                sb.Append("|dv:");
+                sb.Append(DefaultValue);
+            }
+            sb.Append("}}");
+            return sb.ToString();
+        }
 
     }
 }
