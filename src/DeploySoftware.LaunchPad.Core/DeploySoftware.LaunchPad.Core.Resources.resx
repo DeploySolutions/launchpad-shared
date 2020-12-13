@@ -207,6 +207,27 @@
   <data name="Guard_LaunchPadTokenizer_ArgumentException_Tokens" xml:space="preserve">
     <value>At least one token must be provided.</value>
   </data>
+  <data name="Guard_LaunchPadToken_ArgumentException_Empty" xml:space="preserve">
+    <value>Token string cannot be empty or null.</value>
+  </data>
+  <data name="Guard_LaunchPadToken_ArgumentException_MissingName" xml:space="preserve">
+    <value>Token string must contain a name section, beginning with 'n:'.</value>
+  </data>
+  <data name="Guard_LaunchPadToken_ArgumentException_MissingPrefix" xml:space="preserve">
+    <value>Token string must contain a prefix section, beginning with 'p:'.</value>
+  </data>
+  <data name="Guard_LaunchPadToken_ArgumentException_NoPipes" xml:space="preserve">
+    <value>Token string must contain at least two sections, delimited by '|'.</value>
+  </data>
+  <data name="Guard_LaunchPadToken_ArgumentException_WrongEndWith" xml:space="preserve">
+    <value>Token string must end with '}}' characters.</value>
+  </data>
+  <data name="Guard_LaunchPadToken_ArgumentException_WrongNumberSections" xml:space="preserve">
+    <value>Token string must contain only two or three sections, delimited by '|'.</value>
+  </data>
+  <data name="Guard_LaunchPadToken_ArgumentException_WrongStartsWith" xml:space="preserve">
+    <value>Token string must start with '{{' characters.</value>
+  </data>
   <data name="Guard_RepositoryBase_UnitOfWork_NoCompatibleTypeFound" xml:space="preserve">
     <value>No compatible UnitOfWork was found. Please start a compatible UnitOfWorkScope before using the repository.</value>
   </data>
@@ -300,5 +321,11 @@
   </data>
   <data name="Validation_Name_100CharsOrLess" xml:space="preserve">
     <value>Name must be 100 characters or less.</value>
+  </data>
+  <data name="Validation_Token_Name_20CharsOrLess" xml:space="preserve">
+    <value>Token name must be 20 characters or less.</value>
+  </data>
+  <data name="Validation_Token_Prefix_9CharsOrLess" xml:space="preserve">
+    <value>Token prefix must be 9 characters or less.</value>
   </data>
 </root>

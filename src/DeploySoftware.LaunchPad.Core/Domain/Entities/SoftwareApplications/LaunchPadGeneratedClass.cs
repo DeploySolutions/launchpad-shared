@@ -9,18 +9,21 @@ namespace DeploySoftware.LaunchPad.Core.Domain.Entities.SoftwareApplications
     {
         public string Project { get; set; }
         public string SubFolder { get; set; }
-        public string ClassName { get; set; }
+        public string Name { get; set; }
         public string InheritsFrom { get; set; }
         public string Namespace { get; set; }
         public string PrimaryKeyType { get; set; }
+
+        public string Description { get; set; }
+
+        public string Annotations { get; set; }
+        
         public IList<LaunchPadGeneratedProperty> GeneratedProperties { get; set; }
-        public IList<LaunchPadGeneratedDataTransferObject> GeneratedDtos { get; set; }
         public IList<LaunchPadGeneratedMethod> GeneratedMethods { get; set; }
 
         public LaunchPadGeneratedClass()
         {
             GeneratedProperties = new List<LaunchPadGeneratedProperty>();
-            GeneratedDtos = new List<LaunchPadGeneratedDataTransferObject>();
             GeneratedMethods = new List<LaunchPadGeneratedMethod>();
         }
     }

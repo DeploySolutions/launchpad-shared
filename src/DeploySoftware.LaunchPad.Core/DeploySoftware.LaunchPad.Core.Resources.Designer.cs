@@ -313,6 +313,69 @@ namespace DeploySoftware.LaunchPad.Core {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Token string cannot be empty or null..
+        /// </summary>
+        public static string Guard_LaunchPadToken_ArgumentException_Empty {
+            get {
+                return ResourceManager.GetString("Guard_LaunchPadToken_ArgumentException_Empty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Token string must contain a name section, beginning with &apos;n:&apos;..
+        /// </summary>
+        public static string Guard_LaunchPadToken_ArgumentException_MissingName {
+            get {
+                return ResourceManager.GetString("Guard_LaunchPadToken_ArgumentException_MissingName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Token string must contain a prefix section, beginning with &apos;p:&apos;..
+        /// </summary>
+        public static string Guard_LaunchPadToken_ArgumentException_MissingPrefix {
+            get {
+                return ResourceManager.GetString("Guard_LaunchPadToken_ArgumentException_MissingPrefix", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Token string must contain at least two sections, delimited by &apos;|&apos;..
+        /// </summary>
+        public static string Guard_LaunchPadToken_ArgumentException_NoPipes {
+            get {
+                return ResourceManager.GetString("Guard_LaunchPadToken_ArgumentException_NoPipes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Token string must end with &apos;}}&apos; characters..
+        /// </summary>
+        public static string Guard_LaunchPadToken_ArgumentException_WrongEndWith {
+            get {
+                return ResourceManager.GetString("Guard_LaunchPadToken_ArgumentException_WrongEndWith", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Token string must contain only two or three sections, delimited by &apos;|&apos;..
+        /// </summary>
+        public static string Guard_LaunchPadToken_ArgumentException_WrongNumberSections {
+            get {
+                return ResourceManager.GetString("Guard_LaunchPadToken_ArgumentException_WrongNumberSections", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Token string must start with &apos;{{&apos; characters..
+        /// </summary>
+        public static string Guard_LaunchPadToken_ArgumentException_WrongStartsWith {
+            get {
+                return ResourceManager.GetString("Guard_LaunchPadToken_ArgumentException_WrongStartsWith", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Original Text cannot be empty or null..
         /// </summary>
         public static string Guard_LaunchPadTokenizer_ArgumentException_OriginalText {
@@ -603,6 +666,24 @@ namespace DeploySoftware.LaunchPad.Core {
         public static string Validation_Name_100CharsOrLess {
             get {
                 return ResourceManager.GetString("Validation_Name_100CharsOrLess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Token name must be 20 characters or less..
+        /// </summary>
+        public static string Validation_Token_Name_20CharsOrLess {
+            get {
+                return ResourceManager.GetString("Validation_Token_Name_20CharsOrLess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Token prefix must be 9 characters or less..
+        /// </summary>
+        public static string Validation_Token_Prefix_9CharsOrLess {
+            get {
+                return ResourceManager.GetString("Validation_Token_Prefix_9CharsOrLess", resourceCulture);
             }
         }
     }

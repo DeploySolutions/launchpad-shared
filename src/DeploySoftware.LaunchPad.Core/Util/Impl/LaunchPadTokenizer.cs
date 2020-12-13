@@ -24,6 +24,8 @@ namespace DeploySoftware.LaunchPad.Core.Util
         {
             Guard.Against<ArgumentException>(String.IsNullOrEmpty(originalText), DeploySoftware_LaunchPad_Core_Resources.Guard_LaunchPadTokenizer_ArgumentException_OriginalText);
             Guard.Against<ArgumentException>(tokens.Count == 0, DeploySoftware_LaunchPad_Core_Resources.Guard_LaunchPadTokenizer_ArgumentException_Tokens);
+            MatchedTokens = new SortedDictionary<string, string>();
+            UnmatchedTokens = new SortedDictionary<string, string>();
             Stopwatch sw;
             string modifiedText = originalText;
             foreach (var token in tokens)
@@ -35,11 +37,17 @@ namespace DeploySoftware.LaunchPad.Core.Util
                 sw.Stop();
                 if (m.Success)
                 {
-                    MatchedTokens.Add(token.Key,token.Value);
+                    if(!MatchedTokens.ContainsKey(token.Key))
+                    {
+                        MatchedTokens.Add(token.Key, token.Value);
+                    }
                 }                    
                 else
                 {
-                    UnmatchedTokens.Add(token.Key, token.Value);
+                    if (!UnmatchedTokens.ContainsKey(token.Key))
+                    {
+                        UnmatchedTokens.Add(token.Key, token.Value);
+                    }
                 }
             }
             TokenizedText = modifiedText;
