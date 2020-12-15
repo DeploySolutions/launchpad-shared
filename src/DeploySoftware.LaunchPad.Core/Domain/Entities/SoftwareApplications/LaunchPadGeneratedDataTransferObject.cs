@@ -10,15 +10,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain.Entities.SoftwareApplications
     public class LaunchPadGeneratedDataTransferObject : LaunchPadGeneratedClass
     {
 
-        /// <summary>
-        /// The prefix to apply to the DTO name (if any). Commonly used example: the name of the domain entity.
-        /// </summary>
-        public string NamePrefix { get; set; }
 
-        /// <summary>
-        /// The suffix to apply to the DTO name (if any). Commonly used example: "Dto"
-        /// </summary>
-        public string NameSuffix { get; set; }
 
     }
 }

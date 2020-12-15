@@ -8,6 +8,16 @@ namespace DeploySoftware.LaunchPad.Core.Domain.Entities.SoftwareApplications
     public class LaunchPadGeneratedClass : LaunchPadGeneratedObjectBase
     {
         /// <summary>
+        /// The prefix to apply to the name (if any).
+        /// </summary>
+        public string NamePrefix { get; set; }
+
+        /// <summary>
+        /// The suffix to apply to the name (if any).
+        /// </summary>
+        public string NameSuffix { get; set; }
+
+        /// <summary>
         /// The name of the Visual Studio project in which this generated object will belong.
         /// </summary>
         public string Project { get; set; }
