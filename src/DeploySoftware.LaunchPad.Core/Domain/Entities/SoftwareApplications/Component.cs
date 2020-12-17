@@ -28,64 +28,42 @@ using System.Xml.Serialization;
 namespace DeploySoftware.LaunchPad.Core.Domain
 {
     /// <summary>
-    /// Base class for application-specific information
+    /// Base class for components
     /// </summary>
-    /// <typeparam name="TPrimaryKey">The type of the key id field</typeparam>
+    /// <typeparam name="TIdType">The type of the key id field</typeparam>
     [Serializable()]
-    public partial class Module<TIdType, TEntityIdType> : DomainEntityBase<TIdType>, IModule<TIdType, TEntityIdType>, IMayHaveTenant
+    public partial class Component<TIdType,TEntityIdType> : DomainEntityBase<TIdType>, IComponent<TIdType, TEntityIdType>, IMayHaveTenant
     {
-        /// <summary>
-        /// The default culture of this tenant
-        /// </summary>
-        [DataObjectField(false)]
-        [XmlAttribute]
-        public String CultureDefault
-        {
-            get; set;
-        }
 
         /// <summary>
-        /// Each module can have an open-ended set of components within that provide the functionality
+        /// Each component can have 0 to many domain entities
         /// </summary>
         [DataObjectField(false)]
         [XmlAttribute]
-        public IEnumerable<Component<TIdType, TEntityIdType>> Components { get; set; }
+        public IEnumerable<DomainEntityBase<TEntityIdType>> DomainEntities { get; set; }
         public int? TenantId { get; set; }
 
         #region "Constructors"
-        public Module() : base()
+        public Component() : base()
         {
-            Components = new List<Component<TIdType,TEntityIdType>>();
+            DomainEntities = new List<DomainEntityBase<TEntityIdType>>();
         }
 
-        public Module(int? tenantId) : base()
+        public Component(int? tenantId) : base()
         {
             TenantId = tenantId;
-            Components = new List<Component<TIdType, TEntityIdType>>();
+            DomainEntities = new List<DomainEntityBase<TEntityIdType>>();
         }
 
-        public Module(int? tenantId, TIdType id, string cultureName) : base(id, cultureName)
-        {
-            TenantId = tenantId;
-            CultureDefault = cultureName;
-            Components = new List<Component<TIdType, TEntityIdType>>();
-        }
-
-        public Module(int? tenantId, TIdType id, string cultureName, String cultureDefault) : base(id, cultureName)
-        {
-            CultureDefault = cultureDefault;
-            Components = new List<Component<TIdType, TEntityIdType>>();
-        }
 
         /// <summary>
         /// Serialization constructor used for deserialization
         /// </summary>
         /// <param name="info">The serialization info</param>
         /// <param name="context">The context of the stream</param>
-        protected Module(SerializationInfo info, StreamingContext context) : base(info,context)
+        protected Component(SerializationInfo info, StreamingContext context) : base(info,context)
         {
-            CultureDefault = info.GetString("CultureDefault");
-            Components = (IEnumerable<Component<TIdType, TEntityIdType>>)info.GetValue("Components", typeof(IEnumerable<Component<TIdType, TEntityIdType>>));
+            DomainEntities = (IEnumerable<DomainEntityBase<TEntityIdType>>)info.GetValue("DomainEntities", typeof(IEnumerable<DomainEntityBase<TEntityIdType>>));
         }
 
         #endregion
@@ -99,8 +77,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         public override void GetObjectData(SerializationInfo info, StreamingContext context)
         {
             base.GetObjectData(info, context);
-            info.AddValue("CultureDefault", CultureDefault);
-            info.AddValue("Components", Components);
+            info.AddValue("DomainEntities", DomainEntities);
         }
 
         /// <summary>  
@@ -112,8 +89,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
             StringBuilder sb = new StringBuilder();
             sb.Append("[Module : ");
             sb.AppendFormat(ToStringBaseProperties());
-            sb.AppendFormat(" CultureDefault={0};", CultureDefault);
-            sb.AppendFormat(" Components={0};", Components);            
+            sb.AppendFormat(" DomainEntities={0};", DomainEntities);            
             sb.Append("]");
             return sb.ToString();
         }

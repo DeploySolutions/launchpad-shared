@@ -7,6 +7,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain.Entities.SoftwareApplications
     /// </summary>
     public class LaunchPadGeneratedClass : LaunchPadGeneratedObjectBase
     {
+
         /// <summary>
         /// The prefix to apply to the name (if any).
         /// </summary>

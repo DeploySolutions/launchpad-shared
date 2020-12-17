@@ -24,28 +24,17 @@ namespace DeploySoftware.LaunchPad.Core.Domain
     using System.Xml.Serialization;
 
     /// <summary>
-    /// Represents a module in an application.
+    /// Represents a comopnent in a software module.
     /// </summary>
     /// <typeparam name="TIdType"></typeparam>
-    public interface IModule<TIdType, TEntityIdType> : IDomainEntity<TIdType>
+    public interface IComponent<TIdType, TEntityIdType> : IDomainEntity<TIdType>
     {
-
         /// <summary>
-        /// The default culture of this tenant
+        /// Each component can have 0 to many domain entities
         /// </summary>
         [DataObjectField(false)]
         [XmlAttribute]
-        String CultureDefault
-        {
-            get; set;
-        }
-
-        /// <summary>
-        /// Each module can have an open-ended set of components within that provide the functionality
-        /// </summary>
-        [DataObjectField(false)]
-        [XmlAttribute]
-        IEnumerable<Component<TIdType,TEntityIdType>> Components { get; set; }
+        IEnumerable<DomainEntityBase<TEntityIdType>> DomainEntities { get; set; }
 
     }
 }

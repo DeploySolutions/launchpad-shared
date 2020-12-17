@@ -28,7 +28,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
     /// Represents an application in the LaunchPad RAD framework.
     /// </summary>
     /// <typeparam name="TPrimaryKey">The type of the id</typeparam>
-    public interface ILaunchPadApplication<TIdType> : IDomainEntity<TIdType>
+    public interface ILaunchPadApplication<TIdType, TEntityIdType> : IDomainEntity<TIdType>
     {
 
         /// <summary>
@@ -53,7 +53,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         /// </summary>
         [DataObjectField(false)]
         [XmlAttribute]
-        List<Module<TIdType>> Modules { get; set; }
+        List<Module<TIdType, TEntityIdType>> Modules { get; set; }
 
     }
 }

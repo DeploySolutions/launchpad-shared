@@ -17,7 +17,9 @@ namespace DeploySoftware.LaunchPad.Core.Domain.Entities.SoftwareApplications
         public bool IsOptional { get; set; }
 
         public bool IsReadonly { get; set; }
-        
 
+        public bool IsVirtual { get; set; }
+        
     }
+
 }

@@ -30,9 +30,10 @@ namespace DeploySoftware.LaunchPad.Core.Domain
     /// <summary>
     /// Base class for application-specific information
     /// </summary>
-    /// <typeparam name="TPrimaryKey">The type of the key id field</typeparam>
+    /// <typeparam name="TIdType">The type of the key id field</typeparam>
+    /// <typeparam name="TEntityIdType">The base ID type of any domain entities contained within the application</typeparam>
     [Serializable()]
-    public class LaunchPadApplication<TIdType> : DomainEntityBase<TIdType>, ILaunchPadApplication<TIdType>, IMayHaveTenant
+    public class LaunchPadApplication<TIdType,TEntityIdType> : DomainEntityBase<TIdType>, ILaunchPadApplication<TIdType, TEntityIdType>, IMayHaveTenant
     {
 
         /// <summary>
@@ -50,7 +51,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         /// </summary>
         [DataObjectField(false)]
         [XmlAttribute]
-        public List<Module<TIdType>> Modules { get; set; }
+        public List<Module<TIdType, TEntityIdType>> Modules { get; set; }
 
 
         /// <summary>
@@ -68,7 +69,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         {
             AppInfo = new ApplicationInformation<TIdType>();
             TenantInfo = new List<TenantInformation<TIdType>>();
-            Modules = new List<Module<TIdType>>();
+            Modules = new List<Module<TIdType, TEntityIdType>>();
         }
 
         public LaunchPadApplication(int? tenantId) : base()
@@ -76,14 +77,14 @@ namespace DeploySoftware.LaunchPad.Core.Domain
             TenantId = tenantId;
             AppInfo = new ApplicationInformation<TIdType>(tenantId);
             TenantInfo = new List<TenantInformation<TIdType>>();
-            Modules = new List<Module<TIdType>>();
+            Modules = new List<Module<TIdType, TEntityIdType>>();
         }
 
         public LaunchPadApplication(int? tenantId, TIdType id, string cultureName) : base(id, cultureName)
         {
             AppInfo = new ApplicationInformation<TIdType>(tenantId);
             TenantInfo = new List<TenantInformation<TIdType>>();
-            Modules = new List<Module<TIdType>>();
+            Modules = new List<Module<TIdType, TEntityIdType>>();
         }
 
         /// <summary>
@@ -95,7 +96,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         {
             AppInfo = (ApplicationInformation<TIdType>)info.GetValue("Info", typeof(ApplicationInformation<TIdType>));
             TenantInfo = (List<TenantInformation<TIdType>>)info.GetValue("TenantInfo", typeof(List<TenantInformation<TIdType>>)); 
-            Modules = (List<Module<TIdType>>)info.GetValue("Modules", typeof(List<Module<TIdType>>));
+            Modules = (List<Module<TIdType, TEntityIdType>>)info.GetValue("Modules", typeof(List<Module<TIdType, TEntityIdType>>));
         }
 
         #endregion

@@ -15,11 +15,6 @@ namespace DeploySoftware.LaunchPad.Core.Domain.Entities.SoftwareApplications
         public string Name { get; set; }
 
         /// <summary>
-        /// The generated object name, in the plural form
-        /// </summary>
-        public string NamePlural { get; set; }
-
-        /// <summary>
         /// The description of the object
         /// </summary>
         public string Description { get; set; }
