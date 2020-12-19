@@ -35,11 +35,21 @@ namespace DeploySoftware.LaunchPad.Core.Domain
     public partial class Module<TIdType, TEntityIdType> : DomainEntityBase<TIdType>, IModule<TIdType, TEntityIdType>, IMayHaveTenant
     {
         /// <summary>
+        /// The type of the module
+        /// </summary>
+        [DataObjectField(false)]
+        [XmlAttribute]
+        public string Type
+        {
+            get; set;
+        }
+
+        /// <summary>
         /// The default culture of this tenant
         /// </summary>
         [DataObjectField(false)]
         [XmlAttribute]
-        public String CultureDefault
+        public string CultureDefault
         {
             get; set;
         }
@@ -55,17 +65,20 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         #region "Constructors"
         public Module() : base()
         {
+            Type = string.Empty;
             Components = new List<Component<TIdType,TEntityIdType>>();
         }
 
         public Module(int? tenantId) : base()
         {
+            Type = string.Empty;
             TenantId = tenantId;
             Components = new List<Component<TIdType, TEntityIdType>>();
         }
 
         public Module(int? tenantId, TIdType id, string cultureName) : base(id, cultureName)
         {
+            Type = string.Empty;
             TenantId = tenantId;
             CultureDefault = cultureName;
             Components = new List<Component<TIdType, TEntityIdType>>();
@@ -73,6 +86,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
 
         public Module(int? tenantId, TIdType id, string cultureName, String cultureDefault) : base(id, cultureName)
         {
+            Type = string.Empty;
             CultureDefault = cultureDefault;
             Components = new List<Component<TIdType, TEntityIdType>>();
         }
@@ -84,6 +98,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         /// <param name="context">The context of the stream</param>
         protected Module(SerializationInfo info, StreamingContext context) : base(info,context)
         {
+            Type = info.GetString("Type");
             CultureDefault = info.GetString("CultureDefault");
             Components = (IEnumerable<Component<TIdType, TEntityIdType>>)info.GetValue("Components", typeof(IEnumerable<Component<TIdType, TEntityIdType>>));
         }
@@ -99,6 +114,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         public override void GetObjectData(SerializationInfo info, StreamingContext context)
         {
             base.GetObjectData(info, context);
+            info.AddValue("Type", Type);
             info.AddValue("CultureDefault", CultureDefault);
             info.AddValue("Components", Components);
         }
@@ -112,6 +128,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
             StringBuilder sb = new StringBuilder();
             sb.Append("[Module : ");
             sb.AppendFormat(ToStringBaseProperties());
+            sb.AppendFormat(" Type={0};", Type);
             sb.AppendFormat(" CultureDefault={0};", CultureDefault);
             sb.AppendFormat(" Components={0};", Components);            
             sb.Append("]");

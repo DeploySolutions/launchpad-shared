@@ -44,20 +44,31 @@ namespace DeploySoftware.LaunchPad.Core.Domain.Entities.SoftwareApplications
         public string IdType { get; set; }
 
         /// <summary>
-        /// The list of generated properties that belong to this class.
+        /// The list of base LaunchPad properties that belong to this class (received through DomainEntity or other base class inheritance).
         /// </summary>
-        public IList<LaunchPadGeneratedProperty> GeneratedProperties { get; set; }
+        public IList<LaunchPadGeneratedProperty> BaseProperties { get; set; }
 
         /// <summary>
-        /// The list of generated methods that belong to this class.
+        /// The list of custom properties that belong to this class (that were not inherited).
         /// </summary>
-        public IList<LaunchPadGeneratedMethod> GeneratedMethods { get; set; }
+        public IList<LaunchPadGeneratedProperty> CustomProperties { get; set; }
 
+        /// <summary>
+        /// The list of base methods that belong to this class (received through DomainEntity or other base class inheritance).
+        /// </summary>
+        public IList<LaunchPadGeneratedMethod> BaseMethods { get; set; }
+
+        /// <summary>
+        /// The list of custom methods that belong to this class (that were not inherited).
+        /// </summary>
+        public IList<LaunchPadGeneratedMethod> CustomMethods { get; set; }
 
         public LaunchPadGeneratedClass()
         {
-            GeneratedProperties = new List<LaunchPadGeneratedProperty>();
-            GeneratedMethods = new List<LaunchPadGeneratedMethod>();
+            BaseProperties = new List<LaunchPadGeneratedProperty>();
+            CustomProperties = new List<LaunchPadGeneratedProperty>();
+            BaseMethods = new List<LaunchPadGeneratedMethod>();
+            CustomMethods = new List<LaunchPadGeneratedMethod>();
         }
     }
 }

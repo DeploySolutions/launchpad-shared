@@ -31,6 +31,16 @@ namespace DeploySoftware.LaunchPad.Core.Domain
     {
 
         /// <summary>
+        /// The type of the module
+        /// </summary>
+        [DataObjectField(false)]
+        [XmlAttribute]
+        String Type
+        {
+            get; set;
+        }
+
+        /// <summary>
         /// The default culture of this tenant
         /// </summary>
         [DataObjectField(false)]
