@@ -13,10 +13,4 @@ namespace DeploySoftware.LaunchPad.Core.Util
         public string Returns { get; set; }
     }
 
-    public class LaunchPadGeneratedMethodParameter
-    {
-        public string Name { get; set; }
-        public string DataType { get; set; } = "System.String";
-        public string DefaultValue { get; set; }
-    }
 }

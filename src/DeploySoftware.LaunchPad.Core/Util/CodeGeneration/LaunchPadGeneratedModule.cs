@@ -13,6 +13,11 @@ namespace DeploySoftware.LaunchPad.Core.Util
         public LaunchPadGeneratedVisualStudioConfiguration VisualStudioConfig { get; set; }
 
         /// <summary>
+        /// The version of this module
+        /// </summary>
+        public string Version { get; set; }
+
+        /// <summary>
         /// The resulting C# type of the object when generated.
         /// </summary>
         public string ClassType { get; set; }
@@ -49,6 +54,7 @@ namespace DeploySoftware.LaunchPad.Core.Util
 
         public LaunchPadGeneratedModule()
         {
+            Version = string.Empty;
             ClassType = string.Empty; 
             NamePrefix = string.Empty;
             NameSuffix = string.Empty;

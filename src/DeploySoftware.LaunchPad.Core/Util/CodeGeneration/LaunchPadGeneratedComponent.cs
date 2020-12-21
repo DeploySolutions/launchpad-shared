@@ -8,6 +8,11 @@ namespace DeploySoftware.LaunchPad.Core.Util
     public class LaunchPadGeneratedComponent : LaunchPadGeneratedObjectBase
     {
         /// <summary>
+        /// The version of this component
+        /// </summary>
+        public string Version { get; set; }
+
+        /// <summary>
         /// Contains information related to this object's position with a Visual Studio solution
         /// </summary>
         public LaunchPadGeneratedVisualStudioConfiguration VisualStudioConfig { get; set; }
@@ -49,6 +54,7 @@ namespace DeploySoftware.LaunchPad.Core.Util
 
         public LaunchPadGeneratedComponent()
         {
+            Version = string.Empty;
             ClassType = string.Empty; 
             NamePrefix = string.Empty;
             NameSuffix = string.Empty;
