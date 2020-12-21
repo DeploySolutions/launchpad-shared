@@ -55,7 +55,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         /// </summary>
         [DataObjectField(false)]
         [XmlAttribute]
-        IEnumerable<Component<TIdType,TEntityIdType>> Components { get; set; }
+        IList<Component<TIdType, TEntityIdType>> Components { get; set; }
 
     }
 }

@@ -59,14 +59,14 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         /// </summary>
         [DataObjectField(false)]
         [XmlAttribute]
-        public IEnumerable<Component<TIdType, TEntityIdType>> Components { get; set; }
+        public IList<Component<TIdType, TEntityIdType>> Components { get; set; }
         public int? TenantId { get; set; }
 
         #region "Constructors"
         public Module() : base()
         {
             Type = string.Empty;
-            Components = new List<Component<TIdType,TEntityIdType>>();
+            Components = new List<Component<TIdType, TEntityIdType>>();
         }
 
         public Module(int? tenantId) : base()
@@ -100,7 +100,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         {
             Type = info.GetString("Type");
             CultureDefault = info.GetString("CultureDefault");
-            Components = (IEnumerable<Component<TIdType, TEntityIdType>>)info.GetValue("Components", typeof(IEnumerable<Component<TIdType, TEntityIdType>>));
+            Components = (List<Component<TIdType, TEntityIdType>>)info.GetValue("Components", typeof(List<Component<TIdType, TEntityIdType>>));
         }
 
         #endregion

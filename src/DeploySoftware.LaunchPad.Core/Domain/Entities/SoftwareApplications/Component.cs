@@ -40,7 +40,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         /// </summary>
         [DataObjectField(false)]
         [XmlAttribute]
-        public IEnumerable<DomainEntityBase<TEntityIdType>> DomainEntities { get; set; }
+        public IList<DomainEntityBase<TEntityIdType>> DomainEntities { get; set; }
         public int? TenantId { get; set; }
 
         #region "Constructors"
@@ -63,7 +63,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         /// <param name="context">The context of the stream</param>
         protected Component(SerializationInfo info, StreamingContext context) : base(info,context)
         {
-            DomainEntities = (IEnumerable<DomainEntityBase<TEntityIdType>>)info.GetValue("DomainEntities", typeof(IEnumerable<DomainEntityBase<TEntityIdType>>));
+            DomainEntities = (IList<DomainEntityBase<TEntityIdType>>)info.GetValue("DomainEntities", typeof(IList<DomainEntityBase<TEntityIdType>>));
         }
 
         #endregion

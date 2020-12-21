@@ -34,7 +34,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         /// </summary>
         [DataObjectField(false)]
         [XmlAttribute]
-        IEnumerable<DomainEntityBase<TEntityIdType>> DomainEntities { get; set; }
+        IList<DomainEntityBase<TEntityIdType>> DomainEntities { get; set; }
 
     }
 }

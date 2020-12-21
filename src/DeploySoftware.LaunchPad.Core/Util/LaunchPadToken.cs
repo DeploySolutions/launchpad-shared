@@ -66,6 +66,7 @@ namespace DeploySoftware.LaunchPad.Core.Util
             string[] tokens = tokenInnerSections.Split("|");
             foreach (string token in tokens)
             {
+                DefaultValue = string.Empty;
                 if (token.StartsWith("p:"))
                 {
                     Prefix = token.Substring(2);
@@ -76,7 +77,7 @@ namespace DeploySoftware.LaunchPad.Core.Util
                 }
                 if (token.StartsWith("dv:"))
                 {
-                    DefaultValue = token.Substring(3);
+                    DefaultValue = token.Substring(3); // overwrite the empty default value
                 }
             }
         }

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace DeploySoftware.LaunchPad.Core.Domain.Entities.SoftwareApplications
+namespace DeploySoftware.LaunchPad.Core.Util
 {
     /// <summary>
     /// The base class containing properties used for LaunchPad RAD code generation processes.
