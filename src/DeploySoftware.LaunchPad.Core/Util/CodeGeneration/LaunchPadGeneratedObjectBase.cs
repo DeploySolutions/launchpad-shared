@@ -5,23 +5,37 @@ using System.Text;
 namespace DeploySoftware.LaunchPad.Core.Util
 {
     /// <summary>
-    /// The base class containing properties used for LaunchPad RAD code generation processes.
+    /// The base class containing properties used for higher-level elements (classes, components, modules, etc) in LaunchPad RAD code generation processes.
     /// </summary>
-    public abstract partial class LaunchPadGeneratedObjectBase
+    public abstract partial class LaunchPadGeneratedObjectBase : LaunchPadGeneratedMethodFieldBase
     {
         /// <summary>
-        /// The singular name of the object 
+        /// Contains information related to this object's position with a Visual Studio solution
         /// </summary>
-        public string Name { get; set; }
+        public LaunchPadGeneratedVisualStudioConfiguration VisualStudioConfig { get; set; }
 
         /// <summary>
-        /// The description of the object
+        /// The namespace of the generated item.
         /// </summary>
-        public string Description { get; set; }
+        public string Namespace { get; set; }
 
         /// <summary>
-        /// Code annotations for the object
+        /// The C# type of this object
         /// </summary>
-        public string Annotations { get; set; }
+        public string ObjectType { get; set; }
+
+        /// <summary>
+        /// The C# type of this object's id.
+        /// </summary>
+        public string IdType { get; set; } = "System.Int32";
+
+        public LaunchPadGeneratedObjectBase() : base()
+        {
+            Namespace = string.Empty;
+            ObjectType = string.Empty;
+            IdType = string.Empty;
+            VisualStudioConfig = new LaunchPadGeneratedVisualStudioConfiguration();
+        }
+
     }
 }

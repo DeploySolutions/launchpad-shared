@@ -4,29 +4,29 @@ using System.Text;
 
 namespace DeploySoftware.LaunchPad.Core.Util
 {
-    public class LaunchPadGeneratedVisualStudioConfiguration
+    public partial class LaunchPadGeneratedVisualStudioConfiguration
     {
         
         /// <summary>
         /// The name of the Visual Studio Solution in which this generated object will belong.
         /// </summary>
-        public string Solution { get; set; }
+        public string SolutionName { get; set; }
 
         /// <summary>
         /// The name of the Visual Studio project in which this generated object will belong.
         /// </summary>
-        public string Project { get; set; }
+        public string ProjectName { get; set; }
 
         /// <summary>
         /// The name of the Visual Studio project folder, in which this generated object will belong.
         /// </summary>
-        public string SubFolder { get; set; }
+        public string SubFolderName { get; set; }
 
         public LaunchPadGeneratedVisualStudioConfiguration()
         {
-            Solution = string.Empty;
-            Project = string.Empty;
-            SubFolder = string.Empty;
+            SolutionName = string.Empty;
+            ProjectName = string.Empty;
+            SubFolderName = string.Empty;
         }
     }
 }

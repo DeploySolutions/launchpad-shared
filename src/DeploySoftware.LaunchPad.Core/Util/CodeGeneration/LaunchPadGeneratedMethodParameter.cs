@@ -7,10 +7,10 @@ namespace DeploySoftware.LaunchPad.Core.Util
     /// <summary>
     /// Represent a C# method parameter
     /// </summary>
-    public class LaunchPadGeneratedMethodParameter : LaunchPadGeneratedObjectBase
+    public partial class LaunchPadGeneratedMethodParameter : LaunchPadGeneratedMethodFieldBase
     {
         /// <summary>
-        /// This is the C# type of the generated property. 
+        /// The C# type of the parameter.
         /// </summary>
         public string DataType { get; set; } = "System.String";
 
@@ -25,6 +25,14 @@ namespace DeploySoftware.LaunchPad.Core.Util
         public string ExampleValue { get; set; } = string.Empty;
 
         public bool IsOptional { get; set; }
+
+        public LaunchPadGeneratedMethodParameter() : base()
+        {
+            DataType = string.Empty;
+            DefaultValue = string.Empty;
+            ExampleValue = string.Empty;
+            IsOptional = false;
+        }
 
     }
 }
