@@ -2,16 +2,11 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace DeploySoftware.LaunchPad.Core.Util
+namespace DeploySoftware.LaunchPad.Core.CodeGeneration
 {
-    public partial class LaunchPadGeneratedVisualStudioConfiguration
+    public partial class LaunchPadGeneratedVisualStudioClassConfiguration : LaunchPadGeneratedVisualStudioSolutionConfiguration
     {
-        
-        /// <summary>
-        /// The name of the Visual Studio Solution in which this generated object will belong.
-        /// </summary>
-        public string SolutionName { get; set; }
-
+       
         /// <summary>
         /// The name of the Visual Studio project in which this generated object will belong.
         /// </summary>
@@ -22,9 +17,8 @@ namespace DeploySoftware.LaunchPad.Core.Util
         /// </summary>
         public string SubFolderName { get; set; }
 
-        public LaunchPadGeneratedVisualStudioConfiguration()
+        public LaunchPadGeneratedVisualStudioClassConfiguration() : base()
         {
-            SolutionName = string.Empty;
             ProjectName = string.Empty;
             SubFolderName = string.Empty;
         }

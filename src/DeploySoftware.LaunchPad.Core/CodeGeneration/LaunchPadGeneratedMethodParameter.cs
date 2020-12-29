@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace DeploySoftware.LaunchPad.Core.Util
+namespace DeploySoftware.LaunchPad.Core.CodeGeneration
 {
     /// <summary>
     /// Represent a C# method parameter
