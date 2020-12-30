@@ -113,7 +113,7 @@ namespace DeploySoftware.LaunchPad.Core.Util
         
         public override string ToString()
         {
-            StringBuilder sb = new StringBuilder("Token: {{");
+            StringBuilder sb = new StringBuilder("{{");
             sb.Append("p:");
             sb.Append(Prefix);
             sb.Append("|n:");
@@ -123,12 +123,7 @@ namespace DeploySoftware.LaunchPad.Core.Util
                 sb.Append("|dv:");
                 sb.Append(DefaultValue);
             }
-            sb.Append("}} ");
-            if (!String.IsNullOrEmpty(DefaultValue))
-            {
-                sb.Append(" Value:");
-                sb.Append(Value);
-            }
+            sb.Append("}}");
             return sb.ToString();
         }
 
@@ -153,8 +148,7 @@ namespace DeploySoftware.LaunchPad.Core.Util
         {
             if (obj != null)
             {
-                return Name.Equals(obj.Name) && Prefix.Equals(obj.Prefix)
-                    && Value.Equals(obj.Value) && DefaultValue.Equals(obj.DefaultValue);
+                return Name.Equals(obj.Name) && Prefix.Equals(obj.Prefix) && DefaultValue.Equals(obj.DefaultValue);
 
             }
             return false;
@@ -201,7 +195,6 @@ namespace DeploySoftware.LaunchPad.Core.Util
         {
             return Name.GetHashCode()
                 + Prefix.GetHashCode()
-                + Value.GetHashCode()
                 + DefaultValue.GetHashCode()
                 ;
         }
