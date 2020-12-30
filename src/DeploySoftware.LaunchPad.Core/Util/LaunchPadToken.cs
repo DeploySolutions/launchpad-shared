@@ -6,6 +6,7 @@ using System.Xml.Serialization;
 
 namespace DeploySoftware.LaunchPad.Core.Util
 {
+    [Serializable]
     public class LaunchPadToken : IEquatable<LaunchPadToken>
     {
         /// <summary>

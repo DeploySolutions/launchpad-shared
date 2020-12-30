@@ -4,12 +4,13 @@ using System.Text;
 
 namespace DeploySoftware.LaunchPad.Core.CodeGeneration
 {
+    [Serializable]
     public partial class LaunchPadGeneratedVisualStudioClassConfiguration : LaunchPadGeneratedVisualStudioSolutionConfiguration
     {
-       
+
         /// <summary>
         /// The name of the Visual Studio project in which this generated object will belong.
-        /// </summary>
+        /// </summary>        
         public string ProjectName { get; set; }
 
         /// <summary>

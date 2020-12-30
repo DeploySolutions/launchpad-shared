@@ -6,7 +6,8 @@ namespace DeploySoftware.LaunchPad.Core.CodeGeneration
 {
     /// <summary>
     /// The base class containing properties used for higher-level elements (classes, components, modules, etc) in LaunchPad RAD code generation processes.
-    /// </summary>
+    /// </summary>    
+    [Serializable]
     public abstract partial class LaunchPadGeneratedObjectBase : LaunchPadGeneratedMethodFieldBase
     {
         

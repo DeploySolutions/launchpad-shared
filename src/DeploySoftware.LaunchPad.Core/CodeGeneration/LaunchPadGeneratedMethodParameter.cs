@@ -6,7 +6,8 @@ namespace DeploySoftware.LaunchPad.Core.CodeGeneration
 {
     /// <summary>
     /// Represent a C# method parameter
-    /// </summary>
+    /// </summary>    
+    [Serializable]
     public partial class LaunchPadGeneratedMethodParameter : LaunchPadGeneratedMethodFieldBase
     {
         /// <summary>

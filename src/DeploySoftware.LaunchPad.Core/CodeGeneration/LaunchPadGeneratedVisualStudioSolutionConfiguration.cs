@@ -4,6 +4,7 @@ using System.Text;
 
 namespace DeploySoftware.LaunchPad.Core.CodeGeneration
 {
+    [Serializable]
     public partial class LaunchPadGeneratedVisualStudioSolutionConfiguration
     {
         
