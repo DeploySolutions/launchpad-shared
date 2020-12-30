@@ -49,6 +49,7 @@ namespace DeploySoftware.LaunchPad.Core.Util
         }
         public LaunchPadToken(string tokenString)
         {
+            Value = string.Empty;
             Validate(tokenString);
             Parse(tokenString);
         }
