@@ -23,7 +23,7 @@ namespace DeploySoftware.LaunchPad.Core.CodeGeneration
         public string SolutionBaseNamespace { get; set; }
 
 
-        public LaunchPadGeneratedVisualStudioSolutionConfiguration()
+        public LaunchPadGeneratedVisualStudioSolutionConfiguration() : base()
         {
             SolutionName = string.Empty;
             SolutionRootFilePath = string.Empty;
