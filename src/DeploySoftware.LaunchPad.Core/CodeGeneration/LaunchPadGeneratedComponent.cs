@@ -12,7 +12,7 @@ namespace DeploySoftware.LaunchPad.Core.CodeGeneration
         /// <summary>
         /// Contains information related to this object's position with a Visual Studio solution
         /// </summary>
-        public LaunchPadGeneratedVisualStudioSolutionConfiguration VisualStudioConfig { get; set; }
+        public LaunchPadGeneratedVisualStudioComponentConfiguration VisualStudioConfig { get; set; }
 
         /// <summary>
         /// The version of this component
@@ -34,7 +34,7 @@ namespace DeploySoftware.LaunchPad.Core.CodeGeneration
             Version = string.Empty;
             EntityIdType = string.Empty;
             DomainEntities = new List<LaunchPadGeneratedClass>();
-            VisualStudioConfig = new LaunchPadGeneratedVisualStudioSolutionConfiguration();
+            VisualStudioConfig = new LaunchPadGeneratedVisualStudioComponentConfiguration();
         }
     }
 }
