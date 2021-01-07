@@ -216,7 +216,7 @@
   <data name="Guard_LaunchPadToken_ArgumentException_MissingPrefix" xml:space="preserve">
     <value>Token string must contain a prefix section, beginning with 'p:'.</value>
   </data>
-  <data name="Guard_LaunchPadToken_ArgumentException_NoPipes" xml:space="preserve">
+  <data name="Guard_LaunchPadToken_ArgumentException_NoDelimiter" xml:space="preserve">
     <value>Token string must contain at least two sections, delimited by '|'.</value>
   </data>
   <data name="Guard_LaunchPadToken_ArgumentException_WrongEndWith" xml:space="preserve">

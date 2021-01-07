@@ -89,7 +89,7 @@ namespace DeploySoftware.LaunchPad.Core.Util
             Guard.Against<ArgumentException>(string.IsNullOrEmpty(tokenString), DeploySoftware_LaunchPad_Core_Resources.Guard_LaunchPadToken_ArgumentException_Empty);
             Guard.Against<ArgumentException>(!tokenString.StartsWith("{{"),DeploySoftware_LaunchPad_Core_Resources.Guard_LaunchPadToken_ArgumentException_WrongStartsWith);
             Guard.Against<ArgumentException>(!tokenString.EndsWith("}}"),DeploySoftware_LaunchPad_Core_Resources.Guard_LaunchPadToken_ArgumentException_WrongEndWith );
-            Guard.Against<ArgumentException>(!tokenString.Contains("|"), DeploySoftware_LaunchPad_Core_Resources.Guard_LaunchPadToken_ArgumentException_NoPipes);
+            Guard.Against<ArgumentException>(!tokenString.Contains("|"), DeploySoftware_LaunchPad_Core_Resources.Guard_LaunchPadToken_ArgumentException_NoDelimiter); 
             Guard.Against<ArgumentException>(!tokenString.Contains("p:"), DeploySoftware_LaunchPad_Core_Resources.Guard_LaunchPadToken_ArgumentException_MissingPrefix);
             Guard.Against<ArgumentException>(!tokenString.Contains("n:"), DeploySoftware_LaunchPad_Core_Resources.Guard_LaunchPadToken_ArgumentException_MissingName);
             int length = tokenString.Split("|").Length;

@@ -342,9 +342,9 @@ namespace DeploySoftware.LaunchPad.Core {
         /// <summary>
         ///   Looks up a localized string similar to Token string must contain at least two sections, delimited by &apos;|&apos;..
         /// </summary>
-        public static string Guard_LaunchPadToken_ArgumentException_NoPipes {
+        public static string Guard_LaunchPadToken_ArgumentException_NoDelimiter {
             get {
-                return ResourceManager.GetString("Guard_LaunchPadToken_ArgumentException_NoPipes", resourceCulture);
+                return ResourceManager.GetString("Guard_LaunchPadToken_ArgumentException_NoDelimiter", resourceCulture);
             }
         }
         
