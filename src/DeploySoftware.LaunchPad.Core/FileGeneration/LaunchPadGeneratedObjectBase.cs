@@ -21,6 +21,7 @@ namespace DeploySoftware.LaunchPad.Core.FileGeneration
         /// </summary>
         public string Name { get; set; }
 
+
         /// <summary>
         /// The prefix to apply to the name (if any).
         /// </summary>
@@ -30,6 +31,12 @@ namespace DeploySoftware.LaunchPad.Core.FileGeneration
         /// The suffix to apply to the name (if any).
         /// </summary>
         public string NameSuffix { get; set; }
+
+
+        /// <summary>
+        /// The description of the object
+        /// </summary>
+        public string Description { get; set; }
 
         /// <summary>
         /// The C# type of this object
@@ -49,6 +56,7 @@ namespace DeploySoftware.LaunchPad.Core.FileGeneration
             Name = string.Empty;
             NamePrefix = string.Empty;
             NameSuffix = string.Empty;
+            Description = string.Empty;
         }
 
     }
