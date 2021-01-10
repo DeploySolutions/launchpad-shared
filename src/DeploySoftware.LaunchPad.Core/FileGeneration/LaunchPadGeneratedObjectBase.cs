@@ -2,13 +2,14 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace DeploySoftware.LaunchPad.Core.CodeGeneration
+namespace DeploySoftware.LaunchPad.Core.FileGeneration
 {
     /// <summary>
-    /// Represent a C# method parameter or field - this is the top level element in the LaunchPad Generated object hierarchy.
+    /// The base class containing properties for all LaunchPad RAD file generation processes.
+    /// This is the top level element in the LaunchPad Generated object hierarchy. 
     /// </summary>    
     [Serializable]
-    public abstract partial class LaunchPadGeneratedMethodFieldBase
+    public abstract partial class LaunchPadGeneratedObjectBase
     {
         /// <summary>
         /// The unique id of the object (if present)
@@ -31,23 +32,23 @@ namespace DeploySoftware.LaunchPad.Core.CodeGeneration
         public string NameSuffix { get; set; }
 
         /// <summary>
-        /// The description of the object
+        /// The C# type of this object
         /// </summary>
-        public string Description { get; set; }
+        public string ObjectType { get; set; }
 
         /// <summary>
-        /// Code annotations for the object
+        /// The C# type of this object's id.
         /// </summary>
-        public string Annotations { get; set; }
+        public string IdType { get; set; } = "System.Int32";
 
-        public LaunchPadGeneratedMethodFieldBase()
+        public LaunchPadGeneratedObjectBase() : base()
         {
+            ObjectType = string.Empty;
+            IdType = string.Empty;
             Id = string.Empty;
-            Name = string.Empty; 
+            Name = string.Empty;
             NamePrefix = string.Empty;
             NameSuffix = string.Empty;
-            Description = string.Empty;
-            Annotations = string.Empty;
         }
 
     }

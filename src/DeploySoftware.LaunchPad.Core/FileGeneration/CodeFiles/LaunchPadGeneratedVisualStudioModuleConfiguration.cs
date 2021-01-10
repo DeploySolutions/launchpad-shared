@@ -2,14 +2,14 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace DeploySoftware.LaunchPad.Core.CodeGeneration
+namespace DeploySoftware.LaunchPad.Core.FileGeneration
 {
     [Serializable]
-    public partial class LaunchPadGeneratedVisualStudioSolutionConfiguration
+    public partial class LaunchPadGeneratedVisualStudioModuleConfiguration
     {
         
         /// <summary>
-        /// The name of the Visual Studio Solution in which this generated object will belong.
+        /// The name of the Visual Studio Solution in which this generated module will belong.
         /// </summary>
         public string SolutionName { get; set; }
 
@@ -24,7 +24,7 @@ namespace DeploySoftware.LaunchPad.Core.CodeGeneration
         public string SolutionBaseNamespace { get; set; }
 
 
-        public LaunchPadGeneratedVisualStudioSolutionConfiguration() : base()
+        public LaunchPadGeneratedVisualStudioModuleConfiguration() : base()
         {
             SolutionName = string.Empty;
             SolutionRootFilePath = string.Empty;
