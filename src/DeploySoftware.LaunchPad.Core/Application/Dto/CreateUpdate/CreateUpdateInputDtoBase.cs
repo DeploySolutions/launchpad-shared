@@ -29,6 +29,7 @@ namespace DeploySoftware.LaunchPad.Core.Application.Dto
         [DataObjectField(false)]
         [XmlAttribute]
         [MaxLength(100, ErrorMessageResourceName = "Validation_Name_100CharsOrLess", ErrorMessageResourceType = typeof(DeploySoftware_LaunchPad_Core_Resources))]
+        [Required]
         public virtual String Name { get; set; }
 
         /// <summary>
@@ -37,6 +38,7 @@ namespace DeploySoftware.LaunchPad.Core.Application.Dto
         [DataObjectField(false)]
         [XmlAttribute]
         [MaxLength(256, ErrorMessageResourceName = "Validation_DescriptionShort_256CharsOrLess", ErrorMessageResourceType = typeof(DeploySoftware_LaunchPad_Core_Resources))]
+        [Required]
         public virtual String DescriptionShort { get; set; }
 
         /// <summary>
