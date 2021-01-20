@@ -9,11 +9,17 @@ namespace DeploySoftware.LaunchPad.Core.FileGeneration
     [Serializable]
     public partial class LaunchPadGeneratedDocument : LaunchPadGeneratedObjectBase
     {
+        public string MimeType { get; set; }
 
+        public string Extension { get; set; }
+
+        public string FileLocation { get; set; }
 
         public LaunchPadGeneratedDocument() : base()
         {
-           
+            MimeType = string.Empty;
+            Extension = string.Empty;
+            FileLocation = string.Empty;
         }
     }
 }

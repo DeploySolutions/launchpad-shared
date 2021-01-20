@@ -13,6 +13,11 @@ namespace DeploySoftware.LaunchPad.Core.FileGeneration
     {
 
         /// <summary>
+        /// Contains information related to this object's Document Set solution configuration settings
+        /// </summary>
+        public LaunchPadGeneratedDocumentSetModuleConfiguration Config { get; set; }
+
+        /// <summary>
         /// The list of documents that belong to this module.
         /// </summary>
         public IList<LaunchPadGeneratedDocument> Documents { get; set; }
@@ -21,6 +26,7 @@ namespace DeploySoftware.LaunchPad.Core.FileGeneration
         {
             Version = string.Empty;
             Documents = new List<LaunchPadGeneratedDocument>();
+            Config = new LaunchPadGeneratedDocumentSetModuleConfiguration();
         }
 
     }

@@ -29,6 +29,7 @@ namespace DeploySoftware.LaunchPad.Core.FileGeneration
             SolutionName = string.Empty;
             SolutionRootFilePath = string.Empty;
             SolutionBaseNamespace = string.Empty;
+
         }
     }
 }

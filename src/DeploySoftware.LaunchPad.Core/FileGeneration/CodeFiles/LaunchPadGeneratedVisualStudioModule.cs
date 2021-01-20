@@ -12,7 +12,7 @@ namespace DeploySoftware.LaunchPad.Core.FileGeneration
         /// <summary>
         /// Contains information related to this object's position with a Visual Studio solution
         /// </summary>
-        public LaunchPadGeneratedVisualStudioModuleConfiguration VisualStudioConfig { get; set; }
+        public LaunchPadGeneratedVisualStudioModuleConfiguration Config { get; set; }
 
         /// <summary>
         /// The id type of the entities (if any).
@@ -29,7 +29,7 @@ namespace DeploySoftware.LaunchPad.Core.FileGeneration
             Version = string.Empty;
             EntityIdType = string.Empty;
             Components = new List<LaunchPadGeneratedVisualStudioComponent>();
-            VisualStudioConfig = new LaunchPadGeneratedVisualStudioModuleConfiguration();
+            Config = new LaunchPadGeneratedVisualStudioModuleConfiguration();
         }
     }
 }
