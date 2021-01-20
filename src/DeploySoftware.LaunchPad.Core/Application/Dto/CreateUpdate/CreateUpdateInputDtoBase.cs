@@ -47,7 +47,7 @@ namespace DeploySoftware.LaunchPad.Core.Application.Dto
         [DataObjectField(false)]
         [XmlAttribute]
         [MaxLength(8096, ErrorMessageResourceName = "Validation_DescriptionFull_8096CharsOrLess", ErrorMessageResourceType = typeof(DeploySoftware_LaunchPad_Core_Resources))]
-        public virtual String DescriptionFull { get; set; }
+        public virtual String? DescriptionFull { get; set; }
 
         #region "Constructors"
 

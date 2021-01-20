@@ -11,7 +11,11 @@
     <GenerateBindingRedirectsOutputType>true</GenerateBindingRedirectsOutputType>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+<<<<<<< HEAD
     <Version>4.0.21-alpha</Version>
+=======
+    <Version>4.0.22-alpha</Version>
+>>>>>>> 53bb0dd02f9ffc8694b1605fe7344e26240b378b
     <Description>Shared code for LaunchPad framework.</Description>
     <Copyright>2018-2021 Deploy Software Solutions, inc.</Copyright>
     <PackageReleaseNotes>3.0.0: Switch to .net core 3.1
