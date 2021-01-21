@@ -15,11 +15,18 @@ namespace DeploySoftware.LaunchPad.Core.FileGeneration
 
         public string FileLocation { get; set; }
 
+        /// <summary>
+        /// Contains information on the template(s) that should be used to generate this document (if any).
+        /// If none are listed, templates may be applied if listed in the parent Document Set Module (again, if listed).
+        /// </summary>
+        public LaunchPadGeneratedDocumentTemplates Templates { get; set; }
+
         public LaunchPadGeneratedDocument() : base()
         {
             MimeType = string.Empty;
             Extension = string.Empty;
             FileLocation = string.Empty;
+            Templates = new LaunchPadGeneratedDocumentTemplates();
         }
     }
 }
