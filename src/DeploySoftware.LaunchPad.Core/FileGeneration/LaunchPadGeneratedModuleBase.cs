@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DeploySoftware.LaunchPad.Core.FileGeneration
 {
-    public abstract partial class LaunchPadGeneratedModuleBase : LaunchPadGeneratedObjectBase
+    public abstract partial class LaunchPadGeneratedModuleBase : LaunchPadGeneratedObjectBase, ILaunchPadGeneratedModule
     {
 
         /// <summary>

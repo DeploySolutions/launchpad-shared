@@ -5,18 +5,8 @@ using System.Text;
 namespace DeploySoftware.LaunchPad.Core.FileGeneration
 {
     [Serializable]
-    public partial class LaunchPadGeneratedDocumentSetModuleConfiguration
+    public partial class LaunchPadGeneratedDocumentSetModuleConfiguration : LaunchPadGeneratedConfigurationBase
     {
-
-        /// <summary>
-        /// The name of the Document Set Solution in which this generated module will belong.
-        /// </summary>
-        public string SolutionName { get; set; }
-
-        /// <summary>
-        /// The file path to the root of the document set solution on the file system.
-        /// </summary>
-        public string SolutionRootFilePath { get; set; }
 
         /// <summary>
         /// Contains information on the template(s) that should be used to generate the documents in this set.
@@ -26,8 +16,6 @@ namespace DeploySoftware.LaunchPad.Core.FileGeneration
 
         public LaunchPadGeneratedDocumentSetModuleConfiguration() : base()
         {
-            SolutionName = string.Empty;
-            SolutionRootFilePath = string.Empty;
             Templates = new LaunchPadGeneratedDocumentTemplates();
         }
     }

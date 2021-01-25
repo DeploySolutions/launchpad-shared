@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace DeploySoftware.LaunchPad.Core.FileGeneration
 {
@@ -9,7 +7,7 @@ namespace DeploySoftware.LaunchPad.Core.FileGeneration
     /// This is the top level element in the LaunchPad Generated object hierarchy. 
     /// </summary>    
     [Serializable]
-    public abstract partial class LaunchPadGeneratedObjectBase
+    public abstract partial class LaunchPadGeneratedObjectBase : ILaunchPadGeneratedObject
     {
         /// <summary>
         /// The unique id of the object (if present)
