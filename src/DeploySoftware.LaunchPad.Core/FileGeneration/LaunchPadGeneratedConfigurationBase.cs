@@ -14,20 +14,13 @@ namespace DeploySoftware.LaunchPad.Core.FileGeneration
         /// </summary>
         public string SolutionName { get; set; }
 
-        /// <summary>
-        /// The file path to the root of the document set solution on the file system.
-        /// </summary>
-        public string SolutionRootFilePath { get; set; }
+        public SourceControlRepository Repository { get; set; }
 
-        public string RepositoryName { get; set; }
-
-        public Uri RepositoryUri { get; set; }
 
         public LaunchPadGeneratedConfigurationBase()
         {
             SolutionName = string.Empty;
-            SolutionRootFilePath = string.Empty;
-            RepositoryName = string.Empty;
+            Repository = new SourceControlRepository();
         }
 
     }
