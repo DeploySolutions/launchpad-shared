@@ -7,7 +7,11 @@ namespace DeploySoftware.LaunchPad.Core.FileGeneration
     [Serializable]
     public partial class LaunchPadGeneratedVisualStudioModuleConfiguration : LaunchPadGeneratedConfigurationBase
     {
-        
+        /// <summary>
+        /// The name of the Visual Studio Solution in which this generated module will belong.
+        /// </summary>
+        public string VisualStudioSolutionName { get; set; }
+
         /// <summary>
         /// The namespace of the generated item.
         /// </summary>
@@ -16,6 +20,7 @@ namespace DeploySoftware.LaunchPad.Core.FileGeneration
 
         public LaunchPadGeneratedVisualStudioModuleConfiguration() : base()
         {
+            VisualStudioSolutionName = string.Empty;
             SolutionBaseNamespace = string.Empty;
         }
     }
