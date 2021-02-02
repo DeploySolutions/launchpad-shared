@@ -32,9 +32,9 @@ namespace DeploySoftware.LaunchPad.Core.Util
             {
                 var regex = new Regex(Regex.Escape(token.ToString()), RegexOptions.Compiled | RegexOptions.IgnoreCase);
                 sw = Stopwatch.StartNew();
-                Match m = Regex.Match(originalText, token.ToString(), RegexOptions.IgnoreCase | RegexOptions.IgnoreCase);
+                bool succeeded = Regex.IsMatch(originalText, token.ToString(), RegexOptions.IgnoreCase);
                 sw.Stop();
-                if (m.Success)
+                if (succeeded)
                 {
                     if (string.IsNullOrEmpty(token.Value))
                     {
