@@ -14,15 +14,26 @@ namespace DeploySoftware.LaunchPad.Core.FileGeneration
         /// </summary>
         public LaunchPadGeneratedVisualStudioComponentConfiguration VisualStudioConfig { get; set; }
 
+        /// <summary>
+        /// Contains a collection of Property Sets belonging to this component
+        /// </summary>
+        public IList<LaunchPadGeneratedDtoPropertySet> PropertySets { get; set; }
 
         /// <summary>
-        /// The list of domain entities that belong to this component (if any).
+        /// Contains a collection of Data Transfer Objects belonging to this component
         /// </summary>
-        public IList<LaunchPadGeneratedClass> DomainEntities { get; set; }
+        public IList<LaunchPadGeneratedDataTransferObject> DataTransferObjects { get; set; }
+
+        /// <summary>
+        /// The list of domain entities that belong to this component.
+        /// </summary>
+        public IList<LaunchPadGeneratedDomainEntity> DomainEntities { get; set; }
 
         public LaunchPadGeneratedVisualStudioComponent() : base()
         {
-            DomainEntities = new List<LaunchPadGeneratedClass>();
+            DomainEntities = new List<LaunchPadGeneratedDomainEntity>();
+            DataTransferObjects = new List<LaunchPadGeneratedDataTransferObject>();
+            PropertySets = new List<LaunchPadGeneratedDtoPropertySet>();
             VisualStudioConfig = new LaunchPadGeneratedVisualStudioComponentConfiguration();
         }
     }
