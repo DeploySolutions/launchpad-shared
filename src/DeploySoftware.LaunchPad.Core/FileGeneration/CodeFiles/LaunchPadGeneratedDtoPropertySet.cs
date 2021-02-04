@@ -27,8 +27,9 @@ namespace DeploySoftware.LaunchPad.Core.FileGeneration
         public LaunchPadGeneratedDtoPropertySet()
         {
             Id = string.Empty;
-            BasePropertyNames = new Dictionary<string,string>();
-            CustomPropertyNames = new Dictionary<string,string>();
+            var comparer = StringComparer.OrdinalIgnoreCase;
+            BasePropertyNames = new Dictionary<string,string>(comparer);
+            CustomPropertyNames = new Dictionary<string,string>(comparer);
         }
     }
 }

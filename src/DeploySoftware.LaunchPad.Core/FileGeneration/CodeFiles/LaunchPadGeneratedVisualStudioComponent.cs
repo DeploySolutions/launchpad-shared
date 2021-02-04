@@ -28,7 +28,8 @@ namespace DeploySoftware.LaunchPad.Core.FileGeneration
         public LaunchPadGeneratedVisualStudioComponent() : base()
         {
             DomainEntities = new List<LaunchPadGeneratedDomainEntity>();
-            PropertySets = new Dictionary<string,LaunchPadGeneratedDtoPropertySet>();
+            var comparer = StringComparer.OrdinalIgnoreCase;
+            PropertySets = new Dictionary<string,LaunchPadGeneratedDtoPropertySet>(comparer);
             VisualStudioConfig = new LaunchPadGeneratedVisualStudioComponentConfiguration();
         }
     }
