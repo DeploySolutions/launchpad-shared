@@ -26,16 +26,16 @@ namespace DeploySoftware.LaunchPad.Core.FileGeneration
         public string InheritsFrom { get; set; }
 
         /// <summary>
-        /// The ID(s) of the property sets which apply to this DTO
+        /// The ID of the property set which applies to this DTO
         /// </summary>
-        public IList<string> PropertySetIds { get; set; }
+        public string PropertySetId { get; set; }
 
         public LaunchPadGeneratedDataTransferObject() : base()
         {
             Namespace = string.Empty;
             InheritsFrom = string.Empty;
             VisualStudioConfig = new LaunchPadGeneratedVisualStudioClassConfiguration();
-            PropertySetIds = new List<string>();
+            PropertySetId = string.Empty;
         }
     }
 }

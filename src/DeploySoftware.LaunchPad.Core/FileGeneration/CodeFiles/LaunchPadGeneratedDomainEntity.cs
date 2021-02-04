@@ -44,6 +44,11 @@ namespace DeploySoftware.LaunchPad.Core.FileGeneration
         /// </summary>
         public IList<LaunchPadGeneratedMethod> CustomMethods { get; set; }
 
+        /// <summary>
+        /// Contains a collection of Data Transfer Objects belonging to this component
+        /// </summary>
+        public IList<LaunchPadGeneratedDataTransferObject> DataTransferObjects { get; set; }
+
         public LaunchPadGeneratedDomainEntity() : base()
         {
             Namespace = string.Empty;
@@ -52,6 +57,7 @@ namespace DeploySoftware.LaunchPad.Core.FileGeneration
             CustomProperties = new List<LaunchPadGeneratedProperty>();
             BaseMethods = new List<LaunchPadGeneratedMethod>();
             CustomMethods = new List<LaunchPadGeneratedMethod>();
+            DataTransferObjects = new List<LaunchPadGeneratedDataTransferObject>();
             VisualStudioConfig = new LaunchPadGeneratedVisualStudioClassConfiguration();
         }
     }

@@ -19,11 +19,7 @@ namespace DeploySoftware.LaunchPad.Core.FileGeneration
         /// </summary>
         public IList<LaunchPadGeneratedDtoPropertySet> PropertySets { get; set; }
 
-        /// <summary>
-        /// Contains a collection of Data Transfer Objects belonging to this component
-        /// </summary>
-        public IList<LaunchPadGeneratedDataTransferObject> DataTransferObjects { get; set; }
-
+        
         /// <summary>
         /// The list of domain entities that belong to this component.
         /// </summary>
@@ -32,7 +28,6 @@ namespace DeploySoftware.LaunchPad.Core.FileGeneration
         public LaunchPadGeneratedVisualStudioComponent() : base()
         {
             DomainEntities = new List<LaunchPadGeneratedDomainEntity>();
-            DataTransferObjects = new List<LaunchPadGeneratedDataTransferObject>();
             PropertySets = new List<LaunchPadGeneratedDtoPropertySet>();
             VisualStudioConfig = new LaunchPadGeneratedVisualStudioComponentConfiguration();
         }
