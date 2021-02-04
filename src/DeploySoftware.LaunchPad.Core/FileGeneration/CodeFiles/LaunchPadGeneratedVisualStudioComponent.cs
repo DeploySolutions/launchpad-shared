@@ -15,9 +15,9 @@ namespace DeploySoftware.LaunchPad.Core.FileGeneration
         public LaunchPadGeneratedVisualStudioComponentConfiguration VisualStudioConfig { get; set; }
 
         /// <summary>
-        /// Contains a collection of Property Sets belonging to this component
+        /// Contains a dictionary of Property Sets belonging to this component, keyed by the property set id
         /// </summary>
-        public IList<LaunchPadGeneratedDtoPropertySet> PropertySets { get; set; }
+        public Dictionary<string, LaunchPadGeneratedDtoPropertySet> PropertySets { get; set; }
 
         
         /// <summary>
@@ -28,7 +28,7 @@ namespace DeploySoftware.LaunchPad.Core.FileGeneration
         public LaunchPadGeneratedVisualStudioComponent() : base()
         {
             DomainEntities = new List<LaunchPadGeneratedDomainEntity>();
-            PropertySets = new List<LaunchPadGeneratedDtoPropertySet>();
+            PropertySets = new Dictionary<string,LaunchPadGeneratedDtoPropertySet>();
             VisualStudioConfig = new LaunchPadGeneratedVisualStudioComponentConfiguration();
         }
     }
