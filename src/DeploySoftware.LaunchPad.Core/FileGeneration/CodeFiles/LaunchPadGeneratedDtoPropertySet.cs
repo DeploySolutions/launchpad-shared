@@ -15,14 +15,20 @@ namespace DeploySoftware.LaunchPad.Core.FileGeneration
         public string Id { get; set; }
 
         /// <summary>
-        /// A list of property names
+        /// A list of base property names to generate, or "all" to include all base properties
         /// </summary>
-        public IList<string> PropertyNames { get; set; }
+        public IList<string> BasePropertyNames { get; set; }
+
+        /// <summary>
+        /// A list of custom property names to generate, or "all" to include all custom properties
+        /// </summary>
+        public IList<string> CustomPropertyNames { get; set; }
 
         public LaunchPadGeneratedDtoPropertySet()
         {
             Id = string.Empty;
-            PropertyNames = new List<string>();
+            BasePropertyNames = new List<string>();
+            CustomPropertyNames = new List<string>();
         }
     }
 }
