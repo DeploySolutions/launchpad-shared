@@ -12,24 +12,37 @@ namespace DeploySoftware.LaunchPad.Core.FileGeneration
     [Serializable]
     public partial class LaunchPadGeneratedDtoPropertySet
     {
+
+        /// <summary>
+        /// The unique identifier of this property set, which can be referred to by generated DTOs
+        /// </summary>        
         public string Id { get; set; }
 
         /// <summary>
-        /// A dictionary of base property names to generate, or "all" to include all base properties
+        /// If this value is set, it overrides all base property values contained within this set.
         /// </summary>
-        public IDictionary<string,string> BasePropertyNames { get; set; }
+        public bool? AllBasePropertiesRequired { get; set; }
 
         /// <summary>
-        /// A dictionary of custom property names to generate, or "all" to include all custom properties
+        /// If this value is set, it overrides all custom property values contained within this set.
         /// </summary>
-        public IDictionary<string, string> CustomPropertyNames { get; set; }
+        public bool? AllCustomPropertiesRequired { get; set; }
+
+        /// <summary>
+        /// A dictionary of base properties to generate
+        /// </summary>
+        public IDictionary<string, LaunchPadGeneratedProperty> BaseProperties { get; set; }
+
+        /// <summary>
+        /// A dictionary of custom properties to generate
+        /// </summary>
+        public IDictionary<string, LaunchPadGeneratedProperty> CustomProperties { get; set; }
 
         public LaunchPadGeneratedDtoPropertySet()
         {
             Id = string.Empty;
-            var comparer = StringComparer.OrdinalIgnoreCase;
-            BasePropertyNames = new Dictionary<string,string>(comparer);
-            CustomPropertyNames = new Dictionary<string,string>(comparer);
+            BaseProperties = new Dictionary<string, LaunchPadGeneratedProperty>();
+            CustomProperties = new Dictionary<string, LaunchPadGeneratedProperty>();
         }
     }
 }
