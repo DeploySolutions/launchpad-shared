@@ -10,10 +10,26 @@ namespace DeploySoftware.LaunchPad.Core.FileGeneration
     [Serializable]
     public partial class LaunchPadGeneratedDataTransferObject : LaunchPadGeneratedObjectBase
     {
+        
         /// <summary>
         /// Contains information related to this object's position with a Visual Studio solution
         /// </summary>
         public LaunchPadGeneratedVisualStudioClassConfiguration VisualStudioConfig { get; set; }
+
+        /// <summary>
+        /// Contains any annotations for this particular DTO.
+        /// </summary>
+        public string Annotations { get; set; }
+        
+        /// <summary>
+        /// The list of base properties that belong to this DTO (which may be identical to the domain entity, or not)
+        /// </summary>
+        public IList<LaunchPadGeneratedProperty> BaseProperties { get; set; }
+
+        /// <summary>
+        /// The list of custom properties that belong to this DTO (which may be identical to the domain entity, or not)
+        /// </summary>
+        public IList<LaunchPadGeneratedProperty> CustomProperties { get; set; }
 
         /// <summary>
         /// The namespace of the generated item.
@@ -32,8 +48,11 @@ namespace DeploySoftware.LaunchPad.Core.FileGeneration
 
         public LaunchPadGeneratedDataTransferObject() : base()
         {
+            Annotations = string.Empty;
             Namespace = string.Empty;
             InheritsFrom = string.Empty;
+            BaseProperties = new List<LaunchPadGeneratedProperty>();
+            CustomProperties = new List<LaunchPadGeneratedProperty>();
             VisualStudioConfig = new LaunchPadGeneratedVisualStudioClassConfiguration();
             PropertySetId = string.Empty;
         }
