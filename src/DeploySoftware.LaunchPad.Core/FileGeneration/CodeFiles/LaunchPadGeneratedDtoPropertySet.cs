@@ -19,30 +19,33 @@ namespace DeploySoftware.LaunchPad.Core.FileGeneration
         public string Id { get; set; }
 
         /// <summary>
-        /// If this value is set, it overrides all base property values contained within this set.
+        /// A dictionary containing the names of the base properties that will be required
         /// </summary>
-        public bool? AllBasePropertiesRequired { get; set; }
+        public IDictionary<string, string> RequiredBasePropertyNames { get; set; }
 
         /// <summary>
-        /// If this value is set, it overrides all custom property values contained within this set.
+        /// A dictionary containing the names of the base properties that will be optional
         /// </summary>
-        public bool? AllCustomPropertiesRequired { get; set; }
+        public IDictionary<string, string> OptionalBasePropertyNames { get; set; }
+
 
         /// <summary>
-        /// A dictionary of base properties to generate
+        /// A dictionary containing the names of the custom properties that will be required
         /// </summary>
-        public IDictionary<string, LaunchPadGeneratedProperty> BaseProperties { get; set; }
+        public IDictionary<string, string> RequiredCustomPropertyNames { get; set; }
 
         /// <summary>
-        /// A dictionary of custom properties to generate
+        /// A dictionary containing the names of the custom properties that will be optional
         /// </summary>
-        public IDictionary<string, LaunchPadGeneratedProperty> CustomProperties { get; set; }
+        public IDictionary<string, string> OptionalCustomPropertyNames { get; set; }
 
         public LaunchPadGeneratedDtoPropertySet()
         {
             Id = string.Empty;
-            BaseProperties = new Dictionary<string, LaunchPadGeneratedProperty>();
-            CustomProperties = new Dictionary<string, LaunchPadGeneratedProperty>();
+            RequiredBasePropertyNames = new Dictionary<string, string>();
+            OptionalBasePropertyNames = new Dictionary<string, string>();
+            RequiredCustomPropertyNames = new Dictionary<string, string>();
+            OptionalCustomPropertyNames = new Dictionary<string, string>();
         }
     }
 }
