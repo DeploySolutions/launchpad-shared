@@ -11,14 +11,9 @@ namespace DeploySoftware.LaunchPad.Core.FileGeneration
     public abstract partial class LaunchPadGeneratedMethodFieldBase: LaunchPadGeneratedObjectBase
     {
 
-        /// <summary>
-        /// Code annotations for the object
-        /// </summary>
-        public string Annotations { get; set; }
 
         public LaunchPadGeneratedMethodFieldBase():  base()
         {
-            Annotations = string.Empty;
         }
 
     }

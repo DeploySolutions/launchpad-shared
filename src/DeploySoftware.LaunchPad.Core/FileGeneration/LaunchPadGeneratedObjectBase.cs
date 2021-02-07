@@ -37,6 +37,11 @@ namespace DeploySoftware.LaunchPad.Core.FileGeneration
         public string Description { get; set; }
 
         /// <summary>
+        /// Code annotations for the object
+        /// </summary>
+        public string Annotations { get; set; }
+
+        /// <summary>
         /// The C# type of this object
         /// </summary>
         public string ObjectType { get; set; }
@@ -55,6 +60,7 @@ namespace DeploySoftware.LaunchPad.Core.FileGeneration
             NamePrefix = string.Empty;
             NameSuffix = string.Empty;
             Description = string.Empty;
+            Annotations = string.Empty;
         }
 
     }
