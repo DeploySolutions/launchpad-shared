@@ -42,10 +42,11 @@ namespace DeploySoftware.LaunchPad.Core.FileGeneration
         public LaunchPadGeneratedDtoPropertySet()
         {
             Id = string.Empty;
-            RequiredBasePropertyNames = new Dictionary<string, string>();
-            OptionalBasePropertyNames = new Dictionary<string, string>();
-            RequiredCustomPropertyNames = new Dictionary<string, string>();
-            OptionalCustomPropertyNames = new Dictionary<string, string>();
+            var comparer = StringComparer.OrdinalIgnoreCase;
+            RequiredBasePropertyNames = new Dictionary<string, string>(comparer);
+            OptionalBasePropertyNames = new Dictionary<string, string>(comparer);
+            RequiredCustomPropertyNames = new Dictionary<string, string>(comparer);
+            OptionalCustomPropertyNames = new Dictionary<string, string>(comparer);
         }
     }
 }
