@@ -17,7 +17,7 @@ namespace DeploySoftware.LaunchPad.Core.FileGeneration
         /// <summary>
         /// Contains a dictionary of Property Sets belonging to this component, keyed by the property set id
         /// </summary>
-        public Dictionary<string, LaunchPadGeneratedDtoPropertySet> PropertySets { get; set; }
+        public IDictionary<string, LaunchPadGeneratedDtoPropertySet> PropertySets { get; set; }
 
         
         /// <summary>

@@ -17,11 +17,6 @@ namespace DeploySoftware.LaunchPad.Core.FileGeneration
         public LaunchPadGeneratedVisualStudioClassConfiguration VisualStudioConfig { get; set; }
 
         /// <summary>
-        /// Contains any annotations for this particular DTO.
-        /// </summary>
-        public string Annotations { get; set; }
-        
-        /// <summary>
         /// The list of base properties that belong to this DTO (which may be identical to the domain entity, or not)
         /// </summary>
         public IList<LaunchPadGeneratedProperty> BaseProperties { get; set; }
