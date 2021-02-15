@@ -13,7 +13,9 @@ namespace DeploySoftware.LaunchPad.Core.FileGeneration
 
         public string Extension { get; set; }
 
-        public string FileLocation { get; set; }
+        public string FolderName { get; set; }
+
+        public string FilePath { get; set; }
 
         /// <summary>
         /// Contains information on the template(s) that should be used to generate this document (if any).
@@ -25,7 +27,8 @@ namespace DeploySoftware.LaunchPad.Core.FileGeneration
         {
             MimeType = string.Empty;
             Extension = string.Empty;
-            FileLocation = string.Empty;
+            FolderName = string.Empty; 
+            FilePath = string.Empty;
             Templates = new LaunchPadGeneratedDocumentTemplates();
         }
     }
