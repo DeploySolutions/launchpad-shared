@@ -19,16 +19,22 @@ namespace DeploySoftware.LaunchPad.Core.FileGeneration
         /// </summary>
         public IDictionary<string, LaunchPadGeneratedDtoPropertySet> PropertySets { get; set; }
 
-        
         /// <summary>
-        /// The list of domain entities that belong to this component.
+        /// Contains a dictionary of Application Services belonging to this component, keyed by the application service name
         /// </summary>
-        public IList<LaunchPadGeneratedDomainEntity> DomainEntities { get; set; }
+        public IDictionary<string, LaunchPadGeneratedApplicationService> ApplicationServices { get; set; } 
+         
+
+        /// <summary>
+        /// Contains a dictionary of Domain Entities belonging to this component, keyed by the domain entity name
+        /// </summary>
+        public IDictionary<string, LaunchPadGeneratedDomainEntity> DomainEntities { get; set; }
 
         public LaunchPadGeneratedVisualStudioComponent() : base()
         {
-            DomainEntities = new List<LaunchPadGeneratedDomainEntity>();
             var comparer = StringComparer.OrdinalIgnoreCase;
+            DomainEntities = new Dictionary<string, LaunchPadGeneratedDomainEntity>(comparer);
+            ApplicationServices = new Dictionary<string, LaunchPadGeneratedApplicationService>(comparer); 
             PropertySets = new Dictionary<string,LaunchPadGeneratedDtoPropertySet>(comparer);
             VisualStudioConfig = new LaunchPadGeneratedVisualStudioComponentConfiguration();
         }
