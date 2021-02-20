@@ -53,7 +53,7 @@ namespace DeploySoftware.LaunchPad.Core.FileGeneration
 
         public LaunchPadGeneratedObjectBase() : base()
         {
-            ObjectType = string.Empty;
+            ObjectType = this.GetType().Name;
             IdType = string.Empty;
             Id = string.Empty;
             Name = string.Empty;
