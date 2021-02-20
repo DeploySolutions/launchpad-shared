@@ -20,15 +20,16 @@ namespace DeploySoftware.LaunchPad.Core.FileGeneration
         public string EntityIdType { get; set; }
 
         /// <summary>
-        /// The list of components that belong to this module.
+        /// The set of components that belong to this module.
         /// </summary>
-        public IList<LaunchPadGeneratedVisualStudioComponent> Components { get; set; }
+        public IDictionary<string, LaunchPadGeneratedVisualStudioComponent> Components { get; set; }
 
         public LaunchPadGeneratedVisualStudioModule() : base()
         {
             Version = string.Empty;
             EntityIdType = string.Empty;
-            Components = new List<LaunchPadGeneratedVisualStudioComponent>();
+            var comparer = StringComparer.OrdinalIgnoreCase;
+            Components = new Dictionary<string, LaunchPadGeneratedVisualStudioComponent>(comparer);
             Config = new LaunchPadGeneratedVisualStudioModuleConfiguration();
         }
     }

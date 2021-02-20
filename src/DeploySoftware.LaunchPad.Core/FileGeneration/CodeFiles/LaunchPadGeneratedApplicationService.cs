@@ -17,12 +17,13 @@ namespace DeploySoftware.LaunchPad.Core.FileGeneration
         /// <summary>
         /// Contains a collection of Data Transfer Objects belonging to this component
         /// </summary>
-        public IList<LaunchPadGeneratedDataTransferObject> DataTransferObjects { get; set; }
+        public IDictionary<string,LaunchPadGeneratedDataTransferObject> DataTransferObjects { get; set; }
 
         public LaunchPadGeneratedApplicationService() : base()
         {
             DomainEntityType = string.Empty;
-            DataTransferObjects = new List<LaunchPadGeneratedDataTransferObject>();
+            var comparer = StringComparer.OrdinalIgnoreCase;
+            DataTransferObjects = new Dictionary<string, LaunchPadGeneratedDataTransferObject>(comparer);
         }
     }
 }

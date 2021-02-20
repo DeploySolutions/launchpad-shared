@@ -11,14 +11,15 @@ namespace DeploySoftware.LaunchPad.Core.FileGeneration
     {
 
         /// <summary>
-        /// The list of generated static web resource modules that belong to this solution.
+        /// The set of generated static web resource modules that belong to this solution.
         /// </summary>
-        public IList<LaunchPadGeneratedStaticWebModule> StaticWebModules { get; set; }
+        public IDictionary<string, LaunchPadGeneratedStaticWebModule> StaticWebModules { get; set; }
 
         public LaunchPadGeneratedStaticWebSolution() : base()
         {
-            Version = string.Empty;
-            StaticWebModules = new List<LaunchPadGeneratedStaticWebModule>();
+            Version = string.Empty; 
+            var comparer = StringComparer.OrdinalIgnoreCase;
+            StaticWebModules = new Dictionary<string, LaunchPadGeneratedStaticWebModule>(comparer);
         }
     }
 }

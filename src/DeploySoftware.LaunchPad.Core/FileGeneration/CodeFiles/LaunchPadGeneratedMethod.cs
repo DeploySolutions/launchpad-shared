@@ -21,8 +21,9 @@ namespace DeploySoftware.LaunchPad.Core.FileGeneration
 
         public LaunchPadGeneratedMethod() : base()
         {
-            Returns = string.Empty;
-            Parameters = new SortedDictionary<string, LaunchPadGeneratedMethodParameter>();
+            Returns = string.Empty; 
+            var comparer = StringComparer.OrdinalIgnoreCase;
+            Parameters = new SortedDictionary<string, LaunchPadGeneratedMethodParameter>(comparer);
         }
     }
 

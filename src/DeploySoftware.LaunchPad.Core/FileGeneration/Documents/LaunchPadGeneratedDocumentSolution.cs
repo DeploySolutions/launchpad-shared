@@ -11,14 +11,15 @@ namespace DeploySoftware.LaunchPad.Core.FileGeneration
     {
         
         /// <summary>
-        /// The list of generated document set modules that belong to this solution.
+        /// The dictionary of generated document set modules that belong to this solution.
         /// </summary>
-        public IList<LaunchPadGeneratedDocumentSetModule> DocumentSetModules { get; set; }
+        public IDictionary<string,LaunchPadGeneratedDocumentSetModule> DocumentSetModules { get; set; }
 
         public LaunchPadGeneratedDocumentSolution() : base()
         {
             Version = string.Empty;
-            DocumentSetModules = new List<LaunchPadGeneratedDocumentSetModule>();
+            var comparer = StringComparer.OrdinalIgnoreCase;
+            DocumentSetModules = new Dictionary<string, LaunchPadGeneratedDocumentSetModule>(comparer);
         }
     }
 }

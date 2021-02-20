@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace DeploySoftware.LaunchPad.Core.FileGeneration
 {
-    public class SourceControlRepository
+    [Serializable]
+    public partial class SourceControlRepository
     {
         public string Name { get; set; }
 
