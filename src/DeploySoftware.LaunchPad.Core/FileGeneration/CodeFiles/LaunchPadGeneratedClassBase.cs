@@ -25,34 +25,35 @@ namespace DeploySoftware.LaunchPad.Core.FileGeneration
         public string InheritsFrom { get; set; }
 
         /// <summary>
-        /// The list of base LaunchPad properties that belong to this class (received through DomainEntity or other base class inheritance).
+        /// The dictionary of unique base LaunchPad properties that belong to this class (received through DomainEntity or other base class inheritance).
         /// </summary>
-        public IList<LaunchPadGeneratedProperty> BaseProperties { get; set; }
+        public IDictionary<string, LaunchPadGeneratedProperty> BaseProperties { get; set; }
 
         /// <summary>
-        /// The list of custom properties that belong to this class (that were not inherited).
+        /// The dictionary of unique custom properties that belong to this class (that were not inherited).
         /// </summary>
-        public IList<LaunchPadGeneratedProperty> CustomProperties { get; set; }
+        public IDictionary<string, LaunchPadGeneratedProperty> CustomProperties { get; set; }
 
         /// <summary>
-        /// The list of base methods that belong to this class 
+        /// The dictionary of unique base methods that belong to this class 
         /// </summary>
-        public IList<LaunchPadGeneratedMethod> BaseMethods { get; set; }
+        public IDictionary<string, LaunchPadGeneratedMethod> BaseMethods { get; set; }
 
         /// <summary>
-        /// The list of custom methods that belong to this class 
+        /// The dictionary of unique custom methods that belong to this class 
         /// </summary>
-        public IList<LaunchPadGeneratedMethod> CustomMethods { get; set; }
+        public IDictionary<string, LaunchPadGeneratedMethod> CustomMethods { get; set; }
 
 
         public LaunchPadGeneratedClassBase() : base()
         {
             Namespace = string.Empty;
             InheritsFrom = string.Empty;
-            BaseProperties = new List<LaunchPadGeneratedProperty>();
-            CustomProperties = new List<LaunchPadGeneratedProperty>();
-            BaseMethods = new List<LaunchPadGeneratedMethod>();
-            CustomMethods = new List<LaunchPadGeneratedMethod>();
+            var comparer = StringComparer.OrdinalIgnoreCase;
+            BaseProperties = new Dictionary<string, LaunchPadGeneratedProperty>(comparer);
+            CustomProperties = new Dictionary<string, LaunchPadGeneratedProperty>(comparer);
+            BaseMethods = new Dictionary<string, LaunchPadGeneratedMethod>(comparer);
+            CustomMethods = new Dictionary<string, LaunchPadGeneratedMethod>(comparer);
             VisualStudioConfig = new LaunchPadGeneratedVisualStudioClassConfiguration();
         }
     }

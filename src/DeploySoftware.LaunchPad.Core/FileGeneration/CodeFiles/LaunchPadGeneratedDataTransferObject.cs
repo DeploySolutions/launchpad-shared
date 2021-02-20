@@ -17,14 +17,14 @@ namespace DeploySoftware.LaunchPad.Core.FileGeneration
         public LaunchPadGeneratedVisualStudioClassConfiguration VisualStudioConfig { get; set; }
 
         /// <summary>
-        /// The list of base properties that belong to this DTO (which may be identical to the domain entity, or not)
+        /// The dictionary of unique base properties that belong to this DTO (which may be identical to the domain entity, or not)
         /// </summary>
-        public IList<LaunchPadGeneratedProperty> BaseProperties { get; set; }
+        public IDictionary<string, LaunchPadGeneratedProperty> BaseProperties { get; set; }
 
         /// <summary>
-        /// The list of custom properties that belong to this DTO (which may be identical to the domain entity, or not)
+        /// The dictionary of unique custom properties that belong to this DTO (which may be identical to the domain entity, or not)
         /// </summary>
-        public IList<LaunchPadGeneratedProperty> CustomProperties { get; set; }
+        public IDictionary<string, LaunchPadGeneratedProperty> CustomProperties { get; set; }
 
         /// <summary>
         /// The namespace of the generated item.
@@ -46,8 +46,9 @@ namespace DeploySoftware.LaunchPad.Core.FileGeneration
             Annotations = string.Empty;
             Namespace = string.Empty;
             InheritsFrom = string.Empty;
-            BaseProperties = new List<LaunchPadGeneratedProperty>();
-            CustomProperties = new List<LaunchPadGeneratedProperty>();
+            var comparer = StringComparer.OrdinalIgnoreCase;
+            BaseProperties = new Dictionary<string, LaunchPadGeneratedProperty>(comparer);
+            CustomProperties = new Dictionary<string, LaunchPadGeneratedProperty>(comparer);
             VisualStudioConfig = new LaunchPadGeneratedVisualStudioClassConfiguration();
             PropertySetId = string.Empty;
         }

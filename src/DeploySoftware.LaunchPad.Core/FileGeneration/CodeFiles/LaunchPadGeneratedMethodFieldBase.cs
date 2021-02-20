@@ -11,9 +11,11 @@ namespace DeploySoftware.LaunchPad.Core.FileGeneration
     public abstract partial class LaunchPadGeneratedMethodFieldBase: LaunchPadGeneratedObjectBase
     {
 
+        public LaunchPadGeneratedItemType ItemType { get; set; }
 
         public LaunchPadGeneratedMethodFieldBase():  base()
         {
+            ItemType = LaunchPadGeneratedItemType.Custom;
         }
 
     }
