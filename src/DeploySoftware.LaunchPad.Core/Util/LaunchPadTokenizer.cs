@@ -8,24 +8,26 @@ namespace DeploySoftware.LaunchPad.Core.Util
 {
     public class LaunchPadTokenizer
     {
-        public IList<LaunchPadToken> MatchedTokens { get; set; }
-        public IList<LaunchPadToken> UnmatchedTokens { get; set; }
+        public IDictionary<string, LaunchPadToken> MatchedTokens { get; set; }
+        public IDictionary<string, LaunchPadToken> UnmatchedTokens { get; set; }
 
         public string TokenizedText { get; set; }
 
         public LaunchPadTokenizer()
         {
-            TokenizedText = string.Empty;
-            MatchedTokens = new List<LaunchPadToken>();
-            UnmatchedTokens = new List<LaunchPadToken>();
+            TokenizedText = string.Empty; 
+            var comparer = StringComparer.OrdinalIgnoreCase;
+            MatchedTokens = new Dictionary<string, LaunchPadToken>(comparer);
+            UnmatchedTokens = new Dictionary<string, LaunchPadToken>(comparer);
         }
 
         public string Tokenize(string originalText, IList<LaunchPadToken> tokens)
         {
             Guard.Against<ArgumentException>(String.IsNullOrEmpty(originalText), DeploySoftware_LaunchPad_Core_Resources.Guard_LaunchPadTokenizer_ArgumentException_OriginalText);
             Guard.Against<ArgumentException>(tokens.Count == 0, DeploySoftware_LaunchPad_Core_Resources.Guard_LaunchPadTokenizer_ArgumentException_Tokens);
-            MatchedTokens = new List<LaunchPadToken>();
-            UnmatchedTokens = new List<LaunchPadToken>();
+            var comparer = StringComparer.OrdinalIgnoreCase;
+            MatchedTokens = new Dictionary<string, LaunchPadToken>(comparer);
+            UnmatchedTokens = new Dictionary<string, LaunchPadToken>(comparer);
             Stopwatch sw;
             string modifiedText = originalText;
             foreach (var token in tokens)
@@ -44,16 +46,16 @@ namespace DeploySoftware.LaunchPad.Core.Util
                     {
                         modifiedText = regex.Replace(modifiedText, token.Value);
                     }
-                    if (!MatchedTokens.Contains(token))
+                    if (!MatchedTokens.ContainsKey(token.Name))
                     {
-                        MatchedTokens.Add(token);
+                        MatchedTokens.Add(token.Name,token);
                     }
                 }                    
                 else
                 {
-                    if (!UnmatchedTokens.Contains(token))
+                    if (!UnmatchedTokens.ContainsKey(token.Name))
                     {
-                        UnmatchedTokens.Add(token);
+                        UnmatchedTokens.Add(token.Name,token);
                     }
                 }
             }
