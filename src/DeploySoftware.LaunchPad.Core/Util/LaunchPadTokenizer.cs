@@ -21,7 +21,7 @@ namespace DeploySoftware.LaunchPad.Core.Util
             UnmatchedTokens = new Dictionary<string, LaunchPadToken>(comparer);
         }
 
-        public string Tokenize(string originalText, IList<LaunchPadToken> tokens)
+        public string Tokenize(string originalText, IDictionary<string, LaunchPadToken> tokens)
         {
             Guard.Against<ArgumentException>(String.IsNullOrEmpty(originalText), DeploySoftware_LaunchPad_Core_Resources.Guard_LaunchPadTokenizer_ArgumentException_OriginalText);
             Guard.Against<ArgumentException>(tokens.Count == 0, DeploySoftware_LaunchPad_Core_Resources.Guard_LaunchPadTokenizer_ArgumentException_Tokens);
@@ -30,7 +30,7 @@ namespace DeploySoftware.LaunchPad.Core.Util
             UnmatchedTokens = new Dictionary<string, LaunchPadToken>(comparer);
             Stopwatch sw;
             string modifiedText = originalText;
-            foreach (var token in tokens)
+            foreach (var token in tokens.Values)
             {
                 var regex = new Regex(Regex.Escape(token.ToString()), RegexOptions.Compiled | RegexOptions.IgnoreCase);
                 sw = Stopwatch.StartNew();
