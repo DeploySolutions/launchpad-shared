@@ -81,7 +81,6 @@ namespace DeploySoftware.LaunchPad.Core.Application.Dto
         /// </summary>
         /// <param name="info"></param>
         /// <param name="context"></param>
-        [SecurityPermission(SecurityAction.Demand, SerializationFormatter = true)]
         public virtual void GetObjectData(SerializationInfo info, StreamingContext context)
         {
             info.AddValue("Items", Items);
@@ -97,7 +96,7 @@ namespace DeploySoftware.LaunchPad.Core.Application.Dto
             StringBuilder sb = new StringBuilder();
             sb.Append("[ListResultDtoBase : ");
             sb.Append(ToStringBaseProperties());
-            sb.Append("]");
+            sb.Append(']');
             return sb.ToString();
         }
 

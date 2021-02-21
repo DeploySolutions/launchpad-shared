@@ -201,6 +201,9 @@
   <data name="Guard_InMemoryRepository_GetByKey_Key_IsNull" xml:space="preserve">
     <value>The key must not be null.</value>
   </data>
+  <data name="Guard_Input_IsNull" xml:space="preserve">
+    <value>Input is null</value>
+  </data>
   <data name="Guard_LaunchPadTokenizer_ArgumentException_OriginalText" xml:space="preserve">
     <value>Original Text cannot be empty or null.</value>
   </data>
@@ -296,6 +299,12 @@
   </data>
   <data name="Info_UnitOfWorkTransaction_UnitOfWorkTransaction_Created" xml:space="preserve">
     <value>New UnitOfWorkTransction created with Id {0}.</value>
+  </data>
+  <data name="Logger_Info_ItemAdded" xml:space="preserve">
+    <value>Item "{0}" was added to the collection.</value>
+  </data>
+  <data name="Logger_Info_ItemAlreadyExists" xml:space="preserve">
+    <value>Item "{0}" already exists in the collection.</value>
   </data>
   <data name="Text_OpenGovernmentCanadaLicense_LicenseDescription" xml:space="preserve">
     <value>Open Government is about making government more accessible to everyone. 

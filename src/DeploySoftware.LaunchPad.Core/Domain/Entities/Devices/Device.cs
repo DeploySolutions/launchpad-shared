@@ -182,7 +182,6 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         /// </summary>
         /// <param name="info"></param>
         /// <param name="context"></param>
-        [SecurityPermission(SecurityAction.Demand, SerializationFormatter = true)]
         public override void GetObjectData(SerializationInfo info, StreamingContext context)
         {
             base.GetObjectData(info, context);
@@ -205,7 +204,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
             if (PreviousLocations != null)
                 sb.AppendFormat(" PreviousLocations={0};", PreviousLocations);
             sb.Append(Power.ToString());
-            sb.Append("]");
+            sb.Append(']');
             return sb.ToString();
         }
 

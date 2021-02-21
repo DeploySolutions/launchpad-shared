@@ -79,7 +79,6 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         /// </summary>
         /// <param name="info">The serialization info</param>
         /// <param name="context">The context of the stream</param>
-        [SecurityPermission(SecurityAction.Demand, SerializationFormatter = true)]
         public override void GetObjectData(SerializationInfo info, StreamingContext context)
         {
             base.GetObjectData(info, context);
@@ -108,7 +107,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
             sb.Append("[AreaOfInterest : ");
            // sb.AppendFormat(base.ToStringBaseProperties());
             sb.AppendFormat("BoundingBoxCoordinates={0};", BoundingBoxCoordinates);
-            sb.Append("]");
+            sb.Append(']');
             return sb.ToString();
         }
 

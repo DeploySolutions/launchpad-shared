@@ -165,7 +165,6 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         /// </summary>
         /// <param name="info">The serialization info</param>
         /// <param name="context">The context of the stream</param>
-        [SecurityPermission(SecurityAction.Demand, SerializationFormatter = true)]
         public void GetObjectData(SerializationInfo info, StreamingContext context)
         {
             info.AddValue("TenantId", TenantId);
@@ -218,7 +217,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
             sb.AppendFormat(" DateLastModified={0};", LastModificationTime);
             sb.AppendFormat(" IsActive={0};", IsActive);
             sb.AppendFormat(" IsDeleted={0};", IsDeleted);
-            sb.Append("]");
+            sb.Append(']');
             return sb.ToString();
         }
 

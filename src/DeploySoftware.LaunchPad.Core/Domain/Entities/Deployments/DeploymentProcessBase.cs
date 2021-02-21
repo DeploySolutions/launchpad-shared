@@ -76,7 +76,6 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         /// </summary>
         /// <param name="info"></param>
         /// <param name="context"></param>
-        [SecurityPermission(SecurityAction.Demand, SerializationFormatter = true)]
         public override void GetObjectData(SerializationInfo info, StreamingContext context)
         {
             base.GetObjectData(info, context);
@@ -95,7 +94,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
             sb.AppendFormat(ToStringBaseProperties());
             sb.AppendFormat(" DocumentationUrl={0};", DocumentationUri);
             sb.AppendFormat(" DiagramUrl={0};", DiagramUri);
-            sb.Append("]");
+            sb.Append(']');
             return sb.ToString();
         }
     }

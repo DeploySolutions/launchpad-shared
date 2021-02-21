@@ -110,7 +110,6 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         /// </summary>
         /// <param name="info"></param>
         /// <param name="context"></param>
-        [SecurityPermission(SecurityAction.Demand, SerializationFormatter = true)]
         public override void GetObjectData(SerializationInfo info, StreamingContext context)
         {
             base.GetObjectData(info, context);
@@ -135,7 +134,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
             sb.AppendFormat(" LogUri={0};", LogUri);
             sb.AppendFormat(" Started={0};", Started);
             sb.AppendFormat(" Ended={0};", Ended);
-            sb.Append("]");
+            sb.Append(']');
             return sb.ToString();
         }
     }

@@ -106,7 +106,6 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         /// </summary>
         /// <param name="info">The serialization info</param>
         /// <param name="context">The context of the stream</param>
-        [SecurityPermission(SecurityAction.Demand, SerializationFormatter = true)]
         public void GetObjectData(SerializationInfo info, StreamingContext context)
         {
             info.AddValue("PhysicalLocation", PhysicalLocation);
@@ -135,7 +134,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
             sb.Append("[SpaceTimeInformation : ");
             sb.AppendFormat("PhysicalLocation={0};", PhysicalLocation);
             sb.AppendFormat("PointInTime={0};", PointInTime);
-            sb.Append("]");
+            sb.Append(']');
             return sb.ToString();
         }
 

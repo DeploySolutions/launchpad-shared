@@ -121,7 +121,6 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         /// </summary>
         /// <param name="info"></param>
         /// <param name="context"></param>
-        [SecurityPermission(SecurityAction.Demand, SerializationFormatter = true)]
         public override void GetObjectData(SerializationInfo info, StreamingContext context)
         {
             base.GetObjectData(info, context);
@@ -148,7 +147,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
             sb.AppendFormat(" DisplayLogoUri={0};", LogoUri);
             sb.AppendFormat(" Theme={0};", Theme);
             sb.AppendFormat(" PrimaryOwnerId={0};", PrimaryOwnerId);
-            sb.Append("]");
+            sb.Append(']');
             return sb.ToString();
         }
 

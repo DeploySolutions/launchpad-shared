@@ -313,6 +313,15 @@ namespace DeploySoftware.LaunchPad.Core {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Input is null.
+        /// </summary>
+        public static string Guard_Input_IsNull {
+            get {
+                return ResourceManager.GetString("Guard_Input_IsNull", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Token string cannot be empty or null..
         /// </summary>
         public static string Guard_LaunchPadToken_ArgumentException_Empty {
@@ -599,6 +608,24 @@ namespace DeploySoftware.LaunchPad.Core {
         public static string Info_UnitOfWorkTransaction_UnitOfWorkTransaction_Created {
             get {
                 return ResourceManager.GetString("Info_UnitOfWorkTransaction_UnitOfWorkTransaction_Created", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Item &quot;{0}&quot; was added to the collection..
+        /// </summary>
+        public static string Logger_Info_ItemAdded {
+            get {
+                return ResourceManager.GetString("Logger_Info_ItemAdded", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Item &quot;{0}&quot; already exists in the collection..
+        /// </summary>
+        public static string Logger_Info_ItemAlreadyExists {
+            get {
+                return ResourceManager.GetString("Logger_Info_ItemAlreadyExists", resourceCulture);
             }
         }
         

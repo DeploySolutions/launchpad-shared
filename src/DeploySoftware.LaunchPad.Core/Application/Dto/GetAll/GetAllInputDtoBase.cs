@@ -174,7 +174,6 @@ namespace DeploySoftware.LaunchPad.Core.Application.Dto
         /// </summary>
         /// <param name="info"></param>
         /// <param name="context"></param>
-        [SecurityPermission(SecurityAction.Demand, SerializationFormatter = true)]
         public virtual void GetObjectData(SerializationInfo info, StreamingContext context)
         {
             info.AddValue("Culture", Culture);
@@ -198,7 +197,7 @@ namespace DeploySoftware.LaunchPad.Core.Application.Dto
             StringBuilder sb = new StringBuilder();
             sb.Append("[GetAllInputDtoBase : ");
             sb.Append(ToStringBaseProperties());
-            sb.Append("]");
+            sb.Append(']');
             return sb.ToString();
         }
 
@@ -231,7 +230,7 @@ namespace DeploySoftware.LaunchPad.Core.Application.Dto
         /// </summary>
         /// <typeparam name="TEntity">The source entity to clone</typeparam>
         /// <returns>A shallow clone of the entity and its serializable properties</returns>
-        protected new TEntity Clone<TEntity>() where TEntity : GetAllInputDtoBase<TIdType>, new()
+        protected TEntity Clone<TEntity>() where TEntity : GetAllInputDtoBase<TIdType>, new()
         {
             TEntity clone = new TEntity();
             foreach (PropertyInfo info in GetType().GetProperties())

@@ -116,7 +116,6 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         /// </summary>
         /// <param name="info">The serialization info</param>
         /// <param name="context">The context of the stream</param>
-        [SecurityPermission(SecurityAction.Demand, SerializationFormatter = true)]
         public void GetObjectData(SerializationInfo info, StreamingContext context)
         {
             info.AddValue("Elevation", Elevation);
@@ -148,7 +147,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
             sb.AppendFormat("Elevation={0};", Elevation);
             sb.AppendFormat("Latitude={0};", Latitude);
             sb.AppendFormat(" Longitude={0};", Longitude);
-            sb.Append("]");
+            sb.Append(']');
             return sb.ToString();
         }
 

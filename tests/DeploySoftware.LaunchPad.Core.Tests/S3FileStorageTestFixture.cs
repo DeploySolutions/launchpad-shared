@@ -47,7 +47,7 @@ namespace DeploySoftware.LaunchPad.Core.Tests
 
         public void Dispose()
         {
-
+            GC.SuppressFinalize(this);
         }
     }
 }

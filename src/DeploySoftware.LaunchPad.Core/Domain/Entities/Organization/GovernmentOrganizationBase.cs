@@ -91,7 +91,6 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         /// </summary>
         /// <param name="info"></param>
         /// <param name="context"></param>
-        [SecurityPermission(SecurityAction.Demand, SerializationFormatter = true)]
         public override void GetObjectData(SerializationInfo info, StreamingContext context)
         {
             base.GetObjectData(info,context);
@@ -142,7 +141,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
             StringBuilder sb = new StringBuilder();
             sb.Append("[GovernmentOrganizationBase: ");
           //  sb.Append(base.ToStringBaseProperties());
-            sb.Append("]");
+            sb.Append(']');
             return sb.ToString();
         }
         

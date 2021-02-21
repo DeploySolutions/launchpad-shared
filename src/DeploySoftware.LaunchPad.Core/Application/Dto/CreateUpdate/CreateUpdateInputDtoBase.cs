@@ -47,7 +47,7 @@ namespace DeploySoftware.LaunchPad.Core.Application.Dto
         [DataObjectField(false)]
         [XmlAttribute]
         [MaxLength(8096, ErrorMessageResourceName = "Validation_DescriptionFull_8096CharsOrLess", ErrorMessageResourceType = typeof(DeploySoftware_LaunchPad_Core_Resources))]
-        public virtual String? DescriptionFull { get; set; }
+        public virtual string? DescriptionFull { get; set; }
 
         #region "Constructors"
 
@@ -108,7 +108,6 @@ namespace DeploySoftware.LaunchPad.Core.Application.Dto
         /// </summary>
         /// <param name="info"></param>
         /// <param name="context"></param>
-        [SecurityPermission(SecurityAction.Demand, SerializationFormatter = true)]
         public override void GetObjectData(SerializationInfo info, StreamingContext context)
         {
             info.AddValue("Id", Id);
@@ -128,7 +127,7 @@ namespace DeploySoftware.LaunchPad.Core.Application.Dto
             StringBuilder sb = new StringBuilder();
             sb.Append("[CreateUpdateInputDtoBase : ");
             sb.Append(ToStringBaseProperties());
-            sb.Append("]");
+            sb.Append(']');
             return sb.ToString();
         }
 

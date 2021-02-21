@@ -187,7 +187,6 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         /// </summary>
         /// <param name="info"></param>
         /// <param name="context"></param>
-        [SecurityPermission(SecurityAction.Demand, SerializationFormatter = true)]
         public override void GetObjectData(SerializationInfo info, StreamingContext context)
         {
             base.GetObjectData(info, context);
@@ -218,7 +217,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
             sb.AppendFormat(" LogoUri={0};", LogoUri);
             sb.AppendFormat(" Theme={0};", Theme);
             sb.AppendFormat(" DefaultTimeZone={0};", DefaultTimeZone);
-            sb.Append("]");
+            sb.Append(']');
             return sb.ToString();
         }
 
@@ -261,9 +260,9 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         /// <returns>True if the entities are the same according to business key value</returns>
         public override bool Equals(object obj)
         {
-            if (obj != null && obj is ApplicationInformation<TIdType>)
+            if (obj != null && obj is ApplicationInformation<TIdType> information)
             {
-                return Equals((ApplicationInformation<TIdType>)obj);
+                return Equals(information);
             }
             return false;
         }

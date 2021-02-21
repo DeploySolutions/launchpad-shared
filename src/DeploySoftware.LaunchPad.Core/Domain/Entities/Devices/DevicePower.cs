@@ -90,7 +90,6 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         /// </summary>
         /// <param name="info"></param>
         /// <param name="context"></param>
-        [SecurityPermission(SecurityAction.Demand, SerializationFormatter = true)]
         public void GetObjectData(SerializationInfo info, StreamingContext context)
         {
             info.AddValue("RemainingChargeTime", RemainingChargeTime);
@@ -114,7 +113,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
             {
                 sb.AppendFormat(" RemainingChargeTime=null;");
             }
-            sb.Append("]");
+            sb.Append(']');
             return sb.ToString();
         }
     }

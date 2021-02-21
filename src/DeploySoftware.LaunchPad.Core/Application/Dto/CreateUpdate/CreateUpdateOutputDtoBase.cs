@@ -89,7 +89,6 @@ namespace DeploySoftware.LaunchPad.Core.Application.Dto
         /// </summary>
         /// <param name="info"></param>
         /// <param name="context"></param>
-        [SecurityPermission(SecurityAction.Demand, SerializationFormatter = true)]
         public override void GetObjectData(SerializationInfo info, StreamingContext context)
         {
             info.AddValue("Id", Id);
@@ -109,7 +108,7 @@ namespace DeploySoftware.LaunchPad.Core.Application.Dto
             StringBuilder sb = new StringBuilder();
             sb.Append("[CreateUpdateOutputDtoBase : ");
             sb.Append(ToStringBaseProperties());
-            sb.Append("]");
+            sb.Append(']');
             return sb.ToString();
         }
 

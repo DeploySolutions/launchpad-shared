@@ -106,7 +106,6 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         /// </summary>
         /// <param name="info"></param>
         /// <param name="context"></param>
-        [SecurityPermission(SecurityAction.Demand, SerializationFormatter = true)]
         public override void GetObjectData(SerializationInfo info, StreamingContext context)
         {
             base.GetObjectData(info, context);
@@ -127,7 +126,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
             sb.AppendFormat(" Info={0};", AppInfo);
             sb.AppendFormat(" TenantInfo={0};", TenantInfo);
             sb.AppendFormat(" Modules={0};", Modules);
-            sb.Append("]");
+            sb.Append(']');
             return sb.ToString();
         }
     }

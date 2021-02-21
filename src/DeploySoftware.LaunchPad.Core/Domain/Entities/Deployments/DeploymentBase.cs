@@ -139,7 +139,6 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         /// </summary>
         /// <param name="info"></param>
         /// <param name="context"></param>
-        [SecurityPermission(SecurityAction.Demand, SerializationFormatter = true)]
         public override void GetObjectData(SerializationInfo info, StreamingContext context)
         {
             base.GetObjectData(info, context);
@@ -166,7 +165,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
             sb.AppendFormat(" DeploymentState={0};", DeploymentState);
             sb.AppendFormat(" DateScheduled={0};", DateScheduled); 
             sb.AppendFormat(" DateDeployed={0};", DateDeployed);            
-            sb.Append("]");
+            sb.Append(']');
             return sb.ToString();
         }
     }
