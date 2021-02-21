@@ -12,7 +12,7 @@ namespace DeploySoftware.LaunchPad.Core.FileGeneration
         /// <summary>
         /// The list of parameters, in order, that this method requires as input. If zero parameters are provided, this is a no-args method.
         /// </summary>
-        public SortedDictionary<string, LaunchPadGeneratedMethodParameter> Parameters;
+        public IDictionary<string, LaunchPadGeneratedMethodParameter> Parameters;
 
         /// <summary>
         /// The return type of the method. Default to "void".
@@ -23,7 +23,7 @@ namespace DeploySoftware.LaunchPad.Core.FileGeneration
         {
             Returns = string.Empty; 
             var comparer = StringComparer.OrdinalIgnoreCase;
-            Parameters = new SortedDictionary<string, LaunchPadGeneratedMethodParameter>(comparer);
+            Parameters = new Dictionary<string, LaunchPadGeneratedMethodParameter>(comparer);
         }
     }
 
