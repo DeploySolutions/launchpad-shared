@@ -9,8 +9,6 @@ namespace DeploySoftware.LaunchPad.Core.FileGeneration
     public abstract partial class LaunchPadGeneratedConfigurationBase
     {
 
-        
-
         public SourceControlRepository Repository { get; set; }
 
 

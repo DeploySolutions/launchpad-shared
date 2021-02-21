@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DeploySoftware.LaunchPad.Core.Util;
+using System;
 using System.Collections.Generic;
 
 namespace DeploySoftware.LaunchPad.Core.FileGeneration
@@ -33,6 +34,8 @@ namespace DeploySoftware.LaunchPad.Core.FileGeneration
         /// The dictionary of unique custom properties that belong to this class (that were not inherited).
         /// </summary>
         public IDictionary<string, LaunchPadGeneratedProperty> CustomProperties { get; set; }
+
+        public IDictionary<string, LaunchPadGeneratedProperty> Properties => new DictionaryHelper().MergeDictionaries(BaseProperties, CustomProperties);
 
         /// <summary>
         /// The dictionary of unique base methods that belong to this class 

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DeploySoftware.LaunchPad.Core.Util;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -28,6 +29,7 @@ namespace DeploySoftware.LaunchPad.Core.FileGeneration
         /// </summary>
         public IDictionary<string, string> OptionalBasePropertyNames { get; set; }
 
+        public IDictionary<string, string> RequiredProperties => new DictionaryHelper().MergeDictionaries(RequiredBasePropertyNames, RequiredCustomPropertyNames);
 
         /// <summary>
         /// A dictionary containing the names of the custom properties that will be required
@@ -38,6 +40,8 @@ namespace DeploySoftware.LaunchPad.Core.FileGeneration
         /// A dictionary containing the names of the custom properties that will be optional
         /// </summary>
         public IDictionary<string, string> OptionalCustomPropertyNames { get; set; }
+
+        public IDictionary<string, string> OptionalProperties => new DictionaryHelper().MergeDictionaries(OptionalBasePropertyNames, OptionalCustomPropertyNames);
 
         public LaunchPadGeneratedDtoPropertySet()
         {

@@ -9,10 +9,11 @@ namespace DeploySoftware.LaunchPad.Core.Util
 {
     public partial class DictionaryHelper
     {
-        public ILogger Logger { get; set; }
+        public static ILogger Logger { get; set; }
 
-        protected DictionaryHelper()
+        public DictionaryHelper()
         {
+            Logger = NullLogger.Instance;
         }
 
         public DictionaryHelper(ILogger logger)
