@@ -12,7 +12,7 @@ namespace DeploySoftware.LaunchPad.Core.FileGeneration
         /// Contains information on the template(s) that should be used to generate the documents in this set.
         /// If none are listed, templates may be applied if listed in the child Document(s) (again, if any are listed).
         /// </summary>
-        public LaunchPadGeneratedDocumentTemplates Templates {get;set;}
+        public virtual LaunchPadGeneratedDocumentTemplates Templates {get;set;}
 
         public LaunchPadGeneratedDocumentSetModuleConfiguration() : base()
         {

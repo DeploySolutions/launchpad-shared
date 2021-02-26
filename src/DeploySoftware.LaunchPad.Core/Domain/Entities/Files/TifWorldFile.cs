@@ -29,32 +29,32 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         /// <summary>
         /// Line 1: A: x-scale
         /// </summary>
-        public decimal A { get; set; }
+        public virtual decimal A { get; set; }
 
         /// <summary>
         /// Line 2: D: y-skew
         /// </summary>
-        public decimal D { get; set; }
+        public virtual decimal D { get; set; }
 
         /// <summary>
         /// Line 3: B: x-skew
         /// </summary>
-        public decimal B { get; set; }
+        public virtual decimal B { get; set; }
 
         /// <summary>
         /// Line 4: E: y-scale
         /// </summary>
-        public decimal E { get; set; }
+        public virtual decimal E { get; set; }
 
         /// <summary>
         /// Line 5: UTM easting of centre of upper-left pixel
         /// </summary>
-        public decimal C { get; set; }
+        public virtual decimal C { get; set; }
 
         /// <summary>
         /// Line 5: UTM northing of centre of upper-left pixel
         /// </summary>
-        public decimal F { get; set; }
+        public virtual decimal F { get; set; }
 
     }
 }

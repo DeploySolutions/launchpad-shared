@@ -13,7 +13,7 @@ namespace DeploySoftware.LaunchPad.Core.FileGeneration
         /// <summary>
         /// The set of generated static web resource modules that belong to this solution.
         /// </summary>
-        public IDictionary<string, LaunchPadGeneratedStaticWebModule> StaticWebModules { get; set; }
+        public virtual IDictionary<string, LaunchPadGeneratedStaticWebModule> StaticWebModules { get; set; }
 
         public LaunchPadGeneratedStaticWebSolution() : base()
         {

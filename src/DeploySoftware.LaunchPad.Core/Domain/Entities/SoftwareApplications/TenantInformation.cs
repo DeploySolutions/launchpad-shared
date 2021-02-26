@@ -39,27 +39,27 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         [DataObjectField(false)]
         [XmlAttribute]
         [ForeignKey(nameof(LaunchPadApplicationId))]
-        public TIdType LaunchPadApplicationId { get; set; }
+        public virtual TIdType LaunchPadApplicationId { get; set; }
 
         [DataObjectField(false)]
         [XmlAttribute]
-        public string CultureDefault { get; set; }
+        public virtual string CultureDefault { get; set; }
 
         [DataObjectField(false)]
         [XmlAttribute]
-        public String CultureSupported { get; set; }
+        public virtual String CultureSupported { get; set; }
 
         [DataObjectField(false)]
         [XmlAttribute]
-        public long? PrimaryOwnerId { get; set; }
+        public virtual long? PrimaryOwnerId { get; set; }
 
         [DataObjectField(false)]
         [XmlAttribute]
-        public Uri LogoUri { get; set; }
+        public virtual Uri LogoUri { get; set; }
 
         [DataObjectField(false)]
         [XmlAttribute]
-        public string PrimaryColourHex { get; set; }
+        public virtual string PrimaryColourHex { get; set; }
 
 
         /// <summary>
@@ -67,7 +67,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         /// </summary>
         [DataObjectField(false)]
         [XmlAttribute]
-        public string Theme { get; set; }
+        public virtual string Theme { get; set; }
 
         #region "Constructors"
         public TenantInformation() : base()

@@ -31,16 +31,16 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         
         [DataObjectField(false)]
         [XmlAttribute]
-        public string Region { get; set; }
+        public virtual string Region { get; set; }
         
         [DataObjectField(false)]
         [XmlAttribute]
-        public string BucketName { get; set; }
+        public virtual string BucketName { get; set; }
 
 
         [DataObjectField(false)]
         [XmlAttribute]
-        public string Prefix { get; set; }
+        public virtual string Prefix { get; set; }
 
 
         /// <summary>

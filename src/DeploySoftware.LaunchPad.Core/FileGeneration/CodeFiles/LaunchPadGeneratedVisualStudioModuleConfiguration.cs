@@ -10,12 +10,12 @@ namespace DeploySoftware.LaunchPad.Core.FileGeneration
         /// <summary>
         /// The name of the Visual Studio Solution in which this generated module will belong.
         /// </summary>
-        public string VisualStudioSolutionName { get; set; }
+        public virtual string VisualStudioSolutionName { get; set; }
 
         /// <summary>
         /// The namespace of the generated item.
         /// </summary>
-        public string SolutionBaseNamespace { get; set; }
+        public virtual string SolutionBaseNamespace { get; set; }
 
 
         public LaunchPadGeneratedVisualStudioModuleConfiguration() : base()

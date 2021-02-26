@@ -12,12 +12,12 @@ namespace DeploySoftware.LaunchPad.Core.FileGeneration
         /// <summary>
         /// The version of this component
         /// </summary>
-        public string Version { get; set; }
+        public virtual string Version { get; set; }
 
         /// <summary>
         /// The id type of the entities (if any).
         /// </summary>
-        public string EntityIdType { get; set; }
+        public virtual string EntityIdType { get; set; }
 
         public LaunchPadGeneratedComponentBase() : base()
         {

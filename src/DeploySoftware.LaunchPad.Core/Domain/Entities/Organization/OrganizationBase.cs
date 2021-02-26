@@ -38,28 +38,28 @@ namespace DeploySoftware.LaunchPad.Core.Domain
     {
         [DataObjectField(false)]
         [XmlAttribute]
-        public Organization Schema { get; set; }
+        public virtual Organization Schema { get; set; }
 
         [DataObjectField(false)]
         [XmlAttribute]
-        public string FullName { get => Schema.LegalName.ToString(); }
+        public virtual string FullName { get => Schema.LegalName.ToString(); }
 
         [DataObjectField(false)]
         [XmlAttribute]
-        public string Abbreviation { get => Schema.AlternateName.ToString(); }
+        public virtual string Abbreviation { get => Schema.AlternateName.ToString(); }
 
         [DataObjectField(false)]
         [XmlAttribute]
-        public string Website { get => Schema.Url.ToString(); }
+        public virtual string Website { get => Schema.Url.ToString(); }
 
         [DataObjectField(false)]
         [XmlAttribute]
-        public string HeadquartersAddress { get => Schema.Address.ToString(); }
+        public virtual string HeadquartersAddress { get => Schema.Address.ToString(); }
 
         [DataObjectField(false)]
         [XmlAttribute]
-        public IList<string> Offices { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public int? TenantId { get;set; }
+        public virtual IList<string> Offices { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public virtual int? TenantId { get;set; }
 
         /// <summary>  
         /// Initializes a new instance of the <see cref="OrganizationBase&lt;TPrimaryKey&gt;">OrganizationBase&lt;TPrimaryKey&gt;</see> class

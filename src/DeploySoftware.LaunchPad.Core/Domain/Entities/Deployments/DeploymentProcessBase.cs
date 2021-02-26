@@ -37,14 +37,14 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         /// </summary>
         [DataObjectField(false)]
         [XmlAttribute]
-        public Uri DocumentationUri { get; set; }
+        public virtual Uri DocumentationUri { get; set; }
 
         /// <summary>
         /// The URI to the diagram
         /// </summary>
         [DataObjectField(false)]
         [XmlAttribute]
-        public Uri DiagramUri { get; set; }
+        public virtual Uri DiagramUri { get; set; }
 
 
         #region "Constructors"

@@ -40,35 +40,35 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         [XmlAttribute]
         [Required]
         [ForeignKey(nameof(ReleaseCandidateId))]
-        public TIdType ReleaseCandidateId { get; set; }
+        public virtual TIdType ReleaseCandidateId { get; set; }
 
         /// <summary>
         /// The category of this release candidate event
         /// </summary>
         [DataObjectField(false)]
         [XmlAttribute]
-        public String EventCategory { get; set; }
+        public virtual String EventCategory { get; set; }
 
         /// <summary>
         /// The event start date and time
         /// </summary>
         [DataObjectField(false)]
         [XmlAttribute]
-        public DateTime? Started { get; set; }
+        public virtual DateTime? Started { get; set; }
 
         /// <summary>
         /// The event end date and time. May be null if the event is ongoing
         /// </summary>
         [DataObjectField(false)]
         [XmlAttribute]
-        public DateTime? Ended { get; set; }
+        public virtual DateTime? Ended { get; set; }
 
         /// <summary>
         /// The URI where the release candidate event log is located
         /// </summary>
         [DataObjectField(false)]
         [XmlAttribute]
-        public Uri LogUri { get; set; }
+        public virtual Uri LogUri { get; set; }
 
 
 

@@ -9,11 +9,11 @@ namespace DeploySoftware.LaunchPad.Core.FileGeneration
     [Serializable]
     public partial class LaunchPadGeneratedDomainEntity : LaunchPadGeneratedClassBase
     {
-       
+
         /// <summary>
         /// Contains a collection of Data Transfer Objects belonging to this component
         /// </summary>
-        public IDictionary<string, LaunchPadGeneratedDataTransferObject> DataTransferObjects { get; set; }
+        public virtual IDictionary<string, LaunchPadGeneratedDataTransferObject> DataTransferObjects { get; set; }
 
         public LaunchPadGeneratedDomainEntity() : base()
         {

@@ -10,10 +10,10 @@ namespace DeploySoftware.LaunchPad.Core.FileGeneration
     [Serializable]
     public partial class LaunchPadGeneratedProperty : LaunchPadGeneratedMethodParameter
     {
-        
-        public bool IsReadonly { get; set; }
 
-        public bool IsVirtual { get; set; }
+        public virtual bool IsReadonly { get; set; }
+
+        public virtual bool IsVirtual { get; set; }
 
         public LaunchPadGeneratedProperty() : base()
         {

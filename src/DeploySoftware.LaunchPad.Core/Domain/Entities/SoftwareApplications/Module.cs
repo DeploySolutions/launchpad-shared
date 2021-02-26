@@ -39,7 +39,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         /// </summary>
         [DataObjectField(false)]
         [XmlAttribute]
-        public string Type
+        public virtual string Type
         {
             get; set;
         }
@@ -49,7 +49,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         /// </summary>
         [DataObjectField(false)]
         [XmlAttribute]
-        public string CultureDefault
+        public virtual string CultureDefault
         {
             get; set;
         }
@@ -59,8 +59,8 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         /// </summary>
         [DataObjectField(false)]
         [XmlAttribute]
-        public IList<Component<TIdType, TEntityIdType>> Components { get; set; }
-        public int? TenantId { get; set; }
+        public virtual IList<Component<TIdType, TEntityIdType>> Components { get; set; }
+        public virtual int? TenantId { get; set; }
 
         #region "Constructors"
         public Module() : base()

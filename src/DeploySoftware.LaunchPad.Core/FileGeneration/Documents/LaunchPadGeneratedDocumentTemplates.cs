@@ -8,9 +8,9 @@ namespace DeploySoftware.LaunchPad.Core.FileGeneration
 {
     public class LaunchPadGeneratedDocumentTemplates
     {
-        public string HeaderFooterTemplateName { get; set; }
-        public IList<string> CoverPageTemplateNames { get; set; }
-        public IList<string> ClosingPageTemplateNames { get; set; }
+        public virtual string HeaderFooterTemplateName { get; set; }
+        public virtual IList<string> CoverPageTemplateNames { get; set; }
+        public virtual IList<string> ClosingPageTemplateNames { get; set; }
 
         public LaunchPadGeneratedDocumentTemplates()
         {

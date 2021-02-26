@@ -13,7 +13,7 @@ namespace DeploySoftware.LaunchPad.Core.FileGeneration
         /// <summary>
         /// The version of this module
         /// </summary>
-        public string Version { get; set; }
+        public virtual string Version { get; set; }
 
 
         public LaunchPadGeneratedSolutionBase() : base()

@@ -9,11 +9,11 @@ namespace DeploySoftware.LaunchPad.Core.FileGeneration
     [Serializable]
     public partial class LaunchPadGeneratedDocumentSolution : LaunchPadGeneratedSolutionBase
     {
-        
+
         /// <summary>
         /// The dictionary of generated document set modules that belong to this solution.
         /// </summary>
-        public IDictionary<string,LaunchPadGeneratedDocumentSetModule> DocumentSetModules { get; set; }
+        public virtual IDictionary<string,LaunchPadGeneratedDocumentSetModule> DocumentSetModules { get; set; }
 
         public LaunchPadGeneratedDocumentSolution() : base()
         {

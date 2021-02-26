@@ -13,39 +13,39 @@ namespace DeploySoftware.LaunchPad.Core.FileGeneration
         /// <summary>
         /// Contains information related to this object's position with a Visual Studio solution
         /// </summary>
-        public LaunchPadGeneratedVisualStudioClassConfiguration VisualStudioConfig { get; set; }
+        public virtual LaunchPadGeneratedVisualStudioClassConfiguration VisualStudioConfig { get; set; }
 
         /// <summary>
         /// The namespace of the generated item.
         /// </summary>
-        public string Namespace { get; set; }
+        public virtual string Namespace { get; set; }
 
         /// <summary>
         /// The class and interface inheritance of the item (everything after the colon ':' in the definition)
         /// </summary>
-        public string InheritsFrom { get; set; }
+        public virtual string InheritsFrom { get; set; }
 
         /// <summary>
         /// The dictionary of unique base LaunchPad properties that belong to this class (received through DomainEntity or other base class inheritance).
         /// </summary>
-        public IDictionary<string, LaunchPadGeneratedProperty> BaseProperties { get; set; }
+        public virtual IDictionary<string, LaunchPadGeneratedProperty> BaseProperties { get; set; }
 
         /// <summary>
         /// The dictionary of unique custom properties that belong to this class (that were not inherited).
         /// </summary>
-        public IDictionary<string, LaunchPadGeneratedProperty> CustomProperties { get; set; }
+        public virtual IDictionary<string, LaunchPadGeneratedProperty> CustomProperties { get; set; }
 
-        public IDictionary<string, LaunchPadGeneratedProperty> Properties => new DictionaryHelper().MergeDictionaries(BaseProperties, CustomProperties);
+        public virtual IDictionary<string, LaunchPadGeneratedProperty> Properties => new DictionaryHelper().MergeDictionaries(BaseProperties, CustomProperties);
 
         /// <summary>
         /// The dictionary of unique base methods that belong to this class 
         /// </summary>
-        public IDictionary<string, LaunchPadGeneratedMethod> BaseMethods { get; set; }
+        public virtual IDictionary<string, LaunchPadGeneratedMethod> BaseMethods { get; set; }
 
         /// <summary>
         /// The dictionary of unique custom methods that belong to this class 
         /// </summary>
-        public IDictionary<string, LaunchPadGeneratedMethod> CustomMethods { get; set; }
+        public virtual IDictionary<string, LaunchPadGeneratedMethod> CustomMethods { get; set; }
 
 
         public LaunchPadGeneratedClassBase() : base()

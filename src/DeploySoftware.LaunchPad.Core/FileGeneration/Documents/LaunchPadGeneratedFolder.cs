@@ -8,7 +8,7 @@ namespace DeploySoftware.LaunchPad.Core.FileGeneration
 {
     public partial class LaunchPadGeneratedFolder : LaunchPadGeneratedObjectBase
     {
-        public IList<LaunchPadGeneratedFolder> SubFolders { get; set; }
+        public virtual IList<LaunchPadGeneratedFolder> SubFolders { get; set; }
 
         public LaunchPadGeneratedFolder() : base()
         {

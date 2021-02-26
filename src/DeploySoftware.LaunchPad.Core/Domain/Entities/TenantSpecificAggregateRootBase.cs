@@ -45,7 +45,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         [XmlAttribute]
         [Required]
         [ForeignKey(nameof(TenantId))]
-        public int TenantId { get; set; }
+        public virtual int TenantId { get; set; }
 
         /// <summary>  
         /// Initializes a new instance of the <see cref="AggregateRootBase">AggregateRootBase</see> class

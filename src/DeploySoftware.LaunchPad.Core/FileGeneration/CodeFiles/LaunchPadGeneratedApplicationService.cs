@@ -9,15 +9,15 @@ namespace DeploySoftware.LaunchPad.Core.FileGeneration
     [Serializable]
     public partial class LaunchPadGeneratedApplicationService : LaunchPadGeneratedClassBase
     {
-       /// <summary>
-       /// The C# Type of the underlying Domain Entity this application service uses (if any)
-       /// </summary>
-        public string DomainEntityType { get; set; }
+        /// <summary>
+        /// The C# Type of the underlying Domain Entity this application service uses (if any)
+        /// </summary>
+        public virtual string DomainEntityType { get; set; }
 
         /// <summary>
         /// Contains a collection of Data Transfer Objects belonging to this component
         /// </summary>
-        public IDictionary<string,LaunchPadGeneratedDataTransferObject> DataTransferObjects { get; set; }
+        public virtual IDictionary<string,LaunchPadGeneratedDataTransferObject> DataTransferObjects { get; set; }
 
         public LaunchPadGeneratedApplicationService() : base()
         {

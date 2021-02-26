@@ -35,23 +35,23 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         /// <summary>
         /// The checksum (from git or elsewhere)
         /// </summary>
-        public string Checksum { get; set; }
+        public virtual string Checksum { get; set; }
 
         /// <summary>
         /// The version of this release
         /// </summary>
-        public string Version { get; set; }
-        public ReleaseStates ReleaseState { get; set; }
+        public virtual string Version { get; set; }
+        public virtual ReleaseStates ReleaseState { get; set; }
 
         /// <summary>
         /// The date and time this release occurred
         /// </summary>
-        public DateTime? ReleaseDate { get; set; }
+        public virtual DateTime? ReleaseDate { get; set; }
 
         /// <summary>
         /// The URI to the release package
         /// </summary>
-        public Uri PackageUri { get; set; }
+        public virtual Uri PackageUri { get; set; }
 
         public enum ReleaseStates
         {

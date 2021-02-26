@@ -17,7 +17,7 @@ namespace DeploySoftware.LaunchPad.Core.FileGeneration
         /// <summary>
         /// The return type of the method. Default to "void".
         /// </summary>
-        public string Returns { get; set; } = "void";
+        public virtual string Returns { get; set; } = "void";
 
         public LaunchPadGeneratedMethod() : base()
         {

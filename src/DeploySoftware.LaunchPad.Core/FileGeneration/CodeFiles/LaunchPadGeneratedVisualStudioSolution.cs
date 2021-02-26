@@ -13,12 +13,12 @@ namespace DeploySoftware.LaunchPad.Core.FileGeneration
         /// <summary>
         /// The list of generated Visual Studio modules that belong to this solution.
         /// </summary>
-        public IList<LaunchPadGeneratedVisualStudioModule> VisualStudioModules { get; set; }
+        public virtual IList<LaunchPadGeneratedVisualStudioModule> VisualStudioModules { get; set; }
 
         /// <summary>
         /// The list of generated document set modules that belong to this solution.
         /// </summary>
-        public IList<LaunchPadGeneratedDocumentSetModule> DocumentSetModules { get; set; }
+        public virtual IList<LaunchPadGeneratedDocumentSetModule> DocumentSetModules { get; set; }
 
         public LaunchPadGeneratedVisualStudioSolution() : base()
         {

@@ -41,7 +41,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         /// </summary>
         [DataObjectField(false)]
         [XmlAttribute]
-        public ApplicationInformation<TIdType> AppInfo
+        public virtual ApplicationInformation<TIdType> AppInfo
         {
             get; set;
         }
@@ -51,7 +51,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         /// </summary>
         [DataObjectField(false)]
         [XmlAttribute]
-        public List<Module<TIdType, TEntityIdType>> Modules { get; set; }
+        public virtual List<Module<TIdType, TEntityIdType>> Modules { get; set; }
 
 
         /// <summary>
@@ -59,8 +59,8 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         /// </summary>
         [DataObjectField(false)]
         [XmlAttribute]
-        public List<TenantInformation<TIdType>> TenantInfo { get; set; }
-        public int? TenantId { get; set; }
+        public virtual List<TenantInformation<TIdType>> TenantInfo { get; set; }
+        public virtual int? TenantId { get; set; }
 
 
         #region "Constructors"

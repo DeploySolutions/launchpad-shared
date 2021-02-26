@@ -17,31 +17,31 @@ namespace DeploySoftware.LaunchPad.Core.FileGeneration
         /// <summary>
         /// The unique identifier of this property set, which can be referred to by generated DTOs
         /// </summary>        
-        public string Id { get; set; }
+        public virtual string Id { get; set; }
 
         /// <summary>
         /// A dictionary containing the names of the base properties that will be required
         /// </summary>
-        public IDictionary<string, string> RequiredBasePropertyNames { get; set; }
+        public virtual IDictionary<string, string> RequiredBasePropertyNames { get; set; }
 
         /// <summary>
         /// A dictionary containing the names of the base properties that will be optional
         /// </summary>
-        public IDictionary<string, string> OptionalBasePropertyNames { get; set; }
+        public virtual IDictionary<string, string> OptionalBasePropertyNames { get; set; }
 
-        public IDictionary<string, string> RequiredProperties => new DictionaryHelper().MergeDictionaries(RequiredBasePropertyNames, RequiredCustomPropertyNames);
+        public virtual IDictionary<string, string> RequiredProperties => new DictionaryHelper().MergeDictionaries(RequiredBasePropertyNames, RequiredCustomPropertyNames);
 
         /// <summary>
         /// A dictionary containing the names of the custom properties that will be required
         /// </summary>
-        public IDictionary<string, string> RequiredCustomPropertyNames { get; set; }
+        public virtual IDictionary<string, string> RequiredCustomPropertyNames { get; set; }
 
         /// <summary>
         /// A dictionary containing the names of the custom properties that will be optional
         /// </summary>
-        public IDictionary<string, string> OptionalCustomPropertyNames { get; set; }
+        public virtual IDictionary<string, string> OptionalCustomPropertyNames { get; set; }
 
-        public IDictionary<string, string> OptionalProperties => new DictionaryHelper().MergeDictionaries(OptionalBasePropertyNames, OptionalCustomPropertyNames);
+        public virtual IDictionary<string, string> OptionalProperties => new DictionaryHelper().MergeDictionaries(OptionalBasePropertyNames, OptionalCustomPropertyNames);
 
         public LaunchPadGeneratedDtoPropertySet()
         {

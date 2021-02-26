@@ -15,17 +15,17 @@ namespace DeploySoftware.LaunchPad.Core.FileGeneration
         /// <summary>
         /// Contains information related to this object's Document Set solution configuration settings
         /// </summary>
-        public LaunchPadGeneratedDocumentSetModuleConfiguration Config { get; set; }
-        
+        public virtual LaunchPadGeneratedDocumentSetModuleConfiguration Config { get; set; }
+
         /// <summary>
         /// The list of folders that belong to this module.
         /// </summary>
-        public IList<LaunchPadGeneratedFolder> Folders { get; set; }
+        public virtual IList<LaunchPadGeneratedFolder> Folders { get; set; }
 
         /// <summary>
         /// The list of documents that belong to this module.
         /// </summary>
-        public IList<LaunchPadGeneratedDocument> Documents { get; set; }
+        public virtual IList<LaunchPadGeneratedDocument> Documents { get; set; }
 
         public LaunchPadGeneratedDocumentSetModule() : base()
         {

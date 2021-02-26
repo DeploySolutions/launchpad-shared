@@ -9,19 +9,19 @@ namespace DeploySoftware.LaunchPad.Core.FileGeneration
     [Serializable]
     public partial class LaunchPadGeneratedDocument : LaunchPadGeneratedObjectBase
     {
-        public string MimeType { get; set; }
+        public virtual string MimeType { get; set; }
 
-        public string Extension { get; set; }
+        public virtual string Extension { get; set; }
 
-        public string FolderName { get; set; }
+        public virtual string FolderName { get; set; }
 
-        public string FilePath { get; set; }
+        public virtual string FilePath { get; set; }
 
         /// <summary>
         /// Contains information on the template(s) that should be used to generate this document (if any).
         /// If none are listed, templates may be applied if listed in the parent Document Set Module (again, if listed).
         /// </summary>
-        public LaunchPadGeneratedDocumentTemplates Templates { get; set; }
+        public virtual LaunchPadGeneratedDocumentTemplates Templates { get; set; }
 
         public LaunchPadGeneratedDocument() : base()
         {

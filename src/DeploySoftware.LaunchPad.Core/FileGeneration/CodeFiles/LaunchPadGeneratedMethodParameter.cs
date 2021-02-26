@@ -13,19 +13,19 @@ namespace DeploySoftware.LaunchPad.Core.FileGeneration
         /// <summary>
         /// The C# type of the parameter.
         /// </summary>
-        public string DataType { get; set; } = "System.String";
+        public virtual string DataType { get; set; } = "System.String";
 
         /// <summary>
         /// If no value is set, is there a default? If none, the default value is set to empty string.
         /// </summary>
-        public string DefaultValue { get; set; } = string.Empty;
+        public virtual string DefaultValue { get; set; } = string.Empty;
 
         /// <summary>
         /// Show an example valid value, for testing or documentation purposes
         /// </summary>
-        public string ExampleValue { get; set; } = string.Empty;
+        public virtual string ExampleValue { get; set; } = string.Empty;
 
-        public bool IsOptional { get; set; }
+        public virtual bool IsOptional { get; set; }
 
         public LaunchPadGeneratedMethodParameter() : base()
         {

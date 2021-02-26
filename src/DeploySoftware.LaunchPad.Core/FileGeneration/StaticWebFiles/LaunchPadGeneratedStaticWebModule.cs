@@ -15,17 +15,17 @@ namespace DeploySoftware.LaunchPad.Core.FileGeneration
         /// <summary>
         /// The list of static web pages that belong to this module.
         /// </summary>
-        public IList<LaunchPadGeneratedStaticWebPage> StaticWebPages { get; set; }
+        public virtual IList<LaunchPadGeneratedStaticWebPage> StaticWebPages { get; set; }
 
         /// <summary>
         /// The list of static stylesheets (.css) that belong to this module.
         /// </summary>
-        public IList<LaunchPadGeneratedStaticStylesheet> StaticStylesheets { get; set; }
+        public virtual IList<LaunchPadGeneratedStaticStylesheet> Stylesheets { get; set; }
 
         public LaunchPadGeneratedStaticWebModule() : base()
         {
             StaticWebPages = new List<LaunchPadGeneratedStaticWebPage>();
-            StaticStylesheets = new List<LaunchPadGeneratedStaticStylesheet>();
+            Stylesheets = new List<LaunchPadGeneratedStaticStylesheet>();
         }
 
     }

@@ -11,38 +11,38 @@ namespace DeploySoftware.LaunchPad.Core.FileGeneration
     [Serializable]
     public partial class LaunchPadGeneratedDataTransferObject : LaunchPadGeneratedObjectBase
     {
-        
+
         /// <summary>
         /// Contains information related to this object's position with a Visual Studio solution
         /// </summary>
-        public LaunchPadGeneratedVisualStudioClassConfiguration VisualStudioConfig { get; set; }
+        public virtual LaunchPadGeneratedVisualStudioClassConfiguration VisualStudioConfig { get; set; }
 
         /// <summary>
         /// The dictionary of unique base properties that belong to this DTO (which may be identical to the domain entity, or not)
         /// </summary>
-        public IDictionary<string, LaunchPadGeneratedProperty> BaseProperties { get; set; }
+        public virtual IDictionary<string, LaunchPadGeneratedProperty> BaseProperties { get; set; }
 
         /// <summary>
         /// The dictionary of unique custom properties that belong to this DTO (which may be identical to the domain entity, or not)
         /// </summary>
-        public IDictionary<string, LaunchPadGeneratedProperty> CustomProperties { get; set; }
+        public virtual IDictionary<string, LaunchPadGeneratedProperty> CustomProperties { get; set; }
 
-        public IDictionary<string, LaunchPadGeneratedProperty> Properties => new DictionaryHelper().MergeDictionaries(BaseProperties, CustomProperties);
+        public virtual IDictionary<string, LaunchPadGeneratedProperty> Properties => new DictionaryHelper().MergeDictionaries(BaseProperties, CustomProperties);
 
         /// <summary>
         /// The namespace of the generated item.
         /// </summary>
-        public string Namespace { get; set; }
+        public virtual string Namespace { get; set; }
 
         /// <summary>
         /// The class and interface inheritance of the item (everything after the colon ':' in the definition)
         /// </summary>
-        public string InheritsFrom { get; set; }
+        public virtual string InheritsFrom { get; set; }
 
         /// <summary>
         /// The ID of the property set which applies to this DTO
         /// </summary>
-        public string PropertySetId { get; set; }
+        public virtual string PropertySetId { get; set; }
 
         public LaunchPadGeneratedDataTransferObject() : base()
         {

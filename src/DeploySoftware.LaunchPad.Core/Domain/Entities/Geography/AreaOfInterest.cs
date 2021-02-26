@@ -42,7 +42,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         {
             get;set;
         }
-        public int? TenantId { get; set; }
+        public virtual int? TenantId { get; set; }
 
 
         /// <summary>

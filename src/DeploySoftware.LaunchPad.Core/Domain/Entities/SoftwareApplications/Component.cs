@@ -40,8 +40,8 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         /// </summary>
         [DataObjectField(false)]
         [XmlAttribute]
-        public IList<DomainEntityBase<TEntityIdType>> DomainEntities { get; set; }
-        public int? TenantId { get; set; }
+        public virtual IList<DomainEntityBase<TEntityIdType>> DomainEntities { get; set; }
+        public virtual int? TenantId { get; set; }
 
         #region "Constructors"
         public Component() : base()

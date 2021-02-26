@@ -41,7 +41,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         [XmlAttribute]
         [Required]
         [ForeignKey(nameof(ReleaseCandidateId))]
-        public TIdType ReleaseCandidateId { get; set; }
+        public virtual TIdType ReleaseCandidateId { get; set; }
 
         /// <summary>
         /// The id of the process that will be followed during the deployment (if known)
@@ -49,21 +49,21 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         [DataObjectField(false)]
         [XmlAttribute]
         [ForeignKey(nameof(DeploymentProcessId))]
-        public TIdType DeploymentProcessId { get; set; }
+        public virtual TIdType DeploymentProcessId { get; set; }
 
         /// <summary>
         /// The intended deployment date and time
         /// </summary>
         [DataObjectField(false)]
         [XmlAttribute]
-        public DateTime? DateScheduled { get; set; }
+        public virtual DateTime? DateScheduled { get; set; }
 
         /// <summary>
         /// The actual deployment date and time
         /// </summary>
         [DataObjectField(false)]
         [XmlAttribute]
-        public DateTime? DateDeployed { get; set; }
+        public virtual DateTime? DateDeployed { get; set; }
 
 
         /// <summary>
@@ -71,7 +71,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         /// </summary>
         [DataObjectField(false)]
         [XmlAttribute]
-        public DeploymentStates DeploymentState { get; set; }
+        public virtual DeploymentStates DeploymentState { get; set; }
 
         /// <summary>
         /// The person primarily responsible for doing the deployment (if known)
@@ -79,7 +79,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         [DataObjectField(false)]
         [XmlAttribute]
         [ForeignKey(nameof(PrimaryDeployerUserId))]
-        public long? PrimaryDeployerUserId { get; set; }
+        public virtual long? PrimaryDeployerUserId { get; set; }
 
         /// <summary>
         /// The possible states in which this deployment can be

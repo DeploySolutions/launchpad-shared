@@ -43,7 +43,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         [DataObjectField(false)]
         [XmlAttribute]
         [ForeignKey(nameof(LaunchPadApplicationId))]
-        public TIdType LaunchPadApplicationId { get; set; }
+        public virtual TIdType LaunchPadApplicationId { get; set; }
 
         /// <summary>
         /// The id of the tenant that domain entity this belongs to (if any)
@@ -52,14 +52,14 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         [XmlAttribute]
         [Required]
         [ForeignKey(nameof(TenantId))]
-        public int? TenantId { get; set; }
+        public virtual int? TenantId { get; set; }
 
         /// <summary>
         /// The default culture of this application
         /// </summary>
         [DataObjectField(false)]
         [XmlAttribute]
-        public String ApplicationKey
+        public virtual String ApplicationKey
         {
             get; set;
         }
@@ -69,7 +69,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         /// </summary>
         [DataObjectField(false)]
         [XmlAttribute]
-        public String CultureDefault
+        public virtual String CultureDefault
         {
             get; set;
         }
@@ -79,7 +79,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         /// </summary>
         [DataObjectField(false)]
         [XmlAttribute]
-        public String CultureSupported
+        public virtual String CultureSupported
         {
             get; set;
         }
@@ -89,14 +89,14 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         /// </summary>
         [DataObjectField(false)]
         [XmlAttribute]
-        public string Theme { get; set; }
+        public virtual string Theme { get; set; }
 
         /// <summary>
         /// The Uri for the logo to display in this application
         /// </summary>
         [DataObjectField(false)]
         [XmlAttribute]
-        public Uri LogoUri
+        public virtual Uri LogoUri
         {
             get; set;
         }
@@ -106,7 +106,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         /// </summary>
         [DataObjectField(false)]
         [XmlAttribute]
-        public String PrimaryColourHex
+        public virtual String PrimaryColourHex
         {
             get; set;
         }
@@ -116,7 +116,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         /// </summary>
         [DataObjectField(false)]
         [XmlAttribute]
-        public String DefaultTimeZone
+        public virtual String DefaultTimeZone
         {
             get; set;
         }

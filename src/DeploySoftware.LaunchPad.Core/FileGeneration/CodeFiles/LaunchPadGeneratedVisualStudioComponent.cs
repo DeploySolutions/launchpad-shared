@@ -12,23 +12,23 @@ namespace DeploySoftware.LaunchPad.Core.FileGeneration
         /// <summary>
         /// Contains information related to this object's position with a Visual Studio solution
         /// </summary>
-        public LaunchPadGeneratedVisualStudioComponentConfiguration VisualStudioConfig { get; set; }
+        public virtual LaunchPadGeneratedVisualStudioComponentConfiguration VisualStudioConfig { get; set; }
 
         /// <summary>
         /// Contains a dictionary of Property Sets belonging to this component, keyed by the property set id
         /// </summary>
-        public IDictionary<string, LaunchPadGeneratedDtoPropertySet> PropertySets { get; set; }
+        public virtual IDictionary<string, LaunchPadGeneratedDtoPropertySet> PropertySets { get; set; }
 
         /// <summary>
         /// Contains a dictionary of Application Services belonging to this component, keyed by the application service name
         /// </summary>
-        public IDictionary<string, LaunchPadGeneratedApplicationService> ApplicationServices { get; set; } 
-         
+        public virtual IDictionary<string, LaunchPadGeneratedApplicationService> ApplicationServices { get; set; }
+
 
         /// <summary>
         /// Contains a dictionary of Domain Entities belonging to this component, keyed by the domain entity name
         /// </summary>
-        public IDictionary<string, LaunchPadGeneratedDomainEntity> DomainEntities { get; set; }
+        public virtual IDictionary<string, LaunchPadGeneratedDomainEntity> DomainEntities { get; set; }
 
         public LaunchPadGeneratedVisualStudioComponent() : base()
         {

@@ -12,17 +12,17 @@ namespace DeploySoftware.LaunchPad.Core.FileGeneration
         /// <summary>
         /// Contains information related to this object's position with a Visual Studio solution
         /// </summary>
-        public LaunchPadGeneratedVisualStudioModuleConfiguration Config { get; set; }
+        public virtual LaunchPadGeneratedVisualStudioModuleConfiguration Config { get; set; }
 
         /// <summary>
         /// The id type of the entities (if any).
         /// </summary>
-        public string EntityIdType { get; set; }
+        public virtual string EntityIdType { get; set; }
 
         /// <summary>
         /// The set of components that belong to this module.
         /// </summary>
-        public IDictionary<string, LaunchPadGeneratedVisualStudioComponent> Components { get; set; }
+        public virtual IDictionary<string, LaunchPadGeneratedVisualStudioComponent> Components { get; set; }
 
         public LaunchPadGeneratedVisualStudioModule() : base()
         {

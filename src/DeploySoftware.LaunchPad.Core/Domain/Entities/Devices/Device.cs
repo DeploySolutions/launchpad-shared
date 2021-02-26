@@ -63,7 +63,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         [DataObjectField(false)]
         [XmlAttribute]
         public virtual DevicePower Power { get; set; }
-        public int? TenantId { get; set; }
+        public virtual int? TenantId { get; set; }
 
         #region "Constructors"
 

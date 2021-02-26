@@ -50,7 +50,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         [MaxLength(5, ErrorMessageResourceName = "Validation_Culture_5CharsOrLess", ErrorMessageResourceType = typeof(DeploySoftware_LaunchPad_Core_Resources))]
         [DataObjectField(true)]
         [XmlAttribute]
-        public String Culture { get; set; }
+        public virtual String Culture { get; set; }
 
 
         /// <summary>
@@ -60,7 +60,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         [MaxLength(100, ErrorMessageResourceName = "Validation_Name_100CharsOrLess", ErrorMessageResourceType = typeof(DeploySoftware_LaunchPad_Core_Resources))]
         [DataObjectField(false)]
         [XmlAttribute]
-        public String Name { get; set; }
+        public virtual String Name { get; set; }
 
         /// <summary>
         /// A short description for this entity
@@ -69,7 +69,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         [MaxLength(256, ErrorMessageResourceName = "Validation_DescriptionShort_256CharsOrLess", ErrorMessageResourceType = typeof(DeploySoftware_LaunchPad_Core_Resources))]
         [DataObjectField(false)]
         [XmlAttribute]
-        public String DescriptionShort { get; set; }
+        public virtual String DescriptionShort { get; set; }
 
         /// <summary>
         /// The full description for this entity
@@ -77,14 +77,14 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         [MaxLength(8096, ErrorMessageResourceName = "Validation_DescriptionFull_8096CharsOrLess", ErrorMessageResourceType = typeof(DeploySoftware_LaunchPad_Core_Resources))]
         [DataObjectField(false)]
         [XmlElement]
-        public string? DescriptionFull { get; set; }
+        public virtual string? DescriptionFull { get; set; }
 
         /// <summary>
         /// Each entity can have an open-ended set of tags applied to it, that help users find, markup, and display its information
         /// </summary>
         [DataObjectField(false)]
         [XmlAttribute]
-        public IEnumerable<MetadataTag> Tags { get; set; }
+        public virtual IEnumerable<MetadataTag> Tags { get; set; }
 
 
         /// <summary>
@@ -93,17 +93,17 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         /// </summary>
         [DataObjectField(true)]
         [XmlAttribute]
-        public TIdType TranslatedFromId { get; set; }
+        public virtual TIdType TranslatedFromId { get; set; }
 
         [DataObjectField(false)]
         [XmlAttribute]
-        public bool IsActive { get; set; }
+        public virtual bool IsActive { get; set; }
 
         /// <summary>
         /// A convenience readonly method to get a <see cref="CultureInfo">CultureInfo</see> instance from the current 
         /// culture code
         /// </summary>
-        public CultureInfo GetCultureInfo()
+        public virtual CultureInfo GetCultureInfo()
         {
             return new CultureInfo(Culture); 
         }
