@@ -44,7 +44,17 @@ namespace DeploySoftware.LaunchPad.Core.FileGeneration
         /// <summary>
         /// The C# type of this object
         /// </summary>
-        public virtual string ObjectType { get; set; }
+        public virtual string ObjectTypeName { get; set; }
+
+        /// <summary>
+        /// The C# full type name of this object
+        /// </summary>
+        public virtual string ObjectTypeFullName { get; set; }
+
+        /// <summary>
+        /// The assembly name in which this C# object is defined
+        /// </summary>
+        public virtual string ObjectTypeAssemblyName { get; set; }
 
         /// <summary>
         /// The C# type of this object's id.
@@ -53,7 +63,9 @@ namespace DeploySoftware.LaunchPad.Core.FileGeneration
 
         public LaunchPadGeneratedObjectBase() : base()
         {
-            ObjectType = this.GetType().Name;
+            ObjectTypeName = this.GetType().Name;
+            ObjectTypeFullName = this.GetType().FullName;
+            ObjectTypeAssemblyName = this.GetType().Assembly.FullName;
             IdType = string.Empty;
             Id = string.Empty;
             Name = string.Empty;

@@ -9,6 +9,10 @@ namespace DeploySoftware.LaunchPad.Core.FileGeneration
     [Serializable]
     public partial class LaunchPadGeneratedDocumentSolution : LaunchPadGeneratedSolutionBase
     {
+        /// <summary>
+        /// Contains configuration information related to this object's solution
+        /// </summary>
+        public new LaunchPadGeneratedDocumentSolutionConfiguration Config { get; set; }
 
         /// <summary>
         /// The dictionary of generated document set modules that belong to this solution.
@@ -17,7 +21,7 @@ namespace DeploySoftware.LaunchPad.Core.FileGeneration
 
         public LaunchPadGeneratedDocumentSolution() : base()
         {
-            Version = string.Empty;
+            Config = new LaunchPadGeneratedDocumentSolutionConfiguration();
             var comparer = StringComparer.OrdinalIgnoreCase;
             DocumentSetModules = new Dictionary<string, LaunchPadGeneratedDocumentSetModule>(comparer);
         }

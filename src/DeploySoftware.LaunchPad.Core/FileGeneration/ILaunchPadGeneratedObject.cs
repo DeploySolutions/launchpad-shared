@@ -8,6 +8,10 @@
         string Name { get; set; }
         string NamePrefix { get; set; }
         string NameSuffix { get; set; }
-        string ObjectType { get; set; }
+        string ObjectTypeName { get; set; }
+
+        string ObjectTypeFullName { get; set; }
+
+        string ObjectTypeAssemblyName { get; set; }
     }
 }

@@ -9,16 +9,14 @@ namespace DeploySoftware.LaunchPad.Core.FileGeneration
     [Serializable]
     public abstract partial class LaunchPadGeneratedSolutionBase : LaunchPadGeneratedObjectBase, ILaunchPadGeneratedSolution
     {
-
         /// <summary>
-        /// The version of this module
+        /// Contains information related to this object's Visual Studio solution (.sln)
         /// </summary>
-        public virtual string Version { get; set; }
+        public virtual ILaunchPadGeneratedSolutionConfiguration Config { get; set; }
 
 
         public LaunchPadGeneratedSolutionBase() : base()
         {
-            Version = string.Empty;
         }
     }
 }

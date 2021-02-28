@@ -10,7 +10,7 @@ namespace DeploySoftware.LaunchPad.Core.FileGeneration
     public partial class LaunchPadGeneratedVisualStudioModule : LaunchPadGeneratedModuleBase
     {
         /// <summary>
-        /// Contains information related to this object's position with a Visual Studio solution
+        /// Contains information related to this object's Visual Studio solution (.sln)
         /// </summary>
         public virtual LaunchPadGeneratedVisualStudioModuleConfiguration Config { get; set; }
 

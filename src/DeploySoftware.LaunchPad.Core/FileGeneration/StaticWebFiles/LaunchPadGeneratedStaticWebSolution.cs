@@ -17,7 +17,6 @@ namespace DeploySoftware.LaunchPad.Core.FileGeneration
 
         public LaunchPadGeneratedStaticWebSolution() : base()
         {
-            Version = string.Empty; 
             var comparer = StringComparer.OrdinalIgnoreCase;
             StaticWebModules = new Dictionary<string, LaunchPadGeneratedStaticWebModule>(comparer);
         }

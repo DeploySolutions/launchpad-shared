@@ -2,6 +2,10 @@
 {
     public interface ILaunchPadGeneratedSolution : ILaunchPadGeneratedObject
     {
-        string Version { get; set; }
+        /// <summary>
+        /// Contains configuration information related to this object's solution (.sln)
+        /// </summary>
+        public ILaunchPadGeneratedSolutionConfiguration Config { get; set; }
+
     }
 }

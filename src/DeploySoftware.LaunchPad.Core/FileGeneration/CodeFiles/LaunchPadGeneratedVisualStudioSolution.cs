@@ -9,6 +9,10 @@ namespace DeploySoftware.LaunchPad.Core.FileGeneration
     [Serializable]
     public partial class LaunchPadGeneratedVisualStudioSolution : LaunchPadGeneratedStaticWebSolution
     {
+        /// <summary>
+        /// Contains information related to this object's Visual Studio solution (.sln)
+        /// </summary>
+        public new LaunchPadGeneratedVisualStudioSolutionConfiguration Config { get; set; }
 
         /// <summary>
         /// The list of generated Visual Studio modules that belong to this solution.
@@ -22,7 +26,7 @@ namespace DeploySoftware.LaunchPad.Core.FileGeneration
 
         public LaunchPadGeneratedVisualStudioSolution() : base()
         {
-            Version = string.Empty;
+            Config = new LaunchPadGeneratedVisualStudioSolutionConfiguration(); 
             VisualStudioModules = new List<LaunchPadGeneratedVisualStudioModule>();
             DocumentSetModules = new List<LaunchPadGeneratedDocumentSetModule>();
         }
