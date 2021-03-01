@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace DeploySoftware.LaunchPad.Core.FileGeneration
 {
-    public interface ILaunchPadGeneratedSolutionConfiguration
+    public interface ILaunchPadGeneratedSolutionConfiguration : ILaunchPadGeneratedConfiguration
     {
+ 
     }
 }
