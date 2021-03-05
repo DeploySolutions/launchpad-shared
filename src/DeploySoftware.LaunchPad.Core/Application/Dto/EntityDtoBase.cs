@@ -35,13 +35,21 @@ namespace DeploySoftware.LaunchPad.Core.Application.Dto
     /// </summary>
     /// <typeparam name="TIdType">The type of the Id</typeparam>
 
-    public abstract partial class EntityDtoBase<TIdType> : EntityDto<TIdType>,
+    public abstract partial class EntityDtoBase<TIdType> : IEntityDto<TIdType>,
         IComparable<EntityDtoBase<TIdType>>, IEquatable<EntityDtoBase<TIdType>>
     {
-        
         /// <summary>
         /// The culture of this object
         /// </summary>
+        [Required]
+        [DataObjectField(true)]
+        [XmlAttribute]
+        public TIdType Id { get; set; }
+
+        /// <summary>
+        /// The culture of this object
+        /// </summary>
+        [Required]
         [DataObjectField(true)]
         [XmlAttribute]
         [MaxLength(5, ErrorMessageResourceName = "Validation_Culture_5CharsOrLess", ErrorMessageResourceType = typeof(DeploySoftware_LaunchPad_Core_Resources))]
@@ -53,7 +61,7 @@ namespace DeploySoftware.LaunchPad.Core.Application.Dto
         /// <summary>
         /// Default constructor
         /// </summary>
-        protected EntityDtoBase() : base()
+        protected EntityDtoBase()
         {
             Culture = ApplicationInformation<TIdType>.DEFAULT_CULTURE;
         }
@@ -62,7 +70,7 @@ namespace DeploySoftware.LaunchPad.Core.Application.Dto
         /// Default constructor where the id is known
         /// </summary>
         /// <param name="id"></param>
-        public EntityDtoBase(TIdType id) : base(id)
+        public EntityDtoBase(TIdType id)
         {
             Id = id;
             Culture = ApplicationInformation<TIdType>.DEFAULT_CULTURE;
