@@ -43,7 +43,7 @@ namespace DeploySoftware.LaunchPad.Core.Application.Dto
         /// <summary>
         /// Default constructor
         /// </summary>
-        protected GetAllAdminInputDtoBase() : base()
+        public GetAllAdminInputDtoBase() : base()
         {
             Culture = ApplicationInformation<TIdType>.DEFAULT_CULTURE;
         }

@@ -13,6 +13,13 @@ namespace DeploySoftware.LaunchPad.Core.Application.Dto
 {
     public abstract partial class CreateUpdateInputDtoBase<TIdType> : EntityDtoBase<TIdType>
     {
+        /// <summary>
+        /// The culture of this object
+        /// </summary>
+        [DataObjectField(true)]
+        [XmlAttribute]
+        [MaxLength(5, ErrorMessageResourceName = "Validation_Culture_5CharsOrLess", ErrorMessageResourceType = typeof(DeploySoftware_LaunchPad_Core_Resources))]
+        public virtual String Culture { get; set; }
 
         /// <summary>
         /// If this object is not a translation this field will be null. 
@@ -54,7 +61,7 @@ namespace DeploySoftware.LaunchPad.Core.Application.Dto
         /// <summary>
         /// Default constructor
         /// </summary>
-        protected CreateUpdateInputDtoBase() : base()
+        public CreateUpdateInputDtoBase() : base()
         {
             Culture = ApplicationInformation<TIdType>.DEFAULT_CULTURE;
             Name = string.Empty;

@@ -9,14 +9,14 @@ namespace DeploySoftware.LaunchPad.Core.Application.Dto
 {
     public abstract partial class GetAllDetailInputDtoBase<TIdType> : GetAllInputDtoBase<TIdType>
     {
-        
+
 
         #region "Constructors"
 
         /// <summary>
         /// Default constructor
         /// </summary>
-        protected GetAllDetailInputDtoBase() : base()
+        public GetAllDetailInputDtoBase() : base()
         {
             Culture = ApplicationInformation<TIdType>.DEFAULT_CULTURE;
         }

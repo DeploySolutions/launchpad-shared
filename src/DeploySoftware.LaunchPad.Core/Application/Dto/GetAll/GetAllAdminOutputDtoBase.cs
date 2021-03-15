@@ -9,13 +9,13 @@ namespace DeploySoftware.LaunchPad.Core.Application.Dto
 {
     public abstract partial class GetAllAdminOutputDtoBase<TIdType> : GetAllDetailOutputDtoBase<TIdType>
     {
-        
+
         #region "Constructors"
 
         /// <summary>
         /// Default constructor
         /// </summary>
-        protected GetAllAdminOutputDtoBase() : base()
+        public GetAllAdminOutputDtoBase() : base()
         {
 
         }

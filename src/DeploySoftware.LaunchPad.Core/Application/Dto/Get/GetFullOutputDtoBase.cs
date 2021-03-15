@@ -47,7 +47,7 @@ namespace DeploySoftware.LaunchPad.Core.Application.Dto
         /// <summary>
         /// Default constructor
         /// </summary>
-        protected GetFullOutputDtoBase() : base()
+        public GetFullOutputDtoBase() : base()
         {
             Culture = ApplicationInformation<TIdType>.DEFAULT_CULTURE;
             IsActive = true;

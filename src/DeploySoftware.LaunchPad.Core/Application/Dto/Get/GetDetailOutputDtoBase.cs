@@ -55,7 +55,7 @@ namespace DeploySoftware.LaunchPad.Core.Application.Dto
         /// <summary>
         /// Default constructor
         /// </summary>
-        protected GetDetailOutputDtoBase() : base()
+        public GetDetailOutputDtoBase() : base()
         {
             Culture = ApplicationInformation<TIdType>.DEFAULT_CULTURE;
             DescriptionShort = string.Empty;

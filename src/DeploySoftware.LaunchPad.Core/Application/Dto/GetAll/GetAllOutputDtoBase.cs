@@ -31,7 +31,7 @@ namespace DeploySoftware.LaunchPad.Core.Application.Dto
         /// <summary>
         /// Default constructor
         /// </summary>
-        protected GetAllOutputDtoBase() : base()
+        public GetAllOutputDtoBase() : base()
         {
         }
 

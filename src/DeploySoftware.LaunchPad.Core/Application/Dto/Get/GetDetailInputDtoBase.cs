@@ -9,7 +9,7 @@ namespace DeploySoftware.LaunchPad.Core.Application.Dto
         /// <summary>
         /// Default constructor
         /// </summary>
-        protected GetDetailInputDtoBase() : base()
+        public GetDetailInputDtoBase() : base()
         {
 
         }

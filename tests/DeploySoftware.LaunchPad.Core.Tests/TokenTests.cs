@@ -133,10 +133,8 @@ namespace DeploySoftware.LaunchPad.Core.Tests
                                     }";
             var token = new LaunchPadToken("{{p:dss|n:domain_namespace}}");
             token.Value = "Deploy.DeploymentGateway";
-            List<LaunchPadToken> tokens = new List<LaunchPadToken>
-            {
-                token
-            };
+            IDictionary<string, LaunchPadToken> tokens = new Dictionary<string, LaunchPadToken>();
+            tokens.Add(token.Name, token);
             LaunchPadTokenizer tokenizer = new LaunchPadTokenizer();
             tokenizer.Tokenize(originalText, tokens);
             Assert.Equal(expectedResult, tokenizer.TokenizedText);

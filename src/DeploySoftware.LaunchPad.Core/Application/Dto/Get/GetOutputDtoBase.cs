@@ -14,6 +14,13 @@ namespace DeploySoftware.LaunchPad.Core.Application.Dto
     public abstract partial class GetOutputDtoBase<TIdType> : EntityDtoBase<TIdType>, 
         ICanBeAppServiceMethodOutput
     {
+        /// <summary>
+        /// The culture of this object
+        /// </summary>
+        [DataObjectField(true)]
+        [XmlAttribute]
+        [MaxLength(5, ErrorMessageResourceName = "Validation_Culture_5CharsOrLess", ErrorMessageResourceType = typeof(DeploySoftware_LaunchPad_Core_Resources))]
+        public virtual String Culture { get; set; }
 
         /// <summary>
         /// The display name that can be displayed as a label externally to users when referring to this object
@@ -31,7 +38,7 @@ namespace DeploySoftware.LaunchPad.Core.Application.Dto
         /// <summary>
         /// Default constructor
         /// </summary>
-        protected GetOutputDtoBase() : base()
+        public GetOutputDtoBase() : base()
         {
             Culture = ApplicationInformation<TIdType>.DEFAULT_CULTURE;
             Name = string.Empty;
@@ -63,10 +70,11 @@ namespace DeploySoftware.LaunchPad.Core.Application.Dto
         protected GetOutputDtoBase(SerializationInfo info, StreamingContext context) : base(info,context)
         {
             Name = info.GetString("DisplayName");
+            Culture = info.GetString("Culture");
         }
 
         #endregion
-
+        
         /// <summary>
         /// The method required for implementing ISerializable
         /// </summary>
@@ -76,6 +84,7 @@ namespace DeploySoftware.LaunchPad.Core.Application.Dto
         {
             base.GetObjectData(info, context);
             info.AddValue("Name", Name);
+            info.AddValue("Culture", Culture);
         }
 
         /// <summary>  

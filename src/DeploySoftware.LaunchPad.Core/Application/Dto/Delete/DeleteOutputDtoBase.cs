@@ -14,7 +14,7 @@ namespace DeploySoftware.LaunchPad.Core.Application.Dto
         /// <summary>
         /// Default constructor
         /// </summary>
-        protected DeleteOutputDtoBase() : base()
+        public DeleteOutputDtoBase() : base()
         {
 
         }

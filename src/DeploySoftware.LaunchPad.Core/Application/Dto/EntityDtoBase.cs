@@ -46,24 +46,14 @@ namespace DeploySoftware.LaunchPad.Core.Application.Dto
         [XmlAttribute]
         public TIdType Id { get; set; }
 
-        /// <summary>
-        /// The culture of this object
-        /// </summary>
-        [Required]
-        [DataObjectField(true)]
-        [XmlAttribute]
-        [MaxLength(5, ErrorMessageResourceName = "Validation_Culture_5CharsOrLess", ErrorMessageResourceType = typeof(DeploySoftware_LaunchPad_Core_Resources))]
-        public virtual String Culture { get; set; }
 
-        
         #region "Constructors"
 
         /// <summary>
         /// Default constructor
         /// </summary>
-        protected EntityDtoBase()
+        public EntityDtoBase()
         {
-            Culture = ApplicationInformation<TIdType>.DEFAULT_CULTURE;
         }
 
         /// <summary>
@@ -73,7 +63,6 @@ namespace DeploySoftware.LaunchPad.Core.Application.Dto
         public EntityDtoBase(TIdType id)
         {
             Id = id;
-            Culture = ApplicationInformation<TIdType>.DEFAULT_CULTURE;
         }
 
      
@@ -85,7 +74,6 @@ namespace DeploySoftware.LaunchPad.Core.Application.Dto
         protected EntityDtoBase(SerializationInfo info, StreamingContext context)
         {
             Id = (TIdType)info.GetValue("Id", typeof(TIdType));
-            Culture = info.GetString("Culture");
         }
 
         #endregion
@@ -98,8 +86,6 @@ namespace DeploySoftware.LaunchPad.Core.Application.Dto
         public virtual void GetObjectData(SerializationInfo info, StreamingContext context)
         {
             info.AddValue("Id", Id);
-            info.AddValue("Culture", Culture);
-
         }
 
         /// <summary>  
@@ -125,7 +111,6 @@ namespace DeploySoftware.LaunchPad.Core.Application.Dto
             StringBuilder sb = new StringBuilder();
             // LaunchPAD RAD properties
             sb.AppendFormat("Id={0};", Id);
-            sb.AppendFormat("Culture={0};", Culture);
             // ABP properties
 
             return sb.ToString();
@@ -161,10 +146,8 @@ namespace DeploySoftware.LaunchPad.Core.Application.Dto
         public virtual int CompareTo(EntityDtoBase<TIdType> other)
         {
             // put comparison of properties in here 
-            // for base object we'll just sort by id and culture
-            return Id.ToString().CompareTo(other.Id.ToString())
-                + Culture.CompareTo(other.Culture)
-                ;
+            // for base object we'll just sort by id
+            return Id.ToString().CompareTo(other.Id.ToString());
         }
 
         /// <summary>
@@ -194,7 +177,7 @@ namespace DeploySoftware.LaunchPad.Core.Application.Dto
         {
             if (obj != null)
             {
-                return Id.Equals(obj.Id) && Culture.Equals(obj.Culture);
+                return Id.Equals(obj.Id);
             }
             return false;
         }
@@ -238,7 +221,7 @@ namespace DeploySoftware.LaunchPad.Core.Application.Dto
         /// <returns>A hash code for an object.</returns>
         public override int GetHashCode()
         {
-            return Id.GetHashCode() + Culture.GetHashCode();
+            return Id.GetHashCode();
         }
 
     }
