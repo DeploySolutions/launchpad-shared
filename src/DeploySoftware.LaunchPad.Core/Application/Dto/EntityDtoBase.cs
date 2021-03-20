@@ -39,9 +39,8 @@ namespace DeploySoftware.LaunchPad.Core.Application.Dto
         IComparable<EntityDtoBase<TIdType>>, IEquatable<EntityDtoBase<TIdType>>
     {
         /// <summary>
-        /// The culture of this object
+        /// The id of this object
         /// </summary>
-        [Required]
         [DataObjectField(true)]
         [XmlAttribute]
         public TIdType Id { get; set; }

@@ -1,11 +1,9 @@
-﻿using Abp.Domain.Entities;
-using DeploySoftware.LaunchPad.Core.Domain;
+﻿using DeploySoftware.LaunchPad.Core.Domain;
 using System;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Reflection;
 using System.Runtime.Serialization;
-using System.Security.Permissions;
 using System.Text;
 using System.Xml.Serialization;
 
@@ -20,7 +18,7 @@ namespace DeploySoftware.LaunchPad.Core.Application.Dto
         [DataObjectField(true)]
         [XmlAttribute]
         [MaxLength(5, ErrorMessageResourceName = "Validation_Culture_5CharsOrLess", ErrorMessageResourceType = typeof(DeploySoftware_LaunchPad_Core_Resources))]
-        public virtual String Culture { get; set; }
+        public virtual string Culture { get; set; }
 
         /// <summary>
         /// The display name that can be displayed as a label externally to users when referring to this object
@@ -29,8 +27,7 @@ namespace DeploySoftware.LaunchPad.Core.Application.Dto
         [DataObjectField(false)]
         [XmlAttribute]
         [MaxLength(100, ErrorMessageResourceName = "Validation_Name_100CharsOrLess", ErrorMessageResourceType = typeof(DeploySoftware_LaunchPad_Core_Resources))]
-        [Required]
-        public virtual String Name { get; set; }
+        public virtual string Name { get; set; }
 
 
         #region "Constructors"
