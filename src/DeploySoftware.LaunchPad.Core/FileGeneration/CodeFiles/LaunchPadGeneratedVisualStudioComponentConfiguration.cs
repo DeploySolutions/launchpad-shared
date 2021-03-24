@@ -14,6 +14,11 @@ namespace DeploySoftware.LaunchPad.Core.FileGeneration
         public virtual string ProjectName { get; set; }
 
         /// <summary>
+        /// The name of the Visual Studio project folder, in which this generated object will belong.
+        /// </summary>
+        public virtual string SubFolderName { get; set; }
+
+        /// <summary>
         /// The app service base class from which all app services inherit.
         /// </summary>
         public virtual string BaseAppServiceClass { get; set; }
@@ -26,6 +31,7 @@ namespace DeploySoftware.LaunchPad.Core.FileGeneration
         public LaunchPadGeneratedVisualStudioComponentConfiguration() : base()
         {
             ProjectName = string.Empty;
+            SubFolderName = string.Empty;
             BaseAppServiceClass = string.Empty;
             BaseAppServiceClassAnnotations = string.Empty;
         }
