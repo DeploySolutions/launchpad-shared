@@ -15,6 +15,11 @@ namespace DeploySoftware.LaunchPad.Core.FileGeneration
         public virtual ILaunchPadGeneratedSolutionConfiguration Config { get; set; }
 
 
+        /// <summary>
+        /// The set of components that belong to this module.
+        /// </summary>
+        public virtual IDictionary<string, ILaunchPadGeneratedModule> Modules { get; set; }
+
         public LaunchPadGeneratedSolutionBase() : base()
         {
         }
