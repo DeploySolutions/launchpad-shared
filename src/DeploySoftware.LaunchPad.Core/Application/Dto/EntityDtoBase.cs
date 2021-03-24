@@ -43,7 +43,7 @@ namespace DeploySoftware.LaunchPad.Core.Application.Dto
         /// </summary>
         [DataObjectField(true)]
         [XmlAttribute]
-        public TIdType Id { get; set; }
+        public virtual TIdType Id { get; set; }
 
 
         #region "Constructors"

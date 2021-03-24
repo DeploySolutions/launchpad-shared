@@ -12,7 +12,7 @@ namespace DeploySoftware.LaunchPad.Core.FileGeneration
         /// The folder in which this item can be located, relative to its parent (LaunchPadGeneratedObject) object's folder.
         /// If it's empty, it is located in the same folder as its parent object.
         /// </summary>
-        public string RelativeFolderPathFromParentObjectFolder { get; set; }
+        public string RelativeStartingPathFromParent { get; set; }
 
         /// <summary>
         /// The version of this module
@@ -24,7 +24,7 @@ namespace DeploySoftware.LaunchPad.Core.FileGeneration
         public LaunchPadGeneratedConfigurationBase()
         {
             Repository = new SourceControlRepository();
-            RelativeFolderPathFromParentObjectFolder = string.Empty;
+            RelativeStartingPathFromParent = string.Empty;
             Version = string.Empty;
         }
 

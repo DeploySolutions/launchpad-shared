@@ -9,10 +9,16 @@ namespace DeploySoftware.LaunchPad.Core.FileGeneration
     public interface ILaunchPadGeneratedConfiguration
     {
         /// <summary>
-        /// The folder in which this item can be located, relative to its parent (LaunchPadGeneratedObject) object's folder.
-        /// If it's empty, it is located in the same folder as its parent object.
+        /// The starting folder in which this item is located, relative to its parent object's folder.
+        /// The folder structure can be nested deeper than this if required by the assembly code.
+        /// For instance, the folder hierarchy of an "angular front-end" component belonging to a parent "collaboration portal" module in a space app 
+        /// might look like:
+        /// [space app folder name]
+        ///     => [collaboration portal folder name]
+        ///         => angular
+        /// If this value is empty, it uses the same starting folder as its parent object.
         /// </summary>
-        public string RelativeFolderPathFromParentObjectFolder { get; set; }
+        public string RelativeStartingPathFromParent { get; set; }
 
         /// <summary>
         /// The version of this module
