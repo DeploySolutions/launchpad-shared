@@ -17,13 +17,13 @@ namespace DeploySoftware.LaunchPad.Core.FileGeneration
         /// <summary>
         /// The namespace of the generated item.
         /// </summary>
-        public virtual string SolutionBaseNamespace { get; set; }
+        public virtual string BaseNamespace { get; set; }
 
 
         public LaunchPadGeneratedVisualStudioModuleConfiguration() : base()
         {
             VisualStudioSolutionName = string.Empty;
-            SolutionBaseNamespace = string.Empty;
+            BaseNamespace = string.Empty;
         }
     }
 }

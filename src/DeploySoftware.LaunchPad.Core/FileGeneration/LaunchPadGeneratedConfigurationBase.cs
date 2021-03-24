@@ -15,6 +15,11 @@ namespace DeploySoftware.LaunchPad.Core.FileGeneration
         public string RelativeStartingPathFromParent { get; set; }
 
         /// <summary>
+        /// The comma-delimited list of cultures this item can support
+        /// </summary>
+        public string SupportedCultures { get; set; }
+
+        /// <summary>
         /// The version of this module
         /// </summary>
         public virtual string Version { get; set; }
@@ -25,6 +30,7 @@ namespace DeploySoftware.LaunchPad.Core.FileGeneration
         {
             Repository = new SourceControlRepository();
             RelativeStartingPathFromParent = string.Empty;
+            SupportedCultures = string.Empty; 
             Version = string.Empty;
         }
 

@@ -25,6 +25,11 @@ namespace DeploySoftware.LaunchPad.Core.FileGeneration
         /// </summary>
         public string Version { get; set; }
 
+        /// <summary>
+        /// The comma-delimited list of cultures this item can support
+        /// </summary>
+        public string SupportedCultures { get; set; }
+
         public SourceControlRepository Repository { get; set; }
 
     }
