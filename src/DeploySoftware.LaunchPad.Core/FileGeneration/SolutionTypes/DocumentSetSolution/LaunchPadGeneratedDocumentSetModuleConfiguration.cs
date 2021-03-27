@@ -5,7 +5,7 @@ using System.Text;
 namespace DeploySoftware.LaunchPad.Core.FileGeneration
 {
     [Serializable]
-    public partial class LaunchPadGeneratedDocumentSetModuleConfiguration : LaunchPadGeneratedConfigurationBase
+    public partial class LaunchPadGeneratedDocumentSetModuleConfiguration : LaunchPadGeneratedConfiguration
     {
 
         /// <summary>

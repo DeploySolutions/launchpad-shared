@@ -1,16 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace DeploySoftware.LaunchPad.Core.FileGeneration
 {
     [Serializable]
-    public partial class LaunchPadGeneratedSolutionConfiguration : LaunchPadGeneratedConfigurationBase, ILaunchPadGeneratedSolutionConfiguration
+    public partial class LaunchPadGeneratedSolutionConfiguration : LaunchPadGeneratedConfiguration
     {
         
-        public LaunchPadGeneratedSolutionConfiguration() : base()
+        public LaunchPadGeneratedSolutionConfiguration()
         {
-           
         }
+
     }
 }

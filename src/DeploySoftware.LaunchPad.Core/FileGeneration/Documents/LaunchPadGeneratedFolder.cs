@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace DeploySoftware.LaunchPad.Core.FileGeneration
 {
+    [Serializable]
     public partial class LaunchPadGeneratedFolder : LaunchPadGeneratedObjectBase
     {
         public virtual IList<LaunchPadGeneratedFolder> SubFolders { get; set; }

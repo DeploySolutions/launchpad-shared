@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace DeploySoftware.LaunchPad.Core.FileGeneration
 {
-    public abstract partial class LaunchPadGeneratedConfigurationBase : ILaunchPadGeneratedConfiguration
+    [Serializable]
+    public partial class LaunchPadGeneratedConfiguration
     {
         /// <summary>
         /// The folder in which this item can be located, relative to its parent (LaunchPadGeneratedObject) object's folder.
@@ -26,7 +27,7 @@ namespace DeploySoftware.LaunchPad.Core.FileGeneration
 
         public virtual SourceControlRepository Repository { get; set; }
 
-        public LaunchPadGeneratedConfigurationBase()
+        public LaunchPadGeneratedConfiguration()
         {
             Repository = new SourceControlRepository();
             RelativeStartingPathFromParent = string.Empty;

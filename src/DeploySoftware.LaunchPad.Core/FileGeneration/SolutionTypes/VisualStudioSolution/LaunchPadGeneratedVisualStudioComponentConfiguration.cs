@@ -5,8 +5,19 @@ using System.Text;
 namespace DeploySoftware.LaunchPad.Core.FileGeneration
 {
     [Serializable]
-    public partial class LaunchPadGeneratedVisualStudioComponentConfiguration : LaunchPadGeneratedVisualStudioModuleConfiguration
+    public partial class LaunchPadGeneratedVisualStudioComponentConfiguration : 
+        LaunchPadGeneratedConfiguration
     {
+        /// The name of the Visual Studio solution (.sln) in which this generated module will belong.
+        /// Note: this solution configuration is deliberately placed at the Visual Studio Module level, 
+        /// and is not the same as a LaunchPadGeneratedSolution object.
+        /// </summary>
+        public virtual string VisualStudioSolutionName { get; set; }
+
+        /// <summary>
+        /// The namespace of the generated item.
+        /// </summary>
+        public virtual string BaseNamespace { get; set; }
 
         /// <summary>
         /// The name of the Visual Studio project in which this generated object will belong.
@@ -30,8 +41,10 @@ namespace DeploySoftware.LaunchPad.Core.FileGeneration
 
         public LaunchPadGeneratedVisualStudioComponentConfiguration() : base()
         {
+            VisualStudioSolutionName = string.Empty;
             ProjectName = string.Empty;
             SubFolderName = string.Empty;
+            BaseNamespace = string.Empty;
             BaseAppServiceClass = string.Empty;
             BaseAppServiceClassAnnotations = string.Empty;
         }

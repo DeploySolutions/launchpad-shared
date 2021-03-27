@@ -10,7 +10,6 @@ namespace DeploySoftware.LaunchPad.Core.FileGeneration
     public partial class LaunchPadGeneratedStaticStylesheet : LaunchPadGeneratedObjectBase
     {
 
-
         public LaunchPadGeneratedStaticStylesheet() : base()
         {
            

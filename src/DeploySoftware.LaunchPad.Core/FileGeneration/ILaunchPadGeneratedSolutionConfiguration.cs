@@ -8,6 +8,6 @@ namespace DeploySoftware.LaunchPad.Core.FileGeneration
 {
     public interface ILaunchPadGeneratedSolutionConfiguration : ILaunchPadGeneratedConfiguration
     {
- 
+        
     }
 }

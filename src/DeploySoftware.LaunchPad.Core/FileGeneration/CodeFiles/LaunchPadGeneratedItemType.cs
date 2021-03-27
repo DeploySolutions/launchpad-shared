@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace DeploySoftware.LaunchPad.Core.FileGeneration
 {
+    [Serializable]
     public enum LaunchPadGeneratedItemType
     {
         Custom = 0,

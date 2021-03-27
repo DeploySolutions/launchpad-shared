@@ -5,7 +5,7 @@ using System.Text;
 namespace DeploySoftware.LaunchPad.Core.FileGeneration
 {
     [Serializable]
-    public partial class LaunchPadGeneratedVisualStudioModuleConfiguration : LaunchPadGeneratedConfigurationBase
+    public partial class LaunchPadGeneratedVisualStudioModuleConfiguration : LaunchPadGeneratedConfiguration
     {
         /// <summary>
         /// The name of the Visual Studio solution (.sln) in which this generated module will belong.
