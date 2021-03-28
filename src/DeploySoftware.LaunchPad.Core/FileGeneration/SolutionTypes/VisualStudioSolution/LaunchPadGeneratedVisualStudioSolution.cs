@@ -9,10 +9,6 @@ namespace DeploySoftware.LaunchPad.Core.FileGeneration
     [Serializable]
     public partial class LaunchPadGeneratedVisualStudioSolution : LaunchPadGeneratedSolution
     {
-        /// <summary>
-        /// Contains configuration information related to this object's solution
-        /// </summary>
-        public new LaunchPadGeneratedVisualStudioSolutionConfiguration Config { get; set; }
 
         /// <summary>
         /// The list of generated Visual Studio modules that belong to this solution.
@@ -36,7 +32,6 @@ namespace DeploySoftware.LaunchPad.Core.FileGeneration
             VisualStudioModules = new Dictionary<string,LaunchPadGeneratedVisualStudioModule>(comparer);
             DocumentSetModules = new Dictionary<string, LaunchPadGeneratedDocumentSetModule>(comparer);
             StaticWebModules = new Dictionary<string, LaunchPadGeneratedStaticWebModule>(comparer);
-            Config = new LaunchPadGeneratedVisualStudioSolutionConfiguration();
         }
     }
 }
