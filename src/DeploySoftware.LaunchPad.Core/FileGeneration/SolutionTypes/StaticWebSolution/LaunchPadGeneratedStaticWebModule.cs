@@ -16,19 +16,21 @@ namespace DeploySoftware.LaunchPad.Core.FileGeneration
             LaunchPadGeneratedConfiguration>
     {
         /// <summary>
-        /// The list of static web pages that belong to this module.
+        /// The dictionary of static web pages that belong to this module.
         /// </summary>
-        public virtual IList<LaunchPadGeneratedStaticWebPage> StaticWebPages { get; set; }
+        public virtual IDictionary<string,LaunchPadGeneratedStaticWebPage> StaticWebPages { get; set; }
 
         /// <summary>
-        /// The list of static stylesheets (.css) that belong to this module.
+        /// The dictionary of dynamicaly-generated stylesheets (LESS or SASS compiled into CSS) that belong to this module.
         /// </summary>
-        public virtual IList<LaunchPadGeneratedStaticStylesheet> Stylesheets { get; set; }
+        public virtual IDictionary<string, LaunchPadGeneratedStylesheet> Stylesheets { get; set; }
+
 
         public LaunchPadGeneratedStaticWebModule() : base()
         {
-            StaticWebPages = new List<LaunchPadGeneratedStaticWebPage>();
-            Stylesheets = new List<LaunchPadGeneratedStaticStylesheet>();
+            var comparer = StringComparer.OrdinalIgnoreCase;
+            StaticWebPages = new Dictionary<string,LaunchPadGeneratedStaticWebPage>(comparer);
+            Stylesheets = new Dictionary<string,LaunchPadGeneratedStylesheet>(comparer);
         }
 
     }

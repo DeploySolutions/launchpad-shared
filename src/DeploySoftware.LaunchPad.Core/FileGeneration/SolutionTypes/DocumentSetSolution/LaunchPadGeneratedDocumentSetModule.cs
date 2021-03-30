@@ -19,17 +19,18 @@ namespace DeploySoftware.LaunchPad.Core.FileGeneration
         /// <summary>
         /// The list of folders that belong to this module.
         /// </summary>
-        public virtual IList<LaunchPadGeneratedFolder> Folders { get; set; }
+        public virtual IDictionary<string, LaunchPadGeneratedFolder> Folders { get; set; }
 
         /// <summary>
         /// The list of documents that belong to this module.
         /// </summary>
-        public virtual IList<LaunchPadGeneratedDocument> Documents { get; set; }
+        public virtual IDictionary<string, LaunchPadGeneratedDocument> Documents { get; set; }
 
         public LaunchPadGeneratedDocumentSetModule() : base()
         {
-            Folders = new List<LaunchPadGeneratedFolder>(); 
-            Documents = new List<LaunchPadGeneratedDocument>();
+            var comparer = StringComparer.OrdinalIgnoreCase;
+            Folders = new Dictionary<string,LaunchPadGeneratedFolder>(comparer); 
+            Documents = new Dictionary<string, LaunchPadGeneratedDocument>(comparer);
         }
 
     }
