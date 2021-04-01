@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Xml.Serialization;
 
 namespace DeploySoftware.LaunchPad.Core.FileGeneration
 {
@@ -17,26 +15,42 @@ namespace DeploySoftware.LaunchPad.Core.FileGeneration
             LaunchPadGeneratedConfiguration>
     {
         /// <summary>
-        /// The list of angular modules that belong to this module.
+        /// Brand configuration of the app. Thsi could include name, icon, logo and/or theme color.
         /// </summary>
-        public virtual IDictionary<string, LaunchPadGeneratedAngularModule> AngularModules { get; set; }
+        [XmlElement]
+        public LaunchPadBrand Brand { get; set; }
+
+        /// <summary>
+        /// The top section of the side navigation bar
+        /// </summary>
+        [XmlElement]
+        public IList<LaunchPadNavigation> TopNavigations { get; set; }
+
+        /// <summary>
+        /// The bottom section of the side navigation bar
+        /// </summary>
+        [XmlElement]
+        public IList<LaunchPadNavigation> BottomNavigations { get; set; }
 
         /// <summary>
         /// The list of static web pages that belong to this module.
         /// </summary>
+        [XmlElement]
         public virtual IDictionary<string, LaunchPadGeneratedStaticWebPage> StaticWebPages { get; set; }
 
         /// <summary>
         /// The dictionary of dynamic stylesheets (.less or .sass) that belong to this module.
         /// </summary>
+        [XmlElement]
         public virtual IDictionary<string, LaunchPadGeneratedStylesheet> Stylesheets { get; set; }
 
         public LaunchPadGeneratedWebClientModule() : base()
         {
-            var comparer = StringComparer.OrdinalIgnoreCase;
-            AngularModules = new Dictionary<string, LaunchPadGeneratedAngularModule>(comparer);
-            StaticWebPages = new Dictionary<string, LaunchPadGeneratedStaticWebPage>(comparer);
-            Stylesheets = new Dictionary<string, LaunchPadGeneratedStylesheet>(comparer);
+            Brand = new LaunchPadBrand();
+            TopNavigations = new List<LaunchPadNavigation>();
+            BottomNavigations = new List<LaunchPadNavigation>();
+            //StaticWebPages = new Dictionary<string, LaunchPadGeneratedStaticWebPage>(comparer);
+            //Stylesheets = new Dictionary<string, LaunchPadGeneratedStylesheet>(comparer);
         }
 
     }

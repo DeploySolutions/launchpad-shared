@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 
 namespace DeploySoftware.LaunchPad.Core.FileGeneration
 {
+    public enum Authentication { Tenant, User, None }
+
     [Serializable]
     public partial class LaunchPadGeneratedConfiguration
     {
@@ -25,6 +27,14 @@ namespace DeploySoftware.LaunchPad.Core.FileGeneration
         /// </summary>
         public virtual string Version { get; set; }
 
+        /// <summary>
+        /// Authentication type:
+        /// - tenant (default) = During the login, the user have an option to select which tenant they want to login to
+        /// - user = Login without tenant selection
+        /// - none = Does not require login
+        /// </summary>
+        public Authentication Authentication { get; set; }
+
         public virtual SourceControlRepository Repository { get; set; }
 
         public LaunchPadGeneratedConfiguration()
@@ -33,6 +43,7 @@ namespace DeploySoftware.LaunchPad.Core.FileGeneration
             RelativeStartingPathFromParent = string.Empty;
             SupportedCultures = string.Empty; 
             Version = string.Empty;
+            Authentication = Authentication.Tenant;
         }
 
     }
