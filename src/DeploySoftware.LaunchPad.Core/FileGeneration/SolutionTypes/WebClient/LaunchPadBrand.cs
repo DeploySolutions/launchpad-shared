@@ -26,9 +26,8 @@ namespace DeploySoftware.LaunchPad.Core.FileGeneration
         public string Favicon { get; set; }
 
 
-        public LaunchPadBrand()
+        public LaunchPadBrand() : base()
         {
-            Name = string.Empty;
             Logo = string.Empty;
             Favicon = string.Empty;
         }

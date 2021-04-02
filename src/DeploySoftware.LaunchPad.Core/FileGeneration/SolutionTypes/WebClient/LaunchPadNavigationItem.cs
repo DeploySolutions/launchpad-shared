@@ -7,8 +7,8 @@ namespace DeploySoftware.LaunchPad.Core.FileGeneration
     /// Represents a navigation menu item on the UI
     /// </summary>  
     [Serializable]
-    [XmlRoot(ElementName = "Navigation")]
-    public partial class LaunchPadNavigation : LaunchPadWebClientObjectBase
+    [XmlRoot(ElementName = "NavigationItem")]
+    public partial class LaunchPadNavigationItem : LaunchPadWebClientObjectBase
     {
         /// <summary>
         /// Route to the page to open from this menu
@@ -26,14 +26,13 @@ namespace DeploySoftware.LaunchPad.Core.FileGeneration
         /// Name of the navigation menu, uses as a label
         /// </summary>
         [XmlElement]
-        public LaunchPadPage Page { get; set; }
+        public string Page { get; set; }
 
-
-        public LaunchPadNavigation()
+        public LaunchPadNavigationItem() : base()
         {
-            Name = string.Empty;
             Route = string.Empty;
             Icon = string.Empty;
+            Page = new LaunchPadPage();
         }
     }
 }

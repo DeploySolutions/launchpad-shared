@@ -9,7 +9,7 @@ namespace DeploySoftware.LaunchPad.Core.FileGeneration
     /// </summary>  
     [Serializable]
     [XmlRoot(ElementName = "DataTable")]
-    public partial class LaunchPadDataTable
+    public partial class LaunchPadDataTable : LaunchPadWebClientObjectBase
     {
         /// <summary>
         /// Domain entity representing the data listed in the table
@@ -26,30 +26,31 @@ namespace DeploySoftware.LaunchPad.Core.FileGeneration
         /// <summary>
         /// Primary filters displaying at the top of the datatable
         /// </summary>
-        public IList<LaunchPadFilter> Filters { get; set; }
+        public IDictionary<string, LaunchPadFilter> Filters { get; set; }
 
         /// <summary>
         /// Secondary filters displayed when the user clicks on "More Filter".
         /// </summary>
-        public IList<LaunchPadFilter> MoreFilters { get; set; }
+        public IDictionary<string, LaunchPadFilter> MoreFilters { get; set; }
 
         /// <summary>
         /// Action buttons appears at the top of the data table
         /// </summary>
-        public IList<LaunchPadAction> Actions { get; set; }
+        public IDictionary<string, LaunchPadAction> Actions { get; set; }
 
         /// <summary>
         /// List of columns on the datatable
         /// </summary>
-        public IList<LaunchPadColumn> Columns { get; set; }
+        public IDictionary<string, LaunchPadColumn> Columns { get; set; }
 
-        public LaunchPadDataTable()
+        public LaunchPadDataTable() : base()
         {
             DomainEntity = String.Empty;
-            Filters = new List<LaunchPadFilter>();
-            MoreFilters = new List<LaunchPadFilter>();
-            Actions = new List<LaunchPadAction>();
-            Columns = new List<LaunchPadColumn>();
+            var comparer = StringComparer.OrdinalIgnoreCase; 
+            Filters = new Dictionary<string, LaunchPadFilter>(comparer);
+            MoreFilters = new Dictionary<string, LaunchPadFilter>(comparer);
+            Actions = new Dictionary<string, LaunchPadAction>(comparer);
+            Columns = new Dictionary<string, LaunchPadColumn>(comparer);
         }
     }
 }

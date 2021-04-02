@@ -24,9 +24,8 @@ namespace DeploySoftware.LaunchPad.Core.FileGeneration
         [XmlAttribute("icon")]
         public string Icon { get; set; }
 
-        public LaunchPadTile()
+        public LaunchPadTile() : base()
         {
-            Name = string.Empty;
             Type = TileType.Route;
             Icon = string.Empty;
         }

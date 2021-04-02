@@ -32,14 +32,15 @@ namespace DeploySoftware.LaunchPad.Core.FileGeneration
         /// <summary>
         /// Action buttons appears on all rows of this column
         /// </summary>
-        public IList<LaunchPadAction> Actions { get; set; }
+        public IDictionary<string, LaunchPadAction> Actions { get; set; }
 
-        public LaunchPadColumn()
+        public LaunchPadColumn() : base()
         {
             Sortable = false;
             DataField = string.Empty;
             DataType = string.Empty;
-            Actions = new List<LaunchPadAction>();
+            var comparer = StringComparer.OrdinalIgnoreCase;
+            Actions = new Dictionary<string, LaunchPadAction>(comparer);
         }
     }
 }

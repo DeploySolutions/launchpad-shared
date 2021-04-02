@@ -22,7 +22,7 @@ namespace DeploySoftware.LaunchPad.Core.FileGeneration
         [XmlAttribute("icon")]
         public string Icon { get; set; }
 
-        public LaunchPadAction()
+        public LaunchPadAction() : base()
         {
             Route = string.Empty;
             Icon = string.Empty;

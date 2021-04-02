@@ -15,7 +15,7 @@ namespace DeploySoftware.LaunchPad.Core.FileGeneration
         /// Tiles are blocks of label and icon with a link to other page
         /// </summary>
         [XmlElement]
-        public LaunchPadTiles Tiles { get; set; }
+        public LaunchPadTileSet Tileset { get; set; }
 
         /// <summary>
         /// Datatable presenting a list of items with sorting, filter and pagination functionality.
@@ -23,9 +23,9 @@ namespace DeploySoftware.LaunchPad.Core.FileGeneration
         [XmlElement]
         public LaunchPadDataTable DataTable { get; set; }
 
-        public LaunchPadPage()
+        public LaunchPadPage() : base()
         {
-            Id = string.Empty;
+            Tileset = new LaunchPadTileSet();
         }
     }
 }

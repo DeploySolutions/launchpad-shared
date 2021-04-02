@@ -24,13 +24,13 @@ namespace DeploySoftware.LaunchPad.Core.FileGeneration
         /// The top section of the side navigation bar
         /// </summary>
         [XmlElement]
-        public IList<LaunchPadNavigation> TopNavigations { get; set; }
+        public IDictionary<string, LaunchPadNavigationItem> TopNavigations { get; set; }
 
         /// <summary>
         /// The bottom section of the side navigation bar
         /// </summary>
         [XmlElement]
-        public IList<LaunchPadNavigation> BottomNavigations { get; set; }
+        public IDictionary<string, LaunchPadNavigationItem> BottomNavigations { get; set; }
 
         /// <summary>
         /// The list of static web pages that belong to this module.
@@ -47,10 +47,9 @@ namespace DeploySoftware.LaunchPad.Core.FileGeneration
         public LaunchPadGeneratedWebClientModule() : base()
         {
             Brand = new LaunchPadBrand();
-            TopNavigations = new List<LaunchPadNavigation>();
-            BottomNavigations = new List<LaunchPadNavigation>();
-            //StaticWebPages = new Dictionary<string, LaunchPadGeneratedStaticWebPage>(comparer);
-            //Stylesheets = new Dictionary<string, LaunchPadGeneratedStylesheet>(comparer);
+            var comparer = StringComparer.OrdinalIgnoreCase;
+            TopNavigations = new Dictionary<string, LaunchPadNavigationItem>(comparer);
+            BottomNavigations = new Dictionary<string, LaunchPadNavigationItem>(comparer);
         }
 
     }

@@ -28,7 +28,7 @@ namespace DeploySoftware.LaunchPad.Core.FileGeneration
         [XmlAttribute("dataType")]
         public string DataType { get; set; }
 
-        public LaunchPadFilter()
+        public LaunchPadFilter() : base()
         {
             Placeholder = string.Empty;
             DataField = string.Empty;
