@@ -26,7 +26,7 @@ namespace DeploySoftware.LaunchPad.Core.FileGeneration
         /// Name of the navigation menu, uses as a label
         /// </summary>
         [XmlElement]
-        public string Page { get; set; }
+        public LaunchPadPage Page { get; set; }
 
         public LaunchPadNavigationItem() : base()
         {
