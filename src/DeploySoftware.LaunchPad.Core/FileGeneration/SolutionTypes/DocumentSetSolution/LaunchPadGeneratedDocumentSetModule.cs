@@ -12,25 +12,14 @@ namespace DeploySoftware.LaunchPad.Core.FileGeneration
     [Serializable]
     public partial class LaunchPadGeneratedDocumentSetModule :
         LaunchPadGeneratedModule<LaunchPadGeneratedDocumentSetModuleConfiguration,
-            LaunchPadGeneratedComponent<LaunchPadGeneratedConfiguration>,
-            LaunchPadGeneratedConfiguration>
+            LaunchPadGeneratedDocumentSetComponent,
+            LaunchPadGeneratedDocumentSetComponentConfiguration>
     {
-
-        /// <summary>
-        /// The list of folders that belong to this module.
-        /// </summary>
-        public virtual IDictionary<string, LaunchPadGeneratedFolder> Folders { get; set; }
-
-        /// <summary>
-        /// The list of documents that belong to this module.
-        /// </summary>
-        public virtual IDictionary<string, LaunchPadGeneratedDocument> Documents { get; set; }
 
         public LaunchPadGeneratedDocumentSetModule() : base()
         {
             var comparer = StringComparer.OrdinalIgnoreCase;
-            Folders = new Dictionary<string,LaunchPadGeneratedFolder>(comparer); 
-            Documents = new Dictionary<string, LaunchPadGeneratedDocument>(comparer);
+            Components = new Dictionary<string, LaunchPadGeneratedDocumentSetComponent>(comparer); 
         }
 
     }
