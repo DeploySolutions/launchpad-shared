@@ -1,10 +1,15 @@
 ﻿namespace DeploySoftware.LaunchPad.Core.FileGeneration
 {
-    public interface ILaunchPadGeneratedComponent<TComponentConfig> : ILaunchPadGeneratedObject
-        where TComponentConfig : LaunchPadGeneratedConfiguration, new()
+    public interface ILaunchPadGeneratedComponent<TBlueprintDefinitionSettings, TBlueprintDefinitionInstructions> : ILaunchPadGeneratedObject
+        where TBlueprintDefinitionSettings : LaunchPadGeneratedObjectBlueprintDefinitionSettings, new()
+        where TBlueprintDefinitionInstructions : LaunchPadGeneratedObjectBlueprintDefinitionInstructions, new()
     {
-        public TComponentConfig Config {get;set;}
+        public LaunchPadGeneratedObjectBlueprintDefinition<TBlueprintDefinitionSettings, TBlueprintDefinitionInstructions> BlueprintDefinition { get; set; }
 
-        string EntityIdType { get; set; }
+        /// <summary>
+        /// Returns a bool indicating if the component is currently in a valid or invalid state.
+        /// </summary>
+        /// <returns>True if the component is in a valid state, or false if it is contains missing or invalid elements.</returns>
+        public bool CheckValidity();
     }
 }
