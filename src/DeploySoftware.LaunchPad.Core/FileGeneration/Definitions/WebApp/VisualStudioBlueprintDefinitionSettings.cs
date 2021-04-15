@@ -44,6 +44,16 @@ namespace DeploySoftware.LaunchPad.Core.FileGeneration
         /// </summary>
         public virtual IDictionary<string, LaunchPadGeneratedDtoPropertySet> PropertySets { get; set; }
 
+        /// <summary>
+        /// Contains a dictionary of Domain Entity definitions belonging to this component, keyed by the domain entity id
+        /// </summary>
+        public virtual IDictionary<string, LaunchPadGeneratedObjectBase> DomainEntityDefinitions { get; set; }
+
+        /// <summary>
+        /// Contains a dictionary of Application Service definitions belonging to this component, keyed by the domain entity id
+        /// </summary>
+        public virtual IDictionary<string, LaunchPadGeneratedObjectBase> AppServiceDefinitions { get; set; }
+
         public VisualStudioBlueprintDefinitionSettings() : base()
         {
             VisualStudioSolutionName = string.Empty;
@@ -54,6 +64,8 @@ namespace DeploySoftware.LaunchPad.Core.FileGeneration
             BaseAppServiceClassAnnotations = string.Empty; 
             var comparer = StringComparer.OrdinalIgnoreCase;
             PropertySets = new Dictionary<string, LaunchPadGeneratedDtoPropertySet>(comparer);
+            DomainEntityDefinitions = new Dictionary<string, LaunchPadGeneratedObjectBase>(comparer);
+            AppServiceDefinitions = new Dictionary<string, LaunchPadGeneratedObjectBase>(comparer);
         }
     }
 }

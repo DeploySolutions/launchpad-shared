@@ -7,10 +7,10 @@ using System.Threading.Tasks;
 namespace DeploySoftware.LaunchPad.Core.FileGeneration
 {
     [Serializable]
-    public partial class LaunchPadGeneratedSolutionConfiguration : LaunchPadGeneratedObjectBlueprintDefinitionSettings
+    public partial class LaunchPadGeneratedSolutionSettings : LaunchPadGeneratedObjectBlueprintDefinitionSettings
     {
         
-        public LaunchPadGeneratedSolutionConfiguration()
+        public LaunchPadGeneratedSolutionSettings()
         {
         }
 

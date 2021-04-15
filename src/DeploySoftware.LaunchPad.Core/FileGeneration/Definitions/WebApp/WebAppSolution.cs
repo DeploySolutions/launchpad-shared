@@ -28,7 +28,7 @@ namespace DeploySoftware.LaunchPad.Core.FileGeneration
         public override bool CheckValidity()
         {
             bool isValid = false;
-            if (Config != null
+            if (Settings != null
                 && (WebAppModule != null)
             )
             {

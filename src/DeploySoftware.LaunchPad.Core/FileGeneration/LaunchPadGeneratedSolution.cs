@@ -13,7 +13,7 @@ namespace DeploySoftware.LaunchPad.Core.FileGeneration
         /// <summary>
         /// Contains configuration information related to this object's solution
         /// </summary>
-        public virtual LaunchPadGeneratedSolutionConfiguration Config { get; set; }
+        public virtual LaunchPadGeneratedSolutionSettings Settings { get; set; }
 
         /// <summary>
         /// Returns a bool indicating if the solution is currently in a valid or invalid state.
@@ -22,7 +22,7 @@ namespace DeploySoftware.LaunchPad.Core.FileGeneration
         public virtual bool CheckValidity()
         {
             bool isValid = false;
-            if (Config != null 
+            if (Settings != null 
                 && !String.IsNullOrEmpty(Name) && !String.IsNullOrEmpty(Id) && !String.IsNullOrEmpty(ObjectTypeName)
             )
             {
@@ -33,7 +33,7 @@ namespace DeploySoftware.LaunchPad.Core.FileGeneration
 
         public LaunchPadGeneratedSolution() : base()
         {
-            Config = new LaunchPadGeneratedSolutionConfiguration();
+            Settings = new LaunchPadGeneratedSolutionSettings();
         }
     }
 }

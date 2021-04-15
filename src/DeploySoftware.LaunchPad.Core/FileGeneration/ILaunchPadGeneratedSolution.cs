@@ -7,7 +7,7 @@ namespace DeploySoftware.LaunchPad.Core.FileGeneration
         /// <summary>
         /// Contains configuration information related to this solution
         /// </summary>
-        public LaunchPadGeneratedSolutionConfiguration Config { get; set; }
+        public LaunchPadGeneratedSolutionSettings Settings { get; set; }
 
     }
 }

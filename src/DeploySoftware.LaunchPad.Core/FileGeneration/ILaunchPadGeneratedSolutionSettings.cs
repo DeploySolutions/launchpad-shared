@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DeploySoftware.LaunchPad.Core.FileGeneration
 {
-    public interface ILaunchPadGeneratedSolutionConfiguration : ILaunchPadGeneratedObjectBlueprintDefinitionSettings
+    public interface ILaunchPadGeneratedSolutionSettings : ILaunchPadGeneratedObjectBlueprintDefinitionSettings
     {
         
     }
