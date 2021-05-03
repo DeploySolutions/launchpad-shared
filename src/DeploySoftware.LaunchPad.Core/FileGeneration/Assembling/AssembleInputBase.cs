@@ -3,11 +3,8 @@ using System.Collections.Generic;
 
 namespace DeploySoftware.LaunchPad.Core.FileGeneration
 {
-    public abstract partial class AssembleInputBase<TGeneratedSolution>
-        where TGeneratedSolution : LaunchPadGeneratedSolution, new()
+    public abstract partial class AssembleInputBase
     {
-
-        public TGeneratedSolution GeneratedSolutionDefinition { get; set; }
 
         /// <summary>
         /// List of exclusion files (or directories) to skip when assembling output structure. 

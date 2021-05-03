@@ -34,7 +34,7 @@ namespace DeploySoftware.LaunchPad.Core.FileGeneration
         }
 
         public virtual TAssembleOutput AssembleComponent<TAssembleInput, TAssembleOutput, TGeneratedObject>(TAssembleInput input)
-            where TAssembleInput : AssembleInputBase<TGeneratedObject>, new()
+            where TAssembleInput : AssembleComponentInputBase<TBlueprintDefinitionSettings, TBlueprintDefinitionInstructions>, new()
             where TAssembleOutput : AssembleComponentOutputBase, new()
             where TGeneratedObject : LaunchPadGeneratedSolution, new()
         {

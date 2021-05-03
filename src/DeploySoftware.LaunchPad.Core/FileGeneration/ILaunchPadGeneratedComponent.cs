@@ -22,7 +22,7 @@ namespace DeploySoftware.LaunchPad.Core.FileGeneration
         /// <param name="input"></param>
         /// <returns></returns>
         public TAssembleOutput AssembleComponent<TAssembleInput, TAssembleOutput, TGeneratedObject>(TAssembleInput input)
-            where TAssembleInput : AssembleInputBase<TGeneratedObject>, new()
+            where TAssembleInput : AssembleComponentInputBase<TBlueprintDefinitionSettings, TBlueprintDefinitionInstructions>, new()
             where TAssembleOutput : AssembleComponentOutputBase, new()
             where TGeneratedObject : LaunchPadGeneratedSolution, new();
     }
