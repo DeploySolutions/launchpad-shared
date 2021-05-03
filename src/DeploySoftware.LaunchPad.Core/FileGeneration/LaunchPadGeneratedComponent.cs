@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Castle.Core.Logging;
+using System;
 using System.Collections.Generic;
 
 namespace DeploySoftware.LaunchPad.Core.FileGeneration
@@ -12,7 +13,9 @@ namespace DeploySoftware.LaunchPad.Core.FileGeneration
         where TBlueprintDefinitionSettings : LaunchPadGeneratedObjectBlueprintDefinitionSettings, new()
         where TBlueprintDefinitionInstructions : LaunchPadGeneratedObjectBlueprintDefinitionInstructions, new()
     {
-        public LaunchPadGeneratedObjectBlueprintDefinition<TBlueprintDefinitionSettings,TBlueprintDefinitionInstructions> BlueprintDefinition { get; set; }
+        public virtual LaunchPadGeneratedObjectBlueprintDefinition<TBlueprintDefinitionSettings,TBlueprintDefinitionInstructions> BlueprintDefinition { get; set; }
+
+        public virtual ILogger Logger { get; set; }
 
         /// <summary>
         /// Returns a bool indicating if the component is currently in a valid or invalid state.
@@ -30,8 +33,17 @@ namespace DeploySoftware.LaunchPad.Core.FileGeneration
             return isValid;
         }
 
-        public LaunchPadGeneratedComponent() : base()
+        public virtual TAssembleOutput AssembleComponent<TAssembleInput, TAssembleOutput, TGeneratedObject>(TAssembleInput input)
+            where TAssembleInput : AssembleInputBase<TGeneratedObject>, new()
+            where TAssembleOutput : AssembleComponentOutputBase, new()
+            where TGeneratedObject : LaunchPadGeneratedSolution, new()
         {
+            throw new NotImplementedException();
+        }
+
+        public LaunchPadGeneratedComponent(ILogger logger) : base()
+        {
+            Logger = logger;
             BlueprintDefinition = new LaunchPadGeneratedObjectBlueprintDefinition<TBlueprintDefinitionSettings, TBlueprintDefinitionInstructions>();
         }
     }

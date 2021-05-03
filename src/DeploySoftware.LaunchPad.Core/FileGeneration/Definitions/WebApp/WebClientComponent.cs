@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Castle.Core.Logging;
+using System;
 using System.Collections.Generic;
 using System.Xml.Serialization;
 
@@ -63,7 +64,17 @@ namespace DeploySoftware.LaunchPad.Core.FileGeneration
             return isValid;
         }
 
-        public WebClientComponent() : base()
+        public WebClientComponent() : base(NullLogger.Instance)
+        {
+            Brand = new LaunchPadBrand();
+            var comparer = StringComparer.OrdinalIgnoreCase;
+            StaticWebPages = new Dictionary<string, LaunchPadGeneratedStaticWebPage>(comparer);
+            Stylesheets = new Dictionary<string, LaunchPadGeneratedStylesheet>(comparer);
+            TopNavigations = new Dictionary<string, LaunchPadNavigationItem>(comparer);
+            BottomNavigations = new Dictionary<string, LaunchPadNavigationItem>(comparer);
+        }
+
+        public WebClientComponent(ILogger logger) : base(logger)
         {
             Brand = new LaunchPadBrand();
             var comparer = StringComparer.OrdinalIgnoreCase;

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Castle.Core.Logging;
+using System;
 using System.Collections.Generic;
 
 namespace DeploySoftware.LaunchPad.Core.FileGeneration
@@ -39,7 +40,14 @@ namespace DeploySoftware.LaunchPad.Core.FileGeneration
             return isValid;
         }
 
-        public VisualStudioComponent() : base()
+        public VisualStudioComponent() : base(NullLogger.Instance)
+        {
+            var comparer = StringComparer.OrdinalIgnoreCase;
+            DomainEntities = new Dictionary<string, LaunchPadGeneratedDomainEntity>(comparer);
+            ApplicationServices = new Dictionary<string, LaunchPadGeneratedApplicationService>(comparer);
+        }
+
+        public VisualStudioComponent(ILogger logger) : base(logger)
         {
             var comparer = StringComparer.OrdinalIgnoreCase;
             DomainEntities = new Dictionary<string, LaunchPadGeneratedDomainEntity>(comparer);

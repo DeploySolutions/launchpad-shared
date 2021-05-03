@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Castle.Core.Logging;
+using System;
 using System.Collections.Generic;
 
 namespace DeploySoftware.LaunchPad.Core.FileGeneration
@@ -15,11 +16,18 @@ namespace DeploySoftware.LaunchPad.Core.FileGeneration
 
         public IDictionary<string,WebClientComponent> WebClients { get; set; }
 
-
-        public WebAppModule() : base()
+        public WebAppModule() : base(NullLogger.Instance)
         {
             Settings = new WebAppModuleSettings();
-            WebApi = new VisualStudioComponent(); 
+            WebApi = new VisualStudioComponent(NullLogger.Instance);
+            var comparer = StringComparer.OrdinalIgnoreCase;
+            WebClients = new Dictionary<string, WebClientComponent>(comparer);
+        }
+
+        public WebAppModule(ILogger logger) : base(logger)
+        {
+            Settings = new WebAppModuleSettings();
+            WebApi = new VisualStudioComponent(logger); 
             var comparer = StringComparer.OrdinalIgnoreCase;
             WebClients = new Dictionary<string, WebClientComponent>(comparer);
         }

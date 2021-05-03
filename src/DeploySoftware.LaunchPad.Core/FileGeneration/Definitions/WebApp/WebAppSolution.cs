@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Castle.Core.Logging;
+using System;
 using System.Collections.Generic;
 
 namespace DeploySoftware.LaunchPad.Core.FileGeneration
@@ -15,11 +16,6 @@ namespace DeploySoftware.LaunchPad.Core.FileGeneration
         /// The generated Visual Studio module that belongs to this solution.
         /// </summary>
         public virtual WebAppModule WebAppModule { get; set; }
-
-        /// <summary>
-        /// The optional generated static web resource module that belongs to this module. May be null.
-        /// </summary>
-        public virtual StaticWebModule StaticWebModule { get; set; }
 
         /// <summary>
         /// Returns a bool indicating if the VS solution  is currently in a valid or invalid state.
@@ -39,7 +35,7 @@ namespace DeploySoftware.LaunchPad.Core.FileGeneration
 
         public WebAppSolution() : base()
         {
-            WebAppModule = new WebAppModule();
+            WebAppModule = new WebAppModule(NullLogger.Instance);
         }
     }
 }

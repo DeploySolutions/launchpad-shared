@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Castle.Core.Logging;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -29,9 +30,13 @@ namespace DeploySoftware.LaunchPad.Core.FileGeneration
             return isValid;
         }
 
-        public UnspecifiedComponent() : base()
+        public UnspecifiedComponent() : base(NullLogger.Instance)
         {
             
+        }
+
+        public UnspecifiedComponent(ILogger logger) : base(logger)
+        {
         }
 
     }

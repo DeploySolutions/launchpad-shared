@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Castle.Core.Logging;
+using System;
 using System.Collections.Generic;
 
 namespace DeploySoftware.LaunchPad.Core.FileGeneration
@@ -38,7 +39,14 @@ namespace DeploySoftware.LaunchPad.Core.FileGeneration
             return isValid;
         }
 
-        public DocumentSetComponent() : base()
+        public DocumentSetComponent() : base(NullLogger.Instance)
+        {
+            var comparer = StringComparer.OrdinalIgnoreCase;
+            Folders = new Dictionary<string, LaunchPadGeneratedFolder>(comparer);
+            Documents = new Dictionary<string, LaunchPadGeneratedDocument>(comparer);
+        }
+
+        public DocumentSetComponent(ILogger logger) : base(logger)
         {
             var comparer = StringComparer.OrdinalIgnoreCase;
             Folders = new Dictionary<string, LaunchPadGeneratedFolder>(comparer);

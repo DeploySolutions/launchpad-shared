@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Castle.Core.Logging;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,7 +16,14 @@ namespace DeploySoftware.LaunchPad.Core.FileGeneration
     {
         public virtual IDictionary<string, DocumentSetComponent> DocumentSets { get; set; }
 
-        public DocumentSetModule() : base()
+        public DocumentSetModule() : base(NullLogger.Instance)
+        {
+            Settings = new DocumentSetModuleSettings();
+            var comparer = StringComparer.OrdinalIgnoreCase;
+            DocumentSets = new Dictionary<string, DocumentSetComponent>(comparer);
+        }
+
+        public DocumentSetModule(ILogger logger) : base(logger)
         {
             Settings = new DocumentSetModuleSettings();
             var comparer = StringComparer.OrdinalIgnoreCase;

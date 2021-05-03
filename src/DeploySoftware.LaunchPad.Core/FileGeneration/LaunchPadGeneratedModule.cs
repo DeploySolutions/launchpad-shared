@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Castle.Core.Logging;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,7 +10,9 @@ namespace DeploySoftware.LaunchPad.Core.FileGeneration
     public partial class LaunchPadGeneratedModule<TModuleSettings> : LaunchPadGeneratedObjectBase
         where TModuleSettings : LaunchPadGeneratedObjectBlueprintDefinitionSettings, new()
     {
-        public TModuleSettings Settings { get; set; }
+        public virtual ILogger Logger { get; set; }
+
+        public virtual TModuleSettings Settings { get; set; }
 
         /// <summary>
         /// Returns a bool indicating if the module is currently in a valid or invalid state.
@@ -27,8 +30,9 @@ namespace DeploySoftware.LaunchPad.Core.FileGeneration
             return isValid;
         }
 
-        public LaunchPadGeneratedModule() : base()
+        public LaunchPadGeneratedModule(ILogger logger) : base()
         {
+            Logger = logger;
             Settings = new TModuleSettings();
         }
     }
