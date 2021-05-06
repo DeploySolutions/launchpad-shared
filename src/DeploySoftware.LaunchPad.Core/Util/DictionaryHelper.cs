@@ -37,7 +37,7 @@ namespace DeploySoftware.LaunchPad.Core.Util
         }
 
         /// <summary>
-        /// Merges two dictionaries and returns the result
+        /// Merges dictionary 2 into dictionary 1 and returns the result
         /// </summary>
         /// <typeparam name="TKey"></typeparam>
         /// <typeparam name="TValue"></typeparam>

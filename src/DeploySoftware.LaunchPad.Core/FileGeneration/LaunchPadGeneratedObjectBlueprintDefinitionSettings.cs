@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DeploySoftware.LaunchPad.Core.Util;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -38,6 +39,13 @@ namespace DeploySoftware.LaunchPad.Core.FileGeneration
 
         public virtual SourceControlRepository Repository { get; set; }
 
+        /// <summary>
+        /// Contains a dictionary of Templates belonging to this component, keyed by the property set id
+        /// </summary>
+        public virtual IDictionary<string, TemplateBase> AvailableTemplates { get; set; }
+
+        public IDictionary<string, LaunchPadToken> AvailableTokens { get; set; }
+
         public LaunchPadGeneratedObjectBlueprintDefinitionSettings()
         {
             Repository = new SourceControlRepository();
@@ -45,6 +53,9 @@ namespace DeploySoftware.LaunchPad.Core.FileGeneration
             SupportedCultures = string.Empty; 
             Version = string.Empty;
             Authentication = Authentication.Tenant;
+            var comparer = StringComparer.OrdinalIgnoreCase;
+            AvailableTemplates = new Dictionary<string, TemplateBase>(comparer);
+            AvailableTokens = new Dictionary<string, LaunchPadToken>(comparer);
         }
 
         public LaunchPadGeneratedObjectBlueprintDefinitionSettings(SourceControlRepository repo)
@@ -54,6 +65,9 @@ namespace DeploySoftware.LaunchPad.Core.FileGeneration
             SupportedCultures = string.Empty;
             Version = string.Empty;
             Authentication = Authentication.Tenant;
+            var comparer = StringComparer.OrdinalIgnoreCase;
+            AvailableTemplates = new Dictionary<string, TemplateBase>(comparer);
+            AvailableTokens = new Dictionary<string, LaunchPadToken>(comparer);
         }
 
         public LaunchPadGeneratedObjectBlueprintDefinitionSettings(SourceControlRepository repo, string relativeStartPath)
@@ -63,6 +77,9 @@ namespace DeploySoftware.LaunchPad.Core.FileGeneration
             SupportedCultures = string.Empty;
             Version = string.Empty;
             Authentication = Authentication.Tenant;
+            var comparer = StringComparer.OrdinalIgnoreCase;
+            AvailableTemplates = new Dictionary<string, TemplateBase>(comparer);
+            AvailableTokens = new Dictionary<string, LaunchPadToken>(comparer);
         }
 
     }

@@ -1,5 +1,6 @@
 ﻿
 using DeploySoftware.LaunchPad.Core.Util;
+using System;
 using System.Collections.Generic;
 
 namespace DeploySoftware.LaunchPad.Core.FileGeneration
@@ -11,14 +12,15 @@ namespace DeploySoftware.LaunchPad.Core.FileGeneration
         public virtual string Key { get; set; }
 
         public virtual string TemplateBasePath { get; set; }
-        public IList<LaunchPadToken> AvailableTokens { get; set; }
+        public IDictionary<string, LaunchPadToken> AvailableTokens { get; set; }
 
         public TemplateBase()
         {
             Name = string.Empty;
             Key = string.Empty;
             TemplateBasePath = string.Empty;
-            AvailableTokens = new List<LaunchPadToken>();
+            var comparer = StringComparer.OrdinalIgnoreCase;
+            AvailableTokens = new Dictionary<string, LaunchPadToken>(comparer); 
         }
 
         public TemplateBase(string key, string templateBasePath)
@@ -26,10 +28,11 @@ namespace DeploySoftware.LaunchPad.Core.FileGeneration
             Name = key;
             Key = key;
             TemplateBasePath = templateBasePath;
-            AvailableTokens = new List<LaunchPadToken>();
+            var comparer = StringComparer.OrdinalIgnoreCase;
+            AvailableTokens = new Dictionary<string, LaunchPadToken>(comparer);
         }
 
-        public TemplateBase(string key, string templateBasePath, List<LaunchPadToken> tokens)
+        public TemplateBase(string key, string templateBasePath, IDictionary<string, LaunchPadToken> tokens)
         {
             Name = key;
             Key = key;

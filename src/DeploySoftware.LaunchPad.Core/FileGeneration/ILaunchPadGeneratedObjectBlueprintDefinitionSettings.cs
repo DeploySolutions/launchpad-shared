@@ -33,5 +33,10 @@ namespace DeploySoftware.LaunchPad.Core.FileGeneration
 
         public SourceControlRepository Repository { get; set; }
 
+        /// <summary>
+        /// Contains a dictionary of Templates belonging to this component, keyed by the property set id
+        /// </summary>
+        public IDictionary<string, TemplateBase> AvailableTemplates { get; set; }
+
     }
 }
