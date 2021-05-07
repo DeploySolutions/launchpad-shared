@@ -19,13 +19,13 @@ namespace DeploySoftware.LaunchPad.Core.FileGeneration
         /// The top section of the side navigation bar
         /// </summary>
         [XmlElement]
-        public IDictionary<string, LaunchPadNavigationItem> TopNavigations { get; set; }
+        public IList<LaunchPadNavigationItem> TopNavigations { get; set; }
 
         /// <summary>
         /// The bottom section of the side navigation bar
         /// </summary>
         [XmlElement]
-        public IDictionary<string, LaunchPadNavigationItem> BottomNavigations { get; set; }
+        public IList<LaunchPadNavigationItem> BottomNavigations { get; set; }
 
         /// <summary>
         /// The list of static web pages that belong to this module.
