@@ -25,11 +25,19 @@ namespace DeploySoftware.LaunchPad.Core.FileGeneration
         [XmlAttribute("favicon")]
         public string Favicon { get; set; }
 
+        /// <summary>
+        /// Small icon showing on the web browser tab. Suggested dimension 32x32. Supported formats are JPG, PNG and SVG.
+        /// TODO: add a validation for file types
+        /// </summary>
+        [XmlAttribute("appDisplayName")]
+        public string AppDisplayName { get; set; }
+
 
         public LaunchPadBrand() : base()
         {
             Logo = string.Empty;
             Favicon = string.Empty;
+            AppDisplayName = string.Empty;
         }
     }
 }
