@@ -9,7 +9,7 @@ namespace DeploySoftware.LaunchPad.Core.FileGeneration
 {
     public interface ILaunchPadGeneratedObjectBlueprintDefinition<TBlueprintDefinitionSettings, TBlueprintDefinitionInstructions>
         where TBlueprintDefinitionSettings : LaunchPadGeneratedObjectBlueprintDefinitionSettings, new()
-        where TBlueprintDefinitionInstructions : LaunchPadGeneratedObjectBlueprintDefinitionInstructions, new()
+        where TBlueprintDefinitionInstructions : LaunchPadGeneratedObjectBlueprintDefinitionInstructionsBase, new()
     {
         public TBlueprintDefinitionSettings Settings { get; set; }
 

@@ -11,7 +11,7 @@ namespace DeploySoftware.LaunchPad.Core.FileGeneration
     public partial class LaunchPadGeneratedComponent<TBlueprintDefinitionSettings, TBlueprintDefinitionInstructions>
         : LaunchPadGeneratedObjectBase, ILaunchPadGeneratedComponent<TBlueprintDefinitionSettings, TBlueprintDefinitionInstructions>
         where TBlueprintDefinitionSettings : LaunchPadGeneratedObjectBlueprintDefinitionSettings, new()
-        where TBlueprintDefinitionInstructions : LaunchPadGeneratedObjectBlueprintDefinitionInstructions, new()
+        where TBlueprintDefinitionInstructions : LaunchPadGeneratedObjectBlueprintDefinitionInstructionsBase, new()
     {
         public virtual LaunchPadGeneratedObjectBlueprintDefinition<TBlueprintDefinitionSettings,TBlueprintDefinitionInstructions> BlueprintDefinition { get; set; }
 

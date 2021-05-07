@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DeploySoftware.LaunchPad.Core.Util;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -34,9 +35,18 @@ namespace DeploySoftware.LaunchPad.Core.FileGeneration
         public SourceControlRepository Repository { get; set; }
 
         /// <summary>
-        /// Contains a dictionary of Templates belonging to this component, keyed by the property set id
+        /// Contains a dictionary of Templates belonging to this object, keyed by the template name
         /// </summary>
         public IDictionary<string, TemplateBase> AvailableTemplates { get; set; }
 
+        /// <summary>
+        /// Contains a dictionary of Tokens belonging to this object, keyed by the token name
+        /// </summary>
+        public IDictionary<string, LaunchPadToken> AvailableTokens { get; set; }
+
+        /// <summary>
+        /// Contains a dictionary of file or folder exclusions paths that will be applied when assembling
+        /// </summary>
+        public IDictionary<string, string> ExclusionPaths { get; set; }
     }
 }

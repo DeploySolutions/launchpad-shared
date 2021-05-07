@@ -40,11 +40,19 @@ namespace DeploySoftware.LaunchPad.Core.FileGeneration
         public virtual SourceControlRepository Repository { get; set; }
 
         /// <summary>
-        /// Contains a dictionary of Templates belonging to this component, keyed by the property set id
+        /// Contains a dictionary of Templates belonging to this object, keyed by the template name
         /// </summary>
         public virtual IDictionary<string, TemplateBase> AvailableTemplates { get; set; }
 
-        public IDictionary<string, LaunchPadToken> AvailableTokens { get; set; }
+        /// <summary>
+        /// Contains a dictionary of Tokens belonging to this object, keyed by the token name
+        /// </summary>
+        public virtual IDictionary<string, LaunchPadToken> AvailableTokens { get; set; }
+
+        // <summary>
+        /// Contains a dictionary of file or folder exclusions paths that will be applied when assembling
+        /// </summary>
+        public virtual IDictionary<string, string> ExclusionPaths { get; set; }
 
         public LaunchPadGeneratedObjectBlueprintDefinitionSettings()
         {
@@ -56,6 +64,7 @@ namespace DeploySoftware.LaunchPad.Core.FileGeneration
             var comparer = StringComparer.OrdinalIgnoreCase;
             AvailableTemplates = new Dictionary<string, TemplateBase>(comparer);
             AvailableTokens = new Dictionary<string, LaunchPadToken>(comparer);
+            ExclusionPaths = new Dictionary<string, string>(comparer);
         }
 
         public LaunchPadGeneratedObjectBlueprintDefinitionSettings(SourceControlRepository repo)
@@ -68,6 +77,7 @@ namespace DeploySoftware.LaunchPad.Core.FileGeneration
             var comparer = StringComparer.OrdinalIgnoreCase;
             AvailableTemplates = new Dictionary<string, TemplateBase>(comparer);
             AvailableTokens = new Dictionary<string, LaunchPadToken>(comparer);
+            ExclusionPaths = new Dictionary<string, string>(comparer);
         }
 
         public LaunchPadGeneratedObjectBlueprintDefinitionSettings(SourceControlRepository repo, string relativeStartPath)
@@ -80,6 +90,7 @@ namespace DeploySoftware.LaunchPad.Core.FileGeneration
             var comparer = StringComparer.OrdinalIgnoreCase;
             AvailableTemplates = new Dictionary<string, TemplateBase>(comparer);
             AvailableTokens = new Dictionary<string, LaunchPadToken>(comparer);
+            ExclusionPaths = new Dictionary<string, string>(comparer);
         }
 
     }
