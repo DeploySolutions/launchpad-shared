@@ -14,24 +14,6 @@ namespace DeploySoftware.LaunchPad.Core.FileGeneration
     {
 
         /// <summary>
-        /// Brand configuration of the app. Thsi could include name, icon, logo and/or theme color.
-        /// </summary>
-        [XmlElement]
-        public LaunchPadBrand Brand { get; set; }
-
-        /// <summary>
-        /// The top section of the side navigation bar
-        /// </summary>
-        [XmlElement]
-        public IDictionary<string, LaunchPadNavigationItem> TopNavigations { get; set; }
-
-        /// <summary>
-        /// The bottom section of the side navigation bar
-        /// </summary>
-        [XmlElement]
-        public IDictionary<string, LaunchPadNavigationItem> BottomNavigations { get; set; }
-
-        /// <summary>
         /// The list of static web pages that belong to this module.
         /// </summary>
         [XmlElement]
@@ -54,9 +36,6 @@ namespace DeploySoftware.LaunchPad.Core.FileGeneration
             if (BlueprintDefinition != null
                 && StaticWebPages != null && StaticWebPages.Count > 0
                 && Stylesheets != null && Stylesheets.Count > 0
-                && TopNavigations != null && TopNavigations.Count > 0
-                && BottomNavigations != null && BottomNavigations.Count > 0
-                && Brand != null
             )
             {
                 isValid = true;
@@ -66,22 +45,16 @@ namespace DeploySoftware.LaunchPad.Core.FileGeneration
 
         public WebClientComponent() : base(NullLogger.Instance)
         {
-            Brand = new LaunchPadBrand();
             var comparer = StringComparer.OrdinalIgnoreCase;
             StaticWebPages = new Dictionary<string, LaunchPadGeneratedStaticWebPage>(comparer);
             Stylesheets = new Dictionary<string, LaunchPadGeneratedStylesheet>(comparer);
-            TopNavigations = new Dictionary<string, LaunchPadNavigationItem>(comparer);
-            BottomNavigations = new Dictionary<string, LaunchPadNavigationItem>(comparer);
         }
 
         public WebClientComponent(ILogger logger) : base(logger)
         {
-            Brand = new LaunchPadBrand();
             var comparer = StringComparer.OrdinalIgnoreCase;
             StaticWebPages = new Dictionary<string, LaunchPadGeneratedStaticWebPage>(comparer);
             Stylesheets = new Dictionary<string, LaunchPadGeneratedStylesheet>(comparer);
-            TopNavigations = new Dictionary<string, LaunchPadNavigationItem>(comparer);
-            BottomNavigations = new Dictionary<string, LaunchPadNavigationItem>(comparer);
         }
     }
 }
