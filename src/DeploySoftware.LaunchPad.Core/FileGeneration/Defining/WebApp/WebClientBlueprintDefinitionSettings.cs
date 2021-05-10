@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Xml.Serialization;
@@ -6,6 +7,7 @@ using System.Xml.Serialization;
 namespace DeploySoftware.LaunchPad.Core.FileGeneration
 {
     [Serializable]
+    [JsonObject(MemberSerialization.OptIn)]
     public partial class WebClientBlueprintDefinitionSettings : 
         LaunchPadGeneratedObjectBlueprintDefinitionSettings
     {
@@ -13,18 +15,21 @@ namespace DeploySoftware.LaunchPad.Core.FileGeneration
         /// Brand configuration of the app. Thsi could include name, icon, logo and/or theme color.
         /// </summary>
         [XmlElement]
+        [JsonProperty]
         public LaunchPadBrand Brand { get; set; }
 
         /// <summary>
         /// The top section of the side navigation bar
         /// </summary>
         [XmlElement]
+        [JsonProperty]
         public IList<LaunchPadNavigationItem> TopNavigations { get; set; }
 
         /// <summary>
         /// The bottom section of the side navigation bar
         /// </summary>
         [XmlElement]
+        [JsonProperty]
         public IList<LaunchPadNavigationItem> BottomNavigations { get; set; }
 
         /// <summary>
