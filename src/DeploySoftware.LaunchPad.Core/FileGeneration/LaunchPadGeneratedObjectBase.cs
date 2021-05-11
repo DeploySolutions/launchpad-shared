@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using DeploySoftware.LaunchPad.Core.Util;
+using Newtonsoft.Json;
 using System;
 
 namespace DeploySoftware.LaunchPad.Core.FileGeneration
@@ -21,6 +22,7 @@ namespace DeploySoftware.LaunchPad.Core.FileGeneration
         /// The singular name of the object 
         /// </summary>
         [JsonProperty("name")]
+        [JsonConverter(typeof(LocalizedJsonConverter<string>))]
         public virtual string Name { get; set; }
 
 
