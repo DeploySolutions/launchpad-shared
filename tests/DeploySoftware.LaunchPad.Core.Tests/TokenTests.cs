@@ -19,8 +19,7 @@ namespace DeploySoftware.LaunchPad.Core.Tests
 {
     using Xunit;
     using FluentAssertions;
-    using DeploySoftware.LaunchPad.Core.Domain;
-    using DeploySoftware.LaunchPad.Core.Util;
+    using DeploySoftware.LaunchPad.Core.FileGeneration;
     using System;
     using System.Collections.Generic;
 

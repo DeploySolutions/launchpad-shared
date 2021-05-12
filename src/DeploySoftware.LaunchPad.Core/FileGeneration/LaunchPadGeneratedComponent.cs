@@ -1,6 +1,5 @@
 ﻿using Castle.Core.Logging;
 using System;
-using System.Collections.Generic;
 
 namespace DeploySoftware.LaunchPad.Core.FileGeneration
 {

@@ -1,8 +1,5 @@
-﻿using DeploySoftware.LaunchPad.Core.Domain;
-using DeploySoftware.LaunchPad.Core.Util;
+﻿using DeploySoftware.LaunchPad.Core.FileGeneration;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace DeploySoftware.LaunchPad.Core.Tests
 {

@@ -1,10 +1,11 @@
-﻿using System;
+﻿using DeploySoftware.LaunchPad.Core.Util;
+using System;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
 using System.Xml.Serialization;
 
-namespace DeploySoftware.LaunchPad.Core.Util
+namespace DeploySoftware.LaunchPad.Core.FileGeneration
 {
     [Serializable]
     public class LaunchPadToken : IEquatable<LaunchPadToken>

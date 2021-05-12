@@ -1,10 +1,10 @@
-﻿using System;
+﻿using DeploySoftware.LaunchPad.Core.Util;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Text;
 using System.Text.RegularExpressions;
 
-namespace DeploySoftware.LaunchPad.Core.Util
+namespace DeploySoftware.LaunchPad.Core.FileGeneration
 {
     public class LaunchPadTokenizer
     {
