@@ -45,8 +45,8 @@ namespace DeploySoftware.LaunchPad.Core.FileGeneration
 
         public LaunchPadDataTable() : base()
         {
+            var comparer = StringComparer.OrdinalIgnoreCase;
             DomainEntity = String.Empty;
-            var comparer = StringComparer.OrdinalIgnoreCase; 
             Filters = new Dictionary<string, LaunchPadFilter>(comparer);
             MoreFilters = new Dictionary<string, LaunchPadFilter>(comparer);
             Actions = new Dictionary<string, LaunchPadAction>(comparer);

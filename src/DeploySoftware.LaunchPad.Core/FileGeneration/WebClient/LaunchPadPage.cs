@@ -26,6 +26,7 @@ namespace DeploySoftware.LaunchPad.Core.FileGeneration
         public LaunchPadPage() : base()
         {
             Tileset = new LaunchPadTileSet();
+            DataTable = new LaunchPadDataTable();
         }
     }
 }
