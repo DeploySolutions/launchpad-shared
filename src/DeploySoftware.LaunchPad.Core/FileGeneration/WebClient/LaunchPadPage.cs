@@ -12,6 +12,11 @@ namespace DeploySoftware.LaunchPad.Core.FileGeneration
     public partial class LaunchPadPage : LaunchPadWebClientObjectBase
     {
         /// <summary>
+        /// Type of this page. Types can be "basic", "crud", "report" or "map".
+        /// </summary>
+        public string Type { get; set; }
+
+        /// <summary>
         /// Tiles are blocks of label and icon with a link to other page
         /// </summary>
         [XmlElement]
