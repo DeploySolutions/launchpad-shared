@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using DeploySoftware.LaunchPad.Core.Util;
+using Newtonsoft.Json;
 using System;
 using System.Xml.Serialization;
 
@@ -14,6 +15,7 @@ namespace DeploySoftware.LaunchPad.Core.FileGeneration
         /// Placeholder displayed in the filter input field
         /// </summary>
         [JsonProperty("placeholder")]
+        [JsonConverter(typeof(LocalizedJsonConverter<string>))]
         public string Placeholder { get; set; }
 
         /// <summary>
