@@ -12,6 +12,12 @@ namespace DeploySoftware.LaunchPad.Core.FileGeneration
     public partial class LaunchPadWebForm : LaunchPadWebClientObjectBase
     {
         /// <summary>
+        /// Domain entity representing the data in the form
+        /// </summary>
+        [JsonProperty("domainEntity")]
+        public string DomainEntity { get; set; }
+
+        /// <summary>
         /// Rows included in this form
         /// </summary>
         [JsonProperty("row")]
