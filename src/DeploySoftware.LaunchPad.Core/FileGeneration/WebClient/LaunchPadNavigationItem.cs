@@ -31,8 +31,6 @@ namespace DeploySoftware.LaunchPad.Core.FileGeneration
 
         public LaunchPadNavigationItem() : base()
         {
-            Route = string.Empty;
-            Icon = string.Empty;
             Page = new LaunchPadPage();
         }
     }

@@ -20,7 +20,7 @@ namespace DeploySoftware.LaunchPad.Core.FileGeneration
         /// <summary>
         /// Rows included in this form
         /// </summary>
-        [JsonProperty("row")]
+        [JsonProperty("rows")]
         public IList<LaunchPadRow> Rows { get; set; }
 
         public LaunchPadWebForm() : base()

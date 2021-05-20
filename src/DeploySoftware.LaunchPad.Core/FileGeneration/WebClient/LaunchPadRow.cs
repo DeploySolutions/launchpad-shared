@@ -12,21 +12,15 @@ namespace DeploySoftware.LaunchPad.Core.FileGeneration
     public partial class LaunchPadRow : LaunchPadWebClientObjectBase
     {
         /// <summary>
-        /// Input fields included in this form
+        /// Form items (input fields or buttons) included in this form
         /// </summary>
-        [JsonProperty("inputFields")]
-        public IList<LaunchPadInputField> InputFields { get; set; }
-
-        /// <summary>
-        /// Buttons included in this form
-        /// </summary>
-        [JsonProperty("buttons")]
-        public IList<LaunchPadButton> Buttons { get; set; }
+        [JsonProperty("formItem")]
+        public IList<LaunchPadFormItem> FormItems { get; set; }
 
         public LaunchPadRow() : base()
         {
-            InputFields = new List<LaunchPadInputField>();
-            Buttons = new List<LaunchPadButton>();
+            Id = null;
+            Name = null;
         }
     }
 }
