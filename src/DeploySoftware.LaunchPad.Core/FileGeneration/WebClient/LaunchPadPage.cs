@@ -28,6 +28,12 @@ namespace DeploySoftware.LaunchPad.Core.FileGeneration
         [XmlElement]
         public LaunchPadDataTable DataTable { get; set; }
 
+        /// <summary>
+        /// Web form object represents a form. It's structured as rows and columns, each column may be InputField or button of multiple types.
+        /// </summary>
+        [XmlElement]
+        public LaunchPadWebForm WebForm { get; set; }
+
         public LaunchPadPage() : base()
         {
         }
