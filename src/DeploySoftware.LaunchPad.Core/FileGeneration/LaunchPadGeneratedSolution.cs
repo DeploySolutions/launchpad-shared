@@ -10,7 +10,6 @@ namespace DeploySoftware.LaunchPad.Core.FileGeneration
     public partial class LaunchPadGeneratedSolution : LaunchPadGeneratedObjectBase, ILaunchPadGeneratedSolution
     {
 
-
         /// <summary>
         /// The date time the solution generation started
         /// </summary>
@@ -20,6 +19,11 @@ namespace DeploySoftware.LaunchPad.Core.FileGeneration
         /// The date time the solution generation ended, or null if not yet complete
         /// </summary>
         public virtual DateTime? GenerationEnd { get; set; }
+
+        /// <summary>
+        /// The timespan between the start of generation and end (assuming it has ended)
+        /// </summary>
+        public virtual TimeSpan? GenerationDuration { get; set; }
 
         /// <summary>
         /// Contains configuration information related to this object's solution
@@ -40,6 +44,19 @@ namespace DeploySoftware.LaunchPad.Core.FileGeneration
                 isValid = true;
             }
             return isValid;
+        }
+
+        public virtual TimeSpan? GetGenerationTime()
+        {
+            if(GenerationEnd.HasValue)
+            {
+                TimeSpan duration = GenerationEnd.Value - GenerationStart;
+                return duration;
+            }
+            else
+            {
+                return null;
+            }
         }
 
         public LaunchPadGeneratedSolution() : base()
