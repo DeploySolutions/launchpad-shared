@@ -2,7 +2,8 @@
 
 namespace DeploySoftware.LaunchPad.Core.FileGeneration
 {
-    public partial class LaunchPadGeneratedModule<TModuleSettings> : LaunchPadGeneratedObjectBase
+    public partial class LaunchPadGeneratedModule<TModuleSettings> : LaunchPadGeneratedObjectBase, 
+        ILaunchPadGeneratedModule<TModuleSettings>
         where TModuleSettings : LaunchPadGeneratedObjectBlueprintDefinitionSettings, new()
     {
         public virtual ILogger Logger { get; set; }
