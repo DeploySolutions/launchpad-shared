@@ -9,11 +9,11 @@ namespace DeploySoftware.LaunchPad.Core.FileGeneration
     /// Represents a input field in the form
     /// </summary>  
     [Serializable]
-    public partial class LaunchPadFormItem : LaunchPadWebClientObjectBase
+    public partial class LaunchPadWebItem : LaunchPadWebClientObjectBase
     {
 
         /// <summary>
-        /// Type of this form item. Types can be "input" or "button".
+        /// Type of this form item. Types can be "view", "input" or "button".
         /// </summary>
         [JsonProperty("itemType")]
         public string ItemType { get; set; }
@@ -36,7 +36,7 @@ namespace DeploySoftware.LaunchPad.Core.FileGeneration
         [JsonProperty("buttonType")]
         public string ButtonType { get; set; }
 
-        public LaunchPadFormItem() : base()
+        public LaunchPadWebItem() : base()
         {
             Id = null;
         }

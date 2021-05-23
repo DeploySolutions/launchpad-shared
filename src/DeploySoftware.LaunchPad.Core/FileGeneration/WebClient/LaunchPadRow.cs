@@ -14,8 +14,8 @@ namespace DeploySoftware.LaunchPad.Core.FileGeneration
         /// <summary>
         /// Form items (input fields or buttons) included in this form
         /// </summary>
-        [JsonProperty("formItem")]
-        public IList<LaunchPadFormItem> FormItems { get; set; }
+        [JsonProperty("items")]
+        public IList<LaunchPadWebItem> Items { get; set; }
 
         public LaunchPadRow() : base()
         {

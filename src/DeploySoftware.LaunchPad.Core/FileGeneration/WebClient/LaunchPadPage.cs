@@ -34,6 +34,12 @@ namespace DeploySoftware.LaunchPad.Core.FileGeneration
         [XmlElement]
         public LaunchPadWebForm WebForm { get; set; }
 
+        /// <summary>
+        /// Detail view represents a view page for the details of an item in the domain eneity.
+        /// </summary>
+        [XmlElement]
+        public LaunchPadDetailView DetailView { get; set; }
+
         public LaunchPadPage() : base()
         {
         }
