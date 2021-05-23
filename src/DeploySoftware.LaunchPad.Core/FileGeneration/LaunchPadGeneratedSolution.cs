@@ -10,6 +10,8 @@ namespace DeploySoftware.LaunchPad.Core.FileGeneration
     public partial class LaunchPadGeneratedSolution : LaunchPadGeneratedObjectBase, ILaunchPadGeneratedSolution
     {
 
+        public virtual CloudInfrastructure Infrastructure { get; set; }
+
         /// <summary>
         /// The date time the solution generation started
         /// </summary>
@@ -61,6 +63,7 @@ namespace DeploySoftware.LaunchPad.Core.FileGeneration
 
         public LaunchPadGeneratedSolution() : base()
         {
+            Infrastructure = new CloudInfrastructure(); 
             Settings = new LaunchPadGeneratedSolutionSettings();
             GenerationStart = DateTime.UtcNow;
         }

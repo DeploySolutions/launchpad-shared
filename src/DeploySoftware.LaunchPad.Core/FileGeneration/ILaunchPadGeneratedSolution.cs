@@ -5,6 +5,8 @@ namespace DeploySoftware.LaunchPad.Core.FileGeneration
 {
     public interface ILaunchPadGeneratedSolution : ILaunchPadGeneratedObject
     {
+        public CloudInfrastructure Infrastructure { get; set; }
+
         /// <summary>
         /// The date time the solution generation started
         /// </summary>
