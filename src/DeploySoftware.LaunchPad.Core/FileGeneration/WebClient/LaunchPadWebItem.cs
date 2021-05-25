@@ -13,7 +13,7 @@ namespace DeploySoftware.LaunchPad.Core.FileGeneration
     {
 
         /// <summary>
-        /// Type of this form item. Types can be "view", "input" or "button".
+        /// Type of this form item. Types can be "view", "input", "textarea" or "button".
         /// </summary>
         [JsonProperty("itemType")]
         public string ItemType { get; set; }
@@ -31,10 +31,34 @@ namespace DeploySoftware.LaunchPad.Core.FileGeneration
         public string DataType { get; set; }
 
         /// <summary>
+        /// Specific data field for composit items with latitude.
+        /// </summary>
+        [JsonProperty("latDataField")]
+        public string LatDataField { get; set; }
+
+        /// <summary>
+        /// Specific data field for composit items with logitude.
+        /// </summary>
+        [JsonProperty("lonDataField")]
+        public string LonDataField { get; set; }
+
+        /// <summary>
+        /// Specific data field for composit items with address field.
+        /// </summary>
+        [JsonProperty("addressDataField")]
+        public string AddressDataField { get; set; }
+
+        /// <summary>
         /// Type of this button. Types can be "reset" or "submit".
         /// </summary>
         [JsonProperty("buttonType")]
         public string ButtonType { get; set; }
+
+        /// <summary>
+        /// Tells whether this field is required, mostly used in form item, but can be used to indicate other type of item too.
+        /// </summary>
+        [JsonProperty("required")]
+        public bool Required { get; set; }
 
         public LaunchPadWebItem() : base()
         {
