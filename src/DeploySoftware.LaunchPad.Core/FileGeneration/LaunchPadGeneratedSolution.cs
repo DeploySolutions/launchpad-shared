@@ -13,21 +13,6 @@ namespace DeploySoftware.LaunchPad.Core.FileGeneration
         public virtual CloudInfrastructure Infrastructure { get; set; }
 
         /// <summary>
-        /// The date time the solution generation started
-        /// </summary>
-        public virtual DateTime GenerationStart { get; set; }
-
-        /// <summary>
-        /// The date time the solution generation ended, or null if not yet complete
-        /// </summary>
-        public virtual DateTime? GenerationEnd { get; set; }
-
-        /// <summary>
-        /// The timespan between the start of generation and end (assuming it has ended)
-        /// </summary>
-        public virtual TimeSpan? GenerationDuration { get; set; }
-
-        /// <summary>
         /// Contains configuration information related to this object's solution
         /// </summary>
         public virtual LaunchPadGeneratedSolutionSettings Settings { get; set; }
@@ -48,24 +33,10 @@ namespace DeploySoftware.LaunchPad.Core.FileGeneration
             return isValid;
         }
 
-        public virtual TimeSpan? GetGenerationTime()
-        {
-            if(GenerationEnd.HasValue)
-            {
-                TimeSpan duration = GenerationEnd.Value - GenerationStart;
-                return duration;
-            }
-            else
-            {
-                return null;
-            }
-        }
-
         public LaunchPadGeneratedSolution() : base()
         {
             Infrastructure = new CloudInfrastructure(); 
             Settings = new LaunchPadGeneratedSolutionSettings();
-            GenerationStart = DateTime.UtcNow;
         }
     }
 }
