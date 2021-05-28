@@ -43,10 +43,16 @@ namespace DeploySoftware.LaunchPad.Core.FileGeneration
         public string LonDataField { get; set; }
 
         /// <summary>
-        /// Specific data field for composit items with address field.
+        /// Specific data fields for composit items with address field.
         /// </summary>
-        [JsonProperty("addressDataField")]
-        public string AddressDataField { get; set; }
+        [JsonProperty("streetDataField")]
+        public string StreetDataField { get; set; }
+        [JsonProperty("cityDataField")]
+        public string CityDataField { get; set; }
+        [JsonProperty("provinceDataField")]
+        public string ProvinceDataField { get; set; }
+        [JsonProperty("postalCodeDataField")]
+        public string PostalCodeDataField { get; set; }
 
         /// <summary>
         /// Type of this button. Types can be "reset" or "submit".
