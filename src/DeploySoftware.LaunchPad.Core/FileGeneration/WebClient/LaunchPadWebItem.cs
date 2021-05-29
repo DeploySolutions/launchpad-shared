@@ -55,6 +55,12 @@ namespace DeploySoftware.LaunchPad.Core.FileGeneration
         public string PostalCodeDataField { get; set; }
 
         /// <summary>
+        /// Possible enumurations for .
+        /// </summary>
+        [JsonProperty("enums")]
+        public string[] Enums { get; set; }
+
+        /// <summary>
         /// Type of this button. Types can be "reset" or "submit".
         /// </summary>
         [JsonProperty("buttonType")]
