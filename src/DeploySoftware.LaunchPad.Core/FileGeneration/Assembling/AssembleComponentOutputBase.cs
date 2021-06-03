@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace DeploySoftware.LaunchPad.Core.FileGeneration
 {
-    public abstract partial class AssembleComponentOutputBase
+    public abstract partial class AssembleComponentOutputBase : LaunchPadGenerationOutputBase
     {
 
         public DateTime AssemblyStarted { get; set; }
@@ -12,8 +12,6 @@ namespace DeploySoftware.LaunchPad.Core.FileGeneration
         public DateTime AssemblyEnded { get; set; }
 
         public TimeSpan AssemblyDuration { get; set; }
-
-        public bool Succeeded { get; set; }
 
         public string AssemblyOutputMessage { get; set; }
 
