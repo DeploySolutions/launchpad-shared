@@ -13,6 +13,12 @@ namespace DeploySoftware.LaunchPad.Core.FileGeneration
     public partial class LaunchPadNavigationItem : LaunchPadWebClientObjectBase
     {
         /// <summary>
+        /// User-friendly label for the navigation item
+        /// </summary>
+        [JsonProperty("componentName")]
+        public string ComponentName { get; set; }
+
+        /// <summary>
         /// Route to the page to open from this menu
         /// </summary>
         [JsonProperty("route")]
