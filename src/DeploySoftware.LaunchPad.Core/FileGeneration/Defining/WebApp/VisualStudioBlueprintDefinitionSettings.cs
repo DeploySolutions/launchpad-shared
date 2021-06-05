@@ -54,11 +54,6 @@ namespace DeploySoftware.LaunchPad.Core.FileGeneration
         /// </summary>
         public virtual IDictionary<string, LaunchPadGeneratedObjectBase> AppServiceDefinitions { get; set; }
 
-        /// <summary>
-        /// Contains a dictionary of template definitions belonging to this component, keyed by the template key
-        /// </summary>
-        public virtual IDictionary<string, TemplateBase> AvailableTemplates { get; set; }
-
         public VisualStudioBlueprintDefinitionSettings() : base()
         {
             VisualStudioSolutionName = string.Empty;
@@ -71,7 +66,6 @@ namespace DeploySoftware.LaunchPad.Core.FileGeneration
             PropertySets = new Dictionary<string, LaunchPadGeneratedDtoPropertySet>(comparer);
             DomainEntityDefinitions = new Dictionary<string, LaunchPadGeneratedObjectBase>(comparer);
             AppServiceDefinitions = new Dictionary<string, LaunchPadGeneratedObjectBase>(comparer);
-            AvailableTemplates = new Dictionary<string, TemplateBase>(comparer);
         }
     }
 }
