@@ -1,5 +1,6 @@
 ﻿using Castle.Core.Logging;
 using System;
+using System.Collections.Generic;
 
 namespace DeploySoftware.LaunchPad.Core.FileGeneration
 {
@@ -13,6 +14,8 @@ namespace DeploySoftware.LaunchPad.Core.FileGeneration
         where TBlueprintDefinitionInstructions : LaunchPadGeneratedObjectBlueprintDefinitionInstructionsBase, new()
     {
         public virtual LaunchPadGeneratedObjectBlueprintDefinition<TBlueprintDefinitionSettings,TBlueprintDefinitionInstructions> BlueprintDefinition { get; set; }
+
+        public virtual IDictionary<string, LicensedThirdPartyItem> LicensedThirdPartyItems { get; set; }
 
         public virtual ILogger Logger { get; set; }
 
@@ -44,6 +47,9 @@ namespace DeploySoftware.LaunchPad.Core.FileGeneration
         {
             Logger = logger;
             BlueprintDefinition = new LaunchPadGeneratedObjectBlueprintDefinition<TBlueprintDefinitionSettings, TBlueprintDefinitionInstructions>();
+            var comparer = StringComparer.OrdinalIgnoreCase;
+            LicensedThirdPartyItems = new Dictionary<string, LicensedThirdPartyItem>(comparer);
+
         }
     }
 }

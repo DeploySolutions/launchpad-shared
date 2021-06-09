@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DeploySoftware.LaunchPad.Core.FileGeneration.Structure.Unspecified
+namespace DeploySoftware.LaunchPad.Core.FileGeneration
 {
     /// <summary>
     /// This class represents a licensed third party or open source item (element, file, component, library, assembly, etc).
