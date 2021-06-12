@@ -38,7 +38,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         
         [DataObjectField(false)]
         [XmlAttribute]
-        public virtual IEnumerable<IGeographicLocation> BoundingBoxCoordinates
+        public virtual IDictionary<string, IGeographicLocation> BoundingBoxCoordinates
         {
             get;set;
         }
@@ -50,15 +50,17 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         /// </summary>
         public AreaOfInterest(int? tenantId) :base ()
         {
+            var comparer = StringComparer.OrdinalIgnoreCase;
+            BoundingBoxCoordinates = new Dictionary<string, IGeographicLocation>(comparer);
             TenantId = tenantId;
         }
 
-        public AreaOfInterest(int? tenantId, IEnumerable<IGeographicLocation> boundingBox) : base()
+        public AreaOfInterest(int? tenantId, IDictionary<string, IGeographicLocation> boundingBox) : base()
         {
             BoundingBoxCoordinates = boundingBox;
             TenantId = tenantId;
         }
-        public AreaOfInterest(int? tenantId, TIdType id, String culture, IEnumerable<IGeographicLocation> boundingBox) : base(id, culture)
+        public AreaOfInterest(int? tenantId, TIdType id, String culture, IDictionary<string, IGeographicLocation> boundingBox) : base(id, culture)
         {
             BoundingBoxCoordinates = boundingBox;
             TenantId = tenantId;
@@ -71,7 +73,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         /// <param name="context">The context of the stream</param>
         public AreaOfInterest(SerializationInfo info, StreamingContext context) : base(info, context)
         {
-            BoundingBoxCoordinates = (IEnumerable<IGeographicLocation>)info.GetValue("BoundingBoxCoordinates", typeof(IEnumerable<IGeographicLocation>));
+            BoundingBoxCoordinates = (IDictionary<string, IGeographicLocation>)info.GetValue("BoundingBoxCoordinates", typeof(IDictionary<string, IGeographicLocation>));
         }
 
         /// <summary>

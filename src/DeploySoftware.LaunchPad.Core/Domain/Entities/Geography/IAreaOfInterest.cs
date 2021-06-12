@@ -29,7 +29,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
     {
         [DataObjectField(false)]
         [XmlAttribute]
-        IEnumerable<IGeographicLocation> BoundingBoxCoordinates { get; set; }
+        IDictionary<string, IGeographicLocation> BoundingBoxCoordinates { get; set; }
 
     }
 }
