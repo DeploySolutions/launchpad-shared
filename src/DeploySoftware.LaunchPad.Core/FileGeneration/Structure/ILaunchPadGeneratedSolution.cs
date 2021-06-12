@@ -5,7 +5,7 @@ namespace DeploySoftware.LaunchPad.Core.FileGeneration
 {
     public interface ILaunchPadGeneratedSolution : ILaunchPadGeneratedObject
     {
-        public CloudInfrastructure Infrastructure { get; set; }
+        public SolutionInfrastructure Infra { get; set; }
 
         /// <summary>
         /// Contains configuration information related to this solution

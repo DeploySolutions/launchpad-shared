@@ -6,25 +6,29 @@ using System.Threading.Tasks;
 
 namespace DeploySoftware.LaunchPad.Core.FileGeneration
 {
-    public class CloudInfrastructure
+    public class SolutionInfrastructure : ISolutionInfrastructure
     {
 
         public virtual string Name { get; set; }
 
         public virtual string Description { get; set; }
-        
+
         public SupportedCloudProviderEnum CloudProvider { get; set; }
 
-        public CloudInfrastructure()
+        public AbpFrameworkEnum AbpFramework { get; set; }
+
+        public SolutionInfrastructure()
         {
             CloudProvider = SupportedCloudProviderEnum.AmazonWebServices;
+            AbpFramework = AbpFrameworkEnum.AspNetBoilerplate;
             Name = CloudProvider.ToString();
             Description = string.Empty;
         }
 
-        public CloudInfrastructure(SupportedCloudProviderEnum cloudProvider)
+        public SolutionInfrastructure(SupportedCloudProviderEnum cloudProvider, AbpFrameworkEnum abpFramework)
         {
             CloudProvider = cloudProvider;
+            AbpFramework = abpFramework;
             Name = CloudProvider.ToString();
             Description = string.Empty;
         }
