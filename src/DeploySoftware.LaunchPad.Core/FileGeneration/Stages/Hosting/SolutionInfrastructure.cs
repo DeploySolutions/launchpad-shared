@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace DeploySoftware.LaunchPad.Core.FileGeneration
 {
+    [Serializable]
     public class SolutionInfrastructure : ISolutionInfrastructure
     {
 
@@ -13,9 +14,11 @@ namespace DeploySoftware.LaunchPad.Core.FileGeneration
 
         public virtual string Description { get; set; }
 
-        public CloudProviderEnum CloudProvider { get; set; }
+        public virtual CloudProviderEnum CloudProvider { get; set; }
 
-        public AbpFrameworkEnum AbpFramework { get; set; }
+        public virtual AbpFrameworkEnum AbpFramework { get; set; }
+
+        public virtual bool SearchIsEnabled { get; set; }
 
         public SolutionInfrastructure()
         {
