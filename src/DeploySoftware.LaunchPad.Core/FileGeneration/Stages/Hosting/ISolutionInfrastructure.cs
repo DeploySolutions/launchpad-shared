@@ -2,7 +2,7 @@
 {
     public interface ISolutionInfrastructure
     {
-        public SupportedCloudProviderEnum CloudProvider { get; set; }
+        public CloudProviderEnum CloudProvider { get; set; }
 
         public AbpFrameworkEnum AbpFramework { get; set; }
 

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DeploySoftware.LaunchPad.Core.FileGeneration
 {
-    public enum SupportedCloudProviderEnum
+    public enum CloudProviderEnum
     {
         AmazonWebServices = 0,
         MicrosoftAzure = 1,

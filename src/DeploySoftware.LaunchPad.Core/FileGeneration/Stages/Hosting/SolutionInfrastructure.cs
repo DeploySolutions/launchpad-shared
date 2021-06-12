@@ -13,19 +13,19 @@ namespace DeploySoftware.LaunchPad.Core.FileGeneration
 
         public virtual string Description { get; set; }
 
-        public SupportedCloudProviderEnum CloudProvider { get; set; }
+        public CloudProviderEnum CloudProvider { get; set; }
 
         public AbpFrameworkEnum AbpFramework { get; set; }
 
         public SolutionInfrastructure()
         {
-            CloudProvider = SupportedCloudProviderEnum.AmazonWebServices;
+            CloudProvider = CloudProviderEnum.AmazonWebServices;
             AbpFramework = AbpFrameworkEnum.AspNetBoilerplate;
             Name = CloudProvider.ToString();
             Description = string.Empty;
         }
 
-        public SolutionInfrastructure(SupportedCloudProviderEnum cloudProvider, AbpFrameworkEnum abpFramework)
+        public SolutionInfrastructure(CloudProviderEnum cloudProvider, AbpFrameworkEnum abpFramework)
         {
             CloudProvider = cloudProvider;
             AbpFramework = abpFramework;
