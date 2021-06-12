@@ -25,6 +25,11 @@ namespace DeploySoftware.LaunchPad.Core.FileGeneration
         [XmlElement]
         public virtual IDictionary<string, LaunchPadGeneratedStylesheet> Stylesheets { get; set; }
 
+        /// <summary>
+        /// Backend middleware that supports this web app project could be ASPBoilerplate or ASPNetZero(Default)
+        /// </summary>
+        public string SupportedFramework { get; set; }
+
 
         /// <summary>
         /// Returns a bool indicating if the component is currently in a valid or invalid state.
@@ -55,6 +60,7 @@ namespace DeploySoftware.LaunchPad.Core.FileGeneration
             var comparer = StringComparer.OrdinalIgnoreCase;
             StaticWebPages = new Dictionary<string, LaunchPadGeneratedStaticWebPage>(comparer);
             Stylesheets = new Dictionary<string, LaunchPadGeneratedStylesheet>(comparer);
+            SupportedFramework = "ASPNetZero";
         }
     }
 }
