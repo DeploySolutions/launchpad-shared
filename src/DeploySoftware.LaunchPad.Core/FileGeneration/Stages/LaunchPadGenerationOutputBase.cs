@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DeploySoftware.LaunchPad.Core.FileGeneration
 {
-    public abstract partial class LaunchPadGenerationOutputBase : LaunchPadGenerationInputBase
+    public abstract partial class LaunchPadGenerationOutputBase : LaunchPadGenerationInputBase, ILaunchPadGenerationOutput
     {
         public virtual bool Succeeded { get; set; }
     }

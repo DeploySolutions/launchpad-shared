@@ -5,8 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace DeploySoftware.LaunchPad.Core.FileGeneration
-{    
-    public abstract partial class LaunchPadGenerationInputBase : ILaunchPadGenerationInput
+{
+    public interface ILaunchPadGenerationInput
     {
     }
 }
