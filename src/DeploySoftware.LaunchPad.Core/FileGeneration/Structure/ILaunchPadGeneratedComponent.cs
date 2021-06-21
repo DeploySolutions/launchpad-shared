@@ -10,6 +10,8 @@ namespace DeploySoftware.LaunchPad.Core.FileGeneration
 
         public ILogger Logger { get; set; }
 
+        public ComponentStatusEnum ComponentStatus { get; set; }
+
         /// <summary>
         /// Returns a bool indicating if the component is currently in a valid or invalid state.
         /// </summary>

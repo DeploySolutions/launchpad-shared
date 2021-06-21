@@ -17,6 +17,8 @@ namespace DeploySoftware.LaunchPad.Core.FileGeneration
 
         public virtual IDictionary<string, LicensedThirdPartyItem> LicensedThirdPartyItems { get; set; }
 
+        public virtual ComponentStatusEnum ComponentStatus { get; set; }
+
         public virtual ILogger Logger { get; set; }
 
         /// <summary>
@@ -49,7 +51,7 @@ namespace DeploySoftware.LaunchPad.Core.FileGeneration
             BlueprintDefinition = new LaunchPadGeneratedObjectBlueprintDefinition<TBlueprintDefinitionSettings, TBlueprintDefinitionInstructions>();
             var comparer = StringComparer.OrdinalIgnoreCase;
             LicensedThirdPartyItems = new Dictionary<string, LicensedThirdPartyItem>(comparer);
-
+            ComponentStatus = ComponentStatusEnum.Enabled;
         }
     }
 }
