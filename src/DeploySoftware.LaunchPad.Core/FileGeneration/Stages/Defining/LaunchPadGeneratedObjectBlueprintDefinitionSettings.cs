@@ -25,9 +25,14 @@ namespace DeploySoftware.LaunchPad.Core.FileGeneration
         public virtual string SupportedCultures { get; set; }
 
         /// <summary>
-        /// The version of this module
+        /// The version of this blueprint
         /// </summary>
         public virtual string Version { get; set; }
+
+        /// <summary>
+        /// Whether this element supports multi-tenancy
+        /// </summary>
+        public virtual bool MultiTenancyIsEnabled { get; set; }
 
         /// <summary>
         /// Authentication type:
