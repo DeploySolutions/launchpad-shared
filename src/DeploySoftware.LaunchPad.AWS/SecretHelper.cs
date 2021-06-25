@@ -109,7 +109,7 @@ namespace DeploySoftware.LaunchPad.AWS
         {
             Logger.Info(string.Format(DeploySoftware_LaunchPad_AWS_Resources.Logger_Info_GetCredentialsFromSecret_Getting, secretArn));
             // create the aws credentials given the provided credentials taken from the secret
-            dynamic secret = JsonConvert.DeserializeObject(GetJsonFromSecret(secretArn));
+            dynamic secret = JsonConvert.DeserializeObject(GetJsonFromSecret(secretArn));            
             string iamAccessKey = secret.apiGatewayIAMAccessKey;
             string iamSecretKey = secret.apiGatewayIAMSecret;
             Logger.Info(string.Format(DeploySoftware_LaunchPad_AWS_Resources.Logger_Info_GetCredentialsFromSecret_Got, secretArn));
