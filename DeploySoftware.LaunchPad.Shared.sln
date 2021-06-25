@@ -48,6 +48,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DeploySoftware.LaunchPad.Im
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DeploySoftware.LaunchPad.Core", "src\DeploySoftware.LaunchPad.Core\DeploySoftware.LaunchPad.Core.csproj", "{C3CCE29C-FF79-4433-9947-F797FD46039A}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DeploySoftware.LaunchPad.AWS", "src\DeploySoftware.LaunchPad.AWS\DeploySoftware.LaunchPad.AWS.csproj", "{BC093BA1-5B00-40CD-A758-EED1CD28C5A1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -82,6 +84,10 @@ Global
 		{C3CCE29C-FF79-4433-9947-F797FD46039A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C3CCE29C-FF79-4433-9947-F797FD46039A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C3CCE29C-FF79-4433-9947-F797FD46039A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BC093BA1-5B00-40CD-A758-EED1CD28C5A1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BC093BA1-5B00-40CD-A758-EED1CD28C5A1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BC093BA1-5B00-40CD-A758-EED1CD28C5A1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BC093BA1-5B00-40CD-A758-EED1CD28C5A1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -97,6 +103,7 @@ Global
 		{2FF22785-C306-4788-B147-F5B59C1A1134} = {442BFA02-FB67-4078-AA7D-C8796C5D074B}
 		{19F8D0A1-A6FD-45C3-8F18-6283C609584B} = {82629D38-5FB2-4DAF-9B67-3C766D419811}
 		{C3CCE29C-FF79-4433-9947-F797FD46039A} = {442BFA02-FB67-4078-AA7D-C8796C5D074B}
+		{BC093BA1-5B00-40CD-A758-EED1CD28C5A1} = {442BFA02-FB67-4078-AA7D-C8796C5D074B}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {89FD47F4-AA98-4C45-852A-0CFC7404BBA3}
