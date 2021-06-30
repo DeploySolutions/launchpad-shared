@@ -6,6 +6,7 @@ using Castle.Core.Logging;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
+using System.Threading.Tasks;
 
 namespace DeploySoftware.LaunchPad.AWS
 {
@@ -47,7 +48,7 @@ namespace DeploySoftware.LaunchPad.AWS
 
         }
 
-        public virtual String GetJsonFromSecret(string secretArn)
+        public async virtual Task<string> GetJsonFromSecret(string secretArn)
         {
             Logger.Info(string.Format(DeploySoftware_LaunchPad_AWS_Resources.Logger_Info_GetJsonFromSecret_Getting, secretArn));
             GetSecretValueRequest request = new GetSecretValueRequest();
@@ -58,7 +59,7 @@ namespace DeploySoftware.LaunchPad.AWS
 
             try
             {
-                response = SecretClient.GetSecretValueAsync(request).Result;
+                response = await SecretClient.GetSecretValueAsync(request);
             }
             catch (DecryptionFailureException e)
             {
@@ -101,15 +102,35 @@ namespace DeploySoftware.LaunchPad.AWS
         }
 
         /// <summary>
+        /// Returns the text value of of a particular key, from a given secret ARN
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="secretArn"></param>
+        /// <returns></returns>
+        public async Task<string> GetValueFromSecret(string key, string secretArn)
+        {
+            string secretStringJson = await GetJsonFromSecret(secretArn);
+            string val = string.Empty;
+            // Decrypts secret
+            if (!string.IsNullOrEmpty(secretStringJson))
+            {
+                dynamic secretObj = JObject.Parse(secretStringJson);
+                val = secretObj[key];
+            }
+            return val;
+        }
+
+
+        /// <summary>
         /// Get AWS Immutable Credentials where the IAM access key and secret values are stored in an AWS Secret Manager secret.
         /// </summary>
         /// <param name="secretArn">The ARN of the secret in which the IAM values are kept.</param>
         /// <returns>IAM credentials if value, or null</returns>
-        public virtual ImmutableCredentials GetCredentialsFromSecret(string secretArn)
+        public async virtual Task<ImmutableCredentials>  GetCredentialsFromSecret(string secretArn)
         {
             Logger.Info(string.Format(DeploySoftware_LaunchPad_AWS_Resources.Logger_Info_GetCredentialsFromSecret_Getting, secretArn));
             // create the aws credentials given the provided credentials taken from the secret
-            dynamic secret = JsonConvert.DeserializeObject(GetJsonFromSecret(secretArn));            
+            dynamic secret = JsonConvert.DeserializeObject(await GetJsonFromSecret(secretArn));            
             string iamAccessKey = secret.apiGatewayIAMAccessKey;
             string iamSecretKey = secret.apiGatewayIAMSecret;
             Logger.Info(string.Format(DeploySoftware_LaunchPad_AWS_Resources.Logger_Info_GetCredentialsFromSecret_Got, secretArn));
@@ -121,10 +142,10 @@ namespace DeploySoftware.LaunchPad.AWS
         /// </summary>
         /// <param name="secretArn">The AWS ARN of the secret in which the key is located.</param>
         /// <returns>A SQL connection string</returns>
-        public virtual string GetDbConnectionStringFromSecret(string secretArn)
+        public async virtual Task<string> GetDbConnectionStringFromSecret(string secretArn)
         {
             Logger.Info(string.Format(DeploySoftware_LaunchPad_AWS_Resources.Logger_Info_GetDbConnectionStringFromSecret_Getting, secretArn));
-            string connectionStringJson = GetJsonFromSecret(secretArn);
+            string connectionStringJson = await GetJsonFromSecret(secretArn);            
             string connectionString = String.Empty;
             
             // Decrypts secret using the associated JSON. The secret should contain a "dbConnectionString" key with a valid 
