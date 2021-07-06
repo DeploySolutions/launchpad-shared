@@ -133,6 +133,15 @@ namespace DeploySoftware.LaunchPad.AWS {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to AWS Get Credentials failed. Message was {0}..
+        /// </summary>
+        public static string SecretHelper_GetSecretClient_Exception_GetAwsCredentials {
+            get {
+                return ResourceManager.GetString("SecretHelper_GetSecretClient_Exception_GetAwsCredentials", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to AWS Profile name is {0}..
         /// </summary>
         public static string SecretHelper_GetSecretClient_ProfileName {

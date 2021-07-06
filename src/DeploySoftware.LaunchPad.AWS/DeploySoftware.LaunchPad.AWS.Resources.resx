@@ -141,6 +141,9 @@
   <data name="Logger_Info_GetJsonFromSecret_Got" xml:space="preserve">
     <value>Got JSON from Secrets Manager for secret ARN {0}</value>
   </data>
+  <data name="SecretHelper_GetSecretClient_Exception_GetAwsCredentials" xml:space="preserve">
+    <value>AWS Get Credentials failed. Message was {0}.</value>
+  </data>
   <data name="SecretHelper_GetSecretClient_ProfileName" xml:space="preserve">
     <value>AWS Profile name is {0}.</value>
   </data>

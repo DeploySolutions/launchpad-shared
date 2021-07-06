@@ -18,7 +18,12 @@ namespace DeploySoftware.LaunchPad.AWS
         public IAmazonSecretsManager SecretClient { get; set; }
 
 
-        
+        public SecretHelper(ILogger logger)
+        {
+            Logger = logger;
+            SecretClient = GetSecretClient();
+        }
+
         public SecretHelper(ILogger logger, IAmazonSecretsManager client)
         {
             Logger = logger;
@@ -31,7 +36,21 @@ namespace DeploySoftware.LaunchPad.AWS
             SecretClient = GetSecretClient(awsProfileName, awsRegionSystemName);
         }
 
+        /// <summary>
+        /// Creates a new Secrets Manager client
+        /// </summary>
+        /// <returns></returns>
+        protected AmazonSecretsManagerClient GetSecretClient()
+        {
+            return new AmazonSecretsManagerClient();
+        }
 
+        /// <summary>
+        /// Creates a new Secrets Manager client using the provided profile information
+        /// </summary>
+        /// <param name="profileName"></param>
+        /// <param name="awsRegionSystemName"></param>
+        /// <returns></returns>
         protected AmazonSecretsManagerClient GetSecretClient(string profileName, string awsRegionSystemName)
         {
             if(string.IsNullOrEmpty(profileName))
@@ -46,11 +65,20 @@ namespace DeploySoftware.LaunchPad.AWS
             Logger.Info(string.Format(DeploySoftware_LaunchPad_AWS_Resources.SecretHelper_GetSecretClient_Region, profileName));
 
             RegionEndpoint region = RegionEndpoint.GetBySystemName(awsRegionSystemName);
-            var client = new AmazonSecretsManagerClient(GetAwsCredentials(profileName), region);
-            if (client == null)
+            AmazonSecretsManagerClient client = null;
+            try
             {
-                client = new AmazonSecretsManagerClient();
+                var credentials = GetAwsCredentials(profileName);
+                client = new AmazonSecretsManagerClient(credentials, region);
+            }
+            catch(AmazonSecretsManagerException smEx)
+            {
+                Logger.Info(string.Format(DeploySoftware_LaunchPad_AWS_Resources.SecretHelper_GetSecretClient_Exception_GetAwsCredentials,smEx.Message));
+            }
+            if (client == null) // try to load using local environment or EC2 information
+            {
                 Logger.Info(DeploySoftware_LaunchPad_AWS_Resources.SecretHelper_GetSecretClient_SecretClient_IsNull);
+                client = GetSecretClient();
             }            
             return client;
 
