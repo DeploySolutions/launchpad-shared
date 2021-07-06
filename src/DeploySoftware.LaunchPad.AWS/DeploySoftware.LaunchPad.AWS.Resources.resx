@@ -141,4 +141,13 @@
   <data name="Logger_Info_GetJsonFromSecret_Got" xml:space="preserve">
     <value>Got JSON from Secrets Manager for secret ARN {0}</value>
   </data>
+  <data name="SecretHelper_GetSecretClient_ProfileName" xml:space="preserve">
+    <value>AWS Profile name is {0}.</value>
+  </data>
+  <data name="SecretHelper_GetSecretClient_Region" xml:space="preserve">
+    <value>AWS Region is {0}.</value>
+  </data>
+  <data name="SecretHelper_GetSecretClient_SecretClient_IsNull" xml:space="preserve">
+    <value>AWS Secret Client was null, loaded from EC2 instance state.</value>
+  </data>
 </root>

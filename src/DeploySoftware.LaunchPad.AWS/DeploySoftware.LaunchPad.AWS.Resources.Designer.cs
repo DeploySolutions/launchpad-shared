@@ -131,5 +131,32 @@ namespace DeploySoftware.LaunchPad.AWS {
                 return ResourceManager.GetString("Logger_Info_GetJsonFromSecret_Got", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to AWS Profile name is {0}..
+        /// </summary>
+        public static string SecretHelper_GetSecretClient_ProfileName {
+            get {
+                return ResourceManager.GetString("SecretHelper_GetSecretClient_ProfileName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to AWS Region is {0}..
+        /// </summary>
+        public static string SecretHelper_GetSecretClient_Region {
+            get {
+                return ResourceManager.GetString("SecretHelper_GetSecretClient_Region", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to AWS Secret Client was null, loaded from EC2 instance state..
+        /// </summary>
+        public static string SecretHelper_GetSecretClient_SecretClient_IsNull {
+            get {
+                return ResourceManager.GetString("SecretHelper_GetSecretClient_SecretClient_IsNull", resourceCulture);
+            }
+        }
     }
 }

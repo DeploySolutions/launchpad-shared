@@ -42,9 +42,17 @@ namespace DeploySoftware.LaunchPad.AWS
             {
                 awsRegionSystemName = "us-east-1";
             }
+            Logger.Info(string.Format(DeploySoftware_LaunchPad_AWS_Resources.SecretHelper_GetSecretClient_ProfileName, profileName));
+            Logger.Info(string.Format(DeploySoftware_LaunchPad_AWS_Resources.SecretHelper_GetSecretClient_Region, profileName));
+
             RegionEndpoint region = RegionEndpoint.GetBySystemName(awsRegionSystemName);
-            
-            return new AmazonSecretsManagerClient(GetAwsCredentials(profileName), region);
+            var client = new AmazonSecretsManagerClient(GetAwsCredentials(profileName), region);
+            if (client == null)
+            {
+                client = new AmazonSecretsManagerClient();
+                Logger.Info(DeploySoftware_LaunchPad_AWS_Resources.SecretHelper_GetSecretClient_SecretClient_IsNull);
+            }            
+            return client;
 
         }
 
