@@ -47,6 +47,12 @@ namespace DeploySoftware.LaunchPad.Core.FileGeneration
         [JsonProperty("columns")]
         public IList<LaunchPadColumn> Columns { get; set; }
 
+        /// <summary>
+        /// Domain entity representing the data listed in the table
+        /// </summary>
+        [JsonProperty("emptyState")]
+        public LaunchPadEmptyState EmptyState { get; set; }
+
         public LaunchPadDataTable() : base()
         {
             DomainEntity = String.Empty;

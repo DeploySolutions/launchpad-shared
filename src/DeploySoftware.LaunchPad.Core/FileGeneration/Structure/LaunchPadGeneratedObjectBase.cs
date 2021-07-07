@@ -40,6 +40,8 @@ namespace DeploySoftware.LaunchPad.Core.FileGeneration
         /// <summary>
         /// The description of the object
         /// </summary>
+        [JsonProperty("description")]
+        [JsonConverter(typeof(LocalizedJsonConverter<string>))]
         public virtual string Description { get; set; }
 
         /// <summary>
