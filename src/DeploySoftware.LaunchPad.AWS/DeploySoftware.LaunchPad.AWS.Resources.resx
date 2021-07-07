@@ -141,6 +141,9 @@
   <data name="Logger_Info_GetJsonFromSecret_Got" xml:space="preserve">
     <value>Got JSON from Secrets Manager for secret ARN {0}</value>
   </data>
+  <data name="SecretHelper_GetRegionEndpoint_Logger_Info_RegionName" xml:space="preserve">
+    <value>AWS region name is '{0}' (system name '{1}').</value>
+  </data>
   <data name="SecretHelper_GetSecretClient_Exception_GetAwsCredentials" xml:space="preserve">
     <value>AWS Get Credentials failed. Message was {0}.</value>
   </data>

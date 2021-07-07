@@ -133,6 +133,15 @@ namespace DeploySoftware.LaunchPad.AWS {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to AWS region name is &apos;{0}&apos; (system name &apos;{1}&apos;)..
+        /// </summary>
+        public static string SecretHelper_GetRegionEndpoint_Logger_Info_RegionName {
+            get {
+                return ResourceManager.GetString("SecretHelper_GetRegionEndpoint_Logger_Info_RegionName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to AWS Get Credentials failed. Message was {0}..
         /// </summary>
         public static string SecretHelper_GetSecretClient_Exception_GetAwsCredentials {

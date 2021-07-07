@@ -13,6 +13,8 @@ namespace DeploySoftware.LaunchPad.AWS
     public partial class SecretHelper : AwsHelperBase
     {
 
+        protected const string DefaultRegionName = "us-east-1";
+
         public ILogger Logger { get; set; }
 
         public IAmazonSecretsManager SecretClient { get; set; }
@@ -21,28 +23,67 @@ namespace DeploySoftware.LaunchPad.AWS
         public SecretHelper(ILogger logger)
         {
             Logger = logger;
-            SecretClient = GetSecretClient();
+            RegionEndpoint region = GetRegionEndpoint(DefaultRegionName);
+            SecretClient = GetSecretClient(region);
         }
 
-        public SecretHelper(ILogger logger, IAmazonSecretsManager client)
+        public SecretHelper(IAmazonSecretsManager client, ILogger logger)
         {
             Logger = logger;
             SecretClient = client;
         }
 
-        public SecretHelper(ILogger logger, string awsProfileName, string awsRegionSystemName)
+        public SecretHelper(string awsRegionEndpointName, ILogger logger)
         {
             Logger = logger;
-            SecretClient = GetSecretClient(awsProfileName, awsRegionSystemName);
+            RegionEndpoint region = GetRegionEndpoint(awsRegionEndpointName);
+            SecretClient = GetSecretClient(region);
+        }
+
+        public SecretHelper(string awsProfileName, string awsRegionEndpointName, ILogger logger)
+        {
+            Logger = logger;
+            SecretClient = GetSecretClient(awsProfileName, GetRegionEndpoint(awsRegionEndpointName));
+        }
+
+        /// <summary>
+        /// Returns an AWS region endpoint from a given endpoint name, or the default region "us-east-1" if invalid/none provided.
+        /// </summary>
+        /// <param name="awsRegionEndpointSystemName">A valid AWS region endpoint system name.</param>
+        /// <returns>A valid AWS Region Endpoint</returns>
+        protected RegionEndpoint GetRegionEndpoint(string awsRegionEndpointSystemName)
+        {
+            RegionEndpoint region = null;
+
+            // attempt to load the Region Endpoint from the list of available ones
+            if(!string.IsNullOrEmpty(awsRegionEndpointSystemName))
+            {
+                foreach (var e in RegionEndpoint.EnumerableAllRegions)
+                {
+                    if (e.Equals(awsRegionEndpointSystemName))
+                    {
+                        region = e;
+                    }
+                }
+            }
+            
+            // if the region is still null, or the string was null or empty previously, use the default region endpoint
+            if (region == null)
+            {
+                region = RegionEndpoint.GetBySystemName(DefaultRegionName);
+            }
+
+            Logger.Info(string.Format(DeploySoftware_LaunchPad_AWS_Resources.SecretHelper_GetRegionEndpoint_Logger_Info_RegionName, region.DisplayName, region.SystemName));
+            return region;
         }
 
         /// <summary>
         /// Creates a new Secrets Manager client
         /// </summary>
         /// <returns></returns>
-        protected AmazonSecretsManagerClient GetSecretClient()
+        protected AmazonSecretsManagerClient GetSecretClient(RegionEndpoint region)
         {
-            return new AmazonSecretsManagerClient();
+            return new AmazonSecretsManagerClient(region);
         }
 
         /// <summary>
@@ -51,20 +92,16 @@ namespace DeploySoftware.LaunchPad.AWS
         /// <param name="profileName"></param>
         /// <param name="awsRegionSystemName"></param>
         /// <returns></returns>
-        protected AmazonSecretsManagerClient GetSecretClient(string profileName, string awsRegionSystemName)
+        protected AmazonSecretsManagerClient GetSecretClient(string profileName, RegionEndpoint region)
         {
             if(string.IsNullOrEmpty(profileName))
             {
                 profileName = "default";
             }
-            if (string.IsNullOrEmpty(awsRegionSystemName))
-            {
-                awsRegionSystemName = "us-east-1";
-            }
+            
             Logger.Info(string.Format(DeploySoftware_LaunchPad_AWS_Resources.SecretHelper_GetSecretClient_ProfileName, profileName));
             Logger.Info(string.Format(DeploySoftware_LaunchPad_AWS_Resources.SecretHelper_GetSecretClient_Region, profileName));
 
-            RegionEndpoint region = RegionEndpoint.GetBySystemName(awsRegionSystemName);
             AmazonSecretsManagerClient client = null;
             try
             {
@@ -78,7 +115,7 @@ namespace DeploySoftware.LaunchPad.AWS
             if (client == null) // try to load using local environment or EC2 information
             {
                 Logger.Info(DeploySoftware_LaunchPad_AWS_Resources.SecretHelper_GetSecretClient_SecretClient_IsNull);
-                client = GetSecretClient();
+                client = GetSecretClient(region);
             }            
             return client;
 
