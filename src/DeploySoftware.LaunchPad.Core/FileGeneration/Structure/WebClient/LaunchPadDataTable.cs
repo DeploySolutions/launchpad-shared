@@ -20,8 +20,8 @@ namespace DeploySoftware.LaunchPad.Core.FileGeneration
         /// <summary>
         /// Route to follow when the user clicks on each row of data
         /// </summary>
-        [JsonProperty("rowRoute")]
-        public string RowRoute { get; set; }
+        [JsonProperty("route")]
+        public string Route { get; set; }
 
         /// <summary>
         /// Primary filters displaying at the top of the datatable
