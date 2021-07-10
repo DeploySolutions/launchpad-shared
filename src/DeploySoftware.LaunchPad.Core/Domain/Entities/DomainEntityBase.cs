@@ -80,6 +80,13 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         public virtual string? DescriptionFull { get; set; }
 
         /// <summary>
+        /// The sequence number for this entity, if any (for sorting and ordering purposes). Defaults to 0 if not set.
+        /// </summary>
+        [DataObjectField(false)]
+        [XmlElement]
+        public virtual Int32 SeqNum { get; set; } = 0;
+
+        /// <summary>
         /// Each entity can have an open-ended set of tags applied to it, that help users find, markup, and display its information
         /// </summary>
         [DataObjectField(false)]
@@ -195,6 +202,8 @@ namespace DeploySoftware.LaunchPad.Core.Domain
             DeletionTime = info.GetDateTime("DeletionTime");
             IsActive = info.GetBoolean("IsActive");
             TranslatedFromId = (TIdType)info.GetValue("TranslatedFromId", typeof(TIdType));
+            SeqNum = info.GetInt32("SeqNum");
+
             //Metadata = (MetadataInformation)info.GetValue("Metadata", typeof(MetadataInformation));
 
         }
@@ -212,6 +221,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
             info.AddValue("DescriptionShort", DescriptionShort);
             info.AddValue("DescriptionFull", DescriptionFull);
             info.AddValue("Tags", Tags);
+            info.AddValue("SeqNum", SeqNum);
             info.AddValue("CreationTime", CreationTime);
             info.AddValue("CreatorUserId", CreatorUserId);
             info.AddValue("LastModificationTime", LastModificationTime);
@@ -297,6 +307,8 @@ namespace DeploySoftware.LaunchPad.Core.Domain
             sb.AppendFormat("DescriptionFull={0};", DescriptionFull);
             sb.AppendFormat("TranslatedFromId={0};", TranslatedFromId);
             sb.AppendFormat(" Tags={0};", Tags.ToString());
+            sb.AppendFormat("SeqNum={0};", SeqNum);
+
             // ABP properties
             sb.AppendFormat("CreationTime={0};", CreationTime);
             sb.AppendFormat("CreatorUserId={0};", CreatorUserId);

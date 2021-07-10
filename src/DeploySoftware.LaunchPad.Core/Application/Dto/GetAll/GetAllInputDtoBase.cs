@@ -26,6 +26,11 @@ namespace DeploySoftware.LaunchPad.Core.Application.Dto
         [DataObjectField(false)]
         [XmlAttribute]
         [NotMapped]
+        public SortDirectionEnum SortDirection { get; set; }
+
+        [DataObjectField(false)]
+        [XmlAttribute]
+        [NotMapped]
 
         public int SkipCount { get; set; }
         [DataObjectField(false)]
