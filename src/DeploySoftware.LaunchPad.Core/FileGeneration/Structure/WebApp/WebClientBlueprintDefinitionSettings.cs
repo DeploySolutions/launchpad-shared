@@ -12,11 +12,18 @@ namespace DeploySoftware.LaunchPad.Core.FileGeneration
         LaunchPadGeneratedObjectBlueprintDefinitionSettings
     {
         /// <summary>
-        /// Brand configuration of the app. Thsi could include name, icon, logo and/or theme color.
+        /// Brand configuration of the app. This could include name, icon, logo and/or theme color.
         /// </summary>
         [XmlElement]
         [JsonProperty]
         public LaunchPadBrand Brand { get; set; }
+
+        /// <summary>
+        /// Map configuration of the app.
+        /// </summary>
+        [XmlElement]
+        [JsonProperty]
+        public LaunchPadMap Map { get; set; }
 
         /// <summary>
         /// The top section of the side navigation bar
