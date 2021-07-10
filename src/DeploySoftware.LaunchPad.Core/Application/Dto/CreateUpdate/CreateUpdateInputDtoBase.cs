@@ -54,6 +54,14 @@ namespace DeploySoftware.LaunchPad.Core.Application.Dto
         [MaxLength(8096, ErrorMessageResourceName = "Validation_DescriptionFull_8096CharsOrLess", ErrorMessageResourceType = typeof(DeploySoftware_LaunchPad_Core_Resources))]
         public virtual string? DescriptionFull { get; set; }
 
+
+        /// <summary>
+        /// The sequence number for this entity, if any (for sorting and ordering purposes). Defaults to 0 if not set.
+        /// </summary>
+        [DataObjectField(false)]
+        [XmlAttribute]
+        public virtual Int32 SeqNum { get; set; } = 0;
+
         #region "Constructors"
 
         /// <summary>
