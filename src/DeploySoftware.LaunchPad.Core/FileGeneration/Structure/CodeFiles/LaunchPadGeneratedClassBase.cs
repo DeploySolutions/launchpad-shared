@@ -26,6 +26,11 @@ namespace DeploySoftware.LaunchPad.Core.FileGeneration
         public virtual string InheritsFrom { get; set; }
 
         /// <summary>
+        /// The using statements generated in this file.
+        /// </summary>
+        public virtual string UsingStatements { get; set; }
+
+        /// <summary>
         /// The dictionary of unique base LaunchPad properties that belong to this class (received through DomainEntity or other base class inheritance).
         /// </summary>
         public virtual IDictionary<string, LaunchPadGeneratedProperty> BaseProperties { get; set; }
@@ -52,6 +57,7 @@ namespace DeploySoftware.LaunchPad.Core.FileGeneration
         {
             Namespace = string.Empty;
             InheritsFrom = string.Empty;
+            UsingStatements = string.Empty;
             var comparer = StringComparer.OrdinalIgnoreCase;
             BaseProperties = new Dictionary<string, LaunchPadGeneratedProperty>(comparer);
             CustomProperties = new Dictionary<string, LaunchPadGeneratedProperty>(comparer);
