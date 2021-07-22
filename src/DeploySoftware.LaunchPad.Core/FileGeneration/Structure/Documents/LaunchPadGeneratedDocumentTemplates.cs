@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace DeploySoftware.LaunchPad.Core.FileGeneration
 {
     [Serializable]
-    public partial class LaunchPadGeneratedDocumentTemplates
+    public partial class LaunchPadGeneratedDocumentTemplates : TemplateBase
     {
         public virtual string HeaderFooterTemplateName { get; set; }
         public virtual IList<string> CoverPageTemplateNames { get; set; }

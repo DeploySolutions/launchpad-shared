@@ -4,7 +4,8 @@ using System.Collections.Generic;
 
 namespace DeploySoftware.LaunchPad.Core.FileGeneration
 {
-    public abstract partial class TemplateBase
+    [Serializable]
+    public abstract partial class TemplateBase : ITemplate
     {
         public string Name { get; set; }
 
@@ -19,7 +20,7 @@ namespace DeploySoftware.LaunchPad.Core.FileGeneration
             Key = string.Empty;
             TemplateBasePath = string.Empty;
             var comparer = StringComparer.OrdinalIgnoreCase;
-            AvailableTokens = new Dictionary<string, LaunchPadToken>(comparer); 
+            AvailableTokens = new Dictionary<string, LaunchPadToken>(comparer);
         }
 
         public TemplateBase(string key, string templateBasePath)

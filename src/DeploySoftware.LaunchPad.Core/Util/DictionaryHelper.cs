@@ -54,5 +54,17 @@ namespace DeploySoftware.LaunchPad.Core.Util
                      group => group.First().Value);
             return merged;
         }
+    
+
+        public IDictionary<string,TBaseType> ToBaseTypeDictionary<TBaseType,TDerivedType>(IDictionary<string, TDerivedType> derivedTypesDictionary)
+            where TDerivedType: TBaseType, new()
+        {
+            IDictionary<string, TBaseType> baseDictionary = derivedTypesDictionary.ToDictionary(
+                k => k.Key,
+                v => (TBaseType)v.Value,
+                StringComparer.OrdinalIgnoreCase
+            );
+            return baseDictionary;
+        }
     }
 }
