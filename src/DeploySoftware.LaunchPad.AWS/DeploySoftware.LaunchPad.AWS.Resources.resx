@@ -126,7 +126,13 @@
   <data name="ApiGatewayHelper_GetOAuthTokenUsingSecretCredentials_Got" xml:space="preserve">
     <value>Got OAuthToken from endpoint {0} at oAuth provider {1}, for secret ARN {2}.</value>
   </data>
-  <data name="ApiGatewayHelper_GetOAuthTokenUsingSecretCredentials_Secret_Is_NullOrEmpty" xml:space="preserve">
+  <data name="ApiGatewayHelper_MakeApiGatewayRequest_Request_Resource_Is_NullOrEmpty" xml:space="preserve">
+    <value>Request resource cannot be null or empty.</value>
+  </data>
+  <data name="ApiGatewayHelper_MakeApiGatewayRequest_RestClient_Is_Null" xml:space="preserve">
+    <value>REST client cannot be null.</value>
+  </data>
+  <data name="ApiGatewayHelper_SecretArn_Is_NullOrEmpty" xml:space="preserve">
     <value>Secret ARN cannot be null or empty.</value>
   </data>
   <data name="Logger_Error_GetDbConnectionStringFromSecret_ExceptionThrown" xml:space="preserve">
@@ -134,6 +140,12 @@
   </data>
   <data name="Logger_Error_GetJsonFromSecret_ExceptionThrown" xml:space="preserve">
     <value>An exception was thrown while attempting to GetSecret JSON string: {0}. The message was {1}.</value>
+  </data>
+  <data name="Logger_Info_ExecuteApiGatewayRequest_Executed" xml:space="preserve">
+    <value>Executed {0} request to API gateway {1} for resource {2}. Status code: {3}</value>
+  </data>
+  <data name="Logger_Info_ExecuteApiGatewayRequest_Executing" xml:space="preserve">
+    <value>Executing {0} request to API gateway {1} for resource {2}.</value>
   </data>
   <data name="Logger_Info_GetCredentialsFromSecret_Getting" xml:space="preserve">
     <value>Getting credentials from Secrets Manager for secret ARN {0}</value>

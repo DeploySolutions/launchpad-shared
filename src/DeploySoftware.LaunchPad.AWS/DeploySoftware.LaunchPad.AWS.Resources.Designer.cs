@@ -88,11 +88,29 @@ namespace DeploySoftware.LaunchPad.AWS {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Request resource cannot be null or empty..
+        /// </summary>
+        public static string ApiGatewayHelper_MakeApiGatewayRequest_Request_Resource_Is_NullOrEmpty {
+            get {
+                return ResourceManager.GetString("ApiGatewayHelper_MakeApiGatewayRequest_Request_Resource_Is_NullOrEmpty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to REST client cannot be null..
+        /// </summary>
+        public static string ApiGatewayHelper_MakeApiGatewayRequest_RestClient_Is_Null {
+            get {
+                return ResourceManager.GetString("ApiGatewayHelper_MakeApiGatewayRequest_RestClient_Is_Null", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Secret ARN cannot be null or empty..
         /// </summary>
-        public static string ApiGatewayHelper_GetOAuthTokenUsingSecretCredentials_Secret_Is_NullOrEmpty {
+        public static string ApiGatewayHelper_SecretArn_Is_NullOrEmpty {
             get {
-                return ResourceManager.GetString("ApiGatewayHelper_GetOAuthTokenUsingSecretCredentials_Secret_Is_NullOrEmpty", resourceCulture);
+                return ResourceManager.GetString("ApiGatewayHelper_SecretArn_Is_NullOrEmpty", resourceCulture);
             }
         }
         
@@ -111,6 +129,24 @@ namespace DeploySoftware.LaunchPad.AWS {
         public static string Logger_Error_GetJsonFromSecret_ExceptionThrown {
             get {
                 return ResourceManager.GetString("Logger_Error_GetJsonFromSecret_ExceptionThrown", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Executed {0} request to API gateway {1} for resource {2}. Status code: {3}.
+        /// </summary>
+        public static string Logger_Info_ExecuteApiGatewayRequest_Executed {
+            get {
+                return ResourceManager.GetString("Logger_Info_ExecuteApiGatewayRequest_Executed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Executing {0} request to API gateway {1} for resource {2}..
+        /// </summary>
+        public static string Logger_Info_ExecuteApiGatewayRequest_Executing {
+            get {
+                return ResourceManager.GetString("Logger_Info_ExecuteApiGatewayRequest_Executing", resourceCulture);
             }
         }
         
