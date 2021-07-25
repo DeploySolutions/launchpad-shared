@@ -13,68 +13,27 @@ namespace DeploySoftware.LaunchPad.AWS
     public partial class SecretHelper : AwsHelperBase
     {
 
-        protected const string DefaultRegionName = "us-east-1";
-
-        public ILogger Logger { get; set; }
-
         public IAmazonSecretsManager SecretClient { get; set; }
 
 
-        public SecretHelper(ILogger logger)
+        public SecretHelper(ILogger logger) : base(logger)
         {
-            Logger = logger;
-            RegionEndpoint region = GetRegionEndpoint(DefaultRegionName);
-            SecretClient = GetSecretClient(region);
+            SecretClient = GetSecretClient(Region);
         }
 
-        public SecretHelper(IAmazonSecretsManager client, ILogger logger)
+        public SecretHelper(IAmazonSecretsManager client, ILogger logger) : base(logger)
         {
-            Logger = logger;
             SecretClient = client;
         }
 
-        public SecretHelper(string awsRegionEndpointName, ILogger logger)
+        public SecretHelper(string awsRegionEndpointName, ILogger logger) : base(awsRegionEndpointName, logger)
         {
-            Logger = logger;
-            RegionEndpoint region = GetRegionEndpoint(awsRegionEndpointName);
-            SecretClient = GetSecretClient(region);
+            SecretClient = GetSecretClient(Region);
         }
 
-        public SecretHelper(string awsProfileName, string awsRegionEndpointName, ILogger logger)
+        public SecretHelper(string awsProfileName, string awsRegionEndpointName, ILogger logger) : base(awsRegionEndpointName,logger)
         {
-            Logger = logger;
-            SecretClient = GetSecretClient(awsProfileName, GetRegionEndpoint(awsRegionEndpointName));
-        }
-
-        /// <summary>
-        /// Returns an AWS region endpoint from a given endpoint name, or the default region "us-east-1" if invalid/none provided.
-        /// </summary>
-        /// <param name="awsRegionEndpointSystemName">A valid AWS region endpoint system name.</param>
-        /// <returns>A valid AWS Region Endpoint</returns>
-        protected RegionEndpoint GetRegionEndpoint(string awsRegionEndpointSystemName)
-        {
-            RegionEndpoint region = null;
-
-            // attempt to load the Region Endpoint from the list of available ones
-            if(!string.IsNullOrEmpty(awsRegionEndpointSystemName))
-            {
-                foreach (var e in RegionEndpoint.EnumerableAllRegions)
-                {
-                    if (e.Equals(awsRegionEndpointSystemName))
-                    {
-                        region = e;
-                    }
-                }
-            }
-            
-            // if the region is still null, or the string was null or empty previously, use the default region endpoint
-            if (region == null)
-            {
-                region = RegionEndpoint.GetBySystemName(DefaultRegionName);
-            }
-
-            Logger.Info(string.Format(DeploySoftware_LaunchPad_AWS_Resources.SecretHelper_GetRegionEndpoint_Logger_Info_RegionName, region.DisplayName, region.SystemName));
-            return region;
+            SecretClient = GetSecretClient(awsProfileName, Region);
         }
 
         /// <summary>

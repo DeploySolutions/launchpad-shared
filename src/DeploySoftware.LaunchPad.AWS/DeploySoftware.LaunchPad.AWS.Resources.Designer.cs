@@ -61,6 +61,42 @@ namespace DeploySoftware.LaunchPad.AWS {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to OAuth temporary {0} expires in {1} and value is: {2}.
+        /// </summary>
+        public static string ApiGatewayHelper_GetOAuthTokenUsingSecretCredentials_AccessToken {
+            get {
+                return ResourceManager.GetString("ApiGatewayHelper_GetOAuthTokenUsingSecretCredentials_AccessToken", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Getting OAuthToken from endpoint {0} at oAuth provider {1}, for secret ARN {2}.
+        /// </summary>
+        public static string ApiGatewayHelper_GetOAuthTokenUsingSecretCredentials_Getting {
+            get {
+                return ResourceManager.GetString("ApiGatewayHelper_GetOAuthTokenUsingSecretCredentials_Getting", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Got OAuthToken from endpoint {0} at oAuth provider {1}, for secret ARN {2}..
+        /// </summary>
+        public static string ApiGatewayHelper_GetOAuthTokenUsingSecretCredentials_Got {
+            get {
+                return ResourceManager.GetString("ApiGatewayHelper_GetOAuthTokenUsingSecretCredentials_Got", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Secret ARN cannot be null or empty..
+        /// </summary>
+        public static string ApiGatewayHelper_GetOAuthTokenUsingSecretCredentials_Secret_Is_NullOrEmpty {
+            get {
+                return ResourceManager.GetString("ApiGatewayHelper_GetOAuthTokenUsingSecretCredentials_Secret_Is_NullOrEmpty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to An exception was thrown while attempting to GetDbConnectionStringFromSecret for ARN: {0}. The message was {1}..
         /// </summary>
         public static string Logger_Error_GetDbConnectionStringFromSecret_ExceptionThrown {

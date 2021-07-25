@@ -688,6 +688,15 @@ namespace DeploySoftware.LaunchPad.Core {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to External ID field must be 36 characters or less..
+        /// </summary>
+        public static string Validation_ExternalId_36CharsOrLess {
+            get {
+                return ResourceManager.GetString("Validation_ExternalId_36CharsOrLess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Name must be 100 characters or less..
         /// </summary>
         public static string Validation_Name_100CharsOrLess {

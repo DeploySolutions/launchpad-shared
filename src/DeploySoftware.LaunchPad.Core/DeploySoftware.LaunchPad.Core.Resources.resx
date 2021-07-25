@@ -328,6 +328,9 @@
   <data name="Validation_DescriptionShort_256CharsOrLess" xml:space="preserve">
     <value>Description Short must be 256 characters or less.</value>
   </data>
+  <data name="Validation_ExternalId_36CharsOrLess" xml:space="preserve">
+    <value>External ID field must be 36 characters or less.</value>
+  </data>
   <data name="Validation_Name_100CharsOrLess" xml:space="preserve">
     <value>Name must be 100 characters or less.</value>
   </data>

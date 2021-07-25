@@ -63,6 +63,14 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         public virtual String Name { get; set; }
 
         /// <summary>
+        /// The external ID of a client system (if any). Can be any type on client system, but retained here as text.
+        /// </summary>
+        [MaxLength(36, ErrorMessageResourceName = "Validation_ExternalId_36CharsOrLess", ErrorMessageResourceType = typeof(DeploySoftware_LaunchPad_Core_Resources))]
+        [DataObjectField(false)]
+        [XmlAttribute]
+        public virtual String ExternalId { get; set; }
+
+        /// <summary>
         /// A short description for this entity
         /// </summary>
         [Required]
@@ -133,6 +141,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         /// </summary>
         protected DomainEntityBase() : base()
         {
+            ExternalId = string.Empty;
             Culture = ApplicationInformation<TIdType>.DEFAULT_CULTURE;
             //TenantId = 0; // default tenant
             Tags = new List<MetadataTag>();
@@ -151,8 +160,8 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         protected DomainEntityBase(TIdType id) : base()
         {
             Id = id;
+            ExternalId = string.Empty;
             Culture = ApplicationInformation<TIdType>.DEFAULT_CULTURE;
-           
             CreatorUserId = 1; // TODO - default user account?
             IsDeleted = false;
             IsActive = true;
@@ -169,6 +178,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         protected DomainEntityBase(TIdType id, string culture) : base()
         {
             Id = id;
+            ExternalId = string.Empty;
             Culture = culture;
             CreatorUserId = 1; // TODO - default user account?
             IsDeleted = false;
@@ -188,6 +198,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         protected DomainEntityBase(SerializationInfo info, StreamingContext context)
         {
             Id = (TIdType)info.GetValue("Id", typeof(TIdType));
+            ExternalId = info.GetString("ExternalId"); 
             Culture = info.GetString("Culture");
             Name = info.GetString("DisplayName");
             DescriptionShort = info.GetString("DescriptionShort");
@@ -216,6 +227,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         public virtual void GetObjectData(SerializationInfo info, StreamingContext context)
         {
             info.AddValue("Id", Id);
+            info.AddValue("ExternalId", ExternalId);
             info.AddValue("Culture", Culture);
             info.AddValue("Name", Name);
             info.AddValue("DescriptionShort", DescriptionShort);
@@ -302,6 +314,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
             StringBuilder sb = new StringBuilder();
             // LaunchPAD RAD properties
             sb.AppendFormat("Id={0};", Id);
+            sb.AppendFormat("ExternalId={0};", ExternalId);
             sb.AppendFormat("Name={0};", Name);
             sb.AppendFormat("DescriptionShort={0};", DescriptionShort);
             sb.AppendFormat("DescriptionFull={0};", DescriptionFull);
@@ -359,7 +372,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
                     // For safe equality we need to match on business key equality.
                     // Base domain entities are functionally equal if their key and metadata are equal.
                     // Subclasses should extend to include their own enhanced equality checks, as required.
-                    return Id.Equals(obj.Id) && Culture.Equals(obj.Culture)
+                    return Id.Equals(obj.Id) && Culture.Equals(obj.Culture) && ExternalId.Equals(obj.ExternalId)
                         && IsActive.Equals(obj.IsActive) && IsDeleted.Equals(obj.IsDeleted);
                 }
                 
@@ -407,7 +420,8 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         public override int GetHashCode()
         {
             return Culture.GetHashCode()
-                + Id.GetHashCode();
+                + Id.GetHashCode()
+                + ExternalId.GetHashCode();
         }
 
     }
