@@ -41,6 +41,21 @@ namespace DeploySoftware.LaunchPad.Core.Application.Dto
         [XmlAttribute]
         public virtual TIdType TranslatedFromId { get; set; }
 
+        /// <summary>
+        /// The sequence number for this entity, if any (for sorting and ordering purposes). Defaults to 0 if not set.
+        /// </summary>
+        [DataObjectField(false)]
+        [XmlAttribute]
+        public virtual Int32 SeqNum { get; set; } = 0;
+
+        /// <summary>
+        /// The external ID stored in a client system (if any). Can be any type on client system, but retained here as text.
+        /// </summary>
+        [MaxLength(36, ErrorMessageResourceName = "Validation_ExternalId_36CharsOrLess", ErrorMessageResourceType = typeof(DeploySoftware_LaunchPad_Core_Resources))]
+        [DataObjectField(false)]
+        [XmlAttribute]
+        public virtual String ExternalId { get; set; }
+
         #region "Constructors"
 
         /// <summary>
@@ -49,6 +64,7 @@ namespace DeploySoftware.LaunchPad.Core.Application.Dto
         public CreateUpdateOutputDtoBase() : base()
         {
             Culture = ApplicationInformation<TIdType>.DEFAULT_CULTURE;
+            ExternalId = string.Empty;
         }
 
         /// <summary>
@@ -58,12 +74,14 @@ namespace DeploySoftware.LaunchPad.Core.Application.Dto
         public CreateUpdateOutputDtoBase(TIdType id) : base(id)
         {
             Id = id;
+            ExternalId = string.Empty;
             Culture = ApplicationInformation<TIdType>.DEFAULT_CULTURE;
         }
 
         public CreateUpdateOutputDtoBase(TIdType id, String culture) : base(id, culture)
         {
             Id = id;
+            ExternalId = string.Empty;
             Culture = culture;
         }
 
@@ -75,6 +93,8 @@ namespace DeploySoftware.LaunchPad.Core.Application.Dto
         protected CreateUpdateOutputDtoBase(SerializationInfo info, StreamingContext context) : base(info,context)
         {
             Id = (TIdType)info.GetValue("Id", typeof(TIdType));
+            SeqNum = info.GetInt32("SeqNum");
+            ExternalId = info.GetString("ExternalId");
             TranslatedFromId = (TIdType)info.GetValue("TranslatedFromId", typeof(TIdType));
             Culture = info.GetString("Culture");
             Name = info.GetString("DisplayName");
@@ -91,12 +111,15 @@ namespace DeploySoftware.LaunchPad.Core.Application.Dto
         /// <param name="context"></param>
         public override void GetObjectData(SerializationInfo info, StreamingContext context)
         {
-            info.AddValue("Id", Id);
-            info.AddValue("Culture", Culture);
+            info.AddValue("Id", Id);            
             info.AddValue("TranslatedFromId", TranslatedFromId);
             info.AddValue("Name", Name);
+            info.AddValue("Culture", Culture);
             info.AddValue("DescriptionShort", DescriptionShort);
             info.AddValue("DescriptionFull", DescriptionFull);
+            info.AddValue("ExternalId", ExternalId);
+            info.AddValue("SeqNum", SeqNum);
+
         }
 
         /// <summary>  
@@ -123,10 +146,12 @@ namespace DeploySoftware.LaunchPad.Core.Application.Dto
             sb.Append(base.ToStringBaseProperties());
             // LaunchPAD RAD properties
             //
+            sb.AppendFormat("TranslatedFromId={0};", TranslatedFromId);
             sb.AppendFormat("Name={0};", Name);
             sb.AppendFormat("DescriptionShort={0};", DescriptionShort);
             sb.AppendFormat("DescriptionFull={0};", DescriptionFull);
-            sb.AppendFormat("TranslatedFromId={0};", TranslatedFromId);
+            sb.AppendFormat("SeqNum={0};", SeqNum);
+            sb.AppendFormat("ExternalId={0};", ExternalId);
             // ABP properties
             //
             return sb.ToString();
@@ -193,7 +218,7 @@ namespace DeploySoftware.LaunchPad.Core.Application.Dto
         {
             if (obj != null)
             {
-                return Id.Equals(obj.Id) && Culture.Equals(obj.Culture)
+                return Id.Equals(obj.Id) && Culture.Equals(obj.Culture) && ExternalId.Equals(obj.ExternalId) && SeqNum == obj.SeqNum
                     && DescriptionShort.Equals(obj.DescriptionShort) && Name.Equals(obj.Name) && TranslatedFromId.Equals(obj.TranslatedFromId)
                 ;
             }
@@ -239,7 +264,7 @@ namespace DeploySoftware.LaunchPad.Core.Application.Dto
         /// <returns>A hash code for an object.</returns>
         public override int GetHashCode()
         {
-            return Id.GetHashCode() + Culture.GetHashCode()
+            return Id.GetHashCode() + Culture.GetHashCode() + ExternalId.GetHashCode() + SeqNum.GetHashCode()
                 + Name.GetHashCode()
                 + DescriptionShort.GetHashCode()
                 + TranslatedFromId.GetHashCode();

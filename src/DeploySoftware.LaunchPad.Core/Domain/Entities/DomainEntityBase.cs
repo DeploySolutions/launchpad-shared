@@ -63,7 +63,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         public virtual String Name { get; set; }
 
         /// <summary>
-        /// The external ID of a client system (if any). Can be any type on client system, but retained here as text.
+        /// The external ID stored in a client system (if any). Can be any type on client system, but retained here as text.
         /// </summary>
         [MaxLength(36, ErrorMessageResourceName = "Validation_ExternalId_36CharsOrLess", ErrorMessageResourceType = typeof(DeploySoftware_LaunchPad_Core_Resources))]
         [DataObjectField(false)]
