@@ -159,6 +159,9 @@
   <data name="Debug_UnitOfWorkScope_OnRollback" xml:space="preserve">
     <value>UnitOfWorkScope {0} Rolling back.</value>
   </data>
+  <data name="Exception_DirectoryInfo_Not_Exists" xml:space="preserve">
+    <value>Directory does not exist.</value>
+  </data>
   <data name="Exception_UnitOfWorkTransaction_OnScopeCommitting_InvalidOperationException" xml:space="preserve">
     <value>The scope being committed is not attached to the current transaction.</value>
   </data>
@@ -266,6 +269,18 @@
   </data>
   <data name="Guard_UnitOfWorkTransaction_UnitOfWorkTransaction_ArgumentNullException_unitOfWork" xml:space="preserve">
     <value>Expected a non-null UnitOfWork instance.</value>
+  </data>
+  <data name="Guard_XhtmlHelper_AttributeName_Is_Null" xml:space="preserve">
+    <value>Attribute name cannot be null or empty.</value>
+  </data>
+  <data name="Guard_XhtmlHelper_ParentNode_Is_Null" xml:space="preserve">
+    <value>ParentNode cannot be null.</value>
+  </data>
+  <data name="Guard_XhtmlHelper_PropertySetsNodes_Is_Null" xml:space="preserve">
+    <value>PropertySetsNodes collection is null or empty.</value>
+  </data>
+  <data name="Guard_XhtmlHelper_XPath_Is_Null" xml:space="preserve">
+    <value>XPath cannot be null or empty.</value>
   </data>
   <data name="Info_TransactionManager_Dispose" xml:space="preserve">
     <value>Disposing of transaction manager {0}.</value>

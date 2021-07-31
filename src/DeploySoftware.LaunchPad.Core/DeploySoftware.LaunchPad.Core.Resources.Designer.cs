@@ -187,6 +187,15 @@ namespace DeploySoftware.LaunchPad.Core {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Directory does not exist..
+        /// </summary>
+        public static string Exception_DirectoryInfo_Not_Exists {
+            get {
+                return ResourceManager.GetString("Exception_DirectoryInfo_Not_Exists", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The scope being committed is not attached to the current transaction..
         /// </summary>
         public static string Exception_UnitOfWorkTransaction_OnScopeCommitting_InvalidOperationException {
@@ -509,6 +518,42 @@ namespace DeploySoftware.LaunchPad.Core {
             get {
                 return ResourceManager.GetString("Guard_UnitOfWorkTransaction_UnitOfWorkTransaction_ArgumentNullException_unitOfWor" +
                         "k", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Attribute name cannot be null or empty..
+        /// </summary>
+        public static string Guard_XhtmlHelper_AttributeName_Is_Null {
+            get {
+                return ResourceManager.GetString("Guard_XhtmlHelper_AttributeName_Is_Null", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ParentNode cannot be null..
+        /// </summary>
+        public static string Guard_XhtmlHelper_ParentNode_Is_Null {
+            get {
+                return ResourceManager.GetString("Guard_XhtmlHelper_ParentNode_Is_Null", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to PropertySetsNodes collection is null or empty..
+        /// </summary>
+        public static string Guard_XhtmlHelper_PropertySetsNodes_Is_Null {
+            get {
+                return ResourceManager.GetString("Guard_XhtmlHelper_PropertySetsNodes_Is_Null", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to XPath cannot be null or empty..
+        /// </summary>
+        public static string Guard_XhtmlHelper_XPath_Is_Null {
+            get {
+                return ResourceManager.GetString("Guard_XhtmlHelper_XPath_Is_Null", resourceCulture);
             }
         }
         
