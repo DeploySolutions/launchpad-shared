@@ -8,6 +8,11 @@ namespace DeploySoftware.LaunchPad.Core.FileGeneration
 {
     public interface ILaunchPadGeneratedObjectBlueprintDefinitionInstructions
     {
+        public IDictionary<string,LaunchPadGeneratedMethod> CustomMethods { get; set; }
+
+        public IDictionary<string, LaunchPadGeneratedProperty> CustomProperties { get; set; }
+
+
         public bool ForCheckingValidity();
         public bool ForInitializing();
         public void ForLoadingFromBlueprintDefinition();

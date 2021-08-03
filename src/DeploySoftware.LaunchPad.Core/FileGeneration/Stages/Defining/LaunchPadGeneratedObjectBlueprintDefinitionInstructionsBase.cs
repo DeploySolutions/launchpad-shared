@@ -11,16 +11,25 @@ namespace DeploySoftware.LaunchPad.Core.FileGeneration
     [Serializable]
     public abstract partial class LaunchPadGeneratedObjectBlueprintDefinitionInstructionsBase : ILaunchPadGeneratedObjectBlueprintDefinitionInstructions
     {
-       
+        public IDictionary<string, LaunchPadGeneratedMethod> CustomMethods { get; set; }
+
+        public IDictionary<string, LaunchPadGeneratedProperty> CustomProperties { get; set; }
+
         public ILogger Logger { get; set; }
 
         protected LaunchPadGeneratedObjectBlueprintDefinitionInstructionsBase()
         {
+            var comparer = StringComparer.OrdinalIgnoreCase;
+            CustomMethods = new Dictionary<string, LaunchPadGeneratedMethod>(comparer);
+            CustomProperties = new Dictionary<string, LaunchPadGeneratedProperty>(comparer);
             Logger = NullLogger.Instance;
         }
 
         protected LaunchPadGeneratedObjectBlueprintDefinitionInstructionsBase(ILogger logger)
         {
+            var comparer = StringComparer.OrdinalIgnoreCase;
+            CustomMethods = new Dictionary<string, LaunchPadGeneratedMethod>(comparer);
+            CustomProperties = new Dictionary<string, LaunchPadGeneratedProperty>(comparer);
             Logger = logger;
         }
 

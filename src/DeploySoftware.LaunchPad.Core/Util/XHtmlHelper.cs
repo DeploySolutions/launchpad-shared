@@ -71,7 +71,7 @@ namespace DeploySoftware.LaunchPad.Core.Util
             return parentNode.SelectNodes(xPath.ToLower());
         }
 
-        public string GetTextFromElement(HtmlNode parentNode, string xPath)
+        public string GetTextFromElement(HtmlNode parentNode, string xPath, bool replaceNullWithEmptyString = true)
         {
             Guard.Against<ArgumentException>(parentNode == null, DeploySoftware_LaunchPad_Core_Resources.Guard_XhtmlHelper_ParentNode_Is_Null);
             Guard.Against<ArgumentException>(String.IsNullOrEmpty(xPath), DeploySoftware_LaunchPad_Core_Resources.Guard_XhtmlHelper_XPath_Is_Null);
@@ -80,7 +80,15 @@ namespace DeploySoftware.LaunchPad.Core.Util
             if (elementNode != null)
             {
                 if (elementNode.InnerHtml == "&nbsp;") elementNode.Remove();
-                elementNodeString = elementNode.InnerHtml.Replace("<![CDATA[", "").Replace("]]>", String.Empty).Replace("null", string.Empty).Trim();
+                string innerHtml = elementNode.InnerHtml.Replace("<![CDATA[", "").Replace("]]>", String.Empty).Trim();
+                if (replaceNullWithEmptyString)
+                {
+                    elementNodeString = innerHtml.Replace("null", string.Empty).Trim();
+                }
+                else
+                {
+                    elementNodeString = innerHtml;
+                }
             }
             return elementNodeString;
         }
