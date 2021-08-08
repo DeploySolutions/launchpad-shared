@@ -75,6 +75,14 @@ namespace DeploySoftware.LaunchPad.Core.Util
         {
             Guard.Against<ArgumentException>(parentNode == null, DeploySoftware_LaunchPad_Core_Resources.Guard_XhtmlHelper_ParentNode_Is_Null);
             Guard.Against<ArgumentException>(String.IsNullOrEmpty(xPath), DeploySoftware_LaunchPad_Core_Resources.Guard_XhtmlHelper_XPath_Is_Null);
+            string elementNodeString = GetElementNodeString(parentNode, xPath, replaceNullWithEmptyString);
+            return elementNodeString;
+        }
+
+        protected string GetElementNodeString(HtmlNode parentNode, string xPath, bool replaceNullWithEmptyString = true)
+        {
+            Guard.Against<ArgumentException>(parentNode == null, DeploySoftware_LaunchPad_Core_Resources.Guard_XhtmlHelper_ParentNode_Is_Null);
+            Guard.Against<ArgumentException>(String.IsNullOrEmpty(xPath), DeploySoftware_LaunchPad_Core_Resources.Guard_XhtmlHelper_XPath_Is_Null);
             string elementNodeString = string.Empty;
             var elementNode = parentNode.SelectSingleNode(xPath.ToLower());
             if (elementNode != null)
@@ -168,5 +176,42 @@ namespace DeploySoftware.LaunchPad.Core.Util
             return value;
         }
 
+        public bool GetBoolFromElement(HtmlNode parentNode, string xPath)
+        {
+            Guard.Against<ArgumentException>(parentNode == null, DeploySoftware_LaunchPad_Core_Resources.Guard_XhtmlHelper_ParentNode_Is_Null);
+            Guard.Against<ArgumentException>(String.IsNullOrEmpty(xPath), DeploySoftware_LaunchPad_Core_Resources.Guard_XhtmlHelper_XPath_Is_Null);
+            bool value = false; // Default to false
+            if (parentNode.HasAttributes)
+            {
+                try
+                {
+                    string elementNodeString = GetElementNodeString(parentNode, xPath, true).ToLower();
+                    bool.TryParse(elementNodeString, out value);
+                }
+                catch (NullReferenceException ex)
+                {
+                    // log an error
+                    Logger.Error(ex.Message);
+                    throw;
+                }
+            }
+            return value;
+        }
+
+
+        public TEnum EnsureValidEnumFromString<TEnum>(string inputValue, TEnum defaultValue) where TEnum : struct, Enum
+        {
+            Guard.Against<ArgumentNullException>(string.IsNullOrEmpty(inputValue), DeploySoftware_LaunchPad_Core_Resources.Guard_Input_IsNull);
+            TEnum validEnum = defaultValue;
+            if (!String.IsNullOrEmpty(inputValue))
+            {
+                if (!Enum.TryParse<TEnum>(inputValue, true, out validEnum))
+                {
+                    // log and throw
+                    Logger.Warn("Could not parse enum for user provided value " + inputValue + ". Returning the provided default.");
+                }
+            }
+            return validEnum;
+        }
     }
 }
