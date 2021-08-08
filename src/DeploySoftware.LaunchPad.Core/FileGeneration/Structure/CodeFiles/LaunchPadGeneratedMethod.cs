@@ -19,11 +19,33 @@ namespace DeploySoftware.LaunchPad.Core.FileGeneration
         /// </summary>
         public virtual string Returns { get; set; } = "void";
 
+        /// <summary>
+        /// Whether the method is async. Defaults to synchronous.
+        /// </summary>
+        public virtual bool IsAsync { get; set; } = false;
+
+        /// <summary>
+        /// Whether the method is virtual. Defaults to yes to allow subclass overriding.
+        /// </summary>
+        public virtual bool IsVirtual { get; set; } = true;
+
+        /// <summary>
+        /// Whether the method is static. Defaults to false to prefer instance methods.
+        /// </summary>
+        public virtual bool IsStatic { get; set; } = false;
+
+        /// <summary>
+        /// The access modifier/level of the method. Defaults to private.
+        /// </summary>
+        public LaunchPadGeneratedAccessModifier AccessModifier {get;set;}
+
+
         public LaunchPadGeneratedMethod() : base()
         {
             Returns = string.Empty; 
             var comparer = StringComparer.OrdinalIgnoreCase;
             Parameters = new Dictionary<string, LaunchPadGeneratedMethodParameter>(comparer);
+            AccessModifier = LaunchPadGeneratedAccessModifier.Private;
         }
     }
 

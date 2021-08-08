@@ -31,6 +31,22 @@ namespace DeploySoftware.LaunchPad.Core.FileGeneration
         public virtual string UsingStatements { get; set; }
 
         /// <summary>
+        /// Whether the class is virtual. Defaults to yes to allow partial classes.
+        /// </summary>
+        public virtual bool IsPartial { get; set; } = true;
+
+        /// <summary>
+        /// Whether the class is static. Defaults to false to prefer instance types.
+        /// </summary>
+        public virtual bool IsStatic { get; set; } = false;
+
+        /// <summary>
+        /// The access modifier/level of the class. Defaults to public.
+        /// </summary>
+        public LaunchPadGeneratedAccessModifier AccessModifier { get; set; }
+
+
+        /// <summary>
         /// The dictionary of unique base LaunchPad properties that belong to this class (received through DomainEntity or other base class inheritance).
         /// </summary>
         public virtual IDictionary<string, LaunchPadGeneratedProperty> BaseProperties { get; set; }
@@ -64,6 +80,7 @@ namespace DeploySoftware.LaunchPad.Core.FileGeneration
             BaseMethods = new Dictionary<string, LaunchPadGeneratedMethod>(comparer);
             CustomMethods = new Dictionary<string, LaunchPadGeneratedMethod>(comparer);
             VisualStudioConfig = new VisualStudioClassConfiguration();
+            AccessModifier = LaunchPadGeneratedAccessModifier.Public;
         }
     }
 }
