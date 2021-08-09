@@ -14,6 +14,10 @@ namespace DeploySoftware.LaunchPad.Core.FileGeneration
         /// </summary>
         public virtual string Body { get; set; } = string.Empty;
 
+        /// <summary>
+        /// The elements of the method comment block.
+        /// </summary>
+        public virtual LaunchPadGeneratedMethodComments Comments { get; set; }
 
         /// <summary>
         /// The list of parameters, in order, that this method requires as input. If zero parameters are provided, this is a no-args method.
@@ -50,6 +54,7 @@ namespace DeploySoftware.LaunchPad.Core.FileGeneration
         {
             var comparer = StringComparer.OrdinalIgnoreCase;
             Parameters = new Dictionary<string, LaunchPadGeneratedMethodParameter>(comparer);
+            Comments = new LaunchPadGeneratedMethodComments(Parameters);
             AccessModifier = LaunchPadGeneratedAccessModifier.Private;
         }
     }
