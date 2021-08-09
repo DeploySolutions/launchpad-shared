@@ -10,6 +10,12 @@ namespace DeploySoftware.LaunchPad.Core.FileGeneration
     public partial class LaunchPadGeneratedMethod : LaunchPadGeneratedMethodFieldBase
     {
         /// <summary>
+        /// The body of the method (code and comment lines within the { and } syntax tokens.
+        /// </summary>
+        public virtual string Body { get; set; } = string.Empty;
+
+
+        /// <summary>
         /// The list of parameters, in order, that this method requires as input. If zero parameters are provided, this is a no-args method.
         /// </summary>
         public IDictionary<string, LaunchPadGeneratedMethodParameter> Parameters;
@@ -42,7 +48,6 @@ namespace DeploySoftware.LaunchPad.Core.FileGeneration
 
         public LaunchPadGeneratedMethod() : base()
         {
-            Returns = string.Empty; 
             var comparer = StringComparer.OrdinalIgnoreCase;
             Parameters = new Dictionary<string, LaunchPadGeneratedMethodParameter>(comparer);
             AccessModifier = LaunchPadGeneratedAccessModifier.Private;
