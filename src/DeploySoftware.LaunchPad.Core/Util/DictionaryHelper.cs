@@ -7,18 +7,16 @@ using System.Threading.Tasks;
 
 namespace DeploySoftware.LaunchPad.Core.Util
 {
-    public partial class DictionaryHelper
+    public partial class DictionaryHelper : HelperBase
     {
-        public ILogger Logger { get; set; }
-
-        public DictionaryHelper()
+        public DictionaryHelper() : base()
         {
-            Logger = NullLogger.Instance;
+
         }
 
-        public DictionaryHelper(ILogger logger)
+        public DictionaryHelper(ILogger logger) : base(logger)
         {
-            Logger = logger;
+
         }
 
         public IDictionary<TKey, TValue> AddToDictionary<TKey, TValue>(IDictionary<TKey, TValue> dictionary, TKey key, TValue item)

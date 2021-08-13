@@ -10,18 +10,15 @@ using System.Threading.Tasks;
 
 namespace DeploySoftware.LaunchPad.Core.Util
 {
-    public partial class XHtmlHelper
+    public partial class XHtmlHelper : HelperBase
     {
-        public ILogger Logger { get; set; }
 
-        public XHtmlHelper()
+        public XHtmlHelper() :base()
         {
-            Logger = NullLogger.Instance;
         }
 
-        public XHtmlHelper(ILogger logger)
+        public XHtmlHelper(ILogger logger) : base(logger)
         {
-            Logger = logger;
         }
 
         public HtmlDocument LoadXhtmlDocument(string folderPath, string fileName)
@@ -51,6 +48,7 @@ namespace DeploySoftware.LaunchPad.Core.Util
         /// <param name="parentNode"></param>
         /// <param name="xPath"></param>
         /// <returns></returns>
+        /// 
         public HtmlNode GetNodeFromParent(HtmlNode parentNode, string xPath)
         {
             Guard.Against<ArgumentException>(parentNode == null, DeploySoftware_LaunchPad_Core_Resources.Guard_XhtmlHelper_ParentNode_Is_Null);
