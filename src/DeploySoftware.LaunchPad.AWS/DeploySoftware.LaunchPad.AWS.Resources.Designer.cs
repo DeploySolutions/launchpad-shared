@@ -133,6 +133,24 @@ namespace DeploySoftware.LaunchPad.AWS {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Error updating JSON key {0} with value {1} for secret ARN {2} - cannot find key..
+        /// </summary>
+        public static string Logger_Error_UpdateJsonForSecret_Cannot_Find {
+            get {
+                return ResourceManager.GetString("Logger_Error_UpdateJsonForSecret_Cannot_Find", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to An exception was thrown while attempting to write to Secret at secretARN {0}. The message was {1}..
+        /// </summary>
+        public static string Logger_Error_WriteValueToSecret_Exception {
+            get {
+                return ResourceManager.GetString("Logger_Error_WriteValueToSecret_Exception", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Executed {0} request to API gateway {1} for resource {2}. Status code: {3}.
         /// </summary>
         public static string Logger_Info_ExecuteApiGatewayRequest_Executed {
@@ -201,6 +219,24 @@ namespace DeploySoftware.LaunchPad.AWS {
         public static string Logger_Info_GetJsonFromSecret_Got {
             get {
                 return ResourceManager.GetString("Logger_Info_GetJsonFromSecret_Got", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Updated JSON key {0} with value {1} for secret ARN {2}.
+        /// </summary>
+        public static string Logger_Info_UpdateJsonForSecret_Updated {
+            get {
+                return ResourceManager.GetString("Logger_Info_UpdateJsonForSecret_Updated", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Updating JSON key {0} with value {1} for secret ARN {2}.
+        /// </summary>
+        public static string Logger_Info_UpdateJsonForSecret_Updating {
+            get {
+                return ResourceManager.GetString("Logger_Info_UpdateJsonForSecret_Updating", resourceCulture);
             }
         }
         

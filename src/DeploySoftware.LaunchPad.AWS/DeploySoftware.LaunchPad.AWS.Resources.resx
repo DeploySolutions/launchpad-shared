@@ -141,6 +141,12 @@
   <data name="Logger_Error_GetJsonFromSecret_ExceptionThrown" xml:space="preserve">
     <value>An exception was thrown while attempting to GetSecret JSON string: {0}. The message was {1}.</value>
   </data>
+  <data name="Logger_Error_UpdateJsonForSecret_Cannot_Find" xml:space="preserve">
+    <value>Error updating JSON key {0} with value {1} for secret ARN {2} - cannot find key.</value>
+  </data>
+  <data name="Logger_Error_WriteValueToSecret_Exception" xml:space="preserve">
+    <value>An exception was thrown while attempting to write to Secret at secretARN {0}. The message was {1}.</value>
+  </data>
   <data name="Logger_Info_ExecuteApiGatewayRequest_Executed" xml:space="preserve">
     <value>Executed {0} request to API gateway {1} for resource {2}. Status code: {3}</value>
   </data>
@@ -164,6 +170,12 @@
   </data>
   <data name="Logger_Info_GetJsonFromSecret_Got" xml:space="preserve">
     <value>Got JSON from Secrets Manager for secret ARN {0}</value>
+  </data>
+  <data name="Logger_Info_UpdateJsonForSecret_Updated" xml:space="preserve">
+    <value>Updated JSON key {0} with value {1} for secret ARN {2}</value>
+  </data>
+  <data name="Logger_Info_UpdateJsonForSecret_Updating" xml:space="preserve">
+    <value>Updating JSON key {0} with value {1} for secret ARN {2}</value>
   </data>
   <data name="SecretHelper_GetRegionEndpoint_Logger_Info_RegionName" xml:space="preserve">
     <value>AWS region name is '{0}' (system name '{1}').</value>

@@ -1,4 +1,5 @@
-﻿using Amazon;
+﻿using Abp.UI;
+using Amazon;
 using Amazon.Runtime;
 using Amazon.SecretsManager;
 using Amazon.SecretsManager.Model;
@@ -6,6 +7,9 @@ using Castle.Core.Logging;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
+using System.Collections.Generic;
+using System.Net;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace DeploySoftware.LaunchPad.AWS
@@ -198,5 +202,109 @@ namespace DeploySoftware.LaunchPad.AWS
             Logger.Info(string.Format(DeploySoftware_LaunchPad_AWS_Resources.Logger_Info_GetDbConnectionStringFromSecret_Got, secretArn));
             return connectionString;
         }
+
+        /// <summary>
+        /// Writes the text value of a particular key, to a given secret ARN
+        /// </summary>
+        /// <param name="key">The field within the secret to update</param>
+        /// <param name="value">The value to update for the given key</param>
+        /// <param name="secretArn">The full secret ARN</param>
+        /// <returns>A status code with the result of the request</returns>
+        public async Task<HttpStatusCode> WriteValuesToSecret(IDictionary<string,string> fieldsToInsertOrUpdate, string secretArn)
+        {
+            string originalSecretJson = await GetJsonFromSecret(secretArn);
+
+            // for each value in the dictionary, try to update the JSON
+            string sbUpdatedSecretJson = originalSecretJson;
+            foreach(var field in fieldsToInsertOrUpdate)
+            {
+                sbUpdatedSecretJson = UpdateJsonForSecret(secretArn, sbUpdatedSecretJson, field.Key, field.Value);
+            }
+
+            PutSecretValueResponse response = null;
+
+            // Now update the secret
+            if (!string.IsNullOrEmpty(sbUpdatedSecretJson))
+            {
+                PutSecretValueRequest request = new PutSecretValueRequest();
+                request.SecretId = secretArn;
+                request.SecretString = sbUpdatedSecretJson;
+                try
+                {
+                    response = await SecretClient.PutSecretValueAsync(request);
+                }
+                catch (EncryptionFailureException e)
+                {
+                    // Secrets Manager can't encrypt the protected secret text using the provided KMS key.\
+                    Logger.Error(string.Format(DeploySoftware_LaunchPad_AWS_Resources.Logger_Error_WriteValueToSecret_Exception, secretArn, e.Message));
+                    throw;
+                }
+                catch (InternalServiceErrorException e)
+                {
+                    // An error occurred on the server side.
+                    Logger.Error(string.Format(DeploySoftware_LaunchPad_AWS_Resources.Logger_Error_WriteValueToSecret_Exception, secretArn, e.Message));
+                    throw;
+                }
+                catch (InvalidParameterException e)
+                {
+                    // You provided an invalid value for a parameter.
+                    Logger.Error(string.Format(DeploySoftware_LaunchPad_AWS_Resources.Logger_Error_WriteValueToSecret_Exception, secretArn, e.Message));
+                    throw;
+                }
+                catch (InvalidRequestException e)
+                {
+                    // You provided a parameter value that is not valid for the current state of the resource.
+                    Logger.Error(string.Format(DeploySoftware_LaunchPad_AWS_Resources.Logger_Error_WriteValueToSecret_Exception, secretArn, e.Message));
+                    throw;
+                }
+                catch (ResourceNotFoundException e)
+                {
+                    // We can't find the resource that you asked for.
+                    Logger.Error(string.Format(DeploySoftware_LaunchPad_AWS_Resources.Logger_Error_WriteValueToSecret_Exception, secretArn, e.Message));
+                    throw;
+                }
+                catch (ResourceExistsException e)
+                {
+                    // A resource with the ID you requested already exists.
+                    Logger.Error(string.Format(DeploySoftware_LaunchPad_AWS_Resources.Logger_Error_WriteValueToSecret_Exception, secretArn, e.Message));
+                    throw;
+                }
+                catch (AggregateException e)
+                {
+                    // More than one of the above exceptions were triggered.
+                    Logger.Error(string.Format(DeploySoftware_LaunchPad_AWS_Resources.Logger_Error_WriteValueToSecret_Exception, secretArn, e.Message));
+                    throw;
+                }
+
+            }
+            return response.HttpStatusCode;
+        }
+
+        public virtual string UpdateJsonForSecret(string secretArn, string originalSecretJson, string key, string value)
+        {
+            Logger.Info(string.Format(DeploySoftware_LaunchPad_AWS_Resources.Logger_Info_UpdateJsonForSecret_Updating, value, key, secretArn));
+            string updatedJsonString = originalSecretJson;
+
+            JObject jObject = Newtonsoft.Json.JsonConvert.DeserializeObject(originalSecretJson) as JObject;
+            
+            // Try to select the nested property (if it exists) using the key
+            JToken jToken = jObject.SelectToken(key);
+            if(jToken != null)
+            {
+                // The property exists - update its value
+                jToken.Replace(value);
+            }
+            else // The property does not exist, insert a new one
+            {
+                JProperty newProperty = new JProperty(key, value);
+                jObject.Add(newProperty);
+            }
+            // Convert the JObject back to a string to get the resulting Json from the updated secret
+            updatedJsonString = jObject.ToString();
+
+            Logger.Info(string.Format(DeploySoftware_LaunchPad_AWS_Resources.Logger_Info_UpdateJsonForSecret_Updated, value, key, secretArn));
+            return updatedJsonString;
+        }
+
     }
 }
