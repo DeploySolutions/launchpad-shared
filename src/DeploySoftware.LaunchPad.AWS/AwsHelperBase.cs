@@ -2,35 +2,32 @@
 using Amazon.Runtime;
 using Amazon.Runtime.CredentialManagement;
 using Castle.Core.Logging;
+using DeploySoftware.LaunchPad.Core.Util;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace DeploySoftware.LaunchPad.AWS
 {
-    public abstract partial class AwsHelperBase
+    public abstract partial class AwsHelperBase : HelperBase
     {
-
-        public ILogger Logger { get; set; }
 
         protected const string DefaultRegionName = "us-east-1";
 
         public RegionEndpoint Region { get; set; }
 
-        public AwsHelperBase()
+        public AwsHelperBase() : base()
         {
-            Logger = NullLogger.Instance; 
             Region = GetRegionEndpoint(DefaultRegionName);
         }
 
-        public AwsHelperBase(ILogger logger)
+        public AwsHelperBase(ILogger logger) : base(logger)
         {
-            Logger = logger; 
             Region = GetRegionEndpoint(DefaultRegionName);
         }
 
 
-        public AwsHelperBase(string awsRegionEndpointName, ILogger logger)
+        public AwsHelperBase(string awsRegionEndpointName, ILogger logger) : base(logger)
         {
             Logger = logger; 
             Region = GetRegionEndpoint(awsRegionEndpointName);
