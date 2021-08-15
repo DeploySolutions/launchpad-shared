@@ -1,5 +1,6 @@
 ﻿using Castle.Core.Logging;
 using System;
+using System.Collections.Generic;
 
 namespace DeploySoftware.LaunchPad.Core.FileGeneration
 {
@@ -7,15 +8,30 @@ namespace DeploySoftware.LaunchPad.Core.FileGeneration
     /// The set of instruction methods that will explain how the various stages in the factory process apply to this visual studio component.    
     /// </summary>    
     [Serializable]
-    public partial class VisualStudioBlueprintDefinitionInstructions : LaunchPadGeneratedObjectBlueprintDefinitionInstructionsBase
-    {
-        
+    public partial class VisualStudioBlueprintDefinitionInstructions : LaunchPadGeneratedObjectBlueprintDefinitionInstructionsBase, IVisualStudioBlueprintDefinitionInstructions
+    { 
+
+        public IDictionary<string, LaunchPadGeneratedMethod> CustomMethods { get; set; }
+
+        public IDictionary<string, LaunchPadGeneratedProperty> CustomProperties { get; set; }
+
+        /// <summary>
+        /// Used for identifying dependencies between items during a build.
+        /// </summary>
+        public HashSet<Tuple<string, string>> DependencyInstructions { get; set; } = new HashSet<Tuple<string, string>>();
+
         public VisualStudioBlueprintDefinitionInstructions() : base()
         {
+            var comparer = StringComparer.OrdinalIgnoreCase;
+            CustomMethods = new Dictionary<string, LaunchPadGeneratedMethod>(comparer);
+            CustomProperties = new Dictionary<string, LaunchPadGeneratedProperty>(comparer);
         }
 
         public VisualStudioBlueprintDefinitionInstructions(ILogger logger) : base(logger)
         {
+            var comparer = StringComparer.OrdinalIgnoreCase;
+            CustomMethods = new Dictionary<string, LaunchPadGeneratedMethod>(comparer);
+            CustomProperties = new Dictionary<string, LaunchPadGeneratedProperty>(comparer);
         }
 
         public override void ForAssembling()
