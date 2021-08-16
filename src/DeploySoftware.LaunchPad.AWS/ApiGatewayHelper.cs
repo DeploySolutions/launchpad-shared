@@ -28,7 +28,7 @@ namespace DeploySoftware.LaunchPad.AWS
 
         protected SecretHelper _secretHelper;
 
-        public string TemporaryAccessToken { get; set; }
+        public TemporaryAccessToken Token { get; set; }
 
         protected ApiGatewayHelper() : base()
         {
@@ -66,16 +66,17 @@ namespace DeploySoftware.LaunchPad.AWS
         }
 
         /// <summary>
-        /// Returns a valid database connection string which is stored in "dbConnectionString" key in a Secrets Manager secret.
+        /// Request and returns the OAuth token from the information which is stored in the given secret
         /// </summary>
         /// <param name="secretArn">The AWS ARN of the secret in which the key is located.</param>
-        /// <returns>A SQL connection string</returns>
-        public async virtual Task<string> GetOAuthTokenUsingSecretCredentials(string secretArn, IList<string> scopes = null)
+        /// <returns>A TemporaryAccessToken object</returns>
+        public async virtual Task<TemporaryAccessToken> GetOAuthTokenUsingSecretCredentials(string secretArn, IList<string> scopes = null)
         {
             Guard.Against<ArgumentNullException>(String.IsNullOrEmpty(secretArn), DeploySoftware_LaunchPad_AWS_Resources.ApiGatewayHelper_SecretArn_Is_NullOrEmpty);
             Guard.Against<ArgumentNullException>(_oAuthClient == null, DeploySoftware_LaunchPad_AWS_Resources.ApiGatewayHelper_MakeApiGatewayRequest_RestClient_Is_Null);
             Logger.Info(string.Format(DeploySoftware_LaunchPad_AWS_Resources.ApiGatewayHelper_GetOAuthTokenUsingSecretCredentials_Getting, OAuthTokenEndpoint, OAuthBaseUrl, secretArn));
-            
+            TemporaryAccessToken token = null;
+
             string accessToken = string.Empty;
 
             string secretJson = await _secretHelper.GetJsonFromSecret(secretArn);
@@ -112,16 +113,23 @@ namespace DeploySoftware.LaunchPad.AWS
                 // read the content
                 string oAuthResponseContent = oAuthResponse.Content;
                 dynamic oAuthResponseJson = JsonConvert.DeserializeObject(oAuthResponseContent);
-                accessToken = oAuthResponseJson.access_token;
-                string expiresIn = oAuthResponseJson.expires_in;
-                string tokenType = oAuthResponseJson.token_type;
 
-                Logger.Debug(string.Format(DeploySoftware_LaunchPad_AWS_Resources.ApiGatewayHelper_GetOAuthTokenUsingSecretCredentials_AccessToken, tokenType, expiresIn, accessToken));
+                token = new TemporaryAccessToken();
+                token.AccessToken = oAuthResponseJson.access_token;
+                token.TokenType = oAuthResponseJson.token_type;
+
+                // calculate when it will expire.
+                string expiresIn = oAuthResponseJson.expires_in;
+                token.ExpiresIn = Int32.Parse(expiresIn);
+                DateTime expiryTime = DateTime.UtcNow.AddSeconds(token.ExpiresIn);
+                token.ExpiryDateTime = expiryTime;
+
+                Logger.Debug(string.Format(DeploySoftware_LaunchPad_AWS_Resources.ApiGatewayHelper_GetOAuthTokenUsingSecretCredentials_AccessToken, token.TokenType, token.ExpiresIn, token.AccessToken));
 
             }
             Logger.Info(string.Format(DeploySoftware_LaunchPad_AWS_Resources.ApiGatewayHelper_GetOAuthTokenUsingSecretCredentials_Got, OAuthTokenEndpoint, OAuthBaseUrl, secretArn));
             
-            return accessToken;
+            return token;
         }
 
         
@@ -132,13 +140,13 @@ namespace DeploySoftware.LaunchPad.AWS
             Guard.Against<ArgumentNullException>(String.IsNullOrEmpty(request.Resource), DeploySoftware_LaunchPad_AWS_Resources.ApiGatewayHelper_MakeApiGatewayRequest_Request_Resource_Is_NullOrEmpty);
             Logger.Info(string.Format(DeploySoftware_LaunchPad_AWS_Resources.Logger_Info_ExecuteApiGatewayRequest_Executing, request.Method.ToString(), ApiGatewayBaseUrl, request.Resource));
             
-            if(string.IsNullOrEmpty(TemporaryAccessToken))
+            if(Token == null)
             {
-                TemporaryAccessToken = await GetOAuthTokenUsingSecretCredentials(secretArn);
+                Token = await GetOAuthTokenUsingSecretCredentials(secretArn);
                 // TODO save the token in the secret
 
             }
-            request.AddHeader("authorization", "Bearer " + TemporaryAccessToken);
+            request.AddHeader("authorization", "Bearer " + Token);
             
             // make the request to the API gateway
             IRestResponse response = await _apiClient.ExecuteAsync(request);

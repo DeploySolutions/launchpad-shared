@@ -156,6 +156,35 @@ namespace DeploySoftware.LaunchPad.AWS
             return val;
         }
 
+        /// <summary>
+        /// Returns the set of key value pairs for a given set of keys, which are part of a given secret ARN
+        /// </summary>
+        /// <param name="keys">The list of keys you are looking for</param>
+        /// <param name="secretArn">The ARN of the secret in which these keys are fields</param>
+        /// <returns></returns>
+        public async Task<IDictionary<string,string>> GetValuesFromSecret(IList<string> keys, string secretArn)
+        {
+            string secretStringJson = await GetJsonFromSecret(secretArn);
+            IDictionary<string, string> kvps = null;
+
+            // Decrypt the secret
+            if (!string.IsNullOrEmpty(secretStringJson))
+            {
+                dynamic secretObj = JObject.Parse(secretStringJson);
+                kvps = new Dictionary<string, string>();
+                // loop through the desired set of keys to find the corresponding values in the JSON
+                foreach(string key in keys)
+                {
+                    string value = secretObj[key];
+                    if(!string.IsNullOrEmpty(value))
+                    {
+                        kvps.Add(key, value);
+                    }
+                }
+            }
+            return kvps;
+        }
+
 
         /// <summary>
         /// Get AWS Immutable Credentials where the IAM access key and secret values are stored in an AWS Secret Manager secret.
