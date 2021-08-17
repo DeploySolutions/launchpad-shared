@@ -23,8 +23,8 @@ namespace DeploySoftware.LaunchPad.AWS
 
         public string DefaultVersion { get; set; }
 
-        protected RestClient _oAuthClient; 
-        protected RestClient _apiClient;
+        public RestClient OAuthClient { get; set; } 
+        public RestClient ApiGatewayClient { get; set; }
 
         protected SecretHelper _secretHelper;
 
@@ -39,6 +39,15 @@ namespace DeploySoftware.LaunchPad.AWS
             DefaultVersion = string.Empty;
         }
 
+        public ApiGatewayHelper(string apiGatewayBaseUrl) : base()
+        {
+            _secretHelper = new SecretHelper(Logger);
+            OAuthTokenEndpoint = string.Empty;
+            OAuthBaseUrl = string.Empty;
+            ApiGatewayBaseUrl = apiGatewayBaseUrl;
+            DefaultVersion = string.Empty;
+        }
+
         public ApiGatewayHelper(SecretHelper secretHelper, string oAuthBaseUrl, string oAuthTokenEndpoint, string apiGatewayBaseUrl,string defaultApiVersion, ILogger logger) : base(logger)
         {
             _secretHelper = secretHelper;
@@ -48,8 +57,8 @@ namespace DeploySoftware.LaunchPad.AWS
             DefaultVersion = defaultApiVersion;
             
             // set the REST clients
-            _oAuthClient = new RestClient(OAuthBaseUrl);
-            _apiClient = new RestClient(apiGatewayBaseUrl);
+            OAuthClient = new RestClient(OAuthBaseUrl);
+            ApiGatewayClient = new RestClient(apiGatewayBaseUrl);
         }
 
         public ApiGatewayHelper(SecretHelper secretHelper, string awsRegionEndpointName, string oAuthBaseUrl, string oAuthTokenEndpoint, string apiGatewayBaseUrl, string defaultApiVersion, ILogger logger) : base(awsRegionEndpointName, logger)
@@ -61,8 +70,8 @@ namespace DeploySoftware.LaunchPad.AWS
             DefaultVersion = defaultApiVersion;
 
             // set the REST clients
-            _oAuthClient = new RestClient(OAuthBaseUrl);
-            _apiClient = new RestClient(apiGatewayBaseUrl);
+            OAuthClient = new RestClient(OAuthBaseUrl);
+            ApiGatewayClient = new RestClient(apiGatewayBaseUrl);
         }
 
         /// <summary>
@@ -73,7 +82,7 @@ namespace DeploySoftware.LaunchPad.AWS
         public async virtual Task<TemporaryAccessToken> GetOAuthTokenUsingSecretCredentials(string secretArn, IList<string> scopes = null)
         {
             Guard.Against<ArgumentNullException>(String.IsNullOrEmpty(secretArn), DeploySoftware_LaunchPad_AWS_Resources.ApiGatewayHelper_SecretArn_Is_NullOrEmpty);
-            Guard.Against<ArgumentNullException>(_oAuthClient == null, DeploySoftware_LaunchPad_AWS_Resources.ApiGatewayHelper_MakeApiGatewayRequest_RestClient_Is_Null);
+            Guard.Against<ArgumentNullException>(OAuthClient == null, DeploySoftware_LaunchPad_AWS_Resources.ApiGatewayHelper_MakeApiGatewayRequest_RestClient_Is_Null);
             Logger.Info(string.Format(DeploySoftware_LaunchPad_AWS_Resources.ApiGatewayHelper_GetOAuthTokenUsingSecretCredentials_Getting, OAuthTokenEndpoint, OAuthBaseUrl, secretArn));
             TemporaryAccessToken token = null;
 
@@ -106,7 +115,7 @@ namespace DeploySoftware.LaunchPad.AWS
             oAuthRequest.AddParameter("application/x-www-form-urlencoded", sbGrant.ToString(), ParameterType.RequestBody);
 
             // request the token
-            IRestResponse oAuthResponse = await _oAuthClient.ExecuteAsync(oAuthRequest);
+            IRestResponse oAuthResponse = await OAuthClient.ExecuteAsync(oAuthRequest);
             if (oAuthResponse.IsSuccessful)
             {
                
@@ -136,7 +145,7 @@ namespace DeploySoftware.LaunchPad.AWS
         public async virtual Task<IRestResponse> MakeApiGatewayRequest(string secretArn, IRestRequest request)
         {
             Guard.Against<ArgumentNullException>(String.IsNullOrEmpty(secretArn), DeploySoftware_LaunchPad_AWS_Resources.ApiGatewayHelper_SecretArn_Is_NullOrEmpty);
-            Guard.Against<ArgumentNullException>(_apiClient == null, DeploySoftware_LaunchPad_AWS_Resources.ApiGatewayHelper_MakeApiGatewayRequest_RestClient_Is_Null);
+            Guard.Against<ArgumentNullException>(ApiGatewayClient == null, DeploySoftware_LaunchPad_AWS_Resources.ApiGatewayHelper_MakeApiGatewayRequest_RestClient_Is_Null);
             Guard.Against<ArgumentNullException>(String.IsNullOrEmpty(request.Resource), DeploySoftware_LaunchPad_AWS_Resources.ApiGatewayHelper_MakeApiGatewayRequest_Request_Resource_Is_NullOrEmpty);
             Logger.Info(string.Format(DeploySoftware_LaunchPad_AWS_Resources.Logger_Info_ExecuteApiGatewayRequest_Executing, request.Method.ToString(), ApiGatewayBaseUrl, request.Resource));
             
@@ -149,7 +158,7 @@ namespace DeploySoftware.LaunchPad.AWS
             request.AddHeader("authorization", "Bearer " + Token);
             
             // make the request to the API gateway
-            IRestResponse response = await _apiClient.ExecuteAsync(request);
+            IRestResponse response = await ApiGatewayClient.ExecuteAsync(request);
             if (response.IsSuccessful)
             {
                 Logger.Info("Request succeeded. Status code: " + response.StatusCode);
