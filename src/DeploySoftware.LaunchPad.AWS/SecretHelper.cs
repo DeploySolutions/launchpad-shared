@@ -84,11 +84,11 @@ namespace DeploySoftware.LaunchPad.AWS
 
         }
 
-        public async virtual Task<string> GetJsonFromSecret(string secretArn)
+        public async virtual Task<string> GetJsonFromSecret(string secretVaultIdentifier)
         {
-            Logger.Info(string.Format(DeploySoftware_LaunchPad_AWS_Resources.Logger_Info_GetJsonFromSecret_Getting, secretArn));
+            Logger.Info(string.Format(DeploySoftware_LaunchPad_AWS_Resources.Logger_Info_GetJsonFromSecret_Getting, secretVaultIdentifier));
             GetSecretValueRequest request = new GetSecretValueRequest();
-            request.SecretId = secretArn;
+            request.SecretId = secretVaultIdentifier;
             request.VersionStage = "AWSCURRENT"; // VersionStage defaults to AWSCURRENT if unspecified.
 
             GetSecretValueResponse response = null;
@@ -133,7 +133,7 @@ namespace DeploySoftware.LaunchPad.AWS
                 Logger.Error(string.Format(DeploySoftware_LaunchPad_AWS_Resources.Logger_Error_GetJsonFromSecret_ExceptionThrown, e.Message));
                 throw;
             }
-            Logger.Info(string.Format(DeploySoftware_LaunchPad_AWS_Resources.Logger_Info_GetJsonFromSecret_Got, secretArn));
+            Logger.Info(string.Format(DeploySoftware_LaunchPad_AWS_Resources.Logger_Info_GetJsonFromSecret_Got, secretVaultIdentifier));
             return response.SecretString;
         }
 
@@ -141,11 +141,11 @@ namespace DeploySoftware.LaunchPad.AWS
         /// Returns the text value of of a particular key, from a given secret ARN
         /// </summary>
         /// <param name="key"></param>
-        /// <param name="secretArn"></param>
+        /// <param name="secretVaultIdentifier"></param>
         /// <returns></returns>
-        public async Task<string> GetValueFromSecret(string key, string secretArn)
+        public async Task<string> GetValueFromSecret(string key, string secretVaultIdentifier)
         {
-            string secretStringJson = await GetJsonFromSecret(secretArn);
+            string secretStringJson = await GetJsonFromSecret(secretVaultIdentifier);
             string val = string.Empty;
             // Decrypts secret
             if (!string.IsNullOrEmpty(secretStringJson))
@@ -157,14 +157,39 @@ namespace DeploySoftware.LaunchPad.AWS
         }
 
         /// <summary>
+        /// Returns the set of all key value pairs, which are part of a given secret ARN
+        /// The field names do not have to be known ahead of time.
+        /// </summary>
+        /// <param name="secretVaultIdentifier">The ARN of the secret in which the fields are present</param>
+        /// <returns></returns>
+        public async Task<IDictionary<string, string>> GetAllFieldsFromSecret(string secretVaultIdentifier)
+        {
+            string secretStringJson = await GetJsonFromSecret(secretVaultIdentifier);
+            IDictionary<string, string> kvps = null;
+
+            // Decrypt the secret
+            if (!string.IsNullOrEmpty(secretStringJson))
+            {
+                kvps = new Dictionary<string, string>();
+                dynamic secretVault = JValue.Parse(secretStringJson);
+                // loop through the desired set of keys to find the corresponding values in the JSON
+                foreach (Newtonsoft.Json.Linq.JProperty jproperty in secretVault)
+                {
+                    kvps.Add(jproperty.Name, jproperty.Value.ToString());
+                }
+            }
+            return kvps;
+        }
+
+        /// <summary>
         /// Returns the set of key value pairs for a given set of keys, which are part of a given secret ARN
         /// </summary>
         /// <param name="keys">The list of keys you are looking for</param>
-        /// <param name="secretArn">The ARN of the secret in which these keys are fields</param>
+        /// <param name="secretVaultIdentifier">The ARN of the secret in which these keys are fields</param>
         /// <returns></returns>
-        public async Task<IDictionary<string,string>> GetValuesFromSecret(IList<string> keys, string secretArn)
+        public async Task<IDictionary<string,string>> GetValuesFromSecret(IList<string> keys, string secretVaultIdentifier)
         {
-            string secretStringJson = await GetJsonFromSecret(secretArn);
+            string secretStringJson = await GetJsonFromSecret(secretVaultIdentifier);
             IDictionary<string, string> kvps = null;
 
             // Decrypt the secret
@@ -189,28 +214,28 @@ namespace DeploySoftware.LaunchPad.AWS
         /// <summary>
         /// Get AWS Immutable Credentials where the IAM access key and secret values are stored in an AWS Secret Manager secret.
         /// </summary>
-        /// <param name="secretArn">The ARN of the secret in which the IAM values are kept.</param>
+        /// <param name="secretVaultIdentifier">The ARN of the secret in which the IAM values are kept.</param>
         /// <returns>IAM credentials if value, or null</returns>
-        public async virtual Task<ImmutableCredentials>  GetCredentialsFromSecret(string secretArn)
+        public async virtual Task<ImmutableCredentials>  GetCredentialsFromSecret(string secretVaultIdentifier)
         {
-            Logger.Info(string.Format(DeploySoftware_LaunchPad_AWS_Resources.Logger_Info_GetCredentialsFromSecret_Getting, secretArn));
+            Logger.Info(string.Format(DeploySoftware_LaunchPad_AWS_Resources.Logger_Info_GetCredentialsFromSecret_Getting, secretVaultIdentifier));
             // create the aws credentials given the provided credentials taken from the secret
-            dynamic secret = JsonConvert.DeserializeObject(await GetJsonFromSecret(secretArn));            
+            dynamic secret = JsonConvert.DeserializeObject(await GetJsonFromSecret(secretVaultIdentifier));            
             string iamAccessKey = secret.apiGatewayIAMAccessKey;
             string iamSecretKey = secret.apiGatewayIAMSecret;
-            Logger.Info(string.Format(DeploySoftware_LaunchPad_AWS_Resources.Logger_Info_GetCredentialsFromSecret_Got, secretArn));
+            Logger.Info(string.Format(DeploySoftware_LaunchPad_AWS_Resources.Logger_Info_GetCredentialsFromSecret_Got, secretVaultIdentifier));
             return new ImmutableCredentials(iamAccessKey, iamSecretKey, null);
         }
 
         /// <summary>
         /// Returns a valid database connection string which is stored in "dbConnectionString" key in a Secrets Manager secret.
         /// </summary>
-        /// <param name="secretArn">The AWS ARN of the secret in which the key is located.</param>
+        /// <param name="secretVaultIdentifier">The AWS ARN of the secret in which the key is located.</param>
         /// <returns>A SQL connection string</returns>
-        public async virtual Task<string> GetDbConnectionStringFromSecret(string secretArn)
+        public async virtual Task<string> GetDbConnectionStringFromSecret(string secretVaultIdentifier)
         {
-            Logger.Info(string.Format(DeploySoftware_LaunchPad_AWS_Resources.Logger_Info_GetDbConnectionStringFromSecret_Getting, secretArn));
-            string connectionStringJson = await GetJsonFromSecret(secretArn);            
+            Logger.Info(string.Format(DeploySoftware_LaunchPad_AWS_Resources.Logger_Info_GetDbConnectionStringFromSecret_Getting, secretVaultIdentifier));
+            string connectionStringJson = await GetJsonFromSecret(secretVaultIdentifier);            
             string connectionString = String.Empty;
             
             // Decrypts secret using the associated JSON. The secret should contain a "dbConnectionString" key with a valid 
@@ -224,11 +249,11 @@ namespace DeploySoftware.LaunchPad.AWS
                 }
                 catch(JsonReaderException jEx)
                 {
-                    Logger.Error(string.Format(DeploySoftware_LaunchPad_AWS_Resources.Logger_Error_GetDbConnectionStringFromSecret_ExceptionThrown, secretArn, jEx.Message));
+                    Logger.Error(string.Format(DeploySoftware_LaunchPad_AWS_Resources.Logger_Error_GetDbConnectionStringFromSecret_ExceptionThrown, secretVaultIdentifier, jEx.Message));
                 }
             }
             Console.WriteLine("AWS connection string: " + connectionString);
-            Logger.Info(string.Format(DeploySoftware_LaunchPad_AWS_Resources.Logger_Info_GetDbConnectionStringFromSecret_Got, secretArn));
+            Logger.Info(string.Format(DeploySoftware_LaunchPad_AWS_Resources.Logger_Info_GetDbConnectionStringFromSecret_Got, secretVaultIdentifier));
             return connectionString;
         }
 
@@ -237,17 +262,17 @@ namespace DeploySoftware.LaunchPad.AWS
         /// </summary>
         /// <param name="key">The field within the secret to update</param>
         /// <param name="value">The value to update for the given key</param>
-        /// <param name="secretArn">The full secret ARN</param>
+        /// <param name="secretVaultIdentifier">The full secret ARN</param>
         /// <returns>A status code with the result of the request</returns>
-        public async Task<HttpStatusCode> WriteValuesToSecret(IDictionary<string,string> fieldsToInsertOrUpdate, string secretArn)
+        public async Task<HttpStatusCode> WriteValuesToSecret(IDictionary<string,string> fieldsToInsertOrUpdate, string secretVaultIdentifier)
         {
-            string originalSecretJson = await GetJsonFromSecret(secretArn);
+            string originalSecretJson = await GetJsonFromSecret(secretVaultIdentifier);
 
             // for each value in the dictionary, try to update the JSON
             string sbUpdatedSecretJson = originalSecretJson;
             foreach(var field in fieldsToInsertOrUpdate)
             {
-                sbUpdatedSecretJson = UpdateJsonForSecret(secretArn, sbUpdatedSecretJson, field.Key, field.Value);
+                sbUpdatedSecretJson = UpdateJsonForSecret(secretVaultIdentifier, sbUpdatedSecretJson, field.Key, field.Value);
             }
 
             PutSecretValueResponse response = null;
@@ -256,7 +281,7 @@ namespace DeploySoftware.LaunchPad.AWS
             if (!string.IsNullOrEmpty(sbUpdatedSecretJson))
             {
                 PutSecretValueRequest request = new PutSecretValueRequest();
-                request.SecretId = secretArn;
+                request.SecretId = secretVaultIdentifier;
                 request.SecretString = sbUpdatedSecretJson;
                 try
                 {
@@ -265,43 +290,43 @@ namespace DeploySoftware.LaunchPad.AWS
                 catch (EncryptionFailureException e)
                 {
                     // Secrets Manager can't encrypt the protected secret text using the provided KMS key.\
-                    Logger.Error(string.Format(DeploySoftware_LaunchPad_AWS_Resources.Logger_Error_WriteValueToSecret_Exception, secretArn, e.Message));
+                    Logger.Error(string.Format(DeploySoftware_LaunchPad_AWS_Resources.Logger_Error_WriteValueToSecret_Exception, secretVaultIdentifier, e.Message));
                     throw;
                 }
                 catch (InternalServiceErrorException e)
                 {
                     // An error occurred on the server side.
-                    Logger.Error(string.Format(DeploySoftware_LaunchPad_AWS_Resources.Logger_Error_WriteValueToSecret_Exception, secretArn, e.Message));
+                    Logger.Error(string.Format(DeploySoftware_LaunchPad_AWS_Resources.Logger_Error_WriteValueToSecret_Exception, secretVaultIdentifier, e.Message));
                     throw;
                 }
                 catch (InvalidParameterException e)
                 {
                     // You provided an invalid value for a parameter.
-                    Logger.Error(string.Format(DeploySoftware_LaunchPad_AWS_Resources.Logger_Error_WriteValueToSecret_Exception, secretArn, e.Message));
+                    Logger.Error(string.Format(DeploySoftware_LaunchPad_AWS_Resources.Logger_Error_WriteValueToSecret_Exception, secretVaultIdentifier, e.Message));
                     throw;
                 }
                 catch (InvalidRequestException e)
                 {
                     // You provided a parameter value that is not valid for the current state of the resource.
-                    Logger.Error(string.Format(DeploySoftware_LaunchPad_AWS_Resources.Logger_Error_WriteValueToSecret_Exception, secretArn, e.Message));
+                    Logger.Error(string.Format(DeploySoftware_LaunchPad_AWS_Resources.Logger_Error_WriteValueToSecret_Exception, secretVaultIdentifier, e.Message));
                     throw;
                 }
                 catch (ResourceNotFoundException e)
                 {
                     // We can't find the resource that you asked for.
-                    Logger.Error(string.Format(DeploySoftware_LaunchPad_AWS_Resources.Logger_Error_WriteValueToSecret_Exception, secretArn, e.Message));
+                    Logger.Error(string.Format(DeploySoftware_LaunchPad_AWS_Resources.Logger_Error_WriteValueToSecret_Exception, secretVaultIdentifier, e.Message));
                     throw;
                 }
                 catch (ResourceExistsException e)
                 {
                     // A resource with the ID you requested already exists.
-                    Logger.Error(string.Format(DeploySoftware_LaunchPad_AWS_Resources.Logger_Error_WriteValueToSecret_Exception, secretArn, e.Message));
+                    Logger.Error(string.Format(DeploySoftware_LaunchPad_AWS_Resources.Logger_Error_WriteValueToSecret_Exception, secretVaultIdentifier, e.Message));
                     throw;
                 }
                 catch (AggregateException e)
                 {
                     // More than one of the above exceptions were triggered.
-                    Logger.Error(string.Format(DeploySoftware_LaunchPad_AWS_Resources.Logger_Error_WriteValueToSecret_Exception, secretArn, e.Message));
+                    Logger.Error(string.Format(DeploySoftware_LaunchPad_AWS_Resources.Logger_Error_WriteValueToSecret_Exception, secretVaultIdentifier, e.Message));
                     throw;
                 }
 
@@ -309,9 +334,9 @@ namespace DeploySoftware.LaunchPad.AWS
             return response.HttpStatusCode;
         }
 
-        public virtual string UpdateJsonForSecret(string secretArn, string originalSecretJson, string key, string value)
+        public virtual string UpdateJsonForSecret(string secretVaultIdentifier, string originalSecretJson, string key, string value)
         {
-            Logger.Info(string.Format(DeploySoftware_LaunchPad_AWS_Resources.Logger_Info_UpdateJsonForSecret_Updating, value, key, secretArn));
+            Logger.Info(string.Format(DeploySoftware_LaunchPad_AWS_Resources.Logger_Info_UpdateJsonForSecret_Updating, value, key, secretVaultIdentifier));
             string updatedJsonString = originalSecretJson;
 
             JObject jObject = Newtonsoft.Json.JsonConvert.DeserializeObject(originalSecretJson) as JObject;
@@ -331,7 +356,7 @@ namespace DeploySoftware.LaunchPad.AWS
             // Convert the JObject back to a string to get the resulting Json from the updated secret
             updatedJsonString = jObject.ToString();
 
-            Logger.Info(string.Format(DeploySoftware_LaunchPad_AWS_Resources.Logger_Info_UpdateJsonForSecret_Updated, value, key, secretArn));
+            Logger.Info(string.Format(DeploySoftware_LaunchPad_AWS_Resources.Logger_Info_UpdateJsonForSecret_Updated, value, key, secretVaultIdentifier));
             return updatedJsonString;
         }
 
