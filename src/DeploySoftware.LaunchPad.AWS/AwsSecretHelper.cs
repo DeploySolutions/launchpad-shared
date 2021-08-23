@@ -1,9 +1,11 @@
 ﻿using Abp.UI;
 using Amazon;
 using Amazon.Runtime;
+using Amazon.Runtime.CredentialManagement;
 using Amazon.SecretsManager;
 using Amazon.SecretsManager.Model;
 using Castle.Core.Logging;
+using DeploySoftware.LaunchPad.Core.Configuration;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
@@ -14,30 +16,68 @@ using System.Threading.Tasks;
 
 namespace DeploySoftware.LaunchPad.AWS
 {
-    public partial class SecretHelper : AwsHelperBase
+    public partial class AwsSecretHelper : SecretHelper
     {
+        protected const string DefaultRegionName = "us-east-1";
+
+        public RegionEndpoint Region { get; set; }
 
         public IAmazonSecretsManager SecretClient { get; set; }
 
 
-        public SecretHelper(ILogger logger) : base(logger)
+        public AwsSecretHelper(ILogger logger) : base(logger)
         {
+            Region = GetRegionEndpoint(DefaultRegionName);
             SecretClient = GetSecretClient(Region);
         }
 
-        public SecretHelper(IAmazonSecretsManager client, ILogger logger) : base(logger)
+        public AwsSecretHelper(IAmazonSecretsManager client, ILogger logger) : base(logger)
         {
+            Region = GetRegionEndpoint(DefaultRegionName);
             SecretClient = client;
         }
 
-        public SecretHelper(string awsRegionEndpointName, ILogger logger) : base(awsRegionEndpointName, logger)
+        public AwsSecretHelper(string awsRegionEndpointName, ILogger logger) : base(logger)
         {
+            Region = GetRegionEndpoint(DefaultRegionName);
             SecretClient = GetSecretClient(Region);
         }
 
-        public SecretHelper(string awsProfileName, string awsRegionEndpointName, ILogger logger) : base(awsRegionEndpointName,logger)
+        public AwsSecretHelper(string awsProfileName, string awsRegionEndpointName, ILogger logger) : base(logger)
         {
+            Region = GetRegionEndpoint(DefaultRegionName);
             SecretClient = GetSecretClient(awsProfileName, Region);
+        }
+
+        /// <summary>
+        /// Returns an AWS region endpoint from a given endpoint name, or the default region "us-east-1" if invalid/none provided.
+        /// </summary>
+        /// <param name="awsRegionEndpointSystemName">A valid AWS region endpoint system name.</param>
+        /// <returns>A valid AWS Region Endpoint</returns>
+        public RegionEndpoint GetRegionEndpoint(string awsRegionEndpointSystemName)
+        {
+            RegionEndpoint region = null;
+
+            // attempt to load the Region Endpoint from the list of available ones
+            if (!string.IsNullOrEmpty(awsRegionEndpointSystemName))
+            {
+                foreach (var e in RegionEndpoint.EnumerableAllRegions)
+                {
+                    if (e.Equals(awsRegionEndpointSystemName))
+                    {
+                        region = e;
+                    }
+                }
+            }
+
+            // if the region is still null, or the string was null or empty previously, use the default region endpoint
+            if (region == null)
+            {
+                region = RegionEndpoint.GetBySystemName(DefaultRegionName);
+            }
+
+            Logger.Info(string.Format(DeploySoftware_LaunchPad_AWS_Resources.SecretHelper_GetRegionEndpoint_Logger_Info_RegionName, region.DisplayName, region.SystemName));
+            return region;
         }
 
         /// <summary>
@@ -84,7 +124,17 @@ namespace DeploySoftware.LaunchPad.AWS
 
         }
 
-        public async virtual Task<string> GetJsonFromSecret(string secretVaultIdentifier)
+        public AWSCredentials GetAwsCredentials(string awsProfileName)
+        {
+            var chain = new CredentialProfileStoreChain();
+            AWSCredentials creds;
+            if (chain.TryGetAWSCredentials(awsProfileName, out creds))
+            {
+                Console.WriteLine("AWS credentials created");
+            }
+            return creds;
+        }
+        public async override Task<string> GetJsonFromSecret(string secretVaultIdentifier)
         {
             Logger.Info(string.Format(DeploySoftware_LaunchPad_AWS_Resources.Logger_Info_GetJsonFromSecret_Getting, secretVaultIdentifier));
             GetSecretValueRequest request = new GetSecretValueRequest();
@@ -138,80 +188,6 @@ namespace DeploySoftware.LaunchPad.AWS
         }
 
         /// <summary>
-        /// Returns the text value of of a particular key, from a given secret ARN
-        /// </summary>
-        /// <param name="key"></param>
-        /// <param name="secretVaultIdentifier"></param>
-        /// <returns></returns>
-        public async Task<string> GetValueFromSecret(string key, string secretVaultIdentifier)
-        {
-            string secretStringJson = await GetJsonFromSecret(secretVaultIdentifier);
-            string val = string.Empty;
-            // Decrypts secret
-            if (!string.IsNullOrEmpty(secretStringJson))
-            {
-                dynamic secretObj = JObject.Parse(secretStringJson);
-                val = secretObj[key];
-            }
-            return val;
-        }
-
-        /// <summary>
-        /// Returns the set of all key value pairs, which are part of a given secret ARN
-        /// The field names do not have to be known ahead of time.
-        /// </summary>
-        /// <param name="secretVaultIdentifier">The ARN of the secret in which the fields are present</param>
-        /// <returns></returns>
-        public async Task<IDictionary<string, string>> GetAllFieldsFromSecret(string secretVaultIdentifier)
-        {
-            string secretStringJson = await GetJsonFromSecret(secretVaultIdentifier);
-            IDictionary<string, string> kvps = null;
-
-            // Decrypt the secret
-            if (!string.IsNullOrEmpty(secretStringJson))
-            {
-                kvps = new Dictionary<string, string>();
-                dynamic secretVault = JValue.Parse(secretStringJson);
-                // loop through the desired set of keys to find the corresponding values in the JSON
-                foreach (Newtonsoft.Json.Linq.JProperty jproperty in secretVault)
-                {
-                    kvps.Add(jproperty.Name, jproperty.Value.ToString());
-                }
-            }
-            return kvps;
-        }
-
-        /// <summary>
-        /// Returns the set of key value pairs for a given set of keys, which are part of a given secret ARN
-        /// </summary>
-        /// <param name="keys">The list of keys you are looking for</param>
-        /// <param name="secretVaultIdentifier">The ARN of the secret in which these keys are fields</param>
-        /// <returns></returns>
-        public async Task<IDictionary<string,string>> GetValuesFromSecret(IList<string> keys, string secretVaultIdentifier)
-        {
-            string secretStringJson = await GetJsonFromSecret(secretVaultIdentifier);
-            IDictionary<string, string> kvps = null;
-
-            // Decrypt the secret
-            if (!string.IsNullOrEmpty(secretStringJson))
-            {
-                dynamic secretObj = JObject.Parse(secretStringJson);
-                kvps = new Dictionary<string, string>();
-                // loop through the desired set of keys to find the corresponding values in the JSON
-                foreach(string key in keys)
-                {
-                    string value = secretObj[key];
-                    if(!string.IsNullOrEmpty(value))
-                    {
-                        kvps.Add(key, value);
-                    }
-                }
-            }
-            return kvps;
-        }
-
-
-        /// <summary>
         /// Get AWS Immutable Credentials where the IAM access key and secret values are stored in an AWS Secret Manager secret.
         /// </summary>
         /// <param name="secretVaultIdentifier">The ARN of the secret in which the IAM values are kept.</param>
@@ -228,33 +204,15 @@ namespace DeploySoftware.LaunchPad.AWS
         }
 
         /// <summary>
-        /// Returns a valid database connection string which is stored in "dbConnectionString" key in a Secrets Manager secret.
+        /// Writes the text value of a particular key, to a given secret ARN
         /// </summary>
-        /// <param name="secretVaultIdentifier">The AWS ARN of the secret in which the key is located.</param>
-        /// <returns>A SQL connection string</returns>
-        public async virtual Task<string> GetDbConnectionStringFromSecret(string secretVaultIdentifier)
+        /// <param name="key">The field within the secret to update</param>
+        /// <param name="value">The value to update for the given key</param>
+        /// <param name="secretVaultIdentifier">The full secret ARN</param>
+        /// <returns>A status code with the result of the request</returns>
+        public override HttpStatusCode WriteValuesToSecret(IDictionary<string, string> fieldsToInsertOrUpdate, string secretVaultIdentifier)
         {
-            Logger.Info(string.Format(DeploySoftware_LaunchPad_AWS_Resources.Logger_Info_GetDbConnectionStringFromSecret_Getting, secretVaultIdentifier));
-            string connectionStringJson = await GetJsonFromSecret(secretVaultIdentifier);            
-            string connectionString = String.Empty;
-            
-            // Decrypts secret using the associated JSON. The secret should contain a "dbConnectionString" key with a valid 
-            // database connection string
-            if (!string.IsNullOrEmpty(connectionStringJson))
-            {
-                try
-                {
-                    dynamic secretObj = JObject.Parse(connectionStringJson);
-                    connectionString = secretObj.dbConnectionString;
-                }
-                catch(JsonReaderException jEx)
-                {
-                    Logger.Error(string.Format(DeploySoftware_LaunchPad_AWS_Resources.Logger_Error_GetDbConnectionStringFromSecret_ExceptionThrown, secretVaultIdentifier, jEx.Message));
-                }
-            }
-            Console.WriteLine("AWS connection string: " + connectionString);
-            Logger.Info(string.Format(DeploySoftware_LaunchPad_AWS_Resources.Logger_Info_GetDbConnectionStringFromSecret_Got, secretVaultIdentifier));
-            return connectionString;
+            return WriteValuesToSecretAsync(fieldsToInsertOrUpdate, secretVaultIdentifier).Result;
         }
 
         /// <summary>
@@ -264,7 +222,7 @@ namespace DeploySoftware.LaunchPad.AWS
         /// <param name="value">The value to update for the given key</param>
         /// <param name="secretVaultIdentifier">The full secret ARN</param>
         /// <returns>A status code with the result of the request</returns>
-        public async Task<HttpStatusCode> WriteValuesToSecret(IDictionary<string,string> fieldsToInsertOrUpdate, string secretVaultIdentifier)
+        public override async Task<HttpStatusCode> WriteValuesToSecretAsync(IDictionary<string,string> fieldsToInsertOrUpdate, string secretVaultIdentifier)
         {
             string originalSecretJson = await GetJsonFromSecret(secretVaultIdentifier);
 
@@ -334,7 +292,7 @@ namespace DeploySoftware.LaunchPad.AWS
             return response.HttpStatusCode;
         }
 
-        public virtual string UpdateJsonForSecret(string secretVaultIdentifier, string originalSecretJson, string key, string value)
+        public override string UpdateJsonForSecret(string secretVaultIdentifier, string originalSecretJson, string key, string value)
         {
             Logger.Info(string.Format(DeploySoftware_LaunchPad_AWS_Resources.Logger_Info_UpdateJsonForSecret_Updating, value, key, secretVaultIdentifier));
             string updatedJsonString = originalSecretJson;

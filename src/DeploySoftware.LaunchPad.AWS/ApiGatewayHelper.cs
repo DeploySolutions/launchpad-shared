@@ -26,13 +26,13 @@ namespace DeploySoftware.LaunchPad.AWS
         public RestClient OAuthClient { get; set; } 
         public RestClient ApiGatewayClient { get; set; }
 
-        protected SecretHelper _secretHelper;
+        protected AwsSecretHelper _secretHelper;
 
         public TemporaryAccessToken Token { get; set; }
 
         protected ApiGatewayHelper() : base()
         {
-            _secretHelper = new SecretHelper(Logger);
+            _secretHelper = new AwsSecretHelper(Logger);
             OAuthTokenEndpoint = string.Empty;
             OAuthBaseUrl = string.Empty;
             ApiGatewayBaseUrl = string.Empty;
@@ -41,14 +41,14 @@ namespace DeploySoftware.LaunchPad.AWS
 
         public ApiGatewayHelper(string apiGatewayBaseUrl) : base()
         {
-            _secretHelper = new SecretHelper(Logger);
+            _secretHelper = new AwsSecretHelper(Logger);
             OAuthTokenEndpoint = string.Empty;
             OAuthBaseUrl = string.Empty;
             ApiGatewayBaseUrl = apiGatewayBaseUrl;
             DefaultVersion = string.Empty;
         }
 
-        public ApiGatewayHelper(SecretHelper secretHelper, string oAuthBaseUrl, string oAuthTokenEndpoint, string apiGatewayBaseUrl,string defaultApiVersion, ILogger logger) : base(logger)
+        public ApiGatewayHelper(AwsSecretHelper secretHelper, string oAuthBaseUrl, string oAuthTokenEndpoint, string apiGatewayBaseUrl,string defaultApiVersion, ILogger logger) : base(logger)
         {
             _secretHelper = secretHelper;
             OAuthBaseUrl = oAuthBaseUrl;
@@ -61,7 +61,7 @@ namespace DeploySoftware.LaunchPad.AWS
             ApiGatewayClient = new RestClient(apiGatewayBaseUrl);
         }
 
-        public ApiGatewayHelper(SecretHelper secretHelper, string awsRegionEndpointName, string oAuthBaseUrl, string oAuthTokenEndpoint, string apiGatewayBaseUrl, string defaultApiVersion, ILogger logger) : base(awsRegionEndpointName, logger)
+        public ApiGatewayHelper(AwsSecretHelper secretHelper, string awsRegionEndpointName, string oAuthBaseUrl, string oAuthTokenEndpoint, string apiGatewayBaseUrl, string defaultApiVersion, ILogger logger) : base(awsRegionEndpointName, logger)
         {
             _secretHelper = secretHelper;
             OAuthBaseUrl = oAuthBaseUrl;
