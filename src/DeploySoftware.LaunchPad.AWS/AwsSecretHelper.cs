@@ -25,6 +25,13 @@ namespace DeploySoftware.LaunchPad.AWS
         public IAmazonSecretsManager SecretClient { get; set; }
 
 
+        public AwsSecretHelper() : base()
+        {
+            Logger = NullLogger.Instance;
+            Region = GetRegionEndpoint(DefaultRegionName);
+            SecretClient = GetSecretClient(Region);
+        }
+
         public AwsSecretHelper(ILogger logger) : base(logger)
         {
             Region = GetRegionEndpoint(DefaultRegionName);

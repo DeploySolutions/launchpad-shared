@@ -12,6 +12,10 @@ namespace DeploySoftware.LaunchPad.Core.Configuration
 {
     public abstract partial class SecretHelper : HelperBase
     {
+        public SecretHelper() : base()
+        {
+            Logger = NullLogger.Instance;
+        }
 
         public SecretHelper(ILogger logger) : base(logger)
         {
