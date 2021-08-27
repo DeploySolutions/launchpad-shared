@@ -54,6 +54,13 @@ namespace DeploySoftware.LaunchPad.Core.FileGeneration
         /// </summary>
         public virtual IDictionary<string, LaunchPadGeneratedObjectBase> AppServiceDefinitions { get; set; }
 
+
+        /// <summary>
+        /// Contains a dictionary of appsettings JSON elements belonging to this component, keyed by the property set id
+        /// </summary>
+        public virtual IDictionary<string, LaunchPadGeneratedAppSetting> AppSettings { get; set; }
+
+
         public VisualStudioBlueprintDefinitionSettings() : base()
         {
             VisualStudioSolutionName = string.Empty;
@@ -66,6 +73,7 @@ namespace DeploySoftware.LaunchPad.Core.FileGeneration
             PropertySets = new Dictionary<string, LaunchPadGeneratedDtoPropertySet>(comparer);
             DomainEntityDefinitions = new Dictionary<string, LaunchPadGeneratedObjectBase>(comparer);
             AppServiceDefinitions = new Dictionary<string, LaunchPadGeneratedObjectBase>(comparer);
+            AppSettings = new Dictionary<string, LaunchPadGeneratedAppSetting>(comparer);
         }
     }
 }
