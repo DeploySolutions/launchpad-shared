@@ -120,7 +120,22 @@ namespace DeploySoftware.LaunchPad.Core.FileGeneration
             sb.Append(Prefix);
             sb.Append("|n:");
             sb.Append(Name);
-            if(!String.IsNullOrEmpty(DefaultValue))
+            sb.Append("}}");
+            return sb.ToString();
+        }
+
+        /// <summary>
+        /// Returns a string representation of the token, specifically including its default value
+        /// </summary>
+        /// <returns></returns>
+        public virtual string ToStringWithDefaultValue()
+        {
+            StringBuilder sb = new StringBuilder("{{");
+            sb.Append("p:");
+            sb.Append(Prefix);
+            sb.Append("|n:");
+            sb.Append(Name);
+            if (!String.IsNullOrEmpty(DefaultValue))
             {
                 sb.Append("|dv:");
                 sb.Append(DefaultValue);
@@ -128,6 +143,7 @@ namespace DeploySoftware.LaunchPad.Core.FileGeneration
             sb.Append("}}");
             return sb.ToString();
         }
+
 
         public override bool Equals(object obj)
         {
