@@ -43,9 +43,9 @@ namespace DeploySoftware.LaunchPad.Core.FileGeneration
                 sbRegExp.Append(token.Name);
                 if (!string.IsNullOrEmpty(token.DefaultValue))
                 {
-                    sbRegExp.Append(@"(?:\|dv:");
-                    sbRegExp.Append(token.DefaultValue);
-                    sbRegExp.Append(@")?\}\}");
+                    sbRegExp.Append(@"(\|dv:");
+                    sbRegExp.Append(Regex.Escape(token.DefaultValue));
+                    sbRegExp.Append(@")?");
                 }
                 sbRegExp.Append(@"\}\}");
                 //string regexPattern = Regex.Escape(sbRegExp.ToString());
