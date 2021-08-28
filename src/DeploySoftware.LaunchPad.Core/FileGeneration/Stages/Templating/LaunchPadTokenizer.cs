@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Text;
 using System.Text.RegularExpressions;
 
 namespace DeploySoftware.LaunchPad.Core.FileGeneration
@@ -32,12 +33,29 @@ namespace DeploySoftware.LaunchPad.Core.FileGeneration
             string modifiedText = originalText;
             foreach (var token in tokens.Values)
             {
-                var regex = new Regex(Regex.Escape(token.ToString()), RegexOptions.Compiled | RegexOptions.IgnoreCase);
-                sw = Stopwatch.StartNew();
-                bool succeeded = Regex.IsMatch(originalText, token.ToString(), RegexOptions.IgnoreCase);
-                sw.Stop();
-                if (succeeded)
+                // Token examples:
+                // /\{\{p:dss\|n:dss_comp_webportal_backend_Solution_Details_Name\}\}/
+                // \{p:dss\|n:dss_comp_webportal_backend_Solution_Details_Name(?:\|dv:Test)?
+                StringBuilder sbRegExp = new StringBuilder();
+                sbRegExp.Append(@"\{\{p:");
+                sbRegExp.Append(token.Prefix);
+                sbRegExp.Append(@"\|n:");
+                sbRegExp.Append(token.Name);
+                if (!string.IsNullOrEmpty(token.DefaultValue))
                 {
+                    sbRegExp.Append(@"(?:\|dv:");
+                    sbRegExp.Append(token.DefaultValue);
+                    sbRegExp.Append(@")?\}\}");
+                }
+                sbRegExp.Append(@"\}\}");
+                //string regexPattern = Regex.Escape(sbRegExp.ToString());
+                string regexPattern = sbRegExp.ToString();
+                sw = Stopwatch.StartNew();
+                bool succeeded = Regex.IsMatch(originalText, regexPattern, RegexOptions.Compiled | RegexOptions.IgnoreCase);
+                sw.Stop();
+                if (succeeded) // do the RegEx replacement
+                {
+                    var regex = new Regex(regexPattern, RegexOptions.Compiled | RegexOptions.IgnoreCase);
                     if (string.IsNullOrEmpty(token.Value))
                     {
                         modifiedText = regex.Replace(modifiedText, token.DefaultValue);
