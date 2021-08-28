@@ -34,8 +34,9 @@ namespace DeploySoftware.LaunchPad.Core.FileGeneration
             foreach (var token in tokens.Values)
             {
                 // Token examples:
-                // /\{\{p:dss\|n:dss_comp_webportal_backend_Solution_Details_Name\}\}/
+                // \{\{p:dss\|n:dss_comp_webportal_backend_Solution_Details_Name\}\}
                 // \{p:dss\|n:dss_comp_webportal_backend_Solution_Details_Name(?:\|dv:Test)?
+                // \{\{p:dss\|n:dss_comp_webportal_backend_Solution_Details_Name(?:\|dv:(?:Some other value|Web Portal))?\}\}
                 StringBuilder sbRegExp = new StringBuilder();
                 sbRegExp.Append(@"\{\{p:");
                 sbRegExp.Append(token.Prefix);
@@ -43,9 +44,7 @@ namespace DeploySoftware.LaunchPad.Core.FileGeneration
                 sbRegExp.Append(token.Name);
                 if (!string.IsNullOrEmpty(token.DefaultValue))
                 {
-                    sbRegExp.Append(@"(\|dv:");
-                    sbRegExp.Append(Regex.Escape(token.DefaultValue));
-                    sbRegExp.Append(@")?");
+                    sbRegExp.Append(@"(?:\|dv:(.*))?"); // match on any word inside the dv section, if present
                 }
                 sbRegExp.Append(@"\}\}");
                 //string regexPattern = Regex.Escape(sbRegExp.ToString());
