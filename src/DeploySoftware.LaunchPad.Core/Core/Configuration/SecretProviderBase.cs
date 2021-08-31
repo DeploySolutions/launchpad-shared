@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Abp.Dependency;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace DeploySoftware.LaunchPad.Core.Configuration
 {
-    public abstract partial class SecretProviderBase<TSecretVault> : ISecretProvider<TSecretVault>
+    public abstract partial class SecretProviderBase<TSecretVault> : ISecretProvider<TSecretVault>, ISingletonDependency
         where TSecretVault : SecretVaultBase, new()
     {
         /// <summary>

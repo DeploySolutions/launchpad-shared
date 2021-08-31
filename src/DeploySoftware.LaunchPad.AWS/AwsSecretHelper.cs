@@ -1,4 +1,5 @@
-﻿using Abp.UI;
+﻿using Abp.Dependency;
+using Abp.UI;
 using Amazon;
 using Amazon.Runtime;
 using Amazon.Runtime.CredentialManagement;
@@ -16,7 +17,7 @@ using System.Threading.Tasks;
 
 namespace DeploySoftware.LaunchPad.AWS
 {
-    public partial class AwsSecretHelper : SecretHelper
+    public partial class AwsSecretHelper : SecretHelper, ISingletonDependency
     {
         protected const string DefaultRegionName = "us-east-1";
 

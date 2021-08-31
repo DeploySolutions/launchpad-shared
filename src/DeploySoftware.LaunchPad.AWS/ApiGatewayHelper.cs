@@ -1,4 +1,5 @@
-﻿using Amazon;
+﻿using Abp.Dependency;
+using Amazon;
 using Amazon.Runtime;
 using Amazon.SecretsManager;
 using Amazon.SecretsManager.Model;
@@ -14,7 +15,7 @@ using System.Threading.Tasks;
 
 namespace DeploySoftware.LaunchPad.AWS
 {
-    public partial class ApiGatewayHelper : AwsHelperBase
+    public partial class ApiGatewayHelper : AwsHelperBase, ISingletonDependency
     {
         public string OAuthBaseUrl { get; set; }
         public string OAuthTokenEndpoint { get; set; }
