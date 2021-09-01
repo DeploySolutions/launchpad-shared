@@ -17,7 +17,7 @@ using System.Threading.Tasks;
 
 namespace DeploySoftware.LaunchPad.AWS
 {
-    public partial class AwsSecretHelper : SecretHelper, ISingletonDependency
+    public partial class AwsSecretHelper : SecretHelper, ISingletonDependency, ISecretHelper
     {
         protected const string DefaultRegionName = "us-east-1";
 

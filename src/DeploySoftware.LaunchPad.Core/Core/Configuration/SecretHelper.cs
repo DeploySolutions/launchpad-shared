@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace DeploySoftware.LaunchPad.Core.Configuration
 {
-    public abstract partial class SecretHelper : HelperBase
+    public abstract partial class SecretHelper : HelperBase, ISecretHelper
     {
         public SecretHelper() : base()
         {
@@ -74,7 +74,7 @@ namespace DeploySoftware.LaunchPad.Core.Configuration
         /// <param name="keys">The list of keys you are looking for</param>
         /// <param name="secretVaultIdentifier">The ARN of the secret in which these keys are fields</param>
         /// <returns></returns>
-        public async Task<IDictionary<string,string>> GetValuesFromSecret(IList<string> keys, string secretVaultIdentifier)
+        public async Task<IDictionary<string, string>> GetValuesFromSecret(IList<string> keys, string secretVaultIdentifier)
         {
             string secretStringJson = await GetJsonFromSecret(secretVaultIdentifier);
             IDictionary<string, string> kvps = null;
@@ -85,10 +85,10 @@ namespace DeploySoftware.LaunchPad.Core.Configuration
                 dynamic secretObj = JObject.Parse(secretStringJson);
                 kvps = new Dictionary<string, string>();
                 // loop through the desired set of keys to find the corresponding values in the JSON
-                foreach(string key in keys)
+                foreach (string key in keys)
                 {
                     string value = secretObj[key];
-                    if(!string.IsNullOrEmpty(value))
+                    if (!string.IsNullOrEmpty(value))
                     {
                         kvps.Add(key, value);
                     }
@@ -106,9 +106,9 @@ namespace DeploySoftware.LaunchPad.Core.Configuration
         public async virtual Task<string> GetDbConnectionStringFromSecret(string secretVaultIdentifier)
         {
             Logger.Info(string.Format("Getting DB Connection string from Secrets Manager for secret ARN {0}", secretVaultIdentifier));
-            string connectionStringJson = await GetJsonFromSecret(secretVaultIdentifier);            
+            string connectionStringJson = await GetJsonFromSecret(secretVaultIdentifier);
             string connectionString = String.Empty;
-            
+
             // Decrypts secret using the associated JSON. The secret should contain a "dbConnectionString" key with a valid 
             // database connection string
             if (!string.IsNullOrEmpty(connectionStringJson))
@@ -118,7 +118,7 @@ namespace DeploySoftware.LaunchPad.Core.Configuration
                     dynamic secretObj = JObject.Parse(connectionStringJson);
                     connectionString = secretObj.dbConnectionString;
                 }
-                catch(JsonReaderException jEx)
+                catch (JsonReaderException jEx)
                 {
                     Logger.Error(string.Format("An exception was thrown while attempting to GetDbConnectionStringFromSecret for ARN: {0}. The message was {1}.", secretVaultIdentifier, jEx.Message));
                 }

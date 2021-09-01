@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DeploySoftware.LaunchPad.AWS
+namespace DeploySoftware.LaunchPad.Core.Api
 {
     public class TemporaryAccessToken
     {

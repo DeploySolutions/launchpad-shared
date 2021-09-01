@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace DeploySoftware.LaunchPad.AWS
 {
-    public partial class AwsSecretProvider<TSecretVault> : SecretProviderBase<TSecretVault>, ISingletonDependency
+    public partial class AwsSecretProvider<TSecretVault> : SecretProviderBase<TSecretVault>, ISingletonDependency, ISecretProvider<TSecretVault>
         where TSecretVault: SecretVaultBase, new()
     {
 
