@@ -1,9 +1,11 @@
 ﻿using Castle.Core.Logging;
 using DeploySoftware.LaunchPad.Core.Util;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
+using System.Dynamic;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
@@ -98,12 +100,17 @@ namespace DeploySoftware.LaunchPad.Core.Configuration
         }
 
 
+        public virtual string GetDbConnectionStringFromSecret(string secretVaultIdentifier, string connectionStringName)
+        {
+            return GetDbConnectionStringFromSecretAsync(secretVaultIdentifier, connectionStringName).Result;
+        }
+
         /// <summary>
         /// Returns a valid database connection string which is stored in "dbConnectionString" key in a Secrets Manager secret.
         /// </summary>
         /// <param name="secretVaultIdentifier">The AWS ARN of the secret in which the key is located.</param>
         /// <returns>A SQL connection string</returns>
-        public async virtual Task<string> GetDbConnectionStringFromSecret(string secretVaultIdentifier)
+        public async virtual Task<string> GetDbConnectionStringFromSecretAsync(string secretVaultIdentifier, string connectionStringName)
         {
             Logger.Info(string.Format("Getting DB Connection string from Secrets Manager for secret ARN {0}", secretVaultIdentifier));
             string connectionStringJson = await GetJsonFromSecret(secretVaultIdentifier);
@@ -115,8 +122,17 @@ namespace DeploySoftware.LaunchPad.Core.Configuration
             {
                 try
                 {
-                    dynamic secretObj = JObject.Parse(connectionStringJson);
-                    connectionString = secretObj.dbConnectionString;
+                    dynamic parsedObject = JsonConvert.DeserializeObject(connectionStringJson);
+                    foreach (dynamic entry in parsedObject)
+                    {
+                        if (entry.Name.Equals(connectionStringName))
+                        {
+                            connectionString = entry.Value;
+                            break;
+                        }
+
+                    }
+                    
                 }
                 catch (JsonReaderException jEx)
                 {
@@ -126,6 +142,12 @@ namespace DeploySoftware.LaunchPad.Core.Configuration
             Console.WriteLine("AWS connection string: " + connectionString);
             Logger.Info(string.Format("Got DB Connection string from Secrets Manager for secret ARN {0}", secretVaultIdentifier));
             return connectionString;
+        }
+
+        class Root
+        {
+            [JsonProperty("data")]
+            public List<JObject> Data { get; set; }
         }
 
         /// <summary>

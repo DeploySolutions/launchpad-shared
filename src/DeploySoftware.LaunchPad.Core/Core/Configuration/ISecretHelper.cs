@@ -7,7 +7,9 @@ namespace DeploySoftware.LaunchPad.Core.Configuration
     public interface ISecretHelper
     {
         Task<IDictionary<string, string>> GetAllFieldsFromSecret(string secretVaultIdentifier);
-        Task<string> GetDbConnectionStringFromSecret(string secretVaultIdentifier);
+        Task<string> GetDbConnectionStringFromSecretAsync(string secretVaultIdentifier, string connectionStringName);
+        string GetDbConnectionStringFromSecret(string secretVaultIdentifier, string connectionStringName);
+
         Task<string> GetJsonFromSecret(string secretVaultIdentifier);
         Task<string> GetValueFromSecret(string key, string secretVaultIdentifier);
         Task<IDictionary<string, string>> GetValuesFromSecret(IList<string> keys, string secretVaultIdentifier);
