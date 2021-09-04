@@ -100,9 +100,9 @@ namespace DeploySoftware.LaunchPad.Core.Configuration
         }
 
 
-        public virtual string GetDbConnectionStringFromSecret(string secretVaultIdentifier, string connectionStringName)
+        public virtual string GetDbConnectionStringFromSecret(string secretVaultIdentifier, string connectionStringFieldName)
         {
-            return GetDbConnectionStringFromSecretAsync(secretVaultIdentifier, connectionStringName).Result;
+            return GetDbConnectionStringFromSecretAsync(secretVaultIdentifier, connectionStringFieldName).Result;
         }
 
         /// <summary>
@@ -110,14 +110,14 @@ namespace DeploySoftware.LaunchPad.Core.Configuration
         /// </summary>
         /// <param name="secretVaultIdentifier">The AWS ARN of the secret in which the key is located.</param>
         /// <returns>A SQL connection string</returns>
-        public async virtual Task<string> GetDbConnectionStringFromSecretAsync(string secretVaultIdentifier, string connectionStringName)
+        public async virtual Task<string> GetDbConnectionStringFromSecretAsync(string secretVaultIdentifier, string connectionStringFieldName)
         {
             Logger.Info(string.Format("Getting DB Connection string from Secrets Manager for secret ARN {0}", secretVaultIdentifier));
             string connectionStringJson = await GetJsonFromSecret(secretVaultIdentifier);
             string connectionString = String.Empty;
 
-            // Decrypts secret using the associated JSON. The secret should contain a "dbConnectionString" key with a valid 
-            // database connection string
+            // Decrypts secret using the associated JSON. The secret should contain a field with the connection string Fieldname key with a valid 
+            // database connection string as its field value.
             if (!string.IsNullOrEmpty(connectionStringJson))
             {
                 try
@@ -125,7 +125,7 @@ namespace DeploySoftware.LaunchPad.Core.Configuration
                     dynamic parsedObject = JsonConvert.DeserializeObject(connectionStringJson);
                     foreach (dynamic entry in parsedObject)
                     {
-                        if (entry.Name.Equals(connectionStringName))
+                        if (entry.Name.Equals(connectionStringFieldName))
                         {
                             connectionString = entry.Value;
                             break;

@@ -30,13 +30,13 @@ namespace DeploySoftware.LaunchPad.AWS
         {
             Logger = NullLogger.Instance;
             Region = GetRegionEndpoint(DefaultRegionName);
-            SecretClient = GetSecretClient(Region);
+            SecretClient = SetSecretClient(Region);
         }
 
         public AwsSecretHelper(ILogger logger) : base(logger)
         {
             Region = GetRegionEndpoint(DefaultRegionName);
-            SecretClient = GetSecretClient(Region);
+            SecretClient = SetSecretClient(Region);
         }
 
         public AwsSecretHelper(IAmazonSecretsManager client, ILogger logger) : base(logger)
@@ -48,13 +48,13 @@ namespace DeploySoftware.LaunchPad.AWS
         public AwsSecretHelper(string awsRegionEndpointName, ILogger logger) : base(logger)
         {
             Region = GetRegionEndpoint(DefaultRegionName);
-            SecretClient = GetSecretClient(Region);
+            SecretClient = SetSecretClient(Region);
         }
 
         public AwsSecretHelper(string awsProfileName, string awsRegionEndpointName, ILogger logger) : base(logger)
         {
             Region = GetRegionEndpoint(DefaultRegionName);
-            SecretClient = GetSecretClient(awsProfileName, Region);
+            SecretClient = SetSecretClient(Region,awsProfileName);
         }
 
         /// <summary>
@@ -92,7 +92,7 @@ namespace DeploySoftware.LaunchPad.AWS
         /// Creates a new Secrets Manager client
         /// </summary>
         /// <returns></returns>
-        protected AmazonSecretsManagerClient GetSecretClient(RegionEndpoint region)
+        public AmazonSecretsManagerClient SetSecretClient(RegionEndpoint region)
         {
             return new AmazonSecretsManagerClient(region);
         }
@@ -103,7 +103,7 @@ namespace DeploySoftware.LaunchPad.AWS
         /// <param name="profileName"></param>
         /// <param name="awsRegionSystemName"></param>
         /// <returns></returns>
-        protected AmazonSecretsManagerClient GetSecretClient(string profileName, RegionEndpoint region)
+        public AmazonSecretsManagerClient SetSecretClient(RegionEndpoint region, string profileName)
         {
             if(string.IsNullOrEmpty(profileName))
             {
@@ -126,7 +126,7 @@ namespace DeploySoftware.LaunchPad.AWS
             if (client == null) // try to load using local environment or EC2 information
             {
                 Logger.Info(DeploySoftware_LaunchPad_AWS_Resources.SecretHelper_GetSecretClient_SecretClient_IsNull);
-                client = GetSecretClient(region);
+                client = SetSecretClient(region);
             }            
             return client;
 
