@@ -19,6 +19,12 @@ namespace DeploySoftware.LaunchPad.Core.FileGeneration
 
         public virtual ComponentStatusEnum ComponentStatus { get; set; }
 
+
+        /// <summary>
+        /// Contains a dictionary of secret vault names and identifiers which will be used to populate appSettings.json file
+        /// </summary>
+        public virtual IDictionary<string, string> SecretVaults { get; set; }
+
         public virtual ILogger Logger { get; set; }
 
         /// <summary>
@@ -51,6 +57,7 @@ namespace DeploySoftware.LaunchPad.Core.FileGeneration
             BlueprintDefinition = new LaunchPadGeneratedObjectBlueprintDefinition<TBlueprintDefinitionSettings, TBlueprintDefinitionInstructions>();
             var comparer = StringComparer.OrdinalIgnoreCase;
             LicensedThirdPartyItems = new Dictionary<string, LicensedThirdPartyItem>(comparer);
+            SecretVaults = new Dictionary<string, string>(comparer);
             ComponentStatus = ComponentStatusEnum.Enabled;
         }
     }

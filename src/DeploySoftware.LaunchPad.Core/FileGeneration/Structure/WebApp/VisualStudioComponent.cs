@@ -23,11 +23,6 @@ namespace DeploySoftware.LaunchPad.Core.FileGeneration
         /// </summary>
         public virtual IDictionary<string, LaunchPadGeneratedDomainEntity> DomainEntities { get; set; }
 
-        /// <summary>
-        /// Contains a dictionary of secret vault names and identifiers which will be used to populate appSettings.json file
-        /// </summary>
-        public virtual IDictionary<string, string> SecretVaults { get; set; }
-
 
         /// <summary>
         /// Returns a bool indicating if the component is currently in a valid or invalid state.
@@ -50,8 +45,7 @@ namespace DeploySoftware.LaunchPad.Core.FileGeneration
         {
             var comparer = StringComparer.OrdinalIgnoreCase;
             DomainEntities = new Dictionary<string, LaunchPadGeneratedDomainEntity>(comparer);
-            ApplicationServices = new Dictionary<string, LaunchPadGeneratedApplicationService>(comparer);
-            SecretVaults = new Dictionary<string, string>(comparer);
+            ApplicationServices = new Dictionary<string, LaunchPadGeneratedApplicationService>(comparer);           
         }
 
         public VisualStudioComponent(ILogger logger) : base(logger)
@@ -59,7 +53,6 @@ namespace DeploySoftware.LaunchPad.Core.FileGeneration
             var comparer = StringComparer.OrdinalIgnoreCase;
             DomainEntities = new Dictionary<string, LaunchPadGeneratedDomainEntity>(comparer);
             ApplicationServices = new Dictionary<string, LaunchPadGeneratedApplicationService>(comparer);
-            SecretVaults = new Dictionary<string, string>(comparer);
         }
     }
 }
