@@ -15,7 +15,9 @@ namespace DeploySoftware.LaunchPad.AWS
         string OAuthTokenEndpoint { get; set; }
         TemporaryAccessToken Token { get; set; }
 
-        Task<TemporaryAccessToken> GetOAuthTokenUsingSecretCredentials(string secretArn, IList<string> scopes = null);
-        Task<IRestResponse> MakeApiRequest(string secretArn, IRestRequest request);
+        TemporaryAccessToken GetOAuthTokenUsingSecretCredentials(string secretArn, IList<string> scopes = null);
+        Task<TemporaryAccessToken> GetOAuthTokenUsingSecretCredentialsAsync(string secretArn, IList<string> scopes = null);
+        IRestResponse MakeApiRequest(string secretArn, IRestRequest request);
+        Task<IRestResponse> MakeApiRequestAsync(string secretArn, IRestRequest request);
     }
 }

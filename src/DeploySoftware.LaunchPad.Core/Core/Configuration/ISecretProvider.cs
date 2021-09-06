@@ -18,5 +18,11 @@ namespace DeploySoftware.LaunchPad.Core.Configuration
         /// </summary>
         [NotMapped]
         public Dictionary<string, TSecretVault> SecretVaults { get; set; }
+
+        public bool RefreshSecretVault(string vaultSecretIdentifier, string vaultName, string vaultFullName, SecretHelper helper);
+
+        public Task<bool> RefreshSecretVaultAsync(string vaultSecretIdentifier, string vaultName, string vaultFullName, SecretHelper helper);
+
+        public void RefreshAllSecretVaults(SecretHelper helper);
     }
 }

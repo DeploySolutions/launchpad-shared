@@ -76,12 +76,17 @@ namespace DeploySoftware.LaunchPad.AWS
             ApiRestClient = new RestClient(apiGatewayBaseUrl);
         }
 
+        public virtual TemporaryAccessToken GetOAuthTokenUsingSecretCredentials(string secretArn, IList<string> scopes = null)
+        {
+            return GetOAuthTokenUsingSecretCredentialsAsync(secretArn, scopes).Result;
+        }
+
         /// <summary>
         /// Request and returns the OAuth token from the information which is stored in the given secret
         /// </summary>
         /// <param name="secretArn">The AWS ARN of the secret in which the key is located.</param>
         /// <returns>A TemporaryAccessToken object</returns>
-        public async virtual Task<TemporaryAccessToken> GetOAuthTokenUsingSecretCredentials(string secretArn, IList<string> scopes = null)
+        public async virtual Task<TemporaryAccessToken> GetOAuthTokenUsingSecretCredentialsAsync(string secretArn, IList<string> scopes = null)
         {
             Guard.Against<ArgumentNullException>(String.IsNullOrEmpty(secretArn), DeploySoftware_LaunchPad_AWS_Resources.ApiGatewayHelper_SecretArn_Is_NullOrEmpty);
             Guard.Against<ArgumentNullException>(OAuthClient == null, DeploySoftware_LaunchPad_AWS_Resources.ApiGatewayHelper_MakeApiGatewayRequest_RestClient_Is_Null);
@@ -90,7 +95,7 @@ namespace DeploySoftware.LaunchPad.AWS
 
             string accessToken = string.Empty;
 
-            string secretJson = await _secretHelper.GetJsonFromSecret(secretArn);
+            string secretJson = await _secretHelper.GetJsonFromSecretAsync(secretArn);
             dynamic secret = JsonConvert.DeserializeObject(secretJson);
 
             // request the temporary token from the oAuth base url and the token endpoint
@@ -144,7 +149,13 @@ namespace DeploySoftware.LaunchPad.AWS
         }
 
 
-        public async virtual Task<IRestResponse> MakeApiRequest(string secretArn, IRestRequest request)
+        public virtual IRestResponse MakeApiRequest(string secretArn, IRestRequest request)
+        {
+            return MakeApiRequestAsync(secretArn, request).Result;
+        }
+
+
+        public async virtual Task<IRestResponse> MakeApiRequestAsync(string secretArn, IRestRequest request)
         {
             Guard.Against<ArgumentNullException>(String.IsNullOrEmpty(secretArn), DeploySoftware_LaunchPad_AWS_Resources.ApiGatewayHelper_SecretArn_Is_NullOrEmpty);
             Guard.Against<ArgumentNullException>(ApiRestClient == null, DeploySoftware_LaunchPad_AWS_Resources.ApiGatewayHelper_MakeApiGatewayRequest_RestClient_Is_Null);
@@ -153,7 +164,7 @@ namespace DeploySoftware.LaunchPad.AWS
 
             if (Token == null)
             {
-                Token = await GetOAuthTokenUsingSecretCredentials(secretArn);
+                Token = await GetOAuthTokenUsingSecretCredentialsAsync(secretArn);
                 // TODO save the token in the secret
 
             }

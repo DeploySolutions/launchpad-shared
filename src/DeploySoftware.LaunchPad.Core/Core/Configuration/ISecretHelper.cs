@@ -10,9 +10,17 @@ namespace DeploySoftware.LaunchPad.Core.Configuration
         Task<string> GetDbConnectionStringFromSecretAsync(string secretVaultIdentifier, string connectionStringName);
         string GetDbConnectionStringFromSecret(string secretVaultIdentifier, string connectionStringName);
 
-        Task<string> GetJsonFromSecret(string secretVaultIdentifier);
-        Task<string> GetValueFromSecret(string key, string secretVaultIdentifier);
+        string GetJsonFromSecret(string secretVaultIdentifier);
+        Task<string> GetJsonFromSecretAsync(string secretVaultIdentifier);
+        string GetValueFromSecret(string key, string secretVaultIdentifier);
+
+        ISecretVault GetSecretVault(string secretVaultIdentifier, string name, string fullName); 
+        Task<ISecretVault> GetSecretVaultAsync(string secretVaultIdentifier, string name, string fullName);
+
+        Task<string> GetValueFromSecretAsync(string key, string secretVaultIdentifier);
+
         Task<IDictionary<string, string>> GetValuesFromSecret(IList<string> keys, string secretVaultIdentifier);
+
         string UpdateJsonForSecret(string secretVaultIdentifier, string originalSecretJson, string key, string value);
         HttpStatusCode WriteValuesToSecret(IDictionary<string, string> fieldsToInsertOrUpdate, string secretVaultIdentifier);
         Task<HttpStatusCode> WriteValuesToSecretAsync(IDictionary<string, string> fieldsToInsertOrUpdate, string secretVaultIdentifier);

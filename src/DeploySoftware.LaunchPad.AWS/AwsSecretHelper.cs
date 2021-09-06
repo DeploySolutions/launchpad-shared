@@ -92,7 +92,7 @@ namespace DeploySoftware.LaunchPad.AWS
         /// Creates a new Secrets Manager client
         /// </summary>
         /// <returns></returns>
-        public AmazonSecretsManagerClient SetSecretClient(RegionEndpoint region)
+        public virtual AmazonSecretsManagerClient SetSecretClient(RegionEndpoint region)
         {
             return new AmazonSecretsManagerClient(region);
         }
@@ -103,7 +103,7 @@ namespace DeploySoftware.LaunchPad.AWS
         /// <param name="profileName"></param>
         /// <param name="awsRegionSystemName"></param>
         /// <returns></returns>
-        public AmazonSecretsManagerClient SetSecretClient(RegionEndpoint region, string profileName)
+        public virtual AmazonSecretsManagerClient SetSecretClient(RegionEndpoint region, string profileName)
         {
             if(string.IsNullOrEmpty(profileName))
             {
@@ -132,7 +132,7 @@ namespace DeploySoftware.LaunchPad.AWS
 
         }
 
-        public AWSCredentials GetAwsCredentials(string awsProfileName)
+        public virtual AWSCredentials GetAwsCredentials(string awsProfileName)
         {
             var chain = new CredentialProfileStoreChain();
             AWSCredentials creds;
@@ -142,7 +142,16 @@ namespace DeploySoftware.LaunchPad.AWS
             }
             return creds;
         }
-        public async override Task<string> GetJsonFromSecret(string secretVaultIdentifier)
+
+        public async override Task<ISecretVault> GetSecretVaultAsync(string secretVaultIdentifier, string name, string fullName)
+        {
+            AwsSecretVault vault = new AwsSecretVault(secretVaultIdentifier, name, fullName);
+            vault.Fields = await GetAllFieldsFromSecret(secretVaultIdentifier);
+            return vault;
+        }
+
+
+        public async override Task<string> GetJsonFromSecretAsync(string secretVaultIdentifier)
         {
             Logger.Info(string.Format(DeploySoftware_LaunchPad_AWS_Resources.Logger_Info_GetJsonFromSecret_Getting, secretVaultIdentifier));
             GetSecretValueRequest request = new GetSecretValueRequest();
@@ -200,11 +209,21 @@ namespace DeploySoftware.LaunchPad.AWS
         /// </summary>
         /// <param name="secretVaultIdentifier">The ARN of the secret in which the IAM values are kept.</param>
         /// <returns>IAM credentials if value, or null</returns>
-        public async virtual Task<ImmutableCredentials>  GetCredentialsFromSecret(string secretVaultIdentifier)
+        public virtual ImmutableCredentials GetCredentialsFromSecret(string secretVaultIdentifier)
+        {
+            return GetCredentialsFromSecretAsync(secretVaultIdentifier).Result;
+        }
+
+        /// <summary>
+        /// Get AWS Immutable Credentials where the IAM access key and secret values are stored in an AWS Secret Manager secret.
+        /// </summary>
+        /// <param name="secretVaultIdentifier">The ARN of the secret in which the IAM values are kept.</param>
+        /// <returns>IAM credentials if value, or null</returns>
+        public async virtual Task<ImmutableCredentials> GetCredentialsFromSecretAsync(string secretVaultIdentifier)
         {
             Logger.Info(string.Format(DeploySoftware_LaunchPad_AWS_Resources.Logger_Info_GetCredentialsFromSecret_Getting, secretVaultIdentifier));
             // create the aws credentials given the provided credentials taken from the secret
-            dynamic secret = JsonConvert.DeserializeObject(await GetJsonFromSecret(secretVaultIdentifier));            
+            dynamic secret = JsonConvert.DeserializeObject(await GetJsonFromSecretAsync(secretVaultIdentifier));            
             string iamAccessKey = secret.apiGatewayIAMAccessKey;
             string iamSecretKey = secret.apiGatewayIAMSecret;
             Logger.Info(string.Format(DeploySoftware_LaunchPad_AWS_Resources.Logger_Info_GetCredentialsFromSecret_Got, secretVaultIdentifier));
@@ -232,7 +251,7 @@ namespace DeploySoftware.LaunchPad.AWS
         /// <returns>A status code with the result of the request</returns>
         public override async Task<HttpStatusCode> WriteValuesToSecretAsync(IDictionary<string,string> fieldsToInsertOrUpdate, string secretVaultIdentifier)
         {
-            string originalSecretJson = await GetJsonFromSecret(secretVaultIdentifier);
+            string originalSecretJson = await GetJsonFromSecretAsync(secretVaultIdentifier);
 
             // for each value in the dictionary, try to update the JSON
             string sbUpdatedSecretJson = originalSecretJson;

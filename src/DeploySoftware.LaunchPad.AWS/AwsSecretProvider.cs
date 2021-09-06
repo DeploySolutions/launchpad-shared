@@ -16,5 +16,17 @@ namespace DeploySoftware.LaunchPad.AWS
         public AwsSecretProvider() :base()
         {       
         }
+
+        public override bool RefreshSecretVault(string vaultSecretIdentifier, string vaultName, string vaultFullName, SecretHelper helper)
+        {
+            return RefreshSecretVaultAsync(vaultSecretIdentifier, vaultName, vaultFullName, helper).Result;
+        }
+
+        public override async Task<bool> RefreshSecretVaultAsync(string vaultSecretIdentifier, string vaultName, string vaultFullName, SecretHelper helper)
+        {
+            AwsSecretVault vault = (AwsSecretVault)await helper.GetSecretVaultAsync(vaultSecretIdentifier, vaultName, vaultFullName);
+
+            return true;
+        }
     }
 }

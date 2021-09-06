@@ -23,8 +23,17 @@ namespace DeploySoftware.LaunchPad.Core.Configuration
         {
         }
 
+        public virtual string GetJsonFromSecret(string secretVaultIdentifier)
+        {
+            return GetJsonFromSecretAsync(secretVaultIdentifier).Result;
+        }
 
-        public abstract Task<string> GetJsonFromSecret(string secretVaultIdentifier);
+        public abstract Task<string> GetJsonFromSecretAsync(string secretVaultIdentifier);
+
+        public virtual string GetValueFromSecret(string key, string secretVaultIdentifier)
+        {
+            return GetValueFromSecretAsync(key, secretVaultIdentifier).Result;
+        }
 
         /// <summary>
         /// Returns the text value of of a particular key, from a given secret ARN
@@ -32,9 +41,9 @@ namespace DeploySoftware.LaunchPad.Core.Configuration
         /// <param name="key"></param>
         /// <param name="secretVaultIdentifier"></param>
         /// <returns></returns>
-        public async Task<string> GetValueFromSecret(string key, string secretVaultIdentifier)
+        public async Task<string> GetValueFromSecretAsync(string key, string secretVaultIdentifier)
         {
-            string secretStringJson = await GetJsonFromSecret(secretVaultIdentifier);
+            string secretStringJson = await GetJsonFromSecretAsync(secretVaultIdentifier);
             string val = string.Empty;
             // Decrypts secret
             if (!string.IsNullOrEmpty(secretStringJson))
@@ -53,7 +62,7 @@ namespace DeploySoftware.LaunchPad.Core.Configuration
         /// <returns></returns>
         public async Task<IDictionary<string, string>> GetAllFieldsFromSecret(string secretVaultIdentifier)
         {
-            string secretStringJson = await GetJsonFromSecret(secretVaultIdentifier);
+            string secretStringJson = await GetJsonFromSecretAsync(secretVaultIdentifier);
             IDictionary<string, string> kvps = null;
 
             // Decrypt the secret
@@ -70,15 +79,22 @@ namespace DeploySoftware.LaunchPad.Core.Configuration
             return kvps;
         }
 
+        public virtual ISecretVault GetSecretVault(string secretVaultIdentifier, string name, string fullName)
+        {
+            return GetSecretVaultAsync(secretVaultIdentifier,name, fullName).Result;
+        }
+
+        public abstract Task<ISecretVault> GetSecretVaultAsync(string secretVaultIdentifier, string name, string fullName);
+
         /// <summary>
         /// Returns the set of key value pairs for a given set of keys, which are part of a given secret ARN
         /// </summary>
         /// <param name="keys">The list of keys you are looking for</param>
         /// <param name="secretVaultIdentifier">The ARN of the secret in which these keys are fields</param>
         /// <returns></returns>
-        public async Task<IDictionary<string, string>> GetValuesFromSecret(IList<string> keys, string secretVaultIdentifier)
+        public virtual async Task<IDictionary<string, string>> GetValuesFromSecret(IList<string> keys, string secretVaultIdentifier)
         {
-            string secretStringJson = await GetJsonFromSecret(secretVaultIdentifier);
+            string secretStringJson = await GetJsonFromSecretAsync(secretVaultIdentifier);
             IDictionary<string, string> kvps = null;
 
             // Decrypt the secret
@@ -113,7 +129,7 @@ namespace DeploySoftware.LaunchPad.Core.Configuration
         public async virtual Task<string> GetDbConnectionStringFromSecretAsync(string secretVaultIdentifier, string connectionStringFieldName)
         {
             Logger.Info(string.Format("Getting DB Connection string from Secrets Manager for secret ARN {0}", secretVaultIdentifier));
-            string connectionStringJson = await GetJsonFromSecret(secretVaultIdentifier);
+            string connectionStringJson = await GetJsonFromSecretAsync(secretVaultIdentifier);
             string connectionString = String.Empty;
 
             // Decrypts secret using the associated JSON. The secret should contain a field with the connection string Fieldname key with a valid 

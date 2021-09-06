@@ -50,7 +50,7 @@ namespace DeploySoftware.LaunchPad.AWS
         /// </summary>
         /// <param name="awsRegionEndpointSystemName">A valid AWS region endpoint system name.</param>
         /// <returns>A valid AWS Region Endpoint</returns>
-        public RegionEndpoint GetRegionEndpoint(string awsRegionEndpointSystemName)
+        public virtual RegionEndpoint GetRegionEndpoint(string awsRegionEndpointSystemName)
         {
             RegionEndpoint region = null;
 

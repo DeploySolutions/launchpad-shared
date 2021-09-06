@@ -25,5 +25,24 @@ namespace DeploySoftware.LaunchPad.Core.Configuration
             var comparer = StringComparer.OrdinalIgnoreCase;
             SecretVaults = new Dictionary<string, TSecretVault>(comparer);
         }
+
+        public abstract bool RefreshSecretVault(string vaultSecretIdentifier, string vaultName, string vaultFullName, SecretHelper helper); 
+        
+        public abstract Task<bool> RefreshSecretVaultAsync(string vaultSecretIdentifier, string vaultName, string vaultFullName, SecretHelper helper);
+
+        public void RefreshAllSecretVaults(SecretHelper helper)
+        {
+            foreach(var vault in SecretVaults.Values)
+            {
+                // update the vaults in our dictionary
+                RefreshSecretVault(
+                    vault.Identifier, 
+                    vault.Name,
+                    vault.FullName,
+                    helper);
+            }
+        }
+
+
     }
 }
