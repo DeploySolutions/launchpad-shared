@@ -1,4 +1,5 @@
-﻿using Castle.Core.Logging;
+﻿using Abp.Dependency;
+using Castle.Core.Logging;
 using DeploySoftware.LaunchPad.Core.Util;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
@@ -12,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace DeploySoftware.LaunchPad.Core.Configuration
 {
-    public abstract partial class SecretHelper : HelperBase, ISecretHelper
+    public abstract partial class SecretHelper : HelperBase, ISecretHelper, ISingletonDependency
     {
         public SecretHelper() : base()
         {

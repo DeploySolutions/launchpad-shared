@@ -1,4 +1,5 @@
-﻿using DeploySoftware.LaunchPad.Core.Configuration;
+﻿using Abp.Dependency;
+using DeploySoftware.LaunchPad.Core.Configuration;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace DeploySoftware.LaunchPad.AWS
 {
-    public class AwsSecretVault : SecretVaultBase
+    public class AwsSecretVault : SecretVaultBase, ISingletonDependency
     {
         
 

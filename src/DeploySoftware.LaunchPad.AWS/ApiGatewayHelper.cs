@@ -32,7 +32,7 @@ namespace DeploySoftware.LaunchPad.AWS
 
         public TemporaryAccessToken Token { get; set; }
 
-        protected ApiGatewayHelper() : base()
+        public ApiGatewayHelper() : base()
         {
             _secretHelper = new AwsSecretHelper(Logger);
             OAuthTokenEndpoint = string.Empty;
