@@ -139,6 +139,7 @@ namespace DeploySoftware.LaunchPad.AWS
             if (chain.TryGetAWSCredentials(awsProfileName, out creds))
             {
                 Console.WriteLine("AWS credentials created");
+                Logger.Debug("AWS credentials created");
             }
             return creds;
         }
