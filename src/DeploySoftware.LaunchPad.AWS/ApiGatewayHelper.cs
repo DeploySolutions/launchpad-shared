@@ -25,11 +25,15 @@ namespace DeploySoftware.LaunchPad.AWS
 
         public string DefaultVersion { get; set; }
 
+        [JsonIgnore]
+
         public RestClient OAuthClient { get; set; }
+        [JsonIgnore]
         public RestClient ApiRestClient { get; set; }
 
         protected AwsSecretHelper _secretHelper;
 
+        [JsonIgnore]
         public TemporaryAccessToken Token { get; set; }
 
         public ApiGatewayHelper() : base()
