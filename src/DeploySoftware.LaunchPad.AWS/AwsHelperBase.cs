@@ -29,7 +29,7 @@ namespace DeploySoftware.LaunchPad.AWS
 
         public AwsHelperBase(string awsRegionEndpointName, ILogger logger) : base(logger)
         {
-            Logger = logger; 
+            _logger = logger; 
             Region = GetRegionEndpoint(awsRegionEndpointName);
         }
 
@@ -72,7 +72,7 @@ namespace DeploySoftware.LaunchPad.AWS
                 region = RegionEndpoint.GetBySystemName(DefaultRegionName);
             }
 
-            Logger.Info(string.Format(DeploySoftware_LaunchPad_AWS_Resources.SecretHelper_GetRegionEndpoint_Logger_Info_RegionName, region.DisplayName, region.SystemName));
+            _logger.Info(string.Format(DeploySoftware_LaunchPad_AWS_Resources.SecretHelper_GetRegionEndpoint_Logger_Info_RegionName, region.DisplayName, region.SystemName));
             return region;
         }
     }

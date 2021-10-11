@@ -23,12 +23,12 @@ namespace DeploySoftware.LaunchPad.AWS
 
         public RegionEndpoint Region { get; set; }
 
+        [JsonIgnore]
         public IAmazonSecretsManager SecretClient { get; set; }
 
 
         public AwsSecretHelper() : base()
         {
-            Logger = NullLogger.Instance;
             Region = GetRegionEndpoint(DefaultRegionName);
             SecretClient = SetSecretClient(Region);
         }
@@ -84,7 +84,7 @@ namespace DeploySoftware.LaunchPad.AWS
                 region = RegionEndpoint.GetBySystemName(DefaultRegionName);
             }
 
-            Logger.Info(string.Format(DeploySoftware_LaunchPad_AWS_Resources.SecretHelper_GetRegionEndpoint_Logger_Info_RegionName, region.DisplayName, region.SystemName));
+            _logger.Info(string.Format(DeploySoftware_LaunchPad_AWS_Resources.SecretHelper_GetRegionEndpoint_Logger_Info_RegionName, region.DisplayName, region.SystemName));
             return region;
         }
 
@@ -109,9 +109,9 @@ namespace DeploySoftware.LaunchPad.AWS
             {
                 profileName = "default";
             }
-            
-            Logger.Info(string.Format(DeploySoftware_LaunchPad_AWS_Resources.SecretHelper_GetSecretClient_ProfileName, profileName));
-            Logger.Info(string.Format(DeploySoftware_LaunchPad_AWS_Resources.SecretHelper_GetSecretClient_Region, profileName));
+
+            _logger.Info(string.Format(DeploySoftware_LaunchPad_AWS_Resources.SecretHelper_GetSecretClient_ProfileName, profileName));
+            _logger.Info(string.Format(DeploySoftware_LaunchPad_AWS_Resources.SecretHelper_GetSecretClient_Region, profileName));
 
             AmazonSecretsManagerClient client = null;
             try
@@ -121,11 +121,11 @@ namespace DeploySoftware.LaunchPad.AWS
             }
             catch(AmazonSecretsManagerException smEx)
             {
-                Logger.Info(string.Format(DeploySoftware_LaunchPad_AWS_Resources.SecretHelper_GetSecretClient_Exception_GetAwsCredentials,smEx.Message));
+                _logger.Info(string.Format(DeploySoftware_LaunchPad_AWS_Resources.SecretHelper_GetSecretClient_Exception_GetAwsCredentials,smEx.Message));
             }
             if (client == null) // try to load using local environment or EC2 information
             {
-                Logger.Info(DeploySoftware_LaunchPad_AWS_Resources.SecretHelper_GetSecretClient_SecretClient_IsNull);
+                _logger.Info(DeploySoftware_LaunchPad_AWS_Resources.SecretHelper_GetSecretClient_SecretClient_IsNull);
                 client = SetSecretClient(region);
             }            
             return client;
@@ -139,7 +139,7 @@ namespace DeploySoftware.LaunchPad.AWS
             if (chain.TryGetAWSCredentials(awsProfileName, out creds))
             {
                 Console.WriteLine("AWS credentials created");
-                Logger.Debug("AWS credentials created");
+                _logger.Debug("AWS credentials created");
             }
             return creds;
         }
@@ -154,7 +154,7 @@ namespace DeploySoftware.LaunchPad.AWS
 
         public async override Task<string> GetJsonFromSecretAsync(string secretVaultIdentifier)
         {
-            Logger.Info(string.Format(DeploySoftware_LaunchPad_AWS_Resources.Logger_Info_GetJsonFromSecret_Getting, secretVaultIdentifier));
+            _logger.Info(string.Format(DeploySoftware_LaunchPad_AWS_Resources.Logger_Info_GetJsonFromSecret_Getting, secretVaultIdentifier));
             GetSecretValueRequest request = new GetSecretValueRequest();
             request.SecretId = secretVaultIdentifier;
             request.VersionStage = "AWSCURRENT"; // VersionStage defaults to AWSCURRENT if unspecified.
@@ -168,40 +168,40 @@ namespace DeploySoftware.LaunchPad.AWS
             catch (DecryptionFailureException e)
             {
                 // Secrets Manager can't decrypt the protected secret text using the provided KMS key.\
-                Logger.Error(string.Format(DeploySoftware_LaunchPad_AWS_Resources.Logger_Error_GetJsonFromSecret_ExceptionThrown, e.Message));
+                _logger.Error(string.Format(DeploySoftware_LaunchPad_AWS_Resources.Logger_Error_GetJsonFromSecret_ExceptionThrown, e.Message));
                 throw;
             }
             catch (InternalServiceErrorException e)
             {
                 // An error occurred on the server side.
-                Logger.Error(string.Format(DeploySoftware_LaunchPad_AWS_Resources.Logger_Error_GetJsonFromSecret_ExceptionThrown, e.Message));
+                _logger.Error(string.Format(DeploySoftware_LaunchPad_AWS_Resources.Logger_Error_GetJsonFromSecret_ExceptionThrown, e.Message));
                 throw;
             }
             catch (InvalidParameterException e)
             {
                 // You provided an invalid value for a parameter.
-                Logger.Error(string.Format(DeploySoftware_LaunchPad_AWS_Resources.Logger_Error_GetJsonFromSecret_ExceptionThrown, e.Message));
+                _logger.Error(string.Format(DeploySoftware_LaunchPad_AWS_Resources.Logger_Error_GetJsonFromSecret_ExceptionThrown, e.Message));
                 throw;
             }
             catch (InvalidRequestException e)
             {
                 // You provided a parameter value that is not valid for the current state of the resource.
-                Logger.Error(string.Format(DeploySoftware_LaunchPad_AWS_Resources.Logger_Error_GetJsonFromSecret_ExceptionThrown, e.Message));
+                _logger.Error(string.Format(DeploySoftware_LaunchPad_AWS_Resources.Logger_Error_GetJsonFromSecret_ExceptionThrown, e.Message));
                 throw;
             }
             catch (ResourceNotFoundException e)
             {
                 // We can't find the resource that you asked for.
-                Logger.Error(string.Format(DeploySoftware_LaunchPad_AWS_Resources.Logger_Error_GetJsonFromSecret_ExceptionThrown, e.Message));
+                _logger.Error(string.Format(DeploySoftware_LaunchPad_AWS_Resources.Logger_Error_GetJsonFromSecret_ExceptionThrown, e.Message));
                 throw;
             }
             catch (AggregateException e)
             {
                 // More than one of the above exceptions were triggered.
-                Logger.Error(string.Format(DeploySoftware_LaunchPad_AWS_Resources.Logger_Error_GetJsonFromSecret_ExceptionThrown, e.Message));
+                _logger.Error(string.Format(DeploySoftware_LaunchPad_AWS_Resources.Logger_Error_GetJsonFromSecret_ExceptionThrown, e.Message));
                 throw;
             }
-            Logger.Info(string.Format(DeploySoftware_LaunchPad_AWS_Resources.Logger_Info_GetJsonFromSecret_Got, secretVaultIdentifier));
+            _logger.Info(string.Format(DeploySoftware_LaunchPad_AWS_Resources.Logger_Info_GetJsonFromSecret_Got, secretVaultIdentifier));
             return response.SecretString;
         }
 
@@ -222,12 +222,12 @@ namespace DeploySoftware.LaunchPad.AWS
         /// <returns>IAM credentials if value, or null</returns>
         public async virtual Task<ImmutableCredentials> GetCredentialsFromSecretAsync(string secretVaultIdentifier)
         {
-            Logger.Info(string.Format(DeploySoftware_LaunchPad_AWS_Resources.Logger_Info_GetCredentialsFromSecret_Getting, secretVaultIdentifier));
+            _logger.Info(string.Format(DeploySoftware_LaunchPad_AWS_Resources.Logger_Info_GetCredentialsFromSecret_Getting, secretVaultIdentifier));
             // create the aws credentials given the provided credentials taken from the secret
             dynamic secret = JsonConvert.DeserializeObject(await GetJsonFromSecretAsync(secretVaultIdentifier));            
             string iamAccessKey = secret.apiGatewayIAMAccessKey;
             string iamSecretKey = secret.apiGatewayIAMSecret;
-            Logger.Info(string.Format(DeploySoftware_LaunchPad_AWS_Resources.Logger_Info_GetCredentialsFromSecret_Got, secretVaultIdentifier));
+            _logger.Info(string.Format(DeploySoftware_LaunchPad_AWS_Resources.Logger_Info_GetCredentialsFromSecret_Got, secretVaultIdentifier));
             return new ImmutableCredentials(iamAccessKey, iamSecretKey, null);
         }
 
@@ -276,43 +276,43 @@ namespace DeploySoftware.LaunchPad.AWS
                 catch (EncryptionFailureException e)
                 {
                     // Secrets Manager can't encrypt the protected secret text using the provided KMS key.\
-                    Logger.Error(string.Format(DeploySoftware_LaunchPad_AWS_Resources.Logger_Error_WriteValueToSecret_Exception, secretVaultIdentifier, e.Message));
+                    _logger.Error(string.Format(DeploySoftware_LaunchPad_AWS_Resources.Logger_Error_WriteValueToSecret_Exception, secretVaultIdentifier, e.Message));
                     throw;
                 }
                 catch (InternalServiceErrorException e)
                 {
                     // An error occurred on the server side.
-                    Logger.Error(string.Format(DeploySoftware_LaunchPad_AWS_Resources.Logger_Error_WriteValueToSecret_Exception, secretVaultIdentifier, e.Message));
+                    _logger.Error(string.Format(DeploySoftware_LaunchPad_AWS_Resources.Logger_Error_WriteValueToSecret_Exception, secretVaultIdentifier, e.Message));
                     throw;
                 }
                 catch (InvalidParameterException e)
                 {
                     // You provided an invalid value for a parameter.
-                    Logger.Error(string.Format(DeploySoftware_LaunchPad_AWS_Resources.Logger_Error_WriteValueToSecret_Exception, secretVaultIdentifier, e.Message));
+                    _logger.Error(string.Format(DeploySoftware_LaunchPad_AWS_Resources.Logger_Error_WriteValueToSecret_Exception, secretVaultIdentifier, e.Message));
                     throw;
                 }
                 catch (InvalidRequestException e)
                 {
                     // You provided a parameter value that is not valid for the current state of the resource.
-                    Logger.Error(string.Format(DeploySoftware_LaunchPad_AWS_Resources.Logger_Error_WriteValueToSecret_Exception, secretVaultIdentifier, e.Message));
+                    _logger.Error(string.Format(DeploySoftware_LaunchPad_AWS_Resources.Logger_Error_WriteValueToSecret_Exception, secretVaultIdentifier, e.Message));
                     throw;
                 }
                 catch (ResourceNotFoundException e)
                 {
                     // We can't find the resource that you asked for.
-                    Logger.Error(string.Format(DeploySoftware_LaunchPad_AWS_Resources.Logger_Error_WriteValueToSecret_Exception, secretVaultIdentifier, e.Message));
+                    _logger.Error(string.Format(DeploySoftware_LaunchPad_AWS_Resources.Logger_Error_WriteValueToSecret_Exception, secretVaultIdentifier, e.Message));
                     throw;
                 }
                 catch (ResourceExistsException e)
                 {
                     // A resource with the ID you requested already exists.
-                    Logger.Error(string.Format(DeploySoftware_LaunchPad_AWS_Resources.Logger_Error_WriteValueToSecret_Exception, secretVaultIdentifier, e.Message));
+                    _logger.Error(string.Format(DeploySoftware_LaunchPad_AWS_Resources.Logger_Error_WriteValueToSecret_Exception, secretVaultIdentifier, e.Message));
                     throw;
                 }
                 catch (AggregateException e)
                 {
                     // More than one of the above exceptions were triggered.
-                    Logger.Error(string.Format(DeploySoftware_LaunchPad_AWS_Resources.Logger_Error_WriteValueToSecret_Exception, secretVaultIdentifier, e.Message));
+                    _logger.Error(string.Format(DeploySoftware_LaunchPad_AWS_Resources.Logger_Error_WriteValueToSecret_Exception, secretVaultIdentifier, e.Message));
                     throw;
                 }
 
@@ -322,7 +322,7 @@ namespace DeploySoftware.LaunchPad.AWS
 
         public override string UpdateJsonForSecret(string secretVaultIdentifier, string originalSecretJson, string key, string value)
         {
-            Logger.Info(string.Format(DeploySoftware_LaunchPad_AWS_Resources.Logger_Info_UpdateJsonForSecret_Updating, value, key, secretVaultIdentifier));
+            _logger.Info(string.Format(DeploySoftware_LaunchPad_AWS_Resources.Logger_Info_UpdateJsonForSecret_Updating, value, key, secretVaultIdentifier));
             string updatedJsonString = originalSecretJson;
 
             JObject jObject = Newtonsoft.Json.JsonConvert.DeserializeObject(originalSecretJson) as JObject;
@@ -342,7 +342,7 @@ namespace DeploySoftware.LaunchPad.AWS
             // Convert the JObject back to a string to get the resulting Json from the updated secret
             updatedJsonString = jObject.ToString();
 
-            Logger.Info(string.Format(DeploySoftware_LaunchPad_AWS_Resources.Logger_Info_UpdateJsonForSecret_Updated, value, key, secretVaultIdentifier));
+            _logger.Info(string.Format(DeploySoftware_LaunchPad_AWS_Resources.Logger_Info_UpdateJsonForSecret_Updated, value, key, secretVaultIdentifier));
             return updatedJsonString;
         }
 

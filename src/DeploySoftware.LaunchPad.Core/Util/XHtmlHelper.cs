@@ -142,7 +142,7 @@ namespace DeploySoftware.LaunchPad.Core.Util
                 catch (NullReferenceException ex)
                 {
                     // log an error
-                    Logger.Error(ex.Message);
+                    _logger.Error(ex.Message);
                     throw;
                 }
             }
@@ -167,7 +167,7 @@ namespace DeploySoftware.LaunchPad.Core.Util
                 catch (NullReferenceException ex)
                 {
                     // log an error
-                    Logger.Error(ex.Message);
+                    _logger.Error(ex.Message);
                     throw;
                 }
             }
@@ -189,7 +189,7 @@ namespace DeploySoftware.LaunchPad.Core.Util
                 catch (NullReferenceException ex)
                 {
                     // log an error
-                    Logger.Error(ex.Message);
+                    _logger.Error(ex.Message);
                     throw;
                 }
             }
@@ -206,7 +206,7 @@ namespace DeploySoftware.LaunchPad.Core.Util
                 if (!Enum.TryParse<TEnum>(inputValue, true, out validEnum))
                 {
                     // log and throw
-                    Logger.Warn("Could not parse enum for user provided value " + inputValue + ". Returning the provided default.");
+                    _logger.Warn("Could not parse enum for user provided value " + inputValue + ". Returning the provided default.");
                 }
             }
             return validEnum;

@@ -25,11 +25,11 @@ namespace DeploySoftware.LaunchPad.Core.Util
             try
             {
                 dictionary.Add(key, item);
-                Logger.Debug(string.Format(DeploySoftware_LaunchPad_Core_Resources.Logger_Info_ItemAdded, item));
+                _logger.Debug(string.Format(DeploySoftware_LaunchPad_Core_Resources.Logger_Info_ItemAdded, item));
             }
             catch (ArgumentException)
             {
-                Logger.Debug(string.Format(DeploySoftware_LaunchPad_Core_Resources.Logger_Info_ItemAlreadyExists, item));
+                _logger.Debug(string.Format(DeploySoftware_LaunchPad_Core_Resources.Logger_Info_ItemAlreadyExists, item));
             }
             return dictionary;
         }

@@ -1,5 +1,6 @@
 ﻿using Castle.Core.Logging;
 using DeploySoftware.LaunchPad.Core.Util;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 
@@ -11,7 +12,7 @@ namespace DeploySoftware.LaunchPad.Core.FileGeneration
     [Serializable]
     public abstract partial class LaunchPadGeneratedObjectBlueprintDefinitionInstructionsBase : ILaunchPadGeneratedObjectBlueprintDefinitionInstructions
     {
-
+        [JsonIgnore]
         public ILogger Logger { get; set; }
 
         protected LaunchPadGeneratedObjectBlueprintDefinitionInstructionsBase()

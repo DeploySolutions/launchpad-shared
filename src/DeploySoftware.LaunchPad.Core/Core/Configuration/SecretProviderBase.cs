@@ -1,4 +1,5 @@
 ﻿using Abp.Dependency;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -18,6 +19,7 @@ namespace DeploySoftware.LaunchPad.Core.Configuration
         /// Note to implementers: Do not store or record this information!
         /// </summary>
         [NotMapped]
+        [JsonIgnore]
         public Dictionary<string, TSecretVault> SecretVaults { get; set; }
 
         public SecretProviderBase()
