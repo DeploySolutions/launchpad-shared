@@ -334,6 +334,9 @@
   <data name="Text_OpenGovernmentCanadaLicense_LicenseTerms" xml:space="preserve">
     <value>https://open.canada.ca/en/open-government-licence-canada</value>
   </data>
+  <data name="Validation_CorrelationId_36CharsOrLess" xml:space="preserve">
+    <value>Correlation ID field must be 36 characters or less.</value>
+  </data>
   <data name="Validation_Culture_5CharsOrLess" xml:space="preserve">
     <value>Culture must be 5 characters or less.</value>
   </data>

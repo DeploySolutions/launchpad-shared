@@ -24,8 +24,11 @@ namespace DeploySoftware.LaunchPad.Core.Util
             Guard.Against<ArgumentNullException>(item == null, DeploySoftware_LaunchPad_Core_Resources.Guard_Input_IsNull);
             try
             {
-                dictionary.Add(key, item);
-                _logger.Debug(string.Format(DeploySoftware_LaunchPad_Core_Resources.Logger_Info_ItemAdded, item));
+                if(!dictionary.ContainsKey(key))
+                {
+                    dictionary.Add(key, item);
+                    _logger.Debug(string.Format(DeploySoftware_LaunchPad_Core_Resources.Logger_Info_ItemAdded, item));
+                }
             }
             catch (ArgumentException)
             {

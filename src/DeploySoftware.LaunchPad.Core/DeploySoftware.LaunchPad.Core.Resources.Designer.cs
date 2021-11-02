@@ -706,6 +706,15 @@ namespace DeploySoftware.LaunchPad.Core {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Correlation ID field must be 36 characters or less..
+        /// </summary>
+        public static string Validation_CorrelationId_36CharsOrLess {
+            get {
+                return ResourceManager.GetString("Validation_CorrelationId_36CharsOrLess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Culture must be 5 characters or less..
         /// </summary>
         public static string Validation_Culture_5CharsOrLess {
