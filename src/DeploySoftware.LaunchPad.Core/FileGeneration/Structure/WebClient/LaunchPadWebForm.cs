@@ -23,9 +23,16 @@ namespace DeploySoftware.LaunchPad.Core.FileGeneration
         [JsonProperty("rows")]
         public IList<LaunchPadRow> Rows { get; set; }
 
+        /// <summary>
+        /// Group rows included in this form
+        /// </summary>
+        [JsonProperty("groupRows")]
+        public IList<LaunchPadGroupRow> GroupRows { get; set; }
+
         public LaunchPadWebForm() : base()
         {
             Rows = new List<LaunchPadRow>();
+            GroupRows = new List<LaunchPadGroupRow>();
         }
     }
 }
