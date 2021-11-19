@@ -153,13 +153,13 @@ namespace DeploySoftware.LaunchPad.AWS
         }
 
 
-        public virtual IRestResponse MakeApiRequest(string secretArn, IRestRequest request)
+        public virtual IRestResponse MakeApiRequest(string secretArn, IRestRequest request, string requestId = "", string correlationId = "" )
         {
-            return MakeApiRequestAsync(secretArn, request).Result;
+            return MakeApiRequestAsync(secretArn, request, requestId, correlationId ).Result;
         }
 
 
-        public async virtual Task<IRestResponse> MakeApiRequestAsync(string secretArn, IRestRequest request)
+        public async virtual Task<IRestResponse> MakeApiRequestAsync(string secretArn, IRestRequest request, string requestId = "", string correlationId = "")
         {
             Guard.Against<ArgumentNullException>(String.IsNullOrEmpty(secretArn), DeploySoftware_LaunchPad_AWS_Resources.ApiGatewayHelper_SecretArn_Is_NullOrEmpty);
             Guard.Against<ArgumentNullException>(ApiRestClient == null, DeploySoftware_LaunchPad_AWS_Resources.ApiGatewayHelper_MakeApiGatewayRequest_RestClient_Is_Null);
@@ -174,15 +174,33 @@ namespace DeploySoftware.LaunchPad.AWS
             }
             request.AddHeader("authorization", "Bearer " + Token);
 
+            // add the Correlation ID header, if it is a request transaction
+            if(!string.IsNullOrEmpty(correlationId ))
+            {
+                request.AddHeader("X-Correlation-ID", correlationId);
+            }
+
+            // add a unique requestId header to the receiving service
+            if (string.IsNullOrEmpty(requestId))
+            {
+                requestId = Guid.NewGuid().ToString();
+            }
+            request.AddHeader("X-Request-ID", requestId);
+
             // make the request to the API gateway
             IRestResponse response = await ApiRestClient.ExecuteAsync(request);
             if (response.IsSuccessful)
             {
-                _logger.Info("Request succeeded. Status code: " + response.StatusCode);
+                _logger.Info(string.Format("Request succeeded. Status code: {0}. CorrelationId: {1}", response.StatusCode,correlationId));
             }
             else
             {
-                _logger.Error("Request failed with status code " + response.StatusCode + ". Reason: " + response.ErrorException.Message);
+                _logger.Error(string.Format("Request failed with status code {0}. Reason: {1}. CorrelationId: {2}", 
+                                response.StatusCode,
+                                response.ErrorException.Message,
+                                correlationId),
+                        response.ErrorException)
+                ;
             }
             _logger.Info(string.Format(DeploySoftware_LaunchPad_AWS_Resources.Logger_Info_ExecuteApiGatewayRequest_Executed, request.Method.ToString(), ApiBaseUrl, request.Resource, response.StatusCode));
             return response;
