@@ -311,6 +311,11 @@ __pycache__/
 # Telerik's JustMock configuration file
 *.jmconfig
 
+# Terraform
+/**/.terraform/
+/**/terraform.tfstate
+/**/terraform.tfstate.backup
+
 # BizTalk build output
 *.btp.cs
 *.btm.cs
@@ -332,4 +337,5 @@ ASALocalRun/
 # MFractors (Xamarin productivity tool) working folder 
 .mfractor/
 
+# Snyk Deep Code
 .dccache
