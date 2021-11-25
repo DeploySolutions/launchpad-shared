@@ -21,6 +21,7 @@ namespace DeploySoftware.LaunchPad.Core.Util
 
         public IDictionary<TKey, TValue> AddToDictionary<TKey, TValue>(IDictionary<TKey, TValue> dictionary, TKey key, TValue item)
         {
+            Guard.Against<ArgumentNullException>(key == null, DeploySoftware_LaunchPad_Core_Resources.Guard_Input_IsNull);
             Guard.Against<ArgumentNullException>(item == null, DeploySoftware_LaunchPad_Core_Resources.Guard_Input_IsNull);
             try
             {
