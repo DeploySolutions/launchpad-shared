@@ -13,7 +13,7 @@ namespace DeploySoftware.LaunchPad.Core.FileGeneration
     {
 
         /// <summary>
-        /// Type of this form item. Types can be "view", "input", "textarea" or "button".
+        /// Type of this form item. Types can be "group", "view", "input", "textarea" or "button".
         /// </summary>
         [JsonProperty("itemType")]
         public string ItemType { get; set; }
@@ -71,6 +71,12 @@ namespace DeploySoftware.LaunchPad.Core.FileGeneration
         /// </summary>
         [JsonProperty("required")]
         public bool Required { get; set; }
+
+        /// <summary>
+        /// Rows can be nested within an item, if this item is a type of container, such as group
+        /// </summary>
+        [JsonProperty("rows")]
+        public IList<LaunchPadRow> Rows { get; set; }
 
         public LaunchPadWebItem() : base()
         {
