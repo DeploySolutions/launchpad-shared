@@ -75,7 +75,7 @@ namespace DeploySoftware.LaunchPad.Core.FileGeneration
         /// <summary>
         /// Rows can be nested within an item, if this item is a type of container, such as group
         /// </summary>
-        [JsonProperty("rows")]
+        [JsonProperty("rows", NullValueHandling = NullValueHandling.Ignore)]
         public IList<LaunchPadRow> Rows { get; set; }
 
         public LaunchPadWebItem() : base()
