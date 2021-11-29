@@ -12,19 +12,26 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Licenses", "Licenses", "{DA68E384-A145-4652-9BFE-23C24E6CB7B2}"
 	ProjectSection(SolutionItems) = preProject
 		Licenses\ABP.License.txt = Licenses\ABP.License.txt
+		Licenses\AWSSDKSecretsManager.License.txt = Licenses\AWSSDKSecretsManager.License.txt
+		Licenses\AwsSignatureVersion4.License.txt = Licenses\AwsSignatureVersion4.License.txt
 		Licenses\Castle.Core.License.txt = Licenses\Castle.Core.License.txt
 		Licenses\Castle.LoggingFacility.License.txt = Licenses\Castle.LoggingFacility.License.txt
 		Licenses\Castle.Windsor-log4net.License.txt = Licenses\Castle.Windsor-log4net.License.txt
 		Licenses\Castle.Windsor.License.txt = Licenses\Castle.Windsor.License.txt
 		Licenses\CodeProject.SequentialGuid.License.txt = Licenses\CodeProject.SequentialGuid.License.txt
-		Licenses\Common Logging.License.txt = Licenses\Common Logging.License.txt
 		CoordinateSharp.License.txt = CoordinateSharp.License.txt
 		FluentAssertions.License.txt = FluentAssertions.License.txt
+		Licenses\HtmlAgilityPack.License.txt = Licenses\HtmlAgilityPack.License.txt
 		Licenses\log4net.License.txt = Licenses\log4net.License.txt
 		Licenses\Magick.NET.License.txt = Licenses\Magick.NET.License.txt
 		Licenses\Microsoft.System.Collections.Immutable.License.txt = Licenses\Microsoft.System.Collections.Immutable.License.txt
 		Licenses\NCommon.License.txt = Licenses\NCommon.License.txt
+		Licenses\Newtonsoft.Json.License.txt = Licenses\Newtonsoft.Json.License.txt
+		Licenses\NHibernate.License.txt = Licenses\NHibernate.License.txt
+		Licenses\NUnit.License.txt = Licenses\NUnit.License.txt
+		Licenses\RestSharp.License.txt = Licenses\RestSharp.License.txt
 		schemaNET.License.txt = schemaNET.License.txt
+		Licenses\Shoudly.License.txt = Licenses\Shoudly.License.txt
 		Xunit.License.txt = Xunit.License.txt
 	EndProjectSection
 EndProject
