@@ -12,11 +12,13 @@ namespace DeploySoftware.LaunchPad.Core.FileGeneration
         public virtual string Name { get; set; }
 
         public virtual Uri Uri { get; set; }
+        public virtual string Org { get; set; }
 
 
         public SourceControlRepository()
         {
-            Name = string.Empty;            
+            Name = string.Empty;
+            Org = string.Empty;
         }
     }
 }
