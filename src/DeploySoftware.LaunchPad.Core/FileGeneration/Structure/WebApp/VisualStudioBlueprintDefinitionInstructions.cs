@@ -11,9 +11,9 @@ namespace DeploySoftware.LaunchPad.Core.FileGeneration
     public partial class VisualStudioBlueprintDefinitionInstructions : LaunchPadGeneratedObjectBlueprintDefinitionInstructionsBase, IVisualStudioBlueprintDefinitionInstructions
     { 
 
-        public IDictionary<string, LaunchPadGeneratedMethod> CustomMethods { get; set; }
+        public IDictionary<string, LaunchPadGeneratedMethod> CustomMethodInsertsOrUpdates { get; set; }
 
-        public IDictionary<string, LaunchPadGeneratedProperty> CustomProperties { get; set; }
+        public IDictionary<string, LaunchPadGeneratedProperty> CustomPropertyInsertsOrUpdates { get; set; }
 
         /// <summary>
         /// Used for identifying dependencies between items during a build.
@@ -23,15 +23,15 @@ namespace DeploySoftware.LaunchPad.Core.FileGeneration
         public VisualStudioBlueprintDefinitionInstructions() : base()
         {
             var comparer = StringComparer.OrdinalIgnoreCase;
-            CustomMethods = new Dictionary<string, LaunchPadGeneratedMethod>(comparer);
-            CustomProperties = new Dictionary<string, LaunchPadGeneratedProperty>(comparer);
+            CustomMethodInsertsOrUpdates = new Dictionary<string, LaunchPadGeneratedMethod>(comparer);
+            CustomPropertyInsertsOrUpdates = new Dictionary<string, LaunchPadGeneratedProperty>(comparer);
         }
 
         public VisualStudioBlueprintDefinitionInstructions(ILogger logger) : base(logger)
         {
             var comparer = StringComparer.OrdinalIgnoreCase;
-            CustomMethods = new Dictionary<string, LaunchPadGeneratedMethod>(comparer);
-            CustomProperties = new Dictionary<string, LaunchPadGeneratedProperty>(comparer);
+            CustomMethodInsertsOrUpdates = new Dictionary<string, LaunchPadGeneratedMethod>(comparer);
+            CustomPropertyInsertsOrUpdates = new Dictionary<string, LaunchPadGeneratedProperty>(comparer);
         }
 
         public override void ForAssembling()
