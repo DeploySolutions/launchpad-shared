@@ -16,6 +16,8 @@ namespace DeploySoftware.LaunchPad.Core.FileGeneration
     {
         public string Name { get; set; }
 
+        public string Path { get; set; }
+
         public string InheritsFrom { get; set; }
 
         public IDictionary<string, string> DependsOnModules { get; set; }
@@ -24,6 +26,7 @@ namespace DeploySoftware.LaunchPad.Core.FileGeneration
         public AbpModuleDefinition()
         {
             Name = string.Empty;
+            Path = string.Empty;
             InheritsFrom = string.Empty;
             var comparer = StringComparer.OrdinalIgnoreCase;
             DependsOnModules = new Dictionary<string, string>(comparer);
