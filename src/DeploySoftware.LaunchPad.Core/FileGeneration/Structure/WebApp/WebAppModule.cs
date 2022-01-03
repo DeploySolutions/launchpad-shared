@@ -16,8 +16,6 @@ namespace DeploySoftware.LaunchPad.Core.FileGeneration
 
         public IDictionary<string,WebClientComponent> WebClients { get; set; }
 
-        public IDictionary<string, AbpModuleDefinition> AbpModules { get; set; }
-
 
         public WebAppModule() : base(NullLogger.Instance)
         {
@@ -25,7 +23,6 @@ namespace DeploySoftware.LaunchPad.Core.FileGeneration
             WebApi = new VisualStudioComponent(NullLogger.Instance);
             var comparer = StringComparer.OrdinalIgnoreCase;
             WebClients = new Dictionary<string, WebClientComponent>(comparer);
-            AbpModules = new Dictionary<string, AbpModuleDefinition>(comparer);
         }
 
         public WebAppModule(ILogger logger) : base(logger)
@@ -34,7 +31,6 @@ namespace DeploySoftware.LaunchPad.Core.FileGeneration
             WebApi = new VisualStudioComponent(logger); 
             var comparer = StringComparer.OrdinalIgnoreCase;
             WebClients = new Dictionary<string, WebClientComponent>(comparer);
-            AbpModules = new Dictionary<string, AbpModuleDefinition>(comparer);
         }
     }
 }
