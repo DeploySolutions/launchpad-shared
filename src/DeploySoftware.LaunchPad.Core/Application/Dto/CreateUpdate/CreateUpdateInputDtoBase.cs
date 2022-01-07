@@ -77,7 +77,7 @@ namespace DeploySoftware.LaunchPad.Core.Application.Dto
         public CreateUpdateInputDtoBase() : base()
         {
 
-            ExternalId = string.Empty; Culture = ApplicationInformation<TIdType>.DEFAULT_CULTURE;
+            ExternalId = string.Empty; Culture = ApplicationDetails<TIdType>.DEFAULT_CULTURE;
             Name = string.Empty;
             DescriptionShort = string.Empty;
             DescriptionFull = string.Empty;
@@ -91,7 +91,7 @@ namespace DeploySoftware.LaunchPad.Core.Application.Dto
         {
             Id = id;
             ExternalId = string.Empty; 
-            Culture = ApplicationInformation<TIdType>.DEFAULT_CULTURE;
+            Culture = ApplicationDetails<TIdType>.DEFAULT_CULTURE;
             Name = string.Empty;
             DescriptionShort = string.Empty;
             DescriptionFull = string.Empty;

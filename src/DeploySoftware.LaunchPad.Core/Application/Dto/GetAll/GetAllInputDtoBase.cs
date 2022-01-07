@@ -114,7 +114,7 @@ namespace DeploySoftware.LaunchPad.Core.Application.Dto
         /// </summary>
         public GetAllInputDtoBase() : base()
         {
-            Culture = ApplicationInformation<TIdType>.DEFAULT_CULTURE;
+            Culture = ApplicationDetails<TIdType>.DEFAULT_CULTURE;
             Name = string.Empty;
             DescriptionShort = string.Empty;
             DescriptionFull = string.Empty;
@@ -130,7 +130,7 @@ namespace DeploySoftware.LaunchPad.Core.Application.Dto
         public GetAllInputDtoBase(int tenantId) : base()
         {
             TenantId = tenantId;
-            Culture = ApplicationInformation<TIdType>.DEFAULT_CULTURE;
+            Culture = ApplicationDetails<TIdType>.DEFAULT_CULTURE;
             Name = String.Empty;
             DescriptionShort = string.Empty;
             DescriptionFull = string.Empty;

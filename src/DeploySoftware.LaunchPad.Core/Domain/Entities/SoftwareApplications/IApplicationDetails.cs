@@ -1,5 +1,5 @@
 ﻿//LaunchPad Shared
-// Copyright (c) 2018-2020 Deploy Software Solutions, inc. 
+// Copyright (c) 2016-2021 Deploy Software Solutions, inc. 
 
 #region license
 //Licensed under the Apache License, Version 2.0 (the "License"); 
@@ -18,16 +18,18 @@
 
 namespace DeploySoftware.LaunchPad.Core.Domain
 {
+    using Newtonsoft.Json.Linq;
     using System;
+    using System.Collections.Generic;
     using System.ComponentModel;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Xml.Serialization;
 
     /// <summary>
-    /// Represents a tenant in an application.
+    /// Represents the specific settings of an application.
     /// </summary>
-    /// <typeparam name="TIdType"></typeparam>
-    public interface ITenantInformation<TIdType> : IDomainEntity<TIdType>
+    /// <typeparam name="TPrimaryKey"></typeparam>
+    public interface IApplicationDetails<TIdType> : IDomainEntity<TIdType>
     {
         [DataObjectField(false)]
         [XmlAttribute]
@@ -35,7 +37,17 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         TIdType LaunchPadApplicationId { get; set; }
 
         /// <summary>
-        /// The default culture of this tenant
+        /// The default culture of this application
+        /// </summary>
+        [DataObjectField(false)]
+        [XmlAttribute]
+        String ApplicationKey
+        {
+            get; set;
+        }
+
+        /// <summary>
+        /// The default culture of this application
         /// </summary>
         [DataObjectField(false)]
         [XmlAttribute]
@@ -45,7 +57,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         }
 
         /// <summary>
-        /// The supported cultures of this tenant
+        /// The comma-delimited list of cultures supported by this application
         /// </summary>
         [DataObjectField(false)]
         [XmlAttribute]
@@ -55,13 +67,6 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         }
 
         /// <summary>
-        /// The account or primary owner of this tenant
-        /// </summary>
-        [DataObjectField(false)]
-        [XmlAttribute]
-        long? PrimaryOwnerId { get; set; }
-
-        /// <summary>
         /// The main theme
         /// </summary>
         [DataObjectField(false)]
@@ -69,7 +74,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         string Theme { get; set; }
 
         /// <summary>
-        /// The Uri for the logo to display in this tenant
+        /// The Uri for the logo to display in this application
         /// </summary>
         [DataObjectField(false)]
         [XmlAttribute]
@@ -79,11 +84,22 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         }
 
         /// <summary>
-        /// The primary colour (in HEX) for displays in this tenant
+        /// The primary colour (in HEX) for displays in this application.
+        /// (Colour is spelled correctly in Canadian, eh.)
         /// </summary>
         [DataObjectField(false)]
         [XmlAttribute]
         String PrimaryColourHex
+        {
+            get; set;
+        }
+
+        /// <summary>
+        /// The default display time zone of the application
+        /// </summary>
+        [DataObjectField(false)]
+        [XmlAttribute]
+        String DefaultTimeZone
         {
             get; set;
         }

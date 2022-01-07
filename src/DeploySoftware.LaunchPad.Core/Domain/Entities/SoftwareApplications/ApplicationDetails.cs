@@ -35,7 +35,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
     /// </summary>
     /// <typeparam name="TPrimaryKey">The type of the key id field</typeparam>
     [Serializable()]
-    public partial class ApplicationInformation<TIdType> : DomainEntityBase<TIdType>, IApplicationInformation<TIdType>, IMayHaveTenant
+    public partial class ApplicationDetails<TIdType> : DomainEntityBase<TIdType>, IApplicationDetails<TIdType>, IMayHaveTenant
     {
         public const string DEFAULT_CULTURE = "en";
         public const string DEFAULT_HEX_COlOUR = "1dbff0";
@@ -122,22 +122,14 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         }
 
         #region "Constructors"
-        public ApplicationInformation() : base()
+        public ApplicationDetails() : base()
         {
             PrimaryColourHex = DEFAULT_HEX_COlOUR;
             CultureDefault = DEFAULT_CULTURE;
             CultureSupported = DEFAULT_CULTURE;
         }
 
-        public ApplicationInformation(int? tenantId) : base()
-        {
-            TenantId = tenantId;
-            PrimaryColourHex = DEFAULT_HEX_COlOUR;
-            CultureDefault = DEFAULT_CULTURE;
-            CultureSupported = DEFAULT_CULTURE;
-        }
-
-        public ApplicationInformation(int? tenantId, TIdType id, string cultureName) : base(id, cultureName)
+        public ApplicationDetails(int? tenantId) : base()
         {
             TenantId = tenantId;
             PrimaryColourHex = DEFAULT_HEX_COlOUR;
@@ -145,20 +137,28 @@ namespace DeploySoftware.LaunchPad.Core.Domain
             CultureSupported = DEFAULT_CULTURE;
         }
 
-        public ApplicationInformation(int? tenantId, TIdType id, string cultureName, String cultureDefault) : base(id, cultureName)
+        public ApplicationDetails(int? tenantId, TIdType id, string cultureName) : base(id, cultureName)
+        {
+            TenantId = tenantId;
+            PrimaryColourHex = DEFAULT_HEX_COlOUR;
+            CultureDefault = DEFAULT_CULTURE;
+            CultureSupported = DEFAULT_CULTURE;
+        }
+
+        public ApplicationDetails(int? tenantId, TIdType id, string cultureName, String cultureDefault) : base(id, cultureName)
         {
             TenantId = tenantId;
             Id = id;
-            PrimaryColourHex = ApplicationInformation<TIdType>.DEFAULT_HEX_COlOUR;
+            PrimaryColourHex = ApplicationDetails<TIdType>.DEFAULT_HEX_COlOUR;
             CultureDefault = cultureDefault;
             CultureSupported = cultureDefault;
         }
 
-        public ApplicationInformation(int? tenantId, TIdType id, string cultureName, String cultureDefault, String cultureSupported) : base(id, cultureName)
+        public ApplicationDetails(int? tenantId, TIdType id, string cultureName, String cultureDefault, String cultureSupported) : base(id, cultureName)
         {
             TenantId = tenantId;
             Id = id;
-            PrimaryColourHex = ApplicationInformation<TIdType>.DEFAULT_HEX_COlOUR;
+            PrimaryColourHex = ApplicationDetails<TIdType>.DEFAULT_HEX_COlOUR;
             CultureDefault = cultureDefault;
             CultureSupported = cultureSupported;
         }
@@ -168,7 +168,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         /// </summary>
         /// <param name="info">The serialization info</param>
         /// <param name="context">The context of the stream</param>
-        protected ApplicationInformation(SerializationInfo info, StreamingContext context) : base(info,context)
+        protected ApplicationDetails(SerializationInfo info, StreamingContext context) : base(info,context)
         {
             TenantId = info.GetInt32("TenantId"); 
             ApplicationKey = info.GetString("ApplicationKey"); 
@@ -226,7 +226,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         /// </summary>
         /// <typeparam name="TEntity">The source entity to clone</typeparam>
         /// <returns>A shallow clone of the entity and its serializable properties</returns>
-        protected new virtual TEntity Clone<TEntity>() where TEntity : IApplicationInformation<TIdType>, new()
+        protected new virtual TEntity Clone<TEntity>() where TEntity : IApplicationDetails<TIdType>, new()
         {
             TEntity clone = new TEntity();
             foreach (PropertyInfo info in GetType().GetProperties())
@@ -248,7 +248,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         /// </summary>
         /// <param name="other">The other object of this type we are comparing to</param>
         /// <returns></returns>
-        public virtual int CompareTo(ApplicationInformation<TIdType> other)
+        public virtual int CompareTo(ApplicationDetails<TIdType> other)
         {
             return other == null ? 1 : String.Compare(Name, other.Name, StringComparison.InvariantCulture);
         }
@@ -260,7 +260,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         /// <returns>True if the entities are the same according to business key value</returns>
         public override bool Equals(object obj)
         {
-            if (obj != null && obj is ApplicationInformation<TIdType> information)
+            if (obj != null && obj is ApplicationDetails<TIdType> information)
             {
                 return Equals(information);
             }
@@ -276,7 +276,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         /// </summary>
         /// <param name="obj">The other object of this type that we are testing equality with</param>
         /// <returns></returns>
-        public virtual bool Equals(ApplicationInformation<TIdType> obj)
+        public virtual bool Equals(ApplicationDetails<TIdType> obj)
         {
             if (obj != null)
             {
@@ -319,7 +319,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         /// <param name="x">The first value</param>
         /// <param name="y">The second value</param>
         /// <returns>True if both objects are fully equal based on the Equals logic</returns>
-        public static bool operator ==(ApplicationInformation<TIdType> x, ApplicationInformation<TIdType> y)
+        public static bool operator ==(ApplicationDetails<TIdType> x, ApplicationDetails<TIdType> y)
         {
             if (System.Object.ReferenceEquals(x, null))
             {
@@ -338,7 +338,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         /// <param name="x">The first value</param>
         /// <param name="y">The second value</param>
         /// <returns>True if both objects are not equal based on the Equals logic</returns>
-        public static bool operator !=(ApplicationInformation<TIdType> x, ApplicationInformation<TIdType> y)
+        public static bool operator !=(ApplicationDetails<TIdType> x, ApplicationDetails<TIdType> y)
         {
             return !(x == y);
         }

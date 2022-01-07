@@ -45,7 +45,7 @@ namespace DeploySoftware.LaunchPad.Core.Application.Dto
         /// </summary>
         public GetAllAdminInputDtoBase() : base()
         {
-            Culture = ApplicationInformation<TIdType>.DEFAULT_CULTURE;
+            Culture = ApplicationDetails<TIdType>.DEFAULT_CULTURE;
         }
 
         /// <summary>
@@ -55,7 +55,7 @@ namespace DeploySoftware.LaunchPad.Core.Application.Dto
         public GetAllAdminInputDtoBase(int tenantId) : base()
         {
             TenantId = tenantId;
-            Culture = ApplicationInformation<TIdType>.DEFAULT_CULTURE;
+            Culture = ApplicationDetails<TIdType>.DEFAULT_CULTURE;
         }
 
         public GetAllAdminInputDtoBase(int tenantId, String culture) : base()

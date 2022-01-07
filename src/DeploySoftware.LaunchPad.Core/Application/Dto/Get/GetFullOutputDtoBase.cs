@@ -49,7 +49,7 @@ namespace DeploySoftware.LaunchPad.Core.Application.Dto
         /// </summary>
         public GetFullOutputDtoBase() : base()
         {
-            Culture = ApplicationInformation<TIdType>.DEFAULT_CULTURE;
+            Culture = ApplicationDetails<TIdType>.DEFAULT_CULTURE;
             IsActive = true;
             DescriptionFull = string.Empty;
         }
@@ -61,7 +61,7 @@ namespace DeploySoftware.LaunchPad.Core.Application.Dto
         public GetFullOutputDtoBase(TIdType id) : base(id)
         {
             Id = id;
-            Culture = ApplicationInformation<TIdType>.DEFAULT_CULTURE;
+            Culture = ApplicationDetails<TIdType>.DEFAULT_CULTURE;
             IsActive = true;
             DescriptionFull = string.Empty;
         }

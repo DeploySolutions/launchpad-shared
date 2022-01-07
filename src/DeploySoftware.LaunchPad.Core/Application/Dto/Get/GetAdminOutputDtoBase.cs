@@ -49,7 +49,7 @@ namespace DeploySoftware.LaunchPad.Core.Application.Dto
         /// </summary>
         public GetAdminOutputDtoBase() : base()
         {
-            Culture = ApplicationInformation<TIdType>.DEFAULT_CULTURE;
+            Culture = ApplicationDetails<TIdType>.DEFAULT_CULTURE;
             IsActive = true;
             IsDeleted = false;
         }
@@ -61,7 +61,7 @@ namespace DeploySoftware.LaunchPad.Core.Application.Dto
         public GetAdminOutputDtoBase(TIdType id) : base()
         {
             Id = id;
-            Culture = ApplicationInformation<TIdType>.DEFAULT_CULTURE;
+            Culture = ApplicationDetails<TIdType>.DEFAULT_CULTURE;
             IsActive = true;
             IsDeleted = false;
         }

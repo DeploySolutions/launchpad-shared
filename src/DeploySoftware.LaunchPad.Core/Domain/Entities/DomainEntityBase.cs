@@ -142,7 +142,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         protected DomainEntityBase() : base()
         {
             ExternalId = string.Empty;
-            Culture = ApplicationInformation<TIdType>.DEFAULT_CULTURE;
+            Culture = ApplicationDetails<TIdType>.DEFAULT_CULTURE;
             //TenantId = 0; // default tenant
             Tags = new List<MetadataTag>();
             IsDeleted = false;
@@ -161,7 +161,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         {
             Id = id;
             ExternalId = string.Empty;
-            Culture = ApplicationInformation<TIdType>.DEFAULT_CULTURE;
+            Culture = ApplicationDetails<TIdType>.DEFAULT_CULTURE;
             CreatorUserId = 1; // TODO - default user account?
             IsDeleted = false;
             IsActive = true;

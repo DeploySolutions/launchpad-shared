@@ -53,7 +53,7 @@ namespace DeploySoftware.LaunchPad.Core.Application.Dto
         /// </summary>
         public GetOutputDtoBase() : base()
         {
-            Culture = ApplicationInformation<TIdType>.DEFAULT_CULTURE;
+            Culture = ApplicationDetails<TIdType>.DEFAULT_CULTURE;
             Name = string.Empty;
             ExternalId = string.Empty;
         }
@@ -65,7 +65,7 @@ namespace DeploySoftware.LaunchPad.Core.Application.Dto
         public GetOutputDtoBase(TIdType id) : base()
         {
             Id = id;
-            Culture = ApplicationInformation<TIdType>.DEFAULT_CULTURE;
+            Culture = ApplicationDetails<TIdType>.DEFAULT_CULTURE;
             Name = string.Empty;
             ExternalId = string.Empty;
         }

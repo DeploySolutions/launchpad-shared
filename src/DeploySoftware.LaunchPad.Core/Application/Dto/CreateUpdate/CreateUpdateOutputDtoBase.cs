@@ -63,7 +63,7 @@ namespace DeploySoftware.LaunchPad.Core.Application.Dto
         /// </summary>
         public CreateUpdateOutputDtoBase() : base()
         {
-            Culture = ApplicationInformation<TIdType>.DEFAULT_CULTURE;
+            Culture = ApplicationDetails<TIdType>.DEFAULT_CULTURE;
             ExternalId = string.Empty;
         }
 
@@ -75,7 +75,7 @@ namespace DeploySoftware.LaunchPad.Core.Application.Dto
         {
             Id = id;
             ExternalId = string.Empty;
-            Culture = ApplicationInformation<TIdType>.DEFAULT_CULTURE;
+            Culture = ApplicationDetails<TIdType>.DEFAULT_CULTURE;
         }
 
         public CreateUpdateOutputDtoBase(TIdType id, String culture) : base(id, culture)

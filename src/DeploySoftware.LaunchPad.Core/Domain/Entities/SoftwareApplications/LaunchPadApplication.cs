@@ -41,7 +41,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         /// </summary>
         [DataObjectField(false)]
         [XmlAttribute]
-        public virtual ApplicationInformation<TIdType> AppInfo
+        public virtual ApplicationDetails<TIdType> AppInfo
         {
             get; set;
         }
@@ -59,7 +59,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         /// </summary>
         [DataObjectField(false)]
         [XmlAttribute]
-        public virtual List<TenantInformation<TIdType>> TenantInfo { get; set; }
+        public virtual List<TenantDetails<TIdType>> TenantInfo { get; set; }
         public virtual int? TenantId { get; set; }
 
 
@@ -67,23 +67,23 @@ namespace DeploySoftware.LaunchPad.Core.Domain
 
         public LaunchPadApplication() : base()
         {
-            AppInfo = new ApplicationInformation<TIdType>();
-            TenantInfo = new List<TenantInformation<TIdType>>();
+            AppInfo = new ApplicationDetails<TIdType>();
+            TenantInfo = new List<TenantDetails<TIdType>>();
             Modules = new List<Module<TIdType, TEntityIdType>>();
         }
 
         public LaunchPadApplication(int? tenantId) : base()
         {
             TenantId = tenantId;
-            AppInfo = new ApplicationInformation<TIdType>(tenantId);
-            TenantInfo = new List<TenantInformation<TIdType>>();
+            AppInfo = new ApplicationDetails<TIdType>(tenantId);
+            TenantInfo = new List<TenantDetails<TIdType>>();
             Modules = new List<Module<TIdType, TEntityIdType>>();
         }
 
         public LaunchPadApplication(int? tenantId, TIdType id, string cultureName) : base(id, cultureName)
         {
-            AppInfo = new ApplicationInformation<TIdType>(tenantId);
-            TenantInfo = new List<TenantInformation<TIdType>>();
+            AppInfo = new ApplicationDetails<TIdType>(tenantId);
+            TenantInfo = new List<TenantDetails<TIdType>>();
             Modules = new List<Module<TIdType, TEntityIdType>>();
         }
 
@@ -94,8 +94,8 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         /// <param name="context">The context of the stream</param>
         protected LaunchPadApplication(SerializationInfo info, StreamingContext context) : base(info,context)
         {
-            AppInfo = (ApplicationInformation<TIdType>)info.GetValue("Info", typeof(ApplicationInformation<TIdType>));
-            TenantInfo = (List<TenantInformation<TIdType>>)info.GetValue("TenantInfo", typeof(List<TenantInformation<TIdType>>)); 
+            AppInfo = (ApplicationDetails<TIdType>)info.GetValue("Info", typeof(ApplicationDetails<TIdType>));
+            TenantInfo = (List<TenantDetails<TIdType>>)info.GetValue("TenantInfo", typeof(List<TenantDetails<TIdType>>)); 
             Modules = (List<Module<TIdType, TEntityIdType>>)info.GetValue("Modules", typeof(List<Module<TIdType, TEntityIdType>>));
         }
 
