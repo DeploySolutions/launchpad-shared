@@ -19,22 +19,30 @@ namespace DeploySoftware.LaunchPad.Core.Util
 
         }
 
+        /// <summary>
+        /// Adds the item with the given key to the provided dictionary. If item key is already in the dictionary, it will 
+        /// simply log that fact, but will not raise an error.
+        /// </summary>
+        /// <typeparam name="TKey">The key type.</typeparam>
+        /// <typeparam name="TValue">The value type.</typeparam>
+        /// <param name="dictionary">The existing dictionary we wish to place the item in.</param>
+        /// <param name="key">The key to which the item should be stored in the dictionary.</param>
+        /// <param name="item">The value to store.</param>
+        /// <returns></returns>
         public IDictionary<TKey, TValue> AddToDictionary<TKey, TValue>(IDictionary<TKey, TValue> dictionary, TKey key, TValue item)
         {
             Guard.Against<ArgumentNullException>(key == null, DeploySoftware_LaunchPad_Core_Resources.Guard_Input_IsNull);
             Guard.Against<ArgumentNullException>(item == null, DeploySoftware_LaunchPad_Core_Resources.Guard_Input_IsNull);
-            try
+            
+            if(!dictionary.ContainsKey(key))
             {
-                if(!dictionary.ContainsKey(key))
-                {
-                    dictionary.Add(key, item);
-                    _logger.Debug(string.Format(DeploySoftware_LaunchPad_Core_Resources.Logger_Info_ItemAdded, item));
-                }
+                dictionary.TryAdd(key, item);
+                _logger.Debug(string.Format(DeploySoftware_LaunchPad_Core_Resources.Logger_Info_ItemAdded, item));
             }
-            catch (ArgumentException)
+            else
             {
                 _logger.Debug(string.Format(DeploySoftware_LaunchPad_Core_Resources.Logger_Info_ItemAlreadyExists, item));
-            }
+            }           
             return dictionary;
         }
 
