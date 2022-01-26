@@ -11,7 +11,7 @@ using System.Xml.Serialization;
 
 namespace DeploySoftware.LaunchPad.Core.Application.Dto
 {
-    public abstract partial class CreateUpdateInputDtoBase<TIdType> : EntityDtoBase<TIdType>
+    public abstract partial class CreateUpdateInputDtoBase<TIdType> : EntityDtoBase<TIdType>, ICanBeAppServiceMethodInput
     {
         /// <summary>
         /// The culture of this object
