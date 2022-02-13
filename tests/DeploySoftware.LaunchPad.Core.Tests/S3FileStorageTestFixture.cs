@@ -23,6 +23,7 @@ namespace DeploySoftware.LaunchPad.Core.Tests
     using DeploySoftware.LaunchPad.Core.Domain;
     using DeploySoftware.LaunchPad.Core.Util;
     using System;
+    using DeploySoftware.LaunchPad.AWS;
 
     public class S3FileStorageTestsFixture : IDisposable
     {

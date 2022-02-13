@@ -33,6 +33,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\src\DeploySoftware.LaunchPad.AWS\DeploySoftware.LaunchPad.AWS.csproj" />
     <ProjectReference Include="..\..\src\DeploySoftware.LaunchPad.Core\DeploySoftware.LaunchPad.Core.csproj" />
   </ItemGroup>
 
