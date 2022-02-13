@@ -4,19 +4,21 @@
     <TargetFrameworks>net50;netstandard2.1</TargetFrameworks>
     <Authors>Nicholas Kellett</Authors>
     <Company>Deploy Software Solutions, inc.</Company>
-    <Copyright>2021 Deploy Software Solutions, inc.</Copyright>
+    <Copyright>2021-2022 Deploy Software Solutions, inc.</Copyright>
     <PackageLicenseExpression></PackageLicenseExpression>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageProjectUrl>https://github.com/DeploySolutions/launchpad-shared</PackageProjectUrl>
     <RepositoryUrl>https://github.com/DeploySolutions/launchpad-shared</RepositoryUrl>
-    <Version>0.2.8</Version>
+    <Version>0.3</Version>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <PackageIcon>icon.png</PackageIcon>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="AWSSDK.SecretsManager" Version="3.7.0.44" />
+    <PackageReference Include="AWSSDK.SimpleNotificationService" Version="3.7.3.23" />
+    <PackageReference Include="AWSSDK.SQS" Version="3.7.2.20" />
     <PackageReference Include="AwsSignatureVersion4" Version="1.4.1" />
     <PackageReference Include="Castle.Core" Version="4.4.1" />
     <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
@@ -53,6 +55,12 @@
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>DeploySoftware.LaunchPad.AWS.Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="SQS\" />
+    <Folder Include="SNS\" />
+    <Folder Include="Redshift\" />
   </ItemGroup>
 
 </Project>
