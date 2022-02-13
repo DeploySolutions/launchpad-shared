@@ -15,15 +15,34 @@
 //limitations under the License. 
 #endregion
 
-namespace DeploySoftware.LaunchPad.Space.Satellites.Canada
+namespace DeploySoftware.LaunchPad.Space.Satellites.Landsat
 {
+    using DeploySoftware.LaunchPad.Core.Domain;
     using DeploySoftware.LaunchPad.Space.Satellites.Common;
-    
+    using System.Collections.Generic;
+
     /// <summary>
-    /// Marker interface for Canada's RADARSAT satellite series
+    /// Marker interface for Landsat satellite series observations
     /// </summary>
     /// <typeparam name="TPrimaryKey"></typeparam>
-    public interface IRadarsatObservation<TPrimaryKey> : IEarthObservation<TPrimaryKey>
+    public interface ILandsatObservation<TPrimaryKey, TFileStorageLocationType> : IEarthObservation<TPrimaryKey, TFileStorageLocationType>
+        where TFileStorageLocationType : IFileStorageLocation, new()
     {
+        public string Bucket { get; set; }
+
+        public string ProductId { get; set; }
+
+        public string Collection { get; set; }
+
+        public string Projection { get; set; }
+
+        public string SensorName { get; set; }
+
+        public string YearAcquired { get; set; }
+
+        public string Path { get; set; }
+        
+        public string Row { get; set; }
+
     }
 }

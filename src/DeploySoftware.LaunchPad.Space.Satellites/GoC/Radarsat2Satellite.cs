@@ -27,7 +27,7 @@ using System.Text;
 using System.Threading.Tasks;
 using DeploySoftware.LaunchPad.Space.Satellites.Common;
 
-namespace DeploySoftware.LaunchPad.Space.Satellites.Canada
+namespace DeploySoftware.LaunchPad.Space.Satellites.GoC
 {
     public class Radarsat2Satellite
     {

@@ -20,25 +20,35 @@ namespace DeploySoftware.LaunchPad.Space.Satellites.Common
 
     using Abp.Domain.Entities.Auditing;
     using DeploySoftware.LaunchPad.Core.Domain;
+    using DeploySoftware.LaunchPad.Space.Satellites.Common;
+    using System;
+    using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
 
-    public interface IEarthObservation<TPrimaryKey> : IDomainEntity<TPrimaryKey>, IPhysicallyLocatable
+    public interface IEarthObservation<TPrimaryKey, TFileStorageLocationType> : IDomainEntity<TPrimaryKey>, IPhysicallyLocatable
+        where TFileStorageLocationType : IFileStorageLocation, new()
     {
         [Required]
-        GeographicLocation SceneCentre { get; set; }
+        public GeographicLocation SceneCentre { get; set; }
 
         [Required]
-        ImageObservationCornerCoordinates Corners { get; set; }
+        public ImageObservationCornerCoordinates Corners { get; set; }
+
+        public DateTime SceneStart { get; set; }
+
+        public DateTime SceneEnd { get; set; }
         
 
         [Required]
-        IObservationFiles<TPrimaryKey> ObservationFiles { get; set; }
+        public IDictionary<string, FileBase<TPrimaryKey, byte[], TFileStorageLocationType>> Objects { get; set; }
 
         /// <summary>
         /// The copyright information and license under which this observation may be used
         /// </summary>
         [Required]
-        IUsageRights Copyright { get; set; }
-        
+        public IUsageRights Copyright { get; set; }
+
+        public EOSDISLevelEnum Level { get; set; }
+
     }
 }

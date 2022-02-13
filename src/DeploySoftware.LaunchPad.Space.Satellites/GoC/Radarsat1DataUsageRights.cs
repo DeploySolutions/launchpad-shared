@@ -14,7 +14,7 @@
 //limitations under the License. 
 #endregion
 
-namespace DeploySoftware.LaunchPad.Space.Satellites.Canada
+namespace DeploySoftware.LaunchPad.Space.Satellites.GoC
 {
     using System;
     using DeploySoftware.LaunchPad.Core.Domain;

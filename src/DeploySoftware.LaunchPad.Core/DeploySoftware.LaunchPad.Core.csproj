@@ -13,7 +13,7 @@
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <Version>5.4.4-alpha</Version>
     <Description>Shared code for LaunchPad framework.</Description>
-    <Copyright>2018-2021 Deploy Software Solutions, inc.</Copyright>
+    <Copyright>2018-2022 Deploy Software Solutions, inc.</Copyright>
     <PackageReleaseNotes>3.0.0: Switch to .net core 3.1
 2.0.0: Refactor to inherit more fully from ABP. Simplify by removing Keys and MetadataInformation.
 1.0.6: Reorganize hierarchy

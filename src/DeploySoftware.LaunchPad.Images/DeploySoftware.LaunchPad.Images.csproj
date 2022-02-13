@@ -5,7 +5,7 @@
     <Company>Deploy Software Solutions, inc.</Company>
     <Authors>Nicholas Kellett</Authors>
     <Description>Shared code for manipulating images in the LaunchPad framework.</Description>
-    <Copyright>2016-2021 Deploy Software Solutions, inc.</Copyright>
+    <Copyright>2016-2022 Deploy Software Solutions, inc.</Copyright>
     <PackageLicenseUrl></PackageLicenseUrl>
     <PackageProjectUrl>https://github.com/DeploySolutions/launchpad-shared</PackageProjectUrl>
     <PackageIconUrl></PackageIconUrl>

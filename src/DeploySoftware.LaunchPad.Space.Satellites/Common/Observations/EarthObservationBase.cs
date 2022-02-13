@@ -24,7 +24,10 @@ namespace DeploySoftware.LaunchPad.Space.Satellites.Common
     using DeploySoftware.LaunchPad.Core.Domain;
     using System.Collections.Generic;
 
-    public abstract class EarthObservationBase<TPrimaryKey> : DomainEntityBase<TPrimaryKey>, IEarthObservation<TPrimaryKey>
+    public abstract class EarthObservationBase<TPrimaryKey, TFileStorageLocationType> : DomainEntityBase<TPrimaryKey>, 
+        IEarthObservation<TPrimaryKey, TFileStorageLocationType>
+        where TFileStorageLocationType : IFileStorageLocation, new()
+
     {
         public const int MaxNameLength = 4 * 1024; //4KB
         public const int MaxDescriptionLength = 4 * 1024; //4KB
@@ -32,7 +35,7 @@ namespace DeploySoftware.LaunchPad.Space.Satellites.Common
         private GeographicLocation _sceneCentre;
 
         [Required]
-        public GeographicLocation SceneCentre {
+        public virtual GeographicLocation SceneCentre {
             get
             {
                 return _sceneCentre;
@@ -45,27 +48,38 @@ namespace DeploySoftware.LaunchPad.Space.Satellites.Common
         }
 
         [Required]
-        public ImageObservationCornerCoordinates Corners { get; set; }
-  
+        public virtual ImageObservationCornerCoordinates Corners { get; set; }
 
         
         [Required]
-        public IObservationFiles<TPrimaryKey> ObservationFiles { get; set; }
+        public virtual IDictionary<string, FileBase<TPrimaryKey, byte[], TFileStorageLocationType>> Objects { get; set; }
 
         [Required]
-        public SpaceTimeInformation CurrentLocation { get; set; }
+        public virtual SpaceTimeInformation CurrentLocation { get; set; }
 
-        public IList<SpaceTimeInformation> PreviousLocations { get; set; }
+
+        public virtual DateTime SceneStart { get; set; }
+
+        public virtual DateTime SceneEnd { get; set; }
+
+        public virtual IList<SpaceTimeInformation> PreviousLocations { get; set; }
 
         /// <summary>
         /// The copyright information and license under which this observation may be used
         /// </summary>
         [Required]
-        public IUsageRights Copyright { get; set; }
+        public virtual IUsageRights Copyright { get; set; }
+
+        /// <summary>
+        /// The NASA EOSDIS data processing level of this observation
+        /// (https://earthdata.nasa.gov/collaborate/open-data-services-and-software/data-information-policy/data-levels)
+        /// </summary>
+        public virtual EOSDISLevelEnum Level { get; set; }
 
         protected EarthObservationBase() : base()
         {
-
+            var comparer = StringComparer.OrdinalIgnoreCase;
+            Objects = new Dictionary<string, FileBase<TPrimaryKey, byte[], TFileStorageLocationType>>(comparer);
         }
 
     }

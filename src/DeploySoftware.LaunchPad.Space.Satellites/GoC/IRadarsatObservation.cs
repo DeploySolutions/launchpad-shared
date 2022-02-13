@@ -15,25 +15,17 @@
 //limitations under the License. 
 #endregion
 
-namespace DeploySoftware.LaunchPad.Space.Tests
+namespace DeploySoftware.LaunchPad.Space.Satellites.GoC
 {
-    using DeploySoftware.LaunchPad.Space.Satellites.GoC;
     using DeploySoftware.LaunchPad.Core.Domain;
-    using System;
-
-    public class Radarsat1MetadataFileFixture : IDisposable
+    using DeploySoftware.LaunchPad.Space.Satellites.Common;
+    
+    /// <summary>
+    /// Marker interface for Canada's RADARSAT satellite series
+    /// </summary>
+    /// <typeparam name="TPrimaryKey"></typeparam>
+    public interface IRadarsatObservation<TPrimaryKey, TFileStorageLocationType> : IEarthObservation<TPrimaryKey,TFileStorageLocationType>
+        where TFileStorageLocationType : IFileStorageLocation, new()
     {
-        public Radarsat1Observation<Guid, WindowsFileStorageLocation> Observation { get; set; }
-
-        public void Initialize(string radarsat1MetadataFilename)
-        {
-            Radarsat1MetadataParser<Guid, WindowsFileStorageLocation> parser = new Radarsat1MetadataParser<Guid, WindowsFileStorageLocation>();
-            Observation = parser.GetRadarsat1ObservationFromMetadataFile(radarsat1MetadataFilename);
-        }
-
-        public void Dispose()
-        {
-
-        }
     }
 }

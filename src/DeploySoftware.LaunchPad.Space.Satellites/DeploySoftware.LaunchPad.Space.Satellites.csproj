@@ -9,9 +9,9 @@
     <RepositoryUrl>https://github.com/DeploySolutions/launchpad-shared</RepositoryUrl>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
-    <Version>3.4.0</Version>
+    <Version>3.5.0</Version>
     <Description>Satellite-related code for LaunchPad framework.</Description>
-    <Copyright>2018-2021 Deploy Software Solutions, inc.</Copyright>
+    <Copyright>2018-2022 Deploy Software Solutions, inc.</Copyright>
     <PackageReleaseNotes>3.0.0: Switch to .net core 3.1
 2.0.0: Refactor to inherit more fully from ABP and updated LaunchPad Core library.
 1.0.4: Change CoordinateSharp ref to standard (non-core). Update parser to be instance-based.
@@ -58,6 +58,10 @@
       <Pack>True</Pack>
       <PackagePath></PackagePath>
     </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
   </ItemGroup>
 
 </Project>

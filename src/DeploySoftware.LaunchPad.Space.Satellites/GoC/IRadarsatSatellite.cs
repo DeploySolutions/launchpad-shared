@@ -1,5 +1,5 @@
-﻿//LaunchPad Space
-// Copyright (c) 2018-2020 Deploy Software Solutions, inc. 
+﻿//LaunchPad Shared
+// Copyright (c) 2016-2021 Deploy Software Solutions, inc. 
 
 #region license
 //Licensed under the Apache License, Version 2.0 (the "License"); 
@@ -15,29 +15,20 @@
 //limitations under the License. 
 #endregion
 
-// NEOSSat metadata is licensed under the Open Government License of the Canadian Federal Government, 2.0
+// Radarsat metadata is licensed under the Open Government License of the Canadian Federal Government, 2.0
 // For more information, please consult the terms and conditions of this license at
 // https://open.canada.ca/en/open-government-licence-canada 
 
-
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using DeploySoftware.LaunchPad.Space.Satellites.Common;
-using DeploySoftware.LaunchPad.Organizations.Canada;
 
-namespace DeploySoftware.LaunchPad.Space.Satellites.Canada
+namespace DeploySoftware.LaunchPad.Space.Satellites.GoC
 {
-    public class NeossatSatellite<TPrimaryKey> : SatelliteBase<TPrimaryKey>
+    public interface IRadarsatSatellite : IEarthObservationSatellite
     {
-        protected NeossatSatellite(int? tenantId) : base()
-        {
-            Operators = new List<ISatelliteOperator<Guid>>() {
-                new CanadaSpaceAgency(tenantId) as ISatelliteOperator<Guid>,
-                new DefenceResearchDevelopmentCanada(tenantId) as ISatelliteOperator<Guid>
-            };
-            SatelliteCatalogNumber = "39089";
-            CosparID = "2013-009D";
-            Website = new Uri("http://neossat.ca/");
-        }
     }
 }

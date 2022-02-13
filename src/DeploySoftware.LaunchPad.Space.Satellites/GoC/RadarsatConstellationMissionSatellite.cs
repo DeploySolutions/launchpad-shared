@@ -19,7 +19,7 @@
 // For more information, please consult the terms and conditions of this license at
 // https://open.canada.ca/en/open-government-licence-canada 
 
-namespace DeploySoftware.LaunchPad.Space.Satellites.Canada
+namespace DeploySoftware.LaunchPad.Space.Satellites.GoC
 {
 
     using System;

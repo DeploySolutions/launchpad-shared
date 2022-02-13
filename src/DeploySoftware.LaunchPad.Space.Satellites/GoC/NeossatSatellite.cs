@@ -1,5 +1,5 @@
 ﻿//LaunchPad Space
-// Copyright (c) 2018-2020 Deploy Software Solutions, inc.  
+// Copyright (c) 2018-2020 Deploy Software Solutions, inc. 
 
 #region license
 //Licensed under the Apache License, Version 2.0 (the "License"); 
@@ -15,30 +15,29 @@
 //limitations under the License. 
 #endregion
 
-// Radarsat metadata is licensed under the Open Government License of the Canadian Federal Government, 2.0
+// NEOSSat metadata is licensed under the Open Government License of the Canadian Federal Government, 2.0
 // For more information, please consult the terms and conditions of this license at
 // https://open.canada.ca/en/open-government-licence-canada 
 
+
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using DeploySoftware.LaunchPad.Space.Satellites.Common;
 using DeploySoftware.LaunchPad.Organizations.Canada;
 
-namespace DeploySoftware.LaunchPad.Space.Satellites.Canada
+namespace DeploySoftware.LaunchPad.Space.Satellites.GoC
 {
-    public class Radarsat1Satellite<TPrimaryKey> : SatelliteBase<TPrimaryKey>
+    public class NeossatSatellite<TPrimaryKey> : SatelliteBase<TPrimaryKey>
     {
-        
-        protected Radarsat1Satellite(int? tenantId) : base()
+        protected NeossatSatellite(int? tenantId) : base()
         {
-            Operators = new List<ISatelliteOperator<Guid>>() { new CanadaSpaceAgency(tenantId) as ISatelliteOperator<Guid> };
-            SatelliteCatalogNumber = "23710";
-            CosparID = "1995-059A";
-            Website = new Uri("http://www.asc-csa.gc.ca/eng/satellites/radarsat1/");
+            Operators = new List<ISatelliteOperator<Guid>>() {
+                new CanadaSpaceAgency(tenantId) as ISatelliteOperator<Guid>,
+                new DefenceResearchDevelopmentCanada(tenantId) as ISatelliteOperator<Guid>
+            };
+            SatelliteCatalogNumber = "39089";
+            CosparID = "2013-009D";
+            Website = new Uri("http://neossat.ca/");
         }
-
     }
 }

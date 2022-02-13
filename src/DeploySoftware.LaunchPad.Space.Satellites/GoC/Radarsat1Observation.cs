@@ -21,7 +21,7 @@
 
 
 
-namespace DeploySoftware.LaunchPad.Space.Satellites.Canada
+namespace DeploySoftware.LaunchPad.Space.Satellites.GoC
 {
     using System;
     using System.ComponentModel.DataAnnotations;
@@ -31,8 +31,9 @@ namespace DeploySoftware.LaunchPad.Space.Satellites.Canada
     using DeploySoftware.LaunchPad.Space.Satellites.Common;  
 
     [Table("Radarsat1Observations")]
-    public class Radarsat1Observation<TFileStorageLocationType> : EarthObservationBase<Guid>, IRadarsatObservation<Guid>
-            where TFileStorageLocationType : IFileStorageLocation, new()
+    public class Radarsat1Observation<TPrimaryKey, TFileStorageLocationType> : EarthObservationBase<TPrimaryKey, TFileStorageLocationType>, 
+        IRadarsatObservation<TPrimaryKey, TFileStorageLocationType>
+        where TFileStorageLocationType : IFileStorageLocation, new()
     {
         public enum FileTypes
         {
@@ -88,9 +89,9 @@ namespace DeploySoftware.LaunchPad.Space.Satellites.Canada
         public string PixelSpacing { get; set; }
        
         public Radarsat1ObservationFiles Files { get; set; }
-        
+
         public Radarsat1Observation(
-            int? tenantId,
+           int? tenantId,
            string sceneId,
            string mdaOrderNumber,
            string geographicalArea,
@@ -109,7 +110,6 @@ namespace DeploySoftware.LaunchPad.Space.Satellites.Canada
            ImageObservationCornerCoordinates cornerCoordinates
         ) : base()
         {
-            Id = Guid.NewGuid();
             CurrentLocation = new SpaceTimeInformation();
             SceneId = sceneId;
             MdaOrderNumber = mdaOrderNumber;
@@ -132,10 +132,52 @@ namespace DeploySoftware.LaunchPad.Space.Satellites.Canada
             CurrentLocation.PhysicalLocation = SceneCentre;
             CurrentLocation.PointInTime = SceneStartTime;
         }
-        
-        protected Radarsat1Observation(int? tenantId) : base()
+
+        public Radarsat1Observation(
+           TPrimaryKey id,
+           int? tenantId,
+           string sceneId,
+           string mdaOrderNumber,
+           string geographicalArea,
+           DateTime sceneStart,
+           DateTime sceneStop,
+           string orbit,
+           string orbitDataType,
+           string applicationLut,
+           string beamMode,
+           string productType,
+           string format,
+           int numberImageLines,
+           int numberImagePixels,
+           string pixelSpacing,
+           GeographicLocation sceneCentre,
+           ImageObservationCornerCoordinates cornerCoordinates
+        ) : base()
         {
-            Id = Guid.NewGuid();
+            Id = id;
+            new Radarsat1Observation<TPrimaryKey,TFileStorageLocationType>(
+                tenantId,
+                sceneId,
+                mdaOrderNumber,
+                geographicalArea,
+                sceneStart,
+                sceneStop,
+                orbit,
+                orbitDataType,
+                applicationLut,
+                beamMode,
+                productType,
+                format,
+                numberImageLines,
+                numberImagePixels,
+                pixelSpacing,
+                sceneCentre,
+                cornerCoordinates
+            );
+        }
+        
+        protected Radarsat1Observation() : base()
+        {
             CurrentLocation = new SpaceTimeInformation();
         }
 
