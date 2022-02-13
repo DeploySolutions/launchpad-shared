@@ -14,55 +14,71 @@
 //See the License for the specific language governing permissions and 
 //limitations under the License. 
 #endregion
-    
+
+
+using System.Collections.Generic;
+using System.Linq;
+
 namespace DeploySoftware.LaunchPad.Core.Domain
 {
     using Abp.Domain.Entities;
     using System;
-
     using System.Runtime.Serialization;
     using System.Security.Permissions;
     using System.Text;
 
-    public abstract class DataSet<TPrimaryKey> : DomainEntityBase<TPrimaryKey>, IDataSet<TPrimaryKey>
+    public abstract class DataCatalogue<TPrimaryKey, TDictionaryKey, TDataPointPrimaryKey> : 
+        DomainEntityBase<TPrimaryKey>, 
+        IDataCatalogue<TPrimaryKey, TDictionaryKey, TDataPointPrimaryKey>
+        where TDictionaryKey : struct
+        where TDataPointPrimaryKey : struct
     {
         
-        public int? TotalItemsCount { get; set; }
-        public int TenantId { get;set; }
+        public long ItemsCount { get; set; }
+        
 
-        public DataSet() : base()
+        public int? TenantId { get;set; }
+        public IEnumerable<IDataSet<TPrimaryKey, TDictionaryKey, TDataPointPrimaryKey>> DataSets { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public int DataSetsCount { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+
+        public DataCatalogue() : base()
         {
 
         }
 
-        public DataSet(
+        public DataCatalogue(
             int tenantId,
-           string datasetName,
-           string datasetDescription
-        ) : base()
+            string _datacatalogueName,
+            string _datacatalogueDescription,
+            int _numberOfDatasets, 
+            int _totalNumberOfRecords
+            ) : base()
         {
-            Name = datasetName;
-            DescriptionShort = datasetDescription;
-            DescriptionFull = datasetDescription;
-            TotalItemsCount = 0;
+            TenantId = tenantId;
+            Name = _datacatalogueName;
+            DescriptionShort = _datacatalogueDescription; 
+            DescriptionFull = _datacatalogueDescription;
+            DataSetsCount = _numberOfDatasets;
+            ItemsCount = _totalNumberOfRecords;
         }
             
-        protected DataSet(int tenantId) : base()
+        protected DataCatalogue(int tenantId) :base()
         {
             TenantId = tenantId;
             Name = String.Empty;
-            TotalItemsCount = 0;
+            DataSetsCount = 0;
+            ItemsCount = 0;
         }
-
 
         /// <summary>
         /// Serialization constructor used for deserialization
         /// </summary>
         /// <param name="info">The serialization info</param>
         /// <param name="context">The context of the stream</param>
-        protected DataSet(SerializationInfo info, StreamingContext context) : base(info, context)
+        protected DataCatalogue(SerializationInfo info, StreamingContext context) : base(info, context)
         {
-            TotalItemsCount = info.GetInt32("TotalItemsCount");
+            DataSetsCount = info.GetInt32("DataSetsCount");
+            ItemsCount = info.GetInt32("ItemsCount");
         }
 
 
@@ -73,8 +89,9 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         /// <param name="context"></param>
         public override void GetObjectData(SerializationInfo info, StreamingContext context)
         {
-            base.GetObjectData(info, context);         
-            info.AddValue("TotalItemsCount", TotalItemsCount);
+            base.GetObjectData(info, context);
+            info.AddValue("DataSetsCount", DataSetsCount);
+            info.AddValue("ItemsCount", ItemsCount);
         }
 
         /// <summary>  
@@ -84,9 +101,10 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         public override string ToString()
         {
             StringBuilder sb = new StringBuilder();
-            sb.Append("[Dataset : ");
+            sb.Append("[DataCatalogue : ");
             sb.AppendFormat(ToStringBaseProperties());
-            sb.AppendFormat(" TotalItemsCount={0};", TotalItemsCount);
+            sb.AppendFormat(" DataSetsCount={0};", DataSetsCount); 
+            sb.AppendFormat(" ItemsCount={0};", ItemsCount);
             sb.Append(']');
             return sb.ToString();
         }

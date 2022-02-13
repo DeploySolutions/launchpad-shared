@@ -30,10 +30,6 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         [XmlAttribute]
         public virtual Uri RootPath { get; set; }
 
-        [DataObjectField(false)]
-        [XmlAttribute]
-        [NotMapped]
-        public virtual byte[] Data { get; set; }
 
         protected FileStorageLocationBase()
         {
@@ -47,13 +43,11 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         protected FileStorageLocationBase(SerializationInfo info, StreamingContext context)
         {
             RootPath = (Uri)info.GetValue("RootPath", typeof(Uri)); 
-            Data = (byte[])info.GetValue("Data", typeof(byte[]));
         }
 
         public virtual void GetObjectData(SerializationInfo info, StreamingContext context)
         {
             info.AddValue("RootPath", RootPath); 
-            info.AddValue("Data", Data);
         }
 
 

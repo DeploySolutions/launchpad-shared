@@ -25,26 +25,27 @@ namespace DeploySoftware.LaunchPad.Core.Domain
     /// Marks any object as a file that can be manipulated by the platform.
     /// Each file is uniquely identified by its FileKey.
     /// </summary>
-    public interface IFile<TPrimaryKey, TFileStorageLocationType> : ILaunchPadObject
+    public interface IFile<TPrimaryKey, TFileContentType, TFileStorageLocationType> : ILaunchPadObject
         where TFileStorageLocationType : IFileStorageLocation
+        where TFileContentType : class
     {
         [DataObjectField(false)]
         [XmlAttribute]
-        Uri FullPathUri { get; }
+        public Uri FullPathUri { get; }
 
         /// <summary>
         /// The size of the file, in bytes
         /// </summary>
         [DataObjectField(false)]
         [XmlAttribute]
-        Int64 Size { get; set; }
+        public Int64 Size { get; set; }
 
         /// <summary>
         /// The name of the file
         /// </summary>
         [DataObjectField(false)]
         [XmlAttribute]
-        String Name { get; set; }
+        public String Name { get; set; }
 
         /// <summary>
         /// The extension of the file
@@ -58,14 +59,21 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         /// </summary>
         [DataObjectField(false)]
         [XmlAttribute]
-        String MimeType { get; set; }
+        public String MimeType { get; set; }
 
         /// <summary>
         /// The location of the file content
         /// </summary>
         [DataObjectField(false)]
         [XmlAttribute]
-        TFileStorageLocationType Location { get; set; }
+        public TFileStorageLocationType Location { get; set; }
+
+        /// <summary>
+        /// The content of the file
+        /// </summary>
+        [DataObjectField(false)]
+        [XmlAttribute]
+        public TFileContentType Content { get; set; }
 
     }
 }

@@ -21,13 +21,21 @@ namespace DeploySoftware.LaunchPad.Core.Domain
     using Abp.Domain.Entities;
     using System.Collections.Generic;
 
-    public interface IDataCatalogue<TPrimaryKey> : IDomainEntity<TPrimaryKey>, IMustHaveTenant
+    public interface IDataSet<TPrimaryKey, TDictionaryKey, TDataPointPrimaryKey> : IDomainEntity<TPrimaryKey>, IMayHaveTenant
+        where TDictionaryKey : struct
+        where TDataPointPrimaryKey : struct
     {
-        
-        int? TotalItemsCount { get; set; }
+        /// <summary>
+        /// Describes the schema (where known) according to which all of the data in this set is structured.
+        /// </summary>
+        public ISchemaDetails Schema { get; set; }
 
+        public long Count { get; }
 
-        IEnumerable<IDataSet<TPrimaryKey>> DataSets { get; set; } 
+        public IDictionary<TDictionaryKey, IDataPoint<TDataPointPrimaryKey>> Data { get; }
+
+        public bool AddData(TDictionaryKey key, IDataPoint<TDataPointPrimaryKey> dataPoint);
+
 
     }
 }

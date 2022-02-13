@@ -1,5 +1,5 @@
 ﻿//LaunchPad Shared
-// Copyright (c) 2016-2021 Deploy Software Solutions, inc. 
+// Copyright (c) 2016 Deploy Software Solutions, inc. 
 
 #region license
 //Licensed under the Apache License, Version 2.0 (the "License"); 
@@ -15,32 +15,15 @@
 //limitations under the License. 
 #endregion
 
-
 namespace DeploySoftware.LaunchPad.Core.Domain
 {
     using Abp.Domain.Entities;
-    using System;
-    using System.ComponentModel;
-    using System.Xml.Serialization;
-
-    /// <summary>
-    /// Represents a deployment activity.
-    /// </summary>
-    /// <typeparam name="TPrimaryKey"></typeparam>
-    public interface IContentItem<TPrimaryKey> : IDomainEntity<TPrimaryKey>, IMustHaveTenant
+    using Abp.Domain.Entities.Auditing;
+    public interface IDataPoint<TPrimaryKey> : IDomainEntity<TPrimaryKey>, IMayHaveTenant
     {
-
         /// <summary>
-        /// The name of this metadata tag
+        /// Describes the schema (where known) according to which this data is structured.
         /// </summary>
-        [DataObjectField(false)]
-        [XmlAttribute]
-        String Text
-        {
-            get; set;
-        }
-
-        
-
+        public ISchemaDetails Schema {get;set;}
     }
 }

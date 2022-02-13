@@ -25,8 +25,10 @@ using System.Xml.Serialization;
 
 namespace DeploySoftware.LaunchPad.Core.Domain
 {
-    public abstract partial class FileBase<TIdType, TFileStorageLocationType> : DomainEntityBase<TIdType>, IFile<TIdType, TFileStorageLocationType>
+    public abstract partial class FileBase<TIdType, TFileContentType, TFileStorageLocationType> : DomainEntityBase<TIdType>, 
+        IFile<TIdType, TFileContentType, TFileStorageLocationType>
         where TFileStorageLocationType: IFileStorageLocation, new()
+        where TFileContentType : class
     {
 
         /// <summary>
@@ -63,6 +65,14 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         [Required]
         public virtual TFileStorageLocationType Location { get; set; }
 
+        /// <summary>
+        /// The content of the file. May be null (for instance, if not loaded or populated yet)
+        /// </summary>
+        [DataObjectField(false)]
+        [XmlAttribute]
+        [Required]
+        public virtual TFileContentType Content { get; set; }
+
         protected FileBase()
         {
             Location = new TFileStorageLocationType();
@@ -87,6 +97,14 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         }
 
 
+        protected FileBase(TIdType id, string fileName, TFileStorageLocationType storageLocation, TFileContentType content) : base()
+        {
+            Id = id;
+            Name = fileName;
+            Location = storageLocation;
+            Content = content;
+        }
+
         /// <summary>
         /// Serialization constructor used for deserialization
         /// </summary>
@@ -95,6 +113,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         protected FileBase(SerializationInfo info, StreamingContext context) :base(info,context)
         {
             Location = (TFileStorageLocationType)info.GetValue("Data", typeof(TFileStorageLocationType));
+            Content = (TFileContentType)info.GetValue("Content", typeof(TFileContentType));
             Name = info.GetString("Name");
             Size = info.GetInt64("Size");
             MimeType = info.GetString("MimeType");
@@ -109,6 +128,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
             info.AddValue("MimeType", MimeType);
             info.AddValue("Extension", Extension);
             info.AddValue("Location", Location);
+            info.AddValue("Content", Content);
             info.AddValue("FullPathUri", FullPathUri);
         }
 

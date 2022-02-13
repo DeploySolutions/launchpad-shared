@@ -15,19 +15,22 @@
 //limitations under the License. 
 #endregion
 
-
 namespace DeploySoftware.LaunchPad.Core.Domain
 {
-    using Abp.Domain.Entities;
-    using System.Collections.Generic;
+    using System;
+    using System.ComponentModel;
+    using System.Xml.Serialization;
 
-    public interface IDataSet<TPrimaryKey> : IDomainEntity<TPrimaryKey>, IMustHaveTenant
-    { 
+    /// <summary>
+    /// The storage location of the file bytes.
+    /// </summary>
+    public interface IFileStorageLocation : ILaunchPadObject
+    {
 
-        int? TotalItemsCount { get; set; }
+        [DataObjectField(false)]
+        [XmlAttribute]
+        Uri RootPath { get; set; }
 
-
-        //IEnumerable<IDataPoint<TPrimaryKey>> DataPoints { get; set; }
 
     }
 }

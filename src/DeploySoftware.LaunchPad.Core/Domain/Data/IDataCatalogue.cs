@@ -15,26 +15,23 @@
 //limitations under the License. 
 #endregion
 
+
 namespace DeploySoftware.LaunchPad.Core.Domain
 {
-    using System;
-    using System.ComponentModel;
-    using System.Xml.Serialization;
+    using Abp.Domain.Entities;
+    using System.Collections.Generic;
 
-    /// <summary>
-    /// The storage location of the file bytes.
-    /// </summary>
-    public interface IFileStorageLocation : ILaunchPadObject
+    public interface IDataCatalogue<TPrimaryKey, TDictionaryKey, TDataPointPrimaryKey> : IDomainEntity<TPrimaryKey>, IMayHaveTenant
+        where TDictionaryKey : struct
+        where TDataPointPrimaryKey : struct
     {
+        
+        int DataSetsCount { get; set; }
 
-        [DataObjectField(false)]
-        [XmlAttribute]
-        Uri RootPath { get; set; }
+        long ItemsCount { get; set; }
 
-        /// <summary>
-        /// Get the byte-array content/data of the file
-        /// </summary>
-        Byte[] Data { get; set; }
+
+        IEnumerable<IDataSet<TPrimaryKey, TDictionaryKey, TDataPointPrimaryKey>> DataSets { get; set; } 
 
     }
 }

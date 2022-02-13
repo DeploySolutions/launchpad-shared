@@ -21,7 +21,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
 {
     // Tiff World File (TFW)
     //
-    public class TifWorldFile<TPrimaryKey, TFileStorageLocationType> : FileBase<TPrimaryKey,TFileStorageLocationType>
+    public class TifWorldFile<TPrimaryKey, TFileStorageLocationType> : FileBase<TPrimaryKey, byte[],TFileStorageLocationType>
         where TFileStorageLocationType: IFileStorageLocation, new()
     {
         public override string Extension { get => ".tfw"; }

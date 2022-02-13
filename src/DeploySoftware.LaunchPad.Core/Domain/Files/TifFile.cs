@@ -17,7 +17,7 @@
 
 namespace DeploySoftware.LaunchPad.Core.Domain
 {
-    public class TifFile<TIdType, TFileStorageLocationType> : FileBase<TIdType, TFileStorageLocationType>
+    public partial class TifFile<TIdType, TFileStorageLocationType> : FileBase<TIdType, byte[], TFileStorageLocationType>
         where TFileStorageLocationType: IFileStorageLocation, new()
     {
         public override string Extension => ".tif";

@@ -26,37 +26,41 @@ using System.Xml.Serialization;
 
 namespace DeploySoftware.LaunchPad.Core.Domain
 {
+    /// <summary>
+    /// Represents some text
+    /// </summary>
+    /// <typeparam name="TIdType"></typeparam>
     [Serializable()]
     public class ContentItem<TIdType> : DomainEntityBase<TIdType>, IContentItem<TIdType>
     {
         /// <summary>
-        /// The name of this metadata tag
+        /// The textual content
         /// </summary>
         [DataObjectField(false)]
         [XmlAttribute]
-        public virtual String Text
+        public virtual String Content
         {
             get;set;
         }
-        public int TenantId { get; set; }
+        public int? TenantId { get; set; }
 
 
         #region "Constructors"
 
         public ContentItem() : base()
         {
-            Text = String.Empty;
+            Content = String.Empty;
         }
 
         public ContentItem(int tenantId) : base()
         {
-            Text = String.Empty;
+            Content = String.Empty;
             TenantId = tenantId;
         }
 
         public ContentItem(int tenantId, TIdType id, string cultureName, String text) : base(id, cultureName)
         {
-            Text = text;
+            Content = text;
             TenantId = tenantId;
         }
      
@@ -67,7 +71,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         /// <param name="context">The context of the stream</param>
         protected ContentItem(SerializationInfo info, StreamingContext context) : base(info, context)
         {
-            Text = info.GetString("Text");
+            Content = info.GetString("Text");
         }
 
 #endregion
@@ -80,7 +84,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         public override void GetObjectData(SerializationInfo info, StreamingContext context)
         {
             base.GetObjectData(info, context);
-            info.AddValue("Text", Text);            
+            info.AddValue("Text", Content);            
         }
 
         /// <summary>  
@@ -92,7 +96,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
             StringBuilder sb = new StringBuilder();
             sb.Append("[ContentItem : ");
            sb.AppendFormat(ToStringBaseProperties());
-            sb.AppendFormat(" Text={0};", Text);            
+            sb.AppendFormat(" Text={0};", Content);            
             sb.Append(']');
             return sb.ToString();
         }
