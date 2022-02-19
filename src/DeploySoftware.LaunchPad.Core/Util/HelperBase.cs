@@ -3,7 +3,7 @@ using Newtonsoft.Json;
 
 namespace DeploySoftware.LaunchPad.Core.Util
 {
-    public abstract class HelperBase
+    public abstract class HelperBase : IHelper
     {
         protected ILogger _logger = NullLogger.Instance;
         protected HelperBase()

@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DeploySoftware.LaunchPad.AWS
+namespace DeploySoftware.LaunchPad.AWS.SecretsManager
 {
     public partial class AwsSecretProvider<TSecretVault> : SecretProviderBase<TSecretVault>, ISingletonDependency, ISecretProvider<TSecretVault>
         where TSecretVault: SecretVaultBase, new()

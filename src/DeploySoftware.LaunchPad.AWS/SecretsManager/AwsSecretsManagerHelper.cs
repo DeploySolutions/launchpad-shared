@@ -15,9 +15,9 @@ using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DeploySoftware.LaunchPad.AWS
+namespace DeploySoftware.LaunchPad.AWS.SecretsManager
 {
-    public partial class AwsSecretHelper : SecretHelper, ISingletonDependency, ISecretHelper
+    public partial class AwsSecretsManagerHelper : SecretHelper, IAwsSecretsManagerHelper
     {
         protected const string DefaultRegionName = "us-east-1";
 
@@ -25,33 +25,33 @@ namespace DeploySoftware.LaunchPad.AWS
 
         [JsonIgnore]
         public IAmazonSecretsManager SecretClient { get; set; }
+        public AwsCommonHelper AwsCommonHelper { get; set; }
 
-
-        public AwsSecretHelper() : base()
+        public AwsSecretsManagerHelper() : base()
         {
             Region = GetRegionEndpoint(DefaultRegionName);
             SecretClient = SetSecretClient(Region);
         }
 
-        public AwsSecretHelper(ILogger logger) : base(logger)
+        public AwsSecretsManagerHelper(ILogger logger) : base(logger)
         {
             Region = GetRegionEndpoint(DefaultRegionName);
             SecretClient = SetSecretClient(Region);
         }
 
-        public AwsSecretHelper(IAmazonSecretsManager client, ILogger logger) : base(logger)
+        public AwsSecretsManagerHelper(IAmazonSecretsManager client, ILogger logger) : base(logger)
         {
             Region = GetRegionEndpoint(DefaultRegionName);
             SecretClient = client;
         }
 
-        public AwsSecretHelper(string awsRegionEndpointName, ILogger logger) : base(logger)
+        public AwsSecretsManagerHelper(string awsRegionEndpointName, ILogger logger) : base(logger)
         {
             Region = GetRegionEndpoint(DefaultRegionName);
             SecretClient = SetSecretClient(Region);
         }
 
-        public AwsSecretHelper(string awsProfileName, string awsRegionEndpointName, ILogger logger) : base(logger)
+        public AwsSecretsManagerHelper(string awsProfileName, string awsRegionEndpointName, ILogger logger) : base(logger)
         {
             Region = GetRegionEndpoint(DefaultRegionName);
             SecretClient = SetSecretClient(Region,awsProfileName);

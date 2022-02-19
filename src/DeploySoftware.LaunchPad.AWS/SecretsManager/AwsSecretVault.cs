@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DeploySoftware.LaunchPad.AWS
+namespace DeploySoftware.LaunchPad.AWS.SecretsManager
 {
     public class AwsSecretVault : SecretVaultBase, ISingletonDependency
     {

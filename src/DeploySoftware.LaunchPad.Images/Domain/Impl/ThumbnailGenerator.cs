@@ -18,7 +18,7 @@
 
 namespace DeploySoftware.LaunchPad.Images.Domain
 {
-    using DeploySoftware.LaunchPad.Core.Util;
+    using DeploySoftware.LaunchPad.Core.Domain;
     using ImageMagick;
     using System.IO;
 
