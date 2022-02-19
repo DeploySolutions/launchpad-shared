@@ -19,9 +19,9 @@ namespace DeploySoftware.LaunchPad.Core.Tests
 {
     using Xunit;
     using FluentAssertions;
-    using DeploySoftware.LaunchPad.Core.FileGeneration;
     using System;
     using System.Collections.Generic;
+    using DeploySoftware.LaunchPad.FileGeneration.Stages;
 
     public class TokenTests : IClassFixture<TokenTestsFixture>
     {
