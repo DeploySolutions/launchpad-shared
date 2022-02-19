@@ -107,8 +107,7 @@ namespace DeploySoftware.LaunchPad.AWS
             dynamic secret = JsonConvert.DeserializeObject(secretJson);
 
             // request the temporary token from the oAuth base url and the token endpoint
-            var oAuthRequest = new RestRequest(Method.POST);
-            oAuthRequest.Resource = OAuthTokenEndpoint;
+            var oAuthRequest = new RestRequest(OAuthTokenEndpoint,Method.Post);
 
             // set the headers including the authorization credentials from the secret
             StringBuilder sbGrant = new StringBuilder();
@@ -130,7 +129,7 @@ namespace DeploySoftware.LaunchPad.AWS
             oAuthRequest.AddParameter("application/x-www-form-urlencoded", sbGrant.ToString(), ParameterType.RequestBody);
 
             // request the token
-            IRestResponse oAuthResponse = await OAuthClient.ExecuteAsync(oAuthRequest);
+            RestResponse oAuthResponse = await OAuthClient.ExecuteAsync(oAuthRequest);
             if (oAuthResponse.IsSuccessful)
             {
 
@@ -157,13 +156,13 @@ namespace DeploySoftware.LaunchPad.AWS
         }
 
 
-        public virtual IRestResponse MakeApiRequest(string secretArn, IRestRequest request, string requestId = "", string correlationId = "" )
+        public virtual RestResponse MakeApiRequest(string secretArn, RestRequest request, string requestId = "", string correlationId = "" )
         {
             return MakeApiRequestAsync(secretArn, request, requestId, correlationId ).Result;
         }
 
 
-        public async virtual Task<IRestResponse> MakeApiRequestAsync(string secretArn, IRestRequest request, string requestId = "", string correlationId = "")
+        public async virtual Task<RestResponse> MakeApiRequestAsync(string secretArn, RestRequest request, string requestId = "", string correlationId = "")
         {
             Guard.Against<ArgumentNullException>(String.IsNullOrEmpty(secretArn), DeploySoftware_LaunchPad_AWS_Resources.ApiGatewayHelper_SecretArn_Is_NullOrEmpty);
             Guard.Against<ArgumentNullException>(ApiRestClient == null, DeploySoftware_LaunchPad_AWS_Resources.ApiGatewayHelper_MakeApiGatewayRequest_RestClient_Is_Null);
@@ -192,7 +191,7 @@ namespace DeploySoftware.LaunchPad.AWS
             request.AddHeader("X-Request-ID", requestId);
 
             // make the request to the API gateway
-            IRestResponse response = await ApiRestClient.ExecuteAsync(request);
+            RestResponse response = await ApiRestClient.ExecuteAsync(request);
             if (response.IsSuccessful)
             {
                 _logger.Info(string.Format("Request succeeded. Status code: {0}. CorrelationId: {1}", response.StatusCode,correlationId));

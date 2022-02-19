@@ -15,9 +15,9 @@ namespace DeploySoftware.LaunchPad.Core.Api
         TemporaryAccessToken Token { get; set; }
 
         Task<TemporaryAccessToken> GetOAuthTokenUsingSecretCredentials(string secretArn, IList<string> scopes = null);
-        IRestResponse MakeApiRequest(string secretArn, IRestRequest request, string correlationId = "", string causationId = "");
+        RestResponse MakeApiRequest(string secretArn, RestRequest request, string correlationId = "", string causationId = "");
 
-        Task<IRestResponse> MakeApiRequestAsync(string secretArn, IRestRequest request, string correlationId = "", string causationId = "");
+        Task<RestResponse> MakeApiRequestAsync(string secretArn, RestRequest request, string correlationId = "", string causationId = "");
         
     }
 }
