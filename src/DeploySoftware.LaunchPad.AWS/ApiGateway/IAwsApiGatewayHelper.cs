@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace DeploySoftware.LaunchPad.AWS
 {
-    public interface IApiGatewayHelper : IAwsHelper
+    public interface IAwsApiGatewayHelper : IAwsHelper
     {
         string ApiBaseUrl { get; set; }
         RestClient ApiRestClient { get; set; }

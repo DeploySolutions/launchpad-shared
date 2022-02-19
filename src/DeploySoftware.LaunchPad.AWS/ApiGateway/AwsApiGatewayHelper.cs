@@ -17,7 +17,7 @@ using System.Threading.Tasks;
 
 namespace DeploySoftware.LaunchPad.AWS
 {
-    public partial class ApiGatewayHelper : HelperBase, IApiGatewayHelper
+    public partial class AwsApiGatewayHelper : HelperBase, IAwsApiGatewayHelper
     {
 
         public AwsCommonHelper AwsCommonHelper { get; set; }
@@ -40,7 +40,7 @@ namespace DeploySoftware.LaunchPad.AWS
         [JsonIgnore]
         public TemporaryAccessToken Token { get; set; }
 
-        public ApiGatewayHelper() : base()
+        public AwsApiGatewayHelper() : base()
         {
             _secretHelper = new AwsSecretsManagerHelper();
             OAuthTokenEndpoint = string.Empty;
@@ -49,7 +49,7 @@ namespace DeploySoftware.LaunchPad.AWS
             DefaultVersion = string.Empty;
         }
 
-        public ApiGatewayHelper(string apiGatewayBaseUrl) : base()
+        public AwsApiGatewayHelper(string apiGatewayBaseUrl) : base()
         {
             _secretHelper = new AwsSecretsManagerHelper();
             OAuthTokenEndpoint = string.Empty;
@@ -58,7 +58,7 @@ namespace DeploySoftware.LaunchPad.AWS
             DefaultVersion = string.Empty;
         }
 
-        public ApiGatewayHelper(AwsSecretsManagerHelper secretHelper, string oAuthBaseUrl, string oAuthTokenEndpoint, string apiGatewayBaseUrl, string defaultApiVersion, ILogger logger) : base(logger)
+        public AwsApiGatewayHelper(AwsSecretsManagerHelper secretHelper, string oAuthBaseUrl, string oAuthTokenEndpoint, string apiGatewayBaseUrl, string defaultApiVersion, ILogger logger) : base(logger)
         {
             _secretHelper = secretHelper;
             OAuthBaseUrl = oAuthBaseUrl;
@@ -71,7 +71,7 @@ namespace DeploySoftware.LaunchPad.AWS
             ApiRestClient = new RestClient(apiGatewayBaseUrl);
         }
 
-        public ApiGatewayHelper(AwsSecretsManagerHelper secretHelper, string awsRegionEndpointName, string oAuthBaseUrl, string oAuthTokenEndpoint, string apiGatewayBaseUrl, string defaultApiVersion, ILogger logger) : base(logger)
+        public AwsApiGatewayHelper(AwsSecretsManagerHelper secretHelper, string awsRegionEndpointName, string oAuthBaseUrl, string oAuthTokenEndpoint, string apiGatewayBaseUrl, string defaultApiVersion, ILogger logger) : base(logger)
         {
             _secretHelper = secretHelper;
             OAuthBaseUrl = oAuthBaseUrl;

@@ -3,13 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using DeploySoftware.LaunchPad.Core.Domain;
 
-namespace DeploySoftware.LaunchPad.AWS.SNS
+namespace DeploySoftware.LaunchPad.AWS.SNS.Services
 {
-    public interface IAwsSNSService : ILaunchPadDomainService
+    public partial class AwsSNSService : IAwsSNSService
     {
         public IAwsSNSHelper Helper { get; set; }
-
     }
 }

@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using DeploySoftware.LaunchPad.Core.Domain;
+using DeploySoftware.LaunchPad.Core.Core.Configuration;
 
-namespace DeploySoftware.LaunchPad.AWS.ElasticFileSystem
+namespace DeploySoftware.LaunchPad.AWS.ElasticFileSystem.Services
 {
-    public interface IAwsElasticFileSystemService : ILaunchPadDomainService
+    public interface IAwsElasticFileSystemService : ISystemIntegrationService
     {
         public IAwsElasticFileSystemHelper Helper { get; set; }
     }

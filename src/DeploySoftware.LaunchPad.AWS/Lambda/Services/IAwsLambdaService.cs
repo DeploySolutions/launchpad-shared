@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using DeploySoftware.LaunchPad.Core.Domain;
+using DeploySoftware.LaunchPad.Core.Core.Configuration;
 
-namespace DeploySoftware.LaunchPad.AWS.Lambda
+namespace DeploySoftware.LaunchPad.AWS.Lambda.Services
 {
-    public interface IAwsLambdaService : ILaunchPadDomainService
+    public interface IAwsLambdaService : ISystemIntegrationService
     {
         public IAwsLambdaHelper Helper { get; set; }
     }

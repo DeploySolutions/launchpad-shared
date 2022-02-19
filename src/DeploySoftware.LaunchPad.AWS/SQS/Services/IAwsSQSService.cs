@@ -5,10 +5,10 @@ using System.Text;
 using System.Threading.Tasks;
 using DeploySoftware.LaunchPad.Core.Domain;
 
-namespace DeploySoftware.LaunchPad.AWS.ApiGateway
+namespace DeploySoftware.LaunchPad.AWS.SQS.Services
 {
-    public interface IAwsApiGatewayService : ILaunchPadDomainService
+    public interface IAwsSQSService : ILaunchPadDomainService
     {
-        public IApiGatewayHelper Helper { get; set; }
+        public IAwsSQSHelper Helper { get; set; }
     }
 }

@@ -3,11 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using DeploySoftware.LaunchPad.Core.Domain;
 
-namespace DeploySoftware.LaunchPad.AWS.Redshift
+namespace DeploySoftware.LaunchPad.AWS.Redshift.Services
 {
-    public interface IAwsRedshiftService : ILaunchPadDomainService
+    public partial class AwsRedshiftService : IAwsRedshiftService
     {
         public IAwsRedshiftHelper Helper { get; set; }
     }
