@@ -53,7 +53,6 @@ namespace DeploySoftware.LaunchPad.Images.Tests
             // Create the default ImageMagick configuration, which also initializes the underlying ImageMagick utility
             string temporaryImagesFilePath = @"f:\data\launchpad\images\temp";
             MagickNET.SetTempDirectory(temporaryImagesFilePath);
-            MagickAnyCPU.CacheDirectory = temporaryImagesFilePath;
             string policyMap = @"
                 <policymap>
                    <policy domain=""resource"" name=""memory"" value=""3GiB""/> 
