@@ -15,7 +15,7 @@
 1.0.0: Initial release; basic manipulation logic for creating thumbnails from TIF files.</PackageReleaseNotes>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
-    <Version>3.4.1</Version>
+    <Version>3.4.2</Version>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <PackageIcon>icon.png</PackageIcon>
   </PropertyGroup>
@@ -60,7 +60,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Magick.NET-Q16-HDRI-AnyCPU" Version="9.1.2" />
+    <PackageReference Include="Magick.NET-Q16-AnyCPU" Version="9.1.2" />
+    <PackageReference Include="Magick.NET.Core" Version="9.1.2" />
   </ItemGroup>
 
 </Project>
