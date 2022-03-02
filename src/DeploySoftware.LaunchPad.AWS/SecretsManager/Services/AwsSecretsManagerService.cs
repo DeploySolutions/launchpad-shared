@@ -9,5 +9,14 @@ namespace DeploySoftware.LaunchPad.AWS.SecretsManager.Services
     public partial class AwsSecretsManagerService : IAwsSecretsManagerService
     {
         public IAwsSecretsManagerHelper Helper { get; set; }
+
+        protected AwsSecretsManagerService()
+        {
+        }
+
+        public AwsSecretsManagerService(IAwsSecretsManagerHelper helper)
+        {
+            Helper = helper;
+        }
     }
 }
