@@ -22,6 +22,12 @@ namespace DeploySoftware.LaunchPad.FileGeneration.Structure
         [JsonProperty("icon")]
         public string Icon { get; set; }
 
+        /// <summary>
+        /// Custom method called when they clicks on the button.
+        /// </summary>
+        [JsonProperty("function")]
+        public string Function { get; set; }
+
         public LaunchPadAction() : base()
         {
             Route = string.Empty;
