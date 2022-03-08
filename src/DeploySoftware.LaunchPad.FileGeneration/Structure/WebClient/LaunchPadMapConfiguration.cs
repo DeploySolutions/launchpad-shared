@@ -9,9 +9,9 @@ namespace DeploySoftware.LaunchPad.FileGeneration.Structure
     /// Represents a the map configuration in the application
     /// </summary>  
     [Serializable]
-    [XmlRoot(ElementName = "Map")]
+    [XmlRoot(ElementName = "MapConfiguration")]
     [JsonObject(MemberSerialization.OptIn)]
-    public partial class LaunchPadMap : LaunchPadWebClientObjectBase
+    public partial class LaunchPadMapConfiguration : LaunchPadWebClientObjectBase
     {
         /// <summary>
         /// Default location when the user deny the location permission
@@ -26,7 +26,7 @@ namespace DeploySoftware.LaunchPad.FileGeneration.Structure
         public string Token { get; set; }
 
 
-        public LaunchPadMap() : base()
+        public LaunchPadMapConfiguration() : base()
         {
         }
     }

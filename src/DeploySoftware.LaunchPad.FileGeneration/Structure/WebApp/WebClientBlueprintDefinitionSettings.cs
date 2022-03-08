@@ -24,7 +24,7 @@ namespace DeploySoftware.LaunchPad.FileGeneration.Structure
         /// </summary>
         [XmlElement]
         [JsonProperty]
-        public LaunchPadMap Map { get; set; }
+        public LaunchPadMapConfiguration Map { get; set; }
 
         /// <summary>
         /// The top section of the side navigation bar
