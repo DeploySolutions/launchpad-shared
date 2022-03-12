@@ -40,6 +40,12 @@ namespace DeploySoftware.LaunchPad.FileGeneration.Structure
         [XmlElement]
         public LaunchPadDetailView DetailView { get; set; }
 
+        /// <summary>
+        /// Detail view represents a view page for the details of an item in the domain eneity.
+        /// </summary>
+        [XmlElement]
+        public IList<LaunchPadMap> Maps { get; set; }
+
         public LaunchPadPage() : base()
         {
         }
