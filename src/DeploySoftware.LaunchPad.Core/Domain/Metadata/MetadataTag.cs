@@ -26,7 +26,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
 
 
     [Serializable()]
-    [Table("DSMetadataTag")]
+    [Table("DssMetadataTag")]
     public class MetadataTag : TagBase, ILaunchPadMetadataTag
     {
 
