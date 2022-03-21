@@ -55,7 +55,7 @@ namespace DeploySoftware.LaunchPad.Python
             string scriptResult = string.Empty;
             ProcessStartInfo start = new ProcessStartInfo();
             start.FileName = Python.InstallationFilePath;
-            start.Arguments = string.Format("\"{0}\" {1}", cmd, args);
+            start.Arguments = string.Format("{0} {1}", cmd, args);
             start.UseShellExecute = false;
             start.RedirectStandardOutput = true;
             using (Process process = Process.Start(start))
