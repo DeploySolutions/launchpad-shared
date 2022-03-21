@@ -5,52 +5,56 @@ using System.Diagnostics;
 using System.IO;
 using DeploySoftware.LaunchPad.Core.Util;
 using DeploySoftware.LaunchPad.Core.Configuration;
+using System.Threading.Tasks;
+using System.Collections.Generic;
 
 namespace DeploySoftware.LaunchPad.Python
 {
-    public class PythonScriptService : ISystemIntegrationService
+    public partial class PythonScriptService : ISystemIntegrationService
     {
         public virtual ILogger Logger { get; set; }
 
-        public string ScriptFolderPath { get; set; } = string.Empty;
+        public PythonScript Script { get; set; }
 
-        public string ScriptFileName { get; set; } = string.Empty;
+        public PythonInstallation Python { get; set; }
 
-        public string PythonInstallationFilePath { get; set; } = string.Empty;
-
-        public PythonVersion PythonVersion { get; set; } = PythonVersion.V3_9;
-
-        public PythonScriptService()
+        protected PythonScriptService()
         {
             Logger = NullLogger.Instance;
         }
 
-        public PythonScriptService(ILogger logger)
+        public PythonScriptService(ILogger logger, string pythonInstallationFilePath, string scriptFileName)
+        {
+            Logger = logger; 
+            Python = new PythonInstallation(pythonInstallationFilePath, PythonMajorVersion.Three, PythonMinorVersion.Eight);
+            Script = new PythonScript(scriptFileName);
+        }
+
+        public PythonScriptService(ILogger logger, string pythonInstallationFilePath, string scriptFileName, IDictionary<string,string> moduleFilePaths)
         {
             Logger = logger;
+            Python = new PythonInstallation(pythonInstallationFilePath, PythonMajorVersion.Three, PythonMinorVersion.Eight, moduleFilePaths);
+            Script = new PythonScript(scriptFileName);
         }
 
         public string GetTextFromScript(string args)
         {
-            Guard.Against<ArgumentNullException>(String.IsNullOrEmpty(ScriptFileName), "Python script filename must not be empty");
+            Guard.Against<ArgumentNullException>(String.IsNullOrEmpty(Script.FileName), "Python script filename must not be empty");
             Logger.Info("GetTextFromScript() started.");
-            if(!ScriptFileName.EndsWith(".py"))
+            
+            string cmd = Script.FileName; 
+            if (!string.IsNullOrEmpty(Script.FolderPath))
             {
-                ScriptFileName += ".py";
-            }
-            string cmd = ScriptFileName; 
-            if (!string.IsNullOrEmpty(ScriptFolderPath))
-            {
-                if(!ScriptFolderPath.EndsWith(Path.DirectorySeparatorChar))
+                if(!Script.FolderPath.EndsWith(Path.DirectorySeparatorChar))
                 {
-                    ScriptFolderPath += Path.DirectorySeparatorChar;
+                    Script.FolderPath += Path.DirectorySeparatorChar;
                 }
-                cmd.Insert(0, ScriptFolderPath); // add the folder to the beginning
+                cmd.Insert(0, Script.FolderPath); // add the folder to the beginning
             }
             
             string scriptResult = string.Empty;
             ProcessStartInfo start = new ProcessStartInfo();
-            start.FileName = PythonInstallationFilePath;
+            start.FileName = Python.InstallationFilePath;
             start.Arguments = string.Format("\"{0}\" {1}", cmd, args);
             start.UseShellExecute = false;
             start.RedirectStandardOutput = true;
