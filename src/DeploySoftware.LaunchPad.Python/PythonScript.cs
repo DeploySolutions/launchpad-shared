@@ -21,10 +21,14 @@ namespace DeploySoftware.LaunchPad.Python
                 {
                     _fileName = value + ".py";
                 }
+                else
+                {
+                    _fileName = value;
+                }
             }
         }
 
-        public PythonScript()
+        protected PythonScript()
         {
         }
 
