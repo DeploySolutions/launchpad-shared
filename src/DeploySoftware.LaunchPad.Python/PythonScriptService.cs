@@ -42,20 +42,15 @@ namespace DeploySoftware.LaunchPad.Python
             Guard.Against<ArgumentNullException>(String.IsNullOrEmpty(Script.FileName), "Python script filename must not be empty");
             Logger.Info("GetTextFromScript() started.");
             
-            string cmd = Script.FileName; 
-            if (!string.IsNullOrEmpty(Script.FolderPath))
-            {
-                if(!Script.FolderPath.EndsWith(Path.DirectorySeparatorChar))
-                {
-                    Script.FolderPath += Path.DirectorySeparatorChar;
-                }
-                cmd.Insert(0, Script.FolderPath); // add the folder to the beginning
-            }
-            
+            string cmd = Script.FileName;
+            Logger.Debug(string.Format("GetTextFromScript(), cmd is '{0}'", cmd));
+
             string scriptResult = string.Empty;
             ProcessStartInfo start = new ProcessStartInfo();
             start.FileName = Python.InstallationFilePath;
+            Logger.Debug(string.Format("GetTextFromScript(), Python.InstallationFilePath is '{0}'", Python.InstallationFilePath));
             start.Arguments = string.Format("{0} {1}", cmd, args);
+            Logger.Debug(string.Format("GetTextFromScript(), args is '{0}'", args));
             start.UseShellExecute = false;
             start.RedirectStandardOutput = true;
             using (Process process = Process.Start(start))
