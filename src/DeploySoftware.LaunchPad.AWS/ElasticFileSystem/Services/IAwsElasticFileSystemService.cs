@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using DeploySoftware.LaunchPad.Core.Core.Configuration;
+using DeploySoftware.LaunchPad.Core.Configuration;
 
 namespace DeploySoftware.LaunchPad.AWS.ElasticFileSystem.Services
 {
