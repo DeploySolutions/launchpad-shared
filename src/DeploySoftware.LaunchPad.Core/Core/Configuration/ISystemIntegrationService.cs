@@ -10,7 +10,7 @@ namespace DeploySoftware.LaunchPad.Core.Configuration
     /// <summary>
     /// Marker interface for integrating LaunchPad with some external service
     /// </summary>
-    public interface ISystemIntegrationService : ISingletonDependency
+    public interface ISystemIntegrationService : ITransientDependency
     {
     }
 }
