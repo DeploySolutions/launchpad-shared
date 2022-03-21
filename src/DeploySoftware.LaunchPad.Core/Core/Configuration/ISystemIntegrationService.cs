@@ -1,4 +1,5 @@
 ﻿using Abp.Dependency;
+using Castle.Core.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,5 +13,6 @@ namespace DeploySoftware.LaunchPad.Core.Configuration
     /// </summary>
     public interface ISystemIntegrationService : ITransientDependency
     {
+        public ILogger Logger { get; set; }
     }
 }
