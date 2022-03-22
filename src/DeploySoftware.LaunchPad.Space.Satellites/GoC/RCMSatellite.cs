@@ -26,12 +26,15 @@ namespace DeploySoftware.LaunchPad.Space.Satellites.GoC
     using System.Collections.Generic;
     using DeploySoftware.LaunchPad.Space.Satellites.Common;
     using DeploySoftware.LaunchPad.Organizations.Canada;
+    using Newtonsoft.Json;
 
-    public class RadarsatConstellationMissionSatellite<TPrimaryKey> : SatelliteBase<TPrimaryKey>
+    public class RCMSatellite<TPrimaryKey> : SatelliteBase<TPrimaryKey>
     {
-        protected RadarsatConstellationMissionSatellite(int? tenantId) : base()
+        
+        protected RCMSatellite(int? tenantId) : base()
         {
             Operators = new List<ISatelliteOperator<Guid>>() { new CanadaSpaceAgency(tenantId) as ISatelliteOperator<Guid> };
+
         }
     }
 }

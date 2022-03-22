@@ -28,10 +28,10 @@ namespace DeploySoftware.LaunchPad.Space.Satellites.GoC
     using System.ComponentModel.DataAnnotations.Schema;
     using Abp.Timing;
     using DeploySoftware.LaunchPad.Core.Domain;
-    using DeploySoftware.LaunchPad.Space.Satellites.Common;  
+    using DeploySoftware.LaunchPad.Space.Satellites.Common;
 
-    [Table("Radarsat1Observations")]
-    public class Radarsat1Observation<TPrimaryKey, TFileStorageLocationType> : EarthObservationBase<TPrimaryKey, TFileStorageLocationType>, 
+    [Table("DssRadarsat1Observations")]
+    public partial class Radarsat1Observation<TPrimaryKey, TFileStorageLocationType> : EarthObservationBase<TPrimaryKey, TFileStorageLocationType>,
         IRadarsatObservation<TPrimaryKey, TFileStorageLocationType>
         where TFileStorageLocationType : IFileStorageLocation, new()
     {
@@ -43,7 +43,7 @@ namespace DeploySoftware.LaunchPad.Space.Satellites.GoC
             Sart = 3,
             Tif = 4,
             Tfw = 5,
-            Vol = 6 
+            Vol = 6
         }
 
         [Required]
@@ -87,8 +87,15 @@ namespace DeploySoftware.LaunchPad.Space.Satellites.GoC
 
         [Required]
         public string PixelSpacing { get; set; }
-       
+
         public Radarsat1ObservationFiles Files { get; set; }
+
+        public Radarsat1Observation(
+           int? tenantId,
+           string sceneId)
+        {
+            SceneId = sceneId;
+        }
 
         public Radarsat1Observation(
            int? tenantId,
