@@ -11,5 +11,13 @@ namespace DeploySoftware.LaunchPad.Core.Configuration
     public abstract class SystemIntegrationServiceBase
     {
         public ILogger Logger { get; set; }
+
+        protected SystemIntegrationServiceBase() { }
+
+        public SystemIntegrationServiceBase(ILogger logger)
+        {
+            Logger = logger;
+        }
+
     }
 }
