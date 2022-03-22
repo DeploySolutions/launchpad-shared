@@ -30,7 +30,7 @@ namespace DeploySoftware.LaunchPad.Space.Satellites.GoC
     using DeploySoftware.LaunchPad.Core.Domain;
 
     [Serializable()]
-    public partial class RadarsatO2bservation<TPrimaryKey, TFileStorageLocationType> : EarthObservationBase<TPrimaryKey, TFileStorageLocationType>,
+    public partial class Radarsat2Observation<TPrimaryKey, TFileStorageLocationType> : EarthObservationBase<TPrimaryKey, TFileStorageLocationType>,
         IRadarsatObservation<TPrimaryKey, TFileStorageLocationType>
         where TFileStorageLocationType : IFileStorageLocation, new()
     {
@@ -49,12 +49,12 @@ namespace DeploySoftware.LaunchPad.Space.Satellites.GoC
         [JsonProperty("title")]
         public string Title { get; set; }
 
-        protected RadarsatO2bservation() : base()
+        protected Radarsat2Observation() : base()
         {
             CurrentLocation = new SpaceTimeInformation();
         }
 
-        public RadarsatO2bservation(string title) : base()
+        public Radarsat2Observation(string title) : base()
         {
             Title = title;
             CurrentLocation = new SpaceTimeInformation();
