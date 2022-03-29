@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DeploySoftware.LaunchPad.Space.Satellites.GoC
+namespace DeploySoftware.LaunchPad.Space.Satellites.GoC.EODMS
 {
     /// <summary>
     /// Lists the aerial and satellite imagery collections (publicly) available in 
