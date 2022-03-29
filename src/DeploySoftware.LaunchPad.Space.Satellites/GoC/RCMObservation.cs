@@ -30,27 +30,20 @@ namespace DeploySoftware.LaunchPad.Space.Satellites.GoC
     using DeploySoftware.LaunchPad.Core.Domain;
 
     [Serializable()]
-    public partial class RCMObservation<TPrimaryKey, TFileStorageLocationType> : EarthObservationBase<TPrimaryKey, TFileStorageLocationType>,
+    public partial class RCMObservation<TPrimaryKey, TFileStorageLocationType> : RadarsatObservationCommonMetadata<TPrimaryKey, TFileStorageLocationType>,
         IRadarsatObservation<TPrimaryKey, TFileStorageLocationType>
         where TFileStorageLocationType : IFileStorageLocation, new()
     {
-        [JsonProperty("recordId")]
-        public string RecordId { get; set; }
-
-        [JsonProperty("collectionId")]
-        public string CollectionId { get; set; }
-
-        [JsonProperty("overviewUrl")]
-        public Uri OverviewUrl { get; set; }
+        
 
         [JsonProperty("productId")]
         public string ProductId { get; set; }
 
-        [JsonProperty("incidenceAngle")]
-        public double IncidenceAngle { get; set; }
 
-        [JsonProperty("lookOrientation")]
-        public string LookOrientation { get; set; }
+        [JsonProperty("openData")]
+        public bool OpenData { get; set; } = false;
+
+       
 
         [JsonProperty("productDatum")]
         public string ProductDatum { get; set; }
@@ -58,20 +51,10 @@ namespace DeploySoftware.LaunchPad.Space.Satellites.GoC
         [JsonProperty("processorVersion")]
         public string ProcessorVersion { get; set; }
 
-        [JsonProperty("productType")]
-        public string ProductType { get; set; }
-
         [JsonProperty("sampledPixelSpacing")]
         public double SampledPixelSpacing { get; set; }
 
-        [JsonProperty("metadataFullUrl")]
-        public Uri MetadataFullUrl { get; set; }
-
-        [JsonProperty("publicGood")]
-        public bool PublicGood { get; set; } = false;
-
-        [JsonProperty("orbitDirection")]
-        public string OrbitDirection { get; set; }
+        
 
         [JsonProperty("clientOrderItemNumber")]
         public string ClientOrderItemNumber { get; set; }
@@ -79,9 +62,7 @@ namespace DeploySoftware.LaunchPad.Space.Satellites.GoC
         [JsonProperty("beamModeType")]
         public string BeamModeType { get; set; }
 
-        [JsonProperty("quicklookFullName")]
-        public string QuicklookFullName { get; set; }
-
+        
         [JsonProperty("geodeticTerrainHeight")]
         public double GeodeticTerrainHeight { get; set; }
 

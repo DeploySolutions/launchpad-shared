@@ -27,7 +27,7 @@ namespace DeploySoftware.LaunchPad.Space.Satellites.Landsat
     /// Marker interface for Sentinel satellite series observations
     /// </summary>
     /// <typeparam name="TPrimaryKey"></typeparam>
-    public interface ISentinelObservation<TPrimaryKey, TFileStorageLocationType> : IEarthObservation<TPrimaryKey, TFileStorageLocationType>
+    public interface ISentinel1Observation<TPrimaryKey, TFileStorageLocationType> : IEarthObservation<TPrimaryKey, TFileStorageLocationType>
         where TFileStorageLocationType : IFileStorageLocation, new()
     {
 
@@ -35,32 +35,10 @@ namespace DeploySoftware.LaunchPad.Space.Satellites.Landsat
 
         public string Bucket { get; set; }
 
-        public string MissionId { get; set; }
-
         public string ProductId { get; set; }
 
         public string ProductType { get; set; }
 
-        public string Resolution { get; set; }
-
-        public string Mode { get; set; }
-
-        public string Polarization { get; set; }
-
-        public long AbsoluteOrbitNumber { get; set; }
-
-        public long MissionDataTakeId { get; set; }
-
-        public string ProductUniqueIdentifier { get; set; }
-
-        public DateTime SciHubIngestion { get; set; }
-
-        public DateTime S3Ingestion { get; set; }
-
-        public Guid SciHubId { get; set; }
-        
-        // To DO Footprint object?
-        public JObject FootprintJson { get; set; }
 
         public string Version { get; set; }
 

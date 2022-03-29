@@ -30,22 +30,15 @@ namespace DeploySoftware.LaunchPad.Space.Satellites.GoC
     using DeploySoftware.LaunchPad.Core.Domain;
 
     [Serializable()]
-    public partial class Radarsat2Observation<TPrimaryKey, TFileStorageLocationType> : EarthObservationBase<TPrimaryKey, TFileStorageLocationType>,
+    public partial class Radarsat2Observation<TPrimaryKey, TFileStorageLocationType> : RadarsatObservationCommonMetadata<TPrimaryKey, TFileStorageLocationType>,
         IRadarsatObservation<TPrimaryKey, TFileStorageLocationType>
         where TFileStorageLocationType : IFileStorageLocation, new()
     {
-        [JsonProperty("recordId")]
-        public string RecordId { get; set; }
-
-        [JsonProperty("collectionId")]
-        public string CollectionId { get; set; }
-
+       
         [JsonProperty("productId")]
         public string ProductId { get; set; }
 
-        [JsonProperty("productType")]
-        public string ProductType { get; set; }
-
+        
         [JsonProperty("title")]
         public string Title { get; set; }
 
