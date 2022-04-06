@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
 using System.Xml.Serialization;
 
 namespace DeploySoftware.LaunchPad.FileGeneration.Structure
@@ -34,6 +35,13 @@ namespace DeploySoftware.LaunchPad.FileGeneration.Structure
         /// Name of the navigation menu, uses as a label
         /// </summary>
         public LaunchPadPage Page { get; set; }
+
+        /// <summary>
+        /// Nested page. This creates a submenu.
+        /// </summary>
+        [XmlElement]
+        [JsonProperty("submenu")]
+        public IList<LaunchPadNavigationItem> SubMenu { get; set; }
 
         public LaunchPadNavigationItem() : base()
         {

@@ -31,6 +31,12 @@ namespace DeploySoftware.LaunchPad.FileGeneration.Structure
         public string DataType { get; set; }
 
         /// <summary>
+        /// Number of column span for this field
+        /// </summary>
+        [JsonProperty("span")]
+        public int Span { get; set; }
+
+        /// <summary>
         /// Specific data field for composit items with latitude.
         /// </summary>
         [JsonProperty("latDataField")]

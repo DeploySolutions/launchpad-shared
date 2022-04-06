@@ -17,6 +17,12 @@ namespace DeploySoftware.LaunchPad.FileGeneration.Structure
         [JsonProperty("items")]
         public IList<LaunchPadWebItem> Items { get; set; }
 
+        /// <summary>
+        /// Number of row span
+        /// </summary>
+        [JsonProperty("span")]
+        public int Span { get; set; }
+
         public LaunchPadRow() : base()
         {
             Id = null;
