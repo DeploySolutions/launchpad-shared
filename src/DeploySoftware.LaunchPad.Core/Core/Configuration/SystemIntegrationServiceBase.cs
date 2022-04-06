@@ -1,4 +1,5 @@
-﻿using Castle.Core.Logging;
+﻿using Abp;
+using Castle.Core.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,9 +9,9 @@ using System.Threading.Tasks;
 namespace DeploySoftware.LaunchPad.Core.Configuration
 {
     [Serializable()]
-    public abstract class SystemIntegrationServiceBase
+    public abstract class SystemIntegrationServiceBase : AbpServiceBase, ISystemIntegrationService
     {
-        public ILogger Logger { get; set; }
+        public new ILogger Logger { get; set; }
 
         protected SystemIntegrationServiceBase() { }
 
