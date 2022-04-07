@@ -34,7 +34,7 @@ namespace DeploySoftware.LaunchPad.FileGeneration.Structure
         /// Number of column span for this field
         /// </summary>
         [JsonProperty("span")]
-        public int Span { get; set; }
+        public int? Span { get; set; }
 
         /// <summary>
         /// Specific data field for composit items with latitude.
