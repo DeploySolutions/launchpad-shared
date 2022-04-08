@@ -86,58 +86,92 @@ namespace DeploySoftware.LaunchPad.Core.Tests
         }
 
         [Fact]
-        public void Should_Match_Tokens()
+        public void Should_Match_TokenWithValue()
         {
-            string originalText = @"using System.Collections.Generic;
-                                    using System.ComponentModel.DataAnnotations.Schema;
-                                    using DeploySoftware.LaunchPad.Core.Domain;
-
-                                    namespace {{p:dss|n:domain_namespace}}
-                                    {
-                                        /// <summary>
-                                        /// {{p:dss|n:domain_entity_description}}
-                                        /// </summary>
-                                        {{p:dss|n:domain_entity_annotations}}
-                                        public class {{p:dss|n:domain_entity_name}} : {{p:dss|n:domain_entity_inherits_from|dv:IDomainEntity<TIdType>}}
-                                        {
-                                            /// <summary>
-                                            /// Creates a default {{p:dss|n:domain_entity_name}} entity
-                                            /// </summary>
-                                            public {{p:dss|n:domain_entity_name}}() : base()
-                                            {
-
-                                            }
-                                        }
-                                    }";
-            string expectedResult = @"using System.Collections.Generic;
-                                    using System.ComponentModel.DataAnnotations.Schema;
-                                    using DeploySoftware.LaunchPad.Core.Domain;
-
-                                    namespace Deploy.DeploymentGateway
-                                    {
-                                        /// <summary>
-                                        /// {{p:dss|n:domain_entity_description}}
-                                        /// </summary>
-                                        {{p:dss|n:domain_entity_annotations}}
-                                        public class {{p:dss|n:domain_entity_name}} : {{p:dss|n:domain_entity_inherits_from|dv:IDomainEntity<TIdType>}}
-                                        {
-                                            /// <summary>
-                                            /// Creates a default {{p:dss|n:domain_entity_name}} entity
-                                            /// </summary>
-                                            public {{p:dss|n:domain_entity_name}}() : base()
-                                            {
-
-                                            }
-                                        }
-                                    }";
+            string originalText = @"{{p:dss|n:domain_namespace|v:value}}";
+            string expectedResult = @"value";
             var token = new LaunchPadToken("{{p:dss|n:domain_namespace}}");
-            token.Value = "Deploy.DeploymentGateway";
+            token.Value = "value";
+            IDictionary<string, LaunchPadToken> tokens = new Dictionary<string, LaunchPadToken>();
+            tokens.Add(token.Name, token);
+            LaunchPadTokenizer tokenizer = new LaunchPadTokenizer();
+            tokenizer.Tokenize(originalText, tokens, true);
+            string ex = expectedResult.Trim().Replace("\r\n", string.Empty);
+            string act = tokenizer.TokenizedText.Trim().Replace("\r\n", string.Empty);
+            Assert.Equal(ex,act);
+
+        }
+
+        [Fact]
+        public void Should_Match_TokenWithDefaultValue()
+        {
+            string originalText = @"{{p:dss|n:domain_namespace|dv:value}}";
+            string expectedResult = @"value";
+            var token = new LaunchPadToken("{{p:dss|n:domain_namespace}}");
+            token.DefaultValue = "value";
+            IDictionary<string, LaunchPadToken> tokens = new Dictionary<string, LaunchPadToken>();
+            tokens.Add(token.Name, token);
+            LaunchPadTokenizer tokenizer = new LaunchPadTokenizer();
+            tokenizer.Tokenize(originalText, tokens, true);
+            string ex = expectedResult.Trim().Replace("\r\n", string.Empty);
+            string act = tokenizer.TokenizedText.Trim().Replace("\r\n", string.Empty);
+            Assert.Equal(ex, act);
+
+        }
+
+        [Fact]
+        public void Should_Match_TokenWithTags()
+        {
+            string originalText = @"{{p:dss|n:domain_namespace|tags:a=x;b=y;}} // should not change this: {{p:dss|n:domain_namespace|tags:a=x;b=z;}}";
+            string expectedResult = @"DeploySoftware.LaunchPad.Core.Tests // should not change this: {{p:dss|n:domain_namespace|tags:a=x;b=z;}}";
+            var token = new LaunchPadToken("{{p:dss|n:domain_namespace}}");
+            token.Tags.Add("a", "x");
+            token.Tags.Add("b", "y");
+            token.Value = "DeploySoftware.LaunchPad.Core.Tests";
             IDictionary<string, LaunchPadToken> tokens = new Dictionary<string, LaunchPadToken>();
             tokens.Add(token.Name, token);
             LaunchPadTokenizer tokenizer = new LaunchPadTokenizer();
             tokenizer.Tokenize(originalText, tokens);
-            Assert.Equal(expectedResult, tokenizer.TokenizedText);
+            string ex = expectedResult.Trim().Replace("\r\n", string.Empty);
+            string act = tokenizer.TokenizedText.Trim().Replace("\r\n", string.Empty);
+            Assert.Equal(ex, act);
 
+        }
+
+        [Fact]
+        public void Should_Match_TokenWith_Value_And_Tags()
+        {
+            string originalText = @"{{p:dss|n:domain_namespace|tags:a=x;b=y;|v:DeploySoftware.LaunchPad.Core.Tests}} // should not change this: {{p:dss|n:domain_namespace|tags:a=x;b=z;|v:no_match}}";
+            string expectedResult = @"DeploySoftware.LaunchPad.Core.Tests // should not change this: {{p:dss|n:domain_namespace|tags:a=x;b=z;|v:no_match}}";
+            var token = new LaunchPadToken("{{p:dss|n:domain_namespace}}");
+            token.Tags.Add("a", "x");
+            token.Tags.Add("b", "y");
+            token.Value = "DeploySoftware.LaunchPad.Core.Tests";
+            IDictionary<string, LaunchPadToken> tokens = new Dictionary<string, LaunchPadToken>();
+            tokens.Add(token.Name, token);
+            LaunchPadTokenizer tokenizer = new LaunchPadTokenizer();
+            tokenizer.Tokenize(originalText, tokens,true);
+            string ex = expectedResult.Trim().Replace("\r\n", string.Empty);
+            string act = tokenizer.TokenizedText.Trim().Replace("\r\n", string.Empty);
+            Assert.Equal(ex, act);
+        }
+
+        [Fact]
+        public void Should_Match_TokenWith_DefaultValue_And_Tags()
+        {
+            string originalText = @"{{p:dss|n:domain_namespace|tags:a=x;b=y;|dv:DeploySoftware.LaunchPad.Core.Tests}} // should not change this: {{p:dss|n:domain_namespace|tags:a=x;b=z;|v:no_match}}";
+            string expectedResult = @"DeploySoftware.LaunchPad.Core.Tests // should not change this: {{p:dss|n:domain_namespace|tags:a=x;b=z;|v:no_match}}";
+            var token = new LaunchPadToken("{{p:dss|n:domain_namespace}}");
+            token.Tags.Add("a", "x");
+            token.Tags.Add("b", "y");
+            token.DefaultValue = "DeploySoftware.LaunchPad.Core.Tests";
+            IDictionary<string, LaunchPadToken> tokens = new Dictionary<string, LaunchPadToken>();
+            tokens.Add(token.Name, token);
+            LaunchPadTokenizer tokenizer = new LaunchPadTokenizer();
+            tokenizer.Tokenize(originalText, tokens, true);
+            string ex = expectedResult.Trim().Replace("\r\n", string.Empty);
+            string act = tokenizer.TokenizedText.Trim().Replace("\r\n", string.Empty);
+            Assert.Equal(ex, act);
         }
 
     }

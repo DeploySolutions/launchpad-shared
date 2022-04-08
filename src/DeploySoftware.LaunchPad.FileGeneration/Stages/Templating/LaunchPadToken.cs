@@ -1,6 +1,7 @@
 ﻿using DeploySoftware.LaunchPad.Core;
 using DeploySoftware.LaunchPad.Core.Util;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
@@ -43,30 +44,60 @@ namespace DeploySoftware.LaunchPad.FileGeneration.Stages
         [DataObjectField(false)]
         [XmlAttribute]
         public string DefaultValue { get; set; }
+
+        /// <summary>
+        /// Optional key-value pair metadata for this token. 
+        /// Key and Value within a text token are prefixed by 'tags:' and separated by '='. Tags are separated by ';'
+        /// Example:  tags:Key1=Value1;Key2=Value2;
+        /// Dictionary is used to ensure a key only appears once. Case-insensitive comparer. 
+        /// </summary>
+        [DataObjectField(false)]
+        [XmlAttribute]
+        public IDictionary<string, string> Tags { get; set; }
+
         public LaunchPadToken()
         {
+            var comparer = StringComparer.OrdinalIgnoreCase;
+            Tags = new Dictionary<string, string>(comparer);
             Prefix = string.Empty;
             Name = string.Empty;
             Value = string.Empty;
             DefaultValue = string.Empty;
+
         }
         public LaunchPadToken(string tokenString)
         {
+            var comparer = StringComparer.OrdinalIgnoreCase;
+            Tags = new Dictionary<string, string>(comparer);
             Value = string.Empty;
+            DefaultValue = string.Empty;
             Validate(tokenString);
             Parse(tokenString);
         }
 
         public LaunchPadToken(string tokenString, string value)
         {
+            var comparer = StringComparer.OrdinalIgnoreCase;
+            Tags = new Dictionary<string, string>(comparer);
+            DefaultValue = string.Empty;
             Validate(tokenString);
             Parse(tokenString);
             Value = value;
         }
 
+        public LaunchPadToken(string tokenString, string value, IDictionary<string, string> tags)
+        {
+            var comparer = StringComparer.OrdinalIgnoreCase;
+            Tags = new Dictionary<string, string>(comparer);
+            Validate(tokenString);
+            Parse(tokenString);
+            Value = value;
+            Tags = tags;
+        }
+
         protected void Parse(string tokenString)
         {
-            string tokenInnerSections = tokenString.Substring(2, tokenString.Length - 4);
+            string tokenInnerSections = tokenString.Trim().Substring(2, tokenString.Length - 4);
             string[] tokens = tokenInnerSections.Split("|");
             foreach (string token in tokens)
             {
@@ -83,8 +114,47 @@ namespace DeploySoftware.LaunchPad.FileGeneration.Stages
                 {
                     DefaultValue = token.Substring(3); // overwrite the empty default value
                 }
+                if (token.StartsWith("v:"))
+                {
+                    Value = token.Substring(2);
+                }
+                if (token.StartsWith("tags:"))
+                {
+                    Tags = ParseTags(token.Substring(5));
+                }
             }
         }
+
+        /// <summary>
+        /// Parses a given token tags element and add its KVPs to the dictionary
+        /// Key and Value within a text token are prefixed by 'tags:' and separated by '='. Tags are separated by ';'
+        /// Example:  tags:Key1=Value1;Key2=Value2;
+        /// Therefore, we first split the tags up by ';', then the first element of each tag is the key and the second is the value.
+        /// </summary>
+        /// <param name="tokenTagsString">The token element</param>
+        /// <returns>A dictionary containing a set of tags for a particular token</returns>
+        protected IDictionary<string,string> ParseTags(string tokenTagsString)
+        {
+            var comparer = StringComparer.OrdinalIgnoreCase;
+            IDictionary<string, string> tokenTags = new Dictionary<string, string>(comparer);
+            if (!string.IsNullOrEmpty(tokenTagsString))
+            {
+                string[] tags = tokenTagsString.Split(";");
+                foreach (string tag in tags)
+                {
+                    if (!string.IsNullOrEmpty(tag))
+                    {
+                        string[] kvp = tag.Split("=");
+                        if (kvp.Length > 0)
+                        {
+                            tokenTags.Add(kvp[0], kvp[1]);
+                        }
+                    }
+                }
+            }
+            return tokenTags;
+        }
+
 
         protected void Validate(string tokenString)
         {
@@ -136,6 +206,16 @@ namespace DeploySoftware.LaunchPad.FileGeneration.Stages
             sb.Append(Prefix);
             sb.Append("|n:");
             sb.Append(Name);
+            if (Tags != null && Tags.Count > 0)
+            {
+                sb.Append("|tags:");
+                sb.Append(Tags.ToString());
+            }
+            if (!String.IsNullOrEmpty(Value))
+            {
+                sb.Append("|v:");
+                sb.Append(Value);
+            }
             if (!String.IsNullOrEmpty(DefaultValue))
             {
                 sb.Append("|dv:");

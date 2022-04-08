@@ -23,7 +23,7 @@ namespace DeploySoftware.LaunchPad.FileGeneration.Stages
             UnmatchedTokens = new Dictionary<string, LaunchPadToken>(comparer);
         }
 
-        public string Tokenize(string originalText, IDictionary<string, LaunchPadToken> tokens)
+        public string Tokenize(string originalText, IDictionary<string, LaunchPadToken> tokens, bool shouldMatchTokenValue = false)
         {
             Guard.Against<ArgumentException>(String.IsNullOrEmpty(originalText), DeploySoftware_LaunchPad_Core_Resources.Guard_LaunchPadTokenizer_ArgumentException_OriginalText);
             Guard.Against<ArgumentException>(tokens.Count == 0, DeploySoftware_LaunchPad_Core_Resources.Guard_LaunchPadTokenizer_ArgumentException_Tokens);
@@ -35,17 +35,45 @@ namespace DeploySoftware.LaunchPad.FileGeneration.Stages
             foreach (var token in tokens.Values)
             {
                 // Token examples:
-                // \{\{p:dss\|n:dss_comp_webportal_backend_Solution_Details_Name\}\}
-                // \{p:dss\|n:dss_comp_webportal_backend_Solution_Details_Name(?:\|dv:Test)?
-                // \{\{p:dss\|n:dss_comp_webportal_backend_Solution_Details_Name(?:\|dv:(?:Some other value|Web Portal))?\}\}
+                //{{p:dss|n:dss_comp_webportal_backend_Solution_Details_Name}}
+                //{{p:dss|n:dss_comp_webportal_backend_Solution_Details_Name|tags:a=x;}}
+                //{{p:dss|n:dss_comp_webportal_backend_Solution_Details_Name|tags:a=x;k2=v2;}}
+                //{{p:dss|n:dss_comp_webportal_backend_Solution_Details_Name|tags:a=x;k2=v2;|v:this}}
+                //{{p:dss|n:dss_comp_webportal_backend_Solution_Details_Name|tags:a=x;k2=v2;|v:that}}
+                //{{p:dss|n:dss_comp_webportal_backend_Solution_Details_Name|tags:a=x;k2=v2;|v:that|dv:that}}
+                //{{p:dss|n:dss_comp_webportal_backend_Solution_Details_Name|tags:b=y;k2=v2;}}
+                //{{p:fabrikant|n:dss_comp_webportal_backend_Solution_Details_Name|tags:a=y;k2=v4;}}
+                //
                 StringBuilder sbRegExp = new StringBuilder();
                 sbRegExp.Append(@"\{\{p:");
                 sbRegExp.Append(token.Prefix);
                 sbRegExp.Append(@"\|n:");
                 sbRegExp.Append(token.Name);
+                if (token.Tags != null && token.Tags.Count >0)
+                {
+                    sbRegExp.Append(@"((?:\|tags:((.*((?:((");
+                    StringBuilder sbTagTokenFormat = new StringBuilder();
+                    // generate the token tags format for the kvps
+                    foreach(var tag in token.Tags)
+                    {
+                        sbRegExp.Append(tag.Key);
+                        sbRegExp.Append("=");
+                        sbRegExp.Append(tag.Value);
+                        sbRegExp.Append(";");
+                    }
+                    sbRegExp.Append(@".*?)+))))+)))"); // match the token tags
+                }
+                if (shouldMatchTokenValue && !string.IsNullOrEmpty(token.Value))
+                {
+                    sbRegExp.Append(@"(?:\|v:(("); // start of the v: element
+                    sbRegExp.Append(token.Value);
+                    sbRegExp.Append(@".*?)+))"); // ending of the v: element
+                }
                 if (!string.IsNullOrEmpty(token.DefaultValue))
                 {
-                    sbRegExp.Append(@"(?:\|dv:(.*))?"); // match on any word inside the dv section, if present
+                    sbRegExp.Append(@"(?:\|dv:(("); // start of the dv: element
+                    sbRegExp.Append(token.DefaultValue);
+                    sbRegExp.Append(@".*?)+))"); // ending of the dv: element
                 }
                 sbRegExp.Append(@"\}\}");
                 //string regexPattern = Regex.Escape(sbRegExp.ToString());
