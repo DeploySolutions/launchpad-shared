@@ -29,7 +29,6 @@ namespace DeploySoftware.LaunchPad.FileGeneration.Structure
         /// <summary>
         /// The abbreviation of the object (if any)
         /// </summary>
-        [JsonProperty("abbreviation")]
         [JsonConverter(typeof(LocalizedJsonConverter<string>))]
         public virtual string Abbreviation { get; set; } = string.Empty;
 

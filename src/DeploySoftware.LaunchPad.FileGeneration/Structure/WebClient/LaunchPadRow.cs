@@ -21,7 +21,7 @@ namespace DeploySoftware.LaunchPad.FileGeneration.Structure
         /// Number of row span
         /// </summary>
         [JsonProperty("span")]
-        public int Span { get; set; }
+        public int? Span { get; set; }
 
         public LaunchPadRow() : base()
         {
