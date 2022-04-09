@@ -28,16 +28,12 @@ namespace DeploySoftware.LaunchPad.Core.Domain
     using System.Xml.Serialization;
 
     /// <summary>
-    /// Marks any object as a Domain Entity that can be manipulated by the LaunchPad platform.
-    /// Each entity is uniquely identified by its DomainEntityKey, and contains a 
-    /// set of <see cref="MetadataInformation">MetadataInformation</see>.
-    /// Each entity also implements ASP.NET Boilerplate's IEntity interface.
+    /// Marks any object that can be manipulated by the LaunchPad platfom as a transient / value object,
+    /// ie. those that are not Domain Entities / have no specific identity, and are not persisted to database 
     /// </summary>
-    public interface IDomainEntity<TIdType> : 
-        ILaunchPadObject, ILaunchPadBaseProperties<TIdType>, IEntity<TIdType>,
-        IHasCreationTime, ICreationAudited, IHasModificationTime, IModificationAudited, IDeletionAudited,
-        ISoftDelete, IPassivable,
-        IComparable<DomainEntityBase<TIdType>>, IEquatable<DomainEntityBase<TIdType>>
+    public interface ILaunchPadValueObject<TIdType> : 
+        ILaunchPadObject, ILaunchPadBaseProperties<TIdType>,
+        IComparable<DomainEntityBase<TIdType>>
     {
 
 
