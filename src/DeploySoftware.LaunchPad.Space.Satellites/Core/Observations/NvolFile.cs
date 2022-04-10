@@ -1,4 +1,4 @@
-﻿//LaunchPad Shared
+﻿//LaunchPad Space
 // Copyright (c) 2018-2020 Deploy Software Solutions, inc. 
 
 #region license
@@ -15,25 +15,23 @@
 //limitations under the License. 
 #endregion
 
-namespace DeploySoftware.LaunchPad.Space.Tests
+
+
+namespace DeploySoftware.LaunchPad.Space.Satellites.Core
 {
-    using DeploySoftware.LaunchPad.Space.Satellites.GoC;
     using DeploySoftware.LaunchPad.Core.Domain;
-    using System;
 
-    public class Radarsat1MetadataFileFixture : IDisposable
+    public partial class NvolFile<TPrimaryKey, TFileStorageLocationType> : FileBase<TPrimaryKey, byte[], TFileStorageLocationType>
+        where TFileStorageLocationType : IFileStorageLocation, new()
     {
-        public Radarsat1ObservationScene<Guid, WindowsFileStorageLocation> Observation { get; set; }
-
-        public void Initialize(string radarsat1MetadataFilename)
+        public override string Extension
         {
-            Radarsat1MetadataParser<Guid, WindowsFileStorageLocation> parser = new Radarsat1MetadataParser<Guid, WindowsFileStorageLocation>();
-            Observation = parser.GetRadarsat1ObservationFromMetadataFile(radarsat1MetadataFilename);
+            get { return ".nvol"; }
         }
 
-        public void Dispose()
+        public NvolFile() :base()
         {
-
         }
+
     }
 }
