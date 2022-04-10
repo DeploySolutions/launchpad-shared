@@ -11,7 +11,7 @@ using System.Xml.Serialization;
 namespace DeploySoftware.LaunchPad.Core.Domain
 {
     /// <summary>
-    /// Defines the minimum (read-only) properties LaunchPad expects to have for a Domain Entity or Value Object. 
+    /// Defines the minimum properties LaunchPad expects to have for a Domain Entity or Value Object. 
     /// Note these deliberately correspond 1:1 to many of the properties found in various ABP domain entity interfaces, which would also be inherited by implementing classes. 
     /// </summary>
     /// <typeparam name="TIdType"></typeparam>
@@ -24,7 +24,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         [MaxLength(5, ErrorMessageResourceName = "Validation_Culture_5CharsOrLess", ErrorMessageResourceType = typeof(DeploySoftware_LaunchPad_Core_Resources))]
         [DataObjectField(true)]
         [XmlAttribute]
-        public String Culture { get; }
+        public String Culture { get; set; }
 
 
         /// <summary>
@@ -34,7 +34,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         [MaxLength(100, ErrorMessageResourceName = "Validation_Name_100CharsOrLess", ErrorMessageResourceType = typeof(DeploySoftware_LaunchPad_Core_Resources))]
         [DataObjectField(false)]
         [XmlAttribute]
-        public String Name { get; }
+        public String Name { get; set; }
 
         /// <summary>
         /// The external ID stored in a client system (if any). Can be any type on client system, but retained here as text.
@@ -42,7 +42,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         [MaxLength(36, ErrorMessageResourceName = "Validation_ExternalId_36CharsOrLess", ErrorMessageResourceType = typeof(DeploySoftware_LaunchPad_Core_Resources))]
         [DataObjectField(false)]
         [XmlAttribute]
-        public String ExternalId { get; }
+        public String ExternalId { get; set; }
 
         /// <summary>
         /// A short description for this value object
@@ -51,7 +51,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         [MaxLength(256, ErrorMessageResourceName = "Validation_DescriptionShort_256CharsOrLess", ErrorMessageResourceType = typeof(DeploySoftware_LaunchPad_Core_Resources))]
         [DataObjectField(false)]
         [XmlAttribute]
-        public String DescriptionShort { get; }
+        public String DescriptionShort { get; set; }
 
         /// <summary>
         /// The full description for this value object
@@ -59,21 +59,21 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         [MaxLength(8096, ErrorMessageResourceName = "Validation_DescriptionFull_8096CharsOrLess", ErrorMessageResourceType = typeof(DeploySoftware_LaunchPad_Core_Resources))]
         [DataObjectField(false)]
         [XmlElement]
-        public string? DescriptionFull { get; }
+        public string? DescriptionFull { get; set; }
 
         /// <summary>
         /// The sequence number for this value object, if any (for sorting and ordering purposes). Defaults to 0 if not set.
         /// </summary>
         [DataObjectField(false)]
         [XmlElement]
-        public Int32 SeqNum { get; }
+        public Int32 SeqNum { get; set; }
 
         /// <summary>
         /// Each value object can have an open-ended set of tags applied to it, that help users find, markup, and display its information
         /// </summary>
         [DataObjectField(false)]
         [XmlAttribute]
-        public IEnumerable<MetadataTag> Tags { get; }
+        public IEnumerable<MetadataTag> Tags { get; set; }
 
 
         /// <summary>
@@ -82,18 +82,18 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         /// </summary>
         [DataObjectField(true)]
         [XmlAttribute]
-        public TIdType TranslatedFromId { get; }
+        public TIdType TranslatedFromId { get; set; }
 
         [DataObjectField(false)]
         [XmlAttribute]
-        public bool IsActive { get; }
+        public bool IsActive { get; set; }
 
         /// <summary>
         /// Used for preserving deletion time for a domain entity, obviously a Value Object can't be deleted.
         /// </summary>
         [DataObjectField(false)]
         [XmlElement]
-        public DateTime? DeletionTime { get; }
+        public DateTime? DeletionTime { get; set; }
 
         /// <summary>
         /// The id of the user which deleted. Used for preserving information for a domain entity, obviously a Value Object can't be deleted.
@@ -101,7 +101,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         [DataObjectField(false)]
         [XmlAttribute]
         [ForeignKey(nameof(DeleterUserId))]
-        public long? DeleterUserId { get; }
+        public long? DeleterUserId { get; set; }
 
 
         /// <summary>
@@ -109,15 +109,15 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         /// </summary>
         [DataObjectField(false)]
         [XmlElement]
-        public bool IsDeleted { get; }
+        public bool IsDeleted { get; set; }
 
         [DataObjectField(false)]
         [XmlElement]
-        public DateTime? LastModificationTime { get; }
+        public DateTime? LastModificationTime { get; set; }
 
         [DataObjectField(false)]
         [XmlElement]
-        public DateTime CreationTime { get; }
+        public DateTime CreationTime { get; set; }
 
         /// <summary>
         /// The id of the User Agent which created this value object
@@ -125,7 +125,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         [DataObjectField(false)]
         [XmlAttribute]
         [ForeignKey(nameof(CreatorUserId))]
-        public long? CreatorUserId { get; }
+        public long? CreatorUserId { get; set; }
 
         /// <summary>
         /// The id of the User Agent which last modified this object.
@@ -133,6 +133,6 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         [DataObjectField(false)]
         [XmlAttribute]
         [ForeignKey(nameof(LastModifierUserId))]
-        public Int64? LastModifierUserId { get; }
+        public Int64? LastModifierUserId { get; set; }
     }
 }

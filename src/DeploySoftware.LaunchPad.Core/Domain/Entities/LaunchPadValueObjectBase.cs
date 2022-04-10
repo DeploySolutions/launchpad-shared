@@ -53,7 +53,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         [MaxLength(5, ErrorMessageResourceName = "Validation_Culture_5CharsOrLess", ErrorMessageResourceType = typeof(DeploySoftware_LaunchPad_Core_Resources))]
         [DataObjectField(true)]
         [XmlAttribute]
-        public virtual String Culture { get; }
+        public virtual String Culture { get; set; }
 
 
         /// <summary>
@@ -63,7 +63,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         [MaxLength(100, ErrorMessageResourceName = "Validation_Name_100CharsOrLess", ErrorMessageResourceType = typeof(DeploySoftware_LaunchPad_Core_Resources))]
         [DataObjectField(false)]
         [XmlAttribute]
-        public virtual String Name { get; }
+        public virtual String Name { get; set; }
 
         /// <summary>
         /// The external ID stored in a client system (if any). Can be any type on client system, but retained here as text.
@@ -71,7 +71,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         [MaxLength(36, ErrorMessageResourceName = "Validation_ExternalId_36CharsOrLess", ErrorMessageResourceType = typeof(DeploySoftware_LaunchPad_Core_Resources))]
         [DataObjectField(false)]
         [XmlAttribute]
-        public virtual String ExternalId { get; }
+        public virtual String ExternalId { get; set; }
 
         /// <summary>
         /// A short description for this value object
@@ -80,7 +80,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         [MaxLength(256, ErrorMessageResourceName = "Validation_DescriptionShort_256CharsOrLess", ErrorMessageResourceType = typeof(DeploySoftware_LaunchPad_Core_Resources))]
         [DataObjectField(false)]
         [XmlAttribute]
-        public virtual String DescriptionShort { get;}
+        public virtual String DescriptionShort { get; set; }
 
         /// <summary>
         /// The full description for this value object
@@ -88,21 +88,21 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         [MaxLength(8096, ErrorMessageResourceName = "Validation_DescriptionFull_8096CharsOrLess", ErrorMessageResourceType = typeof(DeploySoftware_LaunchPad_Core_Resources))]
         [DataObjectField(false)]
         [XmlElement]
-        public virtual string? DescriptionFull { get;}
+        public virtual string? DescriptionFull { get; set; }
 
         /// <summary>
         /// The sequence number for this value object, if any (for sorting and ordering purposes). Defaults to 0 if not set.
         /// </summary>
         [DataObjectField(false)]
         [XmlElement]
-        public virtual Int32 SeqNum { get; } = 0;
+        public virtual Int32 SeqNum { get; set; } = 0;
 
         /// <summary>
         /// Each value object can have an open-ended set of tags applied to it, that help users find, markup, and display its information
         /// </summary>
         [DataObjectField(false)]
         [XmlAttribute]
-        public virtual IEnumerable<MetadataTag> Tags { get; }
+        public virtual IEnumerable<MetadataTag> Tags { get; set; }
 
 
         /// <summary>
@@ -111,18 +111,18 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         /// </summary>
         [DataObjectField(true)]
         [XmlAttribute]
-        public virtual TIdType TranslatedFromId { get; }
+        public virtual TIdType TranslatedFromId { get; set; }
 
         [DataObjectField(false)]
         [XmlAttribute]
-        public virtual bool IsActive { get; } = true;
+        public virtual bool IsActive { get; set; } = true;
 
         /// <summary>
         /// Used for preserving deletion time for a domain entity, obviously a Value Object can't be deleted.
         /// </summary>
         [DataObjectField(false)]
         [XmlElement]
-        public virtual DateTime? DeletionTime { get;}
+        public virtual DateTime? DeletionTime { get; set; }
 
         /// <summary>
         /// The id of the user which deleted. Used for preserving information for a domain entity, obviously a Value Object can't be deleted.
@@ -130,7 +130,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         [DataObjectField(false)]
         [XmlAttribute]
         [ForeignKey(nameof(DeleterUserId))]
-        public virtual long? DeleterUserId { get; }
+        public virtual long? DeleterUserId { get; set; }
 
 
         /// <summary>
@@ -138,15 +138,15 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         /// </summary>
         [DataObjectField(false)]
         [XmlElement]
-        public virtual bool IsDeleted { get; } = false;
+        public virtual bool IsDeleted { get; set; } = false;
 
         [DataObjectField(false)]
         [XmlElement]
-        public virtual DateTime? LastModificationTime { get; }
+        public virtual DateTime? LastModificationTime { get; set; }
 
         [DataObjectField(false)]
         [XmlElement]
-        public virtual DateTime CreationTime { get; }
+        public virtual DateTime CreationTime { get; set; }
 
         /// <summary>
         /// The id of the User Agent which created this value object
@@ -154,7 +154,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         [DataObjectField(false)]
         [XmlAttribute]
         [ForeignKey(nameof(CreatorUserId))]
-        public virtual long? CreatorUserId { get; }
+        public virtual long? CreatorUserId { get; set; }
 
         /// <summary>
         /// The id of the User Agent which last modified this object.
@@ -162,7 +162,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         [DataObjectField(false)]
         [XmlAttribute]
         [ForeignKey(nameof(LastModifierUserId))]
-        public virtual Int64? LastModifierUserId { get;}
+        public virtual Int64? LastModifierUserId { get; set; }
 
         /// <summary>
         /// A convenience readonly method to get a <see cref="CultureInfo">CultureInfo</see> instance from the current 
