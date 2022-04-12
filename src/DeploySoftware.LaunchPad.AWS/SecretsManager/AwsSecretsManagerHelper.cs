@@ -25,7 +25,7 @@ namespace DeploySoftware.LaunchPad.AWS.SecretsManager
 
         [JsonIgnore]
         public IAmazonSecretsManager SecretClient { get; set; }
-        public AwsCommonHelper AwsCommonHelper { get; set; }
+        public AwsHelperBase AwsCommonHelper { get; set; }
 
         public AwsSecretsManagerHelper() : base()
         {

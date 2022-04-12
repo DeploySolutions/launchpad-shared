@@ -1,4 +1,5 @@
-﻿using DeploySoftware.LaunchPad.Core.Configuration;
+﻿using Castle.Core.Logging;
+using DeploySoftware.LaunchPad.Core.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,11 +12,15 @@ namespace DeploySoftware.LaunchPad.AWS.SecretsManager.Services
     {
         public IAwsSecretsManagerHelper Helper { get; set; }
 
-        protected AwsSecretsManagerService()
+        protected AwsSecretsManagerService() :base()
         {
         }
+        public AwsSecretsManagerService(ILogger logger) :base(logger)
+        {
+            Helper = new AwsSecretsManagerHelper();
+        }
 
-        public AwsSecretsManagerService(IAwsSecretsManagerHelper helper)
+        public AwsSecretsManagerService(ILogger logger, IAwsSecretsManagerHelper helper) : base(logger)
         {
             Helper = helper;
         }

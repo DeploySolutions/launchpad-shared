@@ -1,4 +1,5 @@
-﻿using DeploySoftware.LaunchPad.Core.Util;
+﻿using Castle.Core.Logging;
+using DeploySoftware.LaunchPad.Core.Util;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,8 +8,15 @@ using System.Threading.Tasks;
 
 namespace DeploySoftware.LaunchPad.AWS.Lambda
 {
-    public partial class AwsLambdaHelper : HelperBase, IAwsLambdaHelper
+    public partial class AwsLambdaHelper : AwsHelperBase, IAwsLambdaHelper
     {
-        public AwsCommonHelper AwsCommonHelper { get; set; }
+        public AwsLambdaHelper() : base()
+        {
+        }
+
+        public AwsLambdaHelper(ILogger logger) : base(logger)
+        {
+
+        }
     }
 }

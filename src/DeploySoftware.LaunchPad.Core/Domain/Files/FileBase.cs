@@ -28,7 +28,6 @@ namespace DeploySoftware.LaunchPad.Core.Domain
     public abstract partial class FileBase<TIdType, TFileContentType, TFileStorageLocationType> : DomainEntityBase<TIdType>, 
         IFile<TIdType, TFileContentType, TFileStorageLocationType>
         where TFileStorageLocationType: IFileStorageLocation, new()
-        where TFileContentType : class
     {
 
         /// <summary>

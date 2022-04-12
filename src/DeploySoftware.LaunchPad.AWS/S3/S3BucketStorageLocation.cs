@@ -18,12 +18,13 @@
 using DeploySoftware.LaunchPad.Core.Domain;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Runtime.Serialization;
 using System.Xml.Serialization;
 
-namespace DeploySoftware.LaunchPad.AWS
+namespace DeploySoftware.LaunchPad.AWS.S3
 {
     [Owned]
     public partial class S3BucketStorageLocation : FileStorageLocationBase
@@ -41,7 +42,7 @@ namespace DeploySoftware.LaunchPad.AWS
 
         [DataObjectField(false)]
         [XmlAttribute]
-        public virtual string Prefix { get; set; }
+        public virtual string BasePrefix { get; set; }
 
 
         /// <summary>
@@ -88,12 +89,12 @@ namespace DeploySoftware.LaunchPad.AWS
         /// <param name="region">The region in which the bucket will be created.</param>
         /// <param name="bucketRoot">the URI root of the bucket</param>
         /// <param name="bucketName">The globally-unique name of the bucket</param>
-        public S3BucketStorageLocation(string region, string bucketName, string prefix) : base()
+        public S3BucketStorageLocation(string region, string bucketName, string basePrefix = "") : base()
         {
             Region = region;
             BucketName = bucketName;
             RootPath = new Uri("https://s3." + Region + ".amazonaws.com/" + bucketName);
-            Prefix = prefix;
+            BasePrefix = basePrefix;
         }
 
         /// <summary>
@@ -105,7 +106,7 @@ namespace DeploySoftware.LaunchPad.AWS
         {
             Region = info.GetString(Region);
             BucketName = info.GetString(BucketName);
-            Prefix = info.GetString(Prefix); 
+            BasePrefix = info.GetString(BasePrefix); 
             
         }
 
@@ -114,7 +115,7 @@ namespace DeploySoftware.LaunchPad.AWS
             base.GetObjectData(info, context);
             info.AddValue("Region", Region);
             info.AddValue("BucketName", BucketName);
-            info.AddValue("Prefix", Prefix);
+            info.AddValue("BasePrefix", BasePrefix);
         }
 
     }

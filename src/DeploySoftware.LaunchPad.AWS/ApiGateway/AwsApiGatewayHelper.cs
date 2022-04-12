@@ -17,10 +17,8 @@ using System.Threading.Tasks;
 
 namespace DeploySoftware.LaunchPad.AWS
 {
-    public partial class AwsApiGatewayHelper : HelperBase, IAwsApiGatewayHelper
+    public partial class AwsApiGatewayHelper : AwsHelperBase, IAwsApiGatewayHelper
     {
-
-        public AwsCommonHelper AwsCommonHelper { get; set; }
 
         public string OAuthBaseUrl { get; set; }
         public string OAuthTokenEndpoint { get; set; }

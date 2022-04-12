@@ -1,4 +1,6 @@
-﻿using DeploySoftware.LaunchPad.Core.Util;
+﻿using Amazon;
+using Amazon.Runtime;
+using DeploySoftware.LaunchPad.Core.Util;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +11,11 @@ namespace DeploySoftware.LaunchPad.AWS
 {
     public interface IAwsHelper : IHelper
     {
-        public AwsCommonHelper AwsCommonHelper { get; set; }
+        public RegionEndpoint Region { get; set; }
+
+        public AWSCredentials GetAwsCredentials(string awsProfileName);
+
+        public RegionEndpoint GetRegionEndpoint(string awsRegionEndpointSystemName);
+
     }
 }

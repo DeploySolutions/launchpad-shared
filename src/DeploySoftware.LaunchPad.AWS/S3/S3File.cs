@@ -5,10 +5,9 @@ using System.ComponentModel;
 using System.Text;
 using System.Xml.Serialization;
 
-namespace DeploySoftware.LaunchPad.AWS
+namespace DeploySoftware.LaunchPad.AWS.S3
 {
     public partial class S3File<TIdType, TFileContentType> : FileBase<TIdType, TFileContentType, S3BucketStorageLocation>
-        where TFileContentType: class
     {
         /// <summary>
         /// The full path of the file
@@ -19,7 +18,7 @@ namespace DeploySoftware.LaunchPad.AWS
         {
             get
             {
-                return Location.Prefix + "/" + Name;
+                return Location.BasePrefix + "/" + Name;
             }
         }
 
@@ -32,7 +31,7 @@ namespace DeploySoftware.LaunchPad.AWS
         {
             get
             {
-                return new Uri("https://" + Location.BucketName + ".s3.amazonaws.com/" + Location.Prefix + "/" + Name.Replace(" ","+"));
+                return new Uri("https://" + Location.BucketName + ".s3.amazonaws.com/" + Location.BasePrefix + "/" + Name.Replace(" ","+"));
             }
         }
 
@@ -45,7 +44,7 @@ namespace DeploySoftware.LaunchPad.AWS
         {
             get
             {
-                return new Uri("https://s3." + Location.Region + ".amazonaws.com/" + Location.BucketName + "/" + Location.Prefix + "/" + Name.Replace(" ", "+"));
+                return new Uri("https://s3." + Location.Region + ".amazonaws.com/" + Location.BucketName + "/" + Location.BasePrefix + "/" + Name.Replace(" ", "+"));
             }
         }
 

@@ -1,4 +1,5 @@
-﻿using DeploySoftware.LaunchPad.Core.Util;
+﻿using Castle.Core.Logging;
+using DeploySoftware.LaunchPad.Core.Util;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,8 +8,15 @@ using System.Threading.Tasks;
 
 namespace DeploySoftware.LaunchPad.AWS.Redshift
 {
-    public partial class AwsRedshiftHelper : HelperBase, IAwsRedshiftHelper
+    public partial class AwsRedshiftHelper : AwsHelperBase, IAwsRedshiftHelper
     {
-        public AwsCommonHelper AwsCommonHelper { get; set; }
+        public AwsRedshiftHelper() : base()
+        {
+        }
+
+        public AwsRedshiftHelper(ILogger logger) : base(logger)
+        {
+
+        }
     }
 }

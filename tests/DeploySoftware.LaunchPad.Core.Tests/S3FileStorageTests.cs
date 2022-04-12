@@ -19,6 +19,7 @@
 namespace DeploySoftware.LaunchPad.Core.Tests
 {
     using DeploySoftware.LaunchPad.AWS;
+    using DeploySoftware.LaunchPad.AWS.S3;
     using DeploySoftware.LaunchPad.Core.Domain;
     using FluentAssertions;
     using Xunit;

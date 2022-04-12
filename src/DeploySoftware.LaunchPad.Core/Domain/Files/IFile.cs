@@ -27,7 +27,6 @@ namespace DeploySoftware.LaunchPad.Core.Domain
     /// </summary>
     public interface IFile<TPrimaryKey, TFileContentType, TFileStorageLocationType> : ILaunchPadObject
         where TFileStorageLocationType : IFileStorageLocation
-        where TFileContentType : class
     {
         [DataObjectField(false)]
         [XmlAttribute]

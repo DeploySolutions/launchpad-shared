@@ -9,25 +9,25 @@ using System.Text;
 
 namespace DeploySoftware.LaunchPad.AWS
 {
-    public abstract partial class AwsCommonHelper : HelperBase
+    public abstract partial class AwsHelperBase : HelperBase, IAwsHelper
     {
 
         protected const string DefaultRegionName = "us-east-1";
 
         public RegionEndpoint Region { get; set; }
 
-        public AwsCommonHelper() : base()
+        public AwsHelperBase() : base()
         {
             Region = GetRegionEndpoint(DefaultRegionName);
         }
 
-        public AwsCommonHelper(ILogger logger) : base(logger)
+        public AwsHelperBase(ILogger logger) : base(logger)
         {
             Region = GetRegionEndpoint(DefaultRegionName);
         }
 
 
-        public AwsCommonHelper(string awsRegionEndpointName, ILogger logger) : base(logger)
+        public AwsHelperBase(string awsRegionEndpointName, ILogger logger) : base(logger)
         {
             _logger = logger; 
             Region = GetRegionEndpoint(awsRegionEndpointName);
