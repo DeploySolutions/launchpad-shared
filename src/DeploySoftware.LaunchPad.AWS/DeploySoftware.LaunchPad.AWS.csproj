@@ -10,19 +10,22 @@
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageProjectUrl>https://github.com/DeploySolutions/launchpad-shared</PackageProjectUrl>
     <RepositoryUrl>https://github.com/DeploySolutions/launchpad-shared</RepositoryUrl>
-    <Version>0.4.5</Version>
+    <Version>0.5.0</Version>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <PackageIcon>icon.png</PackageIcon>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="AWSSDK.ElasticFileSystem" Version="3.7.4.6" />
+    <PackageReference Include="AWSSDK.S3" Version="3.7.8.18" />
     <PackageReference Include="AWSSDK.SecretsManager" Version="3.7.2.5" />
     <PackageReference Include="AWSSDK.SimpleNotificationService" Version="3.7.3.24" />
     <PackageReference Include="AWSSDK.SQS" Version="3.7.2.21" />
     <PackageReference Include="AwsSignatureVersion4" Version="2.1.1" />
     <PackageReference Include="Castle.Core" Version="4.4.1" />
+    <PackageReference Include="DeploySoftware.LaunchPad.Core" Version="5.7.1-alpha" />
     <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="5.0.0" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="RestSharp" Version="107.3.0" />
   </ItemGroup>

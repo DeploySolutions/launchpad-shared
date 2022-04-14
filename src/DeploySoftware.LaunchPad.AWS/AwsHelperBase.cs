@@ -16,6 +16,8 @@ namespace DeploySoftware.LaunchPad.AWS
 
         public RegionEndpoint Region { get; set; }
 
+        public string AwsProfileName { get; set; } = string.Empty;
+
         public AwsHelperBase() : base()
         {
             Region = GetRegionEndpoint(DefaultRegionName);
@@ -29,16 +31,18 @@ namespace DeploySoftware.LaunchPad.AWS
 
         public AwsHelperBase(string awsRegionEndpointName, ILogger logger) : base(logger)
         {
-            _logger = logger; 
+            Logger = logger; 
             Region = GetRegionEndpoint(awsRegionEndpointName);
         }
 
         public AWSCredentials GetAwsCredentials(string awsProfileName)
-        {
+        {            
             var chain = new CredentialProfileStoreChain();
             AWSCredentials creds;
-            if (chain.TryGetAWSCredentials(awsProfileName, out creds))
+            bool didGetCredentials = chain.TryGetAWSCredentials(awsProfileName, out creds);
+            if (didGetCredentials)
             {
+                AwsProfileName = awsProfileName;
                 Console.WriteLine("AWS credentials created");
             }
             return creds;
@@ -72,7 +76,7 @@ namespace DeploySoftware.LaunchPad.AWS
                 region = RegionEndpoint.GetBySystemName(DefaultRegionName);
             }
 
-            _logger.Info(string.Format(DeploySoftware_LaunchPad_AWS_Resources.SecretHelper_GetRegionEndpoint_Logger_Info_RegionName, region.DisplayName, region.SystemName));
+            Logger.Info(string.Format(DeploySoftware_LaunchPad_AWS_Resources.SecretHelper_GetRegionEndpoint_Logger_Info_RegionName, region.DisplayName, region.SystemName));
             return region;
         }
     }

@@ -72,7 +72,68 @@ namespace DeploySoftware.LaunchPad.AWS.S3.Services
             return responseBody;
         }
 
-        
+        public async Task<bool> SaveFileToBucketAsync(string bucketName, string s3KeyName, string s3Prefix = "", string contentType =@"text\plain")
+        {
+
+            try
+            {
+                var putRequest = new PutObjectRequest
+                {
+                    BucketName = bucketName,
+                    Key = s3KeyName,
+                    FilePath = s3Prefix,
+                    ContentBody = contentType
+                };
+
+                PutObjectResponse response = await S3Client.PutObjectAsync(putRequest);
+
+            }
+            catch (AmazonS3Exception e)
+            {
+                Console.WriteLine(
+                        "Error encountered ***. Message:'{0}' when writing an object"
+                        , e.Message);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(
+                    "Unknown encountered on server. Message:'{0}' when writing an object"
+                    , e.Message);
+            }
+            return true;
+        }
+
+        public async Task<bool> SaveFileToBucketWithMetadataAsync(string bucketName, string s3KeyName, IDictionary<string,string> metadata, string s3Prefix = "", string contentType = @"text\plain")
+        {
+            try
+            {
+                var putRequest = new PutObjectRequest
+                {
+                    BucketName = bucketName,
+                    Key = s3KeyName,
+                    FilePath = s3Prefix,
+                    ContentType = contentType
+                };
+                foreach(var item in metadata)
+                {
+                    putRequest.Metadata.Add(item.Key,item.Value);
+                }
+                PutObjectResponse response = await S3Client.PutObjectAsync(putRequest);
+            }
+            catch (AmazonS3Exception e)
+            {
+                Console.WriteLine(
+                        "Error encountered ***. Message:'{0}' when writing an object"
+                        , e.Message);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(
+                    "Unknown encountered on server. Message:'{0}' when writing an object"
+                    , e.Message);
+            }
+            return true;
+        }
 
     }
 }

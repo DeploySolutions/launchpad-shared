@@ -128,7 +128,7 @@ namespace DeploySoftware.LaunchPad.Core.Configuration
         /// <returns>A SQL connection string</returns>
         public async virtual Task<string> GetDbConnectionStringFromSecretAsync(string secretVaultIdentifier, string connectionStringFieldName)
         {
-            _logger.Info(string.Format("Getting DB Connection string from Secrets Manager for secret ARN {0}", secretVaultIdentifier));
+            Logger.Info(string.Format("Getting DB Connection string from Secrets Manager for secret ARN {0}", secretVaultIdentifier));
             string connectionStringJson = await GetJsonFromSecretAsync(secretVaultIdentifier);
             string connectionString = String.Empty;
 
@@ -152,11 +152,11 @@ namespace DeploySoftware.LaunchPad.Core.Configuration
                 }
                 catch (JsonReaderException jEx)
                 {
-                    _logger.Error(string.Format("An exception was thrown while attempting to GetDbConnectionStringFromSecret for ARN: {0}. The message was {1}.", secretVaultIdentifier, jEx.Message));
+                    Logger.Error(string.Format("An exception was thrown while attempting to GetDbConnectionStringFromSecret for ARN: {0}. The message was {1}.", secretVaultIdentifier, jEx.Message));
                 }
             }
             Console.WriteLine("AWS connection string: " + connectionString);
-            _logger.Info(string.Format("Got DB Connection string from Secrets Manager for secret ARN {0}", secretVaultIdentifier));
+            Logger.Info(string.Format("Got DB Connection string from Secrets Manager for secret ARN {0}", secretVaultIdentifier));
             return connectionString;
         }
 

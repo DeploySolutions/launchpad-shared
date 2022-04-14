@@ -96,7 +96,7 @@ namespace DeploySoftware.LaunchPad.AWS
         {
             Guard.Against<ArgumentNullException>(String.IsNullOrEmpty(secretArn), DeploySoftware_LaunchPad_AWS_Resources.ApiGatewayHelper_SecretArn_Is_NullOrEmpty);
             Guard.Against<ArgumentNullException>(OAuthClient == null, DeploySoftware_LaunchPad_AWS_Resources.ApiGatewayHelper_MakeApiGatewayRequest_RestClient_Is_Null);
-            _logger.Info(string.Format(DeploySoftware_LaunchPad_AWS_Resources.ApiGatewayHelper_GetOAuthTokenUsingSecretCredentials_Getting, OAuthTokenEndpoint, OAuthBaseUrl, secretArn));
+            Logger.Info(string.Format(DeploySoftware_LaunchPad_AWS_Resources.ApiGatewayHelper_GetOAuthTokenUsingSecretCredentials_Getting, OAuthTokenEndpoint, OAuthBaseUrl, secretArn));
             TemporaryAccessToken token = null;
 
             string accessToken = string.Empty;
@@ -145,10 +145,10 @@ namespace DeploySoftware.LaunchPad.AWS
                 DateTime expiryTime = DateTime.UtcNow.AddSeconds(token.ExpiresIn);
                 token.ExpiryDateTime = expiryTime;
 
-                _logger.Debug(string.Format(DeploySoftware_LaunchPad_AWS_Resources.ApiGatewayHelper_GetOAuthTokenUsingSecretCredentials_AccessToken, token.TokenType, token.ExpiresIn, token.AccessToken));
+                Logger.Debug(string.Format(DeploySoftware_LaunchPad_AWS_Resources.ApiGatewayHelper_GetOAuthTokenUsingSecretCredentials_AccessToken, token.TokenType, token.ExpiresIn, token.AccessToken));
 
             }
-            _logger.Info(string.Format(DeploySoftware_LaunchPad_AWS_Resources.ApiGatewayHelper_GetOAuthTokenUsingSecretCredentials_Got, OAuthTokenEndpoint, OAuthBaseUrl, secretArn));
+            Logger.Info(string.Format(DeploySoftware_LaunchPad_AWS_Resources.ApiGatewayHelper_GetOAuthTokenUsingSecretCredentials_Got, OAuthTokenEndpoint, OAuthBaseUrl, secretArn));
 
             return token;
         }
@@ -165,7 +165,7 @@ namespace DeploySoftware.LaunchPad.AWS
             Guard.Against<ArgumentNullException>(String.IsNullOrEmpty(secretArn), DeploySoftware_LaunchPad_AWS_Resources.ApiGatewayHelper_SecretArn_Is_NullOrEmpty);
             Guard.Against<ArgumentNullException>(ApiRestClient == null, DeploySoftware_LaunchPad_AWS_Resources.ApiGatewayHelper_MakeApiGatewayRequest_RestClient_Is_Null);
             Guard.Against<ArgumentNullException>(String.IsNullOrEmpty(request.Resource), DeploySoftware_LaunchPad_AWS_Resources.ApiGatewayHelper_MakeApiGatewayRequest_Request_Resource_Is_NullOrEmpty);
-            _logger.Info(string.Format(DeploySoftware_LaunchPad_AWS_Resources.Logger_Info_ExecuteApiGatewayRequest_Executing, request.Method.ToString(), ApiBaseUrl, request.Resource));
+            Logger.Info(string.Format(DeploySoftware_LaunchPad_AWS_Resources.Logger_Info_ExecuteApiGatewayRequest_Executing, request.Method.ToString(), ApiBaseUrl, request.Resource));
 
             if (Token == null)
             {
@@ -192,18 +192,18 @@ namespace DeploySoftware.LaunchPad.AWS
             RestResponse response = await ApiRestClient.ExecuteAsync(request);
             if (response.IsSuccessful)
             {
-                _logger.Info(string.Format("Request succeeded. Status code: {0}. CorrelationId: {1}", response.StatusCode,correlationId));
+                Logger.Info(string.Format("Request succeeded. Status code: {0}. CorrelationId: {1}", response.StatusCode,correlationId));
             }
             else
             {
-                _logger.Error(string.Format("Request failed with status code {0}. Reason: {1}. CorrelationId: {2}", 
+                Logger.Error(string.Format("Request failed with status code {0}. Reason: {1}. CorrelationId: {2}", 
                                 response.StatusCode,
                                 response.ErrorException.Message,
                                 correlationId),
                         response.ErrorException)
                 ;
             }
-            _logger.Info(string.Format(DeploySoftware_LaunchPad_AWS_Resources.Logger_Info_ExecuteApiGatewayRequest_Executed, request.Method.ToString(), ApiBaseUrl, request.Resource, response.StatusCode));
+            Logger.Info(string.Format(DeploySoftware_LaunchPad_AWS_Resources.Logger_Info_ExecuteApiGatewayRequest_Executed, request.Method.ToString(), ApiBaseUrl, request.Resource, response.StatusCode));
             return response;
         }
 

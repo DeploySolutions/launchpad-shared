@@ -37,11 +37,11 @@ namespace DeploySoftware.LaunchPad.Core.Util
             if(!dictionary.ContainsKey(key))
             {
                 dictionary.TryAdd(key, item);
-                _logger.Debug(string.Format(DeploySoftware_LaunchPad_Core_Resources.Logger_Info_ItemAdded, item));
+                Logger.Debug(string.Format(DeploySoftware_LaunchPad_Core_Resources.Logger_Info_ItemAdded, item));
             }
             else
             {
-                _logger.Debug(string.Format(DeploySoftware_LaunchPad_Core_Resources.Logger_Info_ItemAlreadyExists, item));
+                Logger.Debug(string.Format(DeploySoftware_LaunchPad_Core_Resources.Logger_Info_ItemAlreadyExists, item));
             }           
             return dictionary;
         }

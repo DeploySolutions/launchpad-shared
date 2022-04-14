@@ -61,6 +61,15 @@ namespace DeploySoftware.LaunchPad.Core {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Connection string is {0}..
+        /// </summary>
+        public static string Debug_GetDbConnectionStringFromSecret {
+            get {
+                return ResourceManager.GetString("Debug_GetDbConnectionStringFromSecret", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Attempting to clear session state for session {1}.
         /// </summary>
         public static string Debug_HttpSessionState_Clear {

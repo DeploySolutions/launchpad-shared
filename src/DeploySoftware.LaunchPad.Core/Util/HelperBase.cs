@@ -1,22 +1,30 @@
 ﻿using Castle.Core.Logging;
+using DeploySoftware.LaunchPad.Core.Configuration;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Hosting;
 using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
+using System.Threading.Tasks;
 
 namespace DeploySoftware.LaunchPad.Core.Util
 {
     public abstract class HelperBase : IHelper
+        
     {
-        protected ILogger _logger = NullLogger.Instance;
+        public ILogger Logger { get; set; } = NullLogger.Instance;
+
         protected HelperBase()
         {
+
         }
 
         protected HelperBase(ILogger logger)
         {
-            _logger = logger;
+            Logger = logger;
         }
 
         /// <summary>
@@ -47,6 +55,7 @@ namespace DeploySoftware.LaunchPad.Core.Util
             }
             return description;
         }
+
 
     }
 }
