@@ -52,13 +52,15 @@ namespace DeploySoftware.LaunchPad.Core.Domain.SoftwareApplications
         {
             Logger = logger;
             _hostEnvironment = hostEnvironment;
+            _secretHelper = new TSecretHelper();
         }
 
         public LaunchPadAbpModuleHelperBase(IConfigurationRoot appConfig, ILogger logger, IHostEnvironment hostEnvironment)
         {
             Logger = logger;
             _appConfiguration = appConfig;
-            _hostEnvironment = hostEnvironment;
+            _hostEnvironment = hostEnvironment; 
+            _secretHelper = new TSecretHelper();
         }
 
 
