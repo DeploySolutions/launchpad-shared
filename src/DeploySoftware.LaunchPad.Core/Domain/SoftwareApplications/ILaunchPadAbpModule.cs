@@ -12,11 +12,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain.SoftwareApplications
         where TSecretVault : SecretVaultBase, new()
         where TSecretProvider : SecretProviderBase<TSecretVault>, new()
     {
-        public string HangfireDatabaseConnectionString { get; set; }
-
-        public string DefaultDatabaseConnectionString { get; set; }
-
-
+        
         public TSecretProvider SecretProvider { get; }
 
     }
