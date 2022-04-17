@@ -7,17 +7,19 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace DeploySoftware.LaunchPad.Core.AbpModuleConfig
 {
-    public abstract class LaunchPadAbpModuleHelperBase<TSecretHelper, TSecretVault> : HelperBase, ILaunchPadAbpModuleHelper<TSecretHelper, TSecretVault> 
+    public abstract class LaunchPadAbpModuleHelperBase<TSecretHelper, TSecretVault> : HelperBase, 
+        ILaunchPadAbpModuleHelper<TSecretHelper, TSecretVault> 
         where TSecretHelper : ISecretHelper, new()
         where TSecretVault : SecretVaultBase, new()
     {
 
-        protected IHostEnvironment _hostEnvironment;
+        protected readonly IHostEnvironment _hostEnvironment;
         public IHostEnvironment HostEnvironment
         {
             get
@@ -26,12 +28,12 @@ namespace DeploySoftware.LaunchPad.Core.AbpModuleConfig
             }
         }
 
-        protected IConfigurationRoot _appConfiguration;
+        protected readonly IConfigurationRoot _configurationRoot;
         public IConfigurationRoot ConfigurationRoot
         {
             get
             {
-                return _appConfiguration;
+                return _configurationRoot;
             }
         }
 
@@ -46,23 +48,11 @@ namespace DeploySoftware.LaunchPad.Core.AbpModuleConfig
             }
         }
 
-        public LaunchPadAbpModuleHelperBase()
-        {
-            Logger = NullLogger.Instance;
-            _secretHelper = new TSecretHelper();
-        }
 
-        public LaunchPadAbpModuleHelperBase(ILogger logger, IHostEnvironment hostEnvironment)
+        public LaunchPadAbpModuleHelperBase(ILogger logger, IHostEnvironment hostEnvironment, IConfigurationRoot configurationRoot)
         {
             Logger = logger;
-            _hostEnvironment = hostEnvironment;
-            _secretHelper = new TSecretHelper();
-        }
-
-        public LaunchPadAbpModuleHelperBase(ILogger logger, IHostEnvironment hostEnvironment, IConfigurationRoot appConfig)
-        {
-            Logger = logger;
-            _appConfiguration = appConfig;
+            _configurationRoot = configurationRoot;
             _hostEnvironment = hostEnvironment; 
             _secretHelper = new TSecretHelper();
         }
@@ -70,7 +60,6 @@ namespace DeploySoftware.LaunchPad.Core.AbpModuleConfig
 
         public virtual void PreInitialize()
         {
-
         }
 
         public virtual void PostInitialize()
@@ -94,7 +83,7 @@ namespace DeploySoftware.LaunchPad.Core.AbpModuleConfig
         {
             Guard.Against<InvalidOperationException>(_secretHelper == null, "_secretHelper is null.");
             Guard.Against<InvalidOperationException>(_hostEnvironment == null, "_hostingEnvironment is null.");
-            Guard.Against<InvalidOperationException>(_appConfiguration == null, "_appConfiguration is null.");
+            Guard.Against<InvalidOperationException>(_configurationRoot == null, "_appConfiguration is null.");
             Console.WriteLine("LaunchPadAbpModuleHelper.GetDatabaseConnectionString().");
 
             // check whether to use local db or AWS RDS
@@ -106,7 +95,7 @@ namespace DeploySoftware.LaunchPad.Core.AbpModuleConfig
                 Console.WriteLine("Is Development = true and enableLocalDeveloperSecretsValue = true.");
                 Console.WriteLine("Is Development: Getting connection string from local developer's User Secrets: " + connectionStringFieldName);
 
-                databaseConnectionString = _appConfiguration.GetSection("ConnectionStrings").GetSection(connectionStringFieldName).Value;
+                databaseConnectionString = _configurationRoot.GetSection("ConnectionStrings").GetSection(connectionStringFieldName).Value;
                 Console.WriteLine("Connection string for development is " + databaseConnectionString);
             }
             else
@@ -179,13 +168,14 @@ namespace DeploySoftware.LaunchPad.Core.AbpModuleConfig
         /// <returns></returns>
         public virtual string GetSecretVaultIdentifierFromSetting(string settingName)
         {
-            string secretVaultIdentifier = _appConfiguration.GetSection(settingName).Value;
+            string secretVaultIdentifier = _configurationRoot.GetSection(settingName).Value;
             return secretVaultIdentifier;
         }
 
-        public IDictionary<string, TSecretVault> GetSecretVaults<TModule, TSecretProvider>()
-            where TModule : ILaunchPadAbpModule<TSecretHelper, TSecretVault, TSecretProvider>
+        public IDictionary<string, TSecretVault> GetSecretVaults<TModule, TSecretProvider, TAbpModuleHelper>()
+            where TModule : ILaunchPadAbpModule<TSecretHelper, TSecretVault, TSecretProvider, TAbpModuleHelper>
             where TSecretProvider : SecretProviderBase<TSecretVault>, new()
+            where TAbpModuleHelper : ILaunchPadAbpModuleHelper<TSecretHelper, TSecretVault>
         {
             Dictionary<string, TSecretVault> secretVaults = null;
             try

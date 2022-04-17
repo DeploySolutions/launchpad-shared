@@ -11,11 +11,12 @@ using System.Reflection;
 namespace DeploySoftware.LaunchPad.Core.AbpModuleConfig
 {
     [Serializable()]
-    public abstract class LaunchPadAbpModuleBase<TSecretHelper, TSecretVault, TSecretProvider, TAbpModuleHelper> : AbpModule, ILaunchPadAbpModule<TSecretHelper, TSecretVault, TSecretProvider>
+    public abstract class LaunchPadAbpModuleBase<TSecretHelper, TSecretVault, TSecretProvider, TAbpModuleHelper> : AbpModule, 
+        ILaunchPadAbpModule<TSecretHelper, TSecretVault, TSecretProvider, TAbpModuleHelper>
         where TSecretHelper : ISecretHelper, new()
         where TSecretVault : SecretVaultBase, new()
         where TSecretProvider : SecretProviderBase<TSecretVault>, new()
-        where TAbpModuleHelper: ILaunchPadAbpModuleHelper<TSecretHelper, TSecretVault>, new()
+        where TAbpModuleHelper: ILaunchPadAbpModuleHelper<TSecretHelper, TSecretVault>
     {
         protected IHostEnvironment _hostEnvironment;
         public IHostEnvironment HostEnvironment
@@ -37,39 +38,29 @@ namespace DeploySoftware.LaunchPad.Core.AbpModuleConfig
 
         protected TAbpModuleHelper _abpModuleHelper;
 
-        public TAbpModuleHelper AbpModuleHelper { get { return _abpModuleHelper; } }
+        public TAbpModuleHelper AbpModuleHelper { 
+            get { return _abpModuleHelper; }
+            set { _abpModuleHelper = value; }
+        }
 
         protected TSecretProvider _secretProvider;
         public TSecretProvider SecretProvider { get { return _secretProvider; } }
 
-        public LaunchPadAbpModuleBase()
+        protected LaunchPadAbpModuleBase()
         {
-            Logger = NullLogger.Instance;
-            _abpModuleHelper = new TAbpModuleHelper();
-            _secretProvider = new TSecretProvider();
         }
 
-        public LaunchPadAbpModuleBase(ILogger logger, IHostEnvironment hostEnvironment)
+        public LaunchPadAbpModuleBase(ILogger logger, IHostEnvironment hostEnvironment, IConfigurationRoot configurationRoot)
         {
             Logger = logger;
+            _appConfiguration = configurationRoot;
             _hostEnvironment = hostEnvironment;
-            _abpModuleHelper = new TAbpModuleHelper();
-            _secretProvider = new TSecretProvider();
-        }
-
-        public LaunchPadAbpModuleBase(ILogger logger, IHostEnvironment hostEnvironment, IConfigurationRoot appConfig)
-        {
-            Logger = logger;
-            _appConfiguration = appConfig;
-            _hostEnvironment = hostEnvironment;
-            _abpModuleHelper = new TAbpModuleHelper();
             _secretProvider = new TSecretProvider();
         }
 
         public override void PreInitialize()
         {
-            base.PreInitialize();
-            _abpModuleHelper.PreInitialize();            
+            base.PreInitialize();        
         }
 
         public override void Initialize()
