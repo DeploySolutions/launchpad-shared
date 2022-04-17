@@ -49,6 +49,14 @@ namespace DeploySoftware.LaunchPad.Core.AbpModuleConfig
             _secretProvider = new TSecretProvider();
         }
 
+        public LaunchPadAbpModuleBase(ILogger logger, IHostEnvironment hostEnvironment)
+        {
+            Logger = logger;
+            _hostEnvironment = hostEnvironment;
+            _abpModuleHelper = new TAbpModuleHelper();
+            _secretProvider = new TSecretProvider();
+        }
+
         public LaunchPadAbpModuleBase(ILogger logger, IHostEnvironment hostEnvironment, IConfigurationRoot appConfig)
         {
             Logger = logger;
