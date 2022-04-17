@@ -46,6 +46,11 @@ namespace DeploySoftware.LaunchPad.Core.AbpModuleConfig
             }
         }
 
+        public LaunchPadAbpModuleHelperBase()
+        {
+            Logger = NullLogger.Instance;
+            _secretHelper = new TSecretHelper();
+        }
 
         public LaunchPadAbpModuleHelperBase(ILogger logger, IHostEnvironment hostEnvironment)
         {
@@ -54,7 +59,7 @@ namespace DeploySoftware.LaunchPad.Core.AbpModuleConfig
             _secretHelper = new TSecretHelper();
         }
 
-        public LaunchPadAbpModuleHelperBase(IConfigurationRoot appConfig, ILogger logger, IHostEnvironment hostEnvironment)
+        public LaunchPadAbpModuleHelperBase(ILogger logger, IHostEnvironment hostEnvironment, IConfigurationRoot appConfig)
         {
             Logger = logger;
             _appConfiguration = appConfig;
@@ -62,8 +67,6 @@ namespace DeploySoftware.LaunchPad.Core.AbpModuleConfig
             _secretHelper = new TSecretHelper();
         }
 
-
-        
 
         public virtual void PreInitialize()
         {
