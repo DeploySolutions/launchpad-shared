@@ -1,5 +1,5 @@
 ﻿using Castle.Core.Logging;
-using DeploySoftware.LaunchPad.Core.Configuration;
+using DeploySoftware.LaunchPad.Core.AbpModuleConfig;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Newtonsoft.Json;

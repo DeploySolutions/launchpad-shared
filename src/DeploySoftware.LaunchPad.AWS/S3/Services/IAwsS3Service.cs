@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Amazon.S3;
 using Amazon.S3.Transfer;
-using DeploySoftware.LaunchPad.Core.Configuration;
+using DeploySoftware.LaunchPad.Core.Application;
 
 namespace DeploySoftware.LaunchPad.AWS.S3.Services
 {

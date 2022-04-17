@@ -34,6 +34,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
     using System.Linq;
     using Newtonsoft.Json;
     using Abp.Domain.Values;
+    using DeploySoftware.LaunchPad.Core.Domain.SoftwareApplications;
 
     /// <summary>
     /// Base class for transient / value objects, ie. those that are not Domain Entities.

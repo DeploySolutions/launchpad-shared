@@ -1,8 +1,8 @@
-﻿using DeploySoftware.LaunchPad.Core.Configuration;
+﻿
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace DeploySoftware.LaunchPad.Core.Domain.SoftwareApplications
+namespace DeploySoftware.LaunchPad.Core.AbpModuleConfig
 {
     public partial interface ILaunchPadAbpModuleHelper<TSecretHelper, TSecretVault>
         where TSecretHelper : ISecretHelper, new()

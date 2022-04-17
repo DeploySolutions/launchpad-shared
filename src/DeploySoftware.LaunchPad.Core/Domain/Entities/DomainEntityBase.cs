@@ -33,6 +33,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
     using System.Collections.Generic;
     using System.Linq;
     using Newtonsoft.Json;
+    using DeploySoftware.LaunchPad.Core.Domain.SoftwareApplications;
 
     /// <summary>
     /// Base class for Entities. Implements <see cref="IDomainEntity">IDomainEntity</see> and provides

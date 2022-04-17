@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace DeploySoftware.LaunchPad.Core.Configuration
+namespace DeploySoftware.LaunchPad.Core.AbpModuleConfig
 {
     public interface ISecretVault
     {

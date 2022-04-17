@@ -4,7 +4,7 @@ using System;
 using System.Diagnostics;
 using System.IO;
 using DeploySoftware.LaunchPad.Core.Util;
-using DeploySoftware.LaunchPad.Core.Configuration;
+using DeploySoftware.LaunchPad.Core.Application;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 

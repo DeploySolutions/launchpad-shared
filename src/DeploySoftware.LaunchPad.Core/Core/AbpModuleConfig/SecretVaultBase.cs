@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace DeploySoftware.LaunchPad.Core.Configuration
+namespace DeploySoftware.LaunchPad.Core.AbpModuleConfig
 {
     public abstract partial class SecretVaultBase : ISecretVault
     {

@@ -1,6 +1,5 @@
 ﻿using Abp.Dependency;
 using Castle.Core.Logging;
-using DeploySoftware.LaunchPad.Core.Configuration;
 using DeploySoftware.LaunchPad.Core.Util;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
@@ -11,7 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DeploySoftware.LaunchPad.Core.Domain.SoftwareApplications
+namespace DeploySoftware.LaunchPad.Core.AbpModuleConfig
 {
     public abstract class LaunchPadAbpModuleHelperBase<TSecretHelper, TSecretVault> : HelperBase, ILaunchPadAbpModuleHelper<TSecretHelper, TSecretVault> 
         where TSecretHelper : ISecretHelper, new()

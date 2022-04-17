@@ -8,6 +8,7 @@ using System.Runtime.Serialization;
 using System.Security.Permissions;
 using System.Text;
 using System.Xml.Serialization;
+using DeploySoftware.LaunchPad.Core.Domain.SoftwareApplications;
 
 namespace DeploySoftware.LaunchPad.Core.Application.Dto
 {

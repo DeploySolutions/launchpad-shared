@@ -1,4 +1,4 @@
-﻿using DeploySoftware.LaunchPad.Core.Configuration;
+﻿using DeploySoftware.LaunchPad.Core.AbpModuleConfig;
 using System;
 using System.Collections.Generic;
 using System.Linq;

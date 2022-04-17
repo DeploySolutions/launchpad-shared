@@ -1,5 +1,6 @@
 ﻿using Abp.Domain.Entities;
 using DeploySoftware.LaunchPad.Core.Domain;
+using DeploySoftware.LaunchPad.Core.Domain.SoftwareApplications;
 using System;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;

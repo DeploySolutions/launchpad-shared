@@ -26,7 +26,7 @@ using System.Text;
 using System.Xml.Serialization;
 
 
-namespace DeploySoftware.LaunchPad.Core.Domain
+namespace DeploySoftware.LaunchPad.Core.Domain.SoftwareApplications
 {
     /// <summary>
     /// Base class for tenant-specific information

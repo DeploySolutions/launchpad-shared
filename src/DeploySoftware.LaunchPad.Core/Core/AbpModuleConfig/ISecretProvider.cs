@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DeploySoftware.LaunchPad.Core.Configuration
+namespace DeploySoftware.LaunchPad.Core.AbpModuleConfig
 {
     public interface ISecretProvider<TSecretVault>
         where TSecretVault : SecretVaultBase, new()

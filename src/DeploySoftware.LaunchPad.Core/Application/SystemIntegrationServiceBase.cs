@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DeploySoftware.LaunchPad.Core.Configuration
+namespace DeploySoftware.LaunchPad.Core.Application
 {
     [Serializable()]
     public abstract class SystemIntegrationServiceBase : AbpServiceBase, ISystemIntegrationService

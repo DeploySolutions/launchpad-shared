@@ -16,7 +16,7 @@
 #endregion
 
 
-namespace DeploySoftware.LaunchPad.Core.Domain
+namespace DeploySoftware.LaunchPad.Core.Domain.SoftwareApplications
 {
     using System;
     using System.ComponentModel;
