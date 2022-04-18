@@ -24,7 +24,7 @@ namespace DeploySoftware.LaunchPad.FileGeneration.Stages
             UnmatchedTokens = new Dictionary<string, LaunchPadToken>(comparer);
         }
 
-        public string Tokenize(string originalText, IDictionary<string, LaunchPadToken> tokens, bool shouldMatchTokenValue = false, ILogger logger = null)
+        public string Tokenize(string originalText, IDictionary<string, LaunchPadToken> tokens, bool shouldMatchTokenValue = false, ILogger logger = null, bool shouldLogTokens = false)
         {
             Guard.Against<ArgumentException>(String.IsNullOrEmpty(originalText), DeploySoftware_LaunchPad_Core_Resources.Guard_LaunchPadTokenizer_ArgumentException_OriginalText);
             Guard.Against<ArgumentException>(tokens.Count == 0, DeploySoftware_LaunchPad_Core_Resources.Guard_LaunchPadTokenizer_ArgumentException_Tokens);
@@ -49,7 +49,6 @@ namespace DeploySoftware.LaunchPad.FileGeneration.Stages
             //
             foreach (var token in tokens.Values)
             {
-                logger.Debug(string.Format("LaunchPadTokenizer.Tokenize() => processing token '{0}'.", token.Name));
                 StringBuilder sbRegExp = new StringBuilder();
                 sbRegExp.Append(@"\{\{p:");
                 sbRegExp.Append(token.Prefix);
@@ -66,7 +65,6 @@ namespace DeploySoftware.LaunchPad.FileGeneration.Stages
                         sbRegExp.Append("=");
                         sbRegExp.Append(EscapeTextForRegex(tag.Value));
                         sbRegExp.Append(";");
-                        logger.Debug(string.Format("LaunchPadTokenizer.Tokenize() => Token '{0}' has a tag with key '{1}', value '{2}'.", token.Name, tag.Key, tag.Value));
                     }
                     sbRegExp.Append(@".*?)+))))+)))"); // match the token tags
                 }
@@ -85,13 +83,19 @@ namespace DeploySoftware.LaunchPad.FileGeneration.Stages
                 sbRegExp.Append(@"\}\}");
                 //string regexPattern = Regex.Escape(sbRegExp.ToString());
                 string regexPattern = sbRegExp.ToString();
-                logger.Debug(string.Format("LaunchPadTokenizer.Tokenize() => Token '{0}' Regex pattern is '{1}'", token.Name, regexPattern));
                 sw = Stopwatch.StartNew();
                 bool succeeded = Regex.IsMatch(originalText, regexPattern, RegexOptions.Compiled | RegexOptions.IgnoreCase);
                 sw.Stop();
                 if (succeeded) // do the RegEx replacement
                 {
-                    logger.Debug(string.Format("LaunchPadTokenizer.Tokenize() => Token '{0}' regex succeeded.", token.Name));
+                    if(shouldLogTokens)
+                    {
+                        logger.Debug(string.Format("LaunchPadTokenizer.Tokenize() => Token '{0}' regex succeeded with pattern '{1}'",
+                            token.Name,
+                            regexPattern
+                        ));
+                    }
+                    
                     var regex = new Regex(regexPattern, RegexOptions.Compiled | RegexOptions.IgnoreCase);
                     if (string.IsNullOrEmpty(token.Value))
                     {
@@ -105,19 +109,29 @@ namespace DeploySoftware.LaunchPad.FileGeneration.Stages
                     {
                         MatchedTokens.Add(token.Name,token);
                     }
-                }                    
+                }
                 else
                 {
-                    logger.Debug(string.Format("LaunchPadTokenizer.Tokenize() => Token '{0}' regex did not succeed.", token.Name));
+                    if (shouldLogTokens)
+                    {
+                        logger.Debug(string.Format("LaunchPadTokenizer.Tokenize() => Token '{0}' regex failed to match pattern '{1}'",
+                            token.Name,
+                            regexPattern
+                        ));
+                    }
+                    
                     if (!UnmatchedTokens.ContainsKey(token.Name))
                     {
                         UnmatchedTokens.Add(token.Name,token);
                     }
                 }
-                logger.Debug(string.Format("LaunchPadTokenizer.Tokenize() => finished processing token '{0}'.", token.Name));
             }
             TokenizedText = modifiedText;
-            logger.Debug(string.Format("LaunchPadTokenizer.Tokenize() => modified text is '{0}'.", modifiedText));
+            if (shouldLogTokens)
+            {
+                logger.Debug(string.Format("LaunchPadTokenizer.Tokenize() => modified text is '{0}'.", modifiedText));
+            }
+            
             return TokenizedText;
         }
 
