@@ -13,14 +13,15 @@ using System.Threading.Tasks;
 
 namespace DeploySoftware.LaunchPad.Core.AbpModuleConfig
 {
-    public abstract class LaunchPadAbpModuleHelperBase<TSecretHelper, TSecretVault> : HelperBase, 
-        ILaunchPadAbpModuleHelper<TSecretHelper, TSecretVault> 
+    public abstract class LaunchPadAbpModuleHelperBase<TSecretHelper, TSecretVault, THostEnvironment> : HelperBase, 
+        ILaunchPadAbpModuleHelper<TSecretHelper, TSecretVault, THostEnvironment> 
         where TSecretHelper : ISecretHelper, new()
         where TSecretVault : SecretVaultBase, new()
+        where THostEnvironment : IHostEnvironment
     {
 
-        protected readonly IHostEnvironment _hostEnvironment;
-        public IHostEnvironment HostEnvironment
+        protected readonly THostEnvironment _hostEnvironment;
+        public THostEnvironment HostEnvironment
         {
             get
             {
@@ -49,7 +50,7 @@ namespace DeploySoftware.LaunchPad.Core.AbpModuleConfig
         }
 
 
-        public LaunchPadAbpModuleHelperBase(ILogger logger, IHostEnvironment hostEnvironment, IConfigurationRoot configurationRoot)
+        public LaunchPadAbpModuleHelperBase(ILogger logger, THostEnvironment hostEnvironment, IConfigurationRoot configurationRoot)
         {
             Logger = logger;
             _configurationRoot = configurationRoot;
@@ -173,9 +174,9 @@ namespace DeploySoftware.LaunchPad.Core.AbpModuleConfig
         }
 
         public IDictionary<string, TSecretVault> GetSecretVaults<TModule, TSecretProvider, TAbpModuleHelper>()
-            where TModule : ILaunchPadAbpModule<TSecretHelper, TSecretVault, TSecretProvider, TAbpModuleHelper>
+            where TModule : ILaunchPadAbpModule<TSecretHelper, TSecretVault, TSecretProvider, TAbpModuleHelper, THostEnvironment>
             where TSecretProvider : SecretProviderBase<TSecretVault>, new()
-            where TAbpModuleHelper : ILaunchPadAbpModuleHelper<TSecretHelper, TSecretVault>
+            where TAbpModuleHelper : ILaunchPadAbpModuleHelper<TSecretHelper, TSecretVault, THostEnvironment>
         {
             Dictionary<string, TSecretVault> secretVaults = null;
             try

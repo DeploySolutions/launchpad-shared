@@ -11,15 +11,16 @@ using System.Reflection;
 namespace DeploySoftware.LaunchPad.Core.AbpModuleConfig
 {
     [Serializable()]
-    public abstract class LaunchPadAbpModuleBase<TSecretHelper, TSecretVault, TSecretProvider, TAbpModuleHelper> : AbpModule, 
-        ILaunchPadAbpModule<TSecretHelper, TSecretVault, TSecretProvider, TAbpModuleHelper>
+    public abstract class LaunchPadAbpModuleBase<TSecretHelper, TSecretVault, TSecretProvider, TAbpModuleHelper, THostEnvironment> : AbpModule, 
+        ILaunchPadAbpModule<TSecretHelper, TSecretVault, TSecretProvider, TAbpModuleHelper, THostEnvironment>
         where TSecretHelper : ISecretHelper, new()
         where TSecretVault : SecretVaultBase, new()
         where TSecretProvider : SecretProviderBase<TSecretVault>, new()
-        where TAbpModuleHelper: ILaunchPadAbpModuleHelper<TSecretHelper, TSecretVault>
+        where TAbpModuleHelper: ILaunchPadAbpModuleHelper<TSecretHelper, TSecretVault, THostEnvironment>
+        where THostEnvironment : IHostEnvironment
     {
-        protected IHostEnvironment _hostEnvironment;
-        public IHostEnvironment HostEnvironment
+        protected THostEnvironment _hostEnvironment;
+        public THostEnvironment HostEnvironment
         {
             get
             {
@@ -50,7 +51,7 @@ namespace DeploySoftware.LaunchPad.Core.AbpModuleConfig
         {
         }
 
-        public LaunchPadAbpModuleBase(ILogger logger, IHostEnvironment hostEnvironment, IConfigurationRoot configurationRoot)
+        public LaunchPadAbpModuleBase(ILogger logger, THostEnvironment hostEnvironment, IConfigurationRoot configurationRoot)
         {
             Logger = logger;
             _appConfiguration = configurationRoot;
