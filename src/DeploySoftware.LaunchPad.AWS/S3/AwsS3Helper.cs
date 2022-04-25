@@ -1,5 +1,8 @@
-﻿using Castle.Core.Logging;
+﻿using Amazon.S3;
+using Amazon.S3.Transfer;
+using Castle.Core.Logging;
 using DeploySoftware.LaunchPad.Core.Util;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,6 +13,11 @@ namespace DeploySoftware.LaunchPad.AWS.S3
 {
     public partial class AwsS3Helper : AwsHelperBase, IAwsS3Helper
     {
+        protected AmazonS3Client _s3Client;
+
+        [JsonIgnore]
+        public AmazonS3Client S3Client { get { return _s3Client; } }
+
 
         public AwsS3Helper() : base()
         {
@@ -18,6 +26,19 @@ namespace DeploySoftware.LaunchPad.AWS.S3
         public AwsS3Helper(ILogger logger) :base(logger)
         {
 
+        }
+
+        public AwsS3Helper(ILogger logger, string awsRegionEndpointName, AmazonS3Client s3Client) : base(logger)
+        {
+            Region = GetRegionEndpoint(awsRegionEndpointName);
+            _s3Client = s3Client;
+        }
+
+        public AwsS3Helper(ILogger logger, string awsRegionEndpointName, AmazonS3Client s3Client, string localAwsProfileName) : base(logger)
+        {
+            Region = GetRegionEndpoint(awsRegionEndpointName);
+            AwsProfileName = localAwsProfileName;
+            _s3Client = s3Client; 
         }
     }
 }

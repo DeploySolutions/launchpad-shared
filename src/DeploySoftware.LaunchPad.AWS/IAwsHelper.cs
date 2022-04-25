@@ -13,7 +13,7 @@ namespace DeploySoftware.LaunchPad.AWS
     {
         public RegionEndpoint Region { get; set; }
 
-        public AWSCredentials GetAwsCredentials(string awsProfileName);
+        public AWSCredentials GetAwsCredentialsFromNamedLocalProfile(string awsProfileName);
 
         public RegionEndpoint GetRegionEndpoint(string awsRegionEndpointSystemName);
 

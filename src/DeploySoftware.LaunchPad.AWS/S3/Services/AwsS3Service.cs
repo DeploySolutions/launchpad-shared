@@ -3,6 +3,7 @@ using Amazon.S3.Model;
 using Amazon.S3.Transfer;
 using Castle.Core.Logging;
 using DeploySoftware.LaunchPad.Core.Application;
+using DeploySoftware.LaunchPad.Core.Domain;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -16,26 +17,17 @@ namespace DeploySoftware.LaunchPad.AWS.S3.Services
     {
         public IAwsS3Helper Helper { get; set; }
 
-        public static AmazonS3Client S3Client { get; set; }
-
-        public static TransferUtility Transfer { get; set; }
 
         public AwsS3Service(ILogger logger)
         {
             Logger = logger;
             Helper = new AwsS3Helper(logger);
-            var credentials = Helper.GetAwsCredentials("EGS");
-            S3Client = new AmazonS3Client(
-               credentials,
-               Helper.GetRegionEndpoint("us-east-1")
-            );
         }
 
-        public AwsS3Service(AmazonS3Client _client)
+        public AwsS3Service(ILogger logger, IAwsS3Helper helper) : base(logger)
         {
-            S3Client = _client;
+            Helper = helper;
         }
-
 
         public async Task<string> GetTextFromBucketAsync(string bucketName, string s3KeyName, string s3Prefix = "")
         {
@@ -48,7 +40,7 @@ namespace DeploySoftware.LaunchPad.AWS.S3.Services
                     BucketName = bucketName,
                     Key = s3KeyName
                 };
-                using (GetObjectResponse response = await S3Client.GetObjectAsync(request))
+                using (GetObjectResponse response = await Helper.S3Client.GetObjectAsync(request))
                 using (Stream responseStream = response.ResponseStream)
                 using (StreamReader reader = new StreamReader(responseStream))
                 {
@@ -72,7 +64,56 @@ namespace DeploySoftware.LaunchPad.AWS.S3.Services
             return responseBody;
         }
 
-        public async Task<bool> SaveFileToBucketAsync(string bucketName, string s3KeyName, string s3Prefix = "", string contentType =@"text\plain")
+        public async Task<bool> UploadFileToBucketAsync(string bucketName, string s3KeyName, string filePath, IDictionary<string, string> fileTags,  IDictionary<string, string> transferMetadata, string s3Prefix = "",  string contentType = @"image/tiff")
+        {
+            try
+            {
+                TransferUtility transferUtil = new TransferUtility(Helper.S3Client);
+                List<Tag> tagSet = new List<Tag>();
+                foreach (var item in fileTags)
+                {
+                    tagSet.Add(new Tag()
+                    {
+                        Key = item.Key,
+                        Value = item.Value
+                    });
+                }
+                var fileTransferUtilityRequest = new TransferUtilityUploadRequest
+                {
+                    BucketName = bucketName,
+                    FilePath = filePath,
+                    StorageClass = S3StorageClass.StandardInfrequentAccess,
+                    PartSize = 6291456, // 6 MB.  
+                    Key = s3KeyName,
+                    TagSet = tagSet
+                };
+                foreach (var item in transferMetadata)
+                {
+                    fileTransferUtilityRequest.Metadata.Add(item.Key, item.Value);
+                }
+                await transferUtil.UploadAsync(fileTransferUtilityRequest);
+                transferUtil.Dispose();
+            }
+
+            catch (AmazonS3Exception amazonS3Exception)
+            {
+                if (amazonS3Exception.ErrorCode != null &&
+                    (amazonS3Exception.ErrorCode.Equals("InvalidAccessKeyId")
+                    ||
+                    amazonS3Exception.ErrorCode.Equals("InvalidSecurity")))
+                {
+                    Logger.Error("Check the provided AWS Credentials.");
+                }
+                else
+                {
+                    Logger.Error("Error occurred: " + amazonS3Exception.Message);
+                }
+            }
+            return true;
+        }
+
+
+        public async Task<bool> SaveTextFileToBucketAsync(string bucketName, string s3KeyName, string contentBody, string s3Prefix = "", string contentType =@"text\plain")
         {
 
             try
@@ -82,10 +123,10 @@ namespace DeploySoftware.LaunchPad.AWS.S3.Services
                     BucketName = bucketName,
                     Key = s3KeyName,
                     FilePath = s3Prefix,
-                    ContentBody = contentType
+                    ContentType = contentType,
+                    ContentBody = contentBody
                 };
-
-                PutObjectResponse response = await S3Client.PutObjectAsync(putRequest);
+                PutObjectResponse response = await Helper.S3Client.PutObjectAsync(putRequest);
 
             }
             catch (AmazonS3Exception e)
@@ -118,7 +159,7 @@ namespace DeploySoftware.LaunchPad.AWS.S3.Services
                 {
                     putRequest.Metadata.Add(item.Key,item.Value);
                 }
-                PutObjectResponse response = await S3Client.PutObjectAsync(putRequest);
+                PutObjectResponse response = await Helper.S3Client.PutObjectAsync(putRequest);
             }
             catch (AmazonS3Exception e)
             {

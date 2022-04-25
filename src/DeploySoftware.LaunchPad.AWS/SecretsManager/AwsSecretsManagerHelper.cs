@@ -19,40 +19,36 @@ namespace DeploySoftware.LaunchPad.AWS.SecretsManager
 {
     public partial class AwsSecretsManagerHelper : AwsHelperBase, IAwsSecretsManagerHelper
     {
-       
+        protected IAmazonSecretsManager _secretClient;
+
         [JsonIgnore]
-        public IAmazonSecretsManager SecretClient { get; set; }
+        public IAmazonSecretsManager SecretClient { get { return _secretClient; } }
 
         public AwsSecretsManagerHelper() : base()
         {
-            Region = GetRegionEndpoint(DefaultRegionName);
-            SecretClient = SetSecretClient(Region);
+            Region = GetRegionEndpoint(DefaultRegionEndpointName); 
+            _secretClient = new AmazonSecretsManagerClient(Region);
         }
 
-        public AwsSecretsManagerHelper(ILogger logger) : base(logger)
-        {
-            Region = GetRegionEndpoint(DefaultRegionName);
-            SecretClient = SetSecretClient(Region);
-        }
-
-        public AwsSecretsManagerHelper(IAmazonSecretsManager client, ILogger logger) : base(logger)
-        {
-            Region = GetRegionEndpoint(DefaultRegionName);
-            SecretClient = client;
-        }
-
-        public AwsSecretsManagerHelper(string awsRegionEndpointName, ILogger logger) : base(logger)
+        public AwsSecretsManagerHelper(ILogger logger, string awsRegionEndpointName) : base(logger)
         {
             Region = GetRegionEndpoint(awsRegionEndpointName);
-            SecretClient = SetSecretClient(Region);
+            _secretClient = new AmazonSecretsManagerClient(Region);
         }
 
-        public AwsSecretsManagerHelper(string awsProfileName, string awsRegionEndpointName, ILogger logger) : base(logger)
+        public AwsSecretsManagerHelper(ILogger logger, string awsRegionEndpointName, IAmazonSecretsManager client) : base(logger)
         {
             Region = GetRegionEndpoint(awsRegionEndpointName);
-            SecretClient = SetSecretClient(Region,awsProfileName);
+            _secretClient = client;
         }
 
+        public AwsSecretsManagerHelper(ILogger logger, string awsRegionEndpointName, IAmazonSecretsManager client, string localAwsProfileName) : base(logger)
+        {
+            Region = GetRegionEndpoint(awsRegionEndpointName);
+            AwsProfileName = localAwsProfileName;
+            _secretClient = client;
+            ShouldUseLocalAwsProfile = true;
+        }
 
         /// <summary>
         /// Creates a new Secrets Manager client
@@ -63,40 +59,6 @@ namespace DeploySoftware.LaunchPad.AWS.SecretsManager
             return new AmazonSecretsManagerClient(region);
         }
 
-        /// <summary>
-        /// Creates a new Secrets Manager client using the provided profile information
-        /// </summary>
-        /// <param name="profileName"></param>
-        /// <param name="awsRegionSystemName"></param>
-        /// <returns></returns>
-        public virtual AmazonSecretsManagerClient SetSecretClient(RegionEndpoint region, string profileName)
-        {
-            if(string.IsNullOrEmpty(profileName))
-            {
-                profileName = "default";
-            }
-
-            Logger.Info(string.Format(DeploySoftware_LaunchPad_AWS_Resources.SecretHelper_GetSecretClient_ProfileName, profileName));
-            Logger.Info(string.Format(DeploySoftware_LaunchPad_AWS_Resources.SecretHelper_GetSecretClient_Region, profileName));
-
-            AmazonSecretsManagerClient client = null;
-            try
-            {
-                var credentials = GetAwsCredentials(profileName);
-                client = new AmazonSecretsManagerClient(credentials, region);
-            }
-            catch(AmazonSecretsManagerException smEx)
-            {
-                Logger.Info(string.Format(DeploySoftware_LaunchPad_AWS_Resources.SecretHelper_GetSecretClient_Exception_GetAwsCredentials,smEx.Message));
-            }
-            if (client == null) // try to load using local environment or EC2 information
-            {
-                Logger.Info(DeploySoftware_LaunchPad_AWS_Resources.SecretHelper_GetSecretClient_SecretClient_IsNull);
-                client = SetSecretClient(region);
-            }            
-            return client;
-
-        }
 
         public async virtual Task<ISecretVault> GetSecretVaultAsync(string secretVaultIdentifier, string name, string fullName)
         {
