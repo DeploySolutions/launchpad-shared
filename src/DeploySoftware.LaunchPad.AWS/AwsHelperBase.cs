@@ -24,12 +24,12 @@ namespace DeploySoftware.LaunchPad.AWS
 
         public AwsHelperBase() : base()
         {
-            Region = GetRegionEndpoint(DefaultRegionEndpointName);
+            //Region = GetRegionEndpoint(DefaultRegionEndpointName);
         }
 
         public AwsHelperBase(ILogger logger) : base(logger)
         {
-            Region = GetRegionEndpoint(DefaultRegionEndpointName);
+            //Region = GetRegionEndpoint(DefaultRegionEndpointName);
         }
 
 
@@ -78,7 +78,7 @@ namespace DeploySoftware.LaunchPad.AWS
             {
                 foreach (var e in RegionEndpoint.EnumerableAllRegions)
                 {
-                    if (e.Equals(awsRegionEndpointSystemName))
+                    if (e.SystemName.ToLower().Equals(awsRegionEndpointSystemName))
                     {
                         region = e;
                     }

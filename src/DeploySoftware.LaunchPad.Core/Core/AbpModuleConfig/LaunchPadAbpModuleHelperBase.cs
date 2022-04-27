@@ -58,6 +58,14 @@ namespace DeploySoftware.LaunchPad.Core.AbpModuleConfig
             _secretHelper = new TSecretHelper();
         }
 
+        public LaunchPadAbpModuleHelperBase(ILogger logger, THostEnvironment hostEnvironment, IConfigurationRoot configurationRoot, TSecretHelper secretHelper)
+        {
+            Logger = logger;
+            _configurationRoot = configurationRoot;
+            _hostEnvironment = hostEnvironment;
+            _secretHelper = secretHelper;
+        }
+
 
         public virtual void PreInitialize()
         {

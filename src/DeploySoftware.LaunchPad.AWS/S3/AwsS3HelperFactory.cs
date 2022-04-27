@@ -33,6 +33,7 @@ namespace DeploySoftware.LaunchPad.AWS.S3
             {
                 var s3Client = GetS3Client(Region, AwsProfileName);
                 helper = new AwsS3Helper(logger, regionEndpointName, s3Client, AwsProfileName);
+                helper.ShouldUseLocalAwsProfile = true;
             }
             else // do not use a named local profile, instead try to determine the AWS client from the credential resolution order
             {

@@ -26,13 +26,13 @@ namespace DeploySoftware.LaunchPad.AWS.SecretsManager
 
         public AwsSecretsManagerHelper() : base()
         {
-            Region = GetRegionEndpoint(DefaultRegionEndpointName); 
+            //Region = GetRegionEndpoint(DefaultRegionEndpointName); 
             _secretClient = new AmazonSecretsManagerClient(Region);
         }
 
         public AwsSecretsManagerHelper(ILogger logger, string awsRegionEndpointName) : base(logger)
         {
-            Region = GetRegionEndpoint(awsRegionEndpointName);
+            //Region = GetRegionEndpoint(awsRegionEndpointName);
             _secretClient = new AmazonSecretsManagerClient(Region);
         }
 
