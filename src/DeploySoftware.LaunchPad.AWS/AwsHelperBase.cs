@@ -24,19 +24,21 @@ namespace DeploySoftware.LaunchPad.AWS
 
         public AwsHelperBase() : base()
         {
-            //Region = GetRegionEndpoint(DefaultRegionEndpointName);
+            
         }
 
         public AwsHelperBase(ILogger logger) : base(logger)
         {
-            //Region = GetRegionEndpoint(DefaultRegionEndpointName);
+            
         }
 
 
         public AwsHelperBase(string awsRegionEndpointName, ILogger logger) : base(logger)
         {
-            Logger = logger; 
-            Region = GetRegionEndpoint(awsRegionEndpointName);
+            Logger = logger;
+            TryGetRegionEndpoint(awsRegionEndpointName, out RegionEndpoint region);
+            Region = region;
+            
         }
 
         /// <summary>
@@ -65,14 +67,12 @@ namespace DeploySoftware.LaunchPad.AWS
 
 
         /// <summary>
-        /// Returns an AWS region endpoint from a given endpoint name, or the default region "us-east-1" if invalid/none provided.
+        /// Returns an AWS region endpoint from a given endpoint name, or the default region if invalid/none provided.
         /// </summary>
         /// <param name="awsRegionEndpointSystemName">A valid AWS region endpoint system name.</param>
         /// <returns>A valid AWS Region Endpoint</returns>
-        public virtual RegionEndpoint GetRegionEndpoint(string awsRegionEndpointSystemName)
+        public virtual bool TryGetRegionEndpoint(string awsRegionEndpointSystemName, out RegionEndpoint region)
         {
-            RegionEndpoint region = null;
-
             // attempt to load the Region Endpoint from the list of available ones
             if (!string.IsNullOrEmpty(awsRegionEndpointSystemName))
             {
@@ -81,18 +81,15 @@ namespace DeploySoftware.LaunchPad.AWS
                     if (e.SystemName.ToLower().Equals(awsRegionEndpointSystemName))
                     {
                         region = e;
+                        return true;
                     }
                 }
             }
 
-            // if the region is still null, or the string was null or empty previously, use the default region endpoint
-            if (region == null)
-            {
-                region = RegionEndpoint.GetBySystemName(DefaultRegionEndpointName);
-            }
-
+            // use the default region endpoint
+            region = RegionEndpoint.GetBySystemName(DefaultRegionEndpointName);
             Logger.Info(string.Format(DeploySoftware_LaunchPad_AWS_Resources.SecretHelper_GetRegionEndpoint_Logger_Info_RegionName, region.DisplayName, region.SystemName));
-            return region;
+            return false;
         }
     }
 }

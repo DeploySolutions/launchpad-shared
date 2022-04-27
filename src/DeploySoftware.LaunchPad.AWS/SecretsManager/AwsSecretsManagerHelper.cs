@@ -27,36 +27,28 @@ namespace DeploySoftware.LaunchPad.AWS.SecretsManager
         public AwsSecretsManagerHelper() : base()
         {
             //Region = GetRegionEndpoint(DefaultRegionEndpointName); 
-            _secretClient = new AmazonSecretsManagerClient(Region);
+            //_secretClient = new AmazonSecretsManagerClient(Region);
         }
 
         public AwsSecretsManagerHelper(ILogger logger, string awsRegionEndpointName) : base(logger)
         {
-            //Region = GetRegionEndpoint(awsRegionEndpointName);
+            TryGetRegionEndpoint(awsRegionEndpointName, out RegionEndpoint region);
+            Region = region;
             _secretClient = new AmazonSecretsManagerClient(Region);
         }
 
         public AwsSecretsManagerHelper(ILogger logger, string awsRegionEndpointName, IAmazonSecretsManager client) : base(logger)
         {
-            Region = GetRegionEndpoint(awsRegionEndpointName);
-            _secretClient = client;
+            _secretClient = client; 
+            Region = _secretClient.Config.RegionEndpoint;            
         }
 
-        public AwsSecretsManagerHelper(ILogger logger, string awsRegionEndpointName, IAmazonSecretsManager client, string localAwsProfileName) : base(logger)
+        public AwsSecretsManagerHelper(ILogger logger, string awsRegionEndpointName, IAmazonSecretsManager client, string awsProfileName, bool shouldUseLocalAwsProfile) : base(logger)
         {
-            Region = GetRegionEndpoint(awsRegionEndpointName);
-            AwsProfileName = localAwsProfileName;
+            ShouldUseLocalAwsProfile = shouldUseLocalAwsProfile; 
+            AwsProfileName = awsProfileName;
             _secretClient = client;
-            ShouldUseLocalAwsProfile = true;
-        }
-
-        /// <summary>
-        /// Creates a new Secrets Manager client
-        /// </summary>
-        /// <returns></returns>
-        public virtual AmazonSecretsManagerClient SetSecretClient(RegionEndpoint region)
-        {
-            return new AmazonSecretsManagerClient(region);
+            Region = _secretClient.Config.RegionEndpoint;
         }
 
 

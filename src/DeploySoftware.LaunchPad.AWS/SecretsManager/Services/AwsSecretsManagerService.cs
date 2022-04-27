@@ -15,9 +15,13 @@ namespace DeploySoftware.LaunchPad.AWS.SecretsManager.Services
         protected AwsSecretsManagerService() :base()
         {
         }
-        public AwsSecretsManagerService(ILogger logger) :base(logger)
+        public AwsSecretsManagerService(ILogger logger, 
+            string regionEndpointName,
+            string localAwsProfileName,
+            bool shouldUseLocalAwsProfile) :base(logger)
         {
-            Helper = new AwsSecretsManagerHelper();
+            var secretHelperFactory = new AwsSecretsManagerHelperFactory();
+            Helper = secretHelperFactory.Create(logger, regionEndpointName, localAwsProfileName, shouldUseLocalAwsProfile);
         }
 
         public AwsSecretsManagerService(ILogger logger, IAwsSecretsManagerHelper helper) : base(logger)

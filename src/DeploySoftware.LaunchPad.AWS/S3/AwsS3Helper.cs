@@ -1,4 +1,5 @@
-﻿using Amazon.S3;
+﻿using Amazon;
+using Amazon.S3;
 using Amazon.S3.Transfer;
 using Castle.Core.Logging;
 using DeploySoftware.LaunchPad.Core.Util;
@@ -30,13 +31,15 @@ namespace DeploySoftware.LaunchPad.AWS.S3
 
         public AwsS3Helper(ILogger logger, string awsRegionEndpointName, AmazonS3Client s3Client) : base(logger)
         {
-            Region = GetRegionEndpoint(awsRegionEndpointName);
+            TryGetRegionEndpoint(awsRegionEndpointName, out RegionEndpoint region);
+            Region = region;
             _s3Client = s3Client;
         }
 
         public AwsS3Helper(ILogger logger, string awsRegionEndpointName, AmazonS3Client s3Client, string localAwsProfileName) : base(logger)
         {
-            Region = GetRegionEndpoint(awsRegionEndpointName);
+            TryGetRegionEndpoint(awsRegionEndpointName, out RegionEndpoint region);
+            Region = region;
             AwsProfileName = localAwsProfileName;
             _s3Client = s3Client; 
         }
