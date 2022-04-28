@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>net50;netstandard2.1</TargetFrameworks>
+    <TargetFrameworks>net60</TargetFrameworks>
     <Authors>Nicholas Kellett</Authors>
     <Company>Deploy Software Solutions, inc.</Company>
     <Copyright>2021-2022 Deploy Software Solutions, inc.</Copyright>
@@ -10,7 +10,7 @@
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageProjectUrl>https://github.com/DeploySolutions/launchpad-shared</PackageProjectUrl>
     <RepositoryUrl>https://github.com/DeploySolutions/launchpad-shared</RepositoryUrl>
-    <Version>0.8.0</Version>
+    <Version>6.0.0-alpha</Version>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <PackageIcon>icon.png</PackageIcon>
   </PropertyGroup>
@@ -21,11 +21,11 @@
     <PackageReference Include="AWSSDK.SecretsManager" Version="3.7.2.5" />
     <PackageReference Include="AWSSDK.SimpleNotificationService" Version="3.7.3.24" />
     <PackageReference Include="AWSSDK.SQS" Version="3.7.2.21" />
-    <PackageReference Include="AwsSignatureVersion4" Version="2.1.1" />
+    <PackageReference Include="AwsSignatureVersion4" Version="3.0.1" />
     <PackageReference Include="Castle.Core" Version="4.4.1" />
     <PackageReference Include="DeploySoftware.LaunchPad.Core" Version="5.7.1-alpha" />
     <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
-    <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="5.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="6.0.0" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="RestSharp" Version="107.3.0" />
   </ItemGroup>
