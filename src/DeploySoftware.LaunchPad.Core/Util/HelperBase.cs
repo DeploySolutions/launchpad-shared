@@ -20,8 +20,6 @@ namespace DeploySoftware.LaunchPad.Core.Util
         protected readonly IConfigurationRoot _configurationRoot;
         public IConfigurationRoot ConfigurationRoot { get { return _configurationRoot; } }
 
-
-
         protected HelperBase()
         {
 
