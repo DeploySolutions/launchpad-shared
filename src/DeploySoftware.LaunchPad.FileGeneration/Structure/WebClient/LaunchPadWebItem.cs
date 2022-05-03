@@ -64,7 +64,7 @@ namespace DeploySoftware.LaunchPad.FileGeneration.Structure
         /// Possible enumurations for .
         /// </summary>
         [JsonProperty("enums")]
-        public string[] Enums { get; set; }
+        public dynamic Enums { get; set; }
 
         /// <summary>
         /// Type of this button. Types can be "reset" or "submit".
