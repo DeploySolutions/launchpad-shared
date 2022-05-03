@@ -17,14 +17,33 @@ namespace DeploySoftware.LaunchPad.Core.Util
     {
         public ILogger Logger { get; set; } = NullLogger.Instance;
 
+        protected readonly IConfigurationRoot _configurationRoot;
+        public IConfigurationRoot ConfigurationRoot { get { return _configurationRoot; } }
+
+
+
         protected HelperBase()
         {
 
         }
 
-        protected HelperBase(ILogger logger)
+        public HelperBase(ILogger logger)
         {
+            if(logger == null)
+            {
+                Logger = NullLogger.Instance;
+            }
             Logger = logger;
+        }
+
+        public HelperBase(ILogger logger, IConfigurationRoot configurationRoot)
+        {
+            if (logger == null)
+            {
+                Logger = NullLogger.Instance;
+            }
+            Logger = logger;
+            _configurationRoot = configurationRoot;
         }
 
         /// <summary>
