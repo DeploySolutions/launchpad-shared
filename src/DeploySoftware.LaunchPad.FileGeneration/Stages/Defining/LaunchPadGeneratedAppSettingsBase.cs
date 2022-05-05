@@ -15,17 +15,11 @@ namespace DeploySoftware.LaunchPad.FileGeneration.Stages.Defining
     public abstract partial class LaunchPadGeneratedAppSettingsBase : ILaunchPadGeneratedAppSettings
     {
 
-        public ILogger Logger { get; set; }
 
         public LaunchPadGeneratedAppSettingsBase()
         {
-            Logger = NullLogger.Instance;
         }
 
-        public LaunchPadGeneratedAppSettingsBase(ILogger logger)
-        {
-            Logger = logger;
-        }
 
         public override string ToString()
         {
@@ -42,19 +36,23 @@ namespace DeploySoftware.LaunchPad.FileGeneration.Stages.Defining
         /// </summary>
         /// <param name="doc"></param>
         /// <returns>A populated instance of this object, from the given XML.</returns>
-        public T LoadAppSettingsFromXml<T>(XmlDocument doc)
+        public T LoadAppSettingsFromXml<T>(XmlDocument doc, ILogger logger = null)
             where T : ILaunchPadGeneratedAppSettings, new()
         {
             T appSettings = new T();
+            if(logger == null)
+            {
+                logger = NullLogger.Instance;
+            }
             if (doc != null)
             {
-                Logger.Debug("LaunchPadGeneratedAppSettingsBase.LoadAppSettingsFromXml() => Try to load AppSettings node...");
+                logger.Debug("LaunchPadGeneratedAppSettingsBase.LoadAppSettingsFromXml() => Try to load AppSettings node...");
                 // create ns manager and get the AppSettings node
                 XmlNode root = doc.DocumentElement;
                 XmlNamespaceManager xmlnsManager = new XmlNamespaceManager(doc.NameTable);
                 xmlnsManager.AddNamespace("sar", "https://assets.deploy.solutions/SpaceAppsRAD/Schemas/Modules/SpaceAppHub.xsd");
                 XmlNode xnl = root.SelectSingleNode("//sar:AppSettings", xmlnsManager);
-                Logger.Debug("LaunchPadGeneratedAppSettingsBase.LoadAppSettingsFromXml() => Found AppSettings node. Removing CDATA...");
+                logger.Debug("LaunchPadGeneratedAppSettingsBase.LoadAppSettingsFromXml() => Found AppSettings node. Removing CDATA...");
 
                 // remove CDATA from all elements in the node
                 var parsedDoc = XElement.Parse(xnl.InnerXml);
@@ -64,19 +62,19 @@ namespace DeploySoftware.LaunchPad.FileGeneration.Stages.Defining
                     node.Parent.Add(node.Value);
                     node.Remove();
                 }
-                Logger.Debug("LaunchPadGeneratedAppSettingsBase.LoadAppSettingsFromXml() => Parsed XML document:");
-                Logger.Debug(parsedDoc.ToString());
-                Logger.Debug("LaunchPadGeneratedAppSettingsBase.LoadAppSettingsFromXml() => Removed CDATA. Attempting to serialize object to JSON...");
+                logger.Debug("LaunchPadGeneratedAppSettingsBase.LoadAppSettingsFromXml() => Parsed XML document:");
+                logger.Debug(parsedDoc.ToString());
+                logger.Debug("LaunchPadGeneratedAppSettingsBase.LoadAppSettingsFromXml() => Removed CDATA. Attempting to serialize object to JSON...");
                 
                 // Using Newtonsoft JSON conversions: get the JSON text from XML and then serialize it into an object instance
                 string jsonText = JsonConvert.SerializeXNode(parsedDoc, Newtonsoft.Json.Formatting.Indented, true);
 
-                Logger.Debug("LaunchPadGeneratedAppSettingsBase.LoadAppSettingsFromXml() => Serialized object to JSON. Json text is: ");
-                Logger.Debug(jsonText);
-                Logger.Debug("LaunchPadGeneratedAppSettingsBase.LoadAppSettingsFromXml() => Attempting to deserialize JSON to c# class...");
+                logger.Debug("LaunchPadGeneratedAppSettingsBase.LoadAppSettingsFromXml() => Serialized object to JSON. Json text is: ");
+                logger.Debug(jsonText);
+                logger.Debug("LaunchPadGeneratedAppSettingsBase.LoadAppSettingsFromXml() => Attempting to deserialize JSON to c# class...");
 
                 appSettings = JsonConvert.DeserializeObject<T>(jsonText);
-                Logger.Debug("LaunchPadGeneratedAppSettingsBase.LoadAppSettingsFromXml() => Successfully deserialized JSON to c# class.");
+                logger.Debug("LaunchPadGeneratedAppSettingsBase.LoadAppSettingsFromXml() => Successfully deserialized JSON to c# class.");
 
             }
             return appSettings;

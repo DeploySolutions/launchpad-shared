@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using Castle.Core.Logging;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +12,7 @@ namespace DeploySoftware.LaunchPad.FileGeneration.Stages.Defining
     public interface ILaunchPadGeneratedAppSettings
     {
 
-        public T LoadAppSettingsFromXml<T>(XmlDocument doc)
+        public T LoadAppSettingsFromXml<T>(XmlDocument doc, ILogger logger)
            where T : ILaunchPadGeneratedAppSettings, new();
 
         public JObject ToJson();
