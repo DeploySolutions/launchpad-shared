@@ -1,4 +1,5 @@
 ﻿using DeploySoftware.LaunchPad.FileGeneration.Stages;
+using DeploySoftware.LaunchPad.FileGeneration.Stages.Defining;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -18,6 +19,12 @@ namespace DeploySoftware.LaunchPad.FileGeneration.Structure
         /// and is not the same as a LaunchPadGeneratedSolution object.
         /// </summary>
         public virtual string VisualStudioSolutionName { get; set; }
+
+
+        /// <summary>
+        /// Contains the appsettings JSON elements belonging to this component
+        /// </summary>
+        public virtual ILaunchPadGeneratedAppSettings AppSettings { get; set; }
 
         public WebAppModuleSettings() : base()
         {
