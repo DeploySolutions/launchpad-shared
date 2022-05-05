@@ -52,29 +52,38 @@ namespace DeploySoftware.LaunchPad.FileGeneration.Stages.Defining
                 XmlNamespaceManager xmlnsManager = new XmlNamespaceManager(doc.NameTable);
                 xmlnsManager.AddNamespace("sar", "https://assets.deploy.solutions/SpaceAppsRAD/Schemas/Modules/SpaceAppHub.xsd");
                 XmlNode xnl = root.SelectSingleNode("//sar:AppSettings", xmlnsManager);
-                logger.Debug("LaunchPadGeneratedAppSettingsBase.LoadAppSettingsFromXml() => Found AppSettings node. Removing CDATA...");
-
-                // remove CDATA from all elements in the node
-                var parsedDoc = XElement.Parse(xnl.InnerXml);
-                var node_cdata = parsedDoc.DescendantNodes().OfType<XCData>().ToList();
-                foreach (var node in node_cdata)
+                if(xnl != null)
                 {
-                    node.Parent.Add(node.Value);
-                    node.Remove();
-                }
-                logger.Debug("LaunchPadGeneratedAppSettingsBase.LoadAppSettingsFromXml() => Parsed XML document:");
-                logger.Debug(parsedDoc.ToString());
-                logger.Debug("LaunchPadGeneratedAppSettingsBase.LoadAppSettingsFromXml() => Removed CDATA. Attempting to serialize object to JSON...");
-                
-                // Using Newtonsoft JSON conversions: get the JSON text from XML and then serialize it into an object instance
-                string jsonText = JsonConvert.SerializeXNode(parsedDoc, Newtonsoft.Json.Formatting.Indented, true);
+                    logger.Debug("LaunchPadGeneratedAppSettingsBase.LoadAppSettingsFromXml() => Found AppSettings node. Parsing doc to remove CDATA...");
 
-                logger.Debug("LaunchPadGeneratedAppSettingsBase.LoadAppSettingsFromXml() => Serialized object to JSON. Json text is: ");
-                logger.Debug(jsonText);
-                logger.Debug("LaunchPadGeneratedAppSettingsBase.LoadAppSettingsFromXml() => Attempting to deserialize JSON to c# class...");
+                    // remove CDATA from all elements in the node
+                    var parsedDoc = XElement.Parse(xnl.InnerXml);
+                    if(parsedDoc != null)
+                    {
+                        logger.Debug("LaunchPadGeneratedAppSettingsBase.LoadAppSettingsFromXml() => parsedDoc element is not null. Removing CDATA...");
+                        var node_cdata = parsedDoc.DescendantNodes().OfType<XCData>().ToList();
+                        foreach (var node in node_cdata)
+                        {
+                            node.Parent.Add(node.Value);
+                            node.Remove();
+                        }
+                        logger.Debug("LaunchPadGeneratedAppSettingsBase.LoadAppSettingsFromXml() => Parsed XML document:");
+                        logger.Debug(parsedDoc.ToString());
+                        logger.Debug("LaunchPadGeneratedAppSettingsBase.LoadAppSettingsFromXml() => Removed CDATA. Attempting to serialize object to JSON...");
 
-                appSettings = JsonConvert.DeserializeObject<T>(jsonText);
-                logger.Debug("LaunchPadGeneratedAppSettingsBase.LoadAppSettingsFromXml() => Successfully deserialized JSON to c# class.");
+                        // Using Newtonsoft JSON conversions: get the JSON text from XML and then serialize it into an object instance
+                        string jsonText = JsonConvert.SerializeXNode(parsedDoc, Newtonsoft.Json.Formatting.Indented, true);
+
+                        logger.Debug("LaunchPadGeneratedAppSettingsBase.LoadAppSettingsFromXml() => Serialized object to JSON. Json text is: ");
+                        logger.Debug(jsonText);
+                        logger.Debug("LaunchPadGeneratedAppSettingsBase.LoadAppSettingsFromXml() => Attempting to deserialize JSON to c# class...");
+
+                        appSettings = JsonConvert.DeserializeObject<T>(jsonText);
+                        logger.Debug("LaunchPadGeneratedAppSettingsBase.LoadAppSettingsFromXml() => Successfully deserialized JSON to c# class.");
+
+                    }
+                    
+                }                
 
             }
             return appSettings;
