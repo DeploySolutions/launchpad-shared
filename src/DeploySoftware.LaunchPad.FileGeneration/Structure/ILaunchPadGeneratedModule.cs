@@ -5,7 +5,7 @@ using System.Collections.Generic;
 namespace DeploySoftware.LaunchPad.FileGeneration.Structure
 {
     public interface ILaunchPadGeneratedModule<TModuleSettings> : ILaunchPadGeneratedObject
-        where TModuleSettings : LaunchPadGeneratedObjectBlueprintDefinitionSettings, new()
+        where TModuleSettings : ILaunchPadGeneratedObjectBlueprintDefinitionSettings, new()
     {
         public ILogger Logger { get; set; }
 
