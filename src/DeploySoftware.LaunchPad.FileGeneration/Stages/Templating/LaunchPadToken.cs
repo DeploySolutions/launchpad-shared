@@ -36,14 +36,14 @@ namespace DeploySoftware.LaunchPad.FileGeneration.Stages
         /// </summary>
         [DataObjectField(false)]
         [XmlAttribute]
-        public string Value { get; set; }
+        public string Value { get; set; } = string.Empty;
 
         /// <summary>
         /// The default value of this token, if no actual value is provided.
         /// </summary>
         [DataObjectField(false)]
         [XmlAttribute]
-        public string DefaultValue { get; set; }
+        public string DefaultValue { get; set; } = string.Empty;
 
         /// <summary>
         /// Optional key-value pair metadata for this token. 
@@ -55,22 +55,28 @@ namespace DeploySoftware.LaunchPad.FileGeneration.Stages
         [XmlAttribute]
         public IDictionary<string, string> Tags { get; set; }
 
+
+        /// <summary>
+        /// The "location" where this token was set, if known. Helpful for debugging and auditing purposes in 
+        /// determining how a particular token was set in an application, tool, or manually.
+        /// Note that the source is not used during tokenization and is not expected to appear/be used in a template.
+        /// </summary>
+        [DataObjectField(false)]
+        [XmlAttribute]
+        public string Source { get; set; } = string.Empty;
+
         public LaunchPadToken()
         {
             var comparer = StringComparer.OrdinalIgnoreCase;
             Tags = new Dictionary<string, string>(comparer);
-            Prefix = string.Empty;
-            Name = string.Empty;
-            Value = string.Empty;
-            DefaultValue = string.Empty;
 
         }
+
+
         public LaunchPadToken(string tokenString)
         {
             var comparer = StringComparer.OrdinalIgnoreCase;
             Tags = new Dictionary<string, string>(comparer);
-            Value = string.Empty;
-            DefaultValue = string.Empty;
             Validate(tokenString);
             Parse(tokenString);
         }
@@ -79,7 +85,6 @@ namespace DeploySoftware.LaunchPad.FileGeneration.Stages
         {
             var comparer = StringComparer.OrdinalIgnoreCase;
             Tags = new Dictionary<string, string>(comparer);
-            DefaultValue = string.Empty;
             Validate(tokenString);
             Parse(tokenString);
             Value = value;
@@ -94,6 +99,23 @@ namespace DeploySoftware.LaunchPad.FileGeneration.Stages
             Value = value;
             Tags = tags;
         }
+
+
+        public LaunchPadToken(string prefix, string name, string defaultValue)
+        {
+            Prefix = prefix;
+            Name = name;
+            DefaultValue = defaultValue;
+        }
+
+        public LaunchPadToken(string prefix, string name, string defaultValue, string value)
+        {
+            Prefix = prefix;
+            Name = name;
+            DefaultValue = defaultValue;
+            Value = value;
+        }
+
 
         protected void Parse(string tokenString)
         {
@@ -168,22 +190,6 @@ namespace DeploySoftware.LaunchPad.FileGeneration.Stages
             Guard.Against<ArgumentException>(length > 3 | length < 2, DeploySoftware_LaunchPad_Core_Resources.Guard_LaunchPadToken_ArgumentException_WrongNumberSections);            
         }
 
-        public LaunchPadToken(string prefix, string name, string defaultValue)
-        {
-            Prefix = prefix;
-            Name = name;
-            DefaultValue = defaultValue;
-            Value = string.Empty;
-        }
-
-        public LaunchPadToken(string prefix, string name, string defaultValue, string value)
-        {
-            Prefix = prefix;
-            Name = name;
-            DefaultValue = defaultValue;
-            Value = value;
-        }
-        
         public override string ToString()
         {
             StringBuilder sb = new StringBuilder("{{");
