@@ -11,7 +11,7 @@
     <GenerateBindingRedirectsOutputType>true</GenerateBindingRedirectsOutputType>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
-    <Version>6.1.0-alpha</Version>
+    <Version>6.2.0-alpha</Version>
     <Description>Shared code for LaunchPad framework.</Description>
     <Copyright>2018-2022 Deploy Software Solutions, inc.</Copyright>
     <PackageReleaseNotes>3.0.0: Switch to .net core 3.1
@@ -39,9 +39,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Abp" Version="7.1.0" />
-    <PackageReference Include="Abp.Castle.Log4Net" Version="7.1.0" />
-    <PackageReference Include="Castle.LoggingFacility" Version="5.1.1" />
+    <PackageReference Include="Abp" Version="7.2.1" />
+    <PackageReference Include="Abp.Castle.Log4Net" Version="7.2.1" />
+    <PackageReference Include="Castle.LoggingFacility" Version="5.1.2" />
     <PackageReference Include="CoordinateSharp" Version="2.13.1.1" />
     <PackageReference Include="HtmlAgilityPack" Version="1.11.42" />
     <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
