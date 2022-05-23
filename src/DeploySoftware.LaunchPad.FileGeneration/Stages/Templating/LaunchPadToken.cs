@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Xml.Serialization;
 
@@ -188,6 +189,32 @@ namespace DeploySoftware.LaunchPad.FileGeneration.Stages
             Guard.Against<ArgumentException>(!tokenString.Contains("n:"), DeploySoftware_LaunchPad_Core_Resources.Guard_LaunchPadToken_ArgumentException_MissingName);
             int length = tokenString.Split("|").Length;
             Guard.Against<ArgumentException>(length > 3 | length < 2, DeploySoftware_LaunchPad_Core_Resources.Guard_LaunchPadToken_ArgumentException_WrongNumberSections);            
+        }
+
+        /// <summary>
+        /// Returns a useful source string containing the class name, method, and line number.
+        /// Uses .NET 6 compiler services
+        /// https://docs.microsoft.com/en-us/dotnet/api/system.runtime.compilerservices.callermembernameattribute?view=net-6.0
+        /// </summary>
+        /// <param name="memberName">Leave blank to obtain the calling method.</param>
+        /// <param name="fileName">Leave blank to obtain the calling class and filepath.</param>
+        /// <param name="lineNumber">Leave blank to obtain the calling line number.</param>
+        /// <returns>A formatted source string identifing the calling class and parent folder, method name and line number.</returns>
+        public virtual string GetSourceFromCallingClass(
+            string className = "",
+            [CallerMemberName] string memberName = "",
+            [CallerFilePath] string fileName = "",
+            [CallerLineNumber] int lineNumber = 0
+        )
+        {
+            if (string.IsNullOrEmpty(className))
+            {
+                int lastSlash = fileName.LastIndexOf("\\");
+                int secondLastSlash = fileName.LastIndexOf("\\", lastSlash - 1);
+                className = fileName.Substring(secondLastSlash);
+            }
+            string sourceInfo = string.Format("{0}.{1}() line {2}", className, memberName, lineNumber);
+            return sourceInfo;
         }
 
         public override string ToString()
