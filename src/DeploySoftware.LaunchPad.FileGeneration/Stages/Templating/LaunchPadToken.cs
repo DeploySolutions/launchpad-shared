@@ -156,7 +156,7 @@ namespace DeploySoftware.LaunchPad.FileGeneration.Stages
         /// </summary>
         /// <param name="tokenTagsString">The token element</param>
         /// <returns>A dictionary containing a set of tags for a particular token</returns>
-        protected IDictionary<string,string> ParseTags(string tokenTagsString)
+        public virtual IDictionary<string,string> ParseTags(string tokenTagsString)
         {
             var comparer = StringComparer.OrdinalIgnoreCase;
             IDictionary<string, string> tokenTags = new Dictionary<string, string>(comparer);
