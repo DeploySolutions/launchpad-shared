@@ -8,15 +8,15 @@ using System.Threading.Tasks;
 namespace DeploySoftware.LaunchPad.Python
 {
     [Serializable()]
-    public partial class PythonInstallation
+    public partial class PythonInstallation : IPythonInstallation
     {
         public virtual PythonMajorVersion MajorVersion { get; set; }
 
         public virtual PythonMinorVersion MinorVersion { get; set; }
 
-        public string InstallationFilePath { get; set; } 
+        public string InstallationFilePath { get; set; }
 
-        public IDictionary<string,string> ModuleFilePaths { get; set; }
+        public IDictionary<string, string> ModuleFilePaths { get; set; }
 
         protected PythonInstallation()
         {
@@ -30,8 +30,8 @@ namespace DeploySoftware.LaunchPad.Python
         {
             MajorVersion = majorVersion;
             MinorVersion = minorVersion;
-            InstallationFilePath = installationFilePath; 
-            var comparer = StringComparer.OrdinalIgnoreCase;            
+            InstallationFilePath = installationFilePath;
+            var comparer = StringComparer.OrdinalIgnoreCase;
             ModuleFilePaths = new Dictionary<string, string>(comparer);
         }
 

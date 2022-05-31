@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace DeploySoftware.LaunchPad.Python
 {
     [Serializable()]
-    public partial class PythonScript
+    public partial class PythonScript : IPythonScript
     {
         public string FolderPath { get; set; } = string.Empty;
 

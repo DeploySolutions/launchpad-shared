@@ -10,7 +10,7 @@ using System.Collections.Generic;
 
 namespace DeploySoftware.LaunchPad.Python
 {
-    public partial class PythonScriptService : ISystemIntegrationService
+    public partial class PythonScriptService : ISystemIntegrationService, IPythonScriptService
     {
         public virtual ILogger Logger { get; set; }
 
@@ -25,12 +25,12 @@ namespace DeploySoftware.LaunchPad.Python
 
         public PythonScriptService(ILogger logger, string pythonInstallationFilePath, string scriptFileName)
         {
-            Logger = logger; 
+            Logger = logger;
             Python = new PythonInstallation(pythonInstallationFilePath, PythonMajorVersion.Three, PythonMinorVersion.Eight);
             Script = new PythonScript(scriptFileName);
         }
 
-        public PythonScriptService(ILogger logger, string pythonInstallationFilePath, string scriptFileName, IDictionary<string,string> moduleFilePaths)
+        public PythonScriptService(ILogger logger, string pythonInstallationFilePath, string scriptFileName, IDictionary<string, string> moduleFilePaths)
         {
             Logger = logger;
             Python = new PythonInstallation(pythonInstallationFilePath, PythonMajorVersion.Three, PythonMinorVersion.Eight, moduleFilePaths);
@@ -41,7 +41,7 @@ namespace DeploySoftware.LaunchPad.Python
         {
             Guard.Against<ArgumentNullException>(String.IsNullOrEmpty(Script.FileName), "Python script filename must not be empty");
             Logger.Info("GetTextFromScript() started.");
-            
+
             string cmd = Script.FileName;
             Logger.Debug(string.Format("GetTextFromScript(), cmd is '{0}'", cmd));
 
@@ -60,7 +60,7 @@ namespace DeploySoftware.LaunchPad.Python
                     try
                     {
                         scriptResult = reader.ReadToEnd();
-                        Logger.Info(string.Format("Script result succeeded, returned '{0}'",scriptResult));
+                        Logger.Info(string.Format("Script result succeeded, returned '{0}'", scriptResult));
                     }
                     catch (Exception ex)
                     {
