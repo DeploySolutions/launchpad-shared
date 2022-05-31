@@ -5,8 +5,8 @@ namespace DeploySoftware.LaunchPad.Python
     public partial interface IPythonScriptService
     {
         ILogger Logger { get; set; }
-        PythonInstallation Python { get; set; }
-        PythonScript Script { get; set; }
+        IPythonInstallation Python { get; set; }
+        IPythonScript Script { get; set; }
 
         string GetTextFromScript(string args);
     }

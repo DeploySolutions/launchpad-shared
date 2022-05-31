@@ -14,9 +14,9 @@ namespace DeploySoftware.LaunchPad.Python
     {
         public virtual ILogger Logger { get; set; }
 
-        public PythonScript Script { get; set; }
+        public IPythonScript Script { get; set; }
 
-        public PythonInstallation Python { get; set; }
+        public IPythonInstallation Python { get; set; }
 
         protected PythonScriptService()
         {
