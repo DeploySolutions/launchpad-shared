@@ -10,35 +10,35 @@ namespace DeploySoftware.LaunchPad.Python
     public enum PythonMajorVersion
     {
         [Description("4")]
-        Four,
+        Four =4,
         [Description("3")]
-        Three,
+        Three =3,
         [Description("2")]
-        Two
+        Two = 2
     }
 
     public enum PythonMinorVersion
     {
         [Description("9")]
-        Nine,
+        Nine=9,
         [Description("8")]
-        Eight,
+        Eight=8,
         [Description("7")]
-        Seven,
+        Seven=7,
         [Description("6")]
-        Six,
+        Six=6,
         [Description("5")]
-        Five,
+        Five=5,
         [Description("4")]
-        Four,
+        Four=4,
         [Description("3")]
-        Three,
+        Three=3,
         [Description("2")]
-        Two,
+        Two=2,
         [Description("1")]
-        One,
+        One=1,
         [Description("0")]
-        Zero
+        Zero=0
 
     }
 
