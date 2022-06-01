@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -32,9 +33,10 @@ namespace DeploySoftware.LaunchPad.Python
         {
         }
 
-        public PythonScript(string scriptFileName)
+        public PythonScript(string scriptFilePath)
         {
-            FileName = scriptFileName;
+            FileName = scriptFilePath;
+            FolderPath = new FileInfo(scriptFilePath).Directory.FullName;
         }
 
     }
