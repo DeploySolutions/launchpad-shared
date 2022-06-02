@@ -82,6 +82,14 @@ namespace DeploySoftware.LaunchPad.Core.Domain
             Tags = new List<MetadataTag>();
         }
 
+        public FileStorageLocationBase(string id, Uri rootUri)
+        {
+            Id = id;
+            Name = id;
+            RootUri = rootUri;
+            Tags = new List<MetadataTag>();
+        }
+
         public FileStorageLocationBase(string id, Uri rootUri, FileStorageProviderTypeEnum provider)
         {
             Id = id;

@@ -39,10 +39,17 @@ namespace DeploySoftware.LaunchPad.AWS.S3
         /// Creates a new bucket location object with the default region and bucket root.
         /// Note that the bucket may not be globally unique and this constructor does not check that.
         /// </summary>
-        public S3BucketStorageLocation()
+        public S3BucketStorageLocation():base()
         {
+            Id = Guid.NewGuid().ToString();
+            Name = Id;
             Region = DEFAULT_REGION;
-            RootUri = new Uri("https://s3." + Region + ".amazonaws.com/");
+            string bucketUri = string.Format("https://s3.{0}.amazonaws.com/{1}", Region, Id);
+            string descriptionMessage = string.Format("AWS S3 bucket at '{0}'", bucketUri); 
+            DescriptionShort = descriptionMessage;
+            DescriptionFull = descriptionMessage;
+            RootUri = new Uri(bucketUri);
+            Provider = FileStorageProviderTypeEnum.Aws_S3;
         }
 
         /// <summary>
@@ -50,11 +57,15 @@ namespace DeploySoftware.LaunchPad.AWS.S3
         /// Note that the bucket may not be globally unique and this constructor does not check that.
         /// </summary>
         /// <param name="bucketName">The globally-unique name of the bucket.</param>
-        public S3BucketStorageLocation(string bucketName) : base()
+        public S3BucketStorageLocation(string id, Uri rootUri) : base(id, rootUri)
         {
             Region = DEFAULT_REGION;
-            Name = bucketName;
-            RootUri = new Uri("https://s3." + Region + ".amazonaws.com/" + bucketName);
+            string bucketUri = string.Format("https://s3.{0}.amazonaws.com/{1}", Region, id);
+            string descriptionMessage = string.Format("AWS S3 bucket at '{0}'", bucketUri);
+            DescriptionShort = descriptionMessage;
+            DescriptionFull = descriptionMessage;
+            RootUri = new Uri(bucketUri);
+            Provider = FileStorageProviderTypeEnum.Aws_S3;
         }
 
         /// <summary>
@@ -64,26 +75,16 @@ namespace DeploySoftware.LaunchPad.AWS.S3
         /// <param name="region">The region in which the bucket will be created.</param>
         /// <param name="bucketRoot">the URI root of the bucket</param>
         /// <param name="bucketName">The globally-unique name of the bucket</param>
-        public S3BucketStorageLocation(string region, string bucketName) : base()
+        public S3BucketStorageLocation(string id, string bucketName, string region, string defaultPrefix = "") : base()
         {
             Region = region;
             Name = bucketName;
-            RootUri = new Uri("https://s3." + Region + ".amazonaws.com/" + bucketName);
-        }
-
-
-        /// <summary>
-        /// Creates a new bucket location with the given region, bucket root, and bucketname.
-        /// Note that the provided bucket may not be globally unique and this constructor does not check that.
-        /// </summary>
-        /// <param name="region">The region in which the bucket will be created.</param>
-        /// <param name="bucketRoot">the URI root of the bucket</param>
-        /// <param name="bucketName">The globally-unique name of the bucket</param>
-        public S3BucketStorageLocation(string region, string bucketName, string basePrefix = "") : base()
-        {
-            Region = region;
-            RootUri = new Uri("https://s3." + Region + ".amazonaws.com/" + bucketName);
-            DefaultPrefix = basePrefix;
+            string bucketUri = string.Format("https://s3.{0}.amazonaws.com/{1}", Region, bucketName);
+            string descriptionMessage = string.Format("AWS S3 bucket at '{0}'", bucketUri);
+            DescriptionShort = descriptionMessage;
+            DescriptionFull = descriptionMessage;
+            DefaultPrefix = defaultPrefix;
+            RootUri = new Uri(bucketUri);
         }
 
         /// <summary>

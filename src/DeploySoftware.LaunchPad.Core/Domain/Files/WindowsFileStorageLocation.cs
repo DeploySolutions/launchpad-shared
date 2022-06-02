@@ -16,6 +16,8 @@
 #endregion
 
 using Microsoft.EntityFrameworkCore;
+using System;
+using System.IO;
 using System.Runtime.Serialization;
 
 namespace DeploySoftware.LaunchPad.Core.Domain
@@ -25,9 +27,16 @@ namespace DeploySoftware.LaunchPad.Core.Domain
     {
 
 
-        public WindowsFileStorageLocation()
+        public WindowsFileStorageLocation() :base()
         {
+            string defaultUri = string.Format("file:///{0}", Directory.GetCurrentDirectory());
+            string descriptionMessage = string.Format("AWS S3 bucket at '{0}'", defaultUri);
+            DescriptionShort = descriptionMessage;
+            DescriptionFull = descriptionMessage;
+            RootUri = new Uri(defaultUri);
+            Provider = FileStorageProviderTypeEnum.Windows_NTFS;
         }
+
 
         /// <summary>
         /// Serialization constructor used for deserialization
