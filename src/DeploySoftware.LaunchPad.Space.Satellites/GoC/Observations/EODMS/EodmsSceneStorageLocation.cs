@@ -25,7 +25,7 @@ namespace DeploySoftware.LaunchPad.Space.Satellites.GoC.EODMS
         /// </summary>
         public EodmsSceneStorageLocation()
         {
-            RootPath = new Uri(EODMS_URI);
+            RootUri = new Uri(EODMS_URI);
         }
 
 

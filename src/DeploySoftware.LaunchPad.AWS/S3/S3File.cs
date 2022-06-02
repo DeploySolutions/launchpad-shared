@@ -18,7 +18,7 @@ namespace DeploySoftware.LaunchPad.AWS.S3
         {
             get
             {
-                return Location.BasePrefix + "/" + Name;
+                return Location.DefaultPrefix + "/" + Name;
             }
         }
 
@@ -31,7 +31,7 @@ namespace DeploySoftware.LaunchPad.AWS.S3
         {
             get
             {
-                return new Uri("https://" + Location.BucketName + ".s3.amazonaws.com/" + Location.BasePrefix + "/" + Name.Replace(" ","+"));
+                return new Uri("https://" + Location.Name + ".s3.amazonaws.com/" + Location.DefaultPrefix + "/" + Name.Replace(" ","+"));
             }
         }
 
@@ -44,7 +44,7 @@ namespace DeploySoftware.LaunchPad.AWS.S3
         {
             get
             {
-                return new Uri("https://s3." + Location.Region + ".amazonaws.com/" + Location.BucketName + "/" + Location.BasePrefix + "/" + Name.Replace(" ", "+"));
+                return new Uri("https://s3." + Location.Region + ".amazonaws.com/" + Location.Name + "/" + Location.DefaultPrefix + "/" + Name.Replace(" ", "+"));
             }
         }
 

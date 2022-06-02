@@ -35,16 +35,6 @@ namespace DeploySoftware.LaunchPad.AWS.S3
         [XmlAttribute]
         public virtual string Region { get; set; }
         
-        [DataObjectField(false)]
-        [XmlAttribute]
-        public virtual string BucketName { get; set; }
-
-
-        [DataObjectField(false)]
-        [XmlAttribute]
-        public virtual string BasePrefix { get; set; }
-
-
         /// <summary>
         /// Creates a new bucket location object with the default region and bucket root.
         /// Note that the bucket may not be globally unique and this constructor does not check that.
@@ -52,7 +42,7 @@ namespace DeploySoftware.LaunchPad.AWS.S3
         public S3BucketStorageLocation()
         {
             Region = DEFAULT_REGION;
-            RootPath = new Uri("https://s3." + Region + ".amazonaws.com/");
+            RootUri = new Uri("https://s3." + Region + ".amazonaws.com/");
         }
 
         /// <summary>
@@ -63,8 +53,8 @@ namespace DeploySoftware.LaunchPad.AWS.S3
         public S3BucketStorageLocation(string bucketName) : base()
         {
             Region = DEFAULT_REGION;
-            BucketName = bucketName;
-            RootPath = new Uri("https://s3." + Region + ".amazonaws.com/" + bucketName);
+            Name = bucketName;
+            RootUri = new Uri("https://s3." + Region + ".amazonaws.com/" + bucketName);
         }
 
         /// <summary>
@@ -77,8 +67,8 @@ namespace DeploySoftware.LaunchPad.AWS.S3
         public S3BucketStorageLocation(string region, string bucketName) : base()
         {
             Region = region;
-            BucketName = bucketName;
-            RootPath = new Uri("https://s3." + Region + ".amazonaws.com/" + bucketName);
+            Name = bucketName;
+            RootUri = new Uri("https://s3." + Region + ".amazonaws.com/" + bucketName);
         }
 
 
@@ -92,9 +82,8 @@ namespace DeploySoftware.LaunchPad.AWS.S3
         public S3BucketStorageLocation(string region, string bucketName, string basePrefix = "") : base()
         {
             Region = region;
-            BucketName = bucketName;
-            RootPath = new Uri("https://s3." + Region + ".amazonaws.com/" + bucketName);
-            BasePrefix = basePrefix;
+            RootUri = new Uri("https://s3." + Region + ".amazonaws.com/" + bucketName);
+            DefaultPrefix = basePrefix;
         }
 
         /// <summary>
@@ -105,8 +94,7 @@ namespace DeploySoftware.LaunchPad.AWS.S3
         protected S3BucketStorageLocation(SerializationInfo info, StreamingContext context) :base(info,context)
         {
             Region = info.GetString(Region);
-            BucketName = info.GetString(BucketName);
-            BasePrefix = info.GetString(BasePrefix); 
+            DefaultPrefix = info.GetString(DefaultPrefix); 
             
         }
 
@@ -114,8 +102,7 @@ namespace DeploySoftware.LaunchPad.AWS.S3
         {
             base.GetObjectData(info, context);
             info.AddValue("Region", Region);
-            info.AddValue("BucketName", BucketName);
-            info.AddValue("BasePrefix", BasePrefix);
+            info.AddValue("BasePrefix", DefaultPrefix);
         }
 
     }

@@ -39,7 +39,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         {
             get
             {
-                return new Uri(Location.RootPath.AbsolutePath + Path.DirectorySeparatorChar + Name);
+                return new Uri(Location.RootUri.AbsolutePath + Path.DirectorySeparatorChar + Name);
             }
         }
 

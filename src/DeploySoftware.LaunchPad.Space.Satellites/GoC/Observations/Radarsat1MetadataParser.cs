@@ -207,7 +207,7 @@ namespace DeploySoftware.LaunchPad.Space.Satellites.GoC
             Radarsat1ObservationScene<TPrimaryKey, TFileStorageLocationType>.Radarsat1ObservationFiles observationFiles = new Radarsat1ObservationScene<TPrimaryKey, TFileStorageLocationType>.Radarsat1ObservationFiles();
 
             var location = new TFileStorageLocationType();
-            location.RootPath = new System.Uri(Directory.GetCurrentDirectory());
+            location.RootUri = new System.Uri(Directory.GetCurrentDirectory());
 
             // add each expected file type (if it exists)
             if (File.Exists(expectedFiles[0].Value))
