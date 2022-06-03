@@ -29,16 +29,6 @@ namespace DeploySoftware.LaunchPad.Core.AbpModuleConfig
             }
         }
 
-        protected readonly IConfigurationRoot _configurationRoot;
-        public IConfigurationRoot ConfigurationRoot
-        {
-            get
-            {
-                return _configurationRoot;
-            }
-        }
-
-
         protected TSecretHelper _secretHelper;
         [JsonIgnore]
         public TSecretHelper SecretHelper
@@ -50,18 +40,16 @@ namespace DeploySoftware.LaunchPad.Core.AbpModuleConfig
         }
 
 
-        public LaunchPadAbpModuleHelperBase(ILogger logger, THostEnvironment hostEnvironment, IConfigurationRoot configurationRoot)
+        public LaunchPadAbpModuleHelperBase(ILogger logger, THostEnvironment hostEnvironment, IConfigurationRoot configurationRoot) :base(logger, configurationRoot)
         {
             Logger = logger;
-            _configurationRoot = configurationRoot;
             _hostEnvironment = hostEnvironment; 
             _secretHelper = new TSecretHelper();
         }
 
-        public LaunchPadAbpModuleHelperBase(ILogger logger, THostEnvironment hostEnvironment, IConfigurationRoot configurationRoot, TSecretHelper secretHelper)
+        public LaunchPadAbpModuleHelperBase(ILogger logger, THostEnvironment hostEnvironment, IConfigurationRoot configurationRoot, TSecretHelper secretHelper) : base(logger, configurationRoot)
         {
             Logger = logger;
-            _configurationRoot = configurationRoot;
             _hostEnvironment = hostEnvironment;
             _secretHelper = secretHelper;
         }
