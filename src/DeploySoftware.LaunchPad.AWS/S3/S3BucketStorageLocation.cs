@@ -22,6 +22,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Runtime.Serialization;
+using System.Text;
 using System.Xml.Serialization;
 
 namespace DeploySoftware.LaunchPad.AWS.S3
@@ -106,5 +107,17 @@ namespace DeploySoftware.LaunchPad.AWS.S3
             info.AddValue("BasePrefix", DefaultPrefix);
         }
 
+        /// <summary>  
+        /// Displays information about the <c>Field</c> in readable format.  
+        /// </summary>  
+        /// <returns>A string representation of the object.</returns>
+        public override String ToString()
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.Append("[S3BucketStorageLocation: ");
+            sb.Append(ToStringBaseProperties());
+            sb.Append(']');
+            return sb.ToString();
+        }
     }
 }

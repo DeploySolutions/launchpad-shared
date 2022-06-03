@@ -19,6 +19,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.IO;
 using System.Runtime.Serialization;
+using System.Text;
 
 namespace DeploySoftware.LaunchPad.Core.Domain
 {
@@ -46,7 +47,21 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         protected WindowsFileStorageLocation(SerializationInfo info, StreamingContext context) :base (info,context)
         {
 
+
+
+        /// <summary>  
+        /// Displays information about the <c>Field</c> in readable format.  
+        /// </summary>  
+        /// <returns>A string representation of the object.</returns>
+        public override String ToString()
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.Append("[WindowsFileStorageLocation: ");
+            sb.Append(ToStringBaseProperties());
+            sb.Append(']');
+            return sb.ToString();
         }
+    }
 
     }
 }

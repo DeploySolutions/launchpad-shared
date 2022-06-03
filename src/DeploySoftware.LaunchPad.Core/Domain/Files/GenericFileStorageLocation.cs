@@ -185,15 +185,11 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         protected virtual String ToStringBaseProperties()
         {
             StringBuilder sb = new StringBuilder();
-            // LaunchPAD RAD properties
             sb.AppendFormat("Id={0};", Id);
             sb.AppendFormat("Name={0};", Name);
             sb.AppendFormat("Provider={0};", Provider);
             sb.AppendFormat("DescriptionShort={0};", DescriptionShort);
-            sb.AppendFormat("DescriptionFull={0};", DescriptionFull);
-            sb.AppendFormat(" Tags={0};", Tags.ToString());
             sb.AppendFormat("RootUri={0};", RootUri);
-            sb.AppendFormat("IsReadOnly={0};", IsReadOnly);
             sb.AppendFormat("DefaultPrefix={0};", DefaultPrefix);
             return sb.ToString();
         }
