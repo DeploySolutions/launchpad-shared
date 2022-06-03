@@ -23,7 +23,7 @@ using System.Runtime.Serialization;
 namespace DeploySoftware.LaunchPad.Core.Domain
 {
     [Owned]
-    public partial class WindowsFileStorageLocation : FileStorageLocationBase
+    public partial class WindowsFileStorageLocation : GenericFileStorageLocation
     {
 
 

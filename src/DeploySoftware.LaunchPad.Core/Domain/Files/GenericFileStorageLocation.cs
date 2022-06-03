@@ -27,7 +27,7 @@ using System.Xml.Serialization;
 
 namespace DeploySoftware.LaunchPad.Core.Domain
 {
-    public abstract partial class FileStorageLocationBase : IFileStorageLocation
+    public partial class GenericFileStorageLocation : IFileStorageLocation
     {
         [DataObjectField(true)]
         [XmlAttribute]
@@ -77,20 +77,22 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         [XmlAttribute]
         public virtual IEnumerable<MetadataTag> Tags { get; set; }
 
-        protected FileStorageLocationBase()
+        protected GenericFileStorageLocation()
         {
+            Provider = FileStorageProviderTypeEnum.Unknown;
             Tags = new List<MetadataTag>();
         }
 
-        public FileStorageLocationBase(string id, Uri rootUri)
+        public GenericFileStorageLocation(string id, Uri rootUri)
         {
             Id = id;
             Name = id;
-            RootUri = rootUri;
+            RootUri = rootUri; 
+            Provider = FileStorageProviderTypeEnum.Unknown;
             Tags = new List<MetadataTag>();
         }
 
-        public FileStorageLocationBase(string id, Uri rootUri, FileStorageProviderTypeEnum provider)
+        public GenericFileStorageLocation(string id, Uri rootUri, FileStorageProviderTypeEnum provider)
         {
             Id = id;
             Name = id;
@@ -99,7 +101,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
             Tags = new List<MetadataTag>();
         }
 
-        public FileStorageLocationBase(string id, string name, Uri rootUri, FileStorageProviderTypeEnum provider)
+        public GenericFileStorageLocation(string id, string name, Uri rootUri, FileStorageProviderTypeEnum provider)
         {
             Id = id;
             Name = name;
@@ -108,7 +110,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
             Tags = new List<MetadataTag>();
         }
 
-        public FileStorageLocationBase(string id, string name, Uri rootUri, FileStorageProviderTypeEnum provider, IEnumerable<MetadataTag> tags)
+        public GenericFileStorageLocation(string id, string name, Uri rootUri, FileStorageProviderTypeEnum provider, IEnumerable<MetadataTag> tags)
         {
             Id = id;
             Name = name;
@@ -122,7 +124,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         /// </summary>
         /// <param name="info">The serialization info</param>
         /// <param name="context">The context of the stream</param>
-        protected FileStorageLocationBase(SerializationInfo info, StreamingContext context)
+        protected GenericFileStorageLocation(SerializationInfo info, StreamingContext context)
         {
             Id = info.GetString(Id); 
             Name = info.GetString(Name); 
@@ -155,7 +157,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         /// </summary>
         /// <param name="other">The other object of this type we are comparing to</param>
         /// <returns></returns>
-        public virtual int CompareTo(FileStorageLocationBase other)
+        public virtual int CompareTo(GenericFileStorageLocation other)
         {
             // put comparison of properties in here 
             // for base object we'll just sort by title
@@ -169,7 +171,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         public override String ToString()
         {
             StringBuilder sb = new StringBuilder();
-            sb.Append("[DomainEntityBase: ");
+            sb.Append("[GenericFileStorageLocation: ");
             sb.Append(ToStringBaseProperties());
             sb.Append(']');
             return sb.ToString();
@@ -203,9 +205,9 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         /// <returns>True if the entities are the same according to business key value</returns>
         public override bool Equals(object obj)
         {
-            if (obj != null && obj is FileStorageLocationBase)
+            if (obj != null && obj is GenericFileStorageLocation)
             {
-                return Equals(obj as FileStorageLocationBase);
+                return Equals(obj as GenericFileStorageLocation);
             }
             return false;
         }
@@ -219,7 +221,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         /// </summary>
         /// <param name="obj">The other object of this type that we are testing equality with</param>
         /// <returns></returns>
-        public virtual bool Equals(FileStorageLocationBase obj)
+        public virtual bool Equals(GenericFileStorageLocation obj)
         {
             if (obj != null)
             {
@@ -240,7 +242,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         /// <param name="x">The first value</param>
         /// <param name="y">The second value</param>
         /// <returns>True if both objects are fully equal based on the Equals logic</returns>
-        public static bool operator ==(FileStorageLocationBase x, FileStorageLocationBase y)
+        public static bool operator ==(GenericFileStorageLocation x, GenericFileStorageLocation y)
         {
             if (x is null)
             {
@@ -259,7 +261,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         /// <param name="x">The first value</param>
         /// <param name="y">The second value</param>
         /// <returns>True if both objects are not equal based on the Equals logic</returns>
-        public static bool operator !=(FileStorageLocationBase x, FileStorageLocationBase y)
+        public static bool operator !=(GenericFileStorageLocation x, GenericFileStorageLocation y)
         {
             return !(x == y);
         }

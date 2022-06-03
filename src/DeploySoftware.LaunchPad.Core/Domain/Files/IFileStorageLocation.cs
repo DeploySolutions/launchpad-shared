@@ -27,7 +27,7 @@ using System.ComponentModel.DataAnnotations;
     /// The storage location of the file bytes.
     /// </summary>
     public interface IFileStorageLocation : ILaunchPadObject,
-        IComparable<FileStorageLocationBase>, IEquatable<FileStorageLocationBase>
+        IComparable<GenericFileStorageLocation>, IEquatable<GenericFileStorageLocation>
     {
         [DataObjectField(true)]
         [XmlAttribute]

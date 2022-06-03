@@ -12,7 +12,7 @@ using System.Xml.Serialization;
 namespace DeploySoftware.LaunchPad.Space.Satellites.GoC.EODMS
 {
     [Owned]
-    public partial class EodmsSceneStorageLocation : FileStorageLocationBase
+    public partial class EodmsSceneStorageLocation : GenericFileStorageLocation
     {
         public const string EODMS_URI = "https://www.eodms-sgdot.nrcan-rncan.gc.ca/";
 

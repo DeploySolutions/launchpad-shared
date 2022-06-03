@@ -27,7 +27,7 @@ using System.Xml.Serialization;
 namespace DeploySoftware.LaunchPad.AWS.S3
 {
     [Owned]
-    public partial class S3BucketStorageLocation : FileStorageLocationBase
+    public partial class S3BucketStorageLocation : GenericFileStorageLocation
     {
         public const string DEFAULT_REGION = "us-east-1";
         
