@@ -124,7 +124,7 @@ namespace DeploySoftware.LaunchPad.AWS {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to An exception was thrown while attempting to GetSecret JSON string: {0}. The message was {1}..
+        ///   Looks up a localized string similar to An exception was thrown while attempting to GetSecret JSON for secret ARN {0}. The message was {1}..
         /// </summary>
         public static string Logger_Error_GetJsonFromSecret_ExceptionThrown {
             get {

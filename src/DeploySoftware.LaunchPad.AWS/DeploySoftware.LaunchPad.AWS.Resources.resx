@@ -139,7 +139,7 @@
     <value>An exception was thrown while attempting to GetDbConnectionStringFromSecret for ARN: {0}. The message was {1}.</value>
   </data>
   <data name="Logger_Error_GetJsonFromSecret_ExceptionThrown" xml:space="preserve">
-    <value>An exception was thrown while attempting to GetSecret JSON string: {0}. The message was {1}.</value>
+    <value>An exception was thrown while attempting to GetSecret JSON for secret ARN {0}. The message was {1}.</value>
   </data>
   <data name="Logger_Error_UpdateJsonForSecret_Cannot_Find" xml:space="preserve">
     <value>Error updating JSON key {0} with value {1} for secret ARN {2} - cannot find key.</value>

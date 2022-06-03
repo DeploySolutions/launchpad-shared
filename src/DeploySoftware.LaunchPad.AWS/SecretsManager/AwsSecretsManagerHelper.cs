@@ -76,37 +76,37 @@ namespace DeploySoftware.LaunchPad.AWS.SecretsManager
             catch (DecryptionFailureException e)
             {
                 // Secrets Manager can't decrypt the protected secret text using the provided KMS key.\
-                Logger.Error(string.Format(DeploySoftware_LaunchPad_AWS_Resources.Logger_Error_GetJsonFromSecret_ExceptionThrown, e.Message));
+                Logger.Error(string.Format(DeploySoftware_LaunchPad_AWS_Resources.Logger_Error_GetJsonFromSecret_ExceptionThrown, secretVaultIdentifier, e.Message));
                 throw;
             }
             catch (InternalServiceErrorException e)
             {
                 // An error occurred on the server side.
-                Logger.Error(string.Format(DeploySoftware_LaunchPad_AWS_Resources.Logger_Error_GetJsonFromSecret_ExceptionThrown, e.Message));
+                Logger.Error(string.Format(DeploySoftware_LaunchPad_AWS_Resources.Logger_Error_GetJsonFromSecret_ExceptionThrown, secretVaultIdentifier, e.Message));
                 throw;
             }
             catch (InvalidParameterException e)
             {
                 // You provided an invalid value for a parameter.
-                Logger.Error(string.Format(DeploySoftware_LaunchPad_AWS_Resources.Logger_Error_GetJsonFromSecret_ExceptionThrown, e.Message));
+                Logger.Error(string.Format(DeploySoftware_LaunchPad_AWS_Resources.Logger_Error_GetJsonFromSecret_ExceptionThrown, secretVaultIdentifier, e.Message));
                 throw;
             }
             catch (InvalidRequestException e)
             {
                 // You provided a parameter value that is not valid for the current state of the resource.
-                Logger.Error(string.Format(DeploySoftware_LaunchPad_AWS_Resources.Logger_Error_GetJsonFromSecret_ExceptionThrown, e.Message));
+                Logger.Error(string.Format(DeploySoftware_LaunchPad_AWS_Resources.Logger_Error_GetJsonFromSecret_ExceptionThrown, secretVaultIdentifier, e.Message));
                 throw;
             }
             catch (ResourceNotFoundException e)
             {
                 // We can't find the resource that you asked for.
-                Logger.Error(string.Format(DeploySoftware_LaunchPad_AWS_Resources.Logger_Error_GetJsonFromSecret_ExceptionThrown, e.Message));
+                Logger.Error(string.Format(DeploySoftware_LaunchPad_AWS_Resources.Logger_Error_GetJsonFromSecret_ExceptionThrown, secretVaultIdentifier, e.Message));
                 throw;
             }
             catch (AggregateException e)
             {
                 // More than one of the above exceptions were triggered.
-                Logger.Error(string.Format(DeploySoftware_LaunchPad_AWS_Resources.Logger_Error_GetJsonFromSecret_ExceptionThrown, e.Message));
+                Logger.Error(string.Format(DeploySoftware_LaunchPad_AWS_Resources.Logger_Error_GetJsonFromSecret_ExceptionThrown, secretVaultIdentifier, e.Message));
                 throw;
             }
             Logger.Info(string.Format(DeploySoftware_LaunchPad_AWS_Resources.Logger_Info_GetJsonFromSecret_Got, secretVaultIdentifier));
