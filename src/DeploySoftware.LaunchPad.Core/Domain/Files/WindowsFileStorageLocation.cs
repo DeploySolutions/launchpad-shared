@@ -44,10 +44,10 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         /// </summary>
         /// <param name="info">The serialization info</param>
         /// <param name="context">The context of the stream</param>
-        protected WindowsFileStorageLocation(SerializationInfo info, StreamingContext context) :base (info,context)
+        protected WindowsFileStorageLocation(SerializationInfo info, StreamingContext context) : base(info, context)
         {
 
-
+        }
 
         /// <summary>  
         /// Displays information about the <c>Field</c> in readable format.  
@@ -61,7 +61,6 @@ namespace DeploySoftware.LaunchPad.Core.Domain
             sb.Append(']');
             return sb.ToString();
         }
-    }
 
     }
 }
