@@ -34,12 +34,14 @@ namespace DeploySoftware.LaunchPad.Core.Domain
     using System.Linq;
     using Newtonsoft.Json;
     using DeploySoftware.LaunchPad.Core.Domain.SoftwareApplications;
+    using System.Diagnostics;
 
     /// <summary>
     /// Base class for Entities. Implements <see cref="IDomainEntity">IDomainEntity</see> and provides
     /// base functionality for many of its methods. Inherits from AspNetBoilerplate's Entity class.
     /// Implements AspNetBoilerplate's auditing interfaces.
-    /// </summary>
+    /// </summary>    
+    [DebuggerDisplay("{Id};Name {Name}")]
     public abstract partial class DomainEntityBase<TIdType> : 
         FullAuditedEntity<TIdType>, IDomainEntity<TIdType>
     {

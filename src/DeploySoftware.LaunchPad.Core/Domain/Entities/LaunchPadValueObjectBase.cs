@@ -35,6 +35,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
     using Newtonsoft.Json;
     using Abp.Domain.Values;
     using DeploySoftware.LaunchPad.Core.Domain.SoftwareApplications;
+    using System.Diagnostics;
 
     /// <summary>
     /// Base class for transient / value objects, ie. those that are not Domain Entities.
@@ -44,6 +45,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
     /// Implements AspNetBoilerplate's auditing interfaces.
     /// </summary>
     [Serializable]
+    [DebuggerDisplay("Name {Name};{Description}")]
     public abstract partial class LaunchPadValueObjectBase<TIdType> : ValueObject, ILaunchPadValueObject<TIdType>
     {
 

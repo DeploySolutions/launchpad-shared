@@ -28,7 +28,7 @@ using System.Xml.Serialization;
 
 namespace DeploySoftware.LaunchPad.Core.Domain
 {
-    [DebuggerDisplay("Id {Id};Name {Name}")]
+    [DebuggerDisplay("{Id};Name {Name}")]
     public partial class GenericFileStorageLocation : IFileStorageLocation
     {
         [DataObjectField(true)]

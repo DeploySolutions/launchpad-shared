@@ -21,6 +21,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Diagnostics;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Xml.Serialization;
@@ -28,6 +29,7 @@ using System.Xml.Serialization;
 namespace DeploySoftware.LaunchPad.AWS.S3
 {
     [Owned]
+    [DebuggerDisplay("{Id};Name {Name};Region {Region}")]
     public partial class S3BucketStorageLocation : GenericFileStorageLocation
     {
         public const string DEFAULT_REGION = "us-east-1";
