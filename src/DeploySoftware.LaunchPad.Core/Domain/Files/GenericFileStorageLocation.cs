@@ -20,6 +20,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Diagnostics;
 using System.IO;
 using System.Runtime.Serialization;
 using System.Text;
@@ -27,6 +28,7 @@ using System.Xml.Serialization;
 
 namespace DeploySoftware.LaunchPad.Core.Domain
 {
+    [DebuggerDisplay("Id {Id};Name {Name}")]
     public partial class GenericFileStorageLocation : IFileStorageLocation
     {
         [DataObjectField(true)]
