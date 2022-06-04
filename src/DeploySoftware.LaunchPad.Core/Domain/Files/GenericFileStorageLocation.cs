@@ -28,9 +28,14 @@ using System.Xml.Serialization;
 
 namespace DeploySoftware.LaunchPad.Core.Domain
 {
-    [DebuggerDisplay("{Id};Name {Name}")]
+    [DebuggerDisplay("{_debugDisplay}")]
     public partial class GenericFileStorageLocation : IFileStorageLocation
     {
+        /// <summary>
+        /// Controls the DebuggerDisplay attribute presentation (above). This will only appear during VS debugging sessions and should never be logged.
+        /// </summary>
+        protected virtual string _debugDisplay => $"{Id}. Name {Name}.";
+
         [DataObjectField(true)]
         [XmlAttribute]
         public virtual string Id { get; set; }

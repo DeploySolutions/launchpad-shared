@@ -45,9 +45,13 @@ namespace DeploySoftware.LaunchPad.Core.Domain
     /// Implements AspNetBoilerplate's auditing interfaces.
     /// </summary>
     [Serializable]
-    [DebuggerDisplay("Name {Name};{Description}")]
+    [DebuggerDisplay("{_debugDisplay}")]
     public abstract partial class LaunchPadValueObjectBase<TIdType> : ValueObject, ILaunchPadValueObject<TIdType>
     {
+        /// <summary>
+        /// Controls the DebuggerDisplay attribute presentation (above). This will only appear during VS debugging sessions and should never be logged.
+        /// </summary>
+        protected virtual string _debugDisplay => $"Name {Name}. {DescriptionShort}";
 
         /// <summary>
         /// The culture of this object

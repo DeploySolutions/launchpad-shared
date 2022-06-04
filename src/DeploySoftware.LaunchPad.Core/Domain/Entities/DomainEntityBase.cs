@@ -41,10 +41,15 @@ namespace DeploySoftware.LaunchPad.Core.Domain
     /// base functionality for many of its methods. Inherits from AspNetBoilerplate's Entity class.
     /// Implements AspNetBoilerplate's auditing interfaces.
     /// </summary>    
-    [DebuggerDisplay("{Id};Name {Name}")]
+    [DebuggerDisplay("{_debugDisplay}")]
     public abstract partial class DomainEntityBase<TIdType> : 
         FullAuditedEntity<TIdType>, IDomainEntity<TIdType>
     {
+
+        /// <summary>
+        /// Controls the DebuggerDisplay attribute presentation (above). This will only appear during VS debugging sessions and should never be logged.
+        /// </summary>
+        protected virtual string _debugDisplay => $"{Id}. Name {Name}.";
 
         /// <summary>
         /// The culture of this object

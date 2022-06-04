@@ -29,9 +29,13 @@ using System.Xml.Serialization;
 namespace DeploySoftware.LaunchPad.AWS.S3
 {
     [Owned]
-    [DebuggerDisplay("{Id};Name {Name};Region {Region}")]
     public partial class S3BucketStorageLocation : GenericFileStorageLocation
     {
+        /// <summary>
+        /// Controls the DebuggerDisplay attribute presentation (above). This will only appear during VS debugging sessions and should never be logged.
+        /// </summary>
+        protected override string _debugDisplay => $"{Id}. Name {Name}. Region {Region}.";
+
         public const string DEFAULT_REGION = "us-east-1";
         
         [DataObjectField(false)]
