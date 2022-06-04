@@ -4,6 +4,7 @@ using Amazon.S3.Transfer;
 using Castle.Core.Logging;
 using DeploySoftware.LaunchPad.Core.Application;
 using DeploySoftware.LaunchPad.Core.Domain;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -18,10 +19,10 @@ namespace DeploySoftware.LaunchPad.AWS.S3.Services
         public IAwsS3Helper Helper { get; set; }
 
 
-        public AwsS3Service(ILogger logger)
+        public AwsS3Service(ILogger logger, IConfigurationRoot configurationRoot)
         {
             Logger = logger;
-            Helper = new AwsS3Helper(logger);
+            Helper = new AwsS3Helper(logger, configurationRoot);
         }
 
         public AwsS3Service(ILogger logger, IAwsS3Helper helper) : base(logger)

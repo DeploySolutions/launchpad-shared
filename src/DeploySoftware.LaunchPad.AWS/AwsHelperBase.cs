@@ -3,6 +3,7 @@ using Amazon.Runtime;
 using Amazon.Runtime.CredentialManagement;
 using Castle.Core.Logging;
 using DeploySoftware.LaunchPad.Core.Util;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -23,19 +24,25 @@ namespace DeploySoftware.LaunchPad.AWS
         public bool ShouldUseLocalAwsProfile { get; set; } = DefaultShouldUseLocalAwsProfile;
 
         public AwsHelperBase() : base()
-        {
-            
+        {            
+            TryGetRegionEndpoint(string.Empty, out RegionEndpoint region);
+            Region = region;
         }
 
         public AwsHelperBase(ILogger logger) : base(logger)
         {
-            
+            TryGetRegionEndpoint(string.Empty, out RegionEndpoint region);
+            Region = region;
         }
 
-
-        public AwsHelperBase(string awsRegionEndpointName, ILogger logger) : base(logger)
+        public AwsHelperBase(ILogger logger, IConfigurationRoot configurationRoot) : base(logger, configurationRoot)
         {
-            Logger = logger;
+            TryGetRegionEndpoint(string.Empty, out RegionEndpoint region);
+            Region = region;
+        }
+
+        public AwsHelperBase(ILogger logger, IConfigurationRoot configurationRoot, string awsRegionEndpointName) : base(logger, configurationRoot)
+        {
             TryGetRegionEndpoint(awsRegionEndpointName, out RegionEndpoint region);
             Region = region;
             

@@ -3,6 +3,7 @@ using Amazon.S3;
 using Amazon.S3.Transfer;
 using Castle.Core.Logging;
 using DeploySoftware.LaunchPad.Core.Util;
+using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -24,19 +25,19 @@ namespace DeploySoftware.LaunchPad.AWS.S3
         {
         }
 
-        public AwsS3Helper(ILogger logger) :base(logger)
+        public AwsS3Helper(ILogger logger, IConfigurationRoot configurationRoot) :base(logger, configurationRoot)
         {
 
         }
 
-        public AwsS3Helper(ILogger logger, string awsRegionEndpointName, AmazonS3Client s3Client) : base(logger)
+        public AwsS3Helper(ILogger logger, IConfigurationRoot configurationRoot, string awsRegionEndpointName, AmazonS3Client s3Client) : base(logger, configurationRoot)
         {
             TryGetRegionEndpoint(awsRegionEndpointName, out RegionEndpoint region);
             Region = region;
             _s3Client = s3Client;
         }
 
-        public AwsS3Helper(ILogger logger, string awsRegionEndpointName, AmazonS3Client s3Client, string localAwsProfileName) : base(logger)
+        public AwsS3Helper(ILogger logger, IConfigurationRoot configurationRoot, string awsRegionEndpointName, AmazonS3Client s3Client, string localAwsProfileName) : base(logger, configurationRoot)
         {
             TryGetRegionEndpoint(awsRegionEndpointName, out RegionEndpoint region);
             Region = region;
