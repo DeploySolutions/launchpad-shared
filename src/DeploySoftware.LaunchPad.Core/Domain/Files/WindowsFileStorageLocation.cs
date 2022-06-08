@@ -38,6 +38,10 @@ namespace DeploySoftware.LaunchPad.Core.Domain
             Provider = FileStorageProviderTypeEnum.Windows_NTFS;
         }
 
+        public WindowsFileStorageLocation(string id, Uri rootUri) : base(id, rootUri)
+        { 
+            
+        }
 
         /// <summary>
         /// Serialization constructor used for deserialization
