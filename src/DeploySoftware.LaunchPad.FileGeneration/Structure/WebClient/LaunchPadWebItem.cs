@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using DeploySoftware.LaunchPad.Core.Util;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Xml.Serialization;
@@ -35,6 +36,14 @@ namespace DeploySoftware.LaunchPad.FileGeneration.Structure
         /// </summary>
         [JsonProperty("span")]
         public int? Span { get; set; }
+
+        /// <summary>
+        /// Component for custom fields
+        /// </summary>
+        [JsonProperty("component")]
+        [JsonConverter(typeof(JavaScriptObjectJsonConverter))]
+        public string Component { get; set; }
+        public string ComponentPath { get; set; }
 
         /// <summary>
         /// Specific data field for composit items with latitude.
