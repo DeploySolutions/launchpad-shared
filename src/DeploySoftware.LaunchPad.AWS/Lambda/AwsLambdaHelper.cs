@@ -14,7 +14,7 @@ namespace DeploySoftware.LaunchPad.AWS.Lambda
         {
         }
 
-        public AwsLambdaHelper(ILogger logger) : base(logger)
+        public AwsLambdaHelper(ILogger logger, string awsRegionEndpointName) : base(logger, awsRegionEndpointName)
         {
 
         }

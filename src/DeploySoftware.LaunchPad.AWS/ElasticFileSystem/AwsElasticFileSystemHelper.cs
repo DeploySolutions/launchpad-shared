@@ -14,7 +14,7 @@ namespace DeploySoftware.LaunchPad.AWS.ElasticFileSystem
         {
         }
 
-        public AwsElasticFileSystemHelper(ILogger logger) : base(logger)
+        public AwsElasticFileSystemHelper(ILogger logger, string awsRegionEndpointName) : base(logger, awsRegionEndpointName)
         {
 
         }

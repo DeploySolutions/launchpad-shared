@@ -19,13 +19,13 @@ namespace DeploySoftware.LaunchPad.AWS.S3.Services
         public IAwsS3Helper Helper { get; set; }
 
 
-        public AwsS3Service(ILogger logger, IConfigurationRoot configurationRoot)
+        public AwsS3Service(ILogger logger, IConfigurationRoot configurationRoot, string awsRegionEndpointName)
         {
             Logger = logger;
-            Helper = new AwsS3Helper(logger, configurationRoot);
+            Helper = new AwsS3Helper(logger, configurationRoot, awsRegionEndpointName);
         }
 
-        public AwsS3Service(ILogger logger, IAwsS3Helper helper) : base(logger)
+        public AwsS3Service(ILogger logger, IConfigurationRoot configurationRoot, IAwsS3Helper helper) : base(logger)
         {
             Helper = helper;
         }

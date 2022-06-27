@@ -30,20 +30,20 @@ namespace DeploySoftware.LaunchPad.AWS.SecretsManager
             //_secretClient = new AmazonSecretsManagerClient(Region);
         }
 
-        public AwsSecretsManagerHelper(ILogger logger, string awsRegionEndpointName) : base(logger)
+        public AwsSecretsManagerHelper(ILogger logger, string awsRegionEndpointName) : base(logger, awsRegionEndpointName)
         {
             TryGetRegionEndpoint(awsRegionEndpointName, out RegionEndpoint region);
             Region = region;
             _secretClient = new AmazonSecretsManagerClient(Region);
         }
 
-        public AwsSecretsManagerHelper(ILogger logger, string awsRegionEndpointName, IAmazonSecretsManager client) : base(logger)
+        public AwsSecretsManagerHelper(ILogger logger, string awsRegionEndpointName, IAmazonSecretsManager client) : base(logger, awsRegionEndpointName)
         {
             _secretClient = client; 
             Region = _secretClient.Config.RegionEndpoint;            
         }
 
-        public AwsSecretsManagerHelper(ILogger logger, string awsRegionEndpointName, IAmazonSecretsManager client, string awsProfileName, bool shouldUseLocalAwsProfile) : base(logger)
+        public AwsSecretsManagerHelper(ILogger logger, string awsRegionEndpointName, IAmazonSecretsManager client, string awsProfileName, bool shouldUseLocalAwsProfile) : base(logger, awsRegionEndpointName)
         {
             ShouldUseLocalAwsProfile = shouldUseLocalAwsProfile; 
             AwsProfileName = awsProfileName;

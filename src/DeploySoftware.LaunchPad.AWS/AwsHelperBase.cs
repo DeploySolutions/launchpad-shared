@@ -29,15 +29,9 @@ namespace DeploySoftware.LaunchPad.AWS
             Region = region;
         }
 
-        public AwsHelperBase(ILogger logger) : base(logger)
+        public AwsHelperBase(ILogger logger, string awsRegionEndpointName) : base(logger)
         {
-            TryGetRegionEndpoint(string.Empty, out RegionEndpoint region);
-            Region = region;
-        }
-
-        public AwsHelperBase(ILogger logger, IConfigurationRoot configurationRoot) : base(logger, configurationRoot)
-        {
-            TryGetRegionEndpoint(string.Empty, out RegionEndpoint region);
+            TryGetRegionEndpoint(awsRegionEndpointName, out RegionEndpoint region);
             Region = region;
         }
 

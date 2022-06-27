@@ -14,7 +14,7 @@ namespace DeploySoftware.LaunchPad.AWS.SQS
         {
         }
 
-        public AwsSQSHelper(ILogger logger) : base(logger)
+        public AwsSQSHelper(ILogger logger, string awsRegionEndpointName) : base(logger, awsRegionEndpointName)
         {
 
         }

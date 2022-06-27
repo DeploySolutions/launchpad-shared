@@ -56,31 +56,17 @@ namespace DeploySoftware.LaunchPad.AWS
             DefaultVersion = string.Empty;
         }
 
-        public AwsApiGatewayHelper(AwsSecretsManagerHelper secretHelper, string oAuthBaseUrl, string oAuthTokenEndpoint, string apiGatewayBaseUrl, string defaultApiVersion, ILogger logger) : base(logger)
+        public AwsApiGatewayHelper(ILogger logger, AwsSecretsManagerHelper secretHelper, string awsRegionEndpointName, Uri oAuthBaseUri, string oAuthTokenEndpoint, Uri apiGatewayBaseUri, string defaultApiVersion) : base(logger, awsRegionEndpointName)
         {
             _secretHelper = secretHelper;
-            OAuthBaseUrl = oAuthBaseUrl;
             OAuthTokenEndpoint = oAuthTokenEndpoint;
-            ApiBaseUrl = apiGatewayBaseUrl;
             DefaultVersion = defaultApiVersion;
 
             // set the REST clients
-            OAuthClient = new RestClient(OAuthBaseUrl);
-            ApiRestClient = new RestClient(apiGatewayBaseUrl);
+            OAuthClient = new RestClient(oAuthBaseUri);
+            ApiRestClient = new RestClient(apiGatewayBaseUri);
         }
 
-        public AwsApiGatewayHelper(AwsSecretsManagerHelper secretHelper, string awsRegionEndpointName, string oAuthBaseUrl, string oAuthTokenEndpoint, string apiGatewayBaseUrl, string defaultApiVersion, ILogger logger) : base(logger)
-        {
-            _secretHelper = secretHelper;
-            OAuthBaseUrl = oAuthBaseUrl;
-            OAuthTokenEndpoint = oAuthTokenEndpoint;
-            ApiBaseUrl = apiGatewayBaseUrl;
-            DefaultVersion = defaultApiVersion;
-
-            // set the REST clients
-            OAuthClient = new RestClient(OAuthBaseUrl);
-            ApiRestClient = new RestClient(apiGatewayBaseUrl);
-        }
 
         public virtual TemporaryAccessToken GetOAuthTokenUsingSecretCredentials(string secretArn, IList<string> scopes = null)
         {

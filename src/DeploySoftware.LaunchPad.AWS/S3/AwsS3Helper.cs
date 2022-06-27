@@ -25,22 +25,18 @@ namespace DeploySoftware.LaunchPad.AWS.S3
         {
         }
 
-        public AwsS3Helper(ILogger logger, IConfigurationRoot configurationRoot) :base(logger, configurationRoot)
+        public AwsS3Helper(ILogger logger, IConfigurationRoot configurationRoot, string awsRegionEndpointName) :base(logger, configurationRoot, awsRegionEndpointName)
         {
-
+            _s3Client = new AmazonS3Client(Region);
         }
 
-        public AwsS3Helper(ILogger logger, IConfigurationRoot configurationRoot, string awsRegionEndpointName, AmazonS3Client s3Client) : base(logger, configurationRoot)
+        public AwsS3Helper(ILogger logger, IConfigurationRoot configurationRoot, string awsRegionEndpointName, AmazonS3Client s3Client) : base(logger, configurationRoot, awsRegionEndpointName)
         {
-            TryGetRegionEndpoint(awsRegionEndpointName, out RegionEndpoint region);
-            Region = region;
             _s3Client = s3Client;
         }
 
-        public AwsS3Helper(ILogger logger, IConfigurationRoot configurationRoot, string awsRegionEndpointName, AmazonS3Client s3Client, string localAwsProfileName) : base(logger, configurationRoot)
+        public AwsS3Helper(ILogger logger, IConfigurationRoot configurationRoot, string awsRegionEndpointName, AmazonS3Client s3Client, string localAwsProfileName) : base(logger, configurationRoot, awsRegionEndpointName)
         {
-            TryGetRegionEndpoint(awsRegionEndpointName, out RegionEndpoint region);
-            Region = region;
             AwsProfileName = localAwsProfileName;
             _s3Client = s3Client; 
         }

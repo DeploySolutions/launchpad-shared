@@ -3,6 +3,7 @@ using Amazon;
 using Amazon.SecretsManager;
 using Castle.Core.Logging;
 using Castle.MicroKernel;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,12 +15,22 @@ namespace DeploySoftware.LaunchPad.AWS.SecretsManager
     public partial class AwsSecretsManagerHelperFactory : AwsHelperBase, ISingletonDependency
     {
 
+        public AwsSecretsManagerHelperFactory() : base()
+        {
+        }
+
+        public AwsSecretsManagerHelperFactory(ILogger logger, IConfigurationRoot configurationRoot, string awsRegionEndpointName) : base(logger, configurationRoot, awsRegionEndpointName)
+        {
+
+        }
+
         public virtual AwsSecretsManagerHelper Create(
             ILogger logger,
             string regionEndpointName = DefaultRegionEndpointName, 
             string localAwsProfileName = DefaultLocalAwsProfileName, 
             bool shouldUseLocalAwsProfile = DefaultShouldUseLocalAwsProfile)
         {
+            Logger.Debug("AwsSecretsManagerHelperFactory.Create() started.");
             AwsSecretsManagerHelper helper = null;
             if (logger == null)
             {
@@ -48,19 +59,21 @@ namespace DeploySoftware.LaunchPad.AWS.SecretsManager
             //}
             if(helper == null)
             {
+                Logger.Debug("AwsSecretsManagerHelperFactory.Create() => helper was null, creating...");
                 var secretClient = GetSecretClient(Region, AwsProfileName, ShouldUseLocalAwsProfile);
                 helper = new AwsSecretsManagerHelper(logger, regionEndpointName, secretClient, AwsProfileName, ShouldUseLocalAwsProfile);
+                Logger.Debug("AwsSecretsManagerHelperFactory.Create() => helper was null, created a new one.");
             }
-            
+            Logger.Debug("AwsSecretsManagerHelperFactory.Create() ended.");
             return helper;
         }
 
 
         protected virtual AmazonSecretsManagerClient GetSecretClient(RegionEndpoint region, string awsProfileName = "", bool shouldUseLocalAwsProfile = false)
         {
-
+            Logger.Debug("AwsSecretsManagerHelperFactory.GetSecretClient() started.");
             Logger.Info(string.Format(DeploySoftware_LaunchPad_AWS_Resources.SecretHelper_GetSecretClient_ProfileName, awsProfileName));
-            Logger.Info(string.Format(DeploySoftware_LaunchPad_AWS_Resources.SecretHelper_GetSecretClient_Region, awsProfileName));
+            Logger.Info(string.Format(DeploySoftware_LaunchPad_AWS_Resources.SecretHelper_GetSecretClient_Region, region.SystemName));
 
             AmazonSecretsManagerClient client = null;
             try
@@ -91,6 +104,7 @@ namespace DeploySoftware.LaunchPad.AWS.SecretsManager
                 client = new AmazonSecretsManagerClient(region);
                 Logger.Info(DeploySoftware_LaunchPad_AWS_Resources.SecretHelper_GetSecretClient_SecretClient_IsNull);
             }
+            Logger.Debug("AwsSecretsManagerHelperFactory.GetSecretClient() ended.");
             return client;
 
         }
