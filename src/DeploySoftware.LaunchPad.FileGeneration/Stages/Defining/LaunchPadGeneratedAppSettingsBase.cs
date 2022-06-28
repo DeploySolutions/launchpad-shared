@@ -36,7 +36,7 @@ namespace DeploySoftware.LaunchPad.FileGeneration.Stages.Defining
         /// </summary>
         /// <param name="doc"></param>
         /// <returns>A populated instance of this object, from the given XML.</returns>
-        public T LoadAppSettingsFromXml<T>(XmlDocument doc, ILogger logger = null)
+        public T LoadAppSettingsFromXml<T>(XmlDocument doc, ILogger logger = null, string xmlns = "https://assets.deploy.solutions/SpaceAppsRAD")
             where T : ILaunchPadGeneratedAppSettings, new()
         {
             T appSettings = new T();
@@ -50,7 +50,7 @@ namespace DeploySoftware.LaunchPad.FileGeneration.Stages.Defining
                 // create ns manager and get the AppSettings node
                 XmlNode root = doc.DocumentElement;
                 XmlNamespaceManager xmlnsManager = new XmlNamespaceManager(doc.NameTable);
-                xmlnsManager.AddNamespace("sar", "https://assets.deploy.solutions/SpaceAppsRAD/Schemas/Modules/SpaceAppHub.xsd");
+                xmlnsManager.AddNamespace("sar", xmlns);
                 XmlNode xnl = root.SelectSingleNode("//sar:AppSettings", xmlnsManager);
                 if(xnl != null)
                 {
