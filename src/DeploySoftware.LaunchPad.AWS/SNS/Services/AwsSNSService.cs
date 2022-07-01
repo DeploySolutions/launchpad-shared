@@ -1,5 +1,6 @@
 ﻿using Castle.Core.Logging;
 using DeploySoftware.LaunchPad.Core.Application;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,13 +13,23 @@ namespace DeploySoftware.LaunchPad.AWS.SNS.Services
     {
         public IAwsSNSHelper Helper { get; set; }
 
-        public AwsSNSService() : base()
+        protected AwsSNSService() : base()
         {
         }
 
-        public AwsSNSService(ILogger logger) : base(logger)
+        public AwsSNSService(ILogger logger,
+            IConfigurationRoot configurationRoot,
+            string regionEndpointName,
+            string localAwsProfileName,
+            bool shouldUseLocalAwsProfile) : base(logger)
         {
+            var secretHelperFactory = new AwsSNSHelperFactory(logger, configurationRoot, regionEndpointName);
+            Helper = secretHelperFactory.Create(logger, configurationRoot, regionEndpointName, localAwsProfileName, shouldUseLocalAwsProfile);
+        }
 
+        public AwsSNSService(ILogger logger, IAwsSNSHelper helper) : base(logger)
+        {
+            Helper = helper;
         }
     }
 }

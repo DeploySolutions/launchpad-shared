@@ -15,7 +15,10 @@ namespace DeploySoftware.LaunchPad.AWS.S3
 {
     public partial class AwsS3HelperFactory : AwsHelperBase, ISingletonDependency
     {
+        public AwsS3HelperFactory(ILogger logger, IConfigurationRoot configurationRoot, string awsRegionEndpointName) : base(logger, configurationRoot, awsRegionEndpointName)
+        {
 
+        }
 
         public virtual AwsS3Helper Create(
             ILogger logger,

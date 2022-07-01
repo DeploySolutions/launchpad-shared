@@ -1,5 +1,6 @@
 ﻿using Castle.Core.Logging;
 using DeploySoftware.LaunchPad.Core.Application;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,13 +16,15 @@ namespace DeploySoftware.LaunchPad.AWS.SecretsManager.Services
         protected AwsSecretsManagerService() :base()
         {
         }
-        public AwsSecretsManagerService(ILogger logger, 
+
+        public AwsSecretsManagerService(ILogger logger,
+            IConfigurationRoot configurationRoot,
             string regionEndpointName,
             string localAwsProfileName,
             bool shouldUseLocalAwsProfile) :base(logger)
         {
-            var secretHelperFactory = new AwsSecretsManagerHelperFactory();
-            Helper = secretHelperFactory.Create(logger, regionEndpointName, localAwsProfileName, shouldUseLocalAwsProfile);
+            var secretHelperFactory = new AwsSecretsManagerHelperFactory(logger, configurationRoot, regionEndpointName);
+            Helper = secretHelperFactory.Create(logger, configurationRoot, regionEndpointName, localAwsProfileName, shouldUseLocalAwsProfile);
         }
 
         public AwsSecretsManagerService(ILogger logger, IAwsSecretsManagerHelper helper) : base(logger)

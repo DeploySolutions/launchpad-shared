@@ -7,6 +7,7 @@ using Castle.Core.Logging;
 using DeploySoftware.LaunchPad.AWS.SecretsManager;
 using DeploySoftware.LaunchPad.Core.Api;
 using DeploySoftware.LaunchPad.Core.Util;
+using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using RestSharp;
@@ -20,16 +21,17 @@ namespace DeploySoftware.LaunchPad.AWS
     public partial class AwsApiGatewayHelper : AwsHelperBase, IAwsApiGatewayHelper
     {
 
-        public string OAuthBaseUrl { get; set; }
+        public Uri OAuthBaseUri { get; set; }
         public string OAuthTokenEndpoint { get; set; }
 
-        public string ApiBaseUrl { get; set; }
+        public Uri ApiBaseUri { get; set; }
 
         public string DefaultVersion { get; set; }
 
         [JsonIgnore]
 
         public RestClient OAuthClient { get; set; }
+
         [JsonIgnore]
         public RestClient ApiRestClient { get; set; }
 
@@ -42,21 +44,18 @@ namespace DeploySoftware.LaunchPad.AWS
         {
             _secretHelper = new AwsSecretsManagerHelper();
             OAuthTokenEndpoint = string.Empty;
-            OAuthBaseUrl = string.Empty;
-            ApiBaseUrl = string.Empty;
             DefaultVersion = string.Empty;
         }
 
-        public AwsApiGatewayHelper(string apiGatewayBaseUrl) : base()
+        public AwsApiGatewayHelper(ILogger logger, IConfigurationRoot configurationRoot, string awsRegionEndpointName, Uri apiGatewayBaseUri) : base(logger, configurationRoot, awsRegionEndpointName)
         {
             _secretHelper = new AwsSecretsManagerHelper();
+            ApiBaseUri = apiGatewayBaseUri;
             OAuthTokenEndpoint = string.Empty;
-            OAuthBaseUrl = string.Empty;
-            ApiBaseUrl = apiGatewayBaseUrl;
             DefaultVersion = string.Empty;
         }
 
-        public AwsApiGatewayHelper(ILogger logger, AwsSecretsManagerHelper secretHelper, string awsRegionEndpointName, Uri oAuthBaseUri, string oAuthTokenEndpoint, Uri apiGatewayBaseUri, string defaultApiVersion) : base(logger, awsRegionEndpointName)
+        public AwsApiGatewayHelper(ILogger logger, IConfigurationRoot configurationRoot, string awsRegionEndpointName, AwsSecretsManagerHelper secretHelper, Uri oAuthBaseUri, string oAuthTokenEndpoint, Uri apiGatewayBaseUri, string defaultApiVersion) : base(logger, configurationRoot, awsRegionEndpointName)
         {
             _secretHelper = secretHelper;
             OAuthTokenEndpoint = oAuthTokenEndpoint;
@@ -82,7 +81,7 @@ namespace DeploySoftware.LaunchPad.AWS
         {
             Guard.Against<ArgumentNullException>(String.IsNullOrEmpty(secretArn), DeploySoftware_LaunchPad_AWS_Resources.ApiGatewayHelper_SecretArn_Is_NullOrEmpty);
             Guard.Against<ArgumentNullException>(OAuthClient == null, DeploySoftware_LaunchPad_AWS_Resources.ApiGatewayHelper_MakeApiGatewayRequest_RestClient_Is_Null);
-            Logger.Info(string.Format(DeploySoftware_LaunchPad_AWS_Resources.ApiGatewayHelper_GetOAuthTokenUsingSecretCredentials_Getting, OAuthTokenEndpoint, OAuthBaseUrl, secretArn));
+            Logger.Info(string.Format(DeploySoftware_LaunchPad_AWS_Resources.ApiGatewayHelper_GetOAuthTokenUsingSecretCredentials_Getting, OAuthTokenEndpoint, OAuthBaseUri.ToString(), secretArn));
             TemporaryAccessToken token = null;
 
             string accessToken = string.Empty;
@@ -134,7 +133,7 @@ namespace DeploySoftware.LaunchPad.AWS
                 Logger.Debug(string.Format(DeploySoftware_LaunchPad_AWS_Resources.ApiGatewayHelper_GetOAuthTokenUsingSecretCredentials_AccessToken, token.TokenType, token.ExpiresIn, token.AccessToken));
 
             }
-            Logger.Info(string.Format(DeploySoftware_LaunchPad_AWS_Resources.ApiGatewayHelper_GetOAuthTokenUsingSecretCredentials_Got, OAuthTokenEndpoint, OAuthBaseUrl, secretArn));
+            Logger.Info(string.Format(DeploySoftware_LaunchPad_AWS_Resources.ApiGatewayHelper_GetOAuthTokenUsingSecretCredentials_Got, OAuthTokenEndpoint, OAuthBaseUri.ToString(), secretArn));
 
             return token;
         }
@@ -151,7 +150,7 @@ namespace DeploySoftware.LaunchPad.AWS
             Guard.Against<ArgumentNullException>(String.IsNullOrEmpty(secretArn), DeploySoftware_LaunchPad_AWS_Resources.ApiGatewayHelper_SecretArn_Is_NullOrEmpty);
             Guard.Against<ArgumentNullException>(ApiRestClient == null, DeploySoftware_LaunchPad_AWS_Resources.ApiGatewayHelper_MakeApiGatewayRequest_RestClient_Is_Null);
             Guard.Against<ArgumentNullException>(String.IsNullOrEmpty(request.Resource), DeploySoftware_LaunchPad_AWS_Resources.ApiGatewayHelper_MakeApiGatewayRequest_Request_Resource_Is_NullOrEmpty);
-            Logger.Info(string.Format(DeploySoftware_LaunchPad_AWS_Resources.Logger_Info_ExecuteApiGatewayRequest_Executing, request.Method.ToString(), ApiBaseUrl, request.Resource));
+            Logger.Info(string.Format(DeploySoftware_LaunchPad_AWS_Resources.Logger_Info_ExecuteApiGatewayRequest_Executing, request.Method.ToString(), ApiBaseUri.ToString(), request.Resource));
 
             if (Token == null)
             {
@@ -189,7 +188,7 @@ namespace DeploySoftware.LaunchPad.AWS
                         response.ErrorException)
                 ;
             }
-            Logger.Info(string.Format(DeploySoftware_LaunchPad_AWS_Resources.Logger_Info_ExecuteApiGatewayRequest_Executed, request.Method.ToString(), ApiBaseUrl, request.Resource, response.StatusCode));
+            Logger.Info(string.Format(DeploySoftware_LaunchPad_AWS_Resources.Logger_Info_ExecuteApiGatewayRequest_Executed, request.Method.ToString(), ApiBaseUri.ToString(), request.Resource, response.StatusCode));
             return response;
         }
 

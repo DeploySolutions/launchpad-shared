@@ -1,5 +1,6 @@
 ﻿using DeploySoftware.LaunchPad.Core.Api;
 using RestSharp;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -7,10 +8,10 @@ namespace DeploySoftware.LaunchPad.AWS
 {
     public interface IAwsApiGatewayHelper : IAwsHelper
     {
-        string ApiBaseUrl { get; set; }
+        Uri ApiBaseUri { get; set; }
         RestClient ApiRestClient { get; set; }
         string DefaultVersion { get; set; }
-        string OAuthBaseUrl { get; set; }
+        Uri OAuthBaseUri { get; set; }
         RestClient OAuthClient { get; set; }
         string OAuthTokenEndpoint { get; set; }
         TemporaryAccessToken Token { get; set; }

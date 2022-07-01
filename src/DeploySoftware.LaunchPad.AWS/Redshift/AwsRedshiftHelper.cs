@@ -1,5 +1,6 @@
 ﻿using Castle.Core.Logging;
 using DeploySoftware.LaunchPad.Core.Util;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,7 +15,7 @@ namespace DeploySoftware.LaunchPad.AWS.Redshift
         {
         }
 
-        public AwsRedshiftHelper(ILogger logger, string awsRegionEndpointName) : base(logger, awsRegionEndpointName)
+        public AwsRedshiftHelper(ILogger logger, IConfigurationRoot configurationRoot, string awsRegionEndpointName) : base(logger, configurationRoot, awsRegionEndpointName)
         {
 
         }

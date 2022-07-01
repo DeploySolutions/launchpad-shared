@@ -26,6 +26,7 @@ namespace DeploySoftware.LaunchPad.AWS.SecretsManager
 
         public virtual AwsSecretsManagerHelper Create(
             ILogger logger,
+            IConfigurationRoot configurationRoot,
             string regionEndpointName = DefaultRegionEndpointName, 
             string localAwsProfileName = DefaultLocalAwsProfileName, 
             bool shouldUseLocalAwsProfile = DefaultShouldUseLocalAwsProfile)
