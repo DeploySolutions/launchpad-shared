@@ -1,0 +1,31 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <Description>AWS CDK helper code for the LaunchPad Rapid Application Development platform.</Description>
+    <PackageProjectUrl>https://github.com/DeploySolutions/launchpad-shared</PackageProjectUrl>
+    <Copyright>2021-2022 Deploy Software Solutions, inc.</Copyright>
+    <PackageIcon>icon.png</PackageIcon>
+    <RepositoryUrl>https://github.com/DeploySolutions/launchpad-shared</RepositoryUrl>
+    <PackageLicenseFile>F:\Repos\deploysolutions\launchpad-shared\LICENSE</PackageLicenseFile>
+    <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\icon.png">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Amazon.CDK" Version="1.162.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\DeploySoftware.LaunchPad.Core\DeploySoftware.LaunchPad.Core.csproj" />
+  </ItemGroup>
+
+</Project>

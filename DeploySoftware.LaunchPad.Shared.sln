@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.30413.136
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.32014.148
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{A858548D-B2C2-4CE9-872C-251E405FCCE4}"
 EndProject
@@ -54,7 +54,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DeploySoftware.LaunchPad.AW
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DeploySoftware.LaunchPad.Python", "src\DeploySoftware.LaunchPad.Python\DeploySoftware.LaunchPad.Python.csproj", "{A072DD11-179F-4BDB-A9C9-C9D66147080D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DeploySoftware.LaunchPad.FileGeneration", "src\DeploySoftware.LaunchPad.FileGeneration\DeploySoftware.LaunchPad.FileGeneration.csproj", "{96B8F365-E704-4F61-AF85-5C5031CCA4D4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DeploySoftware.LaunchPad.FileGeneration", "src\DeploySoftware.LaunchPad.FileGeneration\DeploySoftware.LaunchPad.FileGeneration.csproj", "{96B8F365-E704-4F61-AF85-5C5031CCA4D4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DeploySoftware.LaunchPad.AWS.CDK", "src\DeploySoftware.LaunchPad.AWS.CDK\DeploySoftware.LaunchPad.AWS.CDK.csproj", "{662B3033-466E-4818-B418-75CAB1B9236B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -102,6 +104,10 @@ Global
 		{96B8F365-E704-4F61-AF85-5C5031CCA4D4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{96B8F365-E704-4F61-AF85-5C5031CCA4D4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{96B8F365-E704-4F61-AF85-5C5031CCA4D4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{662B3033-466E-4818-B418-75CAB1B9236B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{662B3033-466E-4818-B418-75CAB1B9236B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{662B3033-466E-4818-B418-75CAB1B9236B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{662B3033-466E-4818-B418-75CAB1B9236B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -120,6 +126,7 @@ Global
 		{BC093BA1-5B00-40CD-A758-EED1CD28C5A1} = {442BFA02-FB67-4078-AA7D-C8796C5D074B}
 		{A072DD11-179F-4BDB-A9C9-C9D66147080D} = {442BFA02-FB67-4078-AA7D-C8796C5D074B}
 		{96B8F365-E704-4F61-AF85-5C5031CCA4D4} = {442BFA02-FB67-4078-AA7D-C8796C5D074B}
+		{662B3033-466E-4818-B418-75CAB1B9236B} = {442BFA02-FB67-4078-AA7D-C8796C5D074B}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {89FD47F4-AA98-4C45-852A-0CFC7404BBA3}
