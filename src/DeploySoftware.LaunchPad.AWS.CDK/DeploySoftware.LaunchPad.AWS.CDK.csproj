@@ -7,9 +7,9 @@
     <Description>AWS CDK helper code for the LaunchPad Rapid Application Development platform.</Description>
     <PackageProjectUrl>https://github.com/DeploySolutions/launchpad-shared</PackageProjectUrl>
     <Copyright>2021-2022 Deploy Software Solutions, inc.</Copyright>
-    <PackageIcon>icon.png</PackageIcon>
     <RepositoryUrl>https://github.com/DeploySolutions/launchpad-shared</RepositoryUrl>
-    <PackageLicenseFile>F:\Repos\deploysolutions\launchpad-shared\LICENSE</PackageLicenseFile>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
+    <PackageIcon>icon.png</PackageIcon>
     <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
   </PropertyGroup>
