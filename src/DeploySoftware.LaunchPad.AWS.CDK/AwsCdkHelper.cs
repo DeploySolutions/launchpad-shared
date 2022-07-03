@@ -39,7 +39,7 @@ namespace DeploySoftware.LaunchPad.AWS.CDK
             {
                 // try to load the VPC via its id
                 //
-                if(string.IsNullOrEmpty(vpcId))
+                if(!string.IsNullOrEmpty(vpcId))
                 {
                     vpcId = (string)_stack.Node.TryGetContext("vpc-id");
                 }
