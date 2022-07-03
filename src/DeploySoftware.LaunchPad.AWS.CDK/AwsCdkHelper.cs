@@ -10,7 +10,7 @@ namespace DeploySoftware.LaunchPad.AWS.CDK
 {
 
 
-    public class AwsCdkHelper : IAwsCdkHelper
+    public partial class AwsCdkHelper : IAwsCdkHelper
     {
         protected Stack _stack;
         protected IStackProps _stackProps;
@@ -20,14 +20,17 @@ namespace DeploySoftware.LaunchPad.AWS.CDK
 
         protected AwsCdkHelper()
         {
-
+            _vpc = GetVpc();
         }
 
-        public AwsCdkHelper(Stack stack, IStackProps stackProps, IVpc vpc = null)
+        public AwsCdkHelper(Stack stack, IStackProps stackProps, IVpc? vpc = null)
         {
             _stack = stack;
             _stackProps = stackProps;
-            _vpc = GetVpc();
+            if(vpc == null)
+            {
+                _vpc = GetVpc();
+            }
         }
 
         public virtual IVpc GetVpc(string vpcId = "")

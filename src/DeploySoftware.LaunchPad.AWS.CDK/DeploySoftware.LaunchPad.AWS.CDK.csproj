@@ -12,6 +12,9 @@
     <PackageIcon>icon.png</PackageIcon>
     <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Authors>Nicholas Kellett</Authors>
+    <Company>Deploy Software Solutions, inc.</Company>
+    <Version>1.0.1</Version>
   </PropertyGroup>
   <ItemGroup>
     <None Include="..\..\LICENSE">
