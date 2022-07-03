@@ -8,6 +8,7 @@ namespace DeploySoftware.LaunchPad.AWS.CDK
 {
     public interface IAwsCdkHelper
     {
+        public void Initialize(Stack stack, IStackProps stackProps);
 
         public IVpc GetVpc(string vpcId = "");
 

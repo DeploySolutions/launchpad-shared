@@ -25,12 +25,13 @@ namespace DeploySoftware.LaunchPad.AWS.CDK
             _scope = scope;
             _stackProps = stackProps;
             _stackHelper = new TStackHelper();
-            _vpc = _stackHelper.GetVpc();
+            _stackHelper.Initialize(this, stackProps);
         }
 
         public virtual TStackHelper CreateHelper(Stack s, IStackProps stackProps)
         {
             _stackHelper = new TStackHelper();
+            _stackHelper.Initialize(s, stackProps);
             _vpc = _stackHelper.GetVpc();
             return _stackHelper;
         }

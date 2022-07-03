@@ -20,34 +20,46 @@ namespace DeploySoftware.LaunchPad.AWS.CDK
 
         protected AwsCdkHelper()
         {
-            _vpc = GetVpc();
         }
 
         public AwsCdkHelper(Stack stack, IStackProps stackProps, IVpc? vpc = null)
         {
             _stack = stack;
             _stackProps = stackProps;
-            if(vpc == null)
-            {
-                _vpc = GetVpc();
-            }
+        }
+
+        public virtual void Initialize(Stack stack, IStackProps stackProps)
+        {
+            _stack = stack;
+            _stackProps = stackProps;
         }
 
         public virtual IVpc GetVpc(string vpcId = "")
         {
+            Console.WriteLine("AwsCdkHelper.GetVpc() => vpcId " + vpcId);
             if (_vpc == null)
             {
                 // try to load the VPC via its id
                 //
-                if(!string.IsNullOrEmpty(vpcId))
+                if(string.IsNullOrEmpty(vpcId))
                 {
                     vpcId = (string)_stack.Node.TryGetContext("vpc-id");
+                    Console.WriteLine("AwsCdkHelper.GetVpc() => _vpc was null, provided vpc id was empty, attempting to load from cdk.context.json, vpc-id is:" + vpcId);                    
                 }
-
-                _vpc = Vpc.FromLookup(_stack, vpcId, new VpcLookupOptions
+                if(!string.IsNullOrEmpty(vpcId))
                 {
-                    VpcId = vpcId
-                });
+                    Console.WriteLine("AwsCdkHelper.GetVpc() => vpc id is no longer empty, attempting to load _vpc Vpc.FromLookup with id:" + vpcId);
+                    _vpc = Vpc.FromLookup(_stack, vpcId, new VpcLookupOptions
+                    {
+                        VpcId = vpcId
+                    });
+                }
+                
+                if(_vpc != null)
+                {
+
+                    Console.WriteLine("AwsCdkHelper.GetVpc() => _vpc is not null any longer, its id is " + _vpc.VpcId);
+                }
             }
             return _vpc;
         }
