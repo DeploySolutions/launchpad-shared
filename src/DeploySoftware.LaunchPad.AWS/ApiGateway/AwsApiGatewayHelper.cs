@@ -40,9 +40,8 @@ namespace DeploySoftware.LaunchPad.AWS
         [JsonIgnore]
         public TemporaryAccessToken Token { get; set; }
 
-        public AwsApiGatewayHelper() : base()
+        protected AwsApiGatewayHelper() : base()
         {
-            _secretHelper = new AwsSecretsManagerHelper();
             OAuthTokenEndpoint = string.Empty;
             DefaultVersion = string.Empty;
         }
@@ -55,7 +54,7 @@ namespace DeploySoftware.LaunchPad.AWS
             DefaultVersion = string.Empty;
         }
 
-        public AwsApiGatewayHelper(ILogger logger, IConfigurationRoot configurationRoot, string awsRegionEndpointName, AwsSecretsManagerHelper secretHelper, Uri oAuthBaseUri, string oAuthTokenEndpoint, Uri apiGatewayBaseUri, string defaultApiVersion) : base(logger, configurationRoot, awsRegionEndpointName)
+        public AwsApiGatewayHelper(ILogger logger, IConfigurationRoot configurationRoot, string awsRegionEndpointName,  Uri apiGatewayBaseUri, AwsSecretsManagerHelper secretHelper, Uri oAuthBaseUri, string oAuthTokenEndpoint,  string defaultApiVersion) : base(logger, configurationRoot, awsRegionEndpointName)
         {
             _secretHelper = secretHelper;
             OAuthTokenEndpoint = oAuthTokenEndpoint;

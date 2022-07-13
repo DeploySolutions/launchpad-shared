@@ -19,6 +19,12 @@ namespace DeploySoftware.LaunchPad.AWS.SecretsManager
         {
         }
 
+        public AwsSecretsManagerHelperFactory(ILogger logger, string awsRegionEndpointName) : base(logger, awsRegionEndpointName)
+        {
+
+        }
+
+
         public AwsSecretsManagerHelperFactory(ILogger logger, IConfigurationRoot configurationRoot, string awsRegionEndpointName) : base(logger, configurationRoot, awsRegionEndpointName)
         {
 
@@ -26,7 +32,6 @@ namespace DeploySoftware.LaunchPad.AWS.SecretsManager
 
         public virtual AwsSecretsManagerHelper Create(
             ILogger logger,
-            IConfigurationRoot configurationRoot,
             string regionEndpointName = DefaultRegionEndpointName, 
             string localAwsProfileName = DefaultLocalAwsProfileName, 
             bool shouldUseLocalAwsProfile = DefaultShouldUseLocalAwsProfile)
