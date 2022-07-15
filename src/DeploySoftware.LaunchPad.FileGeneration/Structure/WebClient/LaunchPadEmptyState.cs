@@ -19,11 +19,10 @@ namespace DeploySoftware.LaunchPad.FileGeneration.Structure
         public string Icon { get; set; }
 
         /// <summary>
-        /// Label of the button to redirect the user to create new data
+        /// CSV Import action for non-readonly domain entiry
         /// </summary>
-        [JsonProperty("newButtonLabel")]
-        [JsonConverter(typeof(LocalizedJsonConverter<string>))]
-        public string NewButtonLabel { get; set; }
+        [JsonProperty("import")]
+        public LaunchPadAction Import { get; set; }
 
         public LaunchPadEmptyState() : base()
         {
