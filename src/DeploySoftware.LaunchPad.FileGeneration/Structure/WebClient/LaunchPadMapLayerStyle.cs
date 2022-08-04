@@ -23,7 +23,7 @@ namespace DeploySoftware.LaunchPad.FileGeneration.Structure
         /// If the layer type is circle, this specify the radius of the circle.
         /// </summary>
         [JsonProperty("radius")]
-        public string Radius { get; set; }
+        public int Radius { get; set; }
 
         /// <summary>
         /// Set the size of the marker or any SVG symbol
