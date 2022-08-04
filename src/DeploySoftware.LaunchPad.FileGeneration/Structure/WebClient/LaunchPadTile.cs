@@ -24,6 +24,18 @@ namespace DeploySoftware.LaunchPad.FileGeneration.Structure
         [XmlAttribute("icon")]
         public string Icon { get; set; }
 
+        /// <summary>
+        /// Background image of the tile.
+        /// </summary>
+        [XmlAttribute("background")]
+        public string Background { get; set; }
+
+        /// <summary>
+        /// Link to external resource/website.
+        /// </summary>
+        [XmlAttribute("url")]
+        public string URL { get; set; }
+
         public LaunchPadTile() : base()
         {
             Type = TileType.Route;
