@@ -67,6 +67,7 @@ namespace DeploySoftware.LaunchPad.AWS.S3.Services
 
         public async Task<bool> UploadFileToBucketAsync(string bucketName, string s3KeyName, string filePath, IDictionary<string, string> fileTags,  IDictionary<string, string> transferMetadata, string s3Prefix = "",  string contentType = @"image/tiff")
         {
+            bool didUploadSucceed = false;
             try
             {
                 TransferUtility transferUtil = new TransferUtility(Helper.S3Client);
@@ -78,14 +79,22 @@ namespace DeploySoftware.LaunchPad.AWS.S3.Services
                         Key = item.Key,
                         Value = item.Value
                     });
+                }                
+                if (!string.IsNullOrEmpty(s3Prefix))
+                {
+                    if(!s3Prefix.EndsWith('/'))
+                    {
+                        s3Prefix += '/';
+                    }
                 }
+                string key = s3Prefix + s3KeyName;
                 var fileTransferUtilityRequest = new TransferUtilityUploadRequest
                 {
                     BucketName = bucketName,
                     FilePath = filePath,
                     StorageClass = S3StorageClass.StandardInfrequentAccess,
                     PartSize = 6291456, // 6 MB.  
-                    Key = s3KeyName,
+                    Key = key,
                     TagSet = tagSet
                 };
                 foreach (var item in transferMetadata)
@@ -94,6 +103,7 @@ namespace DeploySoftware.LaunchPad.AWS.S3.Services
                 }
                 await transferUtil.UploadAsync(fileTransferUtilityRequest);
                 transferUtil.Dispose();
+                didUploadSucceed = true;
             }
 
             catch (AmazonS3Exception amazonS3Exception)
@@ -110,7 +120,7 @@ namespace DeploySoftware.LaunchPad.AWS.S3.Services
                     Logger.Error("Error occurred: " + amazonS3Exception.Message);
                 }
             }
-            return true;
+            return didUploadSucceed;
         }
 
 
