@@ -34,7 +34,7 @@ namespace DeploySoftware.LaunchPad.AWS.S3
         /// <summary>
         /// Controls the DebuggerDisplay attribute presentation (above). This will only appear during VS debugging sessions and should never be logged.
         /// </summary>
-        protected override string _debugDisplay => $"{Id}. Name {Name}. Region {Region}.";
+        protected override string _debugDisplay => $"{Id}. Name {Name}.";
 
         public const string DEFAULT_REGION = "us-east-1";
         
