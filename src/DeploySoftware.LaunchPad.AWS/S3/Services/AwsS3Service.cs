@@ -87,6 +87,10 @@ namespace DeploySoftware.LaunchPad.AWS.S3.Services
                         s3Prefix += '/';
                     }
                 }
+                if(filePath.StartsWith("file:///"))
+                {
+                    filePath = filePath.Remove(0,8);
+                }
                 string key = s3Prefix + s3KeyName;
                 var fileTransferUtilityRequest = new TransferUtilityUploadRequest
                 {
