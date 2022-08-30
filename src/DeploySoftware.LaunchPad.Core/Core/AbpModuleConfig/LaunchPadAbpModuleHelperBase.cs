@@ -122,8 +122,11 @@ namespace DeploySoftware.LaunchPad.Core.AbpModuleConfig
             }
             else
             {
-                Console.WriteLine("DB Connection string: " + databaseConnectionString);
-                Logger.Debug("DB Connection string: " + databaseConnectionString);
+                if(_hostEnvironment.IsDevelopment())
+                {
+                    Console.WriteLine("DB Connection string: " + databaseConnectionString);
+                    Logger.Debug("DB Connection string: " + databaseConnectionString);
+                }
             }
             return databaseConnectionString;
 
