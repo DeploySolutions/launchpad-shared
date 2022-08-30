@@ -27,29 +27,44 @@ namespace DeploySoftware.LaunchPad.AWS.S3
             string awsProfileName = DefaultLocalAwsProfileName, 
             bool shouldUseLocalAwsProfile = DefaultShouldUseLocalAwsProfile)
         {
+            
             AwsS3Helper helper = null;
             if (logger == null)
             {
                 logger = NullLogger.Instance;
             }
+            logger.Debug("AwsS3HelperFactory.Create() => started.");
+
+            logger.Debug("AwsS3HelperFactory.Create() => TryGetRegionEndpoint started.");
             TryGetRegionEndpoint(awsRegionEndpointName, out RegionEndpoint region);
+            logger.Debug(string.Format("AwsS3HelperFactory.Create() => TryGetRegionEndpoint ended. Region is '{0}'.", region));
+            
             Region = region;
             AwsProfileName = awsProfileName;
             if (shouldUseLocalAwsProfile)
             {
+                logger.Debug("AwsS3HelperFactory.Create() => shouldUseLocalAwsProfile is true. GetS3Client started.");
                 var s3Client = GetS3Client(Region, AwsProfileName);
+                logger.Debug("AwsS3HelperFactory.Create() => shouldUseLocalAwsProfile is true. GetS3Client ended.");
+                logger.Debug("AwsS3HelperFactory.Create() => shouldUseLocalAwsProfile is true. Creating new AwsS3Helper started.");
+
                 helper = new AwsS3Helper(logger, _configurationRoot, awsRegionEndpointName, s3Client, AwsProfileName);
                 helper.ShouldUseLocalAwsProfile = true;
+                logger.Debug("AwsS3HelperFactory.Create() => shouldUseLocalAwsProfile is true. Creating new AwsS3Helper ended.");
+
             }
             else // do not use a named local profile, instead try to determine the AWS client from the credential resolution order
             {
+                logger.Debug("AwsS3HelperFactory.Create() => shouldUseLocalAwsProfile is false.");
+
                 // attempt to load the registered instance, if any
                 if (IocManager.Instance != null)
                 {
                     try
                     {
+                        logger.Debug("AwsS3HelperFactory.Create() => IocManager.Instance != null, trying to resolve AwsS3Helper from IoC.");
                         helper = IocManager.Instance.Resolve<AwsS3Helper>();
-                        logger.Debug("AwsS3Helper was registered; returning the resolved instance.");
+                        logger.Debug("AwsS3HelperFactory.Create() => IocManager.Instance != null, resolved AwsS3Helper from IoC.");
                     }
                     catch (ComponentNotFoundException)
                     {
@@ -63,18 +78,21 @@ namespace DeploySoftware.LaunchPad.AWS.S3
                 else
                 {
 
+                    logger.Debug("AwsS3HelperFactory.Create() => IocManager.Instance was null.");
                 }
                 // after all that, load the helper
                 if (helper == null)
                 {
+                    logger.Debug("AwsS3Helper was null; returning a new instance.");
                     // create the helper using the AWS credentials resolution pattern.
                     // Since we are not using local profile here, we presumably load from EC2 role or environment
                     var secretClient = GetS3Client(Region);
                     helper = new AwsS3Helper(logger, _configurationRoot, awsRegionEndpointName, secretClient);
-                    logger.Debug("AwsS3Helper was null; returning a new instance.");
+                    logger.Debug("AwsS3Helper was null; returned a new instance.");
                 }
             }
-            
+            logger.Debug("AwsS3HelperFactory.Create() => ended.");
+
             return helper;
         }
 
