@@ -19,7 +19,7 @@ namespace DeploySoftware.LaunchPad.Core {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class DeploySoftware_LaunchPad_Core_Resources {
@@ -385,7 +385,7 @@ namespace DeploySoftware.LaunchPad.Core {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Token string must contain only two or three sections, delimited by &apos;|&apos;..
+        ///   Looks up a localized string similar to Token string must contain only two (2) to five (5) sections, delimited by &apos;|&apos;..
         /// </summary>
         public static string Guard_LaunchPadToken_ArgumentException_WrongNumberSections {
             get {

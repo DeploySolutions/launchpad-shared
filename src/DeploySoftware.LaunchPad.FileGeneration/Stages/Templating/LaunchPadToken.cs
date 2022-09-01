@@ -188,7 +188,7 @@ namespace DeploySoftware.LaunchPad.FileGeneration.Stages
             Guard.Against<ArgumentException>(!tokenString.Contains("p:"), DeploySoftware_LaunchPad_Core_Resources.Guard_LaunchPadToken_ArgumentException_MissingPrefix);
             Guard.Against<ArgumentException>(!tokenString.Contains("n:"), DeploySoftware_LaunchPad_Core_Resources.Guard_LaunchPadToken_ArgumentException_MissingName);
             int length = tokenString.Split("|").Length;
-            Guard.Against<ArgumentException>(length > 3 | length < 2, DeploySoftware_LaunchPad_Core_Resources.Guard_LaunchPadToken_ArgumentException_WrongNumberSections);            
+            Guard.Against<ArgumentException>(length > 5 | length < 2, DeploySoftware_LaunchPad_Core_Resources.Guard_LaunchPadToken_ArgumentException_WrongNumberSections);            
         }
 
         /// <summary>

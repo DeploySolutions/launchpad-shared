@@ -232,7 +232,7 @@
     <value>Token string must end with '}}' characters.</value>
   </data>
   <data name="Guard_LaunchPadToken_ArgumentException_WrongNumberSections" xml:space="preserve">
-    <value>Token string must contain only two or three sections, delimited by '|'.</value>
+    <value>Token string must contain only two (2) to five (5) sections, delimited by '|'.</value>
   </data>
   <data name="Guard_LaunchPadToken_ArgumentException_WrongStartsWith" xml:space="preserve">
     <value>Token string must start with '{{' characters.</value>
