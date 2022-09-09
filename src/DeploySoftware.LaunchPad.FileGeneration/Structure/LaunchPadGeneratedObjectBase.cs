@@ -22,7 +22,6 @@ namespace DeploySoftware.LaunchPad.FileGeneration.Structure
         /// The singular name of the object 
         /// </summary>
         [JsonProperty("name")]
-        [JsonConverter(typeof(LocalizedJsonConverter<string>))]
         public virtual string Name { get; set; } = string.Empty;
 
 
@@ -47,7 +46,6 @@ namespace DeploySoftware.LaunchPad.FileGeneration.Structure
         /// The description of the object
         /// </summary>
         [JsonProperty("description")]
-        [JsonConverter(typeof(LocalizedJsonConverter<string>))]
         public virtual string Description { get; set; } = string.Empty;
 
         /// <summary>
