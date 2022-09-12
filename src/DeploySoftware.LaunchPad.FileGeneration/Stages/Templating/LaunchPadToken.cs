@@ -224,7 +224,7 @@ namespace DeploySoftware.LaunchPad.FileGeneration.Stages
             sb.Append(Prefix);
             sb.Append("|n:");
             sb.Append(Name);
-            sb.Append("}}");
+            sb.Append("|}}");
             return sb.ToString();
         }
 
@@ -239,6 +239,7 @@ namespace DeploySoftware.LaunchPad.FileGeneration.Stages
             sb.Append(Prefix);
             sb.Append("|n:");
             sb.Append(Name);
+            sb.Append("|"); 
             if (Tags != null && Tags.Count > 0)
             {
                 sb.Append("|tags:");

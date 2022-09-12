@@ -81,9 +81,9 @@ namespace DeploySoftware.LaunchPad.FileGeneration.Stages
                     sbRegExp.Append(EscapeTextForRegex(token.DefaultValue));
                     sbRegExp.Append(@".*?)+))"); // ending of the dv: element
                 } 
-                else // don't filter, just match on the remaining characters
+                else // don't filter, just close out the name element and match on the remaining characters
                 {
-                    sbRegExp.Append(@"((.*?)+)");
+                    sbRegExp.Append(@"\|((.*?)+)");
                 }
                 sbRegExp.Append(@"\}\}");
                 //string regexPattern = Regex.Escape(sbRegExp.ToString());
