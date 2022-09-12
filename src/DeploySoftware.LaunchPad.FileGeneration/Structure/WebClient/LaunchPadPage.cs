@@ -46,6 +46,12 @@ namespace DeploySoftware.LaunchPad.FileGeneration.Structure
         [XmlElement]
         public IList<LaunchPadMap> Maps { get; set; }
 
+        /// <summary>
+        /// Tiles with link to external URL and background, a bit different design in the frontend UI than the Tileset. 
+        /// </summary>
+        [XmlElement]
+        public IList<LaunchPadTile> Tiles { get; set; }
+
         public LaunchPadPage() : base()
         {
         }

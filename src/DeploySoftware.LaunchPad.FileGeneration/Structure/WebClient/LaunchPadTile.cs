@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Xml.Serialization;
 
 namespace DeploySoftware.LaunchPad.FileGeneration.Structure
@@ -10,6 +11,7 @@ namespace DeploySoftware.LaunchPad.FileGeneration.Structure
     /// </summary>  
     [Serializable]
     [XmlRoot(ElementName = "Tile")]
+    [JsonObject(MemberSerialization.OptIn)]
     public partial class LaunchPadTile : LaunchPadWebClientObjectBase
     {
         /// <summary>
@@ -23,6 +25,20 @@ namespace DeploySoftware.LaunchPad.FileGeneration.Structure
         /// </summary>
         [XmlAttribute("icon")]
         public string Icon { get; set; }
+
+        /// <summary>
+        /// Background image of the tile.
+        /// </summary>
+        [XmlAttribute("background")]
+        [JsonProperty("background")]
+        public string Background { get; set; }
+
+        /// <summary>
+        /// Link to external resource/website.
+        /// </summary>
+        [XmlAttribute("url")]
+        [JsonProperty("url")]
+        public string URL { get; set; }
 
         public LaunchPadTile() : base()
         {
