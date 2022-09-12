@@ -83,7 +83,7 @@ namespace DeploySoftware.LaunchPad.FileGeneration.Stages
                 } 
                 else // don't filter, just match on the remaining characters
                 {
-                    sbRegExp.Append(@"((.*?)+))");
+                    sbRegExp.Append(@"((.*?)+)");
                 }
                 sbRegExp.Append(@"\}\}");
                 //string regexPattern = Regex.Escape(sbRegExp.ToString());
