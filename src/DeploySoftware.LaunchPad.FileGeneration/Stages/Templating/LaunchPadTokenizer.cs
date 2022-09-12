@@ -54,6 +54,8 @@ namespace DeploySoftware.LaunchPad.FileGeneration.Stages
                 sbRegExp.Append(token.Prefix);
                 sbRegExp.Append(@"\|n:");
                 sbRegExp.Append(token.Name);
+
+                // specific filters?
                 if (token.Tags != null && token.Tags.Count >0)
                 {
                     sbRegExp.Append(@"((?:\|tags:((.*((?:((");
@@ -67,18 +69,21 @@ namespace DeploySoftware.LaunchPad.FileGeneration.Stages
                         sbRegExp.Append(";");
                     }
                     sbRegExp.Append(@".*?)+))))+)))"); // match the token tags
-                }
-                if (shouldMatchTokenValue && !string.IsNullOrEmpty(token.Value))
+                }else if (shouldMatchTokenValue && !string.IsNullOrEmpty(token.Value))
                 {
                     sbRegExp.Append(@"(?:\|v:(("); // start of the v: element
                     sbRegExp.Append(EscapeTextForRegex(token.Value));
                     sbRegExp.Append(@".*?)+))"); // ending of the v: element
                 }
-                if (!string.IsNullOrEmpty(token.DefaultValue))
+                else if (!string.IsNullOrEmpty(token.DefaultValue))
                 {
                     sbRegExp.Append(@"(?:\|dv:(("); // start of the dv: element
                     sbRegExp.Append(EscapeTextForRegex(token.DefaultValue));
                     sbRegExp.Append(@".*?)+))"); // ending of the dv: element
+                } 
+                else // don't filter, just match on the remaining characters
+                {
+                    sbRegExp.Append(@"((.*?)+))");
                 }
                 sbRegExp.Append(@"\}\}");
                 //string regexPattern = Regex.Escape(sbRegExp.ToString());
