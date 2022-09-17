@@ -36,7 +36,7 @@ namespace DeploySoftware.LaunchPad.FileGeneration.Stages.Defining
         /// </summary>
         /// <param name="doc"></param>
         /// <returns>A populated instance of this object, from the given XML.</returns>
-        public T LoadAppSettingsFromXml<T>(XmlDocument doc, ILogger logger = null, string xmlns = "https://assets.deploy.solutions/SpaceAppsRAD")
+        public T LoadAppSettingsFromXml<T>(XmlDocument doc, ILogger logger = null, string xmlns = "https://assets.deploy.solutions/SpaceAppsRAD/Schemas/AppSettings")
             where T : ILaunchPadGeneratedAppSettings, new()
         {
             T appSettings = new T();
