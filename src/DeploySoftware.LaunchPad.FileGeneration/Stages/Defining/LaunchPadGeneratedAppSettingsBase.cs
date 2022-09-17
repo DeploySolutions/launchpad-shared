@@ -51,7 +51,18 @@ namespace DeploySoftware.LaunchPad.FileGeneration.Stages.Defining
                 XmlNode root = doc.DocumentElement;
                 XmlNamespaceManager xmlnsManager = new XmlNamespaceManager(doc.NameTable);
                 xmlnsManager.AddNamespace("sar", xmlns);
-                XmlNode xnl = root.SelectSingleNode("//sar:AppSettings", xmlnsManager);
+                XmlNode xnl = null;
+                try
+                {
+
+                    xnl= root.SelectSingleNode("//sar:AppSettings", xmlnsManager);
+                }
+                catch(Exception ex)
+                {
+                    logger.Error(string.Format("LaunchPadGeneratedAppSettingsBase.LoadAppSettingsFromXml() => Error while selecting root AppSettings node, message was '{0}'", 
+                        ex.Message
+                    ));
+                }
                 if(xnl != null)
                 {
                     logger.Debug("LaunchPadGeneratedAppSettingsBase.LoadAppSettingsFromXml() => Found AppSettings node. Parsing doc to remove CDATA...");
