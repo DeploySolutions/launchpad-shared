@@ -166,10 +166,10 @@
     <value>Got DB Connection string from Secrets Manager for secret ARN {0}</value>
   </data>
   <data name="Logger_Info_GetJsonFromSecret_Getting" xml:space="preserve">
-    <value>Getting JSON from Secrets Manager for secret ARN {0}</value>
+    <value>Getting JSON from Secrets Manager for secret ARN '{0}' for caller '{1}'</value>
   </data>
   <data name="Logger_Info_GetJsonFromSecret_Got" xml:space="preserve">
-    <value>Got JSON from Secrets Manager for secret ARN {0}</value>
+    <value>Got JSON from Secrets Manager for secret ARN '{0}' for caller '{1}'</value>
   </data>
   <data name="Logger_Info_UpdateJsonForSecret_Updated" xml:space="preserve">
     <value>Updated JSON key {0} with value {1} for secret ARN {2}</value>

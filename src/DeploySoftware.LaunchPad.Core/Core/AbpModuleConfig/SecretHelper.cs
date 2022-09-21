@@ -23,16 +23,16 @@ namespace DeploySoftware.LaunchPad.Core.AbpModuleConfig
         {
         }
 
-        public virtual string GetJsonFromSecret(string secretVaultIdentifier)
+        public virtual string GetJsonFromSecret(string secretVaultIdentifier, string caller = "")
         {
-            return GetJsonFromSecretAsync(secretVaultIdentifier).Result;
+            return GetJsonFromSecretAsync(secretVaultIdentifier, caller).Result;
         }
 
-        public abstract Task<string> GetJsonFromSecretAsync(string secretVaultIdentifier);
+        public abstract Task<string> GetJsonFromSecretAsync(string secretVaultIdentifier, string caller = "");
 
-        public virtual string GetValueFromSecret(string key, string secretVaultIdentifier)
+        public virtual string GetValueFromSecret(string key, string secretVaultIdentifier, string caller = "")
         {
-            return GetValueFromSecretAsync(key, secretVaultIdentifier).Result;
+            return GetValueFromSecretAsync(key, secretVaultIdentifier, caller).Result;
         }
 
         /// <summary>
@@ -41,9 +41,9 @@ namespace DeploySoftware.LaunchPad.Core.AbpModuleConfig
         /// <param name="key"></param>
         /// <param name="secretVaultIdentifier"></param>
         /// <returns></returns>
-        public async Task<string> GetValueFromSecretAsync(string key, string secretVaultIdentifier)
+        public async Task<string> GetValueFromSecretAsync(string key, string secretVaultIdentifier, string caller = "")
         {
-            string secretStringJson = await GetJsonFromSecretAsync(secretVaultIdentifier);
+            string secretStringJson = await GetJsonFromSecretAsync(secretVaultIdentifier, caller);
             string val = string.Empty;
             // Decrypts secret
             if (!string.IsNullOrEmpty(secretStringJson))
@@ -60,9 +60,9 @@ namespace DeploySoftware.LaunchPad.Core.AbpModuleConfig
         /// </summary>
         /// <param name="secretVaultIdentifier">The ARN of the secret in which the fields are present</param>
         /// <returns></returns>
-        public async Task<IDictionary<string, string>> GetAllFieldsFromSecret(string secretVaultIdentifier)
+        public async Task<IDictionary<string, string>> GetAllFieldsFromSecret(string secretVaultIdentifier, string caller = "")
         {
-            string secretStringJson = await GetJsonFromSecretAsync(secretVaultIdentifier);
+            string secretStringJson = await GetJsonFromSecretAsync(secretVaultIdentifier, caller);
             IDictionary<string, string> kvps = null;
 
             // Decrypt the secret
@@ -92,9 +92,9 @@ namespace DeploySoftware.LaunchPad.Core.AbpModuleConfig
         /// <param name="keys">The list of keys you are looking for</param>
         /// <param name="secretVaultIdentifier">The ARN of the secret in which these keys are fields</param>
         /// <returns></returns>
-        public virtual async Task<IDictionary<string, string>> GetValuesFromSecret(IList<string> keys, string secretVaultIdentifier)
+        public virtual async Task<IDictionary<string, string>> GetValuesFromSecret(IList<string> keys, string secretVaultIdentifier, string caller = "")
         {
-            string secretStringJson = await GetJsonFromSecretAsync(secretVaultIdentifier);
+            string secretStringJson = await GetJsonFromSecretAsync(secretVaultIdentifier, caller);
             IDictionary<string, string> kvps = null;
 
             // Decrypt the secret
@@ -116,9 +116,9 @@ namespace DeploySoftware.LaunchPad.Core.AbpModuleConfig
         }
 
 
-        public virtual string GetDbConnectionStringFromSecret(string secretVaultIdentifier, string connectionStringFieldName)
+        public virtual string GetDbConnectionStringFromSecret(string secretVaultIdentifier, string connectionStringFieldName, string caller = "")
         {
-            return GetDbConnectionStringFromSecretAsync(secretVaultIdentifier, connectionStringFieldName).Result;
+            return GetDbConnectionStringFromSecretAsync(secretVaultIdentifier, connectionStringFieldName, caller).Result;
         }
 
         /// <summary>
@@ -126,10 +126,10 @@ namespace DeploySoftware.LaunchPad.Core.AbpModuleConfig
         /// </summary>
         /// <param name="secretVaultIdentifier">The AWS ARN of the secret in which the key is located.</param>
         /// <returns>A SQL connection string</returns>
-        public async virtual Task<string> GetDbConnectionStringFromSecretAsync(string secretVaultIdentifier, string connectionStringFieldName)
+        public async virtual Task<string> GetDbConnectionStringFromSecretAsync(string secretVaultIdentifier, string connectionStringFieldName, string caller = "")
         {
-            Logger.Info(string.Format("Getting DB Connection string from Secrets Manager for secret ARN {0}", secretVaultIdentifier));
-            string connectionStringJson = await GetJsonFromSecretAsync(secretVaultIdentifier);
+            Logger.Info(string.Format("Getting DB Connection string from Secrets Manager for secret ARN '{0}' for caller '{1}'.", secretVaultIdentifier, caller));
+            string connectionStringJson = await GetJsonFromSecretAsync(secretVaultIdentifier, caller);
             string connectionString = String.Empty;
 
             // Decrypts secret using the associated JSON. The secret should contain a field with the connection string Fieldname key with a valid 
@@ -173,7 +173,7 @@ namespace DeploySoftware.LaunchPad.Core.AbpModuleConfig
         /// <param name="value">The value to update for the given key</param>
         /// <param name="secretVaultIdentifier">The full secret ARN</param>
         /// <returns>A status code with the result of the request</returns>
-        public abstract HttpStatusCode WriteValuesToSecret(IDictionary<string, string> fieldsToInsertOrUpdate, string secretVaultIdentifier);
+        public abstract HttpStatusCode WriteValuesToSecret(IDictionary<string, string> fieldsToInsertOrUpdate, string secretVaultIdentifier, string caller = "");
 
         /// <summary>
         /// Writes the text value of a particular key, to a given secret ARN
@@ -182,9 +182,9 @@ namespace DeploySoftware.LaunchPad.Core.AbpModuleConfig
         /// <param name="value">The value to update for the given key</param>
         /// <param name="secretVaultIdentifier">The full secret ARN</param>
         /// <returns>A status code with the result of the request</returns>
-        public abstract Task<HttpStatusCode> WriteValuesToSecretAsync(IDictionary<string, string> fieldsToInsertOrUpdate, string secretVaultIdentifier);
+        public abstract Task<HttpStatusCode> WriteValuesToSecretAsync(IDictionary<string, string> fieldsToInsertOrUpdate, string secretVaultIdentifier, string caller = "");
 
-        public abstract string UpdateJsonForSecret(string secretVaultIdentifier, string originalSecretJson, string key, string value);
+        public abstract string UpdateJsonForSecret(string secretVaultIdentifier, string originalSecretJson, string key, string value, string caller = "");
 
     }
 }

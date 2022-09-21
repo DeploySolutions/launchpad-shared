@@ -81,35 +81,44 @@ namespace DeploySoftware.LaunchPad.Core.AbpModuleConfig
             Guard.Against<InvalidOperationException>(_secretHelper == null, "_secretHelper is null.");
             Guard.Against<InvalidOperationException>(_hostEnvironment == null, "_hostingEnvironment is null.");
             Guard.Against<InvalidOperationException>(_configurationRoot == null, "_appConfiguration is null.");
+            Logger.Debug("LaunchPadAbpModuleHelper.GetDatabaseConnectionString().");
             Console.WriteLine("LaunchPadAbpModuleHelper.GetDatabaseConnectionString().");
 
             // check whether to use local db or AWS RDS
             string databaseConnectionString = string.Empty;
-            Console.WriteLine("LaunchPadAbpModuleHelper.GetDatabaseConnectionString() enableLocalDeveloperSecretsValue? " + enableLocalDeveloperSecretsValue);
+            string enableLocalDeveloperSecretsValueMessage = string.Format("LaunchPadAbpModuleHelper.GetDatabaseConnectionString() => enableLocalDeveloperSecretsValue? {0}.", enableLocalDeveloperSecretsValue);
+            Console.WriteLine(enableLocalDeveloperSecretsValueMessage);
+            Logger.Debug(enableLocalDeveloperSecretsValueMessage);
             if (_hostEnvironment.IsDevelopment() && enableLocalDeveloperSecretsValue)
             {
                 // Use local Postgres and AWS profile for development
-                Console.WriteLine("Is Development = true and enableLocalDeveloperSecretsValue = true.");
-                Console.WriteLine("Is Development: Getting connection string from local developer's User Secrets: " + connectionStringFieldName);
+                string isDevelopmentAndLocalSecretsMessage = string.Format("Getting connection string from local developer's User Secrets, connection string field name: {0}", connectionStringFieldName);
+                Logger.Debug(isDevelopmentAndLocalSecretsMessage);
+                Console.WriteLine(isDevelopmentAndLocalSecretsMessage);
 
                 databaseConnectionString = _configurationRoot.GetSection("ConnectionStrings").GetSection(connectionStringFieldName).Value;
+                Logger.Debug("Connection string for development is " + databaseConnectionString);
                 Console.WriteLine("Connection string for development is " + databaseConnectionString);
             }
             else
             {
-                Console.WriteLine("Is Development = " + _hostEnvironment.IsDevelopment() + " & enableLocalDeveloperSecretsValue=" + enableLocalDeveloperSecretsValue);
-                Console.WriteLine("Getting connection string from remote Secret Vault.");
+                string isNotDevelopmentAndEnableLocalDeveloperSecretsMessage = string.Format("Is Development? {0} .enableLocalDeveloperSecretsValue is '{1}'. Getting connection string from remote Secret Vault.", _hostEnvironment.IsDevelopment(), enableLocalDeveloperSecretsValue);
+                Logger.Debug(isNotDevelopmentAndEnableLocalDeveloperSecretsMessage);
+                Console.WriteLine(isNotDevelopmentAndEnableLocalDeveloperSecretsMessage);
                 if (string.IsNullOrEmpty(secretVaultIdentifier))
                 {
                     throw new InvalidOperationException(String.Format("Expected to get connection string '{0}' from remote Secret Vault but secret identifier was null or empty.", connectionStringFieldName));
                 }
                 else
                 {
-                    Console.WriteLine(string.Format("Trying to get connection string field {0} from remote Secret with secret identifier {1}.",
+                    string message = string.Format("Trying to get connection string field {0} from remote Secret with secret identifier {1}.",
                         connectionStringFieldName,
-                        secretVaultIdentifier)
-                    );
+                        secretVaultIdentifier);
+                    Logger.Debug(message);
+                    Console.WriteLine(message);
                     databaseConnectionString = _secretHelper.GetDbConnectionStringFromSecret(secretVaultIdentifier, connectionStringFieldName);
+                    Logger.Debug("Got connection string.");
+                    Console.WriteLine(databaseConnectionString);
                 }
             }
             // throw an exception if connectiong string is null or empty
