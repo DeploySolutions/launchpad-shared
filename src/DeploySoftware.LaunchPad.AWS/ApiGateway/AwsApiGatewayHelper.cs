@@ -52,6 +52,7 @@ namespace DeploySoftware.LaunchPad.AWS
             ApiBaseUri = apiGatewayBaseUri;
             OAuthTokenEndpoint = string.Empty;
             DefaultVersion = string.Empty;
+            ApiRestClient = new RestClient(apiGatewayBaseUri);
         }
 
         public AwsApiGatewayHelper(ILogger logger, IConfigurationRoot configurationRoot, string awsRegionEndpointName,  Uri apiGatewayBaseUri, AwsSecretsManagerHelper secretHelper, Uri oAuthBaseUri, string oAuthTokenEndpoint,  string defaultApiVersion) : base(logger, configurationRoot, awsRegionEndpointName)
@@ -59,6 +60,8 @@ namespace DeploySoftware.LaunchPad.AWS
             _secretHelper = secretHelper;
             OAuthTokenEndpoint = oAuthTokenEndpoint;
             DefaultVersion = defaultApiVersion;
+            OAuthBaseUri = oAuthBaseUri;
+            ApiBaseUri = apiGatewayBaseUri;
 
             // set the REST clients
             OAuthClient = new RestClient(oAuthBaseUri);
@@ -85,18 +88,22 @@ namespace DeploySoftware.LaunchPad.AWS
 
             string accessToken = string.Empty;
 
-            string secretJson = await _secretHelper.GetJsonFromSecretAsync(secretArn);
+            string secretJson = await _secretHelper.GetJsonFromSecretAsync(secretArn, "AwsApiGatewayHelper.GetOAuthTokenUsingSecretCredentialsAsync()");
             dynamic secret = JsonConvert.DeserializeObject(secretJson);
-
+            string apiGatewayClientId = secret.apiGatewayClientId;
+            Guard.Against<InvalidOperationException>(String.IsNullOrEmpty(apiGatewayClientId), "apiGatewayClientId cannot be empty");
+            string apiGatewayClientSecret = secret.apiGatewayClientSecret;
+            Guard.Against<InvalidOperationException>(String.IsNullOrEmpty(apiGatewayClientSecret), "apiGatewayClientSecret cannot be empty");
+            
             // request the temporary token from the oAuth base url and the token endpoint
             var oAuthRequest = new RestRequest(OAuthTokenEndpoint,Method.Post);
 
             // set the headers including the authorization credentials from the secret
             StringBuilder sbGrant = new StringBuilder();
             sbGrant.Append("grant_type=client_credentials&client_id=");
-            sbGrant.Append(secret.apiGatewayClientId);
+            sbGrant.Append(apiGatewayClientId);
             sbGrant.Append("&client_secret=");
-            sbGrant.Append(secret.apiGatewayClientSecret);
+            sbGrant.Append(apiGatewayClientSecret);
             if (scopes != null)
             {
                 sbGrant.Append("&scope=");
