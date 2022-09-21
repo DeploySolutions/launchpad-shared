@@ -20,13 +20,13 @@ namespace DeploySoftware.LaunchPad.Core.AbpModuleConfig
         public IConfigurationRoot ConfigurationRoot { get; }
 
 
-        public string GetDefaultDatabaseConnectionString(string defaultDatabaseConnectionStringName, string secretVaultIdentifier = "");
+        public string GetDefaultDatabaseConnectionString(string defaultDatabaseConnectionStringName, string secretVaultIdentifier, string caller);
 
-        public string GetDatabaseConnectionString(string connectionStringFieldName, string secretVaultIdentifier = "", bool enableLocalDeveloperSecretsValue = false);
+        public string GetDatabaseConnectionString(string connectionStringFieldName, string secretVaultIdentifier, string caller, bool enableLocalDeveloperSecretsValue = false);
 
-        Task<string> GetDatabaseConnectionStringFromSecretAsync(string secretVaultIdentifier, string connectionStringName);
+        Task<string> GetDatabaseConnectionStringFromSecretAsync(string secretVaultIdentifier, string connectionStringName, string caller);
         
-        public Task<string> GetJsonFromSecret(string secretVaultIdentifier);
+        public Task<string> GetJsonFromSecret(string secretVaultIdentifier, string caller);
         string GetSecretVaultIdentifierFromSetting(string settingName);
         public IDictionary<string, TSecretVault> GetSecretVaults<TModule, TSecretProvider, TAbpModuleHelper>()
             where TModule : ILaunchPadAbpModule<TSecretHelper, TSecretVault, TSecretProvider, TAbpModuleHelper, THostEnvironment>

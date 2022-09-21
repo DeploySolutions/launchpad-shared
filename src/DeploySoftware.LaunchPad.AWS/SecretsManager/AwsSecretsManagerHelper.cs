@@ -54,10 +54,10 @@ namespace DeploySoftware.LaunchPad.AWS.SecretsManager
         }
 
 
-        public async virtual Task<ISecretVault> GetSecretVaultAsync(string secretVaultIdentifier, string name, string fullName)
+        public async virtual Task<ISecretVault> GetSecretVaultAsync(string secretVaultIdentifier, string name, string fullName, string caller)
         {
             AwsSecretVault vault = new AwsSecretVault(secretVaultIdentifier, name, fullName);
-            vault.Fields = await GetAllFieldsFromSecret(secretVaultIdentifier);
+            vault.Fields = await GetAllFieldsFromSecret(secretVaultIdentifier, caller);
             return vault;
         }
 
@@ -155,7 +155,7 @@ namespace DeploySoftware.LaunchPad.AWS.SecretsManager
         /// <param name="value">The value to update for the given key</param>
         /// <param name="secretVaultIdentifier">The full secret ARN</param>
         /// <returns>A status code with the result of the request</returns>
-        public virtual HttpStatusCode WriteValuesToSecret(IDictionary<string, string> fieldsToInsertOrUpdate, string secretVaultIdentifier, string caller = "")
+        public virtual HttpStatusCode WriteValuesToSecret(IDictionary<string, string> fieldsToInsertOrUpdate, string secretVaultIdentifier, string caller)
         {
             return WriteValuesToSecretAsync(fieldsToInsertOrUpdate, secretVaultIdentifier, caller).Result;
         }
@@ -167,7 +167,7 @@ namespace DeploySoftware.LaunchPad.AWS.SecretsManager
         /// <param name="value">The value to update for the given key</param>
         /// <param name="secretVaultIdentifier">The full secret ARN</param>
         /// <returns>A status code with the result of the request</returns>
-        public async virtual Task<HttpStatusCode> WriteValuesToSecretAsync(IDictionary<string,string> fieldsToInsertOrUpdate, string secretVaultIdentifier, string caller="")
+        public async virtual Task<HttpStatusCode> WriteValuesToSecretAsync(IDictionary<string,string> fieldsToInsertOrUpdate, string secretVaultIdentifier, string caller)
         {
             string originalSecretJson = await GetJsonFromSecretAsync(secretVaultIdentifier, caller);
 
@@ -175,7 +175,7 @@ namespace DeploySoftware.LaunchPad.AWS.SecretsManager
             string sbUpdatedSecretJson = originalSecretJson;
             foreach(var field in fieldsToInsertOrUpdate)
             {
-                sbUpdatedSecretJson = UpdateJsonForSecret(secretVaultIdentifier, sbUpdatedSecretJson, field.Key, field.Value, caller = "");
+                sbUpdatedSecretJson = UpdateJsonForSecret(secretVaultIdentifier, sbUpdatedSecretJson, field.Key, field.Value, caller);
             }
 
             PutSecretValueResponse response = null;
@@ -237,7 +237,7 @@ namespace DeploySoftware.LaunchPad.AWS.SecretsManager
             return response.HttpStatusCode;
         }
 
-        public virtual string UpdateJsonForSecret(string secretVaultIdentifier, string originalSecretJson, string key, string value, string caller = "")
+        public virtual string UpdateJsonForSecret(string secretVaultIdentifier, string originalSecretJson, string key, string value, string caller)
         {
             Logger.Info(string.Format(DeploySoftware_LaunchPad_AWS_Resources.Logger_Info_UpdateJsonForSecret_Updating, value, key, secretVaultIdentifier));
             Logger.Debug(string.Format("Caller = '{0}'.", caller));
@@ -270,7 +270,7 @@ namespace DeploySoftware.LaunchPad.AWS.SecretsManager
         /// </summary>
         /// <param name="secretVaultIdentifier">The ARN of the secret in which the fields are present</param>
         /// <returns></returns>
-        public async Task<IDictionary<string, string>> GetAllFieldsFromSecret(string secretVaultIdentifier, string caller="")
+        public async Task<IDictionary<string, string>> GetAllFieldsFromSecret(string secretVaultIdentifier, string caller)
         {
             Logger.Info(string.Format(
                 "AwsSecretsManagerHelper.GetAllFieldsFromSecret() => started for secretValueIdentifier ;{0}'; caller = '{1}'.",
@@ -306,7 +306,7 @@ namespace DeploySoftware.LaunchPad.AWS.SecretsManager
         /// </summary>
         /// <param name="secretVaultIdentifier">The AWS ARN of the secret in which the key is located.</param>
         /// <returns>A SQL connection string</returns>
-        public async virtual Task<string> GetDbConnectionStringFromSecretAsync(string secretVaultIdentifier, string connectionStringFieldName, string caller="")
+        public async virtual Task<string> GetDbConnectionStringFromSecretAsync(string secretVaultIdentifier, string connectionStringFieldName, string caller)
         {
             Logger.Info(string.Format("Getting DB Connection string from Secrets Manager for secret ARN '{0}' from caller '{1}'.", 
                 secretVaultIdentifier,
@@ -346,17 +346,17 @@ namespace DeploySoftware.LaunchPad.AWS.SecretsManager
             return connectionString;
         }
 
-        public virtual string GetDbConnectionStringFromSecret(string secretVaultIdentifier, string connectionStringFieldName, string caller = "")
+        public virtual string GetDbConnectionStringFromSecret(string secretVaultIdentifier, string connectionStringFieldName, string caller)
         {
             return GetDbConnectionStringFromSecretAsync(secretVaultIdentifier, connectionStringFieldName, caller).Result;
         }
 
-        public virtual string GetJsonFromSecret(string secretVaultIdentifier, string caller="")
+        public virtual string GetJsonFromSecret(string secretVaultIdentifier, string caller)
         {
             return GetJsonFromSecretAsync(secretVaultIdentifier, caller).Result;
         }
 
-        public virtual string GetValueFromSecret(string key, string secretVaultIdentifier, string caller = "")
+        public virtual string GetValueFromSecret(string key, string secretVaultIdentifier, string caller)
         {
             return GetValueFromSecretAsync(key, secretVaultIdentifier, caller).Result;
         }
@@ -367,7 +367,7 @@ namespace DeploySoftware.LaunchPad.AWS.SecretsManager
         /// <param name="key"></param>
         /// <param name="secretVaultIdentifier"></param>
         /// <returns></returns>
-        public async Task<string> GetValueFromSecretAsync(string key, string secretVaultIdentifier, string caller="")
+        public async Task<string> GetValueFromSecretAsync(string key, string secretVaultIdentifier, string caller)
         {
             string secretStringJson = await GetJsonFromSecretAsync(secretVaultIdentifier, caller);
             string val = string.Empty;
@@ -380,9 +380,9 @@ namespace DeploySoftware.LaunchPad.AWS.SecretsManager
             return val;
         }
 
-        public virtual ISecretVault GetSecretVault(string secretVaultIdentifier, string name, string fullName)
+        public virtual ISecretVault GetSecretVault(string secretVaultIdentifier, string name, string fullName, string caller)
         {
-            return GetSecretVaultAsync(secretVaultIdentifier, name, fullName).Result;
+            return GetSecretVaultAsync(secretVaultIdentifier, name, fullName, caller).Result;
         }
 
         /// <summary>
@@ -391,7 +391,7 @@ namespace DeploySoftware.LaunchPad.AWS.SecretsManager
         /// <param name="keys">The list of keys you are looking for</param>
         /// <param name="secretVaultIdentifier">The ARN of the secret in which these keys are fields</param>
         /// <returns></returns>
-        public virtual async Task<IDictionary<string, string>> GetValuesFromSecret(IList<string> keys, string secretVaultIdentifier, string caller="")
+        public virtual async Task<IDictionary<string, string>> GetValuesFromSecret(IList<string> keys, string secretVaultIdentifier, string caller)
         {
             string secretStringJson = await GetJsonFromSecretAsync(secretVaultIdentifier, caller);
             IDictionary<string, string> kvps = null;

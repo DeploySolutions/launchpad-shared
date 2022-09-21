@@ -76,7 +76,7 @@ namespace DeploySoftware.LaunchPad.Core.AbpModuleConfig
         /// <param name="connectionStringFieldName">The name of the field which contains the connection string.</param>
         /// <param name="secretVaultIdentifier">The unique identifier, if the database connection string is contained in a cloud-hosted secret.</param>
         /// <returns></returns>
-        public virtual string GetDatabaseConnectionString(string connectionStringFieldName, string secretVaultIdentifier = "", bool enableLocalDeveloperSecretsValue = false)
+        public virtual string GetDatabaseConnectionString(string connectionStringFieldName, string secretVaultIdentifier, string caller, bool enableLocalDeveloperSecretsValue = false)
         {
             Guard.Against<InvalidOperationException>(_secretHelper == null, "_secretHelper is null.");
             Guard.Against<InvalidOperationException>(_hostEnvironment == null, "_hostingEnvironment is null.");
@@ -116,7 +116,7 @@ namespace DeploySoftware.LaunchPad.Core.AbpModuleConfig
                         secretVaultIdentifier);
                     Logger.Debug(message);
                     Console.WriteLine(message);
-                    databaseConnectionString = _secretHelper.GetDbConnectionStringFromSecret(secretVaultIdentifier, connectionStringFieldName);
+                    databaseConnectionString = _secretHelper.GetDbConnectionStringFromSecret(secretVaultIdentifier, connectionStringFieldName, caller);
                     Logger.Debug("Got connection string.");
                     Console.WriteLine(databaseConnectionString);
                 }
@@ -147,9 +147,9 @@ namespace DeploySoftware.LaunchPad.Core.AbpModuleConfig
         /// <param name="secretVaultIdentifier">The unique ID that represents the secret</param>
         /// <param name="logger">The logging instance</param>
         /// <returns>A database connection string</returns>
-        public async Task<String> GetDatabaseConnectionStringFromSecretAsync(string secretVaultIdentifier, string connectionStringName)
+        public async Task<String> GetDatabaseConnectionStringFromSecretAsync(string secretVaultIdentifier, string connectionStringName, string caller)
         {
-            string dbConnectionString = await _secretHelper.GetDbConnectionStringFromSecretAsync(secretVaultIdentifier, connectionStringName);
+            string dbConnectionString = await _secretHelper.GetDbConnectionStringFromSecretAsync(secretVaultIdentifier, connectionStringName, caller);
             Logger.Debug(string.Format(DeploySoftware_LaunchPad_Core_Resources.Debug_GetDbConnectionStringFromSecret, dbConnectionString));
             return dbConnectionString;
         }
@@ -157,11 +157,12 @@ namespace DeploySoftware.LaunchPad.Core.AbpModuleConfig
         /// <summary>
         /// Gets the default connection string, using either the local settings or settings taken from a cloud-hosted secret
         /// </summary>
-        public string GetDefaultDatabaseConnectionString(string defaultDatabaseConnectionStringName, string secretVaultIdentifier = "")
+        public string GetDefaultDatabaseConnectionString(string defaultDatabaseConnectionStringName, string secretVaultIdentifier, string caller)
         {
             string defaultDatabaseConnectionString = GetDatabaseConnectionString(
                 defaultDatabaseConnectionStringName,
-                secretVaultIdentifier
+                secretVaultIdentifier,
+                caller
             );
             return defaultDatabaseConnectionString;
         }
@@ -204,9 +205,9 @@ namespace DeploySoftware.LaunchPad.Core.AbpModuleConfig
             return secretVaults;
         }
 
-        public async Task<String> GetJsonFromSecret(string secretVaultIdentifier)
+        public async Task<String> GetJsonFromSecret(string secretVaultIdentifier, string caller)
         {
-            return await _secretHelper.GetJsonFromSecretAsync(secretVaultIdentifier);
+            return await _secretHelper.GetJsonFromSecretAsync(secretVaultIdentifier, caller);
         }
 
 

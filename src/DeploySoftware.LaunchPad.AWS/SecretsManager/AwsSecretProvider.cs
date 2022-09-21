@@ -17,14 +17,14 @@ namespace DeploySoftware.LaunchPad.AWS.SecretsManager
         {       
         }
 
-        public override bool RefreshSecretVault(string vaultSecretIdentifier, string vaultName, string vaultFullName, SecretHelper helper)
+        public override bool RefreshSecretVault(string vaultSecretIdentifier, string vaultName, string vaultFullName, SecretHelper helper, string caller)
         {
-            return RefreshSecretVaultAsync(vaultSecretIdentifier, vaultName, vaultFullName, helper).Result;
+            return RefreshSecretVaultAsync(vaultSecretIdentifier, vaultName, vaultFullName, helper, caller).Result;
         }
 
-        public override async Task<bool> RefreshSecretVaultAsync(string vaultSecretIdentifier, string vaultName, string vaultFullName, SecretHelper helper)
+        public override async Task<bool> RefreshSecretVaultAsync(string vaultSecretIdentifier, string vaultName, string vaultFullName, SecretHelper helper, string caller)
         {
-            AwsSecretVault vault = (AwsSecretVault)await helper.GetSecretVaultAsync(vaultSecretIdentifier, vaultName, vaultFullName);
+            AwsSecretVault vault = (AwsSecretVault)await helper.GetSecretVaultAsync(vaultSecretIdentifier, vaultName, vaultFullName, caller);
 
             return true;
         }

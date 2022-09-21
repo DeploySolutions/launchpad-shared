@@ -28,11 +28,11 @@ namespace DeploySoftware.LaunchPad.Core.AbpModuleConfig
             SecretVaults = new Dictionary<string, TSecretVault>(comparer);
         }
 
-        public abstract bool RefreshSecretVault(string vaultSecretIdentifier, string vaultName, string vaultFullName, SecretHelper helper); 
+        public abstract bool RefreshSecretVault(string vaultSecretIdentifier, string vaultName, string vaultFullName, SecretHelper helper, string caller); 
         
-        public abstract Task<bool> RefreshSecretVaultAsync(string vaultSecretIdentifier, string vaultName, string vaultFullName, SecretHelper helper);
+        public abstract Task<bool> RefreshSecretVaultAsync(string vaultSecretIdentifier, string vaultName, string vaultFullName, SecretHelper helper, string caller);
 
-        public void RefreshAllSecretVaults(SecretHelper helper)
+        public void RefreshAllSecretVaults(SecretHelper helper, string caller)
         {
             foreach(var vault in SecretVaults.Values)
             {
@@ -41,7 +41,8 @@ namespace DeploySoftware.LaunchPad.Core.AbpModuleConfig
                     vault.Identifier, 
                     vault.Name,
                     vault.FullName,
-                    helper);
+                    helper, 
+                    caller);
             }
         }
 
