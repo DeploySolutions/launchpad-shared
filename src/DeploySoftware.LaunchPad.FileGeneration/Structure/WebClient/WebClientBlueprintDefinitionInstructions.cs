@@ -10,7 +10,7 @@ namespace DeploySoftware.LaunchPad.FileGeneration.Structure
     [Serializable]
     public partial class WebClientBlueprintDefinitionInstructions : LaunchPadGeneratedObjectBlueprintDefinitionInstructionsBase
     {
-        
+
         public WebClientBlueprintDefinitionInstructions() : base()
         {
         }

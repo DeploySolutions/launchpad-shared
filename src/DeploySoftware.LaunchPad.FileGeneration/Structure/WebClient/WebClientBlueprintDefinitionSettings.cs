@@ -9,7 +9,7 @@ namespace DeploySoftware.LaunchPad.FileGeneration.Structure
 {
     [Serializable]
     [JsonObject(MemberSerialization.OptIn)]
-    public partial class WebClientBlueprintDefinitionSettings : 
+    public partial class WebClientBlueprintDefinitionSettings :
         LaunchPadGeneratedObjectBlueprintDefinitionSettings
     {
         /// <summary>
