@@ -142,7 +142,7 @@ namespace DeploySoftware.LaunchPad.Core.AbpModuleConfig
             return defaultDatabaseConnectionString;
         }
 
-        public abstract string GetDefaultConnectionString();
+        public abstract string GetDefaultConnectionString(IHostEnvironment hostEnvironment, IConfigurationRoot configuration);
 
         /// <summary>
         /// Returns the unique identifier value of a secret vault (an AWS ARN, an Azure secrets URL, etc)
