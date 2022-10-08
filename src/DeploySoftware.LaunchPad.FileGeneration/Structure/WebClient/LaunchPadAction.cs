@@ -11,6 +11,11 @@ namespace DeploySoftware.LaunchPad.FileGeneration.Structure
     public partial class LaunchPadAction : LaunchPadWebClientObjectBase
     {
         /// <summary>
+        /// We support `edit` and `delete` as a type at the moment
+        /// </summary>
+        [JsonProperty("type")]
+        public String Type { get; set; }
+        /// <summary>
         /// Route action. Takes the user to this route when they clicks on the button.
         /// </summary>
         [JsonProperty("route")]
