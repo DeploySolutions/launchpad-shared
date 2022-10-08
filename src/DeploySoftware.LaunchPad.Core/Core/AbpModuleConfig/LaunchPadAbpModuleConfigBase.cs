@@ -16,7 +16,7 @@ namespace DeploySoftware.LaunchPad.Core.AbpModuleConfig
         where THostEnvironment : IHostEnvironment
     {
 
-        public ILogger Logger { get; set; } = NullLogger.Instance;
+        public virtual ILogger Logger { get; set; } = NullLogger.Instance;
 
         public virtual THostEnvironment HostEnvironment { get; set; }
 
