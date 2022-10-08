@@ -8,39 +8,22 @@ using System.Threading.Tasks;
 
 namespace DeploySoftware.LaunchPad.Core.AbpModuleConfig
 {
-    public partial interface ILaunchPadAbpModuleHelper<TSecretHelper, TSecretVault, THostEnvironment> : ISingletonDependency
+    public partial interface ILaunchPadAbpModuleHelper<TSecretHelper, TSecretVault> : ISingletonDependency
         where TSecretHelper : ISecretHelper, new()
         where TSecretVault : SecretVaultBase, new()
-        where THostEnvironment : IHostEnvironment
     {
         public TSecretHelper SecretHelper { get; }
 
-        public THostEnvironment HostEnvironment { get; }
-        
-        public IConfigurationRoot ConfigurationRoot { get; }
+        public string GetDefaultDatabaseConnectionString(IHostEnvironment hostEnvironment, IConfigurationRoot configuration, string defaultDatabaseConnectionStringName, string secretVaultIdentifier, string caller);
 
-
-        public string GetDefaultDatabaseConnectionString(string defaultDatabaseConnectionStringName, string secretVaultIdentifier, string caller);
-
-        public string GetDatabaseConnectionString(string connectionStringFieldName, string secretVaultIdentifier, string caller, bool enableLocalDeveloperSecretsValue = false);
+        public string GetDatabaseConnectionString(IHostEnvironment hostEnvironment, IConfigurationRoot configuration, string connectionStringFieldName, string secretVaultIdentifier, string caller, bool enableLocalDeveloperSecretsValue = false);
 
         Task<string> GetDatabaseConnectionStringFromSecretAsync(string secretVaultIdentifier, string connectionStringName, string caller);
         
         public Task<string> GetJsonFromSecret(string secretVaultIdentifier, string caller);
-        string GetSecretVaultIdentifierFromSetting(string settingName);
-        public IDictionary<string, TSecretVault> GetSecretVaults<TModule, TSecretProvider, TAbpModuleHelper>()
-            where TModule : ILaunchPadAbpModule<TSecretHelper, TSecretVault, TSecretProvider, TAbpModuleHelper, THostEnvironment>
-            where TSecretProvider : SecretProviderBase<TSecretVault>, new()
-            where TAbpModuleHelper : ILaunchPadAbpModuleHelper<TSecretHelper, TSecretVault, THostEnvironment>;
-
-
-        void PreInitialize();
-
-        void Initialize();
-
-        void PostInitialize();
+        string GetSecretVaultIdentifierFromSetting(IConfigurationRoot configuration, string settingName);
         
-
+       
         public bool ShowDetailedErrorsToClient();
     }
 }

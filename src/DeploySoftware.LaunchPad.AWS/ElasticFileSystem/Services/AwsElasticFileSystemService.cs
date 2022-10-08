@@ -24,8 +24,8 @@ namespace DeploySoftware.LaunchPad.AWS.ElasticFileSystem.Services
             string localAwsProfileName,
             bool shouldUseLocalAwsProfile) : base(logger)
         {
-            var secretHelperFactory = new AwsElasticFileSystemHelperFactory(logger, configurationRoot, regionEndpointName);
-            Helper = secretHelperFactory.Create(logger, configurationRoot, regionEndpointName, localAwsProfileName, shouldUseLocalAwsProfile);
+            var secretHelperFactory = new AwsElasticFileSystemHelperFactory(logger, regionEndpointName);
+            Helper = secretHelperFactory.Create(logger, regionEndpointName, localAwsProfileName, shouldUseLocalAwsProfile);
         }
 
         public AwsElasticFileSystemService(ILogger logger, IAwsElasticFileSystemHelper helper) : base(logger)

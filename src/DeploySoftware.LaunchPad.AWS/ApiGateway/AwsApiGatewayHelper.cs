@@ -46,7 +46,7 @@ namespace DeploySoftware.LaunchPad.AWS
             DefaultVersion = string.Empty;
         }
 
-        public AwsApiGatewayHelper(ILogger logger, IConfigurationRoot configurationRoot, string awsRegionEndpointName, Uri apiGatewayBaseUri) : base(logger, configurationRoot, awsRegionEndpointName)
+        public AwsApiGatewayHelper(ILogger logger, string awsRegionEndpointName, Uri apiGatewayBaseUri) : base(logger, awsRegionEndpointName)
         {
             _secretHelper = new AwsSecretsManagerHelper();
             ApiBaseUri = apiGatewayBaseUri;
@@ -55,7 +55,7 @@ namespace DeploySoftware.LaunchPad.AWS
             ApiRestClient = new RestClient(apiGatewayBaseUri);
         }
 
-        public AwsApiGatewayHelper(ILogger logger, IConfigurationRoot configurationRoot, string awsRegionEndpointName,  Uri apiGatewayBaseUri, AwsSecretsManagerHelper secretHelper, Uri oAuthBaseUri, string oAuthTokenEndpoint,  string defaultApiVersion) : base(logger, configurationRoot, awsRegionEndpointName)
+        public AwsApiGatewayHelper(ILogger logger, string awsRegionEndpointName,  Uri apiGatewayBaseUri, AwsSecretsManagerHelper secretHelper, Uri oAuthBaseUri, string oAuthTokenEndpoint,  string defaultApiVersion) : base(logger, awsRegionEndpointName)
         {
             _secretHelper = secretHelper;
             OAuthTokenEndpoint = oAuthTokenEndpoint;

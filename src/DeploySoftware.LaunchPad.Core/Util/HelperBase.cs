@@ -17,8 +17,6 @@ namespace DeploySoftware.LaunchPad.Core.Util
     {
         public ILogger Logger { get; set; } = NullLogger.Instance;
 
-        protected readonly IConfigurationRoot _configurationRoot;
-        public IConfigurationRoot ConfigurationRoot { get { return _configurationRoot; } }
 
         protected HelperBase()
         {
@@ -34,15 +32,6 @@ namespace DeploySoftware.LaunchPad.Core.Util
             Logger = logger;
         }
 
-        public HelperBase(ILogger logger, IConfigurationRoot configurationRoot)
-        {
-            if (logger == null)
-            {
-                Logger = NullLogger.Instance;
-            }
-            Logger = logger;
-            _configurationRoot = configurationRoot;
-        }
 
         /// <summary>
         /// Returns the description of an enum value, if available. If not available, either return the original enum value, or empty string.

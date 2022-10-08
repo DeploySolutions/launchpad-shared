@@ -15,14 +15,13 @@ namespace DeploySoftware.LaunchPad.AWS.S3
 {
     public partial class AwsS3HelperFactory : AwsHelperBase, ISingletonDependency
     {
-        public AwsS3HelperFactory(ILogger logger, IConfigurationRoot configurationRoot, string awsRegionEndpointName) : base(logger, configurationRoot, awsRegionEndpointName)
+        public AwsS3HelperFactory(ILogger logger, string awsRegionEndpointName) : base(logger, awsRegionEndpointName)
         {
 
         }
 
         public virtual AwsS3Helper Create(
             ILogger logger,
-            IConfigurationRoot _configurationRoot,
             string awsRegionEndpointName = DefaultRegionEndpointName, 
             string awsProfileName = DefaultLocalAwsProfileName, 
             bool shouldUseLocalAwsProfile = DefaultShouldUseLocalAwsProfile)
@@ -48,7 +47,7 @@ namespace DeploySoftware.LaunchPad.AWS.S3
                 logger.Debug("AwsS3HelperFactory.Create() => shouldUseLocalAwsProfile is true. GetS3Client ended.");
                 logger.Debug("AwsS3HelperFactory.Create() => shouldUseLocalAwsProfile is true. Creating new AwsS3Helper started.");
 
-                helper = new AwsS3Helper(logger, _configurationRoot, awsRegionEndpointName, s3Client, AwsProfileName);
+                helper = new AwsS3Helper(logger, awsRegionEndpointName, s3Client, AwsProfileName);
                 helper.ShouldUseLocalAwsProfile = true;
                 logger.Debug("AwsS3HelperFactory.Create() => shouldUseLocalAwsProfile is true. Creating new AwsS3Helper ended.");
 
@@ -71,7 +70,7 @@ namespace DeploySoftware.LaunchPad.AWS.S3
                         // create the helper using the AWS credentials resolution pattern.
                         // Since we are not using local profile here, we presumably load from EC2 role or environment
                         var s3Client = GetS3Client(Region);
-                        helper = new AwsS3Helper(logger, _configurationRoot, awsRegionEndpointName, s3Client);
+                        helper = new AwsS3Helper(logger, awsRegionEndpointName, s3Client);
                         logger.Debug("AwsS3Helper was not registered; returning a new instance.");
                     }
                 }
@@ -87,7 +86,7 @@ namespace DeploySoftware.LaunchPad.AWS.S3
                     // create the helper using the AWS credentials resolution pattern.
                     // Since we are not using local profile here, we presumably load from EC2 role or environment
                     var secretClient = GetS3Client(Region);
-                    helper = new AwsS3Helper(logger, _configurationRoot, awsRegionEndpointName, secretClient);
+                    helper = new AwsS3Helper(logger, awsRegionEndpointName, secretClient);
                     logger.Debug("AwsS3Helper was null; returned a new instance.");
                 }
             }

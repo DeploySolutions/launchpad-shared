@@ -23,8 +23,8 @@ namespace DeploySoftware.LaunchPad.AWS.SNS.Services
             string localAwsProfileName,
             bool shouldUseLocalAwsProfile) : base(logger)
         {
-            var secretHelperFactory = new AwsSNSHelperFactory(logger, configurationRoot, regionEndpointName);
-            Helper = secretHelperFactory.Create(logger, configurationRoot, regionEndpointName, localAwsProfileName, shouldUseLocalAwsProfile);
+            var secretHelperFactory = new AwsSNSHelperFactory(logger, regionEndpointName);
+            Helper = secretHelperFactory.Create(logger, regionEndpointName, localAwsProfileName, shouldUseLocalAwsProfile);
         }
 
         public AwsSNSService(ILogger logger, IAwsSNSHelper helper) : base(logger)

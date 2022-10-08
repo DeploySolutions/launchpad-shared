@@ -16,14 +16,13 @@ namespace DeploySoftware.LaunchPad.AWS.Redshift
     public partial class AwsRedshiftHelperFactory : AwsHelperBase, ISingletonDependency
     {
 
-        public AwsRedshiftHelperFactory(ILogger logger, IConfigurationRoot configurationRoot, string awsRegionEndpointName) : base(logger, configurationRoot, awsRegionEndpointName)
+        public AwsRedshiftHelperFactory(ILogger logger, string awsRegionEndpointName) : base(logger, awsRegionEndpointName)
         {
 
         }
 
         public virtual AwsRedshiftHelper Create(
             ILogger logger,
-            IConfigurationRoot _configurationRoot,
             string awsRegionEndpointName = DefaultRegionEndpointName, 
             string awsProfileName = DefaultLocalAwsProfileName,             
             bool shouldUseLocalAwsProfile = DefaultShouldUseLocalAwsProfile)
@@ -38,7 +37,7 @@ namespace DeploySoftware.LaunchPad.AWS.Redshift
             AwsProfileName = awsProfileName;
             if (shouldUseLocalAwsProfile)
             {
-                helper = new AwsRedshiftHelper(logger, _configurationRoot, awsRegionEndpointName);
+                helper = new AwsRedshiftHelper(logger, awsRegionEndpointName);
                 helper.ShouldUseLocalAwsProfile = true;
             }
             else // do not use a named local profile, instead try to determine the AWS client from the credential resolution order
@@ -55,7 +54,7 @@ namespace DeploySoftware.LaunchPad.AWS.Redshift
                     {
                         // create the helper using the AWS credentials resolution pattern.
                         // Since we are not using local profile here, we presumably load from EC2 role or environment
-                        helper = new AwsRedshiftHelper(logger, _configurationRoot, awsRegionEndpointName);
+                        helper = new AwsRedshiftHelper(logger, awsRegionEndpointName);
                         logger.Debug("AwsRedshiftHelper was not registered; returning a new instance.");
                     }
                 }
@@ -68,7 +67,7 @@ namespace DeploySoftware.LaunchPad.AWS.Redshift
                 {
                     // create the helper using the AWS credentials resolution pattern.
                     // Since we are not using local profile here, we presumably load from EC2 role or environment
-                    helper = new AwsRedshiftHelper(logger, _configurationRoot, awsRegionEndpointName);
+                    helper = new AwsRedshiftHelper(logger, awsRegionEndpointName);
                     logger.Debug("AwsRedshiftHelper was null; returning a new instance.");
                 }
             }

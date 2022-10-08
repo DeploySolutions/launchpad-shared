@@ -35,12 +35,6 @@ namespace DeploySoftware.LaunchPad.AWS
             Region = region;
         }
 
-        public AwsHelperBase(ILogger logger, IConfigurationRoot configurationRoot, string awsRegionEndpointName) : base(logger, configurationRoot)
-        {
-            TryGetRegionEndpoint(awsRegionEndpointName, out RegionEndpoint region);
-            Region = region;
-            
-        }
 
         /// <summary>
         /// This attempts to return AWS Credentials from a specific AWS profile. If left empty, it will try to load from a [default] local credential.

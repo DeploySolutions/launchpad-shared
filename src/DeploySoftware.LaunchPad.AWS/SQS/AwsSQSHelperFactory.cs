@@ -16,14 +16,13 @@ namespace DeploySoftware.LaunchPad.AWS.SQS
     public partial class AwsSQSHelperFactory : AwsHelperBase, ISingletonDependency
     {
 
-        public AwsSQSHelperFactory(ILogger logger, IConfigurationRoot configurationRoot, string awsRegionEndpointName) : base(logger, configurationRoot, awsRegionEndpointName)
+        public AwsSQSHelperFactory(ILogger logger, string awsRegionEndpointName) : base(logger, awsRegionEndpointName)
         {
 
         }
 
         public virtual AwsSQSHelper Create(
             ILogger logger,
-            IConfigurationRoot _configurationRoot,
             string awsRegionEndpointName = DefaultRegionEndpointName, 
             string awsProfileName = DefaultLocalAwsProfileName,             
             bool shouldUseLocalAwsProfile = DefaultShouldUseLocalAwsProfile)
@@ -38,7 +37,7 @@ namespace DeploySoftware.LaunchPad.AWS.SQS
             AwsProfileName = awsProfileName;
             if (shouldUseLocalAwsProfile)
             {
-                helper = new AwsSQSHelper(logger, _configurationRoot, awsRegionEndpointName);
+                helper = new AwsSQSHelper(logger, awsRegionEndpointName);
                 helper.ShouldUseLocalAwsProfile = true;
             }
             else // do not use a named local profile, instead try to determine the AWS client from the credential resolution order
@@ -55,7 +54,7 @@ namespace DeploySoftware.LaunchPad.AWS.SQS
                     {
                         // create the helper using the AWS credentials resolution pattern.
                         // Since we are not using local profile here, we presumably load from EC2 role or environment
-                        helper = new AwsSQSHelper(logger, _configurationRoot, awsRegionEndpointName);
+                        helper = new AwsSQSHelper(logger, awsRegionEndpointName);
                         logger.Debug("AwsSQSHelper was not registered; returning a new instance.");
                     }
                 }
@@ -68,7 +67,7 @@ namespace DeploySoftware.LaunchPad.AWS.SQS
                 {
                     // create the helper using the AWS credentials resolution pattern.
                     // Since we are not using local profile here, we presumably load from EC2 role or environment
-                    helper = new AwsSQSHelper(logger, _configurationRoot, awsRegionEndpointName);
+                    helper = new AwsSQSHelper(logger, awsRegionEndpointName);
                     logger.Debug("AwsSQSHelper was null; returning a new instance.");
                 }
             }

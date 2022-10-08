@@ -25,11 +25,6 @@ namespace DeploySoftware.LaunchPad.AWS.SecretsManager
         }
 
 
-        public AwsSecretsManagerHelperFactory(ILogger logger, IConfigurationRoot configurationRoot, string awsRegionEndpointName) : base(logger, configurationRoot, awsRegionEndpointName)
-        {
-
-        }
-
         public virtual AwsSecretsManagerHelper Create(
             ILogger logger,
             string regionEndpointName = DefaultRegionEndpointName, 
@@ -48,22 +43,7 @@ namespace DeploySoftware.LaunchPad.AWS.SecretsManager
             AwsProfileName = localAwsProfileName;
             ShouldUseLocalAwsProfile = shouldUseLocalAwsProfile;
             
-            // attempt to load the registered instance, if any
-            //if (IocManager.Instance != null)
-            //{
-            //    try
-            //    {
-            //        if(IocManager.Instance.IsRegistered<AwsSecretsManagerHelper>())
-            //        {
-            //            helper = IocManager.Instance.Resolve<AwsSecretsManagerHelper>();
-            //            logger.Debug("AwsSecretsManagerHelper was registered; returning the resolved instance.");
-            //        }
-            //    }
-            //    catch (ComponentNotFoundException)
-            //    {
-            //        logger.Debug("AwsSecretsManagerHelper claims it was registered but could not be resolved; returning a new instance.");
-            //    }
-            //}
+            
             if(helper == null)
             {
                 Logger.Debug("AwsSecretsManagerHelperFactory.Create() => helper was null, creating...");

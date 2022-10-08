@@ -1,0 +1,305 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+      <xsd:element name="root" msdata:IsDataSet="true">
+        <xsd:complexType>
+          <xsd:choice maxOccurs="unbounded">
+            <xsd:element name="metadata">
+              <xsd:complexType>
+                <xsd:sequence>
+                  <xsd:element name="value" type="xsd:string" minOccurs="0" />
+                </xsd:sequence>
+                <xsd:attribute name="name" use="required" type="xsd:string" />
+                <xsd:attribute name="type" type="xsd:string" />
+                <xsd:attribute name="mimetype" type="xsd:string" />
+                <xsd:attribute ref="xml:space" />
+              </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="assembly">
+              <xsd:complexType>
+                <xsd:attribute name="alias" type="xsd:string" />
+                <xsd:attribute name="name" type="xsd:string" />
+              </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="data">
+              <xsd:complexType>
+                <xsd:sequence>
+                  <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                  <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+                </xsd:sequence>
+                <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+                <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+                <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+                <xsd:attribute ref="xml:space" />
+              </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="resheader">
+              <xsd:complexType>
+                <xsd:sequence>
+                  <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                </xsd:sequence>
+                <xsd:attribute name="name" type="xsd:string" use="required" />
+              </xsd:complexType>
+            </xsd:element>
+          </xsd:choice>
+        </xsd:complexType>
+      </xsd:element>
+    </xsd:schema> 
+<resheader name="resmimetype">
+<value>text/microsoft-resx</value>
+</resheader>
+<resheader name="version">
+<value>2.0</value>
+</resheader>
+<resheader name="writer">
+<value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+</resheader>
+<resheader name="reader">
+<value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+</resheader>
+<data name="Debug_GetDbConnectionStringFromSecret" xml:space="preserve">
+<value>Connection string is {0}.</value>
+</data>
+<data name="Debug_HttpSessionState_Clear" xml:space="preserve">
+<value>Tentative d'effacer l'état de session pour la session {1}</value>
+</data>
+<data name="Debug_HttpSessionState_Get" xml:space="preserve">
+<value>Tentative d'obtenir {0} de l'état de la session pour la session {1}</value>
+</data>
+<data name="Debug_HttpSessionState_Put" xml:space="preserve">
+<value>Tentative de mettre {0} à l'état de session pour la session {1}</value>
+</data>
+<data name="Debug_HttpSessionState_Remove" xml:space="preserve">
+<value>Tentative de suppression de {0} de l'état de session pour la session {1}</value>
+</data>
+<data name="Debug_TransactionManager_TransactionManager" xml:space="preserve">
+<value>Nouvelle instance de TransactionManager avec l'ID {0} créée.</value>
+</data>
+<data name="Debug_TransactionScopeHelper_CreateScope_with_TransactionScopeOption_Required" xml:space="preserve">
+<value>Creating a new TransactionScope with TransactionScopeOption.Required</value>
+</data>
+<data name="Debug_TransactionScopeHelper_CreateScope_with_TransactionScopeOption_RequiresNew" xml:space="preserve">
+<value>Creating a new TransactionScope with TransactionScopeOption.RequiresNew</value>
+</data>
+<data name="Debug_TransactionScopeHelper_CreateScope_with_TransactionScopeOption_Suppress" xml:space="preserve">
+<value>Creating a new TransactionScope with TransactionScopeOption.Supress</value>
+</data>
+<data name="Debug_UnitOfWorkManager_DefaultTransactionManager_CreatingNewTransactionManager" xml:space="preserve">
+<value>No valid ITransactionManager found in Local state. Creating a new TransactionManager.</value>
+</data>
+<data name="Debug_UnitOfWorkManager_DefaultTransactionManager_UsingDefaultProvider" xml:space="preserve">
+<value>Using default UnitOfWorkManager provider to resolve current transaction manager.</value>
+</data>
+<data name="Debug_UnitOfWorkManager_SetTransactionManagerProvider_ProviderBeingOverriden" xml:space="preserve">
+<value>The transaction manager provider is being overriden. Using supplied transaction manager provider.</value>
+</data>
+<data name="Debug_UnitOfWorkManager_SetTransactionManagerProvider_SetToNull" xml:space="preserve">
+<value>The transaction manager provide is being set to null. Using the transaction manager to the default transaction manager provider.</value>
+</data>
+<data name="Debug_UnitOfWorkScope_OnCommit" xml:space="preserve">
+<value>UnitOfWorkScope {0} Commiting.</value>
+</data>
+<data name="Debug_UnitOfWorkScope_OnRollback" xml:space="preserve">
+<value>UnitOfWorkScope {0} Rolling back.</value>
+</data>
+<data name="Exception_DirectoryInfo_Not_Exists" xml:space="preserve">
+<value>Le répertoire de fichiers n'existe pas.</value>
+</data>
+<data name="Exception_UnitOfWorkTransaction_OnScopeCommitting_InvalidOperationException" xml:space="preserve">
+<value>The scope being committed is not attached to the current transaction.</value>
+</data>
+<data name="Guard_GeographicLocation_Instantiate_FormatException" xml:space="preserve">
+<value>Should not throw FormatException due to DateString</value>
+</data>
+<data name="Guard_GeographicLocation_Set_Elevation" xml:space="preserve">
+<value>L'altitude doit être un nombre valide.</value>
+</data>
+<data name="Guard_GeographicLocation_Set_Latitude_NaN" xml:space="preserve">
+<value>Value was either too large or too small for a Decimal.</value>
+</data>
+<data name="Guard_GeographicLocation_Set_Latitude_Not_GreaterThan_90" xml:space="preserve">
+<value>Latitudinal coordinate decimal cannot be greater than 90</value>
+</data>
+<data name="Guard_GeographicLocation_Set_Latitude_Not_LessThan_Minus_90" xml:space="preserve">
+<value>Latitudinal coordinate decimal cannot be less than 90.</value>
+</data>
+<data name="Guard_GeographicLocation_Set_Longitude_NaN" xml:space="preserve">
+<value>Value was either too large or too small for a Decimal.</value>
+</data>
+<data name="Guard_GeographicLocation_Set_Longitude_Not_LessThan_Minus180" xml:space="preserve">
+<value>Longitudinal coordinate decimal cannot be less than 180.</value>
+</data>
+<data name="Guard_GeographicLocation_Set_Longitude_Not_MoreThan_180" xml:space="preserve">
+<value>Longitudinal coordinate decimal cannot be greater than 180.</value>
+</data>
+<data name="Guard_InMemoryRepository_ConstrainQueryInput_MaxResult_Equals0" xml:space="preserve">
+<value>Les résultats maximaux doivent être -1 ou un nombre positif.</value>
+</data>
+<data name="Guard_InMemoryRepository_ConstrainQueryInput_MaxResult_LessThanMinus1" xml:space="preserve">
+<value>Max Results must be -1 or a positive number.</value>
+</data>
+<data name="Guard_InMemoryRepository_ConstrainQueryInput_Query_IsNull" xml:space="preserve">
+<value>Query parameter cannot be null.</value>
+</data>
+<data name="Guard_InMemoryRepository_ConstrainQueryInput_StartResult_LessThan0" xml:space="preserve">
+<value>Start Result must be greater than or equal to zero.</value>
+</data>
+<data name="Guard_InMemoryRepository_GetByKey_Key_IsNull" xml:space="preserve">
+<value>La clé ne doit pas être nulle.</value>
+</data>
+<data name="Guard_Input_IsNull" xml:space="preserve">
+<value>L'entrée est nulle</value>
+</data>
+<data name="Guard_LaunchPadToken_ArgumentException_Empty" xml:space="preserve">
+<value>La chaîne de jeton ne peut pas être vide ou nulle.</value>
+</data>
+<data name="Guard_LaunchPadToken_ArgumentException_MissingName" xml:space="preserve">
+<value>La chaîne de jeton doit contenir une section de nom commençant par « n : ».</value>
+</data>
+<data name="Guard_LaunchPadToken_ArgumentException_MissingPrefix" xml:space="preserve">
+<value>La chaîne de jetons doit contenir une section de préfixe commençant par « p : ».</value>
+</data>
+<data name="Guard_LaunchPadToken_ArgumentException_NoDelimiter" xml:space="preserve">
+<value>La chaîne de jetons doit contenir au moins deux sections, délimitées par « | ».</value>
+</data>
+<data name="Guard_LaunchPadToken_ArgumentException_WrongEndWith" xml:space="preserve">
+<value>La chaîne de jeton doit se terminer par des caractères «}} ».</value>
+</data>
+<data name="Guard_LaunchPadToken_ArgumentException_WrongNumberSections" xml:space="preserve">
+<value>La chaîne de jeton ne doit contenir que deux ou trois sections, délimitées par « | ».</value>
+</data>
+<data name="Guard_LaunchPadToken_ArgumentException_WrongStartsWith" xml:space="preserve">
+<value>La chaîne de jeton doit commencer par des caractères « {{».</value>
+</data>
+<data name="Guard_LaunchPadTokenizer_ArgumentException_OriginalText" xml:space="preserve">
+<value>Original Text cannot be empty or null.</value>
+</data>
+<data name="Guard_LaunchPadTokenizer_ArgumentException_Tokens" xml:space="preserve">
+<value>Au moins un jeton doit être fourni.</value>
+</data>
+<data name="Guard_RepositoryBase_UnitOfWork_NoCompatibleTypeFound" xml:space="preserve">
+<value>No compatible UnitOfWork was found. Please start a compatible UnitOfWorkScope before using the repository.</value>
+</data>
+<data name="Guard_RepositoryBase_UnitOfWork_NotCompatibleType" xml:space="preserve">
+<value>The current UnitOfWork instance is not compatible with the repository. Please start a compatible unit of work before using the repository.</value>
+</data>
+<data name="Guard_Specification_Specification" xml:space="preserve">
+<value>Expected a non null expression as a predicate for the specification.</value>
+</data>
+<data name="Guard_UnitOfWorkScope_Commit_InvalidOperationException" xml:space="preserve">
+<value>This unit of work scope has been marked completed. A child scope participating in the transaction has rolledback and the transaction aborted. The parent scope cannot be commit.</value>
+</data>
+<data name="Guard_UnitOfWorkScope_Commit_ObjectDisposedException" xml:space="preserve">
+<value>Cannot commit a disposed UnitOfWorkScope instance.</value>
+</data>
+<data name="Guard_UnitOfWorkScope_CurrentUnitOfWork_NoCompatibleTypeFound" xml:space="preserve">
+<value>No compatible UnitOfWork was found. Please start a compatible UnitOfWorkScope before using the repository.</value>
+</data>
+<data name="Guard_UnitOfWorkScope_CurrentUnitOfWork_NotCompatibleType" xml:space="preserve">
+<value>The current unit of work is not compatible with expected type {0}, instead the current unit of work is of type {1}.</value>
+</data>
+<data name="Guard_UnitOfWorkTransaction_EnlistScope_ArgumentNullException" xml:space="preserve">
+<value>Expected a non-null IUnitOfWorkScope instance.</value>
+</data>
+<data name="Guard_UnitOfWorkTransaction_OnScopeCommitting_ObjectDisposedException" xml:space="preserve">
+<value>The transaction attached to the scope has already been disposed.</value>
+</data>
+<data name="Guard_UnitOfWorkTransaction_OnScopeRollingBack_ObjectDisposedException" xml:space="preserve">
+<value>The transaction attached to the scope has already been disposed.</value>
+</data>
+<data name="Guard_UnitOfWorkTransaction_UnitOfWorkTransaction_ArgumentNullException_transaction" xml:space="preserve">
+<value>Expected a non-null TransactionScope instance.</value>
+</data>
+<data name="Guard_UnitOfWorkTransaction_UnitOfWorkTransaction_ArgumentNullException_unitOfWork" xml:space="preserve">
+<value>Expected a non-null UnitOfWork instance.</value>
+</data>
+<data name="Guard_XhtmlHelper_AttributeName_Is_Null" xml:space="preserve">
+<value>Attribute name cannot be null or empty.</value>
+</data>
+<data name="Guard_XhtmlHelper_ParentNode_Is_Null" xml:space="preserve">
+<value>ParentNode cannot be null.</value>
+</data>
+<data name="Guard_XhtmlHelper_PropertySetsNodes_Is_Null" xml:space="preserve">
+<value>PropertySetsNodes collection is null or empty.</value>
+</data>
+<data name="Guard_XhtmlHelper_XPath_Is_Null" xml:space="preserve">
+<value>XPath cannot be null or empty.</value>
+</data>
+<data name="Info_TransactionManager_Dispose" xml:space="preserve">
+<value>Disposing of transaction manager {0}.</value>
+</data>
+<data name="Info_TransactionManager_EnlistScope_EnlistingScope" xml:space="preserve">
+<value>Enlisting scope {0} with transaction manager {1} with transaction mode {2}.</value>
+</data>
+<data name="Info_TransactionManager_EnlistScope_EnlistingScopeRequiresNewTransactionScope" xml:space="preserve">
+<value>Enlisting scope {0} with mode {1} requires a new TransactionScope to be created.</value>
+</data>
+<data name="Info_TransactionManager_OnTransactionDisposing" xml:space="preserve">
+<value>UnitOfWorkTransaction {0} signalled a disposed. Unregistering transaction from TransactionManager {1}.</value>
+</data>
+<data name="Info_UnitOfWorkTransaction_Dispose_Disposing" xml:space="preserve">
+<value>Disposing off transction {0}.</value>
+</data>
+<data name="Info_UnitOfWorkTransaction_EnlistScope_Enlisted" xml:space="preserve">
+<value>Scope {0} enlisted with transaction {1}.</value>
+</data>
+<data name="Info_UnitOfWorkTransaction_OnScopeCommitting_Committing" xml:space="preserve">
+<value>All scopes have signalled a commit on transaction {0}. Flushing unit of work and commiting attached TransactionScope.</value>
+</data>
+<data name="Info_UnitOfWorkTransaction_OnScopeCommitting_Signalled" xml:space="preserve">
+<value>Commit signalled by scope {0} on transaction {1}.</value>
+</data>
+<data name="Info_UnitOfWorkTransaction_OnScopeRollingBack_Disposing" xml:space="preserve">
+<value>Detaching all scopes and disposing of attached TransactionScope on transaction {0}.</value>
+</data>
+<data name="Info_UnitOfWorkTransaction_OnScopeRollingBack_Signalled" xml:space="preserve">
+<value>Rollback signalled by scope {0} on transaction {1}.</value>
+</data>
+<data name="Info_UnitOfWorkTransaction_UnitOfWorkTransaction_Created" xml:space="preserve">
+<value>New UnitOfWorkTransction created with Id {0}.</value>
+</data>
+<data name="Logger_Info_ItemAdded" xml:space="preserve">
+<value>Item "{0}" was added to the collection.</value>
+</data>
+<data name="Logger_Info_ItemAlreadyExists" xml:space="preserve">
+<value>Item "{0}" already exists in the collection.</value>
+</data>
+<data name="Text_OpenGovernmentCanadaLicense_LicenseDescription" xml:space="preserve">
+<value>Le gouvernement ouvert a trait à rendre le gouvernement plus accessible à tous. 
+Ceci veut dire qu'il faut accorder un plus grand accès aux données et à l'information du gouvernement au public canadien, de même qu'à la collectivité des entreprises.
+Le Fournisseur d'information vous octroie une licence mondiale, libre de redevances, perpétuelle et non exclusive pour l'utilisation de l'Information, 
+y compris à des fins commerciales, sous réserve des modalités énoncées. 
+Cette licence est régie par les lois de la province de l'Ontario et les lois applicables du Canada.</value>
+</data>
+<data name="Text_OpenGovernmentCanadaLicense_LicenseName" xml:space="preserve">
+<value>Open Government License - Canada</value>
+</data>
+<data name="Text_OpenGovernmentCanadaLicense_LicenseTerms" xml:space="preserve">
+<value>https://open.canada.ca/en/open-government-licence-canada</value>
+</data>
+<data name="Validation_CorrelationId_36CharsOrLess" xml:space="preserve">
+<value>Correlation ID field must be 36 characters or less.</value>
+</data>
+<data name="Validation_Culture_5CharsOrLess" xml:space="preserve">
+<value>Culture must be 5 characters or less.</value>
+</data>
+<data name="Validation_DescriptionFull_8096CharsOrLess" xml:space="preserve">
+<value>Description Full must be 8096 characters or less.</value>
+</data>
+<data name="Validation_DescriptionShort_256CharsOrLess" xml:space="preserve">
+<value>Description Short must be 256 characters or less.</value>
+</data>
+<data name="Validation_ExternalId_36CharsOrLess" xml:space="preserve">
+<value>External ID field must be 36 characters or less.</value>
+</data>
+<data name="Validation_Name_100CharsOrLess" xml:space="preserve">
+<value>Name must be 100 characters or less.</value>
+</data>
+<data name="Validation_Token_Name_20CharsOrLess" xml:space="preserve">
+<value>Token name must be 20 characters or less.</value>
+</data>
+<data name="Validation_Token_Prefix_9CharsOrLess" xml:space="preserve">
+<value>Token prefix must be 9 characters or less.</value>
+</data>
+</root>

@@ -25,8 +25,8 @@ namespace DeploySoftware.LaunchPad.AWS.ApiGateway.Services
             string localAwsProfileName,
             bool shouldUseLocalAwsProfile) : base(logger)
         {
-            var secretHelperFactory = new AwsApiGatewayHelperFactory(logger, configurationRoot, regionEndpointName);
-            Helper = secretHelperFactory.Create(logger, configurationRoot, apiGatewayBaseUri, regionEndpointName, localAwsProfileName, shouldUseLocalAwsProfile);
+            var secretHelperFactory = new AwsApiGatewayHelperFactory(logger, regionEndpointName);
+            Helper = secretHelperFactory.Create(logger, apiGatewayBaseUri, regionEndpointName, localAwsProfileName, shouldUseLocalAwsProfile);
         }
 
         public AwsApiGatewayService(ILogger logger, IAwsApiGatewayHelper helper) : base(logger)

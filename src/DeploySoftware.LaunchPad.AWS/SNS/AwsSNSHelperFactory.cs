@@ -16,14 +16,13 @@ namespace DeploySoftware.LaunchPad.AWS.SNS
     public partial class AwsSNSHelperFactory : AwsHelperBase, ISingletonDependency
     {
 
-        public AwsSNSHelperFactory(ILogger logger, IConfigurationRoot configurationRoot, string awsRegionEndpointName) : base(logger, configurationRoot, awsRegionEndpointName)
+        public AwsSNSHelperFactory(ILogger logger, string awsRegionEndpointName) : base(logger, awsRegionEndpointName)
         {
 
         }
 
         public virtual AwsSNSHelper Create(
             ILogger logger,
-            IConfigurationRoot _configurationRoot,
             string awsRegionEndpointName = DefaultRegionEndpointName, 
             string awsProfileName = DefaultLocalAwsProfileName,             
             bool shouldUseLocalAwsProfile = DefaultShouldUseLocalAwsProfile)
@@ -38,7 +37,7 @@ namespace DeploySoftware.LaunchPad.AWS.SNS
             AwsProfileName = awsProfileName;
             if (shouldUseLocalAwsProfile)
             {
-                helper = new AwsSNSHelper(logger, _configurationRoot, awsRegionEndpointName);
+                helper = new AwsSNSHelper(logger, awsRegionEndpointName);
                 helper.ShouldUseLocalAwsProfile = true;
             }
             else // do not use a named local profile, instead try to determine the AWS client from the credential resolution order
@@ -55,7 +54,7 @@ namespace DeploySoftware.LaunchPad.AWS.SNS
                     {
                         // create the helper using the AWS credentials resolution pattern.
                         // Since we are not using local profile here, we presumably load from EC2 role or environment
-                        helper = new AwsSNSHelper(logger, _configurationRoot, awsRegionEndpointName);
+                        helper = new AwsSNSHelper(logger, awsRegionEndpointName);
                         logger.Debug("AwsSNSHelper was not registered; returning a new instance.");
                     }
                 }
@@ -68,7 +67,7 @@ namespace DeploySoftware.LaunchPad.AWS.SNS
                 {
                     // create the helper using the AWS credentials resolution pattern.
                     // Since we are not using local profile here, we presumably load from EC2 role or environment
-                    helper = new AwsSNSHelper(logger, _configurationRoot, awsRegionEndpointName);
+                    helper = new AwsSNSHelper(logger, awsRegionEndpointName);
                     logger.Debug("AwsSNSHelper was null; returning a new instance.");
                 }
             }

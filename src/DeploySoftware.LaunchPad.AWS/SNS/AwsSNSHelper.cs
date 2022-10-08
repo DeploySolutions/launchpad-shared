@@ -15,7 +15,7 @@ namespace DeploySoftware.LaunchPad.AWS.SNS
         {
         }
 
-        public AwsSNSHelper(ILogger logger, IConfigurationRoot configurationRoot, string awsRegionEndpointName) : base(logger, configurationRoot, awsRegionEndpointName)
+        public AwsSNSHelper(ILogger logger, string awsRegionEndpointName) : base(logger, awsRegionEndpointName)
         {
 
         }

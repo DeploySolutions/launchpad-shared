@@ -18,13 +18,12 @@ namespace DeploySoftware.LaunchPad.AWS.Redshift.Services
         }
 
         public AwsRedshiftService(ILogger logger,
-            IConfigurationRoot configurationRoot,
             string regionEndpointName,
             string localAwsProfileName,
             bool shouldUseLocalAwsProfile) : base(logger)
         {
-            var secretHelperFactory = new AwsRedshiftHelperFactory(logger, configurationRoot, regionEndpointName);
-            Helper = secretHelperFactory.Create(logger, configurationRoot, regionEndpointName, localAwsProfileName, shouldUseLocalAwsProfile);
+            var secretHelperFactory = new AwsRedshiftHelperFactory(logger, regionEndpointName);
+            Helper = secretHelperFactory.Create(logger, regionEndpointName, localAwsProfileName, shouldUseLocalAwsProfile);
         }
 
         public AwsRedshiftService(ILogger logger, IAwsRedshiftHelper helper) : base(logger)

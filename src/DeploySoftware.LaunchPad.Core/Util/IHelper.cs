@@ -13,7 +13,6 @@ namespace DeploySoftware.LaunchPad.Core.Util
     {
 
         public ILogger Logger { get; set; }
-        public IConfigurationRoot ConfigurationRoot { get; }
 
         public string GetDescriptionFromEnum(Enum value, bool shouldReturnOriginalValueIfDescriptionEmpty = true);
     }

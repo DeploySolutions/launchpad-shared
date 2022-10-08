@@ -14,13 +14,12 @@ namespace DeploySoftware.LaunchPad.AWS.SQS.Services
         public IAwsSQSHelper Helper { get; set; }
 
         public AwsSQSService(ILogger logger,
-            IConfigurationRoot configurationRoot,
             string regionEndpointName,
             string localAwsProfileName,
             bool shouldUseLocalAwsProfile) : base(logger)
         {
-            var secretHelperFactory = new AwsSQSHelperFactory(logger, configurationRoot, regionEndpointName);
-            Helper = secretHelperFactory.Create(logger, configurationRoot, regionEndpointName, localAwsProfileName, shouldUseLocalAwsProfile);
+            var secretHelperFactory = new AwsSQSHelperFactory(logger, regionEndpointName);
+            Helper = secretHelperFactory.Create(logger, regionEndpointName, localAwsProfileName, shouldUseLocalAwsProfile);
         }
 
         public AwsSQSService(ILogger logger, IAwsSQSHelper helper) : base(logger)

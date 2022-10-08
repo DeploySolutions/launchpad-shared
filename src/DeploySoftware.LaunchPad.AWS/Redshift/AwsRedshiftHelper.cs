@@ -15,7 +15,7 @@ namespace DeploySoftware.LaunchPad.AWS.Redshift
         {
         }
 
-        public AwsRedshiftHelper(ILogger logger, IConfigurationRoot configurationRoot, string awsRegionEndpointName) : base(logger, configurationRoot, awsRegionEndpointName)
+        public AwsRedshiftHelper(ILogger logger, string awsRegionEndpointName) : base(logger, awsRegionEndpointName)
         {
 
         }

@@ -13,21 +13,12 @@ using System.Threading.Tasks;
 
 namespace DeploySoftware.LaunchPad.Core.AbpModuleConfig
 {
-    public abstract class LaunchPadAbpModuleHelperBase<TSecretHelper, TSecretVault, THostEnvironment> : HelperBase, 
-        ILaunchPadAbpModuleHelper<TSecretHelper, TSecretVault, THostEnvironment> 
+    public abstract class LaunchPadAbpModuleHelperBase<TSecretHelper, TSecretVault> : HelperBase, 
+        ILaunchPadAbpModuleHelper<TSecretHelper, TSecretVault> 
         where TSecretHelper : ISecretHelper, new()
         where TSecretVault : SecretVaultBase, new()
-        where THostEnvironment : IHostEnvironment
     {
 
-        protected readonly THostEnvironment _hostEnvironment;
-        public THostEnvironment HostEnvironment
-        {
-            get
-            {
-                return _hostEnvironment;
-            }
-        }
 
         protected TSecretHelper _secretHelper;
         [JsonIgnore]
@@ -40,34 +31,18 @@ namespace DeploySoftware.LaunchPad.Core.AbpModuleConfig
         }
 
 
-        public LaunchPadAbpModuleHelperBase(ILogger logger, THostEnvironment hostEnvironment, IConfigurationRoot configurationRoot) :base(logger, configurationRoot)
+        public LaunchPadAbpModuleHelperBase(ILogger logger) :base(logger)
         {
             Logger = logger;
-            _hostEnvironment = hostEnvironment; 
             _secretHelper = new TSecretHelper();
         }
 
-        public LaunchPadAbpModuleHelperBase(ILogger logger, THostEnvironment hostEnvironment, IConfigurationRoot configurationRoot, TSecretHelper secretHelper) : base(logger, configurationRoot)
+        public LaunchPadAbpModuleHelperBase(ILogger logger, TSecretHelper secretHelper) : base(logger)
         {
             Logger = logger;
-            _hostEnvironment = hostEnvironment;
             _secretHelper = secretHelper;
         }
 
-
-        public virtual void PreInitialize()
-        {
-        }
-
-        public virtual void PostInitialize()
-        {
-
-        }
-
-        public virtual void Initialize()
-        {
-
-        }
 
         /// <summary>
         /// Returns a database connection string, with the value set either locally or in a cloud-hosted secret.
@@ -76,11 +51,9 @@ namespace DeploySoftware.LaunchPad.Core.AbpModuleConfig
         /// <param name="connectionStringFieldName">The name of the field which contains the connection string.</param>
         /// <param name="secretVaultIdentifier">The unique identifier, if the database connection string is contained in a cloud-hosted secret.</param>
         /// <returns></returns>
-        public virtual string GetDatabaseConnectionString(string connectionStringFieldName, string secretVaultIdentifier, string caller, bool enableLocalDeveloperSecretsValue = false)
+        public virtual string GetDatabaseConnectionString(IHostEnvironment hostEnvironment, IConfigurationRoot configuration, string connectionStringFieldName, string secretVaultIdentifier, string caller, bool enableLocalDeveloperSecretsValue = false)
         {
             Guard.Against<InvalidOperationException>(_secretHelper == null, "_secretHelper is null.");
-            Guard.Against<InvalidOperationException>(_hostEnvironment == null, "_hostingEnvironment is null.");
-            Guard.Against<InvalidOperationException>(_configurationRoot == null, "_appConfiguration is null.");
             Logger.Debug("LaunchPadAbpModuleHelper.GetDatabaseConnectionString().");
             Console.WriteLine("LaunchPadAbpModuleHelper.GetDatabaseConnectionString().");
 
@@ -89,20 +62,20 @@ namespace DeploySoftware.LaunchPad.Core.AbpModuleConfig
             string enableLocalDeveloperSecretsValueMessage = string.Format("LaunchPadAbpModuleHelper.GetDatabaseConnectionString() => enableLocalDeveloperSecretsValue? {0}.", enableLocalDeveloperSecretsValue);
             Console.WriteLine(enableLocalDeveloperSecretsValueMessage);
             Logger.Debug(enableLocalDeveloperSecretsValueMessage);
-            if (_hostEnvironment.IsDevelopment() && enableLocalDeveloperSecretsValue)
+            if (hostEnvironment.IsDevelopment() && enableLocalDeveloperSecretsValue)
             {
                 // Use local Postgres and AWS profile for development
                 string isDevelopmentAndLocalSecretsMessage = string.Format("Getting connection string from local developer's User Secrets, connection string field name: {0}", connectionStringFieldName);
                 Logger.Debug(isDevelopmentAndLocalSecretsMessage);
                 Console.WriteLine(isDevelopmentAndLocalSecretsMessage);
 
-                databaseConnectionString = _configurationRoot.GetSection("ConnectionStrings").GetSection(connectionStringFieldName).Value;
+                databaseConnectionString = configuration.GetSection("ConnectionStrings").GetSection(connectionStringFieldName).Value;
                 Logger.Debug("Connection string for development is " + databaseConnectionString);
                 Console.WriteLine("Connection string for development is " + databaseConnectionString);
             }
             else
             {
-                string isNotDevelopmentAndEnableLocalDeveloperSecretsMessage = string.Format("Is Development? {0} .enableLocalDeveloperSecretsValue is '{1}'. Getting connection string from remote Secret Vault.", _hostEnvironment.IsDevelopment(), enableLocalDeveloperSecretsValue);
+                string isNotDevelopmentAndEnableLocalDeveloperSecretsMessage = string.Format("Is Development? {0} .enableLocalDeveloperSecretsValue is '{1}'. Getting connection string from remote Secret Vault.", hostEnvironment.IsDevelopment(), enableLocalDeveloperSecretsValue);
                 Logger.Debug(isNotDevelopmentAndEnableLocalDeveloperSecretsMessage);
                 Console.WriteLine(isNotDevelopmentAndEnableLocalDeveloperSecretsMessage);
                 if (string.IsNullOrEmpty(secretVaultIdentifier))
@@ -131,7 +104,7 @@ namespace DeploySoftware.LaunchPad.Core.AbpModuleConfig
             }
             else
             {
-                if(_hostEnvironment.IsDevelopment())
+                if(hostEnvironment.IsDevelopment())
                 {
                     Console.WriteLine("DB Connection string: " + databaseConnectionString);
                     Logger.Debug("DB Connection string: " + databaseConnectionString);
@@ -157,9 +130,11 @@ namespace DeploySoftware.LaunchPad.Core.AbpModuleConfig
         /// <summary>
         /// Gets the default connection string, using either the local settings or settings taken from a cloud-hosted secret
         /// </summary>
-        public string GetDefaultDatabaseConnectionString(string defaultDatabaseConnectionStringName, string secretVaultIdentifier, string caller)
+        public string GetDefaultDatabaseConnectionString(IHostEnvironment hostEnvironment, IConfigurationRoot configuration, string defaultDatabaseConnectionStringName, string secretVaultIdentifier, string caller)
         {
             string defaultDatabaseConnectionString = GetDatabaseConnectionString(
+                hostEnvironment,
+                configuration,
                 defaultDatabaseConnectionStringName,
                 secretVaultIdentifier,
                 caller
@@ -176,34 +151,12 @@ namespace DeploySoftware.LaunchPad.Core.AbpModuleConfig
         /// <param name="appConfig"></param>
         /// <param name="settingName"></param>
         /// <returns></returns>
-        public virtual string GetSecretVaultIdentifierFromSetting(string settingName)
+        public virtual string GetSecretVaultIdentifierFromSetting(IConfigurationRoot configuration, string settingName)
         {
-            string secretVaultIdentifier = _configurationRoot.GetSection(settingName).Value;
+            string secretVaultIdentifier = configuration.GetSection(settingName).Value;
             return secretVaultIdentifier;
         }
 
-        public IDictionary<string, TSecretVault> GetSecretVaults<TModule, TSecretProvider, TAbpModuleHelper>()
-            where TModule : ILaunchPadAbpModule<TSecretHelper, TSecretVault, TSecretProvider, TAbpModuleHelper, THostEnvironment>
-            where TSecretProvider : SecretProviderBase<TSecretVault>, new()
-            where TAbpModuleHelper : ILaunchPadAbpModuleHelper<TSecretHelper, TSecretVault, THostEnvironment>
-        {
-            Dictionary<string, TSecretVault> secretVaults = null;
-            try
-            {
-                // attempt to get the vaults from the Web Portal Module
-                TModule webPortalModule = IocManager.Instance.Resolve<TModule>();
-                if (webPortalModule != null)
-                {
-                    secretVaults = webPortalModule.SecretProvider.SecretVaults;
-                }
-            }
-            catch (Castle.MicroKernel.ComponentNotFoundException cNFEx)
-            {
-                Logger.Error("Attemping to resolve WebPortalModule component to get Secret Vaults. Exact error was: " + cNFEx.Message);
-            }
-
-            return secretVaults;
-        }
 
         public async Task<String> GetJsonFromSecret(string secretVaultIdentifier, string caller)
         {

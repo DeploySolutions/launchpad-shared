@@ -16,14 +16,13 @@ namespace DeploySoftware.LaunchPad.AWS.ElasticFileSystem
     public partial class AwsElasticFileSystemHelperFactory : AwsHelperBase, ISingletonDependency
     {
 
-        public AwsElasticFileSystemHelperFactory(ILogger logger, IConfigurationRoot configurationRoot, string awsRegionEndpointName) : base(logger, configurationRoot, awsRegionEndpointName)
+        public AwsElasticFileSystemHelperFactory(ILogger logger, string awsRegionEndpointName) : base(logger, awsRegionEndpointName)
         {
 
         }
 
         public virtual AwsElasticFileSystemHelper Create(
             ILogger logger,
-            IConfigurationRoot _configurationRoot,
             string awsRegionEndpointName = DefaultRegionEndpointName, 
             string awsProfileName = DefaultLocalAwsProfileName,             
             bool shouldUseLocalAwsProfile = DefaultShouldUseLocalAwsProfile)
@@ -38,7 +37,7 @@ namespace DeploySoftware.LaunchPad.AWS.ElasticFileSystem
             AwsProfileName = awsProfileName;
             if (shouldUseLocalAwsProfile)
             {
-                helper = new AwsElasticFileSystemHelper(logger, _configurationRoot, awsRegionEndpointName);
+                helper = new AwsElasticFileSystemHelper(logger, awsRegionEndpointName);
                 helper.ShouldUseLocalAwsProfile = true;
             }
             else // do not use a named local profile, instead try to determine the AWS client from the credential resolution order
@@ -55,7 +54,7 @@ namespace DeploySoftware.LaunchPad.AWS.ElasticFileSystem
                     {
                         // create the helper using the AWS credentials resolution pattern.
                         // Since we are not using local profile here, we presumably load from EC2 role or environment
-                        helper = new AwsElasticFileSystemHelper(logger, _configurationRoot, awsRegionEndpointName);
+                        helper = new AwsElasticFileSystemHelper(logger, awsRegionEndpointName);
                         logger.Debug("AwsElasticFileSystemHelper was not registered; returning a new instance.");
                     }
                 }
@@ -68,7 +67,7 @@ namespace DeploySoftware.LaunchPad.AWS.ElasticFileSystem
                 {
                     // create the helper using the AWS credentials resolution pattern.
                     // Since we are not using local profile here, we presumably load from EC2 role or environment
-                    helper = new AwsElasticFileSystemHelper(logger, _configurationRoot, awsRegionEndpointName);
+                    helper = new AwsElasticFileSystemHelper(logger, awsRegionEndpointName);
                     logger.Debug("AwsElasticFileSystemHelper was null; returning a new instance.");
                 }
             }

@@ -16,14 +16,13 @@ namespace DeploySoftware.LaunchPad.AWS.ApiGateway
     public partial class AwsApiGatewayHelperFactory : AwsHelperBase, ISingletonDependency
     {
 
-        public AwsApiGatewayHelperFactory(ILogger logger, IConfigurationRoot configurationRoot, string awsRegionEndpointName) : base(logger, configurationRoot, awsRegionEndpointName)
+        public AwsApiGatewayHelperFactory(ILogger logger, string awsRegionEndpointName) : base(logger, awsRegionEndpointName)
         {
 
         }
 
         public virtual AwsApiGatewayHelper Create(
             ILogger logger,
-            IConfigurationRoot _configurationRoot,
             Uri apiGatewayBaseUri,
             string awsRegionEndpointName = DefaultRegionEndpointName, 
             string awsProfileName = DefaultLocalAwsProfileName,             
@@ -39,7 +38,7 @@ namespace DeploySoftware.LaunchPad.AWS.ApiGateway
             AwsProfileName = awsProfileName;
             if (shouldUseLocalAwsProfile)
             {
-                helper = new AwsApiGatewayHelper(logger, _configurationRoot, awsRegionEndpointName, apiGatewayBaseUri);
+                helper = new AwsApiGatewayHelper(logger, awsRegionEndpointName, apiGatewayBaseUri);
                 helper.ShouldUseLocalAwsProfile = true;
             }
             else // do not use a named local profile, instead try to determine the AWS client from the credential resolution order
@@ -56,7 +55,7 @@ namespace DeploySoftware.LaunchPad.AWS.ApiGateway
                     {
                         // create the helper using the AWS credentials resolution pattern.
                         // Since we are not using local profile here, we presumably load from EC2 role or environment
-                        helper = new AwsApiGatewayHelper(logger, _configurationRoot, awsRegionEndpointName, apiGatewayBaseUri);
+                        helper = new AwsApiGatewayHelper(logger, awsRegionEndpointName, apiGatewayBaseUri);
                         logger.Debug("AwsApiGatewayHelper was not registered; returning a new instance.");
                     }
                 }
@@ -69,7 +68,7 @@ namespace DeploySoftware.LaunchPad.AWS.ApiGateway
                 {
                     // create the helper using the AWS credentials resolution pattern.
                     // Since we are not using local profile here, we presumably load from EC2 role or environment
-                    helper = new AwsApiGatewayHelper(logger, _configurationRoot, awsRegionEndpointName, apiGatewayBaseUri);
+                    helper = new AwsApiGatewayHelper(logger, awsRegionEndpointName, apiGatewayBaseUri);
                     logger.Debug("AwsApiGatewayHelper was null; returning a new instance.");
                 }
             }
