@@ -15,7 +15,7 @@ namespace DeploySoftware.LaunchPad.Core.AbpModuleConfig
 {
     public abstract class LaunchPadAbpModuleHelperBase<TSecretHelper, TSecretVault> : HelperBase, 
         ILaunchPadAbpModuleHelper<TSecretHelper, TSecretVault> 
-        where TSecretHelper : ISecretHelper, new()
+        where TSecretHelper : ISecretHelper
         where TSecretVault : SecretVaultBase, new()
     {
 
@@ -34,7 +34,6 @@ namespace DeploySoftware.LaunchPad.Core.AbpModuleConfig
         public LaunchPadAbpModuleHelperBase(ILogger logger) :base(logger)
         {
             Logger = logger;
-            _secretHelper = new TSecretHelper();
         }
 
         public LaunchPadAbpModuleHelperBase(ILogger logger, TSecretHelper secretHelper) : base(logger)

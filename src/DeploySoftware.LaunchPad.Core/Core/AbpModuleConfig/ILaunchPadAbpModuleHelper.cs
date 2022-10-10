@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace DeploySoftware.LaunchPad.Core.AbpModuleConfig
 {
     public partial interface ILaunchPadAbpModuleHelper<TSecretHelper, TSecretVault> : ISingletonDependency
-        where TSecretHelper : ISecretHelper, new()
+        where TSecretHelper : ISecretHelper
         where TSecretVault : SecretVaultBase, new()
     {
         public TSecretHelper SecretHelper { get; }

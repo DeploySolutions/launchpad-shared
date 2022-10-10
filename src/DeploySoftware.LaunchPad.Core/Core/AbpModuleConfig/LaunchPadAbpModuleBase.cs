@@ -13,7 +13,7 @@ namespace DeploySoftware.LaunchPad.Core.AbpModuleConfig
     [Serializable()]
     public abstract class LaunchPadAbpModuleBase<TSecretHelper, TSecretVault, TAbpModuleHelper> : AbpModule, 
         ILaunchPadAbpModule<TSecretHelper, TSecretVault, TAbpModuleHelper>
-        where TSecretHelper : ISecretHelper, new()
+        where TSecretHelper : ISecretHelper
         where TSecretVault : SecretVaultBase, new()
         where TAbpModuleHelper: ILaunchPadAbpModuleHelper<TSecretHelper, TSecretVault>
     {
