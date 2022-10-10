@@ -35,12 +35,14 @@ namespace DeploySoftware.LaunchPad.AWS.SecretsManager
             Region = region;
             Logger.Debug(string.Format("AwsSecretsManagerHelper.ctx(ILogger logger, string awsRegionEndpointName) => region is '{0}'.", region));
             _secretClient = new AmazonSecretsManagerClient(Region);
+            ShouldUseLocalAwsProfile = false;
         }
 
         public AwsSecretsManagerHelper(ILogger logger, string awsRegionEndpointName, IAmazonSecretsManager client) : base(logger, awsRegionEndpointName)
         {
             _secretClient = client; 
-            Region = _secretClient.Config.RegionEndpoint;            
+            Region = _secretClient.Config.RegionEndpoint;
+            ShouldUseLocalAwsProfile = false;
         }
 
         public AwsSecretsManagerHelper(ILogger logger, string awsRegionEndpointName, IAmazonSecretsManager client, string awsProfileName, bool shouldUseLocalAwsProfile) : base(logger, awsRegionEndpointName)
