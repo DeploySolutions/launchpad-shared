@@ -48,7 +48,7 @@ namespace DeploySoftware.LaunchPad.AWS
 
         public AwsApiGatewayHelper(ILogger logger, string awsRegionEndpointName, Uri apiGatewayBaseUri) : base(logger, awsRegionEndpointName)
         {
-            _secretHelper = new AwsSecretsManagerHelper();
+            _secretHelper = new AwsSecretsManagerHelper(logger, awsRegionEndpointName);
             ApiBaseUri = apiGatewayBaseUri;
             OAuthTokenEndpoint = string.Empty;
             DefaultVersion = string.Empty;

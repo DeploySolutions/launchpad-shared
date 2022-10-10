@@ -25,10 +25,8 @@ namespace DeploySoftware.LaunchPad.AWS.SecretsManager
         [JsonIgnore]
         public IAmazonSecretsManager SecretClient { get { return _secretClient; } }
 
-        public AwsSecretsManagerHelper() : base()
+        protected AwsSecretsManagerHelper() : base()
         {
-            //Region = GetRegionEndpoint(DefaultRegionEndpointName); 
-            //_secretClient = new AmazonSecretsManagerClient(Region);
         }
 
         public AwsSecretsManagerHelper(ILogger logger, string awsRegionEndpointName) : base(logger, awsRegionEndpointName)
