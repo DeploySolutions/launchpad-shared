@@ -1,4 +1,5 @@
-﻿using DeploySoftware.LaunchPad.Core.Domain;
+﻿using DeploySoftware.LaunchPad.Core.Abp.Domain;
+using DeploySoftware.LaunchPad.Core.Domain;
 using System;
 using System.Collections.Generic;
 using System.Linq;

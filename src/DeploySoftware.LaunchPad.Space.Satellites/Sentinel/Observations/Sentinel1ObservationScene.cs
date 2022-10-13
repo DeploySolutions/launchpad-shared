@@ -1,4 +1,5 @@
-﻿using DeploySoftware.LaunchPad.Core.Domain;
+﻿using DeploySoftware.LaunchPad.Core.Abp.Domain;
+using DeploySoftware.LaunchPad.Core.Domain;
 using DeploySoftware.LaunchPad.Space.Satellites.Core;
 using System;
 using System.Collections.Generic;
@@ -24,24 +25,5 @@ namespace DeploySoftware.LaunchPad.Space.Satellites.Sentinel
             
         }
 
-        public int CompareTo(DomainEntityBase<TPrimaryKey> other)
-        {
-            throw new NotImplementedException();
-        }
-
-        public bool Equals(DomainEntityBase<TPrimaryKey> other)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void GetObjectData(SerializationInfo info, StreamingContext context)
-        {
-            throw new NotImplementedException();
-        }
-
-        public bool IsTransient()
-        {
-            throw new NotImplementedException();
-        }
     }
 }

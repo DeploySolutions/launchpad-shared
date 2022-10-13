@@ -21,6 +21,7 @@ namespace DeploySoftware.LaunchPad.Core.Tests
     using FluentAssertions;
     using DeploySoftware.LaunchPad.Core.Domain;
     using DeploySoftware.LaunchPad.Core.Util;
+    using DeploySoftware.LaunchPad.Core.Abp.Domain;
 
     public class DomainEntityBaseTests
     {

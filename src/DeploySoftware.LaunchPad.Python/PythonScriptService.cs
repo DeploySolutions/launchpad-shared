@@ -1,5 +1,4 @@
-﻿using Abp.Dependency;
-using Castle.Core.Logging;
+﻿using Castle.Core.Logging;
 using System;
 using System.Diagnostics;
 using System.IO;

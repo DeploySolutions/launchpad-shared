@@ -18,6 +18,7 @@
 
 namespace DeploySoftware.LaunchPad.Space.Satellites.Core
 {
+    using DeploySoftware.LaunchPad.Core.Abp.Domain;
     using DeploySoftware.LaunchPad.Core.Domain;
 
     public partial class SarlFile<TPrimaryKey, TFileStorageLocationType> : FileBase<TPrimaryKey, byte[], TFileStorageLocationType>

@@ -17,7 +17,6 @@
 
 namespace DeploySoftware.LaunchPad.Core.Domain
 {
-    using Abp.Domain.Entities;
     using JetBrains.Annotations;
     using System;
     using System.ComponentModel;

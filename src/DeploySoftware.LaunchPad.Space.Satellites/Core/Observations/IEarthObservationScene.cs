@@ -19,6 +19,7 @@ namespace DeploySoftware.LaunchPad.Space.Satellites.Core
 {
 
     using Abp.Domain.Entities.Auditing;
+    using DeploySoftware.LaunchPad.Core.Abp.Domain;
     using DeploySoftware.LaunchPad.Core.Domain;
     using DeploySoftware.LaunchPad.Space.Satellites.Core;
     using System;

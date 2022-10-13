@@ -23,6 +23,7 @@ namespace DeploySoftware.LaunchPad.Space.Satellites.Core
     using System.ComponentModel.DataAnnotations;
     using DeploySoftware.LaunchPad.Core.Domain;
     using System.Collections.Generic;
+    using DeploySoftware.LaunchPad.Core.Abp.Domain;
 
     public abstract class EarthObservationBase<TPrimaryKey, TFileStorageLocationType> : DomainEntityBase<TPrimaryKey>, 
         IEarthObservationScene<TPrimaryKey, TFileStorageLocationType>

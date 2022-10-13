@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using DeploySoftware.LaunchPad.Core.Util;
+using System.Collections.Generic;
 
 namespace DeploySoftware.LaunchPad.FileGeneration.Stages
 {

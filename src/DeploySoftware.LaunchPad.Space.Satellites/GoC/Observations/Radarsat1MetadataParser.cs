@@ -20,6 +20,7 @@ namespace DeploySoftware.LaunchPad.Space.Satellites.GoC
 {
 
     using CoordinateSharp;
+    using DeploySoftware.LaunchPad.Core.Abp.Domain;
     using DeploySoftware.LaunchPad.Core.Domain;
     using DeploySoftware.LaunchPad.Core.Util;
     using DeploySoftware.LaunchPad.Space.Satellites.Core;

@@ -1,4 +1,5 @@
-﻿using DeploySoftware.LaunchPad.FileGeneration.Stages;
+﻿using DeploySoftware.LaunchPad.Core.Util;
+using DeploySoftware.LaunchPad.FileGeneration.Stages;
 using System;
 
 namespace DeploySoftware.LaunchPad.Core.Tests

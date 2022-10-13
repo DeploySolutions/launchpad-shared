@@ -16,11 +16,13 @@
 #endregion
 
 
+using DeploySoftware.LaunchPad.Core.Abp.Domain;
+using DeploySoftware.LaunchPad.Core.Domain;
+using ImageMagick;
+using System.IO;
+
 namespace DeploySoftware.LaunchPad.Images.Domain
 {
-    using DeploySoftware.LaunchPad.Core.Domain;
-    using ImageMagick;
-    using System.IO;
 
     /// <summary>
     /// This class creates thumbnails from provided images, using Magick.NET library (ImageMagick wrapper)

@@ -1,15 +1,8 @@
-﻿using Abp.Dependency;
-using DeploySoftware.LaunchPad.Core.AbpModuleConfig;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using DeploySoftware.LaunchPad.Core.AbpModuleConfig;
 
 namespace DeploySoftware.LaunchPad.AWS.SecretsManager
 {
-    public class AwsSecretVault : SecretVaultBase, ISingletonDependency
+    public class AwsSecretVault : SecretVaultBase
     {
         
 

@@ -22,6 +22,8 @@ namespace DeploySoftware.LaunchPad.Core.Tests
     using DeploySoftware.LaunchPad.Core.Domain;
     using System.Collections.Generic;
     using System;
+    using DeploySoftware.LaunchPad.Core.Abp.Domain;
+    using DeploySoftware.LaunchPad.Core.Domain.Devices;
 
     public class DeviceTests : IClassFixture<DeviceTestsFixture>
     {
@@ -64,7 +66,7 @@ namespace DeploySoftware.LaunchPad.Core.Tests
         [Fact]
         public void Should_Have_Unknown_PowerLevel_When_Instantiated()
         {
-            _fixture.SUT.Power.PowerLevel.Should().Be(DevicePower.PowerChargeLevel.Unknown);
+            _fixture.SUT.Power.PowerLevel.Should().Be(DevicePowerChargeLevel.Unknown);
         }
 
         [Fact]

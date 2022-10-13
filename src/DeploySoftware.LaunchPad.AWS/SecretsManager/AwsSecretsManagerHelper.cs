@@ -1,6 +1,4 @@
-﻿using Abp.Dependency;
-using Abp.UI;
-using Amazon;
+﻿using Amazon;
 using Amazon.Runtime;
 using Amazon.Runtime.CredentialManagement;
 using Amazon.SecretsManager;

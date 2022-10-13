@@ -22,6 +22,7 @@ namespace DeploySoftware.LaunchPad.Core.Tests
     using System;
     using System.Collections.Generic;
     using DeploySoftware.LaunchPad.FileGeneration.Stages;
+    using DeploySoftware.LaunchPad.Core.Util;
 
     public class TokenTests : IClassFixture<TokenTestsFixture>
     {

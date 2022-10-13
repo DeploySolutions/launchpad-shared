@@ -22,7 +22,8 @@ namespace DeploySoftware.LaunchPad.Core.Tests
     using DeploySoftware.LaunchPad.Core.Domain;
     using System.Collections.Generic;
     using System;
-    using Abp.Application.Services.Dto;
+    using DeploySoftware.LaunchPad.Core.Domain.Devices;
+    using DeploySoftware.LaunchPad.Core.Abp.Domain;
 
     public class DtoTests : IClassFixture<DeviceTestsFixture>
     {
@@ -38,7 +39,7 @@ namespace DeploySoftware.LaunchPad.Core.Tests
         {
             this._fixture = fixture;
             DevicePower power = new DevicePower();
-            power.PowerLevel = DevicePower.PowerChargeLevel.Charged;
+            power.PowerLevel = DevicePowerChargeLevel.Charged;
             Device<int> device = new Device<int>()
             {
                 Id = 1,

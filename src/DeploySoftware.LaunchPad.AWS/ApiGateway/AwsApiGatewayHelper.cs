@@ -1,9 +1,4 @@
-﻿using Abp.Dependency;
-using Amazon;
-using Amazon.Runtime;
-using Amazon.SecretsManager;
-using Amazon.SecretsManager.Model;
-using Castle.Core.Logging;
+﻿using Castle.Core.Logging;
 using DeploySoftware.LaunchPad.AWS.SecretsManager;
 using DeploySoftware.LaunchPad.Core.Api;
 using DeploySoftware.LaunchPad.Core.Util;

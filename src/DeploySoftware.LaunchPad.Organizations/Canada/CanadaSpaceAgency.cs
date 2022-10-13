@@ -15,6 +15,7 @@
 //limitations under the License. 
 #endregion
 
+using DeploySoftware.LaunchPad.Core.Abp.Domain;
 using DeploySoftware.LaunchPad.Core.Domain;
 using Schema.NET;
 using System;

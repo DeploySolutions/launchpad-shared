@@ -15,12 +15,14 @@
 //limitations under the License. 
 #endregion
 
+using DeploySoftware.LaunchPad.Core.Abp.Domain;
+using DeploySoftware.LaunchPad.Core.Domain;
+using Schema.NET;
+using System;
+
 namespace DeploySoftware.LaunchPad.Organizations.Canada
 {
 
-    using DeploySoftware.LaunchPad.Core.Domain;
-    using Schema.NET;
-    using System;
 
     public class DeploySoftwareSolutions : OrganizationBase<Guid>
     {

@@ -20,12 +20,11 @@ namespace DeploySoftware.LaunchPad.Core.Domain
     using System.Collections.Generic;
     using System.ComponentModel;
     using System.Xml.Serialization;
-    using Abp.Domain.Entities;
 
     /// <summary>
     /// This interface defines the geographical boundaries of an Area of Interest being observed.
     /// </summary>
-    public interface IAreaOfInterest<TPrimaryKey> : IEntity<TPrimaryKey>
+    public interface IAreaOfInterest<TPrimaryKey> 
     {
         [DataObjectField(false)]
         [XmlAttribute]

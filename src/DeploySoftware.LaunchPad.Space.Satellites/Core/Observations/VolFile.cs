@@ -17,6 +17,7 @@
 
 namespace DeploySoftware.LaunchPad.Space.Satellites.Core
 {
+    using DeploySoftware.LaunchPad.Core.Abp.Domain;
     using DeploySoftware.LaunchPad.Core.Domain;
 
     public partial class VolFile<TPrimaryKey, TFileStorageLocationType> : FileBase<TPrimaryKey, byte[], TFileStorageLocationType>

@@ -16,7 +16,7 @@
 #endregion
     
 
-namespace DeploySoftware.LaunchPad.Core.Domain
+namespace DeploySoftware.LaunchPad.Core.Domain.Devices
 {
     using System;
     using System.ComponentModel;
@@ -29,7 +29,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
     /// This class presents information on the current power level of a device
     /// </summary>
     [Serializable()]
-    public class DevicePower
+    public class DevicePower : IDevicePower
     {
         /// <summary>
         /// The estimated date and time until this device is fully drained, at current power expenditure.
@@ -47,26 +47,18 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         /// </summary>
         [DataObjectField(false)]
         [XmlAttribute]
-        public PowerChargeLevel PowerLevel { get; set; }
-
-        public enum PowerChargeLevel
-        {
-            Unknown = 0,
-            Charged = 1,
-            Charging = 2,
-            Draining = 3,
-            Drained = 4
-        }               
+        public DevicePowerChargeLevel PowerLevel { get; set; }
+    
 
 #region "Constructors"
 
         public DevicePower() 
         {
             RemainingChargeTime = null;
-            PowerLevel = PowerChargeLevel.Unknown;          
+            PowerLevel = DevicePowerChargeLevel.Unknown;          
         }
 
-        public DevicePower(PowerChargeLevel powerLevel, DateTime remainingCharge)
+        public DevicePower(DevicePowerChargeLevel powerLevel, DateTime remainingCharge)
         {
             RemainingChargeTime = remainingCharge;
             PowerLevel = powerLevel;
@@ -80,7 +72,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         protected DevicePower(SerializationInfo info, StreamingContext context)
         {
             RemainingChargeTime = (Nullable<DateTime>)info.GetValue("RemainingChargeTime", typeof(Nullable<DateTime>));
-            PowerLevel = (PowerChargeLevel)info.GetValue("PowerLevel", typeof(PowerChargeLevel));
+            PowerLevel = (DevicePowerChargeLevel)info.GetValue("PowerLevel", typeof(DevicePowerChargeLevel));
         }
 
 #endregion

@@ -27,6 +27,7 @@ namespace DeploySoftware.LaunchPad.Space.Satellites.GoC
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
     using Abp.Timing;
+    using DeploySoftware.LaunchPad.Core.Abp.Domain;
     using DeploySoftware.LaunchPad.Core.Domain;
     using DeploySoftware.LaunchPad.Space.Satellites.Core;
 

@@ -1,0 +1,32 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>net60</TargetFrameworks>
+    <Authors>Nicholas Kellett</Authors>
+    <Company>Deploy Software Solutions, inc.</Company>
+    <Copyright>2021-2022 Deploy Software Solutions, inc.</Copyright>
+    <PackageLicenseExpression></PackageLicenseExpression>
+    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageProjectUrl>https://github.com/DeploySolutions/launchpad-shared</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/DeploySolutions/launchpad-shared</RepositoryUrl>
+    <Version>7.0.0-alpha</Version>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
+    <PackageIcon>icon.png</PackageIcon>
+  </PropertyGroup>
+  <ItemGroup>
+    <None Include="..\..\LICENSE">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
+    <None Include="..\icon.png">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DeploySoftware.LaunchPad.AWS\DeploySoftware.LaunchPad.AWS.csproj" />
+    <ProjectReference Include="..\DeploySoftware.LaunchPad.Core.Abp\DeploySoftware.LaunchPad.Core.Abp.csproj" />
+  </ItemGroup>
+
+</Project>

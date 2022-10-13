@@ -1,5 +1,4 @@
-﻿using Abp.Dependency;
-using Castle.Core.Logging;
+﻿using Castle.Core.Logging;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
@@ -9,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace DeploySoftware.LaunchPad.Core.Util
 {
-    public interface IHelper : ISingletonDependency
+    public interface IHelper 
     {
 
         public ILogger Logger { get; set; }

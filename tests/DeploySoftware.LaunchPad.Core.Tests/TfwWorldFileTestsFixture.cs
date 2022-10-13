@@ -23,6 +23,8 @@ namespace DeploySoftware.LaunchPad.Core.Tests
     using DeploySoftware.LaunchPad.Core.Domain;
     using DeploySoftware.LaunchPad.Core.Util;
     using System;
+    using DeploySoftware.LaunchPad.Core.Abp.Util;
+    using DeploySoftware.LaunchPad.Core.Abp.Domain;
 
     public class TfwWorldFileTestsFixture : IDisposable
     {

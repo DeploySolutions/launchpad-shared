@@ -20,6 +20,7 @@ namespace DeploySoftware.LaunchPad.Space.Tests
     using DeploySoftware.LaunchPad.Space.Satellites.GoC;
     using DeploySoftware.LaunchPad.Core.Domain;
     using System;
+    using DeploySoftware.LaunchPad.Core.Abp.Domain;
 
     public class Radarsat1MetadataFileFixture : IDisposable
     {

@@ -11,8 +11,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Docs", "Docs", "{263E79D0-6
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Licenses", "Licenses", "{DA68E384-A145-4652-9BFE-23C24E6CB7B2}"
 	ProjectSection(SolutionItems) = preProject
-		Licenses\ABP.License.txt = Licenses\ABP.License.txt
 		Licenses\AWSSDKSecretsManager.License.txt = Licenses\AWSSDKSecretsManager.License.txt
+		Licenses\AspNetBoilerplate.License.txt = Licenses\AspNetBoilerplate.License.txt
 		Licenses\AwsSignatureVersion4.License.txt = Licenses\AwsSignatureVersion4.License.txt
 		Licenses\Castle.Core.License.txt = Licenses\Castle.Core.License.txt
 		Licenses\Castle.Windsor.License.txt = Licenses\Castle.Windsor.License.txt
@@ -27,6 +27,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Licenses", "Licenses", "{DA
 		Licenses\RestSharp.License.txt = Licenses\RestSharp.License.txt
 		schemaNET.License.txt = schemaNET.License.txt
 		Licenses\Shoudly.License.txt = Licenses\Shoudly.License.txt
+		Volo.ABP.License.txt = Volo.ABP.License.txt
 		Xunit.License.txt = Xunit.License.txt
 	EndProjectSection
 EndProject
@@ -56,7 +57,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DeploySoftware.LaunchPad.Py
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DeploySoftware.LaunchPad.FileGeneration", "src\DeploySoftware.LaunchPad.FileGeneration\DeploySoftware.LaunchPad.FileGeneration.csproj", "{96B8F365-E704-4F61-AF85-5C5031CCA4D4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DeploySoftware.LaunchPad.AWS.CDK", "src\DeploySoftware.LaunchPad.AWS.CDK\DeploySoftware.LaunchPad.AWS.CDK.csproj", "{662B3033-466E-4818-B418-75CAB1B9236B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DeploySoftware.LaunchPad.AWS.CDK", "src\DeploySoftware.LaunchPad.AWS.CDK\DeploySoftware.LaunchPad.AWS.CDK.csproj", "{662B3033-466E-4818-B418-75CAB1B9236B}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DeploySoftware.LaunchPad.Core.Abp", "src\DeploySoftware.LaunchPad.Core.Abp\DeploySoftware.LaunchPad.Core.Abp.csproj", "{E34EF3CC-A8FE-4F35-96DC-97E802B0147C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DeploySoftware.LaunchPad.Core.Volo.Abp", "src\DeploySoftware.LaunchPad.Core.Volo.Abp\DeploySoftware.LaunchPad.Core.Volo.Abp.csproj", "{8FE20678-131E-4678-9833-59C9FD41CC62}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DeploySoftware.LaunchPad.AWS.Abp", "src\DeploySoftware.LaunchPad.AWS.Abp\DeploySoftware.LaunchPad.AWS.Abp.csproj", "{F625F04A-5E62-41C0-862B-2A8DAC897F87}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -108,6 +115,18 @@ Global
 		{662B3033-466E-4818-B418-75CAB1B9236B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{662B3033-466E-4818-B418-75CAB1B9236B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{662B3033-466E-4818-B418-75CAB1B9236B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E34EF3CC-A8FE-4F35-96DC-97E802B0147C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E34EF3CC-A8FE-4F35-96DC-97E802B0147C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E34EF3CC-A8FE-4F35-96DC-97E802B0147C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E34EF3CC-A8FE-4F35-96DC-97E802B0147C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8FE20678-131E-4678-9833-59C9FD41CC62}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8FE20678-131E-4678-9833-59C9FD41CC62}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8FE20678-131E-4678-9833-59C9FD41CC62}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8FE20678-131E-4678-9833-59C9FD41CC62}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F625F04A-5E62-41C0-862B-2A8DAC897F87}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F625F04A-5E62-41C0-862B-2A8DAC897F87}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F625F04A-5E62-41C0-862B-2A8DAC897F87}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F625F04A-5E62-41C0-862B-2A8DAC897F87}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -127,6 +146,9 @@ Global
 		{A072DD11-179F-4BDB-A9C9-C9D66147080D} = {442BFA02-FB67-4078-AA7D-C8796C5D074B}
 		{96B8F365-E704-4F61-AF85-5C5031CCA4D4} = {442BFA02-FB67-4078-AA7D-C8796C5D074B}
 		{662B3033-466E-4818-B418-75CAB1B9236B} = {442BFA02-FB67-4078-AA7D-C8796C5D074B}
+		{E34EF3CC-A8FE-4F35-96DC-97E802B0147C} = {442BFA02-FB67-4078-AA7D-C8796C5D074B}
+		{8FE20678-131E-4678-9833-59C9FD41CC62} = {442BFA02-FB67-4078-AA7D-C8796C5D074B}
+		{F625F04A-5E62-41C0-862B-2A8DAC897F87} = {442BFA02-FB67-4078-AA7D-C8796C5D074B}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {89FD47F4-AA98-4C45-852A-0CFC7404BBA3}
