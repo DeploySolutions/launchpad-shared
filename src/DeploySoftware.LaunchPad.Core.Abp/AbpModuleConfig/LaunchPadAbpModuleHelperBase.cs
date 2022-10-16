@@ -107,6 +107,7 @@ namespace DeploySoftware.LaunchPad.Core.Abp.AbpModuleConfig
             // make sure the returned connection string is not empty
             Guard.Against<InvalidOperationException>(string.IsNullOrEmpty(databaseConnectionString), "Expected a database connection string but it is null or empty.");
 
+
             // make sure the format is correct
             bool isValid = CheckIfDatabaseConnectionStringFormatIsValid(databaseConnectionString, caller);
             string incorrectFormatMessage = string.Format("Database connection string was not provided in the expected format, which is 'User ID=SOMEUSER;Password=SOMEPASSWORD;Host=SOMEHOST;Port=SOMEPORT;Database=SOMEDATABASE;', for caller '{0}'.", caller);
@@ -181,14 +182,14 @@ namespace DeploySoftware.LaunchPad.Core.Abp.AbpModuleConfig
         protected bool CheckIfDatabaseConnectionStringFormatIsValid(string databaseConnectionString, string caller)
         {
             Guard.Against<InvalidOperationException>(string.IsNullOrEmpty(databaseConnectionString), "Expected a database connection string but it is null or empty.");
-            
+
             // make sure the correct string value is provided
             // format is: User ID=SOMEUSER;Password=SOMEPASSWORD;Host=SOMEHOST;Port=SOMEPORT;Database=SOMEDATABASE;
             // REGEX is: User ID=(.*?);Password=(.*?);Host=(.*?);Port=(.*?);Database=(.*?);
+            string regexDbConnectionStringPattern = "User ID=(.*?);Password=(.*?);Host=(.*?);Port=(.*?);Database=(.*?);";
             Stopwatch sw = new Stopwatch();
-            string regexPattern = Regex.Escape("User ID=(.*?);Password=(.*?);Host=(.*?);Port=(.*?);Database=(.*?);");
             sw = Stopwatch.StartNew();
-            bool isValid = Regex.IsMatch(databaseConnectionString, regexPattern, RegexOptions.IgnoreCase);
+            bool isValid = Regex.IsMatch(databaseConnectionString, regexDbConnectionStringPattern, RegexOptions.IgnoreCase);
             sw.Stop();
             return isValid;
         }
