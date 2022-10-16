@@ -16,8 +16,12 @@ namespace DeploySoftware.LaunchPad.Core.Abp.AbpModuleConfig
     {
         public TSecretHelper SecretHelper { get; }
 
-        public string GetDatabaseConnectionString(IConfigurationRoot configuration, string connectionStringFieldName, string secretVaultIdentifier, string caller, bool shouldUseLocalDeveloperSecretsValue = false, bool shouldOutputConnectionString = false);
+        public string GetDatabaseConnectionString(IConfigurationRoot configuration, string connectionStringFieldName, string secretVaultIdentifier, string caller, bool shouldLogConnectionString = false);
+        
+        public string GetDatabaseConnectionStringFromSecretVault(IConfigurationRoot configuration, string connectionStringFieldName, string secretVaultIdentifier, string caller, bool shouldLogConnectionString = false);
 
+        public string GetDatabaseConnectionStringFromLocalUserSecrets(IConfigurationRoot configuration, string connectionStringFieldName, string caller, bool shouldLogConnectionString = false);
+        
         public Task<string> GetJsonFromSecret(string secretVaultIdentifier, string caller);
         string GetSecretVaultIdentifierFromSetting(IConfigurationRoot configuration, string settingName);
         
