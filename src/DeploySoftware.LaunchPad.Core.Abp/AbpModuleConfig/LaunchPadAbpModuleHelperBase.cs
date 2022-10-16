@@ -63,11 +63,11 @@ namespace DeploySoftware.LaunchPad.Core.Abp.AbpModuleConfig
 
             if (secretVaultIdentifier.ToLower().Equals("usersecrets.json"))
             {
-                GetDatabaseConnectionStringFromLocalUserSecrets(configuration, connectionStringFieldName, caller, shouldLogConnectionString);
+                databaseConnectionString=GetDatabaseConnectionStringFromLocalUserSecrets(configuration, connectionStringFieldName, caller, shouldLogConnectionString);
             }
             else
             {
-                GetDatabaseConnectionStringFromSecretVault(configuration, connectionStringFieldName, secretVaultIdentifier, caller, shouldLogConnectionString);
+                databaseConnectionString=GetDatabaseConnectionStringFromSecretVault(configuration, connectionStringFieldName, secretVaultIdentifier, caller, shouldLogConnectionString);
             }
             Logger.Debug("LaunchPadAbpModuleHelperBase.GetDatabaseConnectionString(IConfigurationRoot configuration, string connectionStringFieldName, string secretVaultIdentifier, string caller, bool shouldLogConnectionString = false) => Ended.");
 
