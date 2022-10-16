@@ -46,7 +46,7 @@ namespace DeploySoftware.LaunchPad.Core.Abp.AbpModuleConfig
         }
 
         /// <summary>
-        /// Returns a database connection string, with the value set either locally in userSecrets.json (if secretVaultIdentifier = "userSecrets.json") or in a Secret Vault (probably a cloud-hosted secret service).
+        /// Returns a database connection string, with the value set either locally in userSecrets.json (if secretVaultIdentifier = "secrets.json") or in a Secret Vault (probably a cloud-hosted secret service).
         /// </summary>
         /// <param name="configuration"></param>
         /// <param name="connectionStringFieldName">The name of the field which contains the connection string.</param>
@@ -61,7 +61,7 @@ namespace DeploySoftware.LaunchPad.Core.Abp.AbpModuleConfig
             Logger.Debug("LaunchPadAbpModuleHelperBase.GetDatabaseConnectionString(IConfigurationRoot configuration, string connectionStringFieldName, string secretVaultIdentifier, string caller, bool shouldLogConnectionString = false) => Started.");
             string databaseConnectionString = string.Empty;
 
-            if (secretVaultIdentifier.ToLower().Equals("usersecrets.json"))
+            if (secretVaultIdentifier.ToLower().Equals("secrets.json"))
             {
                 databaseConnectionString=GetDatabaseConnectionStringFromLocalUserSecrets(configuration, connectionStringFieldName, caller, shouldLogConnectionString);
             }
