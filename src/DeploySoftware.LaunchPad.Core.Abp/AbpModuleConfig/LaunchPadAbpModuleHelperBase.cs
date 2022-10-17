@@ -116,7 +116,7 @@ namespace DeploySoftware.LaunchPad.Core.Abp.AbpModuleConfig
             // now should we log it to file or console? Default is false so as to avoid security leaks but can be enabled for debugging purposes.
             if (shouldLogConnectionString)
             {
-                string outputConnectionStringMessage = string.Format("LaunchPadAbpModuleHelper.GetDatabaseConnectionStringFromSecretVault(IConfigurationRoot configuration, string connectionStringFieldName, string secretVaultIdentifier, string caller, bool shouldLogConnectionString = false) => Successfully got database connection string for caller '{0}'. Connection string is: '{1}'", caller, databaseConnectionString);
+                string outputConnectionStringMessage = string.Format("LaunchPadAbpModuleHelper.GetDatabaseConnectionStringFromSecretVault(IConfigurationRoot configuration, string connectionStringFieldName, string secretVaultIdentifier, string caller, bool shouldLogConnectionString = false) => Successfully got database connection string for caller '{0}'. shouldLogConnectionString parameter was set to true, Connection string is: '{1}'", caller, databaseConnectionString);
                 Logger.Debug(outputConnectionStringMessage);
                 Console.WriteLine(outputConnectionStringMessage);
             }
@@ -165,7 +165,7 @@ namespace DeploySoftware.LaunchPad.Core.Abp.AbpModuleConfig
             // now should we log it to file or console? Default is false so as to avoid security leaks but can be enabled for debugging purposes.
             if (shouldLogConnectionString)
             {
-                string outputConnectionStringMessage = string.Format("LaunchPadAbpModuleHelper.GetDatabaseConnectionStringFromLocalUserSecrets(IConfigurationRoot configuration, string connectionStringFieldName, string caller, bool shouldLogConnectionString = false) => Successfully got database connection string for caller '{0}'. Connection string is: '{1}'", caller, databaseConnectionString);
+                string outputConnectionStringMessage = string.Format("LaunchPadAbpModuleHelper.GetDatabaseConnectionStringFromLocalUserSecrets(IConfigurationRoot configuration, string connectionStringFieldName, string caller, bool shouldLogConnectionString = false) => Successfully got database connection string for caller '{0}'. shouldLogConnectionString parameter was set to true, Connection string is: '{1}'", caller, databaseConnectionString);
                 Logger.Debug(outputConnectionStringMessage);
                 Console.WriteLine(outputConnectionStringMessage);
             }
