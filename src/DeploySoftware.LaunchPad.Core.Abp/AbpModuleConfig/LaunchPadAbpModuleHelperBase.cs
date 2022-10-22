@@ -243,6 +243,5 @@ namespace DeploySoftware.LaunchPad.Core.Abp.AbpModuleConfig
         }
 
 
-        public abstract bool ShowDetailedErrorsToClient();
     }
 }
