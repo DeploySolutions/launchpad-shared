@@ -25,7 +25,7 @@ namespace DeploySoftware.LaunchPad.Core.Abp.Application.Dto
     /// <summary>
     /// Represents the minimal properties that may be used in order to filter an entity in a list
     /// </summary>
-    public abstract partial class FilterOutputBase<TEntityType,TIdType>
+    public partial class FilterOutput<TEntityType,TIdType>
         where TEntityType: DomainEntityBase<TIdType>
     {
         public IEnumerable<TEntityType> Filter { get; set; }
@@ -36,7 +36,7 @@ namespace DeploySoftware.LaunchPad.Core.Abp.Application.Dto
         /// <summary>
         /// Default constructor
         /// </summary>
-        public FilterOutputBase() : base()
+        public FilterOutput() : base()
         {
            
         }
