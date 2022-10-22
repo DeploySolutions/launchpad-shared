@@ -28,6 +28,5 @@ namespace DeploySoftware.LaunchPad.Core.Abp.AbpModuleConfig
         public Task<string> GetJsonFromSecret(string secretVaultIdentifier, string caller);
         string GetSecretVaultIdentifierFromSetting(IConfigurationRoot configuration, string settingName);
 
-        public bool ShowDetailedErrorsToClient();
     }
 }
