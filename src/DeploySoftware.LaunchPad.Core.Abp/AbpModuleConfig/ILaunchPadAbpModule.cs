@@ -1,6 +1,5 @@
 ﻿using DeploySoftware.LaunchPad.Core.AbpModuleConfig;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Hosting;
+using System.Collections.Generic;
 
 namespace DeploySoftware.LaunchPad.Core.Abp.AbpModuleConfig
 {
@@ -11,5 +10,6 @@ namespace DeploySoftware.LaunchPad.Core.Abp.AbpModuleConfig
     {
 
         public TAbpModuleHelper AbpModuleHelper { get; set; }
+
     }
 }

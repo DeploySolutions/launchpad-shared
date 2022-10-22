@@ -13,6 +13,7 @@ using System.Threading.Tasks;
 using DeploySoftware.LaunchPad.Core.AbpModuleConfig;
 using System.Diagnostics;
 using System.Text.RegularExpressions;
+using Abp.Configuration;
 
 namespace DeploySoftware.LaunchPad.Core.Abp.AbpModuleConfig
 {
@@ -45,6 +46,36 @@ namespace DeploySoftware.LaunchPad.Core.Abp.AbpModuleConfig
             _secretHelper = secretHelper;
         }
 
+        public IDictionary<string, TVault> GetSecretVaults<TVault>(ISettingManager appSettings, string secretProviderVaultsJsonPath, string caller)
+            where TVault : ISecretVault, new()
+        {
+            var comparer = StringComparer.OrdinalIgnoreCase;
+            IDictionary<string, TVault> vaults = new Dictionary<string, TVault>();
+
+            // add the secret vaults to the module's SecretProvider provider
+            var secretProviderItems = appSettings.GetAllSettingValues().Where(
+                    x => x.Name.StartsWith(secretProviderVaultsJsonPath, StringComparison.InvariantCultureIgnoreCase)
+                ).ToList();
+            foreach (var setting in secretProviderItems)
+            {
+                TVault vault = new TVault();
+                string name = setting.Name.Replace(secretProviderVaultsJsonPath + ":", string.Empty);
+                vault.Name = name;
+                vault.FullName = setting.Name;
+                vault.Identifier = setting.Value;
+
+                // get the secret fields from the secret json
+                IDictionary<string, string> secretValues = SecretHelper.GetAllFieldsFromSecret(vault.Identifier, caller).Result;
+                DictionaryHelper dictionaryHelper = new DictionaryHelper();
+                vault.Fields = dictionaryHelper.MergeDictionaries(vault.Fields, secretValues);
+
+                // add the new vault to the secret vaults dictionary
+                vaults = dictionaryHelper.AddToDictionary(vaults, name, vault);
+
+            }
+            return vaults;
+        }
+
         /// <summary>
         /// Returns a database connection string, with the value set either locally in userSecrets.json (if secretVaultIdentifier = "secrets.json") or in a Secret Vault (probably a cloud-hosted secret service).
         /// </summary>
@@ -73,8 +104,6 @@ namespace DeploySoftware.LaunchPad.Core.Abp.AbpModuleConfig
 
             return databaseConnectionString;
         }
-
-
 
         /// <summary>
         /// Returns a database connection string, with the value set in a Secret Vault (probably a cloud-hosted secret service).
