@@ -27,6 +27,7 @@ namespace DeploySoftware.LaunchPad.Core.Abp.AbpModuleConfig
         protected LaunchPadAbpModuleConfigBase(ILogger logger)
         {
             Logger = logger;
+            SecretProvider = new TSecretProvider();
         }
 
     }
