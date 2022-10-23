@@ -35,5 +35,34 @@ namespace DeploySoftware.LaunchPad.Core.Abp.AbpModuleConfig
             return settingDefinitions.Values.ToArray();
 
         }
+
+
+        /// <summary>
+        /// Adds a new SettingDefinition for each secret listed in the SecretProvider element.
+        /// </summary>
+        /// <param name="helper"></param>
+        /// <returns></returns>
+        public IDictionary<string, SettingDefinition> GetSecretProviderSettings(string jsonSecretProviderVaultsPathInAppSettings)
+        {
+            var comparer = StringComparer.OrdinalIgnoreCase;
+            IDictionary<string, SettingDefinition> settingDefinitions = new Dictionary<string, SettingDefinition>(comparer);
+            IDictionary<string, string> secretProviderSection = _appConfiguration.GetSection(jsonSecretProviderVaultsPathInAppSettings).Get<Dictionary<string, string>>();
+            if (secretProviderSection != null && secretProviderSection.Count > 0)
+            {
+                foreach (var secretVault in secretProviderSection)
+                {
+                    SettingDefinition secretVaultSettingDefinition = new SettingDefinition(
+                        jsonSecretProviderVaultsPathInAppSettings + ":" + secretVault.Key,
+                        secretVault.Value,
+                        scopes: SettingScopes.Application,
+                        clientVisibilityProvider: new HiddenSettingClientVisibilityProvider()
+                    );
+                    settingDefinitions.Add(secretVaultSettingDefinition.Name, secretVaultSettingDefinition);
+
+                }
+            }
+
+            return settingDefinitions;
+        }
     }
 }
