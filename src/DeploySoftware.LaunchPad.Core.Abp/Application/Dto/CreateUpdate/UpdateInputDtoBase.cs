@@ -13,8 +13,16 @@ using System.Xml.Serialization;
 
 namespace DeploySoftware.LaunchPad.Core.Abp.Application.Dto
 {
-    public abstract partial class CreateUpdateInputDtoBase<TIdType> : EntityDtoBase<TIdType>, ICanBeAppServiceMethodInput
+    public abstract partial class UpdateInputDtoBase<TIdType> : EntityDtoBase<TIdType>, ICanBeAppServiceMethodInput
     {
+        /// <summary>
+        /// The id of this object
+        /// </summary>
+        [DataObjectField(true)]
+        [XmlAttribute]
+        [Required]
+        public override TIdType Id { get; set; }
+
         /// <summary>
         /// The culture of this object
         /// </summary>
@@ -76,7 +84,7 @@ namespace DeploySoftware.LaunchPad.Core.Abp.Application.Dto
         /// <summary>
         /// Default constructor
         /// </summary>
-        public CreateUpdateInputDtoBase() : base()
+        public UpdateInputDtoBase() : base()
         {
 
             ExternalId = string.Empty; Culture = ApplicationDetails<TIdType>.DEFAULT_CULTURE;
@@ -89,7 +97,7 @@ namespace DeploySoftware.LaunchPad.Core.Abp.Application.Dto
         /// Default constructor where the id is known
         /// </summary>
         /// <param name="id"></param>
-        public CreateUpdateInputDtoBase(TIdType id) : base()
+        public UpdateInputDtoBase(TIdType id) : base()
         {
             Id = id;
             ExternalId = string.Empty; 
@@ -99,7 +107,7 @@ namespace DeploySoftware.LaunchPad.Core.Abp.Application.Dto
             DescriptionFull = string.Empty;
         }
 
-        public CreateUpdateInputDtoBase(TIdType id, String culture) : base()
+        public UpdateInputDtoBase(TIdType id, String culture) : base()
         {
             Id = id;
             ExternalId = string.Empty;
@@ -114,7 +122,7 @@ namespace DeploySoftware.LaunchPad.Core.Abp.Application.Dto
         /// </summary>
         /// <param name="info">The serialization info</param>
         /// <param name="context">The context of the stream</param>
-        protected CreateUpdateInputDtoBase(SerializationInfo info, StreamingContext context)
+        protected UpdateInputDtoBase(SerializationInfo info, StreamingContext context)
         {
             Id = (TIdType)info.GetValue("Id", typeof(TIdType));
             ExternalId = info.GetString("ExternalId");
@@ -188,7 +196,7 @@ namespace DeploySoftware.LaunchPad.Core.Abp.Application.Dto
         /// </summary>
         /// <typeparam name="TEntity">The source entity to clone</typeparam>
         /// <returns>A shallow clone of the entity and its serializable properties</returns>
-        protected new TEntity Clone<TEntity>() where TEntity : CreateUpdateInputDtoBase<TIdType>, new()
+        protected new TEntity Clone<TEntity>() where TEntity : UpdateInputDtoBase<TIdType>, new()
         {
             TEntity clone = new TEntity();
             foreach (PropertyInfo info in GetType().GetProperties())
@@ -210,7 +218,7 @@ namespace DeploySoftware.LaunchPad.Core.Abp.Application.Dto
         /// </summary>
         /// <param name="other">The other object of this type we are comparing to</param>
         /// <returns></returns>
-        public virtual int CompareTo(CreateUpdateInputDtoBase<TIdType> other)
+        public virtual int CompareTo(UpdateInputDtoBase<TIdType> other)
         {
             // put comparison of properties in here 
             // for base object we'll just sort by id and culture
@@ -226,9 +234,9 @@ namespace DeploySoftware.LaunchPad.Core.Abp.Application.Dto
         /// <returns>True if the entities are the same according to business key value</returns>
         public override bool Equals(object obj)
         {
-            if (obj != null && obj is CreateUpdateInputDtoBase<TIdType>)
+            if (obj != null && obj is UpdateInputDtoBase<TIdType>)
             {
-                return Equals(obj as CreateUpdateInputDtoBase<TIdType>);
+                return Equals(obj as UpdateInputDtoBase<TIdType>);
             }
             return false;
         }
@@ -242,7 +250,7 @@ namespace DeploySoftware.LaunchPad.Core.Abp.Application.Dto
         /// </summary>
         /// <param name="obj">The other object of this type that we are testing equality with</param>
         /// <returns></returns>
-        public virtual bool Equals(CreateUpdateInputDtoBase<TIdType> obj)
+        public virtual bool Equals(UpdateInputDtoBase<TIdType> obj)
         {
             if (obj != null)
             {
@@ -259,7 +267,7 @@ namespace DeploySoftware.LaunchPad.Core.Abp.Application.Dto
         /// <param name="x">The first value</param>
         /// <param name="y">The second value</param>
         /// <returns>True if both objects are fully equal based on the Equals logic</returns>
-        public static bool operator ==(CreateUpdateInputDtoBase<TIdType> x, CreateUpdateInputDtoBase<TIdType> y)
+        public static bool operator ==(UpdateInputDtoBase<TIdType> x, UpdateInputDtoBase<TIdType> y)
         {
             if (x is null)
             {
@@ -278,7 +286,7 @@ namespace DeploySoftware.LaunchPad.Core.Abp.Application.Dto
         /// <param name="x">The first value</param>
         /// <param name="y">The second value</param>
         /// <returns>True if both objects are not equal based on the Equals logic</returns>
-        public static bool operator !=(CreateUpdateInputDtoBase<TIdType> x, CreateUpdateInputDtoBase<TIdType> y)
+        public static bool operator !=(UpdateInputDtoBase<TIdType> x, UpdateInputDtoBase<TIdType> y)
         {
             return !(x == y);
         }
