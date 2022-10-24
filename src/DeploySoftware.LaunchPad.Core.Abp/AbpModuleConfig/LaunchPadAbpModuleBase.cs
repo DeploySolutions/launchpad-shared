@@ -12,6 +12,7 @@ using System.Collections.Generic;
 using Abp.Configuration;
 using System.Linq;
 using DeploySoftware.LaunchPad.Core.Util;
+using Microsoft.AspNetCore.Hosting;
 
 namespace DeploySoftware.LaunchPad.Core.Abp.AbpModuleConfig
 {
@@ -52,6 +53,31 @@ namespace DeploySoftware.LaunchPad.Core.Abp.AbpModuleConfig
         public override void PostInitialize()
         {
             base.PostInitialize();
+
+        }
+
+        protected virtual ILaunchPadAbpModuleConfig<TSecretVault, TSecretProvider, THostEnvironment> LoadBaseConfigPropertiesOnPostInitialize<TSecretProvider, THostEnvironment>(
+            LaunchPadAbpModuleConfigBase<TSecretVault, TSecretProvider, THostEnvironment> config,
+            string vaultsJsonPath, string abpModuleInternalName)
+            where TSecretProvider : SecretProviderBase<TSecretVault>, new () 
+            where THostEnvironment : IHostEnvironment
+        {
+            var settingManager = IocManager.Resolve<ISettingManager>();
+            // add the secret vaults to the module's SecretProvider
+            config.SecretProvider.SecretVaults =
+                (Dictionary<string, TSecretVault>)AbpModuleHelper.GetSecretVaults<TSecretVault>(
+                    settingManager,
+                    vaultsJsonPath,
+                    abpModuleInternalName + ".PostInitialize()"
+            );
+
+            // set the host and configuration parameters
+            var hostEnvironment = IocManager.Resolve<THostEnvironment>();
+            config.HostEnvironment = hostEnvironment;
+            var configurationRoot = IocManager.Resolve<IConfigurationRoot>();
+            config.ConfigurationRoot = configurationRoot;
+            return config;
+
         }
 
 

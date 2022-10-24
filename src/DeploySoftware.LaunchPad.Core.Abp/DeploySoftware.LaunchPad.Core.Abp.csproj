@@ -11,7 +11,7 @@
     <GenerateBindingRedirectsOutputType>true</GenerateBindingRedirectsOutputType>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
-    <Version>7.2.0-alpha</Version>
+    <Version>7.2.1-alpha</Version>
     <Description>Shared code for LaunchPad framework  using AspnetBoilerplate.</Description>
     <Copyright>2018-2022 Deploy Software Solutions, inc.</Copyright>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
