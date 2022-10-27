@@ -16,6 +16,6 @@
 
         string ObjectTypeAssemblyName { get; set; }
 
-        public SoftwareInfrastructure SoftwareInfrastructure { get; set; }
+        public ISoftwareInfrastructure SoftwareInfrastructure { get; set; }
     }
 }

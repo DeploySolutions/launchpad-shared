@@ -77,7 +77,7 @@ namespace DeploySoftware.LaunchPad.FileGeneration.Structure
         /// Describes the overall coding/environment infrastructure in which this element exists 
         /// (ex which version of ABP framework, which cloud provider)
         /// </summary>
-        public virtual SoftwareInfrastructure SoftwareInfrastructure { get; set; }
+        public virtual ISoftwareInfrastructure SoftwareInfrastructure { get; set; }
 
         public LaunchPadGeneratedObjectBase() : base()
         {
@@ -86,7 +86,6 @@ namespace DeploySoftware.LaunchPad.FileGeneration.Structure
             ObjectTypeAssemblyName = this.GetType().Assembly.FullName;
             IdType = string.Empty;
             Id = string.Empty;
-            SoftwareInfrastructure = new SoftwareInfrastructure();
         }
 
     }
