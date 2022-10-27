@@ -10,7 +10,6 @@ namespace DeploySoftware.LaunchPad.FileGeneration.Structure
     public partial class LaunchPadGeneratedSolution : LaunchPadGeneratedObjectBase, ILaunchPadGeneratedSolution
     {
 
-        public virtual SolutionInfrastructure Infrastructure { get; set; }
 
         /// <summary>
         /// Contains configuration information related to this object's solution
@@ -35,7 +34,6 @@ namespace DeploySoftware.LaunchPad.FileGeneration.Structure
 
         public LaunchPadGeneratedSolution() : base()
         {
-            Infrastructure = new SolutionInfrastructure(); 
             Settings = new LaunchPadGeneratedSolutionSettings();
         }
     }

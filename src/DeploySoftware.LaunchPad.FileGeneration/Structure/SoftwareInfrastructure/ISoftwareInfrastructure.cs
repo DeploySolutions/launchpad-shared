@@ -1,6 +1,6 @@
 ﻿namespace DeploySoftware.LaunchPad.FileGeneration.Structure
 {
-    public interface ISolutionInfrastructure
+    public interface ISoftwareInfrastructure
     {
         public CloudProviderEnum CloudProvider { get; set; }
 
@@ -11,5 +11,8 @@
         public string Description { get; set; }
 
         public string Name { get; set; }
+
+        public bool ShouldOverrideParent { get; set; }
+
     }
 }

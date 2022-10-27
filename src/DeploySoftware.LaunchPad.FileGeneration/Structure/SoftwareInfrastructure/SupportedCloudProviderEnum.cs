@@ -6,12 +6,10 @@ using System.Threading.Tasks;
 
 namespace DeploySoftware.LaunchPad.FileGeneration.Structure
 {
-    
-    public enum AbpFrameworkEnum
+    public enum CloudProviderEnum
     {
-        AspNetBoilerplate = 0,
-        AspNetZero = 1,
-        Abp = 2,
-        AbpCommercial = 3
+        AWS = 0,
+        Azure = 1,
+        OnPremise = 2
     }
 }
