@@ -6,6 +6,8 @@
 
         public AbpFrameworkEnum AbpFramework { get; set; }
 
+        public InfrastructureAsCodeFrameworkEnum InfrastructureAsCodeFramework { get; set; }
+
         public bool SearchIsEnabled { get; set; }
 
         public string Description { get; set; }

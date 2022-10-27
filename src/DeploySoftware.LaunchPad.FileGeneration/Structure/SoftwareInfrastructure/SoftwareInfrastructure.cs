@@ -18,6 +18,8 @@ namespace DeploySoftware.LaunchPad.FileGeneration.Structure
 
         public virtual AbpFrameworkEnum AbpFramework { get; set; } = AbpFrameworkEnum.Abp;
 
+        public virtual InfrastructureAsCodeFrameworkEnum InfrastructureAsCodeFramework { get; set; } = InfrastructureAsCodeFrameworkEnum.Terraform;
+
         public virtual bool SearchIsEnabled { get; set; }
 
         public bool ShouldOverrideParent { get; set; } = false;
