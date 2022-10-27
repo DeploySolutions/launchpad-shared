@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace DeploySoftware.LaunchPad.FileGeneration.Structure
 {
     
-    public enum InfrastructureAsCodeFrameworkEnum
+    public enum InfrastructureAsCodeFrameworkTypeEnum
     {
         [Description("Terraform")]
         Terraform = 0,

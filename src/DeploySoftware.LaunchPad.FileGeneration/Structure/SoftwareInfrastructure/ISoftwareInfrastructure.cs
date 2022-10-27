@@ -1,4 +1,6 @@
-﻿namespace DeploySoftware.LaunchPad.FileGeneration.Structure
+﻿using System.Collections.Generic;
+
+namespace DeploySoftware.LaunchPad.FileGeneration.Structure
 {
     public interface ISoftwareInfrastructure
     {
@@ -6,7 +8,7 @@
 
         public AbpFrameworkEnum AbpFramework { get; set; }
 
-        public InfrastructureAsCodeFrameworkEnum InfrastructureAsCodeFramework { get; set; }
+        public IDictionary<string, InfrastructureAsCodeFramework> InfrastructureAsCodeFrameworks { get; set; }
 
         public bool SearchIsEnabled { get; set; }
 
