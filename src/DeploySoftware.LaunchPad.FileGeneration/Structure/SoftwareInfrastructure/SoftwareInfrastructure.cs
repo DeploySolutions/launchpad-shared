@@ -15,7 +15,7 @@ namespace DeploySoftware.LaunchPad.FileGeneration.Structure
 
         public virtual AbpFrameworkEnum AbpFramework { get; set; } = AbpFrameworkEnum.Abp;
 
-        public virtual IDictionary<string, InfrastructureAsCodeFramework> InfrastructureAsCodeFrameworks { get; set; }
+        public virtual IDictionary<string, IInfrastructureAsCodeFramework> InfrastructureAsCodeFrameworks { get; set; }
 
         public virtual bool SearchIsEnabled { get; set; }
 
@@ -30,7 +30,7 @@ namespace DeploySoftware.LaunchPad.FileGeneration.Structure
                 CloudProvider.ToString()
             );
             var comparer = StringComparer.OrdinalIgnoreCase;
-            InfrastructureAsCodeFrameworks = new Dictionary<string, InfrastructureAsCodeFramework>(comparer);
+            InfrastructureAsCodeFrameworks = new Dictionary<string, IInfrastructureAsCodeFramework>(comparer);
         }
 
         public SoftwareInfrastructure(CloudProviderEnum cloudProvider, AbpFrameworkEnum abpFramework)
@@ -44,7 +44,7 @@ namespace DeploySoftware.LaunchPad.FileGeneration.Structure
                 CloudProvider.ToString()
             );
             var comparer = StringComparer.OrdinalIgnoreCase;
-            InfrastructureAsCodeFrameworks = new Dictionary<string, InfrastructureAsCodeFramework>(comparer);
+            InfrastructureAsCodeFrameworks = new Dictionary<string, IInfrastructureAsCodeFramework>(comparer);
         }
 
     }

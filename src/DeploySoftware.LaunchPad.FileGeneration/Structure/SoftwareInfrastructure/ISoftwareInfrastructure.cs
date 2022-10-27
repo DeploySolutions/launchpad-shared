@@ -8,7 +8,7 @@ namespace DeploySoftware.LaunchPad.FileGeneration.Structure
 
         public AbpFrameworkEnum AbpFramework { get; set; }
 
-        public IDictionary<string, InfrastructureAsCodeFramework> InfrastructureAsCodeFrameworks { get; set; }
+        public IDictionary<string, IInfrastructureAsCodeFramework> InfrastructureAsCodeFrameworks { get; set; }
 
         public bool SearchIsEnabled { get; set; }
 
