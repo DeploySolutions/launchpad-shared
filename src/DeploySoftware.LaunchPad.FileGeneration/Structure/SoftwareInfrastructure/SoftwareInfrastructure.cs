@@ -47,5 +47,11 @@ namespace DeploySoftware.LaunchPad.FileGeneration.Structure
             InfrastructureAsCodeFrameworks = new Dictionary<string, IInfrastructureAsCodeFramework>(comparer);
         }
 
+
+        public virtual string GetSolutionFolderName()
+        {
+            return AbpFramework.ToString() + "." + CloudProvider.ToString();
+        }
+
     }
 }

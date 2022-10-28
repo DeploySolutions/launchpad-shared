@@ -18,5 +18,7 @@ namespace DeploySoftware.LaunchPad.FileGeneration.Structure
 
         public bool ShouldOverrideParent { get; set; }
 
+        public string GetSolutionFolderName();
+
     }
 }
