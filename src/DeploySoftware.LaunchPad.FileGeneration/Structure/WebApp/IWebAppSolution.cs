@@ -1,8 +1,7 @@
 ﻿namespace DeploySoftware.LaunchPad.FileGeneration.Structure
 {
-    public interface IWebAppSolution
+    public interface IWebAppSolution : IHaveSoftwareInfrastructure
     {
-        public ISoftwareInfrastructure SoftwareInfrastructure { get; set; }
         public WebAppModule WebAppModule { get; set; }
 
         bool CheckValidity();
