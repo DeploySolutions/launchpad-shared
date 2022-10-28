@@ -9,13 +9,15 @@ namespace DeploySoftware.LaunchPad.FileGeneration.Structure
     /// API/middleware/backend component, at least one web client component, and possible documentation component.
     /// </summary>    
     [Serializable]
-    public partial class WebAppModule : LaunchPadGeneratedModule<WebAppModuleSettings>
+    public partial class WebAppModule : LaunchPadGeneratedModule<WebAppModuleSettings>, IWebAppModule
     {
 
-        public VisualStudioComponent WebApi { get; set; }
+        public virtual VisualStudioComponent WebApi { get; set; }
 
-        public IDictionary<string,WebClientComponent> WebClients { get; set; }
+        public virtual IDictionary<string, WebClientComponent> WebClients { get; set; }
 
+
+        public virtual ISoftwareInfrastructure SoftwareInfrastructure { get; set; }
 
         public WebAppModule() : base(NullLogger.Instance)
         {
@@ -28,7 +30,7 @@ namespace DeploySoftware.LaunchPad.FileGeneration.Structure
         public WebAppModule(ILogger logger) : base(logger)
         {
             Settings = new WebAppModuleSettings();
-            WebApi = new VisualStudioComponent(logger); 
+            WebApi = new VisualStudioComponent(logger);
             var comparer = StringComparer.OrdinalIgnoreCase;
             WebClients = new Dictionary<string, WebClientComponent>(comparer);
         }

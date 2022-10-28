@@ -9,13 +9,15 @@ namespace DeploySoftware.LaunchPad.FileGeneration.Structure
     /// documents, web client, and static html.
     /// </summary>
     [Serializable]
-    public partial class WebAppSolution : LaunchPadGeneratedSolution
+    public partial class WebAppSolution : LaunchPadGeneratedSolution, IWebAppSolution
     {
 
         /// <summary>
         /// The generated Visual Studio module that belongs to this solution.
         /// </summary>
         public virtual WebAppModule WebAppModule { get; set; }
+
+        public virtual ISoftwareInfrastructure SoftwareInfrastructure { get; set; }
 
         /// <summary>
         /// Returns a bool indicating if the VS solution  is currently in a valid or invalid state.

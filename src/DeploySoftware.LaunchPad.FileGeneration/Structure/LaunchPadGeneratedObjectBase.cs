@@ -73,11 +73,6 @@ namespace DeploySoftware.LaunchPad.FileGeneration.Structure
         /// </summary>
         public virtual string IdType { get; set; } = "System.Int32";
 
-        /// <summary>
-        /// Describes the overall coding/environment infrastructure in which this element exists 
-        /// (ex which version of ABP framework, which cloud provider)
-        /// </summary>
-        public virtual ISoftwareInfrastructure SoftwareInfrastructure { get; set; }
 
         public LaunchPadGeneratedObjectBase() : base()
         {
