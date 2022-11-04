@@ -22,35 +22,19 @@ namespace DeploySoftware.LaunchPad.AWS.Abp.SecretsManager.Services
         }
 
         
-        public AwsSecretsManagerService(ILogger logger,
+        public AwsSecretsManagerService(
+            ILogger logger,
+            IConfigurationRoot configurationRoot,
             string regionEndpointName,
             string localAwsProfileName,
-            bool shouldUseLocalAwsProfile) : base(logger)
+            bool shouldUseLocalAwsProfile,
+            AmazonSecretsManagerConfig secretManagerConfig = null
+        ) : base(logger, configurationRoot)
         {
             var secretHelperFactory = new AwsSecretsManagerHelperFactory(logger, regionEndpointName);
-            Helper = secretHelperFactory.Create(logger, regionEndpointName, localAwsProfileName, shouldUseLocalAwsProfile);
-        }
-        public AwsSecretsManagerService(ILogger logger,
-           IConfigurationRoot configurationRoot,
-           string regionEndpointName,
-           string localAwsProfileName,
-           bool shouldUseLocalAwsProfile) : base(logger, configurationRoot)
-        {
-            var secretHelperFactory = new AwsSecretsManagerHelperFactory(logger, regionEndpointName);
-            Helper = secretHelperFactory.Create(logger, regionEndpointName, localAwsProfileName, shouldUseLocalAwsProfile);
+            Helper = secretHelperFactory.Create(logger, regionEndpointName, localAwsProfileName, shouldUseLocalAwsProfile, secretManagerConfig);
         }
 
-        public AwsSecretsManagerService(ILogger logger,
-           IConfigurationRoot configurationRoot,
-           string regionEndpointName,
-           string localAwsProfileName,
-           bool shouldUseLocalAwsProfile,
-           AwsClientSettings<AmazonSecretsManagerConfig> awsClientSettings = null
-           ) : base(logger, configurationRoot)
-        {
-            var secretHelperFactory = new AwsSecretsManagerHelperFactory(logger, regionEndpointName);
-            Helper = secretHelperFactory.Create(logger, regionEndpointName, localAwsProfileName, shouldUseLocalAwsProfile, awsClientSettings);
-        }
 
 
         public AwsSecretsManagerService(ILogger logger, IAwsSecretsManagerHelper helper) : base(logger)
