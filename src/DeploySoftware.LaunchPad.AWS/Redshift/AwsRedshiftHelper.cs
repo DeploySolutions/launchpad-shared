@@ -1,4 +1,5 @@
-﻿using Castle.Core.Logging;
+﻿using Amazon.Redshift;
+using Castle.Core.Logging;
 using DeploySoftware.LaunchPad.Core.Util;
 using Microsoft.Extensions.Configuration;
 using System;
@@ -9,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace DeploySoftware.LaunchPad.AWS.Redshift
 {
-    public partial class AwsRedshiftHelper : AwsHelperBase, IAwsRedshiftHelper
+    public partial class AwsRedshiftHelper : AwsHelperBase<AmazonRedshiftConfig>, IAwsRedshiftHelper
     {
         public AwsRedshiftHelper() : base()
         {

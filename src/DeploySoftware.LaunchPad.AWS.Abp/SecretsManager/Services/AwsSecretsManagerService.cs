@@ -1,4 +1,5 @@
-﻿using Castle.Core.Logging;
+﻿using Amazon.SecretsManager;
+using Castle.Core.Logging;
 using DeploySoftware.LaunchPad.AWS.SecretsManager;
 using DeploySoftware.LaunchPad.AWS.SecretsManager.Services;
 using DeploySoftware.LaunchPad.Core.Abp.Application;
@@ -37,6 +38,18 @@ namespace DeploySoftware.LaunchPad.AWS.Abp.SecretsManager.Services
         {
             var secretHelperFactory = new AwsSecretsManagerHelperFactory(logger, regionEndpointName);
             Helper = secretHelperFactory.Create(logger, regionEndpointName, localAwsProfileName, shouldUseLocalAwsProfile);
+        }
+
+        public AwsSecretsManagerService(ILogger logger,
+           IConfigurationRoot configurationRoot,
+           string regionEndpointName,
+           string localAwsProfileName,
+           bool shouldUseLocalAwsProfile,
+           AwsClientSettings<AmazonSecretsManagerConfig> awsClientSettings = null
+           ) : base(logger, configurationRoot)
+        {
+            var secretHelperFactory = new AwsSecretsManagerHelperFactory(logger, regionEndpointName);
+            Helper = secretHelperFactory.Create(logger, regionEndpointName, localAwsProfileName, shouldUseLocalAwsProfile, awsClientSettings);
         }
 
 

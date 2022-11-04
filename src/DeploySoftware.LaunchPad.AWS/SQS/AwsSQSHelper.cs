@@ -1,4 +1,5 @@
-﻿using Castle.Core.Logging;
+﻿using Amazon.SQS;
+using Castle.Core.Logging;
 using DeploySoftware.LaunchPad.Core.Util;
 using Microsoft.Extensions.Configuration;
 using System;
@@ -9,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace DeploySoftware.LaunchPad.AWS.SQS
 {
-    public partial class AwsSQSHelper : AwsHelperBase, IAwsSQSHelper
+    public partial class AwsSQSHelper : AwsHelperBase<AmazonSQSConfig>, IAwsSQSHelper
     {
         public AwsSQSHelper() : base()
         {

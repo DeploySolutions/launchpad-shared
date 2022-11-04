@@ -2,6 +2,7 @@
 using Amazon;
 using Amazon.S3;
 using Amazon.SecretsManager;
+using Amazon.SQS;
 using Castle.Core.Logging;
 using Castle.MicroKernel;
 using DeploySoftware.LaunchPad.AWS.SQS;
@@ -14,7 +15,7 @@ using System.Threading.Tasks;
 
 namespace DeploySoftware.LaunchPad.AWS.Abp.SQS
 {
-    public partial class AwsSQSHelperFactory : AwsHelperBase, ISingletonDependency
+    public partial class AwsSQSHelperFactory : AwsHelperBase<AmazonSQSConfig>, ISingletonDependency
     {
 
         public AwsSQSHelperFactory(ILogger logger, string awsRegionEndpointName) : base(logger, awsRegionEndpointName)

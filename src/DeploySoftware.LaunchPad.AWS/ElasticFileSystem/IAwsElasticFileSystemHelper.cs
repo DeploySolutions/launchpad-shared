@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Amazon.ElasticFileSystem;
 
 namespace DeploySoftware.LaunchPad.AWS.ElasticFileSystem
 {
-    public interface IAwsElasticFileSystemHelper : IAwsHelper
+    public interface IAwsElasticFileSystemHelper : IAwsHelper<AmazonElasticFileSystemConfig>
     {
     }
 }

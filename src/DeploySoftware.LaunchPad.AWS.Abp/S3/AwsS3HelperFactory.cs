@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 
 namespace DeploySoftware.LaunchPad.AWS.Abp.S3
 {
-    public partial class AwsS3HelperFactory : AwsHelperBase, ISingletonDependency
+    public partial class AwsS3HelperFactory : AwsHelperBase<AmazonS3Config>, ISingletonDependency
     {
         public AwsS3HelperFactory(ILogger logger, string awsRegionEndpointName) : base(logger, awsRegionEndpointName)
         {

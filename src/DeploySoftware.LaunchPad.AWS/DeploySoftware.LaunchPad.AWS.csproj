@@ -10,13 +10,16 @@
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageProjectUrl>https://github.com/DeploySolutions/launchpad-shared</PackageProjectUrl>
     <RepositoryUrl>https://github.com/DeploySolutions/launchpad-shared</RepositoryUrl>
-    <Version>7.0.2-alpha</Version>
+    <Version>7.0.3-alpha</Version>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <PackageIcon>icon.png</PackageIcon>
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AWSSDK.APIGateway" Version="3.7.100.8" />
     <PackageReference Include="AWSSDK.ElasticFileSystem" Version="3.7.5.32" />
+    <PackageReference Include="AWSSDK.Lambda" Version="3.7.100.8" />
+    <PackageReference Include="AWSSDK.Redshift" Version="3.7.100.8" />
     <PackageReference Include="AWSSDK.S3" Version="3.7.9.23" />
     <PackageReference Include="AWSSDK.SecretsManager" Version="3.7.2.63" />
     <PackageReference Include="AWSSDK.SimpleNotificationService" Version="3.7.3.79" />

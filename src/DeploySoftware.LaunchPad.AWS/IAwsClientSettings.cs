@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Amazon.Runtime;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,13 +7,10 @@ using System.Threading.Tasks;
 
 namespace DeploySoftware.LaunchPad.AWS
 {
-    public interface IAwsClientSettings
+    public interface IAwsClientSettings<TClientConfig>
+        where TClientConfig : ClientConfig, new()
     {
-        public int RequestTimeoutInMs { get; set; }
-
-        public int SocketReadWriteTimeoutInMs { get; set; }
-
-        public int MaxErrorRetry { get; set; }
-
+        public TClientConfig Config { get; set; }
+        
     }
 }

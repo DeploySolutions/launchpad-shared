@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace DeploySoftware.LaunchPad.AWS.S3
 {
-    public interface IAwsS3Helper : IAwsHelper
+    public interface IAwsS3Helper : IAwsHelper<AmazonS3Config>
     {
 
         public AmazonS3Client S3Client { get;}

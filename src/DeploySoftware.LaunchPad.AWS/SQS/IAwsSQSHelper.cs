@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Amazon.SQS;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace DeploySoftware.LaunchPad.AWS.SQS
 {
-    public interface IAwsSQSHelper : IAwsHelper
+    public interface IAwsSQSHelper : IAwsHelper<AmazonSQSConfig>
     {
     }
 }

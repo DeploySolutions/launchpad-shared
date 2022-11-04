@@ -1,5 +1,6 @@
 ﻿using Abp.Dependency;
 using Amazon;
+using Amazon.APIGateway;
 using Amazon.S3;
 using Amazon.SecretsManager;
 using Castle.Core.Logging;
@@ -13,7 +14,7 @@ using System.Threading.Tasks;
 
 namespace DeploySoftware.LaunchPad.AWS.Abp.ApiGateway
 {
-    public partial class AwsApiGatewayHelperFactory : AwsHelperBase, ISingletonDependency
+    public partial class AwsApiGatewayHelperFactory : AwsHelperBase<AmazonAPIGatewayConfig>, ISingletonDependency
     {
 
         public AwsApiGatewayHelperFactory(ILogger logger, string awsRegionEndpointName) : base(logger, awsRegionEndpointName)

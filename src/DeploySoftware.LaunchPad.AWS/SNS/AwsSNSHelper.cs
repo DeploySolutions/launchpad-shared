@@ -1,4 +1,5 @@
-﻿using Castle.Core.Logging;
+﻿using Amazon.SimpleNotificationService;
+using Castle.Core.Logging;
 using DeploySoftware.LaunchPad.Core.Util;
 using Microsoft.Extensions.Configuration;
 using System;
@@ -9,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace DeploySoftware.LaunchPad.AWS.SNS
 {
-    public partial class AwsSNSHelper : AwsHelperBase, IAwsSNSHelper
+    public partial class AwsSNSHelper : AwsHelperBase<AmazonSimpleNotificationServiceConfig>, IAwsSNSHelper
     {
         public AwsSNSHelper() : base()
         {

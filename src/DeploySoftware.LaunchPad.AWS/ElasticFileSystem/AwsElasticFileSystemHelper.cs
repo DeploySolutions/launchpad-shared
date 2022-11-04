@@ -1,4 +1,6 @@
-﻿using Castle.Core.Logging;
+﻿using Amazon.APIGateway.Model;
+using Amazon.ElasticFileSystem;
+using Castle.Core.Logging;
 using DeploySoftware.LaunchPad.Core.Util;
 using Microsoft.Extensions.Configuration;
 using System;
@@ -9,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace DeploySoftware.LaunchPad.AWS.ElasticFileSystem
 {
-    public partial class AwsElasticFileSystemHelper : AwsHelperBase, IAwsElasticFileSystemHelper
+    public partial class AwsElasticFileSystemHelper: AwsHelperBase<AmazonElasticFileSystemConfig>, IAwsElasticFileSystemHelper
     {
         public AwsElasticFileSystemHelper() : base()
         {

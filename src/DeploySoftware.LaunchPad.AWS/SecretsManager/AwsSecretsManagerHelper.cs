@@ -16,7 +16,7 @@ using System.Threading.Tasks;
 
 namespace DeploySoftware.LaunchPad.AWS.SecretsManager
 {
-    public partial class AwsSecretsManagerHelper : AwsHelperBase, IAwsSecretsManagerHelper
+    public partial class AwsSecretsManagerHelper : AwsHelperBase<AmazonSecretsManagerConfig>, IAwsSecretsManagerHelper
     {
         protected IAmazonSecretsManager _secretClient;
 

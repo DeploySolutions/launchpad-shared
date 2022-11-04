@@ -10,7 +10,7 @@
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageProjectUrl>https://github.com/DeploySolutions/launchpad-shared</PackageProjectUrl>
     <RepositoryUrl>https://github.com/DeploySolutions/launchpad-shared</RepositoryUrl>
-    <Version>7.0.2-alpha</Version>
+    <Version>7.0.3-alpha</Version>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <PackageIcon>icon.png</PackageIcon>
   </PropertyGroup>
@@ -23,6 +23,9 @@
       <Pack>True</Pack>
       <PackagePath></PackagePath>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="AWSSDK.APIGateway" Version="3.7.100.8" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DeploySoftware.LaunchPad.AWS\DeploySoftware.LaunchPad.AWS.csproj" />

@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace DeploySoftware.LaunchPad.AWS.S3
 {
-    public partial class AwsS3Helper : AwsHelperBase, IAwsS3Helper
+    public partial class AwsS3Helper : AwsHelperBase<AmazonS3Config>, IAwsS3Helper
     {
         protected AmazonS3Client _s3Client;
 

@@ -1,4 +1,5 @@
-﻿using DeploySoftware.LaunchPad.Core.AbpModuleConfig;
+﻿using Amazon.SecretsManager;
+using DeploySoftware.LaunchPad.Core.AbpModuleConfig;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace DeploySoftware.LaunchPad.AWS.SecretsManager
 {
-    public  interface IAwsSecretsManagerHelper: ISecretHelper, IAwsHelper
+    public  interface IAwsSecretsManagerHelper: ISecretHelper, IAwsHelper<AmazonSecretsManagerConfig>
     {
     }
 }

@@ -1,4 +1,5 @@
-﻿using DeploySoftware.LaunchPad.Core.Api;
+﻿using Amazon.APIGateway;
+using DeploySoftware.LaunchPad.Core.Api;
 using RestSharp;
 using System;
 using System.Collections.Generic;
@@ -6,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace DeploySoftware.LaunchPad.AWS
 {
-    public interface IAwsApiGatewayHelper : IAwsHelper
+    public interface IAwsApiGatewayHelper : IAwsHelper<AmazonAPIGatewayConfig>
     {
         Uri ApiBaseUri { get; set; }
         RestClient ApiRestClient { get; set; }

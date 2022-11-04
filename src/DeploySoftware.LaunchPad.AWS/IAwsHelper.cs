@@ -9,9 +9,24 @@ using System.Threading.Tasks;
 
 namespace DeploySoftware.LaunchPad.AWS
 {
-    public interface IAwsHelper : IHelper
+    public interface IAwsHelper<TClientConfig> : IHelper
+        where TClientConfig : ClientConfig, new()
     {
-        public RegionEndpoint Region { get; set; }
+        public TClientConfig Config { get; set; }
+
+        public RegionEndpoint Region { 
+            get
+            {
+                return Config.RegionEndpoint;
+            }
+            set
+            {
+                if(value!= null)
+                {
+                    Config.RegionEndpoint = value;
+                }
+            }
+        }
 
         public AWSCredentials GetAwsCredentialsFromNamedLocalProfile(string awsProfileName);
 

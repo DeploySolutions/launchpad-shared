@@ -2,6 +2,7 @@
 using Amazon;
 using Amazon.S3;
 using Amazon.SecretsManager;
+using Amazon.SimpleNotificationService;
 using Castle.Core.Logging;
 using Castle.MicroKernel;
 using DeploySoftware.LaunchPad.AWS.SNS;
@@ -14,7 +15,7 @@ using System.Threading.Tasks;
 
 namespace DeploySoftware.LaunchPad.AWS.Abp.SNS
 {
-    public partial class AwsSNSHelperFactory : AwsHelperBase, ISingletonDependency
+    public partial class AwsSNSHelperFactory : AwsHelperBase<AmazonSimpleNotificationServiceConfig>, ISingletonDependency
     {
 
         public AwsSNSHelperFactory(ILogger logger, string awsRegionEndpointName) : base(logger, awsRegionEndpointName)

@@ -1,5 +1,6 @@
 ﻿using Abp.Dependency;
 using Amazon;
+using Amazon.Redshift;
 using Amazon.S3;
 using Amazon.SecretsManager;
 using Castle.Core.Logging;
@@ -13,7 +14,7 @@ using System.Threading.Tasks;
 
 namespace DeploySoftware.LaunchPad.AWS.Redshift
 {
-    public partial class AwsRedshiftHelperFactory : AwsHelperBase, ISingletonDependency
+    public partial class AwsRedshiftHelperFactory : AwsHelperBase<AmazonRedshiftConfig>, ISingletonDependency
     {
 
         public AwsRedshiftHelperFactory(ILogger logger, string awsRegionEndpointName) : base(logger, awsRegionEndpointName)

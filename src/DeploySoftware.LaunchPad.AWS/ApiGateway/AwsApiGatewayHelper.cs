@@ -1,4 +1,5 @@
-﻿using Castle.Core.Logging;
+﻿using Amazon.APIGateway;
+using Castle.Core.Logging;
 using DeploySoftware.LaunchPad.AWS.SecretsManager;
 using DeploySoftware.LaunchPad.Core.Api;
 using DeploySoftware.LaunchPad.Core.Util;
@@ -13,7 +14,7 @@ using System.Threading.Tasks;
 
 namespace DeploySoftware.LaunchPad.AWS
 {
-    public partial class AwsApiGatewayHelper : AwsHelperBase, IAwsApiGatewayHelper
+    public partial class AwsApiGatewayHelper : AwsHelperBase<AmazonAPIGatewayConfig>, IAwsApiGatewayHelper
     {
 
         public Uri OAuthBaseUri { get; set; }

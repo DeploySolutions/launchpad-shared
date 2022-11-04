@@ -1,4 +1,5 @@
 ﻿using Amazon;
+using Amazon.ElasticFileSystem;
 using Amazon.Runtime;
 using Amazon.Runtime.CredentialManagement;
 using Castle.Core.Logging;
@@ -10,27 +11,42 @@ using System.Text;
 
 namespace DeploySoftware.LaunchPad.AWS
 {
-    public abstract partial class AwsHelperBase : HelperBase, IAwsHelper
+    public abstract partial class AwsHelperBase<TClientConfig> : HelperBase, IAwsHelper<TClientConfig>
+        where TClientConfig : ClientConfig, new()
     {
 
         public const string DefaultRegionEndpointName = "us-east-1";
         public const string DefaultLocalAwsProfileName = "default";
         public const bool DefaultShouldUseLocalAwsProfile = false;
 
-        public RegionEndpoint Region { get; set; }
+        public virtual TClientConfig Config { get; set; }
 
-        public string AwsProfileName { get; set; } = DefaultLocalAwsProfileName;
+        public virtual RegionEndpoint Region
+        {
+            get { return Config.RegionEndpoint; }
+            set
+            {
+                if (value != null)
+                {
+                    Config.RegionEndpoint = value;
+                }
+            }
+        }
 
-        public bool ShouldUseLocalAwsProfile { get; set; } = DefaultShouldUseLocalAwsProfile;
+        public virtual string AwsProfileName { get; set; } = DefaultLocalAwsProfileName;
+
+        public virtual bool ShouldUseLocalAwsProfile { get; set; } = DefaultShouldUseLocalAwsProfile;
 
         public AwsHelperBase() : base()
-        {            
+        {
+            Config = new TClientConfig();
             TryGetRegionEndpoint(string.Empty, out RegionEndpoint region);
             Region = region;
         }
 
         public AwsHelperBase(ILogger logger, string awsRegionEndpointName) : base(logger)
         {
+            Config = new TClientConfig();
             TryGetRegionEndpoint(awsRegionEndpointName, out RegionEndpoint region);
             Region = region;
         }

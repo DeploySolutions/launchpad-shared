@@ -1,5 +1,6 @@
 ﻿using Abp.Dependency;
 using Amazon;
+using Amazon.ElasticFileSystem;
 using Amazon.S3;
 using Amazon.SecretsManager;
 using Castle.Core.Logging;
@@ -14,7 +15,7 @@ using System.Threading.Tasks;
 
 namespace DeploySoftware.LaunchPad.AWS.Abp.ElasticFileSystem
 {
-    public partial class AwsElasticFileSystemHelperFactory : AwsHelperBase, ISingletonDependency
+    public partial class AwsElasticFileSystemHelperFactory : AwsHelperBase<AmazonElasticFileSystemConfig>, ISingletonDependency
     {
 
         public AwsElasticFileSystemHelperFactory(ILogger logger, string awsRegionEndpointName) : base(logger, awsRegionEndpointName)
