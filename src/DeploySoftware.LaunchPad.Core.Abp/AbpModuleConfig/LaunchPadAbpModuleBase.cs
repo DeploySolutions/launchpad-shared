@@ -11,11 +11,10 @@ using Abp.Configuration;
 namespace DeploySoftware.LaunchPad.Core.Abp.AbpModuleConfig
 {
     [Serializable()]
-    public abstract class LaunchPadAbpModuleBase<TSecretHelper, TSecretVault, TAbpModuleHelper> : AbpModule, 
-        ILaunchPadAbpModule<TSecretHelper, TSecretVault, TAbpModuleHelper>
+    public abstract class LaunchPadAbpModuleBase<TSecretHelper, TAbpModuleHelper> : AbpModule, 
+        ILaunchPadAbpModule<TSecretHelper, TAbpModuleHelper>
         where TSecretHelper : ISecretHelper
-        where TSecretVault : SecretVaultBase, new()
-        where TAbpModuleHelper: ILaunchPadAbpModuleHelper<TSecretHelper, TSecretVault>
+        where TAbpModuleHelper: ILaunchPadAbpModuleHelper<TSecretHelper>
     {
         
 
@@ -50,11 +49,12 @@ namespace DeploySoftware.LaunchPad.Core.Abp.AbpModuleConfig
 
         }
 
-        protected virtual ILaunchPadAbpModuleConfig<TSecretVault, TSecretProvider, THostEnvironment> LoadBaseConfigPropertiesOnPostInitialize<TSecretProvider, THostEnvironment>(
+        protected virtual ILaunchPadAbpModuleConfig<TSecretVault, TSecretProvider, THostEnvironment> LoadBaseConfigPropertiesOnPostInitialize<TSecretVault, TSecretProvider, THostEnvironment>(
             LaunchPadAbpModuleConfigBase<TSecretVault, TSecretProvider, THostEnvironment> config,
             string vaultsJsonPath, string abpModuleInternalName)
             where TSecretProvider : SecretProviderBase<TSecretVault>, new () 
             where THostEnvironment : IHostEnvironment
+            where TSecretVault : SecretVaultBase, new()
         {
             var settingManager = IocManager.Resolve<ISettingManager>();
             // add the secret vaults to the module's SecretProvider

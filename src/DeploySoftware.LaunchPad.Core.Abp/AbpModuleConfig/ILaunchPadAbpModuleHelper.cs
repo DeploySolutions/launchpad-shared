@@ -8,9 +8,8 @@ using DeploySoftware.LaunchPad.Core.Config;
 
 namespace DeploySoftware.LaunchPad.Core.Abp.AbpModuleConfig
 {
-    public partial interface ILaunchPadAbpModuleHelper<TSecretHelper, TSecretVault> : ISingletonDependency
+    public partial interface ILaunchPadAbpModuleHelper<TSecretHelper> : ISingletonDependency
         where TSecretHelper : ISecretHelper
-        where TSecretVault : SecretVaultBase, new()
     {
         public TSecretHelper SecretHelper { get; }
 

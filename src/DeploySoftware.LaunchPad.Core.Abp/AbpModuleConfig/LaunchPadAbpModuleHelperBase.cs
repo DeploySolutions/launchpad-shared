@@ -14,11 +14,10 @@ using Abp.Dependency;
 
 namespace DeploySoftware.LaunchPad.Core.Abp.AbpModuleConfig
 {
-    public abstract class LaunchPadAbpModuleHelperBase<TSecretHelper, TSecretVault> : HelperBase, 
-        ILaunchPadAbpModuleHelper<TSecretHelper, TSecretVault>,
+    public abstract class LaunchPadAbpModuleHelperBase<TSecretHelper> : HelperBase, 
+        ILaunchPadAbpModuleHelper<TSecretHelper>,
         ISingletonDependency
         where TSecretHelper : ISecretHelper
-        where TSecretVault : SecretVaultBase, new()
     {
 
 
