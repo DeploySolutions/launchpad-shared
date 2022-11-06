@@ -2,7 +2,7 @@
 using System.Net;
 using System.Threading.Tasks;
 
-namespace DeploySoftware.LaunchPad.Core.AbpModuleConfig
+namespace DeploySoftware.LaunchPad.Core.Config
 {
     public interface ISecretHelper
     {

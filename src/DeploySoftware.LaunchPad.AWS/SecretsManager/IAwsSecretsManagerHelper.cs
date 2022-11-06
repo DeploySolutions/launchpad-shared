@@ -1,10 +1,5 @@
 ﻿using Amazon.SecretsManager;
-using DeploySoftware.LaunchPad.Core.AbpModuleConfig;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using DeploySoftware.LaunchPad.Core.Config;
 
 namespace DeploySoftware.LaunchPad.AWS.SecretsManager
 {

@@ -1,11 +1,9 @@
 ﻿using Amazon;
 using Amazon.Runtime;
-using Amazon.Runtime.CredentialManagement;
 using Amazon.SecretsManager;
 using Amazon.SecretsManager.Model;
 using Castle.Core.Logging;
-using DeploySoftware.LaunchPad.Core.AbpModuleConfig;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using DeploySoftware.LaunchPad.Core.Config;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;

@@ -1,24 +1,22 @@
-﻿using Abp.Dependency;
-using Castle.Core.Logging;
+﻿using Castle.Core.Logging;
 using DeploySoftware.LaunchPad.Core.Util;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Hosting;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
-using System.Text;
 using System.Threading.Tasks;
-using DeploySoftware.LaunchPad.Core.AbpModuleConfig;
 using System.Diagnostics;
 using System.Text.RegularExpressions;
 using Abp.Configuration;
+using DeploySoftware.LaunchPad.Core.Config;
+using Abp.Dependency;
 
 namespace DeploySoftware.LaunchPad.Core.Abp.AbpModuleConfig
 {
     public abstract class LaunchPadAbpModuleHelperBase<TSecretHelper, TSecretVault> : HelperBase, 
-        ILaunchPadAbpModuleHelper<TSecretHelper, TSecretVault> 
+        ILaunchPadAbpModuleHelper<TSecretHelper, TSecretVault>,
+        ISingletonDependency
         where TSecretHelper : ISecretHelper
         where TSecretVault : SecretVaultBase, new()
     {

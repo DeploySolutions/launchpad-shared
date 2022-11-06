@@ -1,4 +1,5 @@
-﻿using DeploySoftware.LaunchPad.Core.AbpModuleConfig;
+﻿
+using DeploySoftware.LaunchPad.Core.Config;
 
 namespace DeploySoftware.LaunchPad.AWS.SecretsManager
 {

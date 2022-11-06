@@ -10,7 +10,7 @@ using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DeploySoftware.LaunchPad.Core.AbpModuleConfig
+namespace DeploySoftware.LaunchPad.Core.Config
 {
     public abstract partial class SecretHelper : HelperBase, ISecretHelper
     {

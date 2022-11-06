@@ -1,12 +1,10 @@
 ﻿
 using Abp.Dependency;
-using Castle.Core.Logging;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Hosting;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using DeploySoftware.LaunchPad.Core.AbpModuleConfig;
 using Abp.Configuration;
+using DeploySoftware.LaunchPad.Core.Config;
 
 namespace DeploySoftware.LaunchPad.Core.Abp.AbpModuleConfig
 {

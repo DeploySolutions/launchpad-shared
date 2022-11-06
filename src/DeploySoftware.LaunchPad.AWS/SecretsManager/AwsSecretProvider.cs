@@ -1,16 +1,9 @@
-﻿using Abp.Dependency;
-using DeploySoftware.LaunchPad.AWS.SecretsManager;
-using DeploySoftware.LaunchPad.Core.AbpModuleConfig;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
+﻿using DeploySoftware.LaunchPad.Core.Config;
 using System.Threading.Tasks;
 
-namespace DeploySoftware.LaunchPad.AWS.Abp.SecretsManager
+namespace DeploySoftware.LaunchPad.AWS.SecretsManager
 {
-    public partial class AwsSecretProvider<TSecretVault> : SecretProviderBase<TSecretVault>, ISingletonDependency, ISecretProvider<TSecretVault>
+    public partial class AwsSecretProvider<TSecretVault> : SecretProviderBase<TSecretVault>, ISecretProvider<TSecretVault>
         where TSecretVault: SecretVaultBase, new()
     {
 

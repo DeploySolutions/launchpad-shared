@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DeploySoftware.LaunchPad.Core.AbpModuleConfig
+namespace DeploySoftware.LaunchPad.Core.Config
 {
     public abstract partial class SecretProviderBase<TSecretVault> : ISecretProvider<TSecretVault>
         where TSecretVault : SecretVaultBase, new()

@@ -1,18 +1,12 @@
 ﻿using Abp.Dependency;
 using Abp.Modules;
-using Abp.Reflection.Extensions;
 using Castle.Core.Logging;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Configuration.UserSecrets;
 using Microsoft.Extensions.Hosting;
 using System;
-using System.Reflection;
-using DeploySoftware.LaunchPad.Core.AbpModuleConfig;
+using DeploySoftware.LaunchPad.Core.Config;
 using System.Collections.Generic;
 using Abp.Configuration;
-using System.Linq;
-using DeploySoftware.LaunchPad.Core.Util;
-using Microsoft.AspNetCore.Hosting;
 
 namespace DeploySoftware.LaunchPad.Core.Abp.AbpModuleConfig
 {

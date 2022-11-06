@@ -1,5 +1,5 @@
-﻿using DeploySoftware.LaunchPad.Core.AbpModuleConfig;
-using System.Collections.Generic;
+﻿
+using DeploySoftware.LaunchPad.Core.Config;
 
 namespace DeploySoftware.LaunchPad.Core.Abp.AbpModuleConfig
 {
