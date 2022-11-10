@@ -79,8 +79,7 @@ namespace DeploySoftware.LaunchPad.Core.Abp.AbpModuleConfig
         /// <param name="connectionStringFieldName">The name of the field which contains the connection string.</param>
         /// <param name="secretVaultIdentifier">The unique identifier. If it's "userSecrets.json" it will attempt to load from local user secrets. Otherwise it will attempt to connect to a cloud-hosted secret service.</param>
         /// <returns></returns>
-        public virtual string GetDatabaseConnectionString<TSecretProvider, TSecretVault>(TSecretProvider provider, TSecretVault vault, IConfigurationRoot configuration, string connectionStringFieldName, string caller, bool shouldLogConnectionString = false)
-            where TSecretProvider : ISecretProvider<TSecretVault>
+        public virtual string GetDatabaseConnectionString<TSecretVault>(TSecretVault vault, IConfigurationRoot configuration, string connectionStringFieldName, string caller, bool shouldLogConnectionString = false)
             where TSecretVault : ISecretVault, new()
         {
             string invalidConfigurationMessage = string.Format("LaunchPadAbpModuleHelper.GetDatabaseConnectionString(IConfigurationRoot configuration, string connectionStringFieldName, string secretVaultIdentifier, string caller, bool shouldLogConnectionString = false) => Getting connection string for caller '{0}', but configuration is null.", caller);
@@ -96,7 +95,7 @@ namespace DeploySoftware.LaunchPad.Core.Abp.AbpModuleConfig
             }
             else
             {
-                databaseConnectionString=GetDatabaseConnectionStringFromSecretVault<TSecretVault>(provider, vault, connectionStringFieldName, caller, shouldLogConnectionString);
+                databaseConnectionString=GetDatabaseConnectionStringFromSecretVault<TSecretVault>(vault, connectionStringFieldName, caller, shouldLogConnectionString);
             }
             Logger.Debug("LaunchPadAbpModuleHelperBase.GetDatabaseConnectionString(IConfigurationRoot configuration, string connectionStringFieldName, string secretVaultIdentifier, string caller, bool shouldLogConnectionString = false) => Ended.");
 
@@ -110,7 +109,7 @@ namespace DeploySoftware.LaunchPad.Core.Abp.AbpModuleConfig
         /// <param name="connectionStringFieldName">The name of the field which contains the connection string.</param>
         /// <param name="secretVaultIdentifier">The unique identifier, if the database connection string is contained in a cloud-hosted secret.</param>
         /// <returns></returns>
-        protected virtual string GetDatabaseConnectionStringFromSecretVault<TSecretVault>(ISecretProvider<TSecretVault> provider, TSecretVault secretVault, string connectionStringFieldName, string caller, bool shouldLogConnectionString = false)
+        protected virtual string GetDatabaseConnectionStringFromSecretVault<TSecretVault>(TSecretVault secretVault, string connectionStringFieldName, string caller, bool shouldLogConnectionString = false)
             where TSecretVault : ISecretVault, new()
         {
             string invalidConnectionStringMessage = string.Format("LaunchPadAbpModuleHelper.GetDatabaseConnectionStringFromSecretVault(string connectionStringFieldName, string secretVaultIdentifier, string caller, bool shouldLogConnectionString = false) => Getting connection string for caller '{0}', but connectionStringFieldName is null or empty.", caller);
@@ -127,7 +126,7 @@ namespace DeploySoftware.LaunchPad.Core.Abp.AbpModuleConfig
             Console.WriteLine(getFromRemoteMessage);
             Guard.Against<ArgumentNullException>(string.IsNullOrEmpty(secretVault.Id), "Getting value from remote Secret Vault relies on the secretVaultIdentifier argument but that is null or empty.");
 
-            databaseConnectionString = provider.GetValueFromSecretVault(secretVault, connectionStringFieldName, caller);
+            databaseConnectionString = secretVault.GetValue(connectionStringFieldName, caller);
 
             // make sure the returned connection string is not empty
             Guard.Against<InvalidOperationException>(string.IsNullOrEmpty(databaseConnectionString), "Expected a database connection string but it is null or empty.");
