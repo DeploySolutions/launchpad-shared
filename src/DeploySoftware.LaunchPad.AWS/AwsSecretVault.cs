@@ -1,8 +1,11 @@
-﻿using DeploySoftware.LaunchPad.Core.Config;
+﻿using Amazon.SecretsManager.Model;
+using DeploySoftware.LaunchPad.Core.Config;
+using System.Threading.Tasks;
+using System;
 
 namespace DeploySoftware.LaunchPad.AWS
 {
-    public class AwsSecretVault : SecretVault
+    public class AwsSecretVault : SecretVaultBase
     {
 
 
@@ -24,7 +27,6 @@ namespace DeploySoftware.LaunchPad.AWS
             VaultId = arn;
             ProviderId = "AmazonSecretsManager";
         }
-
 
     }
 }

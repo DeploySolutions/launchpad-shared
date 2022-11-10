@@ -41,7 +41,7 @@ namespace DeploySoftware.LaunchPad.Core.Config
 
         public Task<ISecretVault> GetSecretVaultByVaultIdAsync(string vaultId, string caller);
 
-        
+        // Vault-related methods
         public string GetJsonFromSecretVault(ISecretVault secretVault, string caller);
         public Task<string> GetJsonFromSecretVaultAsync(ISecretVault secretVault, string caller);
 

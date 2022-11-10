@@ -1,9 +1,13 @@
-﻿using System;
+﻿using Newtonsoft.Json.Linq;
+using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace DeploySoftware.LaunchPad.Core.Config
 {
-    public partial class SecretVault : ISecretVault
+    public abstract partial class SecretVaultBase : ISecretVault
     {
         public virtual IDictionary<string, string> Fields { get; set; }
         public virtual string Name { get; set; }
@@ -19,7 +23,7 @@ namespace DeploySoftware.LaunchPad.Core.Config
         public virtual string VaultId { get; set; }
         public virtual string ProviderId { get; set; }
 
-        public SecretVault()
+        public SecretVaultBase()
         {
             Name = string.Empty;
             Description = string.Empty;
@@ -30,7 +34,7 @@ namespace DeploySoftware.LaunchPad.Core.Config
 
         }
 
-        public SecretVault(string providerId, string vaultId, string vaultName)
+        public SecretVaultBase(string providerId, string vaultId, string vaultName)
         {
             Name = vaultName;
             ProviderId = providerId;
@@ -41,7 +45,7 @@ namespace DeploySoftware.LaunchPad.Core.Config
 
         }
 
-        public SecretVault(string providerId, string vaultId, string vaultName, IDictionary<string, string> fields, string description = "")
+        public SecretVaultBase(string providerId, string vaultId, string vaultName, IDictionary<string, string> fields, string description = "")
         {
             Name = vaultName;
             ProviderId = providerId;
@@ -57,6 +61,21 @@ namespace DeploySoftware.LaunchPad.Core.Config
             Fields = fields;
         }
 
+        public virtual string GetValue(string key, string caller)
+        {
+            Fields.TryGetValue(key, out string value);
+            return value;
+        }
+
+        public virtual IDictionary<string, string> FindValuesForKeys(IList<string> keys, string caller)
+        {
+            IDictionary<string, string> kvps = new Dictionary<string, string>();
+            // loop through the desired set of keys to find the corresponding values in the JSON
+
+            kvps = (IDictionary<string, string>)keys.Where(k => Fields.ContainsKey(k));
+            
+            return kvps;
+        }
 
     }
 }

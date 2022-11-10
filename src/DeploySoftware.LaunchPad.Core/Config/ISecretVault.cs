@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace DeploySoftware.LaunchPad.Core.Config
 {
@@ -15,5 +16,11 @@ namespace DeploySoftware.LaunchPad.Core.Config
         public string VaultId { get; set; }
 
         public string ProviderId { get; set; }
+
+        public string GetValue(string key, string caller);
+
+        public IDictionary<string, string> FindValuesForKeys(IList<string> keys, string caller);
+
+
     }
 }
