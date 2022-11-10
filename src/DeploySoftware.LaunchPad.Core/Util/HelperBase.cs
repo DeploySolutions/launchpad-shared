@@ -24,11 +24,10 @@ namespace DeploySoftware.LaunchPad.Core.Util
 
         public HelperBase(ILogger logger)
         {
-            if(logger == null)
+            if(logger != null)
             {
-                Logger = NullLogger.Instance;
+                Logger = logger;
             }
-            Logger = logger;
         }
 
 

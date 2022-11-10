@@ -7,14 +7,15 @@ using System;
 using DeploySoftware.LaunchPad.Core.Config;
 using System.Collections.Generic;
 using Abp.Configuration;
+using Abp.Reflection.Extensions;
+using Abp.AutoMapper;
 
 namespace DeploySoftware.LaunchPad.Core.Abp.AbpModuleConfig
 {
     [Serializable()]
-    public abstract class LaunchPadAbpModuleBase<TSecretHelper, TAbpModuleHelper> : AbpModule, 
-        ILaunchPadAbpModule<TSecretHelper, TAbpModuleHelper>
-        where TSecretHelper : ISecretHelper
-        where TAbpModuleHelper: ILaunchPadAbpModuleHelper<TSecretHelper>
+    public abstract class LaunchPadAbpModuleBase<TAbpModuleHelper> : AbpModule, 
+        ILaunchPadAbpModule<TAbpModuleHelper>
+        where TAbpModuleHelper: ILaunchPadAbpModuleHelper
     {
         
 
@@ -41,6 +42,16 @@ namespace DeploySoftware.LaunchPad.Core.Abp.AbpModuleConfig
         public override void Initialize()
         {
             base.Initialize();
+
+            // Abp standard module code for registering by convention and finding any automapper classes
+            var thisAssembly = typeof(LaunchPadAbpModuleBase<TAbpModuleHelper>).GetAssembly();
+
+            IocManager.RegisterAssemblyByConvention(thisAssembly);
+
+            Configuration.Modules.AbpAutoMapper().Configurators.Add(
+                // Scan the assembly for classes which inherit from AutoMapper.Profile
+                cfg => cfg.AddMaps(thisAssembly)
+            );
         }
 
         public override void PostInitialize()
@@ -48,23 +59,11 @@ namespace DeploySoftware.LaunchPad.Core.Abp.AbpModuleConfig
             base.PostInitialize();
 
         }
-
-        protected virtual ILaunchPadAbpModuleConfig<TSecretVault, TSecretProvider, THostEnvironment> LoadBaseConfigPropertiesOnPostInitialize<TSecretVault, TSecretProvider, THostEnvironment>(
-            LaunchPadAbpModuleConfigBase<TSecretVault, TSecretProvider, THostEnvironment> config,
-            string vaultsJsonPath, string abpModuleInternalName)
-            where TSecretProvider : SecretProviderBase<TSecretVault>, new () 
+        protected virtual ILaunchPadAbpModuleConfig<THostEnvironment> LoadBaseConfigPropertiesOnPostInitialize<THostEnvironment>(
+            LaunchPadAbpModuleConfigBase<THostEnvironment> config)
             where THostEnvironment : IHostEnvironment
-            where TSecretVault : SecretVaultBase, new()
         {
-            var settingManager = IocManager.Resolve<ISettingManager>();
-            // add the secret vaults to the module's SecretProvider
-            config.SecretProvider.SecretVaults =
-                (Dictionary<string, TSecretVault>)AbpModuleHelper.GetSecretVaults<TSecretVault>(
-                    settingManager,
-                    vaultsJsonPath,
-                    abpModuleInternalName + ".PostInitialize()"
-            );
-
+            
             // set the host and configuration parameters
             var hostEnvironment = IocManager.Resolve<THostEnvironment>();
             config.HostEnvironment = hostEnvironment;
@@ -73,7 +72,6 @@ namespace DeploySoftware.LaunchPad.Core.Abp.AbpModuleConfig
             return config;
 
         }
-
 
     }
 }

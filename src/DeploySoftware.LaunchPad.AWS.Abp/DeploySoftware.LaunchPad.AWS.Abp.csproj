@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>net60</TargetFrameworks>
+    <TargetFrameworks>net6.0</TargetFrameworks>
     <Authors>Nicholas Kellett</Authors>
     <Company>Deploy Software Solutions, inc.</Company>
     <Copyright>2021-2022 Deploy Software Solutions, inc.</Copyright>
@@ -10,7 +10,7 @@
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageProjectUrl>https://github.com/DeploySolutions/launchpad-shared</PackageProjectUrl>
     <RepositoryUrl>https://github.com/DeploySolutions/launchpad-shared</RepositoryUrl>
-    <Version>7.1.0-alpha</Version>
+    <Version>7.2.0-alpha</Version>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <PackageIcon>icon.png</PackageIcon>
   </PropertyGroup>
@@ -26,6 +26,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="AWSSDK.APIGateway" Version="3.7.100.8" />
+    <PackageReference Include="AWSSDK.SecretsManager" Version="3.7.2.63" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DeploySoftware.LaunchPad.AWS\DeploySoftware.LaunchPad.AWS.csproj" />

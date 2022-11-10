@@ -1,7 +1,8 @@
 ﻿using Amazon.APIGateway;
+using Castle.Core.Internal;
 using Castle.Core.Logging;
-using DeploySoftware.LaunchPad.AWS.SecretsManager;
 using DeploySoftware.LaunchPad.Core.Api;
+using DeploySoftware.LaunchPad.Core.Config;
 using DeploySoftware.LaunchPad.Core.Util;
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
@@ -31,7 +32,6 @@ namespace DeploySoftware.LaunchPad.AWS
         [JsonIgnore]
         public RestClient ApiRestClient { get; set; }
 
-        protected AwsSecretsManagerHelper _secretHelper;
 
         [JsonIgnore]
         public TemporaryAccessToken Token { get; set; }
@@ -44,16 +44,14 @@ namespace DeploySoftware.LaunchPad.AWS
 
         public AwsApiGatewayHelper(ILogger logger, string awsRegionEndpointName, Uri apiGatewayBaseUri) : base(logger, awsRegionEndpointName)
         {
-            _secretHelper = new AwsSecretsManagerHelper(logger, awsRegionEndpointName);
             ApiBaseUri = apiGatewayBaseUri;
             OAuthTokenEndpoint = string.Empty;
             DefaultVersion = string.Empty;
             ApiRestClient = new RestClient(apiGatewayBaseUri);
         }
 
-        public AwsApiGatewayHelper(ILogger logger, string awsRegionEndpointName,  Uri apiGatewayBaseUri, AwsSecretsManagerHelper secretHelper, Uri oAuthBaseUri, string oAuthTokenEndpoint,  string defaultApiVersion) : base(logger, awsRegionEndpointName)
+        public AwsApiGatewayHelper(ILogger logger, string awsRegionEndpointName,  Uri apiGatewayBaseUri, Uri oAuthBaseUri, string oAuthTokenEndpoint,  string defaultApiVersion) : base(logger, awsRegionEndpointName)
         {
-            _secretHelper = secretHelper;
             OAuthTokenEndpoint = oAuthTokenEndpoint;
             DefaultVersion = defaultApiVersion;
             OAuthBaseUri = oAuthBaseUri;
@@ -64,10 +62,16 @@ namespace DeploySoftware.LaunchPad.AWS
             ApiRestClient = new RestClient(apiGatewayBaseUri);
         }
 
-
-        public virtual TemporaryAccessToken GetOAuthTokenUsingSecretCredentials(string secretArn, IList<string> scopes = null)
+        public virtual TemporaryAccessToken GetOAuthTokenUsingSecretCredentials(string arn, IList<string> scopes = null)
         {
-            return GetOAuthTokenUsingSecretCredentialsAsync(secretArn, scopes).Result;
+            AwsSecretProvider<AwsSecretVault> provider = new AwsSecretProvider<AwsSecretVault>(Region.SystemName, AwsProfileName, ShouldUseLocalAwsProfile);
+            AwsSecretVault vault = (AwsSecretVault)provider.GetSecretVaultByVaultId(arn, "AwsApiGatewayHelper.GetOAuthTokenUsingSecretCredentials(string arn, IList<string> scopes = null)");
+            return GetOAuthTokenUsingSecretCredentialsAsync(vault, scopes).Result;
+        }
+
+        public virtual TemporaryAccessToken GetOAuthTokenUsingSecretCredentials(AwsSecretVault vault, IList<string> scopes = null)
+        {
+            return GetOAuthTokenUsingSecretCredentialsAsync(vault, scopes).Result;
         }
 
         /// <summary>
@@ -75,16 +79,16 @@ namespace DeploySoftware.LaunchPad.AWS
         /// </summary>
         /// <param name="secretArn">The AWS ARN of the secret in which the key is located.</param>
         /// <returns>A TemporaryAccessToken object</returns>
-        public async virtual Task<TemporaryAccessToken> GetOAuthTokenUsingSecretCredentialsAsync(string secretArn, IList<string> scopes = null)
+        public async virtual Task<TemporaryAccessToken> GetOAuthTokenUsingSecretCredentialsAsync(AwsSecretVault vault, IList<string> scopes = null)
         {
-            Guard.Against<ArgumentNullException>(String.IsNullOrEmpty(secretArn), DeploySoftware_LaunchPad_AWS_Resources.ApiGatewayHelper_SecretArn_Is_NullOrEmpty);
+            Guard.Against<ArgumentNullException>(String.IsNullOrEmpty(vault.VaultId), DeploySoftware_LaunchPad_AWS_Resources.ApiGatewayHelper_SecretArn_Is_NullOrEmpty);
             Guard.Against<ArgumentNullException>(OAuthClient == null, DeploySoftware_LaunchPad_AWS_Resources.ApiGatewayHelper_MakeApiGatewayRequest_RestClient_Is_Null);
-            Logger.Info(string.Format(DeploySoftware_LaunchPad_AWS_Resources.ApiGatewayHelper_GetOAuthTokenUsingSecretCredentials_Getting, OAuthTokenEndpoint, OAuthBaseUri.ToString(), secretArn));
+            Logger.Info(string.Format(DeploySoftware_LaunchPad_AWS_Resources.ApiGatewayHelper_GetOAuthTokenUsingSecretCredentials_Getting, OAuthTokenEndpoint, OAuthBaseUri.ToString(), vault.VaultId));
             TemporaryAccessToken token = null;
 
             string accessToken = string.Empty;
-
-            string secretJson = await _secretHelper.GetJsonFromSecretAsync(secretArn, "AwsApiGatewayHelper.GetOAuthTokenUsingSecretCredentialsAsync()");
+            AwsSecretProvider<AwsSecretVault> provider = new AwsSecretProvider<AwsSecretVault>(Region.SystemName, AwsProfileName, ShouldUseLocalAwsProfile);
+            string secretJson = await provider.GetJsonFromSecretVaultAsync(vault, "AwsApiGatewayHelper.GetOAuthTokenUsingSecretCredentialsAsync()");
             dynamic secret = JsonConvert.DeserializeObject(secretJson);
             string apiGatewayClientId = secret.apiGatewayClientId;
             Guard.Against<InvalidOperationException>(String.IsNullOrEmpty(apiGatewayClientId), "apiGatewayClientId cannot be empty");
@@ -135,7 +139,7 @@ namespace DeploySoftware.LaunchPad.AWS
                 Logger.Debug(string.Format(DeploySoftware_LaunchPad_AWS_Resources.ApiGatewayHelper_GetOAuthTokenUsingSecretCredentials_AccessToken, token.TokenType, token.ExpiresIn, token.AccessToken));
 
             }
-            Logger.Info(string.Format(DeploySoftware_LaunchPad_AWS_Resources.ApiGatewayHelper_GetOAuthTokenUsingSecretCredentials_Got, OAuthTokenEndpoint, OAuthBaseUri.ToString(), secretArn));
+            Logger.Info(string.Format(DeploySoftware_LaunchPad_AWS_Resources.ApiGatewayHelper_GetOAuthTokenUsingSecretCredentials_Got, OAuthTokenEndpoint, OAuthBaseUri.ToString(), vault.VaultId));
 
             return token;
         }
@@ -156,7 +160,9 @@ namespace DeploySoftware.LaunchPad.AWS
 
             if (Token == null)
             {
-                Token = await GetOAuthTokenUsingSecretCredentialsAsync(secretArn);
+                AwsSecretProvider<AwsSecretVault> provider = new AwsSecretProvider<AwsSecretVault>(Region.SystemName, AwsProfileName, ShouldUseLocalAwsProfile);
+                AwsSecretVault vault = (AwsSecretVault)provider.GetSecretVaultByVaultId(secretArn, "AwsApiGatewayHelper.MakeApiRequestAsync(string secretArn, RestRequest request, string requestId = \"\", string correlationId = \"\")");
+                Token = await GetOAuthTokenUsingSecretCredentialsAsync(vault);
                 // TODO save the token in the secret
 
             }
@@ -193,7 +199,6 @@ namespace DeploySoftware.LaunchPad.AWS
             Logger.Info(string.Format(DeploySoftware_LaunchPad_AWS_Resources.Logger_Info_ExecuteApiGatewayRequest_Executed, request.Method.ToString(), ApiBaseUri.ToString(), request.Resource, response.StatusCode));
             return response;
         }
-
 
     }
 }

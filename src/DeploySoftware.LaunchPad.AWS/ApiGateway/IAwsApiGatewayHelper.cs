@@ -1,5 +1,6 @@
 ﻿using Amazon.APIGateway;
 using DeploySoftware.LaunchPad.Core.Api;
+using DeploySoftware.LaunchPad.Core.Config;
 using RestSharp;
 using System;
 using System.Collections.Generic;
@@ -17,8 +18,10 @@ namespace DeploySoftware.LaunchPad.AWS
         string OAuthTokenEndpoint { get; set; }
         TemporaryAccessToken Token { get; set; }
 
-        TemporaryAccessToken GetOAuthTokenUsingSecretCredentials(string secretArn, IList<string> scopes = null);
-        Task<TemporaryAccessToken> GetOAuthTokenUsingSecretCredentialsAsync(string secretArn, IList<string> scopes = null);
+        public TemporaryAccessToken GetOAuthTokenUsingSecretCredentials(string secretArn, IList<string> scopes = null);
+
+        public Task<TemporaryAccessToken> GetOAuthTokenUsingSecretCredentialsAsync(AwsSecretVault vault, IList<string> scopes = null);
+
         RestResponse MakeApiRequest(string secretArn, RestRequest request, string requestId = "", string correlationId = "");
         Task<RestResponse> MakeApiRequestAsync(string secretArn, RestRequest request, string requestId = "", string correlationId = "");
     }

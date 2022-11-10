@@ -9,6 +9,5 @@ namespace DeploySoftware.LaunchPad.AWS.SecretsManager.Services
 {
     public interface IAwsSecretsManagerService : ISystemIntegrationService
     {
-        public IAwsSecretsManagerHelper Helper { get; set; }
     }
 }

@@ -8,21 +8,22 @@ using DeploySoftware.LaunchPad.Core.Config;
 
 namespace DeploySoftware.LaunchPad.Core.Abp.AbpModuleConfig
 {
-    public partial interface ILaunchPadAbpModuleHelper<TSecretHelper> : ISingletonDependency
-        where TSecretHelper : ISecretHelper
+    public partial interface ILaunchPadAbpModuleHelper : ISingletonDependency
     {
-        public TSecretHelper SecretHelper { get; }
+        public IDictionary<string, string> GetModuleSecrets();
 
-        public IDictionary<string, TVault> GetSecretVaults<TVault>(ISettingManager appSettings, string secretProviderVaultsJsonPath, string caller)
-            where TVault : ISecretVault, new();
+        public IDictionary<string, string> GetModuleSecretsForVaultIdentifier(string vaultIdentifier);
 
-        public string GetDatabaseConnectionString(IConfigurationRoot configuration, string connectionStringFieldName, string secretVaultIdentifier, string caller, bool shouldLogConnectionString = false);
+        public IList<ISecretVault> GetModuleVaults();
+
+        public IDictionary<string, TSecretVault> AddModuleSecretVaultsToProvider<TSecretVault>(ISecretProvider<TSecretVault> provider, string secretProviderVaultsJsonPath, string caller)
+            where TSecretVault : ISecretVault, new();
+
+        public string GetDatabaseConnectionString<TSecretProvider, TSecretVault>(TSecretProvider provider, TSecretVault vault, IConfigurationRoot configuration, string connectionStringFieldName, string caller, bool shouldLogConnectionString = false)
+            where TSecretProvider : ISecretProvider<TSecretVault>
+            where TSecretVault : ISecretVault, new();
+
         
-        public string GetDatabaseConnectionStringFromSecretVault(IConfigurationRoot configuration, string connectionStringFieldName, string secretVaultIdentifier, string caller, bool shouldLogConnectionString = false);
-
-        public string GetDatabaseConnectionStringFromLocalUserSecrets(IConfigurationRoot configuration, string connectionStringFieldName, string caller, bool shouldLogConnectionString = false);
-        
-        public Task<string> GetJsonFromSecret(string secretVaultIdentifier, string caller);
         string GetSecretVaultIdentifierFromSetting(IConfigurationRoot configuration, string settingName);
 
     }

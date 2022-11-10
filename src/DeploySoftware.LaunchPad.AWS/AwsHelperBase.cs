@@ -1,13 +1,8 @@
 ﻿using Amazon;
-using Amazon.ElasticFileSystem;
 using Amazon.Runtime;
 using Amazon.Runtime.CredentialManagement;
 using Castle.Core.Logging;
 using DeploySoftware.LaunchPad.Core.Util;
-using Microsoft.Extensions.Configuration;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace DeploySoftware.LaunchPad.AWS
 {

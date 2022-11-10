@@ -1,12 +1,12 @@
 ﻿using DeploySoftware.LaunchPad.Core.Config;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
+using System.Collections;
+using System.Collections.Generic;
 
 namespace DeploySoftware.LaunchPad.Core.Abp.AbpModuleConfig
 {
-    public partial interface ILaunchPadAbpModuleConfig<TSecretVault, TSecretProvider, THostEnvironment> 
-        where TSecretVault : SecretVaultBase, new()
-        where TSecretProvider : SecretProviderBase<TSecretVault>, new()
+    public partial interface ILaunchPadAbpModuleConfig< THostEnvironment> 
         where THostEnvironment : IHostEnvironment
     {
 
@@ -14,6 +14,6 @@ namespace DeploySoftware.LaunchPad.Core.Abp.AbpModuleConfig
 
         public IConfigurationRoot ConfigurationRoot { get; }
 
-        public TSecretProvider SecretProvider { get; }
+        
     }
 }

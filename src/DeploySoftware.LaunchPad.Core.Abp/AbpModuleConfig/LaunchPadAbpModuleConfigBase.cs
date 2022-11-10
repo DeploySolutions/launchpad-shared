@@ -5,9 +5,7 @@ using Microsoft.Extensions.Hosting;
 
 namespace DeploySoftware.LaunchPad.Core.Abp.AbpModuleConfig
 {
-    public abstract partial class LaunchPadAbpModuleConfigBase<TSecretVault, TSecretProvider, THostEnvironment> : ILaunchPadAbpModuleConfig<TSecretVault, TSecretProvider, THostEnvironment>
-        where TSecretVault : SecretVaultBase, new()
-        where TSecretProvider : SecretProviderBase<TSecretVault>, new()
+    public abstract partial class LaunchPadAbpModuleConfigBase<THostEnvironment> : ILaunchPadAbpModuleConfig<THostEnvironment>
         where THostEnvironment : IHostEnvironment
     {
 
@@ -17,12 +15,10 @@ namespace DeploySoftware.LaunchPad.Core.Abp.AbpModuleConfig
 
         public virtual IConfigurationRoot ConfigurationRoot { get; set; }
 
-        public virtual TSecretProvider SecretProvider { get; set; }
 
         protected LaunchPadAbpModuleConfigBase(ILogger logger)
         {
             Logger = logger;
-            SecretProvider = new TSecretProvider();
         }
 
     }
