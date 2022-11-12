@@ -168,7 +168,7 @@ namespace DeploySoftware.LaunchPad.AWS
             Logger.Debug(string.Format(DeploySoftware_LaunchPad_AWS_Resources.SecretHelper_GetSecretClient_Region, region.SystemName));
             Logger.Debug(string.Format("shouldUseLocalAwsProfile?", shouldUseLocalAwsProfile));
 
-            AwsSecretsManagerHelperFactory awsSecretsManagerHelperFactory = new AwsSecretsManagerHelperFactory();
+            AwsSecretsManagerHelper awsSecretsManagerHelper = new AwsSecretsManagerHelper();
             AmazonSecretsManagerClient client = null;
             try
             {
@@ -177,9 +177,9 @@ namespace DeploySoftware.LaunchPad.AWS
                     Logger.Debug("AwsSecretProvider.GetSecretClient() => shouldUseLocalAwsProfile = true.");
                     if (string.IsNullOrEmpty(awsProfileName))
                     {
-                        awsProfileName = AwsSecretsManagerHelperFactory.DefaultLocalAwsProfileName;
+                        awsProfileName = AwsSecretsManagerHelper.DefaultLocalAwsProfileName;
                     }
-                    var credentials = awsSecretsManagerHelperFactory.GetAwsCredentialsFromNamedLocalProfile(awsProfileName);
+                    var credentials = awsSecretsManagerHelper.GetAwsCredentialsFromNamedLocalProfile(awsProfileName);
                     if (credentials != null)
                     {
                         Logger.Debug(string.Format(
