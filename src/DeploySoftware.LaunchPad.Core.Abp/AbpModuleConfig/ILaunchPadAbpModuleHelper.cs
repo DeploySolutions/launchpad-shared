@@ -20,7 +20,7 @@ namespace DeploySoftware.LaunchPad.Core.Abp.AbpModuleConfig
             where TSecretVault : ISecretVault, new();
 
         public string GetDatabaseConnectionString<TSecretVault>(TSecretVault vault, IConfigurationRoot configuration, string connectionStringFieldName, string caller, bool shouldLogConnectionString = false)
-            where TSecretVault : ISecretVault, new();
+            where TSecretVault : ISecretVault;
 
         
         string GetSecretVaultIdentifierFromSetting(IConfigurationRoot configuration, string settingName);

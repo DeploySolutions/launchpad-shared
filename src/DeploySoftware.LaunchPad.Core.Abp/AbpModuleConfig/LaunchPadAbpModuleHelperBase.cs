@@ -80,7 +80,7 @@ namespace DeploySoftware.LaunchPad.Core.Abp.AbpModuleConfig
         /// <param name="secretVaultIdentifier">The unique identifier. If it's "userSecrets.json" it will attempt to load from local user secrets. Otherwise it will attempt to connect to a cloud-hosted secret service.</param>
         /// <returns></returns>
         public virtual string GetDatabaseConnectionString<TSecretVault>(TSecretVault vault, IConfigurationRoot configuration, string connectionStringFieldName, string caller, bool shouldLogConnectionString = false)
-            where TSecretVault : ISecretVault, new()
+            where TSecretVault : ISecretVault
         {
             string invalidConfigurationMessage = string.Format("LaunchPadAbpModuleHelper.GetDatabaseConnectionString(IConfigurationRoot configuration, string connectionStringFieldName, string secretVaultIdentifier, string caller, bool shouldLogConnectionString = false) => Getting connection string for caller '{0}', but configuration is null.", caller);
             string invalidConnectionStringMessage = string.Format("LaunchPadAbpModuleHelper.GetDatabaseConnectionString(IConfigurationRoot configuration, string connectionStringFieldName, string secretVaultIdentifier, string caller, bool shouldLogConnectionString = false) => Getting connection string for caller '{0}', but connectionStringFieldName is null or empty.", caller);
@@ -110,7 +110,7 @@ namespace DeploySoftware.LaunchPad.Core.Abp.AbpModuleConfig
         /// <param name="secretVaultIdentifier">The unique identifier, if the database connection string is contained in a cloud-hosted secret.</param>
         /// <returns></returns>
         protected virtual string GetDatabaseConnectionStringFromSecretVault<TSecretVault>(TSecretVault secretVault, string connectionStringFieldName, string caller, bool shouldLogConnectionString = false)
-            where TSecretVault : ISecretVault, new()
+            where TSecretVault : ISecretVault
         {
             string invalidConnectionStringMessage = string.Format("LaunchPadAbpModuleHelper.GetDatabaseConnectionStringFromSecretVault(string connectionStringFieldName, string secretVaultIdentifier, string caller, bool shouldLogConnectionString = false) => Getting connection string for caller '{0}', but connectionStringFieldName is null or empty.", caller);
             Guard.Against<ArgumentNullException>(String.IsNullOrEmpty(connectionStringFieldName), invalidConnectionStringMessage);
