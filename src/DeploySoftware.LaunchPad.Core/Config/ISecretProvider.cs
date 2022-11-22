@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 namespace DeploySoftware.LaunchPad.Core.Config
 {
     public interface ISecretProvider<TSecretVault>
-        where TSecretVault : ISecretVault
+        where TSecretVault : ISecretVault, new()
     {
         
         public ILogger Logger { get; set; }

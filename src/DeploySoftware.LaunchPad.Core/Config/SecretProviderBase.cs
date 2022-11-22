@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 namespace DeploySoftware.LaunchPad.Core.Config
 {
     public abstract partial class SecretProviderBase<TSecretVault> : ISecretProvider<TSecretVault>
-        where TSecretVault : ISecretVault
+        where TSecretVault : ISecretVault, new()
     {
         /// <summary>
         /// Contains an outer dictionary of "secret vaults". 

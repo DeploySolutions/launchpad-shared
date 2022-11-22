@@ -15,7 +15,7 @@ using Amazon.S3;
 namespace DeploySoftware.LaunchPad.AWS
 {
     public partial class AwsSecretProvider<TSecretVault> : SecretProviderBase<TSecretVault>, ISecretProvider<TSecretVault>
-        where TSecretVault: ISecretVault
+        where TSecretVault: ISecretVault, new()
     {
         protected IAmazonSecretsManager _secretClient;
 
