@@ -5,7 +5,7 @@ using System;
 
 namespace DeploySoftware.LaunchPad.AWS
 {
-    public class AwsSecretVault : SecretVaultBase
+    public class AwsSecretVault : SecretVaultBase, ISecretVault
     {
 
 
