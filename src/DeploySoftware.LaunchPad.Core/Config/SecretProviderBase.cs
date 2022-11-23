@@ -11,8 +11,7 @@ using System.Threading.Tasks;
 
 namespace DeploySoftware.LaunchPad.Core.Config
 {
-    public abstract partial class SecretProviderBase<TSecretVault> : ISecretProvider<TSecretVault>
-        where TSecretVault : ISecretVault, new()
+    public abstract partial class SecretProviderBase : ISecretProvider
     {
         /// <summary>
         /// Contains an outer dictionary of "secret vaults". 
@@ -22,7 +21,7 @@ namespace DeploySoftware.LaunchPad.Core.Config
         /// </summary>
         [NotMapped]
         [JsonIgnore]
-        public virtual Dictionary<string, TSecretVault> SecretVaults { get; set; }
+        public virtual Dictionary<string, ISecretVault> SecretVaults { get; set; }
 
         public virtual string Id { get; set; }
 
@@ -34,8 +33,7 @@ namespace DeploySoftware.LaunchPad.Core.Config
 
         public SecretProviderBase()
         {
-            var comparer = StringComparer.OrdinalIgnoreCase;
-            SecretVaults = new Dictionary<string, TSecretVault>(comparer);
+            SecretVaults = new Dictionary<string, ISecretVault>();
         }
 
         public SecretProviderBase(ILogger logger)
@@ -44,8 +42,7 @@ namespace DeploySoftware.LaunchPad.Core.Config
             {
                 Logger = logger;
             }
-            var comparer = StringComparer.OrdinalIgnoreCase;
-            SecretVaults = new Dictionary<string, TSecretVault>(comparer);
+            SecretVaults = new Dictionary<string, ISecretVault>();
         }
 
         // get methods

@@ -40,7 +40,7 @@ namespace DeploySoftware.LaunchPad.Core.Abp.AbpModuleConfig
         }
 
 
-        public virtual IDictionary<string, TSecretVault> AddModuleSecretVaultsToProvider<TSecretVault>(ISecretProvider<TSecretVault> provider, string secretProviderVaultsJsonPath, string caller)
+        public virtual IDictionary<string, ISecretVault> AddModuleSecretVaultsToProvider<TSecretVault>(ISecretProvider provider, string secretProviderVaultsJsonPath, string caller)
             where TSecretVault : ISecretVault, new()
         {
             var comparer = StringComparer.OrdinalIgnoreCase;
@@ -68,7 +68,7 @@ namespace DeploySoftware.LaunchPad.Core.Abp.AbpModuleConfig
                 vaults = dictionaryHelper.AddToDictionary(vaults, name, vault);
 
             }
-            return vaults;
+            return (IDictionary<string, ISecretVault>)vaults;
         }
 
 

@@ -16,7 +16,7 @@ namespace DeploySoftware.LaunchPad.Core.Abp.AbpModuleConfig
 
         public IList<ISecretVault> GetModuleVaults();
 
-        public IDictionary<string, TSecretVault> AddModuleSecretVaultsToProvider<TSecretVault>(ISecretProvider<TSecretVault> provider, string secretProviderVaultsJsonPath, string caller)
+        public IDictionary<string, ISecretVault> AddModuleSecretVaultsToProvider<TSecretVault>(ISecretProvider provider, string secretProviderVaultsJsonPath, string caller)
             where TSecretVault : ISecretVault, new();
 
         public string GetDatabaseConnectionString<TSecretVault>(TSecretVault vault, IConfigurationRoot configuration, string connectionStringFieldName, string caller, bool shouldLogConnectionString = false)

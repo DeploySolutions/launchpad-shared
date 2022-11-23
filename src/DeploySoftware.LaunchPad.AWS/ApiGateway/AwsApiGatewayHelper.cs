@@ -64,7 +64,7 @@ namespace DeploySoftware.LaunchPad.AWS
 
         public virtual TemporaryAccessToken GetOAuthTokenUsingSecretCredentials(string arn, IList<string> scopes = null)
         {
-            AwsSecretProvider<AwsSecretVault> provider = new AwsSecretProvider<AwsSecretVault>(Region.SystemName, AwsProfileName, ShouldUseLocalAwsProfile);
+            AwsSecretProvider provider = new AwsSecretProvider(Region.SystemName, AwsProfileName, ShouldUseLocalAwsProfile);
             AwsSecretVault vault = (AwsSecretVault)provider.GetSecretVaultByVaultId(arn, "AwsApiGatewayHelper.GetOAuthTokenUsingSecretCredentials(string arn, IList<string> scopes = null)");
             return GetOAuthTokenUsingSecretCredentialsAsync(vault, scopes).Result;
         }
@@ -87,7 +87,7 @@ namespace DeploySoftware.LaunchPad.AWS
             TemporaryAccessToken token = null;
 
             string accessToken = string.Empty;
-            AwsSecretProvider<AwsSecretVault> provider = new AwsSecretProvider<AwsSecretVault>(Region.SystemName, AwsProfileName, ShouldUseLocalAwsProfile);
+            AwsSecretProvider provider = new AwsSecretProvider(Region.SystemName, AwsProfileName, ShouldUseLocalAwsProfile);
             string secretJson = await provider.GetJsonFromSecretVaultAsync(vault, "AwsApiGatewayHelper.GetOAuthTokenUsingSecretCredentialsAsync()");
             dynamic secret = JsonConvert.DeserializeObject(secretJson);
             string apiGatewayClientId = secret.apiGatewayClientId;
@@ -160,7 +160,7 @@ namespace DeploySoftware.LaunchPad.AWS
 
             if (Token == null)
             {
-                AwsSecretProvider<AwsSecretVault> provider = new AwsSecretProvider<AwsSecretVault>(Region.SystemName, AwsProfileName, ShouldUseLocalAwsProfile);
+                AwsSecretProvider provider = new AwsSecretProvider(Region.SystemName, AwsProfileName, ShouldUseLocalAwsProfile);
                 AwsSecretVault vault = (AwsSecretVault)provider.GetSecretVaultByVaultId(secretArn, "AwsApiGatewayHelper.MakeApiRequestAsync(string secretArn, RestRequest request, string requestId = \"\", string correlationId = \"\")");
                 Token = await GetOAuthTokenUsingSecretCredentialsAsync(vault);
                 // TODO save the token in the secret

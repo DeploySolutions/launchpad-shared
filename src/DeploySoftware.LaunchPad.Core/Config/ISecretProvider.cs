@@ -9,8 +9,7 @@ using System.Threading.Tasks;
 
 namespace DeploySoftware.LaunchPad.Core.Config
 {
-    public interface ISecretProvider<TSecretVault>
-        where TSecretVault : ISecretVault, new()
+    public interface ISecretProvider
     {
         
         public ILogger Logger { get; set; }
@@ -28,7 +27,7 @@ namespace DeploySoftware.LaunchPad.Core.Config
         /// Note to implementers: Do not store or record this information!
         /// </summary>
         [NotMapped]
-        public Dictionary<string, TSecretVault> SecretVaults { get; set; }
+        public Dictionary<string, ISecretVault> SecretVaults { get; set; }
 
         // get methods
 
