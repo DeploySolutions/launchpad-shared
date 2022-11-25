@@ -16,6 +16,8 @@ namespace DeploySoftware.LaunchPad.FileGeneration.Structure
 
         public IDictionary<string, LaunchPadGeneratedProperty> CustomPropertyInsertsOrUpdates { get; set; }
 
+        public IList<PostBuildTextReplacement> PostBuildTextReplacements { get; set; }
+
         /// <summary>
         /// Used for identifying dependencies between items during a build.
         /// </summary>
@@ -26,6 +28,7 @@ namespace DeploySoftware.LaunchPad.FileGeneration.Structure
             var comparer = StringComparer.OrdinalIgnoreCase;
             CustomMethodInsertsOrUpdates = new Dictionary<string, LaunchPadGeneratedMethod>(comparer);
             CustomPropertyInsertsOrUpdates = new Dictionary<string, LaunchPadGeneratedProperty>(comparer);
+            PostBuildTextReplacements = new List<PostBuildTextReplacement>();
         }
 
         public VisualStudioBlueprintDefinitionInstructions(ILogger logger) : base(logger)
@@ -33,6 +36,7 @@ namespace DeploySoftware.LaunchPad.FileGeneration.Structure
             var comparer = StringComparer.OrdinalIgnoreCase;
             CustomMethodInsertsOrUpdates = new Dictionary<string, LaunchPadGeneratedMethod>(comparer);
             CustomPropertyInsertsOrUpdates = new Dictionary<string, LaunchPadGeneratedProperty>(comparer);
+            PostBuildTextReplacements = new List<PostBuildTextReplacement>();
         }
 
         public override void ForAssembling()
