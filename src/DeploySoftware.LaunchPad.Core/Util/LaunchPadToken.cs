@@ -13,6 +13,8 @@ namespace DeploySoftware.LaunchPad.Core.Util
     [Serializable]
     public class LaunchPadToken : IEquatable<LaunchPadToken>
     {
+        public const string TokenNameNotProvidedDefault = "NO_TOKEN_NAME_WAS_SET";
+
         /// <summary>
         /// The prefix of this token
         /// </summary>
@@ -20,7 +22,7 @@ namespace DeploySoftware.LaunchPad.Core.Util
         [Required]
         [DataObjectField(false)]
         [XmlAttribute]
-        public String Prefix { get; set; }
+        public String Prefix { get; set; } = "dss";
 
         /// <summary>
         /// The name of this token
@@ -30,7 +32,7 @@ namespace DeploySoftware.LaunchPad.Core.Util
         [Required]
         [DataObjectField(false)]
         [XmlAttribute]
-        public String Name { get; set; }
+        public String Name { get; set; } = TokenNameNotProvidedDefault;
 
         /// <summary>
         /// The value of this token. If null or empty, and a default is set, implementers should return that.
