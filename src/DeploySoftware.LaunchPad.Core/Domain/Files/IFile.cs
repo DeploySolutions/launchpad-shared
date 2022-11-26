@@ -64,5 +64,13 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         [XmlAttribute]
         public TFileContentType Content { get; set; }
 
+        /// <summary>
+        /// Properties and methods for the file's content hash (to facilitate file verification)
+        /// </summary>
+        [DataObjectField(false)]
+        [XmlAttribute]
+        public Checksum Checksum { get; set; }
+
+
     }
 }

@@ -56,23 +56,35 @@ namespace DeploySoftware.LaunchPad.Core.Abp.Domain
         [Required]
         public virtual TFileContentType Content { get; set; }
 
+        /// <summary>
+        /// Properties and methods for the file's content hash (to facilitate file verification)
+        /// </summary>
+        [DataObjectField(false)]
+        [XmlAttribute]
+        public virtual Checksum Checksum { get; set; }
+
+
         protected FileBase()
         {
+            Checksum = new Checksum();
         }
 
         protected FileBase(TIdType id) : base(id)
         {
             Id = id;
+            Checksum = new Checksum();
         }
         protected FileBase(string fileName) : base()
         {
             Name = fileName;
+            Checksum = new Checksum();
         }
 
         protected FileBase(TIdType id, string fileName) : base()
         {
             Id = id;
             Name = fileName;
+            Checksum = new Checksum();
         }
 
 
@@ -81,6 +93,7 @@ namespace DeploySoftware.LaunchPad.Core.Abp.Domain
             Id = id;
             Name = fileName;
             Content = content;
+            Checksum = new Checksum();
         }
 
         /// <summary>
@@ -91,6 +104,7 @@ namespace DeploySoftware.LaunchPad.Core.Abp.Domain
         protected FileBase(SerializationInfo info, StreamingContext context) :base(info,context)
         {
             Content = (TFileContentType)info.GetValue("Content", typeof(TFileContentType));
+            Checksum = (Checksum)info.GetValue("Checksum", typeof(Checksum));
             Name = info.GetString("Name");
             Size = info.GetInt64("Size");
             MimeType = info.GetString("MimeType");
@@ -105,6 +119,7 @@ namespace DeploySoftware.LaunchPad.Core.Abp.Domain
             info.AddValue("MimeType", MimeType);
             info.AddValue("Extension", Extension);
             info.AddValue("Content", Content);
+            info.AddValue("Checksum", Checksum);
         }
 
 

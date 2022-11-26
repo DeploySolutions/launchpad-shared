@@ -31,7 +31,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         /// </summary>        
         [DataObjectField(false)]
         [XmlAttribute]
-        public Dictionary<string, IFileStorageLocation> StorageLocations { get; set; }
+        public Dictionary<string, IFileStorageLocation> Locations { get; set; }
         
         // get methods
         public IFileStorageLocation GetLocationById(string id, string caller);
