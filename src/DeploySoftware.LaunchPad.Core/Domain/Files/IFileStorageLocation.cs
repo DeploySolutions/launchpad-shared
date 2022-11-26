@@ -21,6 +21,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
     using System.Collections.Generic;
     using System.ComponentModel;
     using System.ComponentModel.DataAnnotations;
+    using System.Threading.Tasks;
     using System.Xml.Serialization;
 
     /// <summary>
@@ -69,7 +70,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
 
         [DataObjectField(false)]
         [XmlAttribute]
-        public FileStorageProviderTypeEnum Provider { get; set; }
+        public FileStorageLocationTypeEnum Provider { get; set; }
 
         /// <summary>
         /// The location have an open-ended set of tags applied to it, that help users find, markup, and display its information
@@ -77,5 +78,20 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         [DataObjectField(false)]
         [XmlAttribute]
         public IEnumerable<MetadataTag> Tags { get; set; }
+
+        public IFile<TPrimaryKey, TFileContentType> FindFileById<TPrimaryKey, TFileContentType>(string fileId);
+
+        public bool WriteFile<TFilePrimaryKey, TFileContentType>(IFile<TFilePrimaryKey, TFileContentType> sourceFile, IDictionary<string, string> fileTags, string contentType = "", IDictionary<string, string> writeTags = null, string filePrefix = "", string fileSuffix = "");
+        
+        public Task<bool> WriteFileAsync<TFilePrimaryKey, TFileContentType>(IFile<TFilePrimaryKey, TFileContentType> sourceFile, IDictionary<string, string> fileTags, string contentType = "", IDictionary<string, string> writeTags = null, string filePrefix = "", string fileSuffix = "");
+        
+        public bool CopyFileTo<TFilePrimaryKey, TFileContentType>(IFileStorageLocation destinationLocation, IFile<TFilePrimaryKey, TFileContentType> sourceFile, IDictionary<string, string> fileTags, IDictionary<string, string> copyTags = null, string filePrefix = "", string fileSuffix = "");
+        
+        public Task<bool> CopyFileToAsync<TFilePrimaryKey, TFileContentType>(IFileStorageLocation destinationLocation, IFile<TFilePrimaryKey, TFileContentType> sourceFile, IDictionary<string, string> fileTags, IDictionary<string, string> copyTags = null, string filePrefix = "", string fileSuffix = "");
+
+        public Uri GetRelativePathForFile<TFilePrimaryKey, TFileContentType>(IFile<TFilePrimaryKey, TFileContentType> file);
+
+        public Uri GetFullPathForFile<TFilePrimaryKey, TFileContentType>(IFile<TFilePrimaryKey, TFileContentType> file);
+
     }
 }

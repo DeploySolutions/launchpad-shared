@@ -32,7 +32,7 @@ namespace DeploySoftware.LaunchPad.Core.Tests
     {
         public readonly TifWorldFileParser<Guid,S3BucketStorageLocation> TfwParser;
 
-        public readonly TifWorldFile<Guid, S3BucketStorageLocation> TfwFile;
+        public readonly TifWorldFile<Guid> TfwFile;
 
         public S3FileStorageTestsFixture()
         {

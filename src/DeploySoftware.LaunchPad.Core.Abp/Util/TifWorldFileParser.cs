@@ -28,9 +28,16 @@ namespace DeploySoftware.LaunchPad.Core.Abp.Util
     public class TifWorldFileParser<TPrimaryKey, TFileStorageLocationType>
         where TFileStorageLocationType: IFileStorageLocation, new()
     {
-        public TifWorldFile<TPrimaryKey, TFileStorageLocationType> GetTifWorldFileFromMetadataFile(string metadataFileName)
+        public TFileStorageLocationType Location { get; set; }
+
+        public TifWorldFileParser()
         {
-            TifWorldFile<TPrimaryKey, TFileStorageLocationType> file = null;
+            Location = new TFileStorageLocationType();
+        }
+
+        public TifWorldFile<TPrimaryKey> GetTifWorldFileFromMetadataFile(string metadataFileName)
+        {
+            TifWorldFile<TPrimaryKey> file = null;
             // Tif World File metadata files are in .tfw format
             // ReSharper disable once RedundantAssignment
             var metadataFileText = string.Empty;
@@ -80,7 +87,7 @@ namespace DeploySoftware.LaunchPad.Core.Abp.Util
                         lineNumber++;
                     }
 
-                    file = new TifWorldFile<TPrimaryKey, TFileStorageLocationType>()
+                    file = new TifWorldFile<TPrimaryKey>()
                     {
                         A = a,
                         D = d,

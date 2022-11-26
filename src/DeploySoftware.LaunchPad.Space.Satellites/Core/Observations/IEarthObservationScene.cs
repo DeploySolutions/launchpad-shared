@@ -45,7 +45,7 @@ namespace DeploySoftware.LaunchPad.Space.Satellites.Core
         
 
         [Required]
-        public IDictionary<string, FileBase<TPrimaryKey, byte[], TFileStorageLocationType>> Objects { get; set; }
+        public IDictionary<string, FileBase<TPrimaryKey, byte[]>> Objects { get; set; }
 
         /// <summary>
         /// The copyright information and license under which this observation may be used

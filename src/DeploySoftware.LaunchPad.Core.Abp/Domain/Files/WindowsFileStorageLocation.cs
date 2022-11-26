@@ -36,7 +36,7 @@ namespace DeploySoftware.LaunchPad.Core.Abp.Domain
             DescriptionShort = descriptionMessage;
             DescriptionFull = descriptionMessage;
             RootUri = new Uri(defaultUri);
-            Provider = FileStorageProviderTypeEnum.Windows_NTFS;
+            Provider = FileStorageLocationTypeEnum.Windows_NTFS;
         }
 
         public WindowsFileStorageLocation(string id, Uri rootUri) : base(id, rootUri)

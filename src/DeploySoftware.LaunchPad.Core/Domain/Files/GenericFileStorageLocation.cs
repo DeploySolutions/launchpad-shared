@@ -24,11 +24,13 @@ using System.Diagnostics;
 using System.IO;
 using System.Runtime.Serialization;
 using System.Text;
+using System.Threading.Tasks;
 using System.Xml.Serialization;
 
 namespace DeploySoftware.LaunchPad.Core.Domain
 {
     [DebuggerDisplay("{_debugDisplay}")]
+    [Serializable]
     public partial class GenericFileStorageLocation : IFileStorageLocation
     {
         /// <summary>
@@ -75,7 +77,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
 
         [DataObjectField(false)]
         [XmlAttribute]
-        public virtual FileStorageProviderTypeEnum Provider { get; set; }
+        public virtual FileStorageLocationTypeEnum Provider { get; set; }
 
         /// <summary>
         /// The location have an open-ended set of tags applied to it, that help users find, markup, and display its information
@@ -86,7 +88,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
 
         protected GenericFileStorageLocation()
         {
-            Provider = FileStorageProviderTypeEnum.Unknown;
+            Provider = FileStorageLocationTypeEnum.Unknown;
             Tags = new List<MetadataTag>();
         }
 
@@ -95,11 +97,11 @@ namespace DeploySoftware.LaunchPad.Core.Domain
             Id = id;
             Name = id;
             RootUri = rootUri; 
-            Provider = FileStorageProviderTypeEnum.Unknown;
+            Provider = FileStorageLocationTypeEnum.Unknown;
             Tags = new List<MetadataTag>();
         }
 
-        public GenericFileStorageLocation(string id, Uri rootUri, FileStorageProviderTypeEnum provider)
+        public GenericFileStorageLocation(string id, Uri rootUri, FileStorageLocationTypeEnum provider)
         {
             Id = id;
             Name = id;
@@ -108,7 +110,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
             Tags = new List<MetadataTag>();
         }
 
-        public GenericFileStorageLocation(string id, string name, Uri rootUri, FileStorageProviderTypeEnum provider)
+        public GenericFileStorageLocation(string id, string name, Uri rootUri, FileStorageLocationTypeEnum provider)
         {
             Id = id;
             Name = name;
@@ -117,7 +119,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
             Tags = new List<MetadataTag>();
         }
 
-        public GenericFileStorageLocation(string id, string name, Uri rootUri, FileStorageProviderTypeEnum provider, IEnumerable<MetadataTag> tags)
+        public GenericFileStorageLocation(string id, string name, Uri rootUri, FileStorageLocationTypeEnum provider, IEnumerable<MetadataTag> tags)
         {
             Id = id;
             Name = name;
@@ -139,7 +141,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
             DescriptionFull = info.GetString("DescriptionFull");
             IsReadOnly = info.GetBoolean("IsReadOnly");
             RootUri = (Uri)info.GetValue("RootUri", typeof(Uri));
-            Provider = (FileStorageProviderTypeEnum)info.GetValue("Provider", typeof(FileStorageProviderTypeEnum));
+            Provider = (FileStorageLocationTypeEnum)info.GetValue("Provider", typeof(FileStorageLocationTypeEnum));
             DefaultPrefix = info.GetString("DefaultPrefix"); 
             Tags = (IEnumerable<MetadataTag>)info.GetValue("Metadata", typeof(IEnumerable<MetadataTag>));
         }
@@ -285,5 +287,39 @@ namespace DeploySoftware.LaunchPad.Core.Domain
             ;
         }
 
+        public IFile<TPrimaryKey, TFileContentType> FindFileById<TPrimaryKey, TFileContentType>(string fileId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public virtual bool WriteFile<TFilePrimaryKey, TFileContentType>(IFile<TFilePrimaryKey, TFileContentType> sourceFile, IDictionary<string, string> fileTags, string contentType, IDictionary<string, string> writeTags, string filePrefix, string fileSuffix)
+        {
+            throw new NotImplementedException();
+        }
+
+        public virtual Task<bool> WriteFileAsync<TFilePrimaryKey, TFileContentType>(IFile<TFilePrimaryKey, TFileContentType> sourceFile, IDictionary<string, string> fileTags, string contentType, IDictionary<string, string> writeTags, string filePrefix, string fileSuffix)
+        {
+            throw new NotImplementedException();
+        }
+
+        public virtual bool CopyFileTo<TFilePrimaryKey, TFileContentType>(IFileStorageLocation destinationLocation, IFile<TFilePrimaryKey, TFileContentType> sourceFile, IDictionary<string, string> fileTags, IDictionary<string, string> copyTags = null, string filePrefix = "", string fileSuffix = "")
+        {
+            throw new NotImplementedException();
+        }
+
+        public virtual Task<bool> CopyFileToAsync<TFilePrimaryKey, TFileContentType>(IFileStorageLocation destinationLocation, IFile<TFilePrimaryKey, TFileContentType> sourceFile, IDictionary<string, string> fileTags, IDictionary<string, string> copyTags, string filePrefix, string fileSuffix)
+        {
+            throw new NotImplementedException();
+        }
+
+        public virtual Uri GetRelativePathForFile<TFilePrimaryKey, TFileContentType>(IFile<TFilePrimaryKey, TFileContentType> file)
+        {
+            throw new NotImplementedException();
+        }
+
+        public virtual Uri GetFullPathForFile<TFilePrimaryKey, TFileContentType>(IFile<TFilePrimaryKey, TFileContentType> file)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

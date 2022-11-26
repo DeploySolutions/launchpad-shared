@@ -191,19 +191,19 @@ namespace DeploySoftware.LaunchPad.Space.Satellites.GoC
 
         public class Radarsat1ObservationFiles : IObservationFiles<Guid>
         {
-            public NvolFile<Guid, TFileStorageLocationType> Nvol { get; set; }
+            public NvolFile<Guid> Nvol { get; set; }
 
-            public SardFile<Guid, TFileStorageLocationType> Sard { get; set; }
+            public SardFile<Guid> Sard { get; set; }
 
-            public SarlFile<Guid, TFileStorageLocationType> Sarl { get; set; }
+            public SarlFile<Guid> Sarl { get; set; }
 
-            public SartFile<Guid, TFileStorageLocationType> Sart { get; set; }
+            public SartFile<Guid> Sart { get; set; }
             
-            public TifFile<Guid, TFileStorageLocationType> Tif { get; set; }
+            public TifFile<Guid> Tif { get; set; }
 
-            public TifWorldFile<Guid, TFileStorageLocationType> Tfw { get; set; }
+            public TifWorldFile<Guid> Tfw { get; set; }
 
-            public VolFile<Guid, TFileStorageLocationType> Vol { get; set; }
+            public VolFile<Guid> Vol { get; set; }
         }
 
     }

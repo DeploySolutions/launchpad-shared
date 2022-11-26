@@ -20,8 +20,7 @@ namespace DeploySoftware.LaunchPad.Space.Satellites.Core
     using DeploySoftware.LaunchPad.Core.Abp.Domain;
     using DeploySoftware.LaunchPad.Core.Domain;
 
-    public partial class VolFile<TPrimaryKey, TFileStorageLocationType> : FileBase<TPrimaryKey, byte[], TFileStorageLocationType>
-        where TFileStorageLocationType: IFileStorageLocation, new()
+    public partial class VolFile<TPrimaryKey> : FileBase<TPrimaryKey, byte[]>
     {
         public new string Extension
         {

@@ -30,7 +30,7 @@ namespace DeploySoftware.LaunchPad.Core.Tests
     {
         public readonly TifWorldFileParser<Guid,WindowsFileStorageLocation> TfwParser;
 
-        public readonly TifWorldFile<Guid,WindowsFileStorageLocation> TfwFile;
+        public readonly TifWorldFile<Guid> TfwFile;
 
         public TfwWorldFileTestsFixture()
         {

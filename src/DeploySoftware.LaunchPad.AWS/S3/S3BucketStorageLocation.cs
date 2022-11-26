@@ -37,26 +37,26 @@ namespace DeploySoftware.LaunchPad.AWS.S3
         protected override string _debugDisplay => $"{Id}. Name {Name}.";
 
         public const string DEFAULT_REGION = "us-east-1";
-        
+
         [DataObjectField(false)]
         [XmlAttribute]
         public virtual string Region { get; set; }
-        
+
         /// <summary>
         /// Creates a new bucket location object with the default region and bucket root.
         /// Note that the bucket may not be globally unique and this constructor does not check that.
         /// </summary>
-        public S3BucketStorageLocation():base()
+        public S3BucketStorageLocation() : base()
         {
             Id = Guid.NewGuid().ToString();
             Name = Id;
             Region = DEFAULT_REGION;
             string bucketUri = string.Format("https://s3.{0}.amazonaws.com/{1}", Region, Id);
-            string descriptionMessage = string.Format("AWS S3 bucket at '{0}'", bucketUri); 
+            string descriptionMessage = string.Format("AWS S3 bucket at '{0}'", bucketUri);
             DescriptionShort = descriptionMessage;
             DescriptionFull = descriptionMessage;
             RootUri = new Uri(bucketUri);
-            Provider = FileStorageProviderTypeEnum.Aws_S3;
+            Provider = FileStorageLocationTypeEnum.Aws_S3;
         }
 
         /// <summary>
@@ -72,7 +72,7 @@ namespace DeploySoftware.LaunchPad.AWS.S3
             DescriptionShort = descriptionMessage;
             DescriptionFull = descriptionMessage;
             RootUri = new Uri(bucketUri);
-            Provider = FileStorageProviderTypeEnum.Aws_S3;
+            Provider = FileStorageLocationTypeEnum.Aws_S3;
         }
 
         /// <summary>
@@ -99,11 +99,11 @@ namespace DeploySoftware.LaunchPad.AWS.S3
         /// </summary>
         /// <param name="info">The serialization info</param>
         /// <param name="context">The context of the stream</param>
-        protected S3BucketStorageLocation(SerializationInfo info, StreamingContext context) :base(info,context)
+        protected S3BucketStorageLocation(SerializationInfo info, StreamingContext context) : base(info, context)
         {
             Region = info.GetString(Region);
-            DefaultPrefix = info.GetString(DefaultPrefix); 
-            
+            DefaultPrefix = info.GetString(DefaultPrefix);
+
         }
 
         public override void GetObjectData(SerializationInfo info, StreamingContext context)
@@ -125,5 +125,31 @@ namespace DeploySoftware.LaunchPad.AWS.S3
             sb.Append(']');
             return sb.ToString();
         }
+
+        /// <summary>
+        /// The virtual path of the file
+        /// </summary>
+        public override Uri GetRelativePathForFile<TFilePrimaryKey, TFileContentType>(IFile<TFilePrimaryKey, TFileContentType> file)
+        { 
+            return new Uri("/" + DefaultPrefix + "/" + file.Name.Replace(" ", "+"));
+        }
+
+        /// <summary>
+        /// The full path of the file
+        /// </summary>
+        public override Uri GetFullPathForFile<TFilePrimaryKey, TFileContentType>(IFile<TFilePrimaryKey, TFileContentType> file)
+        {
+            return new Uri("https://s3." + Region + ".amazonaws.com/" + Name + "/" + DefaultPrefix + "/" + file.Name.Replace(" ", "+"));
+        }
+
+        /// <summary>
+        /// The full path of the file
+        /// </summary>
+        public virtual String GetObjectKeyForFile<TPrimaryKey, TFileContentType>(IFile<TPrimaryKey, TFileContentType> file)
+        {
+           return DefaultPrefix + "/" + file.Name;
+        }
+
+        
     }
 }

@@ -22,8 +22,7 @@ namespace DeploySoftware.LaunchPad.Space.Satellites.Core
     using DeploySoftware.LaunchPad.Core.Abp.Domain;
     using DeploySoftware.LaunchPad.Core.Domain;
 
-    public partial class SardFile<TPrimaryKey, TFileStorageLocationType> : FileBase<TPrimaryKey, byte[], TFileStorageLocationType>
-        where TFileStorageLocationType: IFileStorageLocation, new()
+    public partial class SardFile<TPrimaryKey> : FileBase<TPrimaryKey, byte[]>
     {
         public override string Extension
         {

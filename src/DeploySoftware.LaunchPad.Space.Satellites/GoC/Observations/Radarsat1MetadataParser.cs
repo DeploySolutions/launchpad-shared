@@ -213,65 +213,58 @@ namespace DeploySoftware.LaunchPad.Space.Satellites.GoC
             // add each expected file type (if it exists)
             if (File.Exists(expectedFiles[0].Value))
             {
-                observationFiles.Nvol = new NvolFile<Guid,TFileStorageLocationType>()
+                observationFiles.Nvol = new NvolFile<Guid>()
                 {
                     Id = SequentialGuid.NewGuid(),
-                    Name = Path.GetFileName(expectedFiles[0].Value),
-                    Location = location
+                    Name = Path.GetFileName(expectedFiles[0].Value)
                 };
             }
             if (File.Exists(expectedFiles[1].Value))
             {
-                observationFiles.Sard = new SardFile<Guid, TFileStorageLocationType>()
+                observationFiles.Sard = new SardFile<Guid>()
                 {
                     Id = SequentialGuid.NewGuid(),
-                    Name = Path.GetFileName(expectedFiles[1].Value),
-                    Location = location
+                    Name = Path.GetFileName(expectedFiles[1].Value)
                 };
             }
             if (File.Exists(expectedFiles[2].Value))
             {
-                observationFiles.Sarl = new SarlFile<Guid, TFileStorageLocationType>()
+                observationFiles.Sarl = new SarlFile<Guid>()
                 {
                     Id = SequentialGuid.NewGuid(),
-                    Name = Path.GetFileName(expectedFiles[2].Value),
-                    Location = location
+                    Name = Path.GetFileName(expectedFiles[2].Value)
                 };
             }
             if (File.Exists(expectedFiles[3].Value))
             {
-                observationFiles.Sart = new SartFile<Guid, TFileStorageLocationType>()
+                observationFiles.Sart = new SartFile<Guid>()
                 {
                     Id = SequentialGuid.NewGuid(),
-                    Name = Path.GetFileName(expectedFiles[3].Value),
-                    Location = location
+                    Name = Path.GetFileName(expectedFiles[3].Value)
                 };
             }
             if (File.Exists(expectedFiles[4].Value))
             {
-                observationFiles.Tfw = new TifWorldFile<Guid, TFileStorageLocationType>()
+                observationFiles.Tfw = new TifWorldFile<Guid>()
                 {
                     Id = SequentialGuid.NewGuid(),
-                    Name = Path.GetFileName(expectedFiles[4].Value),
-                    Location = location
+                    Name = Path.GetFileName(expectedFiles[4].Value)
                 };
             }
             if (File.Exists(expectedFiles[5].Value))
             {
-                observationFiles.Tif = new TifFile<Guid, TFileStorageLocationType>()
+                observationFiles.Tif = new TifFile<Guid>()
                 {
                     Id = SequentialGuid.NewGuid(),
-                    Name = Path.GetFileName(expectedFiles[5].Value),
-                    Location = location
+                    Name = Path.GetFileName(expectedFiles[5].Value)
                 };
             }
             if (File.Exists(expectedFiles[6].Value))
             {
-                observationFiles.Vol = new VolFile<Guid, TFileStorageLocationType>()
+                observationFiles.Vol = new VolFile<Guid>()
                 {
                     Id = SequentialGuid.NewGuid(),
-                    Name = Path.GetFileName(expectedFiles[6].Value),
-                    Location = location
+                    Name = Path.GetFileName(expectedFiles[6].Value)
                 };
             }
             return observationFiles;

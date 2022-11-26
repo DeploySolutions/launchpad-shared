@@ -17,11 +17,11 @@ namespace DeploySoftware.LaunchPad.Core.Abp.Domain
     {
         public long Count { get; set; }
 
-        public IDictionary<string, IFile<TIdType, TFileContentType, TFileStorageLocationType>> Files { get; set; }
+        public IDictionary<string, IFile<TIdType, TFileContentType>> Files { get; set; }
 
         public FileSetBase()
         {
-            Files = new Dictionary<string, IFile<TIdType, TFileContentType, TFileStorageLocationType>>();
+            Files = new Dictionary<string, IFile<TIdType, TFileContentType>>();
         }
     }
 }

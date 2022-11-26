@@ -56,7 +56,7 @@ namespace DeploySoftware.LaunchPad.Space.Satellites.Core
 
         
         [Required]
-        public virtual IDictionary<string, FileBase<TPrimaryKey, byte[], TFileStorageLocationType>> Objects { get; set; }
+        public virtual IDictionary<string, FileBase<TPrimaryKey, byte[]>> Objects { get; set; }
 
         [Required]
         public virtual SpaceTimeInformation CurrentLocation { get; set; }
@@ -83,7 +83,7 @@ namespace DeploySoftware.LaunchPad.Space.Satellites.Core
         protected EarthObservationBase() : base()
         {
             var comparer = StringComparer.OrdinalIgnoreCase;
-            Objects = new Dictionary<string, FileBase<TPrimaryKey, byte[], TFileStorageLocationType>>(comparer);
+            Objects = new Dictionary<string, FileBase<TPrimaryKey, byte[]>>(comparer);
         }
 
     }

@@ -80,13 +80,13 @@ namespace DeploySoftware.LaunchPad.Core.Tests
         [Fact]
         public void Location_Region_Should_Be_Us_East()
         {
-            _fixture.TfwFile.Location.Region.Should().Be(S3BucketStorageLocation.DEFAULT_REGION);
+            _fixture.TfwParser.Location.Region.Should().Be(S3BucketStorageLocation.DEFAULT_REGION);
         }
 
         [Fact]
         public void Location_Bucket_Root_Should_Be_Us_East()
         {
-            _fixture.TfwFile.Location.RootUri.Should().Be("https://s3.us-east-1.amazonaws.com");
+            _fixture.TfwParser.Location.RootUri.ToString().Should().StartWith("https://s3.us-east-1.amazonaws.com");
         }
 
     }

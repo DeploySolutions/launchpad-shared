@@ -19,8 +19,7 @@ using DeploySoftware.LaunchPad.Core.Domain;
 
 namespace DeploySoftware.LaunchPad.Core.Abp.Domain
 {
-    public partial class TifFile<TIdType, TFileStorageLocationType> : FileBase<TIdType, byte[], TFileStorageLocationType>
-        where TFileStorageLocationType: IFileStorageLocation, new()
+    public partial class TifFile<TIdType> : FileBase<TIdType, byte[]>
     {
         public override string Extension => ".tif";
 
