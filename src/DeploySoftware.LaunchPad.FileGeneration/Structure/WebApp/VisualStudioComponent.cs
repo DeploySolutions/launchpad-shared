@@ -24,6 +24,12 @@ namespace DeploySoftware.LaunchPad.FileGeneration.Structure
         /// </summary>
         public virtual IDictionary<string, LaunchPadGeneratedDomainEntity> DomainEntities { get; set; }
 
+
+        /// <summary>
+        /// Contains a dictionary of Value Objects belonging to this component, keyed by the VO name
+        /// </summary>
+        public virtual IDictionary<string, LaunchPadGeneratedValueObject> ValueObjects { get; set; }
+
         /// <summary>
         /// Describes the overall coding/environment infrastructure in which this element exists 
         /// (ex which version of ABP framework, which cloud provider)
@@ -32,14 +38,17 @@ namespace DeploySoftware.LaunchPad.FileGeneration.Structure
 
         /// <summary>
         /// Returns a bool indicating if the component is currently in a valid or invalid state.
+        /// The dictionaries cannot be null and at least one has to have at least one element
         /// </summary>
         /// <returns>True if the component is in a valid state, or false if it is contains missing or invalid elements.</returns>
         public override bool CheckValidity()
         {
             bool isValid = false;
             if (BlueprintDefinition != null
-                && ApplicationServices != null && ApplicationServices.Count > 0
-                && DomainEntities != null && DomainEntities.Count > 0
+                && ApplicationServices != null 
+                && DomainEntities != null
+                && ValueObjects != null
+                && (ApplicationServices.Count > 0 || DomainEntities.Count > 0 || ValueObjects.Count > 0)                
             )
             {
                 isValid = true;
@@ -51,6 +60,7 @@ namespace DeploySoftware.LaunchPad.FileGeneration.Structure
         {
             var comparer = StringComparer.OrdinalIgnoreCase;
             DomainEntities = new Dictionary<string, LaunchPadGeneratedDomainEntity>(comparer);
+            ValueObjects = new Dictionary<string, LaunchPadGeneratedValueObject>(comparer);
             ApplicationServices = new Dictionary<string, LaunchPadGeneratedApplicationService>(comparer);
         }
 
@@ -58,6 +68,7 @@ namespace DeploySoftware.LaunchPad.FileGeneration.Structure
         {
             var comparer = StringComparer.OrdinalIgnoreCase;
             DomainEntities = new Dictionary<string, LaunchPadGeneratedDomainEntity>(comparer);
+            ValueObjects = new Dictionary<string, LaunchPadGeneratedValueObject>(comparer);
             ApplicationServices = new Dictionary<string, LaunchPadGeneratedApplicationService>(comparer);
         }
     }
