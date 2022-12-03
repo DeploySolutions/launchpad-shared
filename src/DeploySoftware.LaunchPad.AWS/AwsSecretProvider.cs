@@ -204,6 +204,10 @@ namespace DeploySoftware.LaunchPad.AWS
             {
                 Logger.Error(string.Format(DeploySoftware_LaunchPad_AWS_Resources.SecretHelper_GetSecretClient_Exception_GetAwsCredentials, smEx.Message));
             }
+            catch(AggregateException aEx)
+            {
+                Logger.Error(string.Format(DeploySoftware_LaunchPad_AWS_Resources.SecretHelper_GetSecretClient_Exception_GetAwsCredentials, aEx.Message));
+            }
             if (client == null) // try to load using local environment or EC2 information
             {
                 if (secretManagerConfig == null)
