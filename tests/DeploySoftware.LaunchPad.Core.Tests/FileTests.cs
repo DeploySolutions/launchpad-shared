@@ -20,16 +20,41 @@ namespace DeploySoftware.LaunchPad.Core.Tests
     using Xunit;
     using FluentAssertions;
     using DeploySoftware.LaunchPad.Core.Domain;
+    using DeploySoftware.LaunchPad.Core.Abp.Domain;
+    using Microsoft.CodeAnalysis;
+    using System.IO;
+    using System.Reflection;
+    using System;
 
-    public class FileTests
+    public class FileTests : IClassFixture<FileTestsFixture>
     {
         #region "Test Classes"
 
 
+        private readonly FileTestsFixture _fixture;
 
         #endregion
 
+        public FileTests(FileTestsFixture fixture)
+        {
+            _fixture = fixture;
+            WindowsFileStorageLocation location = null;
+            string codeBase = Assembly.GetExecutingAssembly().CodeBase;
+            UriBuilder uri = new UriBuilder(codeBase);
+            string path = Uri.UnescapeDataString(uri.Path);
+            FileInfo file = new FileInfo(path);
+            DriveInfo drive = new DriveInfo(file.Directory.Root.FullName);
+            string driveRoot = drive.RootDirectory.FullName;
+            location = new WindowsFileStorageLocation(drive.Name, new Uri(driveRoot));
+            this._fixture.Initialize(location);
+        }
 
-       
+        [Fact]
+        public void Root_Folder_Name_Should_NotBeNullOrEmpty()
+        {
+            _fixture.SUT.Name.Should().NotBeNullOrEmpty();
+        }
+
+
     }
 }
