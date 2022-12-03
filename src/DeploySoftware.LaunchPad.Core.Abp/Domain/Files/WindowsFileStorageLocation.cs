@@ -1,5 +1,5 @@
 ﻿//LaunchPad Shared
-// Copyright (c) 2018-2020 Deploy Software Solutions, inc. 
+// Copyright (c) 2018-2022 Deploy Software Solutions, inc. 
 
 #region license
 //Licensed under the Apache License, Version 2.0 (the "License"); 
@@ -66,6 +66,44 @@ namespace DeploySoftware.LaunchPad.Core.Abp.Domain
             sb.Append(']');
             return sb.ToString();
         }
+
+
+        /// <summary>
+        /// Returns available storage space for this location, in bytes, or -1 if unknown or "infinite" ex a cloud storage drive
+        /// </summary>
+        /// <returns></returns>
+        public override long GetAvailableStorageSpaceInBytes()
+        {
+            FileInfo file = new FileInfo(RootUri.LocalPath);
+            DriveInfo drive = new DriveInfo(file.Directory.Root.FullName);
+            if (drive.IsReady)
+            {
+                return drive.AvailableFreeSpace;
+            }
+            return -1;
+        }
+
+        /// <summary>
+        /// Returns available storage space for this location, in GB, or -1 if unknown or "infinite" ex a cloud storage drive
+        /// </summary>
+        /// <returns></returns>
+        public override long GetAvailableStorageSpaceInGigabytes()
+        {
+            long driveSpace = GetAvailableStorageSpaceInBytes();
+            if(driveSpace > 0)
+            {
+                try
+                {
+                    driveSpace = driveSpace / (1024 * 1024 * 1024);
+                }
+                catch(Exception ex)
+                {
+
+                }
+            }
+            return -1;
+        }
+
 
     }
 }

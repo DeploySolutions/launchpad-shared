@@ -93,5 +93,18 @@ namespace DeploySoftware.LaunchPad.Core.Domain
 
         public Uri GetFullPathForFile<TFilePrimaryKey, TFileContentType>(IFile<TFilePrimaryKey, TFileContentType> file);
 
+        /// <summary>
+        /// Returns available storage space for this location, in bytes, or -1 if unknown or "infinite" ex a cloud storage drive
+        /// </summary>
+        /// <returns></returns>
+        public long GetAvailableStorageSpaceInBytes();
+
+
+        /// <summary>
+        /// Returns available storage space for this location, in GB, or -1 if unknown or "infinite" ex a cloud storage drive
+        /// </summary>
+        /// <returns></returns>
+        public long GetAvailableStorageSpaceInGigabytes();
+
     }
 }
