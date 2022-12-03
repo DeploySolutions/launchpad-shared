@@ -20,6 +20,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.IO;
 using System.Runtime.Serialization;
+using System.Security.Policy;
 using System.Text;
 
 namespace DeploySoftware.LaunchPad.Core.Abp.Domain
@@ -32,7 +33,10 @@ namespace DeploySoftware.LaunchPad.Core.Abp.Domain
         public WindowsFileStorageLocation() :base()
         {
             string defaultUri = string.Format("file:///{0}", Directory.GetCurrentDirectory());
-            string descriptionMessage = string.Format("AWS S3 bucket at '{0}'", defaultUri);
+            FileInfo file = new FileInfo(defaultUri);
+            DriveInfo drive = new DriveInfo(file.Directory.Root.FullName);
+            string driveRoot = drive.RootDirectory.FullName;
+            string descriptionMessage = string.Format("Windows file share drive '{0}'", driveRoot);
             DescriptionShort = descriptionMessage;
             DescriptionFull = descriptionMessage;
             RootUri = new Uri(defaultUri);
@@ -40,8 +44,14 @@ namespace DeploySoftware.LaunchPad.Core.Abp.Domain
         }
 
         public WindowsFileStorageLocation(string id, Uri rootUri) : base(id, rootUri)
-        { 
-            
+        {
+            FileInfo file = new FileInfo(RootUri.ToString());
+            DriveInfo drive = new DriveInfo(file.Directory.Root.FullName);
+            string driveRoot = drive.RootDirectory.FullName;
+            string descriptionMessage = string.Format("Windows file share drive '{0}'", driveRoot);
+            DescriptionShort = descriptionMessage;
+            DescriptionFull = descriptionMessage;
+            Provider = FileStorageLocationTypeEnum.Windows_NTFS;
         }
 
         /// <summary>
@@ -74,8 +84,7 @@ namespace DeploySoftware.LaunchPad.Core.Abp.Domain
         /// <returns></returns>
         public override long GetAvailableStorageSpaceInBytes()
         {
-            FileInfo file = new FileInfo(RootUri.LocalPath);
-            DriveInfo drive = new DriveInfo(file.Directory.Root.FullName);
+            DriveInfo drive = new DriveInfo(RootUri.LocalPath);
             if (drive.IsReady)
             {
                 return drive.AvailableFreeSpace;
@@ -92,14 +101,7 @@ namespace DeploySoftware.LaunchPad.Core.Abp.Domain
             long driveSpace = GetAvailableStorageSpaceInBytes();
             if(driveSpace > 0)
             {
-                try
-                {
-                    driveSpace = driveSpace / (1024 * 1024 * 1024);
-                }
-                catch(Exception ex)
-                {
-
-                }
+                return driveSpace / (1024 * 1024 * 1024);
             }
             return -1;
         }
