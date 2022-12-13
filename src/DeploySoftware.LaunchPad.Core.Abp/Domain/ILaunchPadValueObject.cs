@@ -15,16 +15,8 @@
 //limitations under the License. 
 #endregion
 
-using Abp.Domain.Entities;
-using Abp.Domain.Entities.Auditing;
 using DeploySoftware.LaunchPad.Core.Domain;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Globalization;
-using System.Xml.Serialization;
 
 namespace DeploySoftware.LaunchPad.Core.Abp.Domain
 {
@@ -33,9 +25,9 @@ namespace DeploySoftware.LaunchPad.Core.Abp.Domain
     /// Marks any object that can be manipulated by the LaunchPad platfom as a transient / value object,
     /// ie. those that are not Domain Entities / have no specific identity, and are not persisted to database 
     /// </summary>
-    public interface ILaunchPadValueObject<TIdType> : 
-        ILaunchPadObject, ILaunchPadBaseProperties<TIdType>,
-        IComparable<DomainEntityBase<TIdType>>
+    public interface ILaunchPadValueObject : 
+        ILaunchPadObject,
+        IComparable<LaunchPadValueObjectBase>
     {
 
 
