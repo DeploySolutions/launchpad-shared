@@ -10,15 +10,8 @@ namespace DeploySoftware.LaunchPad.FileGeneration.Structure
     public partial class LaunchPadGeneratedValueObject : LaunchPadGeneratedClassBase
     {
 
-        /// <summary>
-        /// Contains a collection of Data Transfer Objects belonging to this value object
-        /// </summary>
-        public virtual IDictionary<string, LaunchPadGeneratedDataTransferObject> DataTransferObjects { get; set; }
-
         public LaunchPadGeneratedValueObject() : base()
         {
-            var comparer = StringComparer.OrdinalIgnoreCase;
-            DataTransferObjects = new Dictionary<string, LaunchPadGeneratedDataTransferObject>(comparer);
         }
     }
 }
