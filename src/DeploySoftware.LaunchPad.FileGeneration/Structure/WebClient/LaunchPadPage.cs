@@ -17,6 +17,11 @@ namespace DeploySoftware.LaunchPad.FileGeneration.Structure
         public string Type { get; set; }
 
         /// <summary>
+        /// Domain entity that represents the backend service of this page.
+        /// </summary>
+        public string DomainEntity { get; set; }
+
+        /// <summary>
         /// Tiles are blocks of label and icon with a link to other page
         /// </summary>
         [XmlElement]
