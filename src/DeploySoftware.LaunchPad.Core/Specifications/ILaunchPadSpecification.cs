@@ -25,10 +25,10 @@ using System.Text;
 namespace DeploySoftware.LaunchPad.Core.Specifications
 {
     /// <summary>
-    /// The <see cref="ISpecification{TEntity}"/> interface defines a basic contract to express specifications declaratively.
+    /// The <see cref="ILaunchPadSpecification{TEntity}"/> interface defines a basic contract to express specifications declaratively.
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public interface ISpecification<T>
+    public interface ILaunchPadSpecification<T>
     {
         /// <summary>
         /// Gets the expression that encapsulates the criteria of the specification.

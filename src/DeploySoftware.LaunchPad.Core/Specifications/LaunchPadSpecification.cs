@@ -16,7 +16,6 @@
 //limitations under the License. 
 #endregion
 
-using DeploySoftware.LaunchPad.Core;
 using DeploySoftware.LaunchPad.Core.Util;
 using System;
 using System.Linq;
@@ -25,25 +24,25 @@ using System.Linq.Expressions;
 namespace DeploySoftware.LaunchPad.Core.Specifications
 {
     /// <summary>
-    /// Provides a default implementation of the <see cref="ISpecification{TEntity}"/> interface.
+    /// Provides a default implementation of the <see cref="ILaunchPadSpecification{TEntity}"/> interface.
     /// </summary>
     /// <remarks>
-    /// The <see cref="Specification{TEntity}"/> implements Composite Specification pattern by overloading
+    /// The <see cref="LaunchPadSpecification{TEntity}"/> implements Composite Specification pattern by overloading
     /// the &amp; and | (And, Or in VB.Net) operators to allow composing multiple specifications together.
     /// </remarks>
-    public class Specification<T> : ISpecification<T>
+    public partial class LaunchPadSpecification<T> : ILaunchPadSpecification<T>
     {
         private readonly Expression<Func<T, bool>> _predicate;
         private readonly Func<T, bool> _predicateCompiled;
 
         /// <summary>
         /// Default Constructor.
-        /// Creates a new instance of the <see cref="Specification{TEntity}"/> instance with the
+        /// Creates a new instance of the <see cref="LaunchPadSpecification{TEntity}"/> instance with the
         /// provided predicate expression.
         /// </summary>
         /// <param name="predicate">A predicate that can be used to check entities that
         /// satisfy the specification.</param>
-        public Specification(Expression<Func<T, bool>> predicate)
+        public LaunchPadSpecification(Expression<Func<T, bool>> predicate)
         {
             Guard.Against<ArgumentNullException>(predicate == null, DeploySoftware_LaunchPad_Core_Resources.Guard_Specification_Specification);
             _predicate = predicate;
@@ -53,7 +52,7 @@ namespace DeploySoftware.LaunchPad.Core.Specifications
         /// <summary>
         /// Gets the expression that encapsulates the criteria of the specification.
         /// </summary>
-        public Expression<Func<T, bool>> Predicate
+        public virtual Expression<Func<T, bool>> Predicate
         {
             get { return _predicate; }
         }
@@ -64,43 +63,43 @@ namespace DeploySoftware.LaunchPad.Core.Specifications
         /// <param name="entity">The <typeparamref name="T"/> instance to evaluate the specificaton
         /// against.</param>
         /// <returns>Should return true if the specification was satisfied by the entity, else false. </returns>
-        public bool IsSatisfiedBy(T entity)
+        public virtual bool IsSatisfiedBy(T entity)
         {
             return _predicateCompiled.Invoke(entity);
         }
 
         /// <summary>
-        /// Overloads the &amp; operator and combines two <see cref="Specification{TEntity}"/> in a Boolean And expression
+        /// Overloads the &amp; operator and combines two <see cref="LaunchPadSpecification{TEntity}"/> in a Boolean And expression
         /// and returns a new see cref="Specification{TEntity}"/>.
         /// </summary>
-        /// <param name="leftHand">The left hand <see cref="Specification{TEntity}"/> to combine.</param>
-        /// <param name="rightHand">The right hand <see cref="Specification{TEntity}"/> to combine.</param>
-        /// <returns>The combined <see cref="Specification{TEntity}"/> instance.</returns>
-        public static Specification<T> operator &(Specification<T> leftHand, Specification<T> rightHand)
+        /// <param name="leftHand">The left hand <see cref="LaunchPadSpecification{TEntity}"/> to combine.</param>
+        /// <param name="rightHand">The right hand <see cref="LaunchPadSpecification{TEntity}"/> to combine.</param>
+        /// <returns>The combined <see cref="LaunchPadSpecification{TEntity}"/> instance.</returns>
+        public static LaunchPadSpecification<T> operator &(LaunchPadSpecification<T> leftHand, LaunchPadSpecification<T> rightHand)
         {
             InvocationExpression rightInvoke = Expression.Invoke(rightHand.Predicate,
                                                                  leftHand.Predicate.Parameters.Cast<Expression>());
             BinaryExpression newExpression = Expression.MakeBinary(ExpressionType.AndAlso, leftHand.Predicate.Body,
                                                                    rightInvoke);
-            return new Specification<T>(
+            return new LaunchPadSpecification<T>(
                 Expression.Lambda<Func<T, bool>>(newExpression, leftHand.Predicate.Parameters)
                 );
         }
-        
+
         /// <summary>
-        /// Overloads the &amp; operator and combines two <see cref="Specification{TEntity}"/> in a Boolean Or expression
+        /// Overloads the &amp; operator and combines two <see cref="LaunchPadSpecification{TEntity}"/> in a Boolean Or expression
         /// and returns a new see cref="Specification{TEntity}"/>.
         /// </summary>
-        /// <param name="leftHand">The left hand <see cref="Specification{TEntity}"/> to combine.</param>
-        /// <param name="rightHand">The right hand <see cref="Specification{TEntity}"/> to combine.</param>
-        /// <returns>The combined <see cref="Specification{TEntity}"/> instance.</returns>
-        public static Specification<T> operator |(Specification<T> leftHand, Specification<T> rightHand)
+        /// <param name="leftHand">The left hand <see cref="LaunchPadSpecification{TEntity}"/> to combine.</param>
+        /// <param name="rightHand">The right hand <see cref="LaunchPadSpecification{TEntity}"/> to combine.</param>
+        /// <returns>The combined <see cref="LaunchPadSpecification{TEntity}"/> instance.</returns>
+        public static LaunchPadSpecification<T> operator |(LaunchPadSpecification<T> leftHand, LaunchPadSpecification<T> rightHand)
         {
             InvocationExpression rightInvoke = Expression.Invoke(rightHand.Predicate,
                                                                  leftHand.Predicate.Parameters.Cast<Expression>());
             BinaryExpression newExpression = Expression.MakeBinary(ExpressionType.OrElse, leftHand.Predicate.Body,
                                                                    rightInvoke);
-            return new Specification<T>(
+            return new LaunchPadSpecification<T>(
                 Expression.Lambda<Func<T, bool>>(newExpression, leftHand.Predicate.Parameters)
                 );
         }

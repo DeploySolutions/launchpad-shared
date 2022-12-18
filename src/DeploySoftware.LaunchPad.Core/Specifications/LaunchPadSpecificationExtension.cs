@@ -25,9 +25,9 @@ using System.Text;
 namespace DeploySoftware.LaunchPad.Core.Specifications
 {
     ///<summary>
-    /// Extension methods for <see cref="ISpecification{T}"/>.
+    /// Extension methods for <see cref="ILaunchPadSpecification{T}"/>.
     ///</summary>
-    public static class SpecificationExtension
+    public static class LaunchPadSpecificationExtension
     {
         /// <summary>
         /// Retuns a new specification adding this one with the passed one.
@@ -36,13 +36,13 @@ namespace DeploySoftware.LaunchPad.Core.Specifications
         /// <param name="rightHand">The right hand.</param>
         /// <param name="leftHand">The left hand.</param>
         /// <returns></returns>
-        public static ISpecification<T> And<T>(this ISpecification<T> rightHand, ISpecification<T> leftHand)
+        public static ILaunchPadSpecification<T> And<T>(this ILaunchPadSpecification<T> rightHand, ILaunchPadSpecification<T> leftHand)
         {
             var rightInvoke = Expression.Invoke(rightHand.Predicate,
                                                 leftHand.Predicate.Parameters.Cast<Expression>());
             var newExpression = Expression.MakeBinary(ExpressionType.AndAlso, leftHand.Predicate.Body,
                                                       rightInvoke);
-            return new Specification<T>(
+            return new LaunchPadSpecification<T>(
                 Expression.Lambda<Func<T, bool>>(newExpression, leftHand.Predicate.Parameters)
                 );
         }
@@ -54,13 +54,13 @@ namespace DeploySoftware.LaunchPad.Core.Specifications
         /// <param name="rightHand">The right hand.</param>
         /// <param name="leftHand">The left hand.</param>
         /// <returns></returns>
-        public static ISpecification<T> Or<T>(this ISpecification<T> rightHand, ISpecification<T> leftHand)
+        public static ILaunchPadSpecification<T> Or<T>(this ILaunchPadSpecification<T> rightHand, ILaunchPadSpecification<T> leftHand)
         {
             var rightInvoke = Expression.Invoke(rightHand.Predicate,
                                                 leftHand.Predicate.Parameters.Cast<Expression>());
             var newExpression = Expression.MakeBinary(ExpressionType.OrElse, leftHand.Predicate.Body,
                                                       rightInvoke);
-            return new Specification<T>(
+            return new LaunchPadSpecification<T>(
                 Expression.Lambda<Func<T, bool>>(newExpression, leftHand.Predicate.Parameters)
                 );
         }
