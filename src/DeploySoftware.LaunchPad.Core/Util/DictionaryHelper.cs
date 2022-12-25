@@ -29,7 +29,7 @@ namespace DeploySoftware.LaunchPad.Core.Util
         /// <param name="key">The key to which the item should be stored in the dictionary.</param>
         /// <param name="item">The value to store.</param>
         /// <returns></returns>
-        public IDictionary<TKey, TValue> AddToDictionary<TKey, TValue>(IDictionary<TKey, TValue> dictionary, TKey key, TValue item)
+        public IDictionary<TKey, TValue> AddToDictionary<TKey, TValue>(IDictionary<TKey, TValue> dictionary, TKey key, TValue item, bool shouldOverwriteIfExists = false)
         {
             Guard.Against<ArgumentNullException>(key == null, DeploySoftware_LaunchPad_Core_Resources.Guard_Input_IsNull);
             Guard.Against<ArgumentNullException>(item == null, DeploySoftware_LaunchPad_Core_Resources.Guard_Input_IsNull);
@@ -41,7 +41,15 @@ namespace DeploySoftware.LaunchPad.Core.Util
             }
             else
             {
-                Logger.Debug(string.Format(DeploySoftware_LaunchPad_Core_Resources.Logger_Info_ItemAlreadyExists, item));
+                if(shouldOverwriteIfExists)                   
+                {
+                    dictionary[key] = item;
+                    Logger.Debug(string.Format(DeploySoftware_LaunchPad_Core_Resources.Logger_Info_ItemAlreadyExistsOverwriting, item));
+                }
+                else
+                {
+                    Logger.Debug(string.Format(DeploySoftware_LaunchPad_Core_Resources.Logger_Info_ItemAlreadyExists, item));
+                }
             }           
             return dictionary;
         }

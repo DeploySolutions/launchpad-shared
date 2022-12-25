@@ -684,6 +684,15 @@ namespace DeploySoftware.LaunchPad.Core {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Item &quot;{0}&quot; already existed in the collection, overwrote it with new value..
+        /// </summary>
+        public static string Logger_Info_ItemAlreadyExistsOverwriting {
+            get {
+                return ResourceManager.GetString("Logger_Info_ItemAlreadyExistsOverwriting", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Open Government is about making government more accessible to everyone. 
         ///                                        This means giving greater access to government data and information to the Canadian public and the businesses community. 
         ///                                        The Information Provider grants you a worldwide, royalty-free, perpetual, non-exclusive licence to use the Information, 

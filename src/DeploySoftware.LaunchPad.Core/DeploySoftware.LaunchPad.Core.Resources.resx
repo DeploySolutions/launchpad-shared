@@ -324,6 +324,9 @@
   <data name="Logger_Info_ItemAlreadyExists" xml:space="preserve">
     <value>Item "{0}" already exists in the collection.</value>
   </data>
+  <data name="Logger_Info_ItemAlreadyExistsOverwriting" xml:space="preserve">
+    <value>Item "{0}" already existed in the collection, overwrote it with new value.</value>
+  </data>
   <data name="Text_OpenGovernmentCanadaLicense_LicenseDescription" xml:space="preserve">
     <value>Open Government is about making government more accessible to everyone. 
                                         This means giving greater access to government data and information to the Canadian public and the businesses community. 
