@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>net60</TargetFrameworks>
+    <TargetFrameworks>net7.0</TargetFrameworks>
     <Company>Deploy Software Solutions, inc.</Company>
     <Authors>Nicholas Kellett</Authors>
     <PackageLicenseUrl></PackageLicenseUrl>
@@ -9,13 +9,9 @@
     <RepositoryUrl>https://github.com/DeploySolutions/launchpad-shared</RepositoryUrl>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
-    <Version>7.3.1-alpha</Version>
+    <Version>8.0.0</Version>
     <Description>Satellite-related code for LaunchPad framework.</Description>
-    <Copyright>2018-2022 Deploy Software Solutions, inc.</Copyright>
-    <PackageReleaseNotes>3.0.0: Switch to .net core 3.1
-2.0.0: Refactor to inherit more fully from ABP and updated LaunchPad Core library.
-1.0.4: Change CoordinateSharp ref to standard (non-core). Update parser to be instance-based.
-1.0.3: Add static Radarsat1 Metadata parser.</PackageReleaseNotes>
+    <Copyright>2018-2023 Deploy Software Solutions, inc.</Copyright>
     <PackageIconUrl></PackageIconUrl>
     <RunPostBuildEvent>Always</RunPostBuildEvent>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
@@ -61,7 +57,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.2" />
   </ItemGroup>
 
 </Project>

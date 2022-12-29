@@ -18,7 +18,7 @@ namespace DeploySoftware.LaunchPad.Images.Domain
 
         public ImageMagickConfiguration()
         {
-            ConfigurationFiles configFiles = ConfigurationFiles.Default;
+            IConfigurationFiles configFiles = ConfigurationFiles.Default;
             configFiles.Policy.Data = @"
            <policymap>
               <policy domain=""resource"" name=""temporary-path"" value=""/tmp""/>
@@ -49,7 +49,7 @@ namespace DeploySoftware.LaunchPad.Images.Domain
 
         public ImageMagickConfiguration(string policyMap, string temporaryImagesFilePath)
         {
-            ConfigurationFiles configFiles = ConfigurationFiles.Default;
+            IConfigurationFiles configFiles = ConfigurationFiles.Default;
             configFiles.Policy.Data = policyMap;
             TemporaryImagesFilePath = temporaryImagesFilePath;
             MagickNET.Initialize(configFiles, TemporaryImagesFilePath);

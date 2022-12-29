@@ -20,10 +20,10 @@ namespace DeploySoftware.LaunchPad.Core.Tests
     using Xunit;
     using FluentAssertions;
     using System;
-    using CoordinateSharp;
     using Xunit.Sdk;
     using DeploySoftware.LaunchPad.Core;
     using DeploySoftware.LaunchPad.Core.Domain;
+    using Geolocation;
 
     public class GeographicLocationTests
     {
@@ -39,13 +39,7 @@ namespace DeploySoftware.LaunchPad.Core.Tests
         {
             double lat = 0.0;
             double longi = 0.0;
-            EagerLoad load = new EagerLoad()
-            {
-                UTM_MGRS = true,
-                Cartesian = true,
-                Celestial = true
-            };
-            Action act = () => new GeographicLocation(lat, longi, load);
+            Action act = () => new GeographicLocation(lat, longi);
             act.Should().NotThrow<Exception>();
         }
 
@@ -140,7 +134,7 @@ namespace DeploySoftware.LaunchPad.Core.Tests
         {
             GeographicLocation location = new GeographicLocation();
 
-            Action act = () => location.EarthCoordinate = new Coordinate(51.476852, -0.000500, new DateTime(2000, 1, 1));
+            Action act = () => location.EarthCoordinate = new Coordinate(51.476852, -0.000500);
             act.Should().NotThrow<FormatException>();
         }
 

@@ -19,11 +19,11 @@
 namespace DeploySoftware.LaunchPad.Space.Satellites.GoC
 {
 
-    using CoordinateSharp;
     using DeploySoftware.LaunchPad.Core.Abp.Domain;
     using DeploySoftware.LaunchPad.Core.Domain;
     using DeploySoftware.LaunchPad.Core.Util;
     using DeploySoftware.LaunchPad.Space.Satellites.Core;
+    using Geolocation;
     using System;
     using System.Collections.Generic;
     using System.Globalization;
@@ -103,13 +103,6 @@ namespace DeploySoftware.LaunchPad.Space.Satellites.GoC
                 Int32.TryParse(metadataFileText.FindStringWithinAnchorText("# OF IMAGE PIXELS", "PIXEL SPACING", true, true), out var numberImagePixels);
                 String pixelSpacing = metadataFileText.FindStringWithinAnchorText("PIXEL SPACING", "SCENE CENTRE", true, true);
 
-                // when loading coordinates, disable celestial calculations (not needed)
-                EagerLoad load = new EagerLoad
-                {
-                    Celestial = false,
-                    Cartesian = true,
-                    UTM_MGRS = true
-                };
 
                 // get the scene centre coordinates. Centre is spelled properly in Canadian, eh.
                 String sceneCentre = metadataFileText.FindStringWithinAnchorText("SCENE CENTRE", "CORNER COORDINATES", true, true);
@@ -119,14 +112,15 @@ namespace DeploySoftware.LaunchPad.Space.Satellites.GoC
                 );
                 // ReSharper disable once PossibleNullReferenceException
                 string[] latLongSplit = sceneCentre.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
-                Coordinate c = new Coordinate(load);
-                c.Latitude = GetLatitude(latLongSplit[0], c);
-                c.Longitude = GetLongitude(latLongSplit[1], c);
+                Coordinate c = new Coordinate();
+                Double.TryParse(latLongSplit[0], out double latitude);
+                c.Latitude = latitude;
+                Double.TryParse(latLongSplit[1], out double longitude);
+                c.Longitude = longitude;
                 GeographicLocation centre = new GeographicLocation
                 (
-                    c.Latitude.ToDouble(),
-                    c.Longitude.ToDouble(),
-                    c.EagerLoadSettings
+                    c.Latitude,
+                    c.Longitude
                 );
 
                 // get the image corner coordinates
@@ -278,114 +272,70 @@ namespace DeploySoftware.LaunchPad.Space.Satellites.GoC
         protected ImageObservationCornerCoordinates GetCornerCoordinates(string cornerCoordinatesString)
         {
             string[] coordinates = Regex.Split(cornerCoordinatesString, @"(?<=[N,S,E,W])");
-            // disable the celestial information (not needed)
-            EagerLoad load = new EagerLoad
-            {
-                Celestial = false,
-                Cartesian = true,
-                UTM_MGRS = true
-            };
-            ImageObservationCornerCoordinates cornerCoords = new ImageObservationCornerCoordinates(load);
+            ImageObservationCornerCoordinates cornerCoords = new ImageObservationCornerCoordinates();
+
+            Coordinate UpperLeft = new Coordinate();
+            Coordinate UpperRight = new Coordinate();
+            Coordinate LowerLeft = new Coordinate();
+            Coordinate LowerRight = new Coordinate();
+
 
             // upper left latitude
             if (!String.IsNullOrEmpty(coordinates[0]))
             {
-                cornerCoords.UpperLeft.Latitude = GetLatitude(coordinates[0].Trim(), cornerCoords.UpperLeft);
+                Double.TryParse(coordinates[0].Trim(), out double ulLat);
+                UpperLeft.Latitude = ulLat;
             }
             // upper left longitude
             if (!String.IsNullOrEmpty(coordinates[2]))
             {
-                cornerCoords.UpperLeft.Longitude = GetLongitude(coordinates[2].Trim(), cornerCoords.UpperLeft);
+                Double.TryParse(coordinates[2].Trim(), out double ulLong);
+                UpperLeft.Longitude = ulLong;
             }
             // upper right latitude
             if (!String.IsNullOrEmpty(coordinates[1]))
             {
-                cornerCoords.UpperRight.Latitude = GetLatitude(coordinates[1].Trim(), cornerCoords.UpperRight);
+                Double.TryParse(coordinates[1].Trim(), out double urLat);
+                UpperRight.Latitude = urLat;
 
             }
             // upper right longitude
             if (!String.IsNullOrEmpty(coordinates[3]))
             {
-                cornerCoords.UpperRight.Longitude = GetLongitude(coordinates[3].Trim(), cornerCoords.UpperRight);
+                Double.TryParse(coordinates[3].Trim(), out double urLong);
+                UpperRight.Longitude = urLong;
             }
             // lower left latitude
             if (!String.IsNullOrEmpty(coordinates[4]))
             {
-                cornerCoords.LowerLeft.Latitude = GetLatitude(coordinates[4].Trim(), cornerCoords.LowerLeft);
-
+                Double.TryParse(coordinates[4].Trim(), out double llLat);
+                LowerLeft.Latitude = llLat;
             }
             // lower left longitude
             if (!String.IsNullOrEmpty(coordinates[6]))
             {
-                cornerCoords.LowerLeft.Longitude = GetLongitude(coordinates[6].Trim(), cornerCoords.LowerLeft);
+                Double.TryParse(coordinates[6].Trim(), out double llLong);
+                LowerLeft.Longitude = llLong;
             }
             // lower right latitude
             if (!String.IsNullOrEmpty(coordinates[5]))
             {
-                cornerCoords.LowerRight.Latitude = GetLatitude(coordinates[5].Trim(), cornerCoords.LowerRight);
+                Double.TryParse(coordinates[5].Trim(), out double lrLat);
+                LowerRight.Latitude = lrLat;
             }
             // lower right longitude
             if (!String.IsNullOrEmpty(coordinates[7]))
             {
-                cornerCoords.LowerRight.Longitude = GetLongitude(coordinates[7].Trim(), cornerCoords.LowerRight);
+                Double.TryParse(coordinates[7].Trim(), out double lrLong);
+                LowerRight.Longitude = lrLong;
             }
+            cornerCoords.LowerLeft = LowerLeft; 
+            cornerCoords.LowerRight = LowerRight;
+            cornerCoords.UpperLeft= UpperLeft;
+            cornerCoords.LowerRight= UpperRight;
             return cornerCoords;
         }
 
-        /// <summary>
-        /// Gets a latitude coordinate part from a provided string
-        /// </summary>
-        /// <param name="v">The latitude value to attempt to populate from</param>
-        /// <param name="c">The coordinate which contains this latitude coordinate part</param>
-        /// <returns>A coordinate containing the parsed latitude</returns>
-        protected CoordinatePart GetLatitude(string v, Coordinate c)
-        {
-            CoordinatePart cp;
-            string latitudeCoordinatesPosition = v.Substring(v.Length - 1, 1);
-            string degreeString = v.FindStringWithinAnchorText(String.Empty, "°", true, true);
-            Int32.TryParse(degreeString, out int degree);
-            string minuteString = v.FindStringWithinAnchorText("°", "'", true, true);
-            Int32.TryParse(minuteString, out int minute);
-            string secondString = v.FindStringWithinAnchorText("'", "\"", true, true);
-            Double.TryParse(secondString, out double second);
-
-            if (latitudeCoordinatesPosition == "N")
-            {
-                cp = new CoordinatePart(degree, minute, second, CoordinatesPosition.N);
-            }
-            else
-            {
-                cp = new CoordinatePart(degree, minute, second, CoordinatesPosition.S);
-            }
-            return cp;
-        }
-
-        /// <summary>
-        /// Gets a longitude coordinate part from a provided string
-        /// </summary>
-        /// <param name="v">The longitude value to attempt to populate from</param>
-        /// <param name="c">The coordinate which contains this longitude coordinate part</param>
-        /// <returns>A coordinate containing the parsed longitude</returns>
-        protected CoordinatePart GetLongitude(string v, Coordinate c)
-        {
-            CoordinatePart cp;
-            string longitudeCoordinatesPosition = v.Substring(v.Length - 1, 1);
-            string degreeString = v.FindStringWithinAnchorText(String.Empty,"°",true,true);
-            Int32.TryParse(degreeString, out int degree);
-            string minuteString = v.FindStringWithinAnchorText("°", "'", true, true);
-            Int32.TryParse(minuteString, out int minute);
-            string secondString = v.FindStringWithinAnchorText("'", "\"", true, true);
-            Double.TryParse(secondString, out double second);
-            
-            if (longitudeCoordinatesPosition == "W")
-            {
-                cp = new CoordinatePart(degree, minute, second, CoordinatesPosition.W);
-            }
-            else
-            {
-                cp = new CoordinatePart(degree, minute, second, CoordinatesPosition.E);
-            }
-            return cp;
-        }
+        
     }
 }

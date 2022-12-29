@@ -17,8 +17,8 @@
 
 namespace DeploySoftware.LaunchPad.Space.Satellites.Core
 {
-    using CoordinateSharp;
     using DeploySoftware.LaunchPad.Core.Domain;
+    using Geolocation;
     using System;
     using System.Collections.Generic;
     using System.Linq;
@@ -27,29 +27,18 @@ namespace DeploySoftware.LaunchPad.Space.Satellites.Core
 
     public partial class ImageObservationCornerCoordinates
     {
-        public Coordinate UpperLeft { get; set; }
-        public Coordinate UpperRight { get; set; }
-        public Coordinate LowerLeft { get; set; }
-        public Coordinate LowerRight { get; set; }
+        public virtual Coordinate UpperLeft { get; set; }
+        public virtual Coordinate UpperRight { get; set; }
+        public virtual Coordinate LowerLeft { get; set; }
+        public virtual Coordinate LowerRight { get; set; }
 
         public ImageObservationCornerCoordinates()
         {
             UpperLeft = new Coordinate();
-            UpperLeft.EagerLoadSettings.Celestial = false;
             UpperRight = new Coordinate();
-            UpperRight.EagerLoadSettings.Celestial = false;
             LowerLeft = new Coordinate();
-            LowerLeft.EagerLoadSettings.Celestial = false;
             LowerRight = new Coordinate();
-            LowerRight.EagerLoadSettings.Celestial = false;
         }
 
-        public ImageObservationCornerCoordinates(EagerLoad load)
-        {
-            UpperLeft = new Coordinate(load);
-            UpperRight = new Coordinate(load);
-            LowerLeft = new Coordinate(load);
-            LowerRight = new Coordinate(load);
-        }
     }
 }

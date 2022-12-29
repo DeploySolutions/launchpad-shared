@@ -19,7 +19,7 @@ namespace DeploySoftware.LaunchPad.Core.Domain
 {
     using System;
     using System.Runtime.Serialization;
-    using CoordinateSharp;
+    using Geolocation;
 
     /// <summary>
     /// This interface defines the physical position of something, in terms of its latitude, longitude, and elevation.

@@ -1,12 +1,12 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
+    <TargetFramework>net7.0</TargetFramework>
     <ImplicitUsings>disable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <Description>AWS CDK helper code for the LaunchPad Rapid Application Development platform.</Description>
     <PackageProjectUrl>https://github.com/DeploySolutions/launchpad-shared</PackageProjectUrl>
-    <Copyright>2021-2022 Deploy Software Solutions, inc.</Copyright>
+    <Copyright>2021-2023 Deploy Software Solutions, inc.</Copyright>
     <RepositoryUrl>https://github.com/DeploySolutions/launchpad-shared</RepositoryUrl>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <PackageIcon>icon.png</PackageIcon>
@@ -14,7 +14,7 @@
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Authors>Nicholas Kellett</Authors>
     <Company>Deploy Software Solutions, inc.</Company>
-    <Version>1.0.4</Version>
+    <Version>8.0.0</Version>
   </PropertyGroup>
   <ItemGroup>
     <None Include="..\..\LICENSE">
@@ -28,10 +28,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Amazon.CDK" Version="1.163.1" />
-    <PackageReference Include="Amazon.CDK.AWS.EC2" Version="1.163.1" />
-    <PackageReference Include="Amazon.CDK.AWS.WAFv2" Version="1.163.1" />
-    <PackageReference Include="AWSSDK.WAFV2" Version="3.7.11.29" />
+    <PackageReference Include="Amazon.CDK" Version="1.186.0" />
+    <PackageReference Include="Amazon.CDK.AWS.EC2" Version="1.186.0" />
+    <PackageReference Include="Amazon.CDK.AWS.WAFv2" Version="1.186.0" />
+    <PackageReference Include="AWSSDK.WAFV2" Version="3.7.101.40" />
   </ItemGroup>
 
 </Project>

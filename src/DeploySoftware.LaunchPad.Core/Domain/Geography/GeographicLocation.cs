@@ -26,8 +26,8 @@ namespace DeploySoftware.LaunchPad.Core.Domain
     using System.Text;
     using System.Xml.Serialization;
     using DeploySoftware.LaunchPad.Core.Util;
-    using CoordinateSharp;
     using DeploySoftware.LaunchPad.Core;
+    using Geolocation;
 
     /// <summary>
     /// This class defines the physical position of something, in terms of its latitude, longitude, and elevation.
@@ -60,11 +60,11 @@ namespace DeploySoftware.LaunchPad.Core.Domain
 
         [DataObjectField(false)]
         [XmlAttribute]
-        public virtual double Latitude => _earthCoordinate.Latitude.ToDouble();
+        public virtual double Latitude => _earthCoordinate.Latitude;
 
         [DataObjectField(false)]
         [XmlAttribute]
-        public virtual double Longitude => _earthCoordinate.Longitude.ToDouble();
+        public virtual double Longitude => _earthCoordinate.Longitude;
 
         /// <summary>
         /// The default location is always Greenwich.
@@ -73,31 +73,13 @@ namespace DeploySoftware.LaunchPad.Core.Domain
         {
             // We will set the elevation, latitude, and longitude of Greenwich
             _elevation = 46;
-            EagerLoad load = new EagerLoad
-            {
-                Cartesian = false,
-                Celestial = false,
-                UTM_MGRS = false
-            };
-            EarthCoordinate = new Coordinate(51.476852, -0.000500, new DateTime(2000, 1, 1).ToUniversalTime(), load);
+            EarthCoordinate = new Coordinate(51.476852, -0.000500);
         }
 
         public GeographicLocation(double latitude, double longitude)
         {
             Elevation = 0;
-            EagerLoad load = new EagerLoad
-            {
-                Cartesian = false,
-                Celestial = false,
-                UTM_MGRS = false
-            };
-            EarthCoordinate = new Coordinate(latitude, longitude, load);
-        }
-
-        public GeographicLocation(double latitude, double longitude, EagerLoad load)
-        {
-            Elevation = 0;
-            EarthCoordinate = new Coordinate(latitude, longitude, load);
+            EarthCoordinate = new Coordinate(latitude, longitude);
         }
 
         /// <summary>
@@ -235,4 +217,6 @@ namespace DeploySoftware.LaunchPad.Core.Domain
             return Elevation.GetHashCode() + Latitude.GetHashCode() + Longitude.GetHashCode();
         }
     }
+
+
 }
