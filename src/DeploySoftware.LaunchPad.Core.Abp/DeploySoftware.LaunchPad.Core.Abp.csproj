@@ -11,7 +11,7 @@
     <GenerateBindingRedirectsOutputType>true</GenerateBindingRedirectsOutputType>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
-    <Version>8.0.0</Version>
+    <Version>8.1.0</Version>
     <Description>Shared code for LaunchPad framework  using AspnetBoilerplate.</Description>
     <Copyright>2018-2023 Deploy Software Solutions, inc.</Copyright>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
@@ -39,6 +39,24 @@
   
   <ItemGroup>
     <ProjectReference Include="..\DeploySoftware.LaunchPad.Core\DeploySoftware.LaunchPad.Core.csproj" />
+  </ItemGroup>
+
+  
+  <ItemGroup>
+    <Compile Update="DeploySoftware.LaunchPad.Core.Abp.Resources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>DeploySoftware.LaunchPad.Core.Abp.Resources.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  
+  <ItemGroup>
+    <EmbeddedResource Update="DeploySoftware.LaunchPad.Core.Abp.Resources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <LastGenOutput>DeploySoftware.LaunchPad.Core.Abp.Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
 
 </Project>
