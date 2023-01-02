@@ -9,6 +9,7 @@ namespace DeploySoftware.LaunchPad.Core.BackgroundProcess
     // Type parameters:
     //   TArgs:
     public partial interface ICanBeLaunchPadBackgroundJob<in TArgs>
+        where TArgs: ICanBeLaunchPadBackgroundJobArgs
     {
         //
         // Summary:

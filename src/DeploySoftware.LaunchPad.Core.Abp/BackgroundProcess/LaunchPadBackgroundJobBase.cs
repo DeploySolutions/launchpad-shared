@@ -7,6 +7,7 @@ namespace DeploySoftware.LaunchPad.Core.Abp.BackgroundProcess
         AsyncBackgroundJob<TArgs>, // ABP base async job
         IAsyncBackgroundJob<TArgs>, IBackgroundJobBase<TArgs>, IBackgroundJob<TArgs>, // ABP background job interfaces
         ICanBeLaunchPadBackgroundJob<TArgs> // LaunchPad background job interface
+        where TArgs: ICanBeLaunchPadBackgroundJobArgs
     {
 
         protected LaunchPadBackgroundJobBase() : base() 
