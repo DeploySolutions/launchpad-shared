@@ -1,5 +1,5 @@
-﻿using DeploySoftware.LaunchPad.Shared.Domain;
-using DeploySoftware.LaunchPad.Space.Satellites.Canada;
+﻿using Deploy.LaunchPad.Shared.Domain;
+using Deploy.LaunchPad.Space.Satellites.Canada;
 using Elasticsearch.Net;
 using Nest;
 using Nest.JsonNetSerializer;
@@ -21,14 +21,14 @@ using Newtonsoft.Json;
 //limitations under the License. 
 #endregion
 
-namespace DeploySoftware.LaunchPad.Space.Tests.TestConsole
+namespace Deploy.LaunchPad.Space.Tests.TestConsole
 {
     using ImageMagick;
     using System;
     using System.Collections.Generic;
     using System.IO;
-    using DeploySoftware.LaunchPad.Images.Domain;
-    using DeploySoftware.LaunchPad.Shared.Domain.Files;
+    using Deploy.LaunchPad.Images.Domain;
+    using Deploy.LaunchPad.Shared.Domain.Files;
 
     class Program
     {

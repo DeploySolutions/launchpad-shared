@@ -1,0 +1,100 @@
+﻿using Deploy.LaunchPad.Core.Util;
+using Newtonsoft.Json;
+using System;
+using System.Collections.Generic;
+
+namespace Deploy.LaunchPad.FileGeneration.Structure
+{
+    /// <summary>
+    /// Represents a input field in the form
+    /// </summary>  
+    [Serializable]
+    public partial class LaunchPadWebItem : LaunchPadWebClientObjectBase
+    {
+
+        /// <summary>
+        /// Type of this form item. Types can be "group", "view", "input", "textarea" or "button".
+        /// </summary>
+        [JsonProperty("itemType")]
+        public string ItemType { get; set; }
+
+        /// <summary>
+        /// Represents the domain entity field to display/save the data in this input field.
+        /// </summary>
+        [JsonProperty("dataField")]
+        public string DataField { get; set; }
+
+        /// <summary>
+        /// Type of data to apply input field format in the client UI
+        /// </summary>
+        [JsonProperty("dataType")]
+        public string DataType { get; set; }
+
+        /// <summary>
+        /// Number of column span for this field
+        /// </summary>
+        [JsonProperty("span")]
+        public int? Span { get; set; }
+
+        /// <summary>
+        /// Component for custom fields
+        /// </summary>
+        [JsonProperty("component")]
+        [JsonConverter(typeof(JavaScriptObjectJsonConverter))]
+        public string Component { get; set; }
+        public string ComponentPath { get; set; }
+
+        /// <summary>
+        /// Specific data field for composit items with latitude.
+        /// </summary>
+        [JsonProperty("latDataField")]
+        public string LatDataField { get; set; }
+
+        /// <summary>
+        /// Specific data field for composit items with logitude.
+        /// </summary>
+        [JsonProperty("lonDataField")]
+        public string LonDataField { get; set; }
+
+        /// <summary>
+        /// Specific data fields for composit items with address field.
+        /// </summary>
+        [JsonProperty("streetDataField")]
+        public string StreetDataField { get; set; }
+        [JsonProperty("cityDataField")]
+        public string CityDataField { get; set; }
+        [JsonProperty("provinceDataField")]
+        public string ProvinceDataField { get; set; }
+        [JsonProperty("postalCodeDataField")]
+        public string PostalCodeDataField { get; set; }
+
+        /// <summary>
+        /// Possible enumurations for .
+        /// </summary>
+        [JsonProperty("enums")]
+        public dynamic Enums { get; set; }
+
+        /// <summary>
+        /// Type of this button. Types can be "reset" or "submit".
+        /// </summary>
+        [JsonProperty("buttonType")]
+        public string ButtonType { get; set; }
+
+        /// <summary>
+        /// Tells whether this field is required, mostly used in form item, but can be used to indicate other type of item too.
+        /// </summary>
+        [JsonProperty("required")]
+        public bool Required { get; set; }
+
+        /// <summary>
+        /// Rows can be nested within an item, if this item is a type of container, such as group
+        /// </summary>
+        [JsonProperty("rows", NullValueHandling = NullValueHandling.Ignore)]
+        public IList<LaunchPadRow> Rows { get; set; }
+
+        public LaunchPadWebItem() : base()
+        {
+            Id = null;
+        }
+    }
+}

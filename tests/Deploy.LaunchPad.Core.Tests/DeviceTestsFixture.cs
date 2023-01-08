@@ -1,0 +1,27 @@
+﻿using Deploy.LaunchPad.Core.Abp.Domain;
+using Deploy.LaunchPad.Core.Domain;
+using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace Deploy.LaunchPad.Core.Tests
+{
+    public class DeviceTestsFixture : IDisposable
+    {
+        public Device<int> SUT { get; set; }
+
+        public DeviceTestsFixture()
+        {
+        }
+
+        public void Initialize(Device<int> device)
+        {
+            SUT = device;
+        }
+
+        public void Dispose()
+        {
+
+        }
+    }
+}

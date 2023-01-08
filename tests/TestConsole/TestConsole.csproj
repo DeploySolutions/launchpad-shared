@@ -6,8 +6,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{4D9374D3-A31E-405E-8CBB-DC45C0F4A954}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>DeploySoftware.LaunchPad.Space.Tests.TestConsole</RootNamespace>
-    <AssemblyName>DeploySoftware.LaunchPad.Space.Tests.TestConsole</AssemblyName>
+    <RootNamespace>Deploy.LaunchPad.Space.Tests.TestConsole</RootNamespace>
+    <AssemblyName>Deploy.LaunchPad.Space.Tests.TestConsole</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -199,21 +199,21 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\src\DeploySoftware.LaunchPad.Images\DeploySoftware.LaunchPad.Images.csproj">
+    <ProjectReference Include="..\..\src\Deploy.LaunchPad.Images\Deploy.LaunchPad.Images.csproj">
       <Project>{2FF22785-C306-4788-B147-F5B59C1A1134}</Project>
-      <Name>DeploySoftware.LaunchPad.Images</Name>
+      <Name>Deploy.LaunchPad.Images</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\src\DeploySoftware.LaunchPad.Organizations\DeploySoftware.LaunchPad.Organizations.csproj">
+    <ProjectReference Include="..\..\src\Deploy.LaunchPad.Organizations\Deploy.LaunchPad.Organizations.csproj">
       <Project>{88f7779b-0dca-473a-8aaa-d3af1ff3d949}</Project>
-      <Name>DeploySoftware.LaunchPad.Organizations</Name>
+      <Name>Deploy.LaunchPad.Organizations</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\src\DeploySoftware.LaunchPad.Shared\DeploySoftware.LaunchPad.Shared.csproj">
+    <ProjectReference Include="..\..\src\Deploy.LaunchPad.Shared\Deploy.LaunchPad.Shared.csproj">
       <Project>{4ea44e22-d6ac-4e8e-a1fc-5115fd3f7d7c}</Project>
-      <Name>DeploySoftware.LaunchPad.Shared</Name>
+      <Name>Deploy.LaunchPad.Shared</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\src\DeploySoftware.LaunchPad.Space.Satellites\DeploySoftware.LaunchPad.Space.Satellites.csproj">
+    <ProjectReference Include="..\..\src\Deploy.LaunchPad.Space.Satellites\Deploy.LaunchPad.Space.Satellites.csproj">
       <Project>{75ea3872-9a55-4e46-afa5-f5cd758cd7f9}</Project>
-      <Name>DeploySoftware.LaunchPad.Space.Satellites</Name>
+      <Name>Deploy.LaunchPad.Space.Satellites</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
