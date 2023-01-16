@@ -1,5 +1,6 @@
 ﻿using Castle.Core.Logging;
 using Deploy.LaunchPad.FileGeneration.Stages;
+using Deploy.LaunchPad.FileGeneration.Stages.Building;
 using System;
 using System.Collections.Generic;
 
@@ -12,23 +13,26 @@ namespace Deploy.LaunchPad.FileGeneration.Structure
     public partial class VisualStudioBlueprintDefinitionInstructions : LaunchPadGeneratedObjectBlueprintDefinitionInstructionsBase, IVisualStudioBlueprintDefinitionInstructions
     {
 
-        public IDictionary<string, LaunchPadGeneratedMethod> CustomMethodInsertsOrUpdates { get; set; }
+        public virtual IDictionary<string, LaunchPadGeneratedMethod> CustomMethodInsertsOrUpdates { get; set; }
 
-        public IDictionary<string, LaunchPadGeneratedProperty> CustomPropertyInsertsOrUpdates { get; set; }
+        public virtual IDictionary<string, LaunchPadGeneratedProperty> CustomPropertyInsertsOrUpdates { get; set; }
 
-        public IList<PostBuildTextReplacement> PostBuildTextReplacements { get; set; }
+        public virtual IDictionary<string, AddPackageReferenceToVsProjectInstruction> AddPackageReferencesToVsProject { get; set; }
+
+        public virtual IList<PostBuildTextReplacement> PostBuildTextReplacements { get; set; }
 
         /// <summary>
         /// Used for identifying dependencies between items during a build.
         /// </summary>
-        public HashSet<Tuple<string, string>> DependencyInstructions { get; set; } = new HashSet<Tuple<string, string>>();
+        public virtual HashSet<Tuple<string, string>> DependencyInstructions { get; set; } = new HashSet<Tuple<string, string>>();
 
         public VisualStudioBlueprintDefinitionInstructions() : base()
         {
             var comparer = StringComparer.OrdinalIgnoreCase;
             CustomMethodInsertsOrUpdates = new Dictionary<string, LaunchPadGeneratedMethod>(comparer);
             CustomPropertyInsertsOrUpdates = new Dictionary<string, LaunchPadGeneratedProperty>(comparer);
-            PostBuildTextReplacements = new List<PostBuildTextReplacement>();
+            PostBuildTextReplacements = new List<PostBuildTextReplacement>(); 
+            AddPackageReferencesToVsProject = new Dictionary<string, AddPackageReferenceToVsProjectInstruction>(comparer);
         }
 
         public VisualStudioBlueprintDefinitionInstructions(ILogger logger) : base(logger)
@@ -37,6 +41,7 @@ namespace Deploy.LaunchPad.FileGeneration.Structure
             CustomMethodInsertsOrUpdates = new Dictionary<string, LaunchPadGeneratedMethod>(comparer);
             CustomPropertyInsertsOrUpdates = new Dictionary<string, LaunchPadGeneratedProperty>(comparer);
             PostBuildTextReplacements = new List<PostBuildTextReplacement>();
+            AddPackageReferencesToVsProject = new Dictionary<string, AddPackageReferenceToVsProjectInstruction>(comparer);
         }
 
         public override void ForAssembling()

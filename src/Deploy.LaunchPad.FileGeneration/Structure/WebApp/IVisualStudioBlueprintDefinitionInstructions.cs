@@ -1,4 +1,5 @@
 ﻿using Deploy.LaunchPad.FileGeneration.Stages;
+using Deploy.LaunchPad.FileGeneration.Stages.Building;
 using System;
 using System.Collections.Generic;
 
@@ -8,6 +9,9 @@ namespace Deploy.LaunchPad.FileGeneration.Structure
     {
         IDictionary<string, LaunchPadGeneratedMethod> CustomMethodInsertsOrUpdates { get; set; }
         IDictionary<string, LaunchPadGeneratedProperty> CustomPropertyInsertsOrUpdates { get; set; }
+
+        public IDictionary<string, AddPackageReferenceToVsProjectInstruction> AddPackageReferencesToVsProject { get; set; }
+
         HashSet<Tuple<string, string>> DependencyInstructions { get; set; }
     }
 }
