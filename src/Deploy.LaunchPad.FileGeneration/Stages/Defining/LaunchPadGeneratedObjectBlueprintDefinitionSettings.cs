@@ -41,7 +41,7 @@ namespace Deploy.LaunchPad.FileGeneration.Stages
         /// </summary>
         public virtual Authentication Authentication { get; set; }
 
-        public virtual ISourceControlRepository Repository { get; set; }
+        public virtual GitHubRepository Repository { get; set; }
 
         /// <summary>
         /// Contains a dictionary of Templates belonging to this object, keyed by the template name
@@ -60,7 +60,7 @@ namespace Deploy.LaunchPad.FileGeneration.Stages
 
         public LaunchPadGeneratedObjectBlueprintDefinitionSettings()
         {
-            Repository = new SourceControlRepository();
+            Repository = new GitHubRepository();
             RelativeStartingPathFromParent = string.Empty;
             SupportedCultures = string.Empty;
             Version = string.Empty;
@@ -71,7 +71,7 @@ namespace Deploy.LaunchPad.FileGeneration.Stages
             ExclusionPaths = new Dictionary<string, string>(comparer);
         }
 
-        public LaunchPadGeneratedObjectBlueprintDefinitionSettings(SourceControlRepository repo)
+        public LaunchPadGeneratedObjectBlueprintDefinitionSettings(GitHubRepository repo)
         {
             Repository = repo;
             RelativeStartingPathFromParent = string.Empty;
@@ -84,7 +84,7 @@ namespace Deploy.LaunchPad.FileGeneration.Stages
             ExclusionPaths = new Dictionary<string, string>(comparer);
         }
 
-        public LaunchPadGeneratedObjectBlueprintDefinitionSettings(SourceControlRepository repo, string relativeStartPath)
+        public LaunchPadGeneratedObjectBlueprintDefinitionSettings(GitHubRepository repo, string relativeStartPath)
         {
             Repository = repo;
             RelativeStartingPathFromParent = relativeStartPath;
