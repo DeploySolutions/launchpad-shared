@@ -1,5 +1,6 @@
 ﻿using Deploy.LaunchPad.Core.Util;
 using Deploy.LaunchPad.FileGeneration.Structure;
+using Deploy.LaunchPad.FileGeneration.Structure.SourceControl;
 using System;
 using System.Collections.Generic;
 

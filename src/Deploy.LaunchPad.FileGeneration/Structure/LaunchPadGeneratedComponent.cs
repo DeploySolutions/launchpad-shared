@@ -16,7 +16,7 @@ namespace Deploy.LaunchPad.FileGeneration.Structure
     {
         public virtual LaunchPadGeneratedObjectBlueprintDefinition<TBlueprintDefinitionSettings, TBlueprintDefinitionInstructions> BlueprintDefinition { get; set; }
 
-        public virtual IDictionary<string, LicensedThirdPartyItem> LicensedThirdPartyItems { get; set; }
+        public virtual IDictionary<string, ILicensedThirdPartySoftwareItem> LicensedThirdPartyItems { get; set; }
 
         public virtual ComponentStatusEnum ComponentStatus { get; set; }
 
@@ -57,7 +57,7 @@ namespace Deploy.LaunchPad.FileGeneration.Structure
             Logger = logger;
             BlueprintDefinition = new LaunchPadGeneratedObjectBlueprintDefinition<TBlueprintDefinitionSettings, TBlueprintDefinitionInstructions>();
             var comparer = StringComparer.OrdinalIgnoreCase;
-            LicensedThirdPartyItems = new Dictionary<string, LicensedThirdPartyItem>(comparer);
+            LicensedThirdPartyItems = new Dictionary<string, ILicensedThirdPartySoftwareItem>(comparer);
             SecretVaults = new Dictionary<string, string>(comparer);
             ComponentStatus = ComponentStatusEnum.Enabled;
         }
