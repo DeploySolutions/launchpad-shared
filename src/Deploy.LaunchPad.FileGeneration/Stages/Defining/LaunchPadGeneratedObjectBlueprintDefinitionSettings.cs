@@ -41,7 +41,7 @@ namespace Deploy.LaunchPad.FileGeneration.Stages
         /// </summary>
         public virtual Authentication Authentication { get; set; }
 
-        public virtual SourceControlRepository Repository { get; set; }
+        public virtual ISourceControlRepository Repository { get; set; }
 
         /// <summary>
         /// Contains a dictionary of Templates belonging to this object, keyed by the template name

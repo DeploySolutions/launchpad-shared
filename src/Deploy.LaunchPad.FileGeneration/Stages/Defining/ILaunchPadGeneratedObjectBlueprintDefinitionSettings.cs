@@ -30,7 +30,7 @@ namespace Deploy.LaunchPad.FileGeneration.Stages
         /// </summary>
         public string SupportedCultures { get; set; }
 
-        public SourceControlRepository Repository { get; set; }
+        public ISourceControlRepository Repository { get; set; }
 
         /// <summary>
         /// Contains a dictionary of Templates belonging to this object, keyed by the template name
