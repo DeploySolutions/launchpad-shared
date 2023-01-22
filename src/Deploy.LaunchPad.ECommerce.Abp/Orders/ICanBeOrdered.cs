@@ -1,5 +1,5 @@
 ﻿
-namespace Deploy.LaunchPad.Core.Abp.Domain.Orders
+namespace Deploy.LaunchPad.ECommerce.Abp.Orders
 {
     public partial interface ICanBeOrdered
     {
