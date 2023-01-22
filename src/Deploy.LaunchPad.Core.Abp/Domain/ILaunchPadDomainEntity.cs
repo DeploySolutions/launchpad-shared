@@ -29,11 +29,11 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
     /// set of <see cref="MetadataInformation">MetadataInformation</see>.
     /// Each entity also implements ASP.NET Boilerplate's IEntity interface.
     /// </summary>
-    public interface IDomainEntity<TIdType> :
+    public interface ILaunchPadDomainEntity<TIdType> :
         ILaunchPadObject, ILaunchPadBaseProperties<TIdType>, IEntity<TIdType>,
         IHasCreationTime, ICreationAudited, IHasModificationTime, IModificationAudited, IDeletionAudited,
         ISoftDelete, IPassivable,
-        IComparable<DomainEntityBase<TIdType>>, IEquatable<DomainEntityBase<TIdType>>
+        IComparable<LaunchPadDomainEntityBase<TIdType>>, IEquatable<LaunchPadDomainEntityBase<TIdType>>
     {
 
 

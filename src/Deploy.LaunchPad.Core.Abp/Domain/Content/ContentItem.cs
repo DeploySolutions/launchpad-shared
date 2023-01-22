@@ -31,7 +31,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
     /// </summary>
     /// <typeparam name="TIdType"></typeparam>
     [Serializable()]
-    public class ContentItem<TIdType> : DomainEntityBase<TIdType>, IContentItem<TIdType>, IMayHaveTenant
+    public class ContentItem<TIdType> : LaunchPadDomainEntityBase<TIdType>, IContentItem<TIdType>, IMayHaveTenant
     {
         /// <summary>
         /// The textual content

@@ -1,5 +1,5 @@
 ﻿//LaunchPad Shared
-// Copyright (c) 2018-2022 Deploy Software Solutions, inc. 
+// Copyright (c) 2018-2023 Deploy Software Solutions, inc. 
 
 #region license
 //Licensed under the Apache License, Version 2.0 (the "License"); 
@@ -26,14 +26,14 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.SoftwareApplications
     /// Represents a comopnent in a software module.
     /// </summary>
     /// <typeparam name="TIdType"></typeparam>
-    public interface IComponent<TIdType, TEntityIdType> : IDomainEntity<TIdType>
+    public interface IComponent<TIdType, TEntityIdType> : ILaunchPadDomainEntity<TIdType>
     {
         /// <summary>
         /// Each component can have 0 to many domain entities
         /// </summary>
         [DataObjectField(false)]
         [XmlAttribute]
-        IList<DomainEntityBase<TEntityIdType>> DomainEntities { get; set; }
+        IList<LaunchPadDomainEntityBase<TEntityIdType>> DomainEntities { get; set; }
 
     }
 }

@@ -30,12 +30,12 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
 {
 
     /// <summary>
-    /// Base class for Entities that must be specifically related to tenants. Inherits from <see cref="DomainEntityBase{TIdType}">DomainEntityBase{TIdType}</see> and provides
+    /// Base class for Entities that must be specifically related to tenants. Inherits from <see cref="LaunchPadDomainEntityBase{TIdType}">DomainEntityBase{TIdType}</see> and provides
     /// base functionality for many of its methods. 
     /// Implements AspNetBoilerplate's <see cref="IMustHaveTenant">IMustHaveTenant interface</see>, overriding the base interface where tenant may or may not exist.
     /// </summary>
     public abstract partial class TenantSpecificDomainEntityBase<TIdType> :
-        DomainEntityBase<TIdType>, IMustHaveTenant
+        LaunchPadDomainEntityBase<TIdType>, IMustHaveTenant
 
     {
 
@@ -49,7 +49,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
         public virtual int TenantId { get; set; }
 
         /// <summary>  
-        /// Initializes a new instance of the <see cref="DomainEntityBase{TIdType}">DomainEntityBase{TIdType}</see> abstract class
+        /// Initializes a new instance of the <see cref="LaunchPadDomainEntityBase{TIdType}">DomainEntityBase{TIdType}</see> abstract class
         /// </summary>
         /// <param name="tenantId">The id of the tenant to which this entity belongs</param>
         protected TenantSpecificDomainEntityBase() : base()
@@ -59,7 +59,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
 
 
         /// <summary>  
-        /// Initializes a new instance of the <see cref="DomainEntityBase{TIdType}">DomainEntityBase{TIdType}</see> abstract class
+        /// Initializes a new instance of the <see cref="LaunchPadDomainEntityBase{TIdType}">DomainEntityBase{TIdType}</see> abstract class
         /// </summary>
         /// <param name="tenantId">The id of the tenant to which this entity belongs</param>
         protected TenantSpecificDomainEntityBase(int tenantId) : base()
@@ -68,7 +68,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
         }
 
         /// <summary>
-        /// Creates a new instance of the <see cref="DomainEntityBase{TIdType}">DomainEntityBase{TIdType}</see> abstract class given a key, and some metadata. 
+        /// Creates a new instance of the <see cref="LaunchPadDomainEntityBase{TIdType}">DomainEntityBase{TIdType}</see> abstract class given a key, and some metadata. 
         /// </summary>
         /// <param name="culture">The culture for this entity</param>
         /// <param name="tenantId">The id of the tenant to which this entity belongs</param>
@@ -78,7 +78,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
         }
 
         /// <summary>
-        /// Creates a new instance of the <see cref="DomainEntityBase{TIdType}">DomainEntityBase{TIdType}</see> abstract class given a key, and some metadata. 
+        /// Creates a new instance of the <see cref="LaunchPadDomainEntityBase{TIdType}">DomainEntityBase{TIdType}</see> abstract class given a key, and some metadata. 
         /// </summary>
         /// <param name="key">The key for this entity</param>
         /// <param name="culture">The culture for this entity</param>

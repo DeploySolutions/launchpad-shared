@@ -20,7 +20,7 @@ using Abp.Domain.Entities;
 namespace Deploy.LaunchPad.Core.Abp.Domain
 {
 
-    public interface IDataPoint<TPrimaryKey> : IDomainEntity<TPrimaryKey>, IMayHaveTenant
+    public interface IDataPoint<TPrimaryKey> : ILaunchPadDomainEntity<TPrimaryKey>, IMayHaveTenant
     {
         /// <summary>
         /// Describes the schema (where known) according to which this data is structured.

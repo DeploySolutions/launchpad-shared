@@ -33,7 +33,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
     /// This class represents a programmable hardware/software device (that is part of the Internet-of-Things or Web-of-Things world).
     /// </summary>
     [Serializable()]
-    public partial class Device<TIdType> : DomainEntityBase<TIdType>, IDevice, IPhysicallyLocatable, IMayHaveTenant
+    public partial class Device<TIdType> : LaunchPadDomainEntityBase<TIdType>, IDevice, IPhysicallyLocatable, IMayHaveTenant
 
     {
         /// <summary>

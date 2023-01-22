@@ -27,7 +27,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
     /// Represents a release (set of code, data, and resources) that is a candidate to be deployed to a destination environment.
     /// </summary>
     /// <typeparam name="TIdType">The type of the Id</typeparam>
-    public interface IReleaseCandidate<TIdType> : IDomainEntity<TIdType>, IMustHaveTenant
+    public interface IReleaseCandidate<TIdType> : ILaunchPadDomainEntity<TIdType>, IMustHaveTenant
     {
 
         /// <summary>

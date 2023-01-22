@@ -33,7 +33,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.SoftwareApplications
     /// </summary>
     /// <typeparam name="TPrimaryKey">The type of the key id field</typeparam>
     [Serializable()]
-    public partial class ApplicationDetails<TIdType> : DomainEntityBase<TIdType>, IApplicationDetails<TIdType>, IMayHaveTenant
+    public partial class ApplicationDetails<TIdType> : LaunchPadDomainEntityBase<TIdType>, IApplicationDetails<TIdType>, IMayHaveTenant
     {
         public const string DEFAULT_CULTURE = "en";
         public const string DEFAULT_HEX_COlOUR = "1dbff0";

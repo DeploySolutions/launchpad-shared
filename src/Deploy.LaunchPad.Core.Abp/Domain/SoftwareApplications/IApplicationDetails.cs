@@ -27,7 +27,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.SoftwareApplications
     /// Represents the specific settings of an application.
     /// </summary>
     /// <typeparam name="TPrimaryKey"></typeparam>
-    public interface IApplicationDetails<TIdType> : IDomainEntity<TIdType>
+    public interface IApplicationDetails<TIdType> : ILaunchPadDomainEntity<TIdType>
     {
         [DataObjectField(false)]
         [XmlAttribute]

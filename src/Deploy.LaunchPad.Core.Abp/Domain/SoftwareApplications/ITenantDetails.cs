@@ -1,5 +1,5 @@
 ﻿//LaunchPad Shared
-// Copyright (c) 2018-2022 Deploy Software Solutions, inc. 
+// Copyright (c) 2018-2023 Deploy Software Solutions, inc. 
 
 #region license
 //Licensed under the Apache License, Version 2.0 (the "License"); 
@@ -27,7 +27,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.SoftwareApplications
     /// Represents a tenant in an application.
     /// </summary>
     /// <typeparam name="TIdType"></typeparam>
-    public interface ITenantDetails<TIdType> : IDomainEntity<TIdType>
+    public interface ITenantDetails<TIdType> : ILaunchPadDomainEntity<TIdType>
     {
         [DataObjectField(false)]
         [XmlAttribute]

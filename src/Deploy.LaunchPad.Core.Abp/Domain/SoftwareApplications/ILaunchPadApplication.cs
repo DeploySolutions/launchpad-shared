@@ -26,7 +26,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.SoftwareApplications
     /// Represents an application in the LaunchPad RAD framework.
     /// </summary>
     /// <typeparam name="TPrimaryKey">The type of the id</typeparam>
-    public interface ILaunchPadApplication<TIdType, TEntityIdType> : IDomainEntity<TIdType>
+    public interface ILaunchPadApplication<TIdType, TEntityIdType> : ILaunchPadDomainEntity<TIdType>
     {
 
         /// <summary>

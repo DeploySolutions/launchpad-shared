@@ -26,7 +26,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
     /// Represents the process which a deployment will follow as it takes a release candidate (set of code, data, and resources) and places it in a destination environment.
     /// </summary>
     /// <typeparam name="TIdType">The type of the Id</typeparam>
-    public interface IDeploymentProcess<TPrimaryKey> : IDomainEntity<TPrimaryKey>
+    public interface IDeploymentProcess<TPrimaryKey> : ILaunchPadDomainEntity<TPrimaryKey>
     {
 
         /// <summary>

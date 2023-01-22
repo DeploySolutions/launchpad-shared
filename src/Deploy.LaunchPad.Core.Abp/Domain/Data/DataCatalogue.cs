@@ -1,5 +1,5 @@
 ﻿//LaunchPad Shared
-// Copyright (c) 2018-2022 Deploy Software Solutions, inc. 
+// Copyright (c) 2018-2023 Deploy Software Solutions, inc. 
 
 #region license
 //Licensed under the Apache License, Version 2.0 (the "License"); 
@@ -25,7 +25,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
 {
 
     public abstract class DataCatalogue<TPrimaryKey, TDictionaryKey, TDataPointPrimaryKey> :
-        DomainEntityBase<TPrimaryKey>,
+        LaunchPadDomainEntityBase<TPrimaryKey>,
         IDataCatalogue<TPrimaryKey, TDictionaryKey, TDataPointPrimaryKey>
         where TDictionaryKey : struct
         where TDataPointPrimaryKey : struct

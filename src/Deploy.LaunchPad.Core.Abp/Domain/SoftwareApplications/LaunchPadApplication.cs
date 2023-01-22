@@ -32,7 +32,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.SoftwareApplications
     /// <typeparam name="TIdType">The type of the key id field</typeparam>
     /// <typeparam name="TEntityIdType">The base ID type of any domain entities contained within the application</typeparam>
     [Serializable()]
-    public class LaunchPadApplication<TIdType, TEntityIdType> : DomainEntityBase<TIdType>, ILaunchPadApplication<TIdType, TEntityIdType>, IMayHaveTenant
+    public class LaunchPadApplication<TIdType, TEntityIdType> : LaunchPadDomainEntityBase<TIdType>, ILaunchPadApplication<TIdType, TEntityIdType>, IMayHaveTenant
     {
 
         /// <summary>

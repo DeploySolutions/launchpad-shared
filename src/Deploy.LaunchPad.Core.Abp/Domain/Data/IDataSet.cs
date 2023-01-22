@@ -21,7 +21,7 @@ using System.Collections.Generic;
 namespace Deploy.LaunchPad.Core.Abp.Domain
 {
 
-    public interface IDataSet<TPrimaryKey, TDictionaryKey, TDataPointPrimaryKey> : IDomainEntity<TPrimaryKey>, IMayHaveTenant
+    public interface IDataSet<TPrimaryKey, TDictionaryKey, TDataPointPrimaryKey> : ILaunchPadDomainEntity<TPrimaryKey>, IMayHaveTenant
         where TDictionaryKey : struct
         where TDataPointPrimaryKey : struct
     {

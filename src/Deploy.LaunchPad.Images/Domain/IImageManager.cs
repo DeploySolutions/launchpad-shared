@@ -1,5 +1,5 @@
 ﻿//LaunchPad Shared
-// Copyright (c) 2018-2022 Deploy Software Solutions, inc. 
+// Copyright (c) 2018-2023 Deploy Software Solutions, inc. 
 
 namespace Deploy.LaunchPad.Images.Domain
 {

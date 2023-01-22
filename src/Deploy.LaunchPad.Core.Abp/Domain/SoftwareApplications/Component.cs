@@ -31,7 +31,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.SoftwareApplications
     /// </summary>
     /// <typeparam name="TIdType">The type of the key id field</typeparam>
     [Serializable()]
-    public partial class Component<TIdType, TEntityIdType> : DomainEntityBase<TIdType>, IComponent<TIdType, TEntityIdType>, IMayHaveTenant
+    public partial class Component<TIdType, TEntityIdType> : LaunchPadDomainEntityBase<TIdType>, IComponent<TIdType, TEntityIdType>, IMayHaveTenant
     {
 
         /// <summary>
@@ -39,19 +39,19 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.SoftwareApplications
         /// </summary>
         [DataObjectField(false)]
         [XmlAttribute]
-        public virtual IList<DomainEntityBase<TEntityIdType>> DomainEntities { get; set; }
+        public virtual IList<LaunchPadDomainEntityBase<TEntityIdType>> DomainEntities { get; set; }
         public virtual int? TenantId { get; set; }
 
         #region "Constructors"
         public Component() : base()
         {
-            DomainEntities = new List<DomainEntityBase<TEntityIdType>>();
+            DomainEntities = new List<LaunchPadDomainEntityBase<TEntityIdType>>();
         }
 
         public Component(int? tenantId) : base()
         {
             TenantId = tenantId;
-            DomainEntities = new List<DomainEntityBase<TEntityIdType>>();
+            DomainEntities = new List<LaunchPadDomainEntityBase<TEntityIdType>>();
         }
 
 
@@ -62,7 +62,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.SoftwareApplications
         /// <param name="context">The context of the stream</param>
         protected Component(SerializationInfo info, StreamingContext context) : base(info, context)
         {
-            DomainEntities = (IList<DomainEntityBase<TEntityIdType>>)info.GetValue("DomainEntities", typeof(IList<DomainEntityBase<TEntityIdType>>));
+            DomainEntities = (IList<LaunchPadDomainEntityBase<TEntityIdType>>)info.GetValue("DomainEntities", typeof(IList<LaunchPadDomainEntityBase<TEntityIdType>>));
         }
 
         #endregion

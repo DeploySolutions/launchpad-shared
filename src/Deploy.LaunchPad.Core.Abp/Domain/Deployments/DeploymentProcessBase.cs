@@ -28,7 +28,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
     /// Represents the process which a deployment will follow as it takes a release candidate (set of code, data, and resources) and places it in a destination environment.
     /// </summary>
     /// <typeparam name="TIdType">The type of the Id</typeparam>
-    public abstract partial class DeploymentProcessBase<TIdType> : DomainEntityBase<TIdType>, IDeploymentProcess<TIdType>
+    public abstract partial class DeploymentProcessBase<TIdType> : LaunchPadDomainEntityBase<TIdType>, IDeploymentProcess<TIdType>
     {
         /// <summary>
         /// The URI to the deployment documentation

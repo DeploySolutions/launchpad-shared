@@ -33,7 +33,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
     /// Implements <see cref="IOrganization&lt;TPrimaryKey&gt;">IOrganization&lt;TPrimaryKey&gt;</see> and provides
     /// base functionality for many of its methods.
     /// </summary>
-    public abstract partial class OrganizationBase<TIdType> : DomainEntityBase<TIdType>, IOrganization<TIdType>, IMayHaveTenant
+    public abstract partial class OrganizationBase<TIdType> : LaunchPadDomainEntityBase<TIdType>, IOrganization<TIdType>, IMayHaveTenant
     {
         [DataObjectField(false)]
         [XmlAttribute]

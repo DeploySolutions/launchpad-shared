@@ -30,12 +30,12 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
 
     /// <summary>
     /// Base class for Aggregate Root entities that must be specifically related to tenants. 
-    /// Inherits from <see cref="AggregateRootBase{TIdType}{TIdType}">AggregateRootBase{TIdType}</see> and provides
+    /// Inherits from <see cref="LaunchPadAggregateRootBase{TIdType}{TIdType}">AggregateRootBase{TIdType}</see> and provides
     /// base functionality for many of its methods. 
     /// Implements AspNetBoilerplate's <see cref="IMustHaveTenant">IMustHaveTenant interface</see>, overriding the base interface where tenant may or may not exist.
     /// </summary>
     public abstract partial class TenantSpecificAggregateRootBase<TIdType> :
-        AggregateRootBase<TIdType>, IMustHaveTenant
+        LaunchPadAggregateRootBase<TIdType>, IMustHaveTenant
 
     {
 

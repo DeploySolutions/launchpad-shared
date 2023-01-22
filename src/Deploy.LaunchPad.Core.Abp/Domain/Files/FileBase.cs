@@ -1,5 +1,5 @@
 ﻿//LaunchPad Shared
-// Copyright (c) 2018-2022 Deploy Software Solutions, inc. 
+// Copyright (c) 2018-2023 Deploy Software Solutions, inc. 
 
 #region license
 //Licensed under the Apache License, Version 2.0 (the "License"); 
@@ -24,7 +24,7 @@ using System.Xml.Serialization;
 
 namespace Deploy.LaunchPad.Core.Abp.Domain
 {
-    public abstract partial class FileBase<TIdType, TFileContentType> : DomainEntityBase<TIdType>,
+    public abstract partial class FileBase<TIdType, TFileContentType> : LaunchPadDomainEntityBase<TIdType>,
         IFile<TIdType, TFileContentType>
     {
 

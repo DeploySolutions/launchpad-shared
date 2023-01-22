@@ -31,7 +31,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.SoftwareApplications
     /// </summary>
     /// <typeparam name="TPrimaryKey">The type of the key id field</typeparam>
     [Serializable()]
-    public partial class Module<TIdType, TEntityIdType> : DomainEntityBase<TIdType>, IModule<TIdType, TEntityIdType>, IMayHaveTenant
+    public partial class Module<TIdType, TEntityIdType> : LaunchPadDomainEntityBase<TIdType>, IModule<TIdType, TEntityIdType>, IMayHaveTenant
     {
         /// <summary>
         /// The type of the module

@@ -25,7 +25,7 @@ namespace Deploy.LaunchPad.Core.Abp.Application.Dto
     /// Represents the minimal properties that may be used in order to filter an entity in a list
     /// </summary>
     public partial class FilterOutput<TEntityType, TIdType>
-        where TEntityType : DomainEntityBase<TIdType>
+        where TEntityType : LaunchPadDomainEntityBase<TIdType>
     {
         public IEnumerable<TEntityType> Filter { get; set; }
         public int TotalCount { get; set; }

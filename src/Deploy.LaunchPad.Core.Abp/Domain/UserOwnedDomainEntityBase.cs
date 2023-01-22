@@ -28,7 +28,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
     /// Base class for Entities that can be owned by a User (contain UserId).  Inherits from DomainEntityBase abstract class.
     /// </summary>
     public abstract partial class UserOwnedDomainEntityBase<TIdType> :
-        DomainEntityBase<TIdType>, IDomainEntity<TIdType>
+        LaunchPadDomainEntityBase<TIdType>, ILaunchPadDomainEntity<TIdType>
     {
 
 

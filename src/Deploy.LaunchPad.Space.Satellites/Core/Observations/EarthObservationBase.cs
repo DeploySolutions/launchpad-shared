@@ -1,5 +1,5 @@
 ﻿//LaunchPad Shared
-// Copyright (c) 2018-2022 Deploy Software Solutions, inc. 
+// Copyright (c) 2018-2023 Deploy Software Solutions, inc. 
 
 #region license
 //Licensed under the Apache License, Version 2.0 (the "License"); 
@@ -25,7 +25,7 @@ namespace Deploy.LaunchPad.Space.Satellites.Core
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
 
-    public abstract class EarthObservationBase<TPrimaryKey, TFileStorageLocationType> : DomainEntityBase<TPrimaryKey>,
+    public abstract class EarthObservationBase<TPrimaryKey, TFileStorageLocationType> : LaunchPadDomainEntityBase<TPrimaryKey>,
         IEarthObservationScene<TPrimaryKey, TFileStorageLocationType>
         where TFileStorageLocationType : IFileStorageLocation, new()
 

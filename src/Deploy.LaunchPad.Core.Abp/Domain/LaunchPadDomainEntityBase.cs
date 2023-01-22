@@ -39,8 +39,8 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
     /// Implements AspNetBoilerplate's auditing interfaces.
     /// </summary>    
     [DebuggerDisplay("{_debugDisplay}")]
-    public abstract partial class DomainEntityBase<TIdType> :
-        FullAuditedEntity<TIdType>, IDomainEntity<TIdType>
+    public abstract partial class LaunchPadDomainEntityBase<TIdType> :
+        FullAuditedEntity<TIdType>, ILaunchPadDomainEntity<TIdType>
     {
 
         /// <summary>
@@ -144,7 +144,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
         /// <summary>  
         /// Initializes a new instance of the <see cref="DomainEntityBase">Entity</see> class
         /// </summary>
-        protected DomainEntityBase() : base()
+        protected LaunchPadDomainEntityBase() : base()
         {
             ExternalId = string.Empty;
             Culture = ApplicationDetails<TIdType>.DEFAULT_CULTURE;
@@ -162,7 +162,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
         /// Creates a new instance of the <see cref="DomainEntityBase">Entity</see> class given a key, and some metadata. 
         /// </summary>
         /// <param name="culture">The culture for this entity</param>
-        protected DomainEntityBase(TIdType id) : base()
+        protected LaunchPadDomainEntityBase(TIdType id) : base()
         {
             Id = id;
             ExternalId = string.Empty;
@@ -180,7 +180,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
         /// Creates a new instance of the <see cref="DomainEntityBase">Entity</see> class given a key, and some metadata. 
         /// </summary>
         /// <param name="culture">The culture for this entity</param>
-        protected DomainEntityBase(TIdType id, string culture) : base()
+        protected LaunchPadDomainEntityBase(TIdType id, string culture) : base()
         {
             Id = id;
             ExternalId = string.Empty;
@@ -200,7 +200,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
         /// </summary>
         /// <param name="info">The serialization info</param>
         /// <param name="context">The context of the stream</param>
-        protected DomainEntityBase(SerializationInfo info, StreamingContext context)
+        protected LaunchPadDomainEntityBase(SerializationInfo info, StreamingContext context)
         {
             Id = (TIdType)info.GetValue("Id", typeof(TIdType));
             ExternalId = info.GetString("ExternalId");
@@ -267,7 +267,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
         /// </summary>
         /// <typeparam name="TEntity">The source entity to clone</typeparam>
         /// <returns>A shallow clone of the entity and its serializable properties</returns>
-        protected virtual TEntity Clone<TEntity>() where TEntity : IDomainEntity<TIdType>, new()
+        protected virtual TEntity Clone<TEntity>() where TEntity : ILaunchPadDomainEntity<TIdType>, new()
         {
             TEntity clone = new TEntity();
             foreach (PropertyInfo info in GetType().GetProperties())
@@ -289,7 +289,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
         /// </summary>
         /// <param name="other">The other object of this type we are comparing to</param>
         /// <returns></returns>
-        public virtual int CompareTo(DomainEntityBase<TIdType> other)
+        public virtual int CompareTo(LaunchPadDomainEntityBase<TIdType> other)
         {
             // put comparison of properties in here 
             // for base object we'll just sort by title
@@ -346,9 +346,9 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
         /// <returns>True if the entities are the same according to business key value</returns>
         public override bool Equals(object obj)
         {
-            if (obj != null && obj is DomainEntityBase<TIdType>)
+            if (obj != null && obj is LaunchPadDomainEntityBase<TIdType>)
             {
-                return Equals(obj as DomainEntityBase<TIdType>);
+                return Equals(obj as LaunchPadDomainEntityBase<TIdType>);
             }
             return false;
         }
@@ -362,7 +362,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
         /// </summary>
         /// <param name="obj">The other object of this type that we are testing equality with</param>
         /// <returns></returns>
-        public virtual bool Equals(DomainEntityBase<TIdType> obj)
+        public virtual bool Equals(LaunchPadDomainEntityBase<TIdType> obj)
         {
             if (obj != null)
             {
@@ -391,7 +391,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
         /// <param name="x">The first value</param>
         /// <param name="y">The second value</param>
         /// <returns>True if both objects are fully equal based on the Equals logic</returns>
-        public static bool operator ==(DomainEntityBase<TIdType> x, DomainEntityBase<TIdType> y)
+        public static bool operator ==(LaunchPadDomainEntityBase<TIdType> x, LaunchPadDomainEntityBase<TIdType> y)
         {
             if (x is null)
             {
@@ -410,7 +410,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
         /// <param name="x">The first value</param>
         /// <param name="y">The second value</param>
         /// <returns>True if both objects are not equal based on the Equals logic</returns>
-        public static bool operator !=(DomainEntityBase<TIdType> x, DomainEntityBase<TIdType> y)
+        public static bool operator !=(LaunchPadDomainEntityBase<TIdType> x, LaunchPadDomainEntityBase<TIdType> y)
         {
             return !(x == y);
         }

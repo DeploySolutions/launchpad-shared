@@ -1,5 +1,5 @@
 ﻿//LaunchPad Space
-// Copyright (c) 2018-2022 Deploy Software Solutions, inc. 
+// Copyright (c) 2018-2023 Deploy Software Solutions, inc. 
 
 #region license
 //Licensed under the Apache License, Version 2.0 (the "License"); 
@@ -19,7 +19,7 @@ using System.Collections.Generic;
 
 namespace Deploy.LaunchPad.Core.Abp.Domain
 {
-    public interface IOrganization<TPrimaryKey> : IDomainEntity<TPrimaryKey>
+    public interface IOrganization<TPrimaryKey> : ILaunchPadDomainEntity<TPrimaryKey>
     {
         string FullName { get; }
 

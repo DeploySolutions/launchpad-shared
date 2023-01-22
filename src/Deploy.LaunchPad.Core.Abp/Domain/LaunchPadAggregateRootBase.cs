@@ -31,9 +31,9 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
     /// Implemenn ASP.NET Boilerplate's <see cref="IAggregateRoot">IAggregateRoot</see> interface.
     /// Implements AspNetBoilerplate's auditing interfaces.
     /// </summary>
-    public abstract partial class AggregateRootBase<TIdType> :
-        DomainEntityBase<TIdType>,
-        IAggregateRoot<TIdType>
+    public abstract partial class LaunchPadAggregateRootBase<TIdType> :
+        LaunchPadDomainEntityBase<TIdType>,
+        ILaunchPadAggregateRoot<TIdType>
 
     {
 
@@ -47,7 +47,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
         /// <summary>  
         /// Initializes a new instance of the <see cref="AggregateRootBase">AggregateRootBase</see> class
         /// </summary>
-        protected AggregateRootBase() : base()
+        protected LaunchPadAggregateRootBase() : base()
         {
             DomainEvents = new Collection<IEventData>();
         }
@@ -57,7 +57,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
         /// Creates a new instance of the <see cref="AggregateRootBase">AggregateRootBase</see> class given a key, and some metadata. 
         /// </summary>
         /// <param name="cultureName">The culture for this entity</param>
-        protected AggregateRootBase(TIdType id, string cultureName) : base(id, cultureName)
+        protected LaunchPadAggregateRootBase(TIdType id, string cultureName) : base(id, cultureName)
         {
             DomainEvents = new Collection<IEventData>();
         }
@@ -67,7 +67,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
         /// </summary>
         /// <param name="info">The serialization info</param>
         /// <param name="context">The context of the stream</param>
-        protected AggregateRootBase(SerializationInfo info, StreamingContext context) : base(info, context)
+        protected LaunchPadAggregateRootBase(SerializationInfo info, StreamingContext context) : base(info, context)
         {
             DomainEvents = (Collection<IEventData>)info.GetValue("DomainEvents", typeof(Collection<IEventData>));
         }
@@ -114,9 +114,9 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
         /// <returns>True if the entities are the same according to business key value</returns>
         public override bool Equals(object obj)
         {
-            if (obj != null && obj is AggregateRootBase<TIdType>)
+            if (obj != null && obj is LaunchPadAggregateRootBase<TIdType>)
             {
-                return Equals(obj as AggregateRootBase<TIdType>);
+                return Equals(obj as LaunchPadAggregateRootBase<TIdType>);
             }
             return false;
         }
@@ -130,7 +130,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
         /// </summary>
         /// <param name="obj">The other object of this type that we are testing equality with</param>
         /// <returns></returns>
-        public virtual bool Equals(AggregateRootBase<TIdType> obj)
+        public virtual bool Equals(LaunchPadAggregateRootBase<TIdType> obj)
         {
             if (obj != null)
             {
@@ -158,7 +158,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
         /// <param name="x">The first value</param>
         /// <param name="y">The second value</param>
         /// <returns>True if both objects are fully equal based on the Equals logic</returns>
-        public static bool operator ==(AggregateRootBase<TIdType> x, AggregateRootBase<TIdType> y)
+        public static bool operator ==(LaunchPadAggregateRootBase<TIdType> x, LaunchPadAggregateRootBase<TIdType> y)
         {
             if (System.Object.ReferenceEquals(x, null))
             {
@@ -177,7 +177,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
         /// <param name="x">The first value</param>
         /// <param name="y">The second value</param>
         /// <returns>True if both objects are not equal based on the Equals logic</returns>
-        public static bool operator !=(AggregateRootBase<TIdType> x, AggregateRootBase<TIdType> y)
+        public static bool operator !=(LaunchPadAggregateRootBase<TIdType> x, LaunchPadAggregateRootBase<TIdType> y)
         {
             return !(x == y);
         }

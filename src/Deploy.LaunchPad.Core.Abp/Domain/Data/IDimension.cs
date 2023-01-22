@@ -6,7 +6,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Data
     /// Describes a dimension for data warehouse reporting. Facts have FK lookups to such dimensions.
     /// </summary>
     /// <typeparam name="TPrimaryKey">The type of the primary key</typeparam>
-    public interface IDimension<TPrimaryKey> : IDomainEntity<TPrimaryKey>, IMayHaveTenant
+    public interface IDimension<TPrimaryKey> : ILaunchPadDomainEntity<TPrimaryKey>, IMayHaveTenant
     {
     }
 }

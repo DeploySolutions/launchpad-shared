@@ -1,5 +1,5 @@
 ﻿//LaunchPad Space
-// Copyright (c) 2018-2022 Deploy Software Solutions, inc. 
+// Copyright (c) 2018-2023 Deploy Software Solutions, inc. 
 
 #region license
 //Licensed under the Apache License, Version 2.0 (the "License"); 
@@ -23,7 +23,7 @@ namespace Deploy.LaunchPad.Space.Satellites.Core
     using System.Collections.Generic;
     using System.Xml.Serialization;
 
-    public abstract partial class SatelliteBase<TPrimaryKey> : DomainEntityBase<TPrimaryKey>, ISatellite
+    public abstract partial class SatelliteBase<TPrimaryKey> : LaunchPadDomainEntityBase<TPrimaryKey>, ISatellite
     {
         private IEnumerable<ISatelliteOperator<Guid>> _operators;
         private string _satelliteCatalogNumber;

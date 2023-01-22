@@ -28,7 +28,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
     /// Represents a an event that is related to a deployment
     /// </summary>
     /// <typeparam name="TIdType">The type of the Id</typeparam>
-    public interface IDeploymentEvent<TIdType> : IDomainEntity<TIdType>, IMustHaveTenant
+    public interface IDeploymentEvent<TIdType> : ILaunchPadDomainEntity<TIdType>, IMustHaveTenant
     {
         /// <summary>
         /// The id of the release candidate this deployment is for
