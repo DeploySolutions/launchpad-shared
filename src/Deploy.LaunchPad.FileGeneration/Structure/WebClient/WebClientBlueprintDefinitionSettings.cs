@@ -19,6 +19,13 @@ namespace Deploy.LaunchPad.FileGeneration.Structure
         public LaunchPadBrand Brand { get; set; }
 
         /// <summary>
+        /// Get generated base namespace from xml file.
+        /// </summary>
+        [XmlElement]
+        [JsonProperty]
+        public String GeneratedBaseNamespace { get; set; }
+
+        /// <summary>
         /// Map configuration of the app.
         /// </summary>
         [XmlElement]
