@@ -84,7 +84,7 @@ namespace Deploy.LaunchPad.Core.Domain
         [XmlAttribute]
         public virtual IEnumerable<MetadataTag> Tags { get; set; }
 
-        protected GenericFileStorageLocation()
+        public GenericFileStorageLocation()
         {
             Provider = FileStorageLocationTypeEnum.Unknown;
             Tags = new List<MetadataTag>();
