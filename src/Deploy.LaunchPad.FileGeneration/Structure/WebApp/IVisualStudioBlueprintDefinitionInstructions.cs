@@ -7,7 +7,7 @@ namespace Deploy.LaunchPad.FileGeneration.Structure
 {
     public interface IVisualStudioBlueprintDefinitionInstructions : ILaunchPadGeneratedObjectBlueprintDefinitionInstructions
     {
-        IDictionary<string, LaunchPadGeneratedDomainEntity> CustomClasses { get; set; }
+        IDictionary<string, LaunchPadGeneratedCustomClassFile> CustomClasses { get; set; }
 
         IDictionary<string, LaunchPadGeneratedMethod> CustomMethodInsertsOrUpdates { get; set; }
         IDictionary<string, LaunchPadGeneratedProperty> CustomPropertyInsertsOrUpdates { get; set; }
