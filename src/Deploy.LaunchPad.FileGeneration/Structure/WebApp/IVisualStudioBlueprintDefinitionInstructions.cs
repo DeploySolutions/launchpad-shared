@@ -7,11 +7,14 @@ namespace Deploy.LaunchPad.FileGeneration.Structure
 {
     public interface IVisualStudioBlueprintDefinitionInstructions : ILaunchPadGeneratedObjectBlueprintDefinitionInstructions
     {
+        IDictionary<string, LaunchPadGeneratedValueObject> CustomClasses { get; set; }
+
         IDictionary<string, LaunchPadGeneratedMethod> CustomMethodInsertsOrUpdates { get; set; }
         IDictionary<string, LaunchPadGeneratedProperty> CustomPropertyInsertsOrUpdates { get; set; }
 
         public IDictionary<string, AddPackageReferenceToVsProjectInstruction> AddPackageReferencesToVsProject { get; set; }
 
         HashSet<Tuple<string, string>> DependencyInstructions { get; set; }
+        public  IList<PostBuildTextReplacement> PostBuildTextReplacements { get; set; }
     }
 }

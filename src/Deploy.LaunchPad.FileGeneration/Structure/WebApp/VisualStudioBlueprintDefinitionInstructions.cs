@@ -13,6 +13,8 @@ namespace Deploy.LaunchPad.FileGeneration.Structure
     public partial class VisualStudioBlueprintDefinitionInstructions : LaunchPadGeneratedObjectBlueprintDefinitionInstructionsBase, IVisualStudioBlueprintDefinitionInstructions
     {
 
+        public virtual IDictionary<string, LaunchPadGeneratedValueObject> CustomClasses { get; set; }
+
         public virtual IDictionary<string, LaunchPadGeneratedMethod> CustomMethodInsertsOrUpdates { get; set; }
 
         public virtual IDictionary<string, LaunchPadGeneratedProperty> CustomPropertyInsertsOrUpdates { get; set; }
@@ -29,6 +31,7 @@ namespace Deploy.LaunchPad.FileGeneration.Structure
         public VisualStudioBlueprintDefinitionInstructions() : base()
         {
             var comparer = StringComparer.OrdinalIgnoreCase;
+            CustomClasses = new Dictionary<string, LaunchPadGeneratedValueObject>(comparer);
             CustomMethodInsertsOrUpdates = new Dictionary<string, LaunchPadGeneratedMethod>(comparer);
             CustomPropertyInsertsOrUpdates = new Dictionary<string, LaunchPadGeneratedProperty>(comparer);
             PostBuildTextReplacements = new List<PostBuildTextReplacement>(); 
@@ -38,6 +41,7 @@ namespace Deploy.LaunchPad.FileGeneration.Structure
         public VisualStudioBlueprintDefinitionInstructions(ILogger logger) : base(logger)
         {
             var comparer = StringComparer.OrdinalIgnoreCase;
+            CustomClasses = new Dictionary<string, LaunchPadGeneratedValueObject>(comparer);
             CustomMethodInsertsOrUpdates = new Dictionary<string, LaunchPadGeneratedMethod>(comparer);
             CustomPropertyInsertsOrUpdates = new Dictionary<string, LaunchPadGeneratedProperty>(comparer);
             PostBuildTextReplacements = new List<PostBuildTextReplacement>();
