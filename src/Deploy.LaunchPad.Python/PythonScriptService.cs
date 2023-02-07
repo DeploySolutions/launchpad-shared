@@ -21,14 +21,14 @@ namespace Deploy.LaunchPad.Python
             Logger = NullLogger.Instance;
         }
 
-        public PythonScriptService(ILogger logger, string pythonInstallationFilePath, string scriptFileName)
+        public PythonScriptService(ILogger logger, Uri pythonInstallationFilePath, string scriptFileName)
         {
             Logger = logger;
             Python = new PythonInstallation(pythonInstallationFilePath, PythonMajorVersion.Three, PythonMinorVersion.Eight);
             Script = new PythonScript(scriptFileName);
         }
 
-        public PythonScriptService(ILogger logger, string pythonInstallationFilePath, string scriptFileName, IDictionary<string, string> moduleFilePaths)
+        public PythonScriptService(ILogger logger, Uri pythonInstallationFilePath, string scriptFileName, IDictionary<string, Uri> moduleFilePaths)
         {
             Logger = logger;
             Python = new PythonInstallation(pythonInstallationFilePath, PythonMajorVersion.Three, PythonMinorVersion.Eight, moduleFilePaths);
@@ -45,8 +45,8 @@ namespace Deploy.LaunchPad.Python
 
             string scriptResult = string.Empty;
             ProcessStartInfo start = new ProcessStartInfo();
-            start.FileName = Python.InstallationFilePath;
-            Logger.Debug(string.Format("GetTextFromScript(), Python.InstallationFilePath is '{0}'", Python.InstallationFilePath));
+            start.FileName = Python.InstallLocation.ToString();
+            Logger.Debug(string.Format("GetTextFromScript(), Python.InstallationFilePath is '{0}'", Python.InstallLocation));
             start.Arguments = string.Format("{0} {1}", cmd, args);
             Logger.Debug(string.Format("GetTextFromScript(), args is '{0}'", args));
             start.UseShellExecute = false;

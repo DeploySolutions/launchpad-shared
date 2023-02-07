@@ -1,50 +1,252 @@
-﻿using System;
+﻿using Deploy.LaunchPad.Core;
+using Deploy.LaunchPad.Core.Domain;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
+using System.Runtime.Serialization;
+using System.Text;
+using System.Xml.Serialization;
 
 namespace Deploy.LaunchPad.Python
 {
     [Serializable()]
     public partial class PythonInstallation : IPythonInstallation
     {
+        [DataObjectField(true)]
+        [XmlAttribute]
+        public virtual string Id { get; set; }
+
+        [DataObjectField(false)]
+        [XmlAttribute]
+        public virtual string Name { get; set; }
+
+        [Required]
+        [MaxLength(256, ErrorMessageResourceName = "Validation_DescriptionShort_256CharsOrLess", ErrorMessageResourceType = typeof(Deploy_LaunchPad_Core_Resources))]
+        [DataObjectField(false)]
+        [XmlAttribute]
+        public virtual string DescriptionShort { get; set; }
+
+        [MaxLength(8096, ErrorMessageResourceName = "Validation_DescriptionFull_8096CharsOrLess", ErrorMessageResourceType = typeof(Deploy_LaunchPad_Core_Resources))]
+        [DataObjectField(false)]
+        [XmlElement]
+        public virtual string? DescriptionFull { get; set; }
+
+        [Required]
+        [DataObjectField(false)]
+        [XmlElement]
         public virtual PythonMajorVersion MajorVersion { get; set; }
 
+        [Required]
+        [DataObjectField(false)]
+        [XmlElement]
         public virtual PythonMinorVersion MinorVersion { get; set; }
 
-        public string InstallationFilePath { get; set; }
+        [Required]
+        [DataObjectField(false)]
+        [XmlElement]
+        public virtual Uri InstallLocation { get; set; }
 
-        public IDictionary<string, string> ModuleFilePaths { get; set; }
+        [DataObjectField(false)]
+        [XmlElement]
+        public virtual IDictionary<string, Uri> ModuleLocations { get; set; }
 
         protected PythonInstallation()
         {
             MajorVersion = PythonMajorVersion.Three;
             MinorVersion = PythonMinorVersion.Nine;
             var comparer = StringComparer.OrdinalIgnoreCase;
-            ModuleFilePaths = new Dictionary<string, string>(comparer);
+            ModuleLocations = new Dictionary<string, Uri>(comparer);
+            DescriptionShort = "Python version " + MajorVersion + "." + MinorVersion;
+            DescriptionFull = DescriptionShort;
+            Id = MajorVersion + "." + MinorVersion;
+            Name = "Python " + Id;
         }
 
-        public PythonInstallation(string installationFilePath, PythonMajorVersion majorVersion, PythonMinorVersion minorVersion)
+        public PythonInstallation(Uri installLocation, PythonMajorVersion majorVersion, PythonMinorVersion minorVersion)
         {
             MajorVersion = majorVersion;
             MinorVersion = minorVersion;
-            InstallationFilePath = installationFilePath;
+            InstallLocation = installLocation;
             var comparer = StringComparer.OrdinalIgnoreCase;
-            ModuleFilePaths = new Dictionary<string, string>(comparer);
+            ModuleLocations = new Dictionary<string, Uri>(comparer);
+            DescriptionShort = "Python version " + MajorVersion + "." + MinorVersion;
+            DescriptionFull = DescriptionShort;
+            Id = MajorVersion + "." + MinorVersion;
+            Name = "Python " + Id;
         }
 
-        public PythonInstallation(string installationFilePath, PythonMajorVersion majorVersion, PythonMinorVersion minorVersion, IDictionary<string, string> moduleFilePaths)
+        public PythonInstallation(Uri installLocation, PythonMajorVersion majorVersion, PythonMinorVersion minorVersion, IDictionary<string, Uri> moduleLocations)
         {
             MajorVersion = majorVersion;
             MinorVersion = minorVersion;
-            InstallationFilePath = installationFilePath;
-            ModuleFilePaths = moduleFilePaths;
+            InstallLocation = installLocation;
+            ModuleLocations = moduleLocations;
+            DescriptionShort = "Python version " + MajorVersion + "." + MinorVersion;
+            DescriptionFull = DescriptionShort;
+            Id = MajorVersion + "." + MinorVersion;
+            Name = "Python " + Id;
         }
 
-        public PythonInstallation(string installationFilePath, IDictionary<string, string> moduleFilePaths, PythonMajorVersion majorVersion, PythonMinorVersion minorVersion)
+        public PythonInstallation(Uri installLocation, IDictionary<string, Uri> moduleLocations, PythonMajorVersion majorVersion, PythonMinorVersion minorVersion)
         {
             MajorVersion = majorVersion;
             MinorVersion = minorVersion;
-            InstallationFilePath = installationFilePath;
-            ModuleFilePaths = moduleFilePaths;
+            InstallLocation = installLocation;
+            ModuleLocations = moduleLocations;
+            DescriptionShort = "Python version " + MajorVersion + "." + MinorVersion;
+            DescriptionFull = DescriptionShort;
+            Id = MajorVersion + "." + MinorVersion;
+            Name = "Python " + Id;
+        }
+
+        /// <summary>
+        /// Serialization constructor used for deserialization
+        /// </summary>
+        /// <param name="info">The serialization info</param>
+        /// <param name="context">The context of the stream</param>
+        protected PythonInstallation(SerializationInfo info, StreamingContext context)
+        {
+            Id = info.GetString(Id);
+            Name = info.GetString(Name);
+            DescriptionShort = info.GetString("DescriptionShort");
+            DescriptionFull = info.GetString("DescriptionFull");
+            InstallLocation = (Uri)info.GetValue("InstallLocation", typeof(Uri));
+            MajorVersion = (PythonMajorVersion)info.GetValue("MajorVersion", typeof(PythonMajorVersion));
+            MinorVersion = (PythonMinorVersion)info.GetValue("MinorVersion", typeof(PythonMinorVersion));
+            ModuleLocations = (IDictionary<string, Uri>)info.GetValue("ModuleLocations", typeof(IDictionary<string, Uri>));
+        }
+
+        public virtual void GetObjectData(SerializationInfo info, StreamingContext context)
+        {
+            info.AddValue("Id", Id);
+            info.AddValue("Name", Name);
+            info.AddValue("DescriptionShort", DescriptionShort);
+            info.AddValue("DescriptionFull", DescriptionFull);
+            info.AddValue("InstallLocation", InstallLocation);
+            info.AddValue("ModuleLocations", ModuleLocations);
+            info.AddValue("MajorVersion", MajorVersion);
+            info.AddValue("MinorVersion", MinorVersion);
+        }
+
+        /// <summary>
+        /// Comparison method between two objects of the same type, used for sorting.
+        /// Because the CompareTo method is strongly typed by generic constraints,
+        /// it is not necessary to test for the correct object type.
+        /// </summary>
+        /// <param name="other">The other object of this type we are comparing to</param>
+        /// <returns></returns>
+        public virtual int CompareTo(PythonInstallation other)
+        {
+            // put comparison of properties in here 
+            // for base object we'll just sort by title
+            return Name.CompareTo(other.Name);
+        }
+
+        /// <summary>  
+        /// Displays information about the <c>Field</c> in readable format.  
+        /// </summary>  
+        /// <returns>A string representation of the object.</returns>
+        public override String ToString()
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.Append("[PythonInstallation: ");
+            sb.AppendFormat("Id={0};", Id);
+            sb.AppendFormat("Name={0};", Name);
+            sb.AppendFormat("DescriptionShort={0};", DescriptionShort);
+            sb.AppendFormat("DescriptionFull={0};", DescriptionFull);
+            sb.AppendFormat("InstallLocation={0};", InstallLocation);
+            sb.AppendFormat("ModuleLocations={0};", ModuleLocations);
+            sb.AppendFormat("MajorVersion={0};", MajorVersion);
+            sb.AppendFormat("MinorVersion={0};", MinorVersion);
+            sb.Append(']');
+            return sb.ToString();
+        }
+
+
+        /// <summary>
+        /// Override the legacy Equals. Must cast obj in this case.
+        /// </summary>
+        /// <param name="obj">A type to check equivalency of (hopefully) an Entity</param>
+        /// <returns>True if the entities are the same according to business key value</returns>
+        public override bool Equals(object obj)
+        {
+            if (obj != null && obj is PythonInstallation)
+            {
+                return Equals(obj as PythonInstallation);
+            }
+            return false;
+        }
+
+        /// <summary>
+        /// Equality method between two objects of the same type.
+        /// Because the Equals method is strongly typed by generic constraints,
+        /// it is not necessary to test for the correct object type.
+        /// For safety we just want to match on business key value - in this case the fields
+        /// that cannot be different between the two objects if they are supposedly equal.        
+        /// </summary>
+        /// <param name="obj">The other object of this type that we are testing equality with</param>
+        /// <returns></returns>
+        public virtual bool Equals(PythonInstallation obj)
+        {
+            if (obj != null)
+            {
+
+                // For safe equality we need to match on business key equality.
+                // Base domain entities are functionally equal if their key and metadata are equal.
+                // Subclasses should extend to include their own enhanced equality checks, as required.
+                return Id.Equals(obj.Id) && Name.Equals(obj.Name) && MajorVersion.Equals(obj.MajorVersion)
+                    && MinorVersion.Equals(obj.MinorVersion) && InstallLocation.Equals(obj.InstallLocation);
+
+            }
+            return false;
+        }
+
+        /// <summary>
+        /// Override the == operator to test for equality
+        /// </summary>
+        /// <param name="x">The first value</param>
+        /// <param name="y">The second value</param>
+        /// <returns>True if both objects are fully equal based on the Equals logic</returns>
+        public static bool operator ==(PythonInstallation x, PythonInstallation y)
+        {
+            if (x is null)
+            {
+                if (y is null)
+                {
+                    return true;
+                }
+                return false;
+            }
+            return x.Equals(y);
+        }
+
+        /// <summary>
+        /// Override the != operator to test for inequality
+        /// </summary>
+        /// <param name="x">The first value</param>
+        /// <param name="y">The second value</param>
+        /// <returns>True if both objects are not equal based on the Equals logic</returns>
+        public static bool operator !=(PythonInstallation x, PythonInstallation y)
+        {
+            return !(x == y);
+        }
+
+        /// <summary>  
+        /// Computes and retrieves a hash code for an object.  
+        /// </summary>  
+        /// <remarks>  
+        /// This method implements the <see cref="Object">Object</see> method.  
+        /// </remarks>  
+        /// <returns>A hash code for an object.</returns>
+        public override int GetHashCode()
+        {
+            return Id.GetHashCode()
+                + Name.GetHashCode()
+                + InstallLocation.GetHashCode()
+                + MajorVersion.GetHashCode()
+                + MinorVersion.GetHashCode()
+            ;
         }
     }
 }
