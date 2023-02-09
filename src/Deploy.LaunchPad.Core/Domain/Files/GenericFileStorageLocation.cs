@@ -86,6 +86,8 @@ namespace Deploy.LaunchPad.Core.Domain
 
         public GenericFileStorageLocation()
         {
+            Name = "Generic File Storage Location";
+            Id = "GenericFile1";
             Provider = FileStorageLocationTypeEnum.Unknown;
             Tags = new List<MetadataTag>();
         }
