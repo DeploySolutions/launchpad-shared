@@ -38,11 +38,11 @@ namespace Deploy.LaunchPad.Core.Domain
 
         [DataObjectField(true)]
         [XmlAttribute]
-        public virtual string Id { get; set; }
+        public virtual string Id { get; set; } = string.Empty;
 
         [DataObjectField(false)]
         [XmlAttribute]
-        public virtual string Name { get; set; }
+        public virtual string Name { get; set; } = string.Empty;
 
         /// <summary>
         /// A short description for this storage location
@@ -51,7 +51,7 @@ namespace Deploy.LaunchPad.Core.Domain
         [MaxLength(256, ErrorMessageResourceName = "Validation_DescriptionShort_256CharsOrLess", ErrorMessageResourceType = typeof(Deploy_LaunchPad_Core_Resources))]
         [DataObjectField(false)]
         [XmlAttribute]
-        public virtual String DescriptionShort { get; set; }
+        public virtual String DescriptionShort { get; set; } = string.Empty;
 
         /// <summary>
         /// The full description for this storage location
@@ -59,7 +59,7 @@ namespace Deploy.LaunchPad.Core.Domain
         [MaxLength(8096, ErrorMessageResourceName = "Validation_DescriptionFull_8096CharsOrLess", ErrorMessageResourceType = typeof(Deploy_LaunchPad_Core_Resources))]
         [DataObjectField(false)]
         [XmlElement]
-        public virtual string DescriptionFull { get; set; }
+        public virtual string DescriptionFull { get; set; } = string.Empty;
 
         [DataObjectField(true)]
         [XmlAttribute]
