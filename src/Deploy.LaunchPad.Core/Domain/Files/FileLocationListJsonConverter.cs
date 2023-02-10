@@ -6,6 +6,9 @@ using System.Linq;
 
 namespace Deploy.LaunchPad.Core.Domain.Files
 {
+    /// <summary>
+    /// Converts a list of StorageLocationJson objects to or from json.
+    /// </summary>
     public partial class FileLocationListJsonConverter : JsonConverter<List<StorageLocationJson>>
     {
         public override List<StorageLocationJson> ReadJson(JsonReader reader, Type objectType, List<StorageLocationJson> existingValue, bool hasExistingValue, JsonSerializer serializer)
@@ -15,9 +18,13 @@ namespace Deploy.LaunchPad.Core.Domain.Files
             var itemType = objectType.GenericTypeArguments[0];
             foreach (var child in token.Values())
             {
-                var childToken = child.Children().First();
-                StorageLocationJson newObject = (StorageLocationJson)Activator.CreateInstance(itemType);
-                list.Add(newObject);
+                var locationTokenArray = child.Children();
+                foreach (var locationToken in locationTokenArray)
+                {
+                    StorageLocationJson newObject = locationToken.ToObject<StorageLocationJson>();
+                    list.Add(newObject);
+                }
+
             }
             return list;
         }
