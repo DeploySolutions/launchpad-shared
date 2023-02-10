@@ -15,16 +15,31 @@ namespace Deploy.LaunchPad.Core.Domain.Files
         {
             var token = JToken.Load(reader);
             var list = Activator.CreateInstance(objectType) as List<StorageLocationJson>;
-            var itemType = objectType.GenericTypeArguments[0];
-            foreach (var child in token.Values())
+            if (token.HasValues)
             {
-                var locationTokenArray = child.Children();
-                foreach (var locationToken in locationTokenArray)
+                var childValues = token.Values();
+                JTokenType type = childValues.FirstOrDefault().Type;
+                if (type != JTokenType.Null && childValues.First().Any())
                 {
-                    StorageLocationJson newObject = locationToken.ToObject<StorageLocationJson>();
-                    list.Add(newObject);
+                    if (type == JTokenType.Object) // it's a single object
+                    {
+                        var locationToken = childValues.FirstOrDefault();
+                        StorageLocationJson newObject = locationToken.ToObject<StorageLocationJson>();
+                        list.Add(newObject);
+                    }
+                    if (type == JTokenType.Array) // it's an array of objects
+                    {
+                        foreach (var child in childValues)
+                        {
+                            var locationTokenArray = child.Children();
+                            foreach (var locationToken in locationTokenArray)
+                            {
+                                StorageLocationJson newObject = locationToken.ToObject<StorageLocationJson>();
+                                list.Add(newObject);
+                            }
+                        }
+                    }
                 }
-
             }
             return list;
         }
