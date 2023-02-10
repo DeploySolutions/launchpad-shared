@@ -34,6 +34,7 @@ namespace Deploy.LaunchPad.Core.Domain.Files
         public virtual string Id { get; set; }
 
         public virtual string Name { get; set; }
+        public virtual string Provider { get; set; }
         public virtual string ProviderType { get; set; } = "Deploy.LaunchPad.Core.Domain.WindowsFileStorageLocation";
         public virtual string DescriptionShort { get; set; }
         public virtual string DescriptionFull { get; set; }
@@ -48,6 +49,7 @@ namespace Deploy.LaunchPad.Core.Domain.Files
         public StorageLocationJson()
         {
             Id = Guid.NewGuid().ToString();
+            Provider = "Unknown";
             Name = string.Format("{0} (ID {1})'.", ProviderType, Id);
             string description = string.Format("Storage location for '{0}' of type '{1}'.", Name, ProviderType);
             DescriptionShort = description;
@@ -55,10 +57,11 @@ namespace Deploy.LaunchPad.Core.Domain.Files
             DefaultPrefix = string.Empty;
         }
 
-        public StorageLocationJson(string id, string name, string providerType, Uri rootUri, string description = "", bool isReadOnly = false, string defaultPrefix = "")
+        public StorageLocationJson(string id, string name, string provider, string providerType, Uri rootUri, string description = "", bool isReadOnly = false, string defaultPrefix = "")
         {
             Id = id;
             Name = name;
+            Provider = provider;
             ProviderType = providerType;
             RootUri = rootUri;
             IsReadOnly = isReadOnly;
