@@ -24,14 +24,14 @@ namespace Deploy.LaunchPad.Python
         public PythonScriptService(ILogger logger, Uri pythonInstallationFilePath, string scriptFileName)
         {
             Logger = logger;
-            Python = new PythonInstallation(pythonInstallationFilePath, PythonMajorVersion.Three, PythonMinorVersion.Eight);
+            Python = new PythonInstallation(pythonInstallationFilePath, PythonMajorVersion.Three, PythonMinorVersion.Eight, 16);
             Script = new PythonScript(scriptFileName);
         }
 
         public PythonScriptService(ILogger logger, Uri pythonInstallationFilePath, string scriptFileName, IDictionary<string, Uri> moduleFilePaths)
         {
             Logger = logger;
-            Python = new PythonInstallation(pythonInstallationFilePath, PythonMajorVersion.Three, PythonMinorVersion.Eight, moduleFilePaths);
+            Python = new PythonInstallation(pythonInstallationFilePath, PythonMajorVersion.Three, PythonMinorVersion.Eight, 16, moduleFilePaths);
             Script = new PythonScript(scriptFileName);
         }
 
