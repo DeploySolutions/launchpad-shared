@@ -38,12 +38,7 @@ namespace Deploy.LaunchPad.Python
         [Required]
         [DataObjectField(false)]
         [XmlElement]
-        PythonMajorVersion MajorVersion { get; set; }
-
-        [Required]
-        [DataObjectField(false)]
-        [XmlElement]
-        PythonMinorVersion MinorVersion { get; set; }
+        IPythonVersion Version { get; set; }
 
         [DataObjectField(false)]
         [XmlElement]

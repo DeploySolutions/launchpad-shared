@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Xml.Serialization;
@@ -35,12 +36,7 @@ namespace Deploy.LaunchPad.Python
         [Required]
         [DataObjectField(false)]
         [XmlElement]
-        public virtual PythonMajorVersion MajorVersion { get; set; }
-
-        [Required]
-        [DataObjectField(false)]
-        [XmlElement]
-        public virtual PythonMinorVersion MinorVersion { get; set; }
+        public virtual IPythonVersion Version { get; set; }
 
         [Required]
         [DataObjectField(false)]
@@ -53,51 +49,50 @@ namespace Deploy.LaunchPad.Python
 
         protected PythonInstallation()
         {
-            MajorVersion = PythonMajorVersion.Three;
-            MinorVersion = PythonMinorVersion.Nine;
+            Version = new PythonReleaseRegistry().Releases["3.11.2"];
             var comparer = StringComparer.OrdinalIgnoreCase;
             ModuleLocations = new Dictionary<string, Uri>(comparer);
-            DescriptionShort = "Python version " + MajorVersion + "." + MinorVersion;
+            Id = "py" + Version.ToString();
+            Name = "Python " + Version.ToString();
+            DescriptionShort = Name;
             DescriptionFull = DescriptionShort;
-            Id = MajorVersion + "." + MinorVersion;
-            Name = "Python " + Id;
         }
 
-        public PythonInstallation(Uri installLocation, PythonMajorVersion majorVersion, PythonMinorVersion minorVersion)
+        public PythonInstallation(Uri installLocation, PythonMajorVersion majorVersion, PythonMinorVersion minorVersion, int patchVersion)
         {
-            MajorVersion = majorVersion;
-            MinorVersion = minorVersion;
+            string versionNumber = majorVersion.ToString() + "." + minorVersion.ToString() + "." + patchVersion.ToString();
+            Version = new PythonReleaseRegistry().Releases[versionNumber];
             InstallLocation = installLocation;
             var comparer = StringComparer.OrdinalIgnoreCase;
             ModuleLocations = new Dictionary<string, Uri>(comparer);
-            DescriptionShort = "Python version " + MajorVersion + "." + MinorVersion;
+            Id = "py" + Version.ToString();
+            Name = "Python " + Version.ToString();
+            DescriptionShort = Name;
             DescriptionFull = DescriptionShort;
-            Id = MajorVersion + "." + MinorVersion;
-            Name = "Python " + Id;
         }
 
-        public PythonInstallation(Uri installLocation, PythonMajorVersion majorVersion, PythonMinorVersion minorVersion, IDictionary<string, Uri> moduleLocations)
+        public PythonInstallation(Uri installLocation, PythonMajorVersion majorVersion, PythonMinorVersion minorVersion, int patchVersion, IDictionary<string, Uri> moduleLocations)
         {
-            MajorVersion = majorVersion;
-            MinorVersion = minorVersion;
+            string versionNumber = majorVersion.ToString() + "." + minorVersion.ToString() + "." + patchVersion.ToString();
+            Version = new PythonReleaseRegistry().Releases[versionNumber];
             InstallLocation = installLocation;
             ModuleLocations = moduleLocations;
-            DescriptionShort = "Python version " + MajorVersion + "." + MinorVersion;
+            Id = "py" + Version.ToString();
+            Name = "Python " + Version.ToString();
+            DescriptionShort = Name;
             DescriptionFull = DescriptionShort;
-            Id = MajorVersion + "." + MinorVersion;
-            Name = "Python " + Id;
         }
 
-        public PythonInstallation(Uri installLocation, IDictionary<string, Uri> moduleLocations, PythonMajorVersion majorVersion, PythonMinorVersion minorVersion)
+        public PythonInstallation(Uri installLocation, IDictionary<string, Uri> moduleLocations, PythonMajorVersion majorVersion, int patchVersion, PythonMinorVersion minorVersion)
         {
-            MajorVersion = majorVersion;
-            MinorVersion = minorVersion;
+            string versionNumber = majorVersion.ToString() + "." + minorVersion.ToString() + "." + patchVersion.ToString();
+            Version = new PythonReleaseRegistry().Releases[versionNumber];
             InstallLocation = installLocation;
             ModuleLocations = moduleLocations;
-            DescriptionShort = "Python version " + MajorVersion + "." + MinorVersion;
+            Id = "py" + Version.ToString();
+            Name = "Python " + Version.ToString();
+            DescriptionShort = Name;
             DescriptionFull = DescriptionShort;
-            Id = MajorVersion + "." + MinorVersion;
-            Name = "Python " + Id;
         }
 
         /// <summary>
@@ -112,8 +107,7 @@ namespace Deploy.LaunchPad.Python
             DescriptionShort = info.GetString("DescriptionShort");
             DescriptionFull = info.GetString("DescriptionFull");
             InstallLocation = (Uri)info.GetValue("InstallLocation", typeof(Uri));
-            MajorVersion = (PythonMajorVersion)info.GetValue("MajorVersion", typeof(PythonMajorVersion));
-            MinorVersion = (PythonMinorVersion)info.GetValue("MinorVersion", typeof(PythonMinorVersion));
+            Version = (PythonVersion)info.GetValue("Version", typeof(PythonVersion));
             ModuleLocations = (IDictionary<string, Uri>)info.GetValue("ModuleLocations", typeof(IDictionary<string, Uri>));
         }
 
@@ -125,8 +119,7 @@ namespace Deploy.LaunchPad.Python
             info.AddValue("DescriptionFull", DescriptionFull);
             info.AddValue("InstallLocation", InstallLocation);
             info.AddValue("ModuleLocations", ModuleLocations);
-            info.AddValue("MajorVersion", MajorVersion);
-            info.AddValue("MinorVersion", MinorVersion);
+            info.AddValue("Version", Version);
         }
 
         /// <summary>
@@ -157,8 +150,7 @@ namespace Deploy.LaunchPad.Python
             sb.AppendFormat("DescriptionFull={0};", DescriptionFull);
             sb.AppendFormat("InstallLocation={0};", InstallLocation);
             sb.AppendFormat("ModuleLocations={0};", ModuleLocations);
-            sb.AppendFormat("MajorVersion={0};", MajorVersion);
-            sb.AppendFormat("MinorVersion={0};", MinorVersion);
+            sb.AppendFormat("Version={0};", Version);
             sb.Append(']');
             return sb.ToString();
         }
@@ -195,8 +187,8 @@ namespace Deploy.LaunchPad.Python
                 // For safe equality we need to match on business key equality.
                 // Base domain entities are functionally equal if their key and metadata are equal.
                 // Subclasses should extend to include their own enhanced equality checks, as required.
-                return Id.Equals(obj.Id) && Name.Equals(obj.Name) && MajorVersion.Equals(obj.MajorVersion)
-                    && MinorVersion.Equals(obj.MinorVersion) && InstallLocation.Equals(obj.InstallLocation);
+                return Id.Equals(obj.Id) && Name.Equals(obj.Name) && Version.Equals(obj.Version)
+                    && InstallLocation.Equals(obj.InstallLocation);
 
             }
             return false;
@@ -244,8 +236,7 @@ namespace Deploy.LaunchPad.Python
             return Id.GetHashCode()
                 + Name.GetHashCode()
                 + InstallLocation.GetHashCode()
-                + MajorVersion.GetHashCode()
-                + MinorVersion.GetHashCode()
+                + Version.GetHashCode()
             ;
         }
     }

@@ -14,6 +14,10 @@ namespace Deploy.LaunchPad.Python
 
     public enum PythonMinorVersion
     {
+        [Description("11")]
+        Eleven = 11, 
+        [Description("10")]
+        Ten = 10,
         [Description("9")]
         Nine = 9,
         [Description("8")]
