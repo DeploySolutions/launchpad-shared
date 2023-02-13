@@ -87,6 +87,12 @@ namespace Deploy.LaunchPad.FileGeneration.Structure
         public bool Required { get; set; }
 
         /// <summary>
+        /// domain entity form item.
+        /// </summary>
+        [JsonProperty("domainEntity")]
+        public string DomainEntity { get; set; }
+
+        /// <summary>
         /// Rows can be nested within an item, if this item is a type of container, such as group
         /// </summary>
         [JsonProperty("rows", NullValueHandling = NullValueHandling.Ignore)]
