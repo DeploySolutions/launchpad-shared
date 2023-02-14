@@ -52,8 +52,8 @@ namespace Deploy.LaunchPad.Python
             Version = new PythonReleaseRegistry().Releases["3.11.2"];
             var comparer = StringComparer.OrdinalIgnoreCase;
             ModuleLocations = new Dictionary<string, Uri>(comparer);
-            Id = "py" + Version.ToString();
-            Name = "Python " + Version.ToString();
+            Id = "py3.11.2";
+            Name = "Python 3.11.2";
             DescriptionShort = Name;
             DescriptionFull = DescriptionShort;
         }
@@ -65,8 +65,8 @@ namespace Deploy.LaunchPad.Python
             InstallLocation = installLocation;
             var comparer = StringComparer.OrdinalIgnoreCase;
             ModuleLocations = new Dictionary<string, Uri>(comparer);
-            Id = "py" + Version.ToString();
-            Name = "Python " + Version.ToString();
+            Id = "py" + majorVersion + "." + minorVersion + "." + patchVersion;
+            Name = "Python " + majorVersion + "." + minorVersion + "." + patchVersion;
             DescriptionShort = Name;
             DescriptionFull = DescriptionShort;
         }
