@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFrameworks>net7.0</TargetFrameworks>
-    <Version>9.0.5</Version>
+    <Version>9.0.6</Version>
     <Authors>Nicholas Kellett</Authors>
     <Company>Deploy Software Solutions, inc.</Company>
     <Copyright>2022-2023 Deploy Software Solutions, inc.</Copyright>

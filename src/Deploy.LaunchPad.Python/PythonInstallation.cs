@@ -65,8 +65,8 @@ namespace Deploy.LaunchPad.Python
             InstallLocation = installLocation;
             var comparer = StringComparer.OrdinalIgnoreCase;
             ModuleLocations = new Dictionary<string, Uri>(comparer);
-            Id = "py" + majorVersion + "." + minorVersion + "." + patchVersion;
-            Name = "Python " + majorVersion + "." + minorVersion + "." + patchVersion;
+            Id = "py" + (int)majorVersion + "." + (int)minorVersion + "." + patchVersion;
+            Name = "Python " + (int)majorVersion + "." + (int)minorVersion + "." + patchVersion;
             DescriptionShort = Name;
             DescriptionFull = DescriptionShort;
         }
@@ -77,8 +77,8 @@ namespace Deploy.LaunchPad.Python
             Version = new PythonReleaseRegistry().Releases[versionNumber];
             InstallLocation = installLocation;
             ModuleLocations = moduleLocations;
-            Id = "py" + Version.ToString();
-            Name = "Python " + Version.ToString();
+            Id = "py" + (int)majorVersion + "." + (int)minorVersion + "." + patchVersion;
+            Name = "Python " + (int)majorVersion + "." + (int)minorVersion + "." + patchVersion;
             DescriptionShort = Name;
             DescriptionFull = DescriptionShort;
         }
@@ -89,8 +89,8 @@ namespace Deploy.LaunchPad.Python
             Version = new PythonReleaseRegistry().Releases[versionNumber];
             InstallLocation = installLocation;
             ModuleLocations = moduleLocations;
-            Id = "py" + Version.ToString();
-            Name = "Python " + Version.ToString();
+            Id = "py" + (int)majorVersion + "." + (int)minorVersion + "." + patchVersion;
+            Name = "Python " + (int)majorVersion + "." + (int)minorVersion + "." + patchVersion;
             DescriptionShort = Name;
             DescriptionFull = DescriptionShort;
         }
