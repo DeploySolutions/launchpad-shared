@@ -49,7 +49,6 @@ namespace Deploy.LaunchPad.Python
 
         protected PythonInstallation()
         {
-            
             var comparer = StringComparer.OrdinalIgnoreCase;
             ModuleLocations = new Dictionary<string, Uri>(comparer);
         }
@@ -98,8 +97,8 @@ namespace Deploy.LaunchPad.Python
         /// <param name="context">The context of the stream</param>
         protected PythonInstallation(SerializationInfo info, StreamingContext context)
         {
-            Id = info.GetString(Id);
-            Name = info.GetString(Name);
+            Id = info.GetString("Id");
+            Name = info.GetString("Name");
             DescriptionShort = info.GetString("DescriptionShort");
             DescriptionFull = info.GetString("DescriptionFull");
             InstallLocation = (Uri)info.GetValue("InstallLocation", typeof(Uri));

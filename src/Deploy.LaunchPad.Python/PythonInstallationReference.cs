@@ -30,7 +30,7 @@ namespace Deploy.LaunchPad.Python
         /// <param name="context">The context of the stream</param>
         protected PythonInstallationReference(SerializationInfo info, StreamingContext context)
         {
-            InstallationId = info.GetString(InstallationId);            
+            InstallationId = info.GetString("InstallationId");        
         }
 
         public void GetObjectData(SerializationInfo info, StreamingContext context)
