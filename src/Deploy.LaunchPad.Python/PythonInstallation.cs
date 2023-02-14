@@ -49,13 +49,9 @@ namespace Deploy.LaunchPad.Python
 
         protected PythonInstallation()
         {
-            Version = new PythonReleaseRegistry().Releases["3.11.2"];
+            
             var comparer = StringComparer.OrdinalIgnoreCase;
             ModuleLocations = new Dictionary<string, Uri>(comparer);
-            Id = "py3.11.2";
-            Name = "Python 3.11.2";
-            DescriptionShort = Name;
-            DescriptionFull = DescriptionShort;
         }
 
         public PythonInstallation(Uri installLocation, PythonMajorVersion majorVersion, PythonMinorVersion minorVersion, int patchVersion)
@@ -140,7 +136,7 @@ namespace Deploy.LaunchPad.Python
         /// Displays information about the <c>Field</c> in readable format.  
         /// </summary>  
         /// <returns>A string representation of the object.</returns>
-        public override String ToString()
+        public override string ToString()
         {
             StringBuilder sb = new StringBuilder();
             sb.Append("[PythonInstallation: ");

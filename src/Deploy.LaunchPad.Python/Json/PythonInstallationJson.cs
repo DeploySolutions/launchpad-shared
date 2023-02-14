@@ -28,13 +28,7 @@ namespace Deploy.LaunchPad.Python.Json
 
         public PythonInstallationJson() : base()
         {
-            Version = new PythonVersionJson(3, 11, 2);
-            var comparer = StringComparer.OrdinalIgnoreCase;
-            ModuleLocations = new Dictionary<string, Uri>(comparer);
-            Id = "py" + Version.ToString();
-            Name = "Python " + Version.ToString();
-            DescriptionShort = Name;
-            DescriptionFull = DescriptionShort;
+            
         }
     }
 
