@@ -11,7 +11,7 @@ namespace Deploy.LaunchPad.Python
     [Serializable()]
     public partial class PythonInstallationReference : IPythonInstallationReference
     {
-        public virtual string InstallationId { get;set; }
+        public virtual string InstallationId { get;set; } = string.Empty;
 
         public PythonInstallationReference()
         {
