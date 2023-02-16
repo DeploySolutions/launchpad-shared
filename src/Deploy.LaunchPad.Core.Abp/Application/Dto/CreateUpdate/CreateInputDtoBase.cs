@@ -25,6 +25,13 @@ namespace Deploy.LaunchPad.Core.Abp.Application.Dto
         [XmlAttribute]
         public virtual string DescriptionShort { get; set; }
 
+        /// <summary>
+        /// A short description of this item.
+        /// </summary>
+        [DataObjectField(false)]
+        [XmlAttribute]
+        public virtual string DescriptionFull { get; set; }
+
         public CreateInputDtoBase() : base()
         {
 
