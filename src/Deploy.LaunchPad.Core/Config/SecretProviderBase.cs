@@ -26,6 +26,8 @@ namespace Deploy.LaunchPad.Core.Config
 
         public virtual string Description { get; set; }
 
+        public virtual string Type { get; protected set; }
+
         public virtual ILogger Logger { get; set; } = NullLogger.Instance;
 
         public SecretProviderBase()

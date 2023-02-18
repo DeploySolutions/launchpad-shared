@@ -14,6 +14,8 @@ namespace Deploy.LaunchPad.Core.Config
         public string Id { get; set; }
 
         public string Name { get; set; }
+        
+        public string Type { get; }
 
         public string Description { get; set; }
 

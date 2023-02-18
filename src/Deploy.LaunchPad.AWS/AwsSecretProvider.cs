@@ -20,7 +20,7 @@ namespace Deploy.LaunchPad.AWS
         [JsonIgnore]
         public IAmazonSecretsManager SecretClient { get { return _secretClient; } }
 
-
+        public override string Type { get; protected set; } = "Deploy.LaunchPad.AWS.AwsSecretProvider";
 
         public AwsSecretProvider() : base()
         {
