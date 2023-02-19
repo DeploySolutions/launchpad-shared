@@ -14,10 +14,13 @@ namespace Deploy.LaunchPad.Core.Abp.AbpModuleConfig
 
         public virtual IConfigurationRoot ConfigurationRoot { get; set; }
 
+        public virtual ILaunchPadAbpModuleSecretConfiguration Secret { get; protected set; }
+
 
         protected LaunchPadAbpModuleConfigBase(ILogger logger)
         {
             Logger = logger;
+            Secret = new LaunchPadAbpModuleSecretConfiguration();
         }
 
     }

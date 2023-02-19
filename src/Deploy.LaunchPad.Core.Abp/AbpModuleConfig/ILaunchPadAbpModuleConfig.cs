@@ -12,5 +12,6 @@ namespace Deploy.LaunchPad.Core.Abp.AbpModuleConfig
         public IConfigurationRoot ConfigurationRoot { get; }
 
 
+
     }
 }
