@@ -1,10 +1,15 @@
 ﻿using Abp.AutoMapper;
+using Abp.Dependency;
 using Abp.Modules;
 using Abp.Reflection.Extensions;
 using Castle.Core.Logging;
+using Deploy.LaunchPad.Core.Config;
+using Deploy.LaunchPad.Core.Util;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Deploy.LaunchPad.Core.Abp.AbpModuleConfig
 {
@@ -56,18 +61,69 @@ namespace Deploy.LaunchPad.Core.Abp.AbpModuleConfig
             base.PostInitialize();
 
         }
+
+        /// <summary>
+        /// Load the AbpModule base properties, starting a new scope
+        /// </summary>
+        /// <typeparam name="THostEnvironment"></typeparam>
+        /// <param name="config"></param>
+        /// <returns></returns>
         protected virtual ILaunchPadAbpModuleConfig<THostEnvironment> LoadBaseConfigPropertiesOnPostInitialize<THostEnvironment>(
             LaunchPadAbpModuleConfigBase<THostEnvironment> config)
             where THostEnvironment : IHostEnvironment
         {
-
-            // set the host and configuration parameters
-            var hostEnvironment = IocManager.Resolve<THostEnvironment>();
-            config.HostEnvironment = hostEnvironment;
-            var configurationRoot = IocManager.Resolve<IConfigurationRoot>();
-            config.ConfigurationRoot = configurationRoot;
+            using (var scope = IocManager.CreateScope())
+            {
+                // set the host and configuration parameters
+                config.HostEnvironment = scope.Resolve<THostEnvironment>();
+                config.ConfigurationRoot = scope.Resolve<IConfigurationRoot>();
+            }
             return config;
 
+        }
+
+        /// <summary>
+        /// Loads the AbpModule base properties within an existing scope
+        /// </summary>
+        /// <typeparam name="THostEnvironment"></typeparam>
+        /// <param name="config"></param>
+        /// <param name="scope"></param>
+        /// <returns></returns>
+
+        protected virtual ILaunchPadAbpModuleConfig<THostEnvironment> LoadBaseConfigPropertiesOnPostInitialize<THostEnvironment>(
+            LaunchPadAbpModuleConfigBase<THostEnvironment> config, IScopedIocResolver scope)
+            where THostEnvironment : IHostEnvironment
+        {
+
+            // set the host and configuration parameters
+            config.HostEnvironment = scope.Resolve<THostEnvironment>();
+            config.ConfigurationRoot = scope.Resolve<IConfigurationRoot>();
+            return config;
+
+        }
+
+        /// <summary>
+        /// Loads the Fields dictionary for a given AbpModule from the available secrets
+        /// </summary>
+        /// <typeparam name="THostEnvironment"></typeparam>
+        /// <param name="config"></param>
+        /// <param name="abpModuleKeyPrefix">The starting text that identifies a field belongs to this particular abpmodule</param>
+        /// <param name="secretVault"></param>
+        /// <returns></returns>
+        protected virtual ILaunchPadAbpModuleConfig<THostEnvironment> PopulateSecretConfiguration<THostEnvironment>(LaunchPadAbpModuleConfigBase<THostEnvironment> config, string abpModuleKeyPrefix, ISecretVault secretVault)
+            where THostEnvironment : IHostEnvironment
+        {
+            Guard.Against<ArgumentNullException>(config == null, "config cannot be null.");
+            Guard.Against<ArgumentNullException>(secretVault == null, "secretVault cannot be null.");
+            Guard.Against<ArgumentNullException>(string.IsNullOrEmpty(abpModuleKeyPrefix), "abpModuleKeyPrefix cannot be null or empty.");
+
+            foreach (var field in from field in secretVault.Fields
+                                  where field.Key.StartsWith(abpModuleKeyPrefix)
+                                  select field)
+            {
+                config.Secret.Fields.TryAdd(field.Key, field.Value);
+            }
+            return config;
         }
 
     }
