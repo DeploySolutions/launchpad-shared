@@ -778,6 +778,15 @@ namespace Deploy.LaunchPad.Core {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Name must be 256 characters or less..
+        /// </summary>
+        public static string Validation_Name_256CharsOrLess {
+            get {
+                return ResourceManager.GetString("Validation_Name_256CharsOrLess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Token name must be 20 characters or less..
         /// </summary>
         public static string Validation_Token_Name_20CharsOrLess {

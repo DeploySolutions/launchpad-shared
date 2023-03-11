@@ -55,7 +55,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
         [MaxLength(5, ErrorMessageResourceName = "Validation_Culture_5CharsOrLess", ErrorMessageResourceType = typeof(Deploy_LaunchPad_Core_Resources))]
         [DataObjectField(true)]
         [XmlAttribute]
-        public virtual String Culture { get; set; }
+        public virtual string Culture { get; set; }
 
 
         /// <summary>
@@ -65,7 +65,16 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
         [MaxLength(100, ErrorMessageResourceName = "Validation_Name_100CharsOrLess", ErrorMessageResourceType = typeof(Deploy_LaunchPad_Core_Resources))]
         [DataObjectField(false)]
         [XmlAttribute]
-        public virtual String Name { get; set; }
+        public virtual string Name { get; set; }
+
+        /// <summary>
+        /// The fully-qualified name of this object (if different from the Name field)
+        /// </summary>
+        [Required]
+        [MaxLength(100, ErrorMessageResourceName = "Validation_Name_256CharsOrLess", ErrorMessageResourceType = typeof(Deploy_LaunchPad_Core_Resources))]
+        [DataObjectField(false)]
+        [XmlAttribute]
+        public virtual string FullyQualifiedName { get; set; }
 
         /// <summary>
         /// The external ID stored in a client system (if any). Can be any type on client system, but retained here as text.
@@ -73,7 +82,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
         [MaxLength(36, ErrorMessageResourceName = "Validation_ExternalId_36CharsOrLess", ErrorMessageResourceType = typeof(Deploy_LaunchPad_Core_Resources))]
         [DataObjectField(false)]
         [XmlAttribute]
-        public virtual String ExternalId { get; set; }
+        public virtual string ExternalId { get; set; }
 
         /// <summary>
         /// A short description for this entity
@@ -82,7 +91,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
         [MaxLength(256, ErrorMessageResourceName = "Validation_DescriptionShort_256CharsOrLess", ErrorMessageResourceType = typeof(Deploy_LaunchPad_Core_Resources))]
         [DataObjectField(false)]
         [XmlAttribute]
-        public virtual String DescriptionShort { get; set; }
+        public virtual string DescriptionShort { get; set; }
 
         /// <summary>
         /// The full description for this entity
@@ -97,7 +106,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
         /// </summary>
         [DataObjectField(false)]
         [XmlElement]
-        public virtual Int32 SeqNum { get; set; } = 0;
+        public virtual int SeqNum { get; set; } = 0;
 
         /// <summary>
         /// Each entity can have an open-ended set of tags applied to it, that help users find, markup, and display its information
@@ -152,9 +161,10 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
             Tags = new List<MetadataTag>();
             IsDeleted = false;
             IsActive = true;
-            Name = String.Empty;
-            DescriptionShort = String.Empty;
-            DescriptionFull = String.Empty;
+            Name = string.Empty;
+            FullyQualifiedName = string.Empty;
+            DescriptionShort = string.Empty;
+            DescriptionFull = string.Empty;
 
         }
 
@@ -171,9 +181,10 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
             IsDeleted = false;
             IsActive = true;
             Tags = new List<MetadataTag>();
-            Name = String.Empty;
-            DescriptionShort = String.Empty;
-            DescriptionFull = String.Empty;
+            Name = id.ToString();
+            FullyQualifiedName = id.ToString();
+            DescriptionShort = string.Empty;
+            DescriptionFull = string.Empty;
         }
 
         /// <summary>
@@ -189,9 +200,10 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
             IsDeleted = false;
             IsActive = true;
             Tags = new List<MetadataTag>();
-            Name = String.Empty;
-            DescriptionShort = String.Empty;
-            DescriptionFull = String.Empty;
+            Name = id.ToString();
+            FullyQualifiedName = id.ToString();
+            DescriptionShort = string.Empty;
+            DescriptionFull = string.Empty;
         }
 
 
@@ -205,7 +217,8 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
             Id = (TIdType)info.GetValue("Id", typeof(TIdType));
             ExternalId = info.GetString("ExternalId");
             Culture = info.GetString("Culture");
-            Name = info.GetString("DisplayName");
+            Name = info.GetString("Name");
+            FullyQualifiedName = info.GetString("FullyQualifiedName");
             DescriptionShort = info.GetString("DescriptionShort");
             DescriptionFull = info.GetString("DescriptionFull");
             Tags = (IEnumerable<MetadataTag>)info.GetValue("Metadata", typeof(IEnumerable<MetadataTag>));
@@ -219,7 +232,6 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
             IsActive = info.GetBoolean("IsActive");
             TranslatedFromId = (TIdType)info.GetValue("TranslatedFromId", typeof(TIdType));
             SeqNum = info.GetInt32("SeqNum");
-
             //Metadata = (MetadataInformation)info.GetValue("Metadata", typeof(MetadataInformation));
 
         }
@@ -235,6 +247,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
             info.AddValue("ExternalId", ExternalId);
             info.AddValue("Culture", Culture);
             info.AddValue("Name", Name);
+            info.AddValue("FullyQualifiedName", FullyQualifiedName);
             info.AddValue("DescriptionShort", DescriptionShort);
             info.AddValue("DescriptionFull", DescriptionFull);
             info.AddValue("Tags", Tags);
@@ -292,8 +305,8 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
         public virtual int CompareTo(LaunchPadDomainEntityBase<TIdType> other)
         {
             // put comparison of properties in here 
-            // for base object we'll just sort by title
-            return Name.CompareTo(other.Name);
+            // for base object we'll just sort by FullyQualifiedName
+            return FullyQualifiedName.CompareTo(other.FullyQualifiedName);
         }
 
         /// <summary>  
@@ -321,6 +334,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
             sb.AppendFormat("Id={0};", Id);
             sb.AppendFormat("ExternalId={0};", ExternalId);
             sb.AppendFormat("Name={0};", Name);
+            sb.AppendFormat("FullyQualifiedName={0};", FullyQualifiedName);
             sb.AppendFormat("DescriptionShort={0};", DescriptionShort);
             sb.AppendFormat("DescriptionFull={0};", DescriptionFull);
             sb.AppendFormat("TranslatedFromId={0};", TranslatedFromId);
@@ -378,6 +392,8 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
                     // Base domain entities are functionally equal if their key and metadata are equal.
                     // Subclasses should extend to include their own enhanced equality checks, as required.
                     return Id.Equals(obj.Id) && Culture.Equals(obj.Culture) && ExternalId.Equals(obj.ExternalId)
+                        && FullyQualifiedName.Equals(obj.FullyQualifiedName)
+                        && ExternalId.Equals(obj.ExternalId)
                         && IsActive.Equals(obj.IsActive) && IsDeleted.Equals(obj.IsDeleted);
                 }
 
@@ -426,6 +442,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
         {
             return Culture.GetHashCode()
                 + Id.GetHashCode()
+                + FullyQualifiedName.GetHashCode()
                 + ExternalId.GetHashCode();
         }
 

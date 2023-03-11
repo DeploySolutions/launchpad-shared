@@ -358,6 +358,9 @@
   <data name="Validation_Name_100CharsOrLess" xml:space="preserve">
     <value>Name must be 100 characters or less.</value>
   </data>
+  <data name="Validation_Name_256CharsOrLess" xml:space="preserve">
+    <value>Name must be 256 characters or less.</value>
+  </data>
   <data name="Validation_Token_Name_20CharsOrLess" xml:space="preserve">
     <value>Token name must be 20 characters or less.</value>
   </data>

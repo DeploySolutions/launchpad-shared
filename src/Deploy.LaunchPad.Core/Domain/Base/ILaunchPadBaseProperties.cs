@@ -21,7 +21,7 @@ namespace Deploy.LaunchPad.Core.Domain
         [MaxLength(5, ErrorMessageResourceName = "Validation_Culture_5CharsOrLess", ErrorMessageResourceType = typeof(Deploy_LaunchPad_Core_Resources))]
         [DataObjectField(true)]
         [XmlAttribute]
-        public String Culture { get; set; }
+        public string Culture { get; set; }
 
 
         /// <summary>
@@ -31,7 +31,16 @@ namespace Deploy.LaunchPad.Core.Domain
         [MaxLength(100, ErrorMessageResourceName = "Validation_Name_100CharsOrLess", ErrorMessageResourceType = typeof(Deploy_LaunchPad_Core_Resources))]
         [DataObjectField(false)]
         [XmlAttribute]
-        public String Name { get; set; }
+        public string Name { get; set; }
+
+        /// <summary>
+        /// The fully-qualified name of this object (if different from the Name field)
+        /// </summary>
+        [Required]
+        [MaxLength(100, ErrorMessageResourceName = "Validation_Name_256CharsOrLess", ErrorMessageResourceType = typeof(Deploy_LaunchPad_Core_Resources))]
+        [DataObjectField(false)]
+        [XmlAttribute]
+        public string FullyQualifiedName { get; set; }
 
         /// <summary>
         /// The external ID stored in a client system (if any). Can be any type on client system, but retained here as text.
@@ -39,7 +48,7 @@ namespace Deploy.LaunchPad.Core.Domain
         [MaxLength(36, ErrorMessageResourceName = "Validation_ExternalId_36CharsOrLess", ErrorMessageResourceType = typeof(Deploy_LaunchPad_Core_Resources))]
         [DataObjectField(false)]
         [XmlAttribute]
-        public String ExternalId { get; set; }
+        public string ExternalId { get; set; }
 
         /// <summary>
         /// A short description for this value object
@@ -48,7 +57,7 @@ namespace Deploy.LaunchPad.Core.Domain
         [MaxLength(256, ErrorMessageResourceName = "Validation_DescriptionShort_256CharsOrLess", ErrorMessageResourceType = typeof(Deploy_LaunchPad_Core_Resources))]
         [DataObjectField(false)]
         [XmlAttribute]
-        public String DescriptionShort { get; set; }
+        public string DescriptionShort { get; set; }
 
         /// <summary>
         /// The full description for this value object
@@ -63,7 +72,7 @@ namespace Deploy.LaunchPad.Core.Domain
         /// </summary>
         [DataObjectField(false)]
         [XmlElement]
-        public Int32 SeqNum { get; set; }
+        public int SeqNum { get; set; }
 
         /// <summary>
         /// Each value object can have an open-ended set of tags applied to it, that help users find, markup, and display its information
