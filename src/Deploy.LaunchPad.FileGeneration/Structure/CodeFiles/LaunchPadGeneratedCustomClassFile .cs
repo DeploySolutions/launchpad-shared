@@ -17,6 +17,11 @@ namespace Deploy.LaunchPad.FileGeneration.Structure
         public virtual string FilePath { get; set; }
 
 
+        /// <summary>
+        /// Whether the class file actually represents an interface. Defaults to false
+        /// </summary>
+        public virtual bool IsInterface { get; set; } = false;
+
         public LaunchPadGeneratedCustomClassFile() : base()
         {
             

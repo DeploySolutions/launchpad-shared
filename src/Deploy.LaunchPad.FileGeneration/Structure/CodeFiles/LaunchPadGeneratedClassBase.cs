@@ -41,6 +41,11 @@ namespace Deploy.LaunchPad.FileGeneration.Structure
         public virtual bool IsStatic { get; set; } = false;
 
         /// <summary>
+        /// Whether the class is abstract. Defaults to false.
+        /// </summary>
+        public virtual bool IsAbstract { get; set; } = false;
+
+        /// <summary>
         /// The access modifier/level of the class. Defaults to public.
         /// </summary>
         public LaunchPadGeneratedAccessModifier AccessModifier { get; set; }
