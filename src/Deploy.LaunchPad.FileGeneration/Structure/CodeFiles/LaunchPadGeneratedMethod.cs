@@ -44,6 +44,12 @@ namespace Deploy.LaunchPad.FileGeneration.Structure
         /// </summary>
         public virtual bool IsStatic { get; set; } = false;
 
+
+        /// <summary>
+        /// Whether the method is abstract. Defaults to false to prefer concrete methods.
+        /// </summary>
+        public virtual bool IsAbstract { get; set; } = false;
+
         /// <summary>
         /// The access modifier/level of the method. Defaults to private.
         /// </summary>
