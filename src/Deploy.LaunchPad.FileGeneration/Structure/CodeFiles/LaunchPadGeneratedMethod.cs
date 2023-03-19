@@ -40,6 +40,11 @@ namespace Deploy.LaunchPad.FileGeneration.Structure
         public virtual bool IsVirtual { get; set; } = true;
 
         /// <summary>
+        /// Whether the method is an override. Defaults to false
+        /// </summary>
+        public virtual bool IsOverride { get; set; } = false;
+
+        /// <summary>
         /// Whether the method is static. Defaults to false to prefer instance methods.
         /// </summary>
         public virtual bool IsStatic { get; set; } = false;
