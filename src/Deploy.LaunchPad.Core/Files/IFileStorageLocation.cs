@@ -79,15 +79,24 @@ namespace Deploy.LaunchPad.Core.Domain
         [XmlAttribute]
         public IEnumerable<MetadataTag> Tags { get; set; }
 
-        public IFile<TPrimaryKey, TFileContentType> FindFileById<TPrimaryKey, TFileContentType>(string fileId);
+        public bool FileExists<TPrimaryKey, TFileContentType>(string fileId);
 
-        public bool WriteFile<TFilePrimaryKey, TFileContentType>(IFile<TFilePrimaryKey, TFileContentType> sourceFile, IDictionary<string, string> fileTags, string contentType = "", IDictionary<string, string> writeTags = null, string filePrefix = "", string fileSuffix = "");
+        
+        public bool CreateFile<TFilePrimaryKey, TFileContentType>(IFile<TFilePrimaryKey, TFileContentType> sourceFile, IDictionary<string, string> fileTags, string contentType = "", IDictionary<string, string> writeTags = null, string filePrefix = "", string fileSuffix = "");
 
-        public Task<bool> WriteFileAsync<TFilePrimaryKey, TFileContentType>(IFile<TFilePrimaryKey, TFileContentType> sourceFile, IDictionary<string, string> fileTags, string contentType = "", IDictionary<string, string> writeTags = null, string filePrefix = "", string fileSuffix = "");
+        public Task<bool> CreateFileAsync<TFilePrimaryKey, TFileContentType>(IFile<TFilePrimaryKey, TFileContentType> sourceFile, IDictionary<string, string> fileTags, string contentType = "", IDictionary<string, string> writeTags = null, string filePrefix = "", string fileSuffix = "");
 
-        public bool CopyFileTo<TFilePrimaryKey, TFileContentType>(IFileStorageLocation destinationLocation, IFile<TFilePrimaryKey, TFileContentType> sourceFile, IDictionary<string, string> fileTags, IDictionary<string, string> copyTags = null, string filePrefix = "", string fileSuffix = "");
+        public IFile<TPrimaryKey, TFileContentType> ReadFile<TPrimaryKey, TFileContentType>(string fileId);
 
-        public Task<bool> CopyFileToAsync<TFilePrimaryKey, TFileContentType>(IFileStorageLocation destinationLocation, IFile<TFilePrimaryKey, TFileContentType> sourceFile, IDictionary<string, string> fileTags, IDictionary<string, string> copyTags = null, string filePrefix = "", string fileSuffix = "");
+        public Task<IFile<TPrimaryKey, TFileContentType>> ReadFileAsync<TPrimaryKey, TFileContentType>(string fileId);
+
+        public IFile<TPrimaryKey, TFileContentType> UpdateFile<TPrimaryKey, TFileContentType>(IFile<TPrimaryKey, TFileContentType> filetoUpdate);
+        
+        public Task<IFile<TPrimaryKey, TFileContentType>> UpdateFileAsync<TPrimaryKey, TFileContentType>(IFile<TPrimaryKey, TFileContentType> filetoUpdate);
+
+        public bool DeleteFile<TFilePrimaryKey, TFileContentType>(IFile<TFilePrimaryKey, TFileContentType> fileToDelete);
+
+        public Task<bool> DeleteFileAsync<TFilePrimaryKey, TFileContentType>(IFile<TFilePrimaryKey, TFileContentType> fileToDelete);
 
         public Uri GetRelativePathForFile<TFilePrimaryKey, TFileContentType>(IFile<TFilePrimaryKey, TFileContentType> file);
 
@@ -104,7 +113,7 @@ namespace Deploy.LaunchPad.Core.Domain
         /// Returns available storage space for this location, in GB, or -1 if unknown or "infinite" ex a cloud storage drive
         /// </summary>
         /// <returns></returns>
-        public long GetAvailableStorageSpaceInGigabytes();
+        public double GetAvailableStorageSpaceInGigabytes();
 
     }
 }

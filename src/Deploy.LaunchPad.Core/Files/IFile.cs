@@ -23,10 +23,15 @@ namespace Deploy.LaunchPad.Core.Domain
 
     /// <summary>
     /// Marks any object as a file that can be manipulated by the platform.
-    /// Each file is uniquely identified by its FileKey.
+    /// Each file is uniquely identified by its id, which could be a complex name or some other unique property like a GUID or integer.
     /// </summary>
-    public interface IFile<TPrimaryKey, TFileContentType> : ILaunchPadObject
+    public interface IFile<TIdType, TFileContentType> : ILaunchPadObject
     {
+        
+        /// <summary>
+        /// Unique identifier for this entity.
+        /// </summary
+        public TIdType Id { get; set; }
 
         /// <summary>
         /// The size of the file, in bytes

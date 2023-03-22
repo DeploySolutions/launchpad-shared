@@ -26,8 +26,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
 {
     public abstract partial class FileBase<TIdType, TFileContentType> : LaunchPadDomainEntityBase<TIdType>,
         IFile<TIdType, TFileContentType>
-    {
-
+    {        
 
         [DataObjectField(false)]
         [XmlAttribute]

@@ -15,6 +15,7 @@
 //limitations under the License. 
 #endregion
 
+using Castle.Core.Logging;
 using Deploy.LaunchPad.Core.Domain;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -42,7 +43,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
             Provider = FileStorageLocationTypeEnum.Windows_NTFS;
         }
 
-        public WindowsFileStorageLocation(string id, Uri rootUri) : base(id, rootUri)
+        public WindowsFileStorageLocation(ILogger logger, string id, Uri rootUri) : base(logger, id, rootUri)
         {
             FileInfo file = new FileInfo(RootUri.ToString());
             DriveInfo drive = new DriveInfo(file.Directory.Root.FullName);
@@ -95,7 +96,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
         /// Returns available storage space for this location, in GB, or -1 if unknown or "infinite" ex a cloud storage drive
         /// </summary>
         /// <returns></returns>
-        public override long GetAvailableStorageSpaceInGigabytes()
+        public override double GetAvailableStorageSpaceInGigabytes()
         {
             long driveSpace = GetAvailableStorageSpaceInBytes();
             if (driveSpace > 0)

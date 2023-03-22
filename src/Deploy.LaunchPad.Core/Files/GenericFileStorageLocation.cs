@@ -15,6 +15,8 @@
 //limitations under the License. 
 #endregion
 
+using Castle.Core.Logging;
+using Microsoft.EntityFrameworkCore.Update.Internal;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -78,6 +80,11 @@ namespace Deploy.LaunchPad.Core.Domain
         public virtual FileStorageLocationTypeEnum Provider { get; set; }
 
         /// <summary>
+        /// Reference to the logger to write logs.
+        /// </summary>
+        public ILogger Logger { protected get; set; }
+
+        /// <summary>
         /// The location have an open-ended set of tags applied to it, that help users find, markup, and display its information
         /// </summary>
         [DataObjectField(false)]
@@ -90,42 +97,55 @@ namespace Deploy.LaunchPad.Core.Domain
             Id = "GenericFile1";
             Provider = FileStorageLocationTypeEnum.Unknown;
             Tags = new List<MetadataTag>();
+            Logger = NullLogger.Instance;
         }
 
-        public GenericFileStorageLocation(string id, Uri rootUri)
+        public GenericFileStorageLocation(ILogger logger, string id, Uri rootUri)
         {
             Id = id;
             Name = id;
             RootUri = rootUri;
             Provider = FileStorageLocationTypeEnum.Unknown;
             Tags = new List<MetadataTag>();
+            Logger = logger;
+        }
+        public GenericFileStorageLocation(ILogger logger)
+        {
+            Name = "Generic File Storage Location";
+            Id = "GenericFile1";
+            Provider = FileStorageLocationTypeEnum.Unknown;
+            Tags = new List<MetadataTag>();
+            Logger = logger;
         }
 
-        public GenericFileStorageLocation(string id, Uri rootUri, FileStorageLocationTypeEnum provider)
+        public GenericFileStorageLocation(ILogger logger, string id, Uri rootUri, FileStorageLocationTypeEnum provider)
         {
             Id = id;
             Name = id;
             RootUri = rootUri;
             Provider = provider;
             Tags = new List<MetadataTag>();
+            Logger = logger;
         }
 
-        public GenericFileStorageLocation(string id, string name, Uri rootUri, FileStorageLocationTypeEnum provider)
+        public GenericFileStorageLocation(ILogger logger, string id, string name, Uri rootUri, FileStorageLocationTypeEnum provider)
         {
             Id = id;
             Name = name;
             RootUri = rootUri;
             Provider = provider;
             Tags = new List<MetadataTag>();
+            Logger = logger;
         }
 
-        public GenericFileStorageLocation(string id, string name, Uri rootUri, FileStorageLocationTypeEnum provider, IEnumerable<MetadataTag> tags)
+        public GenericFileStorageLocation(ILogger logger, string id, string name, Uri rootUri, FileStorageLocationTypeEnum provider, IEnumerable<MetadataTag> tags)
         {
             Id = id;
             Name = name;
             RootUri = rootUri;
             Provider = provider;
             Tags = tags;
+            Logger = logger;
         }
 
         /// <summary>
@@ -286,31 +306,51 @@ namespace Deploy.LaunchPad.Core.Domain
                 + RootUri.GetHashCode();
             ;
         }
+        
+        
+        
+        public virtual bool CreateFile<TFilePrimaryKey, TFileContentType>(IFile<TFilePrimaryKey, TFileContentType> sourceFile, IDictionary<string, string> fileTags, string contentType, IDictionary<string, string> writeTags, string filePrefix, string fileSuffix)
+        {
+            return CreateFileAsync(sourceFile, fileTags, contentType, writeTags, filePrefix, fileSuffix).Result;
+        }
 
-        public IFile<TPrimaryKey, TFileContentType> FindFileById<TPrimaryKey, TFileContentType>(string fileId)
+        public virtual async Task<bool> CreateFileAsync<TFilePrimaryKey, TFileContentType>(IFile<TFilePrimaryKey, TFileContentType> sourceFile, IDictionary<string, string> fileTags, string contentType, IDictionary<string, string> writeTags, string filePrefix, string fileSuffix)
         {
             throw new NotImplementedException();
         }
 
-        public virtual bool WriteFile<TFilePrimaryKey, TFileContentType>(IFile<TFilePrimaryKey, TFileContentType> sourceFile, IDictionary<string, string> fileTags, string contentType, IDictionary<string, string> writeTags, string filePrefix, string fileSuffix)
+        public virtual IFile<TPrimaryKey, TFileContentType> ReadFile<TPrimaryKey, TFileContentType>(string fileId)
+        {
+            return ReadFileAsync<TPrimaryKey, TFileContentType>(fileId).Result;
+        }
+
+        public virtual async Task<IFile<TPrimaryKey, TFileContentType>> ReadFileAsync<TPrimaryKey, TFileContentType>(string fileId)
         {
             throw new NotImplementedException();
         }
 
-        public virtual Task<bool> WriteFileAsync<TFilePrimaryKey, TFileContentType>(IFile<TFilePrimaryKey, TFileContentType> sourceFile, IDictionary<string, string> fileTags, string contentType, IDictionary<string, string> writeTags, string filePrefix, string fileSuffix)
+        public virtual IFile<TPrimaryKey, TFileContentType> UpdateFile<TPrimaryKey, TFileContentType>(IFile<TPrimaryKey, TFileContentType> fileToUpdate)
+        {
+            return UpdateFileAsync(fileToUpdate).Result;
+        }
+        public virtual async Task<IFile<TPrimaryKey, TFileContentType>> UpdateFileAsync<TPrimaryKey, TFileContentType>(IFile<TPrimaryKey, TFileContentType> fileToUpdate)
         {
             throw new NotImplementedException();
         }
 
-        public virtual bool CopyFileTo<TFilePrimaryKey, TFileContentType>(IFileStorageLocation destinationLocation, IFile<TFilePrimaryKey, TFileContentType> sourceFile, IDictionary<string, string> fileTags, IDictionary<string, string> copyTags = null, string filePrefix = "", string fileSuffix = "")
+
+
+        public virtual bool DeleteFile<TFilePrimaryKey, TFileContentType>(IFile<TFilePrimaryKey, TFileContentType> fileToDelete)
         {
+            return DeleteFileAsync(fileToDelete).Result;
+        }
+
+        public virtual async Task<bool> DeleteFileAsync<TFilePrimaryKey, TFileContentType>(IFile<TFilePrimaryKey, TFileContentType> fileToDelete)
+        {
+
             throw new NotImplementedException();
         }
 
-        public virtual Task<bool> CopyFileToAsync<TFilePrimaryKey, TFileContentType>(IFileStorageLocation destinationLocation, IFile<TFilePrimaryKey, TFileContentType> sourceFile, IDictionary<string, string> fileTags, IDictionary<string, string> copyTags, string filePrefix, string fileSuffix)
-        {
-            throw new NotImplementedException();
-        }
 
         public virtual Uri GetRelativePathForFile<TFilePrimaryKey, TFileContentType>(IFile<TFilePrimaryKey, TFileContentType> file)
         {
@@ -337,10 +377,14 @@ namespace Deploy.LaunchPad.Core.Domain
         /// Returns available storage space for this location, in GB, or -1 if unknown or "infinite" ex a cloud storage drive
         /// </summary>
         /// <returns></returns>
-        public virtual long GetAvailableStorageSpaceInGigabytes()
+        public virtual double GetAvailableStorageSpaceInGigabytes()
         {
             return -1;
         }
 
+        public virtual bool FileExists<TPrimaryKey, TFileContentType>(string fileId)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

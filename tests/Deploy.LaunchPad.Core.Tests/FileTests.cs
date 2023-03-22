@@ -25,6 +25,7 @@ namespace Deploy.LaunchPad.Core.Tests
     using System.IO;
     using System.Reflection;
     using System;
+    using Castle.Core.Logging;
 
     public class FileTests : IClassFixture<FileTestsFixture>
     {
@@ -45,7 +46,7 @@ namespace Deploy.LaunchPad.Core.Tests
             FileInfo file = new FileInfo(path);
             DriveInfo drive = new DriveInfo(file.Directory.Root.FullName);
             string driveRoot = drive.RootDirectory.FullName;
-            location = new WindowsFileStorageLocation(drive.Name, new Uri(driveRoot));
+            location = new WindowsFileStorageLocation(NullLogger.Instance, drive.Name, new Uri(driveRoot));
             this._fixture.Initialize(location);
         }
 
