@@ -5,7 +5,7 @@ using Deploy.LaunchPad.Core.Abp.Application;
 
 namespace Deploy.LaunchPad.AWS.Abp.SQS.Services
 {
-    public partial class AwsSQSService : SystemIntegrationServiceBase, IAwsSQSService
+    public partial class AwsSQSService : LaunchPadAbpSystemIntegrationServiceBase, IAwsSQSService
     {
         public IAwsSQSHelper Helper { get; set; }
 

@@ -6,7 +6,7 @@ using Microsoft.Extensions.Configuration;
 
 namespace Deploy.LaunchPad.AWS.Abp.SNS.Services
 {
-    public partial class AwsSNSService : SystemIntegrationServiceBase, IAwsSNSService
+    public partial class AwsSNSService : LaunchPadAbpSystemIntegrationServiceBase, IAwsSNSService
     {
         public IAwsSNSHelper Helper { get; set; }
 
