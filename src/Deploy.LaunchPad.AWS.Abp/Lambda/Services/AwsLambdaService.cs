@@ -5,7 +5,7 @@ using Deploy.LaunchPad.Core.Abp.Application;
 
 namespace Deploy.LaunchPad.AWS.Abp.Lambda.Services
 {
-    public partial class AwsLambdaService : SystemIntegrationServiceBase, IAwsLambdaService
+    public partial class AwsLambdaService : LaunchPadAbpSystemIntegrationServiceBase, IAwsLambdaService
     {
         public IAwsLambdaHelper Helper { get; set; }
 

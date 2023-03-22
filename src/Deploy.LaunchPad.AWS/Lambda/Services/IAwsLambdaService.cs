@@ -2,7 +2,7 @@
 
 namespace Deploy.LaunchPad.AWS.Lambda.Services
 {
-    public interface IAwsLambdaService : ISystemIntegrationService
+    public interface IAwsLambdaService : ILaunchPadSystemIntegrationService
     {
         public IAwsLambdaHelper Helper { get; set; }
     }

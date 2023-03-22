@@ -2,7 +2,7 @@
 
 namespace Deploy.LaunchPad.AWS.SNS.Services
 {
-    public interface IAwsSNSService : ISystemIntegrationService
+    public interface IAwsSNSService : ILaunchPadSystemIntegrationService
     {
         public IAwsSNSHelper Helper { get; set; }
 

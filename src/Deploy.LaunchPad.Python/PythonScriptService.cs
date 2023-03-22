@@ -8,7 +8,7 @@ using System.IO;
 
 namespace Deploy.LaunchPad.Python
 {
-    public partial class PythonScriptService : ISystemIntegrationService, IPythonScriptService
+    public partial class PythonScriptService : ILaunchPadSystemIntegrationService, IPythonScriptService
     {
         public virtual ILogger Logger { get; set; }
 

@@ -6,7 +6,7 @@ using Microsoft.Extensions.Configuration;
 
 namespace Deploy.LaunchPad.AWS.Abp.ElasticFileSystem.Services
 {
-    public partial class AwsElasticFileSystemService : SystemIntegrationServiceBase, IAwsElasticFileSystemService
+    public partial class AwsElasticFileSystemService : LaunchPadAbpSystemIntegrationServiceBase, IAwsElasticFileSystemService
     {
 
         public IAwsElasticFileSystemHelper Helper { get; set; }

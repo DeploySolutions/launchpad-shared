@@ -2,7 +2,7 @@
 
 namespace Deploy.LaunchPad.AWS.SecretsManager.Services
 {
-    public interface IAwsSecretsManagerService : ISystemIntegrationService
+    public interface IAwsSecretsManagerService : ILaunchPadSystemIntegrationService
     {
     }
 }

@@ -3,7 +3,7 @@ using Deploy.LaunchPad.Core.Abp.Application;
 
 namespace Deploy.LaunchPad.AWS.Redshift.Services
 {
-    public partial class AwsRedshiftService : SystemIntegrationServiceBase, IAwsRedshiftService
+    public partial class AwsRedshiftService : LaunchPadAbpSystemIntegrationServiceBase, IAwsRedshiftService
     {
         public IAwsRedshiftHelper Helper { get; set; }
 

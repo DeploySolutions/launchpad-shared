@@ -2,7 +2,7 @@
 
 namespace Deploy.LaunchPad.AWS.ElasticFileSystem.Services
 {
-    public interface IAwsElasticFileSystemService : ISystemIntegrationService
+    public interface IAwsElasticFileSystemService : ILaunchPadSystemIntegrationService
     {
         public IAwsElasticFileSystemHelper Helper { get; set; }
     }

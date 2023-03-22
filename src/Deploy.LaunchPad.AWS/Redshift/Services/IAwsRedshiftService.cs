@@ -2,7 +2,7 @@
 
 namespace Deploy.LaunchPad.AWS.Redshift.Services
 {
-    public interface IAwsRedshiftService : ISystemIntegrationService
+    public interface IAwsRedshiftService : ILaunchPadSystemIntegrationService
     {
         public IAwsRedshiftHelper Helper { get; set; }
     }

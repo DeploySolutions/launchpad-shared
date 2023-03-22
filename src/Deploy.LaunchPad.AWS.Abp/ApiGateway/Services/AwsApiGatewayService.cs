@@ -6,7 +6,7 @@ using System;
 
 namespace Deploy.LaunchPad.AWS.Abp.ApiGateway.Services
 {
-    public partial class AwsApiGatewayService : SystemIntegrationServiceBase, IAwsApiGatewayService
+    public partial class AwsApiGatewayService : LaunchPadAbpSystemIntegrationServiceBase, IAwsApiGatewayService
     {
         public IAwsApiGatewayHelper Helper { get; set; }
 

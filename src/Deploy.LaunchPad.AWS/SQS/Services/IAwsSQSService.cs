@@ -2,7 +2,7 @@
 
 namespace Deploy.LaunchPad.AWS.SQS.Services
 {
-    public interface IAwsSQSService : ISystemIntegrationService
+    public interface IAwsSQSService : ILaunchPadSystemIntegrationService
     {
         public IAwsSQSHelper Helper { get; set; }
     }

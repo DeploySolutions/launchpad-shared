@@ -2,7 +2,7 @@
 
 namespace Deploy.LaunchPad.AWS.ApiGateway.Services
 {
-    public interface IAwsApiGatewayService : ISystemIntegrationService
+    public interface IAwsApiGatewayService : ILaunchPadSystemIntegrationService
     {
         public IAwsApiGatewayHelper Helper { get; set; }
     }
