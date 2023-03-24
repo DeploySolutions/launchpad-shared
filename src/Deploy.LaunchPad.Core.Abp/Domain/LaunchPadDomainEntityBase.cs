@@ -113,7 +113,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
         /// </summary>
         [DataObjectField(false)]
         [XmlAttribute]
-        public virtual IEnumerable<MetadataTag> Tags { get; set; }
+        public virtual HashSet<MetadataTag> Tags { get; set; }
 
 
         /// <summary>
@@ -158,7 +158,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
             ExternalId = string.Empty;
             Culture = ApplicationDetails<TIdType>.DEFAULT_CULTURE;
             //TenantId = 0; // default tenant
-            Tags = new List<MetadataTag>();
+            Tags = new HashSet<MetadataTag>();
             IsDeleted = false;
             IsActive = true;
             Name = string.Empty;
@@ -180,7 +180,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
             CreatorUserId = 1; // TODO - default user account?
             IsDeleted = false;
             IsActive = true;
-            Tags = new List<MetadataTag>();
+            Tags = new HashSet<MetadataTag>();
             Name = id.ToString();
             FullyQualifiedName = id.ToString();
             DescriptionShort = string.Empty;
@@ -199,7 +199,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
             CreatorUserId = 1; // TODO - default user account?
             IsDeleted = false;
             IsActive = true;
-            Tags = new List<MetadataTag>();
+            Tags = new HashSet<MetadataTag>();
             Name = id.ToString();
             FullyQualifiedName = id.ToString();
             DescriptionShort = string.Empty;
@@ -221,7 +221,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
             FullyQualifiedName = info.GetString("FullyQualifiedName");
             DescriptionShort = info.GetString("DescriptionShort");
             DescriptionFull = info.GetString("DescriptionFull");
-            Tags = (IEnumerable<MetadataTag>)info.GetValue("Metadata", typeof(IEnumerable<MetadataTag>));
+            Tags = (HashSet<MetadataTag>)info.GetValue("Metadata", typeof(HashSet<MetadataTag>));
             CreationTime = info.GetDateTime("CreationTime");
             CreatorUserId = info.GetInt64("CreatorUserId");
             LastModificationTime = info.GetDateTime("LastModificationTime");
