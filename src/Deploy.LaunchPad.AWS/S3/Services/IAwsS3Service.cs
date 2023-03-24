@@ -1,5 +1,6 @@
 ﻿using Amazon.S3;
 using Deploy.LaunchPad.Core.Application;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -13,11 +14,13 @@ namespace Deploy.LaunchPad.AWS.S3.Services
 
         public Task<bool> CheckIfFileExists(string bucketName, string s3KeyName);
 
-        public Task<string> GetFileFromBucketAsync(string bucketName, string s3Key, string s3Prefix = "");
+        public Task<string> GetFileFromBucketAsync(string bucketName, string s3Key);
 
-        public Task<bool> UploadLocalFileToBucketAsync(string bucketName, string s3KeyName, string filePath, IDictionary<string, string> fileTags, IDictionary<string, string> transferMetadata, string s3Prefix = "", string contentType = @"image/tiff");
-       
-        public Task<bool> SaveFileToBucketAsync(string bucketName, string s3KeyName, string s3Prefix = "", string contentType = @"text\plain", IDictionary<string, string> metadata=null);
+        public Task<bool> UploadLocalFileToBucketviaTransferUtilityAsync(string bucketName, string s3KeyName, string filePath, IDictionary<string, string> fileTags, string s3Prefix = "", string contentType = @"image/tiff", IDictionary<string, string> transferMetadata = null, S3StorageClass storageClass = null);
+
+        public Task<bool> DownloadFileFromBucketToLocalviaTransferUtilityAsync(string bucketName, string s3KeyName, string localFilePath, DateTime? modifiedSinceDateUtc, DateTime? unmodifiedSinceDateUtc, IDictionary<string, string> transferMetadata = null, string versionId = "");
+        
+        public Task<bool> UploadLocalFileToBucketViaPutObjectAsync(string bucketName, string s3KeyName, string s3Prefix = "", string contentType = @"text\plain", IDictionary<string, string> metadata=null);
 
     }
 }

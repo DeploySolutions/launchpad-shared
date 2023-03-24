@@ -79,28 +79,45 @@ namespace Deploy.LaunchPad.Core.Domain
         [XmlAttribute]
         public IEnumerable<MetadataTag> Tags { get; set; }
 
-        public bool FileExists<TPrimaryKey, TFileContentType>(string fileId);
 
-        
-        public bool CreateFile<TFilePrimaryKey, TFileContentType>(IFile<TFilePrimaryKey, TFileContentType> sourceFile, IDictionary<string, string> fileTags, string contentType = "", IDictionary<string, string> writeTags = null, string filePrefix = "", string fileSuffix = "");
+        public bool FileExists<TFile, TFileId, TFileContentType>(TFile fileToCheck, bool shouldRecurseSubdirectories = false)
+            where TFile : IFile<TFileId, TFileContentType>, new();
 
-        public Task<bool> CreateFileAsync<TFilePrimaryKey, TFileContentType>(IFile<TFilePrimaryKey, TFileContentType> sourceFile, IDictionary<string, string> fileTags, string contentType = "", IDictionary<string, string> writeTags = null, string filePrefix = "", string fileSuffix = "");
+        public bool CreateFile<TFile, TFileId, TFileContentType>(TFile sourceFile, IDictionary<string, string> fileTags, string contentType, IDictionary<string, string> writeTags, string filePrefix, string fileSuffix)
+            where TFile : IFile<TFileId, TFileContentType>, new();
 
-        public IFile<TPrimaryKey, TFileContentType> ReadFile<TPrimaryKey, TFileContentType>(string fileId);
+        public Task<bool> CreateFileAsync<TFile, TFileId, TFileContentType>(TFile sourceFile, IDictionary<string, string> fileTags, string contentType, IDictionary<string, string> writeTags, string filePrefix, string fileSuffix)
+            where TFile : IFile<TFileId, TFileContentType>, new();
 
-        public Task<IFile<TPrimaryKey, TFileContentType>> ReadFileAsync<TPrimaryKey, TFileContentType>(string fileId);
+        public TFile ReadFile<TFile, TFileId, TFileContentType>(string fileId, Uri tempLocation = null)
+            where TFile : IFile<TFileId, TFileContentType>, new();
 
-        public IFile<TPrimaryKey, TFileContentType> UpdateFile<TPrimaryKey, TFileContentType>(IFile<TPrimaryKey, TFileContentType> filetoUpdate);
-        
-        public Task<IFile<TPrimaryKey, TFileContentType>> UpdateFileAsync<TPrimaryKey, TFileContentType>(IFile<TPrimaryKey, TFileContentType> filetoUpdate);
+        public Task<TFile> ReadFileAsync<TFile, TFileId, TFileContentType>(string fileId, Uri tempLocation = null)
+            where TFile : IFile<TFileId, TFileContentType>, new();
 
-        public bool DeleteFile<TFilePrimaryKey, TFileContentType>(IFile<TFilePrimaryKey, TFileContentType> fileToDelete);
+        public IDictionary<string, string> ReadFileMetadata<TFile, TFileId, TFileContentType>(TFile sourceFile)
+            where TFile : IFile<TFileId, TFileContentType>, new();
 
-        public Task<bool> DeleteFileAsync<TFilePrimaryKey, TFileContentType>(IFile<TFilePrimaryKey, TFileContentType> fileToDelete);
+        public Task<IDictionary<string, string>> ReadFileMetadataAsync<TFile, TFileId, TFileContentType>(TFile sourceFile)
+            where TFile : IFile<TFileId, TFileContentType>, new();
 
-        public Uri GetRelativePathForFile<TFilePrimaryKey, TFileContentType>(IFile<TFilePrimaryKey, TFileContentType> file);
+        public TFile UpdateFile<TFile, TFileId, TFileContentType>(TFile fileToUpdate)
+            where TFile : IFile<TFileId, TFileContentType>, new();
 
-        public Uri GetFullPathForFile<TFilePrimaryKey, TFileContentType>(IFile<TFilePrimaryKey, TFileContentType> file);
+        public Task<TFile> UpdateFileAsync<TFile, TFileId, TFileContentType>(TFile fileToUpdate)
+            where TFile : IFile<TFileId, TFileContentType>, new();
+
+        public bool DeleteFile<TFile, TFileId, TFileContentType>(TFile fileToDelete)
+            where TFile : IFile<TFileId, TFileContentType>, new();
+
+        public Task<bool> DeleteFileAsync<TFile, TFileId, TFileContentType>(TFile fileToDelete)
+            where TFile : IFile<TFileId, TFileContentType>, new();
+
+        public Uri GetRelativePathForFile<TFile, TFileId, TFileContentType>(TFile file)
+            where TFile : IFile<TFileId, TFileContentType>, new();
+
+        public Uri GetFullPathForFile<TFile, TFileId, TFileContentType>(TFile file)
+            where TFile : IFile<TFileId, TFileContentType>, new();
 
         /// <summary>
         /// Returns available storage space for this location, in bytes, or -1 if unknown or "infinite" ex a cloud storage drive

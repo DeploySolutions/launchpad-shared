@@ -19,16 +19,23 @@ using Castle.Core.Logging;
 using Deploy.LaunchPad.Core.Domain;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
+using System.Runtime.InteropServices;
 using System.Runtime.Serialization;
 using System.Text;
+using System.Threading.Tasks;
+using Microsoft.WindowsAPICodePack.Shell;
+using Microsoft.WindowsAPICodePack.Shell.PropertySystem;
+using Abp.Domain.Values;
+using DocumentFormat.OpenXml.Packaging;
 
 namespace Deploy.LaunchPad.Core.Abp.Domain
 {
     [Owned]
     public partial class WindowsFileStorageLocation : GenericFileStorageLocation
     {
-
 
         public WindowsFileStorageLocation() : base()
         {
@@ -106,6 +113,115 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
             return -1;
         }
 
+        public override bool FileExists<TFile, TFileId, TFileContentType>(TFile fileToCheck, bool shouldRecurseSubdirectories = false)
+        {
+            bool doesFileExist = false;
+            DirectoryInfo di = new DirectoryInfo(RootUri.AbsolutePath);
+            if (di.Exists)
+            {
+                string searchPattern = fileToCheck.Name + "." + fileToCheck.Extension;
+                try
+                {
+                    EnumerationOptions options = new EnumerationOptions();
+                    options.RecurseSubdirectories = shouldRecurseSubdirectories;
+                    var output = Directory.EnumerateFiles(RootUri.AbsolutePath, searchPattern, options).FirstOrDefault();
+                    if (output != null)
+                    {
+                        doesFileExist = true;
+                    }
+                }
+                catch (UnauthorizedAccessException uAEx)
+                {
+                    Logger.Error(uAEx.Message);
+                }
+                catch (PathTooLongException pathEx)
+                {
+                    Logger.Error(pathEx.Message);
+                }
+
+            }
+            return doesFileExist;
+        }
+
+        public override async Task<IDictionary<string, string>> ReadFileMetadataAsync<TFile, TFileId, TFileContentType>(TFile sourceFile)
+        {
+            IDictionary<string, string> metadata = new Dictionary<string, string>();
+            DirectoryInfo di = new DirectoryInfo(RootUri.AbsolutePath);
+            if (di.Exists)
+            {
+                string searchPattern = sourceFile.Name + "." + sourceFile.Extension;
+                try
+                {
+                    EnumerationOptions options = new EnumerationOptions();
+                    options.RecurseSubdirectories = true;
+                    var output = Directory.EnumerateFiles(RootUri.AbsolutePath, searchPattern, options).FirstOrDefault();
+                    if (output != null)
+                    {
+                        
+                        var file = ShellFile.FromFilePath(output);
+                        // author
+                        //string[] author = file.Properties.System.Author.Value;
+                        //metadata.TryAdd(file.Properties.System.Author.CanonicalName, author.ToString());
+                        //// dateCreated 
+                        var dateCreated = file.Properties.System.DateCreated.Value;
+                        if (dateCreated.HasValue)
+                        {
+                            metadata.TryAdd(file.Properties.System.DateCreated.CanonicalName, dateCreated.Value.ToUniversalTime().ToString());
+                        }
+                        // title
+                        var title = file.Properties.System.Title.Value;
+                        metadata.TryAdd(file.Properties.System.Title.CanonicalName, title);
+                        //size
+                        var size = file.Properties.System.Size.Value;
+                        if (size.HasValue)
+                        {
+                            metadata.TryAdd(file.Properties.System.Size.CanonicalName, size.Value.ToString());
+                        }
+                        // totalSize
+                        var totalSize = file.Properties.System.TotalFileSize.Value;
+                        if (totalSize.HasValue)
+                        {
+                            metadata.TryAdd(file.Properties.System.TotalFileSize.CanonicalName, totalSize.Value.ToString());
+                        }
+                        // if it's word
+                        if (sourceFile.Extension == "docx")
+                        {
+                            // use office power tools
+                            using (WordprocessingDocument wDoc = WordprocessingDocument.Open(output, true))
+                            {
+                                var extendedProperties = wDoc.ExtendedFilePropertiesPart;
+                                if (extendedProperties != null)
+                                {
+                                    metadata.TryAdd("Lines",extendedProperties.Properties.Lines.InnerText);
+                                    metadata.TryAdd("Words", extendedProperties.Properties.Words.InnerText);
+                                    metadata.TryAdd("Paragraphs", extendedProperties.Properties.Paragraphs.InnerText);
+                                    metadata.TryAdd("Application", extendedProperties.Properties.Application.InnerText);
+                                    metadata.TryAdd("Application Version", extendedProperties.Properties.ApplicationVersion.InnerText);
+
+                                }
+                            }
+                        }
+                    }
+                }
+                catch (AccessViolationException avEx)
+                {
+                    Logger.Error(avEx.Message);
+                }
+                catch (UnauthorizedAccessException uAEx)
+                {
+                    Logger.Error(uAEx.Message);
+                }
+                catch (PathTooLongException pathEx)
+                {
+                    Logger.Error(pathEx.Message);
+                }
+                catch(Exception ex)
+                {
+                    Logger.Equals(ex.Message);
+                }
+            }
+            return metadata;
+        }
 
     }
 }

@@ -29,7 +29,7 @@ namespace Deploy.LaunchPad.AWS.Abp.S3.Services
             Helper = helper;
         }
 
-        public async Task<string> GetFileFromBucketAsync(string bucketName, string s3Key, string s3Prefix = "")
+        public async Task<string> GetFileFromBucketAsync(string bucketName, string s3Key)
         {
 
             string responseBody = "";
@@ -64,8 +64,61 @@ namespace Deploy.LaunchPad.AWS.Abp.S3.Services
             return responseBody;
         }
 
-        public async Task<bool> UploadLocalFileToBucketAsync(string bucketName, string s3KeyName, string filePath, IDictionary<string, string> fileTags, IDictionary<string, string> transferMetadata, string s3Prefix = "", string contentType = @"image/tiff")
+        public async Task<bool> DownloadFileFromBucketToLocalviaTransferUtilityAsync(string bucketName, string s3KeyName, string localFilePath, DateTime? modifiedSinceDateUtc, DateTime? unmodifiedSinceDateUtc, IDictionary<string, string> transferMetadata = null, string versionId = "")
         {
+            
+            bool didDownloadSucceed = false;
+            try
+            {
+                // ensure the local file directory structure is ready
+                string localDirectory = Path.GetDirectoryName(localFilePath);
+                DirectoryInfo di = Directory.CreateDirectory(localDirectory);
+
+                TransferUtility transferUtil = new TransferUtility(Helper.S3Client);
+                TransferUtilityDownloadRequest fileTransferUtilityRequest = new TransferUtilityDownloadRequest
+                {
+                    BucketName = bucketName,
+                    FilePath = localFilePath,
+                    Key = s3KeyName,
+                    ChecksumMode = ChecksumMode.ENABLED,
+                    VersionId = versionId
+                };
+                if(modifiedSinceDateUtc.HasValue)
+                {
+                    fileTransferUtilityRequest.ModifiedSinceDateUtc = modifiedSinceDateUtc.Value.ToUniversalTime();
+                }
+                if (unmodifiedSinceDateUtc.HasValue)
+                {
+                    fileTransferUtilityRequest.UnmodifiedSinceDateUtc = unmodifiedSinceDateUtc.Value.ToUniversalTime();
+                }
+                await transferUtil.DownloadAsync(fileTransferUtilityRequest);
+                transferUtil.Dispose();
+                didDownloadSucceed = true;
+            }
+
+            catch (AmazonS3Exception amazonS3Exception)
+            {
+                if (amazonS3Exception.ErrorCode != null &&
+                    (amazonS3Exception.ErrorCode.Equals("InvalidAccessKeyId")
+                    ||
+                    amazonS3Exception.ErrorCode.Equals("InvalidSecurity")))
+                {
+                    Logger.Error("Check the provided AWS Credentials.");
+                }
+                else
+                {
+                    Logger.Error("Error occurred: " + amazonS3Exception.Message);
+                }
+            }
+            return didDownloadSucceed;
+        }
+
+        public async Task<bool> UploadLocalFileToBucketviaTransferUtilityAsync(string bucketName, string s3KeyName, string filePath, IDictionary<string, string> fileTags, string s3Prefix = "", string contentType = @"image/tiff", IDictionary<string, string> transferMetadata =null, S3StorageClass storageClass = null)
+        {
+            if(storageClass == null)
+            {
+                storageClass = S3StorageClass.Standard;
+            }
             bool didUploadSucceed = false;
             try
             {
@@ -95,7 +148,7 @@ namespace Deploy.LaunchPad.AWS.Abp.S3.Services
                 {
                     BucketName = bucketName,
                     FilePath = filePath,
-                    StorageClass = S3StorageClass.StandardInfrequentAccess,
+                    StorageClass = storageClass,
                     PartSize = 6291456, // 6 MB.  
                     Key = key,
                     TagSet = tagSet
@@ -126,6 +179,43 @@ namespace Deploy.LaunchPad.AWS.Abp.S3.Services
             return didUploadSucceed;
         }
 
+        public async Task<bool> UploadLocalFileToBucketViaPutObjectAsync(string bucketName, string s3KeyName, string s3Prefix = "", string contentType = @"text\plain", IDictionary<string, string> metadata = null)
+        {
+            try
+            {
+
+                var putRequest = new PutObjectRequest
+                {
+                    BucketName = bucketName,
+                    Key = s3KeyName,
+                    FilePath = s3Prefix,
+                    ContentType = contentType
+                };
+                if (metadata != null)
+                {
+                    foreach (var item in metadata)
+                    {
+                        putRequest.Metadata.Add(item.Key, item.Value);
+                    }
+                }
+
+                PutObjectResponse response = await Helper.S3Client.PutObjectAsync(putRequest);
+            }
+            catch (AmazonS3Exception e)
+            {
+                Console.WriteLine(
+                        "Error encountered ***. Message:'{0}' when writing an object"
+                        , e.Message);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(
+                    "Unknown encountered on server. Message:'{0}' when writing an object"
+                    , e.Message);
+            }
+            return true;
+        }
+
         /// <summary>
         /// Check if the file exists in the S3 bucket, without downloading it, by calling its metadata. 
         /// If that worked, the file must exist.
@@ -153,41 +243,7 @@ namespace Deploy.LaunchPad.AWS.Abp.S3.Services
             return fileExists;
         }
 
-        public async Task<bool> SaveFileToBucketAsync(string bucketName, string s3KeyName, string s3Prefix = "", string contentType = @"text\plain", IDictionary<string, string> metadata = null)
-        {
-            try
-            {
-                var putRequest = new PutObjectRequest
-                {
-                    BucketName = bucketName,
-                    Key = s3KeyName,
-                    FilePath = s3Prefix,
-                    ContentType = contentType
-                };
-                if(metadata != null)
-                {
-                    foreach (var item in metadata)
-                    {
-                        putRequest.Metadata.Add(item.Key, item.Value);
-                    }
-                }
-                
-                PutObjectResponse response = await Helper.S3Client.PutObjectAsync(putRequest);
-            }
-            catch (AmazonS3Exception e)
-            {
-                Console.WriteLine(
-                        "Error encountered ***. Message:'{0}' when writing an object"
-                        , e.Message);
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(
-                    "Unknown encountered on server. Message:'{0}' when writing an object"
-                    , e.Message);
-            }
-            return true;
-        }
+        
 
     }
 }

@@ -15,6 +15,10 @@
 //limitations under the License. 
 #endregion
 
+using Amazon.S3.Model;
+using Amazon.S3;
+using Castle.Core.Logging;
+using Deploy.LaunchPad.AWS.Abp.S3.Services;
 using Deploy.LaunchPad.Core.Domain;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -22,6 +26,8 @@ using System.ComponentModel;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Xml.Serialization;
+using System.Threading.Tasks;
+using System.Collections.Generic;
 
 namespace Deploy.LaunchPad.AWS.S3
 {
@@ -39,6 +45,8 @@ namespace Deploy.LaunchPad.AWS.S3
         [XmlAttribute]
         public virtual string Region { get; set; }
 
+        public virtual AwsS3Service S3Service { get; private set; }
+
         /// <summary>
         /// Creates a new bucket location object with the default region and bucket root.
         /// Note that the bucket may not be globally unique and this constructor does not check that.
@@ -48,23 +56,8 @@ namespace Deploy.LaunchPad.AWS.S3
             Id = Guid.NewGuid().ToString();
             Name = Id;
             Region = DEFAULT_REGION;
+            S3Service = new AwsS3Service(Logger, Region);
             string bucketUri = string.Format("https://s3.{0}.amazonaws.com/{1}", Region, Id);
-            string descriptionMessage = string.Format("AWS S3 bucket at '{0}'", bucketUri);
-            DescriptionShort = descriptionMessage;
-            DescriptionFull = descriptionMessage;
-            RootUri = new Uri(bucketUri);
-            Provider = FileStorageLocationTypeEnum.Aws_S3;
-        }
-
-        /// <summary>
-        /// Create a  new bucket location object with the given bucketname, in the default region and root.
-        /// Note that the bucket may not be globally unique and this constructor does not check that.
-        /// </summary>
-        /// <param name="bucketName">The globally-unique name of the bucket.</param>
-        public S3BucketStorageLocation(string id, Uri rootUri) : base(id, rootUri)
-        {
-            Region = DEFAULT_REGION;
-            string bucketUri = string.Format("https://s3.{0}.amazonaws.com/{1}", Region, id);
             string descriptionMessage = string.Format("AWS S3 bucket at '{0}'", bucketUri);
             DescriptionShort = descriptionMessage;
             DescriptionFull = descriptionMessage;
@@ -79,7 +72,7 @@ namespace Deploy.LaunchPad.AWS.S3
         /// <param name="region">The region in which the bucket will be created.</param>
         /// <param name="bucketRoot">the URI root of the bucket</param>
         /// <param name="bucketName">The globally-unique name of the bucket</param>
-        public S3BucketStorageLocation(string id, string bucketName, string region, string defaultPrefix = "") : base()
+        public S3BucketStorageLocation(ILogger logger, string id, string bucketName, string region, string defaultPrefix = "") : base(logger)
         {
             Region = region;
             Name = bucketName;
@@ -89,6 +82,22 @@ namespace Deploy.LaunchPad.AWS.S3
             DescriptionFull = descriptionMessage;
             DefaultPrefix = defaultPrefix;
             RootUri = new Uri(bucketUri);
+        }
+
+        /// <summary>
+        /// Create a  new bucket location object with the given bucketname, in the default region and root.
+        /// Note that the bucket may not be globally unique and this constructor does not check that.
+        /// </summary>
+        /// <param name="bucketName">The globally-unique name of the bucket.</param>
+        public S3BucketStorageLocation(ILogger logger, string id, Uri rootUri) : base(logger, id, rootUri)
+        {
+            Region = DEFAULT_REGION;
+            string bucketUri = string.Format("https://s3.{0}.amazonaws.com/{1}", Region, id);
+            string descriptionMessage = string.Format("AWS S3 bucket at '{0}'", bucketUri);
+            DescriptionShort = descriptionMessage;
+            DescriptionFull = descriptionMessage;
+            RootUri = new Uri(bucketUri);
+            Provider = FileStorageLocationTypeEnum.Aws_S3;
         }
 
         /// <summary>
@@ -126,7 +135,7 @@ namespace Deploy.LaunchPad.AWS.S3
         /// <summary>
         /// The virtual path of the file
         /// </summary>
-        public override Uri GetRelativePathForFile<TFilePrimaryKey, TFileContentType>(IFile<TFilePrimaryKey, TFileContentType> file)
+        public override Uri GetRelativePathForFile<TFile, TFileId, TFileContentType>(TFile file)
         {
             return new Uri("/" + DefaultPrefix + "/" + file.Name.Replace(" ", "+"));
         }
@@ -134,10 +143,14 @@ namespace Deploy.LaunchPad.AWS.S3
         /// <summary>
         /// The full path of the file
         /// </summary>
-        public override Uri GetFullPathForFile<TFilePrimaryKey, TFileContentType>(IFile<TFilePrimaryKey, TFileContentType> file)
+        public override Uri GetFullPathForFile<TFile, TFileId, TFileContentType>(TFile file)
         {
             return new Uri("https://s3." + Region + ".amazonaws.com/" + Name + "/" + DefaultPrefix + "/" + file.Name.Replace(" ", "+"));
         }
+
+
+        
+
 
         /// <summary>
         /// The full path of the file
@@ -145,6 +158,36 @@ namespace Deploy.LaunchPad.AWS.S3
         public virtual String GetObjectKeyForFile<TPrimaryKey, TFileContentType>(IFile<TPrimaryKey, TFileContentType> file)
         {
             return DefaultPrefix + "/" + file.Name;
+        }
+
+        public override bool FileExists<TFile, TFileId, TFileContentType>(TFile fileToCheck, bool shouldRecurseSubdirectories = false)
+        {
+            return S3Service.CheckIfFileExists(Name, fileToCheck.Id.ToString()).Result;
+        }
+
+
+        public override async Task<TFile> ReadFileAsync<TFile, TFileId, TFileContentType>(string fileId, Uri tempLocation = null)
+        {
+            var file = new TFile();
+            bool succeeded = false;
+            if (tempLocation!= null && tempLocation.IsUnc)
+            {
+                succeeded = await S3Service.DownloadFileFromBucketToLocalviaTransferUtilityAsync(Name, fileId, tempLocation.AbsolutePath, null, null);
+
+            }
+            else
+            {
+                succeeded = S3Service.GetFileFromBucketAsync(Name, fileId).IsCompletedSuccessfully;
+
+            }
+            return file;
+        }
+
+        public override async Task<bool> CreateFileAsync<TFile, TFileId, TFileContentType>(TFile sourceFile, IDictionary<string, string> fileTags, string contentType, IDictionary<string, string> writeTags, string filePrefix, string fileSuffix)
+        {
+            bool succeeded = await S3Service.UploadLocalFileToBucketviaTransferUtilityAsync(Name,sourceFile.Name, @"c:\temp\",fileTags,filePrefix,contentType,writeTags,S3StorageClass.Standard);
+            return succeeded;
+
         }
 
 

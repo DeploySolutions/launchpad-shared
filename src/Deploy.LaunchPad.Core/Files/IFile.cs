@@ -29,7 +29,7 @@ namespace Deploy.LaunchPad.Core.Domain
     {
         
         /// <summary>
-        /// Unique identifier for this entity.
+        /// Unique identifier for this entity (could be its file name).
         /// </summary
         public TIdType Id { get; set; }
 
@@ -41,7 +41,7 @@ namespace Deploy.LaunchPad.Core.Domain
         public Int64 Size { get; set; }
 
         /// <summary>
-        /// The name of the file
+        /// The name of the file (if different from its ID)
         /// </summary>
         [DataObjectField(false)]
         [XmlAttribute]
