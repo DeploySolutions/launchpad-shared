@@ -24,7 +24,10 @@
     <PackageReference Include="Abp.AspNetCore" Version="8.1.0" />
     <PackageReference Include="Abp.AutoMapper" Version="8.1.0" />
     <PackageReference Include="Abp.Castle.Log4Net" Version="8.1.0" />
+    <PackageReference Include="DocumentFormat.OpenXml" Version="2.19.0" />
     <PackageReference Include="Schema.NET" Version="11.0.1" />
+    <PackageReference Include="WindowsAPICodePack-Core" Version="1.1.2" />
+    <PackageReference Include="WindowsAPICodePack-Shell" Version="1.1.1" />
   </ItemGroup>
   
   <ItemGroup>
