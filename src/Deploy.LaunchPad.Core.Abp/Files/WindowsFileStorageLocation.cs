@@ -157,10 +157,35 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
                     var output = Directory.EnumerateFiles(RootUri.AbsolutePath, searchPattern, options).FirstOrDefault();
                     if (output != null)
                     {
-                        
+                        /**
+                         * Some common properties (Windows file share and Office)
+                            Owner
+                            Size
+                            Date created
+                            Date modified
+                            Date accessed
+                            Content type
+                            Title
+                            Subject
+                            Tags
+                            Categories
+                            Comments
+                            Authors
+                            Last saved by
+                            Revision number
+                            Version number
+                            Program name
+                            Company
+                            Manager
+                            Word count
+                            Paragraph count
+                            Line count
+                            Template
+                         * 
+                         */
                         var file = ShellFile.FromFilePath(output);
-                        // author
-                        //string[] author = file.Properties.System.Author.Value;
+                        // author throws an AccessViolation for some reason
+                        //string[] author = file.Properties.System.ItemAuthors.Value;
                         //metadata.TryAdd(file.Properties.System.Author.CanonicalName, author.ToString());
                         //// dateCreated 
                         var dateCreated = file.Properties.System.DateCreated.Value;
@@ -177,11 +202,11 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
                         {
                             metadata.TryAdd(file.Properties.System.Size.CanonicalName, size.Value.ToString());
                         }
-                        // totalSize
-                        var totalSize = file.Properties.System.TotalFileSize.Value;
-                        if (totalSize.HasValue)
+                        // fileAllocationSize
+                        var fileAllocationSize = file.Properties.System.FileAllocationSize.Value;
+                        if (fileAllocationSize.HasValue)
                         {
-                            metadata.TryAdd(file.Properties.System.TotalFileSize.CanonicalName, totalSize.Value.ToString());
+                            metadata.TryAdd(file.Properties.System.FileAllocationSize.CanonicalName, fileAllocationSize.Value.ToString());
                         }
                         // if it's word
                         if (sourceFile.Extension == "docx")
