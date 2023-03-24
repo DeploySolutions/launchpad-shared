@@ -79,7 +79,7 @@ namespace Deploy.LaunchPad.Core.Domain
         /// </summary>
         [DataObjectField(false)]
         [XmlAttribute]
-        public IEnumerable<MetadataTag> Tags { get; set; }
+        public HashSet<MetadataTag> Tags { get; set; }
 
 
         /// <summary>
