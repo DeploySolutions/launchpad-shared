@@ -1,5 +1,7 @@
 ﻿using Castle.Core.Logging;
 using Deploy.LaunchPad.FileGeneration.Stages;
+using System;
+using System.Collections.Generic;
 
 namespace Deploy.LaunchPad.FileGeneration.Structure
 {
@@ -10,6 +12,9 @@ namespace Deploy.LaunchPad.FileGeneration.Structure
         public virtual ILogger Logger { get; set; }
 
         public virtual TModuleSettings Settings { get; set; }
+
+        public virtual IDictionary<string, ILicensedThirdPartySoftwareItem> LicensedThirdPartyItems { get; set; }
+
 
         /// <summary>
         /// Returns a bool indicating if the module is currently in a valid or invalid state.
@@ -30,7 +35,9 @@ namespace Deploy.LaunchPad.FileGeneration.Structure
         public LaunchPadGeneratedModule(ILogger logger) : base()
         {
             Logger = logger;
-            Settings = new TModuleSettings();
+            Settings = new TModuleSettings(); 
+            var comparer = StringComparer.OrdinalIgnoreCase;
+            LicensedThirdPartyItems = new Dictionary<string, ILicensedThirdPartySoftwareItem>(comparer);
         }
     }
 }

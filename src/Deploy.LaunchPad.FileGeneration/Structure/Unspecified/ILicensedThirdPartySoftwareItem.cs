@@ -4,7 +4,7 @@ using System;
 
 namespace Deploy.LaunchPad.FileGeneration.Structure
 {
-    public interface ILicensedThirdPartySoftwareItem
+    public partial interface ILicensedThirdPartySoftwareItem
     {
         string Copyright { get; set; }
         string Description { get; set; }
@@ -14,5 +14,7 @@ namespace Deploy.LaunchPad.FileGeneration.Structure
         SourceControlRepository SourceRepository { get; set; }
         UsageRights UsageRights { get; set; }
         string Version { get; set; }
+
+        DateTime RefreshDate { get; set; }
     }
 }

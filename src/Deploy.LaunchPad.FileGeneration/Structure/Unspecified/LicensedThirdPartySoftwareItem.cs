@@ -29,12 +29,14 @@ namespace Deploy.LaunchPad.FileGeneration.Structure
 
         public virtual Uri MoreInformationUri { get; set; }
 
+        public virtual DateTime RefreshDate { get; set; }
         public LicensedThirdPartySoftwareItem(string name)
         {
             Name = name;
             LegalName = name;
             SourceRepository = new SourceControlRepository();
             UsageRights = new UsageRights();
+            RefreshDate = DateTime.Today;
         }
 
         public LicensedThirdPartySoftwareItem(string name, string version)
@@ -44,6 +46,7 @@ namespace Deploy.LaunchPad.FileGeneration.Structure
             SourceRepository = new SourceControlRepository();
             UsageRights = new UsageRights();
             Version = version;
+            RefreshDate = DateTime.Today;
         }
 
 

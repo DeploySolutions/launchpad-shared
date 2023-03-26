@@ -1,5 +1,6 @@
 ﻿using Castle.Core.Logging;
 using Deploy.LaunchPad.FileGeneration.Stages;
+using System.Collections.Generic;
 
 namespace Deploy.LaunchPad.FileGeneration.Structure
 {
@@ -12,6 +13,8 @@ namespace Deploy.LaunchPad.FileGeneration.Structure
         public ILogger Logger { get; set; }
 
         public ComponentStatusEnum ComponentStatus { get; set; }
+
+        public IDictionary<string, ILicensedThirdPartySoftwareItem> LicensedThirdPartyItems { get; set; }
 
         /// <summary>
         /// Returns a bool indicating if the component is currently in a valid or invalid state.
