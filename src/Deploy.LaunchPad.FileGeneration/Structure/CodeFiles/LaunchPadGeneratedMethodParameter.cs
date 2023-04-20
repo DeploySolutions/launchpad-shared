@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Runtime.Serialization;
 
 namespace Deploy.LaunchPad.FileGeneration.Structure
 {
@@ -23,7 +24,7 @@ namespace Deploy.LaunchPad.FileGeneration.Structure
         /// </summary>
         public virtual string ExampleValue { get; set; } = string.Empty;
 
-        public virtual bool IsRequired { get; set; } = false;
+        public virtual bool IsRequired { get; set; } = true;
 
         public LaunchPadGeneratedMethodParameter() : base()
         {
@@ -33,5 +34,31 @@ namespace Deploy.LaunchPad.FileGeneration.Structure
             IsRequired = false;
         }
 
+        /// <summary>
+        /// Serialization constructor used for deserialization
+        /// </summary>
+        /// <param name="info">The serialization info</param>
+        /// <param name="context">The context of the stream</param>
+        protected LaunchPadGeneratedMethodParameter(SerializationInfo info, StreamingContext context) : base(info,context)
+        {
+            DataType = info.GetString("DataType");
+            DefaultValue = info.GetString("DefaultValue");
+            ExampleValue = info.GetString("ExampleValue");
+            IsRequired = info.GetBoolean("IsRequired");
+        }
+
+        /// <summary>
+        /// The method required for implementing ISerializable
+        /// </summary>
+        /// <param name="info"></param>
+        /// <param name="context"></param>
+        public override void GetObjectData(SerializationInfo info, StreamingContext context)
+        {
+            base.GetObjectData(info, context);
+            info.AddValue("DataType", DataType);
+            info.AddValue("DefaultValue", DefaultValue);
+            info.AddValue("ExampleValue", ExampleValue);
+            info.AddValue("IsRequired", IsRequired);
+        }
     }
 }
