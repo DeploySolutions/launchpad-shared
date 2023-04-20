@@ -23,14 +23,14 @@ namespace Deploy.LaunchPad.FileGeneration.Structure
         /// </summary>
         public virtual string ExampleValue { get; set; } = string.Empty;
 
-        public virtual bool IsOptional { get; set; }
+        public virtual bool IsRequired { get; set; } = false;
 
         public LaunchPadGeneratedMethodParameter() : base()
         {
             DataType = string.Empty;
             DefaultValue = string.Empty;
             ExampleValue = string.Empty;
-            IsOptional = false;
+            IsRequired = false;
         }
 
     }

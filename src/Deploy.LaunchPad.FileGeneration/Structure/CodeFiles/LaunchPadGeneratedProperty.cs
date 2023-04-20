@@ -8,6 +8,7 @@ namespace Deploy.LaunchPad.FileGeneration.Structure
     [Serializable]
     public partial class LaunchPadGeneratedProperty : LaunchPadGeneratedMethodParameter
     {
+        public virtual PropertyAccessorLevelsEnum Scope { get; set; } = PropertyAccessorLevelsEnum.Public;
 
         public virtual bool IsReadonly { get; set; }
 
