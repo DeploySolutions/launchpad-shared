@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Reflection;
+using System.Runtime;
 using System.Runtime.Serialization;
 using System.Text;
 
@@ -79,6 +80,17 @@ namespace Deploy.LaunchPad.FileGeneration.Structure
                 }
             }
             return clone;
+        }
+
+        public virtual LaunchPadGeneratedProperty CopyShallow()
+        {
+            return (LaunchPadGeneratedProperty)this.MemberwiseClone();
+        }
+
+        public virtual LaunchPadGeneratedProperty CopyDeep()
+        {
+            LaunchPadGeneratedProperty other = (LaunchPadGeneratedProperty)this.MemberwiseClone();
+            return other;
         }
 
         /// <summary>
