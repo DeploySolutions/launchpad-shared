@@ -99,6 +99,12 @@ namespace Deploy.LaunchPad.FileGeneration.Structure
         protected LaunchPadGeneratedObjectBase(SerializationInfo info, StreamingContext context) 
         {
             Id = info.GetString("Id");
+            Name = info.GetString("Name");
+            Abbreviation = info.GetString("Abbreviation");
+            NamePrefix = info.GetString("NamePrefix");
+            NameSuffix = info.GetString("NameSuffix");
+            Description = info.GetString("Description");
+            Annotations = info.GetString("Annotations");
             IdType = info.GetString("IdType");
             ObjectTypeName = info.GetString("ObjectTypeName");
             ObjectTypeFullName = info.GetString("ObjectTypeFullName");
@@ -114,6 +120,12 @@ namespace Deploy.LaunchPad.FileGeneration.Structure
         public virtual void GetObjectData(SerializationInfo info, StreamingContext context)
         {
             info.AddValue("Id", Id);
+            info.AddValue("Name ", Name);
+            info.AddValue("Abbreviation", Abbreviation);
+            info.AddValue("NamePrefix", NamePrefix);
+            info.AddValue("NameSuffix", NameSuffix);
+            info.AddValue("Description", Description);
+            info.AddValue("Annotations", Annotations);
             info.AddValue("IdType", IdType);
             info.AddValue("ObjectTypeName", ObjectTypeName);
             info.AddValue("ObjectTypeFullName", ObjectTypeFullName);
@@ -131,6 +143,7 @@ namespace Deploy.LaunchPad.FileGeneration.Structure
         {
             // reconnect connection strings and other resources that won't be serialized
         }
+
 
         /// <summary>
         /// Shallow clones the entity
@@ -173,7 +186,7 @@ namespace Deploy.LaunchPad.FileGeneration.Structure
         public override String ToString()
         {
             StringBuilder sb = new StringBuilder();
-            sb.Append("[DomainEntityBase: ");
+            sb.Append("[LaunchPadGeneratedObjectBase: ");
             sb.Append(ToStringBaseProperties());
             sb.Append(']');
             return sb.ToString();
