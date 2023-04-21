@@ -83,6 +83,8 @@ namespace Deploy.LaunchPad.FileGeneration.Structure
 
         public LaunchPadGeneratedObjectBase() : base()
         {
+            Name = string.Empty; 
+            Description = string.Empty;
             ObjectTypeName = this.GetType().Name;
             ObjectTypeFullName = this.GetType().FullName;
             ObjectTypeAssemblyName = this.GetType().Assembly.FullName;

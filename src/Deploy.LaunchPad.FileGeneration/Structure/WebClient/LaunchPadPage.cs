@@ -62,6 +62,11 @@ namespace Deploy.LaunchPad.FileGeneration.Structure
         public LaunchPadPage() : base()
         {
             Maps = new List<LaunchPadMap>();
+            Tiles = new List<LaunchPadTile>();
+            Tileset = new LaunchPadTileSet();
+            WebForm = new LaunchPadWebForm();
+            DetailView = new LaunchPadDetailView();
+            DataTable = new LaunchPadDataTable();
         }
 
         /// <summary>

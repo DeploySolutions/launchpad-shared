@@ -19,7 +19,7 @@ namespace Deploy.LaunchPad.FileGeneration.Structure
         /// Icon of the map layer. Displayed on the map menu.
         /// </summary>
         [JsonProperty("icon")]
-        public string Icon { get; set; }
+        public string Icon { get; set; } = string.Empty;
 
         /// <summary>
         /// Map library token (MapBox, GoogleMap, ESRI, etc)
@@ -42,6 +42,8 @@ namespace Deploy.LaunchPad.FileGeneration.Structure
         public LaunchPadMap() : base()
         {
             Popovers = new List<LaunchPadMapPopover>();
+            Source = new LaunchPadMapSource();
+            Layer = new LaunchPadMapLayer();
         }
 
         /// <summary>
