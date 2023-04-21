@@ -62,7 +62,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.SoftwareApplications
         /// <param name="context">The context of the stream</param>
         protected Component(SerializationInfo info, StreamingContext context) : base(info, context)
         {
-            DomainEntities = (IList<LaunchPadDomainEntityBase<TEntityIdType>>)info.GetValue("DomainEntities", typeof(IList<LaunchPadDomainEntityBase<TEntityIdType>>));
+            DomainEntities = (IList<LaunchPadDomainEntityBase<TEntityIdType>>)info.GetValue("DomainEntities", typeof(List<LaunchPadDomainEntityBase<TEntityIdType>>));
         }
 
         #endregion

@@ -24,14 +24,6 @@ namespace Deploy.LaunchPad.FileGeneration.Structure
             
 
         }
-        /// <summary>
-        /// The method required for implementing ISerializable
-        /// </summary>
-        /// <param name="info"></param>
-        /// <param name="context"></param>
-        public override void GetObjectData(SerializationInfo info, StreamingContext context)
-        {
 
-        }
     }
 }

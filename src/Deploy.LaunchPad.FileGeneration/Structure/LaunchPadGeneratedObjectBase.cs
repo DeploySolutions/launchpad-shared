@@ -22,13 +22,13 @@ namespace Deploy.LaunchPad.FileGeneration.Structure
         /// <summary>
         /// The unique id of the object (if present)
         /// </summary>
-        [JsonProperty("id")]
+        [JsonProperty("id", DefaultValueHandling = DefaultValueHandling.Populate)]
         public virtual string Id { get; set; } = string.Empty;
 
         /// <summary>
         /// The singular name of the object 
         /// </summary>
-        [JsonProperty("name")]
+        [JsonProperty("name", DefaultValueHandling = DefaultValueHandling.Populate)]
         public virtual string Name { get; set; } = string.Empty;
 
 
@@ -52,7 +52,7 @@ namespace Deploy.LaunchPad.FileGeneration.Structure
         /// <summary>
         /// The description of the object
         /// </summary>
-        [JsonProperty("description")]
+        [JsonProperty("description", DefaultValueHandling = DefaultValueHandling.Populate)]
         public virtual string Description { get; set; } = string.Empty;
 
         /// <summary>
@@ -152,7 +152,7 @@ namespace Deploy.LaunchPad.FileGeneration.Structure
         /// </summary>
         /// <typeparam name="T">The source object to clone</typeparam>
         /// <returns>A shallow clone of the entity and its serializable properties</returns>
-        public virtual T Clone<T>() where T : LaunchPadGeneratedObjectBase, new()
+        public virtual T Clone<T>() where T : ILaunchPadGeneratedObject, new()
         {
             T clone = new T();
             foreach (PropertyInfo info in GetType().GetProperties())
@@ -287,7 +287,7 @@ namespace Deploy.LaunchPad.FileGeneration.Structure
         /// This method implements the <see cref="Object">Object</see> method.  
         /// </remarks>  
         /// <returns>A hash code for an object.</returns>
-        public virtual int GetHashCode()
+        public override int GetHashCode()
         {
             return Id.GetHashCode();
         }

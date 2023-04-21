@@ -172,7 +172,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
         protected Device(SerializationInfo info, StreamingContext context) : base(info, context)
         {
             CurrentLocation = (SpaceTimeInformation)info.GetValue("CurrentLocation", typeof(SpaceTimeInformation));
-            PreviousLocations = (IList<SpaceTimeInformation>)info.GetValue("PreviousLocations", typeof(IList<SpaceTimeInformation>));
+            PreviousLocations = (IList<SpaceTimeInformation>)info.GetValue("PreviousLocations", typeof(List<SpaceTimeInformation>));
             Power = (DevicePower)info.GetValue("Power", typeof(DevicePower));
         }
 

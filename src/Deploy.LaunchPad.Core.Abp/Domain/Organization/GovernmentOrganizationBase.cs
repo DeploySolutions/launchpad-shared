@@ -81,7 +81,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
         protected GovernmentOrganizationBase(SerializationInfo info, StreamingContext context) : base(info, context)
         {
             Schema = (GovernmentOrganization)info.GetValue("Organization", typeof(GovernmentOrganization));
-            Offices = (IList<String>)info.GetValue("Offices", typeof(IList<String>));
+            Offices = (IList<String>)info.GetValue("Offices", typeof(List<String>));
         }
 
         /// <summary>

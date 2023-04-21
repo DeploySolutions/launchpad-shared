@@ -2,6 +2,7 @@
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Runtime.Serialization;
 
 namespace Deploy.LaunchPad.FileGeneration.Structure
 {
@@ -107,6 +108,63 @@ namespace Deploy.LaunchPad.FileGeneration.Structure
         public LaunchPadWebItem() : base()
         {
             Id = null;
+        }
+
+        /// <summary>
+        /// Serialization constructor used for deserialization
+        /// </summary>
+        /// <param name="info">The serialization info</param>
+        /// <param name="context">The context of the stream</param>
+        protected LaunchPadWebItem(SerializationInfo info, StreamingContext context) : base(info, context)
+        {
+            ItemType = info.GetString("ItemType");
+            DataField = info.GetString("DataField");
+            DataType = info.GetString("DataType");
+            Span = (int?)info.GetValue("Span", typeof(int?));
+            Component = info.GetString("Component");
+            ComponentPath = info.GetString("ComponentPath");
+            LatDataField = info.GetString("LatDataField");
+            LonDataField = info.GetString("LonDataField");
+            StreetDataField = info.GetString("StreetDataField");
+            CityDataField = info.GetString("CityDataField");
+            ProvinceDataField = info.GetString("ProvinceDataField");
+
+            PostalCodeDataField = info.GetString("PostalCodeDataField");
+            ButtonType = info.GetString("ButtonType");
+            Required = info.GetBoolean("Required");
+            DomainEntity = info.GetString("DomainEntity");
+            DomainEntityIdField = info.GetString("DomainEntityIdField");
+            ProvinceDataField = info.GetString("ProvinceDataField");
+            Rows = (IList<LaunchPadRow>)info.GetValue("Rows", typeof(List<LaunchPadRow>));
+
+        }
+
+        /// <summary>
+        /// The method required for implementing ISerializable
+        /// </summary>
+        /// <param name="info"></param>
+        /// <param name="context"></param>
+        public override void GetObjectData(SerializationInfo info, StreamingContext context)
+        {
+            info.AddValue("ItemType", ItemType);
+            info.AddValue("DataField", DataField);
+            info.AddValue("DataType", DataType);
+            info.AddValue("Span", Span);
+            info.AddValue("Component", Component);
+            info.AddValue("ComponentPath", ComponentPath);
+            info.AddValue("LatDataField", LatDataField);
+            info.AddValue("LonDataField", LonDataField);
+            info.AddValue("StreetDataField", StreetDataField);
+            info.AddValue("CityDataField", CityDataField);
+            info.AddValue("StreetDataField", StreetDataField);
+            info.AddValue("ProvinceDataField", ProvinceDataField);
+            info.AddValue("PostalCodeDataField", PostalCodeDataField);
+            info.AddValue("ButtonType", ButtonType);
+            info.AddValue("Required", Required);
+            info.AddValue("DomainEntity", DomainEntity);
+            info.AddValue("DomainEntityIdField", DomainEntityIdField);
+            info.AddValue("Rows", Rows);
+            info.AddValue("Enums", Enums);
         }
     }
 }
