@@ -35,7 +35,7 @@ namespace Deploy.LaunchPad.FileGeneration.Structure
         /// Number of column span for this field
         /// </summary>
         [JsonProperty("span")]
-        public int? Span { get; set; }
+        public int Span { get; set; } = 1;
 
         /// <summary>
         /// Component for custom fields
@@ -120,7 +120,7 @@ namespace Deploy.LaunchPad.FileGeneration.Structure
             ItemType = info.GetString("ItemType");
             DataField = info.GetString("DataField");
             DataType = info.GetString("DataType");
-            Span = (int?)info.GetValue("Span", typeof(int?));
+            Span = info.GetInt32("Span");
             Component = info.GetString("Component");
             ComponentPath = info.GetString("ComponentPath");
             LatDataField = info.GetString("LatDataField");

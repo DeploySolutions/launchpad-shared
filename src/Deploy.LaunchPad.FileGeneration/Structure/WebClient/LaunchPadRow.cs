@@ -22,7 +22,7 @@ namespace Deploy.LaunchPad.FileGeneration.Structure
         /// Number of row span
         /// </summary>
         [JsonProperty("span", NullValueHandling = NullValueHandling.Include)]
-        public int? Span { get; set; }
+        public int Span { get; set; } = 1;
 
         public LaunchPadRow() : base()
         {
@@ -37,7 +37,7 @@ namespace Deploy.LaunchPad.FileGeneration.Structure
         /// <param name="context">The context of the stream</param>
         protected LaunchPadRow(SerializationInfo info, StreamingContext context) : base(info, context)
         {
-            Span = (int?)info.GetValue("Span", typeof(int?));
+            Span = info.GetInt32("Span");
             Items = (IList<LaunchPadWebItem>)info.GetValue("Items", typeof(List<LaunchPadWebItem>));
 
         }
