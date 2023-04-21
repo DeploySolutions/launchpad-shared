@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Runtime.Serialization;
 
 namespace Deploy.LaunchPad.FileGeneration.Structure
 {
@@ -13,5 +14,24 @@ namespace Deploy.LaunchPad.FileGeneration.Structure
         {
         }
 
+        /// <summary>
+        /// Serialization constructor used for deserialization
+        /// </summary>
+        /// <param name="info">The serialization info</param>
+        /// <param name="context">The context of the stream</param>
+        protected LaunchPadWebClientObjectBase(SerializationInfo info, StreamingContext context) : base(info, context)
+        {
+            
+
+        }
+        /// <summary>
+        /// The method required for implementing ISerializable
+        /// </summary>
+        /// <param name="info"></param>
+        /// <param name="context"></param>
+        public override void GetObjectData(SerializationInfo info, StreamingContext context)
+        {
+
+        }
     }
 }

@@ -1,5 +1,7 @@
-﻿using System;
+﻿using FileTypeChecker.Types;
+using System;
 using System.Collections.Generic;
+using System.Runtime.Serialization;
 using System.Xml.Serialization;
 
 namespace Deploy.LaunchPad.FileGeneration.Structure
@@ -59,6 +61,41 @@ namespace Deploy.LaunchPad.FileGeneration.Structure
 
         public LaunchPadPage() : base()
         {
+        }
+
+        /// <summary>
+        /// Serialization constructor used for deserialization
+        /// </summary>
+        /// <param name="info">The serialization info</param>
+        /// <param name="context">The context of the stream</param>
+        protected LaunchPadPage(SerializationInfo info, StreamingContext context) : base(info, context)
+        {
+            Type = info.GetString("Type");
+            DomainEntity = info.GetString("DomainEntity");
+            Tileset = (LaunchPadTileSet)info.GetValue("Tileset", typeof(LaunchPadTileSet));
+            DataTable = (LaunchPadDataTable)info.GetValue("DataTable", typeof(LaunchPadDataTable));
+            WebForm = (LaunchPadWebForm)info.GetValue("WebForm", typeof(LaunchPadWebForm));
+            DetailView = (LaunchPadDetailView)info.GetValue("DetailView", typeof(LaunchPadDetailView));
+            Maps = (IList<LaunchPadMap>)info.GetValue("Maps", typeof(IList<LaunchPadMap>));
+            Tiles = (IList<LaunchPadTile>)info.GetValue("Tiles", typeof(IList<LaunchPadTile>));
+
+        }
+
+        /// <summary>
+        /// The method required for implementing ISerializable
+        /// </summary>
+        /// <param name="info"></param>
+        /// <param name="context"></param>
+        public override void GetObjectData(SerializationInfo info, StreamingContext context)
+        {
+            info.AddValue("Type", Type);
+            info.AddValue("DomainEntity", DomainEntity);
+            info.AddValue("Tileset", Tileset);
+            info.AddValue("DataTable", DataTable);
+            info.AddValue("WebForm", WebForm);
+            info.AddValue("DetailView", DetailView);
+            info.AddValue("Tiles", Tiles);
+
         }
     }
 }
