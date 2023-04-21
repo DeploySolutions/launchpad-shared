@@ -26,6 +26,7 @@ namespace Deploy.LaunchPad.FileGeneration.Structure
 
         public LaunchPadMapLayer() : base()
         {
+            Style = new LaunchPadMapLayerStyle();
         }
     }
 }

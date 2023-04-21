@@ -82,8 +82,8 @@ namespace Deploy.LaunchPad.FileGeneration.Structure
             DataTable = (LaunchPadDataTable)info.GetValue("DataTable", typeof(LaunchPadDataTable));
             WebForm = (LaunchPadWebForm)info.GetValue("WebForm", typeof(LaunchPadWebForm));
             DetailView = (LaunchPadDetailView)info.GetValue("DetailView", typeof(LaunchPadDetailView));
-            Maps = (IList<LaunchPadMap>)info.GetValue("Maps", typeof(IList<LaunchPadMap>));
-            Tiles = (IList<LaunchPadTile>)info.GetValue("Tiles", typeof(IList<LaunchPadTile>));
+            Maps = (IList<LaunchPadMap>)info.GetValue("Maps", typeof(List<LaunchPadMap>));
+            Tiles = (IList<LaunchPadTile>)info.GetValue("Tiles", typeof(List<LaunchPadTile>));
 
         }
 

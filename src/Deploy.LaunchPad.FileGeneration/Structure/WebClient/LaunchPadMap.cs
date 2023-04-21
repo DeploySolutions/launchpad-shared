@@ -56,7 +56,7 @@ namespace Deploy.LaunchPad.FileGeneration.Structure
             Icon = info.GetString("Icon");
             Source = (LaunchPadMapSource)info.GetValue("Source", typeof(LaunchPadMapSource));
             Layer = (LaunchPadMapLayer)info.GetValue("Layer", typeof(LaunchPadMapLayer));
-            Popovers = (IList<LaunchPadMapPopover>)info.GetValue("Popovers", typeof(IList<LaunchPadMapPopover>));
+            Popovers = (IList<LaunchPadMapPopover>)info.GetValue("Popovers", typeof(List<LaunchPadMapPopover>));
 
         }
 
