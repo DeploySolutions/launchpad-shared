@@ -146,6 +146,7 @@ namespace Deploy.LaunchPad.FileGeneration.Structure
         /// <param name="context"></param>
         public override void GetObjectData(SerializationInfo info, StreamingContext context)
         {
+            base.GetObjectData(info, context);
             info.AddValue("ItemType", ItemType);
             info.AddValue("DataField", DataField);
             info.AddValue("DataType", DataType);

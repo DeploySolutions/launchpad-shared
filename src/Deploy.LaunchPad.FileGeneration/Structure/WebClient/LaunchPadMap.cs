@@ -67,6 +67,7 @@ namespace Deploy.LaunchPad.FileGeneration.Structure
         /// <param name="context"></param>
         public override void GetObjectData(SerializationInfo info, StreamingContext context)
         {
+            base.GetObjectData(info, context);
             info.AddValue("Icon", Icon);
             info.AddValue("Source", Source);
             info.AddValue("Layer", Layer);
