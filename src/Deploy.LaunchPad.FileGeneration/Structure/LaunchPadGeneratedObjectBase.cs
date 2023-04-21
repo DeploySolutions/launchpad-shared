@@ -96,7 +96,7 @@ namespace Deploy.LaunchPad.FileGeneration.Structure
         /// </summary>
         /// <param name="info">The serialization info</param>
         /// <param name="context">The context of the stream</param>
-        protected LaunchPadGeneratedObjectBase(SerializationInfo info, StreamingContext context)
+        protected LaunchPadGeneratedObjectBase(SerializationInfo info, StreamingContext context) 
         {
             Id = info.GetString("Id");
             IdType = info.GetString("IdType");
@@ -137,7 +137,7 @@ namespace Deploy.LaunchPad.FileGeneration.Structure
         /// </summary>
         /// <typeparam name="T">The source object to clone</typeparam>
         /// <returns>A shallow clone of the entity and its serializable properties</returns>
-        protected virtual T Clone<T>() where T : ILaunchPadGeneratedObject, new()
+        public virtual T Clone<T>() where T : ILaunchPadGeneratedObject, new()
         {
             T clone = new T();
             foreach (PropertyInfo info in GetType().GetProperties())
