@@ -23,7 +23,7 @@ namespace Deploy.LaunchPad.FileGeneration.Structure
         /// The unique id of the object (if present)
         /// </summary>
         [JsonProperty("id")]
-        public virtual string Id { get; set; }
+        public virtual string Id { get; set; } = string.Empty;
 
         /// <summary>
         /// The singular name of the object 

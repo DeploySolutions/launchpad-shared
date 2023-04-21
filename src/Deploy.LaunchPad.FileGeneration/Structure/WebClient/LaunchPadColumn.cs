@@ -39,6 +39,7 @@ namespace Deploy.LaunchPad.FileGeneration.Structure
             Sortable = false;
             DataField = string.Empty;
             DataType = string.Empty;
+            Actions = new List<LaunchPadAction>();  
         }
     }
 }

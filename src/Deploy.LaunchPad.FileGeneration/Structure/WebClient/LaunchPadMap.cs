@@ -41,6 +41,7 @@ namespace Deploy.LaunchPad.FileGeneration.Structure
 
         public LaunchPadMap() : base()
         {
+            Popovers = new List<LaunchPadMapPopover>();
         }
 
         /// <summary>

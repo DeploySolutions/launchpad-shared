@@ -61,6 +61,7 @@ namespace Deploy.LaunchPad.FileGeneration.Structure
 
         public LaunchPadPage() : base()
         {
+            Maps = new List<LaunchPadMap>();
         }
 
         /// <summary>
