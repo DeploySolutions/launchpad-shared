@@ -66,7 +66,7 @@ namespace Deploy.LaunchPad.FileGeneration.Structure
         /// </summary>
         /// <typeparam name="T">The source object to clone</typeparam>
         /// <returns>A shallow clone of the entity and its serializable properties</returns>
-        protected virtual T Clone<T>() where T : LaunchPadGeneratedProperty, new()
+        public new T Clone<T>() where T : LaunchPadGeneratedProperty, new()
         {
             T clone = new T();
             foreach (PropertyInfo info in GetType().GetProperties())
