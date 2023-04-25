@@ -19,6 +19,12 @@ namespace Deploy.LaunchPad.FileGeneration.Structure
         /// <summary>
         /// Route to follow when the user clicks on each row of data
         /// </summary>
+        [JsonProperty("selectable")]
+        public bool Selectable { get; set; }
+
+        /// <summary>
+        /// Route to follow when the user clicks on each row of data
+        /// </summary>
         [JsonProperty("route")]
         public string Route { get; set; }
 
