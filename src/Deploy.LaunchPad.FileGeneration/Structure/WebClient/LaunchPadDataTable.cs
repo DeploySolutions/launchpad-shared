@@ -47,6 +47,12 @@ namespace Deploy.LaunchPad.FileGeneration.Structure
         public IList<LaunchPadAction> Actions { get; set; }
 
         /// <summary>
+        /// Action buttons appears at the top of the data table, only applies to the selected rows
+        /// </summary>
+        [JsonProperty("selectableActions")]
+        public IList<LaunchPadAction> SelectableActions { get; set; }
+
+        /// <summary>
         /// List of columns on the datatable
         /// </summary>
         [JsonProperty("columns")]
