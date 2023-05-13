@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 namespace Deploy.LaunchPad.Python
 {
     [Serializable]
-    public partial class PythonReleaseRegistry
+    public partial record PythonReleaseRegistry
     {
-        public virtual Dictionary<string, PythonVersion> Releases { get; private set; }
+        public virtual Dictionary<string, PythonVersion> Releases { get; init; }
 
         public PythonReleaseRegistry() { 
             Releases = PopulateReleases();
