@@ -10,7 +10,7 @@
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageProjectUrl>https://github.com/DeploySolutions/launchpad-shared</PackageProjectUrl>
     <RepositoryUrl>https://github.com/DeploySolutions/launchpad-shared</RepositoryUrl>
-    <Version>9.0.4</Version>
+    <Version>9.0.6</Version>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <PackageIcon>icon.png</PackageIcon>
     <IncludeSymbols>true</IncludeSymbols>
@@ -18,20 +18,20 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="AWSSDK.APIGateway" Version="3.7.100.44" />
-    <PackageReference Include="AWSSDK.Core" Version="3.7.106.2" />
-    <PackageReference Include="AWSSDK.ElasticFileSystem" Version="3.7.101.21" />
-    <PackageReference Include="AWSSDK.Lambda" Version="3.7.102.20" />
-    <PackageReference Include="AWSSDK.Redshift" Version="3.7.100.44" />
-    <PackageReference Include="AWSSDK.S3" Version="3.7.103.32" />
-    <PackageReference Include="AWSSDK.SecretsManager" Version="3.7.100.44" />
-    <PackageReference Include="AWSSDK.SimpleNotificationService" Version="3.7.100.45" />
-    <PackageReference Include="AWSSDK.SQS" Version="3.7.100.44" />
-    <PackageReference Include="AwsSignatureVersion4" Version="4.0.0" />
+    <PackageReference Include="AWSSDK.APIGateway" Version="3.7.100.128" />
+    <PackageReference Include="AWSSDK.Core" Version="3.7.106.35" />
+    <PackageReference Include="AWSSDK.ElasticFileSystem" Version="3.7.102.6" />
+    <PackageReference Include="AWSSDK.Lambda" Version="3.7.109.7" />
+    <PackageReference Include="AWSSDK.Redshift" Version="3.7.101.63" />
+    <PackageReference Include="AWSSDK.S3" Version="3.7.104.14" />
+    <PackageReference Include="AWSSDK.SecretsManager" Version="3.7.102.40" />
+    <PackageReference Include="AWSSDK.SimpleNotificationService" Version="3.7.101.64" />
+    <PackageReference Include="AWSSDK.SQS" Version="3.7.102.3" />
+    <PackageReference Include="AwsSignatureVersion4" Version="4.0.1" />
     <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="7.0.0" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
-    <PackageReference Include="RestSharp" Version="110.1.0" />
+    <PackageReference Include="RestSharp" Version="110.2.0" />
   </ItemGroup>
 
   <ItemGroup>
