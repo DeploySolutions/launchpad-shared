@@ -32,6 +32,12 @@ namespace Deploy.LaunchPad.FileGeneration.Structure
         public string DataType { get; set; }
 
         /// <summary>
+        /// local/relative or external/absolute endpoint for the search (lookup)
+        /// </summary>
+        [JsonProperty("endpoint")]
+        public string Endpoint { get; set; }
+
+        /// <summary>
         /// Number of column span for this field
         /// </summary>
         [JsonProperty("span")]
