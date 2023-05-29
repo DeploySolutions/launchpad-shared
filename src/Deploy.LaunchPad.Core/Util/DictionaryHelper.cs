@@ -35,7 +35,7 @@ namespace Deploy.LaunchPad.Core.Util
         /// <param name="key">The key to which the item should be stored in the dictionary.</param>
         /// <param name="item">The value to store.</param>
         /// <returns></returns>
-        public IDictionary<TKey, TValue> AddToDictionary<TKey, TValue>(IDictionary<TKey, TValue> dictionary, TKey key, TValue item, bool shouldOverwriteIfExists = false, DictionaryHelperLoggingStrategy loggingStrategy = DictionaryHelperLoggingStrategy.LogOnlyAdditionsAndOverwrites)
+        public IDictionary<TKey, TValue> AddToDictionary<TKey, TValue>(IDictionary<TKey, TValue> dictionary, TKey key, TValue item, bool shouldOverwriteIfExists = false, DictionaryHelperLoggingStrategy loggingStrategy = DictionaryHelperLoggingStrategy.LogOnlyOverwrites)
         {
             Guard.Against<ArgumentNullException>(key == null, Deploy_LaunchPad_Core_Resources.Guard_Input_IsNull);
             Guard.Against<ArgumentNullException>(item == null, Deploy_LaunchPad_Core_Resources.Guard_Input_IsNull);
