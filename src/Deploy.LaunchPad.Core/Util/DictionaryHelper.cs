@@ -5,6 +5,14 @@ using System.Linq;
 
 namespace Deploy.LaunchPad.Core.Util
 {
+    public enum DictionaryHelperLoggingStrategy
+    {
+        LogEverything = 0,
+        LogOnlyOverwrites = 1,
+        LogOnlyAdditionsAndOverwrites = 2,
+        LogOnlyWhenSkippingExistingItems = 3
+    }
+
     public partial class DictionaryHelper : HelperBase
     {
         public DictionaryHelper() : base()
@@ -27,26 +35,46 @@ namespace Deploy.LaunchPad.Core.Util
         /// <param name="key">The key to which the item should be stored in the dictionary.</param>
         /// <param name="item">The value to store.</param>
         /// <returns></returns>
-        public IDictionary<TKey, TValue> AddToDictionary<TKey, TValue>(IDictionary<TKey, TValue> dictionary, TKey key, TValue item, bool shouldOverwriteIfExists = false)
+        public IDictionary<TKey, TValue> AddToDictionary<TKey, TValue>(IDictionary<TKey, TValue> dictionary, TKey key, TValue item, bool shouldOverwriteIfExists = false, DictionaryHelperLoggingStrategy loggingStrategy = DictionaryHelperLoggingStrategy.LogOnlyAdditionsAndOverwrites)
         {
             Guard.Against<ArgumentNullException>(key == null, Deploy_LaunchPad_Core_Resources.Guard_Input_IsNull);
             Guard.Against<ArgumentNullException>(item == null, Deploy_LaunchPad_Core_Resources.Guard_Input_IsNull);
 
             if (!dictionary.ContainsKey(key))
             {
-                dictionary.TryAdd(key, item);
-                Logger.Debug(string.Format(Deploy_LaunchPad_Core_Resources.Logger_Info_ItemAdded, item));
+                bool successfullyAdded = dictionary.TryAdd(key, item);
+                if (successfullyAdded &&
+                    (loggingStrategy == DictionaryHelperLoggingStrategy.LogEverything || loggingStrategy == DictionaryHelperLoggingStrategy.LogOnlyAdditionsAndOverwrites)
+                ) 
+                {
+                    Logger.Debug(string.Format(Deploy_LaunchPad_Core_Resources.Logger_Info_ItemAdded, item));
+                }                
             }
             else
             {
                 if (shouldOverwriteIfExists)
                 {
                     dictionary[key] = item;
-                    Logger.Debug(string.Format(Deploy_LaunchPad_Core_Resources.Logger_Info_ItemAlreadyExistsOverwriting, item));
+                    if(
+                        loggingStrategy == DictionaryHelperLoggingStrategy.LogEverything 
+                        || loggingStrategy == DictionaryHelperLoggingStrategy.LogOnlyAdditionsAndOverwrites 
+                        || loggingStrategy == DictionaryHelperLoggingStrategy.LogOnlyOverwrites
+                    )
+                    {
+                        Logger.Debug(string.Format(Deploy_LaunchPad_Core_Resources.Logger_Info_ItemAlreadyExistsOverwriting, item));
+                    }                    
                 }
                 else
                 {
-                    Logger.Debug(string.Format(Deploy_LaunchPad_Core_Resources.Logger_Info_ItemAlreadyExists, item));
+                    // skipping since it exists and we don't want to override. Possibly do a log entry
+                    if (
+                        loggingStrategy == DictionaryHelperLoggingStrategy.LogEverything
+                        || loggingStrategy == DictionaryHelperLoggingStrategy.LogOnlyAdditionsAndOverwrites
+                        || loggingStrategy == DictionaryHelperLoggingStrategy.LogOnlyWhenSkippingExistingItems
+                    )
+                    {
+                        Logger.Debug(string.Format(Deploy_LaunchPad_Core_Resources.Logger_Info_ItemAlreadyExists, item));
+                    }
                 }
             }
             return dictionary;
