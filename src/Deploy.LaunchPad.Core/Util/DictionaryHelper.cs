@@ -69,7 +69,6 @@ namespace Deploy.LaunchPad.Core.Util
                     // skipping since it exists and we don't want to override. Possibly do a log entry
                     if (
                         loggingStrategy == DictionaryHelperLoggingStrategy.LogEverything
-                        || loggingStrategy == DictionaryHelperLoggingStrategy.LogOnlyAdditionsAndOverwrites
                         || loggingStrategy == DictionaryHelperLoggingStrategy.LogOnlyWhenSkippingExistingItems
                     )
                     {
