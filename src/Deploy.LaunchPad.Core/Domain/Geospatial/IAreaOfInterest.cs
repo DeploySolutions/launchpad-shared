@@ -17,6 +17,7 @@
 
 namespace Deploy.LaunchPad.Core.Domain
 {
+    using Deploy.LaunchPad.Core.GeoJson;
     using System.Collections.Generic;
     using System.ComponentModel;
     using System.Xml.Serialization;
@@ -28,7 +29,7 @@ namespace Deploy.LaunchPad.Core.Domain
     {
         [DataObjectField(false)]
         [XmlAttribute]
-        IDictionary<string, IGeographicLocation> BoundingBoxCoordinates { get; set; }
+        IGeographicLocation Location { get; set; }
 
     }
 }

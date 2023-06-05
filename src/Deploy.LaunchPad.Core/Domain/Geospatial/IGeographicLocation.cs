@@ -17,27 +17,20 @@
 
 namespace Deploy.LaunchPad.Core.Domain
 {
+    using Deploy.LaunchPad.Core.GeoJson;
     using Geolocation;
     using System.Runtime.Serialization;
 
     /// <summary>
     /// This interface defines the physical position of something, in terms of its latitude, longitude, and elevation.
     /// </summary>
-    public interface IGeographicLocation : ISerializable
+    public interface IGeographicLocation : ICanBeDescribedInGeoJson, ISerializable
     {
         /// <summary>
         /// The Coordinates of this object on Earth
         /// </summary>
         Coordinate EarthCoordinate { get; set; }
 
-        /// <summary>
-        /// The latitude of this object
-        /// </summary>
-        double Latitude { get; }
-        /// <summary>
-        /// The longitude of this object
-        /// </summary>
-        double Longitude { get; }
 
         /// <summary>
         /// The elevation of this object (compared to "sea level" on Earth, or an arbitrary point on another body)

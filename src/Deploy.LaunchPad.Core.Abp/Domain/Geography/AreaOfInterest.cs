@@ -37,7 +37,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
 
         [DataObjectField(false)]
         [XmlAttribute]
-        public virtual IDictionary<string, IGeographicLocation> BoundingBoxCoordinates
+        public virtual IGeographicLocation Location
         {
             get; set;
         }
@@ -50,18 +50,17 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
         public AreaOfInterest(int? tenantId) : base()
         {
             var comparer = StringComparer.OrdinalIgnoreCase;
-            BoundingBoxCoordinates = new Dictionary<string, IGeographicLocation>(comparer);
             TenantId = tenantId;
         }
 
-        public AreaOfInterest(int? tenantId, IDictionary<string, IGeographicLocation> boundingBox) : base()
+        public AreaOfInterest(int? tenantId, IGeographicLocation location) : base()
         {
-            BoundingBoxCoordinates = boundingBox;
+            Location = location;
             TenantId = tenantId;
         }
-        public AreaOfInterest(int? tenantId, TIdType id, String culture, IDictionary<string, IGeographicLocation> boundingBox) : base(id, culture)
+        public AreaOfInterest(int? tenantId, TIdType id, String culture, IGeographicLocation location) : base(id, culture)
         {
-            BoundingBoxCoordinates = boundingBox;
+            Location = location;
             TenantId = tenantId;
         }
 
@@ -72,7 +71,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
         /// <param name="context">The context of the stream</param>
         public AreaOfInterest(SerializationInfo info, StreamingContext context) : base(info, context)
         {
-            BoundingBoxCoordinates = (IDictionary<string, IGeographicLocation>)info.GetValue("BoundingBoxCoordinates", typeof(IDictionary<string, IGeographicLocation>));
+            Location = (IGeographicLocation)info.GetValue("Location", typeof(IGeographicLocation));
         }
 
         /// <summary>
@@ -83,7 +82,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
         public override void GetObjectData(SerializationInfo info, StreamingContext context)
         {
             base.GetObjectData(info, context);
-            info.AddValue("BoundingBoxCoordinates", BoundingBoxCoordinates);
+            info.AddValue("Location", Location);
         }
 
         /// Event called once deserialization constructor finishes.
@@ -107,7 +106,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
             StringBuilder sb = new StringBuilder();
             sb.Append("[AreaOfInterest : ");
             // sb.AppendFormat(base.ToStringBaseProperties());
-            sb.AppendFormat("BoundingBoxCoordinates={0};", BoundingBoxCoordinates);
+            sb.AppendFormat("Location={0};", Location);
             sb.Append(']');
             return sb.ToString();
         }
@@ -139,7 +138,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
             if (obj != null)
             {
                 if (
-                    BoundingBoxCoordinates.Equals(obj.BoundingBoxCoordinates)
+                    Location.Equals(obj.Location)
                 )
                 {
                     return true;
@@ -191,7 +190,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
         /// <returns>A hash code for an object.</returns>
         public override int GetHashCode()
         {
-            return Id.GetHashCode() + Culture.GetHashCode() + BoundingBoxCoordinates.GetHashCode();
+            return Id.GetHashCode() + Culture.GetHashCode() + Location.GetHashCode();
         }
     }
 }

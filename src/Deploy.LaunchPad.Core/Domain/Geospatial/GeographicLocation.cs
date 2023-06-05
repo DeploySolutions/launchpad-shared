@@ -20,6 +20,7 @@
 namespace Deploy.LaunchPad.Core.Domain
 {
     using Deploy.LaunchPad.Core;
+    using Deploy.LaunchPad.Core.GeoJson;
     using Deploy.LaunchPad.Core.Util;
     using Geolocation;
     using System;
@@ -32,7 +33,7 @@ namespace Deploy.LaunchPad.Core.Domain
     /// This class defines the physical position of something, in terms of its latitude, longitude, and elevation.
     /// </summary>
     [Serializable()]
-    public class GeographicLocation : IGeographicLocation, IEquatable<GeographicLocation>
+    public class GeographicLocation : GeoJsonDefinition, IGeographicLocation, IEquatable<GeographicLocation>
     {
         private double _elevation;
         private Coordinate _earthCoordinate;
@@ -100,8 +101,6 @@ namespace Deploy.LaunchPad.Core.Domain
         public void GetObjectData(SerializationInfo info, StreamingContext context)
         {
             info.AddValue("Elevation", Elevation);
-            info.AddValue("Latitude", Latitude);
-            info.AddValue("Longitude", Longitude);
             info.AddValue("EarthCoordinate", EarthCoordinate);
         }
 
