@@ -186,11 +186,11 @@
   <data name="Guard_GeographicLocation_Set_Longitude_NaN" xml:space="preserve">
     <value>Value was either too large or too small for a Decimal.</value>
   </data>
+  <data name="Guard_GeographicLocation_Set_Longitude_Not_GreaterThan_180" xml:space="preserve">
+    <value>Longitudinal coordinate decimal cannot be greater than 180.</value>
+  </data>
   <data name="Guard_GeographicLocation_Set_Longitude_Not_LessThan_Minus180" xml:space="preserve">
     <value>Longitudinal coordinate decimal cannot be less than 180.</value>
-  </data>
-  <data name="Guard_GeographicLocation_Set_Longitude_Not_MoreThan_180" xml:space="preserve">
-    <value>Longitudinal coordinate decimal cannot be greater than 180.</value>
   </data>
   <data name="Guard_InMemoryRepository_ConstrainQueryInput_MaxResult_Equals0" xml:space="preserve">
     <value>Max Results must be -1 or a positive number.</value>

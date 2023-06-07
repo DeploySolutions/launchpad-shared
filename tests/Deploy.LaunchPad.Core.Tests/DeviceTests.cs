@@ -84,11 +84,11 @@ namespace Deploy.LaunchPad.Core.Tests
         [Fact]
         public void Should_Allow_PreviousPhysicalLocations_To_Be_Added()
         {
-            SpaceTimeInformation sydney = new SpaceTimeInformation(new GeographicLocation(33.8650, 151.2094));
-            SpaceTimeInformation london = new SpaceTimeInformation(new GeographicLocation(51.5072, 0.1275));
-            SpaceTimeInformation newyork = new SpaceTimeInformation(new GeographicLocation(40.7127, 74.0059));
-            SpaceTimeInformation kingston = new SpaceTimeInformation(new GeographicLocation(44.2333, 76.5000));
-            SpaceTimeInformation halifax = new SpaceTimeInformation(new GeographicLocation(44.6478, 63.5714));
+            SpaceTimeInformation sydney = new SpaceTimeInformation(new GeographicPosition(33.8650, 151.2094));
+            SpaceTimeInformation london = new SpaceTimeInformation(new GeographicPosition(51.5072, 0.1275));
+            SpaceTimeInformation newyork = new SpaceTimeInformation(new GeographicPosition(40.7127, 74.0059));
+            SpaceTimeInformation kingston = new SpaceTimeInformation(new GeographicPosition(44.2333, 76.5000));
+            SpaceTimeInformation halifax = new SpaceTimeInformation(new GeographicPosition(44.6478, 63.5714));
             IList<SpaceTimeInformation> previousLocations = new List<SpaceTimeInformation>();
             _fixture.SUT.PreviousLocations.Add(sydney);
             _fixture.SUT.PreviousLocations.Add(london);

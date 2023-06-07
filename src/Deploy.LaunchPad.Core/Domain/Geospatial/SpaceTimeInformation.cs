@@ -43,7 +43,7 @@ namespace Deploy.LaunchPad.Core.Domain
         /// </summary>
         [DataObjectField(false)]
         [XmlAttribute]
-        public virtual IGeographicLocation PhysicalLocation { get; set; }
+        public virtual IGeographicPosition PhysicalLocation { get; set; }
 
         #region Constructors
 
@@ -52,7 +52,7 @@ namespace Deploy.LaunchPad.Core.Domain
         /// </summary>
         public SpaceTimeInformation()
         {
-            PhysicalLocation = new GeographicLocation();
+            PhysicalLocation = new GeographicPosition();
             PointInTime = new DateTimeProvider().UtcNow;
         }
 
@@ -61,7 +61,7 @@ namespace Deploy.LaunchPad.Core.Domain
         /// Initializes a new instance of the <see cref="SpaceTimeInformation">SpaceTimeInformation</see> class.  
         /// <param name="location">The specific location that is occupied at this moment</param>
         /// </summary>
-        public SpaceTimeInformation(GeographicLocation location)
+        public SpaceTimeInformation(GeographicPosition location)
         {
             PhysicalLocation = location;
             PointInTime = new DateTimeProvider().UtcNow;
@@ -73,7 +73,7 @@ namespace Deploy.LaunchPad.Core.Domain
         /// </summary>
         public SpaceTimeInformation(DateTime pointInTime)
         {
-            PhysicalLocation = new GeographicLocation();
+            PhysicalLocation = new GeographicPosition();
             PointInTime = pointInTime;
         }
 
@@ -82,7 +82,7 @@ namespace Deploy.LaunchPad.Core.Domain
         /// <param name="location">The specific location that is occupied at this moment</param>
         /// <param name="pointInTime">A specific time that this location refers to</param>
         /// </summary>
-        public SpaceTimeInformation(GeographicLocation location, DateTime pointInTime)
+        public SpaceTimeInformation(GeographicPosition location, DateTime pointInTime)
         {
             PhysicalLocation = location;
             PointInTime = pointInTime;
@@ -95,7 +95,7 @@ namespace Deploy.LaunchPad.Core.Domain
         /// <param name="context">The context of the stream</param>
         public SpaceTimeInformation(SerializationInfo info, StreamingContext context)
         {
-            PhysicalLocation = (IGeographicLocation)info.GetValue("PhysicalLocation", typeof(IGeographicLocation));
+            PhysicalLocation = (IGeographicPosition)info.GetValue("PhysicalLocation", typeof(IGeographicPosition));
             PointInTime = info.GetDateTime("PointInTime");
         }
 

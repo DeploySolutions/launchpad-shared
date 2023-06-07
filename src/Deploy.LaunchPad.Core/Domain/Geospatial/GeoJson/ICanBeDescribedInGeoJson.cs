@@ -2,19 +2,15 @@
 // using the json schema found here: https://geojson.org/schema/GeoJSON.json
 // 
 using Deploy.LaunchPad.Core.Domain.Geospatial.GeoJson;
+using Deploy.LaunchPad.Core.Domain.Geospatial.GeoJson.Types;
 using System.Collections.Generic;
 
 namespace Deploy.LaunchPad.Core.GeoJson
 {
-    public interface ICanBeDescribedInGeoJson
+    public interface ICanBeDescribedInGeoJson<TGeoJsonType>
+        where TGeoJsonType : IAmAGeoJsonType
     {
-        List<double> Bbox { get; set; }
-        List<Geometry> Coordinates { get; set; }
-        List<Feature> Features { get; set; }
-        List<Geometry> Geometries { get; set; }
-        Feature Geometry { get; set; }
+        TGeoJsonType Definition { get; set; }
         GeoJsonId? Id { get; set; }
-        Dictionary<string, Geometry> Properties { get; set; }
-        GeoJsonType Type { get; set; }
     }
 }

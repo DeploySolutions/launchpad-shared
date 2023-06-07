@@ -9,16 +9,18 @@ namespace Deploy.LaunchPad.Core.GeoJson
 
     using System.Globalization;
     using Deploy.LaunchPad.Core.Domain.Geospatial.GeoJson;
+    using Deploy.LaunchPad.Core.Domain.Geospatial.GeoJson.Geometries;
+    using Deploy.LaunchPad.Core.Domain.Geospatial.GeoJson.Types;
     using Newtonsoft.Json;
     using Newtonsoft.Json.Converters;
 
-    public partial class GeometryCollection
+    public partial class GeometryCollection : IAmAGeometryType
     {
         [JsonProperty("bbox", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
         public virtual List<double> Bbox { get; set; }
 
         [JsonProperty("geometries", Required = Required.Always)]
-        public virtual List<GeoJsonDefinition> Geometries { get; set; }
+        public virtual List<Geometry> Geometries { get; set; }
 
         [JsonProperty("type", Required = Required.Always)]
         public virtual GeometryCollectionType Type { get; set; }
@@ -45,9 +47,6 @@ namespace Deploy.LaunchPad.Core.GeoJson
             DateParseHandling = DateParseHandling.None,
             Converters =
             {
-                GeometryCoordinateConverter.Singleton,
-                FluffyCoordinateConverter.Singleton,
-                PurpleCoordinateConverter.Singleton,
                 GeometryTypeConverter.Singleton,
                 GeometryCollectionTypeConverter.Singleton,
                 new IsoDateTimeConverter { DateTimeStyles = DateTimeStyles.AssumeUniversal }

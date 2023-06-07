@@ -17,6 +17,7 @@
 
 namespace Deploy.LaunchPad.Core.Domain
 {
+    using Deploy.LaunchPad.Core.Domain.Geospatial.GeoJson;
     using Deploy.LaunchPad.Core.GeoJson;
     using Geolocation;
     using System.Runtime.Serialization;
@@ -24,17 +25,11 @@ namespace Deploy.LaunchPad.Core.Domain
     /// <summary>
     /// This interface defines the physical position of something, in terms of its latitude, longitude, and elevation.
     /// </summary>
-    public interface IGeographicLocation : ICanBeDescribedInGeoJson, ISerializable
+    public interface IGeographicPosition : ISerializable, ILaunchPadObject
     {
-        /// <summary>
-        /// The Coordinates of this object on Earth
-        /// </summary>
-        Coordinate EarthCoordinate { get; set; }
+        public double Longitude { get; set; }
+        public double Latitude { get; set; }
+        public double Elevation { get; set; }
 
-
-        /// <summary>
-        /// The elevation of this object (compared to "sea level" on Earth, or an arbitrary point on another body)
-        /// </summary>
-        double Elevation { get; set; }
     }
 }

@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Deploy.LaunchPad.Core.Domain.Geospatial.GeoJson
+namespace Deploy.LaunchPad.Core.Domain.Geospatial.GeoJson.Types
 {
     public enum FeatureCollectionType { 
         FeatureCollection =0

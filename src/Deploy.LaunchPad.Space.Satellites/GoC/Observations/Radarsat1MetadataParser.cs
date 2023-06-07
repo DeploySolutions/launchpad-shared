@@ -117,7 +117,7 @@ namespace Deploy.LaunchPad.Space.Satellites.GoC
                 c.Latitude = latitude;
                 Double.TryParse(latLongSplit[1], out double longitude);
                 c.Longitude = longitude;
-                GeographicLocation centre = new GeographicLocation
+                GeographicPosition centre = new GeographicPosition
                 (
                     c.Latitude,
                     c.Longitude

@@ -268,20 +268,20 @@ namespace Deploy.LaunchPad.Core {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Longitudinal coordinate decimal cannot be greater than 180..
+        /// </summary>
+        public static string Guard_GeographicLocation_Set_Longitude_Not_GreaterThan_180 {
+            get {
+                return ResourceManager.GetString("Guard_GeographicLocation_Set_Longitude_Not_GreaterThan_180", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Longitudinal coordinate decimal cannot be less than 180..
         /// </summary>
         public static string Guard_GeographicLocation_Set_Longitude_Not_LessThan_Minus180 {
             get {
                 return ResourceManager.GetString("Guard_GeographicLocation_Set_Longitude_Not_LessThan_Minus180", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Longitudinal coordinate decimal cannot be greater than 180..
-        /// </summary>
-        public static string Guard_GeographicLocation_Set_Longitude_Not_MoreThan_180 {
-            get {
-                return ResourceManager.GetString("Guard_GeographicLocation_Set_Longitude_Not_MoreThan_180", resourceCulture);
             }
         }
         

@@ -36,10 +36,10 @@ namespace Deploy.LaunchPad.Space.Satellites.Core
         [Required]
         public virtual string SceneId { get; set; }
 
-        private GeographicLocation _sceneCentre;
+        private GeographicPosition _sceneCentre;
 
         [Required]
-        public virtual GeographicLocation SceneCentre
+        public virtual GeographicPosition SceneCentre
         {
             get
             {

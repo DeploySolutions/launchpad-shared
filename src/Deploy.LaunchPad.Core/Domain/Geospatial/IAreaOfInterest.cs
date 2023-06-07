@@ -17,6 +17,7 @@
 
 namespace Deploy.LaunchPad.Core.Domain
 {
+    using Deploy.LaunchPad.Core.Domain.Geospatial.GeoJson.Types;
     using Deploy.LaunchPad.Core.GeoJson;
     using System.Collections.Generic;
     using System.ComponentModel;
@@ -25,11 +26,9 @@ namespace Deploy.LaunchPad.Core.Domain
     /// <summary>
     /// This interface defines the geographical boundaries of an Area of Interest being observed.
     /// </summary>
-    public interface IAreaOfInterest<TPrimaryKey>
+    public interface IAreaOfInterest<TPrimaryKey,TGeoJsonType> : ICanBeDescribedInGeoJson<TGeoJsonType>
+        where TGeoJsonType : IAmAGeometryType, new()
     {
-        [DataObjectField(false)]
-        [XmlAttribute]
-        IGeographicLocation Location { get; set; }
 
     }
 }

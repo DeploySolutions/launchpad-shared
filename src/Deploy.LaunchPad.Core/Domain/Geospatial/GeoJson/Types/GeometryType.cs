@@ -8,21 +8,20 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Deploy.LaunchPad.Core.Domain.Geospatial.GeoJson
+namespace Deploy.LaunchPad.Core.Domain.Geospatial.GeoJson.Types
 {
-    public enum PointType 
-    { 
-        GeometryCollection = 0, 
-        LineString =1, 
-        MultiLineString = 2, 
-        MultiPoint = 3, 
-        MultiPolygon = 4, 
-        Point =5, 
-        Polygon = 6
+    public enum GeometryType { 
+        LineString = 0, 
+        MultiLineString =1, 
+        MultiPoint=2, 
+        MultiPolygon = 3, 
+        Point = 4, 
+        Polygon =5
     };
-    internal class GeoJsonPointTypeConverter : JsonConverter
+
+    internal class GeometryTypeConverter : JsonConverter
     {
-        public override bool CanConvert(Type t) => t == typeof(PointType) || t == typeof(PointType?);
+        public override bool CanConvert(Type t) => t == typeof(GeometryType) || t == typeof(GeometryType?);
 
         public override object ReadJson(JsonReader reader, Type t, object existingValue, JsonSerializer serializer)
         {
@@ -30,22 +29,20 @@ namespace Deploy.LaunchPad.Core.Domain.Geospatial.GeoJson
             var value = serializer.Deserialize<string>(reader);
             switch (value)
             {
-                case "GeometryCollection":
-                    return PointType.GeometryCollection;
                 case "LineString":
-                    return PointType.LineString;
+                    return GeometryType.LineString;
                 case "MultiLineString":
-                    return PointType.MultiLineString;
+                    return GeometryType.MultiLineString;
                 case "MultiPoint":
-                    return PointType.MultiPoint;
+                    return GeometryType.MultiPoint;
                 case "MultiPolygon":
-                    return PointType.MultiPolygon;
+                    return GeometryType.MultiPolygon;
                 case "Point":
-                    return PointType.Point;
+                    return GeometryType.Point;
                 case "Polygon":
-                    return PointType.Polygon;
+                    return GeometryType.Polygon;
             }
-            throw new Exception("Cannot unmarshal type GeoJsonPointType");
+            throw new Exception("Cannot unmarshal type GeometryType");
         }
 
         public override void WriteJson(JsonWriter writer, object untypedValue, JsonSerializer serializer)
@@ -55,34 +52,31 @@ namespace Deploy.LaunchPad.Core.Domain.Geospatial.GeoJson
                 serializer.Serialize(writer, null);
                 return;
             }
-            var value = (PointType)untypedValue;
+            var value = (GeometryType)untypedValue;
             switch (value)
             {
-                case PointType.GeometryCollection:
-                    serializer.Serialize(writer, "GeometryCollection");
-                    return;
-                case PointType.LineString:
+                case GeometryType.LineString:
                     serializer.Serialize(writer, "LineString");
                     return;
-                case PointType.MultiLineString:
+                case GeometryType.MultiLineString:
                     serializer.Serialize(writer, "MultiLineString");
                     return;
-                case PointType.MultiPoint:
+                case GeometryType.MultiPoint:
                     serializer.Serialize(writer, "MultiPoint");
                     return;
-                case PointType.MultiPolygon:
+                case GeometryType.MultiPolygon:
                     serializer.Serialize(writer, "MultiPolygon");
                     return;
-                case PointType.Point:
+                case GeometryType.Point:
                     serializer.Serialize(writer, "Point");
                     return;
-                case PointType.Polygon:
+                case GeometryType.Polygon:
                     serializer.Serialize(writer, "Polygon");
                     return;
             }
-            throw new Exception("Cannot marshal type GeoJsonPointType");
+            throw new Exception("Cannot marshal type GeometryType");
         }
 
-        public static readonly GeoJsonPointTypeConverter Singleton = new GeoJsonPointTypeConverter();
+        public static readonly GeometryTypeConverter Singleton = new GeometryTypeConverter();
     }
 }

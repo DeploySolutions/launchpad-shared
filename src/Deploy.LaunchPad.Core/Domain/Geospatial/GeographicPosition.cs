@@ -27,24 +27,17 @@ namespace Deploy.LaunchPad.Core.Domain
     using System.ComponentModel;
     using System.Runtime.Serialization;
     using System.Text;
+    using System.Text.RegularExpressions;
     using System.Xml.Serialization;
 
     /// <summary>
     /// This class defines the physical position of something, in terms of its latitude, longitude, and elevation.
     /// </summary>
     [Serializable()]
-    public class GeographicLocation : GeoJsonDefinition, IGeographicLocation, IEquatable<GeographicLocation>
+    public partial class GeographicPosition :  IGeographicPosition, IEquatable<GeographicPosition>
     {
         private double _elevation;
         private Coordinate _earthCoordinate;
-
-        [DataObjectField(false)]
-        [XmlAttribute]
-        public virtual Coordinate EarthCoordinate
-        {
-            get => _earthCoordinate;
-            set => _earthCoordinate = value;
-        }
 
         [DataObjectField(false)]
         [XmlAttribute]
@@ -60,26 +53,53 @@ namespace Deploy.LaunchPad.Core.Domain
 
         [DataObjectField(false)]
         [XmlAttribute]
-        public virtual double Latitude => _earthCoordinate.Latitude;
+        public virtual double Latitude
+        {
+            get
+            {
+                return _earthCoordinate.Latitude;
+            }
+            set
+            {
+                Guard.Against<ArgumentException>(double.IsNaN(value), Deploy_LaunchPad_Core_Resources.Guard_GeographicLocation_Set_Latitude_NaN);
+                Guard.Against<ArgumentOutOfRangeException>(value > 90, Deploy_LaunchPad_Core_Resources.Guard_GeographicLocation_Set_Latitude_Not_GreaterThan_90);
+                Guard.Against<ArgumentOutOfRangeException>(value < -90, Deploy_LaunchPad_Core_Resources.Guard_GeographicLocation_Set_Latitude_Not_LessThan_Minus_90);
+                _earthCoordinate.Latitude = value;
+            }
+        }
 
         [DataObjectField(false)]
         [XmlAttribute]
-        public virtual double Longitude => _earthCoordinate.Longitude;
+        public virtual double Longitude
+        {
+            get
+            {
+                return _earthCoordinate.Longitude;
+            }
+            set
+            {
+                Guard.Against<ArgumentException>(double.IsNaN(value), Deploy_LaunchPad_Core_Resources.Guard_GeographicLocation_Set_Longitude_NaN);
+                Guard.Against<ArgumentOutOfRangeException>(value > 180, Deploy_LaunchPad_Core_Resources.Guard_GeographicLocation_Set_Longitude_Not_GreaterThan_180);
+                Guard.Against<ArgumentOutOfRangeException>(value < -180, Deploy_LaunchPad_Core_Resources.Guard_GeographicLocation_Set_Longitude_Not_LessThan_Minus180);
+                _earthCoordinate.Longitude = value;
+            }
+        }
 
         /// <summary>
         /// The default location is always Greenwich.
         /// </summary>
-        public GeographicLocation()
+        public GeographicPosition()
         {
             // We will set the elevation, latitude, and longitude of Greenwich
             _elevation = 46;
-            EarthCoordinate = new Coordinate(51.476852, -0.000500);
+            _earthCoordinate = new Coordinate(51.476852, -0.000500);
         }
 
-        public GeographicLocation(double latitude, double longitude)
+        public GeographicPosition(double latitude, double longitude)
         {
             Elevation = 0;
-            EarthCoordinate = new Coordinate(latitude, longitude);
+            Latitude = latitude; 
+            Longitude = longitude;
         }
 
         /// <summary>
@@ -87,10 +107,11 @@ namespace Deploy.LaunchPad.Core.Domain
         /// </summary>
         /// <param name="info">The serialization info</param>
         /// <param name="context">The context of the stream</param>
-        public GeographicLocation(SerializationInfo info, StreamingContext context)
+        public GeographicPosition(SerializationInfo info, StreamingContext context)
         {
             Elevation = (double)info.GetDouble("Elevation");
-            EarthCoordinate = (Coordinate)info.GetValue("EarthCoordinate", typeof(Coordinate));
+            Longitude = (double)info.GetDouble("Longitude");
+            Latitude = (double)info.GetDouble("Latitude");
         }
 
         /// <summary>
@@ -101,7 +122,8 @@ namespace Deploy.LaunchPad.Core.Domain
         public void GetObjectData(SerializationInfo info, StreamingContext context)
         {
             info.AddValue("Elevation", Elevation);
-            info.AddValue("EarthCoordinate", EarthCoordinate);
+            info.AddValue("Longitude", Longitude);
+            info.AddValue("Latitude", Latitude);
         }
 
         /// Event called once deserialization constructor finishes.
@@ -124,9 +146,9 @@ namespace Deploy.LaunchPad.Core.Domain
         {
             StringBuilder sb = new StringBuilder();
             sb.Append("[GeographicLocation : ");
-            sb.AppendFormat("Elevation={0};", Elevation);
-            sb.AppendFormat("Latitude={0};", Latitude);
-            sb.AppendFormat(" Longitude={0};", Longitude);
+            sb.Append(string.Format("Elevation: {0}", Elevation));
+            sb.Append(string.Format("Longitude: {0}", Longitude));
+            sb.Append(string.Format("Latitude: {0}", Latitude));
             sb.Append(']');
             return sb.ToString();
         }
@@ -138,9 +160,9 @@ namespace Deploy.LaunchPad.Core.Domain
         /// <returns>True if the objects are the same</returns>
         public override bool Equals(object obj)
         {
-            if (obj != null && obj is GeographicLocation)
+            if (obj != null && obj is GeographicPosition)
             {
-                return Equals(obj as GeographicLocation);
+                return Equals(obj as GeographicPosition);
             }
             return false;
         }
@@ -153,7 +175,7 @@ namespace Deploy.LaunchPad.Core.Domain
         /// </summary>
         /// <param name="obj">The other object of this type we are testing equality with</param>
         /// <returns></returns>
-        public bool Equals(GeographicLocation obj)
+        public bool Equals(GeographicPosition obj)
         {
             if (obj != null)
             {
@@ -179,7 +201,7 @@ namespace Deploy.LaunchPad.Core.Domain
         /// <param name="x">The first value</param>
         /// <param name="y">The second value</param>
         /// <returns>True if both objects are fully equal based on the Equals logic</returns>
-        public static bool operator ==(GeographicLocation x, GeographicLocation y)
+        public static bool operator ==(GeographicPosition x, GeographicPosition y)
         {
             if (ReferenceEquals(x, null))
             {
@@ -198,7 +220,7 @@ namespace Deploy.LaunchPad.Core.Domain
         /// <param name="x">The first value</param>
         /// <param name="y">The second value</param>
         /// <returns>True if both objects are not equal based on the Equals logic</returns>
-        public static bool operator !=(GeographicLocation x, GeographicLocation y)
+        public static bool operator !=(GeographicPosition x, GeographicPosition y)
         {
             return !(x == y);
         }
@@ -212,7 +234,7 @@ namespace Deploy.LaunchPad.Core.Domain
         /// <returns>A hash code for an object.</returns>
         public override int GetHashCode()
         {
-            return Elevation.GetHashCode() + Latitude.GetHashCode() + Longitude.GetHashCode();
+            return Elevation.GetHashCode() + Longitude.GetHashCode() + Latitude.GetHashCode();
         }
     }
 

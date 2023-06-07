@@ -17,6 +17,9 @@
 
 using Abp.Domain.Entities;
 using Deploy.LaunchPad.Core.Domain;
+using Deploy.LaunchPad.Core.Domain.Geospatial.GeoJson;
+using Deploy.LaunchPad.Core.Domain.Geospatial.GeoJson.Types;
+using Deploy.LaunchPad.Core.GeoJson;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -31,36 +34,32 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
     /// This class defines the geographical boundaries of an Area of Interest being observed.
     /// </summary>
     [Serializable()]
-    public class AreaOfInterest<TIdType> :
-        LaunchPadDomainEntityBase<TIdType>, IAreaOfInterest<TIdType>, IMayHaveTenant
+    public abstract partial class AreaOfInterestBase<TIdType, TGeoJsonType> :
+        LaunchPadDomainEntityBase<TIdType>, IAreaOfInterest<TIdType, TGeoJsonType>, IMayHaveTenant
+        where TGeoJsonType : IAmAGeometryType, new()
     {
 
-        [DataObjectField(false)]
-        [XmlAttribute]
-        public virtual IGeographicLocation Location
-        {
-            get; set;
-        }
         public virtual int? TenantId { get; set; }
+        public TGeoJsonType Definition { get; set; }
+        GeoJsonId? ICanBeDescribedInGeoJson<TGeoJsonType>.Id { get; set; }
+
 
 
         /// <summary>
         /// 
         /// </summary>
-        public AreaOfInterest(int? tenantId) : base()
+        public AreaOfInterestBase(int? tenantId) : base()
         {
             var comparer = StringComparer.OrdinalIgnoreCase;
             TenantId = tenantId;
         }
 
-        public AreaOfInterest(int? tenantId, IGeographicLocation location) : base()
+        public AreaOfInterestBase(int? tenantId, IGeographicPosition location) : base()
         {
-            Location = location;
-            TenantId = tenantId;
+            
         }
-        public AreaOfInterest(int? tenantId, TIdType id, String culture, IGeographicLocation location) : base(id, culture)
+        public AreaOfInterestBase(int? tenantId, TIdType id, String culture, IGeographicPosition location) : base(id, culture)
         {
-            Location = location;
             TenantId = tenantId;
         }
 
@@ -69,9 +68,9 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
         /// </summary>
         /// <param name="info">The serialization info</param>
         /// <param name="context">The context of the stream</param>
-        public AreaOfInterest(SerializationInfo info, StreamingContext context) : base(info, context)
+        public AreaOfInterestBase(SerializationInfo info, StreamingContext context) : base(info, context)
         {
-            Location = (IGeographicLocation)info.GetValue("Location", typeof(IGeographicLocation));
+            Definition = (TGeoJsonType)info.GetValue("Definition", typeof(TGeoJsonType));
         }
 
         /// <summary>
@@ -82,7 +81,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
         public override void GetObjectData(SerializationInfo info, StreamingContext context)
         {
             base.GetObjectData(info, context);
-            info.AddValue("Location", Location);
+            info.AddValue("Definition", Definition);
         }
 
         /// Event called once deserialization constructor finishes.
@@ -106,7 +105,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
             StringBuilder sb = new StringBuilder();
             sb.Append("[AreaOfInterest : ");
             // sb.AppendFormat(base.ToStringBaseProperties());
-            sb.AppendFormat("Location={0};", Location);
+            sb.AppendFormat("Definition={0};", Definition);
             sb.Append(']');
             return sb.ToString();
         }
@@ -118,9 +117,9 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
         /// <returns>True if the objects are the same</returns>
         public override bool Equals(object obj)
         {
-            if (obj != null && obj is AreaOfInterest<TIdType>)
+            if (obj != null && obj is AreaOfInterestBase<TIdType, TGeoJsonType>)
             {
-                return Equals(obj as AreaOfInterest<TIdType>);
+                return Equals(obj as AreaOfInterestBase<TIdType, TGeoJsonType>);
             }
             return false;
         }
@@ -133,12 +132,12 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
         /// </summary>
         /// <param name="obj">The other object of this type we are testing equality with</param>
         /// <returns></returns>
-        public bool Equals(AreaOfInterest<TIdType> obj)
+        public bool Equals(AreaOfInterestBase<TIdType, TGeoJsonType> obj)
         {
             if (obj != null)
             {
                 if (
-                    Location.Equals(obj.Location)
+                    Definition.Equals(obj.Definition)
                 )
                 {
                     return true;
@@ -157,7 +156,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
         /// <param name="x">The first value</param>
         /// <param name="y">The second value</param>
         /// <returns>True if both objects are fully equal based on the Equals logic</returns>
-        public static bool operator ==(AreaOfInterest<TIdType> x, AreaOfInterest<TIdType> y)
+        public static bool operator ==(AreaOfInterestBase<TIdType, TGeoJsonType> x, AreaOfInterestBase<TIdType, TGeoJsonType> y)
         {
             if (ReferenceEquals(x, null))
             {
@@ -176,7 +175,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
         /// <param name="x">The first value</param>
         /// <param name="y">The second value</param>
         /// <returns>True if both objects are not equal based on the Equals logic</returns>
-        public static bool operator !=(AreaOfInterest<TIdType> x, AreaOfInterest<TIdType> y)
+        public static bool operator !=(AreaOfInterestBase<TIdType, TGeoJsonType> x, AreaOfInterestBase<TIdType, TGeoJsonType> y)
         {
             return !(x == y);
         }
@@ -190,7 +189,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
         /// <returns>A hash code for an object.</returns>
         public override int GetHashCode()
         {
-            return Id.GetHashCode() + Culture.GetHashCode() + Location.GetHashCode();
+            return Id.GetHashCode() + Culture.GetHashCode() + Definition.GetHashCode();
         }
     }
 }

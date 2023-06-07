@@ -31,7 +31,7 @@ namespace Deploy.LaunchPad.Space.Satellites.Core
         public string SceneId { get; set; }
 
         [Required]
-        public GeographicLocation SceneCentre { get; set; }
+        public GeographicPosition SceneCentre { get; set; }
 
         [Required]
         public ImageObservationCornerCoordinates Corners { get; set; }

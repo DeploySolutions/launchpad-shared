@@ -114,7 +114,7 @@ namespace Deploy.LaunchPad.Space.Satellites.GoC
            int numberImageLines,
            int numberImagePixels,
            string pixelSpacing,
-           GeographicLocation sceneCentre,
+           GeographicPosition sceneCentre,
            ImageObservationCornerCoordinates cornerCoordinates
         ) : base()
         {
@@ -158,7 +158,7 @@ namespace Deploy.LaunchPad.Space.Satellites.GoC
            int numberImageLines,
            int numberImagePixels,
            string pixelSpacing,
-           GeographicLocation sceneCentre,
+           GeographicPosition sceneCentre,
            ImageObservationCornerCoordinates cornerCoordinates
         ) : base()
         {
