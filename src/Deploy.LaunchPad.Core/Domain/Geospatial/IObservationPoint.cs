@@ -10,11 +10,9 @@ using System.Threading.Tasks;
 namespace Deploy.LaunchPad.Core.Domain.Geography
 {
     public partial interface IObservationPoint<TPrimaryKey, TParentAoiGeoJsonType> : ICanBeDescribedInGeoJson<Point>
-        where TParentAoiGeoJsonType : IAmAGeometryType, new()
+        where TParentAoiGeoJsonType : Point, new()
     {
         public IAreaOfInterest<TPrimaryKey, TParentAoiGeoJsonType> ParentAoi { get; set; }
 
-        public string Name { get; set; }
-        public string Description { get; set; }
     }
 }
