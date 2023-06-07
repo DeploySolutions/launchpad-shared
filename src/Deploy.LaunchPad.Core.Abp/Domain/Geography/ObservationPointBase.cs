@@ -38,7 +38,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
     [Serializable()]
     public abstract partial class ObservationPointBase<TIdType, TParentAoiGeoJsonType> :
         LaunchPadDomainEntityBase<TIdType>, IObservationPoint<TIdType, TParentAoiGeoJsonType>, IMayHaveTenant
-        where TParentAoiGeoJsonType : Point, new()
+        where TParentAoiGeoJsonType : GeoJsonGeometryTypeBase, new()
     {
         public virtual IAreaOfInterest<TIdType, TParentAoiGeoJsonType> ParentAoi { get; set; }
 
