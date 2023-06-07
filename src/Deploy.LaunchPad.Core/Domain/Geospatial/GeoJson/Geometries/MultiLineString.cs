@@ -9,26 +9,30 @@ namespace Deploy.LaunchPad.Core.GeoJson
 
     using System.Globalization;
     using Deploy.LaunchPad.Core.Domain.Geospatial.GeoJson;
+    using Deploy.LaunchPad.Core.Domain.Geospatial.GeoJson.Geometries;
     using Deploy.LaunchPad.Core.Domain.Geospatial.GeoJson.Types;
     using Newtonsoft.Json;
     using Newtonsoft.Json.Converters;
 
-    public partial class MultiLineString : IAmAGeometryType
+    [Serializable]
+    public partial class MultiLineString : GeoJsonGeometryTypeBase
     {
-        [JsonProperty("bbox", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
-        public virtual List<double> Bbox { get; set; }
 
         [JsonProperty("coordinates", Required = Required.Always)]
         public virtual List<List<List<double>>> Coordinates { get; set; }
 
         [JsonProperty("type", Required = Required.Always)]
-        public virtual GeometryType Type { get; set; } = GeometryType.MultiLineString;
-    }
+        public virtual GeoJsonType Type { get; set; } = GeoJsonType.MultiLineString;
 
-    public partial class MultiLineString
-    {
+
+        public MultiLineString() : base()
+        {
+
+        }
+
         public static MultiLineString FromJson(string json) => JsonConvert.DeserializeObject<MultiLineString>(json, Deploy.LaunchPad.Core.GeoJson.MultiLineStringConverter.Settings);
     }
+
 
     public static class SerializeMultiLineString
     {
@@ -43,7 +47,7 @@ namespace Deploy.LaunchPad.Core.GeoJson
             DateParseHandling = DateParseHandling.None,
             Converters =
             {
-                GeometryTypeConverter.Singleton,
+                GeoJsonTypeConverter.Singleton,
                 new IsoDateTimeConverter { DateTimeStyles = DateTimeStyles.AssumeUniversal }
             },
         };

@@ -14,23 +14,22 @@ namespace Deploy.LaunchPad.Core.GeoJson
     using Newtonsoft.Json;
     using Newtonsoft.Json.Converters;
 
-    public partial class GeometryCollection : IAmAGeometryType
+    [Serializable]
+    public partial class GeometryCollection : GeoJsonGeometryTypeBase
     {
-        [JsonProperty("bbox", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
-        public virtual List<double> Bbox { get; set; }
 
         [JsonProperty("geometries", Required = Required.Always)]
         public virtual List<Geometry> Geometries { get; set; }
 
         [JsonProperty("type", Required = Required.Always)]
-        public virtual GeometryCollectionType Type { get; set; }
-    }
+        public virtual GeoJsonType Type { get; set; } = GeoJsonType.GeometryCollection;
 
 
-    public enum GeometryCollectionType { GeometryCollection };
+        public GeometryCollection() : base()
+        {
 
-    public partial class GeometryCollection
-    {
+        }
+
         public static GeometryCollection FromJson(string json) => JsonConvert.DeserializeObject<GeometryCollection>(json, Deploy.LaunchPad.Core.GeoJson.GeometryCollectionConverter.Settings);
     }
 
@@ -56,7 +55,7 @@ namespace Deploy.LaunchPad.Core.GeoJson
 
     internal class GeometryCollectionTypeConverter : JsonConverter
     {
-        public override bool CanConvert(Type t) => t == typeof(GeometryCollectionType) || t == typeof(GeometryCollectionType?);
+        public override bool CanConvert(Type t) => t == typeof(GeoJsonType) || t == typeof(GeoJsonType?);
 
         public override object ReadJson(JsonReader reader, Type t, object existingValue, JsonSerializer serializer)
         {
@@ -64,7 +63,7 @@ namespace Deploy.LaunchPad.Core.GeoJson
             var value = serializer.Deserialize<string>(reader);
             if (value == "GeometryCollection")
             {
-                return GeometryCollectionType.GeometryCollection;
+                return GeoJsonType.GeometryCollection;
             }
             throw new Exception("Cannot unmarshal type GeometryCollectionType");
         }
@@ -76,8 +75,8 @@ namespace Deploy.LaunchPad.Core.GeoJson
                 serializer.Serialize(writer, null);
                 return;
             }
-            var value = (GeometryCollectionType)untypedValue;
-            if (value == GeometryCollectionType.GeometryCollection)
+            var value = (GeoJsonType)untypedValue;
+            if (value == GeoJsonType.GeometryCollection)
             {
                 serializer.Serialize(writer, "GeometryCollection");
                 return;

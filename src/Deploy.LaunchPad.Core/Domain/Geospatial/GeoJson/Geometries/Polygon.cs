@@ -9,26 +9,33 @@ namespace Deploy.LaunchPad.Core.GeoJson
 
     using System.Globalization;
     using Deploy.LaunchPad.Core.Domain.Geospatial.GeoJson;
+    using Deploy.LaunchPad.Core.Domain.Geospatial.GeoJson.Geometries;
     using Deploy.LaunchPad.Core.Domain.Geospatial.GeoJson.Types;
     using Newtonsoft.Json;
     using Newtonsoft.Json.Converters;
 
-    public partial class Polygon : IAmAGeometryType
+    [Serializable]
+    public partial class Polygon : GeoJsonGeometryTypeBase
     {
-        [JsonProperty("bbox", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
-        public virtual List<double> Bbox { get; set; }
+       
 
         [JsonProperty("coordinates", Required = Required.Always)]
         public virtual List<double> Coordinates { get; set; }
 
-        [JsonProperty("type", Required = Required.Always)]
-        public virtual GeometryType Type { get; set; } = GeometryType.Polygon;
-    }
+       
 
-    public partial class Polygon
-    {
+        [JsonProperty("type", Required = Required.Always)]
+        public virtual GeoJsonType Type { get; set; } = GeoJsonType.Polygon;
+
+        public Polygon() : base()
+        {
+
+        }
+
         public static Polygon FromJson(string json) => JsonConvert.DeserializeObject<Polygon>(json, Deploy.LaunchPad.Core.GeoJson.PolygonConverter.Settings);
     }
+
+
 
     public static class SerializePolygon
     {
@@ -43,7 +50,7 @@ namespace Deploy.LaunchPad.Core.GeoJson
             DateParseHandling = DateParseHandling.None,
             Converters =
             {
-                GeometryTypeConverter.Singleton,
+                GeoJsonTypeConverter.Singleton,
                 new IsoDateTimeConverter { DateTimeStyles = DateTimeStyles.AssumeUniversal }
             },
         };

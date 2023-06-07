@@ -9,27 +9,29 @@ namespace Deploy.LaunchPad.Core.GeoJson
 
     using System.Globalization;
     using Deploy.LaunchPad.Core.Domain.Geospatial.GeoJson;
+    using Deploy.LaunchPad.Core.Domain.Geospatial.GeoJson.Geometries;
     using Deploy.LaunchPad.Core.Domain.Geospatial.GeoJson.Types;
     using Newtonsoft.Json;
     using Newtonsoft.Json.Converters;
 
-    public partial class Point : IAmAGeometryType
+    [Serializable]
+    public partial class Point : GeoJsonGeometryTypeBase
     {
-        [JsonProperty("bbox", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
-        public virtual List<double> Bbox { get; set; }
 
         [JsonProperty("coordinates", Required = Required.Always)]
         public virtual List<double> Coordinates { get; set; }
 
         [JsonProperty("type", Required = Required.Always)]
-        public virtual GeometryType Type { get; set; }= GeometryType.Point;
-    }
+        public virtual GeoJsonType Type { get; set; }= GeoJsonType.Point;
 
+        public Point() : base()
+        {
 
-    public partial class Point
-    {
+        }
+
         public static Point FromJson(string json) => JsonConvert.DeserializeObject<Point>(json, Deploy.LaunchPad.Core.GeoJson.PointConverter.Settings);
     }
+
 
     public static class SerializePoint
     {
@@ -44,7 +46,7 @@ namespace Deploy.LaunchPad.Core.GeoJson
             DateParseHandling = DateParseHandling.None,
             Converters =
             {
-                GeometryTypeConverter.Singleton,
+                GeoJsonTypeConverter.Singleton,
                 new IsoDateTimeConverter { DateTimeStyles = DateTimeStyles.AssumeUniversal }
             },
         };

@@ -10,7 +10,8 @@ namespace Deploy.LaunchPad.Core.GeoJson
     public interface ICanBeDescribedInGeoJson<TGeoJsonType>
         where TGeoJsonType : IAmAGeoJsonType
     {
-        TGeoJsonType Definition { get; set; }
-        GeoJsonId? Id { get; set; }
+        public TGeoJsonType Definition { get; set; }
+
+        public GeoJsonId? GeoJsonId { get; set; }
     }
 }

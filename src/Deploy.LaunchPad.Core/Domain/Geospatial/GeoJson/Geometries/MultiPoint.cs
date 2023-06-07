@@ -8,27 +8,31 @@ namespace Deploy.LaunchPad.Core.GeoJson
 
     using System.Globalization;
     using Deploy.LaunchPad.Core.Domain.Geospatial.GeoJson;
+    using Deploy.LaunchPad.Core.Domain.Geospatial.GeoJson.Geometries;
     using Deploy.LaunchPad.Core.Domain.Geospatial.GeoJson.Types;
     using Newtonsoft.Json;
     using Newtonsoft.Json.Converters;
 
-    public partial class MultiPoint : IAmAGeometryType
+    [Serializable]
+    public partial class MultiPoint : GeoJsonGeometryTypeBase
     {
-        [JsonProperty("bbox", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
-        public virtual List<double> Bbox { get; set; }
 
         [JsonProperty("coordinates", Required = Required.Always)]
         public virtual List<List<double>> Coordinates { get; set; }
 
         [JsonProperty("type", Required = Required.Always)]
-        public virtual GeometryType Type { get; set; } = GeometryType.MultiPoint;
-    }
+        public virtual GeoJsonType Type { get; set; } = GeoJsonType.MultiPoint;
 
 
-    public partial class MultiPoint
-    {
+        public MultiPoint() : base()
+        {
+
+        }
+
         public static MultiPoint FromJson(string json) => JsonConvert.DeserializeObject<MultiPoint>(json, Deploy.LaunchPad.Core.GeoJson.MultiPointConverter.Settings);
     }
+
+
 
     public static class SerializeMultiPoint
     {
@@ -43,7 +47,7 @@ namespace Deploy.LaunchPad.Core.GeoJson
             DateParseHandling = DateParseHandling.None,
             Converters =
             {
-                GeometryTypeConverter.Singleton,
+                GeoJsonTypeConverter.Singleton,
                 new IsoDateTimeConverter { DateTimeStyles = DateTimeStyles.AssumeUniversal }
             },
         };

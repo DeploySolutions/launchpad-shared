@@ -14,20 +14,19 @@ namespace Deploy.LaunchPad.Core.Domain.Geospatial.GeoJson.Geometries
     using Newtonsoft.Json;
     using Newtonsoft.Json.Converters;
 
-    public partial class Geometry : IAmAGeometryType
+    [Serializable]
+    public partial class Geometry : GeoJsonGeometryTypeBase
     {
-        [JsonProperty("bbox", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
-        public virtual List<double> Bbox { get; set; }
 
         [JsonProperty("coordinates", Required = Required.Always)]
-        public virtual List<IGeographicPosition> Coordinates { get; set; }
+        public virtual List<double> Coordinates { get; set; }
 
         [JsonProperty("type", Required = Required.Always)]
         public virtual GeometryType Type { get; set; }
 
-        public Geometry()
+        public Geometry() : base()
         {
-            Coordinates = new List<IGeographicPosition>();
+            Coordinates = new List<double>();
         }
 
         public static Geometry FromJson(string json) => JsonConvert.DeserializeObject<Geometry>(json, GeometryConverter.Settings);

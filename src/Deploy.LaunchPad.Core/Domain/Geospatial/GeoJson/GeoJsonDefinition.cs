@@ -24,7 +24,7 @@ namespace Deploy.LaunchPad.Core.GeoJson
         
 
         [JsonProperty("id", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
-        public virtual GeoJsonId? Id { get; set; }
+        public virtual GeoJsonId? GeoJsonId { get; set; }
 
         public GeoJsonDefinition()
         {

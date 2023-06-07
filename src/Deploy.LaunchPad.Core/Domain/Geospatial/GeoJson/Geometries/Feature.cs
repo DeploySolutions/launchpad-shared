@@ -12,10 +12,9 @@ namespace Deploy.LaunchPad.Core.Domain.Geospatial.GeoJson.Geometries
     using Newtonsoft.Json;
     using Newtonsoft.Json.Converters;
 
-    public partial class Feature : IAmAGeometryType
+    [Serializable]
+    public partial class Feature : GeoJsonGeometryTypeBase
     {
-        [JsonProperty("bbox", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
-        public virtual List<double> Bbox { get; set; }
 
         [JsonProperty("geometry", Required = Required.AllowNull)]
         public virtual Geometry Geometry { get; set; }
@@ -27,13 +26,16 @@ namespace Deploy.LaunchPad.Core.Domain.Geospatial.GeoJson.Geometries
         public virtual Dictionary<string, dynamic> Properties { get; set; }
 
         [JsonProperty("type", Required = Required.Always)]
-        public virtual FeatureType Type { get; set; }
+        public virtual GeoJsonType Type { get; set; } = GeoJsonType.Feature;
+
         public static Feature FromJson(string json) => JsonConvert.DeserializeObject<Feature>(json, FeatureConverter.Settings);
+
+
+        public Feature() : base()
+        {
+
+        }
     }
-
-    public enum GeoJsonPointType { GeometryCollection, LineString, MultiLineString, MultiPoint, MultiPolygon, Point, Polygon };
-
-    public enum FeatureType { Feature };
 
 
     public static class SerializeFeature
@@ -49,10 +51,9 @@ namespace Deploy.LaunchPad.Core.Domain.Geospatial.GeoJson.Geometries
             DateParseHandling = DateParseHandling.None,
             Converters =
             {
-                GeometryTypeConverter.Singleton,
                 GeoJsonPointTypeConverter.Singleton,
                 GeoJsonIdConverter.Singleton,
-                FeatureTypeConverter.Singleton,
+                GeoJsonTypeConverter.Singleton,
                 new IsoDateTimeConverter { DateTimeStyles = DateTimeStyles.AssumeUniversal }
             },
         };

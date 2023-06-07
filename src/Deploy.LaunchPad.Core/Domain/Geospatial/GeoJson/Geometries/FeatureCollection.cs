@@ -14,24 +14,26 @@ namespace Deploy.LaunchPad.Core.GeoJson
     using Newtonsoft.Json;
     using Newtonsoft.Json.Converters;
 
-    public partial class FeatureCollection : IAmAGeometryType
+    [Serializable]
+    public partial class FeatureCollection : GeoJsonGeometryTypeBase
     {
-        [JsonProperty("bbox", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
-        public virtual List<double> Bbox { get; set; }
 
         [JsonProperty("features", Required = Required.Always)]
         public virtual List<Feature> Features { get; set; }
 
         [JsonProperty("type", Required = Required.Always)]
-        public virtual FeatureCollectionType Type { get; set; }
-    }
+        public virtual GeoJsonType Type { get; set; } = GeoJsonType.FeatureCollection;
 
-    
-    public partial class FeatureCollection
-    {
+
+        public FeatureCollection() : base()
+        {
+
+        }
+
         public static FeatureCollection FromJson(string json) => JsonConvert.DeserializeObject<FeatureCollection>(json, Deploy.LaunchPad.Core.GeoJson.FeatureCollectionConverter.Settings);
     }
 
+    
     public static class SerializeFeatureCollection
     {
         public static string ToJson(this FeatureCollection self) => JsonConvert.SerializeObject(self, Deploy.LaunchPad.Core.GeoJson.FeatureCollectionConverter.Settings);
@@ -45,48 +47,12 @@ namespace Deploy.LaunchPad.Core.GeoJson
             DateParseHandling = DateParseHandling.None,
             Converters =
             {
-                GeometryTypeConverter.Singleton,
-                GeoJsonPointTypeConverter.Singleton,
                 GeoJsonIdConverter.Singleton,
-                FeatureTypeConverter.Singleton,
-                FeatureCollectionTypeConverter.Singleton,
+                GeoJsonTypeConverter.Singleton,
                 new IsoDateTimeConverter { DateTimeStyles = DateTimeStyles.AssumeUniversal }
             },
         };
     }
 
     
-    internal class FeatureCollectionTypeConverter : JsonConverter
-    {
-        public override bool CanConvert(Type t) => t == typeof(FeatureCollectionType) || t == typeof(FeatureCollectionType?);
-
-        public override object ReadJson(JsonReader reader, Type t, object existingValue, JsonSerializer serializer)
-        {
-            if (reader.TokenType == JsonToken.Null) return null;
-            var value = serializer.Deserialize<string>(reader);
-            if (value == "FeatureCollection")
-            {
-                return FeatureCollectionType.FeatureCollection;
-            }
-            throw new Exception("Cannot unmarshal type FeatureCollectionType");
-        }
-
-        public override void WriteJson(JsonWriter writer, object untypedValue, JsonSerializer serializer)
-        {
-            if (untypedValue == null)
-            {
-                serializer.Serialize(writer, null);
-                return;
-            }
-            var value = (FeatureCollectionType)untypedValue;
-            if (value == FeatureCollectionType.FeatureCollection)
-            {
-                serializer.Serialize(writer, "FeatureCollection");
-                return;
-            }
-            throw new Exception("Cannot marshal type FeatureCollectionType");
-        }
-
-        public static readonly FeatureCollectionTypeConverter Singleton = new FeatureCollectionTypeConverter();
-    }
 }
