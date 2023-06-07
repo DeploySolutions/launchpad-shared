@@ -18,6 +18,7 @@
 using Abp.Domain.Entities;
 using Deploy.LaunchPad.Core.Domain;
 using Deploy.LaunchPad.Core.Domain.Geospatial.GeoJson;
+using Deploy.LaunchPad.Core.Domain.Geospatial.GeoJson.Geometries;
 using Deploy.LaunchPad.Core.Domain.Geospatial.GeoJson.Types;
 using Deploy.LaunchPad.Core.GeoJson;
 using System;
@@ -36,31 +37,35 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
     [Serializable()]
     public abstract partial class AreaOfInterestBase<TIdType, TGeoJsonType> :
         LaunchPadDomainEntityBase<TIdType>, IAreaOfInterest<TIdType, TGeoJsonType>, IMayHaveTenant
-        where TGeoJsonType : IAmAGeometryType, new()
+        where TGeoJsonType : GeoJsonGeometryTypeBase, new()
     {
 
         public virtual int? TenantId { get; set; }
-        public TGeoJsonType Definition { get; set; }
-        GeoJsonId? ICanBeDescribedInGeoJson<TGeoJsonType>.Id { get; set; }
+        public virtual TGeoJsonType Definition { get; set; }
 
+        public virtual GeoJsonId? GeoJsonId { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        protected AreaOfInterestBase() : base()
+        {
+        }
 
 
         /// <summary>
         /// 
         /// </summary>
-        public AreaOfInterestBase(int? tenantId) : base()
+        protected AreaOfInterestBase(int? tenantId) : base()
         {
-            var comparer = StringComparer.OrdinalIgnoreCase;
             TenantId = tenantId;
         }
 
-        public AreaOfInterestBase(int? tenantId, IGeographicPosition location) : base()
-        {
-            
-        }
-        public AreaOfInterestBase(int? tenantId, TIdType id, String culture, IGeographicPosition location) : base(id, culture)
+        protected AreaOfInterestBase(int? tenantId, TGeoJsonType definition) : base()
         {
             TenantId = tenantId;
+            Definition = definition;
+
         }
 
         /// <summary>
