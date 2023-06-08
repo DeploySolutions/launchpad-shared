@@ -10,10 +10,10 @@ using System.Threading.Tasks;
 
 namespace Deploy.LaunchPad.Core.Domain.Geography
 {
-    public partial interface IObservationPoint<TPrimaryKey, TParentAoiGeoJsonType> : ICanBeDescribedInGeoJson<Point>
-        where TParentAoiGeoJsonType : GeoJsonGeometryTypeBase, new()
+    public partial interface IObservationPoint<TPrimaryKey, TParentAreaOfInterest> : ICanBeDescribedInGeoJson<Point>
+        where TParentAreaOfInterest : GeoJsonGeometryTypeBase, new()
     {
-        public IAreaOfInterest<TPrimaryKey, TParentAoiGeoJsonType> ParentAoi { get; set; }
+        public TParentAreaOfInterest? ParentAoi { get; set; }
 
     }
 }

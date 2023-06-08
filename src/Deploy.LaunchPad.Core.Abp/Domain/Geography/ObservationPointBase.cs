@@ -36,11 +36,11 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
     /// This class defines the geographical boundaries of an Area of Interest being observed.
     /// </summary>
     [Serializable()]
-    public abstract partial class ObservationPointBase<TIdType, TParentAoiGeoJsonType> :
-        LaunchPadDomainEntityBase<TIdType>, IObservationPoint<TIdType, TParentAoiGeoJsonType>, IMayHaveTenant
-        where TParentAoiGeoJsonType : GeoJsonGeometryTypeBase, new()
+    public abstract partial class ObservationPointBase<TIdType, TParentAreaOfInterest> :
+        LaunchPadDomainEntityBase<TIdType>, IObservationPoint<TIdType, TParentAreaOfInterest>, IMayHaveTenant
+        where TParentAreaOfInterest : GeoJsonGeometryTypeBase, new()
     {
-        public virtual IAreaOfInterest<TIdType, TParentAoiGeoJsonType> ParentAoi { get; set; }
+        public virtual TParentAreaOfInterest? ParentAoi { get; set; }
 
         public virtual int? TenantId { get; set; }
         public Point Definition { get; set; }
@@ -61,7 +61,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
             TenantId = tenantId;
         }
 
-        protected ObservationPointBase(int? tenantId, IAreaOfInterest<TIdType, TParentAoiGeoJsonType> parentAoi) : base()
+        protected ObservationPointBase(int? tenantId, TParentAreaOfInterest parentAoi) : base()
         {
             TenantId = tenantId;
             ParentAoi = parentAoi;
@@ -133,9 +133,9 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
         /// <returns>True if the objects are the same</returns>
         public override bool Equals(object obj)
         {
-            if (obj != null && obj is ObservationPointBase<TIdType, TParentAoiGeoJsonType>)
+            if (obj != null && obj is ObservationPointBase<TIdType, TParentAreaOfInterest>)
             {
-                return Equals(obj as ObservationPointBase<TIdType, TParentAoiGeoJsonType>);
+                return Equals(obj as ObservationPointBase<TIdType, TParentAreaOfInterest>);
             }
             return false;
         }
@@ -148,7 +148,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
         /// </summary>
         /// <param name="obj">The other object of this type we are testing equality with</param>
         /// <returns></returns>
-        public bool Equals(ObservationPointBase<TIdType, TParentAoiGeoJsonType> obj)
+        public bool Equals(ObservationPointBase<TIdType, TParentAreaOfInterest> obj)
         {
             if (obj != null)
             {
@@ -172,7 +172,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
         /// <param name="x">The first value</param>
         /// <param name="y">The second value</param>
         /// <returns>True if both objects are fully equal based on the Equals logic</returns>
-        public static bool operator ==(ObservationPointBase<TIdType, TParentAoiGeoJsonType> x, ObservationPointBase<TIdType, TParentAoiGeoJsonType> y)
+        public static bool operator ==(ObservationPointBase<TIdType, TParentAreaOfInterest> x, ObservationPointBase<TIdType, TParentAreaOfInterest> y)
         {
             if (ReferenceEquals(x, null))
             {
@@ -191,7 +191,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
         /// <param name="x">The first value</param>
         /// <param name="y">The second value</param>
         /// <returns>True if both objects are not equal based on the Equals logic</returns>
-        public static bool operator !=(ObservationPointBase<TIdType, TParentAoiGeoJsonType> x, ObservationPointBase<TIdType, TParentAoiGeoJsonType> y)
+        public static bool operator !=(ObservationPointBase<TIdType, TParentAreaOfInterest> x, ObservationPointBase<TIdType, TParentAreaOfInterest> y)
         {
             return !(x == y);
         }
