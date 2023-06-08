@@ -12,6 +12,6 @@ namespace Deploy.LaunchPad.Core.GeoJson
     {
         public TGeoJsonType Definition { get; set; }
 
-        public GeoJsonId? GeoJsonId { get; set; }
+        public string? GeoJsonId { get; set; }
     }
 }

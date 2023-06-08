@@ -43,7 +43,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
         public virtual int? TenantId { get; set; }
         public virtual TGeoJsonType Definition { get; set; }
 
-        public virtual GeoJsonId? GeoJsonId { get; set; }
+        public virtual string? GeoJsonId { get; set; }
 
         /// <summary>
         /// 

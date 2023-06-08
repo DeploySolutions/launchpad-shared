@@ -47,7 +47,6 @@ namespace Deploy.LaunchPad.Core.GeoJson
             DateParseHandling = DateParseHandling.None,
             Converters =
             {
-                GeoJsonIdConverter.Singleton,
                 GeoJsonTypeConverter.Singleton,
                 new IsoDateTimeConverter { DateTimeStyles = DateTimeStyles.AssumeUniversal }
             },

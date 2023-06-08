@@ -20,7 +20,7 @@ namespace Deploy.LaunchPad.Core.Domain.Geospatial.GeoJson.Geometries
         public virtual Geometry Geometry { get; set; }
 
         [JsonProperty("id", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
-        public virtual GeoJsonId? Id { get; set; }
+        public virtual string? Id { get; set; }
 
         [JsonProperty("properties", Required = Required.AllowNull)]
         public virtual Dictionary<string, dynamic> Properties { get; set; }
@@ -52,7 +52,6 @@ namespace Deploy.LaunchPad.Core.Domain.Geospatial.GeoJson.Geometries
             Converters =
             {
                 GeoJsonPointTypeConverter.Singleton,
-                GeoJsonIdConverter.Singleton,
                 GeoJsonTypeConverter.Singleton,
                 new IsoDateTimeConverter { DateTimeStyles = DateTimeStyles.AssumeUniversal }
             },
