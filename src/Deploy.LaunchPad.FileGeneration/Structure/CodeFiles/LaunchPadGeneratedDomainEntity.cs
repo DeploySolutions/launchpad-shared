@@ -15,6 +15,8 @@ namespace Deploy.LaunchPad.FileGeneration.Structure
         /// </summary>
         public virtual IDictionary<string, LaunchPadGeneratedDataTransferObject> DataTransferObjects { get; set; }
 
+        public string DbContextEntityFrameworkMappingStatements { get; set; }= string.Empty;
+
         public LaunchPadGeneratedDomainEntity() : base()
         {
             var comparer = StringComparer.OrdinalIgnoreCase;
