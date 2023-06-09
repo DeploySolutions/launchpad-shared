@@ -10,6 +10,7 @@ namespace Deploy.LaunchPad.FileGeneration.Structure
     [Serializable]
     public abstract partial class LaunchPadGeneratedEnum : LaunchPadGeneratedObjectBase
     {
+        
         /// <summary>
         /// Contains information related to this object's position with a Visual Studio solution
         /// </summary>
@@ -41,6 +42,12 @@ namespace Deploy.LaunchPad.FileGeneration.Structure
         /// The dictionary of unique Enum Items that belong to this enum.
         /// </summary>
         public virtual IDictionary<string, EnumItem> Items { get; set; }
+
+        /// <summary>
+        /// Where this file will be generated
+        /// </summary>
+        public virtual string FilePath { get; set; }
+
 
         public LaunchPadGeneratedEnum() : base()
         {

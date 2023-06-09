@@ -12,7 +12,7 @@ namespace Deploy.LaunchPad.FileGeneration.Structure
     {
 
         /// <summary>
-        /// The using statements generated in this file.
+        /// Where this file will be generated
         /// </summary>
         public virtual string FilePath { get; set; }
 

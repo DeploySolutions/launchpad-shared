@@ -13,6 +13,7 @@ namespace Deploy.LaunchPad.FileGeneration.Structure
     public partial class VisualStudioBlueprintDefinitionInstructions : LaunchPadGeneratedObjectBlueprintDefinitionInstructionsBase, IVisualStudioBlueprintDefinitionInstructions
     {
 
+        public virtual IDictionary<string, LaunchPadGeneratedEnum> EnumFileCreations { get; set; }
         public virtual IDictionary<string, LaunchPadGeneratedCustomClassFile> ClassFileCreations { get; set; }
         public virtual IDictionary<string, LaunchPadGeneratedCustomClassFile> ClassFileModifications { get; set; }
 
@@ -34,6 +35,7 @@ namespace Deploy.LaunchPad.FileGeneration.Structure
             var comparer = StringComparer.OrdinalIgnoreCase;
             ClassFileCreations = new Dictionary<string, LaunchPadGeneratedCustomClassFile>(comparer);
             ClassFileModifications = new Dictionary<string, LaunchPadGeneratedCustomClassFile>(comparer);
+            EnumFileCreations = new Dictionary<string, LaunchPadGeneratedEnum>(comparer);
             CustomMethodInsertsOrUpdates = new Dictionary<string, LaunchPadGeneratedMethod>(comparer);
             CustomPropertyInsertsOrUpdates = new Dictionary<string, LaunchPadGeneratedProperty>(comparer);
             PostBuildTextReplacements = new List<PostBuildTextReplacement>(); 
@@ -45,6 +47,7 @@ namespace Deploy.LaunchPad.FileGeneration.Structure
             var comparer = StringComparer.OrdinalIgnoreCase;
             ClassFileCreations = new Dictionary<string, LaunchPadGeneratedCustomClassFile>(comparer);
             ClassFileModifications = new Dictionary<string, LaunchPadGeneratedCustomClassFile>(comparer);
+            EnumFileCreations = new Dictionary<string, LaunchPadGeneratedEnum>(comparer);
             CustomMethodInsertsOrUpdates = new Dictionary<string, LaunchPadGeneratedMethod>(comparer);
             CustomPropertyInsertsOrUpdates = new Dictionary<string, LaunchPadGeneratedProperty>(comparer);
             PostBuildTextReplacements = new List<PostBuildTextReplacement>();
