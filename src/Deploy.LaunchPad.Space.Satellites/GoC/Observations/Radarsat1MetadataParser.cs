@@ -23,7 +23,7 @@ namespace Deploy.LaunchPad.Space.Satellites.GoC
     using Deploy.LaunchPad.Core.Domain;
     using Deploy.LaunchPad.Core.Util;
     using Deploy.LaunchPad.Space.Satellites.Core;
-    using Geolocation;
+    using NetTopologySuite.Geometries;
     using System;
     using System.Collections.Generic;
     using System.Globalization;
@@ -114,13 +114,13 @@ namespace Deploy.LaunchPad.Space.Satellites.GoC
                 string[] latLongSplit = sceneCentre.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
                 Coordinate c = new Coordinate();
                 Double.TryParse(latLongSplit[0], out double latitude);
-                c.Latitude = latitude;
+                c.Y = latitude;
                 Double.TryParse(latLongSplit[1], out double longitude);
-                c.Longitude = longitude;
+                c.X = longitude;
                 GeographicPosition centre = new GeographicPosition
                 (
-                    c.Latitude,
-                    c.Longitude
+                    c.Y,
+                    c.X
                 );
 
                 // get the image corner coordinates
@@ -284,50 +284,50 @@ namespace Deploy.LaunchPad.Space.Satellites.GoC
             if (!String.IsNullOrEmpty(coordinates[0]))
             {
                 Double.TryParse(coordinates[0].Trim(), out double ulLat);
-                UpperLeft.Latitude = ulLat;
+                UpperLeft.Y = ulLat;
             }
             // upper left longitude
             if (!String.IsNullOrEmpty(coordinates[2]))
             {
                 Double.TryParse(coordinates[2].Trim(), out double ulLong);
-                UpperLeft.Longitude = ulLong;
+                UpperLeft.X = ulLong;
             }
             // upper right latitude
             if (!String.IsNullOrEmpty(coordinates[1]))
             {
                 Double.TryParse(coordinates[1].Trim(), out double urLat);
-                UpperRight.Latitude = urLat;
+                UpperRight.Y = urLat;
 
             }
             // upper right longitude
             if (!String.IsNullOrEmpty(coordinates[3]))
             {
                 Double.TryParse(coordinates[3].Trim(), out double urLong);
-                UpperRight.Longitude = urLong;
+                UpperRight.X = urLong;
             }
             // lower left latitude
             if (!String.IsNullOrEmpty(coordinates[4]))
             {
                 Double.TryParse(coordinates[4].Trim(), out double llLat);
-                LowerLeft.Latitude = llLat;
+                LowerLeft.Y = llLat;
             }
             // lower left longitude
             if (!String.IsNullOrEmpty(coordinates[6]))
             {
                 Double.TryParse(coordinates[6].Trim(), out double llLong);
-                LowerLeft.Longitude = llLong;
+                LowerLeft.X = llLong;
             }
             // lower right latitude
             if (!String.IsNullOrEmpty(coordinates[5]))
             {
                 Double.TryParse(coordinates[5].Trim(), out double lrLat);
-                LowerRight.Latitude = lrLat;
+                LowerRight.Y = lrLat;
             }
             // lower right longitude
             if (!String.IsNullOrEmpty(coordinates[7]))
             {
                 Double.TryParse(coordinates[7].Trim(), out double lrLong);
-                LowerRight.Longitude = lrLong;
+                LowerRight.X = lrLong;
             }
             cornerCoords.LowerLeft = LowerLeft;
             cornerCoords.LowerRight = LowerRight;

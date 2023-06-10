@@ -15,9 +15,10 @@
 //limitations under the License. 
 #endregion
 
+using NetTopologySuite.Geometries;
+
 namespace Deploy.LaunchPad.Space.Satellites.Core
 {
-    using Geolocation;
 
     public partial class ImageObservationCornerCoordinates
     {

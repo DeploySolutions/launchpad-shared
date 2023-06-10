@@ -23,7 +23,6 @@ namespace Deploy.LaunchPad.Core.Tests
     using Xunit.Sdk;
     using Deploy.LaunchPad.Core;
     using Deploy.LaunchPad.Core.Domain;
-    using Geolocation;
 
     public class GeographicLocationTests
     {
