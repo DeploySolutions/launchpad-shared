@@ -22,13 +22,16 @@ namespace Deploy.LaunchPad.Core.Domain
     using Deploy.LaunchPad.Core;
     using Deploy.LaunchPad.Core.GeoJson;
     using Deploy.LaunchPad.Core.Util;
-    using Geolocation;
+    using H3;
     using System;
     using System.ComponentModel;
+    using System.Numerics;
     using System.Runtime.Serialization;
     using System.Text;
     using System.Text.RegularExpressions;
     using System.Xml.Serialization;
+    using H3.Extensions;
+    using NetTopologySuite.Geometries;
 
     /// <summary>
     /// This class defines the physical position of something, in terms of its latitude, longitude, and elevation.
@@ -57,14 +60,14 @@ namespace Deploy.LaunchPad.Core.Domain
         {
             get
             {
-                return _earthCoordinate.Latitude;
+                return _earthCoordinate.Y;
             }
             set
             {
                 Guard.Against<ArgumentException>(double.IsNaN(value), Deploy_LaunchPad_Core_Resources.Guard_GeographicLocation_Set_Latitude_NaN);
                 Guard.Against<ArgumentOutOfRangeException>(value > 90, Deploy_LaunchPad_Core_Resources.Guard_GeographicLocation_Set_Latitude_Not_GreaterThan_90);
                 Guard.Against<ArgumentOutOfRangeException>(value < -90, Deploy_LaunchPad_Core_Resources.Guard_GeographicLocation_Set_Latitude_Not_LessThan_Minus_90);
-                _earthCoordinate.Latitude = value;
+                _earthCoordinate.Y = value;
             }
         }
 
@@ -74,14 +77,29 @@ namespace Deploy.LaunchPad.Core.Domain
         {
             get
             {
-                return _earthCoordinate.Longitude;
+                return _earthCoordinate.X;
             }
             set
             {
                 Guard.Against<ArgumentException>(double.IsNaN(value), Deploy_LaunchPad_Core_Resources.Guard_GeographicLocation_Set_Longitude_NaN);
                 Guard.Against<ArgumentOutOfRangeException>(value > 180, Deploy_LaunchPad_Core_Resources.Guard_GeographicLocation_Set_Longitude_Not_GreaterThan_180);
                 Guard.Against<ArgumentOutOfRangeException>(value < -180, Deploy_LaunchPad_Core_Resources.Guard_GeographicLocation_Set_Longitude_Not_LessThan_Minus180);
-                _earthCoordinate.Longitude = value;
+                _earthCoordinate.X = value;
+            }
+        }
+
+        protected H3Index _h3Index;
+        [DataObjectField(false)]
+        [XmlAttribute]
+        public virtual H3Index H3Index
+        {
+            get
+            {
+                return _h3Index;
+            }
+            set
+            {
+                _h3Index = value;
             }
         }
 
@@ -90,16 +108,21 @@ namespace Deploy.LaunchPad.Core.Domain
         /// </summary>
         public GeographicPosition()
         {
-            // We will set the elevation, latitude, and longitude of Greenwich
+            // We will set the elevation, longitude and latitude of Greenwich
             _elevation = 46;
             _earthCoordinate = new Coordinate(51.476852, -0.000500);
+            // calculate the h3 cell
+            _h3Index = _earthCoordinate.ToH3Index(9);
         }
 
-        public GeographicPosition(double latitude, double longitude)
+        public GeographicPosition(double longitude, double latitude)
         {
             Elevation = 0;
             Latitude = latitude; 
             Longitude = longitude;
+            // calcualte the h3 cell
+            var coordinate = new NetTopologySuite.Geometries.Coordinate(longitude, latitude);
+            _h3Index = coordinate.ToH3Index(9);
         }
 
         /// <summary>
@@ -112,6 +135,7 @@ namespace Deploy.LaunchPad.Core.Domain
             Elevation = (double)info.GetDouble("Elevation");
             Longitude = (double)info.GetDouble("Longitude");
             Latitude = (double)info.GetDouble("Latitude");
+            H3Index = (H3Index)info.GetDouble("H3Index");
         }
 
         /// <summary>
@@ -124,6 +148,7 @@ namespace Deploy.LaunchPad.Core.Domain
             info.AddValue("Elevation", Elevation);
             info.AddValue("Longitude", Longitude);
             info.AddValue("Latitude", Latitude);
+            info.AddValue("H3Index", H3Index);
         }
 
         /// Event called once deserialization constructor finishes.
@@ -149,6 +174,7 @@ namespace Deploy.LaunchPad.Core.Domain
             sb.Append(string.Format("Elevation: {0}", Elevation));
             sb.Append(string.Format("Longitude: {0}", Longitude));
             sb.Append(string.Format("Latitude: {0}", Latitude));
+            sb.Append(string.Format("H3Index: {0}", H3Index));
             sb.Append(']');
             return sb.ToString();
         }

@@ -17,19 +17,18 @@
 
 namespace Deploy.LaunchPad.Core.Domain
 {
-    using Deploy.LaunchPad.Core.Domain.Geospatial.GeoJson;
-    using Deploy.LaunchPad.Core.GeoJson;
-    using Geolocation;
+    using Deploy.LaunchPad.Core.Domain.Geospatial.H3;
     using System.Runtime.Serialization;
 
     /// <summary>
     /// This interface defines the physical position of something, in terms of its latitude, longitude, and elevation.
     /// </summary>
-    public interface IGeographicPosition : ISerializable, ILaunchPadObject
+    public interface IGeographicPosition : ISerializable, ILaunchPadObject, ICanBeDescribedInH3
     {
         public double Longitude { get; set; }
         public double Latitude { get; set; }
         public double Elevation { get; set; }
+
 
     }
 }
