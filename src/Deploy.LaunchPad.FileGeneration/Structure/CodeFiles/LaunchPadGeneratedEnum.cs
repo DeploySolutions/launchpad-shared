@@ -22,9 +22,9 @@ namespace Deploy.LaunchPad.FileGeneration.Structure
         public virtual string Namespace { get; set; }
 
         /// <summary>
-        /// The class and interface inheritance of the enum. It's unvarying according to the C# framework.
+        /// The class and interface inheritance of the enum. 
         /// </summary>
-        public virtual string InheritsFrom { get; } = "System.Enum";
+        public virtual string InheritsFrom { get; set; } = "System.Int32";
 
         /// <summary>
         /// The using statements generated in this file.
