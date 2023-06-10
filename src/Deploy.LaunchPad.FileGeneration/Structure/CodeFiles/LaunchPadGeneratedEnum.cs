@@ -54,7 +54,6 @@ namespace Deploy.LaunchPad.FileGeneration.Structure
             VisualStudioConfig = new VisualStudioClassConfiguration();
             AccessModifier = LaunchPadGeneratedAccessModifier.Public;
             Namespace = string.Empty;
-            InheritsFrom = string.Empty;
             UsingStatements = string.Empty;
             var comparer = StringComparer.OrdinalIgnoreCase;
             Items = new Dictionary<string, EnumItem>(comparer);
