@@ -3,13 +3,16 @@
 // 
 using NetTopologySuite.Geometries;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Deploy.LaunchPad.Core.Geospatial.GeoJson
 {
     public interface ICanBeDescribedInGeoJson<TGeoJsonType>
         where TGeoJsonType : Geometry
     {
-        public TGeoJsonType Geometry { get; set; }
+        public TGeoJsonType GetGeometry();
+        
+        public string GeoJson { get; set; }
 
     }
 }

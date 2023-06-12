@@ -20,8 +20,12 @@ using Deploy.LaunchPad.Core.Geospatial;
 using Deploy.LaunchPad.Core.Util;
 using H3;
 using NetTopologySuite.Geometries;
+using NetTopologySuite.IO;
+using Newtonsoft.Json;
 using System;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.IO;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Xml.Serialization;
@@ -37,9 +41,14 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
         LaunchPadDomainEntityBase<TIdType>, IAreaOfInterest<TIdType, TGeoJsonType>, IGeographicPosition, IMayHaveTenant
         where TGeoJsonType : Geometry
     {
-
         public virtual int? TenantId { get; set; }
-        public virtual TGeoJsonType Geometry { get; set; }
+
+        protected Geometry _geometry;
+
+        [DataObjectField(false)]
+        [XmlAttribute]
+        public virtual string GeoJson { get; set; }
+
 
         [DataObjectField(false)]
         [XmlAttribute]
@@ -47,7 +56,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
         {
             get
             {
-                return Geometry.Coordinate;
+                return _geometry.Coordinate;
             }
 
         }
@@ -99,7 +108,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
         protected AreaOfInterestBase(int? tenantId, TGeoJsonType geometry) : base()
         {
             TenantId = tenantId;
-            Geometry = geometry;
+            _geometry = geometry;
 
         }
 
@@ -110,7 +119,13 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
         /// <param name="context">The context of the stream</param>
         public AreaOfInterestBase(SerializationInfo info, StreamingContext context) : base(info, context)
         {
-            Geometry = (TGeoJsonType)info.GetValue("Geometry", typeof(TGeoJsonType));
+            GeoJson = info.GetString("GeoJson");
+            var serializer = GeoJsonSerializer.Create();
+            using (var stringReader = new StringReader(GeoJson))
+            using (var jsonReader = new JsonTextReader(stringReader))
+            {
+                _geometry = (TGeoJsonType)serializer.Deserialize<Geometry>(jsonReader);
+            }
         }
 
         /// <summary>
@@ -121,7 +136,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
         public override void GetObjectData(SerializationInfo info, StreamingContext context)
         {
             base.GetObjectData(info, context);
-            info.AddValue("Geometry", Geometry);
+            info.AddValue("GeoJson", GeoJson);
         }
 
         /// Event called once deserialization constructor finishes.
@@ -145,7 +160,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
             StringBuilder sb = new StringBuilder();
             sb.Append("[AreaOfInterest : ");
             // sb.AppendFormat(base.ToStringBaseProperties());
-            sb.AppendFormat("Geometry={0};", Geometry);
+            sb.AppendFormat("GeoJson={0};", GeoJson);
             sb.Append(']');
             return sb.ToString();
         }
@@ -177,7 +192,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
             if (obj != null)
             {
                 if (
-                    Geometry.Equals(obj.Geometry)
+                    _geometry.Equals(obj._geometry)
                 )
                 {
                     return true;
@@ -229,7 +244,20 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
         /// <returns>A hash code for an object.</returns>
         public override int GetHashCode()
         {
-            return Id.GetHashCode() + Culture.GetHashCode() + Geometry.GetHashCode();
+            return Id.GetHashCode() + Culture.GetHashCode() + _geometry.GetHashCode();
+        }
+
+        public virtual TGeoJsonType GetGeometry()
+        {
+            Geometry geometry;
+
+            var serializer = GeoJsonSerializer.Create();
+            using (var stringReader = new StringReader(GeoJson))
+            using (var jsonReader = new JsonTextReader(stringReader))
+            {
+                geometry = serializer.Deserialize<Geometry>(jsonReader);
+            }
+            return (TGeoJsonType)geometry;
         }
     }
 }
