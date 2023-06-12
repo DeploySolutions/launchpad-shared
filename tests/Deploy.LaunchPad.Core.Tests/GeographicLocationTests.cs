@@ -22,7 +22,7 @@ namespace Deploy.LaunchPad.Core.Tests
     using System;
     using Xunit.Sdk;
     using Deploy.LaunchPad.Core;
-    using Deploy.LaunchPad.Core.Domain;
+    using Deploy.LaunchPad.Core.Geospatial;
 
     public class GeographicLocationTests
     {
@@ -60,7 +60,7 @@ namespace Deploy.LaunchPad.Core.Tests
             double latitude = double.NaN;
             double longitude = 0.0;
             ArgumentException ex = Assert.Throws<ArgumentException>(
-                () => new GeographicPosition(latitude, longitude)
+                () => new GeographicPosition(longitude, latitude)
             );
             Assert.Contains(Deploy_LaunchPad_Core_Resources.Guard_GeographicLocation_Set_Latitude_NaN, ex.Message);
         }
@@ -73,7 +73,7 @@ namespace Deploy.LaunchPad.Core.Tests
             double latitude = -90.001;
             double longitude = 0.0;
             ArgumentOutOfRangeException ex = Assert.Throws<ArgumentOutOfRangeException>(
-               () => new GeographicPosition(latitude, longitude)
+               () => new GeographicPosition(longitude, latitude)
             );
             Assert.Contains(Deploy_LaunchPad_Core_Resources.Guard_GeographicLocation_Set_Latitude_Not_LessThan_Minus_90, ex.Message);
         }
@@ -86,7 +86,7 @@ namespace Deploy.LaunchPad.Core.Tests
             double latitude = 90.001;
             double longitude = 0.0;
             ArgumentOutOfRangeException ex = Assert.Throws<ArgumentOutOfRangeException>(
-               () => new GeographicPosition(latitude, longitude)
+               () => new GeographicPosition(longitude, latitude)
             );
             Assert.Contains(Deploy_LaunchPad_Core_Resources.Guard_GeographicLocation_Set_Latitude_Not_GreaterThan_90, ex.Message);
         }
@@ -97,7 +97,7 @@ namespace Deploy.LaunchPad.Core.Tests
             double latitude = 0.0;
             double longitude = double.NaN;
             ArgumentException ex = Assert.Throws<ArgumentException>(
-                () => new GeographicPosition(latitude, longitude)
+                () => new GeographicPosition(longitude, latitude)
             ); 
             Assert.Contains(Deploy_LaunchPad_Core_Resources.Guard_GeographicLocation_Set_Longitude_NaN,ex.Message);
         }
@@ -110,7 +110,7 @@ namespace Deploy.LaunchPad.Core.Tests
             double latitude = 0.0;
             double longitude = -180.001;
             ArgumentOutOfRangeException ex = Assert.Throws<ArgumentOutOfRangeException>(
-               () => new GeographicPosition(latitude, longitude)
+               () => new GeographicPosition(longitude, latitude)
             );
             Assert.Contains(Deploy_LaunchPad_Core_Resources.Guard_GeographicLocation_Set_Longitude_Not_LessThan_Minus180, ex.Message);
         }
@@ -123,7 +123,7 @@ namespace Deploy.LaunchPad.Core.Tests
             double latitude = 0.0;
             double longitude = 180.001;
             ArgumentOutOfRangeException ex = Assert.Throws<ArgumentOutOfRangeException>(
-               () => new GeographicPosition(latitude, longitude)
+               () => new GeographicPosition(longitude, latitude )
             );
             Assert.Contains(Deploy_LaunchPad_Core_Resources.Guard_GeographicLocation_Set_Longitude_Not_GreaterThan_180, ex.Message);
         }

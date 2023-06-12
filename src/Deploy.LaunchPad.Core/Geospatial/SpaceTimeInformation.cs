@@ -15,7 +15,7 @@
 //limitations under the License. 
 #endregion
 
-namespace Deploy.LaunchPad.Core.Domain
+namespace Deploy.LaunchPad.Core.Geospatial
 {
     using Deploy.LaunchPad.Core.Util;
     using System;
@@ -206,7 +206,7 @@ namespace Deploy.LaunchPad.Core.Domain
         /// Computes and retrieves a hash code for an object.  
         /// </summary>  
         /// <remarks>  
-        /// This method implements the <see cref="Object">Object</see> method.  
+        /// This method implements the <see cref="object">Object</see> method.  
         /// </remarks>  
         /// <returns>A hash code for an object.</returns>
         public override int GetHashCode()

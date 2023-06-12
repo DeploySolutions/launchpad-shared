@@ -7,11 +7,9 @@ namespace Deploy.LaunchPad.Core.STAC
     using System.Collections.Generic;
 
     using System.Globalization;
-    using Deploy.LaunchPad.Core.Domain.Geography.STAC;
-    using Deploy.LaunchPad.Core.Domain.Geospatial.GeoJson;
-    using Deploy.LaunchPad.Core.Domain.Geospatial.GeoJson.Geometries;
-    using Deploy.LaunchPad.Core.Domain.Geospatial.GeoJson.Types;
-    using Deploy.LaunchPad.Core.GeoJson;
+    using Deploy.LaunchPad.Core.Geospatial.GeoJson;
+    using Deploy.LaunchPad.Core.Geospatial.STAC;
+    using NetTopologySuite.Geometries;
     using Newtonsoft.Json;
     using Newtonsoft.Json.Converters;
 
@@ -24,7 +22,7 @@ namespace Deploy.LaunchPad.Core.STAC
         public virtual List<double> Bbox { get; set; }
 
         [JsonProperty("geometry")]
-        public virtual GeoJsonDefinition<IAmAGeometryType> Geometry { get; set; }
+        public virtual Geometry Geometry { get; set; }
 
         /// <summary>
         /// Provider item ID
@@ -141,7 +139,6 @@ namespace Deploy.LaunchPad.Core.STAC
             Converters =
             {
                 OrganizationRoleConverter.Singleton,
-                GeometryTypeConverter.Singleton,
                 StacItemTypeConverter.Singleton,
                 new IsoDateTimeConverter { DateTimeStyles = DateTimeStyles.AssumeUniversal }
             },

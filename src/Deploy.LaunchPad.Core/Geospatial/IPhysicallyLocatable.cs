@@ -15,21 +15,25 @@
 //limitations under the License. 
 #endregion
 
-namespace Deploy.LaunchPad.Core.Domain
+
+namespace Deploy.LaunchPad.Core.Geospatial
 {
-    using Deploy.LaunchPad.Core.Domain.Geospatial.GeoJson.Geometries;
-    using Deploy.LaunchPad.Core.Domain.Geospatial.GeoJson.Types;
-    using Deploy.LaunchPad.Core.GeoJson;
     using System.Collections.Generic;
-    using System.ComponentModel;
-    using System.Xml.Serialization;
 
     /// <summary>
-    /// This interface defines the geographical boundaries of an Area of Interest being observed.
+    /// This interface contracts that an object has a physical position that can be located in time and space
     /// </summary>
-    public interface IAreaOfInterest<TPrimaryKey,TGeoJsonType> : ICanBeDescribedInGeoJson<TGeoJsonType>
-        where TGeoJsonType : GeoJsonGeometryTypeBase, new()
+    public interface IPhysicallyLocatable
     {
+        /// <summary>
+        /// The current physical location of the object in time and space
+        /// </summary>
+        SpaceTimeInformation CurrentLocation { get; set; }
+
+        /// <summary>
+        /// A list (not necessarily comprehensive) of this object's previous (but not current) physical positions. 
+        /// </summary>
+        IList<SpaceTimeInformation> PreviousLocations { get; set; }
 
     }
 }

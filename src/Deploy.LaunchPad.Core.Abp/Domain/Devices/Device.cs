@@ -18,6 +18,7 @@
 using Abp.Domain.Entities;
 using Deploy.LaunchPad.Core.Domain;
 using Deploy.LaunchPad.Core.Domain.Devices;
+using Deploy.LaunchPad.Core.Geospatial;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;

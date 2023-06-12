@@ -16,13 +16,11 @@
 #endregion
 
 using Abp.Domain.Entities;
-using Deploy.LaunchPad.Core.Domain;
-using Deploy.LaunchPad.Core.Domain.Geospatial.GeoJson;
-using Deploy.LaunchPad.Core.Domain.Geospatial.GeoJson.Geometries;
-using Deploy.LaunchPad.Core.Domain.Geospatial.GeoJson.Types;
-using Deploy.LaunchPad.Core.GeoJson;
+using Deploy.LaunchPad.Core.Geospatial;
+using Deploy.LaunchPad.Core.Util;
+using H3;
+using NetTopologySuite.Geometries;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.Serialization;
 using System.Text;
@@ -36,14 +34,51 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
     /// </summary>
     [Serializable()]
     public abstract partial class AreaOfInterestBase<TIdType, TGeoJsonType> :
-        LaunchPadDomainEntityBase<TIdType>, IAreaOfInterest<TIdType, TGeoJsonType>, IMayHaveTenant
-        where TGeoJsonType : GeoJsonGeometryTypeBase, new()
+        LaunchPadDomainEntityBase<TIdType>, IAreaOfInterest<TIdType, TGeoJsonType>, IGeographicPosition, IMayHaveTenant
+        where TGeoJsonType : Geometry, new()
     {
 
         public virtual int? TenantId { get; set; }
-        public virtual TGeoJsonType Definition { get; set; }
+        public virtual TGeoJsonType Geometry { get; set; }
 
-        public virtual string? GeoJsonId { get; set; }
+        [DataObjectField(false)]
+        [XmlAttribute]
+        public virtual Coordinate Coordinate
+        {
+            get
+            {
+                return Geometry.Coordinate;
+            }
+
+        }
+
+        protected H3Index _h3Index;
+        [DataObjectField(false)]
+        [XmlAttribute]
+        public virtual H3Index H3Index
+        {
+            get
+            {
+                return _h3Index;
+            }
+            set
+            {
+                _h3Index = value;
+            }
+        }
+
+        protected double _elevation;
+        [DataObjectField(false)]
+        [XmlAttribute]
+        public virtual double Elevation
+        {
+            get { return _elevation; }
+            set
+            {
+                Guard.Against<ArgumentException>(double.IsNaN(value), Deploy_LaunchPad_Core_Resources.Guard_GeographicLocation_Set_Elevation);
+                _elevation = value;
+            }
+        }
 
         /// <summary>
         /// 
@@ -61,10 +96,10 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
             TenantId = tenantId;
         }
 
-        protected AreaOfInterestBase(int? tenantId, TGeoJsonType definition) : base()
+        protected AreaOfInterestBase(int? tenantId, TGeoJsonType geometry) : base()
         {
             TenantId = tenantId;
-            Definition = definition;
+            Geometry = geometry;
 
         }
 
@@ -75,7 +110,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
         /// <param name="context">The context of the stream</param>
         public AreaOfInterestBase(SerializationInfo info, StreamingContext context) : base(info, context)
         {
-            Definition = (TGeoJsonType)info.GetValue("Definition", typeof(TGeoJsonType));
+            Geometry = (TGeoJsonType)info.GetValue("Geometry", typeof(TGeoJsonType));
         }
 
         /// <summary>
@@ -86,7 +121,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
         public override void GetObjectData(SerializationInfo info, StreamingContext context)
         {
             base.GetObjectData(info, context);
-            info.AddValue("Definition", Definition);
+            info.AddValue("Geometry", Geometry);
         }
 
         /// Event called once deserialization constructor finishes.
@@ -110,7 +145,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
             StringBuilder sb = new StringBuilder();
             sb.Append("[AreaOfInterest : ");
             // sb.AppendFormat(base.ToStringBaseProperties());
-            sb.AppendFormat("Definition={0};", Definition);
+            sb.AppendFormat("Geometry={0};", Geometry);
             sb.Append(']');
             return sb.ToString();
         }
@@ -142,7 +177,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
             if (obj != null)
             {
                 if (
-                    Definition.Equals(obj.Definition)
+                    Geometry.Equals(obj.Geometry)
                 )
                 {
                     return true;
@@ -194,7 +229,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
         /// <returns>A hash code for an object.</returns>
         public override int GetHashCode()
         {
-            return Id.GetHashCode() + Culture.GetHashCode() + Definition.GetHashCode();
+            return Id.GetHashCode() + Culture.GetHashCode() + Geometry.GetHashCode();
         }
     }
 }

@@ -7,7 +7,7 @@ namespace Deploy.LaunchPad.Core.STAC
     using System.Collections.Generic;
 
     using System.Globalization;
-    using Deploy.LaunchPad.Core.Domain.Geography.STAC;
+    using Deploy.LaunchPad.Core.Geospatial.STAC;
     using Newtonsoft.Json;
     using Newtonsoft.Json.Converters;
 

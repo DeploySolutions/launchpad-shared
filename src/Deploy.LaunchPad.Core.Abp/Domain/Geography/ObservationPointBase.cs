@@ -16,12 +16,10 @@
 #endregion
 
 using Abp.Domain.Entities;
-using Deploy.LaunchPad.Core.Domain;
-using Deploy.LaunchPad.Core.Domain.Geography;
-using Deploy.LaunchPad.Core.Domain.Geospatial.GeoJson;
-using Deploy.LaunchPad.Core.Domain.Geospatial.GeoJson.Geometries;
-using Deploy.LaunchPad.Core.Domain.Geospatial.GeoJson.Types;
-using Deploy.LaunchPad.Core.GeoJson;
+using Deploy.LaunchPad.Core.Geospatial;
+using Deploy.LaunchPad.Core.Util;
+using H3;
+using NetTopologySuite.Geometries;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -36,15 +34,55 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
     /// This class defines the geographical boundaries of an Area of Interest being observed.
     /// </summary>
     [Serializable()]
-    public abstract partial class ObservationPointBase<TIdType, TParentAreaOfInterest> :
-        LaunchPadDomainEntityBase<TIdType>, IObservationPoint<TIdType, TParentAreaOfInterest>, IMayHaveTenant
-        where TParentAreaOfInterest : GeoJsonGeometryTypeBase, new()
+    public abstract partial class ObservationPointBase<TIdType, TGeoJsonType, TParentAreaOfInterest> :
+        LaunchPadDomainEntityBase<TIdType>, IObservationPoint<TIdType, TGeoJsonType, TParentAreaOfInterest>, IGeographicPosition, IMayHaveTenant
+        where TParentAreaOfInterest : Geometry
+        where TGeoJsonType : Point
     {
         public virtual TParentAreaOfInterest? ParentAoi { get; set; }
 
         public virtual int? TenantId { get; set; }
-        public Point Definition { get; set; }
-        public virtual string? GeoJsonId { get; set; }
+        public TGeoJsonType Geometry { get; set; }
+
+
+        [DataObjectField(false)]
+        [XmlAttribute]
+        public virtual Coordinate Coordinate
+        {
+            get
+            {
+                return Geometry.Coordinate;
+            }
+        }
+
+        protected H3Index _h3Index;
+        [DataObjectField(false)]
+        [XmlAttribute]
+        public virtual H3Index H3Index
+        {
+            get
+            {
+                return _h3Index;
+            }
+            set
+            {
+                _h3Index = value;
+            }
+        }
+
+
+        protected double _elevation;
+        [DataObjectField(false)]
+        [XmlAttribute]
+        public virtual double Elevation
+        {
+            get { return _elevation; }
+            set
+            {
+                Guard.Against<ArgumentException>(double.IsNaN(value), Deploy_LaunchPad_Core_Resources.Guard_GeographicLocation_Set_Elevation);
+                _elevation = value;
+            }
+        }
 
         /// <summary>
         /// 
@@ -70,12 +108,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
         protected ObservationPointBase(int? tenantId, IGeographicPosition location) : base()
         {
             TenantId = tenantId;
-            List<double> coordinates = new List<double>
-            {
-                location.Latitude,
-                location.Longitude
-            };
-            Definition.Coordinates = coordinates;
+            Geometry = (TGeoJsonType)new Point(location.Coordinate);
 
         }
 
@@ -86,7 +119,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
         /// <param name="context">The context of the stream</param>
         public ObservationPointBase(SerializationInfo info, StreamingContext context) : base(info, context)
         {
-            Definition = (Point)info.GetValue("Definition", typeof(Point));
+            Geometry = (TGeoJsonType)info.GetValue("Geometry", typeof(Point));
         }
 
         /// <summary>
@@ -97,7 +130,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
         public override void GetObjectData(SerializationInfo info, StreamingContext context)
         {
             base.GetObjectData(info, context);
-            info.AddValue("Definition", Definition);
+            info.AddValue("Geometry", Geometry);
         }
 
         /// Event called once deserialization constructor finishes.
@@ -121,7 +154,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
             StringBuilder sb = new StringBuilder();
             sb.Append("[AreaOfInterest : ");
             // sb.AppendFormat(base.ToStringBaseProperties());
-            sb.AppendFormat("Definition={0};", Definition);
+            sb.AppendFormat("Geometry={0};", Geometry);
             sb.Append(']');
             return sb.ToString();
         }
@@ -133,9 +166,9 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
         /// <returns>True if the objects are the same</returns>
         public override bool Equals(object obj)
         {
-            if (obj != null && obj is ObservationPointBase<TIdType, TParentAreaOfInterest>)
+            if (obj != null && obj is ObservationPointBase<TIdType, TGeoJsonType, TParentAreaOfInterest>)
             {
-                return Equals(obj as ObservationPointBase<TIdType, TParentAreaOfInterest>);
+                return Equals(obj as ObservationPointBase<TIdType, TGeoJsonType, TParentAreaOfInterest>);
             }
             return false;
         }
@@ -148,12 +181,13 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
         /// </summary>
         /// <param name="obj">The other object of this type we are testing equality with</param>
         /// <returns></returns>
-        public bool Equals(ObservationPointBase<TIdType, TParentAreaOfInterest> obj)
+        public bool Equals(ObservationPointBase<TIdType, TGeoJsonType, TParentAreaOfInterest> obj)
         {
             if (obj != null)
             {
                 if (
-                    Definition.Equals(obj.Definition)
+                    
+                    Geometry.Equals(obj.Geometry)
                 )
                 {
                     return true;
@@ -172,7 +206,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
         /// <param name="x">The first value</param>
         /// <param name="y">The second value</param>
         /// <returns>True if both objects are fully equal based on the Equals logic</returns>
-        public static bool operator ==(ObservationPointBase<TIdType, TParentAreaOfInterest> x, ObservationPointBase<TIdType, TParentAreaOfInterest> y)
+        public static bool operator ==(ObservationPointBase<TIdType, TGeoJsonType, TParentAreaOfInterest> x, ObservationPointBase<TIdType, TGeoJsonType, TParentAreaOfInterest> y)
         {
             if (ReferenceEquals(x, null))
             {
@@ -191,7 +225,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
         /// <param name="x">The first value</param>
         /// <param name="y">The second value</param>
         /// <returns>True if both objects are not equal based on the Equals logic</returns>
-        public static bool operator !=(ObservationPointBase<TIdType, TParentAreaOfInterest> x, ObservationPointBase<TIdType, TParentAreaOfInterest> y)
+        public static bool operator !=(ObservationPointBase<TIdType, TGeoJsonType, TParentAreaOfInterest> x, ObservationPointBase<TIdType, TGeoJsonType, TParentAreaOfInterest> y)
         {
             return !(x == y);
         }
@@ -205,7 +239,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
         /// <returns>A hash code for an object.</returns>
         public override int GetHashCode()
         {
-            return Id.GetHashCode() + Culture.GetHashCode() + Definition.GetHashCode();
+            return Id.GetHashCode() + Culture.GetHashCode() + Geometry.GetHashCode();
         }
     }
 }

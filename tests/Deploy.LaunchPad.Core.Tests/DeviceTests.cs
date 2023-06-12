@@ -19,11 +19,11 @@ namespace Deploy.LaunchPad.Core.Tests
 {
     using Xunit;
     using FluentAssertions;
-    using Deploy.LaunchPad.Core.Domain;
     using System.Collections.Generic;
     using System;
     using Deploy.LaunchPad.Core.Abp.Domain;
     using Deploy.LaunchPad.Core.Domain.Devices;
+    using Deploy.LaunchPad.Core.Geospatial;
 
     public class DeviceTests : IClassFixture<DeviceTestsFixture>
     {
@@ -84,11 +84,11 @@ namespace Deploy.LaunchPad.Core.Tests
         [Fact]
         public void Should_Allow_PreviousPhysicalLocations_To_Be_Added()
         {
-            SpaceTimeInformation sydney = new SpaceTimeInformation(new GeographicPosition(33.8650, 151.2094));
-            SpaceTimeInformation london = new SpaceTimeInformation(new GeographicPosition(51.5072, 0.1275));
-            SpaceTimeInformation newyork = new SpaceTimeInformation(new GeographicPosition(40.7127, 74.0059));
-            SpaceTimeInformation kingston = new SpaceTimeInformation(new GeographicPosition(44.2333, 76.5000));
-            SpaceTimeInformation halifax = new SpaceTimeInformation(new GeographicPosition(44.6478, 63.5714));
+            SpaceTimeInformation sydney = new SpaceTimeInformation(new GeographicPosition(151.2094, 33.8650));
+            SpaceTimeInformation london = new SpaceTimeInformation(new GeographicPosition(0.1275, 51.5072));
+            SpaceTimeInformation newyork = new SpaceTimeInformation(new GeographicPosition(74.0059, 40.7127));
+            SpaceTimeInformation kingston = new SpaceTimeInformation(new GeographicPosition(76.5000, 44.2333 ));
+            SpaceTimeInformation halifax = new SpaceTimeInformation(new GeographicPosition(63.5714, 44.6478 ));
             IList<SpaceTimeInformation> previousLocations = new List<SpaceTimeInformation>();
             _fixture.SUT.PreviousLocations.Add(sydney);
             _fixture.SUT.PreviousLocations.Add(london);

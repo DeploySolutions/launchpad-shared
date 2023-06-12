@@ -6,9 +6,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Deploy.LaunchPad.Core.Domain.Geospatial.H3
+namespace Deploy.LaunchPad.Core.Geospatial.H3
 {
-    public partial class H3Helper : HelperBase    
+    public partial class H3Helper : HelperBase
     {
         public virtual H3Index CreateH3IndexFromHex(string hex)
         {

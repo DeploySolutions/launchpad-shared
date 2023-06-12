@@ -3,7 +3,7 @@
 using H3;
 using System.Collections.Generic;
 
-namespace Deploy.LaunchPad.Core.Domain.Geospatial.H3
+namespace Deploy.LaunchPad.Core.Geospatial.H3
 {
     public partial interface ICanBeDescribedInH3
     {

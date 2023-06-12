@@ -17,10 +17,9 @@
 
 
 
-namespace Deploy.LaunchPad.Core.Domain
+namespace Deploy.LaunchPad.Core.Geospatial
 {
     using Deploy.LaunchPad.Core;
-    using Deploy.LaunchPad.Core.GeoJson;
     using Deploy.LaunchPad.Core.Util;
     using H3;
     using System;
@@ -30,18 +29,18 @@ namespace Deploy.LaunchPad.Core.Domain
     using System.Text;
     using System.Text.RegularExpressions;
     using System.Xml.Serialization;
-    using H3.Extensions;
     using NetTopologySuite.Geometries;
+    using global::H3;
+    using global::H3.Extensions;
 
     /// <summary>
     /// This class defines the physical position of something, in terms of its latitude, longitude, and elevation.
     /// </summary>
     [Serializable()]
-    public partial class GeographicPosition :  IGeographicPosition, IEquatable<GeographicPosition>
+    public partial class GeographicPosition : IGeographicPosition, IEquatable<GeographicPosition>
     {
-        private double _elevation;
-        private Coordinate _earthCoordinate;
 
+        protected double _elevation;
         [DataObjectField(false)]
         [XmlAttribute]
         public virtual double Elevation
@@ -54,37 +53,27 @@ namespace Deploy.LaunchPad.Core.Domain
             }
         }
 
-        [DataObjectField(false)]
-        [XmlAttribute]
-        public virtual double Latitude
-        {
-            get
-            {
-                return _earthCoordinate.Y;
-            }
-            set
-            {
-                Guard.Against<ArgumentException>(double.IsNaN(value), Deploy_LaunchPad_Core_Resources.Guard_GeographicLocation_Set_Latitude_NaN);
-                Guard.Against<ArgumentOutOfRangeException>(value > 90, Deploy_LaunchPad_Core_Resources.Guard_GeographicLocation_Set_Latitude_Not_GreaterThan_90);
-                Guard.Against<ArgumentOutOfRangeException>(value < -90, Deploy_LaunchPad_Core_Resources.Guard_GeographicLocation_Set_Latitude_Not_LessThan_Minus_90);
-                _earthCoordinate.Y = value;
-            }
-        }
 
+        protected Coordinate _earthCoordinate;
         [DataObjectField(false)]
         [XmlAttribute]
-        public virtual double Longitude
+        public virtual Coordinate Coordinate
         {
             get
             {
-                return _earthCoordinate.X;
+                return _earthCoordinate;
             }
             set
             {
-                Guard.Against<ArgumentException>(double.IsNaN(value), Deploy_LaunchPad_Core_Resources.Guard_GeographicLocation_Set_Longitude_NaN);
-                Guard.Against<ArgumentOutOfRangeException>(value > 180, Deploy_LaunchPad_Core_Resources.Guard_GeographicLocation_Set_Longitude_Not_GreaterThan_180);
-                Guard.Against<ArgumentOutOfRangeException>(value < -180, Deploy_LaunchPad_Core_Resources.Guard_GeographicLocation_Set_Longitude_Not_LessThan_Minus180);
-                _earthCoordinate.X = value;
+                Guard.Against<ArgumentException>(double.IsNaN(value.X), Deploy_LaunchPad_Core_Resources.Guard_GeographicLocation_Set_Longitude_NaN);
+                Guard.Against<ArgumentOutOfRangeException>(value.X > 180, Deploy_LaunchPad_Core_Resources.Guard_GeographicLocation_Set_Longitude_Not_GreaterThan_180);
+                Guard.Against<ArgumentOutOfRangeException>(value.X < -180, Deploy_LaunchPad_Core_Resources.Guard_GeographicLocation_Set_Longitude_Not_LessThan_Minus180);
+                Guard.Against<ArgumentException>(double.IsNaN(value.Y), Deploy_LaunchPad_Core_Resources.Guard_GeographicLocation_Set_Latitude_NaN);
+                Guard.Against<ArgumentOutOfRangeException>(value.Y > 90, Deploy_LaunchPad_Core_Resources.Guard_GeographicLocation_Set_Latitude_Not_GreaterThan_90);
+                Guard.Against<ArgumentOutOfRangeException>(value.Y < -90, Deploy_LaunchPad_Core_Resources.Guard_GeographicLocation_Set_Latitude_Not_LessThan_Minus_90);
+                Guard.Against<ArgumentOutOfRangeException>(value.Y < -90, Deploy_LaunchPad_Core_Resources.Guard_GeographicLocation_Set_Latitude_Not_LessThan_Minus_90);
+                Guard.Against<ArgumentOutOfRangeException>(value.Y < -90, Deploy_LaunchPad_Core_Resources.Guard_GeographicLocation_Set_Latitude_Not_LessThan_Minus_90);
+                _earthCoordinate = value;
             }
         }
 
@@ -110,7 +99,7 @@ namespace Deploy.LaunchPad.Core.Domain
         {
             // We will set the elevation, longitude and latitude of Greenwich
             _elevation = 46;
-            _earthCoordinate = new Coordinate(51.476852, -0.000500);
+            Coordinate = new Coordinate(51.476852, -0.000500);
             // calculate the h3 cell
             _h3Index = _earthCoordinate.ToH3Index(9);
         }
@@ -118,11 +107,9 @@ namespace Deploy.LaunchPad.Core.Domain
         public GeographicPosition(double longitude, double latitude)
         {
             Elevation = 0;
-            Latitude = latitude; 
-            Longitude = longitude;
+            Coordinate = new Coordinate(longitude, latitude);
             // calcualte the h3 cell
-            var coordinate = new NetTopologySuite.Geometries.Coordinate(longitude, latitude);
-            _h3Index = coordinate.ToH3Index(9);
+            _h3Index = Coordinate.ToH3Index(9);
         }
 
         /// <summary>
@@ -133,8 +120,7 @@ namespace Deploy.LaunchPad.Core.Domain
         public GeographicPosition(SerializationInfo info, StreamingContext context)
         {
             Elevation = (double)info.GetDouble("Elevation");
-            Longitude = (double)info.GetDouble("Longitude");
-            Latitude = (double)info.GetDouble("Latitude");
+            Coordinate = (Coordinate)info.GetValue("Coordinate", typeof(Coordinate));
             H3Index = (H3Index)info.GetDouble("H3Index");
         }
 
@@ -146,8 +132,7 @@ namespace Deploy.LaunchPad.Core.Domain
         public void GetObjectData(SerializationInfo info, StreamingContext context)
         {
             info.AddValue("Elevation", Elevation);
-            info.AddValue("Longitude", Longitude);
-            info.AddValue("Latitude", Latitude);
+            info.AddValue("Coordinate", Coordinate);
             info.AddValue("H3Index", H3Index);
         }
 
@@ -172,8 +157,7 @@ namespace Deploy.LaunchPad.Core.Domain
             StringBuilder sb = new StringBuilder();
             sb.Append("[GeographicLocation : ");
             sb.Append(string.Format("Elevation: {0}", Elevation));
-            sb.Append(string.Format("Longitude: {0}", Longitude));
-            sb.Append(string.Format("Latitude: {0}", Latitude));
+            sb.Append(string.Format("Coordinate: {0}", Coordinate));
             sb.Append(string.Format("H3Index: {0}", H3Index));
             sb.Append(']');
             return sb.ToString();
@@ -207,8 +191,8 @@ namespace Deploy.LaunchPad.Core.Domain
             {
                 if (
                     Math.Abs(Elevation - obj.Elevation) < 0.0001
-                    && Math.Abs(Latitude - obj.Latitude) < 0.0001
-                    && Math.Abs(Longitude - obj.Longitude) < 0.0001
+                    && Math.Abs(Coordinate.X - obj.Coordinate.X) < 0.0001
+                    && Math.Abs(Coordinate.Y - obj.Coordinate.Y) < 0.0001
                 )
                 {
                     return true;
@@ -255,12 +239,12 @@ namespace Deploy.LaunchPad.Core.Domain
         /// Computes and retrieves a hash code for an object.  
         /// </summary>  
         /// <remarks>  
-        /// This method implements the <see cref="Object">Object</see> method.  
+        /// This method implements the <see cref="object">Object</see> method.  
         /// </remarks>  
         /// <returns>A hash code for an object.</returns>
         public override int GetHashCode()
         {
-            return Elevation.GetHashCode() + Longitude.GetHashCode() + Latitude.GetHashCode();
+            return Elevation.GetHashCode() + Coordinate.GetHashCode() + H3Index.GetHashCode();
         }
     }
 

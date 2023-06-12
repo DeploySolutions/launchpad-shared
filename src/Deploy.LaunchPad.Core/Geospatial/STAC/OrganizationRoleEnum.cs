@@ -6,13 +6,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Deploy.LaunchPad.Core.Domain.Geography.STAC
+namespace Deploy.LaunchPad.Core.Geospatial.STAC
 {
 
-    public enum OrganizationRole { 
-        Host = 0, 
-        Licensor = 1, 
-        Processor = 2, 
-        Producer =3
+    public enum OrganizationRole
+    {
+        Host = 0,
+        Licensor = 1,
+        Processor = 2,
+        Producer = 3
     };
 }

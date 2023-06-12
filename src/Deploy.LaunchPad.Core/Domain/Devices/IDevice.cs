@@ -1,6 +1,7 @@
 ﻿// Copyright (c) 2016-2021 Deploy Software Solutions, inc. 
 
 using Deploy.LaunchPad.Core.Domain.Devices;
+using Deploy.LaunchPad.Core.Geospatial;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
 

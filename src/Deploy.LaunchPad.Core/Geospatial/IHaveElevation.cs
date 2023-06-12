@@ -15,24 +15,20 @@
 //limitations under the License. 
 #endregion
 
-namespace Deploy.LaunchPad.Core.Domain
+using Deploy.LaunchPad.Core.Domain;
+
+namespace Deploy.LaunchPad.Core.Geospatial
 {
-    using System.Collections.Generic;
+    using System.Runtime.Serialization;
 
     /// <summary>
-    /// This interface contracts that an object has a physical position that can be located in time and space
+    /// This interface defines the physical elevation of something
     /// </summary>
-    public interface IPhysicallyLocatable
+    public interface IHaveElevation : ISerializable, ILaunchPadObject
     {
-        /// <summary>
-        /// The current physical location of the object in time and space
-        /// </summary>
-        SpaceTimeInformation CurrentLocation { get; set; }
 
-        /// <summary>
-        /// A list (not necessarily comprehensive) of this object's previous (but not current) physical positions. 
-        /// </summary>
-        IList<SpaceTimeInformation> PreviousLocations { get; set; }
+        public double Elevation { get; set; }
+
 
     }
 }

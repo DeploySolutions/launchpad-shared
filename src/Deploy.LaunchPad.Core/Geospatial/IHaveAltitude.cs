@@ -15,19 +15,19 @@
 //limitations under the License. 
 #endregion
 
-namespace Deploy.LaunchPad.Core.Domain
+using Deploy.LaunchPad.Core.Domain;
+
+namespace Deploy.LaunchPad.Core.Geospatial
 {
-    using Deploy.LaunchPad.Core.Domain.Geospatial.H3;
     using System.Runtime.Serialization;
 
     /// <summary>
-    /// This interface defines the physical position of something, in terms of its latitude, longitude, and elevation.
+    /// This interface defines the physical altitude of something
     /// </summary>
-    public interface IGeographicPosition : ISerializable, ILaunchPadObject, ICanBeDescribedInH3
+    public interface IHaveAltitude : ISerializable, ILaunchPadObject
     {
-        public double Longitude { get; set; }
-        public double Latitude { get; set; }
-        public double Elevation { get; set; }
+
+        public double Altitude { get; set; }
 
 
     }

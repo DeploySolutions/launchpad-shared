@@ -21,6 +21,7 @@ namespace Deploy.LaunchPad.Space.Satellites.Core
 
     using Deploy.LaunchPad.Core.Abp.Domain;
     using Deploy.LaunchPad.Core.Domain;
+    using Deploy.LaunchPad.Core.Geospatial;
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
