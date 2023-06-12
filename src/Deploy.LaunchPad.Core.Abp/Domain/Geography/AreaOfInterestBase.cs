@@ -35,7 +35,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
     [Serializable()]
     public abstract partial class AreaOfInterestBase<TIdType, TGeoJsonType> :
         LaunchPadDomainEntityBase<TIdType>, IAreaOfInterest<TIdType, TGeoJsonType>, IGeographicPosition, IMayHaveTenant
-        where TGeoJsonType : Geometry, new()
+        where TGeoJsonType : Geometry
     {
 
         public virtual int? TenantId { get; set; }
