@@ -37,18 +37,29 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
     /// This class defines the geographical boundaries of an Area of Interest being observed.
     /// </summary>
     [Serializable()]
-    public abstract partial class AreaOfInterestBase<TIdType, TGeoJsonType> :
-        LaunchPadDomainEntityBase<TIdType>, IAreaOfInterest<TIdType, TGeoJsonType>, IGeographicPosition, IMayHaveTenant
-        where TGeoJsonType : Geometry
+    public abstract partial class AreaOfInterestBase<TIdType> :
+        LaunchPadDomainEntityBase<TIdType>, IAreaOfInterest<TIdType>, IMayHaveTenant
     {
         public virtual int? TenantId { get; set; }
 
-        protected Geometry _geometry;
+        [NotMapped]
+        protected Polygon _geometry;
+
+        public virtual Polygon SetGeometry()
+        {
+            var serializer = GeoJsonSerializer.Create();
+            using (var stringReader = new StringReader(GeoJson))
+            using (var jsonReader = new JsonTextReader(stringReader))
+            {
+                _geometry = serializer.Deserialize<Polygon>(jsonReader);
+            }
+            return _geometry;
+        }
+
 
         [DataObjectField(false)]
         [XmlAttribute]
         public virtual string GeoJson { get; set; }
-
 
         [DataObjectField(false)]
         [XmlAttribute]
@@ -58,7 +69,6 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
             {
                 return _geometry.Coordinate;
             }
-
         }
 
         protected H3Index _h3Index;
@@ -105,10 +115,10 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
             TenantId = tenantId;
         }
 
-        protected AreaOfInterestBase(int? tenantId, TGeoJsonType geometry) : base()
+        protected AreaOfInterestBase(int? tenantId, string geoJson) : base()
         {
             TenantId = tenantId;
-            _geometry = geometry;
+            GeoJson = geoJson;
 
         }
 
@@ -120,12 +130,6 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
         public AreaOfInterestBase(SerializationInfo info, StreamingContext context) : base(info, context)
         {
             GeoJson = info.GetString("GeoJson");
-            var serializer = GeoJsonSerializer.Create();
-            using (var stringReader = new StringReader(GeoJson))
-            using (var jsonReader = new JsonTextReader(stringReader))
-            {
-                _geometry = (TGeoJsonType)serializer.Deserialize<Geometry>(jsonReader);
-            }
         }
 
         /// <summary>
@@ -172,9 +176,9 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
         /// <returns>True if the objects are the same</returns>
         public override bool Equals(object obj)
         {
-            if (obj != null && obj is AreaOfInterestBase<TIdType, TGeoJsonType>)
+            if (obj != null && obj is AreaOfInterestBase<TIdType>)
             {
-                return Equals(obj as AreaOfInterestBase<TIdType, TGeoJsonType>);
+                return Equals(obj as AreaOfInterestBase<TIdType>);
             }
             return false;
         }
@@ -187,12 +191,12 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
         /// </summary>
         /// <param name="obj">The other object of this type we are testing equality with</param>
         /// <returns></returns>
-        public bool Equals(AreaOfInterestBase<TIdType, TGeoJsonType> obj)
+        public bool Equals(AreaOfInterestBase<TIdType> obj)
         {
             if (obj != null)
             {
                 if (
-                    _geometry.Equals(obj._geometry)
+                    GeoJson.Equals(obj.GeoJson)
                 )
                 {
                     return true;
@@ -211,7 +215,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
         /// <param name="x">The first value</param>
         /// <param name="y">The second value</param>
         /// <returns>True if both objects are fully equal based on the Equals logic</returns>
-        public static bool operator ==(AreaOfInterestBase<TIdType, TGeoJsonType> x, AreaOfInterestBase<TIdType, TGeoJsonType> y)
+        public static bool operator ==(AreaOfInterestBase<TIdType> x, AreaOfInterestBase<TIdType> y)
         {
             if (ReferenceEquals(x, null))
             {
@@ -230,7 +234,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
         /// <param name="x">The first value</param>
         /// <param name="y">The second value</param>
         /// <returns>True if both objects are not equal based on the Equals logic</returns>
-        public static bool operator !=(AreaOfInterestBase<TIdType, TGeoJsonType> x, AreaOfInterestBase<TIdType, TGeoJsonType> y)
+        public static bool operator !=(AreaOfInterestBase<TIdType> x, AreaOfInterestBase<TIdType> y)
         {
             return !(x == y);
         }
@@ -244,20 +248,8 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
         /// <returns>A hash code for an object.</returns>
         public override int GetHashCode()
         {
-            return Id.GetHashCode() + Culture.GetHashCode() + _geometry.GetHashCode();
+            return Id.GetHashCode() + Culture.GetHashCode() + GeoJson.GetHashCode();
         }
 
-        public virtual TGeoJsonType GetGeometry()
-        {
-            Geometry geometry;
-
-            var serializer = GeoJsonSerializer.Create();
-            using (var stringReader = new StringReader(GeoJson))
-            using (var jsonReader = new JsonTextReader(stringReader))
-            {
-                geometry = serializer.Deserialize<Geometry>(jsonReader);
-            }
-            return (TGeoJsonType)geometry;
-        }
     }
 }

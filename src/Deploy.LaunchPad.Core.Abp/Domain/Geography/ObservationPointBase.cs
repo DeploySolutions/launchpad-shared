@@ -39,24 +39,32 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
     /// This class defines the geographical boundaries of an Area of Interest being observed.
     /// </summary>
     [Serializable()]
-    public abstract partial class ObservationPointBase<TIdType, TGeoJsonType, TParentAreaOfInterest> :
-        LaunchPadDomainEntityBase<TIdType>, IObservationPoint<TIdType, TGeoJsonType, TParentAreaOfInterest>, IGeographicPosition, IMayHaveTenant
-        where TParentAreaOfInterest : Geometry
-        where TGeoJsonType : Point
+    public abstract partial class ObservationPointBase<TIdType, TParentAreaOfInterest> :
+        LaunchPadDomainEntityBase<TIdType>, IObservationPoint<TIdType, TParentAreaOfInterest>, IMayHaveTenant
+        where TParentAreaOfInterest : IAreaOfInterest<TIdType>
     {
         public virtual TParentAreaOfInterest? ParentAoi { get; set; }
 
         public virtual int? TenantId { get; set; }
-
-        protected TGeoJsonType _geometry;
-
 
 
         [DataObjectField(false)]
         [XmlAttribute]
         public virtual string GeoJson { get; set; }
 
+        [NotMapped]
+        protected Point _geometry;
 
+        public virtual Point SetGeometry()
+        {
+            var serializer = GeoJsonSerializer.Create();
+            using (var stringReader = new StringReader(GeoJson))
+            using (var jsonReader = new JsonTextReader(stringReader))
+            {
+                _geometry = serializer.Deserialize<Point>(jsonReader);
+            }
+            return _geometry;
+        }
 
         [DataObjectField(false)]
         [XmlAttribute]
@@ -118,11 +126,10 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
             ParentAoi = parentAoi;
         }
 
-        protected ObservationPointBase(int? tenantId, IGeographicPosition location) : base()
+        protected ObservationPointBase(int? tenantId, IHaveGeographicPosition location) : base()
         {
             TenantId = tenantId;
-            GeoJson = _geometry.ToJsonString();
-            _geometry = GetGeometry();
+            GeoJson = location.GeoJson;
 
         }
 
@@ -134,12 +141,6 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
         public ObservationPointBase(SerializationInfo info, StreamingContext context) : base(info, context)
         {
             GeoJson = info.GetString("GeoJson");
-            var serializer = GeoJsonSerializer.Create();
-            using (var stringReader = new StringReader(GeoJson))
-            using (var jsonReader = new JsonTextReader(stringReader))
-            {
-                _geometry = (TGeoJsonType)serializer.Deserialize<Geometry>(jsonReader);
-            }
         }
 
         /// <summary>
@@ -186,9 +187,9 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
         /// <returns>True if the objects are the same</returns>
         public override bool Equals(object obj)
         {
-            if (obj != null && obj is ObservationPointBase<TIdType, TGeoJsonType, TParentAreaOfInterest>)
+            if (obj != null && obj is ObservationPointBase<TIdType, TParentAreaOfInterest>)
             {
-                return Equals(obj as ObservationPointBase<TIdType, TGeoJsonType, TParentAreaOfInterest>);
+                return Equals(obj as ObservationPointBase<TIdType, TParentAreaOfInterest>);
             }
             return false;
         }
@@ -201,13 +202,13 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
         /// </summary>
         /// <param name="obj">The other object of this type we are testing equality with</param>
         /// <returns></returns>
-        public bool Equals(ObservationPointBase<TIdType, TGeoJsonType, TParentAreaOfInterest> obj)
+        public bool Equals(ObservationPointBase<TIdType, TParentAreaOfInterest> obj)
         {
             if (obj != null)
             {
                 if (
                     
-                    _geometry.Equals(obj._geometry)
+                    GeoJson.Equals(obj.GeoJson)
                 )
                 {
                     return true;
@@ -226,7 +227,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
         /// <param name="x">The first value</param>
         /// <param name="y">The second value</param>
         /// <returns>True if both objects are fully equal based on the Equals logic</returns>
-        public static bool operator ==(ObservationPointBase<TIdType, TGeoJsonType, TParentAreaOfInterest> x, ObservationPointBase<TIdType, TGeoJsonType, TParentAreaOfInterest> y)
+        public static bool operator ==(ObservationPointBase<TIdType, TParentAreaOfInterest> x, ObservationPointBase<TIdType, TParentAreaOfInterest> y)
         {
             if (ReferenceEquals(x, null))
             {
@@ -245,7 +246,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
         /// <param name="x">The first value</param>
         /// <param name="y">The second value</param>
         /// <returns>True if both objects are not equal based on the Equals logic</returns>
-        public static bool operator !=(ObservationPointBase<TIdType, TGeoJsonType, TParentAreaOfInterest> x, ObservationPointBase<TIdType, TGeoJsonType, TParentAreaOfInterest> y)
+        public static bool operator !=(ObservationPointBase<TIdType, TParentAreaOfInterest> x, ObservationPointBase<TIdType, TParentAreaOfInterest> y)
         {
             return !(x == y);
         }
@@ -259,20 +260,8 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
         /// <returns>A hash code for an object.</returns>
         public override int GetHashCode()
         {
-            return Id.GetHashCode() + Culture.GetHashCode() + _geometry.GetHashCode();
+            return Id.GetHashCode() + Culture.GetHashCode() + GeoJson.GetHashCode();
         }
 
-        public virtual TGeoJsonType GetGeometry()
-        {
-            Geometry geometry;
-
-            var serializer = GeoJsonSerializer.Create();
-            using (var stringReader = new StringReader(GeoJson))
-            using (var jsonReader = new JsonTextReader(stringReader))
-            {
-                geometry = serializer.Deserialize<Geometry>(jsonReader);
-            }
-            return (TGeoJsonType)geometry;
-        }
     }
 }

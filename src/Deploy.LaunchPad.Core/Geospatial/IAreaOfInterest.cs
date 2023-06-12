@@ -28,8 +28,7 @@ namespace Deploy.LaunchPad.Core.Geospatial
     /// <summary>
     /// This interface defines the geographical boundaries of an Area of Interest being observed.
     /// </summary>
-    public interface IAreaOfInterest<TPrimaryKey, TGeoJsonType> : ICanBeDescribedInGeoJson<TGeoJsonType>, ICanBeDescribedInH3, IHaveElevation
-        where TGeoJsonType : Geometry
+    public interface IAreaOfInterest<TPrimaryKey> : IHaveGeographicPosition, IHaveGeoJsonDefinition, IHaveH3Definition, IHaveElevation
     {
     }
 }

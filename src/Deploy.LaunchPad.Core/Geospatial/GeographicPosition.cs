@@ -32,13 +32,38 @@ namespace Deploy.LaunchPad.Core.Geospatial
     using NetTopologySuite.Geometries;
     using global::H3;
     using global::H3.Extensions;
+    using NetTopologySuite.IO;
+    using Newtonsoft.Json;
+    using System.IO;
+    using System.ComponentModel.DataAnnotations.Schema;
 
     /// <summary>
     /// This class defines the physical position of something, in terms of its latitude, longitude, and elevation.
     /// </summary>
     [Serializable()]
-    public partial class GeographicPosition : IGeographicPosition, IEquatable<GeographicPosition>
+    public partial class GeographicPosition : IHaveGeographicPosition, IEquatable<GeographicPosition>
     {
+        [NotMapped]
+        protected Point _geometry;
+
+        public virtual Point SetGeometry()
+        {
+            var serializer = GeoJsonSerializer.Create();
+            using (var stringReader = new StringReader(GeoJson))
+            using (var jsonReader = new JsonTextReader(stringReader))
+            {
+                _geometry = serializer.Deserialize<Point> (jsonReader);
+            }
+            return _geometry;
+        }
+
+        [DataObjectField(false)]
+        [XmlAttribute]
+        public virtual string GeoJson
+        {
+            get; set;
+        }
+
 
         protected double _elevation;
         [DataObjectField(false)]
@@ -156,8 +181,9 @@ namespace Deploy.LaunchPad.Core.Geospatial
         {
             StringBuilder sb = new StringBuilder();
             sb.Append("[GeographicLocation : ");
-            sb.Append(string.Format("Elevation: {0}", Elevation));
             sb.Append(string.Format("Coordinate: {0}", Coordinate));
+            sb.Append(string.Format("Elevation: {0}", Elevation));
+            sb.Append(string.Format("GeoJson: {0}", GeoJson));
             sb.Append(string.Format("H3Index: {0}", H3Index));
             sb.Append(']');
             return sb.ToString();

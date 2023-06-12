@@ -4,9 +4,8 @@ using NetTopologySuite.Geometries;
 
 namespace Deploy.LaunchPad.Core.Geospatial
 {
-    public partial interface IObservationPoint<TPrimaryKey, TGeoJsonType, TParentAreaOfInterest> : ICanBeDescribedInGeoJson<TGeoJsonType>, ICanBeDescribedInH3, IHaveElevation
-        where TParentAreaOfInterest : Geometry
-        where TGeoJsonType : Geometry
+    public partial interface IObservationPoint<TPrimaryKey, TParentAreaOfInterest> : IHaveGeographicPosition, IHaveGeoJsonDefinition, IHaveH3Definition, IHaveElevation
+        where TParentAreaOfInterest : IAreaOfInterest<TPrimaryKey>
     {
         public TParentAreaOfInterest ParentAoi { get; set; }
 
