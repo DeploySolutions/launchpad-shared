@@ -61,13 +61,26 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
         [XmlAttribute]
         public virtual string GeoJson { get; set; }
 
+        protected Coordinate _earthCoordinate;
         [DataObjectField(false)]
         [XmlAttribute]
         public virtual Coordinate Coordinate
         {
             get
             {
-                return _geometry.Coordinate;
+                return _earthCoordinate;
+            }
+            set
+            {
+                Guard.Against<ArgumentException>(double.IsNaN(value.X), Deploy_LaunchPad_Core_Resources.Guard_GeographicLocation_Set_Longitude_NaN);
+                Guard.Against<ArgumentOutOfRangeException>(value.X > 180, Deploy_LaunchPad_Core_Resources.Guard_GeographicLocation_Set_Longitude_Not_GreaterThan_180);
+                Guard.Against<ArgumentOutOfRangeException>(value.X < -180, Deploy_LaunchPad_Core_Resources.Guard_GeographicLocation_Set_Longitude_Not_LessThan_Minus180);
+                Guard.Against<ArgumentException>(double.IsNaN(value.Y), Deploy_LaunchPad_Core_Resources.Guard_GeographicLocation_Set_Latitude_NaN);
+                Guard.Against<ArgumentOutOfRangeException>(value.Y > 90, Deploy_LaunchPad_Core_Resources.Guard_GeographicLocation_Set_Latitude_Not_GreaterThan_90);
+                Guard.Against<ArgumentOutOfRangeException>(value.Y < -90, Deploy_LaunchPad_Core_Resources.Guard_GeographicLocation_Set_Latitude_Not_LessThan_Minus_90);
+                Guard.Against<ArgumentOutOfRangeException>(value.Y < -90, Deploy_LaunchPad_Core_Resources.Guard_GeographicLocation_Set_Latitude_Not_LessThan_Minus_90);
+                Guard.Against<ArgumentOutOfRangeException>(value.Y < -90, Deploy_LaunchPad_Core_Resources.Guard_GeographicLocation_Set_Latitude_Not_LessThan_Minus_90);
+                _earthCoordinate = value;
             }
         }
 
@@ -85,6 +98,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
                 _h3Index = value;
             }
         }
+
 
         protected double _elevation;
         [DataObjectField(false)]

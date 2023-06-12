@@ -29,7 +29,7 @@ namespace Deploy.LaunchPad.Core.Geospatial
     /// </summary>
     public interface IHaveGeographicPosition : ISerializable, ILaunchPadObject, IHaveElevation, IHaveH3Definition, IHaveGeoJsonDefinition
     {
-        public Coordinate Coordinate { get;  }
+        public Coordinate Coordinate { get; set; }
 
 
 
