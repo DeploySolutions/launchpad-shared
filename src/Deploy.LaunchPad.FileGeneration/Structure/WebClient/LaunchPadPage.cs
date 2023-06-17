@@ -59,6 +59,12 @@ namespace Deploy.LaunchPad.FileGeneration.Structure
         [XmlElement]
         public IList<LaunchPadTile> Tiles { get; set; }
 
+        /// <summary>
+        /// HTML content location, or the embedded HTML content
+        /// </summary>
+        [XmlElement]
+        public LaunchPadHtml Html { get; set; }
+
         public LaunchPadPage() : base()
         {
         }
@@ -78,7 +84,6 @@ namespace Deploy.LaunchPad.FileGeneration.Structure
             DetailView = (LaunchPadDetailView)info.GetValue("DetailView", typeof(LaunchPadDetailView));
             Maps = (IList<LaunchPadMap>)info.GetValue("Maps", typeof(List<LaunchPadMap>));
             Tiles = (IList<LaunchPadTile>)info.GetValue("Tiles", typeof(List<LaunchPadTile>));
-
         }
 
         /// <summary>
@@ -96,7 +101,6 @@ namespace Deploy.LaunchPad.FileGeneration.Structure
             info.AddValue("WebForm", WebForm);
             info.AddValue("DetailView", DetailView);
             info.AddValue("Tiles", Tiles);
-
         }
     }
 }
