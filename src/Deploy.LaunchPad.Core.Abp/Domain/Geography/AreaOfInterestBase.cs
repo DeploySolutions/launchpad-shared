@@ -24,6 +24,7 @@ using NetTopologySuite.IO;
 using Newtonsoft.Json;
 using System;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.IO;
 using System.Runtime.Serialization;
@@ -59,6 +60,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
 
         [DataObjectField(false)]
         [XmlAttribute]
+        [MaxLength]
         public virtual string GeoJson { get; set; }
 
         protected Coordinate _earthCoordinate;

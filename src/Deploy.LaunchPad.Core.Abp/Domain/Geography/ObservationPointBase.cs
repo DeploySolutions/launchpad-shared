@@ -26,6 +26,7 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.IO;
 using System.Runtime.Serialization;
@@ -50,6 +51,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
 
         [DataObjectField(false)]
         [XmlAttribute]
+        [MaxLength]
         public virtual string GeoJson { get; set; }
 
         [NotMapped]
