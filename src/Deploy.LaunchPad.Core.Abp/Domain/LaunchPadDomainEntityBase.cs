@@ -67,6 +67,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
         [XmlAttribute]
         public virtual string Name { get; set; }
 
+        protected string _fullyQualifiedName;
         /// <summary>
         /// The fully-qualified name of this object (if different from the Name field)
         /// </summary>
@@ -74,7 +75,23 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
         [MaxLength(100, ErrorMessageResourceName = "Validation_Name_256CharsOrLess", ErrorMessageResourceType = typeof(Deploy_LaunchPad_Core_Resources))]
         [DataObjectField(false)]
         [XmlAttribute]
-        public virtual string FullyQualifiedName { get; set; }
+        public virtual string FullyQualifiedName { 
+            get
+            {
+                if(string.IsNullOrEmpty(_fullyQualifiedName))
+                {
+                    return Name;
+                }
+                else 
+                { 
+                    return _fullyQualifiedName;
+                }
+            }
+            set
+            {
+                _fullyQualifiedName = value;
+            }
+        }
 
         /// <summary>
         /// The external ID stored in a client system (if any). Can be any type on client system, but retained here as text.
