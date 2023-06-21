@@ -30,6 +30,8 @@ namespace Deploy.LaunchPad.FileGeneration.Structure
         /// </summary>
         public virtual HashSet<Tuple<string, string>> DependencyInstructions { get; set; } = new HashSet<Tuple<string, string>>();
 
+        public virtual string RelativeFolderPathFromOutputRoot { get; set; } = string.Empty;
+
         public VisualStudioBlueprintDefinitionInstructions() : base()
         {
             var comparer = StringComparer.OrdinalIgnoreCase;
