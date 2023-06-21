@@ -51,7 +51,7 @@ namespace Deploy.LaunchPad.Core.Domain
         public string ExternalId { get; set; }
 
         /// <summary>
-        /// A short description for this value object
+        /// A short description for this object
         /// </summary>
         [Required]
         [MaxLength(256, ErrorMessageResourceName = "Validation_DescriptionShort_256CharsOrLess", ErrorMessageResourceType = typeof(Deploy_LaunchPad_Core_Resources))]
@@ -60,12 +60,20 @@ namespace Deploy.LaunchPad.Core.Domain
         public string DescriptionShort { get; set; }
 
         /// <summary>
-        /// The full description for this value object
+        /// The full description for this object
         /// </summary>
         [MaxLength(8096, ErrorMessageResourceName = "Validation_DescriptionFull_8096CharsOrLess", ErrorMessageResourceType = typeof(Deploy_LaunchPad_Core_Resources))]
         [DataObjectField(false)]
         [XmlElement]
         public string? DescriptionFull { get; set; }
+
+
+        /// <summary>
+        /// The checksum for this  object, if any
+        /// </summary>
+        [DataObjectField(false)]
+        [XmlElement]
+        public string? Checksum { get; set; }
 
         /// <summary>
         /// The sequence number for this value object, if any (for sorting and ordering purposes). Defaults to 0 if not set.

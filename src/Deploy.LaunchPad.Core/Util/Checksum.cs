@@ -1,11 +1,10 @@
-﻿using Deploy.LaunchPad.Core.Util;
-using System;
+﻿using System;
 using System.ComponentModel;
 using System.Security.Cryptography;
 using System.Text;
 using System.Xml.Serialization;
 
-namespace Deploy.LaunchPad.Core.Domain
+namespace Deploy.LaunchPad.Core.Util
 {
     [Serializable]
     public partial class Checksum

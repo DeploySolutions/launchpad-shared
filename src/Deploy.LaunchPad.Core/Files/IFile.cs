@@ -20,6 +20,7 @@ namespace Deploy.LaunchPad.Core.Domain
     using System;
     using System.ComponentModel;
     using System.Xml.Serialization;
+    using Deploy.LaunchPad.Core.Util;
 
     /// <summary>
     /// Marks any object as a file that can be manipulated by the platform.

@@ -94,6 +94,13 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
         }
 
         /// <summary>
+        /// The checksum for this  object, if any
+        /// </summary>
+        [DataObjectField(false)]
+        [XmlAttribute]
+        public virtual string? Checksum { get; set; }
+
+        /// <summary>
         /// The external ID stored in a client system (if any). Can be any type on client system, but retained here as text.
         /// </summary>
         [MaxLength(36, ErrorMessageResourceName = "Validation_ExternalId_36CharsOrLess", ErrorMessageResourceType = typeof(Deploy_LaunchPad_Core_Resources))]
