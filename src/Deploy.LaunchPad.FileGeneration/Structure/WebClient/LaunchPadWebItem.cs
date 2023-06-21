@@ -111,6 +111,12 @@ namespace Deploy.LaunchPad.FileGeneration.Structure
         [JsonProperty("rows", NullValueHandling = NullValueHandling.Ignore)]
         public IList<LaunchPadRow> Rows { get; set; }
 
+        /// <summary>
+        /// List of columns we want to display on the lookup modal table
+        /// </summary>
+        [JsonProperty("displayFields")]
+        public IList<LaunchPadColumn> DisplayFields { get; set; }
+
         public LaunchPadWebItem() : base()
         {
             Id = null;
@@ -142,6 +148,7 @@ namespace Deploy.LaunchPad.FileGeneration.Structure
             DomainEntityIdField = info.GetString("DomainEntityIdField");
             ProvinceDataField = info.GetString("ProvinceDataField");
             Rows = (IList<LaunchPadRow>)info.GetValue("Rows", typeof(List<LaunchPadRow>));
+            DisplayFields = (IList<LaunchPadColumn>)info.GetValue("DisplayFields", typeof(List<LaunchPadColumn>));
 
         }
 
@@ -171,6 +178,7 @@ namespace Deploy.LaunchPad.FileGeneration.Structure
             info.AddValue("DomainEntity", DomainEntity);
             info.AddValue("DomainEntityIdField", DomainEntityIdField);
             info.AddValue("Rows", Rows);
+            info.AddValue("DisplayFields", DisplayFields);
             info.AddValue("Enums", Enums);
         }
     }
