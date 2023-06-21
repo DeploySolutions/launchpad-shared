@@ -245,6 +245,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
             FullyQualifiedName = info.GetString("FullyQualifiedName");
             DescriptionShort = info.GetString("DescriptionShort");
             DescriptionFull = info.GetString("DescriptionFull");
+            Checksum = info.GetString("Checksum");
             Tags = (HashSet<MetadataTag>)info.GetValue("Metadata", typeof(HashSet<MetadataTag>));
             CreationTime = info.GetDateTime("CreationTime");
             CreatorUserId = info.GetInt64("CreatorUserId");
@@ -274,6 +275,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
             info.AddValue("FullyQualifiedName", FullyQualifiedName);
             info.AddValue("DescriptionShort", DescriptionShort);
             info.AddValue("DescriptionFull", DescriptionFull);
+            info.AddValue("Checksum", Checksum);
             info.AddValue("Tags", Tags);
             info.AddValue("SeqNum", SeqNum);
             info.AddValue("CreationTime", CreationTime);
@@ -361,6 +363,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
             sb.AppendFormat("FullyQualifiedName={0};", FullyQualifiedName);
             sb.AppendFormat("DescriptionShort={0};", DescriptionShort);
             sb.AppendFormat("DescriptionFull={0};", DescriptionFull);
+            sb.AppendFormat("Checksum={0};", Checksum);
             sb.AppendFormat("TranslatedFromId={0};", TranslatedFromId);
             sb.AppendFormat(" Tags={0};", Tags.ToString());
             sb.AppendFormat("SeqNum={0};", SeqNum);
@@ -415,7 +418,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
                     // For safe equality we need to match on business key equality.
                     // Base domain entities are functionally equal if their key and metadata are equal.
                     // Subclasses should extend to include their own enhanced equality checks, as required.
-                    return Id.Equals(obj.Id) && Culture.Equals(obj.Culture) && ExternalId.Equals(obj.ExternalId)
+                    return Checksum.Equals(obj.Checksum) && Id.Equals(obj.Id) && Culture.Equals(obj.Culture) && ExternalId.Equals(obj.ExternalId)
                         && FullyQualifiedName.Equals(obj.FullyQualifiedName)
                         && ExternalId.Equals(obj.ExternalId)
                         && IsActive.Equals(obj.IsActive) && IsDeleted.Equals(obj.IsDeleted);
@@ -466,6 +469,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
         {
             return Culture.GetHashCode()
                 + Id.GetHashCode()
+                + Checksum.GetHashCode()
                 + FullyQualifiedName.GetHashCode()
                 + ExternalId.GetHashCode();
         }
