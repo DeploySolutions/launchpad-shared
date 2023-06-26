@@ -1,6 +1,8 @@
 ﻿using Amazon.S3;
 using Amazon.S3.Model;
 using Amazon.S3.Transfer;
+using Amazon.SQS;
+using AwsSignatureVersion4.Private;
 using Castle.Core.Logging;
 using Deploy.LaunchPad.AWS.S3;
 using Deploy.LaunchPad.AWS.S3.Services;
@@ -52,14 +54,11 @@ namespace Deploy.LaunchPad.AWS.Abp.S3.Services
                     responseBody = reader.ReadToEnd(); // Now you process the response body.
                 }
             }
-            catch (AmazonS3Exception e)
-            {
-                // If bucket or object does not exist
-                Console.WriteLine("Error encountered ***. Message:'{0}' when reading object", e.Message);
-            }
             catch (Exception e)
             {
-                Console.WriteLine("Unknown encountered on server. Message:'{0}' when reading object", e.Message);
+                string errorMessage = string.Format("Error encountered ***. Message:'{0}' when reading object", e.Message);
+                Logger.Error(errorMessage, e);
+                throw new InvalidOperationException(errorMessage, e);
             }
             return responseBody;
         }
@@ -103,11 +102,14 @@ namespace Deploy.LaunchPad.AWS.Abp.S3.Services
                     ||
                     amazonS3Exception.ErrorCode.Equals("InvalidSecurity")))
                 {
-                    Logger.Error("Check the provided AWS Credentials.");
+                    Logger.Error(amazonS3Exception.Message + ".Check the provided AWS Credentials.", amazonS3Exception);
+                    throw new InvalidOperationException("Check the provided AWS Credentials.", amazonS3Exception);
                 }
                 else
                 {
-                    Logger.Error("Error occurred: " + amazonS3Exception.Message);
+                    string errorMessage = string.Format("Unknown encountered on server. Message:'{0}' when reading object", amazonS3Exception.Message);
+                    Logger.Error(errorMessage, amazonS3Exception);
+                    throw new InvalidOperationException(errorMessage, amazonS3Exception);
                 }
             }
             return didDownloadSucceed;
@@ -170,10 +172,12 @@ namespace Deploy.LaunchPad.AWS.Abp.S3.Services
                     amazonS3Exception.ErrorCode.Equals("InvalidSecurity")))
                 {
                     Logger.Error("Check the provided AWS Credentials.");
+                    throw new InvalidOperationException(amazonS3Exception.Message, amazonS3Exception);
                 }
                 else
                 {
                     Logger.Error("Error occurred: " + amazonS3Exception.Message);
+                    throw new InvalidOperationException(amazonS3Exception.Message, amazonS3Exception);
                 }
             }
             return didUploadSucceed;
@@ -203,15 +207,15 @@ namespace Deploy.LaunchPad.AWS.Abp.S3.Services
             }
             catch (AmazonS3Exception e)
             {
-                Console.WriteLine(
-                        "Error encountered ***. Message:'{0}' when writing an object"
-                        , e.Message);
+                string errorMessage = string.Format("Unknown error encountered on server. Message:'{0}' when  writing an object", e.Message);
+                Logger.Error(errorMessage, e);
+                throw new InvalidOperationException(e.Message, e);
             }
             catch (Exception e)
             {
-                Console.WriteLine(
-                    "Unknown encountered on server. Message:'{0}' when writing an object"
-                    , e.Message);
+                string errorMessage = string.Format("Unknown error encountered on server. Message:'{0}' when  writing an object", e.Message);
+                Logger.Error(errorMessage, e);
+                throw new InvalidOperationException(e.Message, e);
             }
             return true;
         }
