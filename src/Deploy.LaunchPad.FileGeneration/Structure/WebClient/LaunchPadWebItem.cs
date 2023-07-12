@@ -79,7 +79,7 @@ namespace Deploy.LaunchPad.FileGeneration.Structure
         /// Possible enumurations for dropdown.
         /// </summary>
         [JsonProperty("enums")]
-        public IList<String> Enums { get; set; }
+        public dynamic Enums { get; set; }
 
         /// <summary>
         /// Do we use dynamic enum(dropdown) values from the server, or static hardcoded array
