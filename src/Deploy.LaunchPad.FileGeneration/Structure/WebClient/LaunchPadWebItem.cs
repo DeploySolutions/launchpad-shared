@@ -76,10 +76,22 @@ namespace Deploy.LaunchPad.FileGeneration.Structure
         public string PostalCodeDataField { get; set; }
 
         /// <summary>
-        /// Possible enumurations for .
+        /// Possible enumurations for dropdown.
         /// </summary>
         [JsonProperty("enums")]
-        public dynamic Enums { get; set; }
+        public IList<String> Enums { get; set; }
+
+        /// <summary>
+        /// Do we use dynamic enum(dropdown) values from the server, or static hardcoded array
+        /// </summary>
+        [JsonProperty("dynamicEnums")]
+        public bool DynamicEnums { get; set; }
+
+        /// <summary>
+        /// The field to use as dynamic enums
+        /// </summary>
+        [JsonProperty("dynamicEnumsField")]
+        public string DynamicEnumsField { get; set; }
 
         /// <summary>
         /// Type of this button. Types can be "reset" or "submit".
