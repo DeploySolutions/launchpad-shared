@@ -16,15 +16,15 @@ namespace Deploy.LaunchPad.FileGeneration.Structure.WebApp
         public virtual IDictionary<string, string> CustomHttpHeadersToAdd { get; set; }
 
         /// <summary>
-        /// Contains a dictionary of the custom headers to remove, ensuring each can only be added once. Note the headers may already exist elsewhere in some code.
+        /// Contains a hashset of the custom headers to remove. Note the headers may already exist elsewhere in some code.
         /// </summary>
-        public virtual IDictionary<string, string> CustomHttpHeadersToRemove { get; set; }
+        public virtual HashSet<string> CustomHttpHeadersToRemove { get; set; }
 
         public CustomHttpHeaders()
         {
             var comparer = StringComparer.OrdinalIgnoreCase;
             CustomHttpHeadersToAdd = new Dictionary<string, string>(comparer);
-            CustomHttpHeadersToRemove = new Dictionary<string, string>(comparer);
+            CustomHttpHeadersToRemove = new HashSet<string>(comparer);
 
         }
 
