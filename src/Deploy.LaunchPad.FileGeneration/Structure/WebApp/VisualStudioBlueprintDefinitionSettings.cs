@@ -1,5 +1,6 @@
 ﻿using Deploy.LaunchPad.FileGeneration.Stages;
 using Deploy.LaunchPad.FileGeneration.Stages.Defining;
+using Deploy.LaunchPad.FileGeneration.Structure.WebApp;
 using System;
 using System.Collections.Generic;
 
@@ -7,7 +8,7 @@ namespace Deploy.LaunchPad.FileGeneration.Structure
 {
     [Serializable]
     public partial class VisualStudioBlueprintDefinitionSettings :
-        LaunchPadGeneratedObjectBlueprintDefinitionSettings
+        LaunchPadGeneratedObjectBlueprintDefinitionSettings, IVisualStudioBlueprintDefinitionSettings
     {
         /// The name of the Visual Studio solution (.sln) in which this generated module will belong.
         /// Note: this solution configuration is deliberately placed at the Visual Studio Module level, 
@@ -55,6 +56,10 @@ namespace Deploy.LaunchPad.FileGeneration.Structure
         /// </summary>
         public virtual IDictionary<string, LaunchPadGeneratedObjectBase> AppServiceDefinitions { get; set; }
 
+        /// <summary>
+        /// Contains a dictionary of custom HTTP Headers to add or remove from the component
+        /// </summary>
+        public virtual ICustomHttpHeaders CustomHeaders { get; set; }
 
         /// <summary>
         /// Contains the appsettings JSON elements belonging to this component
@@ -70,6 +75,7 @@ namespace Deploy.LaunchPad.FileGeneration.Structure
             BaseNamespace = string.Empty;
             BaseAppServiceClass = string.Empty;
             BaseAppServiceClassAnnotations = string.Empty;
+            CustomHeaders = new CustomHttpHeaders();
             var comparer = StringComparer.OrdinalIgnoreCase;
             PropertySets = new Dictionary<string, LaunchPadGeneratedDtoPropertySet>(comparer);
             DomainEntityDefinitions = new Dictionary<string, LaunchPadGeneratedObjectBase>(comparer);
