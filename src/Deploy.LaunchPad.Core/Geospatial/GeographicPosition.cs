@@ -65,19 +65,31 @@ namespace Deploy.LaunchPad.Core.Geospatial
         }
 
 
-        protected double _elevation;
+        protected double? _altitude;
         [DataObjectField(false)]
         [XmlAttribute]
-        public virtual double Elevation
+        public virtual double? Altitude
+        {
+            get { return _altitude; }
+            set
+            {
+                Guard.Against<ArgumentException>(double.IsNaN(value.Value), Deploy_LaunchPad_Core_Resources.Guard_GeographicLocation_Set_Altitude);
+                _altitude = value;
+            }
+        }
+
+        protected double? _elevation;
+        [DataObjectField(false)]
+        [XmlAttribute]
+        public virtual double? Elevation
         {
             get { return _elevation; }
             set
             {
-                Guard.Against<ArgumentException>(double.IsNaN(value), Deploy_LaunchPad_Core_Resources.Guard_GeographicLocation_Set_Elevation);
+                Guard.Against<ArgumentException>(double.IsNaN(value.Value), Deploy_LaunchPad_Core_Resources.Guard_GeographicLocation_Set_Elevation);
                 _elevation = value;
             }
         }
-
 
         protected Coordinate _earthCoordinate;
         [DataObjectField(false)]
@@ -216,7 +228,10 @@ namespace Deploy.LaunchPad.Core.Geospatial
             if (obj != null)
             {
                 if (
-                    Math.Abs(Elevation - obj.Elevation) < 0.0001
+                    (
+                        (Elevation.HasValue && obj.Elevation.HasValue) &&  
+                        Math.Abs(Elevation.Value - obj.Elevation.Value) < 0.0001
+                    )
                     && Math.Abs(Coordinate.X - obj.Coordinate.X) < 0.0001
                     && Math.Abs(Coordinate.Y - obj.Coordinate.Y) < 0.0001
                 )

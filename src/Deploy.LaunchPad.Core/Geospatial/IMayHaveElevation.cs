@@ -19,15 +19,16 @@ using Deploy.LaunchPad.Core.Domain;
 
 namespace Deploy.LaunchPad.Core.Geospatial
 {
+    using Deploy.LaunchPad.Core.Domain.Model;
     using System.Runtime.Serialization;
 
     /// <summary>
     /// This interface defines the physical elevation of something
     /// </summary>
-    public interface IHaveElevation : ISerializable, ILaunchPadObject
+    public interface IMayHaveElevation : ILaunchPadObject
     {
 
-        public double Elevation { get; set; }
+        public double? Elevation { get; set; }
 
 
     }

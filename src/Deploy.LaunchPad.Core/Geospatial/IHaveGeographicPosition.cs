@@ -27,7 +27,7 @@ namespace Deploy.LaunchPad.Core.Geospatial
     /// <summary>
     /// This interface defines the physical position of something, in terms of its latitude, longitude.
     /// </summary>
-    public interface IHaveGeographicPosition : ISerializable, ILaunchPadObject, IHaveElevation, IHaveH3Definition, IHaveGeoJsonDefinition
+    public interface IHaveGeographicPosition : IMayHaveElevation, IMayHaveAltitude, IMayHaveH3Definition, IMayHaveGeoJsonDefinition
     {
         public Coordinate Coordinate { get; set; }
 

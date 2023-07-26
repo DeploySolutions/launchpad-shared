@@ -19,15 +19,16 @@ using Deploy.LaunchPad.Core.Domain;
 
 namespace Deploy.LaunchPad.Core.Geospatial
 {
+    using Deploy.LaunchPad.Core.Domain.Model;
     using System.Runtime.Serialization;
 
     /// <summary>
     /// This interface defines the physical altitude of something
     /// </summary>
-    public interface IHaveAltitude : ISerializable, ILaunchPadObject
+    public interface IMayHaveAltitude : ILaunchPadObject
     {
 
-        public double Altitude { get; set; }
+        public double? Altitude { get; set; }
 
 
     }

@@ -7,10 +7,10 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Deploy.LaunchPad.Core.Geospatial.GeoJson
 {
-    public interface IHaveGeoJsonDefinition
+    public interface IMayHaveGeoJsonDefinition
     {
         
-        public string GeoJson { get; set; }
+        public string? GeoJson { get; set; }
 
     }
 }
