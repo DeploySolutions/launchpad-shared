@@ -15,19 +15,25 @@
 //limitations under the License. 
 #endregion
 
+using Abp.Domain.Entities;
+using Abp.Domain.Entities.Auditing;
 using Deploy.LaunchPad.Core.Domain;
+using Deploy.LaunchPad.Core.Domain.Model;
 using System;
 
-namespace Deploy.LaunchPad.Core.Abp.Domain
+namespace Deploy.LaunchPad.Core.Abp.Domain.Model
 {
 
     /// <summary>
-    /// Marks any object that can be manipulated by the LaunchPad platfom as a transient / value object,
-    /// ie. those that are not Domain Entities / have no specific identity, and are not persisted to database 
+    /// Marks any object as a Domain Entity that can be manipulated by the LaunchPad platform.
+    /// Each entity is uniquely identified by its DomainEntityKey, and contains a 
+    /// set of <see cref="MetadataInformation">MetadataInformation</see>.
+    /// Each entity also implements ASP.NET Boilerplate's IEntity interface.
     /// </summary>
-    public interface ILaunchPadValueObject :
-        ILaunchPadObject,
-        IComparable<LaunchPadValueObjectBase>
+    public interface ILaunchPadAuditedDomainEntity<TIdType> :
+        ILaunchPadDomainEntityProperties<TIdType>, IEntity<TIdType>,
+        IPassivable, IFullAudited,
+        IComparable<LaunchPadDomainEntityBase<TIdType>>, IEquatable<LaunchPadDomainEntityBase<TIdType>>
     {
 
 

@@ -15,7 +15,7 @@
 //limitations under the License. 
 #endregion
 
-namespace Deploy.LaunchPad.Core.Abp.Domain
+namespace Deploy.LaunchPad.Core.Abp.Domain.Model
 {
     using global::Abp.Domain.Entities;
     using global::Abp.Events.Bus;
@@ -99,7 +99,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
         /// Displays information about the <c>Field</c> in readable format.  
         /// </summary>  
         /// <returns>A string representation of the object.</returns>
-        public override String ToString()
+        public override string ToString()
         {
             StringBuilder sb = new StringBuilder();
             // sb.AppendFormat(base.ToStringBaseProperties());
@@ -160,9 +160,9 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
         /// <returns>True if both objects are fully equal based on the Equals logic</returns>
         public static bool operator ==(LaunchPadAggregateRootBase<TIdType> x, LaunchPadAggregateRootBase<TIdType> y)
         {
-            if (System.Object.ReferenceEquals(x, null))
+            if (ReferenceEquals(x, null))
             {
-                if (System.Object.ReferenceEquals(y, null))
+                if (ReferenceEquals(y, null))
                 {
                     return true;
                 }
@@ -186,7 +186,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
         /// Computes and retrieves a hash code for an object.  
         /// </summary>  
         /// <remarks>  
-        /// This method implements the <see cref="Object">Object</see> method.  
+        /// This method implements the <see cref="object">Object</see> method.  
         /// </remarks>  
         /// <returns>A hash code for an object.</returns>
         public override int GetHashCode()

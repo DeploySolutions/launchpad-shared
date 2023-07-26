@@ -18,21 +18,21 @@
 using Abp.Domain.Entities;
 using Abp.Domain.Entities.Auditing;
 using Deploy.LaunchPad.Core.Domain;
+using Deploy.LaunchPad.Core.Domain.Model;
 using System;
 
-namespace Deploy.LaunchPad.Core.Abp.Domain
+namespace Deploy.LaunchPad.Core.Abp.Domain.Model
 {
 
     /// <summary>
-    /// Marks any object as a Domain Entity that can be manipulated by the LaunchPad platform.
-    /// Each entity is uniquely identified by its DomainEntityKey, and contains a 
+    /// Marks any object as an Aggregate Root/Domain Entity that can be manipulated by the LaunchPad platform.
+    /// Each entity is uniquely identified by its ID, and contains a 
     /// set of <see cref="MetadataInformation">MetadataInformation</see>.
-    /// Each entity also implements ASP.NET Boilerplate's IEntity interface.
+    /// Each entity also implements ASP.NET Boilerplate's IAggregateRoot interface.
     /// </summary>
-    public interface ILaunchPadDomainEntity<TIdType> :
-        ILaunchPadObject, ILaunchPadBaseProperties<TIdType>, IEntity<TIdType>,
-        IHasCreationTime, ICreationAudited, IHasModificationTime, IModificationAudited, IDeletionAudited,
-        ISoftDelete, IPassivable,
+    public interface ILaunchPadAggregateRoot<TIdType> :
+        ILaunchPadDomainEntityProperties<TIdType>, IAggregateRoot<TIdType>,
+        ICreationAudited, IModificationAudited, IDeletionAudited, IPassivable,
         IComparable<LaunchPadDomainEntityBase<TIdType>>, IEquatable<LaunchPadDomainEntityBase<TIdType>>
     {
 

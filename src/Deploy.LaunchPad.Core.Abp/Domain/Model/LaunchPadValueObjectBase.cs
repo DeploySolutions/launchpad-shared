@@ -16,11 +16,13 @@
 #endregion
 
 using Abp.Domain.Values;
+using Deploy.LaunchPad.Core.Domain;
+using Deploy.LaunchPad.Core.Domain.Model;
 using System;
 using System.Reflection;
 using System.Runtime.Serialization;
 
-namespace Deploy.LaunchPad.Core.Abp.Domain
+namespace Deploy.LaunchPad.Core.Abp.Domain.Model
 {
 
     /// <summary>
@@ -31,7 +33,8 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
     /// Implements AspNetBoilerplate's auditing interfaces.
     /// </summary>
     [Serializable]
-    public abstract partial class LaunchPadValueObjectBase : ValueObject, ILaunchPadValueObject
+    public abstract partial class LaunchPadValueObjectBase : ValueObject,
+        ILaunchPadValueObject
     {
 
 
@@ -97,14 +100,6 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
             return clone;
         }
 
-        /// <summary>
-        /// Comparison method between two objects of the same type, used for sorting.
-        /// Because the CompareTo method is strongly typed by generic constraints,
-        /// it is not necessary to test for the correct object type.
-        /// </summary>
-        /// <param name="other">The other object of this type we are comparing to</param>
-        /// <returns></returns>
-        public abstract int CompareTo(LaunchPadValueObjectBase other);
 
     }
 }

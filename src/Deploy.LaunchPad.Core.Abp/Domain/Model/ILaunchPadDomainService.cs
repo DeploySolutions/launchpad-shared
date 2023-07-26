@@ -17,7 +17,7 @@
 
 using Abp.Domain.Services;
 
-namespace Deploy.LaunchPad.Core.Abp.Domain
+namespace Deploy.LaunchPad.Core.Abp.Domain.Model
 {
     /// <summary>
     /// This is a marker interface to support auto-registration as a IoC / Dependency Injection component.

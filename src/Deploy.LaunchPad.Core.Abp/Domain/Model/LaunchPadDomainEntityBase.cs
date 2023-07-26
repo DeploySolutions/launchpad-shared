@@ -15,8 +15,9 @@
 //limitations under the License. 
 #endregion
 
-namespace Deploy.LaunchPad.Core.Abp.Domain
+namespace Deploy.LaunchPad.Core.Abp.Domain.Model
 {
+    using Deploy.LaunchPad.Core;
     using Deploy.LaunchPad.Core.Abp.Domain.SoftwareApplications;
     using Deploy.LaunchPad.Core.Domain;
     using global::Abp.Domain.Entities.Auditing;
@@ -75,15 +76,16 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
         [MaxLength(100, ErrorMessageResourceName = "Validation_Name_256CharsOrLess", ErrorMessageResourceType = typeof(Deploy_LaunchPad_Core_Resources))]
         [DataObjectField(false)]
         [XmlAttribute]
-        public virtual string FullyQualifiedName { 
+        public virtual string FullyQualifiedName
+        {
             get
             {
-                if(string.IsNullOrEmpty(_fullyQualifiedName))
+                if (string.IsNullOrEmpty(_fullyQualifiedName))
                 {
                     return Name;
                 }
-                else 
-                { 
+                else
+                {
                     return _fullyQualifiedName;
                 }
             }
@@ -98,7 +100,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
         /// </summary>
         [DataObjectField(false)]
         [XmlAttribute]
-        public virtual string? Checksum { get; set; }
+        public virtual string Checksum { get; set; }
 
         /// <summary>
         /// The external ID stored in a client system (if any). Can be any type on client system, but retained here as text.
@@ -123,7 +125,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
         [MaxLength(8096, ErrorMessageResourceName = "Validation_DescriptionFull_8096CharsOrLess", ErrorMessageResourceType = typeof(Deploy_LaunchPad_Core_Resources))]
         [DataObjectField(false)]
         [XmlElement]
-        public virtual string? DescriptionFull { get; set; }
+        public virtual string DescriptionFull { get; set; }
 
         /// <summary>
         /// The sequence number for this entity, if any (for sorting and ordering purposes). Defaults to 0 if not set.
@@ -339,7 +341,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
         /// Displays information about the <c>Field</c> in readable format.  
         /// </summary>  
         /// <returns>A string representation of the object.</returns>
-        public override String ToString()
+        public override string ToString()
         {
             StringBuilder sb = new StringBuilder();
             sb.Append("[DomainEntityBase: ");
@@ -353,7 +355,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
         /// the common base properties
         /// </summary>
         /// <returns>A string description of the entity</returns>
-        protected virtual String ToStringBaseProperties()
+        protected virtual string ToStringBaseProperties()
         {
             StringBuilder sb = new StringBuilder();
             // LaunchPAD RAD properties
@@ -462,7 +464,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
         /// Computes and retrieves a hash code for an object.  
         /// </summary>  
         /// <remarks>  
-        /// This method implements the <see cref="Object">Object</see> method.  
+        /// This method implements the <see cref="object">Object</see> method.  
         /// </remarks>  
         /// <returns>A hash code for an object.</returns>
         public override int GetHashCode()
