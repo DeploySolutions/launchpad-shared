@@ -16,7 +16,7 @@
 #endregion
 
 
-namespace Deploy.LaunchPad.Space.Satellites.Core
+namespace Deploy.LaunchPad.Space.Satellites.Core.Satellites
 {
 
     public partial interface IAsteroidObservationSatellite : ISatellite

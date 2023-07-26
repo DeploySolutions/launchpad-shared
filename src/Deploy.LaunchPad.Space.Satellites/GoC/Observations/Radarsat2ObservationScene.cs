@@ -28,9 +28,8 @@ namespace Deploy.LaunchPad.Space.Satellites.GoC
     using System;
 
     [Serializable()]
-    public partial class Radarsat2ObservationScene<TPrimaryKey, TFileStorageLocationType> : RadarsatObservationSceneCommonMetadata<TPrimaryKey, TFileStorageLocationType>,
-        IRadarsatObservationScene<TPrimaryKey, TFileStorageLocationType>
-        where TFileStorageLocationType : IFileStorageLocation, new()
+    public partial class Radarsat2ObservationScene : RadarsatObservationSceneCommonMetadata,
+        IRadarsatObservationScene
     {
 
         [JsonProperty("productId")]

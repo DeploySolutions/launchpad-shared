@@ -24,8 +24,7 @@ namespace Deploy.LaunchPad.Space.Satellites.Landsat
     /// Marker interface for Landsat satellite series observations
     /// </summary>
     /// <typeparam name="TPrimaryKey"></typeparam>
-    public partial interface ILandsatObservationScene<TPrimaryKey, TFileStorageLocationType> : IEarthObservationScene<TPrimaryKey, TFileStorageLocationType>
-        where TFileStorageLocationType : IFileStorageLocation, new()
+    public partial interface ILandsatObservationScene : IEarthObservationScene
     {
         public string Bucket { get; set; }
 

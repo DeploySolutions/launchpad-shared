@@ -23,9 +23,7 @@ namespace Deploy.LaunchPad.Space.Satellites.GoC
     /// <summary>
     /// Marker interface for Canada's RADARSAT satellite series
     /// </summary>
-    /// <typeparam name="TPrimaryKey"></typeparam>
-    public partial interface IRadarsatObservationScene<TPrimaryKey, TFileStorageLocationType> : IEarthObservationScene<TPrimaryKey, TFileStorageLocationType>
-        where TFileStorageLocationType : IFileStorageLocation, new()
+    public partial interface IRadarsatObservationScene : IEarthObservationScene
     {
     }
 }

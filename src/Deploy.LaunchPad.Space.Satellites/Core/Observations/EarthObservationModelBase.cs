@@ -20,15 +20,15 @@ namespace Deploy.LaunchPad.Space.Satellites.Core
 {
 
     using Deploy.LaunchPad.Core.Abp.Domain;
+    using Deploy.LaunchPad.Core.Abp.Domain.Model;
     using Deploy.LaunchPad.Core.Domain;
     using Deploy.LaunchPad.Core.Geospatial;
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
 
-    public abstract class EarthObservationBase<TPrimaryKey, TFileStorageLocationType> : LaunchPadDomainEntityBase<TPrimaryKey>,
-        IEarthObservationScene<TPrimaryKey, TFileStorageLocationType>
-        where TFileStorageLocationType : IFileStorageLocation, new()
+    public abstract class EarthObservationModelBase : LaunchPadModelBase,
+        IEarthObservationScene
 
     {
         public const int MaxNameLength = 4 * 1024; //4KB
@@ -58,7 +58,7 @@ namespace Deploy.LaunchPad.Space.Satellites.Core
 
 
         [Required]
-        public virtual IDictionary<string, FileBase<TPrimaryKey, byte[]>> Objects { get; set; }
+        public virtual IDictionary<string, dynamic> Objects { get; set; }
 
         [Required]
         public virtual SpaceTimeInformation CurrentLocation { get; set; }
@@ -82,10 +82,10 @@ namespace Deploy.LaunchPad.Space.Satellites.Core
         /// </summary>
         public virtual EOSDISLevelEnum Level { get; set; }
 
-        protected EarthObservationBase() : base()
+        protected EarthObservationModelBase() : base()
         {
             var comparer = StringComparer.OrdinalIgnoreCase;
-            Objects = new Dictionary<string, FileBase<TPrimaryKey, byte[]>>(comparer);
+            Objects = new Dictionary<string, dynamic>(comparer);
         }
 
     }

@@ -18,7 +18,7 @@
 
 namespace Deploy.LaunchPad.Space.Satellites.Core
 {
-    using Deploy.LaunchPad.Core.Abp.Domain;
+    using Deploy.LaunchPad.Core.Abp.Domain.Model;
     using System;
     using System.Collections.Generic;
     using System.Xml.Serialization;

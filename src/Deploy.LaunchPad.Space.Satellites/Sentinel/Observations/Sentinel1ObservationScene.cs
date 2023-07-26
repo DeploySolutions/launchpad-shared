@@ -3,9 +3,8 @@ using Deploy.LaunchPad.Space.Satellites.Core;
 
 namespace Deploy.LaunchPad.Space.Satellites.Sentinel
 {
-    public partial class Sentinel1ObservationScene<TPrimaryKey, TFileStorageLocationType> : EarthObservationBase<TPrimaryKey, TFileStorageLocationType>,
-        ISentinel1ObservationScene<TPrimaryKey, TFileStorageLocationType>
-        where TFileStorageLocationType : IFileStorageLocation, new()
+    public partial class Sentinel1ObservationScene : EarthObservationModelBase,
+        ISentinel1ObservationScene
     {
         public string Bucket { get; set; }
         public string ProductId { get; set; }

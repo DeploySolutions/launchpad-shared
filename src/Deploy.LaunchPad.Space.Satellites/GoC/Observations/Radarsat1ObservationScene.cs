@@ -33,9 +33,8 @@ namespace Deploy.LaunchPad.Space.Satellites.GoC
     using System.ComponentModel.DataAnnotations.Schema;
 
     [Table("DssRadarsat1Observations")]
-    public partial class Radarsat1ObservationScene<TPrimaryKey, TFileStorageLocationType> : EarthObservationBase<TPrimaryKey, TFileStorageLocationType>,
-        IRadarsatObservationScene<TPrimaryKey, TFileStorageLocationType>
-        where TFileStorageLocationType : IFileStorageLocation, new()
+    public partial class Radarsat1ObservationScene : EarthObservationModelBase,
+        IRadarsatObservationScene
     {
         public enum FileTypes
         {
@@ -140,49 +139,6 @@ namespace Deploy.LaunchPad.Space.Satellites.GoC
             LastModificationTime = Clock.Now;
             CurrentLocation.PhysicalLocation = SceneCentre;
             CurrentLocation.PointInTime = SceneStartTime;
-        }
-
-        public Radarsat1ObservationScene(
-           TPrimaryKey id,
-           int? tenantId,
-           string sceneId,
-           string mdaOrderNumber,
-           string geographicalArea,
-           DateTime sceneStart,
-           DateTime sceneStop,
-           string orbit,
-           string orbitDataType,
-           string applicationLut,
-           string beamMode,
-           string productType,
-           string format,
-           int numberImageLines,
-           int numberImagePixels,
-           string pixelSpacing,
-           GeographicPosition sceneCentre,
-           ImageObservationCornerCoordinates cornerCoordinates
-        ) : base()
-        {
-            Id = id;
-            new Radarsat1ObservationScene<TPrimaryKey, TFileStorageLocationType>(
-                tenantId,
-                sceneId,
-                mdaOrderNumber,
-                geographicalArea,
-                sceneStart,
-                sceneStop,
-                orbit,
-                orbitDataType,
-                applicationLut,
-                beamMode,
-                productType,
-                format,
-                numberImageLines,
-                numberImagePixels,
-                pixelSpacing,
-                sceneCentre,
-                cornerCoordinates
-            );
         }
 
         protected Radarsat1ObservationScene() : base()

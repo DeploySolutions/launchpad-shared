@@ -24,7 +24,7 @@ namespace Deploy.LaunchPad.Space.Tests
 
     public class Radarsat1MetadataFileFixture : IDisposable
     {
-        public Radarsat1ObservationScene<Guid, WindowsFileStorageLocation> Observation { get; set; }
+        public Radarsat1ObservationScene Observation { get; set; }
 
         public void Initialize(string radarsat1MetadataFilename)
         {

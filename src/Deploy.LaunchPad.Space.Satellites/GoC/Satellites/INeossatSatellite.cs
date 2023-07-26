@@ -20,7 +20,7 @@
 // https://open.canada.ca/en/open-government-licence-canada 
 
 
-using Deploy.LaunchPad.Space.Satellites.Core;
+using Deploy.LaunchPad.Space.Satellites.Core.Satellites;
 
 namespace Deploy.LaunchPad.Space.Satellites.GoC
 {

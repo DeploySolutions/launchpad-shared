@@ -6,9 +6,8 @@ using System;
 namespace Deploy.LaunchPad.Space.Satellites.GoC
 {
     [Serializable()]
-    public partial class RadarsatObservationSceneCommonMetadata<TPrimaryKey, TFileStorageLocationType> : EarthObservationBase<TPrimaryKey, TFileStorageLocationType>,
-        IRadarsatObservationScene<TPrimaryKey, TFileStorageLocationType>
-        where TFileStorageLocationType : IFileStorageLocation, new()
+    public partial class RadarsatObservationSceneCommonMetadata : EarthObservationModelBase,
+        IRadarsatObservationScene
     {
         [JsonProperty("recordId")]
         public string RecordId { get; set; }

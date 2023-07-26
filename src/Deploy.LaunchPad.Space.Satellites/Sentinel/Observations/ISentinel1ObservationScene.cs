@@ -24,8 +24,7 @@ namespace Deploy.LaunchPad.Space.Satellites.Sentinel
     /// Marker interface for Sentinel satellite series observations
     /// </summary>
     /// <typeparam name="TPrimaryKey"></typeparam>
-    public interface ISentinel1ObservationScene<TPrimaryKey, TFileStorageLocationType> : IEarthObservationScene<TPrimaryKey, TFileStorageLocationType>
-        where TFileStorageLocationType : IFileStorageLocation, new()
+    public interface ISentinel1ObservationScene : IEarthObservationScene
     {
 
         public string Path { get; set; }

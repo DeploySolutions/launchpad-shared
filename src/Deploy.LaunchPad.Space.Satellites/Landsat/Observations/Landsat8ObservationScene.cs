@@ -3,8 +3,8 @@ using Deploy.LaunchPad.Space.Satellites.Core;
 
 namespace Deploy.LaunchPad.Space.Satellites.Landsat
 {
-    public partial class Landsat8ObservationScene<TPrimaryKey, TFileStorageLocationType> : EarthObservationBase<TPrimaryKey, TFileStorageLocationType>,
-        ILandsatObservationScene<TPrimaryKey, TFileStorageLocationType>
+    public partial class Landsat8ObservationScene<TPrimaryKey, TFileStorageLocationType> : EarthObservationModelBase,
+        ILandsatObservationScene
         where TFileStorageLocationType : IFileStorageLocation, new()
     {
         public string Bucket { get; set; }

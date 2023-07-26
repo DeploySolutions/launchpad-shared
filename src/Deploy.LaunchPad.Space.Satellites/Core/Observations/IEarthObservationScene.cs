@@ -19,13 +19,13 @@ namespace Deploy.LaunchPad.Space.Satellites.Core
 {
     using Deploy.LaunchPad.Core.Abp.Domain;
     using Deploy.LaunchPad.Core.Domain;
+    using Deploy.LaunchPad.Core.Domain.Model;
     using Deploy.LaunchPad.Core.Geospatial;
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
 
-    public partial interface IEarthObservationScene<TPrimaryKey, TFileStorageLocationType> : ILaunchPadDomainEntity<TPrimaryKey>, IPhysicallyLocatable
-        where TFileStorageLocationType : IFileStorageLocation, new()
+    public partial interface IEarthObservationScene : ILaunchPadCommonProperties, IPhysicallyLocatable
     {
 
         [Required]
@@ -43,7 +43,7 @@ namespace Deploy.LaunchPad.Space.Satellites.Core
 
 
         [Required]
-        public IDictionary<string, FileBase<TPrimaryKey, byte[]>> Objects { get; set; }
+        public IDictionary<string, dynamic> Objects { get; set; }
 
         /// <summary>
         /// The copyright information and license under which this observation may be used
