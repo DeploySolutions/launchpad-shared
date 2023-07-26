@@ -16,7 +16,7 @@
 #endregion
 
 
-using Deploy.LaunchPad.Core.Abp.Domain;
+using Deploy.LaunchPad.Core.Abp.Domain.Model;
 using ImageMagick;
 using System.IO;
 

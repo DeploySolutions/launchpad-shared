@@ -1,5 +1,4 @@
-﻿
-using Deploy.LaunchPad.Core.Abp.Domain;
+﻿using Deploy.LaunchPad.Core.Abp.Domain.Model;
 using System.ComponentModel;
 using System.Xml.Serialization;
 

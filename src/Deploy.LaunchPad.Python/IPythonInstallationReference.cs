@@ -1,4 +1,5 @@
 ﻿using Deploy.LaunchPad.Core.Domain;
+using Deploy.LaunchPad.Core.Domain.Model;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
