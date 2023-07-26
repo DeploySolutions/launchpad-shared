@@ -22,6 +22,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.SoftwareApplications
     using System.ComponentModel;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Xml.Serialization;
+    using Deploy.LaunchPad.Core.Abp.Domain.Model;
 
     /// <summary>
     /// Represents a tenant in an application.

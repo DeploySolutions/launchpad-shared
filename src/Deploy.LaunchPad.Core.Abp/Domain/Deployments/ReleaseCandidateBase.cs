@@ -18,7 +18,7 @@
 using System;
 using System.Runtime.Serialization;
 using System.Text;
-
+using Deploy.LaunchPad.Core.Abp.Domain.Model;
 
 namespace Deploy.LaunchPad.Core.Abp.Domain
 {

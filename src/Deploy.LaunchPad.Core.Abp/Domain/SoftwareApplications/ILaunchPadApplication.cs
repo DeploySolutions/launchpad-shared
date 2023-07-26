@@ -21,6 +21,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.SoftwareApplications
     using System.Collections.Generic;
     using System.ComponentModel;
     using System.Xml.Serialization;
+    using Deploy.LaunchPad.Core.Abp.Domain.Model;
 
     /// <summary>
     /// Represents an application in the LaunchPad RAD framework.

@@ -16,6 +16,7 @@
 #endregion
 
 using Abp.Domain.Entities;
+using Deploy.LaunchPad.Core.Abp.Domain.Model;
 using Deploy.LaunchPad.Core.Geospatial;
 using Deploy.LaunchPad.Core.Util;
 using H3;
@@ -39,7 +40,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
     /// </summary>
     [Serializable()]
     public abstract partial class AreaOfInterestBase<TIdType> :
-        LaunchPadDomainEntityBase<TIdType>, IAreaOfInterest<TIdType>, IMayHaveTenant
+        LaunchPadDomainEntityBase<TIdType>, IAreaOfInterest, IMayHaveTenant
     {
         public virtual int? TenantId { get; set; }
 
@@ -61,7 +62,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
         [DataObjectField(false)]
         [XmlAttribute]
         [MaxLength]
-        public virtual string GeoJson { get; set; }
+        public virtual string? GeoJson { get; set; }
 
         protected Coordinate _earthCoordinate;
         [DataObjectField(false)]
@@ -86,10 +87,10 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
             }
         }
 
-        protected H3Index _h3Index;
+        protected H3Index? _h3Index;
         [DataObjectField(false)]
         [XmlAttribute]
-        public virtual H3Index H3Index
+        public virtual H3Index? H3Index
         {
             get
             {
@@ -101,16 +102,28 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
             }
         }
 
-
-        protected double _elevation;
+        protected double? _altitude;
         [DataObjectField(false)]
         [XmlAttribute]
-        public virtual double Elevation
+        public virtual double? Altitude
+        {
+            get { return _altitude; }
+            set
+            {
+                Guard.Against<ArgumentException>(double.IsNaN(value.Value), Deploy_LaunchPad_Core_Resources.Guard_GeographicLocation_Set_Altitude);
+                _altitude = value;
+            }
+        }
+
+        protected double? _elevation;
+        [DataObjectField(false)]
+        [XmlAttribute]
+        public virtual double? Elevation
         {
             get { return _elevation; }
             set
             {
-                Guard.Against<ArgumentException>(double.IsNaN(value), Deploy_LaunchPad_Core_Resources.Guard_GeographicLocation_Set_Elevation);
+                Guard.Against<ArgumentException>(double.IsNaN(value.Value), Deploy_LaunchPad_Core_Resources.Guard_GeographicLocation_Set_Elevation);
                 _elevation = value;
             }
         }

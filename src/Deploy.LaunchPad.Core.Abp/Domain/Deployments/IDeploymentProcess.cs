@@ -18,6 +18,7 @@
 using System;
 using System.ComponentModel;
 using System.Xml.Serialization;
+using Deploy.LaunchPad.Core.Abp.Domain.Model;
 
 namespace Deploy.LaunchPad.Core.Abp.Domain
 {

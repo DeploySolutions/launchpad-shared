@@ -15,6 +15,7 @@
 //limitations under the License. 
 #endregion
 
+using Deploy.LaunchPad.Core.Abp.Domain.Model;
 using Deploy.LaunchPad.Core.Domain;
 using Deploy.LaunchPad.Core.Util;
 using System;

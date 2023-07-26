@@ -16,6 +16,7 @@
 #endregion
 
 using System.Collections.Generic;
+using Deploy.LaunchPad.Core.Abp.Domain.Model;
 
 namespace Deploy.LaunchPad.Core.Abp.Domain
 {

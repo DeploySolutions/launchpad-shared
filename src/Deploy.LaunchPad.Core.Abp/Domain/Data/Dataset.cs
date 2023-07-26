@@ -21,6 +21,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
     using System.Collections.Generic;
     using System.Runtime.Serialization;
     using System.Text;
+    using Deploy.LaunchPad.Core.Abp.Domain.Model;
 
     public abstract class DataSet<TPrimaryKey, TDictionaryKey, TDataPointPrimaryKey> : LaunchPadDomainEntityBase<TPrimaryKey>, IDataSet<TPrimaryKey, TDictionaryKey, TDataPointPrimaryKey>
         where TDictionaryKey : struct
