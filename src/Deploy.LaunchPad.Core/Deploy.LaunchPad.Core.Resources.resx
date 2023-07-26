@@ -171,8 +171,11 @@
   <data name="Guard_GeographicLocation_Instantiate_FormatException" xml:space="preserve">
     <value>Should not throw FormatException due to DateString</value>
   </data>
+  <data name="Guard_GeographicLocation_Set_Altitude" xml:space="preserve">
+    <value>Altitude must be a valid decimal number.</value>
+  </data>
   <data name="Guard_GeographicLocation_Set_Elevation" xml:space="preserve">
-    <value>Elevation must be a valid number.</value>
+    <value>Elevation must be a valid decimal number.</value>
   </data>
   <data name="Guard_GeographicLocation_Set_Latitude_NaN" xml:space="preserve">
     <value>Value was either too large or too small for a Decimal.</value>
