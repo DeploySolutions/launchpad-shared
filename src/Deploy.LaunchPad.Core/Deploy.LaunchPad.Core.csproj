@@ -11,7 +11,7 @@
     <GenerateBindingRedirectsOutputType>true</GenerateBindingRedirectsOutputType>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
-    <Version>9.3.2</Version>
+    <Version>9.4.0</Version>
     <Description>Shared code for LaunchPad framework.</Description>
     <Copyright>2018-2023 Deploy Software Solutions, inc.</Copyright>
     <PackageIconUrl></PackageIconUrl>
@@ -23,7 +23,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Domain\Base\DomainEntityBase.cs~RF1df0f88b.TMP" />
+    <None Remove="Domain\Model\DomainEntityBase.cs~RF1df0f88b.TMP" />
     <None Include="..\..\LICENSE">
       <Pack>True</Pack>
       <PackagePath></PackagePath>
