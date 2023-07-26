@@ -16,7 +16,7 @@
 #endregion
 
 
-namespace Deploy.LaunchPad.Core.Domain
+namespace Deploy.LaunchPad.Core.Domain.Model
 {
     using System.Runtime.Serialization;
 
