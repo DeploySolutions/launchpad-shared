@@ -25,7 +25,7 @@ namespace Deploy.LaunchPad.Space.Satellites.Core
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
 
-    public partial interface IEarthObservationScene : ILaunchPadCommonProperties, IPhysicallyLocatable
+    public partial interface IEarthObservationScene : ILaunchPadCommonProperties, ILaunchPadObject, IPhysicallyLocatable
     {
 
         [Required]
