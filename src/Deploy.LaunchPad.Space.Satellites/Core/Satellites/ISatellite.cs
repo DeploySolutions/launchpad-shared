@@ -18,18 +18,33 @@
 
 namespace Deploy.LaunchPad.Space.Satellites.Core
 {
-
+    using Deploy.LaunchPad.Space.Satellites.Core.Observations;
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
 
     public partial interface ISatellite
     {
-        IEnumerable<ISatelliteOperator<Guid>> Operators { get; set; }
+        public string ReferenceSystem {get;set;}
+
+        public string OrbitalRegime {get;set;}
+
+        public double AltitudeInKm { get; set; }
+
+        public double InclinationDegrees { get; set; }
+
+        public double OrbitalPeriodInMinutes { get; set; }
+
+        IDictionary<Guid, ISatelliteOperator<Guid>> Operators { get; set; }
 
         string CosparID { get; set; }
 
         string SatelliteCatalogNumber { get; set; }
 
         Uri Website { get; set; }
+
+        [Required]
+        public IDictionary<string, ISensor> Sensors { get; set; }
+
     }
 }

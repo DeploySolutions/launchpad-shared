@@ -31,9 +31,14 @@ namespace Deploy.LaunchPad.Space.Satellites.GoC
     {
         protected NeossatSatellite(int? tenantId) : base()
         {
-            Operators = new List<ISatelliteOperator<Guid>>() {
-                new CanadaSpaceAgency(tenantId) as ISatelliteOperator<Guid>,
-                new DefenceResearchDevelopmentCanada(tenantId) as ISatelliteOperator<Guid>
+            var csaOperator = new CanadaSpaceAgency(tenantId);
+            csaOperator.Id = Guid.NewGuid();
+            var drdcOperator = new DefenceResearchDevelopmentCanada(tenantId);
+            drdcOperator.Id = Guid.NewGuid();
+            Operators = new Dictionary<Guid, ISatelliteOperator<Guid>>
+            {
+                { csaOperator.Id, csaOperator as ISatelliteOperator<Guid> },
+                { drdcOperator.Id, drdcOperator as ISatelliteOperator<Guid> }
             };
             SatelliteCatalogNumber = "39089";
             CosparID = "2013-009D";

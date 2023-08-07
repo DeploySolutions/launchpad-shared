@@ -20,11 +20,13 @@
 // https://open.canada.ca/en/open-government-licence-canada 
 
 
+using Deploy.LaunchPad.Space.Satellites.Core.Observations;
 using Deploy.LaunchPad.Space.Satellites.Core.Satellites;
 
 namespace Deploy.LaunchPad.Space.Satellites.GoC
 {
     public partial interface INeossatSatellite : IAsteroidObservationSatellite
     {
+
     }
 }

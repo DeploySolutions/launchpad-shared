@@ -31,7 +31,12 @@ namespace Deploy.LaunchPad.Space.Satellites.GoC
 
         protected Radarsat1Satellite(int? tenantId) : base()
         {
-            Operators = new List<ISatelliteOperator<Guid>>() { new CanadaSpaceAgency(tenantId) as ISatelliteOperator<Guid> };
+            var csaOperator = new CanadaSpaceAgency(tenantId);
+            csaOperator.Id = Guid.NewGuid();
+            Operators = new Dictionary<Guid, ISatelliteOperator<Guid>>
+            {
+                { csaOperator.Id, csaOperator as ISatelliteOperator<Guid> }
+            };
             SatelliteCatalogNumber = "23710";
             CosparID = "1995-059A";
             Website = new Uri("http://www.asc-csa.gc.ca/eng/satellites/radarsat1/");

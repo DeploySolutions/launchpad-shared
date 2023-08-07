@@ -63,6 +63,8 @@ namespace Deploy.LaunchPad.Space.Satellites.Core
         [Required]
         public virtual SpaceTimeInformation CurrentLocation { get; set; }
 
+        [Required]
+        public virtual EarthObservationImageryType ImageryType { get; set; }
 
         public virtual DateTime SceneStartTime { get; set; }
 

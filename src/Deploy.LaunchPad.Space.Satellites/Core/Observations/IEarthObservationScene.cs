@@ -37,6 +37,9 @@ namespace Deploy.LaunchPad.Space.Satellites.Core
         [Required]
         public ImageObservationCornerCoordinates Corners { get; set; }
 
+        [Required]
+        public EarthObservationImageryType ImageryType { get; set; }
+
         public DateTime SceneStartTime { get; set; }
 
         public DateTime SceneEndTime { get; set; }

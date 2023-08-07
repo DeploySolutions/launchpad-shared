@@ -19,52 +19,83 @@
 namespace Deploy.LaunchPad.Space.Satellites.Core
 {
     using Deploy.LaunchPad.Core.Abp.Domain.Model;
+    using Deploy.LaunchPad.Space.Satellites.Core.Observations;
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
     using System.Xml.Serialization;
 
     public abstract partial class SatelliteBase<TPrimaryKey> : LaunchPadDomainEntityBase<TPrimaryKey>, ISatellite
     {
-        private IEnumerable<ISatelliteOperator<Guid>> _operators;
-        private string _satelliteCatalogNumber;
-        private string _cosparID;
-        private Uri _website;
 
-        [System.ComponentModel.DataObjectField(true)]
+
+        [System.ComponentModel.DataObjectField(false)]
         [XmlAttribute]
-        public IEnumerable<ISatelliteOperator<Guid>> Operators
+        public virtual string ReferenceSystem { get; set; }
+
+        [System.ComponentModel.DataObjectField(false)]
+        [XmlAttribute]
+        public virtual string OrbitalRegime { get; set; }
+
+        [System.ComponentModel.DataObjectField(false)]
+        [XmlAttribute]
+        public virtual double AltitudeInKm { get; set; }
+
+        [System.ComponentModel.DataObjectField(false)]
+        [XmlAttribute]
+        public virtual double InclinationDegrees { get; set; }
+
+        [System.ComponentModel.DataObjectField(false)]
+        [XmlAttribute]
+        public virtual double OrbitalPeriodInMinutes { get; set; }
+
+        protected IDictionary<Guid, ISatelliteOperator<Guid>> _operators;
+        [System.ComponentModel.DataObjectField(false)]
+        [XmlAttribute]
+        public virtual IDictionary<Guid, ISatelliteOperator<Guid>> Operators
         {
             get { return _operators; }
             set { _operators = value; }
         }
 
+        protected string _satelliteCatalogNumber;
         [System.ComponentModel.DataObjectField(true)]
         [XmlAttribute]
-        public string SatelliteCatalogNumber
+        public virtual string SatelliteCatalogNumber
         {
             get { return _satelliteCatalogNumber; }
             set { _satelliteCatalogNumber = value; }
         }
 
+        protected string _cosparID;
         [System.ComponentModel.DataObjectField(true)]
         [XmlAttribute]
-        public string CosparID
+        public virtual string CosparID
         {
             get { return _cosparID; }
             set { _cosparID = value; }
         }
 
-        [System.ComponentModel.DataObjectField(true)]
+        protected Uri _website;
+        [System.ComponentModel.DataObjectField(false)]
         [XmlAttribute]
-        public Uri Website
+        public virtual Uri Website
         {
             get { return _website; }
             set { _website = value; }
         }
 
+
+        [Required]
+        [System.ComponentModel.DataObjectField(false)]
+        [XmlAttribute]
+        public virtual IDictionary<string, ISensor> Sensors { get; set; }
+
         protected SatelliteBase() : base()
         {
-            Operators = null;
+            var comparer = StringComparer.OrdinalIgnoreCase;
+            Sensors = new Dictionary<string, ISensor>(comparer);
+            Operators = new Dictionary<Guid, ISatelliteOperator<Guid>>();
             SatelliteCatalogNumber = string.Empty;
             CosparID = string.Empty;
         }
