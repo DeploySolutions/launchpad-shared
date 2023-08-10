@@ -106,6 +106,18 @@ namespace Deploy.LaunchPad.FileGeneration.Structure
         public bool Required { get; set; }
 
         /// <summary>
+        /// This field shows up in the form, but disabled. Do not allow the user to change. 
+        /// </summary>
+        [JsonProperty("readOnlyAlways")]
+        public bool ReadOnlyAlways { get; set; }
+
+        /// <summary>
+        /// This field shows up on the form always, but disable the field on edit pages. 
+        /// </summary>
+        [JsonProperty("readOnlyEdit")]
+        public bool ReadOnlyEdit { get; set; }
+
+        /// <summary>
         /// domain entity for form item.
         /// </summary>
         [JsonProperty("domainEntity")]
