@@ -118,6 +118,12 @@ namespace Deploy.LaunchPad.FileGeneration.Structure
         public bool ReadOnlyEdit { get; set; }
 
         /// <summary>
+        /// Only use for upload field. This specify if the uplaod item should be uploaded first, or the page submission should ahppen first. This is helpful if the upload process requires certain value based on the response of the submission. 
+        /// </summary>
+        [JsonProperty("uploadBeforeSubmit")]
+        public bool UploadBeforeSubmit { get; set; }
+
+        /// <summary>
         /// domain entity for form item.
         /// </summary>
         [JsonProperty("domainEntity")]
@@ -140,6 +146,18 @@ namespace Deploy.LaunchPad.FileGeneration.Structure
         /// </summary>
         [JsonProperty("displayFields")]
         public IList<LaunchPadColumn> DisplayFields { get; set; }
+
+        /// <summary>
+        /// In case the button is not of submit type, we have to specify where it goes next.
+        /// </summary>
+        [JsonProperty("nextRoute")]
+        public string NextRoute { get; set; }
+
+        /// <summary>
+        /// The parameters to be passed to the next page.
+        /// </summary>
+        [JsonProperty("nextRouteParams")]
+        public IList<Tuple<string, string>> NextRouteParams { get; set; }
 
         public LaunchPadWebItem() : base()
         {
