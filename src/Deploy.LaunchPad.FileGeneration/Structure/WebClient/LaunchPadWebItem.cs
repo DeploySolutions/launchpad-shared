@@ -157,7 +157,7 @@ namespace Deploy.LaunchPad.FileGeneration.Structure
         /// The parameters to be passed to the next page.
         /// </summary>
         [JsonProperty("nextRouteParams")]
-        public IList<Tuple<string, string>> NextRouteParams { get; set; }
+        public Dictionary<string, string> NextRouteParams { get; set; }
 
         public LaunchPadWebItem() : base()
         {
