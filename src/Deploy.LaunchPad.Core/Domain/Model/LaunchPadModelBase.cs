@@ -52,6 +52,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
         [Required]
         [MaxLength(5, ErrorMessageResourceName = "Validation_Culture_5CharsOrLess", ErrorMessageResourceType = typeof(Deploy_LaunchPad_Core_Resources))]
         [DataObjectField(true)]
+        [DataMember(Name = "culture", EmitDefaultValue = false)]
         [XmlAttribute]
         public virtual string Culture { get; set; }
 
@@ -95,6 +96,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
         /// The checksum for this  object, if any
         /// </summary>
         [DataObjectField(false)]
+        [DataMember(Name = "checksum", EmitDefaultValue = false)]
         [XmlAttribute]
         public virtual string? Checksum { get; set; }
 
@@ -103,6 +105,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
         /// </summary>
         [MaxLength(36, ErrorMessageResourceName = "Validation_ExternalId_36CharsOrLess", ErrorMessageResourceType = typeof(Deploy_LaunchPad_Core_Resources))]
         [DataObjectField(false)]
+        [DataMember(Name = "externalId", EmitDefaultValue = false)]
         [XmlAttribute]
         public virtual string ExternalId { get; set; }
 
@@ -127,6 +130,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
         /// The sequence number for this entity, if any (for sorting and ordering purposes). Defaults to 0 if not set.
         /// </summary>
         [DataObjectField(false)]
+        [DataMember(Name = "seqNum", EmitDefaultValue = true)]
         [XmlElement]
         public virtual int SeqNum { get; set; } = 0;
 
@@ -134,6 +138,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
         /// Each entity can have an open-ended set of tags applied to it, that help users find, markup, and display its information
         /// </summary>
         [DataObjectField(false)]
+        [DataMember(Name = "tags", EmitDefaultValue = false)]
         [XmlAttribute]
         public virtual HashSet<MetadataTag> Tags { get; set; }
 
