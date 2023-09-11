@@ -15,6 +15,8 @@
 //limitations under the License. 
 #endregion
 
+using JetBrains.Annotations;
+
 namespace Deploy.LaunchPad.Core.Abp.Domain.Model
 {
     using Deploy.LaunchPad.Core;
@@ -102,6 +104,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
         [DataObjectField(false)]
         [DataMember(Name = "checksum", EmitDefaultValue = false)]
         [XmlAttribute]
+        [CanBeNull]
         public virtual string Checksum { get; set; }
 
         /// <summary>
@@ -136,7 +139,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
         [DataObjectField(false)]
         [DataMember(Name = "seqNum", EmitDefaultValue = true)]
         [XmlElement]
-        public virtual int SeqNum { get; set; } = 0;
+        public virtual int SeqNum { get; set; }
 
         /// <summary>
         /// Each entity can have an open-ended set of tags applied to it, that help users find, markup, and display its information
@@ -159,6 +162,31 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
         [DataObjectField(false)]
         [XmlAttribute]
         public virtual bool IsActive { get; set; }
+
+        /// <summary>
+        /// The name of the creating user
+        /// </summary>
+        [MaxLength(256, ErrorMessageResourceName = "Validation_Name_256CharsOrLess", ErrorMessageResourceType = typeof(Deploy_LaunchPad_Core_Resources))]
+        [DataObjectField(false)]
+        [XmlAttribute]
+        public string? CreatorUserName { get; set; }
+
+        /// <summary>
+        /// The name of the modifying user
+        /// </summary>
+        [MaxLength(256, ErrorMessageResourceName = "Validation_Name_256CharsOrLess",
+            ErrorMessageResourceType = typeof(Deploy_LaunchPad_Core_Resources))]
+        [DataObjectField(false)]
+        [XmlAttribute]
+        public string? LastModifierUserName { get; set; }
+
+        /// <summary>
+        /// The name of the deleting user
+        /// </summary>
+        [MaxLength(256, ErrorMessageResourceName = "Validation_Name_256CharsOrLess", ErrorMessageResourceType = typeof(Deploy_LaunchPad_Core_Resources))]
+        [DataObjectField(false)]
+        [XmlAttribute]
+        public string? DeleterUserName { get; set; }
 
         /// <summary>
         /// A convenience readonly method to get a <see cref="CultureInfo">CultureInfo</see> instance from the current 

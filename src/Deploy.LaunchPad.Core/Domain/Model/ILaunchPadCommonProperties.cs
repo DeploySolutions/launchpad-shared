@@ -12,7 +12,7 @@ namespace Deploy.LaunchPad.Core.Domain.Model
     /// Defines the minimum properties LaunchPad expects to have for a Domain Entity or Value Object. 
     /// Note these deliberately correspond 1:1 to many of the properties found in various ABP domain entity interfaces, which would also be inherited by implementing classes. 
     /// </summary>
-    public interface ILaunchPadCommonProperties : ISerializable
+    public interface ILaunchPadCommonProperties
     {
         /// <summary>
         /// The culture of this object
@@ -37,7 +37,7 @@ namespace Deploy.LaunchPad.Core.Domain.Model
         /// The fully-qualified name of this object (if different from the Name field)
         /// </summary>
         [Required]
-        [MaxLength(100, ErrorMessageResourceName = "Validation_Name_256CharsOrLess", ErrorMessageResourceType = typeof(Deploy_LaunchPad_Core_Resources))]
+        [MaxLength(256, ErrorMessageResourceName = "Validation_Name_256CharsOrLess", ErrorMessageResourceType = typeof(Deploy_LaunchPad_Core_Resources))]
         [DataObjectField(false)]
         [XmlAttribute]
         public string FullyQualifiedName { get; set; }
@@ -110,6 +110,13 @@ namespace Deploy.LaunchPad.Core.Domain.Model
         [ForeignKey(nameof(DeleterUserId))]
         public long? DeleterUserId { get; set; }
 
+        /// <summary>
+        /// The name of the deleting user
+        /// </summary>
+        [MaxLength(256, ErrorMessageResourceName = "Validation_Name_256CharsOrLess", ErrorMessageResourceType = typeof(Deploy_LaunchPad_Core_Resources))]
+        [DataObjectField(false)]
+        [XmlAttribute]
+        public string? DeleterUserName { get; set; }
 
         /// <summary>
         /// Used for preserving deletion status for a domain entity, obviously a Value Object can't be deleted.
@@ -118,9 +125,6 @@ namespace Deploy.LaunchPad.Core.Domain.Model
         [XmlElement]
         public bool IsDeleted { get; set; }
 
-        [DataObjectField(false)]
-        [XmlElement]
-        public DateTime? LastModificationTime { get; set; }
 
         [DataObjectField(false)]
         [XmlElement]
@@ -135,11 +139,32 @@ namespace Deploy.LaunchPad.Core.Domain.Model
         public long? CreatorUserId { get; set; }
 
         /// <summary>
+        /// The name of the creating user
+        /// </summary>
+        [MaxLength(256, ErrorMessageResourceName = "Validation_Name_256CharsOrLess", ErrorMessageResourceType = typeof(Deploy_LaunchPad_Core_Resources))]
+        [DataObjectField(false)]
+        [XmlAttribute]
+        public string? CreatorUserName { get; set; }
+
+        /// <summary>
         /// The id of the User Agent which last modified this object.
         /// </summary>
         [DataObjectField(false)]
         [XmlAttribute]
         [ForeignKey(nameof(LastModifierUserId))]
         public Int64? LastModifierUserId { get; set; }
+
+        [DataObjectField(false)]
+        [XmlElement]
+        public DateTime? LastModificationTime { get; set; }
+
+        /// <summary>
+        /// The name of the modifying user
+        /// </summary>
+        [MaxLength(256, ErrorMessageResourceName = "Validation_Name_256CharsOrLess", ErrorMessageResourceType = typeof(Deploy_LaunchPad_Core_Resources))]
+        [DataObjectField(false)]
+        [XmlAttribute]
+        public string? LastModifierUserName { get; set; }
+
     }
 }

@@ -150,6 +150,40 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
 
         [DataObjectField(false)]
         [XmlAttribute]
+        public DateTime CreationTime { get; set; }
+
+        [DataObjectField(false)]
+        [XmlAttribute]
+        public long? CreatorUserId { get; set; }
+
+        /// <summary>
+        /// The name of the creating user
+        /// </summary>
+        [MaxLength(256, ErrorMessageResourceName = "Validation_Name_256CharsOrLess", ErrorMessageResourceType = typeof(Deploy_LaunchPad_Core_Resources))]
+        [DataObjectField(false)]
+        [XmlAttribute]
+        public string? CreatorUserName { get; set; }
+
+        [DataObjectField(false)]
+        [XmlAttribute]
+        public DateTime? LastModificationTime { get; set; }
+
+        [DataObjectField(false)]
+        [XmlAttribute]
+        public long? LastModifierUserId { get; set; }
+
+        /// <summary>
+        /// The name of the modifying user
+        /// </summary>
+        [MaxLength(256, ErrorMessageResourceName = "Validation_Name_256CharsOrLess", ErrorMessageResourceType = typeof(Deploy_LaunchPad_Core_Resources))]
+        [DataObjectField(false)]
+        [XmlAttribute]
+        public string? LastModifierUserName { get; set; }
+
+
+
+        [DataObjectField(false)]
+        [XmlAttribute]
         public DateTime? DeletionTime { get; set; }
 
         [DataObjectField(false)]
@@ -160,21 +194,13 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
         [XmlAttribute]
         public bool IsDeleted { get; set; }
 
+        /// <summary>
+        /// The name of the deleting user
+        /// </summary>
+        [MaxLength(256, ErrorMessageResourceName = "Validation_Name_256CharsOrLess", ErrorMessageResourceType = typeof(Deploy_LaunchPad_Core_Resources))]
         [DataObjectField(false)]
         [XmlAttribute]
-        public DateTime? LastModificationTime { get; set; }
-
-        [DataObjectField(false)]
-        [XmlAttribute]
-        public DateTime CreationTime { get; set; }
-
-        [DataObjectField(false)]
-        [XmlAttribute]
-        public long? CreatorUserId { get; set; }
-
-        [DataObjectField(false)]
-        [XmlAttribute]
-        public long? LastModifierUserId { get; set; }
+        public string? DeleterUserName { get; set; }
 
         /// <summary>
         /// A convenience readonly method to get a <see cref="CultureInfo">CultureInfo</see> instance from the current 
