@@ -68,7 +68,7 @@ namespace Deploy.LaunchPad.Core.Abp.AbpModuleConfig
 
         }
 
-        protected ValidationResult IsConfigurationValid<TAbpModuleConfig>(TAbpModuleConfig config)
+        protected virtual ValidationResult IsConfigurationValid<TAbpModuleConfig>(TAbpModuleConfig config)
             where TAbpModuleConfig : LaunchPadAbpModuleConfigBase<IWebHostEnvironment>
         {
             IValidator<TAbpModuleConfig> validator = null;
