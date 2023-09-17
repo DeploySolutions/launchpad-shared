@@ -2,14 +2,18 @@
 using Abp.Dependency;
 using Abp.Modules;
 using Abp.Reflection.Extensions;
+using Abp.UI;
 using Castle.Core.Logging;
 using Deploy.LaunchPad.Core.Config;
 using Deploy.LaunchPad.Core.Util;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using FluentValidation;
+using FluentValidation.Results;
 
 namespace Deploy.LaunchPad.Core.Abp.AbpModuleConfig
 {
@@ -18,6 +22,8 @@ namespace Deploy.LaunchPad.Core.Abp.AbpModuleConfig
         ILaunchPadAbpModule<TAbpModuleHelper>
         where TAbpModuleHelper : ILaunchPadAbpModuleHelper
     {
+
+        public virtual string InternalModuleName { get; set; }
 
 
         protected TAbpModuleHelper _abpModuleHelper;
@@ -60,6 +66,34 @@ namespace Deploy.LaunchPad.Core.Abp.AbpModuleConfig
         {
             base.PostInitialize();
 
+        }
+
+        protected ValidationResult IsConfigurationValid<TAbpModuleConfig>(TAbpModuleConfig config)
+            where TAbpModuleConfig : LaunchPadAbpModuleConfigBase<IWebHostEnvironment>
+        {
+            IValidator<TAbpModuleConfig> validator = null;
+            ValidationResult validationResult = null;
+            using (var scope = IocManager.CreateScope())
+            {
+                validator = scope.Resolve<IValidator<TAbpModuleConfig>>();
+            }
+
+            if (validator != null)
+            {
+                validationResult = validator.Validate(config);
+                if (!validationResult.IsValid)
+                {
+                    string validationErrorMessage = string.Format(
+                        "Config validation error(s) during PostInitialize() of '{0}': '{1}'",
+                        InternalModuleName,
+                        validationResult
+                    );
+                    throw new UserFriendlyException(validationErrorMessage);
+                }
+
+            }
+
+            return validationResult;
         }
 
         /// <summary>
