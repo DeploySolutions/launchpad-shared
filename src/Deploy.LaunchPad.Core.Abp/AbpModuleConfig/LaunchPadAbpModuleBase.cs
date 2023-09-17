@@ -85,7 +85,7 @@ namespace Deploy.LaunchPad.Core.Abp.AbpModuleConfig
                 {
                     string validationErrorMessage = string.Format(
                         "Config validation error(s) during PostInitialize() of '{0}': '{1}'",
-                        InternalModuleName,
+                        config.InternalModuleName,
                         validationResult
                     );
                     throw new UserFriendlyException(validationErrorMessage);
