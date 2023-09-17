@@ -8,6 +8,8 @@ namespace Deploy.LaunchPad.Core.Abp.AbpModuleConfig
         where THostEnvironment : IHostEnvironment
     {
 
+        public virtual string InternalModuleName { get; set; }
+
         public virtual ILogger Logger { get; set; } = NullLogger.Instance;
 
         public virtual THostEnvironment HostEnvironment { get; set; }
