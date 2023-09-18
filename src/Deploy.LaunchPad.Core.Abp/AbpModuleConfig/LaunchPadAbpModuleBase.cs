@@ -68,7 +68,7 @@ namespace Deploy.LaunchPad.Core.Abp.AbpModuleConfig
 
         }
 
-        protected virtual ValidationResult IsConfigurationValid<TAbpModuleConfig>(TAbpModuleConfig config)
+        protected virtual ValidationResult IsConfigurationValid<TAbpModuleConfig>(TAbpModuleConfig config, bool shouldValidateAndThrow = false)
             where TAbpModuleConfig : LaunchPadAbpModuleConfigBase<IWebHostEnvironment>
         {
             IValidator<TAbpModuleConfig> validator = null;
@@ -80,17 +80,15 @@ namespace Deploy.LaunchPad.Core.Abp.AbpModuleConfig
 
             if (validator != null)
             {
-                validationResult = validator.Validate(config);
-                if (!validationResult.IsValid)
+                if (shouldValidateAndThrow)
                 {
-                    string validationErrorMessage = string.Format(
-                        "Config validation error(s) during PostInitialize() of '{0}': '{1}'",
-                        config.InternalModuleName,
-                        validationResult
-                    );
-                    throw new UserFriendlyException(validationErrorMessage);
-                }
 
+                    validator.ValidateAndThrow(config);
+                }
+                else
+                {
+                    validationResult = validator.Validate(config);
+                }
             }
 
             return validationResult;

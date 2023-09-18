@@ -3,6 +3,7 @@ using Castle.Core.Logging;
 using Deploy.LaunchPad.Core.Config;
 using FluentValidation;
 using System;
+using System.Collections.Generic;
 
 namespace Deploy.LaunchPad.Core.Abp.AbpModuleConfig
 {
@@ -21,9 +22,10 @@ namespace Deploy.LaunchPad.Core.Abp.AbpModuleConfig
                 .NotNull().NotEmpty();
             RuleFor(x => x.Type)
                 .NotNull().NotEmpty();
-            RuleFor(x => x.SecretVaults)
-                .NotNull();
-
+            RuleForEach(x => x.SecretVaults).ChildRules(order =>
+            {
+                order.RuleFor(x => x.Value as ISecretVault).SetValidator(new SecretVaultValidator(logger));
+            });
         }
 
 
