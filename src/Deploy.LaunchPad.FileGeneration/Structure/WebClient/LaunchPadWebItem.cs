@@ -159,6 +159,12 @@ namespace Deploy.LaunchPad.FileGeneration.Structure
         [JsonProperty("nextRouteParams")]
         public Dictionary<string, string> NextRouteParams { get; set; }
 
+        /// <summary>
+        /// Cascade Enums represents a dropdown that depends on previous dropdown selected value
+        /// </summary>
+        [JsonProperty("cascadeEnums")]
+        public IList<LaunchPadCascadeEnum> CascadeEnums { get; set; }
+
         public LaunchPadWebItem() : base()
         {
             Id = null;
