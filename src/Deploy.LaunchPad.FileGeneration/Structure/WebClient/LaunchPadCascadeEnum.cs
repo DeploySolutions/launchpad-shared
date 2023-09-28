@@ -14,7 +14,7 @@ namespace Deploy.LaunchPad.FileGeneration.Structure
         /// Value of the dropdown
         /// </summary>
         [JsonProperty("value")]
-        public bool Value { get; set; }
+        public string Value { get; set; }
 
         /// <summary>
         /// Represents the domain entity field to display as the data in this column.
@@ -30,7 +30,7 @@ namespace Deploy.LaunchPad.FileGeneration.Structure
 
         public LaunchPadCascadeEnum() : base()
         {
-            Value = false;
+            Value = string.Empty;
             DataField = string.Empty;
             Children = new List<LaunchPadCascadeEnum>();  
         }
