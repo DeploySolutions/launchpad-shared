@@ -1,4 +1,5 @@
 ﻿using Castle.Core.Logging;
+using Deploy.LaunchPad.FileGeneration.Structure.WebApp;
 using System;
 using System.Collections.Generic;
 
@@ -36,6 +37,8 @@ namespace Deploy.LaunchPad.FileGeneration.Structure
         /// </summary>
         public virtual ISoftwareInfrastructure SoftwareInfrastructure { get; set; }
 
+        public virtual CorsSettings Cors { get; set; }
+
         /// <summary>
         /// Returns a bool indicating if the component is currently in a valid or invalid state.
         /// The dictionaries cannot be null and at least one has to have at least one element
@@ -62,6 +65,7 @@ namespace Deploy.LaunchPad.FileGeneration.Structure
             DomainEntities = new Dictionary<string, LaunchPadGeneratedDomainEntity>(comparer);
             ValueObjects = new Dictionary<string, LaunchPadGeneratedValueObject>(comparer);
             ApplicationServices = new Dictionary<string, LaunchPadGeneratedApplicationService>(comparer);
+            Cors = new CorsSettings();
         }
 
         public VisualStudioComponent(ILogger logger) : base(logger)
@@ -70,6 +74,7 @@ namespace Deploy.LaunchPad.FileGeneration.Structure
             DomainEntities = new Dictionary<string, LaunchPadGeneratedDomainEntity>(comparer);
             ValueObjects = new Dictionary<string, LaunchPadGeneratedValueObject>(comparer);
             ApplicationServices = new Dictionary<string, LaunchPadGeneratedApplicationService>(comparer);
+            Cors = new CorsSettings();
         }
     }
 }
