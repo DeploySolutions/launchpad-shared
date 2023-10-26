@@ -2,6 +2,7 @@
 using Abp.Domain.Entities;
 using Deploy.LaunchPad.Core.Abp.Domain.SoftwareApplications;
 using Deploy.LaunchPad.Core.Application.Dto;
+using Deploy.LaunchPad.Core.Domain.Model;
 using System;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
@@ -26,7 +27,7 @@ namespace Deploy.LaunchPad.Core.Abp.Application.Dto
         [DataObjectField(false)]
         [XmlAttribute]
         [NotMapped]
-        public SortDirectionEnum SortDirection { get; set; }
+        public SortDirection SortDirection { get; set; }
 
         [DataObjectField(false)]
         [XmlAttribute]
