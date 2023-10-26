@@ -26,8 +26,6 @@ using System.Runtime.InteropServices;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
-using Microsoft.WindowsAPICodePack.Shell;
-using Microsoft.WindowsAPICodePack.Shell.PropertySystem;
 using Abp.Domain.Values;
 using DocumentFormat.OpenXml.Packaging;
 
@@ -183,31 +181,19 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
                             Template
                          * 
                          */
-                        var file = ShellFile.FromFilePath(output);
-                        // author throws an AccessViolation for some reason
-                        //string[] author = file.Properties.System.ItemAuthors.Value;
-                        //metadata.TryAdd(file.Properties.System.Author.CanonicalName, author.ToString());
+                        var file = new FileInfo(output);
+
                         //// dateCreated 
-                        var dateCreated = file.Properties.System.DateCreated.Value;
-                        if (dateCreated.HasValue)
-                        {
-                            metadata.TryAdd(file.Properties.System.DateCreated.CanonicalName, dateCreated.Value.ToUniversalTime().ToString());
-                        }
-                        // title
-                        var title = file.Properties.System.Title.Value;
-                        metadata.TryAdd(file.Properties.System.Title.CanonicalName, title);
+                        var dateCreated = file.CreationTimeUtc;
+                        metadata.TryAdd("CreationTimeUtc", dateCreated.ToString());
+
+                        var dateLastModified = file.LastWriteTimeUtc;
+                        metadata.TryAdd("LastWriteTimeUtc", dateLastModified.ToString());
+
                         //size
-                        var size = file.Properties.System.Size.Value;
-                        if (size.HasValue)
-                        {
-                            metadata.TryAdd(file.Properties.System.Size.CanonicalName, size.Value.ToString());
-                        }
-                        // fileAllocationSize
-                        var fileAllocationSize = file.Properties.System.FileAllocationSize.Value;
-                        if (fileAllocationSize.HasValue)
-                        {
-                            metadata.TryAdd(file.Properties.System.FileAllocationSize.CanonicalName, fileAllocationSize.Value.ToString());
-                        }
+                        var size = file.Length;
+                        metadata.TryAdd("Size", size.ToString());
+                        
                         // if it's word
                         if (sourceFile.Extension == "docx")
                         {

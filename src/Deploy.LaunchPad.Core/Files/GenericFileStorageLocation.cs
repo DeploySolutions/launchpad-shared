@@ -336,7 +336,7 @@ namespace Deploy.LaunchPad.Core.Domain
         public virtual IDictionary<string, string> ReadFileMetadata<TFile, TFileId, TFileContentType>(TFile sourceFile)
             where TFile : IFile<TFileId, TFileContentType>, new()
         {
-            return ReadFileMetadataAsync<TFile, TFileId, TFileContentType>(sourceFile).Result;
+            throw new NotImplementedException();
         }
 
         public virtual async Task<IDictionary<string, string>> ReadFileMetadataAsync<TFile, TFileId, TFileContentType>(TFile sourceFile)
