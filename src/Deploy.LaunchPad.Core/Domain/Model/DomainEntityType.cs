@@ -7,9 +7,10 @@ using System.Threading.Tasks;
 namespace Deploy.LaunchPad.Core.Domain.Model
 {
     [Serializable]
-    public enum SortDirection
+    public enum DomainEntityType
     {
-        Ascending = 0,
-        Descending = 1
+        DomainEntity = 0,
+        AggregateRoot = 1,
+        AggregateChild = 2
     }
 }

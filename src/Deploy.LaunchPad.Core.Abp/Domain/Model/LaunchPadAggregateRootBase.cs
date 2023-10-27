@@ -17,30 +17,48 @@
 
 namespace Deploy.LaunchPad.Core.Abp.Domain.Model
 {
+    using Deploy.LaunchPad.Core.Domain.Model;
     using global::Abp.Domain.Entities;
     using global::Abp.Events.Bus;
     using System;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
+    using System.ComponentModel;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Runtime.Serialization;
     using System.Text;
+    using System.Xml.Serialization;
 
     /// <summary>
     /// Base class for Aggregate Root Entities (in Domain Driven Design). Inherits from <see cref="DomainEntityBase">DomainEntityBase</see>
     /// Implemenn ASP.NET Boilerplate's <see cref="IAggregateRoot">IAggregateRoot</see> interface.
     /// Implements AspNetBoilerplate's auditing interfaces.
     /// </summary>
+    [Serializable]
     public abstract partial class LaunchPadAggregateRootBase<TIdType> :
         LaunchPadDomainEntityBase<TIdType>,
         ILaunchPadAggregateRoot<TIdType>
 
     {
 
+        /// <summary>
+        /// If this object is a regular domain entity, an aggregate root, or an aggregate child
+        /// </summary>
+        [DataObjectField(false)]
+        [XmlAttribute]
+        public override DomainEntityType EntityType { get; } = DomainEntityType.AggregateRoot;
+
+        /// <summary>
+        /// The fully qualified type names of any children entities (ex. MyCorp.MyApp.Orders.LineItems)
+        /// </summary>
+        [DataObjectField(false)]
+        [XmlAttribute]
+        public virtual HashSet<string> ChildrenFullyQualifiedTypes { get; private set; }
+
         #region Implementation of ASP.NET Boilerplate's IAggregateRoot interface
 
         [NotMapped]
-        public ICollection<IEventData> DomainEvents { get; }
+        public virtual ICollection<IEventData> DomainEvents { get; }
 
         #endregion
 
@@ -50,6 +68,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
         protected LaunchPadAggregateRootBase() : base()
         {
             DomainEvents = new Collection<IEventData>();
+            ChildrenFullyQualifiedTypes = new HashSet<string>();    
         }
 
 
@@ -60,6 +79,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
         protected LaunchPadAggregateRootBase(TIdType id, string cultureName) : base(id, cultureName)
         {
             DomainEvents = new Collection<IEventData>();
+            ChildrenFullyQualifiedTypes = new HashSet<string>();
         }
 
         /// <summary>
@@ -70,6 +90,8 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
         protected LaunchPadAggregateRootBase(SerializationInfo info, StreamingContext context) : base(info, context)
         {
             DomainEvents = (Collection<IEventData>)info.GetValue("DomainEvents", typeof(Collection<IEventData>));
+            ChildrenFullyQualifiedTypes = (HashSet<string>)info.GetValue("ChildrenFullyQualifiedTypes", typeof(HashSet<string>));
+            
         }
 
         /// <summary>
@@ -80,7 +102,8 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
         public override void GetObjectData(SerializationInfo info, StreamingContext context)
         {
             base.GetObjectData(info, context);
-            info.AddValue("DomainEvents", DomainEvents);
+            info.AddValue("DomainEvents", DomainEvents); 
+            info.AddValue("ChildrenFullyQualifiedTypes", ChildrenFullyQualifiedTypes); 
         }
 
         /// <summary>
@@ -104,6 +127,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
             StringBuilder sb = new StringBuilder();
             // sb.AppendFormat(base.ToStringBaseProperties());
             sb.AppendFormat("DomainEvents={0};", DomainEvents);
+            sb.AppendFormat("ChildrenFullyQualifiedTypes={0};", ChildrenFullyQualifiedTypes);
             return sb.ToString();
         }
 

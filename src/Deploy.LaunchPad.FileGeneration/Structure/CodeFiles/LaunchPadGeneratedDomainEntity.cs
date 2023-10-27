@@ -1,5 +1,8 @@
-﻿using System;
+﻿using Deploy.LaunchPad.Core.Domain.Model;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Xml.Serialization;
 
 namespace Deploy.LaunchPad.FileGeneration.Structure
 {
@@ -9,6 +12,32 @@ namespace Deploy.LaunchPad.FileGeneration.Structure
     [Serializable]
     public partial class LaunchPadGeneratedDomainEntity : LaunchPadGeneratedClassBase
     {
+        public virtual DomainEntityType DomainEntityType { get; set; } = DomainEntityType.DomainEntity;
+
+        /// <summary>
+        /// If this type if AggregateChild, specify the fully qualified type name of the parent aggregate root this child entity belongs to if  (ex. MyCorp.MyApp.Orders.Order)
+        /// </summary>
+        [DataObjectField(false)]
+        [XmlAttribute]
+        public virtual string ParentFullyQualifiedType { get; private set; } = string.Empty;
+
+        /// <summary>
+        /// If this type if AggregateRoot, specify the fully qualified type names of any children entities (ex. MyCorp.MyApp.Orders.LineItems)
+        /// </summary>
+        [DataObjectField(false)]
+        [XmlAttribute]
+        public HashSet<string> ChildrenFullyQualifiedTypes { get; }
+
+        /// <summary>
+        /// Specify whether this domain entity supports multitenancy and if so which ABP tenancy interface type.
+        /// </summary>
+
+        public virtual DomainEntityTenancyType TenancyType { get; set; } = DomainEntityTenancyType.IMustHaveTenant;
+
+
+        public virtual bool ICanRaiseDomainEvents { get; set; } = false;
+
+
 
         /// <summary>
         /// Contains a collection of Data Transfer Objects belonging to this domain entity
@@ -21,6 +50,7 @@ namespace Deploy.LaunchPad.FileGeneration.Structure
         {
             var comparer = StringComparer.OrdinalIgnoreCase;
             DataTransferObjects = new Dictionary<string, LaunchPadGeneratedDataTransferObject>(comparer);
+            ChildrenFullyQualifiedTypes = new HashSet<string>();
         }
     }
 }

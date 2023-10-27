@@ -30,14 +30,14 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
 {
 
     /// <summary>
-    /// Base class for Aggregate Root entities that must be specifically related to tenants. 
-    /// Inherits from <see cref="LaunchPadAggregateRootBase{TIdType}{TIdType}">AggregateRootBase{TIdType}</see> and provides
+    /// Base class for Aggregate Root child entities that must be specifically related to tenants. 
+    /// Inherits from <see cref="LaunchPadAggregateChildBase{TIdType}{TIdType}">LaunchPadAggregateChildBase{TIdType}</see> and provides
     /// base functionality for many of its methods. 
     /// Implements AspNetBoilerplate's <see cref="IMustHaveTenant">IMustHaveTenant interface</see>, overriding the base interface where tenant may or may not exist.
     /// </summary>
     [Serializable]
-    public abstract partial class TenantSpecificAggregateRootBase<TIdType> :
-        LaunchPadAggregateRootBase<TIdType>, IMustHaveTenant
+    public abstract partial class TenantSpecificAggregateChildBase<TIdType> :
+        LaunchPadAggregateChildBase<TIdType>, IMustHaveTenant
 
     {
 
@@ -51,17 +51,17 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
         public virtual int TenantId { get; set; }
 
         /// <summary>  
-        /// Initializes a new instance of the <see cref="AggregateRootBase">AggregateRootBase</see> class
+        /// Initializes a new instance of the <see cref="TenantSpecificAggregateChildBase">TenantSpecificAggregateChildBase</see> class
         /// </summary>
-        protected TenantSpecificAggregateRootBase() : base()
+        protected TenantSpecificAggregateChildBase() : base()
         {
             TenantId = 1;
         }
 
         /// <summary>  
-        /// Initializes a new instance of the <see cref="AggregateRootBase">AggregateRootBase</see> class
+        /// Initializes a new instance of the <see cref="TenantSpecificAggregateChildBase">TenantSpecificAggregateChildBase</see> class
         /// </summary>
-        protected TenantSpecificAggregateRootBase(int tenantId) : base()
+        protected TenantSpecificAggregateChildBase(int tenantId) : base()
         {
             TenantId = tenantId;
         }
@@ -70,7 +70,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
         /// Creates a new instance of the <see cref="TenantSpecificAggregateRootBase">TenantSpecificAggregateRootBase</see> class given a key, and some metadata. 
         /// </summary>
         /// <param name="cultureName">The culture for this entity</param>
-        protected TenantSpecificAggregateRootBase(int tenantId, TIdType id, string cultureName) : base(id, cultureName)
+        protected TenantSpecificAggregateChildBase(int tenantId, TIdType id, string cultureName) : base(id, cultureName)
         {
             TenantId = tenantId;
         }
@@ -80,7 +80,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
         /// </summary>
         /// <param name="cultureName">The culture for this entity</param>
         /// <param name="metadata">The desired metadata for this entity</param>
-        protected TenantSpecificAggregateRootBase(int tenantId, TIdType id, MetadataInformation metadata) : base(id, metadata.Culture)
+        protected TenantSpecificAggregateChildBase(int tenantId, TIdType id, MetadataInformation metadata) : base(id, metadata.Culture)
         {
 
             TenantId = tenantId;
@@ -91,7 +91,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
         /// </summary>
         /// <param name="info">The serialization info</param>
         /// <param name="context">The context of the stream</param>
-        protected TenantSpecificAggregateRootBase(SerializationInfo info, StreamingContext context) : base(info, context)
+        protected TenantSpecificAggregateChildBase(SerializationInfo info, StreamingContext context) : base(info, context)
         {
             TenantId = info.GetInt32("TenantId");
         }
@@ -125,7 +125,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
         /// </summary>
         /// <param name="other">The other object of this type we are comparing to</param>
         /// <returns></returns>
-        public virtual int CompareTo(TenantSpecificAggregateRootBase<TIdType> other)
+        public virtual int CompareTo(TenantSpecificAggregateChildBase<TIdType> other)
         {
             // put comparison of properties in here 
             // for base object we'll just sort by title
@@ -140,7 +140,6 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
         {
             StringBuilder sb = new StringBuilder();
             //sb.AppendFormat(base.ToStringBaseProperties());
-            sb.AppendFormat("DomainEvents={0};", DomainEvents);
             sb.AppendFormat("TenantId={0};", TenantId);
             return sb.ToString();
         }
@@ -152,9 +151,9 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
         /// <returns>True if the entities are the same according to business key value</returns>
         public override bool Equals(object obj)
         {
-            if (obj != null && obj is TenantSpecificAggregateRootBase<TIdType>)
+            if (obj != null && obj is TenantSpecificAggregateChildBase<TIdType>)
             {
-                return Equals(obj as TenantSpecificAggregateRootBase<TIdType>);
+                return Equals(obj as TenantSpecificAggregateChildBase<TIdType>);
             }
             return false;
         }
@@ -168,7 +167,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
         /// </summary>
         /// <param name="obj">The other object of this type that we are testing equality with</param>
         /// <returns></returns>
-        public virtual bool Equals(TenantSpecificAggregateRootBase<TIdType> obj)
+        public virtual bool Equals(TenantSpecificAggregateChildBase<TIdType> obj)
         {
             if (obj != null)
             {
@@ -196,7 +195,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
         /// <param name="x">The first value</param>
         /// <param name="y">The second value</param>
         /// <returns>True if both objects are fully equal based on the Equals logic</returns>
-        public static bool operator ==(TenantSpecificAggregateRootBase<TIdType> x, TenantSpecificAggregateRootBase<TIdType> y)
+        public static bool operator ==(TenantSpecificAggregateChildBase<TIdType> x, TenantSpecificAggregateChildBase<TIdType> y)
         {
             if (ReferenceEquals(x, null))
             {
@@ -215,7 +214,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
         /// <param name="x">The first value</param>
         /// <param name="y">The second value</param>
         /// <returns>True if both objects are not equal based on the Equals logic</returns>
-        public static bool operator !=(TenantSpecificAggregateRootBase<TIdType> x, TenantSpecificAggregateRootBase<TIdType> y)
+        public static bool operator !=(TenantSpecificAggregateChildBase<TIdType> x, TenantSpecificAggregateChildBase<TIdType> y)
         {
             return !(x == y);
         }

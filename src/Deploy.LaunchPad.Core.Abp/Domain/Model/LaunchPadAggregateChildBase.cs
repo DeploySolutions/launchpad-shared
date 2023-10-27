@@ -15,75 +15,60 @@
 //limitations under the License. 
 #endregion
 
-using Abp.Domain.Entities;
-using Deploy.LaunchPad.Core.Domain;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Runtime.Serialization;
-using System.Text;
-using System.Xml.Serialization;
-
 namespace Deploy.LaunchPad.Core.Abp.Domain.Model
 {
+    using Deploy.LaunchPad.Core.Domain.Model;
+    using global::Abp.Domain.Entities;
+    using global::Abp.Events.Bus;
+    using System;
+    using System.Collections.Generic;
+    using System.Collections.ObjectModel;
+    using System.ComponentModel;
+    using System.ComponentModel.DataAnnotations.Schema;
+    using System.Runtime.Serialization;
+    using System.Text;
+    using System.Xml.Serialization;
 
     /// <summary>
-    /// Base class for Aggregate Root entities that must be specifically related to tenants. 
-    /// Inherits from <see cref="LaunchPadAggregateRootBase{TIdType}{TIdType}">AggregateRootBase{TIdType}</see> and provides
-    /// base functionality for many of its methods. 
-    /// Implements AspNetBoilerplate's <see cref="IMustHaveTenant">IMustHaveTenant interface</see>, overriding the base interface where tenant may or may not exist.
+    /// Base class for Aggregate Child Entities (in Domain Driven Design). Inherits from <see cref="DomainEntityBase">DomainEntityBase</see>
+    /// Implements AspNetBoilerplate's auditing interfaces.
     /// </summary>
     [Serializable]
-    public abstract partial class TenantSpecificAggregateRootBase<TIdType> :
-        LaunchPadAggregateRootBase<TIdType>, IMustHaveTenant
+    public abstract partial class LaunchPadAggregateChildBase<TIdType> :
+        LaunchPadDomainEntityBase<TIdType>,
+        ILaunchPadAggregateChild<TIdType>
 
     {
 
         /// <summary>
-        /// The id of the tenant that domain entity this belongs to
+        /// If this object is a regular domain entity, an aggregate root, or an aggregate child
         /// </summary>
         [DataObjectField(false)]
         [XmlAttribute]
-        [Required]
-        [ForeignKey(nameof(TenantId))]
-        public virtual int TenantId { get; set; }
-
-        /// <summary>  
-        /// Initializes a new instance of the <see cref="AggregateRootBase">AggregateRootBase</see> class
-        /// </summary>
-        protected TenantSpecificAggregateRootBase() : base()
-        {
-            TenantId = 1;
-        }
-
-        /// <summary>  
-        /// Initializes a new instance of the <see cref="AggregateRootBase">AggregateRootBase</see> class
-        /// </summary>
-        protected TenantSpecificAggregateRootBase(int tenantId) : base()
-        {
-            TenantId = tenantId;
-        }
+        public override DomainEntityType EntityType { get; } = DomainEntityType.AggregateChild;
 
         /// <summary>
-        /// Creates a new instance of the <see cref="TenantSpecificAggregateRootBase">TenantSpecificAggregateRootBase</see> class given a key, and some metadata. 
+        /// The fully qualified type name of the parent aggregate root this child entity belongs to (ex. MyCorp.MyApp.Orders.Order)
         /// </summary>
-        /// <param name="cultureName">The culture for this entity</param>
-        protected TenantSpecificAggregateRootBase(int tenantId, TIdType id, string cultureName) : base(id, cultureName)
+        [DataObjectField(false)]
+        [XmlAttribute]
+        public virtual string ParentFullyQualifiedType { get; private set; }
+
+
+        /// <summary>  
+        /// Initializes a new instance of the <see cref="LaunchPadAggregateChildBase">LaunchPadAggregateChildBase</see> class
+        /// </summary>
+        protected LaunchPadAggregateChildBase() : base()
         {
-            TenantId = tenantId;
         }
 
+
         /// <summary>
-        /// Creates a new instance of the <see cref="TenantSpecificAggregateRootBase">TenantSpecificAggregateRootBase</see> class given a key, and some metadata. 
+        /// Creates a new instance of the <see cref="LaunchPadAggregateChildBase">LaunchPadAggregateChildBase</see> class given a key, and some metadata. 
         /// </summary>
         /// <param name="cultureName">The culture for this entity</param>
-        /// <param name="metadata">The desired metadata for this entity</param>
-        protected TenantSpecificAggregateRootBase(int tenantId, TIdType id, MetadataInformation metadata) : base(id, metadata.Culture)
+        protected LaunchPadAggregateChildBase(TIdType id, string cultureName) : base(id, cultureName)
         {
-
-            TenantId = tenantId;
         }
 
         /// <summary>
@@ -91,9 +76,9 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
         /// </summary>
         /// <param name="info">The serialization info</param>
         /// <param name="context">The context of the stream</param>
-        protected TenantSpecificAggregateRootBase(SerializationInfo info, StreamingContext context) : base(info, context)
+        protected LaunchPadAggregateChildBase(SerializationInfo info, StreamingContext context) : base(info, context)
         {
-            TenantId = info.GetInt32("TenantId");
+            ParentFullyQualifiedType = info.GetString("ParentFullyQualifiedType");
         }
 
         /// <summary>
@@ -104,7 +89,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
         public override void GetObjectData(SerializationInfo info, StreamingContext context)
         {
             base.GetObjectData(info, context);
-            info.AddValue("TenantId", TenantId);
+            info.AddValue("ParentFullyQualifiedType", ParentFullyQualifiedType);
         }
 
         /// <summary>
@@ -118,19 +103,6 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
             // reconnect connection strings and other resources that won't be serialized
         }
 
-        /// <summary>
-        /// Comparison method between two objects of the same type, used for sorting.
-        /// Because the CompareTo method is strongly typed by generic constraints,
-        /// it is not necessary to test for the correct object type.
-        /// </summary>
-        /// <param name="other">The other object of this type we are comparing to</param>
-        /// <returns></returns>
-        public virtual int CompareTo(TenantSpecificAggregateRootBase<TIdType> other)
-        {
-            // put comparison of properties in here 
-            // for base object we'll just sort by title
-            return Name.CompareTo(other.Name);
-        }
 
         /// <summary>  
         /// Displays information about the <c>Field</c> in readable format.  
@@ -139,9 +111,8 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
         public override string ToString()
         {
             StringBuilder sb = new StringBuilder();
-            //sb.AppendFormat(base.ToStringBaseProperties());
-            sb.AppendFormat("DomainEvents={0};", DomainEvents);
-            sb.AppendFormat("TenantId={0};", TenantId);
+            // sb.AppendFormat(base.ToStringBaseProperties());
+            sb.AppendFormat("ParentFullyQualifiedType={0};", ParentFullyQualifiedType);
             return sb.ToString();
         }
 
@@ -152,9 +123,9 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
         /// <returns>True if the entities are the same according to business key value</returns>
         public override bool Equals(object obj)
         {
-            if (obj != null && obj is TenantSpecificAggregateRootBase<TIdType>)
+            if (obj != null && obj is LaunchPadAggregateChildBase<TIdType>)
             {
-                return Equals(obj as TenantSpecificAggregateRootBase<TIdType>);
+                return Equals(obj as LaunchPadAggregateChildBase<TIdType>);
             }
             return false;
         }
@@ -168,7 +139,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
         /// </summary>
         /// <param name="obj">The other object of this type that we are testing equality with</param>
         /// <returns></returns>
-        public virtual bool Equals(TenantSpecificAggregateRootBase<TIdType> obj)
+        public virtual bool Equals(LaunchPadAggregateChildBase<TIdType> obj)
         {
             if (obj != null)
             {
@@ -183,7 +154,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
                     // For safe equality we need to match on business key equality.
                     // Base domain entities are functionally equal if their key and metadata are equal.
                     // Subclasses should extend to include their own enhanced equality checks, as required.
-                    return Id.Equals(obj.Id) && Culture.Equals(obj.Culture) && TenantId.Equals(obj.TenantId);
+                    return Id.Equals(obj.Id);
                 }
 
             }
@@ -196,7 +167,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
         /// <param name="x">The first value</param>
         /// <param name="y">The second value</param>
         /// <returns>True if both objects are fully equal based on the Equals logic</returns>
-        public static bool operator ==(TenantSpecificAggregateRootBase<TIdType> x, TenantSpecificAggregateRootBase<TIdType> y)
+        public static bool operator ==(LaunchPadAggregateChildBase<TIdType> x, LaunchPadAggregateChildBase<TIdType> y)
         {
             if (ReferenceEquals(x, null))
             {
@@ -215,7 +186,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
         /// <param name="x">The first value</param>
         /// <param name="y">The second value</param>
         /// <returns>True if both objects are not equal based on the Equals logic</returns>
-        public static bool operator !=(TenantSpecificAggregateRootBase<TIdType> x, TenantSpecificAggregateRootBase<TIdType> y)
+        public static bool operator !=(LaunchPadAggregateChildBase<TIdType> x, LaunchPadAggregateChildBase<TIdType> y)
         {
             return !(x == y);
         }
@@ -229,7 +200,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
         /// <returns>A hash code for an object.</returns>
         public override int GetHashCode()
         {
-            return Culture.GetHashCode() + Id.GetHashCode() + TenantId.GetHashCode();
+            return Culture.GetHashCode() + Id.GetHashCode();
         }
 
     }

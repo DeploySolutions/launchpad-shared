@@ -31,8 +31,8 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
     /// Each entity also implements ASP.NET Boilerplate's IAggregateRoot interface.
     /// </summary>
     public interface ILaunchPadAggregateRoot<TIdType> :
-        ILaunchPadDomainEntityProperties<TIdType>, IAggregateRoot<TIdType>,
-        ICreationAudited, IModificationAudited, IDeletionAudited, IPassivable,
+        ILaunchPadDomainEntity<TIdType>,
+        ILaunchPadAggregateRootProperties<TIdType>, IAggregateRoot<TIdType>,
         IComparable<LaunchPadDomainEntityBase<TIdType>>, IEquatable<LaunchPadDomainEntityBase<TIdType>>
     {
 

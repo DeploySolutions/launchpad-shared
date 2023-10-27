@@ -25,7 +25,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
 {
 
     /// <summary>
-    /// Marks any object as a Domain Entity that can be manipulated by the LaunchPad platform.
+    /// Marks any object as a regular (non-aggregate) Domain Entity that can be manipulated by the LaunchPad platform.
     /// Each entity is uniquely identified by its DomainEntityKey, and contains a 
     /// set of <see cref="MetadataInformation">MetadataInformation</see>.
     /// Each entity also implements ASP.NET Boilerplate's IEntity interface.

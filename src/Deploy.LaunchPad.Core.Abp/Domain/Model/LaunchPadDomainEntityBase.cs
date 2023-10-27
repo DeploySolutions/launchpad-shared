@@ -22,6 +22,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
     using Deploy.LaunchPad.Core;
     using Deploy.LaunchPad.Core.Abp.Domain.SoftwareApplications;
     using Deploy.LaunchPad.Core.Domain;
+    using Deploy.LaunchPad.Core.Domain.Model;
     using global::Abp.Domain.Entities.Auditing;
     using Newtonsoft.Json;
     using System;
@@ -42,9 +43,17 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
     /// Implements AspNetBoilerplate's auditing interfaces.
     /// </summary>    
     [DebuggerDisplay("{_debugDisplay}")]
+    [Serializable]
     public abstract partial class LaunchPadDomainEntityBase<TIdType> :
         FullAuditedEntity<TIdType>, ILaunchPadDomainEntity<TIdType>
     {
+
+        /// <summary>
+        /// If this object is a regular domain entity, an aggregate root, or an aggregate child
+        /// </summary>
+        [DataObjectField(false)]
+        [XmlAttribute]
+        public virtual DomainEntityType EntityType { get; } = DomainEntityType.DomainEntity;
 
         /// <summary>
         /// Controls the DebuggerDisplay attribute presentation (above). This will only appear during VS debugging sessions and should never be logged.

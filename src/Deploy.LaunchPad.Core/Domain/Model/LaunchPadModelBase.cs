@@ -37,6 +37,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
     /// base functionality for many of its properties.
     /// </summary>    
     [DebuggerDisplay("{_debugDisplay}")]
+    [Serializable]
     public abstract partial class LaunchPadModelBase :
         ILaunchPadCommonProperties, IEquatable<LaunchPadModelBase>, IComparable<LaunchPadModelBase>
     {

@@ -23,12 +23,12 @@ namespace Deploy.LaunchPad.FileGeneration.Structure
         /// <summary>
         /// The class and interface inheritance of the item (everything after the colon ':' in the definition)
         /// </summary>
-        public virtual string InheritsFrom { get; set; }
+        public virtual HashSet<string> InheritsFrom { get; set; }
 
         /// <summary>
         /// The using statements generated in this file.
         /// </summary>
-        public virtual string UsingStatements { get; set; }
+        public virtual HashSet<string> UsingStatements { get; set; }
 
         /// <summary>
         /// Whether the class is virtual. Defaults to yes to allow partial classes.
@@ -77,8 +77,8 @@ namespace Deploy.LaunchPad.FileGeneration.Structure
         public LaunchPadGeneratedClassBase() : base()
         {
             Namespace = string.Empty;
-            InheritsFrom = string.Empty;
-            UsingStatements = string.Empty;
+            InheritsFrom = new HashSet<string>();
+            UsingStatements = new HashSet<string>();
             var comparer = StringComparer.OrdinalIgnoreCase;
             BaseProperties = new Dictionary<string, LaunchPadGeneratedProperty>(comparer);
             CustomProperties = new Dictionary<string, LaunchPadGeneratedProperty>(comparer);

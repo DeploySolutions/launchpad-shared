@@ -14,7 +14,13 @@ namespace Deploy.LaunchPad.Core.Domain.Model
     /// <typeparam name="TIdType"></typeparam>
     public interface ILaunchPadDomainEntityProperties<TIdType> : ILaunchPadCommonProperties
     {
-        
+        /// <summary>
+        /// If this object is a regular domain entity, an aggregate root, or an aggregate child
+        /// </summary>
+        [DataObjectField(false)]
+        [XmlAttribute]
+        public DomainEntityType EntityType { get; }
+
         /// <summary>
         /// If this object is not a translation this field will be null. 
         /// If this object is a translation, this id references the parent object.

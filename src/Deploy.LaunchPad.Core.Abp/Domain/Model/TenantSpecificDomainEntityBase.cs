@@ -34,6 +34,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
     /// base functionality for many of its methods. 
     /// Implements AspNetBoilerplate's <see cref="IMustHaveTenant">IMustHaveTenant interface</see>, overriding the base interface where tenant may or may not exist.
     /// </summary>
+    [Serializable]
     public abstract partial class TenantSpecificDomainEntityBase<TIdType> :
         LaunchPadDomainEntityBase<TIdType>, IMustHaveTenant
 
@@ -54,7 +55,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
         /// <param name="tenantId">The id of the tenant to which this entity belongs</param>
         protected TenantSpecificDomainEntityBase() : base()
         {
-
+            TenantId = 1;
         }
 
 
