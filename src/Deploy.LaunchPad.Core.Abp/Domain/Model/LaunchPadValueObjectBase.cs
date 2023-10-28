@@ -19,8 +19,10 @@ using Abp.Domain.Values;
 using Deploy.LaunchPad.Core.Domain;
 using Deploy.LaunchPad.Core.Domain.Model;
 using System;
+using System.ComponentModel;
 using System.Reflection;
 using System.Runtime.Serialization;
+using System.Xml.Serialization;
 
 namespace Deploy.LaunchPad.Core.Abp.Domain.Model
 {
@@ -36,6 +38,13 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
     public abstract partial class LaunchPadValueObjectBase : ValueObject,
         ILaunchPadValueObject
     {
+
+        /// <summary>
+        /// If this object is a regular domain entity, an aggregate root, or an aggregate child
+        /// </summary>
+        [DataObjectField(false)]
+        [XmlAttribute]
+        public virtual DomainEntityType EntityType { get; } = DomainEntityType.ValueObject;
 
 
         /// <summary>  
