@@ -20,6 +20,8 @@ namespace Deploy.LaunchPad.FileGeneration.Structure
         /// </summary>
         public virtual string Namespace { get; set; }
 
+        public virtual string ParentClass { get; set; }
+
         /// <summary>
         /// The class and interface inheritance of the item (everything after the colon ':' in the definition)
         /// </summary>
