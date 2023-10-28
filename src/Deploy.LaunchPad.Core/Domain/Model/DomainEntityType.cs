@@ -11,6 +11,7 @@ namespace Deploy.LaunchPad.Core.Domain.Model
     {
         DomainEntity = 0,
         AggregateRoot = 1,
-        AggregateChild = 2
+        AggregateChild = 2,
+        ValueObject = 3
     }
 }
