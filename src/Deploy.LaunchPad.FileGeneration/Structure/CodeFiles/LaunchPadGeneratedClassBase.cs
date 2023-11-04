@@ -1,4 +1,5 @@
 ﻿using Deploy.LaunchPad.Core.Util;
+using Deploy.LaunchPad.FileGeneration.Structure.CodeFiles;
 using System;
 using System.Collections.Generic;
 
@@ -20,13 +21,9 @@ namespace Deploy.LaunchPad.FileGeneration.Structure
         /// </summary>
         public virtual string Namespace { get; set; }
 
-        public virtual string ParentClass { get; set; }
+        public virtual Inheritance Inheritance { get; set; }
 
-        /// <summary>
-        /// The class and interface inheritance of the item (everything after the colon ':' in the definition)
-        /// </summary>
-        public virtual HashSet<string> InheritsFrom { get; set; }
-
+        
         /// <summary>
         /// The using statements generated in this file.
         /// </summary>
@@ -79,7 +76,6 @@ namespace Deploy.LaunchPad.FileGeneration.Structure
         public LaunchPadGeneratedClassBase() : base()
         {
             Namespace = string.Empty;
-            InheritsFrom = new HashSet<string>();
             UsingStatements = new HashSet<string>();
             var comparer = StringComparer.OrdinalIgnoreCase;
             BaseProperties = new Dictionary<string, LaunchPadGeneratedProperty>(comparer);
