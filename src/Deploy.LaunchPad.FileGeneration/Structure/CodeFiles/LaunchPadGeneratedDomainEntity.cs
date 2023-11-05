@@ -15,20 +15,6 @@ namespace Deploy.LaunchPad.FileGeneration.Structure
         public virtual DomainEntityType DomainEntityType { get; set; } = DomainEntityType.DomainEntity;
 
         /// <summary>
-        /// If this type if AggregateChild, specify the fully qualified type name of the parent aggregate root this child entity belongs to if  (ex. MyCorp.MyApp.Orders.Order)
-        /// </summary>
-        [DataObjectField(false)]
-        [XmlAttribute]
-        public virtual string ParentFullyQualifiedType { get; private set; } = string.Empty;
-
-        /// <summary>
-        /// If this type if AggregateRoot, specify the fully qualified type names of any children entities (ex. MyCorp.MyApp.Orders.LineItems)
-        /// </summary>
-        [DataObjectField(false)]
-        [XmlAttribute]
-        public HashSet<string> ChildrenFullyQualifiedTypes { get; }
-
-        /// <summary>
         /// Specify whether this domain entity supports multitenancy and if so which ABP tenancy interface type.
         /// </summary>
 
@@ -50,7 +36,6 @@ namespace Deploy.LaunchPad.FileGeneration.Structure
         {
             var comparer = StringComparer.OrdinalIgnoreCase;
             DataTransferObjects = new Dictionary<string, LaunchPadGeneratedDataTransferObject>(comparer);
-            ChildrenFullyQualifiedTypes = new HashSet<string>();
         }
     }
 }
