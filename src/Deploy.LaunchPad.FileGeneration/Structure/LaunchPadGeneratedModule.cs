@@ -23,7 +23,7 @@ namespace Deploy.LaunchPad.FileGeneration.Structure
         public virtual bool CheckValidity()
         {
             bool isValid = false;
-            if (!string.IsNullOrEmpty(Name) && !string.IsNullOrEmpty(Id) && !string.IsNullOrEmpty(ObjectTypeName)
+            if (!string.IsNullOrEmpty(Name) && !string.IsNullOrEmpty(Id) && !string.IsNullOrEmpty(Inheritance.FullyQualifiedType)
                   && Settings != null
             )
             {

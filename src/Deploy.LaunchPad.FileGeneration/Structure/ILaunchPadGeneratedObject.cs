@@ -15,11 +15,6 @@ namespace Deploy.LaunchPad.FileGeneration.Structure
 
         string NamePrefix { get; set; }
         string NameSuffix { get; set; }
-        string ObjectTypeName { get; set; }
-
-        string ObjectTypeFullName { get; set; }
-
-        string ObjectTypeAssemblyName { get; set; }
 
         public GitHubRepository Repository { get; set; }
 

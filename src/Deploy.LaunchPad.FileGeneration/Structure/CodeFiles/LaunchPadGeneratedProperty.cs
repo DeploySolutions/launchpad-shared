@@ -104,7 +104,7 @@ namespace Deploy.LaunchPad.FileGeneration.Structure
         {
             // put comparison of properties in here 
             // for base object we'll just sort by ObjectTypeFullName
-            return ObjectTypeFullName.CompareTo(other.ObjectTypeFullName);
+            return Inheritance.FullyQualifiedType.CompareTo(other.Inheritance.FullyQualifiedType);
         }
 
         /// <summary>  
@@ -155,9 +155,7 @@ namespace Deploy.LaunchPad.FileGeneration.Structure
                 // For safe equality we need to match on business key equality.
                 // Base domain entities are functionally equal if their key and metadata are equal.
                 // Subclasses should extend to include their own enhanced equality checks, as required.
-                return Id.Equals(obj.Id) && IdType.Equals(obj.IdType) && ObjectTypeAssemblyName.Equals(obj.ObjectTypeAssemblyName)
-                    && ObjectTypeFullName.Equals(obj.ObjectTypeFullName)
-                    && ObjectTypeName.Equals(obj.ObjectTypeName);
+                return Id.Equals(obj.Id) && IdType.Equals(obj.IdType) && Inheritance.Equals(obj.Inheritance);
 
             }
             return false;

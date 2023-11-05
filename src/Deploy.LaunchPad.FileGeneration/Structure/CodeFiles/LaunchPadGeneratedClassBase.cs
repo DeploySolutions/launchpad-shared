@@ -1,5 +1,4 @@
 ﻿using Deploy.LaunchPad.Core.Util;
-using Deploy.LaunchPad.FileGeneration.Structure.CodeFiles;
 using System;
 using System.Collections.Generic;
 
@@ -20,8 +19,6 @@ namespace Deploy.LaunchPad.FileGeneration.Structure
         /// The namespace of the generated item.
         /// </summary>
         public virtual string Namespace { get; set; }
-
-        public virtual Inheritance Inheritance { get; set; }
 
         
         /// <summary>

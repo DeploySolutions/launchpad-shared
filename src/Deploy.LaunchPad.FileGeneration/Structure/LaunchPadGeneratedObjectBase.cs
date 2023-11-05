@@ -63,20 +63,7 @@ namespace Deploy.LaunchPad.FileGeneration.Structure
         /// </summary>
         public virtual string Annotations { get; set; } = string.Empty;
 
-        /// <summary>
-        /// The C# type of this object
-        /// </summary>
-        public virtual string ObjectTypeName { get; set; } = string.Empty;
-
-        /// <summary>
-        /// The C# full type name of this object
-        /// </summary>
-        public virtual string ObjectTypeFullName { get; set; } = string.Empty;
-
-        /// <summary>
-        /// The assembly name in which this C# object is defined
-        /// </summary>
-        public virtual string ObjectTypeAssemblyName { get; set; } = string.Empty;
+        public virtual LaunchPadGeneratedObjectInheritance Inheritance { get; set; }
 
         /// <summary>
         /// The C# type of this object's id.
@@ -101,12 +88,10 @@ namespace Deploy.LaunchPad.FileGeneration.Structure
         {
             Name = string.Empty; 
             Description = string.Empty;
-            ObjectTypeName = this.GetType().Name;
-            ObjectTypeFullName = this.GetType().FullName;
-            ObjectTypeAssemblyName = this.GetType().Assembly.FullName;
             IdType = string.Empty;
             Id = string.Empty;
             Repository = new GitHubRepository();
+            Inheritance = new LaunchPadGeneratedObjectInheritance();
             var comparer = StringComparer.OrdinalIgnoreCase;
             AvailableTemplates = new Dictionary<string, TemplateBase>(comparer);
             AvailableTokens = new Dictionary<string, LaunchPadToken>(comparer);
@@ -116,12 +101,10 @@ namespace Deploy.LaunchPad.FileGeneration.Structure
         {
             Name = string.Empty;
             Description = string.Empty;
-            ObjectTypeName = this.GetType().Name;
-            ObjectTypeFullName = this.GetType().FullName;
-            ObjectTypeAssemblyName = this.GetType().Assembly.FullName;
             IdType = string.Empty;
             Id = string.Empty;
             Repository = repo;
+            Inheritance = new LaunchPadGeneratedObjectInheritance();
             var comparer = StringComparer.OrdinalIgnoreCase;
             AvailableTemplates = new Dictionary<string, TemplateBase>(comparer);
             AvailableTokens = new Dictionary<string, LaunchPadToken>(comparer);
@@ -143,10 +126,8 @@ namespace Deploy.LaunchPad.FileGeneration.Structure
             Description = info.GetString("Description");
             Annotations = info.GetString("Annotations");
             IdType = info.GetString("IdType");
-            ObjectTypeName = info.GetString("ObjectTypeName");
-            ObjectTypeFullName = info.GetString("ObjectTypeFullName");
-            ObjectTypeAssemblyName = info.GetString("ObjectTypeAssemblyName");
             Repository = (GitHubRepository)info.GetValue("Repository", typeof(GitHubRepository));
+            Inheritance = (LaunchPadGeneratedObjectInheritance)info.GetValue("Inheritance", typeof(LaunchPadGeneratedObjectInheritance));
             AvailableTemplates = (Dictionary<string, TemplateBase>)info.GetValue("AvailableTemplates", typeof(Dictionary<string, TemplateBase>));
             AvailableTokens = (Dictionary<string, LaunchPadToken>)info.GetValue("AvailableTokens", typeof(Dictionary<string, LaunchPadToken>));
         }
@@ -166,10 +147,8 @@ namespace Deploy.LaunchPad.FileGeneration.Structure
             info.AddValue("Description", Description);
             info.AddValue("Annotations", Annotations);
             info.AddValue("IdType", IdType);
-            info.AddValue("ObjectTypeName", ObjectTypeName);
-            info.AddValue("ObjectTypeFullName", ObjectTypeFullName);
-            info.AddValue("ObjectTypeAssemblyName", ObjectTypeAssemblyName);
             info.AddValue("Repository", Repository);
+            info.AddValue("Inheritance", Inheritance);
             info.AddValue("AvailableTemplates", AvailableTemplates);
             info.AddValue("AvailableTokens", AvailableTokens);
 
@@ -218,7 +197,7 @@ namespace Deploy.LaunchPad.FileGeneration.Structure
         {
             // put comparison of properties in here 
             // for base object we'll just sort by ObjectTypeFullName
-            return ObjectTypeFullName.CompareTo(other.ObjectTypeFullName);
+            return Inheritance.FullyQualifiedType.CompareTo(other.Inheritance.FullyQualifiedType);
         }
 
         /// <summary>  
@@ -245,10 +224,8 @@ namespace Deploy.LaunchPad.FileGeneration.Structure
             // LaunchPAD RAD properties
             sb.AppendFormat("Id={0};", Id);
             sb.AppendFormat("IdType={0};", IdType);
-            sb.AppendFormat("ObjectTypeName={0};", ObjectTypeName);
-            sb.AppendFormat("ObjectTypeFullName={0};", ObjectTypeFullName);
-            sb.AppendFormat("ObjectTypeAssemblyName={0};", ObjectTypeAssemblyName);
             sb.AppendFormat("Repository={0};", Repository);
+            sb.AppendFormat("Inheritance={0};", Inheritance);
             sb.AppendFormat("AvailableTemplates={0};", AvailableTemplates);
             sb.AppendFormat("AvailableTokens={0};", AvailableTokens);
             return sb.ToString();
@@ -285,9 +262,7 @@ namespace Deploy.LaunchPad.FileGeneration.Structure
                 // For safe equality we need to match on business key equality.
                 // Base domain entities are functionally equal if their key and metadata are equal.
                 // Subclasses should extend to include their own enhanced equality checks, as required.
-                return Id.Equals(obj.Id) && IdType.Equals(obj.IdType) && ObjectTypeAssemblyName.Equals(obj.ObjectTypeAssemblyName)
-                    && ObjectTypeFullName.Equals(obj.ObjectTypeFullName)
-                    && ObjectTypeName.Equals(obj.ObjectTypeName)
+                return Id.Equals(obj.Id) && IdType.Equals(obj.IdType) && Inheritance.Equals(obj.Inheritance)
                     && Repository.Equals(obj.Repository)
                 ;
 
