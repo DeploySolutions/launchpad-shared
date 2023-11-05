@@ -30,17 +30,6 @@ namespace Deploy.LaunchPad.FileGeneration.Stages
         /// </summary>
         public string SupportedCultures { get; set; }
 
-        public GitHubRepository Repository { get; set; }
-
-        /// <summary>
-        /// Contains a dictionary of Templates belonging to this object, keyed by the template name
-        /// </summary>
-        public IDictionary<string, TemplateBase> AvailableTemplates { get; set; }
-
-        /// <summary>
-        /// Contains a dictionary of Tokens belonging to this object, keyed by the token name
-        /// </summary>
-        public IDictionary<string, LaunchPadToken> AvailableTokens { get; set; }
 
         /// <summary>
         /// Contains a dictionary of file or folder exclusions paths that will be applied when assembling

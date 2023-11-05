@@ -41,17 +41,6 @@ namespace Deploy.LaunchPad.FileGeneration.Stages
         /// </summary>
         public virtual Authentication Authentication { get; set; }
 
-        public virtual GitHubRepository Repository { get; set; }
-
-        /// <summary>
-        /// Contains a dictionary of Templates belonging to this object, keyed by the template name
-        /// </summary>
-        public virtual IDictionary<string, TemplateBase> AvailableTemplates { get; set; }
-
-        /// <summary>
-        /// Contains a dictionary of Tokens belonging to this object, keyed by the token name
-        /// </summary>
-        public virtual IDictionary<string, LaunchPadToken> AvailableTokens { get; set; }
 
         // <summary>
         /// Contains a dictionary of file or folder exclusions paths that will be applied when assembling
@@ -60,40 +49,21 @@ namespace Deploy.LaunchPad.FileGeneration.Stages
 
         public LaunchPadGeneratedObjectBlueprintDefinitionSettings()
         {
-            Repository = new GitHubRepository();
             RelativeStartingPathFromParent = string.Empty;
             SupportedCultures = string.Empty;
             Version = string.Empty;
             Authentication = Authentication.Tenant;
             var comparer = StringComparer.OrdinalIgnoreCase;
-            AvailableTemplates = new Dictionary<string, TemplateBase>(comparer);
-            AvailableTokens = new Dictionary<string, LaunchPadToken>(comparer);
             ExclusionPaths = new Dictionary<string, string>(comparer);
         }
 
-        public LaunchPadGeneratedObjectBlueprintDefinitionSettings(GitHubRepository repo)
+        public LaunchPadGeneratedObjectBlueprintDefinitionSettings(string relativeStartPath)
         {
-            Repository = repo;
-            RelativeStartingPathFromParent = string.Empty;
-            SupportedCultures = string.Empty;
-            Version = string.Empty;
-            Authentication = Authentication.Tenant;
-            var comparer = StringComparer.OrdinalIgnoreCase;
-            AvailableTemplates = new Dictionary<string, TemplateBase>(comparer);
-            AvailableTokens = new Dictionary<string, LaunchPadToken>(comparer);
-            ExclusionPaths = new Dictionary<string, string>(comparer);
-        }
-
-        public LaunchPadGeneratedObjectBlueprintDefinitionSettings(GitHubRepository repo, string relativeStartPath)
-        {
-            Repository = repo;
             RelativeStartingPathFromParent = relativeStartPath;
             SupportedCultures = string.Empty;
             Version = string.Empty;
             Authentication = Authentication.Tenant;
             var comparer = StringComparer.OrdinalIgnoreCase;
-            AvailableTemplates = new Dictionary<string, TemplateBase>(comparer);
-            AvailableTokens = new Dictionary<string, LaunchPadToken>(comparer);
             ExclusionPaths = new Dictionary<string, string>(comparer);
         }
 

@@ -7,6 +7,9 @@ using System.Reflection;
 using System.Runtime.Serialization;
 using System.Text.RegularExpressions;
 using System.Text;
+using Deploy.LaunchPad.FileGeneration.Stages;
+using Deploy.LaunchPad.FileGeneration.Structure.SourceControl;
+using System.Collections;
 
 namespace Deploy.LaunchPad.FileGeneration.Structure
 {
@@ -81,6 +84,19 @@ namespace Deploy.LaunchPad.FileGeneration.Structure
         public virtual string IdType { get; set; } = "System.Int32";
 
 
+        public virtual GitHubRepository Repository { get; set; }
+
+        /// <summary>
+        /// Contains a dictionary of Templates belonging to this object, keyed by the template name
+        /// </summary>
+        public virtual IDictionary<string, TemplateBase> AvailableTemplates { get; set; }
+
+        /// <summary>
+        /// Contains a dictionary of Tokens belonging to this object, keyed by the token name
+        /// </summary>
+        public virtual IDictionary<string, LaunchPadToken> AvailableTokens { get; set; }
+
+
         public LaunchPadGeneratedObjectBase() : base()
         {
             Name = string.Empty; 
@@ -90,6 +106,25 @@ namespace Deploy.LaunchPad.FileGeneration.Structure
             ObjectTypeAssemblyName = this.GetType().Assembly.FullName;
             IdType = string.Empty;
             Id = string.Empty;
+            Repository = new GitHubRepository();
+            var comparer = StringComparer.OrdinalIgnoreCase;
+            AvailableTemplates = new Dictionary<string, TemplateBase>(comparer);
+            AvailableTokens = new Dictionary<string, LaunchPadToken>(comparer);
+        }
+
+        public LaunchPadGeneratedObjectBase(GitHubRepository repo) : base()
+        {
+            Name = string.Empty;
+            Description = string.Empty;
+            ObjectTypeName = this.GetType().Name;
+            ObjectTypeFullName = this.GetType().FullName;
+            ObjectTypeAssemblyName = this.GetType().Assembly.FullName;
+            IdType = string.Empty;
+            Id = string.Empty;
+            Repository = repo;
+            var comparer = StringComparer.OrdinalIgnoreCase;
+            AvailableTemplates = new Dictionary<string, TemplateBase>(comparer);
+            AvailableTokens = new Dictionary<string, LaunchPadToken>(comparer);
         }
 
 
@@ -111,7 +146,9 @@ namespace Deploy.LaunchPad.FileGeneration.Structure
             ObjectTypeName = info.GetString("ObjectTypeName");
             ObjectTypeFullName = info.GetString("ObjectTypeFullName");
             ObjectTypeAssemblyName = info.GetString("ObjectTypeAssemblyName");
-
+            Repository = (GitHubRepository)info.GetValue("Repository", typeof(GitHubRepository));
+            AvailableTemplates = (Dictionary<string, TemplateBase>)info.GetValue("AvailableTemplates", typeof(Dictionary<string, TemplateBase>));
+            AvailableTokens = (Dictionary<string, LaunchPadToken>)info.GetValue("AvailableTokens", typeof(Dictionary<string, LaunchPadToken>));
         }
 
         /// <summary>
@@ -132,6 +169,9 @@ namespace Deploy.LaunchPad.FileGeneration.Structure
             info.AddValue("ObjectTypeName", ObjectTypeName);
             info.AddValue("ObjectTypeFullName", ObjectTypeFullName);
             info.AddValue("ObjectTypeAssemblyName", ObjectTypeAssemblyName);
+            info.AddValue("Repository", Repository);
+            info.AddValue("AvailableTemplates", AvailableTemplates);
+            info.AddValue("AvailableTokens", AvailableTokens);
 
         }
 
@@ -208,6 +248,9 @@ namespace Deploy.LaunchPad.FileGeneration.Structure
             sb.AppendFormat("ObjectTypeName={0};", ObjectTypeName);
             sb.AppendFormat("ObjectTypeFullName={0};", ObjectTypeFullName);
             sb.AppendFormat("ObjectTypeAssemblyName={0};", ObjectTypeAssemblyName);
+            sb.AppendFormat("Repository={0};", Repository);
+            sb.AppendFormat("AvailableTemplates={0};", AvailableTemplates);
+            sb.AppendFormat("AvailableTokens={0};", AvailableTokens);
             return sb.ToString();
         }
 
@@ -244,7 +287,9 @@ namespace Deploy.LaunchPad.FileGeneration.Structure
                 // Subclasses should extend to include their own enhanced equality checks, as required.
                 return Id.Equals(obj.Id) && IdType.Equals(obj.IdType) && ObjectTypeAssemblyName.Equals(obj.ObjectTypeAssemblyName)
                     && ObjectTypeFullName.Equals(obj.ObjectTypeFullName)
-                    && ObjectTypeName.Equals(obj.ObjectTypeName);
+                    && ObjectTypeName.Equals(obj.ObjectTypeName)
+                    && Repository.Equals(obj.Repository)
+                ;
 
             }
             return false;
