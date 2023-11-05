@@ -17,7 +17,7 @@ namespace Deploy.LaunchPad.FileGeneration.Structure
         string NameSuffix { get; set; }
 
         public GitHubRepository Repository { get; set; }
-        public LaunchPadGeneratedObjectInheritance Inheritance { get; set; }
+        public ILaunchPadGeneratedObjectInheritance Inheritance { get; set; }
 
         /// <summary>
         /// Contains a dictionary of Templates belonging to this object, keyed by the template name

@@ -63,7 +63,7 @@ namespace Deploy.LaunchPad.FileGeneration.Structure
         /// </summary>
         public virtual string Annotations { get; set; } = string.Empty;
 
-        public virtual LaunchPadGeneratedObjectInheritance Inheritance { get; set; }
+        public virtual ILaunchPadGeneratedObjectInheritance Inheritance { get; set; }
 
         /// <summary>
         /// The C# type of this object's id.
