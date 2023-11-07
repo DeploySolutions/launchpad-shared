@@ -11,6 +11,11 @@ namespace Deploy.LaunchPad.FileGeneration.Structure
     public abstract partial class LaunchPadWebClientObjectBase : LaunchPadGeneratedObjectBase
     {
 
+        /// <summary>
+        /// Id is always Guid, but in some cases we want to display an HTML id attribute with non-Guid text. This holds that value.
+        /// </summary>
+        public virtual string OutputId { get; set; } = string.Empty;
+
         public LaunchPadWebClientObjectBase() : base()
         {
         }
