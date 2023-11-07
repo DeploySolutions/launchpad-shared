@@ -167,7 +167,7 @@ namespace Deploy.LaunchPad.FileGeneration.Structure
 
         public LaunchPadWebItem() : base()
         {
-            Id = null;
+            Id = Guid.Empty;
         }
 
         /// <summary>

@@ -26,7 +26,7 @@ namespace Deploy.LaunchPad.FileGeneration.Structure
 
         public LaunchPadRow() : base()
         {
-            Id = null;
+            Id = Guid.Empty;
             Name = null;
         }
 

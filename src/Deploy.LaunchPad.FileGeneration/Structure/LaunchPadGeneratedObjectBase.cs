@@ -26,7 +26,7 @@ namespace Deploy.LaunchPad.FileGeneration.Structure
         /// The unique id of the object (if present)
         /// </summary>
         [JsonProperty("id", DefaultValueHandling = DefaultValueHandling.Populate)]
-        public virtual string Id { get; set; } = string.Empty;
+        public virtual Guid Id { get; set; } = Guid.NewGuid();
 
         /// <summary>
         /// The singular name of the object 
@@ -89,7 +89,6 @@ namespace Deploy.LaunchPad.FileGeneration.Structure
             Name = string.Empty; 
             Description = string.Empty;
             IdType = string.Empty;
-            Id = string.Empty;
             Repository = new GitHubRepository();
             Inheritance = new LaunchPadGeneratedObjectInheritance();
             var comparer = StringComparer.OrdinalIgnoreCase;
@@ -102,7 +101,6 @@ namespace Deploy.LaunchPad.FileGeneration.Structure
             Name = string.Empty;
             Description = string.Empty;
             IdType = string.Empty;
-            Id = string.Empty;
             Repository = repo;
             Inheritance = new LaunchPadGeneratedObjectInheritance();
             var comparer = StringComparer.OrdinalIgnoreCase;
@@ -118,7 +116,7 @@ namespace Deploy.LaunchPad.FileGeneration.Structure
         /// <param name="context">The context of the stream</param>
         protected LaunchPadGeneratedObjectBase(SerializationInfo info, StreamingContext context) 
         {
-            Id = info.GetString("Id");
+            Id = (Guid)info.GetValue("Id", typeof(Guid));
             Name = info.GetString("Name");
             Abbreviation = info.GetString("Abbreviation");
             NamePrefix = info.GetString("NamePrefix");

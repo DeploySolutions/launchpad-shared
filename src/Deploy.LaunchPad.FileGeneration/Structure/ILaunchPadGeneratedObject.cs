@@ -1,6 +1,7 @@
 ﻿using Deploy.LaunchPad.Core.Util;
 using Deploy.LaunchPad.FileGeneration.Stages;
 using Deploy.LaunchPad.FileGeneration.Structure.SourceControl;
+using System;
 using System.Collections.Generic;
 
 namespace Deploy.LaunchPad.FileGeneration.Structure
@@ -8,7 +9,7 @@ namespace Deploy.LaunchPad.FileGeneration.Structure
     public interface ILaunchPadGeneratedObject
     {
         string Description { get; set; }
-        string Id { get; set; }
+        Guid Id { get; set; }
         string IdType { get; set; }
         string Name { get; set; }
         string Abbreviation { get; set; }
