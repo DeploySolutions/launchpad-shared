@@ -8,7 +8,10 @@ namespace Deploy.LaunchPad.FileGeneration.Structure
     [Serializable]
     public partial class LaunchPadGeneratedSolution : LaunchPadGeneratedObjectBase, ILaunchPadGeneratedSolution
     {
-
+        /// <summary>
+        /// Describes the overall infrastructure this solution is being generated/deployed into. May be null.
+        /// </summary>
+        public virtual ISoftwareInfrastructure SoftwareInfrastructure { get; set; }
 
         /// <summary>
         /// Contains configuration information related to this object's solution
