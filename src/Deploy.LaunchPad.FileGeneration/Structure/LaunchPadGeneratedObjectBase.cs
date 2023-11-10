@@ -10,6 +10,7 @@ using System.Text;
 using Deploy.LaunchPad.FileGeneration.Stages;
 using Deploy.LaunchPad.FileGeneration.Structure.SourceControl;
 using System.Collections;
+using System.Diagnostics;
 
 namespace Deploy.LaunchPad.FileGeneration.Structure
 {
@@ -19,6 +20,7 @@ namespace Deploy.LaunchPad.FileGeneration.Structure
     /// </summary>    
     [Serializable]
     [JsonObject(MemberSerialization.OptIn)]
+    [DebuggerDisplay("Id = {Id}. Name={Name}. Description={Description}")]
     public abstract partial class LaunchPadGeneratedObjectBase : ILaunchPadGeneratedObject,
         IComparable<LaunchPadGeneratedObjectBase>, IEquatable<LaunchPadGeneratedObjectBase>
     {
