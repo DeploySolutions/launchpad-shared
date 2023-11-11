@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Data;
 using System.Runtime.Serialization;
 
@@ -14,6 +15,7 @@ namespace Deploy.LaunchPad.FileGeneration.Structure
         /// <summary>
         /// Id is always Guid, but in some cases we want to display an HTML id attribute with non-Guid text. This holds that value.
         /// </summary>
+        [JsonProperty("outputId")]
         public virtual string OutputId { get; set; } = string.Empty;
 
         public LaunchPadWebClientObjectBase() : base()
