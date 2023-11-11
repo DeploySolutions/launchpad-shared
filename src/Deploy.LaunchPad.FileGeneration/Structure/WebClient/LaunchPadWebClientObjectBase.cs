@@ -2,6 +2,7 @@
 using System;
 using System.Data;
 using System.Runtime.Serialization;
+using System.Text.Json.Serialization;
 
 namespace Deploy.LaunchPad.FileGeneration.Structure
 {
@@ -13,10 +14,14 @@ namespace Deploy.LaunchPad.FileGeneration.Structure
     {
 
         /// <summary>
-        /// Id is always Guid, but in some cases we want to display an HTML id attribute with non-Guid text. This holds that value.
+        /// Id is always Guid, but in some cases we want to display an HTML id attribute with non-Guid text. This holds that value. So, for web client objects
+        /// we serialize this item in json and override and hide the original id
         /// </summary>
-        [JsonProperty("outputId")]
+        [JsonProperty("id")]
         public virtual string OutputId { get; set; } = string.Empty;
+
+        [Newtonsoft.Json.JsonIgnore]
+        public override Guid Id { get; set; }
 
         public LaunchPadWebClientObjectBase() : base()
         {
