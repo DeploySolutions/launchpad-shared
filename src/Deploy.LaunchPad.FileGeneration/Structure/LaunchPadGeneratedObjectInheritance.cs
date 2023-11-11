@@ -47,11 +47,7 @@ namespace Deploy.LaunchPad.FileGeneration.Structure
         public virtual IDictionary<string, string> InheritsFrom { get; set; }
 
         public LaunchPadGeneratedObjectInheritance()
-        {
-
-            Type = this.GetType().Name;
-            FullyQualifiedType = this.GetType().FullName;
-            AssemblyFullyQualifiedName = this.GetType().Assembly.FullName;
+        {           
             var comparer = StringComparer.OrdinalIgnoreCase;
             InheritsFrom = new Dictionary<string, string>(comparer);
             ChildrenFullyQualifiedTypes = new Dictionary<string, string>(comparer);
