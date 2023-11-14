@@ -8,7 +8,7 @@ namespace Deploy.LaunchPad.FileGeneration.Structure.AbpModules
 {
     public partial class ModuleDependencyInformation
     {
-        public virtual IDictionary<string, string> BaseDependencies { get; init; }
+        public virtual IDictionary<string, string> BaseDependencies { get; set; }
 
         public virtual IDictionary<string, string> CustomDependencies { get; set; }
 
