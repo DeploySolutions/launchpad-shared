@@ -72,7 +72,7 @@ namespace Deploy.LaunchPad.Core.Util
             return elementNodeString;
         }
 
-        protected string GetElementNodeString(HtmlNode parentNode, string xPath, bool replaceNullWithEmptyString = true)
+        protected string GetElementNodeString(HtmlNode parentNode, string xPath, bool replaceNullWithEmptyString = true, bool unescapeAngleBrackets = false)
         {
             Guard.Against<ArgumentException>(parentNode == null, Deploy_LaunchPad_Core_Resources.Guard_XhtmlHelper_ParentNode_Is_Null);
             Guard.Against<ArgumentException>(String.IsNullOrEmpty(xPath), Deploy_LaunchPad_Core_Resources.Guard_XhtmlHelper_XPath_Is_Null);
@@ -89,6 +89,11 @@ namespace Deploy.LaunchPad.Core.Util
                 else
                 {
                     elementNodeString = innerHtml;
+                }
+                if(unescapeAngleBrackets)
+                {
+                    elementNodeString.Replace("&lt;", "<");
+                    elementNodeString.Replace("&gt;", ">");
                 }
             }
             return elementNodeString;
