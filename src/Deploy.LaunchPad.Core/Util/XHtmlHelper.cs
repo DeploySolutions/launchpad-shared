@@ -64,15 +64,15 @@ namespace Deploy.LaunchPad.Core.Util
             return parentNode.SelectNodes(xPath.ToLower());
         }
 
-        public string GetTextFromElement(HtmlNode parentNode, string xPath, bool replaceNullWithEmptyString = true)
+        public string GetTextFromElement(HtmlNode parentNode, string xPath, bool shouldReplaceNullWithEmptyString = true, bool shouldUnescapeAngleBrackets = true)
         {
             Guard.Against<ArgumentException>(parentNode == null, Deploy_LaunchPad_Core_Resources.Guard_XhtmlHelper_ParentNode_Is_Null);
             Guard.Against<ArgumentException>(String.IsNullOrEmpty(xPath), Deploy_LaunchPad_Core_Resources.Guard_XhtmlHelper_XPath_Is_Null);
-            string elementNodeString = GetElementNodeString(parentNode, xPath, replaceNullWithEmptyString);
+            string elementNodeString = GetElementNodeString(parentNode, xPath, shouldReplaceNullWithEmptyString, shouldUnescapeAngleBrackets);
             return elementNodeString;
         }
 
-        protected string GetElementNodeString(HtmlNode parentNode, string xPath, bool replaceNullWithEmptyString = true, bool unescapeAngleBrackets = false)
+        protected string GetElementNodeString(HtmlNode parentNode, string xPath, bool shouldReplaceNullWithEmptyString = true, bool shouldUnescapeAngleBrackets = true)
         {
             Guard.Against<ArgumentException>(parentNode == null, Deploy_LaunchPad_Core_Resources.Guard_XhtmlHelper_ParentNode_Is_Null);
             Guard.Against<ArgumentException>(String.IsNullOrEmpty(xPath), Deploy_LaunchPad_Core_Resources.Guard_XhtmlHelper_XPath_Is_Null);
@@ -82,7 +82,7 @@ namespace Deploy.LaunchPad.Core.Util
             {
                 if (elementNode.InnerHtml == "&nbsp;") elementNode.Remove();
                 string innerHtml = elementNode.InnerHtml.Replace("<![CDATA[", "").Replace("]]>", String.Empty).Trim();
-                if (replaceNullWithEmptyString)
+                if (shouldReplaceNullWithEmptyString)
                 {
                     elementNodeString = innerHtml.Replace("null", string.Empty).Trim();
                 }
@@ -90,7 +90,7 @@ namespace Deploy.LaunchPad.Core.Util
                 {
                     elementNodeString = innerHtml;
                 }
-                if(unescapeAngleBrackets)
+                if(shouldUnescapeAngleBrackets)
                 {
                     elementNodeString.Replace("&lt;", "<");
                     elementNodeString.Replace("&gt;", ">");
