@@ -92,8 +92,7 @@ namespace Deploy.LaunchPad.Core.Util
                 }
                 if(shouldUnescapeAngleBrackets)
                 {
-                    elementNodeString.Replace("&lt;", "<");
-                    elementNodeString.Replace("&gt;", ">");
+                    elementNodeString = elementNodeString.Replace("&lt;", "<").Replace("&gt;", ">");
                 }
             }
             return elementNodeString;
