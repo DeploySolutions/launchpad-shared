@@ -43,7 +43,7 @@ namespace Deploy.LaunchPad.FileGeneration.Structure
         /// </summary>
         /// <param name="info"></param>
         /// <param name="context"></param>
-        public virtual void GetObjectData(SerializationInfo info, StreamingContext context)
+        public override void GetObjectData(SerializationInfo info, StreamingContext context)
         {
             base.GetObjectData(info, context);
             info.AddValue("Scope", Scope);
@@ -51,17 +51,7 @@ namespace Deploy.LaunchPad.FileGeneration.Structure
             info.AddValue("IsVirtual", IsVirtual);
         }
 
-        /// <summary>
-        /// Event called once deserialization constructor finishes.
-        /// Useful for reattaching connections and other finite resources that 
-        /// can't be serialized and deserialized.
-        /// </summary>
-        /// <param name="sender">The object that has been deserialized</param>
-        public virtual void OnDeserialization(object sender)
-        {
-            // reconnect connection strings and other resources that won't be serialized
-        }
-
+       
         /// <summary>
         /// Shallow clones the entity
         /// </summary>
@@ -198,7 +188,7 @@ namespace Deploy.LaunchPad.FileGeneration.Structure
         /// This method implements the <see cref="Object">Object</see> method.  
         /// </remarks>  
         /// <returns>A hash code for an object.</returns>
-        public virtual int GetHashCode()
+        public override int GetHashCode()
         {
             return Id.GetHashCode();
         }
