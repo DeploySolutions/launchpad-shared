@@ -1,4 +1,17 @@
-﻿using Deploy.LaunchPad.Core.Abp.Domain.SoftwareApplications;
+﻿// ***********************************************************************
+// Assembly         : Deploy.LaunchPad.Core.Abp
+// Author           : Nicholas Kellett
+// Created          : 11-19-2023
+//
+// Last Modified By : Nicholas Kellett
+// Last Modified On : 01-08-2023
+// ***********************************************************************
+// <copyright file="GetAllAdminInputDtoBase.cs" company="Deploy Software Solutions, inc.">
+//     2018-2023 Deploy Software Solutions, inc.
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
+using Deploy.LaunchPad.Core.Abp.Domain.SoftwareApplications;
 using System;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -7,12 +20,19 @@ using System.Xml.Serialization;
 
 namespace Deploy.LaunchPad.Core.Abp.Application.Dto
 {
+    /// <summary>
+    /// Class GetAllAdminInputDtoBase.
+    /// Implements the <see cref="Deploy.LaunchPad.Core.Abp.Application.Dto.GetAllDetailInputDtoBase{TIdType}" />
+    /// </summary>
+    /// <typeparam name="TIdType">The type of the t identifier type.</typeparam>
+    /// <seealso cref="Deploy.LaunchPad.Core.Abp.Application.Dto.GetAllDetailInputDtoBase{TIdType}" />
     public abstract partial class GetAllAdminInputDtoBase<TIdType> : GetAllDetailInputDtoBase<TIdType>
     {
         /// <summary>
-        /// If this object is not a translation this field will be null. 
+        /// If this object is not a translation this field will be null.
         /// If this object is a translation, this id references the parent object.
         /// </summary>
+        /// <value>The translated from identifier.</value>
         [DataObjectField(false)]
         [XmlAttribute]
         public virtual TIdType TranslatedFromId { get; set; }
@@ -20,6 +40,7 @@ namespace Deploy.LaunchPad.Core.Abp.Application.Dto
         /// <summary>
         /// The date and time that this object was deleted.
         /// </summary>
+        /// <value>The deletion time.</value>
         [DataObjectField(false)]
         [XmlAttribute]
         public virtual DateTime? DeletionTime { get; set; }
@@ -27,12 +48,17 @@ namespace Deploy.LaunchPad.Core.Abp.Application.Dto
         /// <summary>
         /// The id of the user which deleted this entity
         /// </summary>
+        /// <value>The deleter user identifier.</value>
         [DataObjectField(false)]
         [XmlAttribute]
         [ForeignKey(nameof(DeleterUserId))]
         public virtual long? DeleterUserId { get; set; }
 
 
+        /// <summary>
+        /// Gets or sets a value indicating whether this instance is deleted.
+        /// </summary>
+        /// <value><c>true</c> if this instance is deleted; otherwise, <c>false</c>.</value>
         [DataObjectField(false)]
         [XmlAttribute]
         public virtual bool IsDeleted { get; set; }
@@ -50,13 +76,18 @@ namespace Deploy.LaunchPad.Core.Abp.Application.Dto
         /// <summary>
         /// Default constructor where the id is known
         /// </summary>
-        /// <param name="id"></param>
+        /// <param name="tenantId">The tenant identifier.</param>
         public GetAllAdminInputDtoBase(int tenantId) : base()
         {
             TenantId = tenantId;
             Culture = ApplicationDetails<TIdType>.DEFAULT_CULTURE;
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="GetAllAdminInputDtoBase{TIdType}"/> class.
+        /// </summary>
+        /// <param name="tenantId">The tenant identifier.</param>
+        /// <param name="culture">The culture.</param>
         public GetAllAdminInputDtoBase(int tenantId, String culture) : base()
         {
             TenantId = tenantId;

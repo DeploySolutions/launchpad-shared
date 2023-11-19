@@ -1,5 +1,16 @@
-﻿//LaunchPad Shared
-// Copyright (c) 2016-2021 Deploy Software Solutions, inc. 
+﻿// ***********************************************************************
+// Assembly         : Deploy.LaunchPad.Core
+// Author           : Nicholas Kellett
+// Created          : 11-19-2023
+//
+// Last Modified By : Nicholas Kellett
+// Last Modified On : 06-11-2023
+// ***********************************************************************
+// <copyright file="IPhysicallyLocatable.cs" company="Deploy Software Solutions, inc.">
+//     2018-2023 Deploy Software Solutions, inc.
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
 
 #region license
 //Licensed under the Apache License, Version 2.0 (the "License"); 
@@ -23,16 +34,18 @@ namespace Deploy.LaunchPad.Core.Geospatial
     /// <summary>
     /// This interface contracts that an object has a physical position that can be located in time and space
     /// </summary>
-    public interface IPhysicallyLocatable
+    public partial interface IPhysicallyLocatable
     {
         /// <summary>
         /// The current physical location of the object in time and space
         /// </summary>
+        /// <value>The current location.</value>
         SpaceTimeInformation CurrentLocation { get; set; }
 
         /// <summary>
-        /// A list (not necessarily comprehensive) of this object's previous (but not current) physical positions. 
+        /// A list (not necessarily comprehensive) of this object's previous (but not current) physical positions.
         /// </summary>
+        /// <value>The previous locations.</value>
         IList<SpaceTimeInformation> PreviousLocations { get; set; }
 
     }

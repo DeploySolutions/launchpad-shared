@@ -1,5 +1,16 @@
-﻿//LaunchPad Shared
-// Copyright (c) 2016-2021 Deploy Software Solutions, inc. 
+﻿// ***********************************************************************
+// Assembly         : Deploy.LaunchPad.Core.Tests
+// Author           : Nicholas Kellett
+// Created          : 11-19-2023
+//
+// Last Modified By : Nicholas Kellett
+// Last Modified On : 01-08-2023
+// ***********************************************************************
+// <copyright file="MetadataInformationTests.cs" company="Deploy.LaunchPad.Core.Tests">
+//     Copyright (c) Deploy Software Solutions, Inc.. All rights reserved.
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
 
 #region license
 //Licensed under the Apache License, Version 2.0 (the "License"); 
@@ -19,8 +30,11 @@ namespace Deploy.LaunchPad.Core.Tests
 {
     using Xunit;
     using Deploy.LaunchPad.Core;
-    
-    public class MetadataInformationTests
+
+    /// <summary>
+    /// Class MetadataInformationTests.
+    /// </summary>
+    public partial class MetadataInformationTests
     {
         #region "Test Classes"
 

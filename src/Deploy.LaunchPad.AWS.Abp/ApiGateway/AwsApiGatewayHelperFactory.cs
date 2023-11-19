@@ -1,4 +1,17 @@
-﻿using Abp.Dependency;
+﻿// ***********************************************************************
+// Assembly         : Deploy.LaunchPad.AWS.Abp
+// Author           : Nicholas Kellett
+// Created          : 11-19-2023
+//
+// Last Modified By : Nicholas Kellett
+// Last Modified On : 01-08-2023
+// ***********************************************************************
+// <copyright file="AwsApiGatewayHelperFactory.cs" company="Deploy Software Solutions, inc.">
+//     2021-2023 Deploy Software Solutions, inc.
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
+using Abp.Dependency;
 using Amazon;
 using Amazon.APIGateway;
 using Castle.Core.Logging;
@@ -7,14 +20,35 @@ using System;
 
 namespace Deploy.LaunchPad.AWS.Abp.ApiGateway
 {
+    /// <summary>
+    /// Class AwsApiGatewayHelperFactory.
+    /// Implements the <see cref="Deploy.LaunchPad.AWS.AwsHelperBase{Amazon.APIGateway.AmazonAPIGatewayConfig}" />
+    /// Implements the <see cref="ISingletonDependency" />
+    /// </summary>
+    /// <seealso cref="Deploy.LaunchPad.AWS.AwsHelperBase{Amazon.APIGateway.AmazonAPIGatewayConfig}" />
+    /// <seealso cref="ISingletonDependency" />
     public partial class AwsApiGatewayHelperFactory : AwsHelperBase<AmazonAPIGatewayConfig>, ISingletonDependency
     {
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="AwsApiGatewayHelperFactory"/> class.
+        /// </summary>
+        /// <param name="logger">The logger.</param>
+        /// <param name="awsRegionEndpointName">Name of the aws region endpoint.</param>
         public AwsApiGatewayHelperFactory(ILogger logger, string awsRegionEndpointName) : base(logger, awsRegionEndpointName)
         {
 
         }
 
+        /// <summary>
+        /// Creates the specified logger.
+        /// </summary>
+        /// <param name="logger">The logger.</param>
+        /// <param name="apiGatewayBaseUri">The API gateway base URI.</param>
+        /// <param name="awsRegionEndpointName">Name of the aws region endpoint.</param>
+        /// <param name="awsProfileName">Name of the aws profile.</param>
+        /// <param name="shouldUseLocalAwsProfile">if set to <c>true</c> [should use local aws profile].</param>
+        /// <returns>AwsApiGatewayHelper.</returns>
         public virtual AwsApiGatewayHelper Create(
             ILogger logger,
             Uri apiGatewayBaseUri,

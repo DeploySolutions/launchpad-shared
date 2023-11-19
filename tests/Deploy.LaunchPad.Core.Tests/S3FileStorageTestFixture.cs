@@ -1,5 +1,16 @@
-﻿//LaunchPad Shared
-// Copyright (c) 2018-2023 Deploy Software Solutions, inc. 
+﻿// ***********************************************************************
+// Assembly         : Deploy.LaunchPad.Core.Tests
+// Author           : Nicholas Kellett
+// Created          : 11-19-2023
+//
+// Last Modified By : Nicholas Kellett
+// Last Modified On : 01-22-2023
+// ***********************************************************************
+// <copyright file="S3FileStorageTestFixture.cs" company="Deploy.LaunchPad.Core.Tests">
+//     Copyright (c) Deploy Software Solutions, Inc.. All rights reserved.
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
 
 #region license
 //Licensed under the Apache License, Version 2.0 (the "License"); 
@@ -28,12 +39,26 @@ namespace Deploy.LaunchPad.Core.Tests
     using Deploy.LaunchPad.Core.Abp.Util;
     using Deploy.LaunchPad.Core.Abp.Domain;
 
-    public class S3FileStorageTestsFixture : IDisposable
+    /// <summary>
+    /// Class S3FileStorageTestsFixture.
+    /// Implements the <see cref="IDisposable" />
+    /// </summary>
+    /// <seealso cref="IDisposable" />
+    public partial class S3FileStorageTestsFixture : IDisposable
     {
+        /// <summary>
+        /// The TFW parser
+        /// </summary>
         public readonly TifWorldFileParser<Guid,S3BucketStorageLocation> TfwParser;
 
+        /// <summary>
+        /// The TFW file
+        /// </summary>
         public readonly TifWorldFile<Guid> TfwFile;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="S3FileStorageTestsFixture"/> class.
+        /// </summary>
         public S3FileStorageTestsFixture()
         {
             string codeBase = Assembly.GetExecutingAssembly().CodeBase;
@@ -44,11 +69,18 @@ namespace Deploy.LaunchPad.Core.Tests
             TfwFile = TfwParser.GetTifWorldFileFromMetadataFile(fileName);
         }
 
+        /// <summary>
+        /// Initializes the specified radarsat1 metadata filename.
+        /// </summary>
+        /// <param name="radarsat1MetadataFilename">The radarsat1 metadata filename.</param>
         public void Initialize(string radarsat1MetadataFilename)
         {
             
         }
 
+        /// <summary>
+        /// Disposes this instance.
+        /// </summary>
         public void Dispose()
         {
             GC.SuppressFinalize(this);

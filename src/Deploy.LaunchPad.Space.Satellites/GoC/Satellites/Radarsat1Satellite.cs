@@ -1,5 +1,16 @@
-﻿//LaunchPad Space
-// Copyright (c) 2018-2023 Deploy Software Solutions, inc.  
+﻿// ***********************************************************************
+// Assembly         : Deploy.LaunchPad.Space.Satellites
+// Author           : Nicholas Kellett
+// Created          : 11-19-2023
+//
+// Last Modified By : Nicholas Kellett
+// Last Modified On : 08-28-2023
+// ***********************************************************************
+// <copyright file="Radarsat1Satellite.cs" company="Deploy Software Solutions, inc.">
+//     2018-2023 Deploy Software Solutions, inc.
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
 
 #region license
 //Licensed under the Apache License, Version 2.0 (the "License"); 
@@ -26,9 +37,19 @@ using System.Collections.Generic;
 
 namespace Deploy.LaunchPad.Space.Satellites.GoC
 {
+    /// <summary>
+    /// Class Radarsat1Satellite.
+    /// Implements the <see cref="SatelliteBase{TPrimaryKey}" />
+    /// </summary>
+    /// <typeparam name="TPrimaryKey">The type of the t primary key.</typeparam>
+    /// <seealso cref="SatelliteBase{TPrimaryKey}" />
     public partial class Radarsat1Satellite<TPrimaryKey> : SatelliteBase<TPrimaryKey>
     {
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Radarsat1Satellite{TPrimaryKey}"/> class.
+        /// </summary>
+        /// <param name="tenantId">The tenant identifier.</param>
         protected Radarsat1Satellite(int? tenantId) : base()
         {
             var csaOperator = new CanadaSpaceAgency(tenantId);

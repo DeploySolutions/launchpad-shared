@@ -1,5 +1,16 @@
-﻿//LaunchPad Shared
-// Copyright (c) 2016-2021 Deploy Software Solutions, inc. 
+﻿// ***********************************************************************
+// Assembly         : Deploy.LaunchPad.Core.Abp
+// Author           : Nicholas Kellett
+// Created          : 11-19-2023
+//
+// Last Modified By : Nicholas Kellett
+// Last Modified On : 04-21-2023
+// ***********************************************************************
+// <copyright file="GovernmentOrganizationBase.cs" company="Deploy Software Solutions, inc.">
+//     2018-2023 Deploy Software Solutions, inc.
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
 
 #region license
 //Licensed under the Apache License, Version 2.0 (the "License"); 
@@ -31,10 +42,18 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
     /// Base class for Entities. Implements <see cref="IDomainEntity">IDomainEntity</see> and provides
     /// base functionality for many of its methods. Inherits from ASP.NET Boilerplate's IEntity interface.
     /// </summary>
+    /// <typeparam name="TPrimaryKey">The type of the t primary key.</typeparam>
     public abstract partial class GovernmentOrganizationBase<TPrimaryKey> : OrganizationBase<TPrimaryKey>, IOrganization<TPrimaryKey>
     {
 
+        /// <summary>
+        /// The schema
+        /// </summary>
         private GovernmentOrganization _schema;
+        /// <summary>
+        /// Gets or sets the schema.
+        /// </summary>
+        /// <value>The schema.</value>
         [DataObjectField(false)]
         [XmlAttribute]
         public new GovernmentOrganization Schema { get => _schema; set => _schema = value; }
@@ -47,7 +66,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
         #endregion
 
 
-        /// <summary>  
+        /// <summary>
         /// Initializes a new instance of the <see cref="GovernmentOrganizationBase">GovernmentOrganizationBase</see> class
         /// </summary>
         protected GovernmentOrganizationBase() : base()
@@ -55,19 +74,20 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
 
         }
 
-        /// <summary>  
+        /// <summary>
         /// Initializes a new instance of the <see cref="GovernmentOrganizationBase">GovernmentOrganizationBase</see> class
         /// </summary>
+        /// <param name="tenantId">The tenant identifier.</param>
         protected GovernmentOrganizationBase(int? tenantId) : base(tenantId)
         {
 
         }
 
         /// <summary>
-        /// Creates a new instance of the <see cref="GovernmentOrganizationBase">GovernmentOrganizationBase</see> class given an id, and some metadata. 
+        /// Creates a new instance of the <see cref="GovernmentOrganizationBase">GovernmentOrganizationBase</see> class given an id, and some metadata.
         /// </summary>
-        /// <param name="key">The unique identifier for this entity</param>
-        /// <param name="metadata">The desired metadata for this entity</param>
+        /// <param name="tenantId">The tenant identifier.</param>
+        /// <param name="id">The identifier.</param>
         protected GovernmentOrganizationBase(int? tenantId, TPrimaryKey id) : base(tenantId)
         {
             Id = id;
@@ -87,8 +107,8 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
         /// <summary>
         /// The method required for implementing ISerializable
         /// </summary>
-        /// <param name="info"></param>
-        /// <param name="context"></param>
+        /// <param name="info">The information.</param>
+        /// <param name="context">The context.</param>
         public override void GetObjectData(SerializationInfo info, StreamingContext context)
         {
             base.GetObjectData(info, context);
@@ -123,16 +143,16 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
         /// it is not necessary to test for the correct object type.
         /// </summary>
         /// <param name="other">The other object of this type we are comparing to</param>
-        /// <returns></returns>
+        /// <returns>System.Int32.</returns>
         public virtual int CompareTo(GovernmentOrganizationBase<TPrimaryKey> other)
         {
             if (other == null) return 1;
             return FullName.CompareTo(other.FullName);
         }
 
-        /// <summary>  
-        /// Displays information about the <c>Field</c> in readable format.  
-        /// </summary>  
+        /// <summary>
+        /// Displays information about the <c>Field</c> in readable format.
+        /// </summary>
         /// <returns>A string representation of the object.</returns>
         public override String ToString()
         {
@@ -162,10 +182,10 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
         /// Because the Equals method is strongly typed by generic constraints,
         /// it is not necessary to test for the correct object type.
         /// For safety we just want to match on business key value - in this case the fields
-        /// that cannot be different between the two objects if they are supposedly equal.        
+        /// that cannot be different between the two objects if they are supposedly equal.
         /// </summary>
         /// <param name="obj">The other object of this type that we are testing equality with</param>
-        /// <returns></returns>
+        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
         public virtual bool Equals(GovernmentOrganizationBase<TPrimaryKey> obj)
         {
             if (obj != null)
@@ -219,13 +239,11 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
         }
 
 
-        /// <summary>  
-        /// Computes and retrieves a hash code for an object.  
-        /// </summary>  
-        /// <remarks>  
-        /// This method implements the <see cref="Object">Object</see> method.  
-        /// </remarks>  
+        /// <summary>
+        /// Computes and retrieves a hash code for an object.
+        /// </summary>
         /// <returns>A hash code for an object.</returns>
+        /// <remarks>This method implements the <see cref="Object">Object</see> method.</remarks>
         public override int GetHashCode()
         {
             return Id.GetHashCode();

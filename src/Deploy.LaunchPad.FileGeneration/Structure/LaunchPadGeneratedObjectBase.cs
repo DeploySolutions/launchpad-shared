@@ -1,4 +1,17 @@
-﻿using Deploy.LaunchPad.Core.Domain;
+﻿// ***********************************************************************
+// Assembly         : Deploy.LaunchPad.FileGeneration
+// Author           : Nicholas Kellett
+// Created          : 11-19-2023
+//
+// Last Modified By : Nicholas Kellett
+// Last Modified On : 11-10-2023
+// ***********************************************************************
+// <copyright file="LaunchPadGeneratedObjectBase.cs" company="Deploy Software Solutions, inc.">
+//     2018-2023 Deploy Software Solutions, inc.
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
+using Deploy.LaunchPad.Core.Domain;
 using Deploy.LaunchPad.Core.Util;
 using Newtonsoft.Json;
 using System;
@@ -16,8 +29,8 @@ namespace Deploy.LaunchPad.FileGeneration.Structure
 {
     /// <summary>
     /// The base class containing properties for all LaunchPad RAD file generation processes.
-    /// This is the top level element in the LaunchPad Generated object hierarchy. 
-    /// </summary>    
+    /// This is the top level element in the LaunchPad Generated object hierarchy.
+    /// </summary>
     [Serializable]
     [JsonObject(MemberSerialization.OptIn)]
     [DebuggerDisplay("Id = {Id}. Name={Name}. Description={Description}")]
@@ -27,12 +40,14 @@ namespace Deploy.LaunchPad.FileGeneration.Structure
         /// <summary>
         /// The unique id of the object (if present)
         /// </summary>
+        /// <value>The identifier.</value>
         [JsonProperty("id", DefaultValueHandling = DefaultValueHandling.Populate)]
         public virtual Guid Id { get; set; } = Guid.NewGuid();
 
         /// <summary>
-        /// The singular name of the object 
+        /// The singular name of the object
         /// </summary>
+        /// <value>The name.</value>
         [JsonProperty("name", DefaultValueHandling = DefaultValueHandling.Populate)]
         public virtual string Name { get; set; } = string.Empty;
 
@@ -40,52 +55,71 @@ namespace Deploy.LaunchPad.FileGeneration.Structure
         /// <summary>
         /// The abbreviation of the object (if any)
         /// </summary>
+        /// <value>The abbreviation.</value>
         [JsonConverter(typeof(LocalizedJsonConverter<string>))]
         public virtual string Abbreviation { get; set; } = string.Empty;
 
         /// <summary>
         /// The prefix to apply to the name (if any).
         /// </summary>
+        /// <value>The name prefix.</value>
         public virtual string NamePrefix { get; set; } = string.Empty;
 
         /// <summary>
         /// The suffix to apply to the name (if any).
         /// </summary>
+        /// <value>The name suffix.</value>
         public virtual string NameSuffix { get; set; } = string.Empty;
 
 
         /// <summary>
         /// The description of the object
         /// </summary>
+        /// <value>The description.</value>
         [JsonProperty("description", DefaultValueHandling = DefaultValueHandling.Populate)]
         public virtual string Description { get; set; } = string.Empty;
 
         /// <summary>
         /// Code annotations for the object
         /// </summary>
+        /// <value>The annotations.</value>
         public virtual string Annotations { get; set; } = string.Empty;
 
+        /// <summary>
+        /// Gets or sets the inheritance.
+        /// </summary>
+        /// <value>The inheritance.</value>
         public virtual ILaunchPadGeneratedObjectInheritance Inheritance { get; set; }
 
         /// <summary>
         /// The C# type of this object's id.
         /// </summary>
+        /// <value>The type of the identifier.</value>
         public virtual string IdType { get; set; } = "System.Int32";
 
 
+        /// <summary>
+        /// Gets or sets the repository.
+        /// </summary>
+        /// <value>The repository.</value>
         public virtual GitHubRepository Repository { get; set; }
 
         /// <summary>
         /// Contains a dictionary of Templates belonging to this object, keyed by the template name
         /// </summary>
+        /// <value>The available templates.</value>
         public virtual IDictionary<string, TemplateBase> AvailableTemplates { get; set; }
 
         /// <summary>
         /// Contains a dictionary of Tokens belonging to this object, keyed by the token name
         /// </summary>
+        /// <value>The available tokens.</value>
         public virtual IDictionary<string, LaunchPadToken> AvailableTokens { get; set; }
 
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="LaunchPadGeneratedObjectBase"/> class.
+        /// </summary>
         public LaunchPadGeneratedObjectBase() : base()
         {
             Name = string.Empty; 
@@ -98,6 +132,10 @@ namespace Deploy.LaunchPad.FileGeneration.Structure
             AvailableTokens = new Dictionary<string, LaunchPadToken>(comparer);
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="LaunchPadGeneratedObjectBase"/> class.
+        /// </summary>
+        /// <param name="repo">The repo.</param>
         public LaunchPadGeneratedObjectBase(GitHubRepository repo) : base()
         {
             Name = string.Empty;
@@ -135,8 +173,8 @@ namespace Deploy.LaunchPad.FileGeneration.Structure
         /// <summary>
         /// The method required for implementing ISerializable
         /// </summary>
-        /// <param name="info"></param>
-        /// <param name="context"></param>
+        /// <param name="info">The information.</param>
+        /// <param name="context">The context.</param>
         public virtual void GetObjectData(SerializationInfo info, StreamingContext context)
         {
             info.AddValue("Id", Id);
@@ -156,7 +194,7 @@ namespace Deploy.LaunchPad.FileGeneration.Structure
 
         /// <summary>
         /// Event called once deserialization constructor finishes.
-        /// Useful for reattaching connections and other finite resources that 
+        /// Useful for reattaching connections and other finite resources that
         /// can't be serialized and deserialized.
         /// </summary>
         /// <param name="sender">The object that has been deserialized</param>
@@ -192,7 +230,8 @@ namespace Deploy.LaunchPad.FileGeneration.Structure
         /// it is not necessary to test for the correct object type.
         /// </summary>
         /// <param name="other">The other object of this type we are comparing to</param>
-        /// <returns></returns>
+        /// <returns>A value that indicates the relative order of the objects being compared. The return value has these meanings:
+        /// <list type="table"><listheader><term> Value</term><description> Meaning</description></listheader><item><term> Less than zero</term><description> This instance precedes <paramref name="other" /> in the sort order.</description></item><item><term> Zero</term><description> This instance occurs in the same position in the sort order as <paramref name="other" />.</description></item><item><term> Greater than zero</term><description> This instance follows <paramref name="other" /> in the sort order.</description></item></list></returns>
         public virtual int CompareTo(LaunchPadGeneratedObjectBase other)
         {
             // put comparison of properties in here 
@@ -200,9 +239,9 @@ namespace Deploy.LaunchPad.FileGeneration.Structure
             return Inheritance.FullyQualifiedType.CompareTo(other.Inheritance.FullyQualifiedType);
         }
 
-        /// <summary>  
-        /// Displays information about the <c>Field</c> in readable format.  
-        /// </summary>  
+        /// <summary>
+        /// Displays information about the <c>Field</c> in readable format.
+        /// </summary>
         /// <returns>A string representation of the object.</returns>
         public override String ToString()
         {
@@ -250,10 +289,10 @@ namespace Deploy.LaunchPad.FileGeneration.Structure
         /// Because the Equals method is strongly typed by generic constraints,
         /// it is not necessary to test for the correct object type.
         /// For safety we just want to match on business key value - in this case the fields
-        /// that cannot be different between the two objects if they are supposedly equal.        
+        /// that cannot be different between the two objects if they are supposedly equal.
         /// </summary>
         /// <param name="obj">The other object of this type that we are testing equality with</param>
-        /// <returns></returns>
+        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
         public virtual bool Equals(LaunchPadGeneratedObjectBase obj)
         {
             if (obj != null)
@@ -300,13 +339,11 @@ namespace Deploy.LaunchPad.FileGeneration.Structure
             return !(x == y);
         }
 
-        /// <summary>  
-        /// Computes and retrieves a hash code for an object.  
-        /// </summary>  
-        /// <remarks>  
-        /// This method implements the <see cref="Object">Object</see> method.  
-        /// </remarks>  
+        /// <summary>
+        /// Computes and retrieves a hash code for an object.
+        /// </summary>
         /// <returns>A hash code for an object.</returns>
+        /// <remarks>This method implements the <see cref="Object">Object</see> method.</remarks>
         public override int GetHashCode()
         {
             return Id.GetHashCode();

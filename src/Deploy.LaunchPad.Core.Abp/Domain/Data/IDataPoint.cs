@@ -1,5 +1,16 @@
-﻿//LaunchPad Shared
-// Copyright (c) 2016 Deploy Software Solutions, inc. 
+﻿// ***********************************************************************
+// Assembly         : Deploy.LaunchPad.Core.Abp
+// Author           : Nicholas Kellett
+// Created          : 11-19-2023
+//
+// Last Modified By : Nicholas Kellett
+// Last Modified On : 07-26-2023
+// ***********************************************************************
+// <copyright file="IDataPoint.cs" company="Deploy Software Solutions, inc.">
+//     2018-2023 Deploy Software Solutions, inc.
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
 
 #region license
 //Licensed under the Apache License, Version 2.0 (the "License"); 
@@ -21,11 +32,20 @@ using Deploy.LaunchPad.Core.Abp.Domain.Model;
 namespace Deploy.LaunchPad.Core.Abp.Domain
 {
 
-    public interface IDataPoint<TPrimaryKey> : ILaunchPadDomainEntity<TPrimaryKey>, IMayHaveTenant
+    /// <summary>
+    /// Interface IDataPoint
+    /// Extends the <see cref="ILaunchPadDomainEntity{TPrimaryKey}" />
+    /// Extends the <see cref="IMayHaveTenant" />
+    /// </summary>
+    /// <typeparam name="TPrimaryKey">The type of the t primary key.</typeparam>
+    /// <seealso cref="ILaunchPadDomainEntity{TPrimaryKey}" />
+    /// <seealso cref="IMayHaveTenant" />
+    public partial interface IDataPoint<TPrimaryKey> : ILaunchPadDomainEntity<TPrimaryKey>, IMayHaveTenant
     {
         /// <summary>
         /// Describes the schema (where known) according to which this data is structured.
         /// </summary>
+        /// <value>The schema.</value>
         public ISchemaDetails Schema { get; set; }
     }
 }

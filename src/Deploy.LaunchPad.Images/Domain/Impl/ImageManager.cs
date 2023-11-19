@@ -1,5 +1,16 @@
-﻿//LaunchPad Shared
-// Copyright (c) 2018-2023 Deploy Software Solutions, inc. 
+﻿// ***********************************************************************
+// Assembly         : Deploy.LaunchPad.Images
+// Author           : Nicholas Kellett
+// Created          : 11-19-2023
+//
+// Last Modified By : Nicholas Kellett
+// Last Modified On : 01-22-2023
+// ***********************************************************************
+// <copyright file="ImageManager.cs" company="Deploy Software Solutions, inc.">
+//     2016-2023 Deploy Software Solutions, inc.
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
 
 #region license
 //Licensed under the Apache License, Version 2.0 (the "License"); 
@@ -28,18 +39,27 @@ namespace Deploy.LaunchPad.Images.Domain
 
     /// <summary>
     /// Domain service for handling Image domain entities.
-    /// Important: MagickImage which we use has a dependency on ImageMagick, which you can download here: https://imagemagick.org/script/download.php#windows 
+    /// Important: MagickImage which we use has a dependency on ImageMagick, which you can download here: https://imagemagick.org/script/download.php#windows
     /// (please ensure you are compliant with their licensing).
     /// </summary>
-    public class ImageManager : DomainService, IImageManager
+    public partial class ImageManager : DomainService, IImageManager
     {
         /// <summary>
         /// The general size category of the thumbnail. Default dimensions are set for each size, but can be overriden by a user or developer
         /// </summary>
         public enum ThumbnailSize
         {
+            /// <summary>
+            /// The small
+            /// </summary>
             Small = 0,
+            /// <summary>
+            /// The medium
+            /// </summary>
             Medium = 1,
+            /// <summary>
+            /// The large
+            /// </summary>
             Large = 2
         }
 
@@ -53,6 +73,9 @@ namespace Deploy.LaunchPad.Images.Domain
         /// </summary>
         public readonly ThumbnailGenerator ThumbnailGenerator;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ImageManager"/> class.
+        /// </summary>
         public ImageManager()
         {
             // Create the default ImageMagick configuration, which also initializes the underlying ImageMagick utility
@@ -75,6 +98,7 @@ namespace Deploy.LaunchPad.Images.Domain
         /// </summary>
         /// <param name="imageFile">The image we wish to load</param>
         /// <returns>The image, in MagickImage format</returns>
+        /// <exception cref="System.InvalidOperationException"></exception>
         public MagickImage GetMagickImageFromFile(FileInfo imageFile)
         {
             MagickImage image;
@@ -101,6 +125,7 @@ namespace Deploy.LaunchPad.Images.Domain
         /// <param name="imageB">The second image in the comparison, in byte array format</param>
         /// <param name="settings">ImageMagick comparison settings</param>
         /// <returns>A byte array containing a new image that represents the *difference* between image a and b</returns>
+        /// <exception cref="System.ArgumentException"></exception>
         [SuppressMessage("ReSharper", "PossibleNullReferenceException")]
         public byte[] CompareImages(byte[] imageA, byte[] imageB, CompareSettings settings)
         {
@@ -132,6 +157,7 @@ namespace Deploy.LaunchPad.Images.Domain
         /// <param name="imageB">The second image in the comparison, in MagickImage native format</param>
         /// <param name="settings">ImageMagick comparison settings</param>
         /// <returns>A byte array containing a new image that represents the *difference* between image a and b</returns>
+        /// <exception cref="System.ArgumentException"></exception>
         public byte[] CompareImages(MagickImage imageA, MagickImage imageB, CompareSettings settings)
         {
             Guard.Against<NullReferenceException>(imageA == null, Deploy_LaunchPad_Images_Resources.Guard_ImageManager_Thumbnail_ImageA_NullReferenceException);
@@ -159,7 +185,7 @@ namespace Deploy.LaunchPad.Images.Domain
         /// <param name="originalImage">The image source from which we will create the thumbnail</param>
         /// <param name="size">The general size category of the resulting thumbnail.
         /// Default dimensions are set for each size, but can be overriden by a user or developer</param>
-        /// <returns>A <see cref="byte"/> array containing a new image that represents the thumbnail, in the appropriate size</returns>
+        /// <returns>A <see cref="byte" /> array containing a new image that represents the thumbnail, in the appropriate size</returns>
         public byte[] GetThumbnailFromImage(byte[] originalImage, ThumbnailSize size)
         {
             Guard.Against<ArgumentOutOfRangeException>(originalImage.Length <= 0, Deploy_LaunchPad_Images_Resources.Guard_ImageManager_Thumbnail_OriginalImage_ArgumentOutOfRangeException);
@@ -187,7 +213,7 @@ namespace Deploy.LaunchPad.Images.Domain
         /// <param name="size">The general size category of the resulting thumbnail.
         /// Default dimensions are set for each size, but can be overriden by a user or developer</param>
         /// <param name="format">The file format of the resulting thumbnail.</param>
-        /// <returns>A <see cref="byte"/> array containing a new image that represents the thumbnail, in the appropriate size</returns>
+        /// <returns>A <see cref="byte" /> array containing a new image that represents the thumbnail, in the appropriate size</returns>
         public byte[] GetThumbnailFromImage(byte[] originalImage, ThumbnailSize size, MagickFormat format)
         {
             Guard.Against<ArgumentOutOfRangeException>(originalImage.Length <= 0, Deploy_LaunchPad_Images_Resources.Guard_ImageManager_Thumbnail_OriginalImage_ArgumentOutOfRangeException);
@@ -213,7 +239,7 @@ namespace Deploy.LaunchPad.Images.Domain
         /// <param name="originalImage">The image source from which we will create the thumbnail</param>
         /// <param name="size">The general size category of the resulting thumbnail.
         /// Default dimensions are set for each size, but can be overriden by a user or developer</param>
-        /// <returns>A <see cref="byte"/> array containing a new image that represents the thumbnail, in the appropriate size</returns>
+        /// <returns>A <see cref="byte" /> array containing a new image that represents the thumbnail, in the appropriate size</returns>
         public byte[] GetThumbnailFromImage(MagickImage originalImage, ThumbnailSize size)
         {
             byte[] thumbImage = null;
@@ -241,7 +267,7 @@ namespace Deploy.LaunchPad.Images.Domain
         /// <param name="size">The general size category of the resulting thumbnail.
         /// Default dimensions are set for each size, but can be overriden by a user or developer</param>
         /// <param name="format">The file format of the resulting thumbnail.</param>
-        /// <returns>A <see cref="byte"/> array containing a new image that represents the thumbnail, in the appropriate size</returns>
+        /// <returns>A <see cref="byte" /> array containing a new image that represents the thumbnail, in the appropriate size</returns>
         public byte[] GetThumbnailFromImage(MagickImage originalImage, ThumbnailSize size, MagickFormat format)
         {
             Guard.Against<ArgumentOutOfRangeException>(originalImage == null, Deploy_LaunchPad_Images_Resources.Guard_ImageManager_Thumbnail_OriginalImage_ArgumentNullException);

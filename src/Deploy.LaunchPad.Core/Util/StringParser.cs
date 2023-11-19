@@ -1,5 +1,16 @@
-﻿//LaunchPad Shared
-// Copyright (c) 2018-2023 Deploy Software Solutions, inc. 
+﻿// ***********************************************************************
+// Assembly         : Deploy.LaunchPad.Core
+// Author           : Nicholas Kellett
+// Created          : 11-19-2023
+//
+// Last Modified By : Nicholas Kellett
+// Last Modified On : 01-22-2023
+// ***********************************************************************
+// <copyright file="StringParser.cs" company="Deploy Software Solutions, inc.">
+//     2018-2023 Deploy Software Solutions, inc.
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
 
 #region license
 //Licensed under the Apache License, Version 2.0 (the "License"); 
@@ -19,6 +30,9 @@ using System;
 
 namespace Deploy.LaunchPad.Core.Util
 {
+    /// <summary>
+    /// Class StringParser.
+    /// </summary>
     public static class StringParser
     {
         /// <summary>
@@ -26,11 +40,12 @@ namespace Deploy.LaunchPad.Core.Util
         /// Adapted work from ChaseMedallion post on Stack Overflow: https://stackoverflow.com/questions/17252615/get-string-between-two-strings-in-a-string
         /// Licensed by Stack Overflow under Creative Commons Attribution-ShareAlike 4.0 International Public License https://creativecommons.org/licenses/by-sa/4.0/
         /// </summary>
-        /// <param name="@this">The string to search within</param>
+        /// <param name="this">The this.</param>
         /// <param name="searchAfter">Start searching immediately after the first incidence of this anchor string</param>
         /// <param name="searchBefore">End searching immediately before the first incidence of this anchor string</param>
         /// <param name="trimWhitespaceBefore">Optionally trim all whitespace at the start of the search result</param>
         /// <param name="trimWhitespaceAfter">Optionally trim all whitespace at the end of the search result</param>
+        /// <param name="cultureComparison">The culture comparison.</param>
         /// <returns>A string value resulting from the search, or String.Empty if nothing is found</returns>
         public static String FindStringWithinAnchorText(this String @this, String searchAfter, String searchBefore, Boolean trimWhitespaceBefore = false, Boolean trimWhitespaceAfter = false, StringComparison cultureComparison = StringComparison.InvariantCulture)
         {

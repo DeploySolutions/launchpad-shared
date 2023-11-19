@@ -1,4 +1,17 @@
-﻿using Abp.Configuration;
+﻿// ***********************************************************************
+// Assembly         : Deploy.LaunchPad.Core.Abp
+// Author           : Nicholas Kellett
+// Created          : 11-19-2023
+//
+// Last Modified By : Nicholas Kellett
+// Last Modified On : 01-08-2023
+// ***********************************************************************
+// <copyright file="LaunchPadAbpAppSettingProvider.cs" company="Deploy Software Solutions, inc.">
+//     2018-2023 Deploy Software Solutions, inc.
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
+using Abp.Configuration;
 using Deploy.LaunchPad.Core.Util;
 using Microsoft.Extensions.Configuration;
 using System;
@@ -7,21 +20,44 @@ using System.Linq;
 
 namespace Deploy.LaunchPad.Core.Abp.AbpModuleConfig
 {
+    /// <summary>
+    /// Class LaunchPadAbpAppSettingProvider.
+    /// Implements the <see cref="SettingProvider" />
+    /// </summary>
+    /// <seealso cref="SettingProvider" />
     public partial class LaunchPadAbpAppSettingProvider : SettingProvider
     {
+        /// <summary>
+        /// The application configuration
+        /// </summary>
         protected readonly IConfiguration _appConfiguration;
 
+        /// <summary>
+        /// The dictionary helper
+        /// </summary>
         protected readonly DictionaryHelper _dictionaryHelper = new DictionaryHelper();
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="LaunchPadAbpAppSettingProvider"/> class.
+        /// </summary>
         public LaunchPadAbpAppSettingProvider()
         {
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="LaunchPadAbpAppSettingProvider"/> class.
+        /// </summary>
+        /// <param name="configurationAccessor">The configuration accessor.</param>
         public LaunchPadAbpAppSettingProvider(ILaunchPadAppConfigurationAccessor configurationAccessor)
         {
             _appConfiguration = configurationAccessor.Configuration;
         }
 
+        /// <summary>
+        /// Gets all setting definitions provided by this provider.
+        /// </summary>
+        /// <param name="context">The context.</param>
+        /// <returns>List of settings</returns>
         public override IEnumerable<SettingDefinition> GetSettingDefinitions(SettingDefinitionProviderContext context)
         {
 
@@ -38,8 +74,8 @@ namespace Deploy.LaunchPad.Core.Abp.AbpModuleConfig
         /// <summary>
         /// Adds a new SettingDefinition for each secret listed in the SecretProvider element.
         /// </summary>
-        /// <param name="helper"></param>
-        /// <returns></returns>
+        /// <param name="jsonSecretProviderVaultsPathInAppSettings">The json secret provider vaults path in application settings.</param>
+        /// <returns>IDictionary&lt;System.String, SettingDefinition&gt;.</returns>
         public IDictionary<string, SettingDefinition> GetSecretProviderSettings(string jsonSecretProviderVaultsPathInAppSettings)
         {
             var comparer = StringComparer.OrdinalIgnoreCase;

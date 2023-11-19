@@ -1,4 +1,17 @@
-﻿using Castle.Core.Logging;
+﻿// ***********************************************************************
+// Assembly         : Deploy.LaunchPad.FileGeneration
+// Author           : Nicholas Kellett
+// Created          : 11-19-2023
+//
+// Last Modified By : Nicholas Kellett
+// Last Modified On : 01-08-2023
+// ***********************************************************************
+// <copyright file="UnspecifiedModule.cs" company="Deploy Software Solutions, inc.">
+//     2018-2023 Deploy Software Solutions, inc.
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
+using Castle.Core.Logging;
 using System;
 using System.Collections.Generic;
 
@@ -10,8 +23,15 @@ namespace Deploy.LaunchPad.FileGeneration.Structure
     [Serializable]
     public partial class UnspecifiedModule : LaunchPadGeneratedModule<UnspecifiedModuleSettings>
     {
+        /// <summary>
+        /// Gets or sets the components.
+        /// </summary>
+        /// <value>The components.</value>
         public IDictionary<string, UnspecifiedComponent> Components { get; set; }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="UnspecifiedModule"/> class.
+        /// </summary>
         public UnspecifiedModule() : base(NullLogger.Instance)
         {
             Settings = new UnspecifiedModuleSettings();
@@ -19,6 +39,10 @@ namespace Deploy.LaunchPad.FileGeneration.Structure
             Components = new Dictionary<string, UnspecifiedComponent>(comparer);
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="UnspecifiedModule"/> class.
+        /// </summary>
+        /// <param name="logger">The logger.</param>
         public UnspecifiedModule(ILogger logger) : base(logger)
         {
             Settings = new UnspecifiedModuleSettings();

@@ -1,4 +1,17 @@
-﻿using Castle.Core.Logging;
+﻿// ***********************************************************************
+// Assembly         : Deploy.LaunchPad.Core
+// Author           : Nicholas Kellett
+// Created          : 11-19-2023
+//
+// Last Modified By : Nicholas Kellett
+// Last Modified On : 01-08-2023
+// ***********************************************************************
+// <copyright file="LaunchPadTokenizer.cs" company="Deploy Software Solutions, inc.">
+//     2018-2023 Deploy Software Solutions, inc.
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
+using Castle.Core.Logging;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -7,13 +20,31 @@ using System.Text.RegularExpressions;
 
 namespace Deploy.LaunchPad.Core.Util
 {
-    public class LaunchPadTokenizer
+    /// <summary>
+    /// Class LaunchPadTokenizer.
+    /// </summary>
+    public partial class LaunchPadTokenizer
     {
+        /// <summary>
+        /// Gets or sets the matched tokens.
+        /// </summary>
+        /// <value>The matched tokens.</value>
         public IDictionary<string, LaunchPadToken> MatchedTokens { get; set; }
+        /// <summary>
+        /// Gets or sets the unmatched tokens.
+        /// </summary>
+        /// <value>The unmatched tokens.</value>
         public IDictionary<string, LaunchPadToken> UnmatchedTokens { get; set; }
 
+        /// <summary>
+        /// Gets or sets the tokenized text.
+        /// </summary>
+        /// <value>The tokenized text.</value>
         public string TokenizedText { get; set; }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="LaunchPadTokenizer"/> class.
+        /// </summary>
         public LaunchPadTokenizer()
         {
             TokenizedText = string.Empty;
@@ -22,6 +53,15 @@ namespace Deploy.LaunchPad.Core.Util
             UnmatchedTokens = new Dictionary<string, LaunchPadToken>(comparer);
         }
 
+        /// <summary>
+        /// Tokenizes the specified original text.
+        /// </summary>
+        /// <param name="originalText">The original text.</param>
+        /// <param name="tokens">The tokens.</param>
+        /// <param name="shouldMatchTokenValue">if set to <c>true</c> [should match token value].</param>
+        /// <param name="logger">The logger.</param>
+        /// <param name="shouldLogTokens">if set to <c>true</c> [should log tokens].</param>
+        /// <returns>System.String.</returns>
         public string Tokenize(string originalText, IDictionary<string, LaunchPadToken> tokens, bool shouldMatchTokenValue = false, ILogger logger = null, bool shouldLogTokens = false)
         {
             Guard.Against<ArgumentException>(String.IsNullOrEmpty(originalText), Deploy_LaunchPad_Core_Resources.Guard_LaunchPadTokenizer_ArgumentException_OriginalText);
@@ -142,8 +182,8 @@ namespace Deploy.LaunchPad.Core.Util
         /// <summary>
         /// Escapes RegEx characters from provided text to ensure the resulting Regex pattern is valid.
         /// </summary>
-        /// <param name="value"></param>
-        /// <returns></returns>
+        /// <param name="value">The value.</param>
+        /// <returns>System.String.</returns>
         protected string EscapeTextForRegex(string value)
         {
             IList<string> escapeCharacters = new List<string>();

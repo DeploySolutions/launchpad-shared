@@ -1,5 +1,16 @@
-﻿//LaunchPad Space
-// Copyright (c) 2018-2023 Deploy Software Solutions, inc. 
+﻿// ***********************************************************************
+// Assembly         : Deploy.LaunchPad.Core.Abp
+// Author           : Nicholas Kellett
+// Created          : 11-19-2023
+//
+// Last Modified By : Nicholas Kellett
+// Last Modified On : 01-22-2023
+// ***********************************************************************
+// <copyright file="IGovernmentOrganization.cs" company="Deploy Software Solutions, inc.">
+//     2018-2023 Deploy Software Solutions, inc.
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
 
 #region license
 //Licensed under the Apache License, Version 2.0 (the "License"); 
@@ -19,8 +30,18 @@ using Schema.NET;
 
 namespace Deploy.LaunchPad.Core.Abp.Domain
 {
-    public interface IGovernmentOrganization<TPrimaryKey> : IOrganization<TPrimaryKey>
+    /// <summary>
+    /// Interface IGovernmentOrganization
+    /// Extends the <see cref="Deploy.LaunchPad.Core.Abp.Domain.IOrganization{TPrimaryKey}" />
+    /// </summary>
+    /// <typeparam name="TPrimaryKey">The type of the t primary key.</typeparam>
+    /// <seealso cref="Deploy.LaunchPad.Core.Abp.Domain.IOrganization{TPrimaryKey}" />
+    public partial interface IGovernmentOrganization<TPrimaryKey> : IOrganization<TPrimaryKey>
     {
+        /// <summary>
+        /// Gets or sets the schema.
+        /// </summary>
+        /// <value>The schema.</value>
         GovernmentOrganization Schema { get; set; }
 
     }

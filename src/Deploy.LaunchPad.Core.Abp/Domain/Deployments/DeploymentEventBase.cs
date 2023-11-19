@@ -1,5 +1,16 @@
-﻿//LaunchPad Shared
-// Copyright (c) 2016-2021 Deploy Software Solutions, inc. 
+﻿// ***********************************************************************
+// Assembly         : Deploy.LaunchPad.Core.Abp
+// Author           : Nicholas Kellett
+// Created          : 11-19-2023
+//
+// Last Modified By : Nicholas Kellett
+// Last Modified On : 07-26-2023
+// ***********************************************************************
+// <copyright file="DeploymentEventBase.cs" company="Deploy Software Solutions, inc.">
+//     2018-2023 Deploy Software Solutions, inc.
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
 
 #region license
 //Licensed under the Apache License, Version 2.0 (the "License"); 
@@ -35,6 +46,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
         /// <summary>
         /// The id of the release candidate this deployment is for
         /// </summary>
+        /// <value>The deployment identifier.</value>
         [DataObjectField(false)]
         [XmlAttribute]
         [Required]
@@ -44,6 +56,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
         /// <summary>
         /// The category of this release candidate event
         /// </summary>
+        /// <value>The event category.</value>
         [DataObjectField(false)]
         [XmlAttribute]
         public virtual String EventCategory { get; set; }
@@ -51,6 +64,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
         /// <summary>
         /// The event start date and time
         /// </summary>
+        /// <value>The started.</value>
         [DataObjectField(false)]
         [XmlAttribute]
         public virtual DateTime? Started { get; set; }
@@ -58,6 +72,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
         /// <summary>
         /// The event end date and time. May be null if the event is ongoing
         /// </summary>
+        /// <value>The ended.</value>
         [DataObjectField(false)]
         [XmlAttribute]
         public virtual DateTime? Ended { get; set; }
@@ -65,6 +80,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
         /// <summary>
         /// The URI where the release candidate event log is located
         /// </summary>
+        /// <value>The log URI.</value>
         [DataObjectField(false)]
         [XmlAttribute]
         public virtual Uri LogUri { get; set; }
@@ -73,16 +89,30 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
 
         #region "Constructors"
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DeploymentEventBase{TIdType}"/> class.
+        /// </summary>
         public DeploymentEventBase() : base()
         {
 
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DeploymentEventBase{TIdType}"/> class.
+        /// </summary>
+        /// <param name="tenantId">The id of the tenant to which this entity belongs</param>
         public DeploymentEventBase(int tenantId) : base()
         {
             TenantId = tenantId;
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DeploymentEventBase{TIdType}"/> class.
+        /// </summary>
+        /// <param name="tenantId">The tenant identifier.</param>
+        /// <param name="id">The identifier.</param>
+        /// <param name="cultureName">Name of the culture.</param>
+        /// <param name="text">The text.</param>
         public DeploymentEventBase(int tenantId, TIdType id, string cultureName, String text) : base(tenantId, id, cultureName)
         {
             TenantId = tenantId;
@@ -107,8 +137,8 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
         /// <summary>
         /// The method required for implementing ISerializable
         /// </summary>
-        /// <param name="info"></param>
-        /// <param name="context"></param>
+        /// <param name="info">The information.</param>
+        /// <param name="context">The context.</param>
         public override void GetObjectData(SerializationInfo info, StreamingContext context)
         {
             base.GetObjectData(info, context);
@@ -119,9 +149,9 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
             info.AddValue("Ended", Ended);
         }
 
-        /// <summary>  
-        /// Displays information about the class in readable format.  
-        /// </summary>  
+        /// <summary>
+        /// Displays information about the class in readable format.
+        /// </summary>
         /// <returns>A string representation of the object.</returns>
         public override string ToString()
         {

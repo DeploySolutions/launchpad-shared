@@ -1,4 +1,17 @@
-﻿using Amazon.S3;
+﻿// ***********************************************************************
+// Assembly         : Deploy.LaunchPad.AWS
+// Author           : Nicholas Kellett
+// Created          : 11-19-2023
+//
+// Last Modified By : Nicholas Kellett
+// Last Modified On : 06-26-2023
+// ***********************************************************************
+// <copyright file="AwsS3Service.cs" company="Deploy Software Solutions, inc.">
+//     2021-2023 Deploy Software Solutions, inc.
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
+using Amazon.S3;
 using Amazon.S3.Model;
 using Amazon.S3.Transfer;
 using Amazon.SQS;
@@ -15,22 +28,50 @@ using System.Threading.Tasks;
 
 namespace Deploy.LaunchPad.AWS.Abp.S3.Services
 {
+    /// <summary>
+    /// Class AwsS3Service.
+    /// Implements the <see cref="SystemIntegrationServiceBase" />
+    /// Implements the <see cref="IAwsS3Service" />
+    /// </summary>
+    /// <seealso cref="SystemIntegrationServiceBase" />
+    /// <seealso cref="IAwsS3Service" />
     public partial class AwsS3Service : SystemIntegrationServiceBase, IAwsS3Service
     {
+        /// <summary>
+        /// Gets or sets the helper.
+        /// </summary>
+        /// <value>The helper.</value>
         public IAwsS3Helper Helper { get; set; }
 
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="AwsS3Service"/> class.
+        /// </summary>
+        /// <param name="logger">The logger.</param>
+        /// <param name="awsRegionEndpointName">Name of the aws region endpoint.</param>
         public AwsS3Service(ILogger logger, string awsRegionEndpointName) : base(logger)
         {
             Logger = logger;
             Helper = new AwsS3Helper(logger, awsRegionEndpointName);
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="AwsS3Service"/> class.
+        /// </summary>
+        /// <param name="logger">The logger.</param>
+        /// <param name="helper">The helper.</param>
         public AwsS3Service(ILogger logger, IAwsS3Helper helper) : base(logger)
         {
             Helper = helper;
         }
 
+        /// <summary>
+        /// Get file from bucket as an asynchronous operation.
+        /// </summary>
+        /// <param name="bucketName">Name of the bucket.</param>
+        /// <param name="s3Key">The s3 key.</param>
+        /// <returns>A Task&lt;System.String&gt; representing the asynchronous operation.</returns>
+        /// <exception cref="System.InvalidOperationException"></exception>
         public async Task<string> GetFileFromBucketAsync(string bucketName, string s3Key)
         {
 
@@ -63,6 +104,19 @@ namespace Deploy.LaunchPad.AWS.Abp.S3.Services
             return responseBody;
         }
 
+        /// <summary>
+        /// Download file from bucket to localvia transfer utility as an asynchronous operation.
+        /// </summary>
+        /// <param name="bucketName">Name of the bucket.</param>
+        /// <param name="s3KeyName">Name of the s3 key.</param>
+        /// <param name="localFilePath">The local file path.</param>
+        /// <param name="modifiedSinceDateUtc">The modified since date UTC.</param>
+        /// <param name="unmodifiedSinceDateUtc">The unmodified since date UTC.</param>
+        /// <param name="transferMetadata">The transfer metadata.</param>
+        /// <param name="versionId">The version identifier.</param>
+        /// <returns>A Task&lt;System.Boolean&gt; representing the asynchronous operation.</returns>
+        /// <exception cref="System.InvalidOperationException">Check the provided AWS Credentials.</exception>
+        /// <exception cref="System.InvalidOperationException"></exception>
         public async Task<bool> DownloadFileFromBucketToLocalviaTransferUtilityAsync(string bucketName, string s3KeyName, string localFilePath, DateTime? modifiedSinceDateUtc, DateTime? unmodifiedSinceDateUtc, IDictionary<string, string> transferMetadata = null, string versionId = "")
         {
             
@@ -115,6 +169,19 @@ namespace Deploy.LaunchPad.AWS.Abp.S3.Services
             return didDownloadSucceed;
         }
 
+        /// <summary>
+        /// Upload local file to bucketvia transfer utility as an asynchronous operation.
+        /// </summary>
+        /// <param name="bucketName">Name of the bucket.</param>
+        /// <param name="s3KeyName">Name of the s3 key.</param>
+        /// <param name="filePath">The file path.</param>
+        /// <param name="fileTags">The file tags.</param>
+        /// <param name="s3Prefix">The s3 prefix.</param>
+        /// <param name="contentType">Type of the content.</param>
+        /// <param name="transferMetadata">The transfer metadata.</param>
+        /// <param name="storageClass">The storage class.</param>
+        /// <returns>A Task&lt;System.Boolean&gt; representing the asynchronous operation.</returns>
+        /// <exception cref="System.InvalidOperationException"></exception>
         public async Task<bool> UploadLocalFileToBucketviaTransferUtilityAsync(string bucketName, string s3KeyName, string filePath, IDictionary<string, string> fileTags, string s3Prefix = "", string contentType = @"image/tiff", IDictionary<string, string> transferMetadata =null, S3StorageClass storageClass = null)
         {
             if(storageClass == null)
@@ -183,6 +250,16 @@ namespace Deploy.LaunchPad.AWS.Abp.S3.Services
             return didUploadSucceed;
         }
 
+        /// <summary>
+        /// Upload local file to bucket via put object as an asynchronous operation.
+        /// </summary>
+        /// <param name="bucketName">Name of the bucket.</param>
+        /// <param name="s3KeyName">Name of the s3 key.</param>
+        /// <param name="s3Prefix">The s3 prefix.</param>
+        /// <param name="contentType">Type of the content.</param>
+        /// <param name="metadata">The metadata.</param>
+        /// <returns>A Task&lt;System.Boolean&gt; representing the asynchronous operation.</returns>
+        /// <exception cref="System.InvalidOperationException"></exception>
         public async Task<bool> UploadLocalFileToBucketViaPutObjectAsync(string bucketName, string s3KeyName, string s3Prefix = "", string contentType = @"text\plain", IDictionary<string, string> metadata = null)
         {
             try
@@ -221,12 +298,12 @@ namespace Deploy.LaunchPad.AWS.Abp.S3.Services
         }
 
         /// <summary>
-        /// Check if the file exists in the S3 bucket, without downloading it, by calling its metadata. 
+        /// Check if the file exists in the S3 bucket, without downloading it, by calling its metadata.
         /// If that worked, the file must exist.
         /// </summary>
-        /// <param name="bucketName"></param>
-        /// <param name="s3KeyName"></param>
-        /// <returns></returns>
+        /// <param name="bucketName">Name of the bucket.</param>
+        /// <param name="s3KeyName">Name of the s3 key.</param>
+        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
 
         public async Task<bool> CheckIfFileExists(string bucketName, string s3KeyName)
         {

@@ -1,16 +1,50 @@
-﻿using System;
+﻿// ***********************************************************************
+// Assembly         : Deploy.LaunchPad.Core
+// Author           : Nicholas Kellett
+// Created          : 11-19-2023
+//
+// Last Modified By : Nicholas Kellett
+// Last Modified On : 01-08-2023
+// ***********************************************************************
+// <copyright file="SecretVaultBase.cs" company="Deploy Software Solutions, inc.">
+//     2018-2023 Deploy Software Solutions, inc.
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace Deploy.LaunchPad.Core.Config
 {
+    /// <summary>
+    /// Class SecretVaultBase.
+    /// Implements the <see cref="Deploy.LaunchPad.Core.Config.ISecretVault" />
+    /// </summary>
+    /// <seealso cref="Deploy.LaunchPad.Core.Config.ISecretVault" />
     public abstract partial class SecretVaultBase : ISecretVault
     {
+        /// <summary>
+        /// Gets or sets the fields.
+        /// </summary>
+        /// <value>The fields.</value>
         public virtual IDictionary<string, string> Fields { get; set; }
+        /// <summary>
+        /// Gets or sets the name.
+        /// </summary>
+        /// <value>The name.</value>
         public virtual string Name { get; set; }
 
+        /// <summary>
+        /// Gets or sets the description.
+        /// </summary>
+        /// <value>The description.</value>
         public virtual string Description { get; set; }
 
+        /// <summary>
+        /// Gets the identifier.
+        /// </summary>
+        /// <value>The identifier.</value>
         public virtual string Id
         {
             get
@@ -19,9 +53,20 @@ namespace Deploy.LaunchPad.Core.Config
             }
         }
 
+        /// <summary>
+        /// Gets or sets the vault identifier.
+        /// </summary>
+        /// <value>The vault identifier.</value>
         public virtual string VaultId { get; set; }
+        /// <summary>
+        /// Gets or sets the provider identifier.
+        /// </summary>
+        /// <value>The provider identifier.</value>
         public virtual string ProviderId { get; set; }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="SecretVaultBase"/> class.
+        /// </summary>
         public SecretVaultBase()
         {
             Name = string.Empty;
@@ -33,6 +78,12 @@ namespace Deploy.LaunchPad.Core.Config
 
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="SecretVaultBase"/> class.
+        /// </summary>
+        /// <param name="providerId">The provider identifier.</param>
+        /// <param name="vaultId">The vault identifier.</param>
+        /// <param name="vaultName">Name of the vault.</param>
         public SecretVaultBase(string providerId, string vaultId, string vaultName)
         {
             Name = vaultName;
@@ -44,6 +95,14 @@ namespace Deploy.LaunchPad.Core.Config
 
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="SecretVaultBase"/> class.
+        /// </summary>
+        /// <param name="providerId">The provider identifier.</param>
+        /// <param name="vaultId">The vault identifier.</param>
+        /// <param name="vaultName">Name of the vault.</param>
+        /// <param name="fields">The fields.</param>
+        /// <param name="description">The description.</param>
         public SecretVaultBase(string providerId, string vaultId, string vaultName, IDictionary<string, string> fields, string description = "")
         {
             Name = vaultName;
@@ -60,12 +119,24 @@ namespace Deploy.LaunchPad.Core.Config
             Fields = fields;
         }
 
+        /// <summary>
+        /// Gets the value.
+        /// </summary>
+        /// <param name="key">The key.</param>
+        /// <param name="caller">The caller.</param>
+        /// <returns>System.String.</returns>
         public virtual string GetValue(string key, string caller)
         {
             Fields.TryGetValue(key, out string value);
             return value;
         }
 
+        /// <summary>
+        /// Finds the values for keys.
+        /// </summary>
+        /// <param name="keys">The keys.</param>
+        /// <param name="caller">The caller.</param>
+        /// <returns>IDictionary&lt;System.String, System.String&gt;.</returns>
         public virtual IDictionary<string, string> FindValuesForKeys(IList<string> keys, string caller)
         {
             IDictionary<string, string> kvps = new Dictionary<string, string>();

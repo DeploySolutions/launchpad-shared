@@ -1,5 +1,16 @@
-﻿//LaunchPad Shared
-// Copyright (c) 2016-2021 Deploy Software Solutions, inc. 
+﻿// ***********************************************************************
+// Assembly         : Deploy.LaunchPad.Core.Abp
+// Author           : Nicholas Kellett
+// Created          : 11-19-2023
+//
+// Last Modified By : Nicholas Kellett
+// Last Modified On : 07-26-2023
+// ***********************************************************************
+// <copyright file="Component.cs" company="Deploy Software Solutions, inc.">
+//     2018-2023 Deploy Software Solutions, inc.
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
 
 #region license
 //Licensed under the Apache License, Version 2.0 (the "License"); 
@@ -31,6 +42,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.SoftwareApplications
     /// Base class for components
     /// </summary>
     /// <typeparam name="TIdType">The type of the key id field</typeparam>
+    /// <typeparam name="TEntityIdType">The type of the t entity identifier type.</typeparam>
     [Serializable()]
     public partial class Component<TIdType, TEntityIdType> : LaunchPadDomainEntityBase<TIdType>, IComponent<TIdType, TEntityIdType>, IMayHaveTenant
     {
@@ -38,17 +50,29 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.SoftwareApplications
         /// <summary>
         /// Each component can have 0 to many domain entities
         /// </summary>
+        /// <value>The domain entities.</value>
         [DataObjectField(false)]
         [XmlAttribute]
         public virtual IList<LaunchPadDomainEntityBase<TEntityIdType>> DomainEntities { get; set; }
+        /// <summary>
+        /// TenantId of this entity.
+        /// </summary>
+        /// <value>The tenant identifier.</value>
         public virtual int? TenantId { get; set; }
 
         #region "Constructors"
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Component{TIdType, TEntityIdType}"/> class.
+        /// </summary>
         public Component() : base()
         {
             DomainEntities = new List<LaunchPadDomainEntityBase<TEntityIdType>>();
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Component{TIdType, TEntityIdType}"/> class.
+        /// </summary>
+        /// <param name="tenantId">The tenant identifier.</param>
         public Component(int? tenantId) : base()
         {
             TenantId = tenantId;
@@ -71,17 +95,17 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.SoftwareApplications
         /// <summary>
         /// The method required for implementing ISerializable
         /// </summary>
-        /// <param name="info"></param>
-        /// <param name="context"></param>
+        /// <param name="info">The information.</param>
+        /// <param name="context">The context.</param>
         public override void GetObjectData(SerializationInfo info, StreamingContext context)
         {
             base.GetObjectData(info, context);
             info.AddValue("DomainEntities", DomainEntities);
         }
 
-        /// <summary>  
-        /// Displays information about the class in readable format.  
-        /// </summary>  
+        /// <summary>
+        /// Displays information about the class in readable format.
+        /// </summary>
         /// <returns>A string representation of the object.</returns>
         public override string ToString()
         {

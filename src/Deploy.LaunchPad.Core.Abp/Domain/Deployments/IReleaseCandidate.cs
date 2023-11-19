@@ -1,5 +1,16 @@
-﻿//LaunchPad Shared
-// Copyright (c) 2016-2021 Deploy Software Solutions, inc. 
+﻿// ***********************************************************************
+// Assembly         : Deploy.LaunchPad.Core.Abp
+// Author           : Nicholas Kellett
+// Created          : 11-19-2023
+//
+// Last Modified By : Nicholas Kellett
+// Last Modified On : 07-26-2023
+// ***********************************************************************
+// <copyright file="IReleaseCandidate.cs" company="Deploy Software Solutions, inc.">
+//     2018-2023 Deploy Software Solutions, inc.
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
 
 #region license
 //Licensed under the Apache License, Version 2.0 (the "License"); 
@@ -28,12 +39,13 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
     /// Represents a release (set of code, data, and resources) that is a candidate to be deployed to a destination environment.
     /// </summary>
     /// <typeparam name="TIdType">The type of the Id</typeparam>
-    public interface IReleaseCandidate<TIdType> : ILaunchPadDomainEntity<TIdType>, IMustHaveTenant
+    public partial interface IReleaseCandidate<TIdType> : ILaunchPadDomainEntity<TIdType>, IMustHaveTenant
     {
 
         /// <summary>
         /// The checksum of this release candidate
         /// </summary>
+        /// <value>The checksum.</value>
         [DataObjectField(false)]
         [XmlAttribute]
         String Checksum { get; set; }
@@ -41,6 +53,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
         /// <summary>
         /// The version of this release candidate
         /// </summary>
+        /// <value>The version.</value>
         [DataObjectField(false)]
         [XmlAttribute]
         String Version { get; set; }
@@ -48,6 +61,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
         /// <summary>
         /// The current state of the release candidate
         /// </summary>
+        /// <value>The state of the release.</value>
         [DataObjectField(false)]
         [XmlAttribute]
         ReleaseCandidateBase<TIdType>.ReleaseStates ReleaseState { get; set; }
@@ -55,6 +69,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
         /// <summary>
         /// The release date and time
         /// </summary>
+        /// <value>The release date.</value>
         [DataObjectField(false)]
         [XmlAttribute]
         DateTime? ReleaseDate { get; set; }
@@ -62,6 +77,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
         /// <summary>
         /// The URI where the release candidate package is located
         /// </summary>
+        /// <value>The package URI.</value>
         [DataObjectField(false)]
         [XmlAttribute]
         Uri PackageUri { get; set; }

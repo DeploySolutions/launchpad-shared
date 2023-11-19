@@ -1,5 +1,16 @@
-﻿//LaunchPad Shared
-// Copyright (c) 2016-2021 Deploy Software Solutions, inc. 
+﻿// ***********************************************************************
+// Assembly         : Deploy.LaunchPad.Core.Abp
+// Author           : Nicholas Kellett
+// Created          : 11-19-2023
+//
+// Last Modified By : Nicholas Kellett
+// Last Modified On : 07-26-2023
+// ***********************************************************************
+// <copyright file="IDataCatalogue.cs" company="Deploy Software Solutions, inc.">
+//     2018-2023 Deploy Software Solutions, inc.
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
 
 #region license
 //Licensed under the Apache License, Version 2.0 (the "License"); 
@@ -22,16 +33,38 @@ using System.Collections.Generic;
 
 namespace Deploy.LaunchPad.Core.Abp.Domain
 {
-    public interface IDataCatalogue<TPrimaryKey, TDictionaryKey, TDataPointPrimaryKey> : ILaunchPadDomainEntity<TPrimaryKey>, IMayHaveTenant
+    /// <summary>
+    /// Interface IDataCatalogue
+    /// Extends the <see cref="ILaunchPadDomainEntity{TPrimaryKey}" />
+    /// Extends the <see cref="IMayHaveTenant" />
+    /// </summary>
+    /// <typeparam name="TPrimaryKey">The type of the t primary key.</typeparam>
+    /// <typeparam name="TDictionaryKey">The type of the t dictionary key.</typeparam>
+    /// <typeparam name="TDataPointPrimaryKey">The type of the t data point primary key.</typeparam>
+    /// <seealso cref="ILaunchPadDomainEntity{TPrimaryKey}" />
+    /// <seealso cref="IMayHaveTenant" />
+    public partial interface IDataCatalogue<TPrimaryKey, TDictionaryKey, TDataPointPrimaryKey> : ILaunchPadDomainEntity<TPrimaryKey>, IMayHaveTenant
         where TDictionaryKey : struct
         where TDataPointPrimaryKey : struct
     {
 
+        /// <summary>
+        /// Gets or sets the data sets count.
+        /// </summary>
+        /// <value>The data sets count.</value>
         int DataSetsCount { get; set; }
 
+        /// <summary>
+        /// Gets or sets the items count.
+        /// </summary>
+        /// <value>The items count.</value>
         long ItemsCount { get; set; }
 
 
+        /// <summary>
+        /// Gets or sets the data sets.
+        /// </summary>
+        /// <value>The data sets.</value>
         IEnumerable<IDataSet<TPrimaryKey, TDictionaryKey, TDataPointPrimaryKey>> DataSets { get; set; }
 
     }

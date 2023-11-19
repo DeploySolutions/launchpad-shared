@@ -1,4 +1,17 @@
-﻿using Abp.Dependency;
+﻿// ***********************************************************************
+// Assembly         : Deploy.LaunchPad.AWS.Abp
+// Author           : Nicholas Kellett
+// Created          : 11-19-2023
+//
+// Last Modified By : Nicholas Kellett
+// Last Modified On : 01-08-2023
+// ***********************************************************************
+// <copyright file="AwsRedshiftHelperFactory.cs" company="Deploy Software Solutions, inc.">
+//     2021-2023 Deploy Software Solutions, inc.
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
+using Abp.Dependency;
 using Amazon;
 using Amazon.Redshift;
 using Castle.Core.Logging;
@@ -6,14 +19,34 @@ using Castle.MicroKernel;
 
 namespace Deploy.LaunchPad.AWS.Redshift
 {
+    /// <summary>
+    /// Class AwsRedshiftHelperFactory.
+    /// Implements the <see cref="Deploy.LaunchPad.AWS.AwsHelperBase{Amazon.Redshift.AmazonRedshiftConfig}" />
+    /// Implements the <see cref="ISingletonDependency" />
+    /// </summary>
+    /// <seealso cref="Deploy.LaunchPad.AWS.AwsHelperBase{Amazon.Redshift.AmazonRedshiftConfig}" />
+    /// <seealso cref="ISingletonDependency" />
     public partial class AwsRedshiftHelperFactory : AwsHelperBase<AmazonRedshiftConfig>, ISingletonDependency
     {
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="AwsRedshiftHelperFactory"/> class.
+        /// </summary>
+        /// <param name="logger">The logger.</param>
+        /// <param name="awsRegionEndpointName">Name of the aws region endpoint.</param>
         public AwsRedshiftHelperFactory(ILogger logger, string awsRegionEndpointName) : base(logger, awsRegionEndpointName)
         {
 
         }
 
+        /// <summary>
+        /// Creates the specified logger.
+        /// </summary>
+        /// <param name="logger">The logger.</param>
+        /// <param name="awsRegionEndpointName">Name of the aws region endpoint.</param>
+        /// <param name="awsProfileName">Name of the aws profile.</param>
+        /// <param name="shouldUseLocalAwsProfile">if set to <c>true</c> [should use local aws profile].</param>
+        /// <returns>AwsRedshiftHelper.</returns>
         public virtual AwsRedshiftHelper Create(
             ILogger logger,
             string awsRegionEndpointName = DefaultRegionEndpointName,

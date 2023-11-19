@@ -1,5 +1,16 @@
-﻿//LaunchPad Space
-// Copyright (c) 2018-2023 Deploy Software Solutions, inc. 
+﻿// ***********************************************************************
+// Assembly         : Deploy.LaunchPad.Organizations
+// Author           : Nicholas Kellett
+// Created          : 11-19-2023
+//
+// Last Modified By : Nicholas Kellett
+// Last Modified On : 01-22-2023
+// ***********************************************************************
+// <copyright file="DefenceResearchDevelopmentCanada.cs" company="Deploy Software Solutions, inc.">
+//     2018-2023 Deploy Software Solutions, inc.
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
 
 #region license
 //Licensed under the Apache License, Version 2.0 (the "License"); 
@@ -21,9 +32,18 @@ using System;
 
 namespace Deploy.LaunchPad.Organizations.Canada
 {
-    public class DefenceResearchDevelopmentCanada : GovernmentOrganizationBase<Guid>
+    /// <summary>
+    /// Class DefenceResearchDevelopmentCanada.
+    /// Implements the <see cref="Deploy.LaunchPad.Core.Abp.Domain.GovernmentOrganizationBase{System.Guid}" />
+    /// </summary>
+    /// <seealso cref="Deploy.LaunchPad.Core.Abp.Domain.GovernmentOrganizationBase{System.Guid}" />
+    public partial class DefenceResearchDevelopmentCanada : GovernmentOrganizationBase<Guid>
     {
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DefenceResearchDevelopmentCanada"/> class.
+        /// </summary>
+        /// <param name="tenantId">The tenant identifier.</param>
         public DefenceResearchDevelopmentCanada(int? tenantId) : base(tenantId)
         {
             GovernmentOrganization org = new GovernmentOrganization()

@@ -1,4 +1,17 @@
-﻿using Castle.Core.Logging;
+﻿// ***********************************************************************
+// Assembly         : Deploy.LaunchPad.FileGeneration
+// Author           : Nicholas Kellett
+// Created          : 11-19-2023
+//
+// Last Modified By : Nicholas Kellett
+// Last Modified On : 01-08-2023
+// ***********************************************************************
+// <copyright file="LaunchPadGeneratedAppSettingsBase.cs" company="Deploy Software Solutions, inc.">
+//     2018-2023 Deploy Software Solutions, inc.
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
+using Castle.Core.Logging;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
@@ -8,16 +21,28 @@ using System.Xml.Linq;
 
 namespace Deploy.LaunchPad.FileGeneration.Stages.Defining
 {
+    /// <summary>
+    /// Class LaunchPadGeneratedAppSettingsBase.
+    /// Implements the <see cref="Deploy.LaunchPad.FileGeneration.Stages.Defining.ILaunchPadGeneratedAppSettings" />
+    /// </summary>
+    /// <seealso cref="Deploy.LaunchPad.FileGeneration.Stages.Defining.ILaunchPadGeneratedAppSettings" />
     [Serializable]
     public abstract partial class LaunchPadGeneratedAppSettingsBase : ILaunchPadGeneratedAppSettings
     {
 
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="LaunchPadGeneratedAppSettingsBase"/> class.
+        /// </summary>
         public LaunchPadGeneratedAppSettingsBase()
         {
         }
 
 
+        /// <summary>
+        /// Returns a <see cref="System.String" /> that represents this instance.
+        /// </summary>
+        /// <returns>A <see cref="System.String" /> that represents this instance.</returns>
         public override string ToString()
         {
             JObject o = (JObject)JToken.FromObject(this);
@@ -31,7 +56,10 @@ namespace Deploy.LaunchPad.FileGeneration.Stages.Defining
         /// Uses the Newtonsoft JSON conversion rules which are here: https://www.newtonsoft.com/json/help/html/ConvertingJSONandXML.htm
         /// CDATA elements will be stripped out automatically.
         /// </summary>
-        /// <param name="doc"></param>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="doc">The document.</param>
+        /// <param name="logger">The logger.</param>
+        /// <param name="xmlns">The XMLNS.</param>
         /// <returns>A populated instance of this object, from the given XML.</returns>
         public T LoadAppSettingsFromXml<T>(XmlDocument doc, ILogger logger = null, string xmlns = "https://assets.deploy.solutions/SpaceAppsRAD/Schemas/AppSettings")
             where T : ILaunchPadGeneratedAppSettings, new()

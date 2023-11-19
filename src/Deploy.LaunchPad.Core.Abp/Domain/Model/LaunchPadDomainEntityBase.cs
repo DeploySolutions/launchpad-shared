@@ -1,5 +1,16 @@
-﻿//LaunchPad Shared
-// Copyright (c) 2016-2021 Deploy Software Solutions, inc. 
+﻿// ***********************************************************************
+// Assembly         : Deploy.LaunchPad.Core.Abp
+// Author           : Nicholas Kellett
+// Created          : 11-19-2023
+//
+// Last Modified By : Nicholas Kellett
+// Last Modified On : 10-27-2023
+// ***********************************************************************
+// <copyright file="LaunchPadDomainEntityBase.cs" company="Deploy Software Solutions, inc.">
+//     2018-2023 Deploy Software Solutions, inc.
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
 
 #region license
 //Licensed under the Apache License, Version 2.0 (the "License"); 
@@ -41,7 +52,8 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
     /// Base class for Entities. Implements <see cref="IDomainEntity">IDomainEntity</see> and provides
     /// base functionality for many of its methods. Inherits from AspNetBoilerplate's Entity class.
     /// Implements AspNetBoilerplate's auditing interfaces.
-    /// </summary>    
+    /// </summary>
+    /// <typeparam name="TIdType">The type of the t identifier type.</typeparam>
     [DebuggerDisplay("{_debugDisplay}")]
     [Serializable]
     public abstract partial class LaunchPadDomainEntityBase<TIdType> :
@@ -51,6 +63,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
         /// <summary>
         /// If this object is a regular domain entity, an aggregate root, or an aggregate child
         /// </summary>
+        /// <value>The type of the entity.</value>
         [DataObjectField(false)]
         [XmlAttribute]
         public virtual DomainEntityType EntityType { get; } = DomainEntityType.DomainEntity;
@@ -58,11 +71,13 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
         /// <summary>
         /// Controls the DebuggerDisplay attribute presentation (above). This will only appear during VS debugging sessions and should never be logged.
         /// </summary>
+        /// <value>The debug display.</value>
         protected virtual string _debugDisplay => $"{Id}. Name {Name}.";
 
         /// <summary>
         /// The culture of this object
         /// </summary>
+        /// <value>The culture.</value>
         [Required]
         [MaxLength(5, ErrorMessageResourceName = "Validation_Culture_5CharsOrLess", ErrorMessageResourceType = typeof(Deploy_LaunchPad_Core_Resources))]
         [DataObjectField(true)]
@@ -74,16 +89,21 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
         /// <summary>
         /// The display name of this object
         /// </summary>
+        /// <value>The name.</value>
         [Required]
         [MaxLength(100, ErrorMessageResourceName = "Validation_Name_100CharsOrLess", ErrorMessageResourceType = typeof(Deploy_LaunchPad_Core_Resources))]
         [DataObjectField(false)]
         [XmlAttribute]
         public virtual string Name { get; set; }
 
+        /// <summary>
+        /// The fully qualified name
+        /// </summary>
         protected string _fullyQualifiedName;
         /// <summary>
         /// The fully-qualified name of this object (if different from the Name field)
         /// </summary>
+        /// <value>The name of the fully qualified.</value>
         [Required]
         [MaxLength(100, ErrorMessageResourceName = "Validation_Name_256CharsOrLess", ErrorMessageResourceType = typeof(Deploy_LaunchPad_Core_Resources))]
         [DataObjectField(false)]
@@ -110,6 +130,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
         /// <summary>
         /// The checksum for this  object, if any
         /// </summary>
+        /// <value>The checksum.</value>
         [DataObjectField(false)]
         [DataMember(Name = "checksum", EmitDefaultValue = false)]
         [XmlAttribute]
@@ -119,6 +140,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
         /// <summary>
         /// The external ID stored in a client system (if any). Can be any type on client system, but retained here as text.
         /// </summary>
+        /// <value>The external identifier.</value>
         [MaxLength(36, ErrorMessageResourceName = "Validation_ExternalId_36CharsOrLess", ErrorMessageResourceType = typeof(Deploy_LaunchPad_Core_Resources))]
         [DataObjectField(false)]
         [DataMember(Name = "externalId", EmitDefaultValue = false)]
@@ -128,6 +150,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
         /// <summary>
         /// A short description for this entity
         /// </summary>
+        /// <value>The description short.</value>
         [Required]
         [MaxLength(256, ErrorMessageResourceName = "Validation_DescriptionShort_256CharsOrLess", ErrorMessageResourceType = typeof(Deploy_LaunchPad_Core_Resources))]
         [DataObjectField(false)]
@@ -137,6 +160,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
         /// <summary>
         /// The full description for this entity
         /// </summary>
+        /// <value>The description full.</value>
         [MaxLength(8096, ErrorMessageResourceName = "Validation_DescriptionFull_8096CharsOrLess", ErrorMessageResourceType = typeof(Deploy_LaunchPad_Core_Resources))]
         [DataObjectField(false)]
         [XmlElement]
@@ -145,6 +169,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
         /// <summary>
         /// The sequence number for this entity, if any (for sorting and ordering purposes). Defaults to 0 if not set.
         /// </summary>
+        /// <value>The seq number.</value>
         [DataObjectField(false)]
         [DataMember(Name = "seqNum", EmitDefaultValue = true)]
         [XmlElement]
@@ -153,6 +178,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
         /// <summary>
         /// Each entity can have an open-ended set of tags applied to it, that help users find, markup, and display its information
         /// </summary>
+        /// <value>The tags.</value>
         [DataObjectField(false)]
         [DataMember(Name = "tags", EmitDefaultValue = false)]
         [XmlAttribute]
@@ -160,14 +186,19 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
 
 
         /// <summary>
-        /// If this object is not a translation this field will be null. 
+        /// If this object is not a translation this field will be null.
         /// If this object is a translation, this id references the parent object.
         /// </summary>
+        /// <value>The translated from identifier.</value>
         [DataObjectField(true)]
         [DataMember(Name = "translatedFromId", EmitDefaultValue = false)]
         [XmlAttribute]
         public virtual TIdType TranslatedFromId { get; set; }
 
+        /// <summary>
+        /// Gets or sets a value indicating whether this instance is active.
+        /// </summary>
+        /// <value><c>true</c> if this instance is active; otherwise, <c>false</c>.</value>
         [DataObjectField(false)]
         [XmlAttribute]
         public virtual bool IsActive { get; set; }
@@ -175,6 +206,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
         /// <summary>
         /// The name of the creating user
         /// </summary>
+        /// <value>The name of the creator user.</value>
         [MaxLength(256, ErrorMessageResourceName = "Validation_Name_256CharsOrLess", ErrorMessageResourceType = typeof(Deploy_LaunchPad_Core_Resources))]
         [DataObjectField(false)]
         [XmlAttribute]
@@ -183,6 +215,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
         /// <summary>
         /// The name of the modifying user
         /// </summary>
+        /// <value>The last name of the modifier user.</value>
         [MaxLength(256, ErrorMessageResourceName = "Validation_Name_256CharsOrLess",
             ErrorMessageResourceType = typeof(Deploy_LaunchPad_Core_Resources))]
         [DataObjectField(false)]
@@ -192,15 +225,17 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
         /// <summary>
         /// The name of the deleting user
         /// </summary>
+        /// <value>The name of the deleter user.</value>
         [MaxLength(256, ErrorMessageResourceName = "Validation_Name_256CharsOrLess", ErrorMessageResourceType = typeof(Deploy_LaunchPad_Core_Resources))]
         [DataObjectField(false)]
         [XmlAttribute]
         public string? DeleterUserName { get; set; }
 
         /// <summary>
-        /// A convenience readonly method to get a <see cref="CultureInfo">CultureInfo</see> instance from the current 
+        /// A convenience readonly method to get a <see cref="CultureInfo">CultureInfo</see> instance from the current
         /// culture code
         /// </summary>
+        /// <returns>CultureInfo.</returns>
         public virtual CultureInfo GetCultureInfo()
         {
             return new CultureInfo(Culture);
@@ -209,8 +244,8 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
         /// <summary>
         /// Ensure the culture is one of the supported ones
         /// </summary>
-        /// <param name="culture"></param>
-        /// <returns></returns>
+        /// <param name="name">The name.</param>
+        /// <returns><c>true</c> if [is valid culture information name] [the specified name]; otherwise, <c>false</c>.</returns>
         private static bool IsValidCultureInfoName(string name)
         {
             return
@@ -219,7 +254,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
                 .Any(c => c.Name == name);
         }
 
-        /// <summary>  
+        /// <summary>
         /// Initializes a new instance of the <see cref="DomainEntityBase">Entity</see> class
         /// </summary>
         protected LaunchPadDomainEntityBase() : base()
@@ -238,9 +273,9 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
         }
 
         /// <summary>
-        /// Creates a new instance of the <see cref="DomainEntityBase">Entity</see> class given a key, and some metadata. 
+        /// Creates a new instance of the <see cref="DomainEntityBase">Entity</see> class given a key, and some metadata.
         /// </summary>
-        /// <param name="culture">The culture for this entity</param>
+        /// <param name="id">The identifier.</param>
         protected LaunchPadDomainEntityBase(TIdType id) : base()
         {
             Id = id;
@@ -257,8 +292,9 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
         }
 
         /// <summary>
-        /// Creates a new instance of the <see cref="DomainEntityBase">Entity</see> class given a key, and some metadata. 
+        /// Creates a new instance of the <see cref="DomainEntityBase">Entity</see> class given a key, and some metadata.
         /// </summary>
+        /// <param name="id">The identifier.</param>
         /// <param name="culture">The culture for this entity</param>
         protected LaunchPadDomainEntityBase(TIdType id, string culture) : base()
         {
@@ -309,8 +345,8 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
         /// <summary>
         /// The method required for implementing ISerializable
         /// </summary>
-        /// <param name="info"></param>
-        /// <param name="context"></param>
+        /// <param name="info">The information.</param>
+        /// <param name="context">The context.</param>
         public virtual void GetObjectData(SerializationInfo info, StreamingContext context)
         {
             info.AddValue("Id", Id);
@@ -337,7 +373,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
 
         /// <summary>
         /// Event called once deserialization constructor finishes.
-        /// Useful for reattaching connections and other finite resources that 
+        /// Useful for reattaching connections and other finite resources that
         /// can't be serialized and deserialized.
         /// </summary>
         /// <param name="sender">The object that has been deserialized</param>
@@ -372,7 +408,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
         /// it is not necessary to test for the correct object type.
         /// </summary>
         /// <param name="other">The other object of this type we are comparing to</param>
-        /// <returns></returns>
+        /// <returns>System.Int32.</returns>
         public virtual int CompareTo(LaunchPadDomainEntityBase<TIdType> other)
         {
             // put comparison of properties in here 
@@ -380,9 +416,9 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
             return FullyQualifiedName.CompareTo(other.FullyQualifiedName);
         }
 
-        /// <summary>  
-        /// Displays information about the <c>Field</c> in readable format.  
-        /// </summary>  
+        /// <summary>
+        /// Displays information about the <c>Field</c> in readable format.
+        /// </summary>
         /// <returns>A string representation of the object.</returns>
         public override string ToString()
         {
@@ -444,10 +480,10 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
         /// Because the Equals method is strongly typed by generic constraints,
         /// it is not necessary to test for the correct object type.
         /// For safety we just want to match on business key value - in this case the fields
-        /// that cannot be different between the two objects if they are supposedly equal.        
+        /// that cannot be different between the two objects if they are supposedly equal.
         /// </summary>
         /// <param name="obj">The other object of this type that we are testing equality with</param>
-        /// <returns></returns>
+        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
         public virtual bool Equals(LaunchPadDomainEntityBase<TIdType> obj)
         {
             if (obj != null)
@@ -503,13 +539,11 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
             return !(x == y);
         }
 
-        /// <summary>  
-        /// Computes and retrieves a hash code for an object.  
-        /// </summary>  
-        /// <remarks>  
-        /// This method implements the <see cref="object">Object</see> method.  
-        /// </remarks>  
+        /// <summary>
+        /// Computes and retrieves a hash code for an object.
+        /// </summary>
         /// <returns>A hash code for an object.</returns>
+        /// <remarks>This method implements the <see cref="object">Object</see> method.</remarks>
         public override int GetHashCode()
         {
             return Culture.GetHashCode()

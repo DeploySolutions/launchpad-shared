@@ -1,4 +1,17 @@
-﻿using Abp;
+﻿// ***********************************************************************
+// Assembly         : Deploy.LaunchPad.Core.Abp
+// Author           : Nicholas Kellett
+// Created          : 11-19-2023
+//
+// Last Modified By : Nicholas Kellett
+// Last Modified On : 03-21-2023
+// ***********************************************************************
+// <copyright file="LaunchPadAbpSystemIntegrationServiceBase.cs" company="Deploy Software Solutions, inc.">
+//     2018-2023 Deploy Software Solutions, inc.
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
+using Abp;
 using Abp.Configuration;
 using Abp.Domain.Uow;
 using Abp.Localization.Sources;
@@ -12,6 +25,13 @@ using System.Globalization;
 
 namespace Deploy.LaunchPad.Core.Abp.Application
 {
+    /// <summary>
+    /// Class LaunchPadAbpSystemIntegrationServiceBase.
+    /// Implements the <see cref="SystemIntegrationServiceBase" />
+    /// Implements the <see cref="Deploy.LaunchPad.Core.Abp.Application.IAbpSystemIntegrationService" />
+    /// </summary>
+    /// <seealso cref="SystemIntegrationServiceBase" />
+    /// <seealso cref="Deploy.LaunchPad.Core.Abp.Application.IAbpSystemIntegrationService" />
     [Serializable()]
     public abstract class LaunchPadAbpSystemIntegrationServiceBase : SystemIntegrationServiceBase, IAbpSystemIntegrationService
     {
@@ -20,11 +40,15 @@ namespace Deploy.LaunchPad.Core.Abp.Application
         /// <summary>
         /// Reference to the setting manager.
         /// </summary>
+        /// <value>The setting manager.</value>
+        /// <font color="red">Badly formed XML comment.</font>
         public virtual ISettingManager SettingManager { get; set; }
 
         /// <summary>
-        /// Reference to <see cref="IUnitOfWorkManager"/>.
+        /// Reference to <see cref="IUnitOfWorkManager" />.
         /// </summary>
+        /// <value>The unit of work manager.</value>
+        /// <exception cref="Abp.AbpException">Must set UnitOfWorkManager before use it.</exception>
         public virtual IUnitOfWorkManager UnitOfWorkManager
         {
             get
@@ -38,28 +62,36 @@ namespace Deploy.LaunchPad.Core.Abp.Application
             }
             set { _unitOfWorkManager = value; }
         }
+        /// <summary>
+        /// The unit of work manager
+        /// </summary>
         private IUnitOfWorkManager _unitOfWorkManager;
 
         /// <summary>
         /// Gets current unit of work.
         /// </summary>
+        /// <value>The current unit of work.</value>
         protected IActiveUnitOfWork CurrentUnitOfWork { get { return UnitOfWorkManager.Current; } }
 
         /// <summary>
         /// Reference to the localization manager.
         /// </summary>
+        /// <value>The localization manager.</value>
         public virtual ILocalizationManager LocalizationManager { get; set; }
 
         /// <summary>
         /// Gets/sets name of the localization source that is used in this application service.
-        /// It must be set in order to use <see cref="L(string)"/> and <see cref="L(string,CultureInfo)"/> methods.
+        /// It must be set in order to use <see cref="L(string)" /> and <see cref="L(string,CultureInfo)" /> methods.
         /// </summary>
+        /// <value>The name of the localization source.</value>
         protected string LocalizationSourceName { get; set; }
 
         /// <summary>
         /// Gets localization source.
-        /// It's valid if <see cref="LocalizationSourceName"/> is set.
+        /// It's valid if <see cref="LocalizationSourceName" /> is set.
         /// </summary>
+        /// <value>The localization source.</value>
+        /// <exception cref="Abp.AbpException">Must set LocalizationSourceName before, in order to get LocalizationSource</exception>
         protected ILocalizationSource LocalizationSource
         {
             get
@@ -77,12 +109,16 @@ namespace Deploy.LaunchPad.Core.Abp.Application
                 return _localizationSource;
             }
         }
+        /// <summary>
+        /// The localization source
+        /// </summary>
         private ILocalizationSource _localizationSource;
 
 
         /// <summary>
         /// Reference to the object to object mapper.
         /// </summary>
+        /// <value>The object mapper.</value>
         public virtual IObjectMapper ObjectMapper { get; set; }
 
         /// <summary>
@@ -139,12 +175,21 @@ namespace Deploy.LaunchPad.Core.Abp.Application
             LocalizationManager = NullLocalizationManager.Instance;
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="LaunchPadAbpSystemIntegrationServiceBase"/> class.
+        /// </summary>
+        /// <param name="logger">The logger.</param>
         protected LaunchPadAbpSystemIntegrationServiceBase(ILogger logger) : base(logger)
         {
             ObjectMapper = NullObjectMapper.Instance;
             LocalizationManager = NullLocalizationManager.Instance;
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="LaunchPadAbpSystemIntegrationServiceBase"/> class.
+        /// </summary>
+        /// <param name="logger">The logger.</param>
+        /// <param name="configurationRoot">The configuration root.</param>
         protected LaunchPadAbpSystemIntegrationServiceBase(ILogger logger, IConfigurationRoot configurationRoot) :base(logger, configurationRoot)
         {
             ObjectMapper = NullObjectMapper.Instance;

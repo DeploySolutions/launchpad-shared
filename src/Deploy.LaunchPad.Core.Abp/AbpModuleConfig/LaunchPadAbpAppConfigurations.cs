@@ -1,4 +1,17 @@
-﻿using Abp.Extensions;
+﻿// ***********************************************************************
+// Assembly         : Deploy.LaunchPad.Core.Abp
+// Author           : Nicholas Kellett
+// Created          : 11-19-2023
+//
+// Last Modified By : Nicholas Kellett
+// Last Modified On : 10-15-2023
+// ***********************************************************************
+// <copyright file="LaunchPadAbpAppConfigurations.cs" company="Deploy Software Solutions, inc.">
+//     2018-2023 Deploy Software Solutions, inc.
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
+using Abp.Extensions;
 using Microsoft.Extensions.Configuration;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
@@ -6,15 +19,33 @@ using System.IO;
 
 namespace Deploy.LaunchPad.Core.Abp.AbpModuleConfig
 {
+    /// <summary>
+    /// Class LaunchPadAbpAppConfigurations.
+    /// </summary>
     public static class LaunchPadAbpAppConfigurations
     {
+        /// <summary>
+        /// The configuration cache
+        /// </summary>
         private static readonly ConcurrentDictionary<string, IConfigurationRoot> _configurationCache;
 
+        /// <summary>
+        /// Initializes static members of the <see cref="LaunchPadAbpAppConfigurations"/> class.
+        /// </summary>
         static LaunchPadAbpAppConfigurations()
         {
             _configurationCache = new ConcurrentDictionary<string, IConfigurationRoot>();
         }
 
+        /// <summary>
+        /// Gets the specified path.
+        /// </summary>
+        /// <param name="path">The path.</param>
+        /// <param name="environmentName">Name of the environment.</param>
+        /// <param name="addUserSecrets">if set to <c>true</c> [add user secrets].</param>
+        /// <param name="userSecretId">The user secret identifier.</param>
+        /// <param name="jsonFiles">The json files.</param>
+        /// <returns>IConfigurationRoot.</returns>
         public static IConfigurationRoot Get(string path, string environmentName = null, bool addUserSecrets = false, string userSecretId = "", IList<string> jsonFiles = null)
         {
             var cacheKey = path + "#" + environmentName + "#" + addUserSecrets;
@@ -24,6 +55,15 @@ namespace Deploy.LaunchPad.Core.Abp.AbpModuleConfig
             );
         }
 
+        /// <summary>
+        /// Builds the configuration.
+        /// </summary>
+        /// <param name="path">The path.</param>
+        /// <param name="environmentName">Name of the environment.</param>
+        /// <param name="addUserSecrets">if set to <c>true</c> [add user secrets].</param>
+        /// <param name="userSecretId">The user secret identifier.</param>
+        /// <param name="jsonFiles">The json files.</param>
+        /// <returns>IConfigurationRoot.</returns>
         private static IConfigurationRoot BuildConfiguration(string path, string environmentName = null, bool addUserSecrets = false, string userSecretId = "", IList<string> jsonFiles = null)
         {
             var builder = new ConfigurationBuilder()

@@ -1,5 +1,16 @@
-﻿//LaunchPad Shared
-// Copyright (c) 2016-2021 Deploy Software Solutions, inc. 
+﻿// ***********************************************************************
+// Assembly         : Deploy.LaunchPad.Space.Satellites
+// Author           : Nicholas Kellett
+// Created          : 11-19-2023
+//
+// Last Modified By : Nicholas Kellett
+// Last Modified On : 01-08-2023
+// ***********************************************************************
+// <copyright file="ISentinel1bSatellite.cs" company="Deploy Software Solutions, inc.">
+//     2018-2023 Deploy Software Solutions, inc.
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
 
 #region license
 //Licensed under the Apache License, Version 2.0 (the "License"); 
@@ -18,7 +29,12 @@
 
 namespace Deploy.LaunchPad.Space.Satellites.Sentinel
 {
-    public interface ISentinel1bSatellite : ISentinelSatellite
+    /// <summary>
+    /// Interface ISentinel1bSatellite
+    /// Extends the <see cref="Deploy.LaunchPad.Space.Satellites.Sentinel.ISentinelSatellite" />
+    /// </summary>
+    /// <seealso cref="Deploy.LaunchPad.Space.Satellites.Sentinel.ISentinelSatellite" />
+    public partial interface ISentinel1bSatellite : ISentinelSatellite
     {
     }
 }

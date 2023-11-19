@@ -1,5 +1,16 @@
-﻿//LaunchPad Shared
-// Copyright (c) 2018-2023 Deploy Software Solutions, inc. 
+﻿// ***********************************************************************
+// Assembly         : Deploy.LaunchPad.Core.Abp
+// Author           : Nicholas Kellett
+// Created          : 11-19-2023
+//
+// Last Modified By : Nicholas Kellett
+// Last Modified On : 07-26-2023
+// ***********************************************************************
+// <copyright file="DataCatalogue.cs" company="Deploy Software Solutions, inc.">
+//     2018-2023 Deploy Software Solutions, inc.
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
 
 #region license
 //Licensed under the Apache License, Version 2.0 (the "License"); 
@@ -25,6 +36,16 @@ using Deploy.LaunchPad.Core.Abp.Domain.Model;
 namespace Deploy.LaunchPad.Core.Abp.Domain
 {
 
+    /// <summary>
+    /// Class DataCatalogue.
+    /// Implements the <see cref="LaunchPadDomainEntityBase{TPrimaryKey}" />
+    /// Implements the <see cref="Deploy.LaunchPad.Core.Abp.Domain.IDataCatalogue{TPrimaryKey, TDictionaryKey, TDataPointPrimaryKey}" />
+    /// </summary>
+    /// <typeparam name="TPrimaryKey">The type of the t primary key.</typeparam>
+    /// <typeparam name="TDictionaryKey">The type of the t dictionary key.</typeparam>
+    /// <typeparam name="TDataPointPrimaryKey">The type of the t data point primary key.</typeparam>
+    /// <seealso cref="LaunchPadDomainEntityBase{TPrimaryKey}" />
+    /// <seealso cref="Deploy.LaunchPad.Core.Abp.Domain.IDataCatalogue{TPrimaryKey, TDictionaryKey, TDataPointPrimaryKey}" />
     public abstract class DataCatalogue<TPrimaryKey, TDictionaryKey, TDataPointPrimaryKey> :
         LaunchPadDomainEntityBase<TPrimaryKey>,
         IDataCatalogue<TPrimaryKey, TDictionaryKey, TDataPointPrimaryKey>
@@ -32,18 +53,47 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
         where TDataPointPrimaryKey : struct
     {
 
+        /// <summary>
+        /// Gets or sets the items count.
+        /// </summary>
+        /// <value>The items count.</value>
         public long ItemsCount { get; set; }
 
 
+        /// <summary>
+        /// TenantId of this entity.
+        /// </summary>
+        /// <value>The tenant identifier.</value>
         public int? TenantId { get; set; }
+        /// <summary>
+        /// Gets or sets the data sets.
+        /// </summary>
+        /// <value>The data sets.</value>
+        /// <exception cref="System.NotImplementedException"></exception>
         public IEnumerable<IDataSet<TPrimaryKey, TDictionaryKey, TDataPointPrimaryKey>> DataSets { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        /// <summary>
+        /// Gets or sets the data sets count.
+        /// </summary>
+        /// <value>The data sets count.</value>
+        /// <exception cref="System.NotImplementedException"></exception>
         public int DataSetsCount { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DataCatalogue{TPrimaryKey, TDictionaryKey, TDataPointPrimaryKey}"/> class.
+        /// </summary>
         public DataCatalogue() : base()
         {
 
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DataCatalogue{TPrimaryKey, TDictionaryKey, TDataPointPrimaryKey}"/> class.
+        /// </summary>
+        /// <param name="tenantId">The tenant identifier.</param>
+        /// <param name="_datacatalogueName">Name of the datacatalogue.</param>
+        /// <param name="_datacatalogueDescription">The datacatalogue description.</param>
+        /// <param name="_numberOfDatasets">The number of datasets.</param>
+        /// <param name="_totalNumberOfRecords">The total number of records.</param>
         public DataCatalogue(
             int tenantId,
             string _datacatalogueName,
@@ -60,6 +110,10 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
             ItemsCount = _totalNumberOfRecords;
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DataCatalogue{TPrimaryKey, TDictionaryKey, TDataPointPrimaryKey}"/> class.
+        /// </summary>
+        /// <param name="tenantId">The tenant identifier.</param>
         protected DataCatalogue(int tenantId) : base()
         {
             TenantId = tenantId;
@@ -83,8 +137,8 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
         /// <summary>
         /// The method required for implementing ISerializable
         /// </summary>
-        /// <param name="info"></param>
-        /// <param name="context"></param>
+        /// <param name="info">The information.</param>
+        /// <param name="context">The context.</param>
         public override void GetObjectData(SerializationInfo info, StreamingContext context)
         {
             base.GetObjectData(info, context);
@@ -92,9 +146,9 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
             info.AddValue("ItemsCount", ItemsCount);
         }
 
-        /// <summary>  
-        /// Displays information about the class in readable format.  
-        /// </summary>  
+        /// <summary>
+        /// Displays information about the class in readable format.
+        /// </summary>
         /// <returns>A string representation of the object.</returns>
         public override string ToString()
         {

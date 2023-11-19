@@ -1,6 +1,17 @@
 ﻿
-//LaunchPad Shared
-// Copyright (c) 2016-2021 Deploy Software Solutions, inc. 
+// ***********************************************************************
+// Assembly         : Deploy.LaunchPad.Images.Tests
+// Author           : Nicholas Kellett
+// Created          : 11-19-2023
+//
+// Last Modified By : Nicholas Kellett
+// Last Modified On : 01-08-2023
+// ***********************************************************************
+// <copyright file="ThumbnailGeneratorTestsFixture.cs" company="Deploy.LaunchPad.Images.Tests">
+//     Copyright (c) Deploy Software Solutions, Inc.. All rights reserved.
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
 
 #region license
 //Licensed under the Apache License, Version 2.0 (the "License"); 
@@ -28,20 +39,50 @@ namespace Deploy.LaunchPad.Images.Tests
     using System;
     using Deploy.LaunchPad.Images.Domain;
 
-    public class ThumbnailGeneratorTestsFixture : IDisposable
+    /// <summary>
+    /// Class ThumbnailGeneratorTestsFixture.
+    /// Implements the <see cref="IDisposable" />
+    /// </summary>
+    /// <seealso cref="IDisposable" />
+    public partial class ThumbnailGeneratorTestsFixture : IDisposable
     {
+        /// <summary>
+        /// Gets or sets the sut.
+        /// </summary>
+        /// <value>The sut.</value>
         public ThumbnailGenerator SUT { get; set; }
 
+        /// <summary>
+        /// Gets or sets the settings.
+        /// </summary>
+        /// <value>The settings.</value>
         public CompareSettings Settings { get; set; }
 
+        /// <summary>
+        /// Gets or sets the not empty bytes.
+        /// </summary>
+        /// <value>The not empty bytes.</value>
         public byte[] NotEmptyBytes { get; set; }
 
+        /// <summary>
+        /// Gets or sets the logo.
+        /// </summary>
+        /// <value>The logo.</value>
         public byte[] Logo { get; set; }
 
+        /// <summary>
+        /// The logo file path
+        /// </summary>
         public readonly string LogoFilePath;
 
+        /// <summary>
+        /// The logo file name
+        /// </summary>
         public readonly string LogoFileName;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ThumbnailGeneratorTestsFixture"/> class.
+        /// </summary>
         public ThumbnailGeneratorTestsFixture()
         {
             NotEmptyBytes = new byte[1] { 0x20 };
@@ -58,13 +99,21 @@ namespace Deploy.LaunchPad.Images.Tests
                 Logo = br.ReadBytes((int)s.Length);
             }
         }
-        
+
+        /// <summary>
+        /// Initializes the specified generator.
+        /// </summary>
+        /// <param name="generator">The generator.</param>
+        /// <param name="compareSettings">The compare settings.</param>
         public void Initialize(ThumbnailGenerator generator, CompareSettings compareSettings)
         {
             SUT = generator;
             Settings = compareSettings;
         }
 
+        /// <summary>
+        /// Disposes this instance.
+        /// </summary>
         public void Dispose()
         {
 

@@ -1,5 +1,16 @@
-﻿//LaunchPad Space
-// Copyright (c) 2018-2023 Deploy Software Solutions, inc. 
+﻿// ***********************************************************************
+// Assembly         : Deploy.LaunchPad.Space.Satellites
+// Author           : Nicholas Kellett
+// Created          : 11-19-2023
+//
+// Last Modified By : Nicholas Kellett
+// Last Modified On : 01-22-2023
+// ***********************************************************************
+// <copyright file="SartFile.cs" company="Deploy Software Solutions, inc.">
+//     2018-2023 Deploy Software Solutions, inc.
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
 
 #region license
 //Licensed under the Apache License, Version 2.0 (the "License"); 
@@ -21,8 +32,18 @@ namespace Deploy.LaunchPad.Space.Satellites.Core
 {
     using Deploy.LaunchPad.Core.Abp.Domain;
 
+    /// <summary>
+    /// Class SartFile.
+    /// Implements the <see cref="Deploy.LaunchPad.Core.Abp.Domain.FileBase{TPrimaryKey, System.Byte[]}" />
+    /// </summary>
+    /// <typeparam name="TPrimaryKey">The type of the t primary key.</typeparam>
+    /// <seealso cref="Deploy.LaunchPad.Core.Abp.Domain.FileBase{TPrimaryKey, System.Byte[]}" />
     public partial class SartFile<TPrimaryKey> : FileBase<TPrimaryKey, byte[]>
     {
+        /// <summary>
+        /// The extension of the file
+        /// </summary>
+        /// <value>The extension.</value>
         public override string Extension
         {
             get { return ".sart"; }

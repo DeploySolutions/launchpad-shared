@@ -1,4 +1,17 @@
-﻿using Abp.Dependency;
+﻿// ***********************************************************************
+// Assembly         : Deploy.LaunchPad.AWS.Abp
+// Author           : Nicholas Kellett
+// Created          : 11-19-2023
+//
+// Last Modified By : Nicholas Kellett
+// Last Modified On : 03-21-2023
+// ***********************************************************************
+// <copyright file="AwsS3HelperFactory.cs" company="Deploy Software Solutions, inc.">
+//     2021-2023 Deploy Software Solutions, inc.
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
+using Abp.Dependency;
 using Amazon;
 using Amazon.S3;
 using Amazon.SecretsManager;
@@ -8,13 +21,33 @@ using Deploy.LaunchPad.AWS.S3;
 
 namespace Deploy.LaunchPad.AWS.Abp.S3
 {
+    /// <summary>
+    /// Class AwsS3HelperFactory.
+    /// Implements the <see cref="Deploy.LaunchPad.AWS.AwsHelperBase{Amazon.S3.AmazonS3Config}" />
+    /// Implements the <see cref="ISingletonDependency" />
+    /// </summary>
+    /// <seealso cref="Deploy.LaunchPad.AWS.AwsHelperBase{Amazon.S3.AmazonS3Config}" />
+    /// <seealso cref="ISingletonDependency" />
     public partial class AwsS3HelperFactory : AwsHelperBase<AmazonS3Config>, ISingletonDependency
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="AwsS3HelperFactory"/> class.
+        /// </summary>
+        /// <param name="logger">The logger.</param>
+        /// <param name="awsRegionEndpointName">Name of the aws region endpoint.</param>
         public AwsS3HelperFactory(ILogger logger, string awsRegionEndpointName) : base(logger, awsRegionEndpointName)
         {
 
         }
 
+        /// <summary>
+        /// Creates the specified logger.
+        /// </summary>
+        /// <param name="logger">The logger.</param>
+        /// <param name="awsRegionEndpointName">Name of the aws region endpoint.</param>
+        /// <param name="awsProfileName">Name of the aws profile.</param>
+        /// <param name="shouldUseLocalAwsProfile">if set to <c>true</c> [should use local aws profile].</param>
+        /// <returns>AwsS3Helper.</returns>
         public virtual AwsS3Helper Create(
             ILogger logger,
             string awsRegionEndpointName = DefaultRegionEndpointName,
@@ -91,6 +124,12 @@ namespace Deploy.LaunchPad.AWS.Abp.S3
         }
 
 
+        /// <summary>
+        /// Gets the s3 client.
+        /// </summary>
+        /// <param name="region">The region.</param>
+        /// <param name="profileName">Name of the profile.</param>
+        /// <returns>AmazonS3Client.</returns>
         protected virtual AmazonS3Client GetS3Client(RegionEndpoint region, string profileName = "")
         {
 

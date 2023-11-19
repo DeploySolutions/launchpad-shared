@@ -1,5 +1,16 @@
-﻿//LaunchPad Shared
-// Copyright (c) 2016-2021 Deploy Software Solutions, inc. 
+﻿// ***********************************************************************
+// Assembly         : Deploy.LaunchPad.Core.Abp
+// Author           : Nicholas Kellett
+// Created          : 11-19-2023
+//
+// Last Modified By : Nicholas Kellett
+// Last Modified On : 07-26-2023
+// ***********************************************************************
+// <copyright file="ILaunchPadApplication.cs" company="Deploy Software Solutions, inc.">
+//     2018-2023 Deploy Software Solutions, inc.
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
 
 #region license
 //Licensed under the Apache License, Version 2.0 (the "License"); 
@@ -26,13 +37,15 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.SoftwareApplications
     /// <summary>
     /// Represents an application in the LaunchPad RAD framework.
     /// </summary>
-    /// <typeparam name="TPrimaryKey">The type of the id</typeparam>
-    public interface ILaunchPadApplication<TIdType, TEntityIdType> : ILaunchPadDomainEntity<TIdType>
+    /// <typeparam name="TIdType">The type of the t identifier type.</typeparam>
+    /// <typeparam name="TEntityIdType">The type of the t entity identifier type.</typeparam>
+    public partial interface ILaunchPadApplication<TIdType, TEntityIdType> : ILaunchPadDomainEntity<TIdType>
     {
 
         /// <summary>
         /// The default culture of this application
         /// </summary>
+        /// <value>The application information.</value>
         [DataObjectField(false)]
         [XmlAttribute]
         ApplicationDetails<TIdType> AppInfo
@@ -43,6 +56,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.SoftwareApplications
         /// <summary>
         /// Each application can have an open-ended set of modules within that provide the functionality
         /// </summary>
+        /// <value>The tenant information.</value>
         [DataObjectField(false)]
         [XmlAttribute]
         List<TenantDetails<TIdType>> TenantInfo { get; set; }
@@ -50,6 +64,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.SoftwareApplications
         /// <summary>
         /// Each application can have an open-ended set of modules within that provide the functionality
         /// </summary>
+        /// <value>The modules.</value>
         [DataObjectField(false)]
         [XmlAttribute]
         List<Module<TIdType, TEntityIdType>> Modules { get; set; }

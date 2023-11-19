@@ -1,5 +1,16 @@
-﻿//LaunchPad Shared
-// Copyright (c) 2018-2023 Deploy Software Solutions, inc. 
+﻿// ***********************************************************************
+// Assembly         : Deploy.LaunchPad.Core.Abp
+// Author           : Nicholas Kellett
+// Created          : 11-19-2023
+//
+// Last Modified By : Nicholas Kellett
+// Last Modified On : 10-26-2023
+// ***********************************************************************
+// <copyright file="WindowsFileStorageLocation.cs" company="Deploy Software Solutions, inc.">
+//     2018-2023 Deploy Software Solutions, inc.
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
 
 #region license
 //Licensed under the Apache License, Version 2.0 (the "License"); 
@@ -31,10 +42,18 @@ using DocumentFormat.OpenXml.Packaging;
 
 namespace Deploy.LaunchPad.Core.Abp.Domain
 {
+    /// <summary>
+    /// Class WindowsFileStorageLocation.
+    /// Implements the <see cref="GenericFileStorageLocation" />
+    /// </summary>
+    /// <seealso cref="GenericFileStorageLocation" />
     [Owned]
     public partial class WindowsFileStorageLocation : GenericFileStorageLocation
     {
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="WindowsFileStorageLocation"/> class.
+        /// </summary>
         public WindowsFileStorageLocation() : base()
         {
             string defaultUri = string.Format("file:///{0}", Directory.GetCurrentDirectory());
@@ -48,6 +67,12 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
             Provider = FileStorageLocationTypeEnum.Windows_NTFS;
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="WindowsFileStorageLocation"/> class.
+        /// </summary>
+        /// <param name="logger">The logger.</param>
+        /// <param name="id">The identifier.</param>
+        /// <param name="rootUri">The root URI.</param>
         public WindowsFileStorageLocation(ILogger logger, string id, Uri rootUri) : base(logger, id, rootUri)
         {
             FileInfo file = new FileInfo(RootUri.ToString());
@@ -69,9 +94,9 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
 
         }
 
-        /// <summary>  
-        /// Displays information about the <c>Field</c> in readable format.  
-        /// </summary>  
+        /// <summary>
+        /// Displays information about the <c>Field</c> in readable format.
+        /// </summary>
         /// <returns>A string representation of the object.</returns>
         public override String ToString()
         {
@@ -86,7 +111,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
         /// <summary>
         /// Returns available storage space for this location, in bytes, or -1 if unknown or "infinite" ex a cloud storage drive
         /// </summary>
-        /// <returns></returns>
+        /// <returns>System.Int64.</returns>
         public override long GetAvailableStorageSpaceInBytes()
         {
             DriveInfo drive = new DriveInfo(RootUri.LocalPath);
@@ -100,7 +125,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
         /// <summary>
         /// Returns available storage space for this location, in GB, or -1 if unknown or "infinite" ex a cloud storage drive
         /// </summary>
-        /// <returns></returns>
+        /// <returns>System.Double.</returns>
         public override double GetAvailableStorageSpaceInGigabytes()
         {
             long driveSpace = GetAvailableStorageSpaceInBytes();
@@ -111,6 +136,15 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
             return -1;
         }
 
+        /// <summary>
+        /// Files the exists.
+        /// </summary>
+        /// <typeparam name="TFile">The type of the t file.</typeparam>
+        /// <typeparam name="TFileId">The type of the t file identifier.</typeparam>
+        /// <typeparam name="TFileContentType">The type of the t file content type.</typeparam>
+        /// <param name="fileToCheck">The file to check.</param>
+        /// <param name="shouldRecurseSubdirectories">if set to <c>true</c> [should recurse subdirectories].</param>
+        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
         public override bool FileExists<TFile, TFileId, TFileContentType>(TFile fileToCheck, bool shouldRecurseSubdirectories = false)
         {
             bool doesFileExist = false;
@@ -141,6 +175,14 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
             return doesFileExist;
         }
 
+        /// <summary>
+        /// Read file metadata as an asynchronous operation.
+        /// </summary>
+        /// <typeparam name="TFile">The type of the t file.</typeparam>
+        /// <typeparam name="TFileId">The type of the t file identifier.</typeparam>
+        /// <typeparam name="TFileContentType">The type of the t file content type.</typeparam>
+        /// <param name="sourceFile">The source file.</param>
+        /// <returns>A Task&lt;IDictionary`2&gt; representing the asynchronous operation.</returns>
         public override async Task<IDictionary<string, string>> ReadFileMetadataAsync<TFile, TFileId, TFileContentType>(TFile sourceFile)
         {
             IDictionary<string, string> metadata = new Dictionary<string, string>();

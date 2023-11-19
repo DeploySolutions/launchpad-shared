@@ -1,5 +1,16 @@
-﻿//LaunchPad Shared
-// Copyright (c) 2016-2021 Deploy Software Solutions, inc. 
+﻿// ***********************************************************************
+// Assembly         : Deploy.LaunchPad.Core.Tests
+// Author           : Nicholas Kellett
+// Created          : 11-19-2023
+//
+// Last Modified By : Nicholas Kellett
+// Last Modified On : 01-08-2023
+// ***********************************************************************
+// <copyright file="TokenTests.cs" company="Deploy.LaunchPad.Core.Tests">
+//     Copyright (c) Deploy Software Solutions, Inc.. All rights reserved.
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
 
 #region license
 //Licensed under the Apache License, Version 2.0 (the "License"); 
@@ -24,7 +35,12 @@ namespace Deploy.LaunchPad.Core.Tests
     using Deploy.LaunchPad.FileGeneration.Stages;
     using Deploy.LaunchPad.Core.Util;
 
-    public class TokenTests : IClassFixture<TokenTestsFixture>
+    /// <summary>
+    /// Class TokenTests.
+    /// Implements the <see cref="Xunit.IClassFixture{Deploy.LaunchPad.Core.Tests.TokenTestsFixture}" />
+    /// </summary>
+    /// <seealso cref="Xunit.IClassFixture{Deploy.LaunchPad.Core.Tests.TokenTestsFixture}" />
+    public partial class TokenTests : IClassFixture<TokenTestsFixture>
     {
         #region "Test Classes"
 
@@ -32,7 +48,14 @@ namespace Deploy.LaunchPad.Core.Tests
 
         #endregion
 
+        /// <summary>
+        /// The fixture
+        /// </summary>
         private readonly TokenTestsFixture _fixture;
+        /// <summary>
+        /// Initializes a new instance of the <see cref="TokenTests"/> class.
+        /// </summary>
+        /// <param name="fixture">The fixture.</param>
         public TokenTests(TokenTestsFixture fixture)
         {
             this._fixture = fixture;
@@ -40,36 +63,54 @@ namespace Deploy.LaunchPad.Core.Tests
             this._fixture.Initialize(token);
         }
 
+        /// <summary>
+        /// Defines the test method Should_Have_NotNull_Prefix_When_Instantiated.
+        /// </summary>
         [Fact]
         public void Should_Have_NotNull_Prefix_When_Instantiated()
         {
             _fixture.SUT.Prefix.Should().NotBeNull();
         }
 
+        /// <summary>
+        /// Defines the test method Should_Have_NotNull_DefaultValue_When_Instantiated.
+        /// </summary>
         [Fact]
         public void Should_Have_NotNull_DefaultValue_When_Instantiated()
         {
             _fixture.SUT.DefaultValue.Should().NotBeNull();
         }
-        
+
+        /// <summary>
+        /// Defines the test method Should_Have_NotNull_Value_When_Instantiated.
+        /// </summary>
         [Fact]
         public void Should_Have_NotNull_Value_When_Instantiated()
         {
             _fixture.SUT.Value.Should().NotBeNull();
         }
 
+        /// <summary>
+        /// Defines the test method Should_Have_NotNull_Name_When_Instantiated.
+        /// </summary>
         [Fact]
         public void Should_Have_NotNull_Name_When_Instantiated()
         {
             _fixture.SUT.Name.Should().NotBeNull();
         }
 
+        /// <summary>
+        /// Defines the test method Should_GuardAgainst_Invalid_TokenString.
+        /// </summary>
         [Fact]
         public void Should_GuardAgainst_Invalid_TokenString()
         {
             Assert.Throws<ArgumentException>(() => new LaunchPadToken("invalid_token_string"));
         }
 
+        /// <summary>
+        /// Defines the test method Should_GuardAgainst_TokenString_Missing_Prefix_Section.
+        /// </summary>
         [Fact]
         public void Should_GuardAgainst_TokenString_Missing_Prefix_Section()
         {
@@ -78,6 +119,9 @@ namespace Deploy.LaunchPad.Core.Tests
             Assert.Contains("Token string must contain a prefix section, beginning with 'p:'.", ex.Message);
         }
 
+        /// <summary>
+        /// Defines the test method Should_GuardAgainst_TokenString_Missing_Name_Section.
+        /// </summary>
         [Fact]
         public void Should_GuardAgainst_TokenString_Missing_Name_Section()
         {
@@ -86,6 +130,9 @@ namespace Deploy.LaunchPad.Core.Tests
             Assert.Contains("Token string must contain a name section, beginning with 'n:'.", ex.Message);
         }
 
+        /// <summary>
+        /// Defines the test method Should_Match_TokenWithValue.
+        /// </summary>
         [Fact]
         public void Should_Match_TokenWithValue()
         {
@@ -103,6 +150,9 @@ namespace Deploy.LaunchPad.Core.Tests
 
         }
 
+        /// <summary>
+        /// Defines the test method Should_Match_TokenWithDefaultValue.
+        /// </summary>
         [Fact]
         public void Should_Match_TokenWithDefaultValue()
         {
@@ -120,6 +170,9 @@ namespace Deploy.LaunchPad.Core.Tests
 
         }
 
+        /// <summary>
+        /// Defines the test method Should_Match_TokenWithTags.
+        /// </summary>
         [Fact]
         public void Should_Match_TokenWithTags()
         {
@@ -139,6 +192,9 @@ namespace Deploy.LaunchPad.Core.Tests
 
         }
 
+        /// <summary>
+        /// Defines the test method Should_Match_TokenWith_Value_And_Tags.
+        /// </summary>
         [Fact]
         public void Should_Match_TokenWith_Value_And_Tags()
         {
@@ -157,6 +213,9 @@ namespace Deploy.LaunchPad.Core.Tests
             Assert.Equal(ex, act);
         }
 
+        /// <summary>
+        /// Defines the test method Should_Match_TokenWith_DefaultValue_And_Tags.
+        /// </summary>
         [Fact]
         public void Should_Match_TokenWith_DefaultValue_And_Tags()
         {

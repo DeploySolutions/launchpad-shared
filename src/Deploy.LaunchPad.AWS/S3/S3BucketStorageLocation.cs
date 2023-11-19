@@ -1,5 +1,16 @@
-﻿//LaunchPad Shared
-// Copyright (c) 2018-2023 Deploy Software Solutions, inc. 
+﻿// ***********************************************************************
+// Assembly         : Deploy.LaunchPad.AWS
+// Author           : Nicholas Kellett
+// Created          : 11-19-2023
+//
+// Last Modified By : Nicholas Kellett
+// Last Modified On : 03-23-2023
+// ***********************************************************************
+// <copyright file="S3BucketStorageLocation.cs" company="Deploy Software Solutions, inc.">
+//     2021-2023 Deploy Software Solutions, inc.
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
 
 #region license
 //Licensed under the Apache License, Version 2.0 (the "License"); 
@@ -31,20 +42,37 @@ using System.Collections.Generic;
 
 namespace Deploy.LaunchPad.AWS.S3
 {
+    /// <summary>
+    /// Class S3BucketStorageLocation.
+    /// Implements the <see cref="GenericFileStorageLocation" />
+    /// </summary>
+    /// <seealso cref="GenericFileStorageLocation" />
     [Owned]
     public partial class S3BucketStorageLocation : GenericFileStorageLocation
     {
         /// <summary>
         /// Controls the DebuggerDisplay attribute presentation (above). This will only appear during VS debugging sessions and should never be logged.
         /// </summary>
+        /// <value>The debug display.</value>
         protected override string _debugDisplay => $"{Id}. Name {Name}.";
 
+        /// <summary>
+        /// The default region
+        /// </summary>
         public const string DEFAULT_REGION = "us-east-1";
 
+        /// <summary>
+        /// Gets or sets the region.
+        /// </summary>
+        /// <value>The region.</value>
         [DataObjectField(false)]
         [XmlAttribute]
         public virtual string Region { get; set; }
 
+        /// <summary>
+        /// Gets the s3 service.
+        /// </summary>
+        /// <value>The s3 service.</value>
         public virtual AwsS3Service S3Service { get; private set; }
 
         /// <summary>
@@ -69,9 +97,11 @@ namespace Deploy.LaunchPad.AWS.S3
         /// Creates a new bucket location with the given region, bucket root, and bucketname.
         /// Note that the provided bucket may not be globally unique and this constructor does not check that.
         /// </summary>
-        /// <param name="region">The region in which the bucket will be created.</param>
-        /// <param name="bucketRoot">the URI root of the bucket</param>
+        /// <param name="logger">The logger.</param>
+        /// <param name="id">The identifier.</param>
         /// <param name="bucketName">The globally-unique name of the bucket</param>
+        /// <param name="region">The region in which the bucket will be created.</param>
+        /// <param name="defaultPrefix">The default prefix.</param>
         public S3BucketStorageLocation(ILogger logger, string id, string bucketName, string region, string defaultPrefix = "") : base(logger)
         {
             Region = region;
@@ -88,7 +118,9 @@ namespace Deploy.LaunchPad.AWS.S3
         /// Create a  new bucket location object with the given bucketname, in the default region and root.
         /// Note that the bucket may not be globally unique and this constructor does not check that.
         /// </summary>
-        /// <param name="bucketName">The globally-unique name of the bucket.</param>
+        /// <param name="logger">The logger.</param>
+        /// <param name="id">The identifier.</param>
+        /// <param name="rootUri">The root URI.</param>
         public S3BucketStorageLocation(ILogger logger, string id, Uri rootUri) : base(logger, id, rootUri)
         {
             Region = DEFAULT_REGION;
@@ -112,6 +144,11 @@ namespace Deploy.LaunchPad.AWS.S3
 
         }
 
+        /// <summary>
+        /// Gets the object data.
+        /// </summary>
+        /// <param name="info">The information.</param>
+        /// <param name="context">The context.</param>
         public override void GetObjectData(SerializationInfo info, StreamingContext context)
         {
             base.GetObjectData(info, context);
@@ -119,9 +156,9 @@ namespace Deploy.LaunchPad.AWS.S3
             info.AddValue("BasePrefix", DefaultPrefix);
         }
 
-        /// <summary>  
-        /// Displays information about the <c>Field</c> in readable format.  
-        /// </summary>  
+        /// <summary>
+        /// Displays information about the <c>Field</c> in readable format.
+        /// </summary>
         /// <returns>A string representation of the object.</returns>
         public override String ToString()
         {
@@ -135,6 +172,11 @@ namespace Deploy.LaunchPad.AWS.S3
         /// <summary>
         /// The virtual path of the file
         /// </summary>
+        /// <typeparam name="TFile">The type of the t file.</typeparam>
+        /// <typeparam name="TFileId">The type of the t file identifier.</typeparam>
+        /// <typeparam name="TFileContentType">The type of the t file content type.</typeparam>
+        /// <param name="file">The file.</param>
+        /// <returns>Uri.</returns>
         public override Uri GetRelativePathForFile<TFile, TFileId, TFileContentType>(TFile file)
         {
             return new Uri("/" + DefaultPrefix + "/" + file.Name.Replace(" ", "+"));
@@ -143,29 +185,56 @@ namespace Deploy.LaunchPad.AWS.S3
         /// <summary>
         /// The full path of the file
         /// </summary>
+        /// <typeparam name="TFile">The type of the t file.</typeparam>
+        /// <typeparam name="TFileId">The type of the t file identifier.</typeparam>
+        /// <typeparam name="TFileContentType">The type of the t file content type.</typeparam>
+        /// <param name="file">The file.</param>
+        /// <returns>Uri.</returns>
         public override Uri GetFullPathForFile<TFile, TFileId, TFileContentType>(TFile file)
         {
             return new Uri("https://s3." + Region + ".amazonaws.com/" + Name + "/" + DefaultPrefix + "/" + file.Name.Replace(" ", "+"));
         }
 
 
-        
+
 
 
         /// <summary>
         /// The full path of the file
         /// </summary>
+        /// <typeparam name="TPrimaryKey">The type of the t primary key.</typeparam>
+        /// <typeparam name="TFileContentType">The type of the t file content type.</typeparam>
+        /// <param name="file">The file.</param>
+        /// <returns>String.</returns>
         public virtual String GetObjectKeyForFile<TPrimaryKey, TFileContentType>(IFile<TPrimaryKey, TFileContentType> file)
         {
             return DefaultPrefix + "/" + file.Name;
         }
 
+        /// <summary>
+        /// Files the exists.
+        /// </summary>
+        /// <typeparam name="TFile">The type of the t file.</typeparam>
+        /// <typeparam name="TFileId">The type of the t file identifier.</typeparam>
+        /// <typeparam name="TFileContentType">The type of the t file content type.</typeparam>
+        /// <param name="fileToCheck">The file to check.</param>
+        /// <param name="shouldRecurseSubdirectories">if set to <c>true</c> [should recurse subdirectories].</param>
+        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
         public override bool FileExists<TFile, TFileId, TFileContentType>(TFile fileToCheck, bool shouldRecurseSubdirectories = false)
         {
             return S3Service.CheckIfFileExists(Name, fileToCheck.Id.ToString()).Result;
         }
 
 
+        /// <summary>
+        /// Read file as an asynchronous operation.
+        /// </summary>
+        /// <typeparam name="TFile">The type of the t file.</typeparam>
+        /// <typeparam name="TFileId">The type of the t file identifier.</typeparam>
+        /// <typeparam name="TFileContentType">The type of the t file content type.</typeparam>
+        /// <param name="fileId">The file identifier.</param>
+        /// <param name="tempLocation">The temporary location.</param>
+        /// <returns>A Task&lt;TFile&gt; representing the asynchronous operation.</returns>
         public override async Task<TFile> ReadFileAsync<TFile, TFileId, TFileContentType>(string fileId, Uri tempLocation = null)
         {
             var file = new TFile();
@@ -183,6 +252,19 @@ namespace Deploy.LaunchPad.AWS.S3
             return file;
         }
 
+        /// <summary>
+        /// Create file as an asynchronous operation.
+        /// </summary>
+        /// <typeparam name="TFile">The type of the t file.</typeparam>
+        /// <typeparam name="TFileId">The type of the t file identifier.</typeparam>
+        /// <typeparam name="TFileContentType">The type of the t file content type.</typeparam>
+        /// <param name="sourceFile">The source file.</param>
+        /// <param name="fileTags">The file tags.</param>
+        /// <param name="contentType">Type of the content.</param>
+        /// <param name="writeTags">The write tags.</param>
+        /// <param name="filePrefix">The file prefix.</param>
+        /// <param name="fileSuffix">The file suffix.</param>
+        /// <returns>A Task&lt;System.Boolean&gt; representing the asynchronous operation.</returns>
         public override async Task<bool> CreateFileAsync<TFile, TFileId, TFileContentType>(TFile sourceFile, IDictionary<string, string> fileTags, string contentType, IDictionary<string, string> writeTags, string filePrefix, string fileSuffix)
         {
             bool succeeded = await S3Service.UploadLocalFileToBucketviaTransferUtilityAsync(Name,sourceFile.Name, @"c:\temp\",fileTags,filePrefix,contentType,writeTags,S3StorageClass.Standard);

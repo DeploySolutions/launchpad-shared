@@ -1,4 +1,17 @@
-﻿using Abp.Application.Services.Dto;
+﻿// ***********************************************************************
+// Assembly         : Deploy.LaunchPad.Core.Abp
+// Author           : Nicholas Kellett
+// Created          : 11-19-2023
+//
+// Last Modified By : Nicholas Kellett
+// Last Modified On : 10-26-2023
+// ***********************************************************************
+// <copyright file="GetAllInputDtoBase.cs" company="Deploy Software Solutions, inc.">
+//     2018-2023 Deploy Software Solutions, inc.
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
+using Abp.Application.Services.Dto;
 using Abp.Domain.Entities;
 using Deploy.LaunchPad.Core.Abp.Domain.SoftwareApplications;
 using Deploy.LaunchPad.Core.Application.Dto;
@@ -14,31 +27,61 @@ using System.Xml.Serialization;
 
 namespace Deploy.LaunchPad.Core.Abp.Application.Dto
 {
+    /// <summary>
+    /// Class GetAllInputDtoBase.
+    /// Implements the <see cref="ICanBeAppServiceMethodInput" />
+    /// Implements the <see cref="IPagedResultRequest" />
+    /// Implements the <see cref="IMayHaveTenant" />
+    /// </summary>
+    /// <typeparam name="TIdType">The type of the t identifier type.</typeparam>
+    /// <seealso cref="ICanBeAppServiceMethodInput" />
+    /// <seealso cref="IPagedResultRequest" />
+    /// <seealso cref="IMayHaveTenant" />
     public abstract partial class GetAllInputDtoBase<TIdType> :
         ICanBeAppServiceMethodInput,
         IPagedResultRequest,
         IMayHaveTenant
     {
+        /// <summary>
+        /// Gets or sets the sort.
+        /// </summary>
+        /// <value>The sort.</value>
         [DataObjectField(false)]
         [XmlAttribute]
         [NotMapped]
         public string Sort { get; set; }
 
+        /// <summary>
+        /// Gets or sets the sort direction.
+        /// </summary>
+        /// <value>The sort direction.</value>
         [DataObjectField(false)]
         [XmlAttribute]
         [NotMapped]
         public SortDirection SortDirection { get; set; }
 
+        /// <summary>
+        /// Skip count (beginning of the page).
+        /// </summary>
+        /// <value>The skip count.</value>
         [DataObjectField(false)]
         [XmlAttribute]
         [NotMapped]
 
         public int SkipCount { get; set; }
+        /// <summary>
+        /// Max expected result count.
+        /// </summary>
+        /// <value>The maximum result count.</value>
         [DataObjectField(false)]
         [XmlAttribute]
         [NotMapped]
         public int MaxResultCount { get; set; }
 
+        /// <summary>
+        /// TenantId of this entity.
+        /// </summary>
+        /// <value>The tenant identifier.</value>
         [DataObjectField(false)]
         [XmlAttribute]
         public virtual int? TenantId { get; set; }
@@ -46,6 +89,7 @@ namespace Deploy.LaunchPad.Core.Abp.Application.Dto
         /// <summary>
         /// A short description of this item.
         /// </summary>
+        /// <value>The description short.</value>
         [DataObjectField(false)]
         [XmlAttribute]
         [MaxLength(256, ErrorMessageResourceName = "Validation_DescriptionShort_256CharsOrLess", ErrorMessageResourceType = typeof(Deploy_LaunchPad_Core_Resources))]
@@ -54,6 +98,7 @@ namespace Deploy.LaunchPad.Core.Abp.Application.Dto
         /// <summary>
         /// A short description of this item.
         /// </summary>
+        /// <value>The description full.</value>
         [DataObjectField(false)]
         [XmlAttribute]
         [MaxLength(256, ErrorMessageResourceName = "Validation_DescriptionFull_8096CharsOrLess", ErrorMessageResourceType = typeof(Deploy_LaunchPad_Core_Resources))]
@@ -62,6 +107,7 @@ namespace Deploy.LaunchPad.Core.Abp.Application.Dto
         /// <summary>
         /// The date and time that this object was created.
         /// </summary>
+        /// <value>The creation time.</value>
         [DataObjectField(false)]
         [XmlAttribute]
         public virtual DateTime CreationTime { get; set; }
@@ -69,6 +115,7 @@ namespace Deploy.LaunchPad.Core.Abp.Application.Dto
         /// <summary>
         /// The user name that created the entity
         /// </summary>
+        /// <value>The name of the creator user.</value>
         [DataObjectField(false)]
         [XmlAttribute]
         public virtual String CreatorUserName { get; set; }
@@ -76,6 +123,7 @@ namespace Deploy.LaunchPad.Core.Abp.Application.Dto
         /// <summary>
         /// The date and time that the location and/or properties of this object were last modified.
         /// </summary>
+        /// <value>The last modification time.</value>
         [DataObjectField(false)]
         [XmlAttribute]
         public virtual DateTime? LastModificationTime { get; set; }
@@ -83,10 +131,15 @@ namespace Deploy.LaunchPad.Core.Abp.Application.Dto
         /// <summary>
         /// The user name that last modified the entity
         /// </summary>
+        /// <value>The last name of the modifier user.</value>
         [DataObjectField(false)]
         [XmlAttribute]
         public virtual String LastModifierUserName { get; set; }
 
+        /// <summary>
+        /// Gets or sets a value indicating whether this instance is active.
+        /// </summary>
+        /// <value><c>true</c> if this instance is active; otherwise, <c>false</c>.</value>
         [DataObjectField(false)]
         [XmlAttribute]
         public virtual bool IsActive { get; set; }
@@ -94,6 +147,7 @@ namespace Deploy.LaunchPad.Core.Abp.Application.Dto
         /// <summary>
         /// The culture of this object
         /// </summary>
+        /// <value>The culture.</value>
         [DataObjectField(true)]
         [XmlAttribute]
         [MaxLength(5, ErrorMessageResourceName = "Validation_Culture_5CharsOrLess", ErrorMessageResourceType = typeof(Deploy_LaunchPad_Core_Resources))]
@@ -103,6 +157,7 @@ namespace Deploy.LaunchPad.Core.Abp.Application.Dto
         /// The display name that can be displayed as a label externally to users when referring to this object
         /// (rather than using a GUID, which is unfriendly but unique)
         /// </summary>
+        /// <value>The name.</value>
         [DataObjectField(false)]
         [XmlAttribute]
         [MaxLength(100, ErrorMessageResourceName = "Validation_Name_100CharsOrLess", ErrorMessageResourceType = typeof(Deploy_LaunchPad_Core_Resources))]
@@ -127,7 +182,7 @@ namespace Deploy.LaunchPad.Core.Abp.Application.Dto
         /// <summary>
         /// Default constructor where the id is known
         /// </summary>
-        /// <param name="id"></param>
+        /// <param name="tenantId">The tenant identifier.</param>
         public GetAllInputDtoBase(int tenantId) : base()
         {
             TenantId = tenantId;
@@ -140,6 +195,11 @@ namespace Deploy.LaunchPad.Core.Abp.Application.Dto
             CreationTime = DateTime.UtcNow;
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="GetAllInputDtoBase{TIdType}"/> class.
+        /// </summary>
+        /// <param name="tenantId">The tenant identifier.</param>
+        /// <param name="culture">The culture.</param>
         public GetAllInputDtoBase(int tenantId, String culture) : base()
         {
             TenantId = tenantId;
@@ -178,8 +238,8 @@ namespace Deploy.LaunchPad.Core.Abp.Application.Dto
         /// <summary>
         /// The method required for implementing ISerializable
         /// </summary>
-        /// <param name="info"></param>
-        /// <param name="context"></param>
+        /// <param name="info">The information.</param>
+        /// <param name="context">The context.</param>
         public virtual void GetObjectData(SerializationInfo info, StreamingContext context)
         {
             info.AddValue("Culture", Culture);
@@ -194,9 +254,9 @@ namespace Deploy.LaunchPad.Core.Abp.Application.Dto
             info.AddValue("IsActive", IsActive);
         }
 
-        /// <summary>  
-        /// Displays information about the class in readable format.  
-        /// </summary>  
+        /// <summary>
+        /// Displays information about the class in readable format.
+        /// </summary>
         /// <returns>A string representation of the object.</returns>
         public override string ToString()
         {
@@ -257,7 +317,7 @@ namespace Deploy.LaunchPad.Core.Abp.Application.Dto
         /// it is not necessary to test for the correct object type.
         /// </summary>
         /// <param name="other">The other object of this type we are comparing to</param>
-        /// <returns></returns>
+        /// <returns>System.Int32.</returns>
         public virtual int CompareTo(GetAllInputDtoBase<TIdType> other)
         {
             // put comparison of properties in here 
@@ -286,10 +346,10 @@ namespace Deploy.LaunchPad.Core.Abp.Application.Dto
         /// Because the Equals method is strongly typed by generic constraints,
         /// it is not necessary to test for the correct object type.
         /// For safety we just want to match on business key value - in this case the fields
-        /// that cannot be different between the two objects if they are supposedly equal.        
+        /// that cannot be different between the two objects if they are supposedly equal.
         /// </summary>
         /// <param name="obj">The other object of this type that we are testing equality with</param>
-        /// <returns></returns>
+        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
         public virtual bool Equals(GetAllInputDtoBase<TIdType> obj)
         {
             if (obj != null)
@@ -337,13 +397,11 @@ namespace Deploy.LaunchPad.Core.Abp.Application.Dto
             return !(x == y);
         }
 
-        /// <summary>  
-        /// Computes and retrieves a hash code for an object.  
-        /// </summary>  
-        /// <remarks>  
-        /// This method implements the <see cref="Object">Object</see> method.  
-        /// </remarks>  
+        /// <summary>
+        /// Computes and retrieves a hash code for an object.
+        /// </summary>
         /// <returns>A hash code for an object.</returns>
+        /// <remarks>This method implements the <see cref="Object">Object</see> method.</remarks>
         public override int GetHashCode()
         {
             return Name.GetHashCode() + Culture.GetHashCode() + TenantId.GetHashCode() + CreatorUserName.GetHashCode() + LastModifierUserName.GetHashCode();

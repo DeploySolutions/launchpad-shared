@@ -1,5 +1,16 @@
-﻿//LaunchPad Shared
-// Copyright (c) 2016-2021 Deploy Software Solutions, inc. 
+﻿// ***********************************************************************
+// Assembly         : Deploy.LaunchPad.Core.Abp
+// Author           : Nicholas Kellett
+// Created          : 11-19-2023
+//
+// Last Modified By : Nicholas Kellett
+// Last Modified On : 07-26-2023
+// ***********************************************************************
+// <copyright file="Module.cs" company="Deploy Software Solutions, inc.">
+//     2018-2023 Deploy Software Solutions, inc.
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
 
 #region license
 //Licensed under the Apache License, Version 2.0 (the "License"); 
@@ -30,13 +41,15 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.SoftwareApplications
     /// <summary>
     /// Base class for application-specific information
     /// </summary>
-    /// <typeparam name="TPrimaryKey">The type of the key id field</typeparam>
+    /// <typeparam name="TIdType">The type of the t identifier type.</typeparam>
+    /// <typeparam name="TEntityIdType">The type of the t entity identifier type.</typeparam>
     [Serializable()]
     public partial class Module<TIdType, TEntityIdType> : LaunchPadDomainEntityBase<TIdType>, IModule<TIdType, TEntityIdType>, IMayHaveTenant
     {
         /// <summary>
         /// The type of the module
         /// </summary>
+        /// <value>The type.</value>
         [DataObjectField(false)]
         [XmlAttribute]
         public virtual string Type
@@ -47,6 +60,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.SoftwareApplications
         /// <summary>
         /// The default culture of this tenant
         /// </summary>
+        /// <value>The culture default.</value>
         [DataObjectField(false)]
         [XmlAttribute]
         public virtual string CultureDefault
@@ -57,18 +71,30 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.SoftwareApplications
         /// <summary>
         /// Each module can have an open-ended set of components within that provide the functionality
         /// </summary>
+        /// <value>The components.</value>
         [DataObjectField(false)]
         [XmlAttribute]
         public virtual IList<Component<TIdType, TEntityIdType>> Components { get; set; }
+        /// <summary>
+        /// TenantId of this entity.
+        /// </summary>
+        /// <value>The tenant identifier.</value>
         public virtual int? TenantId { get; set; }
 
         #region "Constructors"
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Module{TIdType, TEntityIdType}"/> class.
+        /// </summary>
         public Module() : base()
         {
             Type = string.Empty;
             Components = new List<Component<TIdType, TEntityIdType>>();
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Module{TIdType, TEntityIdType}"/> class.
+        /// </summary>
+        /// <param name="tenantId">The tenant identifier.</param>
         public Module(int? tenantId) : base()
         {
             Type = string.Empty;
@@ -76,6 +102,12 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.SoftwareApplications
             Components = new List<Component<TIdType, TEntityIdType>>();
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Module{TIdType, TEntityIdType}"/> class.
+        /// </summary>
+        /// <param name="tenantId">The tenant identifier.</param>
+        /// <param name="id">The identifier.</param>
+        /// <param name="cultureName">Name of the culture.</param>
         public Module(int? tenantId, TIdType id, string cultureName) : base(id, cultureName)
         {
             Type = string.Empty;
@@ -84,6 +116,13 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.SoftwareApplications
             Components = new List<Component<TIdType, TEntityIdType>>();
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Module{TIdType, TEntityIdType}"/> class.
+        /// </summary>
+        /// <param name="tenantId">The tenant identifier.</param>
+        /// <param name="id">The identifier.</param>
+        /// <param name="cultureName">Name of the culture.</param>
+        /// <param name="cultureDefault">The culture default.</param>
         public Module(int? tenantId, TIdType id, string cultureName, String cultureDefault) : base(id, cultureName)
         {
             Type = string.Empty;
@@ -108,8 +147,8 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.SoftwareApplications
         /// <summary>
         /// The method required for implementing ISerializable
         /// </summary>
-        /// <param name="info"></param>
-        /// <param name="context"></param>
+        /// <param name="info">The information.</param>
+        /// <param name="context">The context.</param>
         public override void GetObjectData(SerializationInfo info, StreamingContext context)
         {
             base.GetObjectData(info, context);
@@ -118,9 +157,9 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.SoftwareApplications
             info.AddValue("Components", Components);
         }
 
-        /// <summary>  
-        /// Displays information about the class in readable format.  
-        /// </summary>  
+        /// <summary>
+        /// Displays information about the class in readable format.
+        /// </summary>
         /// <returns>A string representation of the object.</returns>
         public override string ToString()
         {

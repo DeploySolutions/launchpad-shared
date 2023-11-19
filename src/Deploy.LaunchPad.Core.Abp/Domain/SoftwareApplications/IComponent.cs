@@ -1,5 +1,16 @@
-﻿//LaunchPad Shared
-// Copyright (c) 2018-2023 Deploy Software Solutions, inc. 
+﻿// ***********************************************************************
+// Assembly         : Deploy.LaunchPad.Core.Abp
+// Author           : Nicholas Kellett
+// Created          : 11-19-2023
+//
+// Last Modified By : Nicholas Kellett
+// Last Modified On : 07-26-2023
+// ***********************************************************************
+// <copyright file="IComponent.cs" company="Deploy Software Solutions, inc.">
+//     2018-2023 Deploy Software Solutions, inc.
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
 
 #region license
 //Licensed under the Apache License, Version 2.0 (the "License"); 
@@ -26,12 +37,14 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.SoftwareApplications
     /// <summary>
     /// Represents a comopnent in a software module.
     /// </summary>
-    /// <typeparam name="TIdType"></typeparam>
-    public interface IComponent<TIdType, TEntityIdType> : ILaunchPadDomainEntity<TIdType>
+    /// <typeparam name="TIdType">The type of the t identifier type.</typeparam>
+    /// <typeparam name="TEntityIdType">The type of the t entity identifier type.</typeparam>
+    public partial interface IComponent<TIdType, TEntityIdType> : ILaunchPadDomainEntity<TIdType>
     {
         /// <summary>
         /// Each component can have 0 to many domain entities
         /// </summary>
+        /// <value>The domain entities.</value>
         [DataObjectField(false)]
         [XmlAttribute]
         IList<LaunchPadDomainEntityBase<TEntityIdType>> DomainEntities { get; set; }

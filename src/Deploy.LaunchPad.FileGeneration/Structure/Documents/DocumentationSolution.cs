@@ -1,4 +1,17 @@
-﻿using System;
+﻿// ***********************************************************************
+// Assembly         : Deploy.LaunchPad.FileGeneration
+// Author           : Nicholas Kellett
+// Created          : 11-19-2023
+//
+// Last Modified By : Nicholas Kellett
+// Last Modified On : 01-08-2023
+// ***********************************************************************
+// <copyright file="DocumentationSolution.cs" company="Deploy Software Solutions, inc.">
+//     2018-2023 Deploy Software Solutions, inc.
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
+using System;
 using System.Collections.Generic;
 
 namespace Deploy.LaunchPad.FileGeneration.Structure
@@ -12,6 +25,7 @@ namespace Deploy.LaunchPad.FileGeneration.Structure
         /// <summary>
         /// The list of generated document set modules that belong to this solution.
         /// </summary>
+        /// <value>The modules.</value>
         public virtual IDictionary<string, DocumentSetModule> Modules { get; set; }
 
         /// <summary>
@@ -28,6 +42,9 @@ namespace Deploy.LaunchPad.FileGeneration.Structure
             return isValid;
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DocumentationSolution"/> class.
+        /// </summary>
         public DocumentationSolution() : base()
         {
             var comparer = StringComparer.OrdinalIgnoreCase;

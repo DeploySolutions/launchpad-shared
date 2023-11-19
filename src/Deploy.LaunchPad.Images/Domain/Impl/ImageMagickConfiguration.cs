@@ -1,4 +1,17 @@
-﻿using ImageMagick;
+﻿// ***********************************************************************
+// Assembly         : Deploy.LaunchPad.Images
+// Author           : Nicholas Kellett
+// Created          : 11-19-2023
+//
+// Last Modified By : Nicholas Kellett
+// Last Modified On : 01-08-2023
+// ***********************************************************************
+// <copyright file="ImageMagickConfiguration.cs" company="Deploy Software Solutions, inc.">
+//     2016-2023 Deploy Software Solutions, inc.
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
+using ImageMagick;
 using ImageMagick.Configuration;
 
 namespace Deploy.LaunchPad.Images.Domain
@@ -6,10 +19,16 @@ namespace Deploy.LaunchPad.Images.Domain
     /// <summary>
     /// Configuration class for specifying the default settings of the ImageMagick utility
     /// </summary>
-    public class ImageMagickConfiguration
+    public partial class ImageMagickConfiguration
     {
+        /// <summary>
+        /// The temporary images file path
+        /// </summary>
         public readonly string TemporaryImagesFilePath = @"d:\data\launchpad\images\temp";
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ImageMagickConfiguration"/> class.
+        /// </summary>
         public ImageMagickConfiguration()
         {
             IConfigurationFiles configFiles = ConfigurationFiles.Default;
@@ -41,6 +60,11 @@ namespace Deploy.LaunchPad.Images.Domain
             MagickNET.Initialize(configFiles, TemporaryImagesFilePath);
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ImageMagickConfiguration"/> class.
+        /// </summary>
+        /// <param name="policyMap">The policy map.</param>
+        /// <param name="temporaryImagesFilePath">The temporary images file path.</param>
         public ImageMagickConfiguration(string policyMap, string temporaryImagesFilePath)
         {
             IConfigurationFiles configFiles = ConfigurationFiles.Default;

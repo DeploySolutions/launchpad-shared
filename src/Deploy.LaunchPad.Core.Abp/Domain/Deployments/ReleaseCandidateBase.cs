@@ -1,5 +1,16 @@
-﻿//LaunchPad Shared
-// Copyright (c) 2016-2021 Deploy Software Solutions, inc. 
+﻿// ***********************************************************************
+// Assembly         : Deploy.LaunchPad.Core.Abp
+// Author           : Nicholas Kellett
+// Created          : 11-19-2023
+//
+// Last Modified By : Nicholas Kellett
+// Last Modified On : 07-26-2023
+// ***********************************************************************
+// <copyright file="ReleaseCandidateBase.cs" company="Deploy Software Solutions, inc.">
+//     2018-2023 Deploy Software Solutions, inc.
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
 
 #region license
 //Licensed under the Apache License, Version 2.0 (the "License"); 
@@ -32,46 +43,83 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
         /// <summary>
         /// The checksum (from git or elsewhere)
         /// </summary>
+        /// <value>The checksum.</value>
         public virtual string Checksum { get; set; }
 
         /// <summary>
         /// The version of this release
         /// </summary>
+        /// <value>The version.</value>
         public virtual string Version { get; set; }
+        /// <summary>
+        /// The current state of the release candidate
+        /// </summary>
+        /// <value>The state of the release.</value>
         public virtual ReleaseStates ReleaseState { get; set; }
 
         /// <summary>
         /// The date and time this release occurred
         /// </summary>
+        /// <value>The release date.</value>
         public virtual DateTime? ReleaseDate { get; set; }
 
         /// <summary>
         /// The URI to the release package
         /// </summary>
+        /// <value>The package URI.</value>
         public virtual Uri PackageUri { get; set; }
 
+        /// <summary>
+        /// Enum ReleaseStates
+        /// </summary>
         public enum ReleaseStates
         {
+            /// <summary>
+            /// The not started
+            /// </summary>
             Not_Started = 0,
+            /// <summary>
+            /// The in progress
+            /// </summary>
             In_Progress = 1,
+            /// <summary>
+            /// The succeeded
+            /// </summary>
             Succeeded = 2,
+            /// <summary>
+            /// The failed
+            /// </summary>
             Failed = 3
         }
 
 
         #region "Constructors"
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ReleaseCandidateBase{TIdType}"/> class.
+        /// </summary>
         public ReleaseCandidateBase() : base()
         {
 
         }
 
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ReleaseCandidateBase{TIdType}"/> class.
+        /// </summary>
+        /// <param name="tenantId">The id of the tenant to which this entity belongs</param>
         public ReleaseCandidateBase(int tenantId) : base()
         {
             TenantId = tenantId;
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ReleaseCandidateBase{TIdType}"/> class.
+        /// </summary>
+        /// <param name="tenantId">The tenant identifier.</param>
+        /// <param name="id">The identifier.</param>
+        /// <param name="cultureName">Name of the culture.</param>
+        /// <param name="text">The text.</param>
         public ReleaseCandidateBase(int tenantId, TIdType id, string cultureName, String text) : base(tenantId, id, cultureName)
         {
             TenantId = tenantId;
@@ -96,8 +144,8 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
         /// <summary>
         /// The method required for implementing ISerializable
         /// </summary>
-        /// <param name="info"></param>
-        /// <param name="context"></param>
+        /// <param name="info">The information.</param>
+        /// <param name="context">The context.</param>
         public override void GetObjectData(SerializationInfo info, StreamingContext context)
         {
             base.GetObjectData(info, context);
@@ -108,9 +156,9 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
             info.AddValue("ReleaseDate", ReleaseDate);
         }
 
-        /// <summary>  
-        /// Displays information about the class in readable format.  
-        /// </summary>  
+        /// <summary>
+        /// Displays information about the class in readable format.
+        /// </summary>
         /// <returns>A string representation of the object.</returns>
         public override string ToString()
         {

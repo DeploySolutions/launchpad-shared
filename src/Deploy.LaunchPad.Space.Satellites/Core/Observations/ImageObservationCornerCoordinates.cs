@@ -1,5 +1,16 @@
-﻿//LaunchPad Space
-// Copyright (c) 2018-2023 Deploy Software Solutions, inc. 
+﻿// ***********************************************************************
+// Assembly         : Deploy.LaunchPad.Space.Satellites
+// Author           : Nicholas Kellett
+// Created          : 11-19-2023
+//
+// Last Modified By : Nicholas Kellett
+// Last Modified On : 06-10-2023
+// ***********************************************************************
+// <copyright file="ImageObservationCornerCoordinates.cs" company="Deploy Software Solutions, inc.">
+//     2018-2023 Deploy Software Solutions, inc.
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
 
 #region license
 //Licensed under the Apache License, Version 2.0 (the "License"); 
@@ -20,13 +31,35 @@ using NetTopologySuite.Geometries;
 namespace Deploy.LaunchPad.Space.Satellites.Core
 {
 
+    /// <summary>
+    /// Class ImageObservationCornerCoordinates.
+    /// </summary>
     public partial class ImageObservationCornerCoordinates
     {
+        /// <summary>
+        /// Gets or sets the upper left.
+        /// </summary>
+        /// <value>The upper left.</value>
         public virtual Coordinate UpperLeft { get; set; }
+        /// <summary>
+        /// Gets or sets the upper right.
+        /// </summary>
+        /// <value>The upper right.</value>
         public virtual Coordinate UpperRight { get; set; }
+        /// <summary>
+        /// Gets or sets the lower left.
+        /// </summary>
+        /// <value>The lower left.</value>
         public virtual Coordinate LowerLeft { get; set; }
+        /// <summary>
+        /// Gets or sets the lower right.
+        /// </summary>
+        /// <value>The lower right.</value>
         public virtual Coordinate LowerRight { get; set; }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ImageObservationCornerCoordinates"/> class.
+        /// </summary>
         public ImageObservationCornerCoordinates()
         {
             UpperLeft = new Coordinate();

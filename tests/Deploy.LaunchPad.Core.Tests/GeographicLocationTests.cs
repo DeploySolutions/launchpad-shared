@@ -1,5 +1,16 @@
-﻿//LaunchPad Shared
-// Copyright (c) 2018-2023 Deploy Software Solutions, inc. 
+﻿// ***********************************************************************
+// Assembly         : Deploy.LaunchPad.Core.Tests
+// Author           : Nicholas Kellett
+// Created          : 11-19-2023
+//
+// Last Modified By : Nicholas Kellett
+// Last Modified On : 06-12-2023
+// ***********************************************************************
+// <copyright file="GeographicLocationTests.cs" company="Deploy.LaunchPad.Core.Tests">
+//     Copyright (c) Deploy Software Solutions, Inc.. All rights reserved.
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
 
 #region license
 //Licensed under the Apache License, Version 2.0 (the "License"); 
@@ -24,7 +35,10 @@ namespace Deploy.LaunchPad.Core.Tests
     using Deploy.LaunchPad.Core;
     using Deploy.LaunchPad.Core.Geospatial;
 
-    public class GeographicLocationTests
+    /// <summary>
+    /// Class GeographicLocationTests.
+    /// </summary>
+    public partial class GeographicLocationTests
     {
         #region "Test Classes"
 
@@ -33,6 +47,9 @@ namespace Deploy.LaunchPad.Core.Tests
         #endregion
 
 
+        /// <summary>
+        /// Defines the test method Eager_Loading_GeographicLocation_Should_Not_Throw_Error.
+        /// </summary>
         [Fact]
         public void Eager_Loading_GeographicLocation_Should_Not_Throw_Error()
         {
@@ -42,6 +59,9 @@ namespace Deploy.LaunchPad.Core.Tests
             act.Should().NotThrow<Exception>();
         }
 
+        /// <summary>
+        /// Defines the test method Should_Have_Valid_Elevation_Number_When_Instantiated.
+        /// </summary>
         [Fact]
         public void Should_Have_Valid_Elevation_Number_When_Instantiated()
         {
@@ -54,6 +74,9 @@ namespace Deploy.LaunchPad.Core.Tests
 
         }
 
+        /// <summary>
+        /// Defines the test method Should_Have_Valid_Latitude_Number_When_Instantiated.
+        /// </summary>
         [Fact]
         public void Should_Have_Valid_Latitude_Number_When_Instantiated()
         {
@@ -66,6 +89,9 @@ namespace Deploy.LaunchPad.Core.Tests
         }
 
         //latitude value are wrong if < -90 || value > 90
+        /// <summary>
+        /// Defines the test method Should_Not_Allow_Latitude_Less_Than_Minus_90.
+        /// </summary>
         [Fact]
         public void Should_Not_Allow_Latitude_Less_Than_Minus_90()
         {
@@ -79,6 +105,9 @@ namespace Deploy.LaunchPad.Core.Tests
         }
 
         //latitude values are wrong if < -90 || value > 90
+        /// <summary>
+        /// Defines the test method Should_Not_Allow_Latitude_Greater_Than_90.
+        /// </summary>
         [Fact]
         public void Should_Not_Allow_Latitude_Greater_Than_90()
         {
@@ -91,6 +120,9 @@ namespace Deploy.LaunchPad.Core.Tests
             Assert.Contains(Deploy_LaunchPad_Core_Resources.Guard_GeographicLocation_Set_Latitude_Not_GreaterThan_90, ex.Message);
         }
 
+        /// <summary>
+        /// Defines the test method Should_Have_Valid_Longitude_Number_When_Instantiated.
+        /// </summary>
         [Fact]
         public void Should_Have_Valid_Longitude_Number_When_Instantiated()
         {
@@ -103,6 +135,9 @@ namespace Deploy.LaunchPad.Core.Tests
         }
 
         //longitude value are wrong if <= -180 || value > 180
+        /// <summary>
+        /// Defines the test method Should_Not_Allow_Longitude_LessThan_Minus180.
+        /// </summary>
         [Fact]
         public void Should_Not_Allow_Longitude_LessThan_Minus180()
         {
@@ -116,6 +151,9 @@ namespace Deploy.LaunchPad.Core.Tests
         }
 
         //longitude value are wrong if <= -180 || value > 180
+        /// <summary>
+        /// Defines the test method Should_Not_Allow_Longitude_MoreThan_180.
+        /// </summary>
         [Fact]
         public void Should_Not_Allow_Longitude_MoreThan_180()
         {

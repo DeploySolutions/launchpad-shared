@@ -1,6 +1,16 @@
-﻿//LaunchPad Shared
-// Copyright (c) 2016-2021 Deploy Software Solutions, inc. 
-//This file is a derivative work from the original created in NCommon and copyright 2010 by Ritesh Rao 
+﻿// ***********************************************************************
+// Assembly         : Deploy.LaunchPad.Core
+// Author           : Nicholas Kellett
+// Created          : 11-19-2023
+//
+// Last Modified By : Nicholas Kellett
+// Last Modified On : 01-08-2023
+// ***********************************************************************
+// <copyright file="LaunchPadSpecificationExtension.cs" company="Deploy Software Solutions, inc.">
+//     2018-2023 Deploy Software Solutions, inc.
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
 
 #region license
 //Licensed under the Apache License, Version 2.0 (the "License"); 
@@ -22,9 +32,9 @@ using System.Linq.Expressions;
 
 namespace Deploy.LaunchPad.Core.Specifications
 {
-    ///<summary>
-    /// Extension methods for <see cref="ILaunchPadSpecification{T}"/>.
-    ///</summary>
+    /// <summary>
+    /// Extension methods for <see cref="ILaunchPadSpecification{T}" />.
+    /// </summary>
     public static class LaunchPadSpecificationExtension
     {
         /// <summary>
@@ -33,7 +43,7 @@ namespace Deploy.LaunchPad.Core.Specifications
         /// <typeparam name="T"></typeparam>
         /// <param name="rightHand">The right hand.</param>
         /// <param name="leftHand">The left hand.</param>
-        /// <returns></returns>
+        /// <returns>ILaunchPadSpecification&lt;T&gt;.</returns>
         public static ILaunchPadSpecification<T> And<T>(this ILaunchPadSpecification<T> rightHand, ILaunchPadSpecification<T> leftHand)
         {
             var rightInvoke = Expression.Invoke(rightHand.Predicate,
@@ -51,7 +61,7 @@ namespace Deploy.LaunchPad.Core.Specifications
         /// <typeparam name="T"></typeparam>
         /// <param name="rightHand">The right hand.</param>
         /// <param name="leftHand">The left hand.</param>
-        /// <returns></returns>
+        /// <returns>ILaunchPadSpecification&lt;T&gt;.</returns>
         public static ILaunchPadSpecification<T> Or<T>(this ILaunchPadSpecification<T> rightHand, ILaunchPadSpecification<T> leftHand)
         {
             var rightInvoke = Expression.Invoke(rightHand.Predicate,

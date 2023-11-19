@@ -1,5 +1,16 @@
-﻿//LaunchPad Shared
-// Copyright (c) 2018-2023 Deploy Software Solutions, inc. 
+﻿// ***********************************************************************
+// Assembly         : Deploy.LaunchPad.Core.Tests
+// Author           : Nicholas Kellett
+// Created          : 11-19-2023
+//
+// Last Modified By : Nicholas Kellett
+// Last Modified On : 01-22-2023
+// ***********************************************************************
+// <copyright file="FileTestsFixture.cs" company="Deploy.LaunchPad.Core.Tests">
+//     Copyright (c) Deploy Software Solutions, Inc.. All rights reserved.
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
 
 #region license
 //Licensed under the Apache License, Version 2.0 (the "License"); 
@@ -24,22 +35,41 @@ namespace Deploy.LaunchPad.Core.Tests
     using Deploy.LaunchPad.Core.Abp.Util;
     using Deploy.LaunchPad.Core.Abp.Domain;
 
-    public class FileTestsFixture : IDisposable
+    /// <summary>
+    /// Class FileTestsFixture.
+    /// Implements the <see cref="IDisposable" />
+    /// </summary>
+    /// <seealso cref="IDisposable" />
+    public partial class FileTestsFixture : IDisposable
     {
+        /// <summary>
+        /// Gets or sets the sut.
+        /// </summary>
+        /// <value>The sut.</value>
         public WindowsFileStorageLocation SUT { get; set; }
 
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="FileTestsFixture"/> class.
+        /// </summary>
         public FileTestsFixture()
         {
 
         }
 
+        /// <summary>
+        /// Initializes the specified location.
+        /// </summary>
+        /// <param name="location">The location.</param>
         public void Initialize(WindowsFileStorageLocation location)
         {
             SUT = location;
 
         }
 
+        /// <summary>
+        /// Disposes this instance.
+        /// </summary>
         public void Dispose()
         {
             GC.SuppressFinalize(this);

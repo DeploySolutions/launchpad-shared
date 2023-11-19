@@ -1,5 +1,16 @@
-﻿//LaunchPad Shared
-// Copyright (c) 2018-2023 Deploy Software Solutions, inc. 
+﻿// ***********************************************************************
+// Assembly         : Deploy.LaunchPad.Space.Satellites
+// Author           : Nicholas Kellett
+// Created          : 11-19-2023
+//
+// Last Modified By : Nicholas Kellett
+// Last Modified On : 07-26-2023
+// ***********************************************************************
+// <copyright file="ILandsatObservationScene.cs" company="Deploy Software Solutions, inc.">
+//     2018-2023 Deploy Software Solutions, inc.
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
 
 #region license
 //Licensed under the Apache License, Version 2.0 (the "License"); 
@@ -23,23 +34,54 @@ namespace Deploy.LaunchPad.Space.Satellites.Landsat
     /// <summary>
     /// Marker interface for Landsat satellite series observations
     /// </summary>
-    /// <typeparam name="TPrimaryKey"></typeparam>
     public partial interface ILandsatObservationScene : IEarthObservationScene
     {
+        /// <summary>
+        /// Gets or sets the bucket.
+        /// </summary>
+        /// <value>The bucket.</value>
         public string Bucket { get; set; }
 
+        /// <summary>
+        /// Gets or sets the product identifier.
+        /// </summary>
+        /// <value>The product identifier.</value>
         public string ProductId { get; set; }
 
+        /// <summary>
+        /// Gets or sets the collection.
+        /// </summary>
+        /// <value>The collection.</value>
         public string Collection { get; set; }
 
+        /// <summary>
+        /// Gets or sets the projection.
+        /// </summary>
+        /// <value>The projection.</value>
         public string Projection { get; set; }
 
+        /// <summary>
+        /// Gets or sets the name of the sensor.
+        /// </summary>
+        /// <value>The name of the sensor.</value>
         public string SensorName { get; set; }
 
+        /// <summary>
+        /// Gets or sets the year acquired.
+        /// </summary>
+        /// <value>The year acquired.</value>
         public string YearAcquired { get; set; }
 
+        /// <summary>
+        /// Gets or sets the path.
+        /// </summary>
+        /// <value>The path.</value>
         public string Path { get; set; }
 
+        /// <summary>
+        /// Gets or sets the row.
+        /// </summary>
+        /// <value>The row.</value>
         public string Row { get; set; }
 
     }

@@ -1,5 +1,16 @@
-﻿//LaunchPad Shared
-// Copyright (c) 2018-2023 Deploy Software Solutions, inc. 
+﻿// ***********************************************************************
+// Assembly         : Deploy.LaunchPad.Core.Abp
+// Author           : Nicholas Kellett
+// Created          : 11-19-2023
+//
+// Last Modified By : Nicholas Kellett
+// Last Modified On : 07-26-2023
+// ***********************************************************************
+// <copyright file="IModule.cs" company="Deploy Software Solutions, inc.">
+//     2018-2023 Deploy Software Solutions, inc.
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
 
 #region license
 //Licensed under the Apache License, Version 2.0 (the "License"); 
@@ -27,13 +38,15 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.SoftwareApplications
     /// <summary>
     /// Represents a module in an application.
     /// </summary>
-    /// <typeparam name="TIdType"></typeparam>
-    public interface IModule<TIdType, TEntityIdType> : ILaunchPadDomainEntity<TIdType>
+    /// <typeparam name="TIdType">The type of the t identifier type.</typeparam>
+    /// <typeparam name="TEntityIdType">The type of the t entity identifier type.</typeparam>
+    public partial interface IModule<TIdType, TEntityIdType> : ILaunchPadDomainEntity<TIdType>
     {
 
         /// <summary>
         /// The type of the module
         /// </summary>
+        /// <value>The type.</value>
         [DataObjectField(false)]
         [XmlAttribute]
         String Type
@@ -44,6 +57,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.SoftwareApplications
         /// <summary>
         /// The default culture of this tenant
         /// </summary>
+        /// <value>The culture default.</value>
         [DataObjectField(false)]
         [XmlAttribute]
         String CultureDefault
@@ -54,6 +68,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.SoftwareApplications
         /// <summary>
         /// Each module can have an open-ended set of components within that provide the functionality
         /// </summary>
+        /// <value>The components.</value>
         [DataObjectField(false)]
         [XmlAttribute]
         IList<Component<TIdType, TEntityIdType>> Components { get; set; }

@@ -1,5 +1,16 @@
-﻿//LaunchPad Shared
-// Copyright (c) 2016-2021 Deploy Software Solutions, inc. 
+﻿// ***********************************************************************
+// Assembly         : Deploy.LaunchPad.Core
+// Author           : Nicholas Kellett
+// Created          : 11-19-2023
+//
+// Last Modified By : Nicholas Kellett
+// Last Modified On : 01-08-2023
+// ***********************************************************************
+// <copyright file="CollectionExtensions.cs" company="Deploy Software Solutions, inc.">
+//     2018-2023 Deploy Software Solutions, inc.
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
 
 #region license
 //Licensed under the Apache License, Version 2.0 (the "License"); 
@@ -26,7 +37,7 @@ namespace Deploy.LaunchPad.Core.Util
     public static class CollectionExtensions
     {
         /// <summary>
-        /// ForEach extension that enumerates over all items in an <see cref="IEnumerable{T}"/> and executes 
+        /// ForEach extension that enumerates over all items in an <see cref="IEnumerable{T}" /> and executes
         /// an action.
         /// </summary>
         /// <typeparam name="T">The type that this extension is applicable for.</typeparam>
@@ -39,7 +50,7 @@ namespace Deploy.LaunchPad.Core.Util
         }
 
         /// <summary>
-        /// ForEach extension that enumerates over all items in an <see cref="IEnumerator{T}"/> and executes 
+        /// ForEach extension that enumerates over all items in an <see cref="IEnumerator{T}" /> and executes
         /// an action.
         /// </summary>
         /// <typeparam name="T">The type that this extension is applicable for.</typeparam>
@@ -52,7 +63,7 @@ namespace Deploy.LaunchPad.Core.Util
         }
 
         /// <summary>
-        /// For Each extension that enumerates over a enumerable collection and attempts to execute 
+        /// For Each extension that enumerates over a enumerable collection and attempts to execute
         /// the provided action delegate and it the action throws an exception, continues enumerating.
         /// </summary>
         /// <typeparam name="T">The type that this extension is applicable for.</typeparam>

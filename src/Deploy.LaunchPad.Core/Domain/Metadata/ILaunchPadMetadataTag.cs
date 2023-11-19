@@ -1,5 +1,16 @@
-﻿//LaunchPad Shared
-// Copyright (c) 2016-2021 Deploy Software Solutions, inc. 
+﻿// ***********************************************************************
+// Assembly         : Deploy.LaunchPad.Core
+// Author           : Nicholas Kellett
+// Created          : 11-19-2023
+//
+// Last Modified By : Nicholas Kellett
+// Last Modified On : 01-08-2023
+// ***********************************************************************
+// <copyright file="ILaunchPadMetadataTag.cs" company="Deploy Software Solutions, inc.">
+//     2018-2023 Deploy Software Solutions, inc.
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
 
 #region license
 //Licensed under the Apache License, Version 2.0 (the "License"); 
@@ -25,12 +36,13 @@ namespace Deploy.LaunchPad.Core.Domain
     /// This interface represents a "tag" applied to an entity. Tags provide additional metadata information about
     /// an entity, and can be formal (as in some form of taxonomy) or informal ("Folksonomy").
     /// </summary>
-    public interface ILaunchPadMetadataTag
+    public partial interface ILaunchPadMetadataTag
     {
 
         /// <summary>
         /// The unique id of this metadata tag
         /// </summary>
+        /// <value>The identifier.</value>
         [DataObjectField(false)]
         [XmlAttribute]
         long Id { get; set; }
@@ -38,6 +50,7 @@ namespace Deploy.LaunchPad.Core.Domain
         /// <summary>
         /// The name of this metadata tag
         /// </summary>
+        /// <value>The key.</value>
         [DataObjectField(false)]
         [XmlAttribute]
         String Key { get; set; }
@@ -45,6 +58,7 @@ namespace Deploy.LaunchPad.Core.Domain
         /// <summary>
         /// The value of this metadata tag
         /// </summary>
+        /// <value>The value.</value>
         [DataObjectField(false)]
         [XmlAttribute]
         String Value { get; set; }
@@ -52,6 +66,7 @@ namespace Deploy.LaunchPad.Core.Domain
         /// <summary>
         /// The scheme of this metadata tag, if any
         /// </summary>
+        /// <value>The schema.</value>
         [DataObjectField(false)]
         [XmlAttribute]
         String Schema { get; set; }

@@ -1,6 +1,17 @@
 ﻿
-//LaunchPad Shared
-// Copyright (c) 2016-2021 Deploy Software Solutions, inc. 
+// ***********************************************************************
+// Assembly         : Deploy.LaunchPad.Images.Tests
+// Author           : Nicholas Kellett
+// Created          : 11-19-2023
+//
+// Last Modified By : Nicholas Kellett
+// Last Modified On : 01-08-2023
+// ***********************************************************************
+// <copyright file="ImageManagerTestsFixture.cs" company="Deploy.LaunchPad.Images.Tests">
+//     Copyright (c) Deploy Software Solutions, Inc.. All rights reserved.
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
 
 #region license
 //Licensed under the Apache License, Version 2.0 (the "License"); 
@@ -28,18 +39,48 @@ namespace Deploy.LaunchPad.Images.Tests
     using System;
     using Deploy.LaunchPad.Images.Domain;
 
-    public class ImageManagerTestsFixture : IDisposable
+    /// <summary>
+    /// Class ImageManagerTestsFixture.
+    /// Implements the <see cref="IDisposable" />
+    /// </summary>
+    /// <seealso cref="IDisposable" />
+    public partial class ImageManagerTestsFixture : IDisposable
     {
+        /// <summary>
+        /// Gets or sets the sut.
+        /// </summary>
+        /// <value>The sut.</value>
         public ImageManager SUT { get; set; }
 
+        /// <summary>
+        /// Gets or sets the settings.
+        /// </summary>
+        /// <value>The settings.</value>
         public CompareSettings Settings { get; set; }
 
+        /// <summary>
+        /// Gets or sets the not empty bytes.
+        /// </summary>
+        /// <value>The not empty bytes.</value>
         public byte[] NotEmptyBytes { get; set; }
 
+        /// <summary>
+        /// Gets or sets the logo white.
+        /// </summary>
+        /// <value>The logo white.</value>
         public byte[] LogoWhite { get; set; }
-        
+
+        /// <summary>
+        /// Gets or sets the logo dark.
+        /// </summary>
+        /// <value>The logo dark.</value>
         public byte[] LogoDark { get; set; }
-        
+
+        /// <summary>
+        /// Initializes the specified image man.
+        /// </summary>
+        /// <param name="imageMan">The image man.</param>
+        /// <param name="compareSettings">The compare settings.</param>
         public void Initialize(ImageManager imageMan, CompareSettings compareSettings)
         {
             SUT = imageMan;
@@ -67,6 +108,9 @@ namespace Deploy.LaunchPad.Images.Tests
 
         }
 
+        /// <summary>
+        /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
+        /// </summary>
         public void Dispose()
         {
 

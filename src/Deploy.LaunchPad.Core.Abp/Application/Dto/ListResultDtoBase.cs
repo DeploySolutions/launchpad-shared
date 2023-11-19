@@ -1,5 +1,16 @@
-﻿//LaunchPad Shared
-// Copyright (c) 2016-2021 Deploy Software Solutions, inc. 
+﻿// ***********************************************************************
+// Assembly         : Deploy.LaunchPad.Core.Abp
+// Author           : Nicholas Kellett
+// Created          : 11-19-2023
+//
+// Last Modified By : Nicholas Kellett
+// Last Modified On : 01-08-2023
+// ***********************************************************************
+// <copyright file="ListResultDtoBase.cs" company="Deploy Software Solutions, inc.">
+//     2018-2023 Deploy Software Solutions, inc.
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
 
 #region license
 //Licensed under the Apache License, Version 2.0 (the "License"); 
@@ -37,6 +48,7 @@ namespace Deploy.LaunchPad.Core.Abp.Application.Dto
         /// <summary>
         /// The total Count of the items contained in this list.
         /// </summary>
+        /// <value>The total count.</value>
         [DataObjectField(false)]
         [XmlAttribute]
         public int TotalCount { get; set; }
@@ -56,6 +68,7 @@ namespace Deploy.LaunchPad.Core.Abp.Application.Dto
         /// <summary>
         /// Default constructor where the tenant id is known
         /// </summary>
+        /// <param name="items">List of items</param>
         public ListResultDtoBase(IReadOnlyList<TEntityType> items) : base(items)
         {
 
@@ -79,17 +92,17 @@ namespace Deploy.LaunchPad.Core.Abp.Application.Dto
         /// <summary>
         /// The method required for implementing ISerializable
         /// </summary>
-        /// <param name="info"></param>
-        /// <param name="context"></param>
+        /// <param name="info">The information.</param>
+        /// <param name="context">The context.</param>
         public virtual void GetObjectData(SerializationInfo info, StreamingContext context)
         {
             info.AddValue("Items", Items);
             info.AddValue("TotalCount", TotalCount);
         }
 
-        /// <summary>  
-        /// Displays information about the class in readable format.  
-        /// </summary>  
+        /// <summary>
+        /// Displays information about the class in readable format.
+        /// </summary>
         /// <returns>A string representation of the object.</returns>
         public override string ToString()
         {

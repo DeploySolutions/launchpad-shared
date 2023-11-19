@@ -1,5 +1,16 @@
-﻿//LaunchPad Shared
-// Copyright (c) 2016-2021 Deploy Software Solutions, inc. 
+﻿// ***********************************************************************
+// Assembly         : Deploy.LaunchPad.Core.Tests
+// Author           : Nicholas Kellett
+// Created          : 11-19-2023
+//
+// Last Modified By : Nicholas Kellett
+// Last Modified On : 01-08-2023
+// ***********************************************************************
+// <copyright file="DomainEntityBaseTests.cs" company="Deploy.LaunchPad.Core.Tests">
+//     Copyright (c) Deploy Software Solutions, Inc.. All rights reserved.
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
 
 #region license
 //Licensed under the Apache License, Version 2.0 (the "License"); 
@@ -23,7 +34,10 @@ namespace Deploy.LaunchPad.Core.Tests
     using Deploy.LaunchPad.Core.Util;
     using Deploy.LaunchPad.Core.Abp.Domain;
 
-    public class DomainEntityBaseTests
+    /// <summary>
+    /// Class DomainEntityBaseTests.
+    /// </summary>
+    public partial class DomainEntityBaseTests
     {
         #region "Test Classes"
 
@@ -32,6 +46,9 @@ namespace Deploy.LaunchPad.Core.Tests
         #endregion
 
 
+        /// <summary>
+        /// Defines the test method Should_Not_Have_Null_TenantId_When_Instantiated.
+        /// </summary>
         [Fact]
         public void Should_Not_Have_Null_TenantId_When_Instantiated()
         {
@@ -39,6 +56,9 @@ namespace Deploy.LaunchPad.Core.Tests
             //a.TenantId.Should().NotBeNull();
         }
 
+        /// <summary>
+        /// Defines the test method Should_Have_Empty_Id_When_Instantiated.
+        /// </summary>
         [Fact]
         public void Should_Have_Empty_Id_When_Instantiated()
         {
@@ -46,6 +66,9 @@ namespace Deploy.LaunchPad.Core.Tests
             a.Id.Should().BeEmpty();
         }
 
+        /// <summary>
+        /// Defines the test method Should_NotHave_Empty_Id_When_Instantiated_With_Id.
+        /// </summary>
         [Fact]
         public void Should_NotHave_Empty_Id_When_Instantiated_With_Id()
         {
@@ -54,6 +77,9 @@ namespace Deploy.LaunchPad.Core.Tests
             a.Id.Should().NotBeEmpty();
         }
 
+        /// <summary>
+        /// Defines the test method Should_Have_Unique_Id_When_Instantiated_With_Id.
+        /// </summary>
         [Fact]
         public void Should_Have_Unique_Id_When_Instantiated_With_Id()
         {

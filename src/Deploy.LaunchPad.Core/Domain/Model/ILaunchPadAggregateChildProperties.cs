@@ -1,4 +1,17 @@
-﻿using System;
+﻿// ***********************************************************************
+// Assembly         : Deploy.LaunchPad.Core
+// Author           : Nicholas Kellett
+// Created          : 11-19-2023
+//
+// Last Modified By : Nicholas Kellett
+// Last Modified On : 10-27-2023
+// ***********************************************************************
+// <copyright file="ILaunchPadAggregateChildProperties.cs" company="Deploy Software Solutions, inc.">
+//     2018-2023 Deploy Software Solutions, inc.
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
@@ -8,14 +21,15 @@ using System.Xml.Serialization;
 namespace Deploy.LaunchPad.Core.Domain.Model
 {
     /// <summary>
-    /// Defines the minimum properties LaunchPad expects to have for a child entity of an Aggregate Root. 
+    /// Defines the minimum properties LaunchPad expects to have for a child entity of an Aggregate Root.
     /// </summary>
-    /// <typeparam name="TIdType"></typeparam>
-    public interface ILaunchPadAggregateChildProperties<TIdType> : ILaunchPadDomainEntityProperties<TIdType>
+    /// <typeparam name="TIdType">The type of the t identifier type.</typeparam>
+    public partial interface ILaunchPadAggregateChildProperties<TIdType> : ILaunchPadDomainEntityProperties<TIdType>
     {
         /// <summary>
         /// The fully qualified type name of the parent Aggregate Root
         /// </summary>
+        /// <value>The type of the parent fully qualified.</value>
         [DataObjectField(false)]
         [XmlAttribute]
         public string ParentFullyQualifiedType { get; }

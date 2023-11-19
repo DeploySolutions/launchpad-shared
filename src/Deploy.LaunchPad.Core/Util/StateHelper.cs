@@ -1,6 +1,16 @@
-//LaunchPad Shared
-// Copyright (c) 2016-2021 Deploy Software Solutions, inc. 
-//This file is a derivative work from the original created in NCommon and copyright 2010 by Ritesh Rao 
+// ***********************************************************************
+// Assembly         : Deploy.LaunchPad.Core
+// Author           : Nicholas Kellett
+// Created          : 11-19-2023
+//
+// Last Modified By : Nicholas Kellett
+// Last Modified On : 01-08-2023
+// ***********************************************************************
+// <copyright file="StateHelper.cs" company="Deploy Software Solutions, inc.">
+//     2018-2023 Deploy Software Solutions, inc.
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
 
 #region license
 //Licensed under the Apache License, Version 2.0 (the "License"); 
@@ -18,17 +28,17 @@
 
 namespace Deploy.LaunchPad.Core.Util
 {
-    ///<summary>
+    /// <summary>
     /// Utility class for NCommon.State.
-    ///</summary>
+    /// </summary>
     public static class StateHelper
     {
-        ///<summary>
+        /// <summary>
         /// Builds a key from the full name of the type and the supplied user key.
-        ///</summary>
-        ///<param name="userKey">The user supplied key, if any.</param>
-        ///<typeparam name="T">The type for which the key is built.</typeparam>
-        ///<returns>string.</returns>
+        /// </summary>
+        /// <typeparam name="T">The type for which the key is built.</typeparam>
+        /// <param name="userKey">The user supplied key, if any.</param>
+        /// <returns>string.</returns>
         public static string BuildFullKey<T>(this object userKey)
         {
             if (userKey == null)

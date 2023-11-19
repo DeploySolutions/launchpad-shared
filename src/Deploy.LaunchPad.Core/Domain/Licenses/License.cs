@@ -1,5 +1,16 @@
-﻿//LaunchPad Shared
-// Copyright (c) 2018-2023 Deploy Software Solutions, inc. 
+﻿// ***********************************************************************
+// Assembly         : Deploy.LaunchPad.Core
+// Author           : Nicholas Kellett
+// Created          : 11-19-2023
+//
+// Last Modified By : Nicholas Kellett
+// Last Modified On : 01-22-2023
+// ***********************************************************************
+// <copyright file="License.cs" company="Deploy Software Solutions, inc.">
+//     2018-2023 Deploy Software Solutions, inc.
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
 
 #region license
 //Licensed under the Apache License, Version 2.0 (the "License"); 
@@ -28,16 +39,19 @@ namespace Deploy.LaunchPad.Core.Domain
         /// <summary>
         /// The name of the license
         /// </summary>
+        /// <value>The name.</value>
         public abstract string Name { get; }
 
         /// <summary>
         /// A brief human-readable description of the license
         /// </summary>
+        /// <value>The summary.</value>
         public abstract string Summary { get; }
 
         /// <summary>
         /// A link to the full terms of the license
         /// </summary>
+        /// <value>The full terms URL.</value>
         public abstract Uri FullTermsUrl { get; }
 
     }

@@ -1,5 +1,16 @@
-﻿//LaunchPad Shared
-// Copyright (c) 2016-2021 Deploy Software Solutions, inc. 
+﻿// ***********************************************************************
+// Assembly         : Deploy.LaunchPad.Core
+// Author           : Nicholas Kellett
+// Created          : 11-19-2023
+//
+// Last Modified By : Nicholas Kellett
+// Last Modified On : 06-12-2023
+// ***********************************************************************
+// <copyright file="SpaceTimeInformation.cs" company="Deploy Software Solutions, inc.">
+//     2018-2023 Deploy Software Solutions, inc.
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
 
 #region license
 //Licensed under the Apache License, Version 2.0 (the "License"); 
@@ -34,6 +45,7 @@ namespace Deploy.LaunchPad.Core.Geospatial
         /// <summary>
         /// The date and time that this object was present in this physical location
         /// </summary>
+        /// <value>The point in time.</value>
         [DataObjectField(false)]
         [XmlAttribute]
         public virtual DateTime PointInTime { get; set; }
@@ -41,14 +53,15 @@ namespace Deploy.LaunchPad.Core.Geospatial
         /// <summary>
         /// The geographic location of this item at a point in time
         /// </summary>
+        /// <value>The physical location.</value>
         [DataObjectField(false)]
         [XmlAttribute]
         public virtual IHaveGeographicPosition PhysicalLocation { get; set; }
 
         #region Constructors
 
-        /// <summary>  
-        /// Initializes a new instance of the <see cref="SpaceTimeInformation">SpaceTimeInformation</see> class.  
+        /// <summary>
+        /// Initializes a new instance of the <see cref="SpaceTimeInformation">SpaceTimeInformation</see> class.
         /// </summary>
         public SpaceTimeInformation()
         {
@@ -57,31 +70,34 @@ namespace Deploy.LaunchPad.Core.Geospatial
         }
 
 
-        /// <summary>  
-        /// Initializes a new instance of the <see cref="SpaceTimeInformation">SpaceTimeInformation</see> class.  
+        /// <summary>
+        /// Initializes a new instance of the <see cref="SpaceTimeInformation">SpaceTimeInformation</see> class.
         /// <param name="location">The specific location that is occupied at this moment</param>
         /// </summary>
+        /// <param name="location">The location.</param>
         public SpaceTimeInformation(GeographicPosition location)
         {
             PhysicalLocation = location;
             PointInTime = new DateTimeProvider().UtcNow;
         }
 
-        /// <summary>  
-        /// Initializes a new instance of the <see cref="SpaceTimeInformation">SpaceTimeInformation</see> class.  
+        /// <summary>
+        /// Initializes a new instance of the <see cref="SpaceTimeInformation">SpaceTimeInformation</see> class.
         /// <param name="pointInTime">A specific time that this location refers to</param>
         /// </summary>
+        /// <param name="pointInTime">The point in time.</param>
         public SpaceTimeInformation(DateTime pointInTime)
         {
             PhysicalLocation = new GeographicPosition();
             PointInTime = pointInTime;
         }
 
-        /// <summary>  
-        /// Initializes a new instance of the <see cref="SpaceTimeInformation">SpaceTimeInformation</see> class.  
-        /// <param name="location">The specific location that is occupied at this moment</param>
-        /// <param name="pointInTime">A specific time that this location refers to</param>
+        /// <summary>
+        /// Initializes a new instance of the <see cref="SpaceTimeInformation">SpaceTimeInformation</see> class.
+        /// <param name="location">The specific location that is occupied at this moment</param><param name="pointInTime">A specific time that this location refers to</param>
         /// </summary>
+        /// <param name="location">The location.</param>
+        /// <param name="pointInTime">The point in time.</param>
         public SpaceTimeInformation(GeographicPosition location, DateTime pointInTime)
         {
             PhysicalLocation = location;
@@ -111,21 +127,22 @@ namespace Deploy.LaunchPad.Core.Geospatial
             info.AddValue("PointInTime", PointInTime);
         }
 
-        /// Event called once deserialization constructor finishes.
-        /// Useful for reattaching connections and other 
-        /// <summary>finite resources that 
+        /// <summary>
+        /// finite resources that
         /// can't be serialized and deserialized.
         /// </summary>
         /// <param name="sender">The object that has been deserialized</param>
+        /// Event called once deserialization constructor finishes.
+        /// Useful for reattaching connections and other
         public virtual void OnDeserialization(object sender)
         {
             // reconnect connection strings and other resources that won't be serialized
         }
 
 
-        /// <summary>  
-        /// Displays information about the <c>Field</c> in readable format.  
-        /// </summary>  
+        /// <summary>
+        /// Displays information about the <c>Field</c> in readable format.
+        /// </summary>
         /// <returns>A string representation of the object.</returns>
         public override string ToString()
         {
@@ -154,11 +171,11 @@ namespace Deploy.LaunchPad.Core.Geospatial
         /// <summary>
         /// Equality method between two objects of the same type.
         /// Because the Equals method is strongly typed by generic constraints,
-        /// it is not necessary to test for the correct object type. We need to test for 
+        /// it is not necessary to test for the correct object type. We need to test for
         /// business key equality - which in this case means the Location field.
         /// </summary>
         /// <param name="obj">The other object of this type we are testing equality with</param>
-        /// <returns></returns>
+        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
         public bool Equals(SpaceTimeInformation obj)
         {
             if (obj != null)
@@ -196,19 +213,23 @@ namespace Deploy.LaunchPad.Core.Geospatial
             return x.Equals(y);
         }
 
+        /// <summary>
+        /// Implements the != operator.
+        /// </summary>
+        /// <param name="x">The x.</param>
+        /// <param name="y">The y.</param>
+        /// <returns>The result of the operator.</returns>
         public static bool operator !=(SpaceTimeInformation x, SpaceTimeInformation y)
         {
             return !(x == y);
         }
 
 
-        /// <summary>  
-        /// Computes and retrieves a hash code for an object.  
-        /// </summary>  
-        /// <remarks>  
-        /// This method implements the <see cref="object">Object</see> method.  
-        /// </remarks>  
+        /// <summary>
+        /// Computes and retrieves a hash code for an object.
+        /// </summary>
         /// <returns>A hash code for an object.</returns>
+        /// <remarks>This method implements the <see cref="object">Object</see> method.</remarks>
         public override int GetHashCode()
         {
             return PhysicalLocation.GetHashCode() + PointInTime.GetHashCode();

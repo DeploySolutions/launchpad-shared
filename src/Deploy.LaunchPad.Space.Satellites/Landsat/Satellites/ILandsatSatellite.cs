@@ -1,5 +1,16 @@
-﻿//LaunchPad Shared
-// Copyright (c) 2016-2021 Deploy Software Solutions, inc. 
+﻿// ***********************************************************************
+// Assembly         : Deploy.LaunchPad.Space.Satellites
+// Author           : Nicholas Kellett
+// Created          : 11-19-2023
+//
+// Last Modified By : Nicholas Kellett
+// Last Modified On : 01-08-2023
+// ***********************************************************************
+// <copyright file="ILandsatSatellite.cs" company="Deploy Software Solutions, inc.">
+//     2018-2023 Deploy Software Solutions, inc.
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
 
 #region license
 //Licensed under the Apache License, Version 2.0 (the "License"); 
@@ -19,6 +30,11 @@ using Deploy.LaunchPad.Space.Satellites.Core;
 
 namespace Deploy.LaunchPad.Space.Satellites.Landsat
 {
+    /// <summary>
+    /// Interface ILandsatSatellite
+    /// Extends the <see cref="IEarthObservationSatellite" />
+    /// </summary>
+    /// <seealso cref="IEarthObservationSatellite" />
     public partial interface ILandsatSatellite : IEarthObservationSatellite
     {
     }

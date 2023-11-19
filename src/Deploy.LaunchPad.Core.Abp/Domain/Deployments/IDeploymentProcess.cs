@@ -1,5 +1,16 @@
-﻿//LaunchPad Shared
-// Copyright (c) 2016-2021 Deploy Software Solutions, inc. 
+﻿// ***********************************************************************
+// Assembly         : Deploy.LaunchPad.Core.Abp
+// Author           : Nicholas Kellett
+// Created          : 11-19-2023
+//
+// Last Modified By : Nicholas Kellett
+// Last Modified On : 07-26-2023
+// ***********************************************************************
+// <copyright file="IDeploymentProcess.cs" company="Deploy Software Solutions, inc.">
+//     2018-2023 Deploy Software Solutions, inc.
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
 
 #region license
 //Licensed under the Apache License, Version 2.0 (the "License"); 
@@ -26,13 +37,14 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
     /// <summary>
     /// Represents the process which a deployment will follow as it takes a release candidate (set of code, data, and resources) and places it in a destination environment.
     /// </summary>
-    /// <typeparam name="TIdType">The type of the Id</typeparam>
-    public interface IDeploymentProcess<TPrimaryKey> : ILaunchPadDomainEntity<TPrimaryKey>
+    /// <typeparam name="TPrimaryKey">The type of the t primary key.</typeparam>
+    public partial interface IDeploymentProcess<TPrimaryKey> : ILaunchPadDomainEntity<TPrimaryKey>
     {
 
         /// <summary>
         /// The URI to the deployment documentation
         /// </summary>
+        /// <value>The documentation URI.</value>
         [DataObjectField(false)]
         [XmlAttribute]
         Uri DocumentationUri { get; set; }
@@ -40,6 +52,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
         /// <summary>
         /// The URI to the diagram
         /// </summary>
+        /// <value>The diagram URI.</value>
         [DataObjectField(false)]
         [XmlAttribute]
         Uri DiagramUri { get; set; }

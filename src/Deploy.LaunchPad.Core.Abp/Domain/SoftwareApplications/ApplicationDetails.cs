@@ -1,5 +1,16 @@
-﻿//LaunchPad Shared
-// Copyright (c) 2016-2021 Deploy Software Solutions, inc. 
+﻿// ***********************************************************************
+// Assembly         : Deploy.LaunchPad.Core.Abp
+// Author           : Nicholas Kellett
+// Created          : 11-19-2023
+//
+// Last Modified By : Nicholas Kellett
+// Last Modified On : 07-26-2023
+// ***********************************************************************
+// <copyright file="ApplicationDetails.cs" company="Deploy Software Solutions, inc.">
+//     2018-2023 Deploy Software Solutions, inc.
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
 
 #region license
 //Licensed under the Apache License, Version 2.0 (the "License"); 
@@ -32,13 +43,23 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.SoftwareApplications
     /// <summary>
     /// Base class for application-specific information
     /// </summary>
-    /// <typeparam name="TPrimaryKey">The type of the key id field</typeparam>
+    /// <typeparam name="TIdType">The type of the t identifier type.</typeparam>
     [Serializable()]
     public partial class ApplicationDetails<TIdType> : LaunchPadDomainEntityBase<TIdType>, IApplicationDetails<TIdType>, IMayHaveTenant
     {
+        /// <summary>
+        /// The default culture
+        /// </summary>
         public const string DEFAULT_CULTURE = "en";
+        /// <summary>
+        /// The default hexadecimal c ol our
+        /// </summary>
         public const string DEFAULT_HEX_COlOUR = "1dbff0";
 
+        /// <summary>
+        /// Gets or sets the launch pad application identifier.
+        /// </summary>
+        /// <value>The launch pad application identifier.</value>
         [DataObjectField(false)]
         [XmlAttribute]
         [ForeignKey(nameof(LaunchPadApplicationId))]
@@ -47,6 +68,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.SoftwareApplications
         /// <summary>
         /// The id of the tenant that domain entity this belongs to (if any)
         /// </summary>
+        /// <value>The tenant identifier.</value>
         [DataObjectField(false)]
         [XmlAttribute]
         [Required]
@@ -56,6 +78,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.SoftwareApplications
         /// <summary>
         /// The default culture of this application
         /// </summary>
+        /// <value>The application key.</value>
         [DataObjectField(false)]
         [XmlAttribute]
         public virtual String ApplicationKey
@@ -66,6 +89,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.SoftwareApplications
         /// <summary>
         /// The default culture of this application
         /// </summary>
+        /// <value>The culture default.</value>
         [DataObjectField(false)]
         [XmlAttribute]
         public virtual String CultureDefault
@@ -76,6 +100,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.SoftwareApplications
         /// <summary>
         /// The supported cultures of this application
         /// </summary>
+        /// <value>The culture supported.</value>
         [DataObjectField(false)]
         [XmlAttribute]
         public virtual String CultureSupported
@@ -86,6 +111,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.SoftwareApplications
         /// <summary>
         /// The main theme
         /// </summary>
+        /// <value>The theme.</value>
         [DataObjectField(false)]
         [XmlAttribute]
         public virtual string Theme { get; set; }
@@ -93,6 +119,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.SoftwareApplications
         /// <summary>
         /// The Uri for the logo to display in this application
         /// </summary>
+        /// <value>The logo URI.</value>
         [DataObjectField(false)]
         [XmlAttribute]
         public virtual Uri LogoUri
@@ -103,6 +130,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.SoftwareApplications
         /// <summary>
         /// The primary colour (in HEX) for displays in this application
         /// </summary>
+        /// <value>The primary colour hexadecimal.</value>
         [DataObjectField(false)]
         [XmlAttribute]
         public virtual String PrimaryColourHex
@@ -113,6 +141,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.SoftwareApplications
         /// <summary>
         /// The default display time zone of the application
         /// </summary>
+        /// <value>The default time zone.</value>
         [DataObjectField(false)]
         [XmlAttribute]
         public virtual String DefaultTimeZone
@@ -121,6 +150,9 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.SoftwareApplications
         }
 
         #region "Constructors"
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ApplicationDetails{TIdType}"/> class.
+        /// </summary>
         public ApplicationDetails() : base()
         {
             PrimaryColourHex = DEFAULT_HEX_COlOUR;
@@ -128,6 +160,10 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.SoftwareApplications
             CultureSupported = DEFAULT_CULTURE;
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ApplicationDetails{TIdType}"/> class.
+        /// </summary>
+        /// <param name="tenantId">The tenant identifier.</param>
         public ApplicationDetails(int? tenantId) : base()
         {
             TenantId = tenantId;
@@ -136,6 +172,12 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.SoftwareApplications
             CultureSupported = DEFAULT_CULTURE;
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ApplicationDetails{TIdType}"/> class.
+        /// </summary>
+        /// <param name="tenantId">The tenant identifier.</param>
+        /// <param name="id">The identifier.</param>
+        /// <param name="cultureName">Name of the culture.</param>
         public ApplicationDetails(int? tenantId, TIdType id, string cultureName) : base(id, cultureName)
         {
             TenantId = tenantId;
@@ -144,6 +186,13 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.SoftwareApplications
             CultureSupported = DEFAULT_CULTURE;
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ApplicationDetails{TIdType}"/> class.
+        /// </summary>
+        /// <param name="tenantId">The tenant identifier.</param>
+        /// <param name="id">The identifier.</param>
+        /// <param name="cultureName">Name of the culture.</param>
+        /// <param name="cultureDefault">The culture default.</param>
         public ApplicationDetails(int? tenantId, TIdType id, string cultureName, String cultureDefault) : base(id, cultureName)
         {
             TenantId = tenantId;
@@ -153,6 +202,14 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.SoftwareApplications
             CultureSupported = cultureDefault;
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ApplicationDetails{TIdType}"/> class.
+        /// </summary>
+        /// <param name="tenantId">The tenant identifier.</param>
+        /// <param name="id">The identifier.</param>
+        /// <param name="cultureName">Name of the culture.</param>
+        /// <param name="cultureDefault">The culture default.</param>
+        /// <param name="cultureSupported">The culture supported.</param>
         public ApplicationDetails(int? tenantId, TIdType id, string cultureName, String cultureDefault, String cultureSupported) : base(id, cultureName)
         {
             TenantId = tenantId;
@@ -184,8 +241,8 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.SoftwareApplications
         /// <summary>
         /// The method required for implementing ISerializable
         /// </summary>
-        /// <param name="info"></param>
-        /// <param name="context"></param>
+        /// <param name="info">The information.</param>
+        /// <param name="context">The context.</param>
         public override void GetObjectData(SerializationInfo info, StreamingContext context)
         {
             base.GetObjectData(info, context);
@@ -199,9 +256,9 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.SoftwareApplications
             info.AddValue("DefaultTimeZone", DefaultTimeZone);
         }
 
-        /// <summary>  
-        /// Displays information about the class in readable format.  
-        /// </summary>  
+        /// <summary>
+        /// Displays information about the class in readable format.
+        /// </summary>
         /// <returns>A string representation of the object.</returns>
         public override string ToString()
         {
@@ -246,7 +303,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.SoftwareApplications
         /// it is not necessary to test for the correct object type.
         /// </summary>
         /// <param name="other">The other object of this type we are comparing to</param>
-        /// <returns></returns>
+        /// <returns>System.Int32.</returns>
         public virtual int CompareTo(ApplicationDetails<TIdType> other)
         {
             return other == null ? 1 : String.Compare(Name, other.Name, StringComparison.InvariantCulture);
@@ -271,10 +328,10 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.SoftwareApplications
         /// Because the Equals method is strongly typed by generic constraints,
         /// it is not necessary to test for the correct object type.
         /// For safety we just want to match on business key value - in this case the fields
-        /// that cannot be different between the two objects if they are supposedly equal.        
+        /// that cannot be different between the two objects if they are supposedly equal.
         /// </summary>
         /// <param name="obj">The other object of this type that we are testing equality with</param>
-        /// <returns></returns>
+        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
         public virtual bool Equals(ApplicationDetails<TIdType> obj)
         {
             if (obj != null)
@@ -342,13 +399,11 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.SoftwareApplications
             return !(x == y);
         }
 
-        /// <summary>  
-        /// Computes and retrieves a hash code for an object.  
-        /// </summary>  
-        /// <remarks>  
-        /// This method implements the <see cref="Object">Object</see> method.  
-        /// </remarks>  
+        /// <summary>
+        /// Computes and retrieves a hash code for an object.
+        /// </summary>
         /// <returns>A hash code for an object.</returns>
+        /// <remarks>This method implements the <see cref="object">Object</see> method.</remarks>
         public override int GetHashCode()
         {
             return Id.GetHashCode() + Culture.GetHashCode() + ApplicationKey.GetHashCode();

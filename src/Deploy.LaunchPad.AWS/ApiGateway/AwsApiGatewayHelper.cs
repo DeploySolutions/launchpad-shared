@@ -1,4 +1,17 @@
-﻿using Amazon.APIGateway;
+﻿// ***********************************************************************
+// Assembly         : Deploy.LaunchPad.AWS
+// Author           : Nicholas Kellett
+// Created          : 11-19-2023
+//
+// Last Modified By : Nicholas Kellett
+// Last Modified On : 01-08-2023
+// ***********************************************************************
+// <copyright file="AwsApiGatewayHelper.cs" company="Deploy Software Solutions, inc.">
+//     2021-2023 Deploy Software Solutions, inc.
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
+using Amazon.APIGateway;
 using Castle.Core.Logging;
 using Deploy.LaunchPad.Core.Api;
 using Deploy.LaunchPad.Core.Util;
@@ -11,33 +24,77 @@ using System.Threading.Tasks;
 
 namespace Deploy.LaunchPad.AWS
 {
+    /// <summary>
+    /// Class AwsApiGatewayHelper.
+    /// Implements the <see cref="Deploy.LaunchPad.AWS.AwsHelperBase{Amazon.APIGateway.AmazonAPIGatewayConfig}" />
+    /// Implements the <see cref="Deploy.LaunchPad.AWS.IAwsApiGatewayHelper" />
+    /// </summary>
+    /// <seealso cref="Deploy.LaunchPad.AWS.AwsHelperBase{Amazon.APIGateway.AmazonAPIGatewayConfig}" />
+    /// <seealso cref="Deploy.LaunchPad.AWS.IAwsApiGatewayHelper" />
     public partial class AwsApiGatewayHelper : AwsHelperBase<AmazonAPIGatewayConfig>, IAwsApiGatewayHelper
     {
 
+        /// <summary>
+        /// Gets or sets the o authentication base URI.
+        /// </summary>
+        /// <value>The o authentication base URI.</value>
         public Uri OAuthBaseUri { get; set; }
+        /// <summary>
+        /// Gets or sets the o authentication token endpoint.
+        /// </summary>
+        /// <value>The o authentication token endpoint.</value>
         public string OAuthTokenEndpoint { get; set; }
 
+        /// <summary>
+        /// Gets or sets the API base URI.
+        /// </summary>
+        /// <value>The API base URI.</value>
         public Uri ApiBaseUri { get; set; }
 
+        /// <summary>
+        /// Gets or sets the default version.
+        /// </summary>
+        /// <value>The default version.</value>
         public string DefaultVersion { get; set; }
 
+        /// <summary>
+        /// Gets or sets the o authentication client.
+        /// </summary>
+        /// <value>The o authentication client.</value>
         [JsonIgnore]
 
         public RestClient OAuthClient { get; set; }
 
+        /// <summary>
+        /// Gets or sets the API rest client.
+        /// </summary>
+        /// <value>The API rest client.</value>
         [JsonIgnore]
         public RestClient ApiRestClient { get; set; }
 
 
+        /// <summary>
+        /// Gets or sets the token.
+        /// </summary>
+        /// <value>The token.</value>
         [JsonIgnore]
         public TemporaryAccessToken Token { get; set; }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="AwsApiGatewayHelper"/> class.
+        /// </summary>
         protected AwsApiGatewayHelper() : base()
         {
             OAuthTokenEndpoint = string.Empty;
             DefaultVersion = string.Empty;
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="AwsApiGatewayHelper"/> class.
+        /// </summary>
+        /// <param name="logger">The logger.</param>
+        /// <param name="awsRegionEndpointName">Name of the aws region endpoint.</param>
+        /// <param name="apiGatewayBaseUri">The API gateway base URI.</param>
         public AwsApiGatewayHelper(ILogger logger, string awsRegionEndpointName, Uri apiGatewayBaseUri) : base(logger, awsRegionEndpointName)
         {
             ApiBaseUri = apiGatewayBaseUri;
@@ -46,6 +103,15 @@ namespace Deploy.LaunchPad.AWS
             ApiRestClient = new RestClient(apiGatewayBaseUri);
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="AwsApiGatewayHelper"/> class.
+        /// </summary>
+        /// <param name="logger">The logger.</param>
+        /// <param name="awsRegionEndpointName">Name of the aws region endpoint.</param>
+        /// <param name="apiGatewayBaseUri">The API gateway base URI.</param>
+        /// <param name="oAuthBaseUri">The o authentication base URI.</param>
+        /// <param name="oAuthTokenEndpoint">The o authentication token endpoint.</param>
+        /// <param name="defaultApiVersion">The default API version.</param>
         public AwsApiGatewayHelper(ILogger logger, string awsRegionEndpointName, Uri apiGatewayBaseUri, Uri oAuthBaseUri, string oAuthTokenEndpoint, string defaultApiVersion) : base(logger, awsRegionEndpointName)
         {
             OAuthTokenEndpoint = oAuthTokenEndpoint;
@@ -58,6 +124,12 @@ namespace Deploy.LaunchPad.AWS
             ApiRestClient = new RestClient(apiGatewayBaseUri);
         }
 
+        /// <summary>
+        /// Gets the o authentication token using secret credentials.
+        /// </summary>
+        /// <param name="arn">The arn.</param>
+        /// <param name="scopes">The scopes.</param>
+        /// <returns>TemporaryAccessToken.</returns>
         public virtual TemporaryAccessToken GetOAuthTokenUsingSecretCredentials(string arn, IList<string> scopes = null)
         {
             AwsSecretProvider provider = new AwsSecretProvider(Region.SystemName, AwsProfileName, ShouldUseLocalAwsProfile);
@@ -65,6 +137,12 @@ namespace Deploy.LaunchPad.AWS
             return GetOAuthTokenUsingSecretCredentialsAsync(vault, scopes).Result;
         }
 
+        /// <summary>
+        /// Gets the o authentication token using secret credentials.
+        /// </summary>
+        /// <param name="vault">The vault.</param>
+        /// <param name="scopes">The scopes.</param>
+        /// <returns>TemporaryAccessToken.</returns>
         public virtual TemporaryAccessToken GetOAuthTokenUsingSecretCredentials(AwsSecretVault vault, IList<string> scopes = null)
         {
             return GetOAuthTokenUsingSecretCredentialsAsync(vault, scopes).Result;
@@ -73,7 +151,8 @@ namespace Deploy.LaunchPad.AWS
         /// <summary>
         /// Request and returns the OAuth token from the information which is stored in the given secret
         /// </summary>
-        /// <param name="secretArn">The AWS ARN of the secret in which the key is located.</param>
+        /// <param name="vault">The vault.</param>
+        /// <param name="scopes">The scopes.</param>
         /// <returns>A TemporaryAccessToken object</returns>
         public async virtual Task<TemporaryAccessToken> GetOAuthTokenUsingSecretCredentialsAsync(AwsSecretVault vault, IList<string> scopes = null)
         {
@@ -141,12 +220,28 @@ namespace Deploy.LaunchPad.AWS
         }
 
 
+        /// <summary>
+        /// Makes the API request.
+        /// </summary>
+        /// <param name="secretArn">The secret arn.</param>
+        /// <param name="request">The request.</param>
+        /// <param name="requestId">The request identifier.</param>
+        /// <param name="correlationId">The correlation identifier.</param>
+        /// <returns>RestResponse.</returns>
         public virtual RestResponse MakeApiRequest(string secretArn, RestRequest request, string requestId = "", string correlationId = "")
         {
             return MakeApiRequestAsync(secretArn, request, requestId, correlationId).Result;
         }
 
 
+        /// <summary>
+        /// Make API request as an asynchronous operation.
+        /// </summary>
+        /// <param name="secretArn">The secret arn.</param>
+        /// <param name="request">The request.</param>
+        /// <param name="requestId">The request identifier.</param>
+        /// <param name="correlationId">The correlation identifier.</param>
+        /// <returns>A Task&lt;RestResponse&gt; representing the asynchronous operation.</returns>
         public async virtual Task<RestResponse> MakeApiRequestAsync(string secretArn, RestRequest request, string requestId = "", string correlationId = "")
         {
             Guard.Against<ArgumentNullException>(String.IsNullOrEmpty(secretArn), Deploy_LaunchPad_AWS_Resources.ApiGatewayHelper_SecretArn_Is_NullOrEmpty);

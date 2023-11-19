@@ -1,5 +1,16 @@
-﻿//LaunchPad Shared
-// Copyright (c) 2016-2021 Deploy Software Solutions, inc. 
+﻿// ***********************************************************************
+// Assembly         : Deploy.LaunchPad.Core.Abp
+// Author           : Nicholas Kellett
+// Created          : 11-19-2023
+//
+// Last Modified By : Nicholas Kellett
+// Last Modified On : 01-08-2023
+// ***********************************************************************
+// <copyright file="EntityDtoBase.cs" company="Deploy Software Solutions, inc.">
+//     2018-2023 Deploy Software Solutions, inc.
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
 
 #region license
 //Licensed under the Apache License, Version 2.0 (the "License"); 
@@ -38,6 +49,7 @@ namespace Deploy.LaunchPad.Core.Abp.Application.Dto
         /// <summary>
         /// The id of this object
         /// </summary>
+        /// <value>The identifier.</value>
         [DataObjectField(true)]
         [XmlAttribute]
         public virtual TIdType Id { get; set; }
@@ -55,7 +67,7 @@ namespace Deploy.LaunchPad.Core.Abp.Application.Dto
         /// <summary>
         /// Default constructor where the id is known
         /// </summary>
-        /// <param name="id"></param>
+        /// <param name="id">The identifier.</param>
         public EntityDtoBase(TIdType id)
         {
             Id = id;
@@ -77,16 +89,16 @@ namespace Deploy.LaunchPad.Core.Abp.Application.Dto
         /// <summary>
         /// The method required for implementing ISerializable
         /// </summary>
-        /// <param name="info"></param>
-        /// <param name="context"></param>
+        /// <param name="info">The information.</param>
+        /// <param name="context">The context.</param>
         public virtual void GetObjectData(SerializationInfo info, StreamingContext context)
         {
             info.AddValue("Id", Id);
         }
 
-        /// <summary>  
-        /// Displays information about the class in readable format.  
-        /// </summary>  
+        /// <summary>
+        /// Displays information about the class in readable format.
+        /// </summary>
         /// <returns>A string representation of the object.</returns>
         public override string ToString()
         {
@@ -138,7 +150,8 @@ namespace Deploy.LaunchPad.Core.Abp.Application.Dto
         /// it is not necessary to test for the correct object type.
         /// </summary>
         /// <param name="other">The other object of this type we are comparing to</param>
-        /// <returns></returns>
+        /// <returns>A value that indicates the relative order of the objects being compared. The return value has these meanings:
+        /// <list type="table"><listheader><term> Value</term><description> Meaning</description></listheader><item><term> Less than zero</term><description> This instance precedes <paramref name="other" /> in the sort order.</description></item><item><term> Zero</term><description> This instance occurs in the same position in the sort order as <paramref name="other" />.</description></item><item><term> Greater than zero</term><description> This instance follows <paramref name="other" /> in the sort order.</description></item></list></returns>
         public virtual int CompareTo(EntityDtoBase<TIdType> other)
         {
             // put comparison of properties in here 
@@ -165,10 +178,10 @@ namespace Deploy.LaunchPad.Core.Abp.Application.Dto
         /// Because the Equals method is strongly typed by generic constraints,
         /// it is not necessary to test for the correct object type.
         /// For safety we just want to match on business key value - in this case the fields
-        /// that cannot be different between the two objects if they are supposedly equal.        
+        /// that cannot be different between the two objects if they are supposedly equal.
         /// </summary>
         /// <param name="obj">The other object of this type that we are testing equality with</param>
-        /// <returns></returns>
+        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
         public virtual bool Equals(EntityDtoBase<TIdType> obj)
         {
             if (obj != null)
@@ -208,13 +221,11 @@ namespace Deploy.LaunchPad.Core.Abp.Application.Dto
             return !(x == y);
         }
 
-        /// <summary>  
-        /// Computes and retrieves a hash code for an object.  
-        /// </summary>  
-        /// <remarks>  
-        /// This method implements the <see cref="Object">Object</see> method.  
-        /// </remarks>  
+        /// <summary>
+        /// Computes and retrieves a hash code for an object.
+        /// </summary>
         /// <returns>A hash code for an object.</returns>
+        /// <remarks>This method implements the <see cref="Object">Object</see> method.</remarks>
         public override int GetHashCode()
         {
             return Id.GetHashCode();

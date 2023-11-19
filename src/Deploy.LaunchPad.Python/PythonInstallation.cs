@@ -1,4 +1,17 @@
-﻿using Deploy.LaunchPad.Core;
+﻿// ***********************************************************************
+// Assembly         : Deploy.LaunchPad.Python
+// Author           : Nicholas Kellett
+// Created          : 11-19-2023
+//
+// Last Modified By : Nicholas Kellett
+// Last Modified On : 02-14-2023
+// ***********************************************************************
+// <copyright file="PythonInstallation.cs" company="Deploy Software Solutions, inc.">
+//     2022-2023 Deploy Software Solutions, inc.
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
+using Deploy.LaunchPad.Core;
 using Deploy.LaunchPad.Core.Domain;
 using System;
 using System.Collections.Generic;
@@ -11,48 +24,91 @@ using System.Xml.Serialization;
 
 namespace Deploy.LaunchPad.Python
 {
+    /// <summary>
+    /// Class PythonInstallation.
+    /// Implements the <see cref="Deploy.LaunchPad.Python.IPythonInstallation" />
+    /// </summary>
+    /// <seealso cref="Deploy.LaunchPad.Python.IPythonInstallation" />
     [Serializable()]
     public partial class PythonInstallation : IPythonInstallation
     {
+        /// <summary>
+        /// Gets or sets the identifier.
+        /// </summary>
+        /// <value>The identifier.</value>
         [DataObjectField(true)]
         [XmlAttribute]
         public virtual string Id { get; set; }
 
+        /// <summary>
+        /// Gets or sets the name.
+        /// </summary>
+        /// <value>The name.</value>
         [DataObjectField(false)]
         [XmlAttribute]
         public virtual string Name { get; set; }
 
+        /// <summary>
+        /// Gets or sets the description short.
+        /// </summary>
+        /// <value>The description short.</value>
         [Required]
         [MaxLength(256, ErrorMessageResourceName = "Validation_DescriptionShort_256CharsOrLess", ErrorMessageResourceType = typeof(Deploy_LaunchPad_Core_Resources))]
         [DataObjectField(false)]
         [XmlAttribute]
         public virtual string DescriptionShort { get; set; }
 
+        /// <summary>
+        /// Gets or sets the description full.
+        /// </summary>
+        /// <value>The description full.</value>
         [MaxLength(8096, ErrorMessageResourceName = "Validation_DescriptionFull_8096CharsOrLess", ErrorMessageResourceType = typeof(Deploy_LaunchPad_Core_Resources))]
         [DataObjectField(false)]
         [XmlElement]
         public virtual string? DescriptionFull { get; set; }
 
+        /// <summary>
+        /// Gets or sets the version.
+        /// </summary>
+        /// <value>The version.</value>
         [Required]
         [DataObjectField(false)]
         [XmlElement]
         public virtual IPythonVersion Version { get; set; }
 
+        /// <summary>
+        /// Gets or sets the install location.
+        /// </summary>
+        /// <value>The install location.</value>
         [Required]
         [DataObjectField(false)]
         [XmlElement]
         public virtual Uri InstallLocation { get; set; }
 
+        /// <summary>
+        /// Gets or sets the module locations.
+        /// </summary>
+        /// <value>The module locations.</value>
         [DataObjectField(false)]
         [XmlElement]
         public virtual IDictionary<string, Uri> ModuleLocations { get; set; }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="PythonInstallation"/> class.
+        /// </summary>
         protected PythonInstallation()
         {
             var comparer = StringComparer.OrdinalIgnoreCase;
             ModuleLocations = new Dictionary<string, Uri>(comparer);
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="PythonInstallation"/> class.
+        /// </summary>
+        /// <param name="installLocation">The install location.</param>
+        /// <param name="majorVersion">The major version.</param>
+        /// <param name="minorVersion">The minor version.</param>
+        /// <param name="patchVersion">The patch version.</param>
         public PythonInstallation(Uri installLocation, PythonMajorVersion majorVersion, PythonMinorVersion minorVersion, int patchVersion)
         {
             string versionNumber = majorVersion.ToString() + "." + minorVersion.ToString() + "." + patchVersion.ToString();
@@ -66,6 +122,14 @@ namespace Deploy.LaunchPad.Python
             DescriptionFull = DescriptionShort;
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="PythonInstallation"/> class.
+        /// </summary>
+        /// <param name="installLocation">The install location.</param>
+        /// <param name="majorVersion">The major version.</param>
+        /// <param name="minorVersion">The minor version.</param>
+        /// <param name="patchVersion">The patch version.</param>
+        /// <param name="moduleLocations">The module locations.</param>
         public PythonInstallation(Uri installLocation, PythonMajorVersion majorVersion, PythonMinorVersion minorVersion, int patchVersion, IDictionary<string, Uri> moduleLocations)
         {
             string versionNumber = majorVersion.ToString() + "." + minorVersion.ToString() + "." + patchVersion.ToString();
@@ -78,6 +142,14 @@ namespace Deploy.LaunchPad.Python
             DescriptionFull = DescriptionShort;
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="PythonInstallation"/> class.
+        /// </summary>
+        /// <param name="installLocation">The install location.</param>
+        /// <param name="moduleLocations">The module locations.</param>
+        /// <param name="majorVersion">The major version.</param>
+        /// <param name="patchVersion">The patch version.</param>
+        /// <param name="minorVersion">The minor version.</param>
         public PythonInstallation(Uri installLocation, IDictionary<string, Uri> moduleLocations, PythonMajorVersion majorVersion, int patchVersion, PythonMinorVersion minorVersion)
         {
             string versionNumber = majorVersion.ToString() + "." + minorVersion.ToString() + "." + patchVersion.ToString();
@@ -106,6 +178,11 @@ namespace Deploy.LaunchPad.Python
             ModuleLocations = (IDictionary<string, Uri>)info.GetValue("ModuleLocations", typeof(IDictionary<string, Uri>));
         }
 
+        /// <summary>
+        /// Populates a <see cref="T:System.Runtime.Serialization.SerializationInfo" /> with the data needed to serialize the target object.
+        /// </summary>
+        /// <param name="info">The <see cref="T:System.Runtime.Serialization.SerializationInfo" /> to populate with data.</param>
+        /// <param name="context">The destination (see <see cref="T:System.Runtime.Serialization.StreamingContext" />) for this serialization.</param>
         public virtual void GetObjectData(SerializationInfo info, StreamingContext context)
         {
             info.AddValue("Id", Id);
@@ -123,7 +200,8 @@ namespace Deploy.LaunchPad.Python
         /// it is not necessary to test for the correct object type.
         /// </summary>
         /// <param name="other">The other object of this type we are comparing to</param>
-        /// <returns></returns>
+        /// <returns>A value that indicates the relative order of the objects being compared. The return value has these meanings:
+        /// <list type="table"><listheader><term> Value</term><description> Meaning</description></listheader><item><term> Less than zero</term><description> This instance precedes <paramref name="other" /> in the sort order.</description></item><item><term> Zero</term><description> This instance occurs in the same position in the sort order as <paramref name="other" />.</description></item><item><term> Greater than zero</term><description> This instance follows <paramref name="other" /> in the sort order.</description></item></list></returns>
         public virtual int CompareTo(PythonInstallation other)
         {
             // put comparison of properties in here 
@@ -131,9 +209,9 @@ namespace Deploy.LaunchPad.Python
             return Name.CompareTo(other.Name);
         }
 
-        /// <summary>  
-        /// Displays information about the <c>Field</c> in readable format.  
-        /// </summary>  
+        /// <summary>
+        /// Displays information about the <c>Field</c> in readable format.
+        /// </summary>
         /// <returns>A string representation of the object.</returns>
         public override string ToString()
         {
@@ -170,10 +248,10 @@ namespace Deploy.LaunchPad.Python
         /// Because the Equals method is strongly typed by generic constraints,
         /// it is not necessary to test for the correct object type.
         /// For safety we just want to match on business key value - in this case the fields
-        /// that cannot be different between the two objects if they are supposedly equal.        
+        /// that cannot be different between the two objects if they are supposedly equal.
         /// </summary>
         /// <param name="obj">The other object of this type that we are testing equality with</param>
-        /// <returns></returns>
+        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
         public virtual bool Equals(PythonInstallation obj)
         {
             if (obj != null)
@@ -219,13 +297,11 @@ namespace Deploy.LaunchPad.Python
             return !(x == y);
         }
 
-        /// <summary>  
-        /// Computes and retrieves a hash code for an object.  
-        /// </summary>  
-        /// <remarks>  
-        /// This method implements the <see cref="Object">Object</see> method.  
-        /// </remarks>  
+        /// <summary>
+        /// Computes and retrieves a hash code for an object.
+        /// </summary>
         /// <returns>A hash code for an object.</returns>
+        /// <remarks>This method implements the <see cref="Object">Object</see> method.</remarks>
         public override int GetHashCode()
         {
             return Id.GetHashCode()

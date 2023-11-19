@@ -1,5 +1,16 @@
-﻿//LaunchPad Shared
-// Copyright (c) 2016-2021 Deploy Software Solutions, inc. 
+﻿// ***********************************************************************
+// Assembly         : Deploy.LaunchPad.Core.Abp
+// Author           : Nicholas Kellett
+// Created          : 11-19-2023
+//
+// Last Modified By : Nicholas Kellett
+// Last Modified On : 07-26-2023
+// ***********************************************************************
+// <copyright file="OrganizationBase.cs" company="Deploy Software Solutions, inc.">
+//     2018-2023 Deploy Software Solutions, inc.
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
 
 #region license
 //Licensed under the Apache License, Version 2.0 (the "License"); 
@@ -34,34 +45,64 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
     /// Implements <see cref="IOrganization&lt;TPrimaryKey&gt;">IOrganization&lt;TPrimaryKey&gt;</see> and provides
     /// base functionality for many of its methods.
     /// </summary>
+    /// <typeparam name="TIdType">The type of the t identifier type.</typeparam>
     public abstract partial class OrganizationBase<TIdType> : LaunchPadDomainEntityBase<TIdType>, IOrganization<TIdType>, IMayHaveTenant
     {
+        /// <summary>
+        /// Gets or sets the schema.
+        /// </summary>
+        /// <value>The schema.</value>
         [DataObjectField(false)]
         [XmlAttribute]
         public virtual Organization Schema { get; set; }
 
+        /// <summary>
+        /// Gets the full name.
+        /// </summary>
+        /// <value>The full name.</value>
         [DataObjectField(false)]
         [XmlAttribute]
         public virtual string FullName { get => Schema.LegalName.ToString(); }
 
+        /// <summary>
+        /// Gets the abbreviation.
+        /// </summary>
+        /// <value>The abbreviation.</value>
         [DataObjectField(false)]
         [XmlAttribute]
         public virtual string Abbreviation { get => Schema.AlternateName.ToString(); }
 
+        /// <summary>
+        /// Gets the website.
+        /// </summary>
+        /// <value>The website.</value>
         [DataObjectField(false)]
         [XmlAttribute]
         public virtual string Website { get => Schema.Url.ToString(); }
 
+        /// <summary>
+        /// Gets the headquarters address.
+        /// </summary>
+        /// <value>The headquarters address.</value>
         [DataObjectField(false)]
         [XmlAttribute]
         public virtual string HeadquartersAddress { get => Schema.Address.ToString(); }
 
+        /// <summary>
+        /// Gets or sets the offices.
+        /// </summary>
+        /// <value>The offices.</value>
+        /// <exception cref="System.NotImplementedException"></exception>
         [DataObjectField(false)]
         [XmlAttribute]
         public virtual IList<string> Offices { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        /// <summary>
+        /// TenantId of this entity.
+        /// </summary>
+        /// <value>The tenant identifier.</value>
         public virtual int? TenantId { get; set; }
 
-        /// <summary>  
+        /// <summary>
         /// Initializes a new instance of the <see cref="OrganizationBase&lt;TPrimaryKey&gt;">OrganizationBase&lt;TPrimaryKey&gt;</see> class
         /// </summary>
         protected OrganizationBase() : base()
@@ -69,9 +110,10 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
         }
 
 
-        /// <summary>  
+        /// <summary>
         /// Initializes a new instance of the <see cref="OrganizationBase&lt;TPrimaryKey&gt;">OrganizationBase&lt;TPrimaryKey&gt;</see> class
         /// </summary>
+        /// <param name="tenantId">The tenant identifier.</param>
         protected OrganizationBase(int? tenantId) : base()
         {
             TenantId = tenantId;
@@ -79,10 +121,10 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
 
         /// <summary>
         /// Creates a new instance of the <see cref="OrganizationBase&lt;TPrimaryKey&gt;">OrganizationBase&lt;TPrimaryKey&gt;</see>
-        /// class given a key, and some metadata. 
+        /// class given a key, and some metadata.
         /// </summary>
-        /// <param name="key">The unique identifier for this entity</param>
-        /// <param name="metadata">The desired metadata for this entity</param>
+        /// <param name="tenantId">The tenant identifier.</param>
+        /// <param name="id">The identifier.</param>
         protected OrganizationBase(int? tenantId, TIdType id) : base()
         {
             TenantId = tenantId;
@@ -102,8 +144,8 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
         /// <summary>
         /// The method required for implementing ISerializable
         /// </summary>
-        /// <param name="info"></param>
-        /// <param name="context"></param>
+        /// <param name="info">The information.</param>
+        /// <param name="context">The context.</param>
         public override void GetObjectData(SerializationInfo info, StreamingContext context)
         {
             base.GetObjectData(info, context);
@@ -138,7 +180,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
         /// it is not necessary to test for the correct object type.
         /// </summary>
         /// <param name="other">The other object of this type we are comparing to</param>
-        /// <returns></returns>
+        /// <returns>System.Int32.</returns>
         public virtual int CompareTo(OrganizationBase<TIdType> other)
         {
             return other == null ? 1 : String.Compare(FullName, other.FullName, StringComparison.InvariantCulture);
@@ -180,10 +222,10 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
         /// Because the Equals method is strongly typed by generic constraints,
         /// it is not necessary to test for the correct object type.
         /// For safety we just want to match on business key value - in this case the fields
-        /// that cannot be different between the two objects if they are supposedly equal.        
+        /// that cannot be different between the two objects if they are supposedly equal.
         /// </summary>
         /// <param name="obj">The other object of this type that we are testing equality with</param>
-        /// <returns></returns>
+        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
         public virtual bool Equals(OrganizationBase<TIdType> obj)
         {
             if (obj != null)
@@ -238,13 +280,11 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
             return !(x == y);
         }
 
-        /// <summary>  
-        /// Computes and retrieves a hash code for an object.  
-        /// </summary>  
-        /// <remarks>  
-        /// This method implements the <see cref="Object">Object</see> method.  
-        /// </remarks>  
+        /// <summary>
+        /// Computes and retrieves a hash code for an object.
+        /// </summary>
         /// <returns>A hash code for an object.</returns>
+        /// <remarks>This method implements the <see cref="object">Object</see> method.</remarks>
         public override int GetHashCode()
         {
             return Id.GetHashCode();

@@ -1,4 +1,16 @@
-﻿// Copyright (c) 2018-2023 Deploy Software Solutions, inc. 
+﻿// ***********************************************************************
+// Assembly         : Deploy.LaunchPad.Space.Satellites
+// Author           : Nicholas Kellett
+// Created          : 11-19-2023
+//
+// Last Modified By : Nicholas Kellett
+// Last Modified On : 01-22-2023
+// ***********************************************************************
+// <copyright file="Radarsat1DataUsageRights.cs" company="Deploy Software Solutions, inc.">
+//     2018-2023 Deploy Software Solutions, inc.
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
 
 #region license
 //Licensed under the Apache License, Version 2.0 (the "License"); 
@@ -25,6 +37,9 @@ namespace Deploy.LaunchPad.Space.Satellites.GoC
     public partial class Radarsat1DataUsageRights : UsageRights
     {
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Radarsat1DataUsageRights"/> class.
+        /// </summary>
         public Radarsat1DataUsageRights() : base()
         {
             Owner = Deploy_LaunchPad_Space_Resources.Text_Radarsat1DataUsageRights_Owner;

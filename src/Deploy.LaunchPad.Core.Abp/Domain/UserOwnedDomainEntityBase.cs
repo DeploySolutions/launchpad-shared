@@ -1,5 +1,16 @@
-﻿//LaunchPad Shared
-// Copyright (c) 2016-2021 Deploy Software Solutions, inc. 
+﻿// ***********************************************************************
+// Assembly         : Deploy.LaunchPad.Core.Abp
+// Author           : Nicholas Kellett
+// Created          : 11-19-2023
+//
+// Last Modified By : Nicholas Kellett
+// Last Modified On : 11-19-2023
+// ***********************************************************************
+// <copyright file="UserOwnedDomainEntityBase.cs" company="Deploy Software Solutions, inc.">
+//     2018-2023 Deploy Software Solutions, inc.
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
 
 #region license
 //Licensed under the Apache License, Version 2.0 (the "License"); 
@@ -28,19 +39,21 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
     /// <summary>
     /// Base class for Entities that can be owned by a User (contain UserId).  Inherits from DomainEntityBase abstract class.
     /// </summary>
+    /// <typeparam name="TIdType">The type of the t identifier type.</typeparam>
     public abstract partial class UserOwnedDomainEntityBase<TIdType> :
         LaunchPadDomainEntityBase<TIdType>, ILaunchPadDomainEntity<TIdType>
     {
 
 
-        ///<summary>
+        /// <summary>
         /// FK id for the User
-        ///</summary>
+        /// </summary>
+        /// <value>The user identifier.</value>
         [DataObjectField(false)]
         [XmlAttribute]
         public System.Int64? UserId { get; set; }
 
-        /// <summary>  
+        /// <summary>
         /// Initializes a new instance of the <see cref="UserOwnedDomainEntityBase">UserOwnedDomainEntityBase</see> class
         /// </summary>
         protected UserOwnedDomainEntityBase() : base()
@@ -49,17 +62,18 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
         }
 
         /// <summary>
-        /// Creates a new instance of the <see cref="UserOwnedDomainEntityBase">UserOwnedDomainEntityBase</see> class given a key, and some metadata. 
+        /// Creates a new instance of the <see cref="UserOwnedDomainEntityBase">UserOwnedDomainEntityBase</see> class given a key, and some metadata.
         /// </summary>
-        /// <param name="culture">The culture for this entity</param>
+        /// <param name="id">The identifier.</param>
         protected UserOwnedDomainEntityBase(TIdType id) : base(id)
         {
 
         }
 
         /// <summary>
-        /// Creates a new instance of the <see cref="UserOwnedDomainEntityBase">UserOwnedDomainEntityBase</see> class given a key, and some metadata. 
+        /// Creates a new instance of the <see cref="UserOwnedDomainEntityBase">UserOwnedDomainEntityBase</see> class given a key, and some metadata.
         /// </summary>
+        /// <param name="id">The identifier.</param>
         /// <param name="culture">The culture for this entity</param>
         protected UserOwnedDomainEntityBase(TIdType id, string culture) : base(id, culture)
         {
@@ -81,8 +95,8 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
         /// <summary>
         /// The method required for implementing ISerializable
         /// </summary>
-        /// <param name="info"></param>
-        /// <param name="context"></param>
+        /// <param name="info">The information.</param>
+        /// <param name="context">The context.</param>
         public override void GetObjectData(SerializationInfo info, StreamingContext context)
         {
             base.GetObjectData(info, context);
@@ -117,7 +131,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
         /// it is not necessary to test for the correct object type.
         /// </summary>
         /// <param name="other">The other object of this type we are comparing to</param>
-        /// <returns></returns>
+        /// <returns>System.Int32.</returns>
         public virtual int CompareTo(UserOwnedDomainEntityBase<TIdType> other)
         {
             // put comparison of properties in here 
@@ -125,9 +139,9 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
             return Name.CompareTo(other.Name);
         }
 
-        /// <summary>  
-        /// Displays information about the <c>Field</c> in readable format.  
-        /// </summary>  
+        /// <summary>
+        /// Displays information about the <c>Field</c> in readable format.
+        /// </summary>
         /// <returns>A string representation of the object.</returns>
         public override String ToString()
         {
@@ -158,10 +172,10 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
         /// Because the Equals method is strongly typed by generic constraints,
         /// it is not necessary to test for the correct object type.
         /// For safety we just want to match on business key value - in this case the fields
-        /// that cannot be different between the two objects if they are supposedly equal.        
+        /// that cannot be different between the two objects if they are supposedly equal.
         /// </summary>
         /// <param name="obj">The other object of this type that we are testing equality with</param>
-        /// <returns></returns>
+        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
         public virtual bool Equals(UserOwnedDomainEntityBase<TIdType> obj)
         {
             if (obj != null)
@@ -215,13 +229,11 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
             return !(x == y);
         }
 
-        /// <summary>  
-        /// Computes and retrieves a hash code for an object.  
-        /// </summary>  
-        /// <remarks>  
-        /// This method implements the <see cref="Object">Object</see> method.  
-        /// </remarks>  
+        /// <summary>
+        /// Computes and retrieves a hash code for an object.
+        /// </summary>
         /// <returns>A hash code for an object.</returns>
+        /// <remarks>This method implements the <see cref="object">Object</see> method.</remarks>
         public override int GetHashCode()
         {
             return Culture.GetHashCode()

@@ -1,4 +1,17 @@
-﻿using System;
+﻿// ***********************************************************************
+// Assembly         : Deploy.LaunchPad.Python
+// Author           : Nicholas Kellett
+// Created          : 11-19-2023
+//
+// Last Modified By : Nicholas Kellett
+// Last Modified On : 05-13-2023
+// ***********************************************************************
+// <copyright file="PythonReleaseRegistry.cs" company="Deploy Software Solutions, inc.">
+//     2022-2023 Deploy Software Solutions, inc.
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -7,11 +20,23 @@ using System.Threading.Tasks;
 
 namespace Deploy.LaunchPad.Python
 {
+    /// <summary>
+    /// Class PythonReleaseRegistry.
+    /// Implements the <see cref="System.IEquatable{Deploy.LaunchPad.Python.PythonReleaseRegistry}" />
+    /// </summary>
+    /// <seealso cref="System.IEquatable{Deploy.LaunchPad.Python.PythonReleaseRegistry}" />
     [Serializable]
     public partial record PythonReleaseRegistry
     {
+        /// <summary>
+        /// Gets the releases.
+        /// </summary>
+        /// <value>The releases.</value>
         public virtual Dictionary<string, PythonVersion> Releases { get; init; }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="PythonReleaseRegistry"/> class.
+        /// </summary>
         public PythonReleaseRegistry() { 
             Releases = PopulateReleases();
         }
@@ -19,7 +44,7 @@ namespace Deploy.LaunchPad.Python
         /// <summary>
         /// Populate (some) of the Python releases listed on https://www.python.org/
         /// </summary>
-        /// <returns></returns>
+        /// <returns>Dictionary&lt;System.String, PythonVersion&gt;.</returns>
         protected Dictionary<string, PythonVersion> PopulateReleases()
         {
             var comparer = StringComparer.OrdinalIgnoreCase;

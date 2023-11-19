@@ -1,5 +1,16 @@
-﻿//LaunchPad Shared
-// Copyright (c) 2016-2021 Deploy Software Solutions, inc. 
+﻿// ***********************************************************************
+// Assembly         : Deploy.LaunchPad.Core.Abp
+// Author           : Nicholas Kellett
+// Created          : 11-19-2023
+//
+// Last Modified By : Nicholas Kellett
+// Last Modified On : 07-26-2023
+// ***********************************************************************
+// <copyright file="ContentItem.cs" company="Deploy Software Solutions, inc.">
+//     2018-2023 Deploy Software Solutions, inc.
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
 
 #region license
 //Licensed under the Apache License, Version 2.0 (the "License"); 
@@ -30,35 +41,54 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
     /// <summary>
     /// Represents some text
     /// </summary>
-    /// <typeparam name="TIdType"></typeparam>
+    /// <typeparam name="TIdType">The type of the t identifier type.</typeparam>
     [Serializable()]
-    public class ContentItem<TIdType> : LaunchPadDomainEntityBase<TIdType>, IContentItem<TIdType>, IMayHaveTenant
+    public partial class ContentItem<TIdType> : LaunchPadDomainEntityBase<TIdType>, IContentItem<TIdType>, IMayHaveTenant
     {
         /// <summary>
         /// The textual content
         /// </summary>
+        /// <value>The content.</value>
         [DataObjectField(false)]
         [XmlAttribute]
         public virtual String Content
         {
             get; set;
         }
+        /// <summary>
+        /// TenantId of this entity.
+        /// </summary>
+        /// <value>The tenant identifier.</value>
         public int? TenantId { get; set; }
 
 
         #region "Constructors"
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ContentItem{TIdType}"/> class.
+        /// </summary>
         public ContentItem() : base()
         {
             Content = String.Empty;
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ContentItem{TIdType}"/> class.
+        /// </summary>
+        /// <param name="tenantId">The tenant identifier.</param>
         public ContentItem(int tenantId) : base()
         {
             Content = String.Empty;
             TenantId = tenantId;
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ContentItem{TIdType}"/> class.
+        /// </summary>
+        /// <param name="tenantId">The tenant identifier.</param>
+        /// <param name="id">The identifier.</param>
+        /// <param name="cultureName">Name of the culture.</param>
+        /// <param name="text">The text.</param>
         public ContentItem(int tenantId, TIdType id, string cultureName, String text) : base(id, cultureName)
         {
             Content = text;
@@ -80,17 +110,17 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
         /// <summary>
         /// The method required for implementing ISerializable
         /// </summary>
-        /// <param name="info"></param>
-        /// <param name="context"></param>
+        /// <param name="info">The information.</param>
+        /// <param name="context">The context.</param>
         public override void GetObjectData(SerializationInfo info, StreamingContext context)
         {
             base.GetObjectData(info, context);
             info.AddValue("Text", Content);
         }
 
-        /// <summary>  
-        /// Displays information about the class in readable format.  
-        /// </summary>  
+        /// <summary>
+        /// Displays information about the class in readable format.
+        /// </summary>
         /// <returns>A string representation of the object.</returns>
         public override string ToString()
         {

@@ -1,5 +1,16 @@
-﻿//LaunchPad Shared
-// Copyright (c) 2016-2021 Deploy Software Solutions, inc. 
+﻿// ***********************************************************************
+// Assembly         : Deploy.LaunchPad.Core.Tests
+// Author           : Nicholas Kellett
+// Created          : 11-19-2023
+//
+// Last Modified By : Nicholas Kellett
+// Last Modified On : 03-21-2023
+// ***********************************************************************
+// <copyright file="FileTests.cs" company="Deploy.LaunchPad.Core.Tests">
+//     Copyright (c) Deploy Software Solutions, Inc.. All rights reserved.
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
 
 #region license
 //Licensed under the Apache License, Version 2.0 (the "License"); 
@@ -27,15 +38,27 @@ namespace Deploy.LaunchPad.Core.Tests
     using System;
     using Castle.Core.Logging;
 
-    public class FileTests : IClassFixture<FileTestsFixture>
+    /// <summary>
+    /// Class FileTests.
+    /// Implements the <see cref="Xunit.IClassFixture{Deploy.LaunchPad.Core.Tests.FileTestsFixture}" />
+    /// </summary>
+    /// <seealso cref="Xunit.IClassFixture{Deploy.LaunchPad.Core.Tests.FileTestsFixture}" />
+    public partial class FileTests : IClassFixture<FileTestsFixture>
     {
         #region "Test Classes"
 
 
+        /// <summary>
+        /// The fixture
+        /// </summary>
         private readonly FileTestsFixture _fixture;
 
         #endregion
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="FileTests"/> class.
+        /// </summary>
+        /// <param name="fixture">The fixture.</param>
         public FileTests(FileTestsFixture fixture)
         {
             _fixture = fixture;
@@ -50,6 +73,9 @@ namespace Deploy.LaunchPad.Core.Tests
             this._fixture.Initialize(location);
         }
 
+        /// <summary>
+        /// Defines the test method Root_Folder_Name_Should_NotBeNullOrEmpty.
+        /// </summary>
         [Fact]
         public void Root_Folder_Name_Should_NotBeNullOrEmpty()
         {

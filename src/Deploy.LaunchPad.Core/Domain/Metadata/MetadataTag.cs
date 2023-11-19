@@ -1,5 +1,16 @@
-﻿//LaunchPad Shared
-// Copyright (c) 2016-2021 Deploy Software Solutions, inc. 
+﻿// ***********************************************************************
+// Assembly         : Deploy.LaunchPad.Core
+// Author           : Nicholas Kellett
+// Created          : 11-19-2023
+//
+// Last Modified By : Nicholas Kellett
+// Last Modified On : 01-08-2023
+// ***********************************************************************
+// <copyright file="MetadataTag.cs" company="Deploy Software Solutions, inc.">
+//     2018-2023 Deploy Software Solutions, inc.
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
 
 #region license
 //Licensed under the Apache License, Version 2.0 (the "License"); 
@@ -24,14 +35,21 @@ namespace Deploy.LaunchPad.Core.Domain
     using System.Text;
 
 
+    /// <summary>
+    /// Class MetadataTag.
+    /// Implements the <see cref="Deploy.LaunchPad.Core.Domain.TagBase" />
+    /// Implements the <see cref="Deploy.LaunchPad.Core.Domain.ILaunchPadMetadataTag" />
+    /// </summary>
+    /// <seealso cref="Deploy.LaunchPad.Core.Domain.TagBase" />
+    /// <seealso cref="Deploy.LaunchPad.Core.Domain.ILaunchPadMetadataTag" />
     [Serializable()]
     [Table("DssMetadataTag")]
-    public class MetadataTag : TagBase, ILaunchPadMetadataTag
+    public partial class MetadataTag : TagBase, ILaunchPadMetadataTag
     {
 
         #region "Constructors"
 
-        /// <summary>  
+        /// <summary>
         /// Initializes a new instance of the <see cref="MetadataTag">MetadataTag</see> class
         /// </summary>
         public MetadataTag() : base()
@@ -41,7 +59,7 @@ namespace Deploy.LaunchPad.Core.Domain
         }
 
         /// <summary>
-        /// Creates a new instance of the <see cref="MetadataTag">MetadataTag</see> class given a key, and some metadata. 
+        /// Creates a new instance of the <see cref="MetadataTag">MetadataTag</see> class given a key, and some metadata.
         /// </summary>
         /// <param name="key">The key for this tag</param>
         /// <param name="value">The desired value for this tag</param>
@@ -50,11 +68,11 @@ namespace Deploy.LaunchPad.Core.Domain
         }
 
         /// <summary>
-        /// Creates a new instance of the <see cref="MetadataTag">MetadataTag</see> class given a key, and some metadata. 
+        /// Creates a new instance of the <see cref="MetadataTag">MetadataTag</see> class given a key, and some metadata.
         /// </summary>
         /// <param name="key">The key for this tag</param>
         /// <param name="value">The desired value for this tag</param>
-        ///  <param name="schema">The desired schema for this tag</param>
+        /// <param name="schema">The desired schema for this tag</param>
         public MetadataTag(String key, String value, String schema) : base(key, value, schema)
         {
         }
@@ -77,8 +95,8 @@ namespace Deploy.LaunchPad.Core.Domain
         /// <summary>
         /// The method required for implementing ISerializable
         /// </summary>
-        /// <param name="info"></param>
-        /// <param name="context"></param>
+        /// <param name="info">The information.</param>
+        /// <param name="context">The context.</param>
         public override void GetObjectData(SerializationInfo info, StreamingContext context)
         {
             base.GetObjectData(info, context);
@@ -88,9 +106,9 @@ namespace Deploy.LaunchPad.Core.Domain
             info.AddValue("Value", Value);
         }
 
-        /// <summary>  
-        /// Displays information about the class in readable format.  
-        /// </summary>  
+        /// <summary>
+        /// Displays information about the class in readable format.
+        /// </summary>
         /// <returns>A string representation of the object.</returns>
         public override string ToString()
         {

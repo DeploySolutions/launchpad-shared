@@ -1,5 +1,16 @@
-﻿//LaunchPad Shared
-// Copyright (c) 2016-2021 Deploy Software Solutions, inc. 
+﻿// ***********************************************************************
+// Assembly         : Deploy.LaunchPad.Core.Abp
+// Author           : Nicholas Kellett
+// Created          : 11-19-2023
+//
+// Last Modified By : Nicholas Kellett
+// Last Modified On : 07-26-2023
+// ***********************************************************************
+// <copyright file="DeploymentProcessBase.cs" company="Deploy Software Solutions, inc.">
+//     2018-2023 Deploy Software Solutions, inc.
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
 
 #region license
 //Licensed under the Apache License, Version 2.0 (the "License"); 
@@ -33,6 +44,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
         /// <summary>
         /// The URI to the deployment documentation
         /// </summary>
+        /// <value>The documentation URI.</value>
         [DataObjectField(false)]
         [XmlAttribute]
         public virtual Uri DocumentationUri { get; set; }
@@ -40,6 +52,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
         /// <summary>
         /// The URI to the diagram
         /// </summary>
+        /// <value>The diagram URI.</value>
         [DataObjectField(false)]
         [XmlAttribute]
         public virtual Uri DiagramUri { get; set; }
@@ -47,11 +60,20 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
 
         #region "Constructors"
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DeploymentProcessBase{TIdType}"/> class.
+        /// </summary>
         protected DeploymentProcessBase() : base()
         {
         }
 
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DeploymentProcessBase{TIdType}"/> class.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <param name="cultureName">Name of the culture.</param>
+        /// <param name="text">The text.</param>
         protected DeploymentProcessBase(TIdType id, string cultureName, String text) : base(id, cultureName)
         {
         }
@@ -72,8 +94,8 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
         /// <summary>
         /// The method required for implementing ISerializable
         /// </summary>
-        /// <param name="info"></param>
-        /// <param name="context"></param>
+        /// <param name="info">The information.</param>
+        /// <param name="context">The context.</param>
         public override void GetObjectData(SerializationInfo info, StreamingContext context)
         {
             base.GetObjectData(info, context);
@@ -81,9 +103,9 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
             info.AddValue("DocumentationUrl", DocumentationUri);
         }
 
-        /// <summary>  
-        /// Displays information about the class in readable format.  
-        /// </summary>  
+        /// <summary>
+        /// Displays information about the class in readable format.
+        /// </summary>
         /// <returns>A string representation of the object.</returns>
         public override string ToString()
         {

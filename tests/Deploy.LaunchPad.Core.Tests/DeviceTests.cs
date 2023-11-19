@@ -1,5 +1,16 @@
-﻿//LaunchPad Shared
-// Copyright (c) 2016-2021 Deploy Software Solutions, inc. 
+﻿// ***********************************************************************
+// Assembly         : Deploy.LaunchPad.Core.Tests
+// Author           : Nicholas Kellett
+// Created          : 11-19-2023
+//
+// Last Modified By : Nicholas Kellett
+// Last Modified On : 06-12-2023
+// ***********************************************************************
+// <copyright file="DeviceTests.cs" company="Deploy.LaunchPad.Core.Tests">
+//     Copyright (c) Deploy Software Solutions, Inc.. All rights reserved.
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
 
 #region license
 //Licensed under the Apache License, Version 2.0 (the "License"); 
@@ -25,7 +36,12 @@ namespace Deploy.LaunchPad.Core.Tests
     using Deploy.LaunchPad.Core.Domain.Devices;
     using Deploy.LaunchPad.Core.Geospatial;
 
-    public class DeviceTests : IClassFixture<DeviceTestsFixture>
+    /// <summary>
+    /// Class DeviceTests.
+    /// Implements the <see cref="Xunit.IClassFixture{Deploy.LaunchPad.Core.Tests.DeviceTestsFixture}" />
+    /// </summary>
+    /// <seealso cref="Xunit.IClassFixture{Deploy.LaunchPad.Core.Tests.DeviceTestsFixture}" />
+    public partial class DeviceTests : IClassFixture<DeviceTestsFixture>
     {
         #region "Test Classes"
 
@@ -33,8 +49,15 @@ namespace Deploy.LaunchPad.Core.Tests
 
         #endregion
 
+        /// <summary>
+        /// The fixture
+        /// </summary>
         private readonly DeviceTestsFixture _fixture;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DeviceTests"/> class.
+        /// </summary>
+        /// <param name="fixture">The fixture.</param>
         public DeviceTests(DeviceTestsFixture fixture)
         {
             this._fixture = fixture;
@@ -45,42 +68,63 @@ namespace Deploy.LaunchPad.Core.Tests
             this._fixture.Initialize(device);
         }
 
+        /// <summary>
+        /// Defines the test method Should_Have_NotNull_Culture_When_Instantiated.
+        /// </summary>
         [Fact]
         public void Should_Have_NotNull_Culture_When_Instantiated()
         {
             _fixture.SUT.Culture.Should().NotBeNullOrEmpty();
         }
 
+        /// <summary>
+        /// Defines the test method Should_Have_NotNull_CurrentPhysicalLocation_When_Instantiated.
+        /// </summary>
         [Fact]
         public void Should_Have_NotNull_CurrentPhysicalLocation_When_Instantiated()
         {
             _fixture.SUT.CurrentLocation.Should().NotBeNull();
         }
 
+        /// <summary>
+        /// Defines the test method Should_Have_NotNull_PowerLevel_When_Instantiated.
+        /// </summary>
         [Fact]
         public void Should_Have_NotNull_PowerLevel_When_Instantiated()
         {
             _fixture.SUT.Power.Should().NotBeNull();
         }
 
+        /// <summary>
+        /// Defines the test method Should_Have_Unknown_PowerLevel_When_Instantiated.
+        /// </summary>
         [Fact]
         public void Should_Have_Unknown_PowerLevel_When_Instantiated()
         {
             _fixture.SUT.Power.PowerLevel.Should().Be(DevicePowerChargeLevel.Unknown);
         }
 
+        /// <summary>
+        /// Defines the test method Should_Have_Unknown_Power_RemainingChargeTime_When_Instantiated_Without_Providing_Value_In_Constructor.
+        /// </summary>
         [Fact]
         public void Should_Have_Unknown_Power_RemainingChargeTime_When_Instantiated_Without_Providing_Value_In_Constructor()
         {
             _fixture.SUT.Power.RemainingChargeTime.Should().NotHaveValue();
         }
 
+        /// <summary>
+        /// Defines the test method Should_Have_PreviousPhysicalLocations_When_Instantiated_Without_Providing_Value_In_Constructor.
+        /// </summary>
         [Fact]
         public void Should_Have_PreviousPhysicalLocations_When_Instantiated_Without_Providing_Value_In_Constructor()
         {
             _fixture.SUT.PreviousLocations.Should().HaveCount(0);
         }
 
+        /// <summary>
+        /// Defines the test method Should_Allow_PreviousPhysicalLocations_To_Be_Added.
+        /// </summary>
         [Fact]
         public void Should_Allow_PreviousPhysicalLocations_To_Be_Added()
         {
@@ -102,6 +146,9 @@ namespace Deploy.LaunchPad.Core.Tests
             
         }
 
+        /// <summary>
+        /// Defines the test method Should_Be_Equal.
+        /// </summary>
         [Fact]
         public void Should_Be_Equal()
         {

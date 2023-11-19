@@ -1,5 +1,16 @@
-﻿//LaunchPad Shared
-// Copyright (c) 2016-2021 Deploy Software Solutions, inc. 
+﻿// ***********************************************************************
+// Assembly         : Deploy.LaunchPad.Core.Abp
+// Author           : Nicholas Kellett
+// Created          : 11-19-2023
+//
+// Last Modified By : Nicholas Kellett
+// Last Modified On : 07-26-2023
+// ***********************************************************************
+// <copyright file="ILaunchPadDomainService.cs" company="Deploy Software Solutions, inc.">
+//     2018-2023 Deploy Software Solutions, inc.
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
 
 #region license
 //Licensed under the Apache License, Version 2.0 (the "License"); 
@@ -23,9 +34,9 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
     /// This is a marker interface to support auto-registration as a IoC / Dependency Injection component.
     /// By convention, any interface under a namespace ending with "Services" will be registered upon application startup.
     /// However, some component services may wish to autoregister while under another namespace.
-    /// Implementing the ILaunchPadService interface will ensure they are auto-registered. 
+    /// Implementing the ILaunchPadService interface will ensure they are auto-registered.
     /// </summary>
-    public interface ILaunchPadDomainService : IDomainService
+    public partial interface ILaunchPadDomainService : IDomainService
     {
     }
 }

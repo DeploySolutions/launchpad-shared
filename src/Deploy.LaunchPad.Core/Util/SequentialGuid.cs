@@ -1,5 +1,16 @@
-//LaunchPad Shared
-// Copyright (c) 2016-2021 Deploy Software Solutions, inc. 
+// ***********************************************************************
+// Assembly         : Deploy.LaunchPad.Core
+// Author           : Nicholas Kellett
+// Created          : 11-19-2023
+//
+// Last Modified By : Nicholas Kellett
+// Last Modified On : 01-08-2023
+// ***********************************************************************
+// <copyright file="SequentialGuid.cs" company="Deploy Software Solutions, inc.">
+//     2018-2023 Deploy Software Solutions, inc.
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
 
 //This file is a derivative work from Jeremy Todd as described in Code Project website at
 //http://www.codeproject.com/Articles/388157/GUIDs-as-fast-primary-keys-under-multiple-database 
@@ -74,11 +85,14 @@ namespace Deploy.LaunchPad.Core.Util
     /// <summary>
     /// This class generates Sequential aka COMB Guids, some of whose bytes have been replaced by a timestamp-based value that is guaranteed to increase, but not decrease, with each new value generated.
     /// The goal is to remove the database performance limitations of using GUIDS as surrogate primary keys.
-    /// Implementation borrowed from Jeremy Todd at http://www.codeproject.com/Articles/388157/GUIDs-as-fast-primary-keys-under-multiple-database 
+    /// Implementation borrowed from Jeremy Todd at http://www.codeproject.com/Articles/388157/GUIDs-as-fast-primary-keys-under-multiple-database
     /// </summary>
-    public class SequentialGuid
+    public partial class SequentialGuid
     {
 
+        /// <summary>
+        /// The RNG
+        /// </summary>
         private static readonly RNGCryptoServiceProvider _rng = new RNGCryptoServiceProvider();
 
         /// <summary>
@@ -86,25 +100,35 @@ namespace Deploy.LaunchPad.Core.Util
         /// </summary>
         public enum SequentialGuidType
         {
+            /// <summary>
+            /// The sequential as string
+            /// </summary>
             SequentialAsString,
+            /// <summary>
+            /// The sequential as binary
+            /// </summary>
             SequentialAsBinary,
+            /// <summary>
+            /// The sequential at end
+            /// </summary>
             SequentialAtEnd
         }
 
         /// <summary>
         /// Convenience method to quickly generate a sequential GUID using the SequentialAsString approach)
         /// </summary>
-        /// <returns></returns>
+        /// <returns>Guid.</returns>
         public static Guid NewGuid()
         {
             return Generate(SequentialGuidType.SequentialAsString);
         }
 
-        ///<summary>
+        /// <summary>
         /// Generates a GuidComb (COMBined GUID/timestamp). This is a Guid generation model, suggested by Jimmy Nilsson, where some bytes have been replaced by a timestamp-based value that is guaranteed to increase, but not decrease, with each new value generated.
         /// The goal is to remove the database performance limitations of using GUIDS as surrogate primary keys.
-        ///</summary>
-        ///<returns><see cref="Guid"/></returns>
+        /// </summary>
+        /// <param name="guidType">Type of the unique identifier.</param>
+        /// <returns><see cref="Guid" /></returns>
         /// TODO: Determine the database type from service locator and predetermine what the guidType should be
         public static Guid Generate(SequentialGuidType guidType)
         {

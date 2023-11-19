@@ -1,5 +1,16 @@
-﻿//LaunchPad Shared
-// Copyright (c) 2016-2021 Deploy Software Solutions, inc. 
+﻿// ***********************************************************************
+// Assembly         : Deploy.LaunchPad.Core.Tests
+// Author           : Nicholas Kellett
+// Created          : 11-19-2023
+//
+// Last Modified By : Nicholas Kellett
+// Last Modified On : 01-08-2023
+// ***********************************************************************
+// <copyright file="DtoTests.cs" company="Deploy.LaunchPad.Core.Tests">
+//     Copyright (c) Deploy Software Solutions, Inc.. All rights reserved.
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
 
 #region license
 //Licensed under the Apache License, Version 2.0 (the "License"); 
@@ -25,7 +36,12 @@ namespace Deploy.LaunchPad.Core.Tests
     using Deploy.LaunchPad.Core.Domain.Devices;
     using Deploy.LaunchPad.Core.Abp.Domain;
 
-    public class DtoTests : IClassFixture<DeviceTestsFixture>
+    /// <summary>
+    /// Class DtoTests.
+    /// Implements the <see cref="Xunit.IClassFixture{Deploy.LaunchPad.Core.Tests.DeviceTestsFixture}" />
+    /// </summary>
+    /// <seealso cref="Xunit.IClassFixture{Deploy.LaunchPad.Core.Tests.DeviceTestsFixture}" />
+    public partial class DtoTests : IClassFixture<DeviceTestsFixture>
     {
         #region "Test Classes"
 
@@ -33,8 +49,15 @@ namespace Deploy.LaunchPad.Core.Tests
 
         #endregion
 
+        /// <summary>
+        /// The fixture
+        /// </summary>
         private readonly DtoTestsFixture _fixture;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DtoTests"/> class.
+        /// </summary>
+        /// <param name="fixture">The fixture.</param>
         public DtoTests(DtoTestsFixture fixture)
         {
             this._fixture = fixture;

@@ -1,5 +1,16 @@
-﻿//LaunchPad Shared
-// Copyright (c) 2018-2023 Deploy Software Solutions, inc. 
+﻿// ***********************************************************************
+// Assembly         : Deploy.LaunchPad.Core
+// Author           : Nicholas Kellett
+// Created          : 11-19-2023
+//
+// Last Modified By : Nicholas Kellett
+// Last Modified On : 07-26-2023
+// ***********************************************************************
+// <copyright file="GeographicPosition.cs" company="Deploy Software Solutions, inc.">
+//     2018-2023 Deploy Software Solutions, inc.
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
 
 #region license
 //Licensed under the Apache License, Version 2.0 (the "License"); 
@@ -43,9 +54,16 @@ namespace Deploy.LaunchPad.Core.Geospatial
     [Serializable()]
     public partial class GeographicPosition : IHaveGeographicPosition, IEquatable<GeographicPosition>
     {
+        /// <summary>
+        /// The geometry
+        /// </summary>
         [NotMapped]
         protected Point _geometry;
 
+        /// <summary>
+        /// Sets the geometry.
+        /// </summary>
+        /// <returns>Point.</returns>
         public virtual Point SetGeometry()
         {
             var serializer = GeoJsonSerializer.Create();
@@ -57,6 +75,10 @@ namespace Deploy.LaunchPad.Core.Geospatial
             return _geometry;
         }
 
+        /// <summary>
+        /// Gets or sets the geo json.
+        /// </summary>
+        /// <value>The geo json.</value>
         [DataObjectField(false)]
         [XmlAttribute]
         public virtual string GeoJson
@@ -65,7 +87,14 @@ namespace Deploy.LaunchPad.Core.Geospatial
         }
 
 
+        /// <summary>
+        /// The altitude
+        /// </summary>
         protected double? _altitude;
+        /// <summary>
+        /// Gets or sets the altitude.
+        /// </summary>
+        /// <value>The altitude.</value>
         [DataObjectField(false)]
         [XmlAttribute]
         public virtual double? Altitude
@@ -78,7 +107,14 @@ namespace Deploy.LaunchPad.Core.Geospatial
             }
         }
 
+        /// <summary>
+        /// The elevation
+        /// </summary>
         protected double? _elevation;
+        /// <summary>
+        /// Gets or sets the elevation.
+        /// </summary>
+        /// <value>The elevation.</value>
         [DataObjectField(false)]
         [XmlAttribute]
         public virtual double? Elevation
@@ -91,7 +127,14 @@ namespace Deploy.LaunchPad.Core.Geospatial
             }
         }
 
+        /// <summary>
+        /// The earth coordinate
+        /// </summary>
         protected Coordinate _earthCoordinate;
+        /// <summary>
+        /// Gets or sets the coordinate.
+        /// </summary>
+        /// <value>The coordinate.</value>
         [DataObjectField(false)]
         [XmlAttribute]
         public virtual Coordinate Coordinate
@@ -114,7 +157,14 @@ namespace Deploy.LaunchPad.Core.Geospatial
             }
         }
 
+        /// <summary>
+        /// The h3 index
+        /// </summary>
         protected H3Index _h3Index;
+        /// <summary>
+        /// Gets or sets the index of the h3.
+        /// </summary>
+        /// <value>The index of the h3.</value>
         [DataObjectField(false)]
         [XmlAttribute]
         public virtual H3Index H3Index
@@ -141,6 +191,11 @@ namespace Deploy.LaunchPad.Core.Geospatial
             _h3Index = _earthCoordinate.ToH3Index(9);
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="GeographicPosition"/> class.
+        /// </summary>
+        /// <param name="longitude">The longitude.</param>
+        /// <param name="latitude">The latitude.</param>
         public GeographicPosition(double longitude, double latitude)
         {
             Elevation = 0;
@@ -173,21 +228,22 @@ namespace Deploy.LaunchPad.Core.Geospatial
             info.AddValue("H3Index", H3Index);
         }
 
-        /// Event called once deserialization constructor finishes.
-        /// Useful for reattaching connections and other 
-        /// <summary>finite resources that 
+        /// <summary>
+        /// finite resources that
         /// can't be serialized and deserialized.
         /// </summary>
         /// <param name="sender">The object that has been deserialized</param>
+        /// Event called once deserialization constructor finishes.
+        /// Useful for reattaching connections and other
         public virtual void OnDeserialization(object sender)
         {
             // reconnect connection strings and other resources that won't be serialized
         }
 
 
-        /// <summary>  
-        /// Displays information about the <c>Field</c> in readable format.  
-        /// </summary>  
+        /// <summary>
+        /// Displays information about the <c>Field</c> in readable format.
+        /// </summary>
         /// <returns>A string representation of the object.</returns>
         public override string ToString()
         {
@@ -218,11 +274,11 @@ namespace Deploy.LaunchPad.Core.Geospatial
         /// <summary>
         /// Equality method between two objects of the same type.
         /// Because the Equals method is strongly typed by generic constraints,
-        /// it is not necessary to test for the correct object type. We need to test for 
+        /// it is not necessary to test for the correct object type. We need to test for
         /// property equality - which in this case means the comparing double vlaues to each other, which is imprecise. So we need to accept some small level of imprecision
         /// </summary>
         /// <param name="obj">The other object of this type we are testing equality with</param>
-        /// <returns></returns>
+        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
         public bool Equals(GeographicPosition obj)
         {
             if (obj != null)
@@ -276,13 +332,11 @@ namespace Deploy.LaunchPad.Core.Geospatial
             return !(x == y);
         }
 
-        /// <summary>  
-        /// Computes and retrieves a hash code for an object.  
-        /// </summary>  
-        /// <remarks>  
-        /// This method implements the <see cref="object">Object</see> method.  
-        /// </remarks>  
+        /// <summary>
+        /// Computes and retrieves a hash code for an object.
+        /// </summary>
         /// <returns>A hash code for an object.</returns>
+        /// <remarks>This method implements the <see cref="object">Object</see> method.</remarks>
         public override int GetHashCode()
         {
             return Elevation.GetHashCode() + Coordinate.GetHashCode() + H3Index.GetHashCode();

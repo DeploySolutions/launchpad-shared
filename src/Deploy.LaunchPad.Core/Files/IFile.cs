@@ -1,5 +1,16 @@
-﻿//LaunchPad Shared
-// Copyright (c) 2016-2021 Deploy Software Solutions, inc. 
+﻿// ***********************************************************************
+// Assembly         : Deploy.LaunchPad.Core
+// Author           : Nicholas Kellett
+// Created          : 11-19-2023
+//
+// Last Modified By : Nicholas Kellett
+// Last Modified On : 07-26-2023
+// ***********************************************************************
+// <copyright file="IFile.cs" company="Deploy Software Solutions, inc.">
+//     2018-2023 Deploy Software Solutions, inc.
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
 
 #region license
 //Licensed under the Apache License, Version 2.0 (the "License"); 
@@ -27,17 +38,22 @@ namespace Deploy.LaunchPad.Core.Domain
     /// Marks any object as a file that can be manipulated by the platform.
     /// Each file is uniquely identified by its id, which could be a complex name or some other unique property like a GUID or integer.
     /// </summary>
-    public interface IFile<TIdType, TFileContentType> : ILaunchPadObject
+    /// <typeparam name="TIdType">The type of the t identifier type.</typeparam>
+    /// <typeparam name="TFileContentType">The type of the t file content type.</typeparam>
+    public partial interface IFile<TIdType, TFileContentType> : ILaunchPadObject
     {
-        
+
         /// <summary>
-        /// Unique identifier for this entity (could be its file name).
-        /// </summary
+        /// Gets or sets the identifier.
+        /// </summary>
+        /// <value>The identifier.</value>
+        /// <font color="red">Badly formed XML comment.</font>
         public TIdType Id { get; set; }
 
         /// <summary>
         /// The size of the file, in bytes
         /// </summary>
+        /// <value>The size.</value>
         [DataObjectField(false)]
         [XmlAttribute]
         public Int64 Size { get; set; }
@@ -45,6 +61,7 @@ namespace Deploy.LaunchPad.Core.Domain
         /// <summary>
         /// The name of the file (if different from its ID)
         /// </summary>
+        /// <value>The name.</value>
         [DataObjectField(false)]
         [XmlAttribute]
         public String Name { get; set; }
@@ -52,6 +69,7 @@ namespace Deploy.LaunchPad.Core.Domain
         /// <summary>
         /// The extension of the file
         /// </summary>
+        /// <value>The extension.</value>
         [DataObjectField(false)]
         [XmlAttribute]
         String Extension { get; set; }
@@ -59,6 +77,7 @@ namespace Deploy.LaunchPad.Core.Domain
         /// <summary>
         /// The content / mime type of the file
         /// </summary>
+        /// <value>The type of the MIME.</value>
         [DataObjectField(false)]
         [XmlAttribute]
         public String MimeType { get; set; }
@@ -67,6 +86,7 @@ namespace Deploy.LaunchPad.Core.Domain
         /// <summary>
         /// The content of the file
         /// </summary>
+        /// <value>The content.</value>
         [DataObjectField(false)]
         [XmlAttribute]
         public TFileContentType Content { get; set; }
@@ -74,6 +94,7 @@ namespace Deploy.LaunchPad.Core.Domain
         /// <summary>
         /// Properties and methods for the file's content hash (to facilitate file verification)
         /// </summary>
+        /// <value>The checksum.</value>
         [DataObjectField(false)]
         [XmlAttribute]
         public Checksum Checksum { get; set; }

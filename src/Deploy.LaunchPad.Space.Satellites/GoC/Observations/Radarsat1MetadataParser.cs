@@ -1,5 +1,16 @@
-﻿//LaunchPad Shared
-// Copyright (c) 2018 Deploy Software Solutions, inc. 
+﻿// ***********************************************************************
+// Assembly         : Deploy.LaunchPad.Space.Satellites
+// Author           : Nicholas Kellett
+// Created          : 11-19-2023
+//
+// Last Modified By : Nicholas Kellett
+// Last Modified On : 07-26-2023
+// ***********************************************************************
+// <copyright file="Radarsat1MetadataParser.cs" company="Deploy Software Solutions, inc.">
+//     2018-2023 Deploy Software Solutions, inc.
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
 
 #region license
 //Licensed under the Apache License, Version 2.0 (the "License"); 
@@ -35,20 +46,22 @@ namespace Deploy.LaunchPad.Space.Satellites.GoC
     /// <summary>
     /// Utility to parse a Radarsat1 image observation metadata file and populate a Radarsat1Observation object from it.
     /// </summary>
+    /// <typeparam name="TPrimaryKey">The type of the t primary key.</typeparam>
+    /// <typeparam name="TFileStorageLocationType">The type of the t file storage location type.</typeparam>
     public partial class Radarsat1MetadataParser<TPrimaryKey, TFileStorageLocationType>
             where TFileStorageLocationType : IFileStorageLocation, new()
     {
         /// <summary>
         /// Main utility method to parse a Radarsat1 Metadata text file and populate the Radarsat1 Image Observation from the information
-        /// contained within the file. 
-        /// 
+        /// contained within the file.
         /// The metadata is in RADARSAT CEOS format and is (c) Canadian Space Agency 1997 Agence spatiale canadienne, and processed and distributed by MDA Geospatial Services Inc.
-        /// The data and metadata used within this software has been made freely available by the Canadian Federal Government under its Open Government initiative, 
+        /// The data and metadata used within this software has been made freely available by the Canadian Federal Government under its Open Government initiative,
         /// subject to the following license terms: https://open.canada.ca/en/open-government-licence-canada
         /// </summary>
-        /// <param name="metadataFileKey">The filepath/filename of the Radarsat1 metadata file</param>
-        /// <exception cref="ArgumentNullException"></exception>
+        /// <param name="radarsat1MetadataFilename">The radarsat1 metadata filename.</param>
         /// <returns>A populated Radarsat1Observation object containing the metadata values, or null if the object couldn't be populated</returns>
+        /// <exception cref="System.IO.FileLoadException"></exception>
+        /// <exception cref="ArgumentNullException"></exception>
         /// <throws>A FileLoadException if the file cannot be found or loaded</throws>
         public Radarsat1ObservationScene GetRadarsat1ObservationFromMetadataFile(string radarsat1MetadataFilename)
         {
@@ -169,6 +182,12 @@ namespace Deploy.LaunchPad.Space.Satellites.GoC
             return observation;
         }
 
+        /// <summary>
+        /// Loads the expected observation files.
+        /// </summary>
+        /// <param name="observation">The observation.</param>
+        /// <param name="radarsat1MetadataFilename">The radarsat1 metadata filename.</param>
+        /// <returns>Radarsat1ObservationScene.Radarsat1ObservationFiles.</returns>
         protected Radarsat1ObservationScene.Radarsat1ObservationFiles LoadExpectedObservationFiles(Radarsat1ObservationScene observation, string radarsat1MetadataFilename)
         {
             // get the list of related observation files

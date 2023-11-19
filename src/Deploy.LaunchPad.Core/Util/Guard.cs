@@ -1,6 +1,16 @@
-﻿//LaunchPad Shared
-// Copyright (c) 2016-2021 Deploy Software Solutions, inc. 
-//This file is a derivative work from the original created in NCommon and copyright 2010 by Ritesh Rao 
+﻿// ***********************************************************************
+// Assembly         : Deploy.LaunchPad.Core
+// Author           : Nicholas Kellett
+// Created          : 11-19-2023
+//
+// Last Modified By : Nicholas Kellett
+// Last Modified On : 01-08-2023
+// ***********************************************************************
+// <copyright file="Guard.cs" company="Deploy Software Solutions, inc.">
+//     2018-2023 Deploy Software Solutions, inc.
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
 
 #region license
 //Licensed under the Apache License, Version 2.0 (the "License"); 
@@ -26,11 +36,11 @@ namespace Deploy.LaunchPad.Core.Util
     public static class Guard
     {
         /// <summary>
-        /// Throws an exception of type <typeparamref name="TException"/> with the specified message
+        /// Throws an exception of type <typeparamref name="TException" /> with the specified message
         /// when the assertion statement is true.
         /// </summary>
         /// <typeparam name="TException">The type of exception to throw.</typeparam>
-        /// <param name="assertion">The assertion to evaluate. If true then the <typeparamref name="TException"/> exception is thrown.</param>
+        /// <param name="assertion">The assertion to evaluate. If true then the <typeparamref name="TException" /> exception is thrown.</param>
         /// <param name="message">string. The exception message to throw.</param>
         public static void Against<TException>(bool assertion, string message) where TException : Exception
         {
@@ -39,12 +49,12 @@ namespace Deploy.LaunchPad.Core.Util
         }
 
         /// <summary>
-        /// Throws an exception of type <typeparamref name="TException"/> with the specified message
+        /// Throws an exception of type <typeparamref name="TException" /> with the specified message
         /// when the assertion
         /// </summary>
-        /// <typeparam name="TException"></typeparam>
-        /// <param name="assertion"></param>
-        /// <param name="message"></param>
+        /// <typeparam name="TException">The type of the t exception.</typeparam>
+        /// <param name="assertion">The assertion.</param>
+        /// <param name="message">The message.</param>
         public static void Against<TException>(Func<bool> assertion, string message) where TException : Exception
         {
             //Execute the lambda and if it evaluates to true then throw the exception.
@@ -53,11 +63,11 @@ namespace Deploy.LaunchPad.Core.Util
         }
 
         /// <summary>
-        /// Throws a <see cref="InvalidOperationException"/> when the specified object
-        /// instance does not inherit from <typeparamref name="TBase"/> type.
+        /// Throws a <see cref="InvalidOperationException" /> when the specified object
+        /// instance does not inherit from <typeparamref name="TBase" /> type.
         /// </summary>
         /// <typeparam name="TBase">The base type to check for.</typeparam>
-        /// <param name="instance">The object to check if it inherits from <typeparamref name="TBase"/> type.</param>
+        /// <param name="instance">The object to check if it inherits from <typeparamref name="TBase" /> type.</param>
         /// <param name="message">string. The exception message to throw.</param>
         public static void InheritsFrom<TBase>(object instance, string message) where TBase : Type
         {
@@ -65,12 +75,13 @@ namespace Deploy.LaunchPad.Core.Util
         }
 
         /// <summary>
-        /// Throws a <see cref="InvalidOperationException"/> when the specified type does not
-        /// inherit from the <typeparamref name="TBase"/> type.
+        /// Throws a <see cref="InvalidOperationException" /> when the specified type does not
+        /// inherit from the <typeparamref name="TBase" /> type.
         /// </summary>
         /// <typeparam name="TBase">The base type to check for.</typeparam>
-        /// <param name="type">The <see cref="Type"/> to check if it inherits from <typeparamref name="TBase"/> type.</param>
+        /// <param name="type">The <see cref="Type" /> to check if it inherits from <typeparamref name="TBase" /> type.</param>
         /// <param name="message">string. The exception message to throw.</param>
+        /// <exception cref="System.InvalidOperationException"></exception>
         public static void InheritsFrom<TBase>(Type type, string message)
         {
             if (type.BaseType != typeof(TBase))
@@ -78,11 +89,11 @@ namespace Deploy.LaunchPad.Core.Util
         }
 
         /// <summary>
-        /// Throws a <see cref="InvalidOperationException"/> when the specified object
-        /// instance does not implement the <typeparamref name="TInterface"/> interface.
+        /// Throws a <see cref="InvalidOperationException" /> when the specified object
+        /// instance does not implement the <typeparamref name="TInterface" /> interface.
         /// </summary>
         /// <typeparam name="TInterface">The interface type the object instance should implement.</typeparam>
-        /// <param name="instance">The object insance to check if it implements the <typeparamref name="TInterface"/> interface</param>
+        /// <param name="instance">The object insance to check if it implements the <typeparamref name="TInterface" /> interface</param>
         /// <param name="message">string. The exception message to throw.</param>
         public static void Implements<TInterface>(object instance, string message)
         {
@@ -90,12 +101,13 @@ namespace Deploy.LaunchPad.Core.Util
         }
 
         /// <summary>
-        /// Throws an <see cref="InvalidOperationException"/> when the specified type does not
-        /// implement the <typeparamref name="TInterface"/> interface.
+        /// Throws an <see cref="InvalidOperationException" /> when the specified type does not
+        /// implement the <typeparamref name="TInterface" /> interface.
         /// </summary>
-        /// <typeparam name="TInterface">The interface type that the <paramref name="type"/> should implement.</typeparam>
-        /// <param name="type">The <see cref="Type"/> to check if it implements from <typeparamref name="TInterface"/> interface.</param>
+        /// <typeparam name="TInterface">The interface type that the <paramref name="type" /> should implement.</typeparam>
+        /// <param name="type">The <see cref="Type" /> to check if it implements from <typeparamref name="TInterface" /> interface.</param>
         /// <param name="message">string. The exception message to throw.</param>
+        /// <exception cref="System.InvalidOperationException"></exception>
         public static void Implements<TInterface>(Type type, string message)
         {
             if (!typeof(TInterface).IsAssignableFrom(type))
@@ -103,12 +115,13 @@ namespace Deploy.LaunchPad.Core.Util
         }
 
         /// <summary>
-        /// Throws an <see cref="InvalidOperationException"/> when the specified object instance is
+        /// Throws an <see cref="InvalidOperationException" /> when the specified object instance is
         /// not of the specified type.
         /// </summary>
-        /// <typeparam name="TType">The Type that the <paramref name="instance"/> is expected to be.</typeparam>
+        /// <typeparam name="TType">The Type that the <paramref name="instance" /> is expected to be.</typeparam>
         /// <param name="instance">The object instance whose type is checked.</param>
-        /// <param name="message">The message of the <see cref="InvalidOperationException"/> exception.</param>
+        /// <param name="message">The message of the <see cref="InvalidOperationException" /> exception.</param>
+        /// <exception cref="System.InvalidOperationException"></exception>
         public static void TypeOf<TType>(object instance, string message)
         {
             if (!(instance is TType))

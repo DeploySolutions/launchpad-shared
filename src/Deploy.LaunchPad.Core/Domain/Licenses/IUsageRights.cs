@@ -1,5 +1,16 @@
-﻿//LaunchPad Shared
-// Copyright (c) 2018-2023 Deploy Software Solutions, inc. 
+﻿// ***********************************************************************
+// Assembly         : Deploy.LaunchPad.Core
+// Author           : Nicholas Kellett
+// Created          : 11-19-2023
+//
+// Last Modified By : Nicholas Kellett
+// Last Modified On : 01-22-2023
+// ***********************************************************************
+// <copyright file="IUsageRights.cs" company="Deploy Software Solutions, inc.">
+//     2018-2023 Deploy Software Solutions, inc.
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
 
 #region license
 //Licensed under the Apache License, Version 2.0 (the "License"); 
@@ -19,14 +30,33 @@ using System;
 
 namespace Deploy.LaunchPad.Core.Domain
 {
-    public interface IUsageRights
+    /// <summary>
+    /// Interface IUsageRights
+    /// </summary>
+    public partial interface IUsageRights
     {
+        /// <summary>
+        /// Gets or sets the owner.
+        /// </summary>
+        /// <value>The owner.</value>
         string Owner { get; set; }
 
+        /// <summary>
+        /// Gets or sets the attribution.
+        /// </summary>
+        /// <value>The attribution.</value>
         string Attribution { get; set; }
 
+        /// <summary>
+        /// Gets or sets the governing license.
+        /// </summary>
+        /// <value>The governing license.</value>
         ILicense GoverningLicense { get; set; }
 
+        /// <summary>
+        /// Gets or sets the project link.
+        /// </summary>
+        /// <value>The project link.</value>
         Uri ProjectLink { get; set; }
     }
 }

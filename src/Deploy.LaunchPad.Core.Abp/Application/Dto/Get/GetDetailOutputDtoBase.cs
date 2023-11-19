@@ -1,4 +1,17 @@
-﻿using Deploy.LaunchPad.Core.Abp.Domain.SoftwareApplications;
+﻿// ***********************************************************************
+// Assembly         : Deploy.LaunchPad.Core.Abp
+// Author           : Nicholas Kellett
+// Created          : 11-19-2023
+//
+// Last Modified By : Nicholas Kellett
+// Last Modified On : 01-08-2023
+// ***********************************************************************
+// <copyright file="GetDetailOutputDtoBase.cs" company="Deploy Software Solutions, inc.">
+//     2018-2023 Deploy Software Solutions, inc.
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
+using Deploy.LaunchPad.Core.Abp.Domain.SoftwareApplications;
 using System;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
@@ -9,11 +22,18 @@ using System.Xml.Serialization;
 
 namespace Deploy.LaunchPad.Core.Abp.Application.Dto
 {
+    /// <summary>
+    /// Class GetDetailOutputDtoBase.
+    /// Implements the <see cref="Deploy.LaunchPad.Core.Abp.Application.Dto.GetOutputDtoBase{TIdType}" />
+    /// </summary>
+    /// <typeparam name="TIdType">The type of the t identifier type.</typeparam>
+    /// <seealso cref="Deploy.LaunchPad.Core.Abp.Application.Dto.GetOutputDtoBase{TIdType}" />
     public abstract partial class GetDetailOutputDtoBase<TIdType> : GetOutputDtoBase<TIdType>
     {
         /// <summary>
         /// A short description of this item.
         /// </summary>
+        /// <value>The description short.</value>
         [DataObjectField(false)]
         [XmlAttribute]
         [MaxLength(256, ErrorMessageResourceName = "Validation_DescriptionShort_256CharsOrLess", ErrorMessageResourceType = typeof(Deploy_LaunchPad_Core_Resources))]
@@ -22,6 +42,7 @@ namespace Deploy.LaunchPad.Core.Abp.Application.Dto
         /// <summary>
         /// The date and time that this object was created.
         /// </summary>
+        /// <value>The creation time.</value>
         [DataObjectField(false)]
         [XmlAttribute]
         public virtual DateTime CreationTime { get; set; }
@@ -29,6 +50,7 @@ namespace Deploy.LaunchPad.Core.Abp.Application.Dto
         /// <summary>
         /// The user name that created the entity
         /// </summary>
+        /// <value>The name of the creator user.</value>
         [DataObjectField(false)]
         [XmlAttribute]
         public virtual String CreatorUserName { get; set; }
@@ -36,6 +58,7 @@ namespace Deploy.LaunchPad.Core.Abp.Application.Dto
         /// <summary>
         /// The date and time that the location and/or properties of this object were last modified.
         /// </summary>
+        /// <value>The last modification time.</value>
         [DataObjectField(false)]
         [XmlAttribute]
         public virtual DateTime? LastModificationTime { get; set; }
@@ -43,6 +66,7 @@ namespace Deploy.LaunchPad.Core.Abp.Application.Dto
         /// <summary>
         /// The user name that last modified the entity
         /// </summary>
+        /// <value>The last name of the modifier user.</value>
         [DataObjectField(false)]
         [XmlAttribute]
         public virtual String LastModifierUserName { get; set; }
@@ -50,6 +74,7 @@ namespace Deploy.LaunchPad.Core.Abp.Application.Dto
         /// <summary>
         /// The sequence number for this entity, if any (for sorting and ordering purposes). Defaults to 0 if not set.
         /// </summary>
+        /// <value>The seq number.</value>
         [DataObjectField(false)]
         [XmlAttribute]
         public virtual Int32 SeqNum { get; set; } = 0;
@@ -68,7 +93,7 @@ namespace Deploy.LaunchPad.Core.Abp.Application.Dto
         /// <summary>
         /// Default constructor where the id is known
         /// </summary>
-        /// <param name="id"></param>
+        /// <param name="id">The identifier.</param>
         public GetDetailOutputDtoBase(TIdType id) : base(id)
         {
             Id = id;
@@ -76,6 +101,11 @@ namespace Deploy.LaunchPad.Core.Abp.Application.Dto
             DescriptionShort = string.Empty;
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="GetDetailOutputDtoBase{TIdType}"/> class.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <param name="culture">The culture.</param>
         public GetDetailOutputDtoBase(TIdType id, String culture) : base(id, culture)
         {
             Id = id;
@@ -105,8 +135,8 @@ namespace Deploy.LaunchPad.Core.Abp.Application.Dto
         /// <summary>
         /// The method required for implementing ISerializable
         /// </summary>
-        /// <param name="info"></param>
-        /// <param name="context"></param>
+        /// <param name="info">The information.</param>
+        /// <param name="context">The context.</param>
         public override void GetObjectData(SerializationInfo info, StreamingContext context)
         {
             info.AddValue("Id", Id);
@@ -119,9 +149,9 @@ namespace Deploy.LaunchPad.Core.Abp.Application.Dto
             info.AddValue("LastModificationTime", LastModificationTime);
         }
 
-        /// <summary>  
-        /// Displays information about the class in readable format.  
-        /// </summary>  
+        /// <summary>
+        /// Displays information about the class in readable format.
+        /// </summary>
         /// <returns>A string representation of the object.</returns>
         public override string ToString()
         {
@@ -182,7 +212,7 @@ namespace Deploy.LaunchPad.Core.Abp.Application.Dto
         /// it is not necessary to test for the correct object type.
         /// </summary>
         /// <param name="other">The other object of this type we are comparing to</param>
-        /// <returns></returns>
+        /// <returns>System.Int32.</returns>
         public virtual int CompareTo(GetDetailOutputDtoBase<TIdType> other)
         {
             // put comparison of properties in here 
@@ -209,10 +239,10 @@ namespace Deploy.LaunchPad.Core.Abp.Application.Dto
         /// Because the Equals method is strongly typed by generic constraints,
         /// it is not necessary to test for the correct object type.
         /// For safety we just want to match on business key value - in this case the fields
-        /// that cannot be different between the two objects if they are supposedly equal.        
+        /// that cannot be different between the two objects if they are supposedly equal.
         /// </summary>
         /// <param name="obj">The other object of this type that we are testing equality with</param>
-        /// <returns></returns>
+        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
         public virtual bool Equals(GetDetailOutputDtoBase<TIdType> obj)
         {
             if (obj != null)
@@ -258,13 +288,11 @@ namespace Deploy.LaunchPad.Core.Abp.Application.Dto
             return !(x == y);
         }
 
-        /// <summary>  
-        /// Computes and retrieves a hash code for an object.  
-        /// </summary>  
-        /// <remarks>  
-        /// This method implements the <see cref="Object">Object</see> method.  
-        /// </remarks>  
+        /// <summary>
+        /// Computes and retrieves a hash code for an object.
+        /// </summary>
         /// <returns>A hash code for an object.</returns>
+        /// <remarks>This method implements the <see cref="Object">Object</see> method.</remarks>
         public override int GetHashCode()
         {
             return Id.GetHashCode() + Culture.GetHashCode() + Name.GetHashCode() + CreatorUserName.GetHashCode() + LastModifierUserName.GetHashCode();

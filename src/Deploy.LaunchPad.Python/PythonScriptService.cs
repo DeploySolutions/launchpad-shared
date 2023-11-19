@@ -1,4 +1,17 @@
-﻿using Castle.Core.Logging;
+﻿// ***********************************************************************
+// Assembly         : Deploy.LaunchPad.Python
+// Author           : Nicholas Kellett
+// Created          : 11-19-2023
+//
+// Last Modified By : Nicholas Kellett
+// Last Modified On : 03-21-2023
+// ***********************************************************************
+// <copyright file="PythonScriptService.cs" company="Deploy Software Solutions, inc.">
+//     2022-2023 Deploy Software Solutions, inc.
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
+using Castle.Core.Logging;
 using Deploy.LaunchPad.Core.Application;
 using Deploy.LaunchPad.Core.Util;
 using System;
@@ -8,19 +21,47 @@ using System.IO;
 
 namespace Deploy.LaunchPad.Python
 {
+    /// <summary>
+    /// Class PythonScriptService.
+    /// Implements the <see cref="ILaunchPadSystemIntegrationService" />
+    /// Implements the <see cref="Deploy.LaunchPad.Python.IPythonScriptService" />
+    /// </summary>
+    /// <seealso cref="ILaunchPadSystemIntegrationService" />
+    /// <seealso cref="Deploy.LaunchPad.Python.IPythonScriptService" />
     public partial class PythonScriptService : ILaunchPadSystemIntegrationService, IPythonScriptService
     {
+        /// <summary>
+        /// Gets or sets the logger.
+        /// </summary>
+        /// <value>The logger.</value>
         public virtual ILogger Logger { get; set; }
 
+        /// <summary>
+        /// Gets or sets the script.
+        /// </summary>
+        /// <value>The script.</value>
         public IPythonScript Script { get; set; }
 
+        /// <summary>
+        /// Gets or sets the python.
+        /// </summary>
+        /// <value>The python.</value>
         public IPythonInstallation Python { get; set; }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="PythonScriptService"/> class.
+        /// </summary>
         protected PythonScriptService()
         {
             Logger = NullLogger.Instance;
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="PythonScriptService"/> class.
+        /// </summary>
+        /// <param name="logger">The logger.</param>
+        /// <param name="pythonInstallationFilePath">The python installation file path.</param>
+        /// <param name="scriptFileName">Name of the script file.</param>
         public PythonScriptService(ILogger logger, Uri pythonInstallationFilePath, string scriptFileName)
         {
             Logger = logger;
@@ -28,6 +69,13 @@ namespace Deploy.LaunchPad.Python
             Script = new PythonScript(scriptFileName);
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="PythonScriptService"/> class.
+        /// </summary>
+        /// <param name="logger">The logger.</param>
+        /// <param name="pythonInstallationFilePath">The python installation file path.</param>
+        /// <param name="scriptFileName">Name of the script file.</param>
+        /// <param name="moduleFilePaths">The module file paths.</param>
         public PythonScriptService(ILogger logger, Uri pythonInstallationFilePath, string scriptFileName, IDictionary<string, Uri> moduleFilePaths)
         {
             Logger = logger;
@@ -35,6 +83,11 @@ namespace Deploy.LaunchPad.Python
             Script = new PythonScript(scriptFileName);
         }
 
+        /// <summary>
+        /// Gets the text from script.
+        /// </summary>
+        /// <param name="args">The arguments.</param>
+        /// <returns>System.String.</returns>
         public string GetTextFromScript(string args)
         {
             Guard.Against<ArgumentNullException>(String.IsNullOrEmpty(Script.FileName), "Python script filename must not be empty");

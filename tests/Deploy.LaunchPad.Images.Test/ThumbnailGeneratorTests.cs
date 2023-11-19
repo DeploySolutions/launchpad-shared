@@ -1,5 +1,16 @@
-//LaunchPad Shared
-// Copyright (c) 2018-2023 Deploy Software Solutions, inc. 
+// ***********************************************************************
+// Assembly         : Deploy.LaunchPad.Images.Tests
+// Author           : Nicholas Kellett
+// Created          : 11-19-2023
+//
+// Last Modified By : Nicholas Kellett
+// Last Modified On : 01-22-2023
+// ***********************************************************************
+// <copyright file="ThumbnailGeneratorTests.cs" company="Deploy.LaunchPad.Images.Tests">
+//     Copyright (c) Deploy Software Solutions, Inc.. All rights reserved.
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
 
 #region license
 //Licensed under the Apache License, Version 2.0 (the "License"); 
@@ -27,10 +38,22 @@ namespace Deploy.LaunchPad.Images.Tests
     using ImageMagick;
 
 
-    public class ThumbnailGeneratorTests : IClassFixture<ThumbnailGeneratorTestsFixture>
+    /// <summary>
+    /// Class ThumbnailGeneratorTests.
+    /// Implements the <see cref="Xunit.IClassFixture{Deploy.LaunchPad.Images.Tests.ThumbnailGeneratorTestsFixture}" />
+    /// </summary>
+    /// <seealso cref="Xunit.IClassFixture{Deploy.LaunchPad.Images.Tests.ThumbnailGeneratorTestsFixture}" />
+    public partial class ThumbnailGeneratorTests : IClassFixture<ThumbnailGeneratorTestsFixture>
     {
+        /// <summary>
+        /// The fixture
+        /// </summary>
         private readonly ThumbnailGeneratorTestsFixture _fixture;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ThumbnailGeneratorTests"/> class.
+        /// </summary>
+        /// <param name="fixture">The fixture.</param>
         public ThumbnailGeneratorTests(ThumbnailGeneratorTestsFixture fixture)
         {
             this._fixture = fixture;
@@ -40,13 +63,19 @@ namespace Deploy.LaunchPad.Images.Tests
             this._fixture.Initialize(generator, compareSettings);
         }
 
+        /// <summary>
+        /// Defines the test method New_Thumbnail_Generator_DefaultConstructor_Configuration_ShouldNot_Be_Null.
+        /// </summary>
         [Fact]
         public void New_Thumbnail_Generator_DefaultConstructor_Configuration_ShouldNot_Be_Null()
         {
             ThumbnailGenerator generator = new ThumbnailGenerator();
             generator.Configuration.Should().NotBeNull();
         }
-        
+
+        /// <summary>
+        /// Defines the test method New_Thumbnail_Generator_ConfigurationConstructor_Configuration_ShouldNot_Be_Null.
+        /// </summary>
         [Fact]
         public void New_Thumbnail_Generator_ConfigurationConstructor_Configuration_ShouldNot_Be_Null()
         {
@@ -65,6 +94,9 @@ namespace Deploy.LaunchPad.Images.Tests
             generator.Configuration.Should().NotBeNull();
         }
 
+        /// <summary>
+        /// Defines the test method New_Thumbnail_Generator_Custom_Configuration_TempFilePath_That_DoesNot_Exist_Should_Throw.
+        /// </summary>
         [Fact]
         public void New_Thumbnail_Generator_Custom_Configuration_TempFilePath_That_DoesNot_Exist_Should_Throw()
         {
@@ -84,6 +116,9 @@ namespace Deploy.LaunchPad.Images.Tests
         }
 
 
+        /// <summary>
+        /// Defines the test method New_Thumbnail_Generator_Custom_Configuration_TempFilePath_Should_Be_Set.
+        /// </summary>
         [Fact]
         public void New_Thumbnail_Generator_Custom_Configuration_TempFilePath_Should_Be_Set()
         {
@@ -100,8 +135,11 @@ namespace Deploy.LaunchPad.Images.Tests
             ThumbnailGenerator generator = new ThumbnailGenerator(config);
             generator.Configuration.TemporaryImagesFilePath.Should().Contain("temp");
         }
-        
+
         // small thumbnail tests
+        /// <summary>
+        /// Defines the test method Get_Small_Thumbnail_From_MagickImage_ShouldReturn_Image.
+        /// </summary>
         [Fact]
         public void Get_Small_Thumbnail_From_MagickImage_ShouldReturn_Image()
         {
@@ -110,6 +148,9 @@ namespace Deploy.LaunchPad.Images.Tests
             thumbImage.Length.Should().BeGreaterThan(0);
         }
 
+        /// <summary>
+        /// Defines the test method Get_Small_Thumbnail_From_ByteArray_ShouldReturn_Image.
+        /// </summary>
         [Fact]
         public void Get_Small_Thumbnail_From_ByteArray_ShouldReturn_Image()
         {
@@ -117,6 +158,9 @@ namespace Deploy.LaunchPad.Images.Tests
             thumbImage.Length.Should().BeGreaterThan(0);
         }
 
+        /// <summary>
+        /// Defines the test method Get_Small_Thumbnail_From_Stream_ShouldReturn_Image.
+        /// </summary>
         [Fact]
         public void Get_Small_Thumbnail_From_Stream_ShouldReturn_Image()
         {
@@ -125,6 +169,9 @@ namespace Deploy.LaunchPad.Images.Tests
             thumbImage.Length.Should().BeGreaterThan(0);
         }
 
+        /// <summary>
+        /// Defines the test method Get_Small_Thumbnail_From_FileInfo_ShouldReturn_Image.
+        /// </summary>
         [Fact]
         public void Get_Small_Thumbnail_From_FileInfo_ShouldReturn_Image()
         {
@@ -133,6 +180,9 @@ namespace Deploy.LaunchPad.Images.Tests
             thumbImage.Length.Should().BeGreaterThan(0);
         }
 
+        /// <summary>
+        /// Defines the test method Get_Small_Thumbnail_In_Png_Format_From_MagickImage_Should_Return_Image_In_Png_Format.
+        /// </summary>
         [Fact]
         public void Get_Small_Thumbnail_In_Png_Format_From_MagickImage_Should_Return_Image_In_Png_Format()
         {
@@ -140,7 +190,10 @@ namespace Deploy.LaunchPad.Images.Tests
             MagickImage result = new MagickImage(_fixture.SUT.GetThumbnailSmall(stream,MagickFormat.Png));
             result.Format.Should().Be(MagickFormat.Png);
         }
-        
+
+        /// <summary>
+        /// Defines the test method Get_Small_Thumbnail_In_Png_Format_From_FileInfo_Should_Return_Image_In_Png_Format.
+        /// </summary>
         [Fact]
         public void Get_Small_Thumbnail_In_Png_Format_From_FileInfo_Should_Return_Image_In_Png_Format()
         {
@@ -150,6 +203,9 @@ namespace Deploy.LaunchPad.Images.Tests
         }
 
         // medium thumbnail tests
+        /// <summary>
+        /// Defines the test method Get_Medium_Thumbnail_From_MagickImage_ShouldReturn_Image.
+        /// </summary>
         [Fact]
         public void Get_Medium_Thumbnail_From_MagickImage_ShouldReturn_Image()
         {
@@ -158,6 +214,9 @@ namespace Deploy.LaunchPad.Images.Tests
             thumbImage.Length.Should().BeGreaterThan(0);
         }
 
+        /// <summary>
+        /// Defines the test method Get_Medium_Thumbnail_From_ByteArray_ShouldReturn_Image.
+        /// </summary>
         [Fact]
         public void Get_Medium_Thumbnail_From_ByteArray_ShouldReturn_Image()
         {
@@ -165,6 +224,9 @@ namespace Deploy.LaunchPad.Images.Tests
             thumbImage.Length.Should().BeGreaterThan(0);
         }
 
+        /// <summary>
+        /// Defines the test method Get_Medium_Thumbnail_From_Stream_ShouldReturn_Image.
+        /// </summary>
         [Fact]
         public void Get_Medium_Thumbnail_From_Stream_ShouldReturn_Image()
         {
@@ -173,6 +235,9 @@ namespace Deploy.LaunchPad.Images.Tests
             thumbImage.Length.Should().BeGreaterThan(0);
         }
 
+        /// <summary>
+        /// Defines the test method Get_Medium_Thumbnail_From_FileInfo_ShouldReturn_Image.
+        /// </summary>
         [Fact]
         public void Get_Medium_Thumbnail_From_FileInfo_ShouldReturn_Image()
         {
@@ -180,7 +245,10 @@ namespace Deploy.LaunchPad.Images.Tests
             byte[] thumbImage = _fixture.SUT.GetThumbnailMedium(info);
             thumbImage.Length.Should().BeGreaterThan(0);
         }
-       
+
+        /// <summary>
+        /// Defines the test method Get_Medium_Thumbnail_With_Png_Format_From_MagickImage_ShouldReturn_Png_Image.
+        /// </summary>
         [Fact]
         public void Get_Medium_Thumbnail_With_Png_Format_From_MagickImage_ShouldReturn_Png_Image()
         {
@@ -189,6 +257,9 @@ namespace Deploy.LaunchPad.Images.Tests
             thumbImage.Length.Should().BeGreaterThan(0);
         }
 
+        /// <summary>
+        /// Defines the test method Get_Medium_Thumbnail_In_Png_Format_From_MagickImage_Should_Return_Image_In_Png_Format.
+        /// </summary>
         [Fact]
         public void Get_Medium_Thumbnail_In_Png_Format_From_MagickImage_Should_Return_Image_In_Png_Format()
         {
@@ -196,7 +267,10 @@ namespace Deploy.LaunchPad.Images.Tests
             MagickImage result = new MagickImage(_fixture.SUT.GetThumbnailMedium(stream,MagickFormat.Png));
             result.Format.Should().Be(MagickFormat.Png);
         }
-        
+
+        /// <summary>
+        /// Defines the test method Get_Medium_Thumbnail_In_Png_Format_From_FileInfo_Should_Return_Image_In_Png_Format.
+        /// </summary>
         [Fact]
         public void Get_Medium_Thumbnail_In_Png_Format_From_FileInfo_Should_Return_Image_In_Png_Format()
         {
@@ -206,6 +280,9 @@ namespace Deploy.LaunchPad.Images.Tests
         }
 
         // large thumbnail tests
+        /// <summary>
+        /// Defines the test method Get_Large_Thumbnail_From_MagickImage_ShouldReturn_Image.
+        /// </summary>
         [Fact]
         public void Get_Large_Thumbnail_From_MagickImage_ShouldReturn_Image()
         {
@@ -214,6 +291,9 @@ namespace Deploy.LaunchPad.Images.Tests
             thumbImage.Length.Should().BeGreaterThan(0);
         }
 
+        /// <summary>
+        /// Defines the test method Get_Large_Thumbnail_From_ByteArray_ShouldReturn_Image.
+        /// </summary>
         [Fact]
         public void Get_Large_Thumbnail_From_ByteArray_ShouldReturn_Image()
         {
@@ -221,6 +301,9 @@ namespace Deploy.LaunchPad.Images.Tests
             thumbImage.Length.Should().BeGreaterThan(0);
         }
 
+        /// <summary>
+        /// Defines the test method Get_Large_Thumbnail_From_Stream_ShouldReturn_Image.
+        /// </summary>
         [Fact]
         public void Get_Large_Thumbnail_From_Stream_ShouldReturn_Image()
         {
@@ -229,6 +312,9 @@ namespace Deploy.LaunchPad.Images.Tests
             thumbImage.Length.Should().BeGreaterThan(0);
         }
 
+        /// <summary>
+        /// Defines the test method Get_Large_Thumbnail_From_FileInfo_ShouldReturn_Image.
+        /// </summary>
         [Fact]
         public void Get_Large_Thumbnail_From_FileInfo_ShouldReturn_Image()
         {
@@ -236,7 +322,10 @@ namespace Deploy.LaunchPad.Images.Tests
             byte[] thumbImage = _fixture.SUT.GetThumbnailLarge(info);
             thumbImage.Length.Should().BeGreaterThan(0);
         }
-       
+
+        /// <summary>
+        /// Defines the test method Get_Large_Thumbnail_With_Png_Format_From_MagickImage_ShouldReturn_Png_Image.
+        /// </summary>
         [Fact]
         public void Get_Large_Thumbnail_With_Png_Format_From_MagickImage_ShouldReturn_Png_Image()
         {
@@ -245,6 +334,9 @@ namespace Deploy.LaunchPad.Images.Tests
             thumbImage.Length.Should().BeGreaterThan(0);
         }
 
+        /// <summary>
+        /// Defines the test method Get_Large_Thumbnail_In_Png_Format_From_MagickImage_Should_Return_Image_In_Png_Format.
+        /// </summary>
         [Fact]
         public void Get_Large_Thumbnail_In_Png_Format_From_MagickImage_Should_Return_Image_In_Png_Format()
         {
@@ -252,7 +344,10 @@ namespace Deploy.LaunchPad.Images.Tests
             MagickImage result = new MagickImage(_fixture.SUT.GetThumbnailLarge(stream,MagickFormat.Png));
             result.Format.Should().Be(MagickFormat.Png);
         }
-        
+
+        /// <summary>
+        /// Defines the test method Get_Large_Thumbnail_In_Png_Format_From_FileInfo_Should_Return_Image_In_Png_Format.
+        /// </summary>
         [Fact]
         public void Get_Large_Thumbnail_In_Png_Format_From_FileInfo_Should_Return_Image_In_Png_Format()
         {

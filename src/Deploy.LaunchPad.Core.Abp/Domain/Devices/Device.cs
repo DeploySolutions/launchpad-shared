@@ -1,4 +1,16 @@
-﻿// Copyright (c) 2016-2021 Deploy Software Solutions, inc. 
+﻿// ***********************************************************************
+// Assembly         : Deploy.LaunchPad.Core.Abp
+// Author           : Nicholas Kellett
+// Created          : 11-19-2023
+//
+// Last Modified By : Nicholas Kellett
+// Last Modified On : 07-26-2023
+// ***********************************************************************
+// <copyright file="Device.cs" company="Deploy Software Solutions, inc.">
+//     2018-2023 Deploy Software Solutions, inc.
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
 
 #region license
 //Licensed under the Apache License, Version 2.0 (the "License"); 
@@ -34,6 +46,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
     /// <summary>
     /// This class represents a programmable hardware/software device (that is part of the Internet-of-Things or Web-of-Things world).
     /// </summary>
+    /// <typeparam name="TIdType">The type of the t identifier type.</typeparam>
     [Serializable()]
     public partial class Device<TIdType> : LaunchPadDomainEntityBase<TIdType>, IDevice, IPhysicallyLocatable, IMayHaveTenant
 
@@ -41,6 +54,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
         /// <summary>
         /// This is the current physical location of this device
         /// </summary>
+        /// <value>The current location.</value>
         [DataObjectField(false)]
         [XmlAttribute]
         public virtual SpaceTimeInformation CurrentLocation
@@ -50,8 +64,9 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
         }
 
         /// <summary>
-        /// A list (not necessarily comprehensive) of this object's previous (but not current) physical positions. 
+        /// A list (not necessarily comprehensive) of this object's previous (but not current) physical positions.
         /// </summary>
+        /// <value>The previous locations.</value>
         [DataObjectField(false)]
         [XmlAttribute]
         public virtual IList<SpaceTimeInformation> PreviousLocations
@@ -61,16 +76,21 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
         }
 
         /// <summary>
-        /// The current power level of the device 
+        /// The current power level of the device
         /// </summary>
+        /// <value>The power.</value>
         [DataObjectField(false)]
         [XmlAttribute]
         public virtual DevicePower Power { get; set; }
+        /// <summary>
+        /// Gets or sets the tenant identifier.
+        /// </summary>
+        /// <value>The tenant identifier.</value>
         public virtual int? TenantId { get; set; }
 
         #region "Constructors"
 
-        /// <summary>  
+        /// <summary>
         /// Initializes a new instance of the <see cref="Device">Device</see> class
         /// </summary>
         public Device() : base()
@@ -81,9 +101,9 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
         }
 
         /// <summary>
-        /// Creates a new instance of the <see cref="Device">Device</see> class given some metadata. 
+        /// Creates a new instance of the <see cref="Device">Device</see> class given some metadata.
         /// </summary>
-        /// <param name="metadata">The desired metadata for this Device</param>
+        /// <param name="tenantId">The tenant identifier.</param>
         public Device(int? tenantId) : base()
         {
             TenantId = tenantId;
@@ -92,9 +112,11 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
             Power = new DevicePower();
         }
 
-        /// <summary>  
+        /// <summary>
         /// Initializes a new instance of the <see cref="Device">Device</see> class
         /// </summary>
+        /// <param name="tenantId">The tenant identifier.</param>
+        /// <param name="id">The identifier.</param>
         public Device(int? tenantId, TIdType id) : base(id)
         {
             Id = id;
@@ -105,9 +127,11 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
         }
 
         /// <summary>
-        /// Creates a new instance of the <see cref="Device">Device</see> class given some metadata. 
+        /// Creates a new instance of the <see cref="Device">Device</see> class given some metadata.
         /// </summary>
-        /// <param name="metadata">The desired metadata for this Device</param>
+        /// <param name="tenantId">The tenant identifier.</param>
+        /// <param name="id">The identifier.</param>
+        /// <param name="culture">The culture.</param>
         public Device(int? tenantId, TIdType id, string culture) : base(id, culture)
         {
             Id = id;
@@ -119,10 +143,10 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
         }
 
         /// <summary>
-        /// Creates a new instance of the <see cref="Device">Device</see> class given a key, and some metadata. 
+        /// Creates a new instance of the <see cref="Device">Device</see> class given a key, and some metadata.
         /// </summary>
-        /// <param name="key">The unique identifier for this device</param>
-        /// <param name="metadata">The desired metadata for this device</param>
+        /// <param name="tenantId">The tenant identifier.</param>
+        /// <param name="id">The identifier.</param>
         /// <param name="currentLocation">The current physical location of this device</param>
         public Device(int? tenantId, TIdType id, SpaceTimeInformation currentLocation)
             : base()
@@ -135,10 +159,10 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
         }
 
         /// <summary>
-        /// Creates a new instance of the <see cref="Device">Device</see> class given a key, some metadata, and its current and previous locations. 
+        /// Creates a new instance of the <see cref="Device">Device</see> class given a key, some metadata, and its current and previous locations.
         /// </summary>
-        /// <param name="key">The unique identifier for this Device</param>
-        /// <param name="metadata">The desired metadata for this Device</param>
+        /// <param name="tenantId">The tenant identifier.</param>
+        /// <param name="id">The identifier.</param>
         /// <param name="currentLocation">The current physical location of this device</param>
         /// <param name="previousLocations">The previous physical location(s) of this device</param>
         public Device(int? tenantId, TIdType id, SpaceTimeInformation currentLocation, IList<SpaceTimeInformation> previousLocations)
@@ -150,10 +174,10 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
         }
 
         /// <summary>
-        /// Creates a new instance of the <see cref="Device">Device</see> class given a key, metadata, its current location, and its power level. 
+        /// Creates a new instance of the <see cref="Device">Device</see> class given a key, metadata, its current location, and its power level.
         /// </summary>
+        /// <param name="tenantId">The tenant identifier.</param>
         /// <param name="id">The unique identifier for this Device</param>
-        /// <param name="metadata">The desired metadata for this Device</param>
         /// <param name="currentLocation">The current physical location of this device</param>
         /// <param name="power">The current power level of this device</param>
         public Device(int? tenantId, TIdType id, SpaceTimeInformation currentLocation, DevicePower power) :
@@ -183,8 +207,8 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
         /// <summary>
         /// The method required for implementing ISerializable
         /// </summary>
-        /// <param name="info"></param>
-        /// <param name="context"></param>
+        /// <param name="info">The information.</param>
+        /// <param name="context">The context.</param>
         public override void GetObjectData(SerializationInfo info, StreamingContext context)
         {
             base.GetObjectData(info, context);
@@ -193,9 +217,9 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
             info.AddValue("Power", Power);
         }
 
-        /// <summary>  
-        /// Displays information about the class in readable format.  
-        /// </summary>  
+        /// <summary>
+        /// Displays information about the class in readable format.
+        /// </summary>
         /// <returns>A string representation of the object.</returns>
         public override string ToString()
         {
@@ -211,6 +235,12 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
             return sb.ToString();
         }
 
+        /// <summary>
+        /// Performs an implicit conversion from <see cref="Device{System.Int32}"/> to <see cref="Device{TIdType}"/>.
+        /// </summary>
+        /// <param name="v">The v.</param>
+        /// <returns>The result of the conversion.</returns>
+        /// <exception cref="System.NotImplementedException"></exception>
         public static implicit operator Device<TIdType>(Device<int> v)
         {
             throw new NotImplementedException();

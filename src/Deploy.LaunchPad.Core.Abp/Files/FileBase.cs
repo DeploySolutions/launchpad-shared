@@ -1,5 +1,16 @@
-﻿//LaunchPad Shared
-// Copyright (c) 2018-2023 Deploy Software Solutions, inc. 
+﻿// ***********************************************************************
+// Assembly         : Deploy.LaunchPad.Core.Abp
+// Author           : Nicholas Kellett
+// Created          : 11-19-2023
+//
+// Last Modified By : Nicholas Kellett
+// Last Modified On : 07-26-2023
+// ***********************************************************************
+// <copyright file="FileBase.cs" company="Deploy Software Solutions, inc.">
+//     2018-2023 Deploy Software Solutions, inc.
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
 
 #region license
 //Licensed under the Apache License, Version 2.0 (the "License"); 
@@ -26,14 +37,31 @@ using System.Xml.Serialization;
 
 namespace Deploy.LaunchPad.Core.Abp.Domain
 {
+    /// <summary>
+    /// Class FileBase.
+    /// Implements the <see cref="LaunchPadDomainEntityBase{TIdType}" />
+    /// Implements the <see cref="IFile{TIdType, TFileContentType}" />
+    /// </summary>
+    /// <typeparam name="TIdType">The type of the t identifier type.</typeparam>
+    /// <typeparam name="TFileContentType">The type of the t file content type.</typeparam>
+    /// <seealso cref="LaunchPadDomainEntityBase{TIdType}" />
+    /// <seealso cref="IFile{TIdType, TFileContentType}" />
     public abstract partial class FileBase<TIdType, TFileContentType> : LaunchPadDomainEntityBase<TIdType>,
         IFile<TIdType, TFileContentType>
-    {        
+    {
 
+        /// <summary>
+        /// The size of the file, in bytes
+        /// </summary>
+        /// <value>The size.</value>
         [DataObjectField(false)]
         [XmlAttribute]
         public virtual long Size { get; set; }
 
+        /// <summary>
+        /// The extension of the file
+        /// </summary>
+        /// <value>The extension.</value>
         [DataObjectField(false)]
         [XmlAttribute]
         public virtual string Extension { get; set; }
@@ -41,6 +69,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
         /// <summary>
         /// The content / mime type of the file
         /// </summary>
+        /// <value>The type of the MIME.</value>
         [DataObjectField(false)]
         [XmlAttribute]
         [Required]
@@ -50,6 +79,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
         /// <summary>
         /// The content of the file. May be null (for instance, if not loaded or populated yet)
         /// </summary>
+        /// <value>The content.</value>
         [DataObjectField(false)]
         [XmlAttribute]
         [Required]
@@ -58,27 +88,44 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
         /// <summary>
         /// Properties and methods for the file's content hash (to facilitate file verification)
         /// </summary>
+        /// <value>The checksum.</value>
         [DataObjectField(false)]
         [XmlAttribute]
         public virtual Checksum Checksum { get; set; }
 
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="FileBase{TIdType, TFileContentType}"/> class.
+        /// </summary>
         protected FileBase()
         {
             Checksum = new Checksum();
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="FileBase{TIdType, TFileContentType}"/> class.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
         protected FileBase(TIdType id) : base(id)
         {
             Id = id;
             Checksum = new Checksum();
         }
+        /// <summary>
+        /// Initializes a new instance of the <see cref="FileBase{TIdType, TFileContentType}"/> class.
+        /// </summary>
+        /// <param name="fileName">Name of the file.</param>
         protected FileBase(string fileName) : base()
         {
             Name = fileName;
             Checksum = new Checksum();
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="FileBase{TIdType, TFileContentType}"/> class.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <param name="fileName">Name of the file.</param>
         protected FileBase(TIdType id, string fileName) : base()
         {
             Id = id;
@@ -87,6 +134,12 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
         }
 
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="FileBase{TIdType, TFileContentType}"/> class.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <param name="fileName">Name of the file.</param>
+        /// <param name="content">The content.</param>
         protected FileBase(TIdType id, string fileName, TFileContentType content) : base()
         {
             Id = id;
@@ -110,6 +163,11 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
             Extension = info.GetString("Extension");
         }
 
+        /// <summary>
+        /// The method required for implementing ISerializable
+        /// </summary>
+        /// <param name="info">The information.</param>
+        /// <param name="context">The context.</param>
         public override void GetObjectData(SerializationInfo info, StreamingContext context)
         {
             base.GetObjectData(info, context);

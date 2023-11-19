@@ -1,5 +1,16 @@
-﻿//LaunchPad Shared
-// Copyright (c) 2016-2021 Deploy Software Solutions, inc. 
+﻿// ***********************************************************************
+// Assembly         : Deploy.LaunchPad.Core
+// Author           : Nicholas Kellett
+// Created          : 11-19-2023
+//
+// Last Modified By : Nicholas Kellett
+// Last Modified On : 01-08-2023
+// ***********************************************************************
+// <copyright file="TagBase.cs" company="Deploy Software Solutions, inc.">
+//     2018-2023 Deploy Software Solutions, inc.
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
 
 #region license
 //Licensed under the Apache License, Version 2.0 (the "License"); 
@@ -38,6 +49,7 @@ namespace Deploy.LaunchPad.Core.Domain
         /// <summary>
         /// The unique id of this metadata tag
         /// </summary>
+        /// <value>The identifier.</value>
         [DataObjectField(false)]
         [XmlAttribute]
         public virtual long Id { get; set; }
@@ -45,6 +57,7 @@ namespace Deploy.LaunchPad.Core.Domain
         /// <summary>
         /// The key (name) of this metadata tag
         /// </summary>
+        /// <value>The key.</value>
         [DataObjectField(false)]
         [XmlAttribute]
         public virtual String Key { get; set; }
@@ -52,6 +65,7 @@ namespace Deploy.LaunchPad.Core.Domain
         /// <summary>
         /// The value of this metadata tag
         /// </summary>
+        /// <value>The value.</value>
         [DataObjectField(false)]
         [XmlAttribute]
         public virtual String Value { get; set; }
@@ -59,11 +73,12 @@ namespace Deploy.LaunchPad.Core.Domain
         /// <summary>
         /// The scheme of this metadata tag, if any
         /// </summary>
+        /// <value>The schema.</value>
         [DataObjectField(false)]
         [XmlAttribute]
         public virtual String Schema { get; set; }
 
-        /// <summary>  
+        /// <summary>
         /// Initializes a new instance of the <see cref="TagBase">Tag</see> class
         /// </summary>
         protected TagBase()
@@ -74,7 +89,7 @@ namespace Deploy.LaunchPad.Core.Domain
         }
 
         /// <summary>
-        /// Creates a new instance of the <see cref="TagBase">TagBase</see> class given a key, and some value. 
+        /// Creates a new instance of the <see cref="TagBase">TagBase</see> class given a key, and some value.
         /// </summary>
         /// <param name="key">The unique identifier for this tag</param>
         /// <param name="value">The desired value for this tag</param>
@@ -86,11 +101,11 @@ namespace Deploy.LaunchPad.Core.Domain
         }
 
         /// <summary>
-        /// Creates a new instance of the <see cref="TagBase">Tag</see> class given a key, and some metadata. 
+        /// Creates a new instance of the <see cref="TagBase">Tag</see> class given a key, and some metadata.
         /// </summary>
         /// <param name="key">The key for this tag</param>
         /// <param name="value">The desired value for this tag</param>
-        ///  <param name="schema">The desired schema for this tag</param>
+        /// <param name="schema">The desired schema for this tag</param>
         protected TagBase(String key, String value, string schema)
         {
             Key = key;
@@ -113,8 +128,8 @@ namespace Deploy.LaunchPad.Core.Domain
         /// <summary>
         /// The method required for implementing ISerializable
         /// </summary>
-        /// <param name="info"></param>
-        /// <param name="context"></param>
+        /// <param name="info">The information.</param>
+        /// <param name="context">The context.</param>
         public virtual void GetObjectData(SerializationInfo info, StreamingContext context)
         {
             info.AddValue("Key", Key);
@@ -125,7 +140,7 @@ namespace Deploy.LaunchPad.Core.Domain
 
         /// <summary>
         /// Event called once deserialization constructor finishes.
-        /// Useful for reattaching connections and other finite resources that 
+        /// Useful for reattaching connections and other finite resources that
         /// can't be serialized and deserialized.
         /// </summary>
         /// <param name="sender">The object that has been deserialized</param>
@@ -160,7 +175,7 @@ namespace Deploy.LaunchPad.Core.Domain
         /// it is not necessary to test for the correct object type.
         /// </summary>
         /// <param name="other">The other object of this type we are comparing to</param>
-        /// <returns></returns>
+        /// <returns>System.Int32.</returns>
         public virtual int CompareTo(ILaunchPadMetadataTag other)
         {
             int result;
@@ -172,9 +187,9 @@ namespace Deploy.LaunchPad.Core.Domain
             return result;
         }
 
-        /// <summary>  
-        /// Displays information about the <c>Field</c> in readable format.  
-        /// </summary>  
+        /// <summary>
+        /// Displays information about the <c>Field</c> in readable format.
+        /// </summary>
         /// <returns>A string representation of the object.</returns>
         public override String ToString()
         {
@@ -206,7 +221,8 @@ namespace Deploy.LaunchPad.Core.Domain
         /// it is not necessary to test for the correct object type.
         /// </summary>
         /// <param name="other">The other object of this type we are comparing to</param>
-        /// <returns></returns>
+        /// <returns>A value that indicates the relative order of the objects being compared. The return value has these meanings:
+        /// <list type="table"><listheader><term> Value</term><description> Meaning</description></listheader><item><term> Less than zero</term><description> This instance precedes <paramref name="other" /> in the sort order.</description></item><item><term> Zero</term><description> This instance occurs in the same position in the sort order as <paramref name="other" />.</description></item><item><term> Greater than zero</term><description> This instance follows <paramref name="other" /> in the sort order.</description></item></list></returns>
         public virtual int CompareTo(TagBase other)
         {
             int result;
@@ -237,10 +253,10 @@ namespace Deploy.LaunchPad.Core.Domain
         /// Because the Equals method is strongly typed by generic constraints,
         /// it is not necessary to test for the correct object type.
         /// For safety we just want to match on business key value - in this case the fields
-        /// that cannot be different between the two objects if they are supposedly equal.        
+        /// that cannot be different between the two objects if they are supposedly equal.
         /// </summary>
         /// <param name="obj">The other object of this type that we are testing equality with</param>
-        /// <returns></returns>
+        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
         public virtual bool Equals(TagBase obj)
         {
             if (obj != null)
@@ -250,13 +266,11 @@ namespace Deploy.LaunchPad.Core.Domain
             return false;
         }
 
-        /// <summary>  
-        /// Computes and retrieves a hash code for an object.  
-        /// </summary>  
-        /// <remarks>  
-        /// This method implements the <see cref="Object">Object</see> method.  
-        /// </remarks>  
+        /// <summary>
+        /// Computes and retrieves a hash code for an object.
+        /// </summary>
         /// <returns>A hash code for an object.</returns>
+        /// <remarks>This method implements the <see cref="Object">Object</see> method.</remarks>
         public override int GetHashCode()
         {
             return

@@ -1,5 +1,16 @@
-﻿//LaunchPad Shared
-// Copyright (c) 2016-2021 Deploy Software Solutions, inc. 
+﻿// ***********************************************************************
+// Assembly         : Deploy.LaunchPad.Core
+// Author           : Nicholas Kellett
+// Created          : 11-19-2023
+//
+// Last Modified By : Nicholas Kellett
+// Last Modified On : 07-26-2023
+// ***********************************************************************
+// <copyright file="IMayHaveAltitude.cs" company="Deploy Software Solutions, inc.">
+//     2018-2023 Deploy Software Solutions, inc.
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
 
 #region license
 //Licensed under the Apache License, Version 2.0 (the "License"); 
@@ -25,9 +36,13 @@ namespace Deploy.LaunchPad.Core.Geospatial
     /// <summary>
     /// This interface defines the physical altitude of something
     /// </summary>
-    public interface IMayHaveAltitude : ILaunchPadObject
+    public partial interface IMayHaveAltitude : ILaunchPadObject
     {
 
+        /// <summary>
+        /// Gets or sets the altitude.
+        /// </summary>
+        /// <value>The altitude.</value>
         public double? Altitude { get; set; }
 
 

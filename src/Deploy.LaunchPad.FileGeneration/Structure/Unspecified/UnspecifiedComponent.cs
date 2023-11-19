@@ -1,4 +1,17 @@
-﻿using Castle.Core.Logging;
+﻿// ***********************************************************************
+// Assembly         : Deploy.LaunchPad.FileGeneration
+// Author           : Nicholas Kellett
+// Created          : 11-19-2023
+//
+// Last Modified By : Nicholas Kellett
+// Last Modified On : 01-08-2023
+// ***********************************************************************
+// <copyright file="UnspecifiedComponent.cs" company="Deploy Software Solutions, inc.">
+//     2018-2023 Deploy Software Solutions, inc.
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
+using Castle.Core.Logging;
 using System;
 
 namespace Deploy.LaunchPad.FileGeneration.Structure
@@ -26,11 +39,18 @@ namespace Deploy.LaunchPad.FileGeneration.Structure
             return isValid;
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="UnspecifiedComponent"/> class.
+        /// </summary>
         public UnspecifiedComponent() : base(NullLogger.Instance)
         {
 
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="UnspecifiedComponent"/> class.
+        /// </summary>
+        /// <param name="logger">The logger.</param>
         public UnspecifiedComponent(ILogger logger) : base(logger)
         {
         }

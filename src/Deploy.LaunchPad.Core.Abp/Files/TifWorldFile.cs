@@ -1,5 +1,16 @@
-﻿//LaunchPad Space
-// Copyright (c) 2018-2023 Deploy Software Solutions, inc. 
+﻿// ***********************************************************************
+// Assembly         : Deploy.LaunchPad.Core.Abp
+// Author           : Nicholas Kellett
+// Created          : 11-19-2023
+//
+// Last Modified By : Nicholas Kellett
+// Last Modified On : 01-22-2023
+// ***********************************************************************
+// <copyright file="TifWorldFile.cs" company="Deploy Software Solutions, inc.">
+//     2018-2023 Deploy Software Solutions, inc.
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
 
 #region license
 //Licensed under the Apache License, Version 2.0 (the "License"); 
@@ -20,38 +31,54 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
 {
     // Tiff World File (TFW)
     //
-    public class TifWorldFile<TPrimaryKey> : FileBase<TPrimaryKey, byte[]>
+    /// <summary>
+    /// Class TifWorldFile.
+    /// Implements the <see cref="Deploy.LaunchPad.Core.Abp.Domain.FileBase{TPrimaryKey, System.Byte[]}" />
+    /// </summary>
+    /// <typeparam name="TPrimaryKey">The type of the t primary key.</typeparam>
+    /// <seealso cref="Deploy.LaunchPad.Core.Abp.Domain.FileBase{TPrimaryKey, System.Byte[]}" />
+    public partial class TifWorldFile<TPrimaryKey> : FileBase<TPrimaryKey, byte[]>
     {
+        /// <summary>
+        /// The extension of the file
+        /// </summary>
+        /// <value>The extension.</value>
         public override string Extension { get => ".tfw"; }
 
         /// <summary>
         /// Line 1: A: x-scale
         /// </summary>
+        /// <value>a.</value>
         public virtual decimal A { get; set; }
 
         /// <summary>
         /// Line 2: D: y-skew
         /// </summary>
+        /// <value>The d.</value>
         public virtual decimal D { get; set; }
 
         /// <summary>
         /// Line 3: B: x-skew
         /// </summary>
+        /// <value>The b.</value>
         public virtual decimal B { get; set; }
 
         /// <summary>
         /// Line 4: E: y-scale
         /// </summary>
+        /// <value>The e.</value>
         public virtual decimal E { get; set; }
 
         /// <summary>
         /// Line 5: UTM easting of centre of upper-left pixel
         /// </summary>
+        /// <value>The c.</value>
         public virtual decimal C { get; set; }
 
         /// <summary>
         /// Line 5: UTM northing of centre of upper-left pixel
         /// </summary>
+        /// <value>The f.</value>
         public virtual decimal F { get; set; }
 
     }

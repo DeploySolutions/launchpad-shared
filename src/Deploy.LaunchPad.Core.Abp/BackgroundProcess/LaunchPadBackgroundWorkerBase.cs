@@ -1,17 +1,40 @@
-﻿using Abp.Threading.BackgroundWorkers;
+﻿// ***********************************************************************
+// Assembly         : Deploy.LaunchPad.Core.Abp
+// Author           : Nicholas Kellett
+// Created          : 11-19-2023
+//
+// Last Modified By : Nicholas Kellett
+// Last Modified On : 01-08-2023
+// ***********************************************************************
+// <copyright file="LaunchPadBackgroundWorkerBase.cs" company="Deploy Software Solutions, inc.">
+//     2018-2023 Deploy Software Solutions, inc.
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
+using Abp.Threading.BackgroundWorkers;
 using Deploy.LaunchPad.Core.BackgroundProcess;
 
 namespace Deploy.LaunchPad.Core.Abp.BackgroundProcess
 {
+    /// <summary>
+    /// Class LaunchPadBackgroundWorkerBase.
+    /// Implements the <see cref="BackgroundWorkerBase" />
+    /// Implements the <see cref="ICanBeLaunchPadBackgroundWorker" />
+    /// </summary>
+    /// <seealso cref="BackgroundWorkerBase" />
+    /// <seealso cref="ICanBeLaunchPadBackgroundWorker" />
     public abstract partial class LaunchPadBackgroundWorkerBase : BackgroundWorkerBase, ICanBeLaunchPadBackgroundWorker
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="LaunchPadBackgroundWorkerBase"/> class.
+        /// </summary>
         protected LaunchPadBackgroundWorkerBase() : base()
         {
         }
 
         /// <summary>
         /// Note to implementors: Make this method non-blocking
-        /// <see cref="https://aspnetboilerplate.com/Pages/Documents/Background-Jobs-And-Workers"/>
+        /// <see cref="https://aspnetboilerplate.com/Pages/Documents/Background-Jobs-And-Workers" />
         /// </summary>
         public override void Start()
         {
@@ -22,7 +45,7 @@ namespace Deploy.LaunchPad.Core.Abp.BackgroundProcess
 
         /// <summary>
         /// Note to implementors: Make this method non-blocking
-        /// <see cref="https://aspnetboilerplate.com/Pages/Documents/Background-Jobs-And-Workers"/>
+        /// <see cref="https://aspnetboilerplate.com/Pages/Documents/Background-Jobs-And-Workers" />
         /// </summary>
         public override void Stop()
         {
@@ -33,7 +56,7 @@ namespace Deploy.LaunchPad.Core.Abp.BackgroundProcess
 
         /// <summary>
         /// Note to implementors: Wait for the for the worker to finish whatever it is doing, before stopping
-        /// <see cref="https://aspnetboilerplate.com/Pages/Documents/Background-Jobs-And-Workers"/>
+        /// <see cref="https://aspnetboilerplate.com/Pages/Documents/Background-Jobs-And-Workers" />
         /// </summary>
         public override void WaitToStop()
         {

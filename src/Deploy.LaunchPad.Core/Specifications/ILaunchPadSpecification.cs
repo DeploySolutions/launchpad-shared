@@ -1,6 +1,16 @@
-﻿//LaunchPad Shared
-// Copyright (c) 2016-2021 Deploy Software Solutions, inc. 
-//This file is a derivative work from the original created in NCommon and copyright 2010 by Ritesh Rao 
+﻿// ***********************************************************************
+// Assembly         : Deploy.LaunchPad.Core
+// Author           : Nicholas Kellett
+// Created          : 11-19-2023
+//
+// Last Modified By : Nicholas Kellett
+// Last Modified On : 01-08-2023
+// ***********************************************************************
+// <copyright file="ILaunchPadSpecification.cs" company="Deploy Software Solutions, inc.">
+//     2018-2023 Deploy Software Solutions, inc.
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
 
 #region license
 //Licensed under the Apache License, Version 2.0 (the "License"); 
@@ -22,22 +32,23 @@ using System.Linq.Expressions;
 namespace Deploy.LaunchPad.Core.Specifications
 {
     /// <summary>
-    /// The <see cref="ILaunchPadSpecification{TEntity}"/> interface defines a basic contract to express specifications declaratively.
+    /// The <see cref="ILaunchPadSpecification{TEntity}" /> interface defines a basic contract to express specifications declaratively.
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public interface ILaunchPadSpecification<T>
+    public partial interface ILaunchPadSpecification<T>
     {
         /// <summary>
         /// Gets the expression that encapsulates the criteria of the specification.
         /// </summary>
+        /// <value>The predicate.</value>
         Expression<Func<T, bool>> Predicate { get; }
 
         /// <summary>
-        /// Evaluates the specification against an entity of <typeparamref name="T"/>.
+        /// Evaluates the specification against an entity of <typeparamref name="T" />.
         /// </summary>
-        /// <param name="entity">The <typeparamref name="T"/> instance to evaluate the specificaton
+        /// <param name="entity">The <typeparamref name="T" /> instance to evaluate the specificaton
         /// against.</param>
-        /// <returns>Should return true if the specification was satisfied by the entity, else false. </returns>
+        /// <returns>Should return true if the specification was satisfied by the entity, else false.</returns>
         bool IsSatisfiedBy(T entity);
     }
 }

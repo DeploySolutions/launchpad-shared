@@ -1,5 +1,16 @@
-﻿//LaunchPad Shared
-// Copyright (c) 2016-2021 Deploy Software Solutions, inc. 
+﻿// ***********************************************************************
+// Assembly         : Deploy.LaunchPad.Core
+// Author           : Nicholas Kellett
+// Created          : 11-19-2023
+//
+// Last Modified By : Nicholas Kellett
+// Last Modified On : 01-08-2023
+// ***********************************************************************
+// <copyright file="DevicePower.cs" company="Deploy Software Solutions, inc.">
+//     2018-2023 Deploy Software Solutions, inc.
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
 
 #region license
 //Licensed under the Apache License, Version 2.0 (the "License"); 
@@ -28,12 +39,13 @@ namespace Deploy.LaunchPad.Core.Domain.Devices
     /// This class presents information on the current power level of a device
     /// </summary>
     [Serializable()]
-    public class DevicePower : IDevicePower
+    public partial class DevicePower : IDevicePower
     {
         /// <summary>
         /// The estimated date and time until this device is fully drained, at current power expenditure.
         /// If set to null, the device is not draining or is already drained, or is in an unknown state.
         /// </summary>
+        /// <value>The remaining charge time.</value>
         [DataObjectField(false)]
         [XmlAttribute]
         public virtual DateTime? RemainingChargeTime
@@ -44,6 +56,7 @@ namespace Deploy.LaunchPad.Core.Domain.Devices
         /// <summary>
         /// Indicates the relative state of the power supply
         /// </summary>
+        /// <value>The power level.</value>
         [DataObjectField(false)]
         [XmlAttribute]
         public DevicePowerChargeLevel PowerLevel { get; set; }
@@ -51,12 +64,20 @@ namespace Deploy.LaunchPad.Core.Domain.Devices
 
         #region "Constructors"
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DevicePower"/> class.
+        /// </summary>
         public DevicePower()
         {
             RemainingChargeTime = null;
             PowerLevel = DevicePowerChargeLevel.Unknown;
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DevicePower"/> class.
+        /// </summary>
+        /// <param name="powerLevel">The power level.</param>
+        /// <param name="remainingCharge">The remaining charge.</param>
         public DevicePower(DevicePowerChargeLevel powerLevel, DateTime remainingCharge)
         {
             RemainingChargeTime = remainingCharge;
@@ -79,17 +100,17 @@ namespace Deploy.LaunchPad.Core.Domain.Devices
         /// <summary>
         /// The method required for implementing ISerializable
         /// </summary>
-        /// <param name="info"></param>
-        /// <param name="context"></param>
+        /// <param name="info">The information.</param>
+        /// <param name="context">The context.</param>
         public void GetObjectData(SerializationInfo info, StreamingContext context)
         {
             info.AddValue("RemainingChargeTime", RemainingChargeTime);
             info.AddValue("PowerLevel", PowerLevel);
         }
 
-        /// <summary>  
-        /// Displays information about the class in readable format.  
-        /// </summary>  
+        /// <summary>
+        /// Displays information about the class in readable format.
+        /// </summary>
         /// <returns>A string representation of the object.</returns>
         public override string ToString()
         {

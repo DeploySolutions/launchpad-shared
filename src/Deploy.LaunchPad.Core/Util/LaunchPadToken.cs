@@ -1,4 +1,17 @@
-﻿using System;
+﻿// ***********************************************************************
+// Assembly         : Deploy.LaunchPad.Core
+// Author           : Nicholas Kellett
+// Created          : 11-19-2023
+//
+// Last Modified By : Nicholas Kellett
+// Last Modified On : 01-08-2023
+// ***********************************************************************
+// <copyright file="LaunchPadToken.cs" company="Deploy Software Solutions, inc.">
+//     2018-2023 Deploy Software Solutions, inc.
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
@@ -8,14 +21,23 @@ using System.Xml.Serialization;
 
 namespace Deploy.LaunchPad.Core.Util
 {
+    /// <summary>
+    /// Class LaunchPadToken.
+    /// Implements the <see cref="System.IEquatable{Deploy.LaunchPad.Core.Util.LaunchPadToken}" />
+    /// </summary>
+    /// <seealso cref="System.IEquatable{Deploy.LaunchPad.Core.Util.LaunchPadToken}" />
     [Serializable]
-    public class LaunchPadToken : IEquatable<LaunchPadToken>
+    public partial class LaunchPadToken : IEquatable<LaunchPadToken>
     {
+        /// <summary>
+        /// The token name not provided default
+        /// </summary>
         public const string TokenNameNotProvidedDefault = "NO_TOKEN_NAME_WAS_SET";
 
         /// <summary>
         /// The prefix of this token
         /// </summary>
+        /// <value>The prefix.</value>
         [MaxLength(9, ErrorMessageResourceName = "Validation_Token_Prefix_9CharsOrLess", ErrorMessageResourceType = typeof(Deploy_LaunchPad_Core_Resources))]
         [Required]
         [DataObjectField(false)]
@@ -25,7 +47,7 @@ namespace Deploy.LaunchPad.Core.Util
         /// <summary>
         /// The name of this token
         /// </summary>
-        /// 
+        /// <value>The name.</value>
         [MaxLength(20, ErrorMessageResourceName = "Validation_Token_Name_20CharsOrLess", ErrorMessageResourceType = typeof(Deploy_LaunchPad_Core_Resources))]
         [Required]
         [DataObjectField(false)]
@@ -35,6 +57,7 @@ namespace Deploy.LaunchPad.Core.Util
         /// <summary>
         /// The value of this token. If null or empty, and a default is set, implementers should return that.
         /// </summary>
+        /// <value>The value.</value>
         [DataObjectField(false)]
         [XmlAttribute]
         public string Value { get; set; } = string.Empty;
@@ -42,30 +65,36 @@ namespace Deploy.LaunchPad.Core.Util
         /// <summary>
         /// The default value of this token, if no actual value is provided.
         /// </summary>
+        /// <value>The default value.</value>
         [DataObjectField(false)]
         [XmlAttribute]
         public string DefaultValue { get; set; } = string.Empty;
 
         /// <summary>
-        /// Optional key-value pair metadata for this token. 
+        /// Optional key-value pair metadata for this token.
         /// Key and Value within a text token are prefixed by 'tags:' and separated by '='. Tags are separated by ';'
         /// Example:  tags:Key1=Value1;Key2=Value2;
-        /// Dictionary is used to ensure a key only appears once. Case-insensitive comparer. 
+        /// Dictionary is used to ensure a key only appears once. Case-insensitive comparer.
         /// </summary>
+        /// <value>The tags.</value>
         [DataObjectField(false)]
         [XmlAttribute]
         public IDictionary<string, string> Tags { get; set; }
 
 
         /// <summary>
-        /// The "location" where this token was set, if known. Helpful for debugging and auditing purposes in 
+        /// The "location" where this token was set, if known. Helpful for debugging and auditing purposes in
         /// determining how a particular token was set in an application, tool, or manually.
         /// Note that the source is not used during tokenization and is not expected to appear/be used in a template.
         /// </summary>
+        /// <value>The source.</value>
         [DataObjectField(false)]
         [XmlAttribute]
         public string Source { get; set; } = string.Empty;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="LaunchPadToken"/> class.
+        /// </summary>
         public LaunchPadToken()
         {
             var comparer = StringComparer.OrdinalIgnoreCase;
@@ -74,6 +103,10 @@ namespace Deploy.LaunchPad.Core.Util
         }
 
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="LaunchPadToken"/> class.
+        /// </summary>
+        /// <param name="tokenString">The token string.</param>
         public LaunchPadToken(string tokenString)
         {
             var comparer = StringComparer.OrdinalIgnoreCase;
@@ -82,6 +115,11 @@ namespace Deploy.LaunchPad.Core.Util
             Parse(tokenString);
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="LaunchPadToken"/> class.
+        /// </summary>
+        /// <param name="tokenString">The token string.</param>
+        /// <param name="value">The value.</param>
         public LaunchPadToken(string tokenString, string value)
         {
             var comparer = StringComparer.OrdinalIgnoreCase;
@@ -91,6 +129,12 @@ namespace Deploy.LaunchPad.Core.Util
             Value = value;
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="LaunchPadToken"/> class.
+        /// </summary>
+        /// <param name="tokenString">The token string.</param>
+        /// <param name="value">The value.</param>
+        /// <param name="tags">The tags.</param>
         public LaunchPadToken(string tokenString, string value, IDictionary<string, string> tags)
         {
             var comparer = StringComparer.OrdinalIgnoreCase;
@@ -102,6 +146,12 @@ namespace Deploy.LaunchPad.Core.Util
         }
 
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="LaunchPadToken"/> class.
+        /// </summary>
+        /// <param name="prefix">The prefix.</param>
+        /// <param name="name">The name.</param>
+        /// <param name="defaultValue">The default value.</param>
         public LaunchPadToken(string prefix, string name, string defaultValue)
         {
             Prefix = prefix;
@@ -109,6 +159,13 @@ namespace Deploy.LaunchPad.Core.Util
             DefaultValue = defaultValue;
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="LaunchPadToken"/> class.
+        /// </summary>
+        /// <param name="prefix">The prefix.</param>
+        /// <param name="name">The name.</param>
+        /// <param name="defaultValue">The default value.</param>
+        /// <param name="value">The value.</param>
         public LaunchPadToken(string prefix, string name, string defaultValue, string value)
         {
             Prefix = prefix;
@@ -118,6 +175,10 @@ namespace Deploy.LaunchPad.Core.Util
         }
 
 
+        /// <summary>
+        /// Parses the specified token string.
+        /// </summary>
+        /// <param name="tokenString">The token string.</param>
         protected void Parse(string tokenString)
         {
             string tokenInnerSections = tokenString.Trim().Substring(2, tokenString.Length - 4);
@@ -179,6 +240,10 @@ namespace Deploy.LaunchPad.Core.Util
         }
 
 
+        /// <summary>
+        /// Validates the specified token string.
+        /// </summary>
+        /// <param name="tokenString">The token string.</param>
         protected void Validate(string tokenString)
         {
             Guard.Against<ArgumentException>(string.IsNullOrEmpty(tokenString), Deploy_LaunchPad_Core_Resources.Guard_LaunchPadToken_ArgumentException_Empty);
@@ -196,6 +261,7 @@ namespace Deploy.LaunchPad.Core.Util
         /// Uses .NET 6 compiler services
         /// https://docs.microsoft.com/en-us/dotnet/api/system.runtime.compilerservices.callermembernameattribute?view=net-6.0
         /// </summary>
+        /// <param name="className">Name of the class.</param>
         /// <param name="memberName">Leave blank to obtain the calling method.</param>
         /// <param name="fileName">Leave blank to obtain the calling class and filepath.</param>
         /// <param name="lineNumber">Leave blank to obtain the calling line number.</param>
@@ -217,6 +283,10 @@ namespace Deploy.LaunchPad.Core.Util
             return sourceInfo;
         }
 
+        /// <summary>
+        /// Returns a <see cref="System.String" /> that represents this instance.
+        /// </summary>
+        /// <returns>A <see cref="System.String" /> that represents this instance.</returns>
         public override string ToString()
         {
             StringBuilder sb = new StringBuilder("{{");
@@ -231,7 +301,7 @@ namespace Deploy.LaunchPad.Core.Util
         /// <summary>
         /// Returns a string representation of the token, specifically including its default value
         /// </summary>
-        /// <returns></returns>
+        /// <returns>System.String.</returns>
         public virtual string ToStringWithDefaultValue()
         {
             StringBuilder sb = new StringBuilder("{{");
@@ -260,6 +330,11 @@ namespace Deploy.LaunchPad.Core.Util
         }
 
 
+        /// <summary>
+        /// Determines whether the specified <see cref="System.Object" /> is equal to this instance.
+        /// </summary>
+        /// <param name="obj">The object to compare with the current object.</param>
+        /// <returns><c>true</c> if the specified <see cref="System.Object" /> is equal to this instance; otherwise, <c>false</c>.</returns>
         public override bool Equals(object obj)
         {
             if (obj != null && obj is LaunchPadToken)
@@ -273,10 +348,10 @@ namespace Deploy.LaunchPad.Core.Util
         /// <summary>
         /// Equality method between two objects of the same type.
         /// Because the Equals method is strongly typed by generic constraints,
-        /// it is not necessary to test for the correct object type.      
+        /// it is not necessary to test for the correct object type.
         /// </summary>
         /// <param name="obj">The other object of this type that we are testing equality with</param>
-        /// <returns></returns>
+        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
         public virtual bool Equals(LaunchPadToken obj)
         {
             if (obj != null)
@@ -317,13 +392,11 @@ namespace Deploy.LaunchPad.Core.Util
             return !(x == y);
         }
 
-        /// <summary>  
-        /// Computes and retrieves a hash code for an object.  
-        /// </summary>  
-        /// <remarks>  
-        /// This method implements the <see cref="Object">Object</see> method.  
-        /// </remarks>  
+        /// <summary>
+        /// Computes and retrieves a hash code for an object.
+        /// </summary>
         /// <returns>A hash code for an object.</returns>
+        /// <remarks>This method implements the <see cref="Object">Object</see> method.</remarks>
         public override int GetHashCode()
         {
             return Name.GetHashCode()

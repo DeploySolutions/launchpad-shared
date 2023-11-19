@@ -1,5 +1,16 @@
-﻿//LaunchPad Shared
-// Copyright (c) 2016-2021 Deploy Software Solutions, inc. 
+﻿// ***********************************************************************
+// Assembly         : Deploy.LaunchPad.Core
+// Author           : Nicholas Kellett
+// Created          : 11-19-2023
+//
+// Last Modified By : Nicholas Kellett
+// Last Modified On : 01-08-2023
+// ***********************************************************************
+// <copyright file="MetadataInformation.cs" company="Deploy Software Solutions, inc.">
+//     2018-2023 Deploy Software Solutions, inc.
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
 
 #region license
 //Licensed under the Apache License, Version 2.0 (the "License"); 
@@ -35,6 +46,7 @@ namespace Deploy.LaunchPad.Core.Domain
         /// <summary>
         /// The culture of this entity
         /// </summary>
+        /// <value>The culture.</value>
         [DataObjectField(true)]
         [XmlAttribute]
         public String Culture { get; set; }
@@ -42,6 +54,7 @@ namespace Deploy.LaunchPad.Core.Domain
         /// <summary>
         /// The id of the tenant that domain entity this belongs to (null if not known/applicable)
         /// </summary>
+        /// <value>The tenant identifier.</value>
         [DataObjectField(false)]
         [XmlAttribute]
         public int? TenantId { get; set; }
@@ -50,6 +63,7 @@ namespace Deploy.LaunchPad.Core.Domain
         /// The display name that can be displayed as a label externally to users when referring to this object
         /// (rather than using a GUID, which is unfriendly but unique)
         /// </summary>
+        /// <value>The name.</value>
         [DataObjectField(false)]
         [XmlAttribute]
         public virtual String Name { get; set; }
@@ -57,6 +71,7 @@ namespace Deploy.LaunchPad.Core.Domain
         /// <summary>
         /// A full description of this item.
         /// </summary>
+        /// <value>The description full.</value>
         [DataObjectField(false)]
         [XmlAttribute]
         public virtual String DescriptionFull { get; set; }
@@ -64,6 +79,7 @@ namespace Deploy.LaunchPad.Core.Domain
         /// <summary>
         /// A short description of this item.
         /// </summary>
+        /// <value>The description short.</value>
         [DataObjectField(false)]
         [XmlAttribute]
         public virtual String DescriptionShort { get; set; }
@@ -71,6 +87,7 @@ namespace Deploy.LaunchPad.Core.Domain
         /// <summary>
         /// The date and time that this object was created.
         /// </summary>
+        /// <value>The creation time.</value>
         [DataObjectField(false)]
         [XmlAttribute]
         public virtual DateTime CreationTime { get; set; }
@@ -78,6 +95,7 @@ namespace Deploy.LaunchPad.Core.Domain
         /// <summary>
         /// The id of the User Agent which created this entity
         /// </summary>
+        /// <value>The creator user identifier.</value>
         [DataObjectField(false)]
         [XmlAttribute]
         public virtual long? CreatorUserId { get; set; }
@@ -85,6 +103,7 @@ namespace Deploy.LaunchPad.Core.Domain
         /// <summary>
         /// The date and time that the location and/or properties of this object were last modified.
         /// </summary>
+        /// <value>The last modification time.</value>
         [DataObjectField(false)]
         [XmlAttribute]
         public virtual DateTime? LastModificationTime { get; set; }
@@ -92,6 +111,7 @@ namespace Deploy.LaunchPad.Core.Domain
         /// <summary>
         /// The id of the User Agent which last modified this object.
         /// </summary>
+        /// <value>The last modifier user identifier.</value>
         [DataObjectField(false)]
         [XmlAttribute]
         public virtual Int64? LastModifierUserId { get; set; }
@@ -100,6 +120,7 @@ namespace Deploy.LaunchPad.Core.Domain
         /// <summary>
         /// The date and time that this object was deleted.
         /// </summary>
+        /// <value>The deletion time.</value>
         [DataObjectField(false)]
         [XmlAttribute]
         public virtual DateTime? DeletionTime { get; set; }
@@ -107,22 +128,31 @@ namespace Deploy.LaunchPad.Core.Domain
         /// <summary>
         /// The id of the user which deleted this entity
         /// </summary>
+        /// <value>The deleter user identifier.</value>
         [DataObjectField(false)]
         [XmlAttribute]
         public virtual long? DeleterUserId { get; set; }
 
+        /// <summary>
+        /// Gets or sets a value indicating whether this instance is active.
+        /// </summary>
+        /// <value><c>true</c> if this instance is active; otherwise, <c>false</c>.</value>
         [DataObjectField(false)]
         [XmlAttribute]
         public bool IsActive { get; set; }
 
+        /// <summary>
+        /// Gets or sets a value indicating whether this instance is deleted.
+        /// </summary>
+        /// <value><c>true</c> if this instance is deleted; otherwise, <c>false</c>.</value>
         [DataObjectField(false)]
         [XmlAttribute]
         public bool IsDeleted { get; set; }
 
         #region Constructors
 
-        /// <summary>  
-        /// Initializes a new instance of the <see cref="MetadataInformation">MetadataInformation</see> class.  
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MetadataInformation">MetadataInformation</see> class.
         /// </summary>
         public MetadataInformation()
         {
@@ -179,20 +209,21 @@ namespace Deploy.LaunchPad.Core.Domain
             info.AddValue("IsActive", IsActive);
         }
 
-        /// Event called once deserialization constructor finishes.
-        /// Useful for reattaching connections and other 
-        /// <summary>finite resources that 
+        /// <summary>
+        /// finite resources that
         /// can't be serialized and deserialized.
         /// </summary>
         /// <param name="sender">The object that has been deserialized</param>
+        /// Event called once deserialization constructor finishes.
+        /// Useful for reattaching connections and other
         public virtual void OnDeserialization(object sender)
         {
             // reconnect connection strings and other resources that won't be serialized
         }
 
-        /// <summary>  
-        /// Displays information about the <c>Field</c> in readable format.  
-        /// </summary>  
+        /// <summary>
+        /// Displays information about the <c>Field</c> in readable format.
+        /// </summary>
         /// <returns>A string representation of the object.</returns>
         public override string ToString()
         {
@@ -298,18 +329,22 @@ namespace Deploy.LaunchPad.Core.Domain
             return x.Equals(y);
         }
 
+        /// <summary>
+        /// Implements the != operator.
+        /// </summary>
+        /// <param name="x">The x.</param>
+        /// <param name="y">The y.</param>
+        /// <returns>The result of the operator.</returns>
         public static bool operator !=(MetadataInformation x, MetadataInformation y)
         {
             return !(x == y);
         }
 
-        /// <summary>  
-        /// Computes and retrieves a hash code for an object.  
-        /// </summary>  
-        /// <remarks>  
-        /// This method implements the <see cref="Object">Object</see> method.  
-        /// </remarks>  
+        /// <summary>
+        /// Computes and retrieves a hash code for an object.
+        /// </summary>
         /// <returns>A hash code for an object.</returns>
+        /// <remarks>This method implements the <see cref="Object">Object</see> method.</remarks>
         public override int GetHashCode()
         {
             return

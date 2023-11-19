@@ -1,4 +1,17 @@
-﻿using Abp.Configuration;
+﻿// ***********************************************************************
+// Assembly         : Deploy.LaunchPad.Core.Abp
+// Author           : Nicholas Kellett
+// Created          : 11-19-2023
+//
+// Last Modified By : Nicholas Kellett
+// Last Modified On : 11-19-2023
+// ***********************************************************************
+// <copyright file="LaunchPadAbpModuleHelperBase.cs" company="Deploy Software Solutions, inc.">
+//     2018-2023 Deploy Software Solutions, inc.
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
+using Abp.Configuration;
 using Abp.Dependency;
 using Castle.Core.Logging;
 using Deploy.LaunchPad.Core.Config;
@@ -12,33 +25,70 @@ using System.Text.RegularExpressions;
 
 namespace Deploy.LaunchPad.Core.Abp.AbpModuleConfig
 {
+    /// <summary>
+    /// Class LaunchPadAbpModuleHelperBase.
+    /// Implements the <see cref="HelperBase" />
+    /// Implements the <see cref="Deploy.LaunchPad.Core.Abp.AbpModuleConfig.ILaunchPadAbpModuleHelper" />
+    /// Implements the <see cref="ISingletonDependency" />
+    /// </summary>
+    /// <seealso cref="HelperBase" />
+    /// <seealso cref="Deploy.LaunchPad.Core.Abp.AbpModuleConfig.ILaunchPadAbpModuleHelper" />
+    /// <seealso cref="ISingletonDependency" />
     public abstract class LaunchPadAbpModuleHelperBase : HelperBase,
         ILaunchPadAbpModuleHelper,
         ISingletonDependency
     {
 
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="LaunchPadAbpModuleHelperBase"/> class.
+        /// </summary>
+        /// <param name="logger">The logger.</param>
         public LaunchPadAbpModuleHelperBase(ILogger logger) : base(logger)
         {
             Logger = logger;
         }
 
+        /// <summary>
+        /// Gets the module secrets.
+        /// </summary>
+        /// <returns>IDictionary&lt;System.String, System.String&gt;.</returns>
+        /// <exception cref="System.NotImplementedException"></exception>
         public virtual IDictionary<string, string> GetModuleSecrets()
         {
             throw new NotImplementedException();
         }
 
+        /// <summary>
+        /// Gets the module secrets for vault identifier.
+        /// </summary>
+        /// <param name="vaultIdentifier">The vault identifier.</param>
+        /// <returns>IDictionary&lt;System.String, System.String&gt;.</returns>
+        /// <exception cref="System.NotImplementedException"></exception>
         public virtual IDictionary<string, string> GetModuleSecretsForVaultIdentifier(string vaultIdentifier)
         {
             throw new NotImplementedException();
         }
 
+        /// <summary>
+        /// Gets the module vaults.
+        /// </summary>
+        /// <returns>IList&lt;ISecretVault&gt;.</returns>
+        /// <exception cref="System.NotImplementedException"></exception>
         public virtual IList<ISecretVault> GetModuleVaults()
         {
             throw new NotImplementedException();
         }
 
 
+        /// <summary>
+        /// Adds the module secret vaults to provider.
+        /// </summary>
+        /// <typeparam name="TSecretVault">The type of the t secret vault.</typeparam>
+        /// <param name="provider">The provider.</param>
+        /// <param name="secretProviderVaultsJsonPath">The secret provider vaults json path.</param>
+        /// <param name="caller">The caller.</param>
+        /// <returns>IDictionary&lt;System.String, ISecretVault&gt;.</returns>
         public virtual IDictionary<string, ISecretVault> AddModuleSecretVaultsToProvider<TSecretVault>(ISecretProvider provider, string secretProviderVaultsJsonPath, string caller)
             where TSecretVault : ISecretVault, new()
         {
@@ -74,10 +124,13 @@ namespace Deploy.LaunchPad.Core.Abp.AbpModuleConfig
         /// <summary>
         /// Returns a database connection string, with the value set either locally in userSecrets.json (if secretVaultIdentifier = "secrets.json") or in a Secret Vault (probably a cloud-hosted secret service).
         /// </summary>
-        /// <param name="configuration"></param>
+        /// <typeparam name="TSecretVault">The type of the t secret vault.</typeparam>
+        /// <param name="vault">The vault.</param>
+        /// <param name="configuration">The configuration.</param>
         /// <param name="connectionStringFieldName">The name of the field which contains the connection string.</param>
-        /// <param name="secretVaultIdentifier">The unique identifier. If it's "userSecrets.json" it will attempt to load from local user secrets. Otherwise it will attempt to connect to a cloud-hosted secret service.</param>
-        /// <returns></returns>
+        /// <param name="caller">The caller.</param>
+        /// <param name="shouldLogConnectionString">if set to <c>true</c> [should log connection string].</param>
+        /// <returns>System.String.</returns>
         public virtual string GetDatabaseConnectionString<TSecretVault>(TSecretVault vault, IConfigurationRoot configuration, string connectionStringFieldName, string caller, bool shouldLogConnectionString = false)
             where TSecretVault : ISecretVault
         {
@@ -104,10 +157,12 @@ namespace Deploy.LaunchPad.Core.Abp.AbpModuleConfig
         /// <summary>
         /// Returns a database connection string, with the value set in a Secret Vault (probably a cloud-hosted secret service).
         /// </summary>
-        /// <param name="configuration"></param>
+        /// <typeparam name="TSecretVault">The type of the t secret vault.</typeparam>
+        /// <param name="secretVault">The secret vault.</param>
         /// <param name="connectionStringFieldName">The name of the field which contains the connection string.</param>
-        /// <param name="secretVaultIdentifier">The unique identifier, if the database connection string is contained in a cloud-hosted secret.</param>
-        /// <returns></returns>
+        /// <param name="caller">The caller.</param>
+        /// <param name="shouldLogConnectionString">if set to <c>true</c> [should log connection string].</param>
+        /// <returns>System.String.</returns>
         protected virtual string GetDatabaseConnectionStringFromSecretVault<TSecretVault>(TSecretVault secretVault, string connectionStringFieldName, string caller, bool shouldLogConnectionString = false)
             where TSecretVault : ISecretVault
         {
@@ -156,9 +211,11 @@ namespace Deploy.LaunchPad.Core.Abp.AbpModuleConfig
         /// <summary>
         /// Returns a database connection string, with the value provided from a local development userSecrets.json file
         /// </summary>
-        /// <param name="configuration"></param>
+        /// <param name="configuration">The configuration.</param>
         /// <param name="connectionStringFieldName">The name of the field which contains the connection string.</param>
-        /// <returns></returns>
+        /// <param name="caller">The caller.</param>
+        /// <param name="shouldLogConnectionString">if set to <c>true</c> [should log connection string].</param>
+        /// <returns>System.String.</returns>
         protected virtual string GetDatabaseConnectionStringFromLocalUserSecrets(IConfigurationRoot configuration, string connectionStringFieldName, string caller, bool shouldLogConnectionString = false)
         {
             string invalidConfigurationMessage = string.Format("LaunchPadAbpModuleHelper.GetDatabaseConnectionStringFromLocalUserSecrets(IConfigurationRoot configuration, string connectionStringFieldName, string caller, bool shouldLogConnectionString = false) => Getting connection string for caller '{0}', but configuration is null.", caller);
@@ -202,6 +259,12 @@ namespace Deploy.LaunchPad.Core.Abp.AbpModuleConfig
 
         }
 
+        /// <summary>
+        /// Checks if database connection string format is valid.
+        /// </summary>
+        /// <param name="databaseConnectionString">The database connection string.</param>
+        /// <param name="caller">The caller.</param>
+        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
         protected bool CheckIfDatabaseConnectionStringFormatIsValid(string databaseConnectionString, string caller)
         {
             Guard.Against<InvalidOperationException>(string.IsNullOrEmpty(databaseConnectionString), "Expected a database connection string but it is null or empty.");
@@ -221,9 +284,9 @@ namespace Deploy.LaunchPad.Core.Abp.AbpModuleConfig
         /// Returns the unique identifier value of a secret vault (an AWS ARN, an Azure secrets URL, etc)
         /// from the given app settings section
         /// </summary>
-        /// <param name="appConfig"></param>
-        /// <param name="settingName"></param>
-        /// <returns></returns>
+        /// <param name="configuration">The configuration.</param>
+        /// <param name="settingName">Name of the setting.</param>
+        /// <returns>System.String.</returns>
         public virtual string GetSecretVaultIdentifierFromSetting(IConfigurationRoot configuration, string settingName)
         {
             string secretVaultIdentifier = configuration.GetSection(settingName).Value;

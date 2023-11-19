@@ -1,5 +1,16 @@
-﻿//LaunchPad Shared
-// Copyright (c) 2018-2023 Deploy Software Solutions, inc. 
+﻿// ***********************************************************************
+// Assembly         : Deploy.LaunchPad.Images
+// Author           : Nicholas Kellett
+// Created          : 11-19-2023
+//
+// Last Modified By : Nicholas Kellett
+// Last Modified On : 01-22-2023
+// ***********************************************************************
+// <copyright file="IImageManager.cs" company="Deploy Software Solutions, inc.">
+//     2016-2023 Deploy Software Solutions, inc.
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
 
 namespace Deploy.LaunchPad.Images.Domain
 {
@@ -10,7 +21,7 @@ namespace Deploy.LaunchPad.Images.Domain
     /// <summary>
     /// Domain service interface for handling Image domain entities
     /// </summary>
-    public interface IImageManager : IDomainService
+    public partial interface IImageManager : IDomainService
     {
         /// <summary>
         /// Get a MagickImage object from the provided file

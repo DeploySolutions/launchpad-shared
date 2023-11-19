@@ -1,4 +1,17 @@
-﻿using Amazon;
+﻿// ***********************************************************************
+// Assembly         : Deploy.LaunchPad.AWS
+// Author           : Nicholas Kellett
+// Created          : 11-19-2023
+//
+// Last Modified By : Nicholas Kellett
+// Last Modified On : 02-18-2023
+// ***********************************************************************
+// <copyright file="AwsSecretProvider.cs" company="Deploy Software Solutions, inc.">
+//     2021-2023 Deploy Software Solutions, inc.
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
+using Amazon;
 using Amazon.Runtime;
 using Amazon.SecretsManager;
 using Amazon.SecretsManager.Model;
@@ -13,15 +26,36 @@ using System.Threading.Tasks;
 
 namespace Deploy.LaunchPad.AWS
 {
+    /// <summary>
+    /// Class AwsSecretProvider.
+    /// Implements the <see cref="SecretProviderBase" />
+    /// Implements the <see cref="ISecretProvider" />
+    /// </summary>
+    /// <seealso cref="SecretProviderBase" />
+    /// <seealso cref="ISecretProvider" />
     public partial class AwsSecretProvider : SecretProviderBase, ISecretProvider
     {
+        /// <summary>
+        /// The secret client
+        /// </summary>
         protected IAmazonSecretsManager _secretClient;
 
+        /// <summary>
+        /// Gets the secret client.
+        /// </summary>
+        /// <value>The secret client.</value>
         [JsonIgnore]
         public IAmazonSecretsManager SecretClient { get { return _secretClient; } }
 
+        /// <summary>
+        /// Gets the type.
+        /// </summary>
+        /// <value>The type.</value>
         public override string Type { get; protected set; } = "Deploy.LaunchPad.AWS.AwsSecretProvider";
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="AwsSecretProvider"/> class.
+        /// </summary>
         public AwsSecretProvider() : base()
         {
             RegionEndpoint region = RegionEndpoint.GetBySystemName("us-east-1");
@@ -30,6 +64,12 @@ namespace Deploy.LaunchPad.AWS
             _secretClient = GetSecretClient(region, awsProfileName, shouldUseLocalAwsProfile);
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="AwsSecretProvider"/> class.
+        /// </summary>
+        /// <param name="regionName">Name of the region.</param>
+        /// <param name="awsProfileName">Name of the aws profile.</param>
+        /// <param name="shouldUseLocalAwsProfile">if set to <c>true</c> [should use local aws profile].</param>
         public AwsSecretProvider(string regionName = "us-east-1", string awsProfileName = "default", bool shouldUseLocalAwsProfile = false) : base()
         {
             RegionEndpoint region = RegionEndpoint.GetBySystemName(regionName);
@@ -38,6 +78,12 @@ namespace Deploy.LaunchPad.AWS
 
 
 
+        /// <summary>
+        /// Get secret vault by identifier as an asynchronous operation.
+        /// </summary>
+        /// <param name="arn">The arn.</param>
+        /// <param name="caller">The caller.</param>
+        /// <returns>A Task&lt;ISecretVault&gt; representing the asynchronous operation.</returns>
         public async override Task<ISecretVault> GetSecretVaultByIdAsync(string arn, string caller)
         {
             AwsSecretVault vault = new AwsSecretVault();
@@ -46,6 +92,12 @@ namespace Deploy.LaunchPad.AWS
             return vault;
         }
 
+        /// <summary>
+        /// Get secret vault by vault identifier as an asynchronous operation.
+        /// </summary>
+        /// <param name="arn">The arn.</param>
+        /// <param name="caller">The caller.</param>
+        /// <returns>A Task&lt;ISecretVault&gt; representing the asynchronous operation.</returns>
         public async override Task<ISecretVault> GetSecretVaultByVaultIdAsync(string arn, string caller)
         {
             AwsSecretVault vault = new AwsSecretVault();
@@ -55,6 +107,12 @@ namespace Deploy.LaunchPad.AWS
         }
 
 
+        /// <summary>
+        /// Get json from secret vault as an asynchronous operation.
+        /// </summary>
+        /// <param name="secretVault">The secret vault.</param>
+        /// <param name="caller">The caller.</param>
+        /// <returns>A Task&lt;System.String&gt; representing the asynchronous operation.</returns>
         public async override Task<string> GetJsonFromSecretVaultAsync(ISecretVault secretVault, string caller)
         {
             Logger.Info(string.Format(Deploy_LaunchPad_AWS_Resources.Logger_Info_GetJsonFromSecret_Getting,
@@ -118,7 +176,7 @@ namespace Deploy.LaunchPad.AWS
         /// <summary>
         /// Get AWS Immutable Credentials where the IAM access key and secret values are stored in an AWS Secret Manager secret.
         /// </summary>
-        /// <param name="secretVaultIdentifier">The ARN of the secret in which the IAM values are kept.</param>
+        /// <param name="arn">The arn.</param>
         /// <returns>IAM credentials if value, or null</returns>
         public virtual ImmutableCredentials GetCredentialsFromSecret(string arn)
         {
@@ -129,7 +187,7 @@ namespace Deploy.LaunchPad.AWS
         /// <summary>
         /// Get AWS Immutable Credentials where the IAM access key and secret values are stored in an AWS Secret Manager secret.
         /// </summary>
-        /// <param name="secretVaultIdentifier">The ARN of the secret in which the IAM values are kept.</param>
+        /// <param name="secretVault">The secret vault.</param>
         /// <returns>IAM credentials if value, or null</returns>
         public virtual ImmutableCredentials GetCredentialsFromSecret(ISecretVault secretVault)
         {
@@ -140,7 +198,7 @@ namespace Deploy.LaunchPad.AWS
         /// <summary>
         /// Get AWS Immutable Credentials where the IAM access key and secret values are stored in an AWS Secret Manager secret.
         /// </summary>
-        /// <param name="secretVaultIdentifier">The ARN of the secret in which the IAM values are kept.</param>
+        /// <param name="secretVault">The secret vault.</param>
         /// <returns>IAM credentials if value, or null</returns>
         public async virtual Task<ImmutableCredentials> GetCredentialsFromSecretVaultAsync(ISecretVault secretVault)
         {
@@ -154,6 +212,14 @@ namespace Deploy.LaunchPad.AWS
         }
 
 
+        /// <summary>
+        /// Gets the secret client.
+        /// </summary>
+        /// <param name="region">The region.</param>
+        /// <param name="awsProfileName">Name of the aws profile.</param>
+        /// <param name="shouldUseLocalAwsProfile">if set to <c>true</c> [should use local aws profile].</param>
+        /// <param name="secretManagerConfig">The secret manager configuration.</param>
+        /// <returns>AmazonSecretsManagerClient.</returns>
         protected virtual AmazonSecretsManagerClient GetSecretClient(
             RegionEndpoint region,
             string awsProfileName = "",
@@ -222,11 +288,23 @@ namespace Deploy.LaunchPad.AWS
 
         }
         // Refresh methods
+        /// <summary>
+        /// Refreshes the secret vault.
+        /// </summary>
+        /// <param name="arn">The arn.</param>
+        /// <param name="caller">The caller.</param>
+        /// <returns>ISecretVault.</returns>
         public override ISecretVault RefreshSecretVault(string arn, string caller)
         {
             return GetSecretVaultByIdAsync(arn, caller).Result;
         }
 
+        /// <summary>
+        /// Refresh secret vault as an asynchronous operation.
+        /// </summary>
+        /// <param name="arn">The arn.</param>
+        /// <param name="caller">The caller.</param>
+        /// <returns>A Task&lt;ISecretVault&gt; representing the asynchronous operation.</returns>
         public override async Task<ISecretVault> RefreshSecretVaultAsync(string arn, string caller)
         {
             var vault = await GetSecretVaultByIdAsync(arn, "AwsSecretProvier.RefreshSecretVault(string vaultId, string caller)");
@@ -234,11 +312,23 @@ namespace Deploy.LaunchPad.AWS
         }
 
 
+        /// <summary>
+        /// Refreshes the secret vault.
+        /// </summary>
+        /// <param name="secretVault">The secret vault.</param>
+        /// <param name="caller">The caller.</param>
+        /// <returns>ISecretVault.</returns>
         public override ISecretVault RefreshSecretVault(ISecretVault secretVault, string caller)
         {
             return RefreshSecretVaultAsync(secretVault, caller).Result;
         }
 
+        /// <summary>
+        /// Refresh secret vault as an asynchronous operation.
+        /// </summary>
+        /// <param name="secretVault">The secret vault.</param>
+        /// <param name="caller">The caller.</param>
+        /// <returns>A Task&lt;ISecretVault&gt; representing the asynchronous operation.</returns>
         public override async Task<ISecretVault> RefreshSecretVaultAsync(ISecretVault secretVault, string caller)
         {
             secretVault.Fields = await GetAllValuesFromSecretVaultAsync(secretVault, caller);
@@ -246,6 +336,15 @@ namespace Deploy.LaunchPad.AWS
         }
 
         // update methods
+        /// <summary>
+        /// Creates the or update field in secret vault.
+        /// </summary>
+        /// <param name="secretVault">The secret vault.</param>
+        /// <param name="originalSecretJson">The original secret json.</param>
+        /// <param name="key">The key.</param>
+        /// <param name="value">The value.</param>
+        /// <param name="caller">The caller.</param>
+        /// <returns>System.String.</returns>
         public override string CreateOrUpdateFieldInSecretVault(ISecretVault secretVault, string originalSecretJson, string key, string value, string caller)
         {
             Logger.Info(string.Format(Deploy_LaunchPad_AWS_Resources.Logger_Info_UpdateJsonForSecret_Updating, value, key, secretVault.Id));
@@ -276,9 +375,9 @@ namespace Deploy.LaunchPad.AWS
         /// <summary>
         /// Writes the text value of a particular key, to a given secret ARN
         /// </summary>
-        /// <param name="key">The field within the secret to update</param>
-        /// <param name="value">The value to update for the given key</param>
-        /// <param name="secretVaultIdentifier">The full secret ARN</param>
+        /// <param name="secretVault">The secret vault.</param>
+        /// <param name="fieldsToInsertOrUpdate">The fields to insert or update.</param>
+        /// <param name="caller">The caller.</param>
         /// <returns>A status code with the result of the request</returns>
         public override HttpStatusCode UpdateFieldsInSecretVault(ISecretVault secretVault, IDictionary<string, string> fieldsToInsertOrUpdate, string caller)
         {
@@ -288,9 +387,9 @@ namespace Deploy.LaunchPad.AWS
         /// <summary>
         /// Writes the text value of a particular key, to a given secret ARN
         /// </summary>
-        /// <param name="key">The field within the secret to update</param>
-        /// <param name="value">The value to update for the given key</param>
-        /// <param name="secretVaultIdentifier">The full secret ARN</param>
+        /// <param name="secretVault">The secret vault in which the field is stored</param>
+        /// <param name="fieldsToInsertOrUpdate">The fields to insert or update.</param>
+        /// <param name="caller">The caller.</param>
         /// <returns>A status code with the result of the request</returns>
         public async override Task<HttpStatusCode> UpdateFieldsInSecretVaultAsync(ISecretVault secretVault, IDictionary<string, string> fieldsToInsertOrUpdate, string caller)
         {

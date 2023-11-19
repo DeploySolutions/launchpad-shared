@@ -1,5 +1,16 @@
-﻿//LaunchPad Shared
-// Copyright (c) 2016-2021 Deploy Software Solutions, inc. 
+﻿// ***********************************************************************
+// Assembly         : Deploy.LaunchPad.Core.Abp
+// Author           : Nicholas Kellett
+// Created          : 11-19-2023
+//
+// Last Modified By : Nicholas Kellett
+// Last Modified On : 10-27-2023
+// ***********************************************************************
+// <copyright file="TenantSpecificAggregateChildBase.cs" company="Deploy Software Solutions, inc.">
+//     2018-2023 Deploy Software Solutions, inc.
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
 
 #region license
 //Licensed under the Apache License, Version 2.0 (the "License"); 
@@ -30,11 +41,12 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
 {
 
     /// <summary>
-    /// Base class for Aggregate Root child entities that must be specifically related to tenants. 
+    /// Base class for Aggregate Root child entities that must be specifically related to tenants.
     /// Inherits from <see cref="LaunchPadAggregateChildBase{TIdType}{TIdType}">LaunchPadAggregateChildBase{TIdType}</see> and provides
-    /// base functionality for many of its methods. 
+    /// base functionality for many of its methods.
     /// Implements AspNetBoilerplate's <see cref="IMustHaveTenant">IMustHaveTenant interface</see>, overriding the base interface where tenant may or may not exist.
     /// </summary>
+    /// <typeparam name="TIdType">The type of the t identifier type.</typeparam>
     [Serializable]
     public abstract partial class TenantSpecificAggregateChildBase<TIdType> :
         LaunchPadAggregateChildBase<TIdType>, IMustHaveTenant
@@ -44,13 +56,14 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
         /// <summary>
         /// The id of the tenant that domain entity this belongs to
         /// </summary>
+        /// <value>The tenant identifier.</value>
         [DataObjectField(false)]
         [XmlAttribute]
         [Required]
         [ForeignKey(nameof(TenantId))]
         public virtual int TenantId { get; set; }
 
-        /// <summary>  
+        /// <summary>
         /// Initializes a new instance of the <see cref="TenantSpecificAggregateChildBase">TenantSpecificAggregateChildBase</see> class
         /// </summary>
         protected TenantSpecificAggregateChildBase() : base()
@@ -58,17 +71,20 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
             TenantId = 1;
         }
 
-        /// <summary>  
+        /// <summary>
         /// Initializes a new instance of the <see cref="TenantSpecificAggregateChildBase">TenantSpecificAggregateChildBase</see> class
         /// </summary>
+        /// <param name="tenantId">The tenant identifier.</param>
         protected TenantSpecificAggregateChildBase(int tenantId) : base()
         {
             TenantId = tenantId;
         }
 
         /// <summary>
-        /// Creates a new instance of the <see cref="TenantSpecificAggregateRootBase">TenantSpecificAggregateRootBase</see> class given a key, and some metadata. 
+        /// Creates a new instance of the <see cref="TenantSpecificAggregateRootBase">TenantSpecificAggregateRootBase</see> class given a key, and some metadata.
         /// </summary>
+        /// <param name="tenantId">The tenant identifier.</param>
+        /// <param name="id">The identifier.</param>
         /// <param name="cultureName">The culture for this entity</param>
         protected TenantSpecificAggregateChildBase(int tenantId, TIdType id, string cultureName) : base(id, cultureName)
         {
@@ -76,9 +92,10 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
         }
 
         /// <summary>
-        /// Creates a new instance of the <see cref="TenantSpecificAggregateRootBase">TenantSpecificAggregateRootBase</see> class given a key, and some metadata. 
+        /// Creates a new instance of the <see cref="TenantSpecificAggregateRootBase">TenantSpecificAggregateRootBase</see> class given a key, and some metadata.
         /// </summary>
-        /// <param name="cultureName">The culture for this entity</param>
+        /// <param name="tenantId">The tenant identifier.</param>
+        /// <param name="id">The identifier.</param>
         /// <param name="metadata">The desired metadata for this entity</param>
         protected TenantSpecificAggregateChildBase(int tenantId, TIdType id, MetadataInformation metadata) : base(id, metadata.Culture)
         {
@@ -99,8 +116,8 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
         /// <summary>
         /// The method required for implementing ISerializable
         /// </summary>
-        /// <param name="info"></param>
-        /// <param name="context"></param>
+        /// <param name="info">The information.</param>
+        /// <param name="context">The context.</param>
         public override void GetObjectData(SerializationInfo info, StreamingContext context)
         {
             base.GetObjectData(info, context);
@@ -109,7 +126,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
 
         /// <summary>
         /// Event called once deserialization constructor finishes.
-        /// Useful for reattaching connections and other finite resources that 
+        /// Useful for reattaching connections and other finite resources that
         /// can't be serialized and deserialized.
         /// </summary>
         /// <param name="sender">The object that has been deserialized</param>
@@ -124,7 +141,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
         /// it is not necessary to test for the correct object type.
         /// </summary>
         /// <param name="other">The other object of this type we are comparing to</param>
-        /// <returns></returns>
+        /// <returns>System.Int32.</returns>
         public virtual int CompareTo(TenantSpecificAggregateChildBase<TIdType> other)
         {
             // put comparison of properties in here 
@@ -132,9 +149,9 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
             return Name.CompareTo(other.Name);
         }
 
-        /// <summary>  
-        /// Displays information about the <c>Field</c> in readable format.  
-        /// </summary>  
+        /// <summary>
+        /// Displays information about the <c>Field</c> in readable format.
+        /// </summary>
         /// <returns>A string representation of the object.</returns>
         public override string ToString()
         {
@@ -163,10 +180,10 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
         /// Because the Equals method is strongly typed by generic constraints,
         /// it is not necessary to test for the correct object type.
         /// For safety we just want to match on business key value - in this case the fields
-        /// that cannot be different between the two objects if they are supposedly equal.        
+        /// that cannot be different between the two objects if they are supposedly equal.
         /// </summary>
         /// <param name="obj">The other object of this type that we are testing equality with</param>
-        /// <returns></returns>
+        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
         public virtual bool Equals(TenantSpecificAggregateChildBase<TIdType> obj)
         {
             if (obj != null)
@@ -219,13 +236,11 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
             return !(x == y);
         }
 
-        /// <summary>  
-        /// Computes and retrieves a hash code for an object.  
-        /// </summary>  
-        /// <remarks>  
-        /// This method implements the <see cref="object">Object</see> method.  
-        /// </remarks>  
+        /// <summary>
+        /// Computes and retrieves a hash code for an object.
+        /// </summary>
         /// <returns>A hash code for an object.</returns>
+        /// <remarks>This method implements the <see cref="object">Object</see> method.</remarks>
         public override int GetHashCode()
         {
             return Culture.GetHashCode() + Id.GetHashCode() + TenantId.GetHashCode();

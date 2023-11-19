@@ -1,5 +1,16 @@
-﻿//LaunchPad Shared
-// Copyright (c) 2018-2023 Deploy Software Solutions, inc. 
+﻿// ***********************************************************************
+// Assembly         : Deploy.LaunchPad.Core.Abp
+// Author           : Nicholas Kellett
+// Created          : 11-19-2023
+//
+// Last Modified By : Nicholas Kellett
+// Last Modified On : 01-22-2023
+// ***********************************************************************
+// <copyright file="TifWorldFileParser.cs" company="Deploy Software Solutions, inc.">
+//     2018-2023 Deploy Software Solutions, inc.
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
 
 #region license
 //Licensed under the Apache License, Version 2.0 (the "License"); 
@@ -25,16 +36,34 @@ using System.Text;
 
 namespace Deploy.LaunchPad.Core.Abp.Util
 {
-    public class TifWorldFileParser<TPrimaryKey, TFileStorageLocationType>
+    /// <summary>
+    /// Class TifWorldFileParser.
+    /// </summary>
+    /// <typeparam name="TPrimaryKey">The type of the t primary key.</typeparam>
+    /// <typeparam name="TFileStorageLocationType">The type of the t file storage location type.</typeparam>
+    public partial class TifWorldFileParser<TPrimaryKey, TFileStorageLocationType>
         where TFileStorageLocationType : IFileStorageLocation, new()
     {
+        /// <summary>
+        /// Gets or sets the location.
+        /// </summary>
+        /// <value>The location.</value>
         public TFileStorageLocationType Location { get; set; }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="TifWorldFileParser{TPrimaryKey, TFileStorageLocationType}"/> class.
+        /// </summary>
         public TifWorldFileParser()
         {
             Location = new TFileStorageLocationType();
         }
 
+        /// <summary>
+        /// Gets the tif world file from metadata file.
+        /// </summary>
+        /// <param name="metadataFileName">Name of the metadata file.</param>
+        /// <returns>TifWorldFile&lt;TPrimaryKey&gt;.</returns>
+        /// <exception cref="System.IO.FileLoadException"></exception>
         public TifWorldFile<TPrimaryKey> GetTifWorldFileFromMetadataFile(string metadataFileName)
         {
             TifWorldFile<TPrimaryKey> file = null;

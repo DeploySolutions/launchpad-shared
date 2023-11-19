@@ -1,5 +1,16 @@
-﻿//LaunchPad Shared
-// Copyright (c) 2016-2021 Deploy Software Solutions, inc. 
+﻿// ***********************************************************************
+// Assembly         : Deploy.LaunchPad.Core.Abp
+// Author           : Nicholas Kellett
+// Created          : 11-19-2023
+//
+// Last Modified By : Nicholas Kellett
+// Last Modified On : 10-27-2023
+// ***********************************************************************
+// <copyright file="LaunchPadAggregateChildBase.cs" company="Deploy Software Solutions, inc.">
+//     2018-2023 Deploy Software Solutions, inc.
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
 
 #region license
 //Licensed under the Apache License, Version 2.0 (the "License"); 
@@ -33,6 +44,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
     /// Base class for Aggregate Child Entities (in Domain Driven Design). Inherits from <see cref="DomainEntityBase">DomainEntityBase</see>
     /// Implements AspNetBoilerplate's auditing interfaces.
     /// </summary>
+    /// <typeparam name="TIdType">The type of the t identifier type.</typeparam>
     [Serializable]
     public abstract partial class LaunchPadAggregateChildBase<TIdType> :
         LaunchPadDomainEntityBase<TIdType>,
@@ -43,6 +55,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
         /// <summary>
         /// If this object is a regular domain entity, an aggregate root, or an aggregate child
         /// </summary>
+        /// <value>The type of the entity.</value>
         [DataObjectField(false)]
         [XmlAttribute]
         public override DomainEntityType EntityType { get; } = DomainEntityType.AggregateChild;
@@ -50,12 +63,13 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
         /// <summary>
         /// The fully qualified type name of the parent aggregate root this child entity belongs to (ex. MyCorp.MyApp.Orders.Order)
         /// </summary>
+        /// <value>The type of the parent fully qualified.</value>
         [DataObjectField(false)]
         [XmlAttribute]
         public virtual string ParentFullyQualifiedType { get; private set; }
 
 
-        /// <summary>  
+        /// <summary>
         /// Initializes a new instance of the <see cref="LaunchPadAggregateChildBase">LaunchPadAggregateChildBase</see> class
         /// </summary>
         protected LaunchPadAggregateChildBase() : base()
@@ -64,8 +78,9 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
 
 
         /// <summary>
-        /// Creates a new instance of the <see cref="LaunchPadAggregateChildBase">LaunchPadAggregateChildBase</see> class given a key, and some metadata. 
+        /// Creates a new instance of the <see cref="LaunchPadAggregateChildBase">LaunchPadAggregateChildBase</see> class given a key, and some metadata.
         /// </summary>
+        /// <param name="id">The identifier.</param>
         /// <param name="cultureName">The culture for this entity</param>
         protected LaunchPadAggregateChildBase(TIdType id, string cultureName) : base(id, cultureName)
         {
@@ -84,8 +99,8 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
         /// <summary>
         /// The method required for implementing ISerializable
         /// </summary>
-        /// <param name="info"></param>
-        /// <param name="context"></param>
+        /// <param name="info">The information.</param>
+        /// <param name="context">The context.</param>
         public override void GetObjectData(SerializationInfo info, StreamingContext context)
         {
             base.GetObjectData(info, context);
@@ -94,7 +109,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
 
         /// <summary>
         /// Event called once deserialization constructor finishes.
-        /// Useful for reattaching connections and other finite resources that 
+        /// Useful for reattaching connections and other finite resources that
         /// can't be serialized and deserialized.
         /// </summary>
         /// <param name="sender">The object that has been deserialized</param>
@@ -104,9 +119,9 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
         }
 
 
-        /// <summary>  
-        /// Displays information about the <c>Field</c> in readable format.  
-        /// </summary>  
+        /// <summary>
+        /// Displays information about the <c>Field</c> in readable format.
+        /// </summary>
         /// <returns>A string representation of the object.</returns>
         public override string ToString()
         {
@@ -135,10 +150,10 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
         /// Because the Equals method is strongly typed by generic constraints,
         /// it is not necessary to test for the correct object type.
         /// For safety we just want to match on business key value - in this case the fields
-        /// that cannot be different between the two objects if they are supposedly equal.        
+        /// that cannot be different between the two objects if they are supposedly equal.
         /// </summary>
         /// <param name="obj">The other object of this type that we are testing equality with</param>
-        /// <returns></returns>
+        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
         public virtual bool Equals(LaunchPadAggregateChildBase<TIdType> obj)
         {
             if (obj != null)
@@ -191,13 +206,11 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
             return !(x == y);
         }
 
-        /// <summary>  
-        /// Computes and retrieves a hash code for an object.  
-        /// </summary>  
-        /// <remarks>  
-        /// This method implements the <see cref="object">Object</see> method.  
-        /// </remarks>  
+        /// <summary>
+        /// Computes and retrieves a hash code for an object.
+        /// </summary>
         /// <returns>A hash code for an object.</returns>
+        /// <remarks>This method implements the <see cref="object">Object</see> method.</remarks>
         public override int GetHashCode()
         {
             return Culture.GetHashCode() + Id.GetHashCode();
