@@ -2,8 +2,8 @@
 
   <PropertyGroup>
     <TargetFrameworks>net8.0</TargetFrameworks>
-    <IsPackable>false</IsPackable>
     <Version>10.0.0</Version>
+    <IsPackable>false</IsPackable>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
   </PropertyGroup>
 
