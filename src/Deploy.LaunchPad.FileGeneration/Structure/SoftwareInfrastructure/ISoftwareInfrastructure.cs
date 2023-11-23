@@ -33,6 +33,12 @@ namespace Deploy.LaunchPad.FileGeneration.Structure
         public AbpFrameworkEnum AbpFramework { get; set; }
 
         /// <summary>
+        /// Gets or sets a value indicating what version of .NET frameworks are targeted (if applicable)
+        /// </summary>
+        /// <value><c>net8.0</c>, or comma-separated value.</value>
+        public string DotNetTargetFrameworks { get; set; }
+
+        /// <summary>
         /// Gets or sets the infrastructure as code frameworks.
         /// </summary>
         /// <value>The infrastructure as code frameworks.</value>

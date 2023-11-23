@@ -55,6 +55,13 @@ namespace Deploy.LaunchPad.FileGeneration.Structure
         /// <value>The infrastructure as code frameworks.</value>
         public virtual IDictionary<string, IInfrastructureAsCodeFramework> InfrastructureAsCodeFrameworks { get; set; }
 
+
+        /// <summary>
+        /// Gets or sets a value indicating what version of .NET frameworks are targeted (if applicable)
+        /// </summary>
+        /// <value><c>net8.0</c>, or comma-separated value.</value>
+        public virtual string DotNetTargetFrameworks { get; set; } = "net8.0";
+
         /// <summary>
         /// Gets or sets a value indicating whether [search is enabled].
         /// </summary>
