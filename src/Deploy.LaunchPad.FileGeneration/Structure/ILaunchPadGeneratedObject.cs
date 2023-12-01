@@ -24,11 +24,7 @@ namespace Deploy.LaunchPad.FileGeneration.Structure
     /// </summary>
     public partial interface ILaunchPadGeneratedObject
     {
-        /// <summary>
-        /// Gets or sets the description.
-        /// </summary>
-        /// <value>The description.</value>
-        string Description { get; set; }
+        
         /// <summary>
         /// Gets or sets the identifier.
         /// </summary>
@@ -44,11 +40,7 @@ namespace Deploy.LaunchPad.FileGeneration.Structure
         /// </summary>
         /// <value>The name.</value>
         string Name { get; set; }
-        /// <summary>
-        /// Gets or sets the abbreviation.
-        /// </summary>
-        /// <value>The abbreviation.</value>
-        string Abbreviation { get; set; }
+
 
         /// <summary>
         /// Gets or sets the name prefix.
@@ -60,6 +52,25 @@ namespace Deploy.LaunchPad.FileGeneration.Structure
         /// </summary>
         /// <value>The name suffix.</value>
         string NameSuffix { get; set; }
+
+
+        /// <summary>
+        /// Gets or sets the abbreviation.
+        /// </summary>
+        /// <value>The abbreviation.</value>
+        string Abbreviation { get; set; }
+
+        /// <summary>
+        /// Gets or sets the description.
+        /// </summary>
+        /// <value>The description.</value>
+        string Description { get; set; }
+
+        /// <summary>
+        /// Code annotations for the object
+        /// </summary>
+        /// <value>The annotations.</value>
+        public string Annotations { get; set; }
 
         /// <summary>
         /// Gets or sets the repository.
