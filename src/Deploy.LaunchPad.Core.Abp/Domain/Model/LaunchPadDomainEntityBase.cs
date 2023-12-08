@@ -327,7 +327,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
             DescriptionShort = info.GetString("DescriptionShort");
             DescriptionFull = info.GetString("DescriptionFull");
             Checksum = info.GetString("Checksum");
-            Tags = (HashSet<MetadataTag>)info.GetValue("Metadata", typeof(HashSet<MetadataTag>));
+            Tags = (HashSet<MetadataTag>)info.GetValue("Tags", typeof(HashSet<MetadataTag>));
             CreationTime = info.GetDateTime("CreationTime");
             CreatorUserId = info.GetInt64("CreatorUserId");
             LastModificationTime = info.GetDateTime("LastModificationTime");
