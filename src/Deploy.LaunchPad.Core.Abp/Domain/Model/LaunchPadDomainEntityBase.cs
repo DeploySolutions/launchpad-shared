@@ -210,6 +210,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
         [MaxLength(256, ErrorMessageResourceName = "Validation_Name_256CharsOrLess", ErrorMessageResourceType = typeof(Deploy_LaunchPad_Core_Resources))]
         [DataObjectField(false)]
         [XmlAttribute]
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public string? CreatorUserName { get; set; }
 
         /// <summary>
@@ -220,6 +221,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
             ErrorMessageResourceType = typeof(Deploy_LaunchPad_Core_Resources))]
         [DataObjectField(false)]
         [XmlAttribute]
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public string? LastModifierUserName { get; set; }
 
         /// <summary>
@@ -229,6 +231,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
         [MaxLength(256, ErrorMessageResourceName = "Validation_Name_256CharsOrLess", ErrorMessageResourceType = typeof(Deploy_LaunchPad_Core_Resources))]
         [DataObjectField(false)]
         [XmlAttribute]
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public string? DeleterUserName { get; set; }
 
         /// <summary>
