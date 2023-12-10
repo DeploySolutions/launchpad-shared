@@ -499,15 +499,22 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
                 }
                 else
                 {
-                    // For safe equality we need to match on business key equality.
-                    // Base domain entities are functionally equal if their key and metadata are equal.
-                    // Subclasses should extend to include their own enhanced equality checks, as required.
-                    return Checksum.Equals(obj.Checksum) && Id.Equals(obj.Id) && Culture.Equals(obj.Culture) && ExternalId.Equals(obj.ExternalId)
-                        && FullyQualifiedName.Equals(obj.FullyQualifiedName)
-                        && ExternalId.Equals(obj.ExternalId)
-                        && IsActive.Equals(obj.IsActive) && IsDeleted.Equals(obj.IsDeleted);
+                    // if checksum is set, use it for equality
+                    if (Checksum != null && obj.Checksum != null)
+                    {
+                        return Checksum.Equals(obj.Checksum) && IsActive.Equals(obj.IsActive) && IsDeleted.Equals(obj.IsDeleted);
+                    }
+                    else
+                    {
+                        // For safe equality we need to match on business key equality.
+                        // Base domain entities are functionally equal if their key and metadata are equal.
+                        // Subclasses should extend to include their own enhanced equality checks, as required.
+                        return Id.Equals(obj.Id) && Culture.Equals(obj.Culture) && ExternalId.Equals(obj.ExternalId)
+                            && FullyQualifiedName.Equals(obj.FullyQualifiedName)
+                            && ExternalId.Equals(obj.ExternalId)
+                            && IsActive.Equals(obj.IsActive) && IsDeleted.Equals(obj.IsDeleted);
+                    }
                 }
-
             }
             return false;
         }
