@@ -14,7 +14,7 @@
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Authors>Nicholas Kellett</Authors>
     <Company>Deploy Software Solutions, inc.</Company>
-    <Version>10.0.2</Version>
+    <Version>10.0.3</Version>
   </PropertyGroup>
   <ItemGroup>
     <None Include="..\..\LICENSE">
