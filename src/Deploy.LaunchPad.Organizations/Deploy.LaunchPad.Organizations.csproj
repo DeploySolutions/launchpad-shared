@@ -9,7 +9,7 @@
     <RepositoryUrl>https://github.com/DeploySolutions/launchpad-shared</RepositoryUrl>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
-    <Version>10.0.1</Version>
+    <Version>10.0.2</Version>
     <Description>Organization-related code for LaunchPad framework.</Description>
     <Copyright>2018-2023 Deploy Software Solutions, inc.</Copyright>
     <PackageIconUrl></PackageIconUrl>
@@ -36,7 +36,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Schema.NET" Version="12.0.0" />
+    <PackageReference Include="Schema.NET" Version="13.0.0" />
   </ItemGroup>
 
 </Project>

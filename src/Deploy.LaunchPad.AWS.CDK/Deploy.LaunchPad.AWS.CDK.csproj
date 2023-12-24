@@ -14,7 +14,7 @@
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Authors>Nicholas Kellett</Authors>
     <Company>Deploy Software Solutions, inc.</Company>
-    <Version>10.0.1</Version>
+    <Version>10.0.2</Version>
   </PropertyGroup>
   <ItemGroup>
     <None Include="..\..\LICENSE">
@@ -31,7 +31,7 @@
     <PackageReference Include="Amazon.CDK" Version="1.204.0" />
     <PackageReference Include="Amazon.CDK.AWS.EC2" Version="1.204.0" />
     <PackageReference Include="Amazon.CDK.AWS.WAFv2" Version="1.204.0" />
-    <PackageReference Include="AWSSDK.WAFV2" Version="3.7.300.5" />
+    <PackageReference Include="AWSSDK.WAFV2" Version="3.7.300.25" />
   </ItemGroup>
 
 </Project>
