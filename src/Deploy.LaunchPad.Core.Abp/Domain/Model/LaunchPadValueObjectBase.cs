@@ -30,7 +30,9 @@ using Abp.Domain.Values;
 using Deploy.LaunchPad.Core.Domain;
 using Deploy.LaunchPad.Core.Domain.Model;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using System.Reflection;
 using System.Runtime.Serialization;
 using System.Xml.Serialization;
@@ -47,7 +49,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
     /// </summary>
     [Serializable]
     public abstract partial class LaunchPadValueObjectBase : ValueObject,
-        ILaunchPadValueObject
+        ILaunchPadValueObject, IEquatable<LaunchPadValueObjectBase>
     {
 
         /// <summary>
@@ -121,6 +123,38 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
             return clone;
         }
 
+        public static bool operator ==(LaunchPadValueObjectBase? a, LaunchPadValueObjectBase? b)
+        {
+            if (a is null && b is null)
+            {
+                return true;
+            }
 
+            if (a is null || b is null)
+            {
+                return false;
+            }
+
+            return a.Equals(b);
+        }
+
+        public static bool operator !=(LaunchPadValueObjectBase? a, LaunchPadValueObjectBase? b) =>
+            !(a == b);
+
+        public virtual bool Equals(LaunchPadValueObjectBase? other) =>
+            other is not null && ValuesAreEqual(other);
+
+        public override bool Equals(object? obj) =>
+            obj is LaunchPadValueObjectBase valueObject && ValuesAreEqual(valueObject);
+
+        public override int GetHashCode() =>
+            GetAtomicValues().Aggregate(
+                default(int),
+                (hashcode, value) =>
+                    HashCode.Combine(hashcode, value.GetHashCode()));
+
+
+        private bool ValuesAreEqual(LaunchPadValueObjectBase valueObject) =>
+            GetAtomicValues().SequenceEqual(valueObject.GetAtomicValues());
     }
 }
