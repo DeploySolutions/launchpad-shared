@@ -154,7 +154,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
                     HashCode.Combine(hashcode, value.GetHashCode()));
 
 
-        private bool ValuesAreEqual(LaunchPadValueObjectBase valueObject) =>
+        protected bool ValuesAreEqual(LaunchPadValueObjectBase valueObject) =>
             GetAtomicValues().SequenceEqual(valueObject.GetAtomicValues());
     }
 }
