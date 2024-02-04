@@ -32,9 +32,11 @@ namespace Deploy.LaunchPad.Space.Satellites.GoC
 
     using Deploy.LaunchPad.Core.Abp.Domain;
     using Deploy.LaunchPad.Core.Domain;
+    using Deploy.LaunchPad.Core.Domain.Model;
     using Deploy.LaunchPad.Core.Geospatial;
     using Deploy.LaunchPad.Core.Util;
     using Deploy.LaunchPad.Space.Satellites.Core;
+    using DocumentFormat.OpenXml.Wordprocessing;
     using NetTopologySuite.Geometries;
     using System;
     using System.Collections.Generic;
@@ -169,7 +171,7 @@ namespace Deploy.LaunchPad.Space.Satellites.GoC
                     cornerCoords
                 )
                 {
-                    Name = radarsatUniqueId,
+                    Name = new EntityName(radarsatUniqueId),
 
                     //Metadata.Description = radarsatUniqueId,
                     Copyright = copyright
@@ -230,7 +232,7 @@ namespace Deploy.LaunchPad.Space.Satellites.GoC
                 observationFiles.Nvol = new NvolFile<Guid>()
                 {
                     Id = SequentialGuid.NewGuid(),
-                    Name = Path.GetFileName(expectedFiles[0].Value)
+                    Name = new EntityName(Path.GetFileName(expectedFiles[0].Value)) 
                 };
             }
             if (File.Exists(expectedFiles[1].Value))
@@ -238,7 +240,7 @@ namespace Deploy.LaunchPad.Space.Satellites.GoC
                 observationFiles.Sard = new SardFile<Guid>()
                 {
                     Id = SequentialGuid.NewGuid(),
-                    Name = Path.GetFileName(expectedFiles[1].Value)
+                    Name = new EntityName(Path.GetFileName(expectedFiles[1].Value))
                 };
             }
             if (File.Exists(expectedFiles[2].Value))
@@ -246,7 +248,7 @@ namespace Deploy.LaunchPad.Space.Satellites.GoC
                 observationFiles.Sarl = new SarlFile<Guid>()
                 {
                     Id = SequentialGuid.NewGuid(),
-                    Name = Path.GetFileName(expectedFiles[2].Value)
+                    Name = new EntityName(Path.GetFileName(expectedFiles[2].Value))
                 };
             }
             if (File.Exists(expectedFiles[3].Value))
@@ -254,7 +256,7 @@ namespace Deploy.LaunchPad.Space.Satellites.GoC
                 observationFiles.Sart = new SartFile<Guid>()
                 {
                     Id = SequentialGuid.NewGuid(),
-                    Name = Path.GetFileName(expectedFiles[3].Value)
+                    Name = new EntityName(Path.GetFileName(expectedFiles[3].Value))
                 };
             }
             if (File.Exists(expectedFiles[4].Value))
@@ -262,7 +264,7 @@ namespace Deploy.LaunchPad.Space.Satellites.GoC
                 observationFiles.Tfw = new TifWorldFile<Guid>()
                 {
                     Id = SequentialGuid.NewGuid(),
-                    Name = Path.GetFileName(expectedFiles[4].Value)
+                    Name = new EntityName(Path.GetFileName(expectedFiles[4].Value))
                 };
             }
             if (File.Exists(expectedFiles[5].Value))
@@ -270,7 +272,7 @@ namespace Deploy.LaunchPad.Space.Satellites.GoC
                 observationFiles.Tif = new TifFile<Guid>()
                 {
                     Id = SequentialGuid.NewGuid(),
-                    Name = Path.GetFileName(expectedFiles[5].Value)
+                    Name = new EntityName(Path.GetFileName(expectedFiles[5].Value))
                 };
             }
             if (File.Exists(expectedFiles[6].Value))
@@ -278,7 +280,7 @@ namespace Deploy.LaunchPad.Space.Satellites.GoC
                 observationFiles.Vol = new VolFile<Guid>()
                 {
                     Id = SequentialGuid.NewGuid(),
-                    Name = Path.GetFileName(expectedFiles[6].Value)
+                    Name = new EntityName(Path.GetFileName(expectedFiles[6].Value))
                 };
             }
             return observationFiles;

@@ -33,6 +33,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
     using System.Runtime.Serialization;
     using System.Text;
     using Deploy.LaunchPad.Core.Abp.Domain.Model;
+    using Deploy.LaunchPad.Core.Domain.Model;
 
     /// <summary>
     /// Class DataSet.
@@ -122,9 +123,9 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
            string datasetDescription
         ) : base()
         {
-            Name = datasetName;
-            DescriptionShort = datasetDescription;
-            DescriptionFull = datasetDescription;
+
+            Name = new EntityName(datasetName);
+            Description = new EntityDescription(datasetDescription);
         }
 
         /// <summary>
@@ -134,7 +135,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
         protected DataSet(int tenantId) : base()
         {
             TenantId = tenantId;
-            Name = String.Empty;
+            Name = new EntityName(String.Empty);
         }
 
 

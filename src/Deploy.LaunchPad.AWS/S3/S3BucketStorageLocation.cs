@@ -179,7 +179,7 @@ namespace Deploy.LaunchPad.AWS.S3
         /// <returns>Uri.</returns>
         public override Uri GetRelativePathForFile<TFile, TFileId, TFileContentType>(TFile file)
         {
-            return new Uri("/" + DefaultPrefix + "/" + file.Name.Replace(" ", "+"));
+            return new Uri("/" + DefaultPrefix + "/" + file.Name.Name.Replace(" ", "+"));
         }
 
         /// <summary>
@@ -192,12 +192,8 @@ namespace Deploy.LaunchPad.AWS.S3
         /// <returns>Uri.</returns>
         public override Uri GetFullPathForFile<TFile, TFileId, TFileContentType>(TFile file)
         {
-            return new Uri("https://s3." + Region + ".amazonaws.com/" + Name + "/" + DefaultPrefix + "/" + file.Name.Replace(" ", "+"));
+            return new Uri("https://s3." + Region + ".amazonaws.com/" + Name + "/" + DefaultPrefix + "/" + file.Name.Name.Replace(" ", "+"));
         }
-
-
-
-
 
         /// <summary>
         /// The full path of the file
@@ -224,7 +220,6 @@ namespace Deploy.LaunchPad.AWS.S3
         {
             return S3Service.CheckIfFileExists(Name, fileToCheck.Id.ToString()).Result;
         }
-
 
         /// <summary>
         /// Read file as an asynchronous operation.
@@ -267,11 +262,9 @@ namespace Deploy.LaunchPad.AWS.S3
         /// <returns>A Task&lt;System.Boolean&gt; representing the asynchronous operation.</returns>
         public override async Task<bool> CreateFileAsync<TFile, TFileId, TFileContentType>(TFile sourceFile, IDictionary<string, string> fileTags, string contentType, IDictionary<string, string> writeTags, string filePrefix, string fileSuffix)
         {
-            bool succeeded = await S3Service.UploadLocalFileToBucketviaTransferUtilityAsync(Name,sourceFile.Name, @"c:\temp\",fileTags,filePrefix,contentType,writeTags,S3StorageClass.Standard);
+            bool succeeded = await S3Service.UploadLocalFileToBucketviaTransferUtilityAsync(Name,sourceFile.Name.Name, @"c:\temp\",fileTags,filePrefix,contentType,writeTags,S3StorageClass.Standard);
             return succeeded;
-
         }
-
 
     }
 }

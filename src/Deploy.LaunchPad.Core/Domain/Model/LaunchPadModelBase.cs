@@ -57,7 +57,25 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
         /// Controls the DebuggerDisplay attribute presentation (above). This will only appear during VS debugging sessions and should never be logged.
         /// </summary>
         /// <value>The debug display.</value>
-        protected virtual string _debugDisplay => $"Name {Name}.";
+        protected virtual string _debugDisplay => $"Name {Name}. Description {Description}";
+
+        /// <summary>
+        /// The name of this object
+        /// </summary>
+        /// <value>The name.</value>
+        [Required]
+        [DataObjectField(false)]
+        [XmlAttribute]
+        public virtual EntityName Name { get; set; }
+
+        /// <summary>
+        /// A  description for this entity
+        /// </summary>
+        /// <value>The description.</value>
+        [Required]
+        [DataObjectField(false)]
+        [XmlAttribute]
+        public virtual EntityDescription Description { get; set; }
 
         /// <summary>
         /// The culture of this object
@@ -69,47 +87,6 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
         [DataMember(Name = "culture", EmitDefaultValue = false)]
         [XmlAttribute]
         public virtual string Culture { get; set; }
-
-
-        /// <summary>
-        /// The display name of this object
-        /// </summary>
-        /// <value>The name.</value>
-        [Required]
-        [MaxLength(100, ErrorMessageResourceName = "Validation_Name_100CharsOrLess", ErrorMessageResourceType = typeof(Deploy_LaunchPad_Core_Resources))]
-        [DataObjectField(false)]
-        [XmlAttribute]
-        public virtual string Name { get; set; }
-
-        /// <summary>
-        /// The fully qualified name
-        /// </summary>
-        protected string _fullyQualifiedName;
-        /// <summary>
-        /// The fully-qualified name of this object (if different from the Name field)
-        /// </summary>
-        /// <value>The name of the fully qualified.</value>
-        [Required]
-        [MaxLength(100, ErrorMessageResourceName = "Validation_Name_256CharsOrLess", ErrorMessageResourceType = typeof(Deploy_LaunchPad_Core_Resources))]
-        [DataObjectField(false)]
-        [XmlAttribute]
-        public virtual string FullyQualifiedName { 
-            get
-            {
-                if(string.IsNullOrEmpty(_fullyQualifiedName))
-                {
-                    return Name;
-                }
-                else 
-                { 
-                    return _fullyQualifiedName;
-                }
-            }
-            set
-            {
-                _fullyQualifiedName = value;
-            }
-        }
 
         /// <summary>
         /// The checksum for this  object, if any
@@ -130,24 +107,6 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
         [XmlAttribute]
         public virtual string ExternalId { get; set; }
 
-        /// <summary>
-        /// A short description for this entity
-        /// </summary>
-        /// <value>The description short.</value>
-        [Required]
-        [MaxLength(256, ErrorMessageResourceName = "Validation_DescriptionShort_256CharsOrLess", ErrorMessageResourceType = typeof(Deploy_LaunchPad_Core_Resources))]
-        [DataObjectField(false)]
-        [XmlAttribute]
-        public virtual string DescriptionShort { get; set; }
-
-        /// <summary>
-        /// The full description for this entity
-        /// </summary>
-        /// <value>The description full.</value>
-        [MaxLength(8096, ErrorMessageResourceName = "Validation_DescriptionFull_8096CharsOrLess", ErrorMessageResourceType = typeof(Deploy_LaunchPad_Core_Resources))]
-        [DataObjectField(false)]
-        [XmlElement]
-        public virtual string? DescriptionFull { get; set; }
 
         /// <summary>
         /// The sequence number for this entity, if any (for sorting and ordering purposes). Defaults to 0 if not set.
@@ -166,8 +125,6 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
         [DataMember(Name = "tags", EmitDefaultValue = false)]
         [XmlAttribute]
         public virtual HashSet<MetadataTag> Tags { get; set; }
-
-
 
         /// <summary>
         /// Gets or sets a value indicating whether this instance is active.
@@ -226,8 +183,6 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
         [DataObjectField(false)]
         [XmlAttribute]
         public string? LastModifierUserName { get; set; }
-
-
 
         /// <summary>
         /// Used for preserving deletion time for a domain entity, obviously a Value Object can't be deleted.
@@ -290,16 +245,14 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
         /// </summary>
         protected LaunchPadModelBase() : base()
         {
+            Name = new EntityName(string.Empty, string.Empty);
+            Description = new EntityDescription(string.Empty, string.Empty);
             ExternalId = string.Empty;
             Culture = "en";
             //TenantId = 0; // default tenant
             Tags = new HashSet<MetadataTag>();
             IsDeleted = false;
             IsActive = true;
-            Name = string.Empty;
-            FullyQualifiedName = string.Empty;
-            DescriptionShort = string.Empty;
-            DescriptionFull = string.Empty;
 
         }
 
@@ -310,16 +263,14 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
         /// <param name="culture">The culture for this entity</param>
         protected LaunchPadModelBase(string culture) : base()
         {
+            Name = new EntityName(string.Empty, string.Empty);
+            Description = new EntityDescription(string.Empty, string.Empty);
             ExternalId = string.Empty;
             Culture = culture;
             CreatorUserId = 1; // TODO - default user account?
             IsDeleted = false;
             IsActive = true;
             Tags = new HashSet<MetadataTag>();
-            Name = string.Empty;
-            FullyQualifiedName = string.Empty;
-            DescriptionShort = string.Empty;
-            DescriptionFull = string.Empty;
         }
 
 
@@ -330,12 +281,10 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
         /// <param name="context">The context of the stream</param>
         protected LaunchPadModelBase(SerializationInfo info, StreamingContext context)
         {
+            Name = (EntityName)info.GetValue("Name", typeof(EntityName));
+            Description = (EntityDescription)info.GetValue("Description", typeof(EntityDescription));
             ExternalId = info.GetString("ExternalId");
             Culture = info.GetString("Culture");
-            Name = info.GetString("Name");
-            FullyQualifiedName = info.GetString("FullyQualifiedName");
-            DescriptionShort = info.GetString("DescriptionShort");
-            DescriptionFull = info.GetString("DescriptionFull");
             Checksum = info.GetString("Checksum");
             Tags = (HashSet<MetadataTag>)info.GetValue("Metadata", typeof(HashSet<MetadataTag>));
             CreationTime = info.GetDateTime("CreationTime");
@@ -358,12 +307,10 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
         /// <param name="context">The context.</param>
         public virtual void GetObjectData(SerializationInfo info, StreamingContext context)
         {
+            info.AddValue("Name", Name);
+            info.AddValue("Description", Description);
             info.AddValue("ExternalId", ExternalId);
             info.AddValue("Culture", Culture);
-            info.AddValue("Name", Name);
-            info.AddValue("FullyQualifiedName", FullyQualifiedName);
-            info.AddValue("DescriptionShort", DescriptionShort);
-            info.AddValue("DescriptionFull", DescriptionFull);
             info.AddValue("Checksum", Checksum);
             info.AddValue("Tags", Tags);
             info.AddValue("SeqNum", SeqNum);
@@ -420,8 +367,8 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
         public virtual int CompareTo(LaunchPadModelBase other)
         {
             // put comparison of properties in here 
-            // for base object we'll just sort by FullyQualifiedName
-            return FullyQualifiedName.CompareTo(other.FullyQualifiedName);
+            // for base object we'll just sort by Name
+            return Name.CompareTo(other.Name);
         }
 
         /// <summary>
@@ -448,9 +395,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
             // LaunchPAD RAD properties
             sb.AppendFormat("ExternalId={0};", ExternalId);
             sb.AppendFormat("Name={0};", Name);
-            sb.AppendFormat("FullyQualifiedName={0};", FullyQualifiedName);
-            sb.AppendFormat("DescriptionShort={0};", DescriptionShort);
-            sb.AppendFormat("DescriptionFull={0};", DescriptionFull);
+            sb.AppendFormat("Description={0};", Description);
             sb.AppendFormat("Checksum={0};", Checksum);
             sb.AppendFormat(" Tags={0};", Tags.ToString());
             sb.AppendFormat("SeqNum={0};", SeqNum);
@@ -499,7 +444,8 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
                 // Base domain entities are functionally equal if their key and metadata are equal.
                 // Subclasses should extend to include their own enhanced equality checks, as required.
                 return Checksum.Equals(obj.Checksum) && Culture.Equals(obj.Culture) && ExternalId.Equals(obj.ExternalId)
-                    && FullyQualifiedName.Equals(obj.FullyQualifiedName)
+                    && Name.Equals(obj.Name)
+                    && Description.Equals(obj.Description)
                     && ExternalId.Equals(obj.ExternalId)
                     && IsActive.Equals(obj.IsActive) && IsDeleted.Equals(obj.IsDeleted);
 
@@ -546,7 +492,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
         {
             return Culture.GetHashCode()
                 + Checksum.GetHashCode()
-                + FullyQualifiedName.GetHashCode()
+                + Name.GetHashCode()
                 + ExternalId.GetHashCode();
         }
 

@@ -35,6 +35,7 @@ namespace Deploy.LaunchPad.Core.Tests
     using System;
     using Deploy.LaunchPad.Core.Domain.Devices;
     using Deploy.LaunchPad.Core.Abp.Domain;
+    using Deploy.LaunchPad.Core.Domain.Model;
 
     /// <summary>
     /// Class DtoTests.
@@ -67,12 +68,11 @@ namespace Deploy.LaunchPad.Core.Tests
             {
                 Id = 1,
                 TenantId = 1,
-                DescriptionShort = "Short description",
-                DescriptionFull = "Lorem ipsum et dolor sit amet bla bla bla",
+                Name = new EntityName("Device for testing DTOs"),
+                Description = new EntityDescription("Short description", "Lorem ipsum et dolor sit amet bla bla bla"),
                 IsActive = true,
                 IsDeleted = false,
                 Culture = "en-CA",
-                Name = "Device for testing DTOs",
                 TranslatedFromId = 1,
                 Power = power
             };

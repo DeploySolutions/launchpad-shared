@@ -28,6 +28,7 @@
 
 using Deploy.LaunchPad.Core.Abp.Domain.Model;
 using Deploy.LaunchPad.Core.Domain;
+using Deploy.LaunchPad.Core.Domain.Model;
 using Deploy.LaunchPad.Core.Util;
 using System;
 using System.ComponentModel;
@@ -117,7 +118,8 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
         /// <param name="fileName">Name of the file.</param>
         protected FileBase(string fileName) : base()
         {
-            Name = fileName;
+            Name = new EntityName(fileName, fileName);
+            Description = new EntityDescription(string.Empty, string.Empty);
             Checksum = new Checksum();
         }
 
@@ -129,7 +131,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
         protected FileBase(TIdType id, string fileName) : base()
         {
             Id = id;
-            Name = fileName;
+            Name = new EntityName(fileName, fileName);
             Checksum = new Checksum();
         }
 
@@ -143,7 +145,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
         protected FileBase(TIdType id, string fileName, TFileContentType content) : base()
         {
             Id = id;
-            Name = fileName;
+            Name = new EntityName(fileName, fileName);
             Content = content;
             Checksum = new Checksum();
         }
@@ -157,7 +159,6 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
         {
             Content = (TFileContentType)info.GetValue("Content", typeof(TFileContentType));
             Checksum = (Checksum)info.GetValue("Checksum", typeof(Checksum));
-            Name = info.GetString("Name");
             Size = info.GetInt64("Size");
             MimeType = info.GetString("MimeType");
             Extension = info.GetString("Extension");

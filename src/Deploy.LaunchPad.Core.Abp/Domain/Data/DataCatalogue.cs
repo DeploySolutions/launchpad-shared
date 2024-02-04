@@ -32,6 +32,7 @@ using System.Collections.Generic;
 using System.Runtime.Serialization;
 using System.Text;
 using Deploy.LaunchPad.Core.Abp.Domain.Model;
+using Deploy.LaunchPad.Core.Domain.Model;
 
 namespace Deploy.LaunchPad.Core.Abp.Domain
 {
@@ -103,9 +104,8 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
             ) : base()
         {
             TenantId = tenantId;
-            Name = _datacatalogueName;
-            DescriptionShort = _datacatalogueDescription;
-            DescriptionFull = _datacatalogueDescription;
+            Name = new EntityName(_datacatalogueName);
+            Description = new EntityDescription(_datacatalogueDescription);
             DataSetsCount = _numberOfDatasets;
             ItemsCount = _totalNumberOfRecords;
         }
@@ -117,7 +117,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
         protected DataCatalogue(int tenantId) : base()
         {
             TenantId = tenantId;
-            Name = String.Empty;
+            Name = new EntityName(String.Empty);
             DataSetsCount = 0;
             ItemsCount = 0;
         }

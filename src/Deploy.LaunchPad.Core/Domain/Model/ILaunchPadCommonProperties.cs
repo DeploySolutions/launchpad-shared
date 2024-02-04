@@ -27,6 +27,25 @@ namespace Deploy.LaunchPad.Core.Domain.Model
     /// </summary>
     public partial interface ILaunchPadCommonProperties
     {
+
+        /// <summary>
+        /// The name of this object
+        /// </summary>
+        /// <value>The name.</value>
+        [Required]
+        [DataObjectField(false)]
+        [XmlAttribute]
+        public EntityName Name { get; set; }
+
+        /// <summary>
+        /// The description of this object
+        /// </summary>
+        /// <value>The description.</value>
+        [Required]
+        [DataObjectField(false)]
+        [XmlAttribute]
+        public EntityDescription Description { get; set; }
+
         /// <summary>
         /// The culture of this object
         /// </summary>
@@ -37,27 +56,6 @@ namespace Deploy.LaunchPad.Core.Domain.Model
         [XmlAttribute]
         public string Culture { get; set; }
 
-
-        /// <summary>
-        /// The display name of this object
-        /// </summary>
-        /// <value>The name.</value>
-        [Required]
-        [MaxLength(100, ErrorMessageResourceName = "Validation_Name_100CharsOrLess", ErrorMessageResourceType = typeof(Deploy_LaunchPad_Core_Resources))]
-        [DataObjectField(false)]
-        [XmlAttribute]
-        public string Name { get; set; }
-
-        /// <summary>
-        /// The fully-qualified name of this object (if different from the Name field)
-        /// </summary>
-        /// <value>The name of the fully qualified.</value>
-        [Required]
-        [MaxLength(256, ErrorMessageResourceName = "Validation_Name_256CharsOrLess", ErrorMessageResourceType = typeof(Deploy_LaunchPad_Core_Resources))]
-        [DataObjectField(false)]
-        [XmlAttribute]
-        public string FullyQualifiedName { get; set; }
-
         /// <summary>
         /// The external ID stored in a client system (if any). Can be any type on client system, but retained here as text.
         /// </summary>
@@ -66,25 +64,6 @@ namespace Deploy.LaunchPad.Core.Domain.Model
         [DataObjectField(false)]
         [XmlAttribute]
         public string ExternalId { get; set; }
-
-        /// <summary>
-        /// A short description for this object
-        /// </summary>
-        /// <value>The description short.</value>
-        [Required]
-        [MaxLength(256, ErrorMessageResourceName = "Validation_DescriptionShort_256CharsOrLess", ErrorMessageResourceType = typeof(Deploy_LaunchPad_Core_Resources))]
-        [DataObjectField(false)]
-        [XmlAttribute]
-        public string DescriptionShort { get; set; }
-
-        /// <summary>
-        /// The full description for this object
-        /// </summary>
-        /// <value>The description full.</value>
-        [MaxLength(8096, ErrorMessageResourceName = "Validation_DescriptionFull_8096CharsOrLess", ErrorMessageResourceType = typeof(Deploy_LaunchPad_Core_Resources))]
-        [DataObjectField(false)]
-        [XmlElement]
-        public string? DescriptionFull { get; set; }
 
 
         /// <summary>
@@ -110,7 +89,6 @@ namespace Deploy.LaunchPad.Core.Domain.Model
         [DataObjectField(false)]
         [XmlAttribute]
         public HashSet<MetadataTag> Tags { get; set; }
-
 
 
         /// <summary>
