@@ -36,6 +36,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
     using System.ComponentModel;
     using System.ComponentModel.DataAnnotations;
     using System.Diagnostics;
+    using System.Diagnostics.CodeAnalysis;
     using System.Globalization;
     using System.Linq;
     using System.Reflection;
@@ -58,7 +59,8 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
         /// </summary>
         /// <value>The debug display.</value>
         protected virtual string _debugDisplay => $"Name {Name}. Description {Description}";
-
+        
+        protected EntityName _name;
         /// <summary>
         /// The name of this object
         /// </summary>
@@ -66,8 +68,13 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
         [Required]
         [DataObjectField(false)]
         [XmlAttribute]
-        public virtual EntityName Name { get; set; }
+        public virtual EntityName Name
+        {
+            get { return _name; }
+            set { _name = value; }
+        }
 
+        protected EntityDescription _description;
         /// <summary>
         /// A  description for this entity
         /// </summary>
@@ -75,8 +82,13 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
         [Required]
         [DataObjectField(false)]
         [XmlAttribute]
-        public virtual EntityDescription Description { get; set; }
+        public virtual EntityDescription Description
+        {
+            get { return _description; }
+            set { _description = value; }
+        }
 
+        protected string _culture;
         /// <summary>
         /// The culture of this object
         /// </summary>
@@ -86,8 +98,14 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
         [DataObjectField(true)]
         [DataMember(Name = "culture", EmitDefaultValue = false)]
         [XmlAttribute]
-        public virtual string Culture { get; set; }
+        public virtual string Culture
+        {
+            get { return _culture; }
+            set { _culture = value; }
+        }
 
+
+        protected string _checksum;
         /// <summary>
         /// The checksum for this  object, if any
         /// </summary>
@@ -95,8 +113,13 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
         [DataObjectField(false)]
         [DataMember(Name = "checksum", EmitDefaultValue = false)]
         [XmlAttribute]
-        public virtual string? Checksum { get; set; }
+        public virtual string Checksum
+        {
+            get { return _checksum; }
+            set { _checksum = value; }
+        }
 
+        protected string _externalId;
         /// <summary>
         /// The external ID stored in a client system (if any). Can be any type on client system, but retained here as text.
         /// </summary>
@@ -105,9 +128,13 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
         [DataObjectField(false)]
         [DataMember(Name = "externalId", EmitDefaultValue = false)]
         [XmlAttribute]
-        public virtual string ExternalId { get; set; }
+        public virtual string ExternalId
+        {
+            get { return _externalId; }
+            set { _externalId = value; }
+        }
 
-
+        protected int _seqNum;
         /// <summary>
         /// The sequence number for this entity, if any (for sorting and ordering purposes). Defaults to 0 if not set.
         /// </summary>
@@ -115,8 +142,13 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
         [DataObjectField(false)]
         [DataMember(Name = "seqNum", EmitDefaultValue = true)]
         [XmlElement]
-        public virtual int SeqNum { get; set; } = 0;
+        public virtual int SeqNum
+        {
+            get { return _seqNum; }
+            set { _seqNum = value; }
+        }
 
+        protected HashSet<MetadataTag> _tags;
         /// <summary>
         /// Each entity can have an open-ended set of tags applied to it, that help users find, markup, and display its information
         /// </summary>
@@ -124,32 +156,53 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
         [DataObjectField(false)]
         [DataMember(Name = "tags", EmitDefaultValue = false)]
         [XmlAttribute]
-        public virtual HashSet<MetadataTag> Tags { get; set; }
+        public virtual HashSet<MetadataTag> Tags
+        {
+            get { return _tags; }
+            set { _tags = value; }
+        }
 
+        protected bool _isActive;
         /// <summary>
         /// Gets or sets a value indicating whether this instance is active.
         /// </summary>
         /// <value><c>true</c> if this instance is active; otherwise, <c>false</c>.</value>
         [DataObjectField(false)]
         [XmlAttribute]
-        public virtual bool IsActive { get; set; }
+        public virtual bool IsActive
+        {
+            get { return _isActive; }
+            set { _isActive = value; }
+        }
 
+        protected DateTime _creationTime;
         /// <summary>
         /// Gets or sets the creation time.
         /// </summary>
         /// <value>The creation time.</value>
         [DataObjectField(false)]
         [XmlAttribute]
-        public DateTime CreationTime { get; set; }
+        public DateTime CreationTime
+        {
+            get { return _creationTime; }
+            set { _creationTime = value; }
+        }
 
+        protected long? _creatorUserId;
         /// <summary>
         /// The id of the User Agent which created this value object
         /// </summary>
         /// <value>The creator user identifier.</value>
         [DataObjectField(false)]
         [XmlAttribute]
-        public long? CreatorUserId { get; set; }
+        public long? CreatorUserId
+        {
+            get { return _creatorUserId; }
+            set { _creatorUserId = value; }
+        }
 
+
+        protected string _creatorUserName;
         /// <summary>
         /// The name of the creating user
         /// </summary>
@@ -157,48 +210,82 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
         [MaxLength(256, ErrorMessageResourceName = "Validation_Name_256CharsOrLess", ErrorMessageResourceType = typeof(Deploy_LaunchPad_Core_Resources))]
         [DataObjectField(false)]
         [XmlAttribute]
-        public string? CreatorUserName { get; set; }
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        public string? CreatorUserName
+        {
+            get { return _creatorUserName; }
+            set { _creatorUserName = value; }
+        }
 
+        protected DateTime? _lastModificationTime;
         /// <summary>
         /// Gets or sets the last modification time.
         /// </summary>
         /// <value>The last modification time.</value>
         [DataObjectField(false)]
         [XmlAttribute]
-        public DateTime? LastModificationTime { get; set; }
+        public DateTime? LastModificationTime
+        {
+            get { return _lastModificationTime; }
+            set { _lastModificationTime = value; }
+        }
 
+        protected long? _lastModifierUserId;
         /// <summary>
         /// The id of the User Agent which last modified this object.
         /// </summary>
         /// <value>The last modifier user identifier.</value>
         [DataObjectField(false)]
         [XmlAttribute]
-        public long? LastModifierUserId { get; set; }
+        public long? LastModifierUserId
+        {
+            get { return _lastModifierUserId; }
+            set { _lastModifierUserId = value; }
+        }
 
+
+        protected string _lastModifierUserName;
         /// <summary>
         /// The name of the modifying user
         /// </summary>
         /// <value>The last name of the modifier user.</value>
-        [MaxLength(256, ErrorMessageResourceName = "Validation_Name_256CharsOrLess", ErrorMessageResourceType = typeof(Deploy_LaunchPad_Core_Resources))]
+        [MaxLength(256, ErrorMessageResourceName = "Validation_Name_256CharsOrLess",
+            ErrorMessageResourceType = typeof(Deploy_LaunchPad_Core_Resources))]
         [DataObjectField(false)]
         [XmlAttribute]
-        public string? LastModifierUserName { get; set; }
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        public string? LastModifierUserName
+        {
+            get { return _lastModifierUserName; }
+            set { _lastModifierUserName = value; }
+        }
 
+        protected DateTime? _deletionTime;
         /// <summary>
         /// Used for preserving deletion time for a domain entity, obviously a Value Object can't be deleted.
         /// </summary>
         /// <value>The deletion time.</value>
         [DataObjectField(false)]
         [XmlAttribute]
-        public DateTime? DeletionTime { get; set; }
+        public DateTime? DeletionTime
+        {
+            get { return _deletionTime; }
+            set { _deletionTime = value; }
+        }
 
+
+        protected long? _deleterUserId;
         /// <summary>
         /// The id of the user which deleted. Used for preserving information for a domain entity, obviously a Value Object can't be deleted.
         /// </summary>
         /// <value>The deleter user identifier.</value>
         [DataObjectField(false)]
         [XmlAttribute]
-        public long? DeleterUserId { get; set; }
+        public long? DeleterUserId
+        {
+            get { return _deleterUserId; }
+            set { _deleterUserId = value; }
+        }
 
         /// <summary>
         /// Used for preserving deletion status for a domain entity, obviously a Value Object can't be deleted.
@@ -208,6 +295,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
         [XmlAttribute]
         public bool IsDeleted { get; set; }
 
+        protected string _deleterUserName;
         /// <summary>
         /// The name of the deleting user
         /// </summary>
@@ -215,7 +303,12 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
         [MaxLength(256, ErrorMessageResourceName = "Validation_Name_256CharsOrLess", ErrorMessageResourceType = typeof(Deploy_LaunchPad_Core_Resources))]
         [DataObjectField(false)]
         [XmlAttribute]
-        public string? DeleterUserName { get; set; }
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        public string? DeleterUserName
+        {
+            get { return _deleterUserName; }
+            set { _deleterUserName = value; }
+        }
 
         /// <summary>
         /// A convenience readonly method to get a <see cref="CultureInfo">CultureInfo</see> instance from the current

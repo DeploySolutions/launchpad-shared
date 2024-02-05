@@ -14,6 +14,7 @@
 
 using Deploy.LaunchPad.Core.Application.Dto;
 using Deploy.LaunchPad.Core.Domain.Model;
+using DocumentFormat.OpenXml.EMMA;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Xml.Serialization;
@@ -59,7 +60,8 @@ namespace Deploy.LaunchPad.Core.Abp.Application.Dto
         /// </summary>
         protected CreateInputDtoBase() : base()
         {
-
+            Name = new EntityName(string.Empty);
+            Description = new EntityDescription(string.Empty, string.Empty);
         }
     }
 }
