@@ -53,7 +53,7 @@ namespace Deploy.LaunchPad.Core.Abp.Application.Dto
         public virtual string Name
         {
             get { return _name; }
-            protected set { _name = value; }
+            set { _name = value; }
         }
 
         protected string _description;
@@ -66,7 +66,7 @@ namespace Deploy.LaunchPad.Core.Abp.Application.Dto
         public virtual string Description
         {
             get { return _description; }
-            protected set { _description = value; }
+            set { _description = value; }
         }
 
         /// <summary>

@@ -39,7 +39,7 @@ namespace Deploy.LaunchPad.Core.Abp.Application.Dto
         public virtual string Name
         {
             get { return _name; }
-            protected set { _name = value; }
+            set { _name = value; }
         }
 
         protected string _descriptionShort;
@@ -52,7 +52,7 @@ namespace Deploy.LaunchPad.Core.Abp.Application.Dto
         public virtual string DescriptionShort
         {
             get { return _descriptionShort; }
-            protected set { _descriptionShort = value; }
+            set { _descriptionShort = value; }
         }
 
         protected string _descriptionFull;
@@ -65,7 +65,7 @@ namespace Deploy.LaunchPad.Core.Abp.Application.Dto
         public virtual string DescriptionFull
         {
             get { return _descriptionFull; }
-            protected set { _descriptionFull = value; }
+            set { _descriptionFull = value; }
         }
 
         /// <summary>
