@@ -60,7 +60,7 @@ namespace Deploy.LaunchPad.Core.Abp.Application.Dto
         /// <summary>
         /// Default constructor
         /// </summary>
-        public EntityDtoBase()
+        protected EntityDtoBase()
         {
         }
 
@@ -68,7 +68,7 @@ namespace Deploy.LaunchPad.Core.Abp.Application.Dto
         /// Default constructor where the id is known
         /// </summary>
         /// <param name="id">The identifier.</param>
-        public EntityDtoBase(TIdType id)
+        protected EntityDtoBase(TIdType id)
         {
             Id = id;
         }

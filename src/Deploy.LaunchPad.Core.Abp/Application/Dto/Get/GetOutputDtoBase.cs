@@ -13,6 +13,7 @@
 // ***********************************************************************
 using Deploy.LaunchPad.Core.Abp.Domain.SoftwareApplications;
 using Deploy.LaunchPad.Core.Application.Dto;
+using Deploy.LaunchPad.Core.Domain.Model;
 using System;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
@@ -44,14 +45,12 @@ namespace Deploy.LaunchPad.Core.Abp.Application.Dto
         public virtual string Culture { get; set; }
 
         /// <summary>
-        /// The display name that can be displayed as a label externally to users when referring to this object
-        /// (rather than using a GUID, which is unfriendly but unique)
+        /// Gets or sets the name.
         /// </summary>
         /// <value>The name.</value>
         [DataObjectField(false)]
         [XmlAttribute]
-        [MaxLength(100, ErrorMessageResourceName = "Validation_Name_100CharsOrLess", ErrorMessageResourceType = typeof(Deploy_LaunchPad_Core_Resources))]
-        public virtual string Name { get; set; }
+        public virtual EntityName Name { get; set; }
 
 
         /// <summary>
@@ -77,10 +76,10 @@ namespace Deploy.LaunchPad.Core.Abp.Application.Dto
         /// <summary>
         /// Default constructor
         /// </summary>
-        public GetOutputDtoBase() : base()
+        protected GetOutputDtoBase() : base()
         {
             Culture = ApplicationDetails<TIdType>.DEFAULT_CULTURE;
-            Name = string.Empty;
+            Name = new EntityName(string.Empty);
             ExternalId = string.Empty;
         }
 
@@ -88,11 +87,11 @@ namespace Deploy.LaunchPad.Core.Abp.Application.Dto
         /// Default constructor where the id is known
         /// </summary>
         /// <param name="id">The identifier.</param>
-        public GetOutputDtoBase(TIdType id) : base()
+        protected GetOutputDtoBase(TIdType id) : base()
         {
             Id = id;
             Culture = ApplicationDetails<TIdType>.DEFAULT_CULTURE;
-            Name = string.Empty;
+            Name = new EntityName(string.Empty);
             ExternalId = string.Empty;
         }
 
@@ -101,11 +100,11 @@ namespace Deploy.LaunchPad.Core.Abp.Application.Dto
         /// </summary>
         /// <param name="id">The identifier.</param>
         /// <param name="culture">The culture.</param>
-        public GetOutputDtoBase(TIdType id, String culture) : base()
+        protected GetOutputDtoBase(TIdType id, String culture) : base()
         {
             Id = id;
             Culture = culture;
-            Name = string.Empty;
+            Name = new EntityName(string.Empty);
             ExternalId = string.Empty;
         }
 
@@ -116,7 +115,7 @@ namespace Deploy.LaunchPad.Core.Abp.Application.Dto
         /// <param name="context">The context of the stream</param>
         protected GetOutputDtoBase(SerializationInfo info, StreamingContext context) : base(info, context)
         {
-            Name = info.GetString("DisplayName");
+            Name = (EntityName)info.GetValue("Name", typeof(EntityName));
             Culture = info.GetString("Culture");
             SeqNum = info.GetInt32("SeqNum");
             ExternalId = info.GetString("ExternalId");

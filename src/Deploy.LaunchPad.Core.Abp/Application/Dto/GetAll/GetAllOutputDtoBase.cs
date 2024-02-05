@@ -13,6 +13,7 @@
 // ***********************************************************************
 
 using Abp.Domain.Entities;
+using Deploy.LaunchPad.Core.Domain.Model;
 using System;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
@@ -31,14 +32,14 @@ namespace Deploy.LaunchPad.Core.Abp.Application.Dto
     /// <seealso cref="IMayHaveTenant" />
     public abstract partial class GetAllOutputDtoBase<TIdType> : GetOutputDtoBase<TIdType>, IMayHaveTenant
     {
+
         /// <summary>
         /// A short description of this item.
         /// </summary>
         /// <value>The description short.</value>
         [DataObjectField(false)]
         [XmlAttribute]
-        [MaxLength(256, ErrorMessageResourceName = "Validation_DescriptionShort_256CharsOrLess", ErrorMessageResourceType = typeof(Deploy_LaunchPad_Core_Resources))]
-        public virtual String DescriptionShort { get; set; }
+        public virtual EntityDescription Description { get; set; }
 
         /// <summary>
         /// Gets or sets the name of the tenant.
@@ -61,7 +62,7 @@ namespace Deploy.LaunchPad.Core.Abp.Application.Dto
         /// <summary>
         /// Default constructor
         /// </summary>
-        public GetAllOutputDtoBase() : base()
+        protected GetAllOutputDtoBase() : base()
         {
         }
 

@@ -67,6 +67,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
         /// <value>The debug display.</value>
         protected virtual string _debugDisplay => $"Name {Name}. Description {Description}";
 
+        protected EntityName _name;
         /// <summary>
         /// The name of this object
         /// </summary>
@@ -74,8 +75,13 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
         [Required]
         [DataObjectField(false)]
         [XmlAttribute]
-        public virtual EntityName Name { get; set; }
+        public virtual EntityName Name 
+        { 
+            get { return _name; }
+            set { _name = value; }
+        }
 
+        protected EntityDescription _description;
         /// <summary>
         /// A  description for this entity
         /// </summary>
@@ -83,7 +89,11 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
         [Required]
         [DataObjectField(false)]
         [XmlAttribute]
-        public virtual EntityDescription Description { get; set; }
+        public virtual EntityDescription Description
+        {
+            get { return _description; }
+            set { _description = value; }
+        }
 
         /// <summary>
         /// If this object is a regular domain entity, an aggregate root, or an aggregate child
@@ -93,6 +103,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
         [XmlAttribute]
         public virtual DomainEntityType EntityType { get; } = DomainEntityType.DomainEntity;
 
+        protected string _culture;
         /// <summary>
         /// The culture of this object
         /// </summary>
@@ -102,8 +113,14 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
         [DataObjectField(true)]
         [DataMember(Name = "culture", EmitDefaultValue = false)]
         [XmlAttribute]
-        public virtual string Culture { get; set; }
+        public virtual string Culture
+        {
+            get { return _culture; }
+            set { _culture = value; }
+        }
 
+
+        protected string _checksum;
         /// <summary>
         /// The checksum for this  object, if any
         /// </summary>
@@ -112,8 +129,13 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
         [DataMember(Name = "checksum", EmitDefaultValue = false)]
         [XmlAttribute]
         [CanBeNull]
-        public virtual string Checksum { get; set; }
+        public virtual string Checksum
+        {
+            get { return _checksum; }
+            set { _checksum = value; }
+        }
 
+        protected string _externalId;
         /// <summary>
         /// The external ID stored in a client system (if any). Can be any type on client system, but retained here as text.
         /// </summary>
@@ -122,8 +144,13 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
         [DataObjectField(false)]
         [DataMember(Name = "externalId", EmitDefaultValue = false)]
         [XmlAttribute]
-        public virtual string ExternalId { get; set; }
+        public virtual string ExternalId
+        {
+            get { return _externalId; }
+            set { _externalId = value; }
+        }
 
+        protected int _seqNum;
         /// <summary>
         /// The sequence number for this entity, if any (for sorting and ordering purposes). Defaults to 0 if not set.
         /// </summary>
@@ -131,8 +158,13 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
         [DataObjectField(false)]
         [DataMember(Name = "seqNum", EmitDefaultValue = true)]
         [XmlElement]
-        public virtual int SeqNum { get; set; }
+        public virtual int SeqNum
+        {
+            get { return _seqNum; }
+            set { _seqNum = value; }
+        }
 
+        protected HashSet<MetadataTag> _tags;
         /// <summary>
         /// Each entity can have an open-ended set of tags applied to it, that help users find, markup, and display its information
         /// </summary>
@@ -140,9 +172,13 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
         [DataObjectField(false)]
         [DataMember(Name = "tags", EmitDefaultValue = false)]
         [XmlAttribute]
-        public virtual HashSet<MetadataTag> Tags { get; set; }
+        public virtual HashSet<MetadataTag> Tags
+        {
+            get { return _tags; }
+            set { _tags = value; }
+        }
 
-
+        protected TIdType _translatedFromId;
         /// <summary>
         /// If this object is not a translation this field will be null.
         /// If this object is a translation, this id references the parent object.
@@ -151,16 +187,26 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
         [DataObjectField(true)]
         [DataMember(Name = "translatedFromId", EmitDefaultValue = false)]
         [XmlAttribute]
-        public virtual TIdType TranslatedFromId { get; set; }
+        public virtual TIdType TranslatedFromId
+        {
+            get { return _translatedFromId; }
+            set { _translatedFromId = value; }
+        }
 
+        protected bool _isActive;
         /// <summary>
         /// Gets or sets a value indicating whether this instance is active.
         /// </summary>
         /// <value><c>true</c> if this instance is active; otherwise, <c>false</c>.</value>
         [DataObjectField(false)]
         [XmlAttribute]
-        public virtual bool IsActive { get; set; }
+        public virtual bool IsActive
+        {
+            get { return _isActive; }
+            set { _isActive = value; }
+        }
 
+        protected string _creatorUserName;
         /// <summary>
         /// The name of the creating user
         /// </summary>
@@ -169,8 +215,13 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
         [DataObjectField(false)]
         [XmlAttribute]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-        public string? CreatorUserName { get; set; }
+        public string? CreatorUserName
+        {
+            get { return _creatorUserName; }
+            set { _creatorUserName = value; }
+        }
 
+        protected string _lastModifierUserName;
         /// <summary>
         /// The name of the modifying user
         /// </summary>
@@ -180,8 +231,13 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
         [DataObjectField(false)]
         [XmlAttribute]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-        public string? LastModifierUserName { get; set; }
+        public string? LastModifierUserName
+        {
+            get { return _lastModifierUserName; }
+            set { _lastModifierUserName = value; }
+        }
 
+        protected string _deleterUserName;
         /// <summary>
         /// The name of the deleting user
         /// </summary>
@@ -190,7 +246,11 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
         [DataObjectField(false)]
         [XmlAttribute]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-        public string? DeleterUserName { get; set; }
+        public string? DeleterUserName
+        {
+            get { return _deleterUserName; }
+            set { _deleterUserName = value; }
+        }
 
         /// <summary>
         /// A convenience readonly method to get a <see cref="CultureInfo">CultureInfo</see> instance from the current

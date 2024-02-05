@@ -35,7 +35,7 @@ namespace Deploy.LaunchPad.Core.Domain.Model
         [Required]
         [DataObjectField(false)]
         [XmlAttribute]
-        public EntityName Name { get; set; }
+        public EntityName Name { get; }
 
         /// <summary>
         /// The description of this object
@@ -44,7 +44,7 @@ namespace Deploy.LaunchPad.Core.Domain.Model
         [Required]
         [DataObjectField(false)]
         [XmlAttribute]
-        public EntityDescription Description { get; set; }
+        public EntityDescription Description { get; }
 
         /// <summary>
         /// The culture of this object
@@ -54,7 +54,7 @@ namespace Deploy.LaunchPad.Core.Domain.Model
         [MaxLength(5, ErrorMessageResourceName = "Validation_Culture_5CharsOrLess", ErrorMessageResourceType = typeof(Deploy_LaunchPad_Core_Resources))]
         [DataObjectField(true)]
         [XmlAttribute]
-        public string Culture { get; set; }
+        public string Culture { get; }
 
         /// <summary>
         /// The external ID stored in a client system (if any). Can be any type on client system, but retained here as text.
@@ -63,7 +63,7 @@ namespace Deploy.LaunchPad.Core.Domain.Model
         [MaxLength(36, ErrorMessageResourceName = "Validation_ExternalId_36CharsOrLess", ErrorMessageResourceType = typeof(Deploy_LaunchPad_Core_Resources))]
         [DataObjectField(false)]
         [XmlAttribute]
-        public string ExternalId { get; set; }
+        public string ExternalId { get; }
 
 
         /// <summary>
@@ -72,7 +72,7 @@ namespace Deploy.LaunchPad.Core.Domain.Model
         /// <value>The checksum.</value>
         [DataObjectField(false)]
         [XmlElement]
-        public string? Checksum { get; set; }
+        public string? Checksum { get; }
 
         /// <summary>
         /// The sequence number for this value object, if any (for sorting and ordering purposes). Defaults to 0 if not set.
@@ -80,7 +80,7 @@ namespace Deploy.LaunchPad.Core.Domain.Model
         /// <value>The seq number.</value>
         [DataObjectField(false)]
         [XmlElement]
-        public int SeqNum { get; set; }
+        public int SeqNum { get; }
 
         /// <summary>
         /// Each value object can have an open-ended set of tags applied to it, that help users find, markup, and display its information
@@ -88,7 +88,7 @@ namespace Deploy.LaunchPad.Core.Domain.Model
         /// <value>The tags.</value>
         [DataObjectField(false)]
         [XmlAttribute]
-        public HashSet<MetadataTag> Tags { get; set; }
+        public HashSet<MetadataTag> Tags { get; }
 
 
         /// <summary>
@@ -97,7 +97,7 @@ namespace Deploy.LaunchPad.Core.Domain.Model
         /// <value><c>true</c> if this instance is active; otherwise, <c>false</c>.</value>
         [DataObjectField(false)]
         [XmlAttribute]
-        public bool IsActive { get; set; }
+        public bool IsActive { get; }
 
         /// <summary>
         /// Used for preserving deletion time for a domain entity, obviously a Value Object can't be deleted.
@@ -105,7 +105,7 @@ namespace Deploy.LaunchPad.Core.Domain.Model
         /// <value>The deletion time.</value>
         [DataObjectField(false)]
         [XmlElement]
-        public DateTime? DeletionTime { get; set; }
+        public DateTime? DeletionTime { get; }
 
         /// <summary>
         /// The id of the user which deleted. Used for preserving information for a domain entity, obviously a Value Object can't be deleted.
@@ -114,7 +114,7 @@ namespace Deploy.LaunchPad.Core.Domain.Model
         [DataObjectField(false)]
         [XmlAttribute]
         [ForeignKey(nameof(DeleterUserId))]
-        public long? DeleterUserId { get; set; }
+        public long? DeleterUserId { get; }
 
         /// <summary>
         /// The name of the deleting user
@@ -123,7 +123,7 @@ namespace Deploy.LaunchPad.Core.Domain.Model
         [MaxLength(256, ErrorMessageResourceName = "Validation_Name_256CharsOrLess", ErrorMessageResourceType = typeof(Deploy_LaunchPad_Core_Resources))]
         [DataObjectField(false)]
         [XmlAttribute]
-        public string? DeleterUserName { get; set; }
+        public string? DeleterUserName { get;}
 
         /// <summary>
         /// Used for preserving deletion status for a domain entity, obviously a Value Object can't be deleted.
@@ -131,7 +131,7 @@ namespace Deploy.LaunchPad.Core.Domain.Model
         /// <value><c>true</c> if this instance is deleted; otherwise, <c>false</c>.</value>
         [DataObjectField(false)]
         [XmlElement]
-        public bool IsDeleted { get; set; }
+        public bool IsDeleted { get; }
 
 
         /// <summary>
@@ -140,7 +140,7 @@ namespace Deploy.LaunchPad.Core.Domain.Model
         /// <value>The creation time.</value>
         [DataObjectField(false)]
         [XmlElement]
-        public DateTime CreationTime { get; set; }
+        public DateTime CreationTime { get;}
 
         /// <summary>
         /// The id of the User Agent which created this value object
@@ -149,7 +149,7 @@ namespace Deploy.LaunchPad.Core.Domain.Model
         [DataObjectField(false)]
         [XmlAttribute]
         [ForeignKey(nameof(CreatorUserId))]
-        public long? CreatorUserId { get; set; }
+        public long? CreatorUserId { get; }
 
         /// <summary>
         /// The name of the creating user
@@ -158,7 +158,7 @@ namespace Deploy.LaunchPad.Core.Domain.Model
         [MaxLength(256, ErrorMessageResourceName = "Validation_Name_256CharsOrLess", ErrorMessageResourceType = typeof(Deploy_LaunchPad_Core_Resources))]
         [DataObjectField(false)]
         [XmlAttribute]
-        public string? CreatorUserName { get; set; }
+        public string? CreatorUserName { get; }
 
         /// <summary>
         /// The id of the User Agent which last modified this object.
@@ -167,7 +167,7 @@ namespace Deploy.LaunchPad.Core.Domain.Model
         [DataObjectField(false)]
         [XmlAttribute]
         [ForeignKey(nameof(LastModifierUserId))]
-        public Int64? LastModifierUserId { get; set; }
+        public Int64? LastModifierUserId { get; }
 
         /// <summary>
         /// Gets or sets the last modification time.
@@ -175,7 +175,7 @@ namespace Deploy.LaunchPad.Core.Domain.Model
         /// <value>The last modification time.</value>
         [DataObjectField(false)]
         [XmlElement]
-        public DateTime? LastModificationTime { get; set; }
+        public DateTime? LastModificationTime { get;}
 
         /// <summary>
         /// The name of the modifying user
@@ -184,7 +184,7 @@ namespace Deploy.LaunchPad.Core.Domain.Model
         [MaxLength(256, ErrorMessageResourceName = "Validation_Name_256CharsOrLess", ErrorMessageResourceType = typeof(Deploy_LaunchPad_Core_Resources))]
         [DataObjectField(false)]
         [XmlAttribute]
-        public string? LastModifierUserName { get; set; }
+        public string? LastModifierUserName { get;}
 
     }
 }

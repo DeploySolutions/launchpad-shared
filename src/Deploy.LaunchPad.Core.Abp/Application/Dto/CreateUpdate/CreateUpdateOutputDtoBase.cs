@@ -12,6 +12,7 @@
 // <summary></summary>
 // ***********************************************************************
 using Deploy.LaunchPad.Core.Abp.Domain.SoftwareApplications;
+using Deploy.LaunchPad.Core.Domain.Model;
 using System;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
@@ -30,24 +31,20 @@ namespace Deploy.LaunchPad.Core.Abp.Application.Dto
     /// <seealso cref="Deploy.LaunchPad.Core.Abp.Application.Dto.GetOutputDtoBase{TIdType}" />
     public abstract partial class CreateUpdateOutputDtoBase<TIdType> : GetOutputDtoBase<TIdType>
     {
+
+        protected EntityDescription _description;
         /// <summary>
         /// A short description of this item.
         /// </summary>
         /// <value>The description short.</value>
         [DataObjectField(false)]
         [XmlAttribute]
-        [MaxLength(256, ErrorMessageResourceName = "Validation_DescriptionShort_256CharsOrLess", ErrorMessageResourceType = typeof(Deploy_LaunchPad_Core_Resources))]
-        public virtual String DescriptionShort { get; set; }
+        public virtual EntityDescription Description
+        {
+            get { return _description; }
+            protected set { _description = value; }
+        }
 
-        /// <summary>
-        /// A full description of this item.
-        /// </summary>
-        /// <value>The description full.</value>
-        [DataObjectField(false)]
-        [XmlAttribute]
-        [MaxLength(8096, ErrorMessageResourceName = "Validation_DescriptionFull_8096CharsOrLess", ErrorMessageResourceType = typeof(Deploy_LaunchPad_Core_Resources))]
-
-        public virtual String DescriptionFull { get; set; }
         /// <summary>
         /// Gets or sets a value indicating whether this instance is active.
         /// </summary>
@@ -65,29 +62,13 @@ namespace Deploy.LaunchPad.Core.Abp.Application.Dto
         [XmlAttribute]
         public virtual TIdType TranslatedFromId { get; set; }
 
-        /// <summary>
-        /// The sequence number for this entity, if any (for sorting and ordering purposes). Defaults to 0 if not set.
-        /// </summary>
-        /// <value>The seq number.</value>
-        [DataObjectField(false)]
-        [XmlAttribute]
-        public virtual Int32 SeqNum { get; set; } = 0;
-
-        /// <summary>
-        /// The external ID stored in a client system (if any). Can be any type on client system, but retained here as text.
-        /// </summary>
-        /// <value>The external identifier.</value>
-        [MaxLength(36, ErrorMessageResourceName = "Validation_ExternalId_36CharsOrLess", ErrorMessageResourceType = typeof(Deploy_LaunchPad_Core_Resources))]
-        [DataObjectField(false)]
-        [XmlAttribute]
-        public virtual String ExternalId { get; set; }
 
         #region "Constructors"
 
         /// <summary>
         /// Default constructor
         /// </summary>
-        public CreateUpdateOutputDtoBase() : base()
+        protected CreateUpdateOutputDtoBase() : base()
         {
             Culture = ApplicationDetails<TIdType>.DEFAULT_CULTURE;
             ExternalId = string.Empty;
@@ -97,7 +78,7 @@ namespace Deploy.LaunchPad.Core.Abp.Application.Dto
         /// Default constructor where the id is known
         /// </summary>
         /// <param name="id">The identifier.</param>
-        public CreateUpdateOutputDtoBase(TIdType id) : base(id)
+        protected CreateUpdateOutputDtoBase(TIdType id) : base(id)
         {
             Id = id;
             ExternalId = string.Empty;
@@ -109,7 +90,7 @@ namespace Deploy.LaunchPad.Core.Abp.Application.Dto
         /// </summary>
         /// <param name="id">The identifier.</param>
         /// <param name="culture">The culture.</param>
-        public CreateUpdateOutputDtoBase(TIdType id, String culture) : base(id, culture)
+        protected CreateUpdateOutputDtoBase(TIdType id, String culture) : base(id, culture)
         {
             Id = id;
             ExternalId = string.Empty;
@@ -128,9 +109,8 @@ namespace Deploy.LaunchPad.Core.Abp.Application.Dto
             ExternalId = info.GetString("ExternalId");
             TranslatedFromId = (TIdType)info.GetValue("TranslatedFromId", typeof(TIdType));
             Culture = info.GetString("Culture");
-            Name = info.GetString("DisplayName");
-            DescriptionShort = info.GetString("DescriptionShort");
-            DescriptionFull = info.GetString("DescriptionFull");
+            Name = (EntityName)info.GetValue("Name", typeof(EntityName)); // DisplayName?
+            Description = (EntityDescription)info.GetValue("Description", typeof(EntityDescription));
         }
 
         #endregion
@@ -146,8 +126,7 @@ namespace Deploy.LaunchPad.Core.Abp.Application.Dto
             info.AddValue("TranslatedFromId", TranslatedFromId);
             info.AddValue("Name", Name);
             info.AddValue("Culture", Culture);
-            info.AddValue("DescriptionShort", DescriptionShort);
-            info.AddValue("DescriptionFull", DescriptionFull);
+            info.AddValue("Description", Description);
             info.AddValue("ExternalId", ExternalId);
             info.AddValue("SeqNum", SeqNum);
 
@@ -179,8 +158,7 @@ namespace Deploy.LaunchPad.Core.Abp.Application.Dto
             //
             sb.AppendFormat("TranslatedFromId={0};", TranslatedFromId);
             sb.AppendFormat("Name={0};", Name);
-            sb.AppendFormat("DescriptionShort={0};", DescriptionShort);
-            sb.AppendFormat("DescriptionFull={0};", DescriptionFull);
+            sb.AppendFormat("Description={0};", Description);
             sb.AppendFormat("SeqNum={0};", SeqNum);
             sb.AppendFormat("ExternalId={0};", ExternalId);
             // ABP properties
@@ -250,7 +228,7 @@ namespace Deploy.LaunchPad.Core.Abp.Application.Dto
             if (obj != null)
             {
                 return Id.Equals(obj.Id) && Culture.Equals(obj.Culture) && ExternalId.Equals(obj.ExternalId) && SeqNum == obj.SeqNum
-                    && DescriptionShort.Equals(obj.DescriptionShort) && Name.Equals(obj.Name) && TranslatedFromId.Equals(obj.TranslatedFromId)
+                    && Description.Equals(obj.Description) && Name.Equals(obj.Name) && TranslatedFromId.Equals(obj.TranslatedFromId)
                 ;
             }
             return false;
@@ -295,7 +273,7 @@ namespace Deploy.LaunchPad.Core.Abp.Application.Dto
         {
             return Id.GetHashCode() + Culture.GetHashCode() + ExternalId.GetHashCode() + SeqNum.GetHashCode()
                 + Name.GetHashCode()
-                + DescriptionShort.GetHashCode()
+                + Description.GetHashCode()
                 + TranslatedFromId.GetHashCode();
         }
 

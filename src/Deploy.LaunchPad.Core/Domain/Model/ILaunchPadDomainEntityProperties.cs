@@ -42,7 +42,7 @@ namespace Deploy.LaunchPad.Core.Domain.Model
         /// <value>The translated from identifier.</value>
         [DataObjectField(true)]
         [XmlAttribute]
-        public TIdType TranslatedFromId { get; set; }
+        public TIdType TranslatedFromId { get; }
 
     }
 }

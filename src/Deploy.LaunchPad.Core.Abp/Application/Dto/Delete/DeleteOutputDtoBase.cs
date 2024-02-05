@@ -36,7 +36,7 @@ namespace Deploy.LaunchPad.Core.Abp.Application.Dto
         /// <summary>
         /// Default constructor
         /// </summary>
-        public DeleteOutputDtoBase() : base()
+        protected DeleteOutputDtoBase() : base()
         {
 
         }

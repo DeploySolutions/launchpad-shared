@@ -68,7 +68,7 @@ namespace Deploy.LaunchPad.Core.Abp.Application.Dto
         /// <summary>
         /// Default constructor
         /// </summary>
-        public GetAllAdminInputDtoBase() : base()
+        protected GetAllAdminInputDtoBase() : base()
         {
             Culture = ApplicationDetails<TIdType>.DEFAULT_CULTURE;
         }
@@ -77,7 +77,7 @@ namespace Deploy.LaunchPad.Core.Abp.Application.Dto
         /// Default constructor where the id is known
         /// </summary>
         /// <param name="tenantId">The tenant identifier.</param>
-        public GetAllAdminInputDtoBase(int tenantId) : base()
+        protected GetAllAdminInputDtoBase(int tenantId) : base()
         {
             TenantId = tenantId;
             Culture = ApplicationDetails<TIdType>.DEFAULT_CULTURE;
@@ -88,7 +88,7 @@ namespace Deploy.LaunchPad.Core.Abp.Application.Dto
         /// </summary>
         /// <param name="tenantId">The tenant identifier.</param>
         /// <param name="culture">The culture.</param>
-        public GetAllAdminInputDtoBase(int tenantId, String culture) : base()
+        protected GetAllAdminInputDtoBase(int tenantId, String culture) : base()
         {
             TenantId = tenantId;
             Culture = culture;

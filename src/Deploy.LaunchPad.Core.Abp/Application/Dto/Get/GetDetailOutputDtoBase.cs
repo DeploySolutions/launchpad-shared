@@ -12,6 +12,7 @@
 // <summary></summary>
 // ***********************************************************************
 using Deploy.LaunchPad.Core.Abp.Domain.SoftwareApplications;
+using Deploy.LaunchPad.Core.Domain.Model;
 using System;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
@@ -30,14 +31,19 @@ namespace Deploy.LaunchPad.Core.Abp.Application.Dto
     /// <seealso cref="Deploy.LaunchPad.Core.Abp.Application.Dto.GetOutputDtoBase{TIdType}" />
     public abstract partial class GetDetailOutputDtoBase<TIdType> : GetOutputDtoBase<TIdType>
     {
+
+        protected EntityDescription _description;
         /// <summary>
         /// A short description of this item.
         /// </summary>
         /// <value>The description short.</value>
         [DataObjectField(false)]
         [XmlAttribute]
-        [MaxLength(256, ErrorMessageResourceName = "Validation_DescriptionShort_256CharsOrLess", ErrorMessageResourceType = typeof(Deploy_LaunchPad_Core_Resources))]
-        public virtual String DescriptionShort { get; set; }
+        public virtual EntityDescription Description
+        {
+            get { return _description; }
+            protected set { _description = value; }
+        }
 
         /// <summary>
         /// The date and time that this object was created.
@@ -84,21 +90,21 @@ namespace Deploy.LaunchPad.Core.Abp.Application.Dto
         /// <summary>
         /// Default constructor
         /// </summary>
-        public GetDetailOutputDtoBase() : base()
+        protected GetDetailOutputDtoBase() : base()
         {
             Culture = ApplicationDetails<TIdType>.DEFAULT_CULTURE;
-            DescriptionShort = string.Empty;
+            Description = new EntityDescription(string.Empty);
         }
 
         /// <summary>
         /// Default constructor where the id is known
         /// </summary>
         /// <param name="id">The identifier.</param>
-        public GetDetailOutputDtoBase(TIdType id) : base(id)
+        protected GetDetailOutputDtoBase(TIdType id) : base(id)
         {
             Id = id;
             Culture = ApplicationDetails<TIdType>.DEFAULT_CULTURE;
-            DescriptionShort = string.Empty;
+            Description = new EntityDescription(string.Empty);
         }
 
         /// <summary>
@@ -106,11 +112,11 @@ namespace Deploy.LaunchPad.Core.Abp.Application.Dto
         /// </summary>
         /// <param name="id">The identifier.</param>
         /// <param name="culture">The culture.</param>
-        public GetDetailOutputDtoBase(TIdType id, String culture) : base(id, culture)
+        protected GetDetailOutputDtoBase(TIdType id, String culture) : base(id, culture)
         {
             Id = id;
             Culture = culture;
-            DescriptionShort = string.Empty;
+            Description = new EntityDescription(string.Empty);
         }
 
         /// <summary>
@@ -122,8 +128,8 @@ namespace Deploy.LaunchPad.Core.Abp.Application.Dto
         {
             Id = (TIdType)info.GetValue("Id", typeof(TIdType));
             Culture = info.GetString("Culture");
-            Name = info.GetString("DisplayName");
-            DescriptionShort = info.GetString("DescriptionShort");
+            Name = (EntityName)info.GetValue("Name", typeof(EntityName)); 
+            Description = (EntityDescription)info.GetValue("Description", typeof(EntityDescription));
             CreationTime = info.GetDateTime("CreationTime");
             CreatorUserName = info.GetString("CreatorUserName");
             LastModifierUserName = info.GetString("LastModifierUserName");
@@ -142,7 +148,7 @@ namespace Deploy.LaunchPad.Core.Abp.Application.Dto
             info.AddValue("Id", Id);
             info.AddValue("Culture", Culture);
             info.AddValue("Name", Name);
-            info.AddValue("DescriptionShort", DescriptionShort);
+            info.AddValue("Description", Description);
             info.AddValue("CreationTime", CreationTime);
             info.AddValue("CreatorUserName", CreatorUserName);
             info.AddValue("LastModifierUserName", LastModifierUserName);
@@ -174,7 +180,7 @@ namespace Deploy.LaunchPad.Core.Abp.Application.Dto
             sb.AppendFormat("Id={0};", Id);
             sb.AppendFormat("Culture={0};", Culture);
             sb.AppendFormat("Name={0};", Name);
-            sb.AppendFormat("DescriptionShort={0};", DescriptionShort);
+            sb.AppendFormat("Description={0};", Description);
             sb.AppendFormat("CreatorUserName={0};", CreatorUserName);
             sb.AppendFormat("LastModifierUserName={0};", LastModifierUserName);
 
@@ -248,7 +254,7 @@ namespace Deploy.LaunchPad.Core.Abp.Application.Dto
             if (obj != null)
             {
                 return Id.Equals(obj.Id) && Culture.Equals(obj.Culture)
-                    && DescriptionShort.Equals(obj.DescriptionShort)
+                    && Description.Equals(obj.Description)
                     && CreationTime.Equals(obj.CreationTime)
                     && CreatorUserName.Equals(obj.CreatorUserName)
                     && LastModifierUserName.Equals(obj.LastModifierUserName)

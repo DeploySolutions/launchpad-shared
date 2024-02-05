@@ -61,13 +61,18 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
         [XmlAttribute]
         public override DomainEntityType EntityType { get; } = DomainEntityType.AggregateRoot;
 
+        protected HashSet<string> _childrenFullyQualifiedTypes;
         /// <summary>
         /// The fully qualified type names of any children entities (ex. MyCorp.MyApp.Orders.LineItems)
         /// </summary>
         /// <value>The children fully qualified types.</value>
         [DataObjectField(false)]
         [XmlAttribute]
-        public virtual HashSet<string> ChildrenFullyQualifiedTypes { get; private set; }
+        public virtual HashSet<string> ChildrenFullyQualifiedTypes
+        {
+            get { return _childrenFullyQualifiedTypes; }
+            set { _childrenFullyQualifiedTypes = value; }
+        }
 
         #region Implementation of ASP.NET Boilerplate's IAggregateRoot interface
 

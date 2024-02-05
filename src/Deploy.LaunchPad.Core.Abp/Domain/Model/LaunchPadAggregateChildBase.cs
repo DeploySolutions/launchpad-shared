@@ -60,13 +60,18 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
         [XmlAttribute]
         public override DomainEntityType EntityType { get; } = DomainEntityType.AggregateChild;
 
+        protected string _parentFullyQualifiedType;
         /// <summary>
         /// The fully qualified type name of the parent aggregate root this child entity belongs to (ex. MyCorp.MyApp.Orders.Order)
         /// </summary>
         /// <value>The type of the parent fully qualified.</value>
         [DataObjectField(false)]
         [XmlAttribute]
-        public virtual string ParentFullyQualifiedType { get; private set; }
+        public virtual string ParentFullyQualifiedType
+        {
+            get { return _parentFullyQualifiedType; }
+            set { _parentFullyQualifiedType = value; }
+        }
 
 
         /// <summary>

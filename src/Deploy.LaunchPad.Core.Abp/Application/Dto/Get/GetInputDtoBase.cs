@@ -47,7 +47,7 @@ namespace Deploy.LaunchPad.Core.Abp.Application.Dto
         /// <summary>
         /// Default constructor
         /// </summary>
-        public GetInputDtoBase() : base()
+        protected GetInputDtoBase() : base()
         {
 
         }

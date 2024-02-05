@@ -13,6 +13,7 @@
 // ***********************************************************************
 
 using Deploy.LaunchPad.Core.Application.Dto;
+using Deploy.LaunchPad.Core.Domain.Model;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Xml.Serialization;
@@ -27,35 +28,36 @@ namespace Deploy.LaunchPad.Core.Abp.Application.Dto
     /// <typeparam name="TIdType">The type of the t identifier type.</typeparam>
     public abstract partial class CreateInputDtoBase<TIdType> : EntityDtoBase<TIdType>, ICanBeAppServiceMethodInput
     {
+        protected EntityName _name;
         /// <summary>
         /// Gets or sets the name.
         /// </summary>
         /// <value>The name.</value>
         [DataObjectField(false)]
-        [MaxLength(100, ErrorMessageResourceName = "Validation_Name_100CharsOrLess", ErrorMessageResourceType = typeof(Deploy_LaunchPad_Core_Resources))]
         [XmlAttribute]
-        public virtual string Name { get; set; }
+        public virtual EntityName Name
+        {
+            get { return _name; }
+            protected set { _name = value; }
+        }
 
+        protected EntityDescription _description;
         /// <summary>
         /// A short description of this item.
         /// </summary>
         /// <value>The description short.</value>
         [DataObjectField(false)]
         [XmlAttribute]
-        public virtual string DescriptionShort { get; set; }
-
-        /// <summary>
-        /// A short description of this item.
-        /// </summary>
-        /// <value>The description full.</value>
-        [DataObjectField(false)]
-        [XmlAttribute]
-        public virtual string DescriptionFull { get; set; }
+        public virtual EntityDescription Description
+        {
+            get { return _description; }
+            protected set { _description = value; }
+        }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="CreateInputDtoBase{TIdType}"/> class.
         /// </summary>
-        public CreateInputDtoBase() : base()
+        protected CreateInputDtoBase() : base()
         {
 
         }

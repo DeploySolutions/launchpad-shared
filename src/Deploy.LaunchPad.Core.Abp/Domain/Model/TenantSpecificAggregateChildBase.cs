@@ -28,6 +28,7 @@
 
 using Abp.Domain.Entities;
 using Deploy.LaunchPad.Core.Domain;
+using Deploy.LaunchPad.Core.Domain.Model;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -52,7 +53,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
         LaunchPadAggregateChildBase<TIdType>, IMustHaveTenant
 
     {
-
+        protected int _tenantId;
         /// <summary>
         /// The id of the tenant that domain entity this belongs to
         /// </summary>
@@ -61,7 +62,11 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
         [XmlAttribute]
         [Required]
         [ForeignKey(nameof(TenantId))]
-        public virtual int TenantId { get; set; }
+        public virtual int TenantId
+        {
+            get { return _tenantId; }
+            set { _tenantId = value; }
+        }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="TenantSpecificAggregateChildBase">TenantSpecificAggregateChildBase</see> class

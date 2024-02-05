@@ -64,7 +64,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="ValueObjectBase">ValueObject</see> class
         /// </summary>
-        public LaunchPadValueObjectBase() : base()
+        protected LaunchPadValueObjectBase() : base()
         {
 
 

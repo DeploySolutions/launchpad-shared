@@ -12,6 +12,7 @@
 // <summary></summary>
 // ***********************************************************************
 using Deploy.LaunchPad.Core.Abp.Domain.SoftwareApplications;
+using Deploy.LaunchPad.Core.Domain.Model;
 using System;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -71,7 +72,7 @@ namespace Deploy.LaunchPad.Core.Abp.Application.Dto
         /// <summary>
         /// Default constructor
         /// </summary>
-        public GetAdminOutputDtoBase() : base()
+        protected GetAdminOutputDtoBase() : base()
         {
             Culture = ApplicationDetails<TIdType>.DEFAULT_CULTURE;
             IsActive = true;
@@ -82,7 +83,7 @@ namespace Deploy.LaunchPad.Core.Abp.Application.Dto
         /// Default constructor where the id is known
         /// </summary>
         /// <param name="id">The identifier.</param>
-        public GetAdminOutputDtoBase(TIdType id) : base()
+        protected GetAdminOutputDtoBase(TIdType id) : base()
         {
             Id = id;
             Culture = ApplicationDetails<TIdType>.DEFAULT_CULTURE;
@@ -95,7 +96,7 @@ namespace Deploy.LaunchPad.Core.Abp.Application.Dto
         /// </summary>
         /// <param name="id">The identifier.</param>
         /// <param name="culture">The culture.</param>
-        public GetAdminOutputDtoBase(TIdType id, String culture) : base()
+        protected GetAdminOutputDtoBase(TIdType id, String culture) : base()
         {
             Id = id;
             Culture = culture;
@@ -112,9 +113,8 @@ namespace Deploy.LaunchPad.Core.Abp.Application.Dto
         {
             Id = (TIdType)info.GetValue("Id", typeof(TIdType));
             Culture = info.GetString("Culture");
-            Name = info.GetString("DisplayName");
-            DescriptionShort = info.GetString("DescriptionShort");
-            DescriptionFull = info.GetString("DescriptionFull");
+            Name = (EntityName)info.GetValue("Name", typeof(EntityName));
+            Description = (EntityDescription)info.GetValue("Name", typeof(EntityDescription));
             CreationTime = info.GetDateTime("CreationTime");
             CreatorUserId = info.GetInt64("CreatorUserId");
             CreatorUserName = info.GetString("CreatorUserName");
@@ -140,8 +140,7 @@ namespace Deploy.LaunchPad.Core.Abp.Application.Dto
             info.AddValue("Id", Id);
             info.AddValue("Culture", Culture);
             info.AddValue("Name", Name);
-            info.AddValue("DescriptionShort", DescriptionShort);
-            info.AddValue("DescriptionFull", DescriptionFull);
+            info.AddValue("Description", Description);
             info.AddValue("CreationTime", CreationTime);
             info.AddValue("CreatorUserName", CreatorUserName);
             info.AddValue("CreatorUserId", CreatorUserId);
@@ -180,8 +179,7 @@ namespace Deploy.LaunchPad.Core.Abp.Application.Dto
             sb.AppendFormat("Id={0};", Id);
             sb.AppendFormat("Culture={0};", Culture);
             sb.AppendFormat("Name={0};", Name);
-            sb.AppendFormat("DescriptionShort={0};", DescriptionShort);
-            sb.AppendFormat("DescriptionFull={0};", DescriptionFull);
+            sb.AppendFormat("Description={0};", Description);
             sb.AppendFormat("CreatorUserName={0};", CreatorUserName);
             sb.AppendFormat("LastModifierUserName={0};", LastModifierUserName);
             sb.AppendFormat("TranslatedFromId={0};", TranslatedFromId);
@@ -265,7 +263,7 @@ namespace Deploy.LaunchPad.Core.Abp.Application.Dto
                     && TranslatedFromId.Equals(obj.TranslatedFromId)
                     && IsActive.Equals(obj.IsActive)
                     && IsDeleted.Equals(obj.IsDeleted)
-                    && DescriptionFull.Equals(obj.DescriptionFull)
+                    && Description.Equals(obj.Description)
                     && CreationTime.Equals(obj.CreationTime)
                     && CreatorUserId.Equals(obj.CreatorUserId)
                     && CreatorUserName.Equals(obj.CreatorUserName)
@@ -314,7 +312,7 @@ namespace Deploy.LaunchPad.Core.Abp.Application.Dto
         /// <remarks>This method implements the <see cref="Object">Object</see> method.</remarks>
         public override int GetHashCode()
         {
-            return Id.GetHashCode() + Culture.GetHashCode() + Name.GetHashCode() + DescriptionShort.GetHashCode() + CreatorUserName.GetHashCode() + LastModifierUserName.GetHashCode();
+            return Id.GetHashCode() + Culture.GetHashCode() + Name.GetHashCode() + Description.GetHashCode() + CreatorUserName.GetHashCode() + LastModifierUserName.GetHashCode();
         }
 
     }

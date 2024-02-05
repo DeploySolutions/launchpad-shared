@@ -60,7 +60,7 @@ namespace Deploy.LaunchPad.Core.Abp.Application.Dto
         /// Default constructor
         /// </summary>
 
-        public ListResultDtoBase() : base()
+        protected ListResultDtoBase() : base()
         {
 
         }
@@ -69,7 +69,7 @@ namespace Deploy.LaunchPad.Core.Abp.Application.Dto
         /// Default constructor where the tenant id is known
         /// </summary>
         /// <param name="items">List of items</param>
-        public ListResultDtoBase(IReadOnlyList<TEntityType> items) : base(items)
+        protected ListResultDtoBase(IReadOnlyList<TEntityType> items) : base(items)
         {
 
         }
