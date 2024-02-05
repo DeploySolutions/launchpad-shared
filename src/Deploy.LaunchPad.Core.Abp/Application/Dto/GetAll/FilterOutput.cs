@@ -56,7 +56,7 @@ namespace Deploy.LaunchPad.Core.Abp.Application.Dto
         /// <summary>
         /// Default constructor
         /// </summary>
-        protected FilterOutput() : base()
+        public FilterOutput() : base()
         {
 
         }
