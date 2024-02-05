@@ -29,7 +29,6 @@ namespace Deploy.LaunchPad.Core.Domain.Model
         /// The fully-qualified name of this object (if different from the Name field)
         /// </summary>
         /// <value>The name of the fully qualified.</value>
-        [Required]
         [MaxLength(256, ErrorMessageResourceName = "Validation_Name_256CharsOrLess", ErrorMessageResourceType = typeof(Deploy_LaunchPad_Core_Resources))]
         [DataObjectField(false)]
         [XmlAttribute]
