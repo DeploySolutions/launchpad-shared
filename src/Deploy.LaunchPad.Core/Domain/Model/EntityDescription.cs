@@ -17,7 +17,6 @@ namespace Deploy.LaunchPad.Core.Domain.Model
         IComparable<EntityDescription>, IEquatable<EntityDescription>
     {
 
-
         /// <summary>
         /// A short description for this object
         /// </summary>
@@ -37,8 +36,6 @@ namespace Deploy.LaunchPad.Core.Domain.Model
         [XmlElement]
         public virtual string Full { get; private set; }
 
-
-
         private EntityDescription()
         {
         }
@@ -53,7 +50,7 @@ namespace Deploy.LaunchPad.Core.Domain.Model
         {
             Short = shortDescription;
             Full = fullDescription;
-        }   
+        }
 
         /// <summary>
         /// Comparison method between two objects of the same type, used for sorting.

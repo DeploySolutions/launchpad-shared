@@ -29,30 +29,43 @@ namespace Deploy.LaunchPad.Core.Abp.Application.Dto
     /// <typeparam name="TIdType">The type of the t identifier type.</typeparam>
     public abstract partial class CreateInputDtoBase<TIdType> : EntityDtoBase<TIdType>, ICanBeAppServiceMethodInput
     {
-        protected EntityName _name;
+        protected string _name;
         /// <summary>
         /// Gets or sets the name.
         /// </summary>
         /// <value>The name.</value>
         [DataObjectField(false)]
         [XmlAttribute]
-        public virtual EntityName Name
+        public virtual string Name
         {
             get { return _name; }
             protected set { _name = value; }
         }
 
-        protected EntityDescription _description;
+        protected string _descriptionShort;
         /// <summary>
         /// A short description of this item.
         /// </summary>
         /// <value>The description short.</value>
         [DataObjectField(false)]
         [XmlAttribute]
-        public virtual EntityDescription Description
+        public virtual string DescriptionShort
         {
-            get { return _description; }
-            protected set { _description = value; }
+            get { return _descriptionShort; }
+            protected set { _descriptionShort = value; }
+        }
+
+        protected string _descriptionFull;
+        /// <summary>
+        /// A short description of this item.
+        /// </summary>
+        /// <value>The description full.</value>
+        [DataObjectField(false)]
+        [XmlAttribute]
+        public virtual string DescriptionFull
+        {
+            get { return _descriptionFull; }
+            protected set { _descriptionFull = value; }
         }
 
         /// <summary>
@@ -60,8 +73,7 @@ namespace Deploy.LaunchPad.Core.Abp.Application.Dto
         /// </summary>
         protected CreateInputDtoBase() : base()
         {
-            Name = new EntityName(string.Empty);
-            Description = new EntityDescription(string.Empty, string.Empty);
+            Name = string.Empty;
         }
     }
 }

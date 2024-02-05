@@ -52,30 +52,43 @@ namespace Deploy.LaunchPad.Core.Abp.Application.Dto
         [XmlAttribute]
         public virtual TIdType TranslatedFromId { get; set; }
 
-        protected EntityName _name;
+        protected string _name;
         /// <summary>
         /// Gets or sets the name.
         /// </summary>
         /// <value>The name.</value>
         [DataObjectField(false)]
         [XmlAttribute]
-        public virtual EntityName Name
+        public virtual string Name
         {
             get { return _name; }
             protected set { _name = value; }
         }
 
-        protected EntityDescription _description;
+        protected string _descriptionShort;
         /// <summary>
         /// A short description of this item.
         /// </summary>
         /// <value>The description short.</value>
         [DataObjectField(false)]
         [XmlAttribute]
-        public virtual EntityDescription Description
+        public virtual String DescriptionShort
         {
-            get { return _description; }
-            protected set { _description = value; }
+            get { return _descriptionShort; }
+            protected set { _descriptionShort = value; }
+        }
+
+        protected string _descriptionFull;
+        /// <summary>
+        /// A short description of this item.
+        /// </summary>
+        /// <value>The description short.</value>
+        [DataObjectField(false)]
+        [XmlAttribute]
+        public virtual String DescriptionFull
+        {
+            get { return _descriptionFull; }
+            protected set { _descriptionFull = value; }
         }
 
         /// <summary>
@@ -104,8 +117,9 @@ namespace Deploy.LaunchPad.Core.Abp.Application.Dto
         {
 
             ExternalId = string.Empty; Culture = ApplicationDetails<TIdType>.DEFAULT_CULTURE;
-            Name = new EntityName(string.Empty);
-            Description = new EntityDescription(string.Empty);
+            Name = string.Empty;
+            DescriptionShort = string.Empty;
+            DescriptionFull = string.Empty;
         }
 
         /// <summary>
@@ -117,8 +131,9 @@ namespace Deploy.LaunchPad.Core.Abp.Application.Dto
             Id = id;
             ExternalId = string.Empty;
             Culture = ApplicationDetails<TIdType>.DEFAULT_CULTURE;
-            Name = new EntityName(string.Empty);
-            Description = new EntityDescription(string.Empty);
+            Name = string.Empty;
+            DescriptionShort = string.Empty;
+            DescriptionFull = string.Empty;
         }
 
         /// <summary>
@@ -131,8 +146,9 @@ namespace Deploy.LaunchPad.Core.Abp.Application.Dto
             Id = id;
             ExternalId = string.Empty;
             Culture = culture;
-            Name = new EntityName(string.Empty);
-            Description = new EntityDescription(string.Empty);
+            Name = string.Empty;
+            DescriptionShort = string.Empty;
+            DescriptionFull = string.Empty;
         }
 
         /// <summary>
@@ -143,8 +159,9 @@ namespace Deploy.LaunchPad.Core.Abp.Application.Dto
         protected CreateUpdateInputDtoBase(SerializationInfo info, StreamingContext context)
         {
             Id = (TIdType)info.GetValue("Id", typeof(TIdType));
-            Name = (EntityName)info.GetValue("Name", typeof(EntityName));
-            Description = (EntityDescription)info.GetValue("Description", typeof(EntityDescription));
+            Name = info.GetString("DisplayName");
+            DescriptionShort = info.GetString("DescriptionShort");
+            DescriptionFull = info.GetString("DescriptionFull");
             ExternalId = info.GetString("ExternalId");
             TranslatedFromId = (TIdType)info.GetValue("TranslatedFromId", typeof(TIdType));
             Culture = info.GetString("Culture");
@@ -167,7 +184,8 @@ namespace Deploy.LaunchPad.Core.Abp.Application.Dto
             info.AddValue("Culture", Culture);
             info.AddValue("TranslatedFromId", TranslatedFromId);
             info.AddValue("Name", Name);
-            info.AddValue("Description", Description);
+            info.AddValue("DescriptionShort", DescriptionShort);
+            info.AddValue("DescriptionFull", DescriptionFull);
             info.AddValue("SeqNum", SeqNum);
         }
 
@@ -198,7 +216,8 @@ namespace Deploy.LaunchPad.Core.Abp.Application.Dto
             sb.AppendFormat("TranslatedFromId={0};", TranslatedFromId);
             sb.AppendFormat("ExternalId={0};", ExternalId);
             sb.AppendFormat("Name={0};", Name);
-            sb.AppendFormat("Description={0};", Description);
+            sb.AppendFormat("DescriptionShort={0};", DescriptionShort);
+            sb.AppendFormat("DescriptionFull={0};", DescriptionFull);
             sb.AppendFormat("SeqNum={0};", SeqNum);
 
             // ABP properties
@@ -270,8 +289,8 @@ namespace Deploy.LaunchPad.Core.Abp.Application.Dto
             if (obj != null)
             {
                 return Id.Equals(obj.Id) && Culture.Equals(obj.Culture) && ExternalId.Equals(obj.ExternalId) && SeqNum == obj.SeqNum
-                    && Description.Equals(obj.Description) && Name.Equals(obj.Name) && TranslatedFromId.Equals(obj.TranslatedFromId)
-                ;
+                   && DescriptionShort.Equals(obj.DescriptionShort) && Name.Equals(obj.Name) && TranslatedFromId.Equals(obj.TranslatedFromId)
+               ;
             }
             return false;
         }
@@ -316,7 +335,7 @@ namespace Deploy.LaunchPad.Core.Abp.Application.Dto
             return Id.GetHashCode() + Culture.GetHashCode()
                 + ExternalId.GetHashCode()
                 + Name.GetHashCode()
-                + Description.GetHashCode()
+                + DescriptionShort.GetHashCode()
                 + TranslatedFromId.GetHashCode()
            ;
         }

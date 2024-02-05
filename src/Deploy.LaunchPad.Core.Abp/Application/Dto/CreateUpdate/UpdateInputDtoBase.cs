@@ -43,27 +43,27 @@ namespace Deploy.LaunchPad.Core.Abp.Application.Dto
         [Required]
         public override TIdType Id { get; set; }
 
-        protected EntityName _name;
+        protected string _name;
         /// <summary>
         /// Gets or sets the name.
         /// </summary>
         /// <value>The name.</value>
         [DataObjectField(false)]
         [XmlAttribute]
-        public virtual EntityName Name
+        public virtual string Name
         {
             get { return _name; }
             protected set { _name = value; }
         }
 
-        protected EntityDescription _description;
+        protected string _description;
         /// <summary>
         /// A short description of this item.
         /// </summary>
         /// <value>The description short.</value>
         [DataObjectField(false)]
         [XmlAttribute]
-        public virtual EntityDescription Description
+        public virtual string Description
         {
             get { return _description; }
             protected set { _description = value; }
@@ -114,8 +114,8 @@ namespace Deploy.LaunchPad.Core.Abp.Application.Dto
         {
 
             ExternalId = string.Empty; Culture = ApplicationDetails<TIdType>.DEFAULT_CULTURE;
-            Name = new EntityName(string.Empty);
-            Description = new EntityDescription(string.Empty);            
+            Name = string.Empty;
+            Description = string.Empty;            
         }
 
         /// <summary>
@@ -127,8 +127,8 @@ namespace Deploy.LaunchPad.Core.Abp.Application.Dto
             Id = id;
             ExternalId = string.Empty;
             Culture = ApplicationDetails<TIdType>.DEFAULT_CULTURE;
-            Name = new EntityName(string.Empty);
-            Description = new EntityDescription(string.Empty);
+            Name = string.Empty;
+            Description = string.Empty;
         }
 
         /// <summary>
@@ -141,8 +141,8 @@ namespace Deploy.LaunchPad.Core.Abp.Application.Dto
             Id = id;
             ExternalId = string.Empty;
             Culture = culture;
-            Name = new EntityName(string.Empty);
-            Description = new EntityDescription(string.Empty);
+            Name = string.Empty;
+            Description = string.Empty;
         }
 
         /// <summary>
@@ -156,8 +156,8 @@ namespace Deploy.LaunchPad.Core.Abp.Application.Dto
             ExternalId = info.GetString("ExternalId");
             TranslatedFromId = (TIdType)info.GetValue("TranslatedFromId", typeof(TIdType));
             Culture = info.GetString("Culture");
-            Name = (EntityName)info.GetValue("Name", typeof(EntityName));
-            Description = (EntityDescription)info.GetValue("Description", typeof(EntityDescription));
+            Name = info.GetString("Name");
+            Description = info.GetString("Description");
             SeqNum = info.GetInt32("SeqNum");
         }
 
