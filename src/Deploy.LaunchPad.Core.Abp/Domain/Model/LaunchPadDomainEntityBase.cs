@@ -308,21 +308,41 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
             Description = new EntityDescription(string.Empty, string.Empty);
         }
 
+
         /// <summary>
         /// Creates a new instance of the <see cref="DomainEntityBase">Entity</see> class given a key, and some metadata.
         /// </summary>
         /// <param name="id">The identifier.</param>
-        /// <param name="culture">The culture for this entity</param>
-        protected LaunchPadDomainEntityBase(TIdType id, string culture) : base()
+        /// <param name="name">The name of the object.</param>
+        protected LaunchPadDomainEntityBase(TIdType id, string name) : base()
         {
             Id = id;
             ExternalId = string.Empty;
-            Culture = culture;
+            Culture = ApplicationDetails<TIdType>.DEFAULT_CULTURE;
             CreatorUserId = 1; // TODO - default user account?
             IsDeleted = false;
             IsActive = true;
             Tags = new HashSet<MetadataTag>();
-            Name = new EntityName(Id.ToString(), Id.ToString());
+            Name = new EntityName(name);
+            Description = new EntityDescription(string.Empty, string.Empty);
+        }
+
+        /// <summary>
+        /// Creates a new instance of the <see cref="DomainEntityBase">Entity</see> class given a key, and some metadata.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <param name="name">The name of the object.</param>
+        /// <param name="culture">The culture for this entity</param>
+        protected LaunchPadDomainEntityBase(TIdType id, string name, CultureInfo culture) : base()
+        {
+            Id = id;
+            ExternalId = string.Empty;
+            Culture = culture.Name;
+            CreatorUserId = 1; // TODO - default user account?
+            IsDeleted = false;
+            IsActive = true;
+            Tags = new HashSet<MetadataTag>();
+            Name = new EntityName(name);
             Description = new EntityDescription(string.Empty, string.Empty);
         }
 
