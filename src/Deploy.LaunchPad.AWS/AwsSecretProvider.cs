@@ -362,7 +362,8 @@ namespace Deploy.LaunchPad.AWS
             if (jToken != null)
             {
                 // The property exists - update its value
-                jToken.Replace(value);
+                //jToken.Replace(value);
+                jObject[jToken.Path] = value;
             }
             else // The property does not exist, insert a new one
             {
