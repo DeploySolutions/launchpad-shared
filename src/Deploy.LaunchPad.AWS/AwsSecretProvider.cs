@@ -21,6 +21,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 
@@ -354,7 +355,10 @@ namespace Deploy.LaunchPad.AWS
             JObject jObject = Newtonsoft.Json.JsonConvert.DeserializeObject(originalSecretJson) as JObject;
 
             // Try to select the nested property (if it exists) using the key
-            JToken jToken = jObject.SelectToken(key);
+            // but also check a parameterized version in format ['key.abc'] in case it contains periods or special characters.
+            string parameterizedJsonKey = "['" + key + "']";
+            var jTokenValues = jObject.Root.Values<JToken>();
+            JToken jToken = jTokenValues.FirstOrDefault(x => x.Path == key || x.Path == parameterizedJsonKey);
             if (jToken != null)
             {
                 // The property exists - update its value
