@@ -11,7 +11,7 @@
     <GenerateBindingRedirectsOutputType>true</GenerateBindingRedirectsOutputType>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
-    <Version>10.5.0</Version>
+    <Version>10.5.3</Version>
     <Description>Shared code for LaunchPad framework  using AspnetBoilerplate.</Description>
     <Copyright>2018-2023 Deploy Software Solutions, inc.</Copyright>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
@@ -21,11 +21,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Abp.AspNetCore" Version="9.1.1" />
-    <PackageReference Include="Abp.AutoMapper" Version="9.1.1" />
-    <PackageReference Include="Abp.Castle.Log4Net" Version="9.1.1" />
-    <PackageReference Include="Abp.FluentValidation" Version="9.1.1" />
-    <PackageReference Include="DocumentFormat.OpenXml" Version="3.0.1" />
+    <PackageReference Include="Abp.AspNetCore" Version="9.3.0" />
+    <PackageReference Include="Abp.AutoMapper" Version="9.3.0" />
+    <PackageReference Include="Abp.Castle.Log4Net" Version="9.3.0" />
+    <PackageReference Include="Abp.FluentValidation" Version="9.3.0" />
+    <PackageReference Include="DocumentFormat.OpenXml" Version="3.0.2" />
     <PackageReference Include="Schema.NET" Version="13.0.0" />
   </ItemGroup>
   
