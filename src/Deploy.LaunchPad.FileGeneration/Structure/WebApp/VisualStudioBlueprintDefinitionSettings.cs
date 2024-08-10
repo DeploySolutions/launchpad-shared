@@ -43,6 +43,9 @@ namespace Deploy.LaunchPad.FileGeneration.Structure
         /// <value>The base namespace.</value>
         public virtual string BaseNamespace { get; set; }
 
+
+        public virtual IDictionary<string, IDatabase> Databases { get; set; }
+
         /// <summary>
         /// The name of the Visual Studio project in which this generated object will belong.
         /// </summary>
@@ -114,6 +117,7 @@ namespace Deploy.LaunchPad.FileGeneration.Structure
             PropertySets = new Dictionary<string, LaunchPadGeneratedDtoPropertySet>(comparer);
             DomainEntityDefinitions = new Dictionary<string, LaunchPadGeneratedObjectBase>(comparer);
             AppServiceDefinitions = new Dictionary<string, LaunchPadGeneratedObjectBase>(comparer);
+            Databases = new Dictionary<string, IDatabase>();
         }
     }
 }

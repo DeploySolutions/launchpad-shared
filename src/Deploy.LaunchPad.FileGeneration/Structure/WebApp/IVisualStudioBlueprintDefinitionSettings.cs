@@ -52,6 +52,9 @@ namespace Deploy.LaunchPad.FileGeneration.Structure
         /// </summary>
         /// <value>The custom headers.</value>
         ICustomHttpHeaders CustomHeaders { get; set; }
+
+        IDictionary<string, IDatabase>  Databases { get; set; }
+        
         /// <summary>
         /// Gets or sets the domain entity definitions.
         /// </summary>
