@@ -59,6 +59,8 @@ namespace Deploy.LaunchPad.FileGeneration.Structure
         /// <value>The database context entity framework mapping statements.</value>
         public string DbContextEntityFrameworkMappingStatements { get; set; }= string.Empty;
 
+        public DatabaseTable DatabaseTable { get; set; }
+
         /// <summary>
         /// Initializes a new instance of the <see cref="LaunchPadGeneratedDomainEntity"/> class.
         /// </summary>
@@ -66,6 +68,7 @@ namespace Deploy.LaunchPad.FileGeneration.Structure
         {
             var comparer = StringComparer.OrdinalIgnoreCase;
             DataTransferObjects = new Dictionary<string, LaunchPadGeneratedDataTransferObject>(comparer);
+            DatabaseTable = new DatabaseTable();
         }
     }
 }
