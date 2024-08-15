@@ -128,11 +128,15 @@ namespace Deploy.LaunchPad.Core.Config
         /// <returns>System.String.</returns>
         public virtual string GetValue(string key, string caller, bool keyIsCaseInsensitive = true)
         {
+            string value = string.Empty;
             if(keyIsCaseInsensitive)
             {
-                key = key.ToLower();
+                value = Fields.FirstOrDefault(k => k.Key.ToLower() == key.ToLower()).Value;
             }
-            Fields.TryGetValue(key, out string value);
+            else
+            {
+                value = Fields.FirstOrDefault(k => k.Key == key).Value;
+            }
             return value;
         }
 
