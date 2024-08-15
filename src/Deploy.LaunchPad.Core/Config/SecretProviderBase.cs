@@ -188,9 +188,9 @@ namespace Deploy.LaunchPad.Core.Config
         /// <param name="id">The identifier.</param>
         /// <param name="caller">The caller.</param>
         /// <returns>ISecretVault.</returns>
-        public virtual ISecretVault GetSecretVaultById(string id, string caller, bool keyIsCaseInsensitive = true)
+        public virtual ISecretVault GetSecretVaultById(string id, string caller)
         {
-            return GetSecretVaultByIdAsync(id, caller, keyIsCaseInsensitive).Result;
+            return GetSecretVaultByIdAsync(id, caller).Result;
         }
         /// <summary>
         /// Gets the secret vault by identifier asynchronous.
@@ -198,7 +198,7 @@ namespace Deploy.LaunchPad.Core.Config
         /// <param name="id">The identifier.</param>
         /// <param name="caller">The caller.</param>
         /// <returns>Task&lt;ISecretVault&gt;.</returns>
-        public abstract Task<ISecretVault> GetSecretVaultByIdAsync(string id, string caller, bool keyIsCaseInsensitive = true);
+        public abstract Task<ISecretVault> GetSecretVaultByIdAsync(string id, string caller);
 
         /// <summary>
         /// Gets the secret vault by vault identifier.
@@ -206,9 +206,9 @@ namespace Deploy.LaunchPad.Core.Config
         /// <param name="vaultId">The vault identifier.</param>
         /// <param name="caller">The caller.</param>
         /// <returns>ISecretVault.</returns>
-        public virtual ISecretVault GetSecretVaultByVaultId(string vaultId, string caller, bool keyIsCaseInsensitive = true)
+        public virtual ISecretVault GetSecretVaultByVaultId(string vaultId, string caller)
         {
-            return GetSecretVaultByVaultIdAsync(vaultId, caller, keyIsCaseInsensitive).Result;
+            return GetSecretVaultByVaultIdAsync(vaultId, caller).Result;
         }
 
         /// <summary>
@@ -217,7 +217,7 @@ namespace Deploy.LaunchPad.Core.Config
         /// <param name="vaultId">The vault identifier.</param>
         /// <param name="caller">The caller.</param>
         /// <returns>Task&lt;ISecretVault&gt;.</returns>
-        public abstract Task<ISecretVault> GetSecretVaultByVaultIdAsync(string vaultId, string caller, bool keyIsCaseInsensitive = true);
+        public abstract Task<ISecretVault> GetSecretVaultByVaultIdAsync(string vaultId, string caller);
 
         /// <summary>
         /// Returns the set of key value pairs for a given set of keys, which are part of a given secret vault's fields
