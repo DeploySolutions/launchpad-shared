@@ -11,6 +11,7 @@
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
+using Microsoft.EntityFrameworkCore.Metadata;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -125,8 +126,12 @@ namespace Deploy.LaunchPad.Core.Config
         /// <param name="key">The key.</param>
         /// <param name="caller">The caller.</param>
         /// <returns>System.String.</returns>
-        public virtual string GetValue(string key, string caller)
+        public virtual string GetValue(string key, string caller, bool keyIsCaseInsensitive = true)
         {
+            if(keyIsCaseInsensitive)
+            {
+                key = key.ToLower();
+            }
             Fields.TryGetValue(key, out string value);
             return value;
         }
@@ -137,12 +142,18 @@ namespace Deploy.LaunchPad.Core.Config
         /// <param name="keys">The keys.</param>
         /// <param name="caller">The caller.</param>
         /// <returns>IDictionary&lt;System.String, System.String&gt;.</returns>
-        public virtual IDictionary<string, string> FindValuesForKeys(IList<string> keys, string caller)
+        public virtual IDictionary<string, string> FindValuesForKeys(IList<string> keys, string caller, bool keyIsCaseInsensitive = true)
         {
             IDictionary<string, string> kvps = new Dictionary<string, string>();
             // loop through the desired set of keys to find the corresponding values in the JSON
-
-            kvps = (IDictionary<string, string>)keys.Where(k => Fields.ContainsKey(k));
+            if (keyIsCaseInsensitive)
+            {
+                kvps = (IDictionary<string, string>)keys.Where(k => Fields.ContainsKey(k.ToLower()));
+            }
+            else
+            {
+                kvps = (IDictionary<string, string>)keys.Where(k => Fields.ContainsKey(k));
+            }
 
             return kvps;
         }

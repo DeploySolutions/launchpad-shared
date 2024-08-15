@@ -62,7 +62,7 @@ namespace Deploy.LaunchPad.Core.Config
         /// <param name="key">The key.</param>
         /// <param name="caller">The caller.</param>
         /// <returns>System.String.</returns>
-        public string GetValue(string key, string caller);
+        public string GetValue(string key, string caller, bool keyIsCaseInsensitive = true);
 
         /// <summary>
         /// Finds the values for keys.
@@ -70,7 +70,7 @@ namespace Deploy.LaunchPad.Core.Config
         /// <param name="keys">The keys.</param>
         /// <param name="caller">The caller.</param>
         /// <returns>IDictionary&lt;System.String, System.String&gt;.</returns>
-        public IDictionary<string, string> FindValuesForKeys(IList<string> keys, string caller);
+        public IDictionary<string, string> FindValuesForKeys(IList<string> keys, string caller, bool keyIsCaseInsensitive = true);
 
 
     }
