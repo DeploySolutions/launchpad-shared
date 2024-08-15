@@ -85,10 +85,17 @@ namespace Deploy.LaunchPad.AWS
         /// <param name="arn">The arn.</param>
         /// <param name="caller">The caller.</param>
         /// <returns>A Task&lt;ISecretVault&gt; representing the asynchronous operation.</returns>
-        public async override Task<ISecretVault> GetSecretVaultByIdAsync(string arn, string caller)
+        public async override Task<ISecretVault> GetSecretVaultByIdAsync(string arn, string caller, bool keyIsCaseInsensitive = true)
         {
             AwsSecretVault vault = new AwsSecretVault();
-            vault.VaultId = arn;
+            if(keyIsCaseInsensitive)
+            {
+                vault.VaultId = arn.ToLower();
+            }
+            else
+            {
+                vault.VaultId = arn;
+            }
             vault.Fields = await GetAllValuesFromSecretVaultAsync(vault, caller);
             return vault;
         }
@@ -99,10 +106,17 @@ namespace Deploy.LaunchPad.AWS
         /// <param name="arn">The arn.</param>
         /// <param name="caller">The caller.</param>
         /// <returns>A Task&lt;ISecretVault&gt; representing the asynchronous operation.</returns>
-        public async override Task<ISecretVault> GetSecretVaultByVaultIdAsync(string arn, string caller)
+        public async override Task<ISecretVault> GetSecretVaultByVaultIdAsync(string arn, string caller, bool keyIsCaseInsensitive = true)
         {
             AwsSecretVault vault = new AwsSecretVault();
-            vault.VaultId = arn;
+            if (keyIsCaseInsensitive)
+            {
+                vault.VaultId = arn.ToLower();
+            }
+            else
+            {
+                vault.VaultId = arn;
+            }
             vault.Fields = await GetAllValuesFromSecretVaultAsync(vault, caller);
             return vault;
         }

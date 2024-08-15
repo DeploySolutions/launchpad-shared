@@ -130,9 +130,9 @@ namespace Deploy.LaunchPad.Core.Config
         /// <param name="key">The key.</param>
         /// <param name="caller">The caller.</param>
         /// <returns>System.String.</returns>
-        public string GetValueFromSecretVault(ISecretVault secretVault, string key, string caller)
+        public string GetValueFromSecretVault(ISecretVault secretVault, string key, string caller, bool keyIsCaseInsensitive = true)
         {
-            return GetValueFromSecretVaultAsync(secretVault, key, caller).Result;
+            return GetValueFromSecretVaultAsync(secretVault, key, caller, keyIsCaseInsensitive).Result;
         }
 
 
@@ -143,7 +143,7 @@ namespace Deploy.LaunchPad.Core.Config
         /// <param name="key">The key.</param>
         /// <param name="caller">The caller.</param>
         /// <returns>A Task&lt;System.String&gt; representing the asynchronous operation.</returns>
-        public async Task<string> GetValueFromSecretVaultAsync(ISecretVault secretVault, string key, string caller)
+        public async Task<string> GetValueFromSecretVaultAsync(ISecretVault secretVault, string key, string caller, bool keyIsCaseInsensitive = true)
         {
             string secretStringJson = await GetJsonFromSecretVaultAsync(secretVault, caller);
             string val = string.Empty;
@@ -188,9 +188,9 @@ namespace Deploy.LaunchPad.Core.Config
         /// <param name="id">The identifier.</param>
         /// <param name="caller">The caller.</param>
         /// <returns>ISecretVault.</returns>
-        public virtual ISecretVault GetSecretVaultById(string id, string caller)
+        public virtual ISecretVault GetSecretVaultById(string id, string caller, bool keyIsCaseInsensitive = true)
         {
-            return GetSecretVaultByIdAsync(id, caller).Result;
+            return GetSecretVaultByIdAsync(id, caller, keyIsCaseInsensitive).Result;
         }
         /// <summary>
         /// Gets the secret vault by identifier asynchronous.
@@ -198,7 +198,7 @@ namespace Deploy.LaunchPad.Core.Config
         /// <param name="id">The identifier.</param>
         /// <param name="caller">The caller.</param>
         /// <returns>Task&lt;ISecretVault&gt;.</returns>
-        public abstract Task<ISecretVault> GetSecretVaultByIdAsync(string id, string caller);
+        public abstract Task<ISecretVault> GetSecretVaultByIdAsync(string id, string caller, bool keyIsCaseInsensitive = true);
 
         /// <summary>
         /// Gets the secret vault by vault identifier.
@@ -206,9 +206,9 @@ namespace Deploy.LaunchPad.Core.Config
         /// <param name="vaultId">The vault identifier.</param>
         /// <param name="caller">The caller.</param>
         /// <returns>ISecretVault.</returns>
-        public virtual ISecretVault GetSecretVaultByVaultId(string vaultId, string caller)
+        public virtual ISecretVault GetSecretVaultByVaultId(string vaultId, string caller, bool keyIsCaseInsensitive = true)
         {
-            return GetSecretVaultByVaultIdAsync(vaultId, caller).Result;
+            return GetSecretVaultByVaultIdAsync(vaultId, caller, keyIsCaseInsensitive).Result;
         }
 
         /// <summary>
@@ -217,7 +217,7 @@ namespace Deploy.LaunchPad.Core.Config
         /// <param name="vaultId">The vault identifier.</param>
         /// <param name="caller">The caller.</param>
         /// <returns>Task&lt;ISecretVault&gt;.</returns>
-        public abstract Task<ISecretVault> GetSecretVaultByVaultIdAsync(string vaultId, string caller);
+        public abstract Task<ISecretVault> GetSecretVaultByVaultIdAsync(string vaultId, string caller, bool keyIsCaseInsensitive = true);
 
         /// <summary>
         /// Returns the set of key value pairs for a given set of keys, which are part of a given secret vault's fields
@@ -226,7 +226,7 @@ namespace Deploy.LaunchPad.Core.Config
         /// <param name="keys">The list of keys you are looking for</param>
         /// <param name="caller">The caller.</param>
         /// <returns>A Task&lt;IDictionary`2&gt; representing the asynchronous operation.</returns>
-        public virtual async Task<IDictionary<string, string>> FindValuesForKeysAsync(ISecretVault secretVault, IList<string> keys, string caller)
+        public virtual async Task<IDictionary<string, string>> FindValuesForKeysAsync(ISecretVault secretVault, IList<string> keys, string caller, bool keyIsCaseInsensitive = true)
         {
             string secretStringJson = await GetJsonFromSecretVaultAsync(secretVault, caller);
             IDictionary<string, string> kvps = null;
@@ -239,7 +239,15 @@ namespace Deploy.LaunchPad.Core.Config
                 // loop through the desired set of keys to find the corresponding values in the JSON
                 foreach (string key in keys)
                 {
-                    string value = secretObj[key];
+                    string value = string.Empty;
+                    if (keyIsCaseInsensitive)
+                    {
+                        value = secretObj[key.ToLower()];
+                    }
+                    else
+                    {
+                        value = secretObj[key];
+                    }
                     if (!string.IsNullOrEmpty(value))
                     {
                         kvps.Add(key, value);
