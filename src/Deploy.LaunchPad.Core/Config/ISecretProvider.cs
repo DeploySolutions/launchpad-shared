@@ -107,14 +107,14 @@ namespace Deploy.LaunchPad.Core.Config
         /// <param name="secretVault">The secret vault.</param>
         /// <param name="caller">The caller.</param>
         /// <returns>System.String.</returns>
-        public string GetJsonFromSecretVault(ISecretVault secretVault, string caller);
+        public string GetJsonFromSecretVault(ISecretVault secretVault, string caller, bool keyIsCaseInsensitive = true);
         /// <summary>
         /// Gets the json from secret vault asynchronous.
         /// </summary>
         /// <param name="secretVault">The secret vault.</param>
         /// <param name="caller">The caller.</param>
         /// <returns>Task&lt;System.String&gt;.</returns>
-        public Task<string> GetJsonFromSecretVaultAsync(ISecretVault secretVault, string caller);
+        public Task<string> GetJsonFromSecretVaultAsync(ISecretVault secretVault, string caller, bool keyIsCaseInsensitive = true);
 
         /// <summary>
         /// Gets the value from secret vault.

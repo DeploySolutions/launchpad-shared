@@ -114,7 +114,7 @@ namespace Deploy.LaunchPad.AWS
         /// <param name="secretVault">The secret vault.</param>
         /// <param name="caller">The caller.</param>
         /// <returns>A Task&lt;System.String&gt; representing the asynchronous operation.</returns>
-        public async override Task<string> GetJsonFromSecretVaultAsync(ISecretVault secretVault, string caller)
+        public async override Task<string> GetJsonFromSecretVaultAsync(ISecretVault secretVault, string caller, bool keyIsCaseInsensitive = true)
         {
             Logger.Info(string.Format(Deploy_LaunchPad_AWS_Resources.Logger_Info_GetJsonFromSecret_Getting,
                 secretVault.Id,
@@ -171,7 +171,15 @@ namespace Deploy.LaunchPad.AWS
                 secretVault.Id,
                 caller
             ));
-            return response.SecretString;
+
+            if (keyIsCaseInsensitive)
+            {
+                return response.SecretString.ToLower();
+            }
+            else 
+            {
+                return response.SecretString;
+            }
         }
 
         /// <summary>
