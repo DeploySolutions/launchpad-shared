@@ -171,15 +171,7 @@ namespace Deploy.LaunchPad.AWS
                 secretVault.Id,
                 caller
             ));
-
-            if (keyIsCaseInsensitive)
-            {
-                return response.SecretString.ToLower();
-            }
-            else 
-            {
-                return response.SecretString;
-            }
+            return response.SecretString;
         }
 
         /// <summary>
