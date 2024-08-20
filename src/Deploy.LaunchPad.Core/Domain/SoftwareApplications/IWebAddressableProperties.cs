@@ -34,14 +34,6 @@ namespace Deploy.LaunchPad.Core.Domain.Model
         [XmlAttribute]
         public string? Slug { get; }
 
-        /// <summary>
-        /// If this object does not have an abbreviation this will be null.
-        /// </summary>
-        /// <value>The abbreviation of the entity.</value>
-        [DataObjectField(false)]
-        [XmlAttribute]
-        public string? Abbreviation { get; }
-
 
         /// <summary>
         /// The external ID stored in a client system (if any). Can be any type on client system, but retained here as text.

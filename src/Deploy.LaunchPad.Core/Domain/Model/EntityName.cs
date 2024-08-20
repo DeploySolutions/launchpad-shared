@@ -51,6 +51,34 @@ namespace Deploy.LaunchPad.Core.Domain.Model
             }
         }
 
+
+        protected string _abbreviation;
+        /// <summary>
+        /// If this object does not have an abbreviation this will default to the first 10 characters of the Name.
+        /// </summary>
+        /// <value>The abbreviation of the entity.</value>
+        [MaxLength(18, ErrorMessageResourceName = "Validation_Abbreviation_12CharsOrLess", ErrorMessageResourceType = typeof(Deploy_LaunchPad_Core_Resources))]
+        [DataObjectField(false)]
+        [XmlAttribute]
+        public virtual string Abbreviation
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(_abbreviation))
+                {
+                    return Name.Substring(0,10);
+                }
+                else
+                {
+                    return _abbreviation;
+                }
+            }
+            private set
+            {
+                _abbreviation = value;
+            }
+        }
+
         private EntityName()
         {
         }
@@ -59,12 +87,22 @@ namespace Deploy.LaunchPad.Core.Domain.Model
         {
             Name = name;
             DisplayName = name;
+            Abbreviation = name.Substring(0, 10);
         }
 
-        public EntityName(string name, string fullyQualifiedName)
+        public EntityName(string name, string displayName)
         {
             Name = name;
-            DisplayName = fullyQualifiedName;
+            DisplayName = displayName;
+            Abbreviation = displayName.Substring(0, 10);
+        }
+
+
+        public EntityName(string name, string displayName, string abbreviation)
+        {
+            Name = name;
+            DisplayName = displayName;
+            Abbreviation = abbreviation;
         }
 
         /// <summary>
@@ -78,7 +116,7 @@ namespace Deploy.LaunchPad.Core.Domain.Model
         {
             // put comparison of properties in here 
             // for base object we'll just sort by DisplayName
-            return Name.CompareTo(other.Name) & DisplayName.CompareTo(other.DisplayName);
+            return Name.CompareTo(other.Name) & DisplayName.CompareTo(other.DisplayName) & Abbreviation.CompareTo(other.Abbreviation);
         }
 
         /// <summary>
@@ -118,7 +156,7 @@ namespace Deploy.LaunchPad.Core.Domain.Model
         {
             if (obj != null)
             {
-                return Name.Equals(obj.Name) && DisplayName.Equals(obj.DisplayName);
+                return Name.Equals(obj.Name) && DisplayName.Equals(obj.DisplayName) && Abbreviation.Equals(obj.Abbreviation);
             }
             return false;
         }
@@ -161,7 +199,9 @@ namespace Deploy.LaunchPad.Core.Domain.Model
         public override int GetHashCode()
         {
             return Name.GetHashCode()
-                + DisplayName.GetHashCode();
+                + DisplayName.GetHashCode()
+                + Abbreviation.GetHashCode()
+            ;
         }
     }
 }

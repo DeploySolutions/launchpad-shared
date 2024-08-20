@@ -845,7 +845,7 @@ namespace Deploy.LaunchPad.Core {
 
 
         /// <summary>
-        /// Looks up a localized string for Abbreviation that must be 12 characters or less..
+        /// Looks up a localized string for Abbreviation that must be 12 characters or less.
         /// </summary>
         /// <value>The validation abbreviation must be 12 chars or less.</value>
         public static string Validation_Abbreviation_12CharsOrLess

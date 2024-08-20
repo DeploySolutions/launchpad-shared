@@ -11,6 +11,7 @@
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
+using Deploy.LaunchPad.Core.Domain.Model;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -38,12 +39,7 @@ namespace Deploy.LaunchPad.Space.Satellites.Core.Observations
         /// Gets or sets the name.
         /// </summary>
         /// <value>The name.</value>
-        public virtual string Name { get; set; }
-        /// <summary>
-        /// Gets or sets the abbreviation.
-        /// </summary>
-        /// <value>The abbreviation.</value>
-        public virtual string Abbreviation { get; set; }
+        public virtual EntityName Name { get; set; }
 
         /// <summary>
         /// Gets or sets the supported imagery types.
