@@ -822,12 +822,37 @@ namespace Deploy.LaunchPad.Core {
         }
 
         /// <summary>
+        /// Looks up a localized string that must be 256 characters or less..
+        /// </summary>
+        /// <value>The validation of a string that must be 256 chars or less.</value>
+        public static string Validation_256CharsOrLess
+        {
+            get
+            {
+                return ResourceManager.GetString("Validation_256CharsOrLess", resourceCulture);
+            }
+        }
+
+        /// <summary>
         /// Looks up a localized string similar to Correlation ID field must be 36 characters or less..
         /// </summary>
         /// <value>The validation correlation identifier 36 chars or less.</value>
         public static string Validation_CorrelationId_36CharsOrLess {
             get {
                 return ResourceManager.GetString("Validation_CorrelationId_36CharsOrLess", resourceCulture);
+            }
+        }
+
+
+        /// <summary>
+        /// Looks up a localized string for Abbreviation that must be 12 characters or less..
+        /// </summary>
+        /// <value>The validation abbreviation must be 12 chars or less.</value>
+        public static string Validation_Abbreviation_12CharsOrLess
+        {
+            get
+            {
+                return ResourceManager.GetString("Validation_Abbrevation_12CharsOrLess", resourceCulture);
             }
         }
 

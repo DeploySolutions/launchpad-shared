@@ -40,6 +40,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
     using System.Collections.Generic;
     using System.ComponentModel;
     using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
     using System.Diagnostics;
     using System.Globalization;
     using System.Linq;
@@ -59,8 +60,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
     public abstract partial class LaunchPadDomainEntityBase<TIdType> :
         FullAuditedEntity<TIdType>, ILaunchPadDomainEntity<TIdType>
     {
-
-
+        
         /// <summary>
         /// Controls the DebuggerDisplay attribute presentation (above). This will only appear during VS debugging sessions and should never be logged.
         /// </summary>
@@ -103,6 +103,38 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
         [XmlAttribute]
         public virtual DomainEntityType EntityType { get; } = DomainEntityType.DomainEntity;
 
+        protected string _abbreviation;
+        /// <summary>
+        /// The abbreviation of this object
+        /// </summary>
+        /// <value>The abbreviation.</value>
+        [MaxLength(5, ErrorMessageResourceName = "Validation_Abbrevation_12CharsOrLess", ErrorMessageResourceType = typeof(Deploy_LaunchPad_Core_Resources))]
+        [DataObjectField(false)]
+        [DataMember(Name = "abbreviation", EmitDefaultValue = false)]
+        [XmlAttribute]
+        [CanBeNull]
+        public virtual string Abbreviation
+        {
+            get { return _abbreviation; }
+            set { _abbreviation = value; }
+        }
+
+        protected string _slug;
+        /// <summary>
+        /// The slug of this object
+        /// </summary>
+        /// <value>The slug, if any.</value>
+        [MaxLength(5, ErrorMessageResourceName = "Validation_256CharsOrLess", ErrorMessageResourceType = typeof(Deploy_LaunchPad_Core_Resources))]
+        [DataObjectField(false)]
+        [DataMember(Name = "slug", EmitDefaultValue = false)]
+        [XmlAttribute]
+        [CanBeNull]
+        public virtual string Slug
+        {
+            get { return _slug; }
+            set { _slug = value; }
+        }
+
         protected string _culture;
         /// <summary>
         /// The culture of this object
@@ -110,7 +142,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
         /// <value>The culture.</value>
         [Required]
         [MaxLength(5, ErrorMessageResourceName = "Validation_Culture_5CharsOrLess", ErrorMessageResourceType = typeof(Deploy_LaunchPad_Core_Resources))]
-        [DataObjectField(true)]
+        [DataObjectField(false)]
         [DataMember(Name = "culture", EmitDefaultValue = false)]
         [XmlAttribute]
         public virtual string Culture
@@ -135,22 +167,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
             set { _checksum = value; }
         }
 
-        protected string _externalId;
-        /// <summary>
-        /// The external ID stored in a client system (if any). Can be any type on client system, but retained here as text.
-        /// </summary>
-        /// <value>The external identifier.</value>
-        [MaxLength(36, ErrorMessageResourceName = "Validation_ExternalId_36CharsOrLess", ErrorMessageResourceType = typeof(Deploy_LaunchPad_Core_Resources))]
-        [DataObjectField(false)]
-        [DataMember(Name = "externalId", EmitDefaultValue = false)]
-        [XmlAttribute]
-        public virtual string ExternalId
-        {
-            get { return _externalId; }
-            set { _externalId = value; }
-        }
-
-        protected int _seqNum;
+        protected int _seqNum = 0;
         /// <summary>
         /// The sequence number for this entity, if any (for sorting and ordering purposes). Defaults to 0 if not set.
         /// </summary>
@@ -172,6 +189,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
         [DataObjectField(false)]
         [DataMember(Name = "tags", EmitDefaultValue = false)]
         [XmlAttribute]
+        [CanBeNull]
         public virtual HashSet<MetadataTag> Tags
         {
             get { return _tags; }
@@ -184,8 +202,9 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
         /// If this object is a translation, this id references the parent object.
         /// </summary>
         /// <value>The translated from identifier.</value>
-        [DataObjectField(true)]
+        [DataObjectField(false)]
         [DataMember(Name = "translatedFromId", EmitDefaultValue = false)]
+        [CanBeNull]
         [XmlAttribute]
         public virtual TIdType TranslatedFromId
         {
@@ -193,7 +212,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
             set { _translatedFromId = value; }
         }
 
-        protected bool _isActive;
+        protected bool _isActive = true;
         /// <summary>
         /// Gets or sets a value indicating whether this instance is active.
         /// </summary>
@@ -280,7 +299,6 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
         /// </summary>
         protected LaunchPadDomainEntityBase() : base()
         {
-            ExternalId = string.Empty;
             Culture = ApplicationDetails<TIdType>.DEFAULT_CULTURE;
             //TenantId = 0; // default tenant
             Tags = new HashSet<MetadataTag>();
@@ -298,7 +316,6 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
         protected LaunchPadDomainEntityBase(TIdType id) : base()
         {
             Id = id;
-            ExternalId = string.Empty;
             Culture = ApplicationDetails<TIdType>.DEFAULT_CULTURE;
             CreatorUserId = 1; // TODO - default user account?
             IsDeleted = false;
@@ -317,7 +334,6 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
         protected LaunchPadDomainEntityBase(TIdType id, string name) : base()
         {
             Id = id;
-            ExternalId = string.Empty;
             Culture = ApplicationDetails<TIdType>.DEFAULT_CULTURE;
             CreatorUserId = 1; // TODO - default user account?
             IsDeleted = false;
@@ -336,7 +352,6 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
         protected LaunchPadDomainEntityBase(TIdType id, string name, CultureInfo culture) : base()
         {
             Id = id;
-            ExternalId = string.Empty;
             Culture = culture.Name;
             CreatorUserId = 1; // TODO - default user account?
             IsDeleted = false;
@@ -355,7 +370,6 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
         protected LaunchPadDomainEntityBase(SerializationInfo info, StreamingContext context)
         {
             Id = (TIdType)info.GetValue("Id", typeof(TIdType));
-            ExternalId = info.GetString("ExternalId");
             Culture = info.GetString("Culture");
             Name = (EntityName)info.GetValue("Name", typeof(EntityName));
             Description = (EntityDescription)info.GetValue("Description", typeof(EntityDescription));
@@ -383,7 +397,6 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
         public virtual void GetObjectData(SerializationInfo info, StreamingContext context)
         {
             info.AddValue("Id", Id);
-            info.AddValue("ExternalId", ExternalId);
             info.AddValue("Culture", Culture);
             info.AddValue("Name", Name);
             info.AddValue("Description", Description);
@@ -443,7 +456,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
         public virtual int CompareTo(LaunchPadDomainEntityBase<TIdType> other)
         {
             // put comparison of properties in here 
-            // for base object we'll just sort by FullyQualifiedName
+            // for base object we'll just sort by DisplayName
             return Name.CompareTo(other.Name);
         }
 
@@ -470,7 +483,6 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
             StringBuilder sb = new StringBuilder();
             // LaunchPAD RAD properties
             sb.AppendFormat("Id={0};", Id);
-            sb.AppendFormat("ExternalId={0};", ExternalId);
             sb.AppendFormat("Name={0};", Name);
             sb.AppendFormat("Description={0};", Description);
             sb.AppendFormat("Checksum={0};", Checksum);
@@ -535,10 +547,9 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
                         // For safe equality we need to match on business key equality.
                         // Base domain entities are functionally equal if their key and metadata are equal.
                         // Subclasses should extend to include their own enhanced equality checks, as required.
-                        return Id.Equals(obj.Id) && Culture.Equals(obj.Culture) && ExternalId.Equals(obj.ExternalId)
+                        return Id.Equals(obj.Id) && Culture.Equals(obj.Culture) 
                             && Name.Equals(obj.Name)
                             && Description.Equals(obj.Description)
-                            && ExternalId.Equals(obj.ExternalId)
                             && IsActive.Equals(obj.IsActive) && IsDeleted.Equals(obj.IsDeleted);
                     }
                 }
@@ -587,7 +598,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
                 + Id.GetHashCode()
                 + Checksum.GetHashCode()
                 + Name.GetHashCode()
-                + ExternalId.GetHashCode();
+                ;
         }
 
     }

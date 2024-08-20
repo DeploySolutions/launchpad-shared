@@ -61,8 +61,6 @@ namespace Deploy.LaunchPad.Core.Domain.Model
         /// <returns>System.Int32.</returns>
         public virtual int CompareTo(EntityDescription other)
         {
-            // put comparison of properties in here 
-            // for base object we'll just sort by FullyQualifiedName
             return Full.CompareTo(other.Full) & Short.CompareTo(other.Short);
         }
 

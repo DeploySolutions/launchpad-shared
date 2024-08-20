@@ -191,7 +191,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
                     // For safe equality we need to match on business key equality.
                     // Base domain entities are functionally equal if their key and metadata are equal.
                     // Subclasses should extend to include their own enhanced equality checks, as required.
-                    return Id.Equals(obj.Id) && Culture.Equals(obj.Culture) && ExternalId.Equals(obj.ExternalId)
+                    return Id.Equals(obj.Id) && Culture.Equals(obj.Culture)
                         && IsActive.Equals(obj.IsActive) && IsDeleted.Equals(obj.IsDeleted) && UserId.Equals(obj.UserId);
                 }
 
@@ -239,7 +239,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
             return Culture.GetHashCode()
                 + Id.GetHashCode()
                 + UserId.GetValueOrDefault().GetHashCode()
-                + ExternalId.GetHashCode();
+                ;
         }
 
     }

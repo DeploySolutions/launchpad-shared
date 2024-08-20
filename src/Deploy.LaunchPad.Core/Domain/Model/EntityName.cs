@@ -14,7 +14,7 @@ namespace Deploy.LaunchPad.Core.Domain.Model
     {
 
         /// <summary>
-        /// The display name of this object
+        /// The name of this object
         /// </summary>
         /// <value>The name.</value>
         [Required]
@@ -23,31 +23,31 @@ namespace Deploy.LaunchPad.Core.Domain.Model
         [XmlAttribute]
         public virtual string Name { get; private set; }
 
-        protected string _fullyQualifiedName;
+        protected string _displayName;
 
         /// <summary>
-        /// The fully-qualified name of this object (if different from the Name field)
+        /// The display name of this object (if different from the Name field)
         /// </summary>
         /// <value>The name of the fully qualified.</value>
         [MaxLength(256, ErrorMessageResourceName = "Validation_Name_256CharsOrLess", ErrorMessageResourceType = typeof(Deploy_LaunchPad_Core_Resources))]
         [DataObjectField(false)]
         [XmlAttribute]
-        public virtual string FullyQualifiedName
+        public virtual string DisplayName
         {
             get
             {
-                if (string.IsNullOrEmpty(_fullyQualifiedName))
+                if (string.IsNullOrEmpty(_displayName))
                 {
                     return Name;
                 }
                 else
                 {
-                    return _fullyQualifiedName;
+                    return _displayName;
                 }
             }
             private set
             {
-                _fullyQualifiedName = value;
+                _displayName = value;
             }
         }
 
@@ -58,13 +58,13 @@ namespace Deploy.LaunchPad.Core.Domain.Model
         public EntityName(string name)
         {
             Name = name;
-            FullyQualifiedName = name;
+            DisplayName = name;
         }
 
         public EntityName(string name, string fullyQualifiedName)
         {
             Name = name;
-            FullyQualifiedName = fullyQualifiedName;
+            DisplayName = fullyQualifiedName;
         }
 
         /// <summary>
@@ -77,8 +77,8 @@ namespace Deploy.LaunchPad.Core.Domain.Model
         public virtual int CompareTo(EntityName other)
         {
             // put comparison of properties in here 
-            // for base object we'll just sort by FullyQualifiedName
-            return Name.CompareTo(other.Name) & FullyQualifiedName.CompareTo(other.FullyQualifiedName);
+            // for base object we'll just sort by DisplayName
+            return Name.CompareTo(other.Name) & DisplayName.CompareTo(other.DisplayName);
         }
 
         /// <summary>
@@ -87,7 +87,7 @@ namespace Deploy.LaunchPad.Core.Domain.Model
         /// <returns>A string representation of the object.</returns>
         public override string ToString()
         {
-            return FullyQualifiedName;
+            return DisplayName;
         }
 
 
@@ -118,7 +118,7 @@ namespace Deploy.LaunchPad.Core.Domain.Model
         {
             if (obj != null)
             {
-                return Name.Equals(obj.Name) && FullyQualifiedName.Equals(obj.FullyQualifiedName);
+                return Name.Equals(obj.Name) && DisplayName.Equals(obj.DisplayName);
             }
             return false;
         }
@@ -161,7 +161,7 @@ namespace Deploy.LaunchPad.Core.Domain.Model
         public override int GetHashCode()
         {
             return Name.GetHashCode()
-                + FullyQualifiedName.GetHashCode();
+                + DisplayName.GetHashCode();
         }
     }
 }

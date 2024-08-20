@@ -57,16 +57,6 @@ namespace Deploy.LaunchPad.Core.Domain.Model
         public string Culture { get; }
 
         /// <summary>
-        /// The external ID stored in a client system (if any). Can be any type on client system, but retained here as text.
-        /// </summary>
-        /// <value>The external identifier.</value>
-        [MaxLength(36, ErrorMessageResourceName = "Validation_ExternalId_36CharsOrLess", ErrorMessageResourceType = typeof(Deploy_LaunchPad_Core_Resources))]
-        [DataObjectField(false)]
-        [XmlAttribute]
-        public string ExternalId { get; }
-
-
-        /// <summary>
         /// The checksum for this  object, if any
         /// </summary>
         /// <value>The checksum.</value>
@@ -90,7 +80,7 @@ namespace Deploy.LaunchPad.Core.Domain.Model
         [XmlAttribute]
         public HashSet<MetadataTag> Tags { get; }
 
-
+        
         /// <summary>
         /// Gets or sets a value indicating whether this instance is active.
         /// </summary>

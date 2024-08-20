@@ -119,21 +119,6 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
             set { _checksum = value; }
         }
 
-        protected string _externalId;
-        /// <summary>
-        /// The external ID stored in a client system (if any). Can be any type on client system, but retained here as text.
-        /// </summary>
-        /// <value>The external identifier.</value>
-        [MaxLength(36, ErrorMessageResourceName = "Validation_ExternalId_36CharsOrLess", ErrorMessageResourceType = typeof(Deploy_LaunchPad_Core_Resources))]
-        [DataObjectField(false)]
-        [DataMember(Name = "externalId", EmitDefaultValue = false)]
-        [XmlAttribute]
-        public virtual string ExternalId
-        {
-            get { return _externalId; }
-            set { _externalId = value; }
-        }
-
         protected int _seqNum;
         /// <summary>
         /// The sequence number for this entity, if any (for sorting and ordering purposes). Defaults to 0 if not set.
@@ -340,7 +325,6 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
         {
             Name = new EntityName(string.Empty, string.Empty);
             Description = new EntityDescription(string.Empty, string.Empty);
-            ExternalId = string.Empty;
             Culture = "en";
             //TenantId = 0; // default tenant
             Tags = new HashSet<MetadataTag>();
@@ -358,7 +342,6 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
         {
             Name = new EntityName(string.Empty, string.Empty);
             Description = new EntityDescription(string.Empty, string.Empty);
-            ExternalId = string.Empty;
             Culture = culture;
             CreatorUserId = 1; // TODO - default user account?
             IsDeleted = false;
@@ -376,7 +359,6 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
         {
             Name = (EntityName)info.GetValue("Name", typeof(EntityName));
             Description = (EntityDescription)info.GetValue("Description", typeof(EntityDescription));
-            ExternalId = info.GetString("ExternalId");
             Culture = info.GetString("Culture");
             Checksum = info.GetString("Checksum");
             Tags = (HashSet<MetadataTag>)info.GetValue("Metadata", typeof(HashSet<MetadataTag>));
@@ -402,7 +384,6 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
         {
             info.AddValue("Name", Name);
             info.AddValue("Description", Description);
-            info.AddValue("ExternalId", ExternalId);
             info.AddValue("Culture", Culture);
             info.AddValue("Checksum", Checksum);
             info.AddValue("Tags", Tags);
@@ -415,7 +396,6 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
             info.AddValue("DeleterUserId", DeleterUserId);
             info.AddValue("DeletionTime", DeletionTime);
             info.AddValue("IsActive", IsActive);
-
         }
 
         /// <summary>
@@ -486,13 +466,12 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
         {
             StringBuilder sb = new StringBuilder();
             // LaunchPAD RAD properties
-            sb.AppendFormat("ExternalId={0};", ExternalId);
             sb.AppendFormat("Name={0};", Name);
             sb.AppendFormat("Description={0};", Description);
             sb.AppendFormat("Checksum={0};", Checksum);
             sb.AppendFormat(" Tags={0};", Tags.ToString());
             sb.AppendFormat("SeqNum={0};", SeqNum);
-
+            
             // ABP properties
             sb.AppendFormat("CreationTime={0};", CreationTime);
             sb.AppendFormat("CreatorUserId={0};", CreatorUserId);
@@ -536,10 +515,9 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
                 // For safe equality we need to match on business key equality.
                 // Base domain entities are functionally equal if their key and metadata are equal.
                 // Subclasses should extend to include their own enhanced equality checks, as required.
-                return Checksum.Equals(obj.Checksum) && Culture.Equals(obj.Culture) && ExternalId.Equals(obj.ExternalId)
+                return Checksum.Equals(obj.Checksum) && Culture.Equals(obj.Culture)
                     && Name.Equals(obj.Name)
                     && Description.Equals(obj.Description)
-                    && ExternalId.Equals(obj.ExternalId)
                     && IsActive.Equals(obj.IsActive) && IsDeleted.Equals(obj.IsDeleted);
 
             }
@@ -586,7 +564,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
             return Culture.GetHashCode()
                 + Checksum.GetHashCode()
                 + Name.GetHashCode()
-                + ExternalId.GetHashCode();
+            ;
         }
 
         /// <summary>
