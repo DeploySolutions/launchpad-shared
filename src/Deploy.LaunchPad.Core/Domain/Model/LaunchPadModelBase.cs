@@ -371,7 +371,6 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
             DeletionTime = info.GetDateTime("DeletionTime");
             IsActive = info.GetBoolean("IsActive");
             SeqNum = info.GetInt32("SeqNum");
-            //Metadata = (MetadataInformation)info.GetValue("Metadata", typeof(MetadataInformation));
 
         }
 
