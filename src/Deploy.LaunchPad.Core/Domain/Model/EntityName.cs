@@ -64,18 +64,7 @@ namespace Deploy.LaunchPad.Core.Domain.Model
         {
             get
             {
-                if (string.IsNullOrEmpty(_abbreviation))
-                {
-                    if(!string.IsNullOrEmpty(Name))
-                    {
-                        return Name.Substring(0, 12);
-                    }
-                    return string.Empty;
-                }
-                else
-                {
-                    return _abbreviation;
-                }
+                return _abbreviation;
             }
             private set
             {
@@ -93,7 +82,7 @@ namespace Deploy.LaunchPad.Core.Domain.Model
             DisplayName = name;
             if (!String.IsNullOrEmpty(name))
             {
-                Abbreviation = name.Substring(0, 12);
+                Abbreviation = name.Length > 12 ? name.Substring(0, 12) : name;
             }
         }
 
@@ -103,7 +92,7 @@ namespace Deploy.LaunchPad.Core.Domain.Model
             DisplayName = displayName;
             if (!String.IsNullOrEmpty(name))
             {
-                Abbreviation = name.Substring(0, 12);
+                Abbreviation = name.Length > 12 ? name.Substring(0, 12) : name;
             }
         }
 
