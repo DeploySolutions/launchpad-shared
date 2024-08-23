@@ -57,7 +57,7 @@ namespace Deploy.LaunchPad.Core.Domain.Model
         /// If this object does not have an abbreviation this will default to the first 10 characters of the Name.
         /// </summary>
         /// <value>The abbreviation of the entity.</value>
-        [MaxLength(18, ErrorMessageResourceName = "Validation_Abbreviation_12CharsOrLess", ErrorMessageResourceType = typeof(Deploy_LaunchPad_Core_Resources))]
+        [MaxLength(12, ErrorMessageResourceName = "Validation_Abbreviation_12CharsOrLess", ErrorMessageResourceType = typeof(Deploy_LaunchPad_Core_Resources))]
         [DataObjectField(false)]
         [XmlAttribute]
         public virtual string Abbreviation
@@ -66,7 +66,11 @@ namespace Deploy.LaunchPad.Core.Domain.Model
             {
                 if (string.IsNullOrEmpty(_abbreviation))
                 {
-                    return Name.Substring(0,10);
+                    if(!string.IsNullOrEmpty(Name))
+                    {
+                        return Name.Substring(0, 12);
+                    }
+                    return string.Empty;
                 }
                 else
                 {
@@ -87,14 +91,20 @@ namespace Deploy.LaunchPad.Core.Domain.Model
         {
             Name = name;
             DisplayName = name;
-            Abbreviation = name.Substring(0, 10);
+            if (!String.IsNullOrEmpty(name))
+            {
+                Abbreviation = name.Substring(0, 12);
+            }
         }
 
         public EntityName(string name, string displayName)
         {
             Name = name;
             DisplayName = displayName;
-            Abbreviation = displayName.Substring(0, 10);
+            if (!String.IsNullOrEmpty(name))
+            {
+                Abbreviation = name.Substring(0, 12);
+            }
         }
 
 
