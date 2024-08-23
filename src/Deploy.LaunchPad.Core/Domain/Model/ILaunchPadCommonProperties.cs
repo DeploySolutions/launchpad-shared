@@ -78,7 +78,7 @@ namespace Deploy.LaunchPad.Core.Domain.Model
         /// <value>The tags.</value>
         [DataObjectField(false)]
         [XmlAttribute]
-        public HashSet<MetadataTag> Tags { get; }
+        public IList<string> Tags { get; }
 
         
         /// <summary>

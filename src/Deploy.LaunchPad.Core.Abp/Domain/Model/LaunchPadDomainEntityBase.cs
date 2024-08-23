@@ -181,7 +181,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
             set { _seqNum = value; }
         }
 
-        protected HashSet<MetadataTag> _tags;
+        protected IList<string> _tags;
         /// <summary>
         /// Each entity can have an open-ended set of tags applied to it, that help users find, markup, and display its information
         /// </summary>
@@ -190,7 +190,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
         [DataMember(Name = "tags", EmitDefaultValue = false)]
         [XmlAttribute]
         [CanBeNull]
-        public virtual HashSet<MetadataTag> Tags
+        public virtual IList<string> Tags
         {
             get { return _tags; }
             set { _tags = value; }
@@ -301,7 +301,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
         {
             Culture = ApplicationDetails<TIdType>.DEFAULT_CULTURE;
             //TenantId = 0; // default tenant
-            Tags = new HashSet<MetadataTag>();
+            Tags = new List<string>();
             IsDeleted = false;
             IsActive = true;
             Name = new EntityName(string.Empty, string.Empty);
@@ -320,7 +320,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
             CreatorUserId = 1; // TODO - default user account?
             IsDeleted = false;
             IsActive = true;
-            Tags = new HashSet<MetadataTag>();
+            Tags = new List<string>();
             Name = new EntityName(Id.ToString(), Id.ToString());
             Description = new EntityDescription(string.Empty, string.Empty);
         }
@@ -338,7 +338,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
             CreatorUserId = 1; // TODO - default user account?
             IsDeleted = false;
             IsActive = true;
-            Tags = new HashSet<MetadataTag>();
+            Tags = new List<string>();
             Name = new EntityName(name);
             Description = new EntityDescription(string.Empty, string.Empty);
         }
@@ -356,7 +356,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
             CreatorUserId = 1; // TODO - default user account?
             IsDeleted = false;
             IsActive = true;
-            Tags = new HashSet<MetadataTag>();
+            Tags = new List<string>();
             Name = new EntityName(name);
             Description = new EntityDescription(string.Empty, string.Empty);
         }
@@ -374,7 +374,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
             Name = (EntityName)info.GetValue("Name", typeof(EntityName));
             Description = (EntityDescription)info.GetValue("Description", typeof(EntityDescription));
             Checksum = info.GetString("Checksum");
-            Tags = (HashSet<MetadataTag>)info.GetValue("Tags", typeof(HashSet<MetadataTag>));
+            Tags = (List<string>)info.GetValue("Tags", typeof(List<string>));
             CreationTime = info.GetDateTime("CreationTime");
             CreatorUserId = info.GetInt64("CreatorUserId");
             LastModificationTime = info.GetDateTime("LastModificationTime");
