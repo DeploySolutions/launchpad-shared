@@ -22,7 +22,7 @@ namespace Deploy.LaunchPad.Core.Domain.Model
         /// </summary>
         /// <value>The description short.</value>
         [Required]
-        [MaxLength(256, ErrorMessageResourceName = "Validation_DescriptionShort_256CharsOrLess", ErrorMessageResourceType = typeof(Deploy_LaunchPad_Core_Resources))]
+        [MaxLength(255, ErrorMessageResourceName = "Validation_DescriptionShort_255CharsOrLess", ErrorMessageResourceType = typeof(Deploy_LaunchPad_Core_Resources))]
         [DataObjectField(false)]
         [XmlAttribute]
         public virtual string Short { get; private set; }

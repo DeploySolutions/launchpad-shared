@@ -822,14 +822,26 @@ namespace Deploy.LaunchPad.Core {
         }
 
         /// <summary>
-        /// Looks up a localized string that must be 256 characters or less..
+        /// Looks up a localized string that must be 255 characters or less..
         /// </summary>
-        /// <value>The validation of a string that must be 256 chars or less.</value>
-        public static string Validation_256CharsOrLess
+        /// <value>The validation of a string that must be 255 chars or less.</value>
+        public static string Validation_255CharsOrLess
         {
             get
             {
-                return ResourceManager.GetString("Validation_256CharsOrLess", resourceCulture);
+                return ResourceManager.GetString("Validation_255CharsOrLess", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        /// Looks up a localized string that must be 40 characters or less..
+        /// </summary>
+        /// <value>The validation of a string that must be 40 chars or less.</value>
+        public static string Validation_Checksum_40CharsOrLess
+        {
+            get
+            {
+                return ResourceManager.GetString("Validation_40CharsOrLess", resourceCulture);
             }
         }
 
@@ -877,12 +889,12 @@ namespace Deploy.LaunchPad.Core {
         }
 
         /// <summary>
-        /// Looks up a localized string similar to Description Short must be 256 characters or less..
+        /// Looks up a localized string similar to Description Short must be 255 characters or less..
         /// </summary>
-        /// <value>The validation description short 256 chars or less.</value>
-        public static string Validation_DescriptionShort_256CharsOrLess {
+        /// <value>The validation description short 255 chars or less.</value>
+        public static string Validation_DescriptionShort_255CharsOrLess {
             get {
-                return ResourceManager.GetString("Validation_DescriptionShort_256CharsOrLess", resourceCulture);
+                return ResourceManager.GetString("Validation_DescriptionShort_255CharsOrLess", resourceCulture);
             }
         }
 
@@ -903,16 +915,6 @@ namespace Deploy.LaunchPad.Core {
         public static string Validation_Name_100CharsOrLess {
             get {
                 return ResourceManager.GetString("Validation_Name_100CharsOrLess", resourceCulture);
-            }
-        }
-
-        /// <summary>
-        /// Looks up a localized string similar to Name must be 256 characters or less..
-        /// </summary>
-        /// <value>The validation name 256 chars or less.</value>
-        public static string Validation_Name_256CharsOrLess {
-            get {
-                return ResourceManager.GetString("Validation_Name_256CharsOrLess", resourceCulture);
             }
         }
 

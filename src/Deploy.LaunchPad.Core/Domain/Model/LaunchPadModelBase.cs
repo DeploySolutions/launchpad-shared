@@ -110,6 +110,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
         /// The checksum for this  object, if any
         /// </summary>
         /// <value>The checksum.</value>
+        [MaxLength(40, ErrorMessageResourceName = "Validation_Checksum_40CharsOrLess", ErrorMessageResourceType = typeof(Deploy_LaunchPad_Core_Resources))]
         [DataObjectField(false)]
         [DataMember(Name = "checksum", EmitDefaultValue = false)]
         [XmlAttribute]

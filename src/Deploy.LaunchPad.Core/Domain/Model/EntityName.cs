@@ -18,7 +18,7 @@ namespace Deploy.LaunchPad.Core.Domain.Model
         /// </summary>
         /// <value>The name.</value>
         [Required]
-        [MaxLength(100, ErrorMessageResourceName = "Validation_Name_100CharsOrLess", ErrorMessageResourceType = typeof(Deploy_LaunchPad_Core_Resources))]
+        [MaxLength(255, ErrorMessageResourceName = "Validation_255CharsOrLess", ErrorMessageResourceType = typeof(Deploy_LaunchPad_Core_Resources))]
         [DataObjectField(false)]
         [XmlAttribute]
         public virtual string Name { get; private set; }
@@ -29,7 +29,7 @@ namespace Deploy.LaunchPad.Core.Domain.Model
         /// The display name of this object (if different from the Name field)
         /// </summary>
         /// <value>The name of the fully qualified.</value>
-        [MaxLength(256, ErrorMessageResourceName = "Validation_Name_256CharsOrLess", ErrorMessageResourceType = typeof(Deploy_LaunchPad_Core_Resources))]
+        [MaxLength(255, ErrorMessageResourceName = "Validation_255CharsOrLess", ErrorMessageResourceType = typeof(Deploy_LaunchPad_Core_Resources))]
         [DataObjectField(false)]
         [XmlAttribute]
         public virtual string DisplayName

@@ -108,7 +108,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
         /// The abbreviation of this object
         /// </summary>
         /// <value>The abbreviation.</value>
-        [MaxLength(5, ErrorMessageResourceName = "Validation_Abbrevation_12CharsOrLess", ErrorMessageResourceType = typeof(Deploy_LaunchPad_Core_Resources))]
+        [MaxLength(12, ErrorMessageResourceName = "Validation_Abbrevation_12CharsOrLess", ErrorMessageResourceType = typeof(Deploy_LaunchPad_Core_Resources))]
         [DataObjectField(false)]
         [DataMember(Name = "abbreviation", EmitDefaultValue = false)]
         [XmlAttribute]
@@ -124,7 +124,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
         /// The slug of this object
         /// </summary>
         /// <value>The slug, if any.</value>
-        [MaxLength(5, ErrorMessageResourceName = "Validation_256CharsOrLess", ErrorMessageResourceType = typeof(Deploy_LaunchPad_Core_Resources))]
+        [MaxLength(255, ErrorMessageResourceName = "Validation_255CharsOrLess", ErrorMessageResourceType = typeof(Deploy_LaunchPad_Core_Resources))]
         [DataObjectField(false)]
         [DataMember(Name = "slug", EmitDefaultValue = false)]
         [XmlAttribute]
@@ -157,6 +157,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
         /// The checksum for this  object, if any
         /// </summary>
         /// <value>The checksum.</value>
+        [MaxLength(40, ErrorMessageResourceName = "Validation_Checksum_40CharsOrLess", ErrorMessageResourceType = typeof(Deploy_LaunchPad_Core_Resources))]
         [DataObjectField(false)]
         [DataMember(Name = "checksum", EmitDefaultValue = false)]
         [XmlAttribute]
@@ -230,7 +231,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
         /// The name of the creating user
         /// </summary>
         /// <value>The name of the creator user.</value>
-        [MaxLength(256, ErrorMessageResourceName = "Validation_Name_256CharsOrLess", ErrorMessageResourceType = typeof(Deploy_LaunchPad_Core_Resources))]
+        [MaxLength(255, ErrorMessageResourceName = "Validation_255CharsOrLess", ErrorMessageResourceType = typeof(Deploy_LaunchPad_Core_Resources))]
         [DataObjectField(false)]
         [XmlAttribute]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
@@ -245,7 +246,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
         /// The name of the modifying user
         /// </summary>
         /// <value>The last name of the modifier user.</value>
-        [MaxLength(256, ErrorMessageResourceName = "Validation_Name_256CharsOrLess",
+        [MaxLength(255, ErrorMessageResourceName = "Validation_255CharsOrLess",
             ErrorMessageResourceType = typeof(Deploy_LaunchPad_Core_Resources))]
         [DataObjectField(false)]
         [XmlAttribute]
@@ -261,7 +262,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
         /// The name of the deleting user
         /// </summary>
         /// <value>The name of the deleter user.</value>
-        [MaxLength(256, ErrorMessageResourceName = "Validation_Name_256CharsOrLess", ErrorMessageResourceType = typeof(Deploy_LaunchPad_Core_Resources))]
+        [MaxLength(255, ErrorMessageResourceName = "Validation_255CharsOrLess", ErrorMessageResourceType = typeof(Deploy_LaunchPad_Core_Resources))]
         [DataObjectField(false)]
         [XmlAttribute]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
