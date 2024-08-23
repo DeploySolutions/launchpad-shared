@@ -103,37 +103,6 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
         [XmlAttribute]
         public virtual DomainEntityType EntityType { get; } = DomainEntityType.DomainEntity;
 
-        protected string _abbreviation;
-        /// <summary>
-        /// The abbreviation of this object
-        /// </summary>
-        /// <value>The abbreviation.</value>
-        [MaxLength(12, ErrorMessageResourceName = "Validation_Abbrevation_12CharsOrLess", ErrorMessageResourceType = typeof(Deploy_LaunchPad_Core_Resources))]
-        [DataObjectField(false)]
-        [DataMember(Name = "abbreviation", EmitDefaultValue = false)]
-        [XmlAttribute]
-        [CanBeNull]
-        public virtual string Abbreviation
-        {
-            get { return _abbreviation; }
-            set { _abbreviation = value; }
-        }
-
-        protected string _slug;
-        /// <summary>
-        /// The slug of this object
-        /// </summary>
-        /// <value>The slug, if any.</value>
-        [MaxLength(255, ErrorMessageResourceName = "Validation_255CharsOrLess", ErrorMessageResourceType = typeof(Deploy_LaunchPad_Core_Resources))]
-        [DataObjectField(false)]
-        [DataMember(Name = "slug", EmitDefaultValue = false)]
-        [XmlAttribute]
-        [CanBeNull]
-        public virtual string Slug
-        {
-            get { return _slug; }
-            set { _slug = value; }
-        }
 
         protected string _culture;
         /// <summary>
