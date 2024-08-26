@@ -39,7 +39,7 @@ namespace Deploy.LaunchPad.Core.Abp.Application.Dto
         /// <value>The description short.</value>
         [DataObjectField(false)]
         [XmlAttribute]
-        public virtual EntityDescription Description { get; set; }
+        public virtual ElementDescription Description { get; set; }
 
         /// <summary>
         /// Gets or sets the name of the tenant.

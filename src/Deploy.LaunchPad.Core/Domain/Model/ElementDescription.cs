@@ -1,107 +1,55 @@
-﻿using System;
+﻿using Deploy.LaunchPad.Core.Util;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.RegularExpressions;
+using System.Text;
+using System.Xml.Linq;
 using System.Xml.Serialization;
 
 namespace Deploy.LaunchPad.Core.Domain.Model
 {
     [Serializable]
     [ComplexType]
-    public partial class EntityName : 
-        IComparable<EntityName>, IEquatable<EntityName>
+    public partial class ElementDescription :
+        IComparable<ElementDescription>, IEquatable<ElementDescription>
     {
 
         /// <summary>
-        /// The name of this object
+        /// A short description for this object
         /// </summary>
-        /// <value>The name.</value>
+        /// <value>The description short.</value>
         [Required]
-        [MaxLength(255, ErrorMessageResourceName = "Validation_255CharsOrLess", ErrorMessageResourceType = typeof(Deploy_LaunchPad_Core_Resources))]
+        [MaxLength(255, ErrorMessageResourceName = "Validation_DescriptionShort_255CharsOrLess", ErrorMessageResourceType = typeof(Deploy_LaunchPad_Core_Resources))]
         [DataObjectField(false)]
         [XmlAttribute]
-        public virtual string Name { get; private set; }
-
-        protected string _displayName;
+        public virtual string Short { get; private set; }
 
         /// <summary>
-        /// The display name of this object (if different from the Name field)
+        /// The full description for this object
         /// </summary>
-        /// <value>The name of the fully qualified.</value>
-        [MaxLength(255, ErrorMessageResourceName = "Validation_255CharsOrLess", ErrorMessageResourceType = typeof(Deploy_LaunchPad_Core_Resources))]
+        /// <value>The description full.</value>
+        [MaxLength(8096, ErrorMessageResourceName = "Validation_DescriptionFull_8096CharsOrLess", ErrorMessageResourceType = typeof(Deploy_LaunchPad_Core_Resources))]
         [DataObjectField(false)]
-        [XmlAttribute]
-        public virtual string DisplayName
-        {
-            get
-            {
-                if (string.IsNullOrEmpty(_displayName))
-                {
-                    return Name;
-                }
-                else
-                {
-                    return _displayName;
-                }
-            }
-            private set
-            {
-                _displayName = value;
-            }
-        }
+        [XmlElement]
+        public virtual string Full { get; private set; }
 
-
-        protected string _abbreviation;
-        /// <summary>
-        /// If this object does not have an abbreviation this will default to the first 10 characters of the Name.
-        /// </summary>
-        /// <value>The abbreviation of the entity.</value>
-        [MaxLength(12, ErrorMessageResourceName = "Validation_Abbreviation_12CharsOrLess", ErrorMessageResourceType = typeof(Deploy_LaunchPad_Core_Resources))]
-        [DataObjectField(false)]
-        [XmlAttribute]
-        public virtual string Abbreviation
-        {
-            get
-            {
-                return _abbreviation;
-            }
-            private set
-            {
-                _abbreviation = value;
-            }
-        }
-
-        private EntityName()
+        private ElementDescription()
         {
         }
 
-        public EntityName(string name)
+        public ElementDescription(string description)
         {
-            Name = name;
-            DisplayName = name;
-            if (!String.IsNullOrEmpty(name))
-            {
-                Abbreviation = name.Length > 12 ? name.Substring(0, 12) : name;
-            }
+            Short = description;
+            Full = description;
         }
 
-        public EntityName(string name, string displayName)
+        public ElementDescription(string shortDescription, string fullDescription)
         {
-            Name = name;
-            DisplayName = displayName;
-            if (!String.IsNullOrEmpty(name))
-            {
-                Abbreviation = name.Length > 12 ? name.Substring(0, 12) : name;
-            }
-        }
-
-
-        public EntityName(string name, string displayName, string abbreviation)
-        {
-            Name = name;
-            DisplayName = displayName;
-            Abbreviation = abbreviation;
+            Short = shortDescription;
+            Full = fullDescription;
         }
 
         /// <summary>
@@ -111,11 +59,9 @@ namespace Deploy.LaunchPad.Core.Domain.Model
         /// </summary>
         /// <param name="other">The other object of this type we are comparing to</param>
         /// <returns>System.Int32.</returns>
-        public virtual int CompareTo(EntityName other)
+        public virtual int CompareTo(ElementDescription other)
         {
-            // put comparison of properties in here 
-            // for base object we'll just sort by DisplayName
-            return Name.CompareTo(other.Name) & DisplayName.CompareTo(other.DisplayName) & Abbreviation.CompareTo(other.Abbreviation);
+            return Full.CompareTo(other.Full) & Short.CompareTo(other.Short);
         }
 
         /// <summary>
@@ -124,7 +70,7 @@ namespace Deploy.LaunchPad.Core.Domain.Model
         /// <returns>A string representation of the object.</returns>
         public override string ToString()
         {
-            return DisplayName;
+            return Full;
         }
 
 
@@ -135,9 +81,9 @@ namespace Deploy.LaunchPad.Core.Domain.Model
         /// <returns>True if the entities are the same according to business key value</returns>
         public override bool Equals(object obj)
         {
-            if (obj != null && obj is EntityName)
+            if (obj != null && obj is ElementDescription)
             {
-                return Equals(obj as EntityName);
+                return Equals(obj as ElementDescription);
             }
             return false;
         }
@@ -151,11 +97,11 @@ namespace Deploy.LaunchPad.Core.Domain.Model
         /// </summary>
         /// <param name="obj">The other object of this type that we are testing equality with</param>
         /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
-        public virtual bool Equals(EntityName obj)
+        public virtual bool Equals(ElementDescription obj)
         {
             if (obj != null)
             {
-                return Name.Equals(obj.Name) && DisplayName.Equals(obj.DisplayName) && Abbreviation.Equals(obj.Abbreviation);
+                return Short.Equals(obj.Short) && Full.Equals(obj.Full);
             }
             return false;
         }
@@ -166,7 +112,7 @@ namespace Deploy.LaunchPad.Core.Domain.Model
         /// <param name="x">The first value</param>
         /// <param name="y">The second value</param>
         /// <returns>True if both objects are fully equal based on the Equals logic</returns>
-        public static bool operator ==(EntityName x, EntityName y)
+        public static bool operator ==(ElementDescription x, ElementDescription y)
         {
             if (x is null)
             {
@@ -185,7 +131,7 @@ namespace Deploy.LaunchPad.Core.Domain.Model
         /// <param name="x">The first value</param>
         /// <param name="y">The second value</param>
         /// <returns>True if both objects are not equal based on the Equals logic</returns>
-        public static bool operator !=(EntityName x, EntityName y)
+        public static bool operator !=(ElementDescription x, ElementDescription y)
         {
             return !(x == y);
         }
@@ -197,10 +143,9 @@ namespace Deploy.LaunchPad.Core.Domain.Model
         /// <remarks>This method implements the <see cref="object">Object</see> method.</remarks>
         public override int GetHashCode()
         {
-            return Name.GetHashCode()
-                + DisplayName.GetHashCode()
-                + Abbreviation.GetHashCode()
-            ;
+            return Short.GetHashCode()
+                + Full.GetHashCode();
         }
+
     }
 }

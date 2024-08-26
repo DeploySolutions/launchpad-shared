@@ -68,7 +68,7 @@ namespace Deploy.LaunchPad.Core.Abp.Application.Dto
         {
             Culture = ApplicationDetails<TIdType>.DEFAULT_CULTURE;
             IsActive = true;
-            Description = new EntityDescription(string.Empty);
+            Description = new ElementDescription(string.Empty);
         }
 
         /// <summary>
@@ -80,7 +80,7 @@ namespace Deploy.LaunchPad.Core.Abp.Application.Dto
             Id = id;
             Culture = ApplicationDetails<TIdType>.DEFAULT_CULTURE;
             IsActive = true;
-            Description = new EntityDescription(string.Empty);
+            Description = new ElementDescription(string.Empty);
         }
 
         /// <summary>
@@ -93,7 +93,7 @@ namespace Deploy.LaunchPad.Core.Abp.Application.Dto
             Id = id;
             Culture = culture;
             IsActive = true;
-            Description = new EntityDescription(string.Empty);
+            Description = new ElementDescription(string.Empty);
         }
 
         /// <summary>
@@ -105,8 +105,8 @@ namespace Deploy.LaunchPad.Core.Abp.Application.Dto
         {
             Id = (TIdType)info.GetValue("Id", typeof(TIdType));
             Culture = info.GetString("Culture");
-            Name = (EntityName)info.GetValue("Name", typeof(EntityName));
-            Description = (EntityDescription)info.GetValue("Description", typeof(EntityDescription));
+            Name = (ElementName)info.GetValue("Name", typeof(ElementName));
+            Description = (ElementDescription)info.GetValue("Description", typeof(ElementDescription));
             CreationTime = info.GetDateTime("CreationTime");
             CreatorUserId = info.GetInt64("CreatorUserId");
             CreatorUserName = info.GetString("CreatorUserName");

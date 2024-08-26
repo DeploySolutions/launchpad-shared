@@ -24,6 +24,7 @@ using Deploy.LaunchPad.FileGeneration.Stages;
 using Deploy.LaunchPad.FileGeneration.Structure.SourceControl;
 using System.Collections;
 using System.Diagnostics;
+using Deploy.LaunchPad.Core.Domain.Model;
 
 namespace Deploy.LaunchPad.FileGeneration.Structure
 {
@@ -49,27 +50,7 @@ namespace Deploy.LaunchPad.FileGeneration.Structure
         /// </summary>
         /// <value>The name.</value>
         [JsonProperty("name", DefaultValueHandling = DefaultValueHandling.Populate)]
-        public virtual string Name { get; set; } = string.Empty;
-
-
-        /// <summary>
-        /// The abbreviation of the object (if any)
-        /// </summary>
-        /// <value>The abbreviation.</value>
-        [JsonConverter(typeof(LocalizedJsonConverter<string>))]
-        public virtual string Abbreviation { get; set; } = string.Empty;
-
-        /// <summary>
-        /// The prefix to apply to the name (if any).
-        /// </summary>
-        /// <value>The name prefix.</value>
-        public virtual string NamePrefix { get; set; } = string.Empty;
-
-        /// <summary>
-        /// The suffix to apply to the name (if any).
-        /// </summary>
-        /// <value>The name suffix.</value>
-        public virtual string NameSuffix { get; set; } = string.Empty;
+        public virtual ElementName Name { get; set; }
 
 
         /// <summary>
@@ -77,7 +58,7 @@ namespace Deploy.LaunchPad.FileGeneration.Structure
         /// </summary>
         /// <value>The description.</value>
         [JsonProperty("description", DefaultValueHandling = DefaultValueHandling.Populate)]
-        public virtual string Description { get; set; } = string.Empty;
+        public virtual ElementDescription Description { get; set; }
 
         /// <summary>
         /// Code annotations for the object
@@ -122,8 +103,9 @@ namespace Deploy.LaunchPad.FileGeneration.Structure
         /// </summary>
         public LaunchPadGeneratedObjectBase() : base()
         {
-            Name = string.Empty; 
-            Description = string.Empty;
+            string temporaryValue = Guid.NewGuid().ToString();
+            Name = new ElementName(temporaryValue); 
+            Description = new ElementDescription(temporaryValue);
             IdType = string.Empty;
             Repository = new GitHubRepository();
             Inheritance = new LaunchPadGeneratedObjectInheritance();
@@ -138,8 +120,9 @@ namespace Deploy.LaunchPad.FileGeneration.Structure
         /// <param name="repo">The repo.</param>
         public LaunchPadGeneratedObjectBase(GitHubRepository repo) : base()
         {
-            Name = string.Empty;
-            Description = string.Empty;
+            string temporaryValue = Guid.NewGuid().ToString();
+            Name = new ElementName(temporaryValue);
+            Description = new ElementDescription(temporaryValue);
             IdType = string.Empty;
             Repository = repo;
             Inheritance = new LaunchPadGeneratedObjectInheritance();
@@ -157,11 +140,8 @@ namespace Deploy.LaunchPad.FileGeneration.Structure
         protected LaunchPadGeneratedObjectBase(SerializationInfo info, StreamingContext context) 
         {
             Id = (Guid)info.GetValue("Id", typeof(Guid));
-            Name = info.GetString("Name");
-            Abbreviation = info.GetString("Abbreviation");
-            NamePrefix = info.GetString("NamePrefix");
-            NameSuffix = info.GetString("NameSuffix");
-            Description = info.GetString("Description");
+            Name = (ElementName)info.GetValue("Name", typeof(ElementName));
+            Description = (ElementDescription)info.GetValue("Description", typeof(ElementDescription));
             Annotations = info.GetString("Annotations");
             IdType = info.GetString("IdType");
             Repository = (GitHubRepository)info.GetValue("Repository", typeof(GitHubRepository));
@@ -179,9 +159,6 @@ namespace Deploy.LaunchPad.FileGeneration.Structure
         {
             info.AddValue("Id", Id);
             info.AddValue("Name ", Name);
-            info.AddValue("Abbreviation", Abbreviation);
-            info.AddValue("NamePrefix", NamePrefix);
-            info.AddValue("NameSuffix", NameSuffix);
             info.AddValue("Description", Description);
             info.AddValue("Annotations", Annotations);
             info.AddValue("IdType", IdType);

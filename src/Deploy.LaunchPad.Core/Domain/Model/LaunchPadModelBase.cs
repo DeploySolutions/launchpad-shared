@@ -60,7 +60,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
         /// <value>The debug display.</value>
         protected virtual string _debugDisplay => $"Name {Name}. Description {Description}";
         
-        protected EntityName _name;
+        protected ElementName _name;
         /// <summary>
         /// The name of this object
         /// </summary>
@@ -68,13 +68,13 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
         [Required]
         [DataObjectField(false)]
         [XmlAttribute]
-        public virtual EntityName Name
+        public virtual ElementName Name
         {
             get { return _name; }
             set { _name = value; }
         }
 
-        protected EntityDescription _description;
+        protected ElementDescription _description;
         /// <summary>
         /// A  description for this entity
         /// </summary>
@@ -82,7 +82,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
         [Required]
         [DataObjectField(false)]
         [XmlAttribute]
-        public virtual EntityDescription Description
+        public virtual ElementDescription Description
         {
             get { return _description; }
             set { _description = value; }
@@ -324,8 +324,8 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
         /// </summary>
         protected LaunchPadModelBase() : base()
         {
-            Name = new EntityName(string.Empty, string.Empty);
-            Description = new EntityDescription(string.Empty, string.Empty);
+            Name = new ElementName(string.Empty, string.Empty);
+            Description = new ElementDescription(string.Empty, string.Empty);
             Culture = "en";
             //TenantId = 0; // default tenant
             Tags = new List<string>();
@@ -341,8 +341,8 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
         /// <param name="culture">The culture for this entity</param>
         protected LaunchPadModelBase(string culture) : base()
         {
-            Name = new EntityName(string.Empty, string.Empty);
-            Description = new EntityDescription(string.Empty, string.Empty);
+            Name = new ElementName(string.Empty, string.Empty);
+            Description = new ElementDescription(string.Empty, string.Empty);
             Culture = culture;
             CreatorUserId = 1; // TODO - default user account?
             IsDeleted = false;
@@ -358,8 +358,8 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
         /// <param name="context">The context of the stream</param>
         protected LaunchPadModelBase(SerializationInfo info, StreamingContext context)
         {
-            Name = (EntityName)info.GetValue("Name", typeof(EntityName));
-            Description = (EntityDescription)info.GetValue("Description", typeof(EntityDescription));
+            Name = (ElementName)info.GetValue("Name", typeof(ElementName));
+            Description = (ElementDescription)info.GetValue("Description", typeof(ElementDescription));
             Culture = info.GetString("Culture");
             Checksum = info.GetString("Checksum");
             Tags = (List<string>)info.GetValue("Metadata", typeof(List<string>));

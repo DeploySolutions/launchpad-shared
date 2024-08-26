@@ -68,8 +68,8 @@ namespace Deploy.LaunchPad.Core.Tests
             {
                 Id = 1,
                 TenantId = 1,
-                Name = new EntityName("Device for testing DTOs"),
-                Description = new EntityDescription("Short description", "Lorem ipsum et dolor sit amet bla bla bla"),
+                Name = new ElementName("Device for testing DTOs"),
+                Description = new ElementDescription("Short description", "Lorem ipsum et dolor sit amet bla bla bla"),
                 IsActive = true,
                 IsDeleted = false,
                 Culture = "en-CA",

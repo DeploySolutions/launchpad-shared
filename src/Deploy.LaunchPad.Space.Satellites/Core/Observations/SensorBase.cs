@@ -39,7 +39,7 @@ namespace Deploy.LaunchPad.Space.Satellites.Core.Observations
         /// Gets or sets the name.
         /// </summary>
         /// <value>The name.</value>
-        public virtual EntityName Name { get; set; }
+        public virtual ElementName Name { get; set; }
 
         /// <summary>
         /// Gets or sets the supported imagery types.

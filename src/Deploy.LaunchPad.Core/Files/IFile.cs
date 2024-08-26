@@ -64,7 +64,7 @@ namespace Deploy.LaunchPad.Core.Domain
         /// <value>The name.</value>
         [DataObjectField(false)]
         [XmlAttribute]
-        public EntityName Name { get; set; }
+        public ElementName Name { get; set; }
 
         /// <summary>
         /// The extension of the file

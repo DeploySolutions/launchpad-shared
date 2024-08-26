@@ -11,6 +11,7 @@
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
+using Deploy.LaunchPad.Core.Domain.Model;
 using System;
 using System.Collections.Generic;
 
@@ -43,7 +44,9 @@ namespace Deploy.LaunchPad.FileGeneration.Structure.AbpModules
         /// </summary>
         public AbpModuleDefinition()
         {
-            Name = string.Empty;
+            string temporaryValue = Guid.NewGuid().ToString();
+            Name = new ElementName(temporaryValue);
+            Description = new ElementDescription(temporaryValue);
             Path = string.Empty;
             Dependencies = new ModuleDependencyInformation();
         }

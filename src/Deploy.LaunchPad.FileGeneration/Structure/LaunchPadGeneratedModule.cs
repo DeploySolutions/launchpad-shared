@@ -56,7 +56,7 @@ namespace Deploy.LaunchPad.FileGeneration.Structure
         public virtual bool CheckValidity()
         {
             bool isValid = false;
-            if (!string.IsNullOrEmpty(Name) && !string.IsNullOrEmpty(Id.ToString()) && !string.IsNullOrEmpty(Inheritance.FullyQualifiedType)
+            if (Name != null && !string.IsNullOrEmpty(Id.ToString()) && !string.IsNullOrEmpty(Inheritance.FullyQualifiedType)
                   && Settings != null
             )
             {

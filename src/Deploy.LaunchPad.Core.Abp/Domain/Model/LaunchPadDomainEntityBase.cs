@@ -67,7 +67,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
         /// <value>The debug display.</value>
         protected virtual string _debugDisplay => $"Name {Name}. Description {Description}";
 
-        protected EntityName _name;
+        protected ElementName _name;
         /// <summary>
         /// The name of this object
         /// </summary>
@@ -75,13 +75,13 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
         [Required]
         [DataObjectField(false)]
         [XmlAttribute]
-        public virtual EntityName Name 
+        public virtual ElementName Name 
         { 
             get { return _name; }
             set { _name = value; }
         }
 
-        protected EntityDescription _description;
+        protected ElementDescription _description;
         /// <summary>
         /// A  description for this entity
         /// </summary>
@@ -89,7 +89,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
         [Required]
         [DataObjectField(false)]
         [XmlAttribute]
-        public virtual EntityDescription Description
+        public virtual ElementDescription Description
         {
             get { return _description; }
             set { _description = value; }
@@ -274,8 +274,8 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
             Tags = new List<string>();
             IsDeleted = false;
             IsActive = true;
-            Name = new EntityName(string.Empty, string.Empty);
-            Description = new EntityDescription(string.Empty, string.Empty);
+            Name = new ElementName(string.Empty, string.Empty);
+            Description = new ElementDescription(string.Empty, string.Empty);
 
         }
 
@@ -291,8 +291,8 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
             IsDeleted = false;
             IsActive = true;
             Tags = new List<string>();
-            Name = new EntityName(Id.ToString(), Id.ToString());
-            Description = new EntityDescription(string.Empty, string.Empty);
+            Name = new ElementName(Id.ToString(), Id.ToString());
+            Description = new ElementDescription(string.Empty, string.Empty);
         }
 
 
@@ -309,8 +309,8 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
             IsDeleted = false;
             IsActive = true;
             Tags = new List<string>();
-            Name = new EntityName(name);
-            Description = new EntityDescription(string.Empty, string.Empty);
+            Name = new ElementName(name);
+            Description = new ElementDescription(string.Empty, string.Empty);
         }
 
         /// <summary>
@@ -327,8 +327,8 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
             IsDeleted = false;
             IsActive = true;
             Tags = new List<string>();
-            Name = new EntityName(name);
-            Description = new EntityDescription(string.Empty, string.Empty);
+            Name = new ElementName(name);
+            Description = new ElementDescription(string.Empty, string.Empty);
         }
 
 
@@ -341,8 +341,8 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
         {
             Id = (TIdType)info.GetValue("Id", typeof(TIdType));
             Culture = info.GetString("Culture");
-            Name = (EntityName)info.GetValue("Name", typeof(EntityName));
-            Description = (EntityDescription)info.GetValue("Description", typeof(EntityDescription));
+            Name = (ElementName)info.GetValue("Name", typeof(ElementName));
+            Description = (ElementDescription)info.GetValue("Description", typeof(ElementDescription));
             Checksum = info.GetString("Checksum");
             Tags = (List<string>)info.GetValue("Tags", typeof(List<string>));
             CreationTime = info.GetDateTime("CreationTime");

@@ -104,8 +104,8 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
             ) : base()
         {
             TenantId = tenantId;
-            Name = new EntityName(_datacatalogueName);
-            Description = new EntityDescription(_datacatalogueDescription);
+            Name = new ElementName(_datacatalogueName);
+            Description = new ElementDescription(_datacatalogueDescription);
             DataSetsCount = _numberOfDatasets;
             ItemsCount = _totalNumberOfRecords;
         }
@@ -117,7 +117,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
         protected DataCatalogue(int tenantId) : base()
         {
             TenantId = tenantId;
-            Name = new EntityName(String.Empty);
+            Name = new ElementName(String.Empty);
             DataSetsCount = 0;
             ItemsCount = 0;
         }

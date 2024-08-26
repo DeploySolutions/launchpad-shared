@@ -68,7 +68,7 @@ namespace Deploy.LaunchPad.FileGeneration.Structure
         {
             bool isValid = false;
             if (BlueprintDefinition != null
-                && !string.IsNullOrEmpty(Name) && !string.IsNullOrEmpty(Id.ToString()) && !string.IsNullOrEmpty(Inheritance.FullyQualifiedType)
+                && Name != null && !string.IsNullOrEmpty(Id.ToString()) && !string.IsNullOrEmpty(Inheritance.FullyQualifiedType)
             )
             {
                 isValid = true;

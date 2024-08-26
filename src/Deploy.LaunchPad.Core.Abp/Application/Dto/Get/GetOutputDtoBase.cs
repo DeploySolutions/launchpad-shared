@@ -50,7 +50,7 @@ namespace Deploy.LaunchPad.Core.Abp.Application.Dto
         /// <value>The name.</value>
         [DataObjectField(false)]
         [XmlAttribute]
-        public virtual EntityName Name { get; set; }
+        public virtual ElementName Name { get; set; }
 
 
         /// <summary>
@@ -79,7 +79,7 @@ namespace Deploy.LaunchPad.Core.Abp.Application.Dto
         protected GetOutputDtoBase() : base()
         {
             Culture = ApplicationDetails<TIdType>.DEFAULT_CULTURE;
-            Name = new EntityName(string.Empty);
+            Name = new ElementName(string.Empty);
             ExternalId = string.Empty;
         }
 
@@ -91,7 +91,7 @@ namespace Deploy.LaunchPad.Core.Abp.Application.Dto
         {
             Id = id;
             Culture = ApplicationDetails<TIdType>.DEFAULT_CULTURE;
-            Name = new EntityName(string.Empty);
+            Name = new ElementName(string.Empty);
             ExternalId = string.Empty;
         }
 
@@ -104,7 +104,7 @@ namespace Deploy.LaunchPad.Core.Abp.Application.Dto
         {
             Id = id;
             Culture = culture;
-            Name = new EntityName(string.Empty);
+            Name = new ElementName(string.Empty);
             ExternalId = string.Empty;
         }
 
@@ -115,7 +115,7 @@ namespace Deploy.LaunchPad.Core.Abp.Application.Dto
         /// <param name="context">The context of the stream</param>
         protected GetOutputDtoBase(SerializationInfo info, StreamingContext context) : base(info, context)
         {
-            Name = (EntityName)info.GetValue("Name", typeof(EntityName));
+            Name = (ElementName)info.GetValue("Name", typeof(ElementName));
             Culture = info.GetString("Culture");
             SeqNum = info.GetInt32("SeqNum");
             ExternalId = info.GetString("ExternalId");

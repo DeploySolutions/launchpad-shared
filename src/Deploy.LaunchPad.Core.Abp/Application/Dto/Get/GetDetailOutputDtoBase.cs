@@ -32,14 +32,14 @@ namespace Deploy.LaunchPad.Core.Abp.Application.Dto
     public abstract partial class GetDetailOutputDtoBase<TIdType> : GetOutputDtoBase<TIdType>
     {
 
-        protected EntityDescription _description;
+        protected ElementDescription _description;
         /// <summary>
         /// A short description of this item.
         /// </summary>
         /// <value>The description short.</value>
         [DataObjectField(false)]
         [XmlAttribute]
-        public virtual EntityDescription Description
+        public virtual ElementDescription Description
         {
             get { return _description; }
             protected set { _description = value; }
@@ -93,7 +93,7 @@ namespace Deploy.LaunchPad.Core.Abp.Application.Dto
         protected GetDetailOutputDtoBase() : base()
         {
             Culture = ApplicationDetails<TIdType>.DEFAULT_CULTURE;
-            Description = new EntityDescription(string.Empty);
+            Description = new ElementDescription(string.Empty);
         }
 
         /// <summary>
@@ -104,7 +104,7 @@ namespace Deploy.LaunchPad.Core.Abp.Application.Dto
         {
             Id = id;
             Culture = ApplicationDetails<TIdType>.DEFAULT_CULTURE;
-            Description = new EntityDescription(string.Empty);
+            Description = new ElementDescription(string.Empty);
         }
 
         /// <summary>
@@ -116,7 +116,7 @@ namespace Deploy.LaunchPad.Core.Abp.Application.Dto
         {
             Id = id;
             Culture = culture;
-            Description = new EntityDescription(string.Empty);
+            Description = new ElementDescription(string.Empty);
         }
 
         /// <summary>
@@ -128,8 +128,8 @@ namespace Deploy.LaunchPad.Core.Abp.Application.Dto
         {
             Id = (TIdType)info.GetValue("Id", typeof(TIdType));
             Culture = info.GetString("Culture");
-            Name = (EntityName)info.GetValue("Name", typeof(EntityName)); 
-            Description = (EntityDescription)info.GetValue("Description", typeof(EntityDescription));
+            Name = (ElementName)info.GetValue("Name", typeof(ElementName)); 
+            Description = (ElementDescription)info.GetValue("Description", typeof(ElementDescription));
             CreationTime = info.GetDateTime("CreationTime");
             CreatorUserName = info.GetString("CreatorUserName");
             LastModifierUserName = info.GetString("LastModifierUserName");

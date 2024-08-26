@@ -118,8 +118,8 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
         /// <param name="fileName">Name of the file.</param>
         protected FileBase(string fileName) : base()
         {
-            Name = new EntityName(fileName, fileName);
-            Description = new EntityDescription(string.Empty, string.Empty);
+            Name = new ElementName(fileName, fileName);
+            Description = new ElementDescription(string.Empty, string.Empty);
             Checksum = new Checksum();
         }
 
@@ -131,7 +131,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
         protected FileBase(TIdType id, string fileName) : base()
         {
             Id = id;
-            Name = new EntityName(fileName, fileName);
+            Name = new ElementName(fileName, fileName);
             Checksum = new Checksum();
         }
 
@@ -145,7 +145,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
         protected FileBase(TIdType id, string fileName, TFileContentType content) : base()
         {
             Id = id;
-            Name = new EntityName(fileName, fileName);
+            Name = new ElementName(fileName, fileName);
             Content = content;
             Checksum = new Checksum();
         }

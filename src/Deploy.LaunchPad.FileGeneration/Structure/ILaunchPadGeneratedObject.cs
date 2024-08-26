@@ -11,11 +11,15 @@
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
+using Deploy.LaunchPad.Core.Domain.Model;
 using Deploy.LaunchPad.Core.Util;
 using Deploy.LaunchPad.FileGeneration.Stages;
 using Deploy.LaunchPad.FileGeneration.Structure.SourceControl;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel;
+using System.Xml.Serialization;
 
 namespace Deploy.LaunchPad.FileGeneration.Structure
 {
@@ -35,36 +39,33 @@ namespace Deploy.LaunchPad.FileGeneration.Structure
         /// </summary>
         /// <value>The type of the identifier.</value>
         string IdType { get; set; }
+
+
         /// <summary>
-        /// Gets or sets the name.
+        /// The name of this object
         /// </summary>
         /// <value>The name.</value>
-        string Name { get; set; }
-
-
-        /// <summary>
-        /// Gets or sets the name prefix.
-        /// </summary>
-        /// <value>The name prefix.</value>
-        string NamePrefix { get; set; }
-        /// <summary>
-        /// Gets or sets the name suffix.
-        /// </summary>
-        /// <value>The name suffix.</value>
-        string NameSuffix { get; set; }
-
+        [Required]
+        [DataObjectField(false)]
+        [XmlAttribute]
+        public ElementName Name
+        {
+            get;
+            set;
+        }
 
         /// <summary>
-        /// Gets or sets the abbreviation.
-        /// </summary>
-        /// <value>The abbreviation.</value>
-        string Abbreviation { get; set; }
-
-        /// <summary>
-        /// Gets or sets the description.
+        /// A  description for this entity
         /// </summary>
         /// <value>The description.</value>
-        string Description { get; set; }
+        [Required]
+        [DataObjectField(false)]
+        [XmlAttribute]
+        public ElementDescription Description
+        {
+            get;
+            set;
+        }
 
         /// <summary>
         /// Code annotations for the object
