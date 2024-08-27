@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Security.Cryptography.X509Certificates;
 using System.Xml.Serialization;
 
 namespace Deploy.LaunchPad.Core.Domain.Model
@@ -13,65 +14,53 @@ namespace Deploy.LaunchPad.Core.Domain.Model
         IComparable<ElementName>, IEquatable<ElementName>
     {
 
+        protected string _full = string.Empty;
         /// <summary>
-        /// The name of this element
+        /// The full name of this element
         /// </summary>
-        /// <value>The name.</value>
+        /// <value>The full name.</value>
         [Required]
-        [MaxLength(255, ErrorMessageResourceName = "Validation_255CharsOrLess", ErrorMessageResourceType = typeof(Deploy_LaunchPad_Core_Resources))]
+        [MaxLength(255, ErrorMessageResourceName = "Validation_ElementName_Full_255CharsOrLess", ErrorMessageResourceType = typeof(Deploy_LaunchPad_Core_Resources))]
         [DataObjectField(false)]
         [XmlAttribute]
-        public virtual string Name { get; private set; }
-
-        protected string _displayName;
-
-        /// <summary>
-        /// The display name of this object (if different from the Name field)
-        /// </summary>
-        /// <value>The fully qualified name of the element.</value>
-        [MaxLength(255, ErrorMessageResourceName = "Validation_255CharsOrLess", ErrorMessageResourceType = typeof(Deploy_LaunchPad_Core_Resources))]
-        [DataObjectField(false)]
-        [XmlAttribute]
-        public virtual string DisplayName
+        public virtual string Full
         {
             get
             {
-                if (string.IsNullOrEmpty(_displayName))
+                return _full;
+            }
+            set
+            {
+                _full = value;
+            }
+        }
+
+        protected string _short = string.Empty;
+        /// <summary>
+        /// The short name of this element (if different from the FullName field). If not set, it will default to the first 20 characters of the full name.
+        /// </summary>
+        /// <value>The fully qualified name of the element.</value>
+        [MaxLength(20, ErrorMessageResourceName = "Validation_ElementName_Short_20CharsOrLess", ErrorMessageResourceType = typeof(Deploy_LaunchPad_Core_Resources))]
+        [DataObjectField(false)]
+        [XmlAttribute]
+        public virtual string Short
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(_short))
                 {
-                    return Name;
+                    return Full;
                 }
                 else
                 {
-                    return _displayName;
+                    return _short;
                 }
             }
-            private set
+            set
             {
-                _displayName = value;
+                _short = value;
             }
-        }
-
-
-        protected string _abbreviation;
-        /// <summary>
-        /// If this object does not have an abbreviation this will default to the first 10 characters of the Name.
-        /// </summary>
-        /// <value>The abbreviation of the element.</value>
-        [MaxLength(12, ErrorMessageResourceName = "Validation_12CharsOrLess", ErrorMessageResourceType = typeof(Deploy_LaunchPad_Core_Resources))]
-        [DataObjectField(false)]
-        [XmlAttribute]
-        public virtual string Abbreviation
-        {
-            get
-            {
-                return _abbreviation;
-            }
-            private set
-            {
-                _abbreviation = value;
-            }
-        }
-
+        }        
 
         protected string _prefix = string.Empty;
         /// <summary>
@@ -87,7 +76,7 @@ namespace Deploy.LaunchPad.Core.Domain.Model
             {
                 return _prefix;
             }
-            private set
+            set
             {
                 _prefix = value;
             }
@@ -108,7 +97,7 @@ namespace Deploy.LaunchPad.Core.Domain.Model
             {
                 return _suffix;
             }
-            private set
+            set
             {
                 _suffix = value;
             }
@@ -119,32 +108,34 @@ namespace Deploy.LaunchPad.Core.Domain.Model
         {
         }
 
-        public ElementName(string name)
+        public ElementName(string fullName)
         {
-            Name = name;
-            DisplayName = name;
-            if (!String.IsNullOrEmpty(name))
+            Full = fullName;
+            if (!String.IsNullOrEmpty(fullName))
             {
-                Abbreviation = name.Length > 12 ? name.Substring(0, 12) : name;
+                Short = fullName.Length > 12 ? fullName.Substring(0, 12) : fullName;
             }
         }
 
-        public ElementName(string name, string displayName)
+        public ElementName(string fullName, string shortName)
         {
-            Name = name;
-            DisplayName = displayName;
-            if (!String.IsNullOrEmpty(name))
+            Full = fullName;
+            if (!String.IsNullOrEmpty(shortName))
             {
-                Abbreviation = name.Length > 12 ? name.Substring(0, 12) : name;
+                Short = shortName.Length > 12 ? shortName.Substring(0, 12) : shortName;
             }
         }
 
 
-        public ElementName(string name, string displayName, string abbreviation)
+        public ElementName(string fullName, string shortName, string prefix, string suffix)
         {
-            Name = name;
-            DisplayName = displayName;
-            Abbreviation = abbreviation;
+            Full = fullName;
+            if (!String.IsNullOrEmpty(shortName))
+            {
+                Short = shortName.Length > 12 ? shortName.Substring(0, 12) : shortName;
+            }
+            Prefix = prefix;
+            Suffix = suffix;
         }
 
         /// <summary>
@@ -158,7 +149,11 @@ namespace Deploy.LaunchPad.Core.Domain.Model
         {
             // put comparison of properties in here 
             // for base object we'll just sort by DisplayName
-            return Name.CompareTo(other.Name) & DisplayName.CompareTo(other.DisplayName) & Abbreviation.CompareTo(other.Abbreviation);
+            return Full.CompareTo(other.Full) 
+                & Short.CompareTo(other.Short)
+                & Prefix.CompareTo(other.Prefix)
+                & Suffix.CompareTo(other.Suffix)
+            ;
         }
 
         /// <summary>
@@ -167,7 +162,7 @@ namespace Deploy.LaunchPad.Core.Domain.Model
         /// <returns>A string representation of the object.</returns>
         public override string ToString()
         {
-            return DisplayName;
+            return Short;
         }
 
 
@@ -198,7 +193,11 @@ namespace Deploy.LaunchPad.Core.Domain.Model
         {
             if (obj != null)
             {
-                return Name.Equals(obj.Name) && DisplayName.Equals(obj.DisplayName) && Abbreviation.Equals(obj.Abbreviation);
+                return Full.Equals(obj.Full) 
+                    && Short.Equals(obj.Short)
+                    && Prefix.Equals(obj.Prefix) 
+                    && Suffix.Equals(obj.Suffix)
+                ;
             }
             return false;
         }
@@ -240,9 +239,10 @@ namespace Deploy.LaunchPad.Core.Domain.Model
         /// <remarks>This method implements the <see cref="object">Object</see> method.</remarks>
         public override int GetHashCode()
         {
-            return Name.GetHashCode()
-                + DisplayName.GetHashCode()
-                + Abbreviation.GetHashCode()
+            return Full.GetHashCode()
+                + Short.GetHashCode()
+                + Prefix.GetHashCode()
+                + Suffix.GetHashCode()
             ;
         }
     }

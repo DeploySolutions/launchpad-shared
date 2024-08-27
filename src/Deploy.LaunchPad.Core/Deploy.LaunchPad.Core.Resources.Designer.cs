@@ -879,22 +879,46 @@ namespace Deploy.LaunchPad.Core {
         }
 
         /// <summary>
-        /// Looks up a localized string similar to Description Full must be 8096 characters or less..
+        /// The full name must be 255 characters or less..
         /// </summary>
-        /// <value>The validation description full 8096 chars or less.</value>
-        public static string Validation_DescriptionFull_8096CharsOrLess {
-            get {
-                return ResourceManager.GetString("Validation_DescriptionFull_8096CharsOrLess", resourceCulture);
+        /// <value>The full name must be 255 chars or less.</value>
+        public static string Validation_ElementName_Full_255CharsOrLess
+        {
+            get
+            {
+                return ResourceManager.GetString("Validation_ElementName_Full_255CharsOrLess", resourceCulture);
             }
         }
 
         /// <summary>
-        /// Looks up a localized string similar to Description Short must be 255 characters or less..
+        /// Looks up a localized string similar to Description Short must be 20 characters or less..
         /// </summary>
-        /// <value>The validation description short 255 chars or less.</value>
-        public static string Validation_DescriptionShort_255CharsOrLess {
+        /// <value>The validation description short 20 chars or less.</value>
+        public static string Validation_ElementName_Short_20CharsOrLess
+        {
+            get
+            {
+                return ResourceManager.GetString("Validation_ElementName_Short_20CharsOrLess", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        /// Looks up a localized string similar to Description Full must be 8096 characters or less..
+        /// </summary>
+        /// <value>The validation description full 8096 chars or less.</value>
+        public static string Validation_ElementDescription_Full_8096CharsOrLess {
             get {
-                return ResourceManager.GetString("Validation_DescriptionShort_255CharsOrLess", resourceCulture);
+                return ResourceManager.GetString("Validation_ElementDescription_Full_8096CharsOrLess", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        /// Description Short must be 255 characters or less..
+        /// </summary>
+        /// <value>The short description must be 255 chars or less.</value>
+        public static string Validation_ElementDescription_Short_255CharsOrLess {
+            get {
+                return ResourceManager.GetString("Validation_ElementDescription_Short_255CharsOrLess", resourceCulture);
             }
         }
 

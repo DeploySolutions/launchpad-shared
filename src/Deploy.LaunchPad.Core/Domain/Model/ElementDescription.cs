@@ -8,6 +8,7 @@ using System.Text.RegularExpressions;
 using System.Text;
 using System.Xml.Linq;
 using System.Xml.Serialization;
+using System.Security.Cryptography.X509Certificates;
 
 namespace Deploy.LaunchPad.Core.Domain.Model
 {
@@ -16,40 +17,74 @@ namespace Deploy.LaunchPad.Core.Domain.Model
     public partial class ElementDescription :
         IComparable<ElementDescription>, IEquatable<ElementDescription>
     {
-
-        /// <summary>
-        /// A short description for this object
-        /// </summary>
-        /// <value>The description short.</value>
-        [Required]
-        [MaxLength(255, ErrorMessageResourceName = "Validation_DescriptionShort_255CharsOrLess", ErrorMessageResourceType = typeof(Deploy_LaunchPad_Core_Resources))]
-        [DataObjectField(false)]
-        [XmlAttribute]
-        public virtual string Short { get; private set; }
-
+        protected string _full = string.Empty;
         /// <summary>
         /// The full description for this object
         /// </summary>
         /// <value>The description full.</value>
-        [MaxLength(8096, ErrorMessageResourceName = "Validation_DescriptionFull_8096CharsOrLess", ErrorMessageResourceType = typeof(Deploy_LaunchPad_Core_Resources))]
+        [Required]
+        [MaxLength(8096, ErrorMessageResourceName = "Validation_ElementDescription_Full_8096CharsOrLess", ErrorMessageResourceType = typeof(Deploy_LaunchPad_Core_Resources))]
         [DataObjectField(false)]
         [XmlElement]
-        public virtual string Full { get; private set; }
+        public virtual string Full
+        {
+            get
+            {
+                return _full;
+            }
+            set
+            {
+                _full = value;
+            }
+        }
+
+        protected string _short = string.Empty;
+        /// <summary>
+        /// A short description for this object. If not set, it will default to the first 255 characters of the full description.
+        /// </summary>
+        /// <value>The description short.</value>
+        [MaxLength(255, ErrorMessageResourceName = "Validation_ElementDescription_Short_255CharsOrLess", ErrorMessageResourceType = typeof(Deploy_LaunchPad_Core_Resources))]
+        [DataObjectField(false)]
+        [XmlAttribute]
+        public virtual string Short
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(_short))
+                {
+                    return Full;
+                }
+                else
+                {
+                    return _short;
+                }
+            }
+            set
+            {
+                _short = value;
+            }
+        }
 
         private ElementDescription()
         {
         }
 
-        public ElementDescription(string description)
+        public ElementDescription(string fullDescription)
         {
-            Short = description;
-            Full = description;
+            Full = fullDescription;
+            if (!String.IsNullOrEmpty(fullDescription))
+            {
+                Short = fullDescription.Length > 255 ? fullDescription.Substring(0, 255) : fullDescription;
+            }
         }
 
-        public ElementDescription(string shortDescription, string fullDescription)
+        public ElementDescription(string fullDescription, string shortDescription)
         {
-            Short = shortDescription;
             Full = fullDescription;
+            if (!String.IsNullOrEmpty(shortDescription))
+            {
+                Short = shortDescription.Length > 12 ? shortDescription.Substring(0, 12) : shortDescription;
+            }
         }
 
         /// <summary>
