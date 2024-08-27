@@ -236,7 +236,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.SoftwareApplications
         /// <returns>System.Int32.</returns>
         public virtual int CompareTo(TenantDetails<TIdType> other)
         {
-            return other == null ? 1 : String.Compare(Name.DisplayName, other.Name.DisplayName, StringComparison.InvariantCulture);
+            return other == null ? 1 : String.Compare(Name.Full, other.Name.Full, StringComparison.InvariantCulture);
         }
 
         /// <summary>
