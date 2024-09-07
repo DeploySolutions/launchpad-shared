@@ -32,7 +32,6 @@ namespace Deploy.LaunchPad.Core.Tests
     using FluentAssertions;
     using System;
     using System.Collections.Generic;
-    using Deploy.LaunchPad.FileGeneration.Stages;
     using Deploy.LaunchPad.Core.Util;
 
     /// <summary>

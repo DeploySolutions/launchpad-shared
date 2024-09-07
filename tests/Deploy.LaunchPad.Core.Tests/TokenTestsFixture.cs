@@ -12,7 +12,6 @@
 // <summary></summary>
 // ***********************************************************************
 using Deploy.LaunchPad.Core.Util;
-using Deploy.LaunchPad.FileGeneration.Stages;
 using System;
 
 namespace Deploy.LaunchPad.Core.Tests

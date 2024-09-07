@@ -32,7 +32,6 @@
     <ProjectReference Include="..\..\src\Deploy.LaunchPad.AWS\Deploy.LaunchPad.AWS.csproj" />
     <ProjectReference Include="..\..\src\Deploy.LaunchPad.Core.Abp\Deploy.LaunchPad.Core.Abp.csproj" />
     <ProjectReference Include="..\..\src\Deploy.LaunchPad.Core\Deploy.LaunchPad.Core.csproj" />
-    <ProjectReference Include="..\..\src\Deploy.LaunchPad.FileGeneration\Deploy.LaunchPad.FileGeneration.csproj" />
   </ItemGroup>
 
 </Project>
