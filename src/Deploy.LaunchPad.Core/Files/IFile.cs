@@ -31,6 +31,7 @@ namespace Deploy.LaunchPad.Core.Domain
     using System;
     using System.ComponentModel;
     using System.Xml.Serialization;
+    using Deploy.LaunchPad.Core;
     using Deploy.LaunchPad.Core.Domain.Model;
     using Deploy.LaunchPad.Core.Util;
 

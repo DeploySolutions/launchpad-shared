@@ -28,6 +28,7 @@
 
 namespace Deploy.LaunchPad.Core.Abp.Domain.Model
 {
+    using Deploy.LaunchPad.Core;
     using Deploy.LaunchPad.Core.Domain;
     using Deploy.LaunchPad.Core.Domain.Model;
     using Newtonsoft.Json;

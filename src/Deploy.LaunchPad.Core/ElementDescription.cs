@@ -1,28 +1,30 @@
-﻿using System;
+﻿using Deploy.LaunchPad.Core.Util;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Security.Cryptography.X509Certificates;
+using System.Text.RegularExpressions;
+using System.Text;
+using System.Xml.Linq;
 using System.Xml.Serialization;
+using System.Security.Cryptography.X509Certificates;
 
-namespace Deploy.LaunchPad.Core.Domain.Model
+namespace Deploy.LaunchPad.Core
 {
     [Serializable]
     [ComplexType]
-    public partial class ElementName : 
-        IComparable<ElementName>, IEquatable<ElementName>
+    public partial class ElementDescription : IElementDescription
     {
-
         protected string _full = string.Empty;
         /// <summary>
-        /// The full name of this element
+        /// The full description for this object
         /// </summary>
-        /// <value>The full name.</value>
+        /// <value>The description full.</value>
         [Required]
-        [MaxLength(255, ErrorMessageResourceName = "Validation_ElementName_Full_255CharsOrLess", ErrorMessageResourceType = typeof(Deploy_LaunchPad_Core_Resources))]
+        [MaxLength(8096, ErrorMessageResourceName = "Validation_ElementDescription_Full_8096CharsOrLess", ErrorMessageResourceType = typeof(Deploy_LaunchPad_Core_Resources))]
         [DataObjectField(false)]
-        [XmlAttribute]
+        [XmlElement]
         public virtual string Full
         {
             get
@@ -37,10 +39,10 @@ namespace Deploy.LaunchPad.Core.Domain.Model
 
         protected string _short = string.Empty;
         /// <summary>
-        /// The short name of this element (if different from the FullName field). If not set, it will default to the first 20 characters of the full name.
+        /// A short description for this object. If not set, it will default to the first 255 characters of the full description.
         /// </summary>
-        /// <value>The fully qualified name of the element.</value>
-        [MaxLength(20, ErrorMessageResourceName = "Validation_ElementName_Short_20CharsOrLess", ErrorMessageResourceType = typeof(Deploy_LaunchPad_Core_Resources))]
+        /// <value>The description short.</value>
+        [MaxLength(255, ErrorMessageResourceName = "Validation_ElementDescription_Short_255CharsOrLess", ErrorMessageResourceType = typeof(Deploy_LaunchPad_Core_Resources))]
         [DataObjectField(false)]
         [XmlAttribute]
         public virtual string Short
@@ -60,82 +62,28 @@ namespace Deploy.LaunchPad.Core.Domain.Model
             {
                 _short = value;
             }
-        }        
-
-        protected string _prefix = string.Empty;
-        /// <summary>
-        /// The prefix, if any
-        /// </summary>
-        /// <value>The prefix of the element.</value>
-        [MaxLength(12, ErrorMessageResourceName = "Validation_12CharsOrLess", ErrorMessageResourceType = typeof(Deploy_LaunchPad_Core_Resources))]
-        [DataObjectField(false)]
-        [XmlAttribute]
-        public virtual string Prefix
-        {
-            get
-            {
-                return _prefix;
-            }
-            set
-            {
-                _prefix = value;
-            }
         }
 
-
-        protected string _suffix = string.Empty;
-        /// <summary>
-        /// The suffix, if any
-        /// </summary>
-        /// <value>The suffix of the element.</value>
-        [MaxLength(12, ErrorMessageResourceName = "Validation_12CharsOrLess", ErrorMessageResourceType = typeof(Deploy_LaunchPad_Core_Resources))]
-        [DataObjectField(false)]
-        [XmlAttribute]
-        public virtual string Suffix
-        {
-            get
-            {
-                return _suffix;
-            }
-            set
-            {
-                _suffix = value;
-            }
-        }
-
-
-        private ElementName()
+        protected ElementDescription()
         {
         }
 
-        public ElementName(string fullName)
+        public ElementDescription(string fullDescription)
         {
-            Full = fullName;
-            if (!String.IsNullOrEmpty(fullName))
+            Full = fullDescription;
+            if (!string.IsNullOrEmpty(fullDescription))
             {
-                Short = fullName.Length > 12 ? fullName.Substring(0, 12) : fullName;
+                Short = fullDescription.Length > 255 ? fullDescription.Substring(0, 255) : fullDescription;
             }
         }
 
-        public ElementName(string fullName, string shortName)
+        public ElementDescription(string fullDescription, string shortDescription)
         {
-            Full = fullName;
-            if (!String.IsNullOrEmpty(shortName))
+            Full = fullDescription;
+            if (!string.IsNullOrEmpty(shortDescription))
             {
-                Short = shortName.Length > 12 ? shortName.Substring(0, 12) : shortName;
+                Short = shortDescription.Length > 12 ? shortDescription.Substring(0, 12) : shortDescription;
             }
-        }
-
-
-        public ElementName(string fullName, string shortName, string prefix, string suffix)
-        {
-            Full = fullName;
-            if (!String.IsNullOrEmpty(shortName))
-            {
-                Short = shortName.Length > 12 ? shortName.Substring(0, 12) : shortName;
-            }
-            Prefix = prefix;
-            Suffix = suffix;
         }
 
         /// <summary>
@@ -145,15 +93,9 @@ namespace Deploy.LaunchPad.Core.Domain.Model
         /// </summary>
         /// <param name="other">The other object of this type we are comparing to</param>
         /// <returns>System.Int32.</returns>
-        public virtual int CompareTo(ElementName other)
+        public virtual int CompareTo(ElementDescription other)
         {
-            // put comparison of properties in here 
-            // for base object we'll just sort by DisplayName
-            return Full.CompareTo(other.Full) 
-                & Short.CompareTo(other.Short)
-                & Prefix.CompareTo(other.Prefix)
-                & Suffix.CompareTo(other.Suffix)
-            ;
+            return Full.CompareTo(other.Full) & Short.CompareTo(other.Short);
         }
 
         /// <summary>
@@ -162,7 +104,7 @@ namespace Deploy.LaunchPad.Core.Domain.Model
         /// <returns>A string representation of the object.</returns>
         public override string ToString()
         {
-            return Short;
+            return Full;
         }
 
 
@@ -173,9 +115,9 @@ namespace Deploy.LaunchPad.Core.Domain.Model
         /// <returns>True if the entities are the same according to business key value</returns>
         public override bool Equals(object obj)
         {
-            if (obj != null && obj is ElementName)
+            if (obj != null && obj is ElementDescription)
             {
-                return Equals(obj as ElementName);
+                return Equals(obj as ElementDescription);
             }
             return false;
         }
@@ -189,15 +131,11 @@ namespace Deploy.LaunchPad.Core.Domain.Model
         /// </summary>
         /// <param name="obj">The other object of this type that we are testing equality with</param>
         /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
-        public virtual bool Equals(ElementName obj)
+        public virtual bool Equals(ElementDescription obj)
         {
             if (obj != null)
             {
-                return Full.Equals(obj.Full) 
-                    && Short.Equals(obj.Short)
-                    && Prefix.Equals(obj.Prefix) 
-                    && Suffix.Equals(obj.Suffix)
-                ;
+                return Short.Equals(obj.Short) && Full.Equals(obj.Full);
             }
             return false;
         }
@@ -208,7 +146,7 @@ namespace Deploy.LaunchPad.Core.Domain.Model
         /// <param name="x">The first value</param>
         /// <param name="y">The second value</param>
         /// <returns>True if both objects are fully equal based on the Equals logic</returns>
-        public static bool operator ==(ElementName x, ElementName y)
+        public static bool operator ==(ElementDescription x, ElementDescription y)
         {
             if (x is null)
             {
@@ -227,7 +165,7 @@ namespace Deploy.LaunchPad.Core.Domain.Model
         /// <param name="x">The first value</param>
         /// <param name="y">The second value</param>
         /// <returns>True if both objects are not equal based on the Equals logic</returns>
-        public static bool operator !=(ElementName x, ElementName y)
+        public static bool operator !=(ElementDescription x, ElementDescription y)
         {
             return !(x == y);
         }
@@ -239,11 +177,9 @@ namespace Deploy.LaunchPad.Core.Domain.Model
         /// <remarks>This method implements the <see cref="object">Object</see> method.</remarks>
         public override int GetHashCode()
         {
-            return Full.GetHashCode()
-                + Short.GetHashCode()
-                + Prefix.GetHashCode()
-                + Suffix.GetHashCode()
-            ;
+            return Short.GetHashCode()
+                + Full.GetHashCode();
         }
+
     }
 }
