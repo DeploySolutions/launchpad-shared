@@ -56,7 +56,8 @@ namespace Deploy.LaunchPad.Images.Tests
         {
             this._fixture = fixture;
             ImageManager imageMan = new ImageManager();
-            CompareSettings compareSettings = new CompareSettings();
+            ErrorMetric metric = ErrorMetric.Undefined;
+            CompareSettings compareSettings = new CompareSettings(metric);
             this._fixture.Initialize(imageMan, compareSettings);
         }
 

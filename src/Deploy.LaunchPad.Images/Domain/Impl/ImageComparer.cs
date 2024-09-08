@@ -72,8 +72,8 @@ namespace Deploy.LaunchPad.Images.Domain
             {
                 magicDiffImage.Format = MagickFormat.Tif;
                 imageA.ColorFuzz = new Percentage(50); // set a fairly low percentage to identify differences, without picking up every tiny artefact
-
-                imageA.Compare(imageB, compareSettings, magicDiffImage);
+                Channels channels = new Channels();
+                imageA.Compare(imageB, compareSettings, channels, out double distortion);
                 return magicDiffImage.ToByteArray();
             }
         }

@@ -922,6 +922,47 @@ namespace Deploy.LaunchPad.Core {
             }
         }
 
+
+        /// <summary>
+        /// The fully qualified type must be 511 characters or less since that is the longest practically compile-able name in C#.
+        /// </summary>
+        /// <value>The full qualified type must be 511 chars or less.</value>
+        public static string Validation_ElementType_FullyQualifiedType_511CharsOrLess
+        {
+            get
+            {
+                return ResourceManager.GetString("Validation_ElementType_FullyQualifiedType_511CharsOrLess", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        /// The fully qualified type must be a valid type in C#. 
+        /// This typically consists of one or more namespaces followed by the type name, with each part starting with a letter or underscore and followed by letters, digits, or underscores.
+        /// </summary>
+        /// <value>The fully qualified type is invalid.</value>
+        public static string Validation_ElementType_InvalidType
+        {
+            get
+            {
+                return ResourceManager.GetString("Validation_ElementType_InvalidType", resourceCulture);
+            }
+        }
+
+
+        /// <summary>
+        /// The fully qualified assembly must be a valid format in C#. 
+        /// A typical fully qualified .NET assembly name has the following format:Name, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+        /// </summary>
+        /// <value>The fully qualified assembly is invalid.</value>
+        public static string Validation_ElementType_InvalidAssembly
+        {
+            get
+            {
+                return ResourceManager.GetString("Validation_ElementType_InvalidAssembly", resourceCulture);
+            }
+        }
+
+
         /// <summary>
         /// Looks up a localized string similar to External ID field must be 36 characters or less..
         /// </summary>

@@ -116,7 +116,7 @@ namespace Deploy.LaunchPad.Images.Domain
         /// <param name="width">The width of the resulting thumbnail image</param>
         /// <param name="height">The height of the resulting thumbnail image</param>
         /// <returns>A byte array of the new thumbnail image</returns>
-        protected byte[] GetThumbnail(MagickImage originalImage, MagickFormat format, int width, int height)
+        protected byte[] GetThumbnail(MagickImage originalImage, MagickFormat format, uint width, uint height)
         {
             MagickImage smallThumbnailImage = null;
             MagickReadSettings settings = new MagickReadSettings();
@@ -139,7 +139,7 @@ namespace Deploy.LaunchPad.Images.Domain
         public byte[] GetThumbnailSmall(MagickImage originalImage)
         {
             MagickImage magicImage = new MagickImage(originalImage);
-            return GetThumbnail(magicImage, MagickFormat.Jpeg, ThumbnailSmallWidth, ThumbnailSmallHeight);
+            return GetThumbnail(magicImage, MagickFormat.Jpeg, (uint)ThumbnailSmallWidth, (uint)ThumbnailSmallHeight);
         }
 
         /// <summary>
@@ -150,7 +150,7 @@ namespace Deploy.LaunchPad.Images.Domain
         public byte[] GetThumbnailSmall(byte[] originalImage)
         {
             MagickImage magicImage = new MagickImage(originalImage);
-            return GetThumbnail(magicImage, MagickFormat.Jpeg, ThumbnailSmallWidth, ThumbnailSmallHeight);
+            return GetThumbnail(magicImage, MagickFormat.Jpeg, (uint)ThumbnailSmallWidth, (uint)ThumbnailSmallHeight);
         }
 
         /// <summary>
@@ -161,7 +161,7 @@ namespace Deploy.LaunchPad.Images.Domain
         public byte[] GetThumbnailSmall(Stream originalImage)
         {
             MagickImage magicImage = new MagickImage(originalImage);
-            return GetThumbnail(magicImage, MagickFormat.Jpeg, ThumbnailSmallWidth, ThumbnailSmallHeight);
+            return GetThumbnail(magicImage, MagickFormat.Jpeg, (uint)ThumbnailSmallWidth, (uint)ThumbnailSmallHeight);
         }
 
         /// <summary>
@@ -172,7 +172,7 @@ namespace Deploy.LaunchPad.Images.Domain
         public byte[] GetThumbnailSmall(FileInfo originalImageInfo)
         {
             MagickImage magicImage = new MagickImage(originalImageInfo);
-            return GetThumbnail(magicImage, MagickFormat.Jpeg, ThumbnailSmallWidth, ThumbnailSmallHeight);
+            return GetThumbnail(magicImage, MagickFormat.Jpeg, (uint)ThumbnailSmallWidth, (uint)ThumbnailSmallHeight);
         }
 
         /// <summary>
@@ -186,7 +186,7 @@ namespace Deploy.LaunchPad.Images.Domain
             byte[] smallThumbnailImage = null;
             using (MagickImage magicImage = new MagickImage(originalImage))
             {
-                smallThumbnailImage = GetThumbnail(magicImage, format, ThumbnailSmallWidth, ThumbnailSmallHeight);
+                smallThumbnailImage = GetThumbnail(magicImage, format, (uint)ThumbnailSmallWidth, (uint)ThumbnailSmallHeight);
             }
             return smallThumbnailImage;
         }
@@ -202,7 +202,7 @@ namespace Deploy.LaunchPad.Images.Domain
             byte[] smallThumbnailImage = null;
             using (MagickImage magicImage = new MagickImage(originalImage))
             {
-                smallThumbnailImage = GetThumbnail(magicImage, format, ThumbnailSmallWidth, ThumbnailSmallHeight);
+                smallThumbnailImage = GetThumbnail(magicImage, format, (uint)ThumbnailSmallWidth, (uint)ThumbnailSmallHeight);
             }
             return smallThumbnailImage;
         }
@@ -217,7 +217,7 @@ namespace Deploy.LaunchPad.Images.Domain
         public byte[] GetThumbnailSmall(MagickImage originalImage, MagickFormat format)
         {
             MagickImage magicImage = new MagickImage(originalImage);
-            return GetThumbnail(magicImage, format, ThumbnailSmallWidth, ThumbnailSmallHeight);
+            return GetThumbnail(magicImage, format, (uint)ThumbnailSmallWidth, (uint)ThumbnailSmallHeight);
         }
 
         /// <summary>
@@ -231,7 +231,7 @@ namespace Deploy.LaunchPad.Images.Domain
             byte[] smallThumbnailImage = null;
             using (MagickImage magicImage = new MagickImage(originalImageInfo))
             {
-                smallThumbnailImage = GetThumbnail(magicImage, format, ThumbnailSmallWidth, ThumbnailSmallHeight);
+                smallThumbnailImage = GetThumbnail(magicImage, format, (uint)ThumbnailSmallWidth, (uint)ThumbnailSmallHeight);
             }
             return smallThumbnailImage;
         }
@@ -244,7 +244,7 @@ namespace Deploy.LaunchPad.Images.Domain
         public byte[] GetThumbnailMedium(MagickImage originalImage)
         {
             MagickImage magicImage = new MagickImage(originalImage);
-            return GetThumbnail(magicImage, MagickFormat.Jpeg, ThumbnailMediumWidth, ThumbnailMediumHeight);
+            return GetThumbnail(magicImage, MagickFormat.Jpeg, (uint)ThumbnailMediumWidth, (uint)ThumbnailMediumHeight);
         }
 
         /// <summary>
@@ -255,7 +255,7 @@ namespace Deploy.LaunchPad.Images.Domain
         public byte[] GetThumbnailMedium(byte[] originalImage)
         {
             MagickImage magicImage = new MagickImage(originalImage);
-            return GetThumbnail(magicImage, MagickFormat.Jpeg, ThumbnailMediumWidth, ThumbnailMediumHeight);
+            return GetThumbnail(magicImage, MagickFormat.Jpeg, (uint)ThumbnailMediumWidth, (uint)ThumbnailMediumHeight);
         }
 
         /// <summary>
@@ -266,7 +266,7 @@ namespace Deploy.LaunchPad.Images.Domain
         public byte[] GetThumbnailMedium(Stream originalImage)
         {
             MagickImage magicImage = new MagickImage(originalImage);
-            return GetThumbnail(magicImage, MagickFormat.Jpeg, ThumbnailMediumWidth, ThumbnailMediumHeight);
+            return GetThumbnail(magicImage, MagickFormat.Jpeg, (uint)ThumbnailMediumWidth, (uint)ThumbnailMediumHeight);
         }
 
         /// <summary>
@@ -277,7 +277,7 @@ namespace Deploy.LaunchPad.Images.Domain
         public byte[] GetThumbnailMedium(FileInfo originalImageInfo)
         {
             MagickImage magicImage = new MagickImage(originalImageInfo);
-            return GetThumbnail(magicImage, MagickFormat.Jpeg, ThumbnailMediumWidth, ThumbnailMediumHeight);
+            return GetThumbnail(magicImage, MagickFormat.Jpeg, (uint)ThumbnailMediumWidth, (uint)ThumbnailMediumHeight);
         }
 
         /// <summary>
@@ -291,7 +291,7 @@ namespace Deploy.LaunchPad.Images.Domain
             byte[] smallThumbnailImage = null;
             using (MagickImage magicImage = new MagickImage(originalImage))
             {
-                smallThumbnailImage = GetThumbnail(magicImage, format, ThumbnailMediumWidth, ThumbnailMediumHeight);
+                smallThumbnailImage = GetThumbnail(magicImage, format, (uint)ThumbnailMediumWidth, (uint)ThumbnailMediumHeight);
             }
             return smallThumbnailImage;
         }
@@ -307,7 +307,7 @@ namespace Deploy.LaunchPad.Images.Domain
             byte[] smallThumbnailImage = null;
             using (MagickImage magicImage = new MagickImage(originalImage))
             {
-                smallThumbnailImage = GetThumbnail(magicImage, format, ThumbnailMediumWidth, ThumbnailMediumHeight);
+                smallThumbnailImage = GetThumbnail(magicImage, format, (uint)ThumbnailMediumWidth, (uint)ThumbnailMediumHeight);
             }
             return smallThumbnailImage;
         }
@@ -323,7 +323,7 @@ namespace Deploy.LaunchPad.Images.Domain
             byte[] smallThumbnailImage = null;
             using (MagickImage magicImage = new MagickImage(originalImageInfo))
             {
-                smallThumbnailImage = GetThumbnail(magicImage, format, ThumbnailMediumWidth, ThumbnailMediumHeight);
+                smallThumbnailImage = GetThumbnail(magicImage, format, (uint)ThumbnailMediumWidth, (uint)ThumbnailMediumHeight);
             }
             return smallThumbnailImage;
         }
@@ -337,7 +337,7 @@ namespace Deploy.LaunchPad.Images.Domain
         public byte[] GetThumbnailMedium(MagickImage originalImage, MagickFormat format)
         {
             MagickImage magicImage = new MagickImage(originalImage);
-            return GetThumbnail(magicImage, format, ThumbnailMediumWidth, ThumbnailMediumHeight);
+            return GetThumbnail(magicImage, format, (uint)ThumbnailMediumWidth, (uint)ThumbnailMediumHeight);
         }
 
         /// <summary>
@@ -348,7 +348,7 @@ namespace Deploy.LaunchPad.Images.Domain
         public byte[] GetThumbnailLarge(MagickImage originalImage)
         {
             MagickImage magicImage = new MagickImage(originalImage);
-            return GetThumbnail(magicImage, MagickFormat.Jpeg, ThumbnailLargeWidth, ThumbnailLargeHeight);
+            return GetThumbnail(magicImage, MagickFormat.Jpeg, (uint)ThumbnailLargeWidth, (uint)ThumbnailLargeHeight);
         }
 
         /// <summary>
@@ -359,7 +359,7 @@ namespace Deploy.LaunchPad.Images.Domain
         public byte[] GetThumbnailLarge(byte[] originalImage)
         {
             MagickImage magicImage = new MagickImage(originalImage);
-            return GetThumbnail(magicImage, MagickFormat.Jpeg, ThumbnailLargeWidth, ThumbnailLargeHeight);
+            return GetThumbnail(magicImage, MagickFormat.Jpeg, (uint)ThumbnailLargeWidth, (uint)ThumbnailLargeHeight);
         }
 
         /// <summary>
@@ -370,7 +370,7 @@ namespace Deploy.LaunchPad.Images.Domain
         public byte[] GetThumbnailLarge(Stream originalImage)
         {
             MagickImage magicImage = new MagickImage(originalImage);
-            return GetThumbnail(magicImage, MagickFormat.Jpeg, ThumbnailLargeWidth, ThumbnailLargeHeight);
+            return GetThumbnail(magicImage, MagickFormat.Jpeg, (uint)ThumbnailLargeWidth, (uint)ThumbnailLargeHeight);
         }
 
 
@@ -382,7 +382,7 @@ namespace Deploy.LaunchPad.Images.Domain
         public byte[] GetThumbnailLarge(FileInfo originalImageInfo)
         {
             MagickImage magicImage = new MagickImage(originalImageInfo);
-            return GetThumbnail(magicImage, MagickFormat.Jpeg, ThumbnailLargeWidth, ThumbnailLargeHeight);
+            return GetThumbnail(magicImage, MagickFormat.Jpeg, (uint)ThumbnailLargeWidth, (uint)ThumbnailLargeHeight);
         }
 
 
@@ -397,7 +397,7 @@ namespace Deploy.LaunchPad.Images.Domain
             byte[] smallThumbnailImage = null;
             using (MagickImage magicImage = new MagickImage(originalImage))
             {
-                smallThumbnailImage = GetThumbnail(magicImage, format, ThumbnailLargeWidth, ThumbnailLargeHeight);
+                smallThumbnailImage = GetThumbnail(magicImage, format, (uint)ThumbnailLargeWidth, (uint)ThumbnailLargeHeight);
             }
             return smallThumbnailImage;
         }
@@ -413,7 +413,7 @@ namespace Deploy.LaunchPad.Images.Domain
             byte[] smallThumbnailImage = null;
             using (MagickImage magicImage = new MagickImage(originalImage))
             {
-                smallThumbnailImage = GetThumbnail(magicImage, format, ThumbnailLargeWidth, ThumbnailLargeHeight);
+                smallThumbnailImage = GetThumbnail(magicImage, format, (uint)ThumbnailLargeWidth, (uint)ThumbnailLargeHeight);
             }
             return smallThumbnailImage;
         }
@@ -429,7 +429,7 @@ namespace Deploy.LaunchPad.Images.Domain
             byte[] smallThumbnailImage = null;
             using (MagickImage magicImage = new MagickImage(originalImageInfo))
             {
-                smallThumbnailImage = GetThumbnail(magicImage, format, ThumbnailLargeWidth, ThumbnailLargeHeight);
+                smallThumbnailImage = GetThumbnail(magicImage, format, (uint)ThumbnailLargeWidth, (uint)ThumbnailLargeHeight);
             }
             return smallThumbnailImage;
         }
@@ -443,7 +443,7 @@ namespace Deploy.LaunchPad.Images.Domain
         public byte[] GetThumbnailLarge(MagickImage originalImage, MagickFormat format)
         {
             MagickImage magicImage = new MagickImage(originalImage);
-            return GetThumbnail(magicImage, format, ThumbnailLargeWidth, ThumbnailLargeHeight);
+            return GetThumbnail(magicImage, format, (uint)ThumbnailLargeWidth, (uint)ThumbnailLargeHeight);
         }
     }
 }

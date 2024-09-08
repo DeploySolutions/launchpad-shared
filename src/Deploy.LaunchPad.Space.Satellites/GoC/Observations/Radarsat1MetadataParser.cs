@@ -29,7 +29,7 @@
 
 namespace Deploy.LaunchPad.Space.Satellites.GoC
 {
-
+    using Deploy.LaunchPad.Core;
     using Deploy.LaunchPad.Core.Abp.Domain;
     using Deploy.LaunchPad.Core.Domain;
     using Deploy.LaunchPad.Core.Domain.Model;
