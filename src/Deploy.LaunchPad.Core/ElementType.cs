@@ -301,7 +301,7 @@ namespace Deploy.LaunchPad.Core
 
         public static ElementType GetTypeInformationForElement(ILogger logger, string fullyQualifiedTypeName, bool shouldThrowOnError = true, bool shouldIgnoreCase = true, IList<string> assembliesContainingChildren = null)
         {
-            ElementType element = new ElementType();
+            ElementType element = new ElementType(fullyQualifiedTypeName);
             Type type = Type.GetType(fullyQualifiedTypeName, shouldThrowOnError, shouldIgnoreCase);
             if (type != null)
             {
