@@ -323,9 +323,9 @@ namespace Deploy.LaunchPad.Core
                 {
                     assembliesContainingChildren = new List<string>();
                 }
-                if (!assembliesContainingChildren.Contains(element.AssemblyFullyQualifiedName))
+                if (!assembliesContainingChildren.Contains(element.AssemblyName))
                 {
-                    assembliesContainingChildren.Add(element.AssemblyFullyQualifiedName);
+                    assembliesContainingChildren.Add(element.AssemblyName);
                 }
                 foreach (string assemblyName in assembliesContainingChildren)
                 {
