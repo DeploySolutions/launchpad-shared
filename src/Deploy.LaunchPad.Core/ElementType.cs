@@ -98,7 +98,7 @@ namespace Deploy.LaunchPad.Core
             {
                 if(string.IsNullOrEmpty(_assemblyName))
                 {
-                    string pattern = @"^[^,]+";
+                    string pattern = @"(?<=, )[^,]+";
 
                     // Use regex to match the short assembly name
                     Match match = Regex.Match(AssemblyFullyQualifiedName, pattern);
