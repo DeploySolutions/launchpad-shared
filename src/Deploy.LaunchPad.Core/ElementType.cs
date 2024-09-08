@@ -8,6 +8,8 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Security.Cryptography.X509Certificates;
+using System.Text.RegularExpressions;
+using System.Xml.Linq;
 using System.Xml.Serialization;
 
 namespace Deploy.LaunchPad.Core
@@ -93,12 +95,17 @@ namespace Deploy.LaunchPad.Core
         {
             get
             {
-                int lastDotIndex = AssemblyFullyQualifiedName.LastIndexOf('.');
-                if (lastDotIndex == -1)
+                string pattern = @"^[^,]+";
+
+                // Use regex to match the short assembly name
+                Match match = Regex.Match(AssemblyFullyQualifiedName, pattern);
+
+                // Return the matched value or the AssemblyFullyQualifiedName string if no match is found
+                if (match.Success)
                 {
-                    return AssemblyFullyQualifiedName; // No namespace, just return the name
+                    return match.Value;
                 }
-                return AssemblyFullyQualifiedName.Substring(lastDotIndex + 1);
+                return AssemblyFullyQualifiedName;
             }
         }
 
@@ -310,7 +317,7 @@ namespace Deploy.LaunchPad.Core
                 }
                 if (!assembliesContainingChildren.Contains(element.AssemblyFullyQualifiedName))
                 {
-                    assembliesContainingChildren.Add(element.AssemblyFullyQualifiedName);
+                    assembliesContainingChildren.Add(element.AssemblyName);
                 }
                 foreach (string assemblyName in assembliesContainingChildren)
                 {
@@ -356,4 +363,5 @@ namespace Deploy.LaunchPad.Core
             return element;
         }
     }
+
 }
