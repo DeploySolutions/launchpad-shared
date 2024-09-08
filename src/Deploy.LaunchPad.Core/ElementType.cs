@@ -84,6 +84,7 @@ namespace Deploy.LaunchPad.Core
             }
         }
 
+        protected string _assemblyName = string.Empty;
         /// <summary>
         /// The name of the assembly.
         /// </summary>
@@ -95,17 +96,24 @@ namespace Deploy.LaunchPad.Core
         {
             get
             {
-                string pattern = @"^[^,]+";
-
-                // Use regex to match the short assembly name
-                Match match = Regex.Match(AssemblyFullyQualifiedName, pattern);
-
-                // Return the matched value or the AssemblyFullyQualifiedName string if no match is found
-                if (match.Success)
+                if(string.IsNullOrEmpty(_assemblyName))
                 {
-                    return match.Value;
+                    string pattern = @"^[^,]+";
+
+                    // Use regex to match the short assembly name
+                    Match match = Regex.Match(AssemblyFullyQualifiedName, pattern);
+
+                    // Return the matched value or the AssemblyFullyQualifiedName string if no match is found
+                    if (match.Success)
+                    {
+                        _assemblyName = match.Value;
+                    }
+                    else
+                    {
+                        _assemblyName = _assemblyFullyQualifiedName;
+                    }
                 }
-                return AssemblyFullyQualifiedName;
+                return _assemblyName;
             }
         }
 
@@ -317,7 +325,7 @@ namespace Deploy.LaunchPad.Core
                 }
                 if (!assembliesContainingChildren.Contains(element.AssemblyFullyQualifiedName))
                 {
-                    assembliesContainingChildren.Add(element.AssemblyName);
+                    assembliesContainingChildren.Add(element.AssemblyFullyQualifiedName);
                 }
                 foreach (string assemblyName in assembliesContainingChildren)
                 {
