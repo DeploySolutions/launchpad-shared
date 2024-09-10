@@ -19,6 +19,13 @@ namespace Deploy.LaunchPad.Core
         /// <value>The type of this object.</value>
         public string TypeName { get; }
 
+
+        /// <summary>
+        /// The namespace of this object
+        /// </summary>
+        /// <value>The namespace of this object.</value>
+        public string Namespace { get; }
+
         /// <summary>
         /// The name of the assembly.
         /// </summary>
@@ -32,16 +39,16 @@ namespace Deploy.LaunchPad.Core
         public string AssemblyFullyQualifiedName { get; }
 
         /// <summary>
-        /// The fully qualified type of the parent.
+        /// The ElementType of the parent.
         /// </summary>
-        /// <value>The fully qualified type of the parent.</value>
-        public ElementType ParentFullyQualifiedType { get; }
+        /// <value>The ElementType of the parent.</value>
+        public ElementType ParentElementType { get; }
 
         /// <summary>
-        /// Gets or sets the fully qualified types of any children.
+        /// Gets or sets the ElementTypes of any children.
         /// </summary>
-        /// <value>The fully qualified types of children, if any.</value>
-        public IDictionary<string, ElementType> ChildrenFullyQualifiedTypes { get; set; }
+        /// <value>The ElementTypes of children, if any. The key is the fullyQualifiedType of the parent, and the value is the Type instance. </value>
+        public IDictionary<string, ElementType> ChildrenElementTypes { get; set; }
 
         /// <summary>
         /// Gets or sets the interface(s) this object inherits from (apart from the ParentFullyQualifiedType which could be a class or interface).
