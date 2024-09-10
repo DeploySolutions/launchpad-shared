@@ -32,22 +32,16 @@ namespace Deploy.LaunchPad.Core
         public string AssemblyFullyQualifiedName { get; }
 
         /// <summary>
-        /// The type of the parent.
-        /// </summary>
-        /// <value>The type of the parent.</value>
-        public string ParentType { get; }
-
-        /// <summary>
         /// The fully qualified type of the parent.
         /// </summary>
         /// <value>The fully qualified type of the parent.</value>
-        public string ParentFullyQualifiedType { get; }
+        public ElementType ParentFullyQualifiedType { get; }
 
         /// <summary>
         /// Gets or sets the fully qualified types of any children.
         /// </summary>
         /// <value>The fully qualified types of children, if any.</value>
-        public IDictionary<string, string> ChildrenFullyQualifiedTypes { get; set; }
+        public IDictionary<string, ElementType> ChildrenFullyQualifiedTypes { get; set; }
 
         /// <summary>
         /// Gets or sets the interface(s) this object inherits from (apart from the ParentFullyQualifiedType which could be a class or interface).

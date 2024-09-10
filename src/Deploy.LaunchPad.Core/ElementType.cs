@@ -117,7 +117,7 @@ namespace Deploy.LaunchPad.Core
             }
         }
 
-        protected string _parentFullyQualifiedType = string.Empty;
+        protected ElementType _parentFullyQualifiedType;
         /// <summary>
         ///The fully qualified type of the object's parent.
         /// </summary>
@@ -127,7 +127,7 @@ namespace Deploy.LaunchPad.Core
         [RegularExpression(@"^([a-zA-Z_][a-zA-Z0-9_]*\.)*[a-zA-Z_][a-zA-Z0-9_]*$", ErrorMessageResourceName = "Validation_ElementType_InvalidType", ErrorMessageResourceType = typeof(Deploy_LaunchPad_Core_Resources))]
         [DataObjectField(true)]
         [XmlAttribute]
-        public virtual string ParentFullyQualifiedType
+        public virtual ElementType ParentFullyQualifiedType
         {
             get
             {
@@ -140,31 +140,10 @@ namespace Deploy.LaunchPad.Core
         }
 
         /// <summary>
-        /// The type of this object's parent (it should of course be identical to calling GetType() on the parent but is intended for storage for documentation purposes or sharing externally).
-        /// </summary>
-        /// <value>The type of this object's parent.</value>
-        [MaxLength(20, ErrorMessageResourceName = "Validation_ElementType_FullyQualifiedType_511CharsOrLess", ErrorMessageResourceType = typeof(Deploy_LaunchPad_Core_Resources))]
-        [DataObjectField(false)]
-        [XmlAttribute]
-        public virtual string ParentType
-        {
-            get
-            {
-                int lastDotIndex = ParentFullyQualifiedType.LastIndexOf('.');
-                if (lastDotIndex == -1)
-                {
-                    return ParentFullyQualifiedType; // No namespace, just return the name
-                }
-                return ParentFullyQualifiedType.Substring(lastDotIndex + 1);
-
-            }
-        }
-
-        /// <summary>
         /// Gets or sets the fully qualified types of any children.
         /// </summary>
         /// <value>The fully qualified types of children, if any. The key is the fullyQualifiedType and the value is the Type. </value>
-        public virtual IDictionary<string, string> ChildrenFullyQualifiedTypes { get; set; }
+        public virtual IDictionary<string, ElementType> ChildrenFullyQualifiedTypes { get; set; }
 
 
         /// <summary>
@@ -175,14 +154,14 @@ namespace Deploy.LaunchPad.Core
 
         protected ElementType()
         {
-            ChildrenFullyQualifiedTypes = new Dictionary<string, string>();
+            ChildrenFullyQualifiedTypes = new Dictionary<string, ElementType>();
             InheritsFrom = new Dictionary<string, string>();
         }
 
         public ElementType(string fullyQualifiedTypeName)
         {
             FullyQualifiedType = fullyQualifiedTypeName;
-            ChildrenFullyQualifiedTypes = new Dictionary<string, string>();
+            ChildrenFullyQualifiedTypes = new Dictionary<string, ElementType>();
             InheritsFrom = new Dictionary<string, string>();
         }
 
@@ -244,7 +223,6 @@ namespace Deploy.LaunchPad.Core
                     && AssemblyName.Equals(obj.AssemblyName)
                     && AssemblyFullyQualifiedName.Equals(obj.AssemblyFullyQualifiedName)
                     && ParentFullyQualifiedType.Equals(obj.ParentFullyQualifiedType)
-                    && ParentType.Equals(obj.ParentType)
                     && InheritsFrom.Equals(obj.InheritsFrom)
                     && ChildrenFullyQualifiedTypes.Equals(obj.ChildrenFullyQualifiedTypes)
                 ;
@@ -292,7 +270,6 @@ namespace Deploy.LaunchPad.Core
             return FullyQualifiedType.GetHashCode()
                 + TypeName.GetHashCode()
                 + ParentFullyQualifiedType.GetHashCode()
-                + ParentType.GetHashCode()
                 + AssemblyFullyQualifiedName.GetHashCode()
                 + InheritsFrom.GetHashCode()
                 + ChildrenFullyQualifiedTypes.GetHashCode()
@@ -311,7 +288,8 @@ namespace Deploy.LaunchPad.Core
                 Type baseType = type.BaseType;
                 if (baseType != null)
                 {
-                    element.ParentFullyQualifiedType = baseType.FullName;
+                    ElementType parentElementType = new ElementType(baseType.FullName);
+                    element.ParentFullyQualifiedType = parentElementType;
                 }
                 Type[] interfaces = type.GetInterfaces();
                 foreach (Type interfaceType in interfaces)
@@ -339,11 +317,12 @@ namespace Deploy.LaunchPad.Core
                             {
                                 if (childType.BaseType == type)
                                 {
+                                    ElementType childElementType = new ElementType(childType.FullName);
                                     string message = string.Format("Found child type '{0}' for type '{1}', in assembly {2}.",
                                         childType.FullName, element.FullyQualifiedType, assemblyWithPossibleChildren.FullName
                                     );
                                     logger.Debug(message);
-                                    element.ChildrenFullyQualifiedTypes.TryAdd(childType.FullName, childType.Name);
+                                    element.ChildrenFullyQualifiedTypes.TryAdd(childType.FullName, childElementType);
                                 }
                             }
                         }
