@@ -61,18 +61,18 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
         [XmlAttribute]
         public override DomainEntityType EntityType { get; } = DomainEntityType.AggregateRoot;
 
-        protected List<string> _childrenFullyQualifiedTypes;
-        /// <summary>
-        /// The fully qualified type names of any children entities (ex. MyCorp.MyApp.Orders.LineItems)
-        /// </summary>
-        /// <value>The children fully qualified types.</value>
-        [DataObjectField(false)]
-        [XmlAttribute]
-        public virtual List<string> ChildrenFullyQualifiedTypes
-        {
-            get { return _childrenFullyQualifiedTypes; }
-            set { _childrenFullyQualifiedTypes = value; }
-        }
+        //protected List<string> _childrenFullyQualifiedTypes;
+        ///// <summary>
+        ///// The fully qualified type names of any children entities (ex. MyCorp.MyApp.Orders.LineItems)
+        ///// </summary>
+        ///// <value>The children fully qualified types.</value>
+        //[DataObjectField(false)]
+        //[XmlAttribute]
+        //public virtual List<string> ChildrenFullyQualifiedTypes
+        //{
+        //    get { return _childrenFullyQualifiedTypes; }
+        //    set { _childrenFullyQualifiedTypes = value; }
+        //}
 
         #region Implementation of ASP.NET Boilerplate's IAggregateRoot interface
 
@@ -91,7 +91,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
         protected LaunchPadAggregateRootBase() : base()
         {
             DomainEvents = new Collection<IEventData>();
-            ChildrenFullyQualifiedTypes = new List<string>();    
+            //ChildrenFullyQualifiedTypes = new List<string>();    
         }
 
 
@@ -103,7 +103,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
         protected LaunchPadAggregateRootBase(TIdType id, string cultureName) : base(id, cultureName)
         {
             DomainEvents = new Collection<IEventData>();
-            ChildrenFullyQualifiedTypes = new List<string>();
+            //ChildrenFullyQualifiedTypes = new List<string>();
         }
 
         /// <summary>
@@ -114,7 +114,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
         protected LaunchPadAggregateRootBase(SerializationInfo info, StreamingContext context) : base(info, context)
         {
             DomainEvents = (Collection<IEventData>)info.GetValue("DomainEvents", typeof(Collection<IEventData>));
-            ChildrenFullyQualifiedTypes = (List<string>)info.GetValue("ChildrenFullyQualifiedTypes", typeof(List<string>));
+            //ChildrenFullyQualifiedTypes = (List<string>)info.GetValue("ChildrenFullyQualifiedTypes", typeof(List<string>));
             
         }
 
@@ -127,7 +127,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
         {
             base.GetObjectData(info, context);
             info.AddValue("DomainEvents", DomainEvents); 
-            info.AddValue("ChildrenFullyQualifiedTypes", ChildrenFullyQualifiedTypes); 
+            //info.AddValue("ChildrenFullyQualifiedTypes", ChildrenFullyQualifiedTypes); 
         }
 
         /// <summary>
@@ -151,7 +151,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
             StringBuilder sb = new StringBuilder();
             // sb.AppendFormat(base.ToStringBaseProperties());
             sb.AppendFormat("DomainEvents={0};", DomainEvents);
-            sb.AppendFormat("ChildrenFullyQualifiedTypes={0};", ChildrenFullyQualifiedTypes);
+            //sb.AppendFormat("ChildrenFullyQualifiedTypes={0};", ChildrenFullyQualifiedTypes);
             return sb.ToString();
         }
 

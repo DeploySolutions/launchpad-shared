@@ -27,12 +27,12 @@ namespace Deploy.LaunchPad.Core.Domain.Model
     public partial interface ILaunchPadAggregateRootProperties<TIdType> : ILaunchPadDomainEntityProperties<TIdType>
     {
         /// <summary>
-        /// The fully qualified type names of any children entities (ex. MyCorp.MyApp.Orders.LineItems)
-        /// </summary>
-        /// <value>The children fully qualified types.</value>
-        [DataObjectField(false)]
-        [XmlAttribute]
-        public List<string> ChildrenFullyQualifiedTypes { get; }
+        ///// The fully qualified type names of any children entities (ex. MyCorp.MyApp.Orders.LineItems)
+        ///// </summary>
+        ///// <value>The children fully qualified types.</value>
+        //[DataObjectField(false)]
+        //[XmlAttribute]
+        //public List<string> ChildrenFullyQualifiedTypes { get; }
 
 
     }
