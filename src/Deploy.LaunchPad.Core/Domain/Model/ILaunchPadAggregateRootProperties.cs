@@ -32,7 +32,7 @@ namespace Deploy.LaunchPad.Core.Domain.Model
         /// <value>The children fully qualified types.</value>
         [DataObjectField(false)]
         [XmlAttribute]
-        public HashSet<string> ChildrenFullyQualifiedTypes { get; }
+        public List<string> ChildrenFullyQualifiedTypes { get; }
 
 
     }

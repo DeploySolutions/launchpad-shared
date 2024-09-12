@@ -61,14 +61,14 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
         [XmlAttribute]
         public override DomainEntityType EntityType { get; } = DomainEntityType.AggregateRoot;
 
-        protected HashSet<string> _childrenFullyQualifiedTypes;
+        protected List<string> _childrenFullyQualifiedTypes;
         /// <summary>
         /// The fully qualified type names of any children entities (ex. MyCorp.MyApp.Orders.LineItems)
         /// </summary>
         /// <value>The children fully qualified types.</value>
         [DataObjectField(false)]
         [XmlAttribute]
-        public virtual HashSet<string> ChildrenFullyQualifiedTypes
+        public virtual List<string> ChildrenFullyQualifiedTypes
         {
             get { return _childrenFullyQualifiedTypes; }
             set { _childrenFullyQualifiedTypes = value; }
@@ -91,7 +91,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
         protected LaunchPadAggregateRootBase() : base()
         {
             DomainEvents = new Collection<IEventData>();
-            ChildrenFullyQualifiedTypes = new HashSet<string>();    
+            ChildrenFullyQualifiedTypes = new List<string>();    
         }
 
 
@@ -103,7 +103,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
         protected LaunchPadAggregateRootBase(TIdType id, string cultureName) : base(id, cultureName)
         {
             DomainEvents = new Collection<IEventData>();
-            ChildrenFullyQualifiedTypes = new HashSet<string>();
+            ChildrenFullyQualifiedTypes = new List<string>();
         }
 
         /// <summary>
@@ -114,7 +114,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
         protected LaunchPadAggregateRootBase(SerializationInfo info, StreamingContext context) : base(info, context)
         {
             DomainEvents = (Collection<IEventData>)info.GetValue("DomainEvents", typeof(Collection<IEventData>));
-            ChildrenFullyQualifiedTypes = (HashSet<string>)info.GetValue("ChildrenFullyQualifiedTypes", typeof(HashSet<string>));
+            ChildrenFullyQualifiedTypes = (List<string>)info.GetValue("ChildrenFullyQualifiedTypes", typeof(List<string>));
             
         }
 
