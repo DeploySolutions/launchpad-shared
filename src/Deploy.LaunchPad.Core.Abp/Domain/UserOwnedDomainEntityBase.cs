@@ -7,7 +7,7 @@
 // Last Modified On : 11-19-2023
 // ***********************************************************************
 // <copyright file="UserOwnedDomainEntityBase.cs" company="Deploy Software Solutions, inc.">
-//     2018-2023 Deploy Software Solutions, inc.
+//     2018-2024 Deploy Software Solutions, inc.
 // </copyright>
 // <summary></summary>
 // ***********************************************************************

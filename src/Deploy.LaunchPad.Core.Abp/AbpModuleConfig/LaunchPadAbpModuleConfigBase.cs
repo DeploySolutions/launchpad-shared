@@ -7,7 +7,7 @@
 // Last Modified On : 09-17-2023
 // ***********************************************************************
 // <copyright file="LaunchPadAbpModuleConfigBase.cs" company="Deploy Software Solutions, inc.">
-//     2018-2023 Deploy Software Solutions, inc.
+//     2018-2024 Deploy Software Solutions, inc.
 // </copyright>
 // <summary></summary>
 // ***********************************************************************

@@ -10,7 +10,7 @@
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageProjectUrl>https://github.com/DeploySolutions/launchpad-shared</PackageProjectUrl>
     <RepositoryUrl>https://github.com/DeploySolutions/launchpad-shared</RepositoryUrl>
-    <Version>10.7.1</Version>
+    <Version>10.8.0</Version>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <PackageIcon>icon.png</PackageIcon>
     <IncludeSymbols>true</IncludeSymbols>
@@ -18,15 +18,15 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="AWSSDK.APIGateway" Version="3.7.400.16" />
-    <PackageReference Include="AWSSDK.Core" Version="3.7.400.16" />
-    <PackageReference Include="AWSSDK.ElasticFileSystem" Version="3.7.400.16" />
-    <PackageReference Include="AWSSDK.Lambda" Version="3.7.402.6" />
-    <PackageReference Include="AWSSDK.Redshift" Version="3.7.400.16" />
-    <PackageReference Include="AWSSDK.S3" Version="3.7.402.7" />
-    <PackageReference Include="AWSSDK.SecretsManager" Version="3.7.400.16" />
-    <PackageReference Include="AWSSDK.SimpleNotificationService" Version="3.7.400.16" />
-    <PackageReference Include="AWSSDK.SQS" Version="3.7.400.16" />
+    <PackageReference Include="AWSSDK.APIGateway" Version="3.7.400.20" />
+    <PackageReference Include="AWSSDK.Core" Version="3.7.400.20" />
+    <PackageReference Include="AWSSDK.ElasticFileSystem" Version="3.7.400.20" />
+    <PackageReference Include="AWSSDK.Lambda" Version="3.7.402.10" />
+    <PackageReference Include="AWSSDK.Redshift" Version="3.7.400.20" />
+    <PackageReference Include="AWSSDK.S3" Version="3.7.402.11" />
+    <PackageReference Include="AWSSDK.SecretsManager" Version="3.7.400.20" />
+    <PackageReference Include="AWSSDK.SimpleNotificationService" Version="3.7.400.20" />
+    <PackageReference Include="AWSSDK.SQS" Version="3.7.400.20" />
     <PackageReference Include="AwsSignatureVersion4" Version="4.0.5" />
     <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="8.0.0" />

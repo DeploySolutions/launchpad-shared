@@ -7,7 +7,7 @@
 // Last Modified On : 07-26-2023
 // ***********************************************************************
 // <copyright file="Module.cs" company="Deploy Software Solutions, inc.">
-//     2018-2023 Deploy Software Solutions, inc.
+//     2018-2024 Deploy Software Solutions, inc.
 // </copyright>
 // <summary></summary>
 // ***********************************************************************

@@ -7,7 +7,7 @@
 // Last Modified On : 10-15-2023
 // ***********************************************************************
 // <copyright file="LaunchPadHostingEnvironmentExtensions.cs" company="Deploy Software Solutions, inc.">
-//     2018-2023 Deploy Software Solutions, inc.
+//     2018-2024 Deploy Software Solutions, inc.
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
