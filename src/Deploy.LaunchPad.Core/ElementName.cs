@@ -3,15 +3,24 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Diagnostics;
 using System.Security.Cryptography.X509Certificates;
+using System.Xml.Linq;
 using System.Xml.Serialization;
 
 namespace Deploy.LaunchPad.Core
 {
     [Serializable]
     [ComplexType]
+    [DebuggerDisplay("{_debugDisplay}")]
     public partial class ElementName : IElementName
     {
+        /// <summary>
+        /// Controls the DebuggerDisplay attribute presentation (above). This will only appear during VS debugging sessions and should never be logged.
+        /// </summary>
+        /// <value>The debug display.</value>
+        protected virtual string _debugDisplay => $"{Full}.";
+
 
         protected string _full = string.Empty;
         /// <summary>

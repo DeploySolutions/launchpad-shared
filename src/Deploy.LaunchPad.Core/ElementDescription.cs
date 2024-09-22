@@ -9,13 +9,21 @@ using System.Text;
 using System.Xml.Linq;
 using System.Xml.Serialization;
 using System.Security.Cryptography.X509Certificates;
+using System.Diagnostics;
 
 namespace Deploy.LaunchPad.Core
 {
     [Serializable]
     [ComplexType]
+    [DebuggerDisplay("{_debugDisplay}")]
     public partial class ElementDescription : IElementDescription
     {
+        /// <summary>
+        /// Controls the DebuggerDisplay attribute presentation (above). This will only appear during VS debugging sessions and should never be logged.
+        /// </summary>
+        /// <value>The debug display.</value>
+        protected virtual string _debugDisplay => $"{Full}.";
+
         protected string _full = string.Empty;
         /// <summary>
         /// The full description for this object
