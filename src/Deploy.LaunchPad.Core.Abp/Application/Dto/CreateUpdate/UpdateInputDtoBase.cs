@@ -85,7 +85,7 @@ namespace Deploy.LaunchPad.Core.Abp.Application.Dto
         /// <value>The translated from identifier.</value>
         [DataObjectField(true)]
         [XmlAttribute]
-        public virtual TIdType TranslatedFromId { get; set; }
+        public virtual TIdType? TranslatedFromId { get; set; }
 
 
         /// <summary>
@@ -154,7 +154,7 @@ namespace Deploy.LaunchPad.Core.Abp.Application.Dto
         {
             Id = (TIdType)info.GetValue("Id", typeof(TIdType));
             ExternalId = info.GetString("ExternalId");
-            TranslatedFromId = (TIdType)info.GetValue("TranslatedFromId", typeof(TIdType));
+            TranslatedFromId = (TIdType?)info.GetValue("TranslatedFromId", typeof(TIdType?));
             Culture = info.GetString("Culture");
             Name = info.GetString("Name");
             Description = info.GetString("Description");
@@ -205,7 +205,10 @@ namespace Deploy.LaunchPad.Core.Abp.Application.Dto
             sb.Append(base.ToStringBaseProperties());
             // LaunchPAD RAD properties
             //
-            sb.AppendFormat("TranslatedFromId={0};", TranslatedFromId);
+            if(TranslatedFromId != null)
+            {
+                sb.AppendFormat("TranslatedFromId={0};", TranslatedFromId);
+            }
             sb.AppendFormat("ExternalId={0};", ExternalId);
             sb.AppendFormat("Name={0};", Name);
             sb.AppendFormat("Description={0};", Description);
@@ -279,9 +282,20 @@ namespace Deploy.LaunchPad.Core.Abp.Application.Dto
         {
             if (obj != null)
             {
-                return Id.Equals(obj.Id) && Culture.Equals(obj.Culture) && ExternalId.Equals(obj.ExternalId) && SeqNum == obj.SeqNum
-                    && Description.Equals(obj.Description) && Name.Equals(obj.Name) && TranslatedFromId.Equals(obj.TranslatedFromId)
-                ;
+                if (TranslatedFromId != null)
+                {
+                    return Id.Equals(obj.Id) && Culture.Equals(obj.Culture) && ExternalId.Equals(obj.ExternalId) && SeqNum == obj.SeqNum
+                        && Description.Equals(obj.Description) && Name.Equals(obj.Name) && TranslatedFromId.Equals(obj.TranslatedFromId)
+                    ;
+                }
+                else
+                {
+                    return Id.Equals(obj.Id) && Culture.Equals(obj.Culture) && ExternalId.Equals(obj.ExternalId) && SeqNum == obj.SeqNum
+                        && Description.Equals(obj.Description) && Name.Equals(obj.Name)
+                    ;
+                }
+
+               
             }
             return false;
         }
@@ -327,7 +341,6 @@ namespace Deploy.LaunchPad.Core.Abp.Application.Dto
                 + ExternalId.GetHashCode()
                 + Name.GetHashCode()
                 + Description.GetHashCode()
-                + TranslatedFromId.GetHashCode()
            ;
         }
     }
