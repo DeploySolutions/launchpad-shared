@@ -151,7 +151,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
             set { _seqNum = value; }
         }
 
-        protected IList<string> _tags;
+        protected string _tags;
         /// <summary>
         /// Each entity can have an open-ended set of tags applied to it, that help users find, markup, and display its information
         /// </summary>
@@ -160,7 +160,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
         [DataMember(Name = "tags", EmitDefaultValue = false)]
         [XmlAttribute]
         [CanBeNull]
-        public virtual IList<string> Tags
+        public virtual string Tags
         {
             get { return _tags; }
             set { _tags = value; }
@@ -271,7 +271,6 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
         {
             Culture = ApplicationDetails<TIdType>.DEFAULT_CULTURE;
             //TenantId = 0; // default tenant
-            Tags = new List<string>();
             IsDeleted = false;
             IsActive = true;
             Name = new ElementName(string.Empty, string.Empty);
@@ -290,7 +289,6 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
             CreatorUserId = 1; // TODO - default user account?
             IsDeleted = false;
             IsActive = true;
-            Tags = new List<string>();
             Name = new ElementName(Id.ToString(), Id.ToString());
             Description = new ElementDescription(string.Empty, string.Empty);
         }
@@ -308,7 +306,6 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
             CreatorUserId = 1; // TODO - default user account?
             IsDeleted = false;
             IsActive = true;
-            Tags = new List<string>();
             Name = new ElementName(name);
             Description = new ElementDescription(string.Empty, string.Empty);
         }
@@ -326,7 +323,6 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
             CreatorUserId = 1; // TODO - default user account?
             IsDeleted = false;
             IsActive = true;
-            Tags = new List<string>();
             Name = new ElementName(name);
             Description = new ElementDescription(string.Empty, string.Empty);
         }
@@ -344,7 +340,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
             Name = (ElementName)info.GetValue("Name", typeof(ElementName));
             Description = (ElementDescription)info.GetValue("Description", typeof(ElementDescription));
             Checksum = info.GetString("Checksum");
-            Tags = (List<string>)info.GetValue("Tags", typeof(List<string>));
+            Tags = info.GetString("Tags");
             CreationTime = info.GetDateTime("CreationTime");
             CreatorUserId = info.GetInt64("CreatorUserId");
             LastModificationTime = info.GetDateTime("LastModificationTime");

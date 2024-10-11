@@ -79,7 +79,7 @@ namespace Deploy.LaunchPad.Core.Domain.Model
         /// <value>The tags.</value>
         [DataObjectField(false)]
         [XmlAttribute]
-        public IList<string> Tags { get; }
+        public string Tags { get; }
 
         
         /// <summary>
