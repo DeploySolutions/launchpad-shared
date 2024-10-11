@@ -106,7 +106,7 @@ namespace Deploy.LaunchPad.Core.Abp.Application.Dto
             Id = (TIdType)info.GetValue("Id", typeof(TIdType));
             SeqNum = info.GetInt32("SeqNum");
             ExternalId = info.GetString("ExternalId");
-            TranslatedFromId = (TIdType?)info.GetValue("TranslatedFromId", typeof(TIdType?));
+            TranslatedFromId = (TIdType)info.GetValue("TranslatedFromId", typeof(TIdType));
             Culture = info.GetString("Culture");
             Name = (ElementName)info.GetValue("Name", typeof(ElementName)); // DisplayName?
             Description = (ElementDescription)info.GetValue("Description", typeof(ElementDescription));

@@ -166,7 +166,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
             set { _tags = value; }
         }
 
-        protected TIdType? _translatedFromId;
+        protected TIdType _translatedFromId;
         /// <summary>
         /// If this object is not a translation this field will be null.
         /// If this object is a translation, this id references the parent object.
@@ -176,7 +176,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
         [DataMember(Name = "translatedFromId", EmitDefaultValue = false)]
         [CanBeNull]
         [XmlAttribute]
-        public virtual TIdType? TranslatedFromId
+        public virtual TIdType TranslatedFromId
         {
             get { return _translatedFromId; }
             set { _translatedFromId = value; }
@@ -353,7 +353,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
             DeleterUserId = info.GetInt64("DeleterUserId");
             DeletionTime = info.GetDateTime("DeletionTime");
             IsActive = info.GetBoolean("IsActive");
-            TranslatedFromId = (TIdType?)info.GetValue("TranslatedFromId", typeof(TIdType?));
+            TranslatedFromId = (TIdType)info.GetValue("TranslatedFromId", typeof(TIdType));
             SeqNum = info.GetInt32("SeqNum");
             //Metadata = (MetadataInformation)info.GetValue("Metadata", typeof(MetadataInformation));
 

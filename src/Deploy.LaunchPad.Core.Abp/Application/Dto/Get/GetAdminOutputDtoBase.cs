@@ -120,8 +120,7 @@ namespace Deploy.LaunchPad.Core.Abp.Application.Dto
             LastModifierUserName = info.GetString("LastModifierUserName");
             LastModifierUserId = info.GetInt64("LastModifierUserId");
             LastModificationTime = info.GetDateTime("LastModificationTime");
-            
-            TranslatedFromId = (TIdType?)info.GetValue("TranslatedFromId", typeof(TIdType?));
+            TranslatedFromId = (TIdType)info.GetValue("TranslatedFromId", typeof(TIdType));
             IsActive = info.GetBoolean("IsActive");
             IsDeleted = info.GetBoolean("IsDeleted");
             DeletionTime = info.GetDateTime("DeletionTime");
