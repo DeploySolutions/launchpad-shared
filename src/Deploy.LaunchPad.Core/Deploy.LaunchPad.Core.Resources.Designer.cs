@@ -891,14 +891,14 @@ namespace Deploy.LaunchPad.Core {
         }
 
         /// <summary>
-        /// Looks up a localized string similar to Description Short must be 20 characters or less..
+        /// Looks up a localized string similar to Description Short must be 24 characters or less..
         /// </summary>
-        /// <value>The validation description short 20 chars or less.</value>
-        public static string Validation_ElementName_Short_20CharsOrLess
+        /// <value>The validation description short 24 chars or less.</value>
+        public static string Validation_ElementName_Short_24CharsOrLess
         {
             get
             {
-                return ResourceManager.GetString("Validation_ElementName_Short_20CharsOrLess", resourceCulture);
+                return ResourceManager.GetString("Validation_ElementName_Short_24CharsOrLess", resourceCulture);
             }
         }
 

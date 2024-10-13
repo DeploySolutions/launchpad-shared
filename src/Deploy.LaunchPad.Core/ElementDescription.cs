@@ -90,7 +90,7 @@ namespace Deploy.LaunchPad.Core
             Full = fullDescription;
             if (!string.IsNullOrEmpty(shortDescription))
             {
-                Short = shortDescription.Length > 12 ? shortDescription.Substring(0, 12) : shortDescription;
+                Short = shortDescription.Length > 255 ? shortDescription.Substring(0, 255) : shortDescription;
             }
         }
 
