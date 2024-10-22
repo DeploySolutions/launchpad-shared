@@ -37,19 +37,19 @@ namespace Deploy.LaunchPad.Organizations.Canada
     /// Implements the <see cref="Deploy.LaunchPad.Core.Abp.Domain.GovernmentOrganizationBase{System.Guid}" />
     /// </summary>
     /// <seealso cref="Deploy.LaunchPad.Core.Abp.Domain.GovernmentOrganizationBase{System.Guid}" />
-    public partial class CanadaSpaceAgency : GovernmentOrganizationBase<Guid>
+    public partial class CanadianSpaceAgency : GovernmentOrganizationBase<Guid>
     {
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="CanadaSpaceAgency"/> class.
+        /// Initializes a new instance of the <see cref="CanadianSpaceAgency"/> class.
         /// </summary>
         /// <param name="tenantId">The tenant identifier.</param>
-        public CanadaSpaceAgency(int? tenantId) : base(tenantId)
+        public CanadianSpaceAgency(int? tenantId) : base(tenantId)
         {
             GovernmentOrganization org = new GovernmentOrganization()
             {
-                Name = "Canada Space Agency/Agence spatiale canadienne",
-                LegalName = "Canada Space Agency/Agence spatiale canadienne",
+                Name = "Canadian Space Agency/Agence spatiale canadienne",
+                LegalName = "Canadian Space Agency/Agence spatiale canadienne",
                 NumberOfEmployees = new QuantitativeValue()
                 {
                     MinValue = 670,

@@ -53,7 +53,7 @@ namespace Deploy.LaunchPad.Space.Satellites.GoC
         /// <param name="tenantId">The tenant identifier.</param>
         protected RCMSatellite(int? tenantId) : base()
         {
-            var csaOperator = new CanadaSpaceAgency(tenantId);
+            var csaOperator = new CanadianSpaceAgency(tenantId);
             csaOperator.Id = Guid.NewGuid();
             Operators = new Dictionary<Guid, ISatelliteOperator<Guid>>
             {

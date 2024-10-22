@@ -27,7 +27,10 @@
 #endregion
 
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Xml.Serialization;
 using Deploy.LaunchPad.Core.Abp.Domain.Model;
+using Schema.NET;
 
 namespace Deploy.LaunchPad.Core.Abp.Domain
 {
@@ -39,17 +42,14 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
     /// <seealso cref="ILaunchPadDomainEntity{TPrimaryKey}" />
     public partial interface IOrganization<TPrimaryKey> : ILaunchPadDomainEntity<TPrimaryKey>
     {
-        /// <summary>
-        /// Gets the full name.
-        /// </summary>
-        /// <value>The full name.</value>
-        string FullName { get; }
+        public Organization Schema { get; }
 
-        /// <summary>
-        /// Gets the abbreviation.
-        /// </summary>
-        /// <value>The abbreviation.</value>
-        string Abbreviation { get; }
+        ///<summary>
+        /// Parent organization can be listed (if it exists). Null if this is the root organization.
+        ///</summary>
+        [DataObjectField(false)]
+        [XmlAttribute]
+        public IOrganization? Parent { get; set; }
 
         /// <summary>
         /// Gets the website.

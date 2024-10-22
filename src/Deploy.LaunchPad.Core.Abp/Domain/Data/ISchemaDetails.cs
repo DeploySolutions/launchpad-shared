@@ -30,7 +30,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
         /// <value>The name.</value>
         [DataObjectField(false)]
         [XmlAttribute]
-        public String Name { get; set; }
+        public ElementName Name { get; set; }
 
         /// <summary>
         /// The version of this schema
@@ -41,20 +41,12 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
         public String Version { get; set; }
 
         /// <summary>
-        /// A short description for this entity
+        /// A  description for this entity
         /// </summary>
-        /// <value>The description short.</value>
+        /// <value>The description.</value>
         [DataObjectField(false)]
         [XmlAttribute]
-        public String DescriptionShort { get; set; }
-
-        /// <summary>
-        /// The full description for this entity
-        /// </summary>
-        /// <value>The description full.</value>
-        [DataObjectField(false)]
-        [XmlElement]
-        public String DescriptionFull { get; set; }
+        public ElementDescription Description { get; set; }
 
         /// <summary>
         /// Each entity can have an open-ended set of tags applied to it, that help users find, markup, and display its information
@@ -62,6 +54,6 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
         /// <value>The tags.</value>
         [DataObjectField(false)]
         [XmlAttribute]
-        public IEnumerable<MetadataTag> Tags { get; set; }
+        public string Tags { get; set; }
     }
 }

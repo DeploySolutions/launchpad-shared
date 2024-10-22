@@ -33,6 +33,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
     using System.Runtime.Serialization;
     using System.Text;
     using Deploy.LaunchPad.Core.Abp.Domain.Model;
+    using Deploy.LaunchPad.Core.Domain;
     using Deploy.LaunchPad.Core.Domain.Model;
 
     /// <summary>
@@ -49,6 +50,18 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
         where TDictionaryKey : struct
         where TDataPointPrimaryKey : struct
     {
+        public virtual string Contact { get; set; }
+
+        public virtual string Quality { get; set; }
+
+        public virtual string Format { get; set; }
+        public virtual string AccessRights { get; set; }
+        public virtual string UsageNotes { get; set; }
+
+        public virtual License License  { get; set; }
+
+        public IList<DataSet<TPrimaryKey, TDictionaryKey, TDataPointPrimaryKey>> Related { get; set; }
+
         /// <summary>
         /// Gets the count.
         /// </summary>
@@ -79,7 +92,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
         /// </summary>
         /// <value>The tenant identifier.</value>
         /// <exception cref="System.NotImplementedException"></exception>
-        public virtual int? TenantId { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public virtual int? TenantId { get; set; }
 
         /// <summary>
         /// Describes the schema (where known) according to which this data is structured.
@@ -148,6 +161,13 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
         {
             _data = (IDictionary<TDictionaryKey, IDataPoint<TDataPointPrimaryKey>>)info.GetValue("Data", typeof(IDictionary<TDictionaryKey, IDataPoint<TDataPointPrimaryKey>>));
             Schema = (ISchemaDetails)info.GetValue("Schema", typeof(ISchemaDetails));
+            Contact = info.GetString("Contact");
+            Quality = info.GetString("Quality");
+            AccessRights = info.GetString("AccessRights");
+            Format = info.GetString("Format");
+            UsageNotes = info.GetString("UsageNotes"); 
+            License = (License)info.GetValue("Data", typeof(License));
+
         }
 
 
@@ -162,6 +182,13 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
             info.AddValue("Count", Count);
             info.AddValue("Data", Data);
             info.AddValue("Schema", Schema);
+            info.AddValue("Contact", Contact);
+            info.AddValue("Quality", Quality);
+            info.AddValue("AccessRights", AccessRights);
+            info.AddValue("Format", Format);
+            info.AddValue("UsageNotes", UsageNotes);
+            info.AddValue("Related", Related);
+            info.AddValue("License", License);
         }
 
         /// <summary>
@@ -175,6 +202,13 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
             sb.AppendFormat(ToStringBaseProperties());
             sb.AppendFormat(" Schema={0};", Schema);
             sb.AppendFormat(" Count={0};", Count);
+            sb.AppendFormat(" Contact={0};", Contact);
+            sb.AppendFormat(" Quality={0};", Quality);
+            sb.AppendFormat(" AccessRights={0};", AccessRights);
+            sb.AppendFormat(" Format={0};", Format);
+            sb.AppendFormat(" UsageNotes={0};", UsageNotes);
+            sb.AppendFormat(" Related={0};", Related);
+            sb.AppendFormat(" License={0};", License);
             sb.Append(']');
             return sb.ToString();
         }

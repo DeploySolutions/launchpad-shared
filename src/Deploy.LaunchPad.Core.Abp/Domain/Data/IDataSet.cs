@@ -28,6 +28,7 @@
 
 using Abp.Domain.Entities;
 using Deploy.LaunchPad.Core.Abp.Domain.Model;
+using Deploy.LaunchPad.Core.Domain;
 using System.Collections.Generic;
 
 namespace Deploy.LaunchPad.Core.Abp.Domain
@@ -52,6 +53,18 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
         /// </summary>
         /// <value>The schema.</value>
         public ISchemaDetails Schema { get; set; }
+
+        public string Contact { get; set; }
+
+        public string Quality { get; set; }
+
+        public string Format { get; set; }
+        public string AccessRights { get; set; }
+        public string UsageNotes { get; set; }
+
+        public License License { get; set; }
+
+        public IList<DataSet<TPrimaryKey, TDictionaryKey, TDataPointPrimaryKey>> Related { get; set; }
 
         /// <summary>
         /// Gets the count.

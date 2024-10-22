@@ -54,7 +54,14 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
         /// <value>The schema.</value>
         [DataObjectField(false)]
         [XmlAttribute]
-        public virtual Organization Schema { get; set; }
+        public virtual Organization Schema { get; protected set; }
+
+        ///<summary>
+        /// Parent organization can be listed (if it exists). Null if this is the root organization.
+        ///</summary>
+        [DataObjectField(false)]
+        [XmlAttribute]
+        public virtual IOrganization? Parent { get; set; }
 
         /// <summary>
         /// Gets the full name.
@@ -96,6 +103,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
         [DataObjectField(false)]
         [XmlAttribute]
         public virtual IList<string> Offices { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        
         /// <summary>
         /// TenantId of this entity.
         /// </summary>

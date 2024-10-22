@@ -177,7 +177,7 @@ namespace Deploy.LaunchPad.Space.Tests
         [Fact]
         public void License_Name_Should_Be_Open_Government_Canada()
         {
-            string name = Deploy_LaunchPad_Core_Resources.Text_OpenGovernmentCanadaLicense_LicenseName;
+            ElementName name = new ElementName( Deploy_LaunchPad_Core_Resources.Text_OpenGovernmentCanadaLicense_LicenseName);
             _fixture.Observation.Copyright.GoverningLicense.Name.Should().Be(name);
         }
 
@@ -187,8 +187,8 @@ namespace Deploy.LaunchPad.Space.Tests
         [Fact]
         public void License_Description_Should_Be_Open_Government_Canada()
         {
-            string description = Deploy_LaunchPad_Core_Resources.Text_OpenGovernmentCanadaLicense_LicenseDescription;
-            _fixture.Observation.Copyright.GoverningLicense.Summary.Should().Be(description);
+            ElementDescription description = new ElementDescription (Deploy_LaunchPad_Core_Resources.Text_OpenGovernmentCanadaLicense_LicenseDescription);
+            _fixture.Observation.Copyright.GoverningLicense.Description.Should().Be(description);
         }
 
         /// <summary>

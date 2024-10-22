@@ -40,18 +40,22 @@ namespace Deploy.LaunchPad.Core.Domain
         /// The name of the license
         /// </summary>
         /// <value>The name.</value>
-        string Name { get; }
+        public ElementName Name { get; }
 
         /// <summary>
         /// A brief human-readable description of the license
         /// </summary>
         /// <value>The summary.</value>
-        string Summary { get; }
+        public ElementDescription Description { get; }
+
+        public string Text { get; }
+
+        public string StandardLicenseHeader { get; }
 
         /// <summary>
         /// A link to the full terms of the license
         /// </summary>
         /// <value>The full terms URL.</value>
-        Uri FullTermsUrl { get; }
+        public Uri FullTermsUrl { get; }
     }
 }

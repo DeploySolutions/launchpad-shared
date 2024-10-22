@@ -34,19 +34,32 @@ namespace Deploy.LaunchPad.Core.Domain
     /// <summary>
     /// Identifies a license to assist with identifying and remaining compliant with its terms
     /// </summary>
-    public abstract class License : ILicense
+    public abstract partial class License : ILicense
     {
         /// <summary>
         /// The name of the license
         /// </summary>
         /// <value>The name.</value>
-        public abstract string Name { get; }
+        public virtual ElementName Name { get; }
+
+
+        /// <summary>
+        /// The Description of the license
+        /// </summary>
+        /// <value>The Description.</value>
+        public virtual ElementDescription Description { get; }
 
         /// <summary>
         /// A brief human-readable description of the license
         /// </summary>
         /// <value>The summary.</value>
-        public abstract string Summary { get; }
+        public string Text { get; }
+
+        /// <summary>
+        /// A standard header text (if any) to place at the top of code or text files to indicate the license
+        /// </summary>
+        /// <value>The summary.</value>
+        public string StandardLicenseHeader { get; }
 
         /// <summary>
         /// A link to the full terms of the license

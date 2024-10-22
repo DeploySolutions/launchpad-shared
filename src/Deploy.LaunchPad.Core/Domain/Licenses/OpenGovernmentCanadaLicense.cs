@@ -25,15 +25,15 @@ namespace Deploy.LaunchPad.Core.Domain
         /// The name of the license
         /// </summary>
         /// <value>The name.</value>
-        public override string Name =>
-            Deploy_LaunchPad_Core_Resources.Text_OpenGovernmentCanadaLicense_LicenseName;
+        public override ElementName Name => new ElementName(
+            Deploy_LaunchPad_Core_Resources.Text_OpenGovernmentCanadaLicense_LicenseName);
 
         /// <summary>
         /// A brief human-readable description of the license
         /// </summary>
         /// <value>The summary.</value>
-        public override string Summary => Deploy_LaunchPad_Core_Resources
-            .Text_OpenGovernmentCanadaLicense_LicenseDescription;
+        public override ElementDescription Description => new ElementDescription(Deploy_LaunchPad_Core_Resources
+            .Text_OpenGovernmentCanadaLicense_LicenseDescription);
 
         /// <summary>
         /// A link to the full terms of the license
