@@ -53,19 +53,19 @@ namespace Deploy.LaunchPad.Core.Domain
         /// A brief human-readable description of the license
         /// </summary>
         /// <value>The summary.</value>
-        public string Text { get; }
+        public virtual string Text { get; }
 
         /// <summary>
         /// A standard header text (if any) to place at the top of code or text files to indicate the license
         /// </summary>
         /// <value>The summary.</value>
-        public string StandardLicenseHeader { get; }
+        public virtual string StandardLicenseHeader { get; }
 
         /// <summary>
         /// A link to the full terms of the license
         /// </summary>
         /// <value>The full terms URL.</value>
-        public abstract Uri FullTermsUrl { get; }
+        public virtual Uri FullTermsUrl { get; }
 
     }
 }

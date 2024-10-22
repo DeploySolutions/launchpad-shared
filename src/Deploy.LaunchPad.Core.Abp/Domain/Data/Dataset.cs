@@ -46,7 +46,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
     /// <typeparam name="TDataPointPrimaryKey">The type of the t data point primary key.</typeparam>
     /// <seealso cref="LaunchPadDomainEntityBase{TPrimaryKey}" />
     /// <seealso cref="Deploy.LaunchPad.Core.Abp.Domain.IDataSet{TPrimaryKey, TDictionaryKey, TDataPointPrimaryKey}" />
-    public abstract class DataSet<TPrimaryKey, TDictionaryKey, TDataPointPrimaryKey> : LaunchPadDomainEntityBase<TPrimaryKey>, IDataSet<TPrimaryKey, TDictionaryKey, TDataPointPrimaryKey>
+    public abstract partial class DataSet<TPrimaryKey, TDictionaryKey, TDataPointPrimaryKey> : LaunchPadDomainEntityBase<TPrimaryKey>, IDataSet<TPrimaryKey, TDictionaryKey, TDataPointPrimaryKey>
         where TDictionaryKey : struct
         where TDataPointPrimaryKey : struct
     {
@@ -60,7 +60,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
 
         public virtual License License  { get; set; }
 
-        public IList<DataSet<TPrimaryKey, TDictionaryKey, TDataPointPrimaryKey>> Related { get; set; }
+        public virtual IList<DataSet<TPrimaryKey, TDictionaryKey, TDataPointPrimaryKey>> Related { get; set; }
 
         /// <summary>
         /// Gets the count.
@@ -82,7 +82,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
         /// Gets the data.
         /// </summary>
         /// <value>The data.</value>
-        public IDictionary<TDictionaryKey, IDataPoint<TDataPointPrimaryKey>> Data
+        public virtual IDictionary<TDictionaryKey, IDataPoint<TDataPointPrimaryKey>> Data
         {
             get { return _data; }
         }
@@ -98,7 +98,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
         /// Describes the schema (where known) according to which this data is structured.
         /// </summary>
         /// <value>The schema.</value>
-        public ISchemaDetails Schema { get; set; }
+        public virtual ISchemaDetails Schema { get; set; }
 
         /// <summary>
         /// Adds the data.

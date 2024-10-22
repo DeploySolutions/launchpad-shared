@@ -47,7 +47,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
     /// <typeparam name="TDataPointPrimaryKey">The type of the t data point primary key.</typeparam>
     /// <seealso cref="LaunchPadDomainEntityBase{TPrimaryKey}" />
     /// <seealso cref="Deploy.LaunchPad.Core.Abp.Domain.IDataCatalogue{TPrimaryKey, TDictionaryKey, TDataPointPrimaryKey}" />
-    public abstract class DataCatalogue<TPrimaryKey, TDictionaryKey, TDataPointPrimaryKey> :
+    public abstract partial class DataCatalogue<TPrimaryKey, TDictionaryKey, TDataPointPrimaryKey> :
         LaunchPadDomainEntityBase<TPrimaryKey>,
         IDataCatalogue<TPrimaryKey, TDictionaryKey, TDataPointPrimaryKey>
         where TDictionaryKey : struct
@@ -58,26 +58,26 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
         /// Gets or sets the items count.
         /// </summary>
         /// <value>The items count.</value>
-        public long ItemsCount { get; set; }
+        public virtual long ItemsCount { get; set; }
 
 
         /// <summary>
         /// TenantId of this entity.
         /// </summary>
         /// <value>The tenant identifier.</value>
-        public int? TenantId { get; set; }
+        public virtual int? TenantId { get; set; }
         /// <summary>
         /// Gets or sets the data sets.
         /// </summary>
         /// <value>The data sets.</value>
         /// <exception cref="System.NotImplementedException"></exception>
-        public IEnumerable<IDataSet<TPrimaryKey, TDictionaryKey, TDataPointPrimaryKey>> DataSets { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public virtual IEnumerable<IDataSet<TPrimaryKey, TDictionaryKey, TDataPointPrimaryKey>> DataSets { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
         /// <summary>
         /// Gets or sets the data sets count.
         /// </summary>
         /// <value>The data sets count.</value>
         /// <exception cref="System.NotImplementedException"></exception>
-        public int DataSetsCount { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public virtual int DataSetsCount { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="DataCatalogue{TPrimaryKey, TDictionaryKey, TDataPointPrimaryKey}"/> class.
