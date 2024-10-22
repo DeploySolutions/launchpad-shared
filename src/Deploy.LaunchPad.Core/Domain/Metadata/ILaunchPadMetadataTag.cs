@@ -40,14 +40,6 @@ namespace Deploy.LaunchPad.Core.Domain
     {
 
         /// <summary>
-        /// The unique id of this metadata tag
-        /// </summary>
-        /// <value>The identifier.</value>
-        [DataObjectField(false)]
-        [XmlAttribute]
-        long Id { get; set; }
-
-        /// <summary>
         /// The name of this metadata tag
         /// </summary>
         /// <value>The key.</value>
