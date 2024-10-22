@@ -51,7 +51,7 @@ namespace Deploy.LaunchPad.Core.Domain
         /// <value>The key.</value>
         [DataObjectField(false)]
         [XmlAttribute]
-        public virtual String Key { get; set; }
+        public virtual required String Key { get; set; }
 
         /// <summary>
         /// The value of this metadata tag
@@ -59,7 +59,7 @@ namespace Deploy.LaunchPad.Core.Domain
         /// <value>The value.</value>
         [DataObjectField(false)]
         [XmlAttribute]
-        public virtual String Value { get; set; }
+        public virtual required String Value { get; set; }
 
         /// <summary>
         /// The scheme of this metadata tag, if any
