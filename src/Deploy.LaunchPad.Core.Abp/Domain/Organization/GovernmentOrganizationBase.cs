@@ -43,7 +43,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
     /// base functionality for many of its methods. Inherits from ASP.NET Boilerplate's IEntity interface.
     /// </summary>
     /// <typeparam name="TPrimaryKey">The type of the t primary key.</typeparam>
-    public abstract partial class GovernmentOrganizationBase<TPrimaryKey> : OrganizationBase<TPrimaryKey>, IOrganization<TPrimaryKey>
+    public abstract partial class GovernmentOrganizationBase : LaunchPadOrganizationBase, IOrganization
     {
 
         /// <summary>
@@ -57,13 +57,6 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
         [DataObjectField(false)]
         [XmlAttribute]
         public new GovernmentOrganization Schema { get => _schema; set => _schema = value; }
-
-
-        #region Implementation of ASP.NET Boilerplate's IEntity interface
-
-
-
-        #endregion
 
 
         /// <summary>
@@ -88,7 +81,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
         /// </summary>
         /// <param name="tenantId">The tenant identifier.</param>
         /// <param name="id">The identifier.</param>
-        protected GovernmentOrganizationBase(int? tenantId, TPrimaryKey id) : base(tenantId)
+        protected GovernmentOrganizationBase(int? tenantId, System.Int64 id) : base(tenantId)
         {
             Id = id;
         }
@@ -122,7 +115,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
         /// </summary>
         /// <typeparam name="TEntity">The source entity to clone</typeparam>
         /// <returns>A shallow clone of the entity and its serializable properties</returns>
-        protected new virtual TEntity Clone<TEntity>() where TEntity : GovernmentOrganizationBase<TPrimaryKey>, new()
+        protected new virtual TEntity Clone<TEntity>() where TEntity : GovernmentOrganizationBase, new()
         {
             TEntity clone = new TEntity();
             foreach (PropertyInfo info in GetType().GetProperties())
@@ -144,10 +137,10 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
         /// </summary>
         /// <param name="other">The other object of this type we are comparing to</param>
         /// <returns>System.Int32.</returns>
-        public virtual int CompareTo(GovernmentOrganizationBase<TPrimaryKey> other)
+        public virtual int CompareTo(GovernmentOrganizationBase other)
         {
             if (other == null) return 1;
-            return FullName.CompareTo(other.FullName);
+            return Name.CompareTo(other.Name);
         }
 
         /// <summary>
@@ -170,9 +163,9 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
         /// <returns>True if the entities are the same according to business key value</returns>
         public override bool Equals(object obj)
         {
-            if (obj != null && obj is GovernmentOrganizationBase<TPrimaryKey>)
+            if (obj != null && obj is GovernmentOrganizationBase)
             {
-                return Equals(obj as GovernmentOrganizationBase<TPrimaryKey>);
+                return Equals(obj as GovernmentOrganizationBase);
             }
             return false;
         }
@@ -186,7 +179,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
         /// </summary>
         /// <param name="obj">The other object of this type that we are testing equality with</param>
         /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
-        public virtual bool Equals(GovernmentOrganizationBase<TPrimaryKey> obj)
+        public virtual bool Equals(GovernmentOrganizationBase obj)
         {
             if (obj != null)
             {
@@ -214,7 +207,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
         /// <param name="x">The first value</param>
         /// <param name="y">The second value</param>
         /// <returns>True if both objects are fully equal based on the Equals logic</returns>
-        public static bool operator ==(GovernmentOrganizationBase<TPrimaryKey> x, GovernmentOrganizationBase<TPrimaryKey> y)
+        public static bool operator ==(GovernmentOrganizationBase x, GovernmentOrganizationBase y)
         {
             if (System.Object.ReferenceEquals(x, null))
             {
@@ -233,7 +226,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
         /// <param name="x">The first value</param>
         /// <param name="y">The second value</param>
         /// <returns>True if both objects are not equal based on the Equals logic</returns>
-        public static bool operator !=(GovernmentOrganizationBase<TPrimaryKey> x, GovernmentOrganizationBase<TPrimaryKey> y)
+        public static bool operator !=(GovernmentOrganizationBase x, GovernmentOrganizationBase y)
         {
             return !(x == y);
         }

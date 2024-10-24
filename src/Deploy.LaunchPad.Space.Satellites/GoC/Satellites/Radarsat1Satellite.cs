@@ -43,20 +43,20 @@ namespace Deploy.LaunchPad.Space.Satellites.GoC
     /// </summary>
     /// <typeparam name="TPrimaryKey">The type of the t primary key.</typeparam>
     /// <seealso cref="SatelliteBase{TPrimaryKey}" />
-    public partial class Radarsat1Satellite<TPrimaryKey> : SatelliteBase<TPrimaryKey>
+    public partial class Radarsat1Satellite : SatelliteBase
     {
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Radarsat1Satellite{TPrimaryKey}"/> class.
+        /// Initializes a new instance of the <see cref="Radarsat1Satellite"/> class.
         /// </summary>
         /// <param name="tenantId">The tenant identifier.</param>
         protected Radarsat1Satellite(int? tenantId) : base()
         {
             var csaOperator = new CanadianSpaceAgency(tenantId);
-            csaOperator.Id = Guid.NewGuid();
-            Operators = new Dictionary<Guid, ISatelliteOperator<Guid>>
+            csaOperator.Id = 1;
+            Operators = new Dictionary<long, ISatelliteOperator>
             {
-                { csaOperator.Id, csaOperator as ISatelliteOperator<Guid> }
+                { csaOperator.Id, csaOperator as ISatelliteOperator }
             };
             SatelliteCatalogNumber = "23710";
             CosparID = "1995-059A";

@@ -32,13 +32,12 @@ namespace Deploy.LaunchPad.Space.Satellites.Core
 
     /// <summary>
     /// Interface IGovernmentSatelliteOperator
-    /// Extends the <see cref="IGovernmentOrganization{TPrimaryKey}" />
-    /// Extends the <see cref="Deploy.LaunchPad.Space.Satellites.Core.ISatelliteOperator{TPrimaryKey}" />
+    /// Extends the <see cref="IGovernmentOrganization" />
+    /// Extends the <see cref="Deploy.LaunchPad.Space.Satellites.Core.ISatelliteOperator" />
     /// </summary>
-    /// <typeparam name="TPrimaryKey">The type of the t primary key.</typeparam>
     /// <seealso cref="IGovernmentOrganization{TPrimaryKey}" />
     /// <seealso cref="Deploy.LaunchPad.Space.Satellites.Core.ISatelliteOperator{TPrimaryKey}" />
-    public partial interface IGovernmentSatelliteOperator<TPrimaryKey> : IGovernmentOrganization<TPrimaryKey>, ISatelliteOperator<TPrimaryKey>
+    public partial interface IGovernmentSatelliteOperator : IGovernmentOrganization, ISatelliteOperator
     {
 
     }

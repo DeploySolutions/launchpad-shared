@@ -44,7 +44,7 @@ namespace Deploy.LaunchPad.Space.Satellites.Core
     /// <typeparam name="TPrimaryKey">The type of the t primary key.</typeparam>
     /// <seealso cref="LaunchPadDomainEntityBase{TPrimaryKey}" />
     /// <seealso cref="Deploy.LaunchPad.Space.Satellites.Core.ISatellite" />
-    public abstract partial class SatelliteBase<TPrimaryKey> : LaunchPadDomainEntityBase<TPrimaryKey>, ISatellite
+    public abstract partial class SatelliteBase : LaunchPadDomainEntityBase<long>,ISatellite
     {
 
 
@@ -91,14 +91,14 @@ namespace Deploy.LaunchPad.Space.Satellites.Core
         /// <summary>
         /// The operators
         /// </summary>
-        protected IDictionary<Guid, ISatelliteOperator<Guid>> _operators;
+        protected IDictionary<long, ISatelliteOperator> _operators;
         /// <summary>
         /// Gets or sets the operators.
         /// </summary>
         /// <value>The operators.</value>
         [System.ComponentModel.DataObjectField(false)]
         [XmlAttribute]
-        public virtual IDictionary<Guid, ISatelliteOperator<Guid>> Operators
+        public virtual IDictionary<long, ISatelliteOperator> Operators
         {
             get { return _operators; }
             set { _operators = value; }
@@ -169,7 +169,7 @@ namespace Deploy.LaunchPad.Space.Satellites.Core
         {
             var comparer = StringComparer.OrdinalIgnoreCase;
             Sensors = new Dictionary<string, ISensor>(comparer);
-            Operators = new Dictionary<Guid, ISatelliteOperator<Guid>>();
+            Operators = new Dictionary<long, ISatelliteOperator>();
             SatelliteCatalogNumber = string.Empty;
             CosparID = string.Empty;
         }

@@ -73,7 +73,7 @@ namespace Deploy.LaunchPad.Space.Satellites.Core
         /// Gets or sets the operators.
         /// </summary>
         /// <value>The operators.</value>
-        IDictionary<Guid, ISatelliteOperator<Guid>> Operators { get; set; }
+        IDictionary<long, ISatelliteOperator> Operators { get; set; }
 
         /// <summary>
         /// Gets or sets the cospar identifier.

@@ -44,7 +44,7 @@ namespace Deploy.LaunchPad.Space.Satellites.GoC
     /// </summary>
     /// <typeparam name="TPrimaryKey">The type of the t primary key.</typeparam>
     /// <seealso cref="SatelliteBase{TPrimaryKey}" />
-    public partial class RCMSatellite<TPrimaryKey> : SatelliteBase<TPrimaryKey>
+    public partial class RCMSatellite<TPrimaryKey> : SatelliteBase
     {
 
         /// <summary>
@@ -54,10 +54,10 @@ namespace Deploy.LaunchPad.Space.Satellites.GoC
         protected RCMSatellite(int? tenantId) : base()
         {
             var csaOperator = new CanadianSpaceAgency(tenantId);
-            csaOperator.Id = Guid.NewGuid();
-            Operators = new Dictionary<Guid, ISatelliteOperator<Guid>>
+            csaOperator.Id = 1;
+            Operators = new Dictionary<long, ISatelliteOperator>
             {
-                { csaOperator.Id, csaOperator as ISatelliteOperator<Guid> }
+                { csaOperator.Id, csaOperator as ISatelliteOperator }
             };
             ReferenceSystem = "Geocentric";
             OrbitalRegime = "Sun-synchronous orbit";

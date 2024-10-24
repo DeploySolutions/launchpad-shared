@@ -36,13 +36,13 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
     /// </summary>
     /// <typeparam name="TPrimaryKey">The type of the t primary key.</typeparam>
     /// <seealso cref="Deploy.LaunchPad.Core.Abp.Domain.IOrganization{TPrimaryKey}" />
-    public partial interface IGovernmentOrganization<TPrimaryKey> : IOrganization<TPrimaryKey>
+    public partial interface IGovernmentOrganization : IOrganization
     {
         /// <summary>
         /// Gets or sets the schema.
         /// </summary>
         /// <value>The schema.</value>
-        GovernmentOrganization Schema { get; set; }
+        new GovernmentOrganization Schema { get; set; }
 
     }
 }

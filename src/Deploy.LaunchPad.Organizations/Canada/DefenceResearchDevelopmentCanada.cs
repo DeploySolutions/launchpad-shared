@@ -27,6 +27,7 @@
 #endregion
 
 using Deploy.LaunchPad.Core.Abp.Domain;
+using Deploy.LaunchPad.Core.Abp.Domain.Model;
 using Schema.NET;
 using System;
 
@@ -34,10 +35,10 @@ namespace Deploy.LaunchPad.Organizations.Canada
 {
     /// <summary>
     /// Class DefenceResearchDevelopmentCanada.
-    /// Implements the <see cref="Deploy.LaunchPad.Core.Abp.Domain.GovernmentOrganizationBase{System.Guid}" />
+    /// Implements the <see cref="Deploy.LaunchPad.Core.Abp.Domain.GovernmentOrganizationBase" />
     /// </summary>
-    /// <seealso cref="Deploy.LaunchPad.Core.Abp.Domain.GovernmentOrganizationBase{System.Guid}" />
-    public partial class DefenceResearchDevelopmentCanada : GovernmentOrganizationBase<Guid>
+    /// <seealso cref="Deploy.LaunchPad.Core.Abp.Domain.GovernmentOrganizationBase" />
+    public partial class DefenceResearchDevelopmentCanada : GovernmentOrganizationBase
     {
 
         /// <summary>
@@ -70,5 +71,6 @@ namespace Deploy.LaunchPad.Organizations.Canada
             Schema = org;
 
         }
+
     }
 }

@@ -44,7 +44,7 @@ namespace Deploy.LaunchPad.Space.Satellites.GoC
     /// </summary>
     /// <typeparam name="TPrimaryKey">The type of the t primary key.</typeparam>
     /// <seealso cref="SatelliteBase{TPrimaryKey}" />
-    public partial class NeossatSatellite<TPrimaryKey> : SatelliteBase<TPrimaryKey>
+    public partial class NeossatSatellite : SatelliteBase
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="NeossatSatellite{TPrimaryKey}"/> class.
@@ -53,13 +53,13 @@ namespace Deploy.LaunchPad.Space.Satellites.GoC
         protected NeossatSatellite(int? tenantId) : base()
         {
             var csaOperator = new CanadianSpaceAgency(tenantId);
-            csaOperator.Id = Guid.NewGuid();
+            csaOperator.Id = 1;
             var drdcOperator = new DefenceResearchDevelopmentCanada(tenantId);
-            drdcOperator.Id = Guid.NewGuid();
-            Operators = new Dictionary<Guid, ISatelliteOperator<Guid>>
+            drdcOperator.Id = 2;
+            Operators = new Dictionary<long, ISatelliteOperator>
             {
-                { csaOperator.Id, csaOperator as ISatelliteOperator<Guid> },
-                { drdcOperator.Id, drdcOperator as ISatelliteOperator<Guid> }
+                { csaOperator.Id, csaOperator as ISatelliteOperator },
+                { drdcOperator.Id, drdcOperator as ISatelliteOperator }
             };
             SatelliteCatalogNumber = "39089";
             CosparID = "2013-009D";
