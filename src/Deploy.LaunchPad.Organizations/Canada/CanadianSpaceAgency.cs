@@ -34,10 +34,10 @@ namespace Deploy.LaunchPad.Organizations.Canada
 {
     /// <summary>
     /// Class CanadaSpaceAgency.
-    /// Implements the <see cref="Deploy.LaunchPad.Core.Abp.Domain.GovernmentOrganizationBase" />
+    /// Implements the <see cref="Deploy.LaunchPad.Core.Abp.Domain.GovernmentOrganizationBase{System.Guid}" />
     /// </summary>
-    /// <seealso cref="Deploy.LaunchPad.Core.Abp.Domain.GovernmentOrganizationBase" />
-    public partial class CanadianSpaceAgency : GovernmentOrganizationBase
+    /// <seealso cref="Deploy.LaunchPad.Core.Abp.Domain.GovernmentOrganizationBase{System.Guid}" />
+    public partial class CanadianSpaceAgency : GovernmentOrganizationBase<Guid>
     {
 
         /// <summary>

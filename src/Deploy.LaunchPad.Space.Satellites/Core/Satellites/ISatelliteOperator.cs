@@ -35,8 +35,9 @@ namespace Deploy.LaunchPad.Space.Satellites.Core
     /// Interface ISatelliteOperator
     /// Extends the <see cref="IOrganization{TPrimaryKey}" />
     /// </summary>
+    /// <typeparam name="TPrimaryKey">The type of the t primary key.</typeparam>
     /// <seealso cref="IOrganization{TPrimaryKey}" />
-    public partial interface ISatelliteOperator : IOrganization
+    public partial interface ISatelliteOperator<TPrimaryKey> : IOrganization<TPrimaryKey>
     {
 
 

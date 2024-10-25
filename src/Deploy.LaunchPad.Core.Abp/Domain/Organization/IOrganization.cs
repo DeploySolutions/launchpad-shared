@@ -28,9 +28,7 @@
 
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Xml.Serialization;
-using Abp.Organizations;
 using Deploy.LaunchPad.Core.Abp.Domain.Model;
 using Schema.NET;
 
@@ -40,23 +38,18 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
     /// Interface IOrganization
     /// Extends the <see cref="ILaunchPadDomainEntity{TPrimaryKey}" />
     /// </summary>
+    /// <typeparam name="TPrimaryKey">The type of the t primary key.</typeparam>
     /// <seealso cref="ILaunchPadDomainEntity{TPrimaryKey}" />
-    public partial interface IOrganization : ILaunchPadDomainEntity<System.Int64>
+    public partial interface IOrganization<TPrimaryKey> : ILaunchPadDomainEntity<TPrimaryKey>
     {
         public Organization Schema { get; }
 
-        /// <summary>
-        /// Parent <see cref="OrganizationUnit"/>.
-        /// Null, if this OU is root.
-        /// </summary>
-        [ForeignKey("ParentId")]
-        public OrganizationUnit Parent { get; set; }
-
-        /// <summary>
-        /// Parent <see cref="OrganizationUnit"/> Id.
-        /// Null, if this OU is root.
-        /// </summary>
-        public long? ParentId { get; set; }
+        ///<summary>
+        /// Parent organization can be listed (if it exists). Null if this is the root organization.
+        ///</summary>
+        [DataObjectField(false)]
+        [XmlAttribute]
+        public IOrganization? Parent { get; set; }
 
         /// <summary>
         /// Gets the website.
