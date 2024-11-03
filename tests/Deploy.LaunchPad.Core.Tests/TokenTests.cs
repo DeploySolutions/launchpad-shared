@@ -141,7 +141,7 @@ namespace Deploy.LaunchPad.Core.Tests
             token.Value = "value";
             IDictionary<string, LaunchPadToken> tokens = new Dictionary<string, LaunchPadToken>();
             tokens.Add(token.Name, token);
-            LaunchPadTokenizer tokenizer = new LaunchPadTokenizer();
+            LaunchPadTokenService tokenizer = new LaunchPadTokenService();
             tokenizer.Tokenize(originalText, tokens, true);
             string ex = expectedResult.Trim().Replace("\r\n", string.Empty);
             string act = tokenizer.TokenizedText.Trim().Replace("\r\n", string.Empty);
@@ -161,7 +161,7 @@ namespace Deploy.LaunchPad.Core.Tests
             token.DefaultValue = "value";
             IDictionary<string, LaunchPadToken> tokens = new Dictionary<string, LaunchPadToken>();
             tokens.Add(token.Name, token);
-            LaunchPadTokenizer tokenizer = new LaunchPadTokenizer();
+            LaunchPadTokenService tokenizer = new LaunchPadTokenService();
             tokenizer.Tokenize(originalText, tokens, true);
             string ex = expectedResult.Trim().Replace("\r\n", string.Empty);
             string act = tokenizer.TokenizedText.Trim().Replace("\r\n", string.Empty);
@@ -183,7 +183,7 @@ namespace Deploy.LaunchPad.Core.Tests
             token.Value = "Deploy.LaunchPad.Core.Tests";
             IDictionary<string, LaunchPadToken> tokens = new Dictionary<string, LaunchPadToken>();
             tokens.Add(token.Name, token);
-            LaunchPadTokenizer tokenizer = new LaunchPadTokenizer();
+            LaunchPadTokenService tokenizer = new LaunchPadTokenService();
             tokenizer.Tokenize(originalText, tokens);
             string ex = expectedResult.Trim().Replace("\r\n", string.Empty);
             string act = tokenizer.TokenizedText.Trim().Replace("\r\n", string.Empty);
@@ -205,7 +205,7 @@ namespace Deploy.LaunchPad.Core.Tests
             token.Value = "Deploy.LaunchPad.Core.Tests";
             IDictionary<string, LaunchPadToken> tokens = new Dictionary<string, LaunchPadToken>();
             tokens.Add(token.Name, token);
-            LaunchPadTokenizer tokenizer = new LaunchPadTokenizer();
+            LaunchPadTokenService tokenizer = new LaunchPadTokenService();
             tokenizer.Tokenize(originalText, tokens,true);
             string ex = expectedResult.Trim().Replace("\r\n", string.Empty);
             string act = tokenizer.TokenizedText.Trim().Replace("\r\n", string.Empty);
@@ -226,7 +226,7 @@ namespace Deploy.LaunchPad.Core.Tests
             token.DefaultValue = "Deploy.LaunchPad.Core.Tests";
             IDictionary<string, LaunchPadToken> tokens = new Dictionary<string, LaunchPadToken>();
             tokens.Add(token.Name, token);
-            LaunchPadTokenizer tokenizer = new LaunchPadTokenizer();
+            LaunchPadTokenService tokenizer = new LaunchPadTokenService();
             tokenizer.Tokenize(originalText, tokens, true);
             string ex = expectedResult.Trim().Replace("\r\n", string.Empty);
             string act = tokenizer.TokenizedText.Trim().Replace("\r\n", string.Empty);
