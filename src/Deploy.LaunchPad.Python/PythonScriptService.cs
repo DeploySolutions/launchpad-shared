@@ -12,6 +12,7 @@
 // <summary></summary>
 // ***********************************************************************
 using Castle.Core.Logging;
+using Deploy.LaunchPad.Core;
 using Deploy.LaunchPad.Core.Application;
 using Deploy.LaunchPad.Core.Util;
 using System;
@@ -30,6 +31,9 @@ namespace Deploy.LaunchPad.Python
     /// <seealso cref="Deploy.LaunchPad.Python.IPythonScriptService" />
     public partial class PythonScriptService : ILaunchPadSystemIntegrationService, IPythonScriptService
     {
+        public virtual ElementName Name { get; set; }
+        public virtual ElementDescription Description { get; set; }
+
         /// <summary>
         /// Gets or sets the logger.
         /// </summary>
@@ -64,6 +68,9 @@ namespace Deploy.LaunchPad.Python
         /// <param name="scriptFileName">Name of the script file.</param>
         public PythonScriptService(ILogger logger, Uri pythonInstallationFilePath, string scriptFileName)
         {
+            string id = Guid.NewGuid().ToString();
+            Name = new ElementName(string.Format("PythonScriptService {0} ", id));
+            Description = new ElementDescription(string.Format("PythonScriptService {0} ", id));
             Logger = logger;
             Python = new PythonInstallation(pythonInstallationFilePath, PythonMajorVersion.Three, PythonMinorVersion.Eight, 16);
             Script = new PythonScript(scriptFileName);
@@ -78,6 +85,9 @@ namespace Deploy.LaunchPad.Python
         /// <param name="moduleFilePaths">The module file paths.</param>
         public PythonScriptService(ILogger logger, Uri pythonInstallationFilePath, string scriptFileName, IDictionary<string, Uri> moduleFilePaths)
         {
+            string id = Guid.NewGuid().ToString();
+            Name = new ElementName(string.Format("PythonScriptService {0} ", id));
+            Description = new ElementDescription(string.Format("PythonScriptService {0} ", id));
             Logger = logger;
             Python = new PythonInstallation(pythonInstallationFilePath, PythonMajorVersion.Three, PythonMinorVersion.Eight, 16, moduleFilePaths);
             Script = new PythonScript(scriptFileName);

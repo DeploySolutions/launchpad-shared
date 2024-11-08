@@ -26,6 +26,9 @@ namespace Deploy.LaunchPad.Core.Util
     /// </summary>
     public partial class LaunchPadTokenService : ILaunchPadTokenService
     {
+        public virtual ElementName Name { get; set; }
+        public virtual ElementDescription Description { get; set; }
+
         public ILogger Logger { get; set; } = NullLogger.Instance;
 
         /// <summary>
@@ -51,6 +54,9 @@ namespace Deploy.LaunchPad.Core.Util
         /// </summary>
         public LaunchPadTokenService()
         {
+            string id = Guid.NewGuid().ToString();
+            Name = new ElementName(string.Format("Token Service {0} ", id));
+            Description = new ElementDescription(string.Format("Token Service {0} ", id));
             TokenizedText = string.Empty;
             var comparer = StringComparer.OrdinalIgnoreCase;
             MatchedTokens = new Dictionary<string, LaunchPadToken>(comparer);
@@ -63,6 +69,9 @@ namespace Deploy.LaunchPad.Core.Util
         /// </summary>
         public LaunchPadTokenService(ILogger logger)
         {
+            string id = Guid.NewGuid().ToString();
+            Name = new ElementName(string.Format("Token Service {0} ", id));
+            Description = new ElementDescription(string.Format("Token Service {0} ", id));
             Logger = logger;
             TokenizedText = string.Empty;
             var comparer = StringComparer.OrdinalIgnoreCase;

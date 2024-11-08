@@ -36,6 +36,9 @@ namespace Deploy.LaunchPad.Core.Application
         public IConfigurationRoot ConfigurationRoot { get { return _configurationRoot; } }
 
 
+        public virtual ElementName Name { get; set; }
+        public virtual ElementDescription Description { get; set; }
+
         /// <summary>
         /// Gets or sets the logger.
         /// </summary>
@@ -47,6 +50,9 @@ namespace Deploy.LaunchPad.Core.Application
         /// </summary>
         protected SystemIntegrationServiceBase()
         {
+            string id = Guid.NewGuid().ToString();
+            Name = new ElementName(string.Format("SystemIntegrationServiceBase {0} ", id));
+            Description = new ElementDescription(string.Format("SystemIntegrationServiceBase {0} ", id));
             Logger = NullLogger.Instance;
         }
 
@@ -56,6 +62,9 @@ namespace Deploy.LaunchPad.Core.Application
         /// <param name="logger">The logger.</param>
         protected SystemIntegrationServiceBase(ILogger logger)
         {
+            string id = Guid.NewGuid().ToString();
+            Name = new ElementName(string.Format("TSystemIntegrationServiceBase {0} ", id));
+            Description = new ElementDescription(string.Format("SystemIntegrationServiceBase {0} ", id));
             Logger = logger;
         }
 
@@ -66,6 +75,9 @@ namespace Deploy.LaunchPad.Core.Application
         /// <param name="configurationRoot">The configuration root.</param>
         protected SystemIntegrationServiceBase(ILogger logger, IConfigurationRoot configurationRoot)
         {
+            string id = Guid.NewGuid().ToString();
+            Name = new ElementName(string.Format("SystemIntegrationServiceBase {0} ", id));
+            Description = new ElementDescription(string.Format("SystemIntegrationServiceBase {0} ", id));
             Logger = logger;
             _configurationRoot = configurationRoot;
         }
