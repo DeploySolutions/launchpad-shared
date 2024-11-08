@@ -27,8 +27,11 @@
 #endregion
 
 
+using Castle.Core.Logging;
+using Deploy.LaunchPad.Core;
 using Deploy.LaunchPad.Core.Abp.Domain.Model;
 using ImageMagick;
+using System;
 using System.IO;
 
 namespace Deploy.LaunchPad.Images.Domain
@@ -39,6 +42,15 @@ namespace Deploy.LaunchPad.Images.Domain
     /// </summary>
     public partial class ThumbnailGenerator : ILaunchPadDomainService
     {
+        public virtual ElementName Name { get; set; }
+        public virtual ElementDescription Description { get; set; }
+
+        /// <summary>
+        /// Gets or sets the logger.
+        /// </summary>
+        /// <value>The logger.</value>
+        public virtual ILogger Logger { get; set; }
+
         /// <summary>
         /// The configuration
         /// </summary>
@@ -86,6 +98,9 @@ namespace Deploy.LaunchPad.Images.Domain
         /// </summary>
         public ThumbnailGenerator()
         {
+            string id = Guid.NewGuid().ToString();
+            Name = new ElementName(string.Format("ThumbnailGenerator {0} ", id));
+            Description = new ElementDescription(string.Format("ThumbnailGenerator {0} ", id));
             string temporaryImagesFilePath = @"f:\data\launchpad\images\temp";
             MagickNET.SetTempDirectory(temporaryImagesFilePath);
             string policyMap = @"
@@ -105,6 +120,9 @@ namespace Deploy.LaunchPad.Images.Domain
         /// <param name="config">The configuration.</param>
         public ThumbnailGenerator(ImageMagickConfiguration config)
         {
+            string id = Guid.NewGuid().ToString();
+            Name = new ElementName(string.Format("ThumbnailGenerator {0} ", id));
+            Description = new ElementDescription(string.Format("ThumbnailGenerator {0} ", id));
             Configuration = config;
         }
 

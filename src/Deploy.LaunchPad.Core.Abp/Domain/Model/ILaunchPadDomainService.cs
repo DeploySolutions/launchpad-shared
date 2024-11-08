@@ -27,6 +27,7 @@
 #endregion
 
 using Abp.Domain.Services;
+using Deploy.LaunchPad.Core.Config;
 
 namespace Deploy.LaunchPad.Core.Abp.Domain.Model
 {
@@ -36,7 +37,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
     /// However, some component services may wish to autoregister while under another namespace.
     /// Implementing the ILaunchPadService interface will ensure they are auto-registered.
     /// </summary>
-    public partial interface ILaunchPadDomainService : IDomainService
+    public partial interface ILaunchPadDomainService : IDomainService, ILaunchPadService
     {
     }
 }
