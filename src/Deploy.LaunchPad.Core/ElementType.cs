@@ -1,4 +1,5 @@
 ﻿using Castle.Core.Logging;
+using Deploy.LaunchPad.Core.Util;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -289,74 +290,83 @@ namespace Deploy.LaunchPad.Core
             ;
         }
 
+
+        public static ElementType GetTypeInformationForElement(ILogger logger, Type type, bool shouldThrowOnError = true, bool shouldIgnoreCase = true, IList<string> assembliesContainingChildren = null)
+        {
+            Guard.Against<ArgumentNullException>(type == null, "Type cannot be null.");
+            ElementType element = new ElementType(type.FullName);
+            element.AssemblyFullyQualifiedName = type.AssemblyQualifiedName;
+
+            // Get the Parent type
+            Type baseType = type.BaseType;
+            if (baseType != null)
+            {
+                ElementType parentElementType = new ElementType(baseType.FullName, baseType.AssemblyQualifiedName);
+                parentElementType.Namespace = baseType.Namespace;
+                element.ParentElementType = parentElementType;
+            }
+            Type[] interfaces = type.GetInterfaces();
+            foreach (Type interfaceType in interfaces)
+            {
+                element.InheritsFrom.TryAdd(interfaceType.FullName, interfaceType.Name);
+            }
+            // check children from assemblies
+            if (assembliesContainingChildren == null)
+            {
+                assembliesContainingChildren = new List<string>();
+            }
+            if (!assembliesContainingChildren.Contains(element.AssemblyName))
+            {
+                assembliesContainingChildren.Add(element.AssemblyName);
+            }
+            foreach (string assemblyName in assembliesContainingChildren)
+            {
+                try
+                {
+                    Assembly assemblyWithPossibleChildren = Assembly.Load(assemblyName);
+                    if (assemblyWithPossibleChildren != null)
+                    {
+                        Type[] types = assemblyWithPossibleChildren.GetTypes();
+                        foreach (Type childType in types)
+                        {
+                            if (childType.BaseType == type)
+                            {
+                                ElementType childElementType = new ElementType(childType.FullName, childType.AssemblyQualifiedName);
+                                childElementType.Namespace = childType.Namespace;
+                                string message = string.Format("Found child type '{0}' for type '{1}', in assembly {2}.",
+                                    childType.FullName, element.FullyQualifiedType, assemblyWithPossibleChildren.FullName
+                                );
+                                logger.Debug(message);
+                                element.ChildrenElementTypes.TryAdd(childType.FullName, childElementType);
+                            }
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    if (shouldThrowOnError)
+                    {
+                        throw;
+                    }
+                    else
+                    {
+                        string message = string.Format("Error loading assembly '{0}' for type '{1}' but shouldThrowOnError was set to false, so logging only. Exception was: {2}.",
+                            assemblyName, type.FullName, ex.Message
+                        );
+                        logger.Error(message);
+                    }
+                }
+            }
+            return element;
+        }
+
         public static ElementType GetTypeInformationForElement(ILogger logger, string fullyQualifiedTypeName, bool shouldThrowOnError = true, bool shouldIgnoreCase = true, IList<string> assembliesContainingChildren = null)
         {
             ElementType element = new ElementType(fullyQualifiedTypeName);
             Type type = Type.GetType(fullyQualifiedTypeName, shouldThrowOnError, shouldIgnoreCase);
             if (type != null)
             {
-                element.AssemblyFullyQualifiedName = type.AssemblyQualifiedName;
-
-                // Get the Parent type
-                Type baseType = type.BaseType;
-                if (baseType != null)
-                {
-                    ElementType parentElementType = new ElementType(baseType.FullName, baseType.AssemblyQualifiedName);
-                    parentElementType.Namespace = baseType.Namespace;
-                    element.ParentElementType = parentElementType;
-                }
-                Type[] interfaces = type.GetInterfaces();
-                foreach (Type interfaceType in interfaces)
-                {
-                    element.InheritsFrom.TryAdd(interfaceType.FullName, interfaceType.Name);
-                }
-                // check children from assemblies
-                if (assembliesContainingChildren == null)
-                {
-                    assembliesContainingChildren = new List<string>();
-                }
-                if (!assembliesContainingChildren.Contains(element.AssemblyName))
-                {
-                    assembliesContainingChildren.Add(element.AssemblyName);
-                }
-                foreach (string assemblyName in assembliesContainingChildren)
-                {
-                    try
-                    {
-                        Assembly assemblyWithPossibleChildren = Assembly.Load(assemblyName);
-                        if (assemblyWithPossibleChildren != null)
-                        {
-                            Type[] types = assemblyWithPossibleChildren.GetTypes();
-                            foreach (Type childType in types)
-                            {
-                                if (childType.BaseType == type)
-                                {
-                                    ElementType childElementType = new ElementType(childType.FullName, childType.AssemblyQualifiedName);
-                                    childElementType.Namespace = childType.Namespace;
-                                    string message = string.Format("Found child type '{0}' for type '{1}', in assembly {2}.",
-                                        childType.FullName, element.FullyQualifiedType, assemblyWithPossibleChildren.FullName
-                                    );
-                                    logger.Debug(message);
-                                    element.ChildrenElementTypes.TryAdd(childType.FullName, childElementType);
-                                }
-                            }
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        if (shouldThrowOnError)
-                        {
-                            throw;
-                        }
-                        else
-                        {
-                            string message = string.Format("Error loading assembly '{0}' for type '{1}' but shouldThrowOnError was set to false, so logging only. Exception was: {2}.",
-                                assemblyName, fullyQualifiedTypeName, ex.Message
-                            );
-                            logger.Error(message);
-                        }
-                    }
-                }
+                GetTypeInformationForElement(logger, type, shouldThrowOnError, shouldIgnoreCase, assembliesContainingChildren);
             }
             else
             {
