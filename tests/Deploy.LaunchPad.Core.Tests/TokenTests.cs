@@ -142,7 +142,7 @@ namespace Deploy.LaunchPad.Core.Tests
             IDictionary<string, LaunchPadToken> tokens = new Dictionary<string, LaunchPadToken>();
             tokens.Add(token.Name, token);
             LaunchPadTokenService tokenizer = new LaunchPadTokenService();
-            tokenizer.Tokenize(originalText, tokens, true);
+            tokenizer.Tokenize(originalText, tokens, TokenMatchingStrategy.ConsiderTokenValuesWhenMatching);
             string ex = expectedResult.Trim().Replace("\r\n", string.Empty);
             string act = tokenizer.TokenizedText.Trim().Replace("\r\n", string.Empty);
             Assert.Equal(ex,act);
@@ -162,7 +162,7 @@ namespace Deploy.LaunchPad.Core.Tests
             IDictionary<string, LaunchPadToken> tokens = new Dictionary<string, LaunchPadToken>();
             tokens.Add(token.Name, token);
             LaunchPadTokenService tokenizer = new LaunchPadTokenService();
-            tokenizer.Tokenize(originalText, tokens, true);
+            tokenizer.Tokenize(originalText, tokens, TokenMatchingStrategy.ConsiderTokenValuesWhenMatching);
             string ex = expectedResult.Trim().Replace("\r\n", string.Empty);
             string act = tokenizer.TokenizedText.Trim().Replace("\r\n", string.Empty);
             Assert.Equal(ex, act);
@@ -206,7 +206,7 @@ namespace Deploy.LaunchPad.Core.Tests
             IDictionary<string, LaunchPadToken> tokens = new Dictionary<string, LaunchPadToken>();
             tokens.Add(token.Name, token);
             LaunchPadTokenService tokenizer = new LaunchPadTokenService();
-            tokenizer.Tokenize(originalText, tokens,true);
+            tokenizer.Tokenize(originalText, tokens, TokenMatchingStrategy.ConsiderTokenValuesWhenMatching);
             string ex = expectedResult.Trim().Replace("\r\n", string.Empty);
             string act = tokenizer.TokenizedText.Trim().Replace("\r\n", string.Empty);
             Assert.Equal(ex, act);
@@ -227,7 +227,7 @@ namespace Deploy.LaunchPad.Core.Tests
             IDictionary<string, LaunchPadToken> tokens = new Dictionary<string, LaunchPadToken>();
             tokens.Add(token.Name, token);
             LaunchPadTokenService tokenizer = new LaunchPadTokenService();
-            tokenizer.Tokenize(originalText, tokens, true);
+            tokenizer.Tokenize(originalText, tokens, TokenMatchingStrategy.IgnoreTokenValuesWhenMatching);
             string ex = expectedResult.Trim().Replace("\r\n", string.Empty);
             string act = tokenizer.TokenizedText.Trim().Replace("\r\n", string.Empty);
             Assert.Equal(ex, act);

@@ -30,6 +30,7 @@
 using Castle.Core.Logging;
 using Deploy.LaunchPad.Core;
 using Deploy.LaunchPad.Core.Abp.Domain.Model;
+using Deploy.LaunchPad.Core.Config;
 using ImageMagick;
 using System;
 using System.IO;
@@ -40,17 +41,8 @@ namespace Deploy.LaunchPad.Images.Domain
     /// <summary>
     /// This class creates thumbnails from provided images, using Magick.NET library (ImageMagick wrapper)
     /// </summary>
-    public partial class ThumbnailGenerator : ILaunchPadDomainService
+    public partial class ThumbnailGenerator : LaunchPadServiceBase, ILaunchPadDomainService
     {
-        public virtual ElementName Name { get; set; }
-        public virtual ElementDescription Description { get; set; }
-
-        /// <summary>
-        /// Gets or sets the logger.
-        /// </summary>
-        /// <value>The logger.</value>
-        public virtual ILogger Logger { get; set; }
-
         /// <summary>
         /// The configuration
         /// </summary>
@@ -96,7 +88,7 @@ namespace Deploy.LaunchPad.Images.Domain
         /// <summary>
         /// Initializes a new instance of the <see cref="ThumbnailGenerator"/> class.
         /// </summary>
-        public ThumbnailGenerator()
+        public ThumbnailGenerator() : base()
         {
             string id = Guid.NewGuid().ToString();
             Name = new ElementName(string.Format("ThumbnailGenerator {0} ", id));
@@ -111,7 +103,6 @@ namespace Deploy.LaunchPad.Images.Domain
                 </policymap>
             ";
             Configuration = new ImageMagickConfiguration(policyMap, temporaryImagesFilePath);
-
         }
 
         /// <summary>

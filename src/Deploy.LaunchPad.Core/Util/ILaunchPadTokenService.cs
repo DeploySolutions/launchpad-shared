@@ -13,18 +13,19 @@
 // ***********************************************************************
 using Castle.Core.Logging;
 using Deploy.LaunchPad.Core.Application;
+using Deploy.LaunchPad.Core.Config;
 using System.Collections.Generic;
 
 namespace Deploy.LaunchPad.Core.Util
 {
-    public interface ILaunchPadTokenService : ILaunchPadSystemIntegrationService
+    public interface ILaunchPadTokenService : ILaunchPadService
     {
-        IDictionary<string, LaunchPadToken> MatchedTokens { get; set; }
-        string TokenizedText { get; set; }
-        IDictionary<string, LaunchPadToken> UnmatchedTokens { get; set; }
+        public IDictionary<string, LaunchPadToken> MatchedTokens { get; set; }
+        public string TokenizedText { get; set; }
+        public IDictionary<string, LaunchPadToken> UnmatchedTokens { get; set; }
 
-        IDictionary<string, LaunchPadToken> FindTokensInText(string text, string tokenPattern = "\\{\\{p:.*?\\|\\}\\}", bool shouldLogTokens = false);
-        LaunchPadToken FindTokenWithName(string text, string tokenName, string tokenPattern = "\\{\\{p:.*?\\|\\}\\}", bool shouldLogTokens = false);
-        string Tokenize(string originalText, IDictionary<string, LaunchPadToken> tokens, bool shouldMatchTokenValue = false, bool shouldLogTokens = false);
+        public IDictionary<string, LaunchPadToken> FindTokensInText(string text, string tokenPattern = "\\{\\{p:.*?\\|\\}\\}", TokenLoggingStrategy shouldLogTokens = TokenLoggingStrategy.DoNotLogTokenMatching);
+        public LaunchPadToken FindTokenWithName(string text, string tokenName, string tokenPattern = "\\{\\{p:.*?\\|\\}\\}", TokenLoggingStrategy shouldLogTokens = TokenLoggingStrategy.DoNotLogTokenMatching);
+        public string Tokenize(string originalText, IDictionary<string, LaunchPadToken> tokens, TokenMatchingStrategy tokenMatching = TokenMatchingStrategy.IgnoreTokenValuesWhenMatching, TokenLoggingStrategy shouldLogTokens = TokenLoggingStrategy.DoNotLogTokenMatching);
     }
 }

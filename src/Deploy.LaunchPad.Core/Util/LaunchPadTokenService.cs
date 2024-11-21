@@ -12,7 +12,7 @@
 // <summary></summary>
 // ***********************************************************************
 using Castle.Core.Logging;
-using Deploy.LaunchPad.Core.Application;
+using Deploy.LaunchPad.Core.Config;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -24,13 +24,9 @@ namespace Deploy.LaunchPad.Core.Util
     /// <summary>
     /// Class LaunchPadTokenizer.
     /// </summary>
-    public partial class LaunchPadTokenService : ILaunchPadTokenService
+    public partial class LaunchPadTokenService : LaunchPadServiceBase, ILaunchPadTokenService
     {
-        public virtual ElementName Name { get; set; }
-        public virtual ElementDescription Description { get; set; }
-
-        public ILogger Logger { get; set; } = NullLogger.Instance;
-
+      
         /// <summary>
         /// Gets or sets the matched tokens.
         /// </summary>
@@ -52,7 +48,7 @@ namespace Deploy.LaunchPad.Core.Util
         /// <summary>
         /// Initializes a new instance of the <see cref="LaunchPadTokenService"/> class.
         /// </summary>
-        public LaunchPadTokenService()
+        public LaunchPadTokenService() : base()
         {
             string id = Guid.NewGuid().ToString();
             Name = new ElementName(string.Format("Token Service {0} ", id));
@@ -67,12 +63,33 @@ namespace Deploy.LaunchPad.Core.Util
         /// <summary>
         /// Initializes a new instance of the <see cref="LaunchPadTokenService"/> class.
         /// </summary>
-        public LaunchPadTokenService(ILogger logger)
+        public LaunchPadTokenService(ILogger logger) : base(logger)
         {
             string id = Guid.NewGuid().ToString();
             Name = new ElementName(string.Format("Token Service {0} ", id));
             Description = new ElementDescription(string.Format("Token Service {0} ", id));
-            Logger = logger;
+            TokenizedText = string.Empty;
+            var comparer = StringComparer.OrdinalIgnoreCase;
+            MatchedTokens = new Dictionary<string, LaunchPadToken>(comparer);
+            UnmatchedTokens = new Dictionary<string, LaunchPadToken>(comparer);
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="LaunchPadTokenService"/> class.
+        /// </summary>
+        public LaunchPadTokenService(ILogger logger, string name) : base(logger, name)
+        {          
+            TokenizedText = string.Empty;
+            var comparer = StringComparer.OrdinalIgnoreCase;
+            MatchedTokens = new Dictionary<string, LaunchPadToken>(comparer);
+            UnmatchedTokens = new Dictionary<string, LaunchPadToken>(comparer);
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="LaunchPadTokenService"/> class.
+        /// </summary>
+        public LaunchPadTokenService(ILogger logger, string name, string description) : base(logger, name, description)
+        {
             TokenizedText = string.Empty;
             var comparer = StringComparer.OrdinalIgnoreCase;
             MatchedTokens = new Dictionary<string, LaunchPadToken>(comparer);
@@ -88,7 +105,7 @@ namespace Deploy.LaunchPad.Core.Util
         /// <param name="logger">The logger.</param>
         /// <param name="shouldLogTokens">if set to <c>true</c> [should log tokens].</param>
         /// <returns>System.String.</returns>
-        public string Tokenize(string originalText, IDictionary<string, LaunchPadToken> tokens, bool shouldMatchTokenValue = false, bool shouldLogTokens = false)
+        public string Tokenize(string originalText, IDictionary<string, LaunchPadToken> tokens, TokenMatchingStrategy tokenMatching = TokenMatchingStrategy.IgnoreTokenValuesWhenMatching, TokenLoggingStrategy shouldLogTokens = TokenLoggingStrategy.DoNotLogTokenMatching)
         {
             Guard.Against<ArgumentException>(String.IsNullOrEmpty(originalText), Deploy_LaunchPad_Core_Resources.Guard_LaunchPadTokenizer_ArgumentException_OriginalText);
             Guard.Against<ArgumentException>(tokens.Count == 0, Deploy_LaunchPad_Core_Resources.Guard_LaunchPadTokenizer_ArgumentException_Tokens);
@@ -130,7 +147,7 @@ namespace Deploy.LaunchPad.Core.Util
                     }
                     sbRegExp.Append(@".*?)+))))+)))"); // match the token tags
                 }
-                else if (shouldMatchTokenValue && !string.IsNullOrEmpty(token.Value))
+                else if (tokenMatching == TokenMatchingStrategy.ConsiderTokenValuesWhenMatching && !string.IsNullOrEmpty(token.Value))
                 {
                     sbRegExp.Append(@"(?:\|v:(("); // start of the v: element
                     sbRegExp.Append(EscapeTextForRegex(token.Value));
@@ -154,7 +171,7 @@ namespace Deploy.LaunchPad.Core.Util
                 sw.Stop();
                 if (succeeded) // do the RegEx replacement
                 {
-                    if (shouldLogTokens)
+                    if (shouldLogTokens == TokenLoggingStrategy.LogTokenMatching)
                     {
                         Logger.Debug(string.Format("LaunchPadTokenizer.Tokenize() => Token '{0}' regex succeeded with pattern '{1}'",
                             token.Name,
@@ -178,7 +195,7 @@ namespace Deploy.LaunchPad.Core.Util
                 }
                 else
                 {
-                    if (shouldLogTokens)
+                    if (shouldLogTokens == TokenLoggingStrategy.LogTokenMatching)
                     {
                         Logger.Debug(string.Format("LaunchPadTokenizer.Tokenize() => Token '{0}' regex failed to match pattern '{1}'",
                             token.Name,
@@ -193,7 +210,7 @@ namespace Deploy.LaunchPad.Core.Util
                 }
             }
             TokenizedText = modifiedText;
-            if (shouldLogTokens)
+            if (shouldLogTokens == TokenLoggingStrategy.LogTokenMatching)
             {
                 Logger.Debug(string.Format("LaunchPadTokenizer.Tokenize() => modified text is '{0}'.", modifiedText));
             }
@@ -237,7 +254,7 @@ namespace Deploy.LaunchPad.Core.Util
         /// <param name="tokenName"></param>
         /// <param name="tokenPattern"></param>
         /// <returns></returns>
-        public LaunchPadToken FindTokenWithName(string text, string tokenName, string tokenPattern = @"\{\{p:.*?\|\}\}", bool shouldLogTokens = false)
+        public LaunchPadToken FindTokenWithName(string text, string tokenName, string tokenPattern = @"\{\{p:.*?\|\}\}", TokenLoggingStrategy shouldLogTokens = TokenLoggingStrategy.DoNotLogTokenMatching)
         {
             LaunchPadToken token = null;
             var comparer = StringComparer.OrdinalIgnoreCase;
@@ -247,7 +264,7 @@ namespace Deploy.LaunchPad.Core.Util
                 if (match.Value.ToLower().Equals(tokenName.ToLower()))
                 {
                     token = new LaunchPadToken(match.Value);
-                    if(shouldLogTokens)
+                    if(shouldLogTokens == TokenLoggingStrategy.LogTokenMatching)
                     {
                         Logger.Debug(string.Format("LaunchPadTokenizer.FindTokenWithName() => Token '{0}' was found in text '{1}'",
                                 token.Name,
@@ -256,7 +273,7 @@ namespace Deploy.LaunchPad.Core.Util
                     }
                 }
             }
-            if(shouldLogTokens && token == null)
+            if(shouldLogTokens == TokenLoggingStrategy.LogTokenMatching && token == null)
             {                
                 Logger.Debug(string.Format("LaunchPadTokenizer.FindTokenWithName() => No token with name '{0}' was found in text '{1}' using regex pattern {2}.",
                             token.Name,
@@ -273,7 +290,7 @@ namespace Deploy.LaunchPad.Core.Util
         /// <param name="text"></param>
         /// <param name="tokenPattern"></param>
         /// <returns></returns>
-        public IDictionary<string, LaunchPadToken> FindTokensInText(string text, string tokenPattern = @"\{\{p:.*?\|\}\}", bool shouldLogTokens = false)
+        public IDictionary<string, LaunchPadToken> FindTokensInText(string text, string tokenPattern = @"\{\{p:.*?\|\}\}", TokenLoggingStrategy shouldLogTokens = TokenLoggingStrategy.DoNotLogTokenMatching)
         {
             var comparer = StringComparer.OrdinalIgnoreCase;
             IDictionary<string, LaunchPadToken> tokens = new Dictionary<string, LaunchPadToken>(comparer);
@@ -282,7 +299,7 @@ namespace Deploy.LaunchPad.Core.Util
             {
                 LaunchPadToken token = new LaunchPadToken(match.Value);
                 bool wasAdded = tokens.TryAdd(token.Name, token);
-                if(shouldLogTokens && wasAdded)
+                if(shouldLogTokens == TokenLoggingStrategy.LogTokenMatching && wasAdded)
                 {
                     Logger.Debug(string.Format("LaunchPadTokenizer.FindTokensInText() => Token '{0}' was found in text '{1}' and added to dictionary.",
                             token.Name,
@@ -292,5 +309,27 @@ namespace Deploy.LaunchPad.Core.Util
             }
             return tokens;
         }
+    }
+
+    /// <summary>
+    /// Token matching can be done in two ways. By default, the token's value is ignored when checking for a match. 
+    /// If you want to consider (require) the token's value is present when checking for a match, set this to ConsiderTokenValuesWhenMatching.
+    /// </summary>
+    public enum TokenMatchingStrategy
+    {
+        IgnoreTokenValuesWhenMatching = 0, // when checking for token matches, ignore what's currently in the token's Value field. (the default)
+        ConsiderTokenValuesWhenMatching = 1, // when checking for token matches, only consider a match if what is in the token's Value field is also present in the token in the source text.        
+    }
+
+    /// <summary>
+    /// Token matching can generate a lot of logging noise and incur processing overhead. By default, logging is disabled. 
+    /// It can be enabled if you want to verify unexpected matching results or errors. If enabled, it uses the standard logging engine configuration.
+    /// </summary>
+    public enum TokenLoggingStrategy
+    {
+        DoNotLogTokenMatching = 0, // do not log any token matching activities. Calling methods can do any logging they need. (the default)
+        LogTokenMatching = 1 // log all token matching activities 
+        
+
     }
 }
