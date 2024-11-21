@@ -29,7 +29,7 @@ namespace Deploy.LaunchPad.Core.Classes
         {
         }
 
-        public virtual ClassRepresentation GenerateClassRepresentation<TDomain>(ILogger logger, TDomain entity)
+        public virtual ClassRepresentation GenerateClassRepresentation<TDomain>(TDomain entity)
         {
             var classRepresentation = new ClassRepresentation(typeof(TDomain).Name);
 
@@ -40,7 +40,7 @@ namespace Deploy.LaunchPad.Core.Classes
                 var propertyRep = new PropertyRepresentation(property.Name, property.PropertyType);
                 if (!property.PropertyType.IsEnum)
                 {
-                    propertyRep.PropertyType = LaunchPad.Core.ElementType.GetTypeInformationForElement(logger, property.PropertyType.FullName, false);
+                    propertyRep.PropertyType = LaunchPad.Core.ElementType.GetTypeInformationForElement(Logger, property.PropertyType.FullName, false);
                 }
                 classRepresentation.Properties.TryAdd(propertyRep.Name.Full, propertyRep);
             }
@@ -53,7 +53,7 @@ namespace Deploy.LaunchPad.Core.Classes
                 var methodRep = new MethodRepresentation(method.Name, method.ReturnType);
                 foreach (var parameter in method.GetParameters())
                 {
-                    ElementType paramType = ElementType.GetTypeInformationForElement(logger, parameter.ParameterType.FullName, false);
+                    ElementType paramType = ElementType.GetTypeInformationForElement(Logger, parameter.ParameterType.FullName, false);
                     var parameterRep = new MethodParameterRepresentation(parameter.Name, paramType);
                     methodRep.Parameters.Add(parameterRep);
                 }
