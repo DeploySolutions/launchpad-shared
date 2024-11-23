@@ -151,7 +151,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
             set { _seqNum = value; }
         }
 
-        protected string _tags;
+        protected string _tags = "{}";
         /// <summary>
         /// Each entity can have an open-ended set of tags applied to it, that help users find, markup, and display its information
         /// </summary>
@@ -159,8 +159,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
         [DataObjectField(false)]
         [DataMember(Name = "tags", EmitDefaultValue = false)]
         [XmlAttribute]
-        [CanBeNull]
-        public virtual string Tags
+        public virtual string Tags 
         {
             get { return _tags; }
             set { _tags = value; }
