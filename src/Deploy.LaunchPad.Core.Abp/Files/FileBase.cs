@@ -29,7 +29,6 @@
 using Deploy.LaunchPad.Core.Abp.Domain.Model;
 using Deploy.LaunchPad.Core.Domain;
 using Deploy.LaunchPad.Core.Domain.Model;
-using Deploy.LaunchPad.Core.Util;
 using System;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
@@ -68,6 +67,14 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
         public virtual string Extension { get; set; }
 
         /// <summary>
+        /// The encoding of the file
+        /// </summary>
+        /// <value>The encoding.</value>
+        [DataObjectField(false)]
+        [XmlAttribute]
+        public virtual string Encoding { get; set; } = "UTF-8";
+
+        /// <summary>
         /// The content / mime type of the file
         /// </summary>
         /// <value>The type of the MIME.</value>
@@ -86,21 +93,20 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
         [Required]
         public virtual TFileContentType Content { get; set; }
 
+
         /// <summary>
-        /// Properties and methods for the file's content hash (to facilitate file verification)
+        /// The schema of the file
         /// </summary>
-        /// <value>The checksum.</value>
+        /// <value>The content.</value>
         [DataObjectField(false)]
         [XmlAttribute]
-        public virtual Checksum Checksum { get; set; }
-
+        public ILaunchPadSchemaDetails? Schema { get; set; }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="FileBase{TIdType, TFileContentType}"/> class.
         /// </summary>
         protected FileBase()
         {
-            Checksum = new Checksum();
         }
 
         /// <summary>
@@ -110,7 +116,6 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
         protected FileBase(TIdType id) : base(id)
         {
             Id = id;
-            Checksum = new Checksum();
         }
         /// <summary>
         /// Initializes a new instance of the <see cref="FileBase{TIdType, TFileContentType}"/> class.
@@ -120,7 +125,6 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
         {
             Name = new ElementName(fileName, fileName);
             Description = new ElementDescription(string.Empty, string.Empty);
-            Checksum = new Checksum();
         }
 
         /// <summary>
@@ -132,7 +136,6 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
         {
             Id = id;
             Name = new ElementName(fileName, fileName);
-            Checksum = new Checksum();
         }
 
 
@@ -147,7 +150,6 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
             Id = id;
             Name = new ElementName(fileName, fileName);
             Content = content;
-            Checksum = new Checksum();
         }
 
         /// <summary>
@@ -158,10 +160,11 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
         protected FileBase(SerializationInfo info, StreamingContext context) : base(info, context)
         {
             Content = (TFileContentType)info.GetValue("Content", typeof(TFileContentType));
-            Checksum = (Checksum)info.GetValue("Checksum", typeof(Checksum));
+            Schema = (ILaunchPadSchemaDetails)info.GetValue("Schema", typeof(ILaunchPadSchemaDetails));
             Size = info.GetInt64("Size");
             MimeType = info.GetString("MimeType");
             Extension = info.GetString("Extension");
+            Encoding = info.GetString("Encoding");
         }
 
         /// <summary>
@@ -173,11 +176,11 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
         {
             base.GetObjectData(info, context);
             info.AddValue("Size", Size);
-            info.AddValue("Name", Name);
             info.AddValue("MimeType", MimeType);
             info.AddValue("Extension", Extension);
+            info.AddValue("Encoding", Encoding);
             info.AddValue("Content", Content);
-            info.AddValue("Checksum", Checksum);
+            info.AddValue("Schema", Schema);
         }
 
 

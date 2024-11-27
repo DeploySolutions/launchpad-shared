@@ -44,6 +44,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
     /// <typeparam name="TPrimaryKey">The type of the t primary key.</typeparam>
     /// <typeparam name="TDictionaryKey">The type of the t dictionary key.</typeparam>
     /// <typeparam name="TDataPointPrimaryKey">The type of the t data point primary key.</typeparam>
+    /// <typeparam name="TSchemaFormat">The type of the schema (ex a Json or XSD related generic type>.</typeparam>
     /// <seealso cref="LaunchPadDomainEntityBase{TPrimaryKey}" />
     /// <seealso cref="Deploy.LaunchPad.Core.Abp.Domain.IDataSet{TPrimaryKey, TDictionaryKey, TDataPointPrimaryKey}" />
     public abstract partial class DataSet<TPrimaryKey, TDictionaryKey, TDataPointPrimaryKey> : LaunchPadDomainEntityBase<TPrimaryKey>, IDataSet<TPrimaryKey, TDictionaryKey, TDataPointPrimaryKey>
@@ -98,7 +99,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
         /// Describes the schema (where known) according to which this data is structured.
         /// </summary>
         /// <value>The schema.</value>
-        public virtual ISchemaDetails Schema { get; set; }
+        public virtual ILaunchPadSchemaDetails? Schema { get; set; }
 
         /// <summary>
         /// Adds the data.
@@ -160,7 +161,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
         protected DataSet(SerializationInfo info, StreamingContext context) : base(info, context)
         {
             _data = (IDictionary<TDictionaryKey, IDataPoint<TDataPointPrimaryKey>>)info.GetValue("Data", typeof(IDictionary<TDictionaryKey, IDataPoint<TDataPointPrimaryKey>>));
-            Schema = (ISchemaDetails)info.GetValue("Schema", typeof(ISchemaDetails));
+            Schema = (ILaunchPadSchemaDetails)info.GetValue("Schema", typeof(ILaunchPadSchemaDetails));
             Contact = info.GetString("Contact");
             Quality = info.GetString("Quality");
             AccessRights = info.GetString("AccessRights");

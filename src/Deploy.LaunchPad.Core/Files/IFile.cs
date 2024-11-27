@@ -41,7 +41,7 @@ namespace Deploy.LaunchPad.Core.Domain
     /// </summary>
     /// <typeparam name="TIdType">The type of the t identifier type.</typeparam>
     /// <typeparam name="TFileContentType">The type of the t file content type.</typeparam>
-    public partial interface IFile<TIdType, TFileContentType> : ILaunchPadObject
+    public partial interface IFile<TIdType, TFileContentType> : ILaunchPadObject, ILaunchPadCommonProperties
     {
 
         /// <summary>
@@ -60,20 +60,20 @@ namespace Deploy.LaunchPad.Core.Domain
         public Int64 Size { get; set; }
 
         /// <summary>
-        /// The name of the file (if different from its ID)
-        /// </summary>
-        /// <value>The name.</value>
-        [DataObjectField(false)]
-        [XmlAttribute]
-        public ElementName Name { get; set; }
-
-        /// <summary>
         /// The extension of the file
         /// </summary>
         /// <value>The extension.</value>
         [DataObjectField(false)]
         [XmlAttribute]
         String Extension { get; set; }
+
+        /// <summary>
+        /// The encoding of the file
+        /// </summary>
+        /// <value>The encoding.</value>
+        [DataObjectField(false)]
+        [XmlAttribute]
+        public string Encoding { get; set; }
 
         /// <summary>
         /// The content / mime type of the file
@@ -83,7 +83,6 @@ namespace Deploy.LaunchPad.Core.Domain
         [XmlAttribute]
         public String MimeType { get; set; }
 
-
         /// <summary>
         /// The content of the file
         /// </summary>
@@ -92,13 +91,16 @@ namespace Deploy.LaunchPad.Core.Domain
         [XmlAttribute]
         public TFileContentType Content { get; set; }
 
+
         /// <summary>
-        /// Properties and methods for the file's content hash (to facilitate file verification)
+        /// The schema of the file
         /// </summary>
-        /// <value>The checksum.</value>
+        /// <value>The content.</value>
         [DataObjectField(false)]
         [XmlAttribute]
-        public Checksum Checksum { get; set; }
+        public ILaunchPadSchemaDetails? Schema { get; set; }
+
+
 
 
     }

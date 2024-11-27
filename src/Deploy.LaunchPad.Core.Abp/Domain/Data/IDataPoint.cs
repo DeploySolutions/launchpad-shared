@@ -28,6 +28,7 @@
 
 using Abp.Domain.Entities;
 using Deploy.LaunchPad.Core.Abp.Domain.Model;
+using Deploy.LaunchPad.Core.Domain.Model;
 
 namespace Deploy.LaunchPad.Core.Abp.Domain
 {
@@ -46,6 +47,6 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
         /// Describes the schema (where known) according to which this data is structured.
         /// </summary>
         /// <value>The schema.</value>
-        public ISchemaDetails Schema { get; set; }
+        public ILaunchPadSchemaDetails? Schema { get; set; }
     }
 }
