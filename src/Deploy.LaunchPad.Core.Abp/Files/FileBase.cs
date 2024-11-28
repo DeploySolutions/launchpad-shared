@@ -94,13 +94,15 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
         public virtual TFileContentType Content { get; set; }
 
 
+        public virtual string? FilePath { get; set; }
+
         /// <summary>
         /// The schema of the file
         /// </summary>
         /// <value>The content.</value>
         [DataObjectField(false)]
         [XmlAttribute]
-        public ILaunchPadSchemaDetails? Schema { get; set; }
+        public virtual ILaunchPadSchemaDetails? Schema { get; set; }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="FileBase{TIdType, TFileContentType}"/> class.

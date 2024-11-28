@@ -51,6 +51,8 @@ namespace Deploy.LaunchPad.Core.Domain
         /// <font color="red">Badly formed XML comment.</font>
         public TIdType Id { get; set; }
 
+        public string? FilePath { get; set; }
+
         /// <summary>
         /// The size of the file, in bytes
         /// </summary>
