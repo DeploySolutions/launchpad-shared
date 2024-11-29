@@ -37,6 +37,7 @@ namespace Deploy.LaunchPad.Space.Satellites.GoC
     using Abp.Timing;
     using Deploy.LaunchPad.Core.Abp.Domain;
     using Deploy.LaunchPad.Core.Domain;
+    using Deploy.LaunchPad.Core.Files;
     using Deploy.LaunchPad.Core.Geospatial;
     using Deploy.LaunchPad.Space.Satellites.Core;
     using System;
@@ -311,13 +312,13 @@ namespace Deploy.LaunchPad.Space.Satellites.GoC
             /// Gets or sets the tif.
             /// </summary>
             /// <value>The tif.</value>
-            public TifFile<Guid> Tif { get; set; }
+            public TifFile Tif { get; set; }
 
             /// <summary>
             /// Gets or sets the TFW.
             /// </summary>
             /// <value>The TFW.</value>
-            public TifWorldFile<Guid> Tfw { get; set; }
+            public TifWorldFile Tfw { get; set; }
 
             /// <summary>
             /// Gets or sets the vol.

@@ -36,6 +36,8 @@ namespace Deploy.LaunchPad.Core.Tests
     using System;
     using Deploy.LaunchPad.Core.Abp.Util;
     using Deploy.LaunchPad.Core.Abp.Domain;
+    using Deploy.LaunchPad.Core.Files.Storage;
+    using Deploy.LaunchPad.Core.Files;
 
     /// <summary>
     /// Class TfwWorldFileTestsFixture.
@@ -52,7 +54,7 @@ namespace Deploy.LaunchPad.Core.Tests
         /// <summary>
         /// The TFW file
         /// </summary>
-        public readonly TifWorldFile<Guid> TfwFile;
+        public readonly TifWorldFile TfwFile;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="TfwWorldFileTestsFixture"/> class.

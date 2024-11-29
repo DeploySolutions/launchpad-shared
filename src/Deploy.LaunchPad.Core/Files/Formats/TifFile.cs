@@ -27,17 +27,14 @@
 #endregion
 
 
-using Deploy.LaunchPad.Core.Abp.Domain.Model;
-
-namespace Deploy.LaunchPad.Core.Abp.Domain
+namespace Deploy.LaunchPad.Core.Files
 {
     /// <summary>
     /// Class TifFile.
-    /// Implements the <see cref="Model.DomainEntityFileBase{TIdType, System.Byte[]}" />
+    /// Implements the <see cref="Model.DomainEntityFileBase{System.Byte[]}" />
     /// </summary>
-    /// <typeparam name="TIdType">The type of the t identifier type.</typeparam>
-    /// <seealso cref="Model.DomainEntityFileBase{TIdType, System.Byte[]}" />
-    public partial class TifFile<TIdType> : DomainEntityFileBase<TIdType, byte[]>
+    /// <seealso cref="Model.DomainEntityFileBase{ System.Byte[]}" />
+    public partial class TifFile : FileBase<byte[]>
     {
         /// <summary>
         /// The extension of the file
@@ -61,14 +58,5 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
 
         }
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="TifFile{TIdType}"/> class.
-        /// </summary>
-        /// <param name="id">The identifier.</param>
-        /// <param name="fileName">Name of the file.</param>
-        public TifFile(TIdType id, string fileName) : base(id, fileName)
-        {
-
-        }
     }
 }

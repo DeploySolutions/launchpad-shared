@@ -37,6 +37,7 @@
   <ItemGroup>
     <PackageReference Include="Castle.LoggingFacility" Version="6.0.0" />
     <PackageReference Include="File.TypeChecker" Version="4.1.1" />
+    <PackageReference Include="DocumentFormat.OpenXml" Version="3.1.0" />
     <PackageReference Include="HtmlAgilityPack" Version="1.11.65" />
     <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.8" />

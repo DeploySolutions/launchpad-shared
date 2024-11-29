@@ -12,9 +12,9 @@
 // <summary></summary>
 // ***********************************************************************
 using Deploy.LaunchPad.Core.Domain;
-using Deploy.LaunchPad.Core.Files;
 using Deploy.LaunchPad.Core.Domain.Model;
 using System.Collections.Generic;
+using Deploy.LaunchPad.Core.Files.Storage;
 
 namespace Deploy.LaunchPad.Core.Abp.Domain.Model
 {

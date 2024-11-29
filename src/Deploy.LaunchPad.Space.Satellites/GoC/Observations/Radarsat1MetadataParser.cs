@@ -34,6 +34,7 @@ namespace Deploy.LaunchPad.Space.Satellites.GoC
     using Deploy.LaunchPad.Core.Domain;
     using Deploy.LaunchPad.Core.Domain.Model;
     using Deploy.LaunchPad.Core.Files;
+    using Deploy.LaunchPad.Core.Files.Storage;
     using Deploy.LaunchPad.Core.Geospatial;
     using Deploy.LaunchPad.Core.Util;
     using Deploy.LaunchPad.Space.Satellites.Core;
@@ -262,17 +263,15 @@ namespace Deploy.LaunchPad.Space.Satellites.GoC
             }
             if (File.Exists(expectedFiles[4].Value))
             {
-                observationFiles.Tfw = new TifWorldFile<Guid>()
+                observationFiles.Tfw = new TifWorldFile()
                 {
-                    Id = SequentialGuid.NewGuid(),
                     Name = new ElementName(Path.GetFileName(expectedFiles[4].Value))
                 };
             }
             if (File.Exists(expectedFiles[5].Value))
             {
-                observationFiles.Tif = new TifFile<Guid>()
+                observationFiles.Tif = new TifFile()
                 {
-                    Id = SequentialGuid.NewGuid(),
                     Name = new ElementName(Path.GetFileName(expectedFiles[5].Value))
                 };
             }

@@ -30,6 +30,7 @@
 using Deploy.LaunchPad.Core.Abp.Domain;
 using Deploy.LaunchPad.Core.Domain;
 using Deploy.LaunchPad.Core.Files;
+using Deploy.LaunchPad.Core.Files.Storage;
 using System;
 using System.Globalization;
 using System.IO;
@@ -65,9 +66,9 @@ namespace Deploy.LaunchPad.Core.Abp.Util
         /// <param name="metadataFileName">Name of the metadata file.</param>
         /// <returns>TifWorldFile&lt;TPrimaryKey&gt;.</returns>
         /// <exception cref="System.IO.FileLoadException"></exception>
-        public TifWorldFile<TPrimaryKey> GetTifWorldFileFromMetadataFile(string metadataFileName)
+        public TifWorldFile GetTifWorldFileFromMetadataFile(string metadataFileName)
         {
-            TifWorldFile<TPrimaryKey> file = null;
+            TifWorldFile file = null;
             // Tif World File metadata files are in .tfw format
             // ReSharper disable once RedundantAssignment
             var metadataFileText = string.Empty;
@@ -117,7 +118,7 @@ namespace Deploy.LaunchPad.Core.Abp.Util
                         lineNumber++;
                     }
 
-                    file = new TifWorldFile<TPrimaryKey>()
+                    file = new TifWorldFile()
                     {
                         A = a,
                         D = d,

@@ -12,6 +12,7 @@
 // <summary></summary>
 // ***********************************************************************
 using Castle.Core.Logging;
+using Deploy.LaunchPad.Core.Files.Storage;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations.Schema;

@@ -12,7 +12,7 @@
 // <summary></summary>
 // ***********************************************************************
 using Deploy.LaunchPad.Core.Domain;
-using Deploy.LaunchPad.Core.Files;
+using Deploy.LaunchPad.Core.Files.Storage;
 using Deploy.LaunchPad.Space.Satellites.Core;
 
 namespace Deploy.LaunchPad.Space.Satellites.Landsat

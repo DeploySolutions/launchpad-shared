@@ -41,6 +41,7 @@ using System.Threading.Tasks;
 using System.Collections.Generic;
 using Deploy.LaunchPad.Core.Domain.Model;
 using Deploy.LaunchPad.Core.Files;
+using Deploy.LaunchPad.Core.Files.Storage;
 
 namespace Deploy.LaunchPad.AWS.S3
 {

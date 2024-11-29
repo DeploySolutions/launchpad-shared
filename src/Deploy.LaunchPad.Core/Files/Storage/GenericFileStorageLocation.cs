@@ -38,13 +38,13 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
 
-namespace Deploy.LaunchPad.Core.Files
+namespace Deploy.LaunchPad.Core.Files.Storage
 {
     /// <summary>
     /// Class GenericFileStorageLocation.
-    /// Implements the <see cref="Deploy.LaunchPad.Core.Domain.IFileStorageLocation" />
+    /// Implements the <see cref="Domain.IFileStorageLocation" />
     /// </summary>
-    /// <seealso cref="Deploy.LaunchPad.Core.Domain.IFileStorageLocation" />
+    /// <seealso cref="Domain.IFileStorageLocation" />
     [DebuggerDisplay("{_debugDisplay}")]
     [Serializable]
     public partial class GenericFileStorageLocation : IFileStorageLocation
@@ -79,7 +79,7 @@ namespace Deploy.LaunchPad.Core.Files
         [MaxLength(256, ErrorMessageResourceName = "Validation_DescriptionShort_256CharsOrLess", ErrorMessageResourceType = typeof(Deploy_LaunchPad_Core_Resources))]
         [DataObjectField(false)]
         [XmlAttribute]
-        public virtual String DescriptionShort { get; set; } = string.Empty;
+        public virtual string DescriptionShort { get; set; } = string.Empty;
 
         /// <summary>
         /// The full description for this storage location
@@ -285,7 +285,7 @@ namespace Deploy.LaunchPad.Core.Files
         /// Displays information about the <c>Field</c> in readable format.
         /// </summary>
         /// <returns>A string representation of the object.</returns>
-        public override String ToString()
+        public override string ToString()
         {
             StringBuilder sb = new StringBuilder();
             sb.Append("[GenericFileStorageLocation: ");
@@ -299,7 +299,7 @@ namespace Deploy.LaunchPad.Core.Files
         /// the common base properties
         /// </summary>
         /// <returns>A string description of the entity</returns>
-        protected virtual String ToStringBaseProperties()
+        protected virtual string ToStringBaseProperties()
         {
             StringBuilder sb = new StringBuilder();
             sb.AppendFormat("Id={0};", Id);
@@ -383,7 +383,7 @@ namespace Deploy.LaunchPad.Core.Files
         /// Computes and retrieves a hash code for an object.
         /// </summary>
         /// <returns>A hash code for an object.</returns>
-        /// <remarks>This method implements the <see cref="Object">Object</see> method.</remarks>
+        /// <remarks>This method implements the <see cref="object">Object</see> method.</remarks>
         public override int GetHashCode()
         {
             return Id.GetHashCode()
@@ -427,7 +427,7 @@ namespace Deploy.LaunchPad.Core.Files
         /// <param name="filePrefix">The file prefix.</param>
         /// <param name="fileSuffix">The file suffix.</param>
         /// <returns>A Task&lt;System.Boolean&gt; representing the asynchronous operation.</returns>
-        /// <exception cref="System.NotImplementedException"></exception>
+        /// <exception cref="NotImplementedException"></exception>
         public virtual async Task<bool> CreateFileAsync<TFile, TFileContentType>(TFile sourceFile, IDictionary<string, string> fileTags, string contentType, IDictionary<string, string> writeTags, string filePrefix, string fileSuffix)
              where TFile : IFile<TFileContentType>, new()
         {
@@ -458,7 +458,7 @@ namespace Deploy.LaunchPad.Core.Files
         /// <param name="fileId">The file identifier.</param>
         /// <param name="tempLocation">The temporary location.</param>
         /// <returns>A Task&lt;TFile&gt; representing the asynchronous operation.</returns>
-        /// <exception cref="System.NotImplementedException"></exception>
+        /// <exception cref="NotImplementedException"></exception>
         public virtual async Task<TFile> ReadFileAsync<TFile, TFileContentType>(string fileId, Uri tempLocation = null)
              where TFile : IFile<TFileContentType>, new()
         {
@@ -473,7 +473,7 @@ namespace Deploy.LaunchPad.Core.Files
         /// <typeparam name="TFileContentType">The type of the t file content type.</typeparam>
         /// <param name="sourceFile">The source file.</param>
         /// <returns>IDictionary&lt;System.String, System.String&gt;.</returns>
-        /// <exception cref="System.NotImplementedException"></exception>
+        /// <exception cref="NotImplementedException"></exception>
         public virtual IDictionary<string, string> ReadFileMetadata<TFile, TFileContentType>(TFile sourceFile)
              where TFile : IFile<TFileContentType>, new()
         {
@@ -488,7 +488,7 @@ namespace Deploy.LaunchPad.Core.Files
         /// <typeparam name="TFileContentType">The type of the t file content type.</typeparam>
         /// <param name="sourceFile">The source file.</param>
         /// <returns>A Task&lt;IDictionary`2&gt; representing the asynchronous operation.</returns>
-        /// <exception cref="System.NotImplementedException"></exception>
+        /// <exception cref="NotImplementedException"></exception>
         public virtual async Task<IDictionary<string, string>> ReadFileMetadataAsync<TFile, TFileContentType>(TFile sourceFile)
              where TFile : IFile<TFileContentType>, new()
         {
@@ -517,7 +517,7 @@ namespace Deploy.LaunchPad.Core.Files
         /// <typeparam name="TFileContentType">The type of the t file content type.</typeparam>
         /// <param name="fileToUpdate">The file to update.</param>
         /// <returns>A Task&lt;TFile&gt; representing the asynchronous operation.</returns>
-        /// <exception cref="System.NotImplementedException"></exception>
+        /// <exception cref="NotImplementedException"></exception>
         public virtual async Task<TFile> UpdateFileAsync<TFile, TFileContentType>(TFile fileToUpdate)
              where TFile : IFile<TFileContentType>, new()
         {
@@ -548,7 +548,7 @@ namespace Deploy.LaunchPad.Core.Files
         /// <typeparam name="TFileContentType">The type of the t file content type.</typeparam>
         /// <param name="fileToDelete">The file to delete.</param>
         /// <returns>A Task&lt;System.Boolean&gt; representing the asynchronous operation.</returns>
-        /// <exception cref="System.NotImplementedException"></exception>
+        /// <exception cref="NotImplementedException"></exception>
         public virtual async Task<bool> DeleteFileAsync<TFile, TFileContentType>(TFile fileToDelete)
              where TFile : IFile<TFileContentType>, new()
         {
@@ -565,7 +565,7 @@ namespace Deploy.LaunchPad.Core.Files
         /// <typeparam name="TFileContentType">The type of the t file content type.</typeparam>
         /// <param name="file">The file.</param>
         /// <returns>Uri.</returns>
-        /// <exception cref="System.NotImplementedException"></exception>
+        /// <exception cref="NotImplementedException"></exception>
         public virtual Uri GetRelativePathForFile<TFile, TFileContentType>(TFile file)
              where TFile : IFile<TFileContentType>, new()
         {
@@ -580,7 +580,7 @@ namespace Deploy.LaunchPad.Core.Files
         /// <typeparam name="TFileContentType">The type of the t file content type.</typeparam>
         /// <param name="file">The file.</param>
         /// <returns>Uri.</returns>
-        /// <exception cref="System.NotImplementedException"></exception>
+        /// <exception cref="NotImplementedException"></exception>
         public virtual Uri GetFullPathForFile<TFile, TFileContentType>(TFile file)
              where TFile : IFile<TFileContentType>, new()
         {
@@ -616,7 +616,7 @@ namespace Deploy.LaunchPad.Core.Files
         /// <param name="fileToCheck">The file to check.</param>
         /// <param name="shouldRecurseSubdirectories">if set to <c>true</c> [should recurse subdirectories].</param>
         /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
-        /// <exception cref="System.NotImplementedException"></exception>
+        /// <exception cref="NotImplementedException"></exception>
         public virtual bool FileExists<TFile, TFileContentType>(TFile fileToCheck, bool shouldRecurseSubdirectories = false)
              where TFile : IFile<TFileContentType>, new()
         {

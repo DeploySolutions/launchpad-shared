@@ -38,6 +38,7 @@ namespace Deploy.LaunchPad.Core.Tests
     using Deploy.LaunchPad.AWS.S3;
     using Deploy.LaunchPad.Core.Abp.Util;
     using Deploy.LaunchPad.Core.Abp.Domain;
+    using Deploy.LaunchPad.Core.Files;
 
     /// <summary>
     /// Class S3FileStorageTestsFixture.
@@ -54,7 +55,7 @@ namespace Deploy.LaunchPad.Core.Tests
         /// <summary>
         /// The TFW file
         /// </summary>
-        public readonly TifWorldFile<Guid> TfwFile;
+        public readonly TifWorldFile TfwFile;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="S3FileStorageTestsFixture"/> class.

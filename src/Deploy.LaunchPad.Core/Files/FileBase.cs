@@ -8,6 +8,7 @@ using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
+using Deploy.LaunchPad.Core.Files.Storage;
 
 namespace Deploy.LaunchPad.Core.Files
 {
@@ -80,6 +81,15 @@ namespace Deploy.LaunchPad.Core.Files
         {
 
         }
+
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        protected FileBase(string fileName) : base()
+        {
+            Name = new ElementName(fileName);
+        }
+
 
         /// <summary>
         /// Serialization constructor used for deserialization

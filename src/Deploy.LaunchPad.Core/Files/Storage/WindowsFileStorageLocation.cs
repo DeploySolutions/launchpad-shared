@@ -37,11 +37,9 @@ using System.Runtime.InteropServices;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
-using Abp.Domain.Values;
 using DocumentFormat.OpenXml.Packaging;
-using Deploy.LaunchPad.Core.Files;
 
-namespace Deploy.LaunchPad.Core.Abp.Domain
+namespace Deploy.LaunchPad.Core.Files.Storage
 {
     /// <summary>
     /// Class WindowsFileStorageLocation.
@@ -99,7 +97,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
         /// Displays information about the <c>Field</c> in readable format.
         /// </summary>
         /// <returns>A string representation of the object.</returns>
-        public override String ToString()
+        public override string ToString()
         {
             StringBuilder sb = new StringBuilder();
             sb.Append("[WindowsFileStorageLocation: ");
@@ -236,7 +234,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
                         //size
                         var size = file.Length;
                         metadata.TryAdd("Size", size.ToString());
-                        
+
                         // if it's word
                         if (sourceFile.Extension == "docx")
                         {
@@ -246,7 +244,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
                                 var extendedProperties = wDoc.ExtendedFilePropertiesPart;
                                 if (extendedProperties != null)
                                 {
-                                    metadata.TryAdd("Lines",extendedProperties.Properties.Lines.InnerText);
+                                    metadata.TryAdd("Lines", extendedProperties.Properties.Lines.InnerText);
                                     metadata.TryAdd("Words", extendedProperties.Properties.Words.InnerText);
                                     metadata.TryAdd("Paragraphs", extendedProperties.Properties.Paragraphs.InnerText);
                                     metadata.TryAdd("Application", extendedProperties.Properties.Application.InnerText);
@@ -269,7 +267,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
                 {
                     Logger.Error(pathEx.Message);
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
                     Logger.Equals(ex.Message);
                 }

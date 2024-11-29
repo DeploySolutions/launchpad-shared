@@ -26,7 +26,7 @@
 //limitations under the License. 
 #endregion
 
-namespace Deploy.LaunchPad.Core.Files
+namespace Deploy.LaunchPad.Core.Files.Storage
 {
     using Deploy.LaunchPad.Core.Domain;
     using Deploy.LaunchPad.Core.Domain.Model;
@@ -67,7 +67,7 @@ namespace Deploy.LaunchPad.Core.Files
         [MaxLength(256, ErrorMessageResourceName = "Validation_DescriptionShort_256CharsOrLess", ErrorMessageResourceType = typeof(Deploy_LaunchPad_Core_Resources))]
         [DataObjectField(false)]
         [XmlAttribute]
-        public String DescriptionShort { get; set; }
+        public string DescriptionShort { get; set; }
 
         /// <summary>
         /// The full description for this storage location
@@ -76,7 +76,7 @@ namespace Deploy.LaunchPad.Core.Files
         [MaxLength(8096, ErrorMessageResourceName = "Validation_DescriptionFull_8096CharsOrLess", ErrorMessageResourceType = typeof(Deploy_LaunchPad_Core_Resources))]
         [DataObjectField(false)]
         [XmlElement]
-        public string? DescriptionFull { get; set; }
+        public string DescriptionFull { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether this instance is read only.
