@@ -29,6 +29,7 @@
 namespace Deploy.LaunchPad.Core.Files
 {
     using System;
+    using System.Collections.Generic;
     using System.ComponentModel;
     using System.Xml.Serialization;
     using Deploy.LaunchPad.Core;
@@ -48,7 +49,7 @@ namespace Deploy.LaunchPad.Core.Files
         /// <value>The size.</value>
         [DataObjectField(false)]
         [XmlAttribute]
-        public IFileStorageLocation? Location { get; set; }
+        public IList<IFileStorageLocation> Locations { get; set; }
 
         /// <summary>
         /// The size of the file, in bytes

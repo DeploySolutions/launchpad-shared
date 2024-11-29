@@ -19,15 +19,15 @@ namespace Deploy.LaunchPad.Core.Files
 
         public void LoadMetadata()
         {
-            string metadataPath = Path.Combine(Location.RootUri.LocalPath, ".zarray");
+            string metadataPath = Path.Combine(Locations[0].RootUri.LocalPath, ".zarray");
             if (File.Exists(metadataPath))
             {
                 string metadataContent = File.ReadAllText(metadataPath);
                 Metadata = JsonDocument.Parse(metadataContent);
             }
 
-            FileInfo fileInfo = new FileInfo(Location.RootUri.LocalPath);
-            Size = Directory.GetFiles(Location.RootUri.LocalPath, "*", SearchOption.AllDirectories)
+            FileInfo fileInfo = new FileInfo(Locations[0].RootUri.LocalPath);
+            Size = Directory.GetFiles(Locations[0].RootUri.LocalPath, "*", SearchOption.AllDirectories)
                                 .Sum(f => new FileInfo(f).Length);
             CreationTime = fileInfo.CreationTime;
             LastModificationTime = fileInfo.LastWriteTime;

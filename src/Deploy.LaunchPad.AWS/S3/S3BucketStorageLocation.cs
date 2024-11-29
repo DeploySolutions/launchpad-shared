@@ -123,7 +123,7 @@ namespace Deploy.LaunchPad.AWS.S3
         /// <param name="logger">The logger.</param>
         /// <param name="id">The identifier.</param>
         /// <param name="rootUri">The root URI.</param>
-        public S3BucketStorageLocation(ILogger logger, string id, Uri rootUri) : base(logger, id, rootUri)
+        public S3BucketStorageLocation(ILogger logger, string id, Uri rootUri) : base(logger, rootUri, id)
         {
             Region = DEFAULT_REGION;
             string bucketUri = string.Format("https://s3.{0}.amazonaws.com/{1}", Region, id);

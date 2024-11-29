@@ -29,6 +29,7 @@
 using Deploy.LaunchPad.Core.Domain.Model;
 using Deploy.LaunchPad.Core.Files.Storage;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
@@ -98,7 +99,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
         /// <value>The size.</value>
         [DataObjectField(false)]
         [XmlAttribute]
-        public virtual IFileStorageLocation? Location { get; set; }
+        public virtual IList<IFileStorageLocation> Locations { get; set; } = new List<IFileStorageLocation>();
 
         /// <summary>
         /// The schema of the file
@@ -113,6 +114,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
         /// </summary>
         protected DomainEntityFileBase()
         {
+
         }
 
         /// <summary>
@@ -165,7 +167,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
         /// <param name="context">The context of the stream</param>
         protected DomainEntityFileBase(SerializationInfo info, StreamingContext context) : base(info, context)
         {
-            Location = (IFileStorageLocation)info.GetValue("Content", typeof(IFileStorageLocation));
+            Locations = (IList<IFileStorageLocation>)info.GetValue("Content", typeof(IList<IFileStorageLocation>));
             Content = (TFileContentType)info.GetValue("Content", typeof(TFileContentType));
             Schema = (ILaunchPadSchemaDetails)info.GetValue("Schema", typeof(ILaunchPadSchemaDetails));
             Size = info.GetInt64("Size");
@@ -182,7 +184,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
         public override void GetObjectData(SerializationInfo info, StreamingContext context)
         {
             base.GetObjectData(info, context);
-            info.AddValue("Location", Location);
+            info.AddValue("Locations", Locations);
             info.AddValue("Size", Size);
             info.AddValue("MimeType", MimeType);
             info.AddValue("Extension", Extension);

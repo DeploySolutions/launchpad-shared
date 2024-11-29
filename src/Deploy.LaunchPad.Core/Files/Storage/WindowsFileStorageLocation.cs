@@ -71,7 +71,23 @@ namespace Deploy.LaunchPad.Core.Files.Storage
         /// <param name="logger">The logger.</param>
         /// <param name="id">The identifier.</param>
         /// <param name="rootUri">The root URI.</param>
-        public WindowsFileStorageLocation(ILogger logger, string id, Uri rootUri) : base(logger, id, rootUri)
+        public WindowsFileStorageLocation(ILogger logger, Uri rootUri) : base(logger, rootUri)
+        {
+            FileInfo file = new FileInfo(RootUri.ToString());
+            DriveInfo drive = new DriveInfo(file.Directory.Root.FullName);
+            string driveRoot = drive.RootDirectory.FullName;
+            string descriptionMessage = string.Format("Windows file share drive '{0}'", driveRoot);
+            Description = new ElementDescription(descriptionMessage);
+            Provider = FileStorageLocationTypeEnum.Windows_NTFS;
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="WindowsFileStorageLocation"/> class.
+        /// </summary>
+        /// <param name="logger">The logger.</param>
+        /// <param name="id">The identifier.</param>
+        /// <param name="rootUri">The root URI.</param>
+        public WindowsFileStorageLocation(ILogger logger, string id, Uri rootUri) : base(logger, rootUri, id)
         {
             FileInfo file = new FileInfo(RootUri.ToString());
             DriveInfo drive = new DriveInfo(file.Directory.Root.FullName);

@@ -108,8 +108,8 @@ namespace Deploy.LaunchPad.Core.Files.Storage
         /// </summary>
         public GenericFileStorageLocation() : base()
         {
-            Name = new ElementName("Generic File Storage Location");
-            Id = "GenericFile1";
+            Id = Guid.NewGuid().ToString();
+            Name = new ElementName("Generic File Storage Location for " + Id);
             Provider = FileStorageLocationTypeEnum.Unknown;
             Logger = NullLogger.Instance;
         }
@@ -120,7 +120,23 @@ namespace Deploy.LaunchPad.Core.Files.Storage
         /// <param name="logger">The logger.</param>
         /// <param name="id">The identifier.</param>
         /// <param name="rootUri">The root URI.</param>
-        public GenericFileStorageLocation(ILogger logger, string id, Uri rootUri) : base()
+        public GenericFileStorageLocation(ILogger logger, Uri rootUri) : base()
+        {
+            Id = Guid.NewGuid().ToString();
+            Name = new ElementName("Generic File Storage Location for " + Id);
+            RootUri = rootUri;
+            Provider = FileStorageLocationTypeEnum.Unknown;
+            Logger = logger;
+        }
+
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="GenericFileStorageLocation"/> class.
+        /// </summary>
+        /// <param name="logger">The logger.</param>
+        /// <param name="id">The identifier.</param>
+        /// <param name="rootUri">The root URI.</param>
+        public GenericFileStorageLocation(ILogger logger, Uri rootUri, string id) : base()
         {
             Id = id;
             Name = new ElementName("Generic File Storage Location for " + Id);
@@ -128,6 +144,7 @@ namespace Deploy.LaunchPad.Core.Files.Storage
             Provider = FileStorageLocationTypeEnum.Unknown;
             Logger = logger;
         }
+
         /// <summary>
         /// Initializes a new instance of the <see cref="GenericFileStorageLocation"/> class.
         /// </summary>

@@ -63,7 +63,7 @@ namespace Deploy.LaunchPad.Core.Files
         /// <value>The size.</value>
         [DataObjectField(false)]
         [XmlAttribute]
-        public virtual IFileStorageLocation? Location { get; set; }
+        public virtual IList<IFileStorageLocation> Locations { get; set; } = new List<IFileStorageLocation>();
 
         /// <summary>
         /// The schema of the file
@@ -98,7 +98,7 @@ namespace Deploy.LaunchPad.Core.Files
         /// <param name="context">The context of the stream</param>
         protected FileBase(SerializationInfo info, StreamingContext context) : base(info, context)
         {
-            Location = (IFileStorageLocation)info.GetValue("Content", typeof(IFileStorageLocation));
+            Locations = (IList<IFileStorageLocation>)info.GetValue("Locations", typeof(IFileStorageLocation));
             Content = (TFileContentType)info.GetValue("Content", typeof(TFileContentType));
             Schema = (ILaunchPadSchemaDetails)info.GetValue("Schema", typeof(ILaunchPadSchemaDetails));
             Size = info.GetInt64("Size");
@@ -111,7 +111,7 @@ namespace Deploy.LaunchPad.Core.Files
         public virtual void GetObjectData(SerializationInfo info, StreamingContext context)
         {
             base.DeserializeCommonProperties(info, context);
-            info.AddValue("Location", Location);
+            info.AddValue("Locations", Locations);
             info.AddValue("Size", Size);
             info.AddValue("MimeType", MimeType);
             info.AddValue("Extension", Extension);
