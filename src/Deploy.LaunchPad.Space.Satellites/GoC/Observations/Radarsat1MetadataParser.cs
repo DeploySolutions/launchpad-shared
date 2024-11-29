@@ -33,6 +33,7 @@ namespace Deploy.LaunchPad.Space.Satellites.GoC
     using Deploy.LaunchPad.Core.Abp.Domain;
     using Deploy.LaunchPad.Core.Domain;
     using Deploy.LaunchPad.Core.Domain.Model;
+    using Deploy.LaunchPad.Core.Files;
     using Deploy.LaunchPad.Core.Geospatial;
     using Deploy.LaunchPad.Core.Util;
     using Deploy.LaunchPad.Space.Satellites.Core;

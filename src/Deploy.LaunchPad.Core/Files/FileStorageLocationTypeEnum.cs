@@ -14,7 +14,7 @@
 using System;
 using System.ComponentModel;
 
-namespace Deploy.LaunchPad.Core.Domain
+namespace Deploy.LaunchPad.Core.Files
 {
 
     /// <summary>

@@ -27,17 +27,19 @@
 #endregion
 
 
+using Deploy.LaunchPad.Core.Abp.Domain.Model;
+
 namespace Deploy.LaunchPad.Core.Abp.Domain
 {
     // Tiff World File (TFW)
     //
     /// <summary>
     /// Class TifWorldFile.
-    /// Implements the <see cref="Deploy.LaunchPad.Core.Abp.Domain.FileBase{TPrimaryKey, System.Byte[]}" />
+    /// Implements the <see cref="Model.DomainEntityFileBase{TPrimaryKey, System.Byte[]}" />
     /// </summary>
     /// <typeparam name="TPrimaryKey">The type of the t primary key.</typeparam>
-    /// <seealso cref="Deploy.LaunchPad.Core.Abp.Domain.FileBase{TPrimaryKey, System.Byte[]}" />
-    public partial class TifWorldFile<TPrimaryKey> : FileBase<TPrimaryKey, byte[]>
+    /// <seealso cref="Model.DomainEntityFileBase{TPrimaryKey, System.Byte[]}" />
+    public partial class TifWorldFile<TPrimaryKey> : DomainEntityFileBase<TPrimaryKey, byte[]>
     {
         /// <summary>
         /// The extension of the file

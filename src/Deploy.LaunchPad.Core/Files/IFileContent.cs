@@ -15,7 +15,7 @@ using System.ComponentModel;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Xml.Serialization;
 
-namespace Deploy.LaunchPad.Core.Domain
+namespace Deploy.LaunchPad.Core.Files
 {
     /// <summary>
     /// Interface IFileContent

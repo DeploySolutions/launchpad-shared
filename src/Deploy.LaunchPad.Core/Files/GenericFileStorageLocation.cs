@@ -27,7 +27,7 @@
 #endregion
 
 using Castle.Core.Logging;
-using Microsoft.EntityFrameworkCore.Update.Internal;
+using Deploy.LaunchPad.Core.Domain;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -38,7 +38,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
 
-namespace Deploy.LaunchPad.Core.Domain
+namespace Deploy.LaunchPad.Core.Files
 {
     /// <summary>
     /// Class GenericFileStorageLocation.
@@ -408,10 +408,10 @@ namespace Deploy.LaunchPad.Core.Domain
         /// <param name="filePrefix">The file prefix.</param>
         /// <param name="fileSuffix">The file suffix.</param>
         /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
-        public virtual bool CreateFile<TFile, TFileId, TFileContentType>(TFile sourceFile, IDictionary<string, string> fileTags, string contentType, IDictionary<string, string> writeTags, string filePrefix, string fileSuffix)
-            where TFile : IFile<TFileId, TFileContentType>, new()
+        public virtual bool CreateFile<TFile, TFileContentType>(TFile sourceFile, IDictionary<string, string> fileTags, string contentType, IDictionary<string, string> writeTags, string filePrefix, string fileSuffix)
+            where TFile : IFile<TFileContentType>, new()
         {
-            return CreateFileAsync<TFile, TFileId, TFileContentType>(sourceFile, fileTags, contentType, writeTags, filePrefix, fileSuffix).Result;
+            return CreateFileAsync<TFile, TFileContentType>(sourceFile, fileTags, contentType, writeTags, filePrefix, fileSuffix).Result;
         }
 
         /// <summary>
@@ -428,8 +428,8 @@ namespace Deploy.LaunchPad.Core.Domain
         /// <param name="fileSuffix">The file suffix.</param>
         /// <returns>A Task&lt;System.Boolean&gt; representing the asynchronous operation.</returns>
         /// <exception cref="System.NotImplementedException"></exception>
-        public virtual async Task<bool> CreateFileAsync<TFile, TFileId, TFileContentType>(TFile sourceFile, IDictionary<string, string> fileTags, string contentType, IDictionary<string, string> writeTags, string filePrefix, string fileSuffix)
-            where TFile : IFile<TFileId, TFileContentType>, new()
+        public virtual async Task<bool> CreateFileAsync<TFile, TFileContentType>(TFile sourceFile, IDictionary<string, string> fileTags, string contentType, IDictionary<string, string> writeTags, string filePrefix, string fileSuffix)
+             where TFile : IFile<TFileContentType>, new()
         {
             throw new NotImplementedException();
         }
@@ -443,10 +443,10 @@ namespace Deploy.LaunchPad.Core.Domain
         /// <param name="fileId">The file identifier.</param>
         /// <param name="tempLocation">The temporary location.</param>
         /// <returns>TFile.</returns>
-        public virtual TFile ReadFile<TFile, TFileId, TFileContentType>(string fileId, Uri tempLocation = null)
-            where TFile : IFile<TFileId, TFileContentType>, new()
+        public virtual TFile ReadFile<TFile, TFileContentType>(string fileId, Uri tempLocation = null)
+             where TFile : IFile<TFileContentType>, new()
         {
-            return ReadFileAsync<TFile, TFileId, TFileContentType>(fileId, tempLocation).Result;
+            return ReadFileAsync<TFile, TFileContentType>(fileId, tempLocation).Result;
         }
 
         /// <summary>
@@ -459,8 +459,8 @@ namespace Deploy.LaunchPad.Core.Domain
         /// <param name="tempLocation">The temporary location.</param>
         /// <returns>A Task&lt;TFile&gt; representing the asynchronous operation.</returns>
         /// <exception cref="System.NotImplementedException"></exception>
-        public virtual async Task<TFile> ReadFileAsync<TFile, TFileId, TFileContentType>(string fileId, Uri tempLocation = null)
-            where TFile : IFile<TFileId, TFileContentType>, new()
+        public virtual async Task<TFile> ReadFileAsync<TFile, TFileContentType>(string fileId, Uri tempLocation = null)
+             where TFile : IFile<TFileContentType>, new()
         {
             throw new NotImplementedException();
         }
@@ -474,8 +474,8 @@ namespace Deploy.LaunchPad.Core.Domain
         /// <param name="sourceFile">The source file.</param>
         /// <returns>IDictionary&lt;System.String, System.String&gt;.</returns>
         /// <exception cref="System.NotImplementedException"></exception>
-        public virtual IDictionary<string, string> ReadFileMetadata<TFile, TFileId, TFileContentType>(TFile sourceFile)
-            where TFile : IFile<TFileId, TFileContentType>, new()
+        public virtual IDictionary<string, string> ReadFileMetadata<TFile, TFileContentType>(TFile sourceFile)
+             where TFile : IFile<TFileContentType>, new()
         {
             throw new NotImplementedException();
         }
@@ -489,8 +489,8 @@ namespace Deploy.LaunchPad.Core.Domain
         /// <param name="sourceFile">The source file.</param>
         /// <returns>A Task&lt;IDictionary`2&gt; representing the asynchronous operation.</returns>
         /// <exception cref="System.NotImplementedException"></exception>
-        public virtual async Task<IDictionary<string, string>> ReadFileMetadataAsync<TFile, TFileId, TFileContentType>(TFile sourceFile)
-            where TFile : IFile<TFileId, TFileContentType>, new()
+        public virtual async Task<IDictionary<string, string>> ReadFileMetadataAsync<TFile, TFileContentType>(TFile sourceFile)
+             where TFile : IFile<TFileContentType>, new()
         {
             throw new NotImplementedException();
         }
@@ -504,10 +504,10 @@ namespace Deploy.LaunchPad.Core.Domain
         /// <typeparam name="TFileContentType">The type of the t file content type.</typeparam>
         /// <param name="fileToUpdate">The file to update.</param>
         /// <returns>TFile.</returns>
-        public virtual TFile UpdateFile<TFile, TFileId, TFileContentType>(TFile fileToUpdate)
-            where TFile : IFile<TFileId, TFileContentType>, new()
+        public virtual TFile UpdateFile<TFile, TFileContentType>(TFile fileToUpdate)
+             where TFile : IFile<TFileContentType>, new()
         {
-            return UpdateFileAsync<TFile, TFileId, TFileContentType>(fileToUpdate).Result;
+            return UpdateFileAsync<TFile, TFileContentType>(fileToUpdate).Result;
         }
         /// <summary>
         /// Update file as an asynchronous operation.
@@ -518,8 +518,8 @@ namespace Deploy.LaunchPad.Core.Domain
         /// <param name="fileToUpdate">The file to update.</param>
         /// <returns>A Task&lt;TFile&gt; representing the asynchronous operation.</returns>
         /// <exception cref="System.NotImplementedException"></exception>
-        public virtual async Task<TFile> UpdateFileAsync<TFile, TFileId, TFileContentType>(TFile fileToUpdate)
-            where TFile : IFile<TFileId, TFileContentType>, new()
+        public virtual async Task<TFile> UpdateFileAsync<TFile, TFileContentType>(TFile fileToUpdate)
+             where TFile : IFile<TFileContentType>, new()
         {
             throw new NotImplementedException();
         }
@@ -534,10 +534,10 @@ namespace Deploy.LaunchPad.Core.Domain
         /// <typeparam name="TFileContentType">The type of the t file content type.</typeparam>
         /// <param name="fileToDelete">The file to delete.</param>
         /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
-        public virtual bool DeleteFile<TFile, TFileId, TFileContentType>(TFile fileToDelete)
-            where TFile : IFile<TFileId, TFileContentType>, new()
+        public virtual bool DeleteFile<TFile, TFileContentType>(TFile fileToDelete)
+             where TFile : IFile<TFileContentType>, new()
         {
-            return DeleteFileAsync<TFile, TFileId, TFileContentType>(fileToDelete).Result;
+            return DeleteFileAsync<TFile, TFileContentType>(fileToDelete).Result;
         }
 
         /// <summary>
@@ -549,8 +549,8 @@ namespace Deploy.LaunchPad.Core.Domain
         /// <param name="fileToDelete">The file to delete.</param>
         /// <returns>A Task&lt;System.Boolean&gt; representing the asynchronous operation.</returns>
         /// <exception cref="System.NotImplementedException"></exception>
-        public virtual async Task<bool> DeleteFileAsync<TFile, TFileId, TFileContentType>(TFile fileToDelete)
-            where TFile : IFile<TFileId, TFileContentType>, new()
+        public virtual async Task<bool> DeleteFileAsync<TFile, TFileContentType>(TFile fileToDelete)
+             where TFile : IFile<TFileContentType>, new()
         {
 
             throw new NotImplementedException();
@@ -566,8 +566,8 @@ namespace Deploy.LaunchPad.Core.Domain
         /// <param name="file">The file.</param>
         /// <returns>Uri.</returns>
         /// <exception cref="System.NotImplementedException"></exception>
-        public virtual Uri GetRelativePathForFile<TFile, TFileId, TFileContentType>(TFile file)
-            where TFile : IFile<TFileId, TFileContentType>, new()
+        public virtual Uri GetRelativePathForFile<TFile, TFileContentType>(TFile file)
+             where TFile : IFile<TFileContentType>, new()
         {
             throw new NotImplementedException();
         }
@@ -581,8 +581,8 @@ namespace Deploy.LaunchPad.Core.Domain
         /// <param name="file">The file.</param>
         /// <returns>Uri.</returns>
         /// <exception cref="System.NotImplementedException"></exception>
-        public virtual Uri GetFullPathForFile<TFile, TFileId, TFileContentType>(TFile file)
-            where TFile : IFile<TFileId, TFileContentType>, new()
+        public virtual Uri GetFullPathForFile<TFile, TFileContentType>(TFile file)
+             where TFile : IFile<TFileContentType>, new()
         {
             throw new NotImplementedException();
         }
@@ -617,8 +617,8 @@ namespace Deploy.LaunchPad.Core.Domain
         /// <param name="shouldRecurseSubdirectories">if set to <c>true</c> [should recurse subdirectories].</param>
         /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
         /// <exception cref="System.NotImplementedException"></exception>
-        public virtual bool FileExists<TFile, TFileId, TFileContentType>(TFile fileToCheck, bool shouldRecurseSubdirectories = false)
-            where TFile : IFile<TFileId, TFileContentType>, new()
+        public virtual bool FileExists<TFile, TFileContentType>(TFile fileToCheck, bool shouldRecurseSubdirectories = false)
+             where TFile : IFile<TFileContentType>, new()
         {
             throw new NotImplementedException();
         }

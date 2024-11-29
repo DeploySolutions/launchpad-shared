@@ -335,23 +335,9 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
         protected LaunchPadDomainEntityBase(SerializationInfo info, StreamingContext context)
         {
             Id = (TIdType)info.GetValue("Id", typeof(TIdType));
-            Culture = info.GetString("Culture");
-            Name = (ElementName)info.GetValue("Name", typeof(ElementName));
-            Description = (ElementDescription)info.GetValue("Description", typeof(ElementDescription));
-            Checksum = info.GetString("Checksum");
-            Tags = info.GetString("Tags");
-            CreationTime = info.GetDateTime("CreationTime");
-            CreatorUserId = info.GetInt64("CreatorUserId");
-            LastModificationTime = info.GetDateTime("LastModificationTime");
-            LastModifierUserId = info.GetInt64("LastModifierUserId");
-            IsDeleted = info.GetBoolean("IsDeleted");
-            DeleterUserId = info.GetInt64("DeleterUserId");
-            DeletionTime = info.GetDateTime("DeletionTime");
-            IsActive = info.GetBoolean("IsActive");
             TranslatedFromId = (TIdType)info.GetValue("TranslatedFromId", typeof(TIdType));
-            SeqNum = info.GetInt32("SeqNum");
+            new LaunchPadCommonProperties().SerializeCommonProperties(info, context);
             //Metadata = (MetadataInformation)info.GetValue("Metadata", typeof(MetadataInformation));
-
         }
 
         /// <summary>
@@ -362,21 +348,9 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
         public virtual void GetObjectData(SerializationInfo info, StreamingContext context)
         {
             info.AddValue("Id", Id);
-            info.AddValue("Culture", Culture);
-            info.AddValue("Name", Name);
-            info.AddValue("Description", Description);
-            info.AddValue("Checksum", Checksum);
-            info.AddValue("Tags", Tags);
-            info.AddValue("SeqNum", SeqNum);
-            info.AddValue("CreationTime", CreationTime);
-            info.AddValue("CreatorUserId", CreatorUserId);
-            info.AddValue("LastModificationTime", LastModificationTime);
-            info.AddValue("LastModifierUserId", LastModifierUserId);
-            info.AddValue("IsDeleted", IsDeleted);
-            info.AddValue("DeleterUserId", DeleterUserId);
-            info.AddValue("DeletionTime", DeletionTime);
-            info.AddValue("IsActive", IsActive);
             info.AddValue("TranslatedFromId", TranslatedFromId);
+            new LaunchPadCommonProperties().DeserializeCommonProperties(info, context);
+            //info.AddValue("Metadata", Metadata);
 
         }
 

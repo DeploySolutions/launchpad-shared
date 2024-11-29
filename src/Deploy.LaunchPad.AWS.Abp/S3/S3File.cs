@@ -11,18 +11,18 @@
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
-using Deploy.LaunchPad.Core.Abp.Domain;
+using Deploy.LaunchPad.Core.Abp.Domain.Model;
 
 namespace Deploy.LaunchPad.AWS.Abp.S3
 {
     /// <summary>
     /// Class S3File.
-    /// Implements the <see cref="FileBase{TIdType, TFileContentType}" />
+    /// Implements the <see cref="DomainEntityFileBase{TIdType, TFileContentType}" />
     /// </summary>
     /// <typeparam name="TIdType">The type of the t identifier type.</typeparam>
     /// <typeparam name="TFileContentType">The type of the t file content type.</typeparam>
-    /// <seealso cref="FileBase{TIdType, TFileContentType}" />
-    public partial class S3File<TIdType, TFileContentType> : FileBase<TIdType, TFileContentType>
+    /// <seealso cref="DomainEntityFileBase{TIdType, TFileContentType}" />
+    public partial class S3File<TIdType, TFileContentType> : DomainEntityFileBase<TIdType, TFileContentType>
     {
 
 

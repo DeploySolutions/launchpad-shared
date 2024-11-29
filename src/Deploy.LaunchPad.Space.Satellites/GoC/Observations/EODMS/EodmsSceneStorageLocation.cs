@@ -12,6 +12,7 @@
 // <summary></summary>
 // ***********************************************************************
 using Deploy.LaunchPad.Core.Domain;
+using Deploy.LaunchPad.Core.Files;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.ComponentModel;

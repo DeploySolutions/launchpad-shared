@@ -26,7 +26,7 @@
 //limitations under the License. 
 #endregion
 
-namespace Deploy.LaunchPad.Core.Domain
+namespace Deploy.LaunchPad.Core.Files
 {
     using System;
     using System.ComponentModel;
@@ -37,21 +37,17 @@ namespace Deploy.LaunchPad.Core.Domain
 
     /// <summary>
     /// Marks any object as a file that can be manipulated by the platform.
-    /// Each file is uniquely identified by its id, which could be a complex name or some other unique property like a GUID or integer.
     /// </summary>
-    /// <typeparam name="TIdType">The type of the t identifier type.</typeparam>
-    /// <typeparam name="TFileContentType">The type of the t file content type.</typeparam>
-    public partial interface IFile<TIdType, TFileContentType> : ILaunchPadObject, ILaunchPadCommonProperties
+    /// <typeparam name="TFileContentType">The type of the file content.</typeparam>
+    public partial interface IFile<TFileContentType> : ILaunchPadObject, ILaunchPadCommonProperties
     {
-
         /// <summary>
-        /// Gets or sets the identifier.
+        /// The size of the file, in bytes
         /// </summary>
-        /// <value>The identifier.</value>
-        /// <font color="red">Badly formed XML comment.</font>
-        public TIdType Id { get; set; }
-
-        public string? FilePath { get; set; }
+        /// <value>The size.</value>
+        [DataObjectField(false)]
+        [XmlAttribute]
+        public IFileStorageLocation? Location { get; set; }
 
         /// <summary>
         /// The size of the file, in bytes

@@ -30,15 +30,15 @@
 
 namespace Deploy.LaunchPad.Space.Satellites.Core
 {
-    using Deploy.LaunchPad.Core.Abp.Domain;
+    using Deploy.LaunchPad.Core.Abp.Domain.Model;
 
     /// <summary>
     /// Class NvolFile.
-    /// Implements the <see cref="Deploy.LaunchPad.Core.Abp.Domain.FileBase{TPrimaryKey, System.Byte[]}" />
+    /// Implements the <see cref="LaunchPad.Core.Abp.Domain.Model.DomainEntityFileBase{TPrimaryKey, System.Byte[]}" />
     /// </summary>
     /// <typeparam name="TPrimaryKey">The type of the t primary key.</typeparam>
-    /// <seealso cref="Deploy.LaunchPad.Core.Abp.Domain.FileBase{TPrimaryKey, System.Byte[]}" />
-    public partial class NvolFile<TPrimaryKey> : FileBase<TPrimaryKey, byte[]>
+    /// <seealso cref="LaunchPad.Core.Abp.Domain.Model.DomainEntityFileBase{TPrimaryKey, System.Byte[]}" />
+    public partial class NvolFile<TPrimaryKey> : DomainEntityFileBase<TPrimaryKey, byte[]>
     {
         /// <summary>
         /// The extension of the file

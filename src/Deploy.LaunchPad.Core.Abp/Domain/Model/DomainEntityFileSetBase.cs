@@ -12,9 +12,11 @@
 // <summary></summary>
 // ***********************************************************************
 using Deploy.LaunchPad.Core.Domain;
+using Deploy.LaunchPad.Core.Files;
+using Deploy.LaunchPad.Core.Domain.Model;
 using System.Collections.Generic;
 
-namespace Deploy.LaunchPad.Core.Abp.Domain
+namespace Deploy.LaunchPad.Core.Abp.Domain.Model
 {
     /// <summary>
     /// A set of files all of the same type, often contained in a specific location (such as in a folder, or as a subset of files within a folder).
@@ -22,7 +24,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
     /// <typeparam name="TIdType">The type of the t identifier type.</typeparam>
     /// <typeparam name="TFileContentType">The type of the t file content type.</typeparam>
     /// <typeparam name="TFileStorageLocationType">The type of the t file storage location type.</typeparam>
-    public abstract partial class FileSetBase<TIdType, TFileContentType, TFileStorageLocationType>
+    public abstract partial class DomainEntityFileSetBase<TIdType, TFileContentType, TFileStorageLocationType>
         where TFileStorageLocationType : IFileStorageLocation, new()
     {
         /// <summary>
@@ -35,14 +37,14 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
         /// Gets or sets the files.
         /// </summary>
         /// <value>The files.</value>
-        public IDictionary<string, IFile<TIdType, TFileContentType>> Files { get; set; }
+        public IDictionary<string, IDomainEntityFile<TIdType, TFileContentType>> Files { get; set; }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="FileSetBase{TIdType, TFileContentType, TFileStorageLocationType}"/> class.
+        /// Initializes a new instance of the <see cref="DomainEntityFileSetBase{TIdType, TFileContentType, TFileStorageLocationType}"/> class.
         /// </summary>
-        public FileSetBase()
+        public DomainEntityFileSetBase()
         {
-            Files = new Dictionary<string, IFile<TIdType, TFileContentType>>();
+            Files = new Dictionary<string, IDomainEntityFile<TIdType, TFileContentType>>();
         }
     }
 }

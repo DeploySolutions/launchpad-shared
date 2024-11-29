@@ -29,6 +29,7 @@
 
 using Deploy.LaunchPad.Core.Abp.Domain;
 using Deploy.LaunchPad.Core.Domain;
+using Deploy.LaunchPad.Core.Files;
 using System;
 using System.Globalization;
 using System.IO;

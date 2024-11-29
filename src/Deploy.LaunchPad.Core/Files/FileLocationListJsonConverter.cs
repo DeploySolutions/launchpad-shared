@@ -17,7 +17,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Deploy.LaunchPad.Core.Domain.Files
+namespace Deploy.LaunchPad.Core.Files
 {
     /// <summary>
     /// Converts a list of StorageLocationJson objects to or from json.

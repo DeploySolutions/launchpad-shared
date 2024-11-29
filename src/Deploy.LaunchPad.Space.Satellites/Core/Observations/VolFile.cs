@@ -28,15 +28,15 @@
 
 namespace Deploy.LaunchPad.Space.Satellites.Core
 {
-    using Deploy.LaunchPad.Core.Abp.Domain;
+    using Deploy.LaunchPad.Core.Abp.Domain.Model;
 
     /// <summary>
     /// Class VolFile.
-    /// Implements the <see cref="Deploy.LaunchPad.Core.Abp.Domain.FileBase{TPrimaryKey, System.Byte[]}" />
+    /// Implements the <see cref="LaunchPad.Core.Abp.Domain.Model.DomainEntityFileBase{TPrimaryKey, System.Byte[]}" />
     /// </summary>
     /// <typeparam name="TPrimaryKey">The type of the t primary key.</typeparam>
-    /// <seealso cref="Deploy.LaunchPad.Core.Abp.Domain.FileBase{TPrimaryKey, System.Byte[]}" />
-    public partial class VolFile<TPrimaryKey> : FileBase<TPrimaryKey, byte[]>
+    /// <seealso cref="LaunchPad.Core.Abp.Domain.Model.DomainEntityFileBase{TPrimaryKey, System.Byte[]}" />
+    public partial class VolFile<TPrimaryKey> : DomainEntityFileBase<TPrimaryKey, byte[]>
     {
         /// <summary>
         /// Gets the extension.

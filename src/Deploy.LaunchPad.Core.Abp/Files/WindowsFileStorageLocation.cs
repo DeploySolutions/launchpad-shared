@@ -39,6 +39,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Abp.Domain.Values;
 using DocumentFormat.OpenXml.Packaging;
+using Deploy.LaunchPad.Core.Files;
 
 namespace Deploy.LaunchPad.Core.Abp.Domain
 {
@@ -145,7 +146,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
         /// <param name="fileToCheck">The file to check.</param>
         /// <param name="shouldRecurseSubdirectories">if set to <c>true</c> [should recurse subdirectories].</param>
         /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
-        public override bool FileExists<TFile, TFileId, TFileContentType>(TFile fileToCheck, bool shouldRecurseSubdirectories = false)
+        public override bool FileExists<TFile, TFileContentType>(TFile fileToCheck, bool shouldRecurseSubdirectories = false)
         {
             bool doesFileExist = false;
             DirectoryInfo di = new DirectoryInfo(RootUri.AbsolutePath);
@@ -183,7 +184,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
         /// <typeparam name="TFileContentType">The type of the t file content type.</typeparam>
         /// <param name="sourceFile">The source file.</param>
         /// <returns>A Task&lt;IDictionary`2&gt; representing the asynchronous operation.</returns>
-        public override async Task<IDictionary<string, string>> ReadFileMetadataAsync<TFile, TFileId, TFileContentType>(TFile sourceFile)
+        public override async Task<IDictionary<string, string>> ReadFileMetadataAsync<TFile, TFileContentType>(TFile sourceFile)
         {
             IDictionary<string, string> metadata = new Dictionary<string, string>();
             DirectoryInfo di = new DirectoryInfo(RootUri.AbsolutePath);

@@ -26,28 +26,27 @@
 //limitations under the License. 
 #endregion
 
-using Deploy.LaunchPad.Core.Abp.Domain.Model;
-using Deploy.LaunchPad.Core.Domain;
 using Deploy.LaunchPad.Core.Domain.Model;
+using Deploy.LaunchPad.Core.Files;
 using System;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
 using System.Xml.Serialization;
 
-namespace Deploy.LaunchPad.Core.Abp.Domain
+namespace Deploy.LaunchPad.Core.Abp.Domain.Model
 {
     /// <summary>
     /// Class FileBase.
     /// Implements the <see cref="LaunchPadDomainEntityBase{TIdType}" />
-    /// Implements the <see cref="IFile{TIdType, TFileContentType}" />
+    /// Implements the <see cref="IDomainEntityFile{TIdType, TFileContentType}" />
     /// </summary>
     /// <typeparam name="TIdType">The type of the t identifier type.</typeparam>
     /// <typeparam name="TFileContentType">The type of the t file content type.</typeparam>
     /// <seealso cref="LaunchPadDomainEntityBase{TIdType}" />
-    /// <seealso cref="IFile{TIdType, TFileContentType}" />
-    public abstract partial class FileBase<TIdType, TFileContentType> : LaunchPadDomainEntityBase<TIdType>,
-        IFile<TIdType, TFileContentType>
+    /// <seealso cref="IDomainEntityFile{TIdType, TFileContentType}" />
+    public abstract partial class DomainEntityFileBase<TIdType, TFileContentType> : LaunchPadDomainEntityBase<TIdType>,
+        IDomainEntityFile<TIdType, TFileContentType>
     {
 
         /// <summary>
@@ -81,7 +80,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
         [DataObjectField(false)]
         [XmlAttribute]
         [Required]
-        public virtual String MimeType { get; set; }
+        public virtual string MimeType { get; set; }
 
 
         /// <summary>
@@ -93,8 +92,13 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
         [Required]
         public virtual TFileContentType Content { get; set; }
 
-
-        public virtual string? FilePath { get; set; }
+        /// <summary>
+        /// The size of the file, in bytes
+        /// </summary>
+        /// <value>The size.</value>
+        [DataObjectField(false)]
+        [XmlAttribute]
+        public virtual IFileStorageLocation? Location { get; set; }
 
         /// <summary>
         /// The schema of the file
@@ -102,52 +106,52 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
         /// <value>The content.</value>
         [DataObjectField(false)]
         [XmlAttribute]
-        public virtual ILaunchPadSchemaDetails? Schema { get; set; }
+        public virtual ILaunchPadSchemaDetails Schema { get; set; }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="FileBase{TIdType, TFileContentType}"/> class.
+        /// Initializes a new instance of the <see cref="DomainEntityFileBase{TIdType, TFileContentType}"/> class.
         /// </summary>
-        protected FileBase()
+        protected DomainEntityFileBase()
         {
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="FileBase{TIdType, TFileContentType}"/> class.
+        /// Initializes a new instance of the <see cref="DomainEntityFileBase{TIdType, TFileContentType}"/> class.
         /// </summary>
         /// <param name="id">The identifier.</param>
-        protected FileBase(TIdType id) : base(id)
+        protected DomainEntityFileBase(TIdType id) : base(id)
         {
             Id = id;
         }
+
         /// <summary>
-        /// Initializes a new instance of the <see cref="FileBase{TIdType, TFileContentType}"/> class.
+        /// Initializes a new instance of the <see cref="DomainEntityFileBase{TIdType, TFileContentType}"/> class.
         /// </summary>
         /// <param name="fileName">Name of the file.</param>
-        protected FileBase(string fileName) : base()
+        protected DomainEntityFileBase(string fileName) : base()
         {
             Name = new ElementName(fileName, fileName);
             Description = new ElementDescription(string.Empty, string.Empty);
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="FileBase{TIdType, TFileContentType}"/> class.
+        /// Initializes a new instance of the <see cref="DomainEntityFileBase{TIdType, TFileContentType}"/> class.
         /// </summary>
         /// <param name="id">The identifier.</param>
         /// <param name="fileName">Name of the file.</param>
-        protected FileBase(TIdType id, string fileName) : base()
+        protected DomainEntityFileBase(TIdType id, string fileName) : base()
         {
             Id = id;
             Name = new ElementName(fileName, fileName);
         }
 
-
         /// <summary>
-        /// Initializes a new instance of the <see cref="FileBase{TIdType, TFileContentType}"/> class.
+        /// Initializes a new instance of the <see cref="DomainEntityFileBase{TIdType, TFileContentType}"/> class.
         /// </summary>
         /// <param name="id">The identifier.</param>
         /// <param name="fileName">Name of the file.</param>
         /// <param name="content">The content.</param>
-        protected FileBase(TIdType id, string fileName, TFileContentType content) : base()
+        protected DomainEntityFileBase(TIdType id, string fileName, TFileContentType content) : base()
         {
             Id = id;
             Name = new ElementName(fileName, fileName);
@@ -159,8 +163,9 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
         /// </summary>
         /// <param name="info">The serialization info</param>
         /// <param name="context">The context of the stream</param>
-        protected FileBase(SerializationInfo info, StreamingContext context) : base(info, context)
+        protected DomainEntityFileBase(SerializationInfo info, StreamingContext context) : base(info, context)
         {
+            Location = (IFileStorageLocation)info.GetValue("Content", typeof(IFileStorageLocation));
             Content = (TFileContentType)info.GetValue("Content", typeof(TFileContentType));
             Schema = (ILaunchPadSchemaDetails)info.GetValue("Schema", typeof(ILaunchPadSchemaDetails));
             Size = info.GetInt64("Size");
@@ -177,6 +182,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
         public override void GetObjectData(SerializationInfo info, StreamingContext context)
         {
             base.GetObjectData(info, context);
+            info.AddValue("Location", Location);
             info.AddValue("Size", Size);
             info.AddValue("MimeType", MimeType);
             info.AddValue("Extension", Extension);

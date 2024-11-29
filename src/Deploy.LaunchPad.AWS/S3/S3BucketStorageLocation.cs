@@ -39,6 +39,8 @@ using System.Text;
 using System.Xml.Serialization;
 using System.Threading.Tasks;
 using System.Collections.Generic;
+using Deploy.LaunchPad.Core.Domain.Model;
+using Deploy.LaunchPad.Core.Files;
 
 namespace Deploy.LaunchPad.AWS.S3
 {
@@ -177,7 +179,7 @@ namespace Deploy.LaunchPad.AWS.S3
         /// <typeparam name="TFileContentType">The type of the t file content type.</typeparam>
         /// <param name="file">The file.</param>
         /// <returns>Uri.</returns>
-        public override Uri GetRelativePathForFile<TFile, TFileId, TFileContentType>(TFile file)
+        public override Uri GetRelativePathForFile<TFile, TFileContentType>(TFile file)
         {
             return new Uri("/" + DefaultPrefix + "/" + file.Name.Full.Replace(" ", "+"));
         }
@@ -190,7 +192,7 @@ namespace Deploy.LaunchPad.AWS.S3
         /// <typeparam name="TFileContentType">The type of the t file content type.</typeparam>
         /// <param name="file">The file.</param>
         /// <returns>Uri.</returns>
-        public override Uri GetFullPathForFile<TFile, TFileId, TFileContentType>(TFile file)
+        public override Uri GetFullPathForFile<TFile, TFileContentType>(TFile file)
         {
             return new Uri("https://s3." + Region + ".amazonaws.com/" + Name + "/" + DefaultPrefix + "/" + file.Name.Full.Replace(" ", "+"));
         }
@@ -202,7 +204,7 @@ namespace Deploy.LaunchPad.AWS.S3
         /// <typeparam name="TFileContentType">The type of the t file content type.</typeparam>
         /// <param name="file">The file.</param>
         /// <returns>String.</returns>
-        public virtual String GetObjectKeyForFile<TPrimaryKey, TFileContentType>(IFile<TPrimaryKey, TFileContentType> file)
+        public virtual String GetObjectKeyForFile<TPrimaryKey, TFileContentType>(IFile<TFileContentType> file)
         {
             return DefaultPrefix + "/" + file.Name;
         }
@@ -216,9 +218,9 @@ namespace Deploy.LaunchPad.AWS.S3
         /// <param name="fileToCheck">The file to check.</param>
         /// <param name="shouldRecurseSubdirectories">if set to <c>true</c> [should recurse subdirectories].</param>
         /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
-        public override bool FileExists<TFile, TFileId, TFileContentType>(TFile fileToCheck, bool shouldRecurseSubdirectories = false)
+        public override bool FileExists<TFile, TFileContentType>(TFile fileToCheck, bool shouldRecurseSubdirectories = false)
         {
-            return S3Service.CheckIfFileExists(Name, fileToCheck.Id.ToString()).Result;
+            return S3Service.CheckIfFileExists(Name, fileToCheck.Name.Full.ToString()).Result;
         }
 
         /// <summary>
@@ -230,7 +232,7 @@ namespace Deploy.LaunchPad.AWS.S3
         /// <param name="fileId">The file identifier.</param>
         /// <param name="tempLocation">The temporary location.</param>
         /// <returns>A Task&lt;TFile&gt; representing the asynchronous operation.</returns>
-        public override async Task<TFile> ReadFileAsync<TFile, TFileId, TFileContentType>(string fileId, Uri tempLocation = null)
+        public override async Task<TFile> ReadFileAsync<TFile, TFileContentType>(string fileId, Uri tempLocation = null)
         {
             var file = new TFile();
             bool succeeded = false;
@@ -260,7 +262,7 @@ namespace Deploy.LaunchPad.AWS.S3
         /// <param name="filePrefix">The file prefix.</param>
         /// <param name="fileSuffix">The file suffix.</param>
         /// <returns>A Task&lt;System.Boolean&gt; representing the asynchronous operation.</returns>
-        public override async Task<bool> CreateFileAsync<TFile, TFileId, TFileContentType>(TFile sourceFile, IDictionary<string, string> fileTags, string contentType, IDictionary<string, string> writeTags, string filePrefix, string fileSuffix)
+        public override async Task<bool> CreateFileAsync<TFile, TFileContentType>(TFile sourceFile, IDictionary<string, string> fileTags, string contentType, IDictionary<string, string> writeTags, string filePrefix, string fileSuffix)
         {
             bool succeeded = await S3Service.UploadLocalFileToBucketviaTransferUtilityAsync(Name,sourceFile.Name.Full, @"c:\temp\",fileTags,filePrefix,contentType,writeTags,S3StorageClass.Standard);
             return succeeded;

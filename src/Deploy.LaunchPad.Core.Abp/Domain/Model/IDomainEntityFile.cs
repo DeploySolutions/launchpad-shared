@@ -1,12 +1,12 @@
 ﻿// ***********************************************************************
-// Assembly         : Deploy.LaunchPad.Space.Satellites
+// Assembly         : Deploy.LaunchPad.Core
 // Author           : Nicholas Kellett
 // Created          : 11-19-2023
 //
 // Last Modified By : Nicholas Kellett
-// Last Modified On : 01-22-2023
+// Last Modified On : 07-26-2023
 // ***********************************************************************
-// <copyright file="SartFile.cs" company="Deploy Software Solutions, inc.">
+// <copyright file="IFile.cs" company="Deploy Software Solutions, inc.">
 //     2018-2024 Deploy Software Solutions, inc.
 // </copyright>
 // <summary></summary>
@@ -26,28 +26,26 @@
 //limitations under the License. 
 #endregion
 
-
-
-namespace Deploy.LaunchPad.Space.Satellites.Core
+namespace Deploy.LaunchPad.Core.Domain.Model
 {
+    using System;
+    using System.ComponentModel;
+    using System.Xml.Serialization;
     using Deploy.LaunchPad.Core.Abp.Domain.Model;
+    using Deploy.LaunchPad.Core.Files;
+    using Deploy.LaunchPad.Core.Util;
 
     /// <summary>
-    /// Class SartFile.
-    /// Implements the <see cref="LaunchPad.Core.Abp.Domain.Model.DomainEntityFileBase{TPrimaryKey, System.Byte[]}" />
+    /// Marks any object as a file that can be manipulated by the platform AND tracked as a domain entity.
+    /// If you just want to manipulate files in the regular manner, without tracking them as domain entities, use IFile.
+    /// Each file is uniquely identified by its id, which could be a complex name or some other unique property like a GUID or integer.
     /// </summary>
-    /// <typeparam name="TPrimaryKey">The type of the t primary key.</typeparam>
-    /// <seealso cref="LaunchPad.Core.Abp.Domain.Model.DomainEntityFileBase{TPrimaryKey, System.Byte[]}" />
-    public partial class SartFile<TPrimaryKey> : DomainEntityFileBase<TPrimaryKey, byte[]>
+    /// <typeparam name="TIdType">The type of the t identifier type.</typeparam>
+    /// <typeparam name="TFileContentType">The type of the t file content type.</typeparam>
+    public partial interface IDomainEntityFile<TIdType, TFileContentType> : ILaunchPadDomainEntity<TIdType>,
+        IFile<TFileContentType>
     {
-        /// <summary>
-        /// The extension of the file
-        /// </summary>
-        /// <value>The extension.</value>
-        public override string Extension
-        {
-            get { return ".sart"; }
-        }
+
 
     }
 }

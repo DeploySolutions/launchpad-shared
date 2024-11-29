@@ -12,18 +12,18 @@
 // <summary></summary>
 // ***********************************************************************
 using Deploy.LaunchPad.AWS.S3;
-using Deploy.LaunchPad.Core.Abp.Domain;
+using Deploy.LaunchPad.Core.Abp.Domain.Model;
 
 namespace Deploy.LaunchPad.AWS.Abp.S3
 {
     /// <summary>
     /// Class S3FileSet.
-    /// Implements the <see cref="Deploy.LaunchPad.Core.Abp.Domain.FileSetBase{TIdType, TFileContentType, Deploy.LaunchPad.AWS.S3.S3BucketStorageLocation}" />
+    /// Implements the <see cref="Core.Abp.Domain.Model.DomainEntityFileSetBase{TIdType, TFileContentType, Deploy.LaunchPad.AWS.S3.S3BucketStorageLocation}" />
     /// </summary>
     /// <typeparam name="TIdType">The type of the t identifier type.</typeparam>
     /// <typeparam name="TFileContentType">The type of the t file content type.</typeparam>
-    /// <seealso cref="Deploy.LaunchPad.Core.Abp.Domain.FileSetBase{TIdType, TFileContentType, Deploy.LaunchPad.AWS.S3.S3BucketStorageLocation}" />
-    public partial class S3FileSet<TIdType, TFileContentType> : FileSetBase<TIdType, TFileContentType, S3BucketStorageLocation>
+    /// <seealso cref="Core.Abp.Domain.Model.DomainEntityFileSetBase{TIdType, TFileContentType, Deploy.LaunchPad.AWS.S3.S3BucketStorageLocation}" />
+    public partial class S3FileSet<TIdType, TFileContentType> : DomainEntityFileSetBase<TIdType, TFileContentType, S3BucketStorageLocation>
     {
 
 

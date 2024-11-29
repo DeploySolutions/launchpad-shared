@@ -12,6 +12,7 @@
 // <summary></summary>
 // ***********************************************************************
 using Deploy.LaunchPad.Core.Domain;
+using Deploy.LaunchPad.Core.Files;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -24,7 +25,15 @@ namespace Deploy.LaunchPad.Core.Domain.Model
     /// </summary>
     public partial interface ILaunchPadSchemaDetails : ILaunchPadObject, ILaunchPadCommonProperties
     {
-        public string? FilePath { get; set; }
+        public IFileStorageLocation? Location { get; set; }
+
+        /// <summary>
+        /// The definition of this schema (XmlSchemaSet, JsonObject, string, etc)
+        /// </summary>
+        /// <value>The definition of this schema.</value>
+        [DataObjectField(false)]
+        [XmlAttribute]
+        public object Definition { get; set; }
 
         /// <summary>
         /// The version of this schema
