@@ -40,7 +40,7 @@ namespace Deploy.LaunchPad.Core.Files.Storage
     /// <summary>
     /// The storage location of the file bytes.
     /// </summary>
-    public partial interface IFileStorageLocation : ILaunchPadObject,
+    public partial interface IFileStorageLocation : ILaunchPadObject, ILaunchPadCommonProperties,
         IComparable<GenericFileStorageLocation>, IEquatable<GenericFileStorageLocation>
     {
         /// <summary>
@@ -50,33 +50,6 @@ namespace Deploy.LaunchPad.Core.Files.Storage
         [DataObjectField(true)]
         [XmlAttribute]
         public string Id { get; set; }
-
-        /// <summary>
-        /// Gets or sets the name.
-        /// </summary>
-        /// <value>The name.</value>
-        [DataObjectField(false)]
-        [XmlAttribute]
-        public string Name { get; set; }
-
-        /// <summary>
-        /// A short description for this storage location
-        /// </summary>
-        /// <value>The description short.</value>
-        [Required]
-        [MaxLength(256, ErrorMessageResourceName = "Validation_DescriptionShort_256CharsOrLess", ErrorMessageResourceType = typeof(Deploy_LaunchPad_Core_Resources))]
-        [DataObjectField(false)]
-        [XmlAttribute]
-        public string DescriptionShort { get; set; }
-
-        /// <summary>
-        /// The full description for this storage location
-        /// </summary>
-        /// <value>The description full.</value>
-        [MaxLength(8096, ErrorMessageResourceName = "Validation_DescriptionFull_8096CharsOrLess", ErrorMessageResourceType = typeof(Deploy_LaunchPad_Core_Resources))]
-        [DataObjectField(false)]
-        [XmlElement]
-        public string DescriptionFull { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether this instance is read only.
@@ -110,14 +83,6 @@ namespace Deploy.LaunchPad.Core.Files.Storage
         [DataObjectField(false)]
         [XmlAttribute]
         public FileStorageLocationTypeEnum Provider { get; set; }
-
-        /// <summary>
-        /// The location have an open-ended set of tags applied to it, that help users find, markup, and display its information
-        /// </summary>
-        /// <value>The tags.</value>
-        [DataObjectField(false)]
-        [XmlAttribute]
-        public IEnumerable<MetadataTag> Tags { get; set; }
 
 
         /// <summary>

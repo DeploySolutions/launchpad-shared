@@ -28,6 +28,8 @@
 
 using Castle.Core.Logging;
 using Deploy.LaunchPad.Core.Domain;
+using Deploy.LaunchPad.Core.Domain.Model;
+using DocumentFormat.OpenXml.Office2010.Excel;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -47,7 +49,7 @@ namespace Deploy.LaunchPad.Core.Files.Storage
     /// <seealso cref="Domain.IFileStorageLocation" />
     [DebuggerDisplay("{_debugDisplay}")]
     [Serializable]
-    public partial class GenericFileStorageLocation : IFileStorageLocation
+    public partial class GenericFileStorageLocation : LaunchPadCommonProperties, IFileStorageLocation
     {
         /// <summary>
         /// Controls the DebuggerDisplay attribute presentation (above). This will only appear during VS debugging sessions and should never be logged.
@@ -62,33 +64,6 @@ namespace Deploy.LaunchPad.Core.Files.Storage
         [DataObjectField(true)]
         [XmlAttribute]
         public virtual string Id { get; set; } = string.Empty;
-
-        /// <summary>
-        /// Gets or sets the name.
-        /// </summary>
-        /// <value>The name.</value>
-        [DataObjectField(false)]
-        [XmlAttribute]
-        public virtual string Name { get; set; } = string.Empty;
-
-        /// <summary>
-        /// A short description for this storage location
-        /// </summary>
-        /// <value>The description short.</value>
-        [Required]
-        [MaxLength(256, ErrorMessageResourceName = "Validation_DescriptionShort_256CharsOrLess", ErrorMessageResourceType = typeof(Deploy_LaunchPad_Core_Resources))]
-        [DataObjectField(false)]
-        [XmlAttribute]
-        public virtual string DescriptionShort { get; set; } = string.Empty;
-
-        /// <summary>
-        /// The full description for this storage location
-        /// </summary>
-        /// <value>The description full.</value>
-        [MaxLength(8096, ErrorMessageResourceName = "Validation_DescriptionFull_8096CharsOrLess", ErrorMessageResourceType = typeof(Deploy_LaunchPad_Core_Resources))]
-        [DataObjectField(false)]
-        [XmlElement]
-        public virtual string DescriptionFull { get; set; } = string.Empty;
 
         /// <summary>
         /// Gets or sets a value indicating whether this instance is read only.
@@ -129,22 +104,13 @@ namespace Deploy.LaunchPad.Core.Files.Storage
         public ILogger Logger { protected get; set; }
 
         /// <summary>
-        /// The location have an open-ended set of tags applied to it, that help users find, markup, and display its information
-        /// </summary>
-        /// <value>The tags.</value>
-        [DataObjectField(false)]
-        [XmlAttribute]
-        public virtual IEnumerable<MetadataTag> Tags { get; set; }
-
-        /// <summary>
         /// Initializes a new instance of the <see cref="GenericFileStorageLocation"/> class.
         /// </summary>
-        public GenericFileStorageLocation()
+        public GenericFileStorageLocation() : base()
         {
-            Name = "Generic File Storage Location";
+            Name = new ElementName("Generic File Storage Location");
             Id = "GenericFile1";
             Provider = FileStorageLocationTypeEnum.Unknown;
-            Tags = new List<MetadataTag>();
             Logger = NullLogger.Instance;
         }
 
@@ -154,25 +120,23 @@ namespace Deploy.LaunchPad.Core.Files.Storage
         /// <param name="logger">The logger.</param>
         /// <param name="id">The identifier.</param>
         /// <param name="rootUri">The root URI.</param>
-        public GenericFileStorageLocation(ILogger logger, string id, Uri rootUri)
+        public GenericFileStorageLocation(ILogger logger, string id, Uri rootUri) : base()
         {
             Id = id;
-            Name = id;
+            Name = new ElementName("Generic File Storage Location for " + Id);
             RootUri = rootUri;
             Provider = FileStorageLocationTypeEnum.Unknown;
-            Tags = new List<MetadataTag>();
             Logger = logger;
         }
         /// <summary>
         /// Initializes a new instance of the <see cref="GenericFileStorageLocation"/> class.
         /// </summary>
         /// <param name="logger">The logger.</param>
-        public GenericFileStorageLocation(ILogger logger)
+        public GenericFileStorageLocation(ILogger logger) : base()
         {
-            Name = "Generic File Storage Location";
             Id = "GenericFile1";
+            Name = new ElementName("Generic File Storage Location for " + Id);
             Provider = FileStorageLocationTypeEnum.Unknown;
-            Tags = new List<MetadataTag>();
             Logger = logger;
         }
 
@@ -183,13 +147,12 @@ namespace Deploy.LaunchPad.Core.Files.Storage
         /// <param name="id">The identifier.</param>
         /// <param name="rootUri">The root URI.</param>
         /// <param name="provider">The provider.</param>
-        public GenericFileStorageLocation(ILogger logger, string id, Uri rootUri, FileStorageLocationTypeEnum provider)
+        public GenericFileStorageLocation(ILogger logger, string id, Uri rootUri, FileStorageLocationTypeEnum provider) : base()
         {
             Id = id;
-            Name = id;
+            Name = new ElementName("Generic File Storage Location for " + Id);
             RootUri = rootUri;
             Provider = provider;
-            Tags = new List<MetadataTag>();
             Logger = logger;
         }
 
@@ -201,13 +164,12 @@ namespace Deploy.LaunchPad.Core.Files.Storage
         /// <param name="name">The name.</param>
         /// <param name="rootUri">The root URI.</param>
         /// <param name="provider">The provider.</param>
-        public GenericFileStorageLocation(ILogger logger, string id, string name, Uri rootUri, FileStorageLocationTypeEnum provider)
+        public GenericFileStorageLocation(ILogger logger, string id, string name, Uri rootUri, FileStorageLocationTypeEnum provider) : base()
         {
             Id = id;
-            Name = name;
+            Name = new ElementName(name);
             RootUri = rootUri;
             Provider = provider;
-            Tags = new List<MetadataTag>();
             Logger = logger;
         }
 
@@ -223,10 +185,9 @@ namespace Deploy.LaunchPad.Core.Files.Storage
         public GenericFileStorageLocation(ILogger logger, string id, string name, Uri rootUri, FileStorageLocationTypeEnum provider, IEnumerable<MetadataTag> tags)
         {
             Id = id;
-            Name = name;
+            Name = new ElementName(name);
             RootUri = rootUri;
             Provider = provider;
-            Tags = tags;
             Logger = logger;
         }
 
@@ -235,17 +196,14 @@ namespace Deploy.LaunchPad.Core.Files.Storage
         /// </summary>
         /// <param name="info">The serialization info</param>
         /// <param name="context">The context of the stream</param>
-        protected GenericFileStorageLocation(SerializationInfo info, StreamingContext context)
+        protected GenericFileStorageLocation(SerializationInfo info, StreamingContext context) : base(info, context)
         {
+            base.SerializeCommonProperties(info, context);
             Id = info.GetString(Id);
-            Name = info.GetString(Name);
-            DescriptionShort = info.GetString("DescriptionShort");
-            DescriptionFull = info.GetString("DescriptionFull");
             IsReadOnly = info.GetBoolean("IsReadOnly");
             RootUri = (Uri)info.GetValue("RootUri", typeof(Uri));
             Provider = (FileStorageLocationTypeEnum)info.GetValue("Provider", typeof(FileStorageLocationTypeEnum));
             DefaultPrefix = info.GetString("DefaultPrefix");
-            Tags = (IEnumerable<MetadataTag>)info.GetValue("Metadata", typeof(IEnumerable<MetadataTag>));
         }
 
         /// <summary>
@@ -255,10 +213,8 @@ namespace Deploy.LaunchPad.Core.Files.Storage
         /// <param name="context">The context.</param>
         public virtual void GetObjectData(SerializationInfo info, StreamingContext context)
         {
+            base.DeserializeCommonProperties(info, context);
             info.AddValue("Id", Id);
-            info.AddValue("Name", Name);
-            info.AddValue("DescriptionShort", DescriptionShort);
-            info.AddValue("DescriptionFull", DescriptionFull);
             info.AddValue("IsReadOnly", IsReadOnly);
             info.AddValue("RootUri", RootUri);
             info.AddValue("Provider", Provider);
@@ -305,7 +261,7 @@ namespace Deploy.LaunchPad.Core.Files.Storage
             sb.AppendFormat("Id={0};", Id);
             sb.AppendFormat("Name={0};", Name);
             sb.AppendFormat("Provider={0};", Provider);
-            sb.AppendFormat("DescriptionShort={0};", DescriptionShort);
+            sb.AppendFormat("Description={0};", Description);
             sb.AppendFormat("RootUri={0};", RootUri);
             sb.AppendFormat("DefaultPrefix={0};", DefaultPrefix);
             return sb.ToString();

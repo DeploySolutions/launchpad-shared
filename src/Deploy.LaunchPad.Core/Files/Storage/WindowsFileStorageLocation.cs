@@ -60,8 +60,7 @@ namespace Deploy.LaunchPad.Core.Files.Storage
             DriveInfo drive = new DriveInfo(file.Directory.Root.FullName);
             string driveRoot = drive.RootDirectory.FullName;
             string descriptionMessage = string.Format("Windows file share drive '{0}'", driveRoot);
-            DescriptionShort = descriptionMessage;
-            DescriptionFull = descriptionMessage;
+            Description = new ElementDescription(descriptionMessage);
             RootUri = new Uri(defaultUri);
             Provider = FileStorageLocationTypeEnum.Windows_NTFS;
         }
@@ -78,8 +77,7 @@ namespace Deploy.LaunchPad.Core.Files.Storage
             DriveInfo drive = new DriveInfo(file.Directory.Root.FullName);
             string driveRoot = drive.RootDirectory.FullName;
             string descriptionMessage = string.Format("Windows file share drive '{0}'", driveRoot);
-            DescriptionShort = descriptionMessage;
-            DescriptionFull = descriptionMessage;
+            Description = new ElementDescription(descriptionMessage);
             Provider = FileStorageLocationTypeEnum.Windows_NTFS;
         }
 

@@ -42,6 +42,7 @@ using System.Collections.Generic;
 using Deploy.LaunchPad.Core.Domain.Model;
 using Deploy.LaunchPad.Core.Files;
 using Deploy.LaunchPad.Core.Files.Storage;
+using Deploy.LaunchPad.Core;
 
 namespace Deploy.LaunchPad.AWS.S3
 {
@@ -85,13 +86,12 @@ namespace Deploy.LaunchPad.AWS.S3
         public S3BucketStorageLocation() : base()
         {
             Id = Guid.NewGuid().ToString();
-            Name = Id;
+            Name = new ElementName(Id);
             Region = DEFAULT_REGION;
             S3Service = new AwsS3Service(Logger, Region);
             string bucketUri = string.Format("https://s3.{0}.amazonaws.com/{1}", Region, Id);
             string descriptionMessage = string.Format("AWS S3 bucket at '{0}'", bucketUri);
-            DescriptionShort = descriptionMessage;
-            DescriptionFull = descriptionMessage;
+            Description = new ElementDescription( descriptionMessage);
             RootUri = new Uri(bucketUri);
             Provider = FileStorageLocationTypeEnum.Aws_S3;
         }
@@ -108,11 +108,10 @@ namespace Deploy.LaunchPad.AWS.S3
         public S3BucketStorageLocation(ILogger logger, string id, string bucketName, string region, string defaultPrefix = "") : base(logger)
         {
             Region = region;
-            Name = bucketName;
+            Name = new ElementName(bucketName);
             string bucketUri = string.Format("https://s3.{0}.amazonaws.com/{1}", Region, bucketName);
             string descriptionMessage = string.Format("AWS S3 bucket at '{0}'", bucketUri);
-            DescriptionShort = descriptionMessage;
-            DescriptionFull = descriptionMessage;
+            Description = new ElementDescription(descriptionMessage);
             DefaultPrefix = defaultPrefix;
             RootUri = new Uri(bucketUri);
         }
@@ -129,8 +128,7 @@ namespace Deploy.LaunchPad.AWS.S3
             Region = DEFAULT_REGION;
             string bucketUri = string.Format("https://s3.{0}.amazonaws.com/{1}", Region, id);
             string descriptionMessage = string.Format("AWS S3 bucket at '{0}'", bucketUri);
-            DescriptionShort = descriptionMessage;
-            DescriptionFull = descriptionMessage;
+            Description = new ElementDescription(descriptionMessage);
             RootUri = new Uri(bucketUri);
             Provider = FileStorageLocationTypeEnum.Aws_S3;
         }
@@ -221,7 +219,7 @@ namespace Deploy.LaunchPad.AWS.S3
         /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
         public override bool FileExists<TFile, TFileContentType>(TFile fileToCheck, bool shouldRecurseSubdirectories = false)
         {
-            return S3Service.CheckIfFileExists(Name, fileToCheck.Name.Full.ToString()).Result;
+            return S3Service.CheckIfFileExists(Name.Full, fileToCheck.Name.Full.ToString()).Result;
         }
 
         /// <summary>
@@ -239,12 +237,12 @@ namespace Deploy.LaunchPad.AWS.S3
             bool succeeded = false;
             if (tempLocation!= null && tempLocation.IsUnc)
             {
-                succeeded = await S3Service.DownloadFileFromBucketToLocalviaTransferUtilityAsync(Name, fileId, tempLocation.AbsolutePath, null, null);
+                succeeded = await S3Service.DownloadFileFromBucketToLocalviaTransferUtilityAsync(Name.Full, fileId, tempLocation.AbsolutePath, null, null);
 
             }
             else
             {
-                succeeded = S3Service.GetFileFromBucketAsync(Name, fileId).IsCompletedSuccessfully;
+                succeeded = S3Service.GetFileFromBucketAsync(Name.Full, fileId).IsCompletedSuccessfully;
 
             }
             return file;
@@ -265,7 +263,7 @@ namespace Deploy.LaunchPad.AWS.S3
         /// <returns>A Task&lt;System.Boolean&gt; representing the asynchronous operation.</returns>
         public override async Task<bool> CreateFileAsync<TFile, TFileContentType>(TFile sourceFile, IDictionary<string, string> fileTags, string contentType, IDictionary<string, string> writeTags, string filePrefix, string fileSuffix)
         {
-            bool succeeded = await S3Service.UploadLocalFileToBucketviaTransferUtilityAsync(Name,sourceFile.Name.Full, @"c:\temp\",fileTags,filePrefix,contentType,writeTags,S3StorageClass.Standard);
+            bool succeeded = await S3Service.UploadLocalFileToBucketviaTransferUtilityAsync(Name.Full,sourceFile.Name.Full, @"c:\temp\",fileTags,filePrefix,contentType,writeTags,S3StorageClass.Standard);
             return succeeded;
         }
 
