@@ -45,13 +45,6 @@ namespace Deploy.LaunchPad.Core.Files
         /// <summary>
         /// Initializes a new instance of the <see cref="TifFile{TIdType}"/> class.
         /// </summary>
-        public TifFile() : base()
-        {
-
-        }
-        /// <summary>
-        /// Initializes a new instance of the <see cref="TifFile{TIdType}"/> class.
-        /// </summary>
         /// <param name="fileName">Name of the file.</param>
         public TifFile(string fileName) : base(fileName)
         {

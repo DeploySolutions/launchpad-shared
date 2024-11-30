@@ -263,17 +263,13 @@ namespace Deploy.LaunchPad.Space.Satellites.GoC
             }
             if (File.Exists(expectedFiles[4].Value))
             {
-                observationFiles.Tfw = new TifWorldFile()
+                observationFiles.Tfw = new TifWorldFile(Path.GetFileName(expectedFiles[4].Value))
                 {
-                    Name = new ElementName(Path.GetFileName(expectedFiles[4].Value))
                 };
             }
             if (File.Exists(expectedFiles[5].Value))
             {
-                observationFiles.Tif = new TifFile()
-                {
-                    Name = new ElementName(Path.GetFileName(expectedFiles[5].Value))
-                };
+                observationFiles.Tif = new TifFile(Path.GetFileName(expectedFiles[5].Value));
             }
             if (File.Exists(expectedFiles[6].Value))
             {

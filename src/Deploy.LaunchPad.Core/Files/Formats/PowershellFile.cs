@@ -9,8 +9,12 @@ namespace Deploy.LaunchPad.Core.Files
 
         public override string Extension => ".ps1";
 
-        public PowershellFile()
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        public PowershellFile(string fileName) : base(fileName)
         {
         }
+
     }
 }

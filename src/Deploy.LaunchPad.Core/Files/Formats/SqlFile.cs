@@ -15,6 +15,12 @@ namespace Deploy.LaunchPad.Core.Files
         public virtual string DatabaseTableName { get; set; }
         public virtual SqlScriptType ScriptType { get; set; } = SqlScriptType.INSERT; // Can be INSERT, UPDATE, DELETE
 
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        public SqlFile(string fileName) : base(fileName)
+        {
+        }
     }
 
     public enum SqlScriptType

@@ -80,5 +80,11 @@ namespace Deploy.LaunchPad.Core.Files
         /// <value>The f.</value>
         public virtual decimal F { get; set; }
 
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        public TifWorldFile(string fileName) : base(fileName)
+        {
+        }
     }
 }

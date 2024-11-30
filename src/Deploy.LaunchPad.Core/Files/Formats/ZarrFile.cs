@@ -13,7 +13,11 @@ namespace Deploy.LaunchPad.Core.Files
 
         public override string Extension => ".zarr";
 
-        public ZarrFile()
+
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        public ZarrFile(string fileName) : base(fileName)
         {
         }
 

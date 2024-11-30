@@ -9,8 +9,13 @@ namespace Deploy.LaunchPad.Core.Files
 
         public override string Extension => ".md";
 
-        public MarkdownFile()
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MarkdownFile{TIdType}"/> class.
+        /// </summary>
+        /// <param name="fileName">Name of the file.</param>
+        public MarkdownFile(string fileName) : base(fileName)
         {
+
         }
     }
 }

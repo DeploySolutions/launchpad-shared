@@ -9,7 +9,10 @@ namespace Deploy.LaunchPad.Core.Files
 
         public override string Extension => ".ipynb";
 
-        public JupyterNotebookFile()
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        public JupyterNotebookFile(string fileName) : base(fileName)
         {
         }
     }

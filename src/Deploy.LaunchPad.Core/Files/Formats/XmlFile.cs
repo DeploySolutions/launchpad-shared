@@ -12,5 +12,12 @@ namespace Deploy.LaunchPad.Core.Files
     public partial class XmlFile : FileBase<XmlDocument>, IXmlFile
     {
         public override string Extension => ".xml";
+
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        public XmlFile(string fileName) : base(fileName)
+        {
+        }
     }
 }

@@ -9,7 +9,11 @@ namespace Deploy.LaunchPad.Core.Files
 
         public override string Extension => ".pdf";
 
-        public PdfFile()
+
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        public PdfFile(string fileName) : base(fileName)
         {
         }
     }

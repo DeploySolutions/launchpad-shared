@@ -9,8 +9,12 @@ namespace Deploy.LaunchPad.Core.Files
 
         public override string Extension => ".html";
 
-        public HtmlFile()
+        /// Initializes a new instance of the <see cref="HtmlFile{TIdType}"/> class.
+        /// </summary>
+        /// <param name="fileName">Name of the file.</param>
+        public HtmlFile(string fileName) : base(fileName)
         {
+
         }
     }
 }

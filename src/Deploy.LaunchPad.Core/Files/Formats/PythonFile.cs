@@ -9,8 +9,13 @@ namespace Deploy.LaunchPad.Core.Files
 
         public override string Extension => ".py";
 
-        public PythonFile()
+        /// <summary>
+        /// Initializes a new instance of the <see cref="PythonFile{TIdType}"/> class.
+        /// </summary>
+        /// <param name="fileName">Name of the file.</param>
+        public PythonFile(string fileName) : base(fileName)
         {
+
         }
     }
 }

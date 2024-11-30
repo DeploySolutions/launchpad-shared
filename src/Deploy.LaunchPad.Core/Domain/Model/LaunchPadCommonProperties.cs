@@ -1,4 +1,5 @@
 ﻿using Deploy.LaunchPad.Core.Util;
+using DocumentFormat.OpenXml.Office2010.Excel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,15 +18,15 @@ namespace Deploy.LaunchPad.Core.Domain.Model
 
         public virtual ElementDescription Description { get; set; }
 
-        public virtual string Culture { get; set; }
+        public virtual string Culture { get; set; } = "en";
 
         public virtual string Checksum { get; set; }
 
-        public virtual int SeqNum { get; set; }
+        public virtual int SeqNum { get; set; } = 0;
 
-        public virtual string Tags { get; set; }
+        public virtual string Tags { get; set; } = "{}";
 
-        public virtual bool IsActive { get; set; }
+        public virtual bool IsActive { get; set; } = true;
 
         public virtual DateTime? DeletionTime { get; set; }
 
@@ -33,13 +34,13 @@ namespace Deploy.LaunchPad.Core.Domain.Model
 
         public string DeleterUserName { get; set; }
 
-        public virtual bool IsDeleted { get; set; }
+        public virtual bool IsDeleted { get; set; } = false;
 
-        public virtual DateTime CreationTime { get; set; }
+        public virtual DateTime CreationTime { get; set; } = DateTime.UtcNow;
 
-        public virtual long? CreatorUserId { get; set; }
+        public virtual long? CreatorUserId { get; set; } = 1;
 
-        public virtual string CreatorUserName { get; set; }
+        public virtual string CreatorUserName { get; set; } = "";
 
         public virtual long? LastModifierUserId { get; set; }
 
@@ -47,11 +48,22 @@ namespace Deploy.LaunchPad.Core.Domain.Model
 
         public virtual string LastModifierUserName { get; set; }
 
+
         /// <summary>
         ///  constructor 
         /// </summary>
         public LaunchPadCommonProperties()
         {
+          
+        }
+
+        /// <summary>
+        ///  constructor 
+        /// </summary>
+        public LaunchPadCommonProperties(string name)
+        {
+            Name = new ElementName(name);
+            Description = new ElementDescription(name);
         }
 
         /// <summary>

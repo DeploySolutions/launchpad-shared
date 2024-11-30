@@ -118,7 +118,7 @@ namespace Deploy.LaunchPad.Core.Abp.Util
                         lineNumber++;
                     }
 
-                    file = new TifWorldFile()
+                    file = new TifWorldFile("TIF World File " + Guid.NewGuid())
                     {
                         A = a,
                         D = d,

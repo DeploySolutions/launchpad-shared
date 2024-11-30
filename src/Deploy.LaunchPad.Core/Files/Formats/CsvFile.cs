@@ -11,5 +11,12 @@ namespace Deploy.LaunchPad.Core.Files
         public virtual char Quote { get; set; } = '"';
 
         public virtual IList<string> PropertySortOrder { get; set; } = new List<string>();
+
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        public CsvFile(string fileName) : base(fileName)
+        {
+        }
     }
 }

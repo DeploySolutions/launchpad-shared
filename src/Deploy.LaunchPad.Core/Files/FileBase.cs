@@ -77,15 +77,7 @@ namespace Deploy.LaunchPad.Core.Files
         /// <summary>
         /// Constructor
         /// </summary>
-        protected FileBase() : base()
-        {
-
-        }
-
-        /// <summary>
-        /// Constructor
-        /// </summary>
-        protected FileBase(string fileName) : base()
+        protected FileBase(string fileName) : base(fileName)
         {
             Name = new ElementName(fileName);
         }

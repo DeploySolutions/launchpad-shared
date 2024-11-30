@@ -12,5 +12,13 @@ namespace Deploy.LaunchPad.Core.Files
     public partial class JsonFile : FileBase<JToken>, IJsonFile
     {
         public override string Extension => ".json";
+
+
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        public JsonFile(string fileName) : base(fileName)
+        {
+        }
     }
 }
