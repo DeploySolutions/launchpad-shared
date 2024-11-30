@@ -13,6 +13,30 @@ namespace Deploy.LaunchPad.Core.Domain.Model
 {
     public partial class LaunchPadCommonProperties : ILaunchPadCommonProperties
     {
+        // List of common property names (including some like ID that are not present here but are common in domain entities)
+        public static readonly IList<string> CommonProperties = new List<string>
+        {
+            "Id",
+            "Name",
+            "Description",
+            "Culture",
+            "Checksum",
+            "SeqNum",
+            "Tags",
+            "IsActive",
+            "DeletionTime",
+            "DeleterUserId",
+            "DeleterUserName",
+            "IsDeleted",
+            "CreationTime",
+            "CreatorUserId",
+            "CreatorUserName",
+            "LastModifierUserId",
+            "LastModificationTime",
+            "LastModifierUserName",
+            "TranslatedFromId",
+            "DataSet"
+        };
 
         public virtual ElementName Name { get; set; }
 

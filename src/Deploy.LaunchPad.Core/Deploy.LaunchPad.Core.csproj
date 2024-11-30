@@ -11,7 +11,7 @@
     <GenerateBindingRedirectsOutputType>true</GenerateBindingRedirectsOutputType>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
-    <Version>10.10.2</Version>
+    <Version>10.10.3</Version>
     <Description>Shared code for LaunchPad framework.</Description>
     <Copyright>2018-2024 Deploy Software Solutions, inc.</Copyright>
     <PackageIconUrl></PackageIconUrl>
