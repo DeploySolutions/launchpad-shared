@@ -35,20 +35,20 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Castle.LoggingFacility" Version="6.0.0" />
-    <PackageReference Include="File.TypeChecker" Version="4.1.1" />
-    <PackageReference Include="DocumentFormat.OpenXml" Version="3.1.0" />
-    <PackageReference Include="HtmlAgilityPack" Version="1.11.65" />
-    <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.8" />
-    <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="8.0.0" />
-    <PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="8.0.0" />
-    <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="8.0.0" />
-    <PackageReference Include="NetTopologySuite.IO.GeoJSON" Version="4.0.0" />
-    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
-    <PackageReference Include="pocketken.H3" Version="4.0.0" />
-    <PackageReference Include="RestSharp" Version="112.0.0" />
-    <PackageReference Include="System.Collections" Version="4.3.0" />
+    <PackageReference Include="Castle.LoggingFacility" />
+    <PackageReference Include="File.TypeChecker" />
+    <PackageReference Include="DocumentFormat.OpenXml"  />
+    <PackageReference Include="HtmlAgilityPack"/>
+    <PackageReference Include="Microsoft.CSharp" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets"  />
+    <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" />
+    <PackageReference Include="NetTopologySuite.IO.GeoJSON"  />
+    <PackageReference Include="Newtonsoft.Json" />
+    <PackageReference Include="pocketken.H3" />
+    <PackageReference Include="RestSharp"  />
+    <PackageReference Include="System.Collections"  />
   </ItemGroup>
 
   <ItemGroup>

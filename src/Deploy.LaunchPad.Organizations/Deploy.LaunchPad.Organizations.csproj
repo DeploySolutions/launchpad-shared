@@ -36,7 +36,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Schema.NET" Version="13.0.0" />
+    <PackageReference Include="Schema.NET" />
   </ItemGroup>
 
 </Project>
