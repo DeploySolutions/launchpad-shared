@@ -74,7 +74,7 @@
         <PackageVersion Include="AWSSDK.SQS" Version="3.7.400.20" />
         <PackageVersion Include="AwsSignatureVersion4" Version="4.0.5" />
     </ItemGroup>
-    <!-- AWS PAckages Ends -->
+    <!-- AWS Packages Ends -->
 
     <!-- Logging Packages Starts -->
     <ItemGroup>
@@ -119,7 +119,6 @@
 
     <!-- All Other Packages Starts -->
     <ItemGroup>
-
         <PackageVersion Include="Castle.Windsor" Version="6.0.0" />
         <PackageVersion Include="Castle.Windsor.MsDependencyInjection" Version="4.1.0" />
         <PackageVersion Include="Constructs" Version="10.3.0" />
