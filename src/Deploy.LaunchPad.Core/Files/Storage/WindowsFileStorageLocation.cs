@@ -38,6 +38,7 @@ using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 using DocumentFormat.OpenXml.Packaging;
+using Deploy.LaunchPad.Util;
 
 namespace Deploy.LaunchPad.Core.Files.Storage
 {

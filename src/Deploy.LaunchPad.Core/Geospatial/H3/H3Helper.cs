@@ -11,7 +11,7 @@
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
-using Deploy.LaunchPad.Core.Util;
+using Deploy.LaunchPad.Util;
 using H3;
 using System;
 using System.Collections.Generic;

@@ -12,6 +12,7 @@
 // <summary></summary>
 // ***********************************************************************
 
+using Deploy.LaunchPad.Util;
 using Abp.Domain.Entities;
 using System;
 using System.ComponentModel;

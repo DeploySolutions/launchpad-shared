@@ -11,6 +11,7 @@
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
+using Deploy.LaunchPad.Util;
 using System;
 
 namespace Deploy.LaunchPad.Core.Domain

@@ -34,6 +34,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
     using Deploy.LaunchPad.Core.Abp.Domain.SoftwareApplications;
     using Deploy.LaunchPad.Core.Domain;
     using Deploy.LaunchPad.Core.Domain.Model;
+    using Deploy.LaunchPad.Util;
     using global::Abp.Domain.Entities.Auditing;
     using Newtonsoft.Json;
     using System;

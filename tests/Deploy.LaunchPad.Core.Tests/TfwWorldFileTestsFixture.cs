@@ -32,7 +32,7 @@ namespace Deploy.LaunchPad.Core.Tests
     using System.IO;
     using System.Reflection;
     using Deploy.LaunchPad.Core.Domain;
-    using Deploy.LaunchPad.Core.Util;
+    using Deploy.LaunchPad.Util;
     using System;
     using Deploy.LaunchPad.Core.Abp.Util;
     using Deploy.LaunchPad.Core.Abp.Domain;

@@ -28,7 +28,7 @@
 
 namespace Deploy.LaunchPad.Core.Domain
 {
-
+    using Deploy.LaunchPad.Util;
     using System;
 
     /// <summary>

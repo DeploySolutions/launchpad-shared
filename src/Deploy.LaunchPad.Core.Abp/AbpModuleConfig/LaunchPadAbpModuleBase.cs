@@ -18,7 +18,7 @@ using Abp.Reflection.Extensions;
 using Abp.UI;
 using Castle.Core.Logging;
 using Deploy.LaunchPad.Core.Config;
-using Deploy.LaunchPad.Core.Util;
+using Deploy.LaunchPad.Util;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;

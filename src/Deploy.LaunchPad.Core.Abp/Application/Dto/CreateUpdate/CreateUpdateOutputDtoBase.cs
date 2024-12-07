@@ -12,6 +12,7 @@
 // <summary></summary>
 // ***********************************************************************
 using Deploy.LaunchPad.Core.Abp.Domain.SoftwareApplications;
+using Deploy.LaunchPad.Util;
 using System;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;

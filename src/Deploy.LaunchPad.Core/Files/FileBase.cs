@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
 using Deploy.LaunchPad.Core.Files.Storage;
+using Deploy.LaunchPad.Util;
 
 namespace Deploy.LaunchPad.Core.Files
 {

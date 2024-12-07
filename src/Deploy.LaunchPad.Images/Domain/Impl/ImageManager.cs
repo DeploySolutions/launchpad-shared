@@ -32,7 +32,7 @@ namespace Deploy.LaunchPad.Images.Domain
 {
     using Abp.Domain.Services;
     using Castle.Core.Logging;
-    using Deploy.LaunchPad.Core.Util;
+    using Deploy.LaunchPad.Util;
     using ImageMagick;
     using System;
     using System.IO;

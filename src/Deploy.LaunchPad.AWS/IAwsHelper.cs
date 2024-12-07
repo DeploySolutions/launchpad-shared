@@ -13,7 +13,7 @@
 // ***********************************************************************
 using Amazon;
 using Amazon.Runtime;
-using Deploy.LaunchPad.Core.Util;
+using Deploy.LaunchPad.Util;
 
 namespace Deploy.LaunchPad.AWS
 {

@@ -31,6 +31,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
     using Deploy.LaunchPad.Core;
     using Deploy.LaunchPad.Core.Domain;
     using Deploy.LaunchPad.Core.Domain.Model;
+    using global::Deploy.LaunchPad.Util;
     using Newtonsoft.Json;
     using System;
     using System.Collections.Generic;

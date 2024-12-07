@@ -43,6 +43,7 @@ using Deploy.LaunchPad.Core.Domain.Model;
 using Deploy.LaunchPad.Core.Files;
 using Deploy.LaunchPad.Core.Files.Storage;
 using Deploy.LaunchPad.Core;
+using Deploy.LaunchPad.Util;
 
 namespace Deploy.LaunchPad.AWS.S3
 {

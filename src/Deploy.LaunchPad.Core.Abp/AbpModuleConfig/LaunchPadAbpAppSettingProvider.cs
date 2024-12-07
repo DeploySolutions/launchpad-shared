@@ -12,7 +12,7 @@
 // <summary></summary>
 // ***********************************************************************
 using Abp.Configuration;
-using Deploy.LaunchPad.Core.Util;
+using Deploy.LaunchPad.Util;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;

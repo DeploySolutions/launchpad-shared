@@ -15,7 +15,7 @@ using Amazon;
 using Amazon.Runtime;
 using Amazon.Runtime.CredentialManagement;
 using Castle.Core.Logging;
-using Deploy.LaunchPad.Core.Util;
+using Deploy.LaunchPad.Util;
 
 namespace Deploy.LaunchPad.AWS
 {

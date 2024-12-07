@@ -11,6 +11,7 @@
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
+using Deploy.LaunchPad.Util;
 using Deploy.LaunchPad.Core.Abp.Domain.SoftwareApplications;
 using System;
 using System.ComponentModel;

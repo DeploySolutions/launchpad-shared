@@ -36,7 +36,7 @@ namespace Deploy.LaunchPad.Space.Satellites.GoC
     using Deploy.LaunchPad.Core.Files;
     using Deploy.LaunchPad.Core.Files.Storage;
     using Deploy.LaunchPad.Core.Geospatial;
-    using Deploy.LaunchPad.Core.Util;
+    using Deploy.LaunchPad.Util;
     using Deploy.LaunchPad.Space.Satellites.Core;
     using DocumentFormat.OpenXml.Wordprocessing;
     using NetTopologySuite.Geometries;

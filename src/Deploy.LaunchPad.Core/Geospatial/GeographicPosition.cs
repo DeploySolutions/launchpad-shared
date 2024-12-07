@@ -31,7 +31,7 @@
 namespace Deploy.LaunchPad.Core.Geospatial
 {
     using Deploy.LaunchPad.Core;
-    using Deploy.LaunchPad.Core.Util;
+    using Deploy.LaunchPad.Util;
     using H3;
     using System;
     using System.ComponentModel;

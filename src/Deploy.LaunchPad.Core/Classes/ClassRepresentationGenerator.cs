@@ -1,6 +1,7 @@
 ﻿using Castle.Core.Logging;
 using Deploy.LaunchPad.Core.Config;
-using Deploy.LaunchPad.Core.Util;
+using Deploy.LaunchPad.Util;
+using Deploy.LaunchPad.Util;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -40,7 +41,7 @@ namespace Deploy.LaunchPad.Core.Classes
                 var propertyRep = new PropertyRepresentation(property.Name, property.PropertyType);
                 if (!property.PropertyType.IsEnum)
                 {
-                    propertyRep.PropertyType = LaunchPad.Core.ElementType.GetTypeInformationForElement(Logger, property.PropertyType.FullName, false);
+                    propertyRep.PropertyType = ElementType.GetTypeInformationForElement(Logger, property.PropertyType.FullName, false);
                 }
                 classRepresentation.Properties.TryAdd(propertyRep.Name.Full, propertyRep);
             }

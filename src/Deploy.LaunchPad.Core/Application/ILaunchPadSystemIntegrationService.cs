@@ -13,6 +13,7 @@
 // ***********************************************************************
 using Castle.Core.Logging;
 using Deploy.LaunchPad.Core.Config;
+using Deploy.LaunchPad.Util;
 
 namespace Deploy.LaunchPad.Core.Application
 {

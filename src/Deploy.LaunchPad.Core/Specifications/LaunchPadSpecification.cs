@@ -26,7 +26,7 @@
 //limitations under the License. 
 #endregion
 
-using Deploy.LaunchPad.Core.Util;
+using Deploy.LaunchPad.Util;
 using System;
 using System.Linq;
 using System.Linq.Expressions;

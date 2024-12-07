@@ -29,7 +29,7 @@
 using Abp.Domain.Entities;
 using Deploy.LaunchPad.Core.Abp.Domain.Model;
 using Deploy.LaunchPad.Core.Geospatial;
-using Deploy.LaunchPad.Core.Util;
+using Deploy.LaunchPad.Util;
 using H3;
 using NetTopologySuite.Geometries;
 using NetTopologySuite.IO;

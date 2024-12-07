@@ -9,10 +9,11 @@
 
     <!-- Deploy Solutions Packages Starts -->
     <ItemGroup>
-        <PackageVersion Include="Deploy.LaunchPad.Core" Version="10.10.3" />
-        <PackageVersion Include="Deploy.LaunchPad.Core.Abp" Version="10.10.2" />
-        <PackageVersion Include="Deploy.LaunchPad.AWS" Version="10.8.2" />
-        <PackageVersion Include="Deploy.LaunchPad.AWS.Abp" Version="10.8.2" />
+      <PackageVersion Include="Deploy.LaunchPad.Util" Version="10.11.0" />
+        <PackageVersion Include="Deploy.LaunchPad.Core" Version="10.11.0" />
+        <PackageVersion Include="Deploy.LaunchPad.Core.Abp" Version="10.11.0" />
+        <PackageVersion Include="Deploy.LaunchPad.AWS" Version="10.11.0" />
+        <PackageVersion Include="Deploy.LaunchPad.AWS.Abp" Version="10.11.0" />
     </ItemGroup>
     <!-- Deploy Solutions Packages Ends -->
 

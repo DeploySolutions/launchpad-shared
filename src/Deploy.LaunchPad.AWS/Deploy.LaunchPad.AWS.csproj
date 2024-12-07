@@ -10,7 +10,7 @@
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageProjectUrl>https://github.com/DeploySolutions/launchpad-shared</PackageProjectUrl>
     <RepositoryUrl>https://github.com/DeploySolutions/launchpad-shared</RepositoryUrl>
-    <Version>10.8.2</Version>
+    <Version>10.11.0</Version>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <PackageIcon>icon.png</PackageIcon>
     <IncludeSymbols>true</IncludeSymbols>
@@ -26,11 +26,11 @@
     <PackageReference Include="AWSSDK.S3" />
     <PackageReference Include="AWSSDK.SecretsManager" />
     <PackageReference Include="AWSSDK.SimpleNotificationService" />
-    <PackageReference Include="AWSSDK.SQS"  />
+    <PackageReference Include="AWSSDK.SQS" />
     <PackageReference Include="AwsSignatureVersion4" />
     <PackageReference Include="Microsoft.CSharp" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" />
-    <PackageReference Include="Newtonsoft.Json"  />
+    <PackageReference Include="Newtonsoft.Json" />
     <PackageReference Include="RestSharp" />
   </ItemGroup>
 
@@ -47,6 +47,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Deploy.LaunchPad.Core\Deploy.LaunchPad.Core.csproj" />
+    <ProjectReference Include="..\Deploy.LaunchPad.Util\Deploy.LaunchPad.Util.csproj" />
   </ItemGroup>
 
   <ItemGroup>

@@ -31,7 +31,7 @@ namespace Deploy.LaunchPad.Core.Tests
     using Xunit;
     using FluentAssertions;
     using Deploy.LaunchPad.Core.Domain;
-    using Deploy.LaunchPad.Core.Util;
+    using Deploy.LaunchPad.Util;
     using Deploy.LaunchPad.Core.Abp.Domain;
 
     /// <summary>

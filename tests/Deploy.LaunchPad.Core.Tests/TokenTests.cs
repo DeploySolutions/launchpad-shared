@@ -32,7 +32,7 @@ namespace Deploy.LaunchPad.Core.Tests
     using FluentAssertions;
     using System;
     using System.Collections.Generic;
-    using Deploy.LaunchPad.Core.Util;
+    using Deploy.LaunchPad.Util;
 
     /// <summary>
     /// Class TokenTests.

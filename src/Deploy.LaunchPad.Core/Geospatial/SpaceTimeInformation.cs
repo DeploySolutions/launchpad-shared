@@ -28,7 +28,7 @@
 
 namespace Deploy.LaunchPad.Core.Geospatial
 {
-    using Deploy.LaunchPad.Core.Util;
+    using Deploy.LaunchPad.Util;
     using System;
     using System.ComponentModel;
     using System.Runtime.Serialization;
