@@ -13,6 +13,7 @@
     <PackageVersion Include="Deploy.LaunchPad.Core.Abp" Version="10.11.0" />
     <PackageVersion Include="Deploy.LaunchPad.AWS" Version="10.11.0" />
     <PackageVersion Include="Deploy.LaunchPad.AWS.Abp" Version="10.11.0" />
+    <PackageVersion Include="Schema.NET.Pending" Version="13.0.0" />
   </ItemGroup>
   <!-- Deploy Solutions Packages Ends -->
   <!-- ABP Packages Starts -->

@@ -11,7 +11,7 @@
     <GenerateBindingRedirectsOutputType>true</GenerateBindingRedirectsOutputType>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
-    <Version>10.11.1</Version>
+    <Version>10.11.2</Version>
     <Description>Shared code for LaunchPad framework  using AspnetBoilerplate.</Description>
     <Copyright>2018-2024 Deploy Software Solutions, inc.</Copyright>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
@@ -24,7 +24,7 @@
     <PackageReference Include="Abp.AspNetCore" />
     <PackageReference Include="Abp.AutoMapper" />
     <PackageReference Include="Abp.FluentValidation" />
-    <PackageReference Include="Schema.NET" />
+    <PackageReference Include="Schema.NET.Pending" />
   </ItemGroup>
   
   <ItemGroup>
