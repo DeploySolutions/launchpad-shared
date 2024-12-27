@@ -47,6 +47,7 @@
     <PackageReference Include="Newtonsoft.Json" />
     <PackageReference Include="pocketken.H3" />
     <PackageReference Include="RestSharp" />
+    <PackageReference Include="Schema.NET.Pending" />
     <PackageReference Include="System.Collections" />
   </ItemGroup>
 

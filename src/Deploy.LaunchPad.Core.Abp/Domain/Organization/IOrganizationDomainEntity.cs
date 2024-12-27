@@ -4,9 +4,9 @@
 // Created          : 11-19-2023
 //
 // Last Modified By : Nicholas Kellett
-// Last Modified On : 01-22-2023
+// Last Modified On : 07-26-2023
 // ***********************************************************************
-// <copyright file="IGovernmentOrganization.cs" company="Deploy Software Solutions, inc.">
+// <copyright file="IOrganization.cs" company="Deploy Software Solutions, inc.">
 //     2018-2024 Deploy Software Solutions, inc.
 // </copyright>
 // <summary></summary>
@@ -26,23 +26,25 @@
 //limitations under the License. 
 #endregion
 
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Xml.Serialization;
+using Deploy.LaunchPad.Core.Abp.Domain.Model;
+using Deploy.LaunchPad.Core.Domain.Model;
 using Schema.NET;
 
 namespace Deploy.LaunchPad.Core.Abp.Domain
 {
     /// <summary>
-    /// Interface IGovernmentOrganization
-    /// Extends the <see cref="Deploy.LaunchPad.Core.Abp.Domain.IOrganization{TPrimaryKey}" />
+    /// Interface IOrganization
+    /// Extends the <see cref="ILaunchPadDomainEntity{TPrimaryKey}" />
     /// </summary>
     /// <typeparam name="TPrimaryKey">The type of the t primary key.</typeparam>
-    /// <seealso cref="Deploy.LaunchPad.Core.Abp.Domain.IOrganization{TPrimaryKey}" />
-    public partial interface IGovernmentOrganization<TPrimaryKey> : IOrganizationDomainEntity<TPrimaryKey>
+    /// <seealso cref="ILaunchPadDomainEntity{TPrimaryKey}" />
+    public partial interface IOrganizationDomainEntity<TPrimaryKey> : 
+        ILaunchPadDomainEntity<TPrimaryKey>, ILaunchPadOrganization
     {
-        /// <summary>
-        /// Gets or sets the schema.
-        /// </summary>
-        /// <value>The schema.</value>
-        GovernmentOrganization Schema { get; set; }
+        
 
     }
 }

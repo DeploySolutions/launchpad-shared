@@ -28,6 +28,7 @@
 
 using Abp.Domain.Entities;
 using Deploy.LaunchPad.Core.Abp.Domain.Model;
+using Deploy.LaunchPad.Core.Domain.Model;
 using Schema.NET;
 using System;
 using System.Collections.Generic;
@@ -46,7 +47,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
     /// base functionality for many of its methods.
     /// </summary>
     /// <typeparam name="TIdType">The type of the t identifier type.</typeparam>
-    public abstract partial class OrganizationBase<TIdType> : LaunchPadDomainEntityBase<TIdType>, IOrganization<TIdType>, IMayHaveTenant
+    public abstract partial class OrganizationBase<TIdType> : LaunchPadDomainEntityBase<TIdType>, IOrganizationDomainEntity<TIdType>, IMayHaveTenant
     {
         /// <summary>
         /// Gets or sets the schema.
@@ -61,7 +62,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
         ///</summary>
         [DataObjectField(false)]
         [XmlAttribute]
-        public virtual IOrganization? Parent { get; set; }
+        public virtual ILaunchPadOrganization? Parent { get; set; }
 
         /// <summary>
         /// Gets the full name.
@@ -109,6 +110,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
         /// </summary>
         /// <value>The tenant identifier.</value>
         public virtual int? TenantId { get; set; }
+        
 
         /// <summary>
         /// Initializes a new instance of the <see cref="OrganizationBase&lt;TPrimaryKey&gt;">OrganizationBase&lt;TPrimaryKey&gt;</see> class
@@ -167,7 +169,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
         /// </summary>
         /// <typeparam name="TEntity">The source entity to clone</typeparam>
         /// <returns>A shallow clone of the entity and its serializable properties</returns>
-        protected new virtual TEntity Clone<TEntity>() where TEntity : IOrganization<TIdType>, new()
+        protected new virtual TEntity Clone<TEntity>() where TEntity : IOrganizationDomainEntity<TIdType>, new()
         {
             TEntity clone = new TEntity();
             foreach (PropertyInfo info in GetType().GetProperties())

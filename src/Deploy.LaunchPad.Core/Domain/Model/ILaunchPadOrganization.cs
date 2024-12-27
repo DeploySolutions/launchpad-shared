@@ -29,18 +29,14 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Xml.Serialization;
-using Deploy.LaunchPad.Core.Abp.Domain.Model;
 using Schema.NET;
 
-namespace Deploy.LaunchPad.Core.Abp.Domain
+namespace Deploy.LaunchPad.Core.Domain.Model
 {
     /// <summary>
-    /// Interface IOrganization
-    /// Extends the <see cref="ILaunchPadDomainEntity{TPrimaryKey}" />
+    /// Interface ILaunchPadOrganization
     /// </summary>
-    /// <typeparam name="TPrimaryKey">The type of the t primary key.</typeparam>
-    /// <seealso cref="ILaunchPadDomainEntity{TPrimaryKey}" />
-    public partial interface IOrganization<TPrimaryKey> : ILaunchPadDomainEntity<TPrimaryKey>
+    public partial interface ILaunchPadOrganization : ILaunchPadObject
     {
         public Organization Schema { get; }
 
@@ -49,7 +45,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
         ///</summary>
         [DataObjectField(false)]
         [XmlAttribute]
-        public IOrganization? Parent { get; set; }
+        public ILaunchPadOrganization Parent { get; set; }
 
         /// <summary>
         /// Gets the website.

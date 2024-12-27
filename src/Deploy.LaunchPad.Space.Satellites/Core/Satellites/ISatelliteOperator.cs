@@ -37,7 +37,7 @@ namespace Deploy.LaunchPad.Space.Satellites.Core
     /// </summary>
     /// <typeparam name="TPrimaryKey">The type of the t primary key.</typeparam>
     /// <seealso cref="IOrganization{TPrimaryKey}" />
-    public partial interface ISatelliteOperator<TPrimaryKey> : IOrganization<TPrimaryKey>
+    public partial interface ISatelliteOperator<TPrimaryKey> : IOrganizationDomainEntity<TPrimaryKey>
     {
 
 
