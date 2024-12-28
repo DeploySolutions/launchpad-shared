@@ -35,6 +35,7 @@ using Deploy.LaunchPad.Core.Config;
 using ImageMagick;
 using System;
 using System.IO;
+using System.Reflection;
 
 namespace Deploy.LaunchPad.Images.Domain
 {
@@ -94,7 +95,10 @@ namespace Deploy.LaunchPad.Images.Domain
             string id = Guid.NewGuid().ToString();
             Name = new ElementName(string.Format("ThumbnailGenerator {0} ", id));
             Description = new ElementDescription(string.Format("ThumbnailGenerator {0} ", id));
-            string temporaryImagesFilePath = @"f:\data\launchpad\images\temp";
+            string assemblyLocation = Assembly.GetExecutingAssembly().Location;
+            string driveLetter = Path.GetPathRoot(assemblyLocation);
+            string temporaryImagesFilePath = driveLetter + @"\data\launchpad\images\temp";
+
             MagickNET.SetTempDirectory(temporaryImagesFilePath);
             string policyMap = @"
                 <policymap>

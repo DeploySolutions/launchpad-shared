@@ -128,7 +128,10 @@ namespace Deploy.LaunchPad.Images.Tests
         public void New_Thumbnail_Generator_Custom_Configuration_TempFilePath_Should_Be_Set()
         {
             // Create the default ImageMagick configuration, which also initializes the underlying ImageMagick utility
-            string temporaryImagesFilePath = @"f:\data\launchpad\images\temp";
+            string assemblyLocation = Assembly.GetExecutingAssembly().Location;
+            string driveLetter = Path.GetPathRoot(assemblyLocation);
+            string temporaryImagesFilePath = driveLetter + @"\data\launchpad\images\temp";
+
             string policyMap = @"
                 <policymap>
                    <policy domain=""resource"" name=""memory"" value=""3GiB""/> 
