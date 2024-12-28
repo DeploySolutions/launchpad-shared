@@ -5,7 +5,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Deploy.LaunchPad.Core.Classes
+namespace Deploy.LaunchPad.Core.CodeRepresentation
 {
     /// <summary>
     /// This utility class assumes that the object type has a static CreateBuilder method that returns a builder object with a Build method.

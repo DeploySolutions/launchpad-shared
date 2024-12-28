@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Deploy.LaunchPad.Core.Classes
+namespace Deploy.LaunchPad.Core.CodeRepresentation
 {
     public partial class PropertyRepresentation
     {
