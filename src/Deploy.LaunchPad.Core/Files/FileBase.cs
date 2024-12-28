@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using System.Xml.Serialization;
 using Deploy.LaunchPad.Core.Files.Storage;
 using Deploy.LaunchPad.Util;
+using Deploy.LaunchPad.Core.Metadata;
 
 namespace Deploy.LaunchPad.Core.Files
 {
@@ -72,7 +73,7 @@ namespace Deploy.LaunchPad.Core.Files
         /// <value>The content.</value>
         [DataObjectField(false)]
         [XmlAttribute]
-        public virtual ILaunchPadSchemaDetails Schema { get; set; }
+        public virtual ILaunchPadSchemaDetails? Schema { get; set; }
 
 
         /// <summary>

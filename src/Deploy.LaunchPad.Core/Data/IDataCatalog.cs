@@ -6,7 +6,7 @@
 // Last Modified By : Nicholas Kellett
 // Last Modified On : 07-26-2023
 // ***********************************************************************
-// <copyright file="IDataPoint.cs" company="Deploy Software Solutions, inc.">
+// <copyright file="IDataCatalog.cs" company="Deploy Software Solutions, inc.">
 //     2018-2024 Deploy Software Solutions, inc.
 // </copyright>
 // <summary></summary>
@@ -26,28 +26,38 @@
 //limitations under the License. 
 #endregion
 
-using Abp.Domain.Entities;
-using Deploy.LaunchPad.Core.Abp.Domain.Model;
-using Deploy.LaunchPad.Core.Domain.Model;
+
 using Deploy.LaunchPad.Core.Metadata;
+using System.Collections.Generic;
 
-namespace Deploy.LaunchPad.Core.Abp.Domain
+namespace Deploy.LaunchPad.Core.Data
 {
-
     /// <summary>
-    /// Interface IDataPoint
-    /// Extends the <see cref="ILaunchPadDomainEntity{TPrimaryKey}" />
-    /// Extends the <see cref="IMayHaveTenant" />
+    /// Interface IDataCatalog
     /// </summary>
-    /// <typeparam name="TPrimaryKey">The type of the t primary key.</typeparam>
-    /// <seealso cref="ILaunchPadDomainEntity{TPrimaryKey}" />
-    /// <seealso cref="IMayHaveTenant" />
-    public partial interface IDataPoint<TPrimaryKey> : ILaunchPadDomainEntity<TPrimaryKey>, IMayHaveTenant
+    /// <typeparam name="TDictionaryKey">The type of the t dictionary key.</typeparam>
+    public partial interface IDataCatalog<TDictionaryKey> : IMayHaveSchemaDetails
+        where TDictionaryKey : struct
     {
+
         /// <summary>
-        /// Describes the schema (where known) according to which this data is structured.
+        /// Gets or sets the data sets count.
         /// </summary>
-        /// <value>The schema.</value>
-        public ILaunchPadSchemaDetails? Schema { get; set; }
+        /// <value>The data sets count.</value>
+        int DataSetsCount { get; set; }
+
+        /// <summary>
+        /// Gets or sets the items count.
+        /// </summary>
+        /// <value>The items count.</value>
+        long ItemsCount { get; set; }
+
+
+        /// <summary>
+        /// Gets or sets the data sets.
+        /// </summary>
+        /// <value>The data sets.</value>
+        IEnumerable<IDataSet<TDictionaryKey>> DataSets { get; set; }
+
     }
 }

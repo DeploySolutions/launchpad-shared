@@ -26,36 +26,20 @@
 //limitations under the License. 
 #endregion
 
-using Abp.Domain.Entities;
-using Deploy.LaunchPad.Core.Abp.Domain.Model;
-using Deploy.LaunchPad.Core.Domain.Model;
 using Deploy.LaunchPad.Core.Licenses;
 using Deploy.LaunchPad.Core.Metadata;
 using System.Collections.Generic;
 
-namespace Deploy.LaunchPad.Core.Abp.Domain
+namespace Deploy.LaunchPad.Core.Data
 {
 
     /// <summary>
     /// Interface IDataSet
-    /// Extends the <see cref="ILaunchPadDomainEntity{TPrimaryKey}" />
-    /// Extends the <see cref="IMayHaveTenant" />
     /// </summary>
-    /// <typeparam name="TPrimaryKey">The type of the t primary key.</typeparam>
-    /// <typeparam name="TDictionaryKey">The type of the t dictionary key.</typeparam>
-    /// <typeparam name="TDataPointPrimaryKey">The type of the t data point primary key.</typeparam>
-    /// <seealso cref="ILaunchPadDomainEntity{TPrimaryKey}" />
-    /// <seealso cref="IMayHaveTenant" />
-    public partial interface IDataSet<TPrimaryKey, TDictionaryKey, TDataPointPrimaryKey> : ILaunchPadDomainEntity<TPrimaryKey>, IMayHaveTenant
+    public partial interface IDataSet<TDictionaryKey> : IMayHaveSchemaDetails
         where TDictionaryKey : struct
-        where TDataPointPrimaryKey : struct
     {
-        /// <summary>
-        /// Describes the schema (where known) according to which all of the data in this set is structured.
-        /// </summary>
-        /// <value>The schema.</value>
-        public ILaunchPadSchemaDetails? Schema { get; set; }
-
+        
         public string Contact { get; set; }
 
         public string Quality { get; set; }
@@ -66,7 +50,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
 
         public License License { get; set; }
 
-        public IList<DataSet<TPrimaryKey, TDictionaryKey, TDataPointPrimaryKey>> Related { get; set; }
+        public IList<IDataSet<TDictionaryKey>> Related { get; set; }
 
         /// <summary>
         /// Gets the count.
@@ -78,7 +62,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
         /// Gets the data.
         /// </summary>
         /// <value>The data.</value>
-        public IDictionary<TDictionaryKey, IDataPoint<TDataPointPrimaryKey>> Data { get; }
+        public IDictionary<TDictionaryKey, IDataPoint> Data { get; }
 
         /// <summary>
         /// Adds the data.
@@ -86,7 +70,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
         /// <param name="key">The key.</param>
         /// <param name="dataPoint">The data point.</param>
         /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
-        public bool AddData(TDictionaryKey key, IDataPoint<TDataPointPrimaryKey> dataPoint);
+        public bool AddData(TDictionaryKey key, IDataPoint dataPoint);
 
 
     }

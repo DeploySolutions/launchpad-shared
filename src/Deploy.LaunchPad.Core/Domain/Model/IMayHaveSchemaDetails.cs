@@ -26,28 +26,17 @@
 //limitations under the License. 
 #endregion
 
-using Abp.Domain.Entities;
-using Deploy.LaunchPad.Core.Abp.Domain.Model;
 using Deploy.LaunchPad.Core.Domain.Model;
 using Deploy.LaunchPad.Core.Metadata;
 
-namespace Deploy.LaunchPad.Core.Abp.Domain
+namespace Deploy.LaunchPad.Core.Data
 {
 
     /// <summary>
     /// Interface IDataPoint
-    /// Extends the <see cref="ILaunchPadDomainEntity{TPrimaryKey}" />
-    /// Extends the <see cref="IMayHaveTenant" />
     /// </summary>
-    /// <typeparam name="TPrimaryKey">The type of the t primary key.</typeparam>
-    /// <seealso cref="ILaunchPadDomainEntity{TPrimaryKey}" />
-    /// <seealso cref="IMayHaveTenant" />
-    public partial interface IDataPoint<TPrimaryKey> : ILaunchPadDomainEntity<TPrimaryKey>, IMayHaveTenant
+    public partial interface IDataPoint
     {
-        /// <summary>
-        /// Describes the schema (where known) according to which this data is structured.
-        /// </summary>
-        /// <value>The schema.</value>
-        public ILaunchPadSchemaDetails? Schema { get; set; }
+      
     }
 }

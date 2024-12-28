@@ -28,6 +28,7 @@
 
 using Abp.Domain.Entities;
 using Deploy.LaunchPad.Core.Domain;
+using Deploy.LaunchPad.Core.Metadata;
 using System;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;

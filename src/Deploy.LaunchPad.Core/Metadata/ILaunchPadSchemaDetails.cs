@@ -12,13 +12,14 @@
 // <summary></summary>
 // ***********************************************************************
 using Deploy.LaunchPad.Core.Domain;
+using Deploy.LaunchPad.Core.Domain.Model;
 using Deploy.LaunchPad.Core.Files.Storage;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Xml.Serialization;
 
-namespace Deploy.LaunchPad.Core.Domain.Model
+namespace Deploy.LaunchPad.Core.Metadata
 {
     /// <summary>
     /// Interface ILaunchPadSchemaDetails

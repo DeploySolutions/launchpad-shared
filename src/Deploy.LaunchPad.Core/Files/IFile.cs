@@ -35,6 +35,7 @@ namespace Deploy.LaunchPad.Core.Files
     using Deploy.LaunchPad.Core;
     using Deploy.LaunchPad.Core.Domain.Model;
     using Deploy.LaunchPad.Core.Files.Storage;
+    using Deploy.LaunchPad.Core.Metadata;
 
     /// <summary>
     /// Marks any object as a file that can be manipulated by the platform.

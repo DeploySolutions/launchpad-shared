@@ -1,12 +1,12 @@
 ﻿// ***********************************************************************
-// Assembly         : Deploy.LaunchPad.Core.Abp
+// Assembly         : Deploy.LaunchPad.Core
 // Author           : Nicholas Kellett
 // Created          : 11-19-2023
 //
 // Last Modified By : Nicholas Kellett
-// Last Modified On : 07-26-2023
+// Last Modified On : 01-08-2023
 // ***********************************************************************
-// <copyright file="IDataPoint.cs" company="Deploy Software Solutions, inc.">
+// <copyright file="ILaunchPadMetadataTag.cs" company="Deploy Software Solutions, inc.">
 //     2018-2024 Deploy Software Solutions, inc.
 // </copyright>
 // <summary></summary>
@@ -26,28 +26,42 @@
 //limitations under the License. 
 #endregion
 
-using Abp.Domain.Entities;
-using Deploy.LaunchPad.Core.Abp.Domain.Model;
-using Deploy.LaunchPad.Core.Domain.Model;
-using Deploy.LaunchPad.Core.Metadata;
-
-namespace Deploy.LaunchPad.Core.Abp.Domain
+namespace Deploy.LaunchPad.Core.Metadata
 {
+    using System;
+    using System.ComponentModel;
+    using System.Xml.Serialization;
 
     /// <summary>
-    /// Interface IDataPoint
-    /// Extends the <see cref="ILaunchPadDomainEntity{TPrimaryKey}" />
-    /// Extends the <see cref="IMayHaveTenant" />
+    /// This interface represents a "tag" applied to an entity. Tags provide additional metadata information about
+    /// an entity, and can be formal (as in some form of taxonomy) or informal ("Folksonomy").
     /// </summary>
-    /// <typeparam name="TPrimaryKey">The type of the t primary key.</typeparam>
-    /// <seealso cref="ILaunchPadDomainEntity{TPrimaryKey}" />
-    /// <seealso cref="IMayHaveTenant" />
-    public partial interface IDataPoint<TPrimaryKey> : ILaunchPadDomainEntity<TPrimaryKey>, IMayHaveTenant
+    public partial interface ILaunchPadMetadataTag
     {
+
         /// <summary>
-        /// Describes the schema (where known) according to which this data is structured.
+        /// The name of this metadata tag
+        /// </summary>
+        /// <value>The key.</value>
+        [DataObjectField(false)]
+        [XmlAttribute]
+        String Key { get; set; }
+
+        /// <summary>
+        /// The value of this metadata tag
+        /// </summary>
+        /// <value>The value.</value>
+        [DataObjectField(false)]
+        [XmlAttribute]
+        String Value { get; set; }
+
+        /// <summary>
+        /// The scheme of this metadata tag, if any
         /// </summary>
         /// <value>The schema.</value>
-        public ILaunchPadSchemaDetails? Schema { get; set; }
+        [DataObjectField(false)]
+        [XmlAttribute]
+        String Schema { get; set; }
+
     }
 }
