@@ -1,10 +1,11 @@
-﻿using Deploy.LaunchPad.Util;
+﻿using Deploy.LaunchPad.Core.Files.Formats;
+using Deploy.LaunchPad.Util;
 using System;
 using System.Collections.Generic;
 
 namespace Deploy.LaunchPad.Core.Files
 {
-    public partial class PdfFile : FileBase<byte[]>, IPdfFile
+    public partial class PdfFile : FileBase<byte[], PdfSchemaFormat>, IPdfFile
     {
 
         public override string Extension => ".pdf";

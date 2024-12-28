@@ -9,7 +9,7 @@ using System.Xml.Schema;
 
 namespace Deploy.LaunchPad.Core.Files
 {
-    public partial class JsonFile : FileBase<JToken>, IJsonFile
+    public partial class JsonFile : FileBase<JToken, JToken>, IJsonFile
     {
         public override string Extension => ".json";
 

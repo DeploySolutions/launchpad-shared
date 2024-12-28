@@ -1,6 +1,8 @@
-﻿namespace Deploy.LaunchPad.Core.Files
+﻿using Deploy.LaunchPad.Core.Files.Formats;
+
+namespace Deploy.LaunchPad.Core.Files
 {
-    public partial interface IPdfFile : IFile<byte[]>
+    public partial interface IPdfFile : IFile<byte[], PdfSchemaFormat>
     {
     }
 }

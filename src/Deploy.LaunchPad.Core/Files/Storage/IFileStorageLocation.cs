@@ -94,8 +94,8 @@ namespace Deploy.LaunchPad.Core.Files.Storage
         /// <param name="fileToCheck">The file to check.</param>
         /// <param name="shouldRecurseSubdirectories">if set to <c>true</c> [should recurse subdirectories].</param>
         /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
-        public bool FileExists<TFile, TFileContentType>(TFile fileToCheck, bool shouldRecurseSubdirectories = false)
-            where TFile : IFile<TFileContentType>, new();
+        public bool FileExists<TFile, TFileContentType,TSchemaFormat>(TFile fileToCheck, bool shouldRecurseSubdirectories = false)
+            where TFile : IFile<TFileContentType, TSchemaFormat>, new();
 
         /// <summary>
         /// Creates the file.
@@ -110,8 +110,8 @@ namespace Deploy.LaunchPad.Core.Files.Storage
         /// <param name="filePrefix">The file prefix.</param>
         /// <param name="fileSuffix">The file suffix.</param>
         /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
-        public bool CreateFile<TFile, TFileContentType>(TFile sourceFile, IDictionary<string, string> fileTags, string contentType, IDictionary<string, string> writeTags, string filePrefix, string fileSuffix)
-            where TFile : IFile<TFileContentType>, new();
+        public bool CreateFile<TFile, TFileContentType, TSchemaFormat>(TFile sourceFile, IDictionary<string, string> fileTags, string contentType, IDictionary<string, string> writeTags, string filePrefix, string fileSuffix)
+            where TFile : IFile<TFileContentType, TSchemaFormat>, new();
 
         /// <summary>
         /// Creates the file asynchronous.
@@ -126,8 +126,8 @@ namespace Deploy.LaunchPad.Core.Files.Storage
         /// <param name="filePrefix">The file prefix.</param>
         /// <param name="fileSuffix">The file suffix.</param>
         /// <returns>Task&lt;System.Boolean&gt;.</returns>
-        public Task<bool> CreateFileAsync<TFile, TFileContentType>(TFile sourceFile, IDictionary<string, string> fileTags, string contentType, IDictionary<string, string> writeTags, string filePrefix, string fileSuffix)
-            where TFile : IFile<TFileContentType>, new();
+        public Task<bool> CreateFileAsync<TFile, TFileContentType, TSchemaFormat>(TFile sourceFile, IDictionary<string, string> fileTags, string contentType, IDictionary<string, string> writeTags, string filePrefix, string fileSuffix)
+            where TFile : IFile<TFileContentType, TSchemaFormat>, new();
 
         /// <summary>
         /// Reads the file.
@@ -138,8 +138,8 @@ namespace Deploy.LaunchPad.Core.Files.Storage
         /// <param name="fileId">The file identifier.</param>
         /// <param name="tempLocation">The temporary location.</param>
         /// <returns>TFile.</returns>
-        public TFile ReadFile<TFile, TFileContentType>(string fileId, Uri tempLocation = null)
-            where TFile : IFile<TFileContentType>, new();
+        public TFile ReadFile<TFile, TFileContentType, TSchemaFormat>(string fileId, Uri tempLocation = null)
+            where TFile : IFile<TFileContentType, TSchemaFormat>, new();
 
         /// <summary>
         /// Reads the file asynchronous.
@@ -150,8 +150,8 @@ namespace Deploy.LaunchPad.Core.Files.Storage
         /// <param name="fileId">The file identifier.</param>
         /// <param name="tempLocation">The temporary location.</param>
         /// <returns>Task&lt;TFile&gt;.</returns>
-        public Task<TFile> ReadFileAsync<TFile, TFileContentType>(string fileId, Uri tempLocation = null)
-            where TFile : IFile<TFileContentType>, new();
+        public Task<TFile> ReadFileAsync<TFile, TFileContentType, TSchemaFormat>(string fileId, Uri tempLocation = null)
+            where TFile : IFile<TFileContentType, TSchemaFormat>, new();
 
         /// <summary>
         /// Reads the file metadata.
@@ -161,8 +161,8 @@ namespace Deploy.LaunchPad.Core.Files.Storage
         /// <typeparam name="TFileContentType">The type of the t file content type.</typeparam>
         /// <param name="sourceFile">The source file.</param>
         /// <returns>IDictionary&lt;System.String, System.String&gt;.</returns>
-        public IDictionary<string, string> ReadFileMetadata<TFile, TFileContentType>(TFile sourceFile)
-            where TFile : IFile<TFileContentType>, new();
+        public IDictionary<string, string> ReadFileMetadata<TFile, TFileContentType, TSchemaFormat>(TFile sourceFile)
+            where TFile : IFile<TFileContentType, TSchemaFormat>, new();
 
         /// <summary>
         /// Reads the file metadata asynchronous.
@@ -172,8 +172,8 @@ namespace Deploy.LaunchPad.Core.Files.Storage
         /// <typeparam name="TFileContentType">The type of the t file content type.</typeparam>
         /// <param name="sourceFile">The source file.</param>
         /// <returns>Task&lt;IDictionary&lt;System.String, System.String&gt;&gt;.</returns>
-        public Task<IDictionary<string, string>> ReadFileMetadataAsync<TFile, TFileContentType>(TFile sourceFile)
-            where TFile : IFile<TFileContentType>, new();
+        public Task<IDictionary<string, string>> ReadFileMetadataAsync<TFile, TFileContentType, TSchemaFormat>(TFile sourceFile)
+            where TFile : IFile<TFileContentType, TSchemaFormat>, new();
 
         /// <summary>
         /// Updates the file.
@@ -183,8 +183,8 @@ namespace Deploy.LaunchPad.Core.Files.Storage
         /// <typeparam name="TFileContentType">The type of the t file content type.</typeparam>
         /// <param name="fileToUpdate">The file to update.</param>
         /// <returns>TFile.</returns>
-        public TFile UpdateFile<TFile, TFileContentType>(TFile fileToUpdate)
-            where TFile : IFile<TFileContentType>, new();
+        public TFile UpdateFile<TFile, TFileContentType, TSchemaFormat>(TFile fileToUpdate)
+            where TFile : IFile<TFileContentType,TSchemaFormat>, new();
 
         /// <summary>
         /// Updates the file asynchronous.
@@ -194,8 +194,8 @@ namespace Deploy.LaunchPad.Core.Files.Storage
         /// <typeparam name="TFileContentType">The type of the t file content type.</typeparam>
         /// <param name="fileToUpdate">The file to update.</param>
         /// <returns>Task&lt;TFile&gt;.</returns>
-        public Task<TFile> UpdateFileAsync<TFile, TFileContentType>(TFile fileToUpdate)
-            where TFile : IFile<TFileContentType>, new();
+        public Task<TFile> UpdateFileAsync<TFile, TFileContentType, TSchemaFormat>(TFile fileToUpdate)
+            where TFile : IFile<TFileContentType, TSchemaFormat>, new();
 
         /// <summary>
         /// Deletes the file.
@@ -205,8 +205,8 @@ namespace Deploy.LaunchPad.Core.Files.Storage
         /// <typeparam name="TFileContentType">The type of the t file content type.</typeparam>
         /// <param name="fileToDelete">The file to delete.</param>
         /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
-        public bool DeleteFile<TFile, TFileContentType>(TFile fileToDelete)
-            where TFile : IFile<TFileContentType>, new();
+        public bool DeleteFile<TFile, TFileContentType, TSchemaFormat>(TFile fileToDelete)
+            where TFile : IFile<TFileContentType, TSchemaFormat>, new();
 
         /// <summary>
         /// Deletes the file asynchronous.
@@ -216,8 +216,8 @@ namespace Deploy.LaunchPad.Core.Files.Storage
         /// <typeparam name="TFileContentType">The type of the t file content type.</typeparam>
         /// <param name="fileToDelete">The file to delete.</param>
         /// <returns>Task&lt;System.Boolean&gt;.</returns>
-        public Task<bool> DeleteFileAsync<TFile, TFileContentType>(TFile fileToDelete)
-            where TFile : IFile<TFileContentType>, new();
+        public Task<bool> DeleteFileAsync<TFile, TFileContentType, TSchemaFormat>(TFile fileToDelete)
+            where TFile : IFile<TFileContentType, TSchemaFormat>, new();
 
         /// <summary>
         /// Gets the relative path for file.
@@ -227,8 +227,8 @@ namespace Deploy.LaunchPad.Core.Files.Storage
         /// <typeparam name="TFileContentType">The type of the t file content type.</typeparam>
         /// <param name="file">The file.</param>
         /// <returns>Uri.</returns>
-        public Uri GetRelativePathForFile<TFile, TFileContentType>(TFile file)
-            where TFile : IFile<TFileContentType>, new();
+        public Uri GetRelativePathForFile<TFile, TFileContentType, TSchemaFormat>(TFile file)
+            where TFile : IFile<TFileContentType, TSchemaFormat>, new();
 
         /// <summary>
         /// Gets the full path for file.
@@ -238,8 +238,8 @@ namespace Deploy.LaunchPad.Core.Files.Storage
         /// <typeparam name="TFileContentType">The type of the t file content type.</typeparam>
         /// <param name="file">The file.</param>
         /// <returns>Uri.</returns>
-        public Uri GetFullPathForFile<TFile, TFileContentType>(TFile file)
-            where TFile : IFile<TFileContentType>, new();
+        public Uri GetFullPathForFile<TFile, TFileContentType, TSchemaFormat>(TFile file)
+            where TFile : IFile<TFileContentType, TSchemaFormat>, new();
 
         /// <summary>
         /// Returns available storage space for this location, in bytes, or -1 if unknown or "infinite" ex a cloud storage drive

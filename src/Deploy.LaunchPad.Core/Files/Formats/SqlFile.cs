@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Deploy.LaunchPad.Core.Files.Formats;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Deploy.LaunchPad.Core.Files
 {
-    public partial class SqlFile : FileBase<string>, ISqlFile
+    public partial class SqlFile : FileBase<string, SqlSchemaFormat>, ISqlFile
     {
         public override string Extension => ".sql";
         public virtual bool IsTransaction { get; set; } = false;

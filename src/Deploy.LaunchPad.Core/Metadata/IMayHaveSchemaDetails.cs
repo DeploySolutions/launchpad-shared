@@ -33,12 +33,12 @@ namespace Deploy.LaunchPad.Core.Metadata
     /// <summary>
     /// Interface IDataPoint
     /// </summary>
-    public partial interface IMayHaveSchemaDetails
+    public partial interface IMayHaveSchemaDetails<TSchemaFormat>
     {
         /// <summary>
         /// Describes the schema (where known) according to which this data is structured.
         /// </summary>
         /// <value>The schema.</value>
-        public ILaunchPadSchemaDetails? Schema { get; set; }
+        public ILaunchPadSchemaDetails<TSchemaFormat>? Schema { get; set; }
     }
 }

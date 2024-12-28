@@ -41,7 +41,7 @@ namespace Deploy.LaunchPad.Core.Files
     /// Marks any object as a file that can be manipulated by the platform.
     /// </summary>
     /// <typeparam name="TFileContentType">The type of the file content.</typeparam>
-    public partial interface IFile<TFileContentType> : ILaunchPadObject, ILaunchPadCommonProperties
+    public partial interface IFile<TFileContentType, TSchemaFormat> : ILaunchPadObject, ILaunchPadCommonProperties
     {
         /// <summary>
         /// The size of the file, in bytes
@@ -98,7 +98,7 @@ namespace Deploy.LaunchPad.Core.Files
         /// <value>The content.</value>
         [DataObjectField(false)]
         [XmlAttribute]
-        public ILaunchPadSchemaDetails? Schema { get; set; }
+        public ILaunchPadSchemaDetails<TSchemaFormat>? Schema { get; set; }
 
 
 

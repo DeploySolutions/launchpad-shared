@@ -1,10 +1,11 @@
 ﻿using Deploy.LaunchPad.Util;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 
 namespace Deploy.LaunchPad.Core.Files
 {
-    public partial class JupyterNotebookFile : FileBase<byte[]>, IJupyterNotebookFile
+    public partial class JupyterNotebookFile : FileBase<byte[], JToken>, IJupyterNotebookFile
     {
 
         public override string Extension => ".ipynb";

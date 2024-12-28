@@ -48,8 +48,8 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
     /// <typeparam name="TFileContentType">The type of the t file content type.</typeparam>
     /// <seealso cref="LaunchPadDomainEntityBase{TIdType}" />
     /// <seealso cref="IDomainEntityFile{TIdType, TFileContentType}" />
-    public abstract partial class DomainEntityFileBase<TIdType, TFileContentType> : LaunchPadDomainEntityBase<TIdType>,
-        IDomainEntityFile<TIdType, TFileContentType>
+    public abstract partial class DomainEntityFileBase<TIdType, TFileContentType, TSchemaFormat> : LaunchPadDomainEntityBase<TIdType>,
+        IDomainEntityFile<TIdType, TFileContentType, TSchemaFormat>
     {
 
         /// <summary>
@@ -109,7 +109,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
         /// <value>The content.</value>
         [DataObjectField(false)]
         [XmlAttribute]
-        public virtual ILaunchPadSchemaDetails Schema { get; set; }
+        public virtual ILaunchPadSchemaDetails<TSchemaFormat> Schema { get; set; }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="DomainEntityFileBase{TIdType, TFileContentType}"/> class.
@@ -171,7 +171,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
         {
             Locations = (IList<IFileStorageLocation>)info.GetValue("Content", typeof(IList<IFileStorageLocation>));
             Content = (TFileContentType)info.GetValue("Content", typeof(TFileContentType));
-            Schema = (ILaunchPadSchemaDetails)info.GetValue("Schema", typeof(ILaunchPadSchemaDetails));
+            Schema = (ILaunchPadSchemaDetails<TSchemaFormat>)info.GetValue("Schema", typeof(ILaunchPadSchemaDetails<TSchemaFormat>));
             Size = info.GetInt64("Size");
             MimeType = info.GetString("MimeType");
             Extension = info.GetString("Extension");

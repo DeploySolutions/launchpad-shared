@@ -38,7 +38,7 @@ namespace Deploy.LaunchPad.Space.Satellites.Core
     /// </summary>
     /// <typeparam name="TPrimaryKey">The type of the t primary key.</typeparam>
     /// <seealso cref="LaunchPad.Core.Abp.Domain.Model.DomainEntityFileBase{TPrimaryKey, System.Byte[]}" />
-    public partial class SardFile<TPrimaryKey> : DomainEntityFileBase<TPrimaryKey, byte[]>
+    public partial class SardFile<TPrimaryKey> : DomainEntityFileBase<TPrimaryKey, byte[], SardSchemaFormat>
     {
         /// <summary>
         /// The extension of the file

@@ -9,7 +9,7 @@ using System.Xml.Schema;
 namespace Deploy.LaunchPad.Core.Files
 {
 
-    public partial class XmlFile : FileBase<XmlDocument>, IXmlFile
+    public partial class XmlFile : FileBase<XmlDocument, XmlSchemaSet>, IXmlFile
     {
         public override string Extension => ".xml";
 

@@ -23,7 +23,7 @@ namespace Deploy.LaunchPad.AWS.Abp.S3
     /// <typeparam name="TIdType">The type of the t identifier type.</typeparam>
     /// <typeparam name="TFileContentType">The type of the t file content type.</typeparam>
     /// <seealso cref="Core.Abp.Domain.Model.DomainEntityFileSetBase{TIdType, TFileContentType, Deploy.LaunchPad.AWS.S3.S3BucketStorageLocation}" />
-    public partial class S3FileSet<TIdType, TFileContentType> : DomainEntityFileSetBase<TIdType, TFileContentType, S3BucketStorageLocation>
+    public partial class S3FileSet<TIdType, TFileContentType, TFileSchema> : DomainEntityFileSetBase<TIdType, TFileContentType, S3BucketStorageLocation, TFileSchema>
     {
 
 

@@ -34,7 +34,7 @@ namespace Deploy.LaunchPad.Core.Data
     /// <summary>
     /// Interface IDataPoint
     /// </summary>
-    public partial interface IDataPoint
+    public partial interface ILaunchPadDataPoint
     {
     }
 }

@@ -24,17 +24,17 @@ namespace Deploy.LaunchPad.Core.Metadata
     /// <summary>
     /// Interface ILaunchPadSchemaDetails
     /// </summary>
-    public partial interface ILaunchPadSchemaDetails : ILaunchPadObject, ILaunchPadCommonProperties
+    public partial interface ILaunchPadSchemaDetails<TSchemaFormat> : ILaunchPadObject, ILaunchPadCommonProperties
     {
         public IFileStorageLocation? Location { get; set; }
 
         /// <summary>
-        /// The definition of this schema (XmlSchemaSet, JsonObject, string, etc)
+        /// The value of this schema in a particular format (Schema.Org json-ld, XmlSchemaSet, POJO, string, etc)
         /// </summary>
         /// <value>The definition of this schema.</value>
         [DataObjectField(false)]
         [XmlAttribute]
-        public object Definition { get; set; }
+        public TSchemaFormat Value { get; set; }
 
         /// <summary>
         /// The version of this schema

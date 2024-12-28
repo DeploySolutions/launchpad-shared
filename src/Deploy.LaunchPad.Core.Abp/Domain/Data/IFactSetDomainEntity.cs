@@ -11,19 +11,23 @@
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
+using Deploy.LaunchPad.Core.Data;
 using System.Collections.Generic;
 
 namespace Deploy.LaunchPad.Core.Abp.Domain.Data
 {
     /// <summary>
     /// Interface IFactSet
-    /// Extends the <see cref="Deploy.LaunchPad.Core.Abp.Domain.IDataSet{TPrimaryKey, TDictionaryKey, TDataPointPrimaryKey}" />
+    /// Extends the <see cref="Deploy.LaunchPad.Core.Abp.Domain.IDataSetDomainEntity{TPrimaryKey, TDictionaryKey, TDataPointPrimaryKey}" />
     /// </summary>
     /// <typeparam name="TPrimaryKey">The type of the t primary key.</typeparam>
     /// <typeparam name="TDictionaryKey">The type of the t dictionary key.</typeparam>
     /// <typeparam name="TDataPointPrimaryKey">The type of the t data point primary key.</typeparam>
-    /// <seealso cref="Deploy.LaunchPad.Core.Abp.Domain.IDataSet{TPrimaryKey, TDictionaryKey, TDataPointPrimaryKey}" />
-    public partial interface IFactSet<TPrimaryKey, TDictionaryKey, TDataPointPrimaryKey> : IDataSet<TPrimaryKey, TDictionaryKey, TDataPointPrimaryKey>
+    /// <typeparam name="TSchemaFormat">The type of the schema which can validate this entity.</typeparam>
+    /// <seealso cref="Deploy.LaunchPad.Core.Abp.Domain.IDataSetDomainEntity{TPrimaryKey, TDictionaryKey, TDataPointPrimaryKey}" />
+    public partial interface IFactSetDomainEntity<TPrimaryKey, TDictionaryKey, TDataPointPrimaryKey, TSchemaFormat> :
+        ILaunchPadDataSet<TDictionaryKey, TSchemaFormat>,
+        IDataSetDomainEntity<TPrimaryKey, TDictionaryKey, TDataPointPrimaryKey, TSchemaFormat>
         where TDictionaryKey : struct
         where TDataPointPrimaryKey : struct
     {
@@ -32,6 +36,6 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Data
         /// Gets or sets the data.
         /// </summary>
         /// <value>The data.</value>
-        public new IDictionary<TDictionaryKey, IFact<TDataPointPrimaryKey>> Data { get; set; }
+        public new IDictionary<TDictionaryKey, IFactDomainEntity<TDataPointPrimaryKey, TSchemaFormat>> Data { get; set; }
     }
 }

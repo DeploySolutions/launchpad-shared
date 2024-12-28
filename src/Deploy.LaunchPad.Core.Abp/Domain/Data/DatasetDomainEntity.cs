@@ -33,6 +33,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
     using System.Runtime.Serialization;
     using System.Text;
     using Deploy.LaunchPad.Core.Abp.Domain.Model;
+    using Deploy.LaunchPad.Core.Data;
     using Deploy.LaunchPad.Core.Domain.Model;
     using Deploy.LaunchPad.Core.Licenses;
     using Deploy.LaunchPad.Core.Metadata;
@@ -41,15 +42,15 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
     /// <summary>
     /// Class DataSet.
     /// Implements the <see cref="LaunchPadDomainEntityBase{TPrimaryKey}" />
-    /// Implements the <see cref="Deploy.LaunchPad.Core.Abp.Domain.IDataSet{TPrimaryKey, TDictionaryKey, TDataPointPrimaryKey}" />
+    /// Implements the <see cref="Deploy.LaunchPad.Core.Abp.Domain.IDataSetDomainEntity{TPrimaryKey, TDictionaryKey, TDataPointPrimaryKey}" />
     /// </summary>
     /// <typeparam name="TPrimaryKey">The type of the t primary key.</typeparam>
     /// <typeparam name="TDictionaryKey">The type of the t dictionary key.</typeparam>
     /// <typeparam name="TDataPointPrimaryKey">The type of the t data point primary key.</typeparam>
     /// <typeparam name="TSchemaFormat">The type of the schema (ex a Json or XSD related generic type>.</typeparam>
     /// <seealso cref="LaunchPadDomainEntityBase{TPrimaryKey}" />
-    /// <seealso cref="Deploy.LaunchPad.Core.Abp.Domain.IDataSet{TPrimaryKey, TDictionaryKey, TDataPointPrimaryKey}" />
-    public abstract partial class DataSet<TPrimaryKey, TDictionaryKey, TDataPointPrimaryKey> : LaunchPadDomainEntityBase<TPrimaryKey>, IDataSet<TPrimaryKey, TDictionaryKey, TDataPointPrimaryKey>
+    /// <seealso cref="Deploy.LaunchPad.Core.Abp.Domain.IDataSetDomainEntity{TPrimaryKey, TDictionaryKey, TDataPointPrimaryKey}" />
+    public abstract partial class DatasetDomainEntity<TPrimaryKey, TDictionaryKey, TDataPointPrimaryKey, TSchemaFormat> : LaunchPadDomainEntityBase<TPrimaryKey>, IDataSetDomainEntity<TPrimaryKey, TDictionaryKey, TDataPointPrimaryKey, TSchemaFormat>
         where TDictionaryKey : struct
         where TDataPointPrimaryKey : struct
     {
@@ -63,7 +64,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
 
         public virtual License License  { get; set; }
 
-        public virtual IList<DataSet<TPrimaryKey, TDictionaryKey, TDataPointPrimaryKey>> Related { get; set; }
+        public virtual IList<DatasetDomainEntity<TPrimaryKey, TDictionaryKey, TDataPointPrimaryKey, TSchemaFormat>> Related { get; set; }
 
         /// <summary>
         /// Gets the count.
@@ -80,12 +81,12 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
         /// <summary>
         /// The data
         /// </summary>
-        protected IDictionary<TDictionaryKey, IDataPoint<TDataPointPrimaryKey>> _data;
+        protected IDictionary<TDictionaryKey, ILaunchPadDataPoint> _data;
         /// <summary>
         /// Gets the data.
         /// </summary>
         /// <value>The data.</value>
-        public virtual IDictionary<TDictionaryKey, IDataPoint<TDataPointPrimaryKey>> Data
+        public virtual IDictionary<TDictionaryKey, ILaunchPadDataPoint> Data
         {
             get { return _data; }
         }
@@ -101,7 +102,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
         /// Describes the schema (where known) according to which this data is structured.
         /// </summary>
         /// <value>The schema.</value>
-        public virtual ILaunchPadSchemaDetails? Schema { get; set; }
+        public virtual ILaunchPadSchemaDetails<TSchemaFormat>? Schema { get; set; }
 
         /// <summary>
         /// Adds the data.
@@ -109,7 +110,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
         /// <param name="key">The key.</param>
         /// <param name="dataPoint">The data point.</param>
         /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
-        public virtual bool AddData(TDictionaryKey key, IDataPoint<TDataPointPrimaryKey> dataPoint)
+        public virtual bool AddData(TDictionaryKey key, ILaunchPadDataPoint dataPoint)
         {
             if (dataPoint != null)
             {
@@ -121,19 +122,19 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="DataSet{TPrimaryKey, TDictionaryKey, TDataPointPrimaryKey}"/> class.
+        /// Initializes a new instance of the <see cref="DatasetDomainEntity{TPrimaryKey, TDictionaryKey, TDataPointPrimaryKey}"/> class.
         /// </summary>
-        public DataSet() : base()
+        public DatasetDomainEntity() : base()
         {
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="DataSet{TPrimaryKey, TDictionaryKey, TDataPointPrimaryKey}"/> class.
+        /// Initializes a new instance of the <see cref="DatasetDomainEntity{TPrimaryKey, TDictionaryKey, TDataPointPrimaryKey}"/> class.
         /// </summary>
         /// <param name="tenantId">The tenant identifier.</param>
         /// <param name="datasetName">Name of the dataset.</param>
         /// <param name="datasetDescription">The dataset description.</param>
-        public DataSet(
+        public DatasetDomainEntity(
             int tenantId,
            string datasetName,
            string datasetDescription
@@ -145,10 +146,10 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="DataSet{TPrimaryKey, TDictionaryKey, TDataPointPrimaryKey}"/> class.
+        /// Initializes a new instance of the <see cref="DatasetDomainEntity{TPrimaryKey, TDictionaryKey, TDataPointPrimaryKey}"/> class.
         /// </summary>
         /// <param name="tenantId">The tenant identifier.</param>
-        protected DataSet(int tenantId) : base()
+        protected DatasetDomainEntity(int tenantId) : base()
         {
             TenantId = tenantId;
             Name = new ElementName(String.Empty);
@@ -160,10 +161,10 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
         /// </summary>
         /// <param name="info">The serialization info</param>
         /// <param name="context">The context of the stream</param>
-        protected DataSet(SerializationInfo info, StreamingContext context) : base(info, context)
+        protected DatasetDomainEntity(SerializationInfo info, StreamingContext context) : base(info, context)
         {
-            _data = (IDictionary<TDictionaryKey, IDataPoint<TDataPointPrimaryKey>>)info.GetValue("Data", typeof(IDictionary<TDictionaryKey, IDataPoint<TDataPointPrimaryKey>>));
-            Schema = (ILaunchPadSchemaDetails)info.GetValue("Schema", typeof(ILaunchPadSchemaDetails));
+            _data = (IDictionary<TDictionaryKey, ILaunchPadDataPoint>)info.GetValue("Data", typeof(IDictionary<TDictionaryKey, ILaunchPadDataPoint>));
+            Schema = (ILaunchPadSchemaDetails<TSchemaFormat>)info.GetValue("Schema", typeof(ILaunchPadSchemaDetails<TSchemaFormat>));
             Contact = info.GetString("Contact");
             Quality = info.GetString("Quality");
             AccessRights = info.GetString("AccessRights");

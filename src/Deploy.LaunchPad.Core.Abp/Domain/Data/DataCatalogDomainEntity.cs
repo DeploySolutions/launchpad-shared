@@ -29,10 +29,13 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Runtime.Serialization;
 using System.Text;
 using Deploy.LaunchPad.Core.Abp.Domain.Model;
+using Deploy.LaunchPad.Core.Data;
 using Deploy.LaunchPad.Core.Domain.Model;
+using Deploy.LaunchPad.Core.Metadata;
 using Deploy.LaunchPad.Util;
 
 namespace Deploy.LaunchPad.Core.Abp.Domain
@@ -41,19 +44,24 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
     /// <summary>
     /// Class DataCatalogue.
     /// Implements the <see cref="LaunchPadDomainEntityBase{TPrimaryKey}" />
-    /// Implements the <see cref="Deploy.LaunchPad.Core.Abp.Domain.IDataCatalogue{TPrimaryKey, TDictionaryKey, TDataPointPrimaryKey}" />
+    /// Implements the <see cref="Deploy.LaunchPad.Core.Abp.Domain.IDataCatalogDomainEntity{TPrimaryKey, TDictionaryKey, TDataPointPrimaryKey}" />
     /// </summary>
     /// <typeparam name="TPrimaryKey">The type of the t primary key.</typeparam>
     /// <typeparam name="TDictionaryKey">The type of the t dictionary key.</typeparam>
     /// <typeparam name="TDataPointPrimaryKey">The type of the t data point primary key.</typeparam>
     /// <seealso cref="LaunchPadDomainEntityBase{TPrimaryKey}" />
-    /// <seealso cref="Deploy.LaunchPad.Core.Abp.Domain.IDataCatalogue{TPrimaryKey, TDictionaryKey, TDataPointPrimaryKey}" />
-    public abstract partial class DataCatalogue<TPrimaryKey, TDictionaryKey, TDataPointPrimaryKey> :
+    /// <seealso cref="Deploy.LaunchPad.Core.Abp.Domain.IDataCatalogDomainEntity{TPrimaryKey, TDictionaryKey, TDataPointPrimaryKey}" />
+    public abstract partial class DataCatalogDomainEntity<TPrimaryKey, TDictionaryKey, TDataPointPrimaryKey, TSchemaFormat> :
         LaunchPadDomainEntityBase<TPrimaryKey>,
-        IDataCatalogue<TPrimaryKey, TDictionaryKey, TDataPointPrimaryKey>
+        IDataCatalogDomainEntity<TPrimaryKey, TDictionaryKey, TDataPointPrimaryKey, TSchemaFormat>
         where TDictionaryKey : struct
         where TDataPointPrimaryKey : struct
     {
+        /// <summary>
+        /// Describes the schema (where known) according to which this data is structured.
+        /// </summary>
+        /// <value>The schema.</value>
+        public virtual ILaunchPadSchemaDetails<TSchemaFormat>? Schema { get; set; }
 
         /// <summary>
         /// Gets or sets the items count.
@@ -72,54 +80,56 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
         /// </summary>
         /// <value>The data sets.</value>
         /// <exception cref="System.NotImplementedException"></exception>
-        public virtual IEnumerable<IDataSet<TPrimaryKey, TDictionaryKey, TDataPointPrimaryKey>> DataSets { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public virtual IEnumerable<ILaunchPadDataSet<TDictionaryKey, TSchemaFormat>> DataSets { get; set; }
+
         /// <summary>
         /// Gets or sets the data sets count.
         /// </summary>
         /// <value>The data sets count.</value>
         /// <exception cref="System.NotImplementedException"></exception>
-        public virtual int DataSetsCount { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public virtual int DataSetsCount
+        {
+            get { return DataSets.Count(); }
+        }
+
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="DataCatalogue{TPrimaryKey, TDictionaryKey, TDataPointPrimaryKey}"/> class.
+        /// Initializes a new instance of the <see cref="DataCatalogDomainEntity{TPrimaryKey, TDictionaryKey, TDataPointPrimaryKey}"/> class.
         /// </summary>
-        public DataCatalogue() : base()
+        public DataCatalogDomainEntity() : base()
         {
 
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="DataCatalogue{TPrimaryKey, TDictionaryKey, TDataPointPrimaryKey}"/> class.
+        /// Initializes a new instance of the <see cref="DataCatalogDomainEntity{TPrimaryKey, TDictionaryKey, TDataPointPrimaryKey}"/> class.
         /// </summary>
         /// <param name="tenantId">The tenant identifier.</param>
         /// <param name="_datacatalogueName">Name of the datacatalogue.</param>
         /// <param name="_datacatalogueDescription">The datacatalogue description.</param>
         /// <param name="_numberOfDatasets">The number of datasets.</param>
         /// <param name="_totalNumberOfRecords">The total number of records.</param>
-        public DataCatalogue(
+        public DataCatalogDomainEntity(
             int tenantId,
             string _datacatalogueName,
             string _datacatalogueDescription,
-            int _numberOfDatasets,
             int _totalNumberOfRecords
             ) : base()
         {
             TenantId = tenantId;
             Name = new ElementName(_datacatalogueName);
             Description = new ElementDescription(_datacatalogueDescription);
-            DataSetsCount = _numberOfDatasets;
             ItemsCount = _totalNumberOfRecords;
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="DataCatalogue{TPrimaryKey, TDictionaryKey, TDataPointPrimaryKey}"/> class.
+        /// Initializes a new instance of the <see cref="DataCatalogDomainEntity{TPrimaryKey, TDictionaryKey, TDataPointPrimaryKey}"/> class.
         /// </summary>
         /// <param name="tenantId">The tenant identifier.</param>
-        protected DataCatalogue(int tenantId) : base()
+        protected DataCatalogDomainEntity(int tenantId) : base()
         {
             TenantId = tenantId;
             Name = new ElementName(String.Empty);
-            DataSetsCount = 0;
             ItemsCount = 0;
         }
 
@@ -128,9 +138,8 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
         /// </summary>
         /// <param name="info">The serialization info</param>
         /// <param name="context">The context of the stream</param>
-        protected DataCatalogue(SerializationInfo info, StreamingContext context) : base(info, context)
+        protected DataCatalogDomainEntity(SerializationInfo info, StreamingContext context) : base(info, context)
         {
-            DataSetsCount = info.GetInt32("DataSetsCount");
             ItemsCount = info.GetInt32("ItemsCount");
         }
 

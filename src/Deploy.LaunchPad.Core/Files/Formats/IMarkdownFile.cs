@@ -1,6 +1,8 @@
-﻿namespace Deploy.LaunchPad.Core.Files
+﻿using Deploy.LaunchPad.Core.Files.Formats;
+
+namespace Deploy.LaunchPad.Core.Files
 {
-    public partial interface IMarkdownFile : IFile<string>
+    public partial interface IMarkdownFile : IFile<string, MarkdownSchemaFormat>
     {
     }
 }

@@ -2,7 +2,7 @@
 
 namespace Deploy.LaunchPad.Core.Files
 {
-    public partial interface IJsonFile : IFile<JToken>
+    public partial interface IJsonFile : IFile<JToken, JToken>
     {
     }
 }

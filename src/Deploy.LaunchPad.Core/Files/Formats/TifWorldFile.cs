@@ -27,6 +27,8 @@
 #endregion
 
 
+using Deploy.LaunchPad.Core.Files.Formats;
+
 namespace Deploy.LaunchPad.Core.Files
 {
     // Tiff World File (TFW)
@@ -36,7 +38,7 @@ namespace Deploy.LaunchPad.Core.Files
     /// Implements the <see cref="Model.DomainEntityFileBase{ System.Byte[]}" />
     /// </summary>
     /// <seealso cref="Model.DomainEntityFileBase{ System.Byte[]}" />
-    public partial class TifWorldFile : FileBase<string>
+    public partial class TifWorldFile : FileBase<string, TifImageSchemaFormat>
     {
         /// <summary>
         /// The extension of the file

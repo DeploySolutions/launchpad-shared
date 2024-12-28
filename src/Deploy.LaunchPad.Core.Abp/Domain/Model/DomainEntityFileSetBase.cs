@@ -24,7 +24,8 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
     /// <typeparam name="TIdType">The type of the t identifier type.</typeparam>
     /// <typeparam name="TFileContentType">The type of the t file content type.</typeparam>
     /// <typeparam name="TFileStorageLocationType">The type of the t file storage location type.</typeparam>
-    public abstract partial class DomainEntityFileSetBase<TIdType, TFileContentType, TFileStorageLocationType>
+    public abstract partial class DomainEntityFileSetBase<TIdType, TFileContentType, TFileStorageLocationType, TSchemaFormat>
+        : LaunchPadDomainEntityBase<TIdType>        
         where TFileStorageLocationType : IFileStorageLocation, new()
     {
         /// <summary>
@@ -37,14 +38,14 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
         /// Gets or sets the files.
         /// </summary>
         /// <value>The files.</value>
-        public IDictionary<string, IDomainEntityFile<TIdType, TFileContentType>> Files { get; set; }
+        public IDictionary<string, IDomainEntityFile<TIdType, TFileContentType, TSchemaFormat>> Files { get; set; }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="DomainEntityFileSetBase{TIdType, TFileContentType, TFileStorageLocationType}"/> class.
         /// </summary>
         public DomainEntityFileSetBase()
         {
-            Files = new Dictionary<string, IDomainEntityFile<TIdType, TFileContentType>>();
+            Files = new Dictionary<string, IDomainEntityFile<TIdType, TFileContentType, TSchemaFormat>>();
         }
     }
 }

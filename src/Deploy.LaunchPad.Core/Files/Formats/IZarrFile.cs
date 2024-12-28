@@ -1,9 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using Deploy.LaunchPad.Core.Files.Formats;
+using System.Collections.Generic;
 using System.Text.Json;
 
 namespace Deploy.LaunchPad.Core.Files
 {
-    public partial interface IZarrFile : IFile<Dictionary<string, byte[]>>
+    public partial interface IZarrFile : IFile<Dictionary<string, byte[]>, ZarrSchemaFormat>
     {
         public JsonDocument Metadata { get; }
 

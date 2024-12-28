@@ -14,7 +14,7 @@ using Deploy.LaunchPad.Core.Metadata;
 
 namespace Deploy.LaunchPad.Core.Files
 {
-    public abstract partial class FileBase<TFileContentType> : LaunchPadCommonProperties, IFile<TFileContentType>
+    public abstract partial class FileBase<TFileContentType, TSchemaFormat> : LaunchPadCommonProperties, IFile<TFileContentType, TSchemaFormat>
     {
         /// <summary>
         /// The size of the file, in bytes
@@ -73,8 +73,7 @@ namespace Deploy.LaunchPad.Core.Files
         /// <value>The content.</value>
         [DataObjectField(false)]
         [XmlAttribute]
-        public virtual ILaunchPadSchemaDetails? Schema { get; set; }
-
+        public virtual ILaunchPadSchemaDetails<TSchemaFormat>? Schema { get; set; }
 
         /// <summary>
         /// Constructor
@@ -94,7 +93,7 @@ namespace Deploy.LaunchPad.Core.Files
         {
             Locations = (IList<IFileStorageLocation>)info.GetValue("Locations", typeof(IFileStorageLocation));
             Content = (TFileContentType)info.GetValue("Content", typeof(TFileContentType));
-            Schema = (ILaunchPadSchemaDetails)info.GetValue("Schema", typeof(ILaunchPadSchemaDetails));
+            Schema = (ILaunchPadSchemaDetails<TSchemaFormat>)info.GetValue("Schema", typeof(ILaunchPadSchemaDetails<TSchemaFormat>));
             Size = info.GetInt64("Size");
             MimeType = info.GetString("MimeType");
             Extension = info.GetString("Extension");

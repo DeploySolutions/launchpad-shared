@@ -42,8 +42,8 @@ namespace Deploy.LaunchPad.Core.Domain.Model
     /// </summary>
     /// <typeparam name="TIdType">The type of the t identifier type.</typeparam>
     /// <typeparam name="TFileContentType">The type of the t file content type.</typeparam>
-    public partial interface IDomainEntityFile<TIdType, TFileContentType> : ILaunchPadDomainEntity<TIdType>,
-        IFile<TFileContentType>
+    public partial interface IDomainEntityFile<TIdType, TFileContentType, TSchemaFormat> : ILaunchPadDomainEntity<TIdType>,
+        IFile<TFileContentType, TSchemaFormat>
     {
 
 

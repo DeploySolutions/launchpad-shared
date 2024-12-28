@@ -24,7 +24,7 @@ namespace Deploy.LaunchPad.Core.Data
     /// <typeparam name="TDictionaryKey">The type of the t dictionary key.</typeparam>
     /// <typeparam name="TDataPointPrimaryKey">The type of the t data point primary key.</typeparam>
     /// <seealso cref="Deploy.LaunchPad.Core.Abp.Domain.IDataSet{TPrimaryKey, TDictionaryKey, TDataPointPrimaryKey}" />
-    public partial interface IFactSet<TDictionaryKey> : IDataSet<TDictionaryKey>
+    public partial interface IFactSet<TDictionaryKey, TSchemaFormat> : ILaunchPadDataSet<TDictionaryKey, TSchemaFormat>
         where TDictionaryKey : struct
     {
 
@@ -32,6 +32,6 @@ namespace Deploy.LaunchPad.Core.Data
         /// Gets or sets the data.
         /// </summary>
         /// <value>The data.</value>
-        public new IDictionary<TDictionaryKey, IDataFact> Data { get; set; }
+        public new IDictionary<TDictionaryKey, ILaunchPadDataFact> Data { get; set; }
     }
 }

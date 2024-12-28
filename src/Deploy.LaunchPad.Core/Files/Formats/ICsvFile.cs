@@ -2,7 +2,7 @@
 
 namespace Deploy.LaunchPad.Core.Files
 {
-    public partial interface ICsvFile : IFile<string>
+    public partial interface ICsvFile : IFile<string, IFrictionlessSchemaFile>
     {
         string Delimiter { get; set; }
         bool IsHeaderCaseSensitive { get; set; }

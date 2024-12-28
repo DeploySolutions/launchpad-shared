@@ -1,8 +1,9 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using Deploy.LaunchPad.Core.Files.Formats;
+using Newtonsoft.Json.Linq;
 
 namespace Deploy.LaunchPad.Core.Files
 {
-    public partial interface ISqlFile : IFile<string>
+    public partial interface ISqlFile : IFile<string, SqlSchemaFormat>
     {
         string DatabaseName { get; set; }
         string DatabaseSchema { get; set; }

@@ -11,16 +11,19 @@
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
+using Abp.Domain.Entities;
+using Deploy.LaunchPad.Core.Abp.Domain.Model;
+using Deploy.LaunchPad.Core.Data;
 
-
-using Deploy.LaunchPad.Core.Metadata;
-
-namespace Deploy.LaunchPad.Core.Data
+namespace Deploy.LaunchPad.Core.Abp.Domain.Data
 {
     /// <summary>
     /// Describes a dimension for data warehouse reporting. Facts have FK lookups to such dimensions.
     /// </summary>
-    public partial interface IDataDimension
+    /// <typeparam name="TPrimaryKey">The type of the primary key</typeparam>
+    public partial interface IDataDimensionDomainEntity<TPrimaryKey> :
+        ILaunchPadDataDimension,
+        ILaunchPadDomainEntity<TPrimaryKey>, IMayHaveTenant
     {
     }
 }

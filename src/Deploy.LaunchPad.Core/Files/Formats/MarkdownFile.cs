@@ -1,10 +1,11 @@
-﻿using Deploy.LaunchPad.Util;
+﻿using Deploy.LaunchPad.Core.Files.Formats;
+using Deploy.LaunchPad.Util;
 using System;
 using System.Collections.Generic;
 
 namespace Deploy.LaunchPad.Core.Files
 {
-    public partial class MarkdownFile : FileBase<string>, IMarkdownFile
+    public partial class MarkdownFile : FileBase<string, MarkdownSchemaFormat>, IMarkdownFile
     {
 
         public override string Extension => ".md";

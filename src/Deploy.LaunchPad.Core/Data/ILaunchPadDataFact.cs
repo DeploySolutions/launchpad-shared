@@ -11,14 +11,14 @@
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
-namespace Deploy.LaunchPad.Core.Abp.Domain.Data
+namespace Deploy.LaunchPad.Core.Data
 {
     /// <summary>
     /// Describes a fact (a "business event-based" data point) for data warehouse reporting purposes.
     /// Facts often FK lookups to related dimensions which help with filtering and qualifying facts.
     /// </summary>
     /// <typeparam name="TPrimaryKey">The type of the primary key</typeparam>
-    public partial interface IFact<TPrimaryKey> : IDataPoint<TPrimaryKey>
+    public partial interface ILaunchPadDataFact : ILaunchPadDataPoint
     {
     }
 }

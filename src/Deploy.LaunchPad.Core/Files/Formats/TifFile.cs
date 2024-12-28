@@ -27,6 +27,8 @@
 #endregion
 
 
+using Deploy.LaunchPad.Core.Files.Formats;
+
 namespace Deploy.LaunchPad.Core.Files
 {
     /// <summary>
@@ -34,7 +36,7 @@ namespace Deploy.LaunchPad.Core.Files
     /// Implements the <see cref="Model.DomainEntityFileBase{System.Byte[]}" />
     /// </summary>
     /// <seealso cref="Model.DomainEntityFileBase{ System.Byte[]}" />
-    public partial class TifFile : FileBase<byte[]>
+    public partial class TifFile : FileBase<byte[], TifImageSchemaFormat>
     {
         /// <summary>
         /// The extension of the file

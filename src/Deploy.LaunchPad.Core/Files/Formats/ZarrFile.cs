@@ -1,4 +1,5 @@
-﻿using Deploy.LaunchPad.Util;
+﻿using Deploy.LaunchPad.Core.Files.Formats;
+using Deploy.LaunchPad.Util;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -7,7 +8,7 @@ using System.Text.Json;
 
 namespace Deploy.LaunchPad.Core.Files
 {
-    public partial class ZarrFile : FileBase<Dictionary<string, byte[]>>, IZarrFile
+    public partial class ZarrFile : FileBase<Dictionary<string, byte[]>, ZarrSchemaFormat>, IZarrFile
     {
         public virtual JsonDocument Metadata { get; private set; } // Represents the metadata of the Zarr file
 

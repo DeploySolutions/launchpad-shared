@@ -6,7 +6,7 @@
 // Last Modified By : Nicholas Kellett
 // Last Modified On : 07-26-2023
 // ***********************************************************************
-// <copyright file="IDataSet.cs" company="Deploy Software Solutions, inc.">
+// <copyright file="IDataCatalog.cs" company="Deploy Software Solutions, inc.">
 //     2018-2024 Deploy Software Solutions, inc.
 // </copyright>
 // <summary></summary>
@@ -26,52 +26,38 @@
 //limitations under the License. 
 #endregion
 
-using Deploy.LaunchPad.Core.Licenses;
+
 using Deploy.LaunchPad.Core.Metadata;
 using System.Collections.Generic;
 
 namespace Deploy.LaunchPad.Core.Data
 {
-
     /// <summary>
-    /// Interface IDataSet
+    /// Interface IDataCatalog
     /// </summary>
-    public partial interface IDataSet<TDictionaryKey> : IMayHaveSchemaDetails
+    /// <typeparam name="TDictionaryKey">The type of the t dictionary key.</typeparam>
+    public partial interface ILaunchPadDataCatalog<TDictionaryKey, TSchemaFormat> : IMayHaveSchemaDetails<TSchemaFormat>
         where TDictionaryKey : struct
     {
-        
-        public string Contact { get; set; }
-
-        public string Quality { get; set; }
-
-        public string Format { get; set; }
-        public string AccessRights { get; set; }
-        public string UsageNotes { get; set; }
-
-        public License License { get; set; }
-
-        public IList<IDataSet<TDictionaryKey>> Related { get; set; }
 
         /// <summary>
-        /// Gets the count.
+        /// Gets or sets the data sets count.
         /// </summary>
-        /// <value>The count.</value>
-        public long Count { get; }
+        /// <value>The data sets count.</value>
+        int DataSetsCount { get; }
 
         /// <summary>
-        /// Gets the data.
+        /// Gets or sets the items count.
         /// </summary>
-        /// <value>The data.</value>
-        public IDictionary<TDictionaryKey, IDataPoint> Data { get; }
+        /// <value>The items count.</value>
+        long ItemsCount { get;  }
+
 
         /// <summary>
-        /// Adds the data.
+        /// Gets or sets the data sets.
         /// </summary>
-        /// <param name="key">The key.</param>
-        /// <param name="dataPoint">The data point.</param>
-        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
-        public bool AddData(TDictionaryKey key, IDataPoint dataPoint);
-
+        /// <value>The data sets.</value>
+        IEnumerable<ILaunchPadDataSet<TDictionaryKey, TSchemaFormat>> DataSets { get; set; }
 
     }
 }

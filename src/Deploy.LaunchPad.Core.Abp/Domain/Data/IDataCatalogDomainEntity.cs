@@ -6,7 +6,7 @@
 // Last Modified By : Nicholas Kellett
 // Last Modified On : 07-26-2023
 // ***********************************************************************
-// <copyright file="IDataSet.cs" company="Deploy Software Solutions, inc.">
+// <copyright file="IDataCatalogue.cs" company="Deploy Software Solutions, inc.">
 //     2018-2024 Deploy Software Solutions, inc.
 // </copyright>
 // <summary></summary>
@@ -26,18 +26,16 @@
 //limitations under the License. 
 #endregion
 
+
 using Abp.Domain.Entities;
 using Deploy.LaunchPad.Core.Abp.Domain.Model;
-using Deploy.LaunchPad.Core.Domain.Model;
-using Deploy.LaunchPad.Core.Licenses;
-using Deploy.LaunchPad.Core.Metadata;
+using Deploy.LaunchPad.Core.Data;
 using System.Collections.Generic;
 
 namespace Deploy.LaunchPad.Core.Abp.Domain
 {
-
     /// <summary>
-    /// Interface IDataSet
+    /// Interface IDataCatalogue
     /// Extends the <see cref="ILaunchPadDomainEntity{TPrimaryKey}" />
     /// Extends the <see cref="IMayHaveTenant" />
     /// </summary>
@@ -46,47 +44,12 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
     /// <typeparam name="TDataPointPrimaryKey">The type of the t data point primary key.</typeparam>
     /// <seealso cref="ILaunchPadDomainEntity{TPrimaryKey}" />
     /// <seealso cref="IMayHaveTenant" />
-    public partial interface IDataSet<TPrimaryKey, TDictionaryKey, TDataPointPrimaryKey> : ILaunchPadDomainEntity<TPrimaryKey>, IMayHaveTenant
+    public partial interface IDataCatalogDomainEntity<TPrimaryKey, TDictionaryKey, TDataPointPrimaryKey, TSchemaFormat>  : 
+        ILaunchPadDataCatalog<TDictionaryKey, TSchemaFormat>, 
+        ILaunchPadDomainEntity<TPrimaryKey>, IMayHaveTenant
         where TDictionaryKey : struct
         where TDataPointPrimaryKey : struct
     {
-        /// <summary>
-        /// Describes the schema (where known) according to which all of the data in this set is structured.
-        /// </summary>
-        /// <value>The schema.</value>
-        public ILaunchPadSchemaDetails? Schema { get; set; }
-
-        public string Contact { get; set; }
-
-        public string Quality { get; set; }
-
-        public string Format { get; set; }
-        public string AccessRights { get; set; }
-        public string UsageNotes { get; set; }
-
-        public License License { get; set; }
-
-        public IList<DataSet<TPrimaryKey, TDictionaryKey, TDataPointPrimaryKey>> Related { get; set; }
-
-        /// <summary>
-        /// Gets the count.
-        /// </summary>
-        /// <value>The count.</value>
-        public long Count { get; }
-
-        /// <summary>
-        /// Gets the data.
-        /// </summary>
-        /// <value>The data.</value>
-        public IDictionary<TDictionaryKey, IDataPoint<TDataPointPrimaryKey>> Data { get; }
-
-        /// <summary>
-        /// Adds the data.
-        /// </summary>
-        /// <param name="key">The key.</param>
-        /// <param name="dataPoint">The data point.</param>
-        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
-        public bool AddData(TDictionaryKey key, IDataPoint<TDataPointPrimaryKey> dataPoint);
 
 
     }

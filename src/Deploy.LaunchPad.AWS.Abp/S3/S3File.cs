@@ -22,7 +22,7 @@ namespace Deploy.LaunchPad.AWS.Abp.S3
     /// <typeparam name="TIdType">The type of the t identifier type.</typeparam>
     /// <typeparam name="TFileContentType">The type of the t file content type.</typeparam>
     /// <seealso cref="DomainEntityFileBase{TIdType, TFileContentType}" />
-    public partial class S3File<TIdType, TFileContentType> : DomainEntityFileBase<TIdType, TFileContentType>
+    public partial class S3File<TIdType, TFileContentType, TFileSchema> : DomainEntityFileBase<TIdType, TFileContentType, TFileSchema>
     {
 
 

@@ -4,7 +4,7 @@ using System.Globalization;
 
 namespace Deploy.LaunchPad.Core.Files
 {
-    public partial class CsvFile : FileBase<string>, ICsvFile
+    public partial class CsvFile : FileBase<string, IFrictionlessSchemaFile>, ICsvFile
     {
         public virtual bool IsHeaderCaseSensitive { get; set; } = false;
         public virtual string Delimiter { get; set; } = ",";

@@ -9,7 +9,7 @@ using System.Xml.Schema;
 
 namespace Deploy.LaunchPad.Core.Files
 {
-    public partial class FrictionlessSchemaFile : FileBase<JToken>, IFrictionlessSchemaFile
+    public partial class FrictionlessSchemaFile : FileBase<JToken, JToken>, IFrictionlessSchemaFile
     {
         public override string Extension => ".json";
 
