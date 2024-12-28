@@ -36,6 +36,7 @@ namespace Deploy.LaunchPad.Images.Domain
     using ImageMagick;
     using System;
     using System.IO;
+    using System.Reflection;
 
     /// <summary>
     /// Domain service for handling Image domain entities.
@@ -79,7 +80,9 @@ namespace Deploy.LaunchPad.Images.Domain
         public ImageManager()
         {
             // Create the default ImageMagick configuration, which also initializes the underlying ImageMagick utility
-            string temporaryImagesFilePath = @"f:\data\launchpad\images\temp";
+            string assemblyLocation = Assembly.GetExecutingAssembly().Location;
+            string driveLetter = Path.GetPathRoot(assemblyLocation);
+            string temporaryImagesFilePath = driveLetter + @"\data\launchpad\images\temp";
             string policyMap = @"
                 <policymap>
                    <policy domain=""resource"" name=""memory"" value=""3GiB""/> 

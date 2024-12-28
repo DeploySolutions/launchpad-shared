@@ -36,6 +36,7 @@ namespace Deploy.LaunchPad.Images.Tests
     using Xunit;
     using Deploy.LaunchPad.Images.Domain;
     using ImageMagick;
+    using System.Reflection;
 
 
     /// <summary>
@@ -81,7 +82,10 @@ namespace Deploy.LaunchPad.Images.Tests
         public void New_Thumbnail_Generator_ConfigurationConstructor_Configuration_ShouldNot_Be_Null()
         {
             // Create the default ImageMagick configuration, which also initializes the underlying ImageMagick utility
-            string temporaryImagesFilePath = @"f:\data\launchpad\images\temp";
+            string assemblyLocation = Assembly.GetExecutingAssembly().Location;
+            string driveLetter = Path.GetPathRoot(assemblyLocation);
+            string temporaryImagesFilePath = driveLetter + @"\data\launchpad\images\temp";
+
             MagickNET.SetTempDirectory(temporaryImagesFilePath);
             string policyMap = @"
                 <policymap>
