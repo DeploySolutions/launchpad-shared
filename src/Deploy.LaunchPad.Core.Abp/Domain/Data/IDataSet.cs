@@ -28,8 +28,8 @@
 
 using Abp.Domain.Entities;
 using Deploy.LaunchPad.Core.Abp.Domain.Model;
-using Deploy.LaunchPad.Core.Domain;
 using Deploy.LaunchPad.Core.Domain.Model;
+using Deploy.LaunchPad.Core.Licenses;
 using System.Collections.Generic;
 
 namespace Deploy.LaunchPad.Core.Abp.Domain

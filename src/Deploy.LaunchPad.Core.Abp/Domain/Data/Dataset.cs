@@ -33,8 +33,8 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
     using System.Runtime.Serialization;
     using System.Text;
     using Deploy.LaunchPad.Core.Abp.Domain.Model;
-    using Deploy.LaunchPad.Core.Domain;
     using Deploy.LaunchPad.Core.Domain.Model;
+    using Deploy.LaunchPad.Core.Licenses;
     using Deploy.LaunchPad.Util;
 
     /// <summary>

@@ -46,6 +46,7 @@ namespace Deploy.LaunchPad.Space.Satellites.GoC
     using System.IO;
     using System.Text;
     using System.Text.RegularExpressions;
+    using Deploy.LaunchPad.Core.Licenses;
 
     /// <summary>
     /// Utility to parse a Radarsat1 image observation metadata file and populate a Radarsat1Observation object from it.

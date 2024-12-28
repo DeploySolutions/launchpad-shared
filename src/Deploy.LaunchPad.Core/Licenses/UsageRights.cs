@@ -27,16 +27,15 @@
 #endregion
 
 
-namespace Deploy.LaunchPad.Core.Domain
+namespace Deploy.LaunchPad.Core.Licenses
 {
-
     using System;
 
     /// <summary>
     /// Class UsageRights.
-    /// Implements the <see cref="Deploy.LaunchPad.Core.Domain.IUsageRights" />
+    /// Implements the <see cref="IUsageRights" />
     /// </summary>
-    /// <seealso cref="Deploy.LaunchPad.Core.Domain.IUsageRights" />
+    /// <seealso cref="IUsageRights" />
     public partial class UsageRights : IUsageRights
     {
         /// <summary>

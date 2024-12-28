@@ -26,9 +26,9 @@
 //limitations under the License. 
 #endregion
 
-namespace Deploy.LaunchPad.Core.Domain
+namespace Deploy.LaunchPad.Core.Licenses
 {
-    using global::Deploy.LaunchPad.Util;
+    using Deploy.LaunchPad.Util;
     using System;
 
     /// <summary>
@@ -59,7 +59,7 @@ namespace Deploy.LaunchPad.Core.Domain
         /// A standard header text (if any) to place at the top of code or text files to indicate the license
         /// </summary>
         /// <value>The summary.</value>
-        public virtual string StandardLicenseHeader { get; set;  } = string.Empty;
+        public virtual string StandardLicenseHeader { get; set; } = string.Empty;
 
         /// <summary>
         /// A link to the full terms of the license
