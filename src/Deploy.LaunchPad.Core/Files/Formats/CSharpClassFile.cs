@@ -5,16 +5,16 @@ using System.Collections.Generic;
 
 namespace Deploy.LaunchPad.Core.Files
 {
-    public partial class MarkdownFile : FileBase<string, MarkdownSchema>, IMarkdownFile
+    public partial class CSharpClassFile : FileBase<string, CSharpClassSchema>, ICSharpClassFile
     {
 
-        public override string Extension => ".md";
+        public override string Extension => ".cs";
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="MarkdownFile{TIdType}"/> class.
+        /// Initializes a new instance of the <see cref="CSharpClassFile{TIdType}"/> class.
         /// </summary>
         /// <param name="fileName">Name of the file.</param>
-        public MarkdownFile(string fileName) : base(fileName)
+        public CSharpClassFile(string fileName) : base(fileName)
         {
 
         }

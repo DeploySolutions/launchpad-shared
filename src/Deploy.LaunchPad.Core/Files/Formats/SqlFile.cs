@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Deploy.LaunchPad.Core.Files
 {
-    public partial class SqlFile : FileBase<string, SqlSchemaFormat>, ISqlFile
+    public partial class SqlFile : FileBase<string, SqlSchema>, ISqlFile
     {
         public override string Extension => ".sql";
         public virtual bool IsTransaction { get; set; } = false;

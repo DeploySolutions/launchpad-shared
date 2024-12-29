@@ -2,7 +2,7 @@
 
 namespace Deploy.LaunchPad.Core.Files
 {
-    public partial interface IPowershellFile : IFile<string, PowershellSchemaFormat>
+    public partial interface IPowershellFile : IFile<string, PowershellSchema>
     {
     }
 }

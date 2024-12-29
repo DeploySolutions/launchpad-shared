@@ -3,7 +3,7 @@ using Newtonsoft.Json.Linq;
 
 namespace Deploy.LaunchPad.Core.Files
 {
-    public partial interface ISqlFile : IFile<string, SqlSchemaFormat>
+    public partial interface ISqlFile : IFile<string, SqlSchema>
     {
         string DatabaseName { get; set; }
         string DatabaseSchema { get; set; }

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace Deploy.LaunchPad.Core.Content
 {
 
-    public enum ContentElementType
+    public enum LaunchPadContentItemType
     {
         Article,
         Report,

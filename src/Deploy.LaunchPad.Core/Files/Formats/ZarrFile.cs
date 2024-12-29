@@ -8,7 +8,7 @@ using System.Text.Json;
 
 namespace Deploy.LaunchPad.Core.Files
 {
-    public partial class ZarrFile : FileBase<Dictionary<string, byte[]>, ZarrSchemaFormat>, IZarrFile
+    public partial class ZarrFile : FileBase<Dictionary<string, byte[]>, ZarrSchema>, IZarrFile
     {
         public virtual JsonDocument Metadata { get; private set; } // Represents the metadata of the Zarr file
 

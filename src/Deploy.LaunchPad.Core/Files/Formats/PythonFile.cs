@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace Deploy.LaunchPad.Core.Files
 {
-    public partial class PythonFile : FileBase<string, PythonSchemaFormat>, IPythonFile
+    public partial class PythonFile : FileBase<string, PythonSchema>, IPythonFile
     {
 
         public override string Extension => ".py";
