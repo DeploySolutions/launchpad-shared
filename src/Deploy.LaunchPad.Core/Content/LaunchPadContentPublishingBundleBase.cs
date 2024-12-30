@@ -8,15 +8,15 @@ using System.Runtime.Serialization;
 namespace Deploy.LaunchPad.Core.Content
 {
 
-    public abstract partial class LaunchPadContentPublishingBundleBase<TContentItemId, TSchema> : LaunchPadCommonProperties, ILaunchPadObject, ILaunchPadContentPublishingBundle<TContentItemId, TSchema>
+    public abstract partial class LaunchPadContentPublishingBundleBase<TSchema> : LaunchPadCommonProperties, ILaunchPadObject, ILaunchPadContentPublishingBundle<TSchema>
         where TSchema: Schema.NET.Thing
     {
-        public virtual TContentItemId Id { get; set; }
+        public virtual Guid Id { get; set; }
 
-        public virtual IList<ILaunchPadContentPublishingItem<TContentItemId, TSchema>> Items { get; }
+        public virtual IList<ILaunchPadContentPublishingItem<TSchema>> Items { get; }
 
 
-        public virtual void AddItem(TContentItemId id, ILaunchPadContentPublishingItem<TContentItemId, TSchema> item, bool shouldPreventDuplicates = true)
+        public virtual void AddItem(Guid id, ILaunchPadContentPublishingItem<TSchema> item, bool shouldPreventDuplicates = true)
         {
 
             if (shouldPreventDuplicates && !Items.Any(existingItem => existingItem.Id.Equals(item.Id)))
@@ -53,7 +53,7 @@ namespace Deploy.LaunchPad.Core.Content
         /// <param name="context">The context of the stream</param>
         protected LaunchPadContentPublishingBundleBase(SerializationInfo info, StreamingContext context)
         {
-            Id = (TContentItemId)info.GetValue("Id", typeof(TContentItemId));
+            Id = (Guid)info.GetValue("Id", typeof(Guid));
             Name = (ElementName)info.GetValue("Name", typeof(ElementName));
             Description = (ElementDescription)info.GetValue("Description", typeof(ElementDescription));
             Culture = info.GetString("Culture");

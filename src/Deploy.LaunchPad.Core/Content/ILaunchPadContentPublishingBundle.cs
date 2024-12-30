@@ -7,13 +7,13 @@ using System.Threading.Tasks;
 namespace Deploy.LaunchPad.Core.Content
 {
 
-    public partial interface ILaunchPadContentPublishingBundle<TContentItemId, TSchema>
+    public partial interface ILaunchPadContentPublishingBundle<TSchema>
             where TSchema : Schema.NET.Thing
     {
-        public IList<ILaunchPadContentPublishingItem<TContentItemId, TSchema>> Items { get; }
+        public IList<ILaunchPadContentPublishingItem<TSchema>> Items { get; }
 
 
-        public void AddItem(TContentItemId id, ILaunchPadContentPublishingItem<TContentItemId, TSchema> item, bool shouldPreventDuplicates = true);        
+        public void AddItem(Guid id, ILaunchPadContentPublishingItem<TSchema> item, bool shouldPreventDuplicates = true);        
     }
 
 }
