@@ -8,7 +8,7 @@ namespace Deploy.LaunchPad.Core.Content
 {
 
     public partial interface ILaunchPadContentPublishingBundle<TContentItemId, TSchema>
-        where TSchema : Schema.NET.ICreativeWork
+        where TSchema : Schema.NET.IThing
     {
         public IDictionary<TContentItemId, ILaunchPadContentPublishingItem<TContentItemId, TSchema>> Items { get; }
     }

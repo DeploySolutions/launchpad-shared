@@ -6,7 +6,7 @@ namespace Deploy.LaunchPad.Core.Content
     public partial interface ILaunchPadContentPublishingItem<TIdType, TSchema> : 
         ILaunchPadCommonProperties,
         IMayHaveSchemaDotOrgProperty<TSchema>
-        where TSchema : Schema.NET.ICreativeWork
+        where TSchema : Schema.NET.IThing
     {
         TIdType Id { get; set; }
 
