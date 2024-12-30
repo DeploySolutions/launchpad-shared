@@ -25,7 +25,18 @@ namespace Deploy.LaunchPad.Core.Content
             }
         }
 
-        protected LaunchPadContentPublishingBundleBase(string name, LaunchPadContentItemType type)
+        protected LaunchPadContentPublishingBundleBase()
+        {
+            string name = "New Bundle " + DateTime.UtcNow.ToString();
+            Name = new ElementName(name);
+            Description = new ElementDescription(name);
+            CreationTime = DateTime.Now;
+            IsActive = true;
+            Culture = "en";
+            Tags = "{}";
+        }
+
+        protected LaunchPadContentPublishingBundleBase(string name)
         {            
             Name = new ElementName(name);
             Description = new ElementDescription(name);
