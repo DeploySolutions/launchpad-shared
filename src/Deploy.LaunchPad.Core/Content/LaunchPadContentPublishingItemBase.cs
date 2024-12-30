@@ -5,11 +5,14 @@ using System.Runtime.Serialization;
 namespace Deploy.LaunchPad.Core.Content
 {
 
-    public abstract partial class LaunchPadContentPublishingItemBase<TContentItemId> : LaunchPadCommonProperties, ILaunchPadObject, ILaunchPadContentPublishingItem<TContentItemId>
+    public abstract partial class LaunchPadContentPublishingItemBase<TContentItemId, TSchema> : LaunchPadCommonProperties, ILaunchPadObject, ILaunchPadContentPublishingItem<TContentItemId, TSchema>
+        where TSchema: Schema.NET.ICreativeWork
     {
         public virtual TContentItemId Id { get; set; }
 
         public virtual LaunchPadContentItemType ContentType { get; set; }
+
+        public TSchema? SchemaDotOrg { get; protected set; }
 
         protected LaunchPadContentPublishingItemBase(string name, LaunchPadContentItemType type)
         {
@@ -45,6 +48,7 @@ namespace Deploy.LaunchPad.Core.Content
             IsActive = info.GetBoolean("IsActive");
             SeqNum = info.GetInt32("SeqNum");
             ContentType = (LaunchPadContentItemType)info.GetValue("ContentType", typeof(LaunchPadContentItemType));
+            SchemaDotOrg = (TSchema)info.GetValue("SchemaDotOrg", typeof(TSchema));
 
         }
 
@@ -71,6 +75,8 @@ namespace Deploy.LaunchPad.Core.Content
             info.AddValue("DeletionTime", DeletionTime);
             info.AddValue("IsActive", IsActive);
             info.AddValue("ContentType", ContentType);
+            info.AddValue("SchemaDotOrg", SchemaDotOrg);
+            
         }
     }
 }

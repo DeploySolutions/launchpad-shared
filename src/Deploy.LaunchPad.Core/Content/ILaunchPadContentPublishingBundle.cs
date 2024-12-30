@@ -7,9 +7,10 @@ using System.Threading.Tasks;
 namespace Deploy.LaunchPad.Core.Content
 {
 
-    public partial interface ILaunchPadContentPublishingBundle<TContentItemId>
+    public partial interface ILaunchPadContentPublishingBundle<TContentItemId, TSchema>
+        where TSchema : Schema.NET.ICreativeWork
     {
-        public IDictionary<TContentItemId, ILaunchPadContentPublishingItem<TContentItemId>> Items { get; }
+        public IDictionary<TContentItemId, ILaunchPadContentPublishingItem<TContentItemId, TSchema>> Items { get; }
     }
 
 }

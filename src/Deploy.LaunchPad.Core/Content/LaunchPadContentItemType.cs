@@ -12,7 +12,7 @@ namespace Deploy.LaunchPad.Core.Content
         Article,
         Report,
         Topic,
-        Link,
+        Unspecified,
         Image,
         Website,
         WebPage,
