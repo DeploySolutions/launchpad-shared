@@ -34,6 +34,7 @@ namespace Deploy.LaunchPad.Core.Content
             IsActive = true;
             Culture = "en";
             Tags = "{}";
+            Items = new List<ILaunchPadContentPublishingItem>();
         }
 
         protected LaunchPadContentPublishingBundleBase(string name)
@@ -44,6 +45,7 @@ namespace Deploy.LaunchPad.Core.Content
             IsActive = true;
             Culture = "en";
             Tags = "{}";
+            Items = new List<ILaunchPadContentPublishingItem>();
         }
 
         /// <summary>
@@ -67,7 +69,8 @@ namespace Deploy.LaunchPad.Core.Content
             DeleterUserId = info.GetInt64("DeleterUserId");
             DeletionTime = info.GetDateTime("DeletionTime");
             IsActive = info.GetBoolean("IsActive");
-            SeqNum = info.GetInt32("SeqNum");            
+            SeqNum = info.GetInt32("SeqNum");
+            Items = (IList<ILaunchPadContentPublishingItem>)info.GetValue("Items", typeof(IList<ILaunchPadContentPublishingItem>));            
 
         }
 
@@ -93,7 +96,8 @@ namespace Deploy.LaunchPad.Core.Content
             info.AddValue("DeleterUserId", DeleterUserId);
             info.AddValue("DeletionTime", DeletionTime);
             info.AddValue("IsActive", IsActive);
-            
+            info.AddValue("Items", Items);
+
         }
 
     }
