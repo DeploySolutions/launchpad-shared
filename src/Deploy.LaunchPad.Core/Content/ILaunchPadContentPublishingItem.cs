@@ -4,13 +4,16 @@ using System;
 
 namespace Deploy.LaunchPad.Core.Content
 {
-    public partial interface ILaunchPadContentPublishingItem<TSchema> : 
-        ILaunchPadCommonProperties,
-        IMayHaveSchemaDotOrgProperty<TSchema>
-        where TSchema : Schema.NET.Thing
+    public interface ILaunchPadContentPublishingItem : ILaunchPadObject, ILaunchPadCommonProperties
     {
         Guid Id { get; set; }
-
         LaunchPadContentItemType ContentType { get; set; }
+    }
+
+    public partial interface ILaunchPadContentPublishingItem<TSchema> :
+        ILaunchPadContentPublishingItem,
+        IMayHaveSchemaDotOrgProperty<TSchema>
+        where TSchema : Schema.NET.Thing
+    {        
     }
 }

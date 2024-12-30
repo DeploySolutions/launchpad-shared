@@ -6,7 +6,8 @@ using System.Runtime.Serialization;
 namespace Deploy.LaunchPad.Core.Content
 {
 
-    public abstract partial class LaunchPadContentPublishingItemBase<TSchema> : LaunchPadCommonProperties, ILaunchPadObject, ILaunchPadContentPublishingItem<TSchema>
+    public abstract partial class LaunchPadContentPublishingItemBase<TSchema> : LaunchPadCommonProperties, ILaunchPadObject,        
+        ILaunchPadContentPublishingItem<TSchema>
         where TSchema: Schema.NET.Thing
     {
         public virtual Guid Id { get; set; }

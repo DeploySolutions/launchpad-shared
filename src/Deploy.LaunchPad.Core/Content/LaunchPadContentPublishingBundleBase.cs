@@ -13,10 +13,10 @@ namespace Deploy.LaunchPad.Core.Content
     {
         public virtual Guid Id { get; set; }
 
-        public virtual IList<ILaunchPadContentPublishingItem<TSchema>> Items { get; }
+        public virtual IList<ILaunchPadContentPublishingItem> Items { get; }
 
 
-        public virtual void AddItem(Guid id, ILaunchPadContentPublishingItem<TSchema> item, bool shouldPreventDuplicates = true)
+        public virtual void AddItem(Guid id, ILaunchPadContentPublishingItem item, bool shouldPreventDuplicates = true)
         {
 
             if (shouldPreventDuplicates && !Items.Any(existingItem => existingItem.Id.Equals(item.Id)))
