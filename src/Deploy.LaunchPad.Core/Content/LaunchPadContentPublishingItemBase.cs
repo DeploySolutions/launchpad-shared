@@ -6,7 +6,7 @@ namespace Deploy.LaunchPad.Core.Content
 {
 
     public abstract partial class LaunchPadContentPublishingItemBase<TContentItemId, TSchema> : LaunchPadCommonProperties, ILaunchPadObject, ILaunchPadContentPublishingItem<TContentItemId, TSchema>
-        where TSchema: Schema.NET.ICreativeWork
+        where TSchema: Schema.NET.IThing
     {
         public virtual TContentItemId Id { get; set; }
 
