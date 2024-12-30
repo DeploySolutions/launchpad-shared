@@ -6,7 +6,7 @@
 // Last Modified By : Nicholas Kellett
 // Last Modified On : 07-26-2023
 // ***********************************************************************
-// <copyright file="IOrganization.cs" company="Deploy Software Solutions, inc.">
+// <copyright file="ILaunchPadPerson.cs" company="Deploy Software Solutions, inc.">
 //     2018-2024 Deploy Software Solutions, inc.
 // </copyright>
 // <summary></summary>
@@ -36,38 +36,39 @@ using Schema.NET;
 namespace Deploy.LaunchPad.Core.Domain.Model
 {
     /// <summary>
-    /// Interface ILaunchPadOrganization
+    /// Interface ILaunchPadPerson
     /// </summary>
-    public partial interface ILaunchPadOrganization : ILaunchPadObject, 
-        ILaunchPadCommonProperties,
-        IMayHaveSchemaDotOrgProperty<Schema.NET.Organization>,
+    public partial interface ILaunchPadPerson : ILaunchPadObject,
+        ILaunchPadCommonProperties, 
+        IMayHaveSchemaDotOrgProperty<Schema.NET.Person>,
         ICanBeASchemaDotOrgPersonOrOrganization
     {
-
         ///<summary>
-        /// Parent organization can be listed (if it exists). Null if this is the root organization.
+        /// Parents can be listed (if they exist).
         ///</summary>
         [DataObjectField(false)]
         [XmlAttribute]
-        public ILaunchPadOrganization Parent { get; set; }
+        public IList<ILaunchPadPerson> Parents { get; set; }
 
-        /// <summary>
-        /// Gets the website.
-        /// </summary>
-        /// <value>The website.</value>
-        string Website { get; }
+        ///<summary>
+        /// Children can be listed (if they exist).
+        ///</summary>
+        [DataObjectField(false)]
+        [XmlAttribute]
+        public IList<ILaunchPadPerson> Children { get; set; }
 
-        /// <summary>
-        /// Gets the headquarters address.
-        /// </summary>
-        /// <value>The headquarters address.</value>
-        string HeadquartersAddress { get; }
-
-        /// <summary>
-        /// Gets or sets the offices.
-        /// </summary>
-        /// <value>The offices.</value>
-        IList<string> Offices { get; set; }
+        ///<summary>
+        /// Siblings can be listed (if they exist).
+        ///</summary>
+        [DataObjectField(false)]
+        [XmlAttribute]
+        public IList<ILaunchPadPerson> Siblings { get; set; }
+        ///<summary>
+        /// Colleagues can be listed (if they exist).
+        ///</summary>
+        [DataObjectField(false)]
+        [XmlAttribute]
+        public IList<ILaunchPadPerson> Colleagues { get; set; }
 
     }
 }

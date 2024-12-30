@@ -55,7 +55,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
         /// <value>The schema.</value>
         [DataObjectField(false)]
         [XmlAttribute]
-        public virtual Organization Schema { get; protected set; }
+        public virtual Schema.NET.Organization? SchemaDotOrg { get; protected set; }
 
         ///<summary>
         /// Parent organization can be listed (if it exists). Null if this is the root organization.
@@ -70,7 +70,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
         /// <value>The full name.</value>
         [DataObjectField(false)]
         [XmlAttribute]
-        public virtual string FullName { get => Schema.LegalName.ToString(); }
+        public virtual string FullName { get => SchemaDotOrg.LegalName.ToString(); }
 
         /// <summary>
         /// Gets the abbreviation.
@@ -78,7 +78,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
         /// <value>The abbreviation.</value>
         [DataObjectField(false)]
         [XmlAttribute]
-        public virtual string Abbreviation { get => Schema.AlternateName.ToString(); }
+        public virtual string Abbreviation { get => SchemaDotOrg.AlternateName.ToString(); }
 
         /// <summary>
         /// Gets the website.
@@ -86,7 +86,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
         /// <value>The website.</value>
         [DataObjectField(false)]
         [XmlAttribute]
-        public virtual string Website { get => Schema.Url.ToString(); }
+        public virtual string Website { get => SchemaDotOrg.Url.ToString(); }
 
         /// <summary>
         /// Gets the headquarters address.
@@ -94,7 +94,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
         /// <value>The headquarters address.</value>
         [DataObjectField(false)]
         [XmlAttribute]
-        public virtual string HeadquartersAddress { get => Schema.Address.ToString(); }
+        public virtual string HeadquartersAddress { get => SchemaDotOrg.Address.ToString(); }
 
         /// <summary>
         /// Gets or sets the offices.
@@ -147,7 +147,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
         /// <param name="context">The context of the stream</param>
         protected OrganizationBase(SerializationInfo info, StreamingContext context) : base(info, context)
         {
-            Schema = (Organization)info.GetValue("Organization", typeof(Organization));
+            SchemaDotOrg = (Organization)info.GetValue("SchemaDotOrg", typeof(Organization));
             Offices = (IList<string>)info.GetValue("Offices", typeof(List<string>));
         }
 
@@ -159,7 +159,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
         public override void GetObjectData(SerializationInfo info, StreamingContext context)
         {
             base.GetObjectData(info, context);
-            info.AddValue("Schema", Schema);
+            info.AddValue("SchemaDotOrg", SchemaDotOrg);
             info.AddValue("Offices", Offices);
         }
 
@@ -253,7 +253,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
                     // Subclasses should extend to include their own enhanced equality checks, as required.
                     return Id.Equals(obj.Id)
                         && Culture.Equals(obj.Culture)
-                        && Schema.Equals(obj.Schema);
+                        && SchemaDotOrg.Equals(obj.SchemaDotOrg);
                 }
 
             }
