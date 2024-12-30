@@ -8,9 +8,12 @@ namespace Deploy.LaunchPad.Core.Content
 {
 
     public partial interface ILaunchPadContentPublishingBundle<TContentItemId, TSchema>
-        where TSchema : Schema.NET.IThing
+            where TSchema : Schema.NET.Thing
     {
-        public IDictionary<TContentItemId, ILaunchPadContentPublishingItem<TContentItemId, TSchema>> Items { get; }
+        public IList<ILaunchPadContentPublishingItem<TContentItemId, TSchema>> Items { get; }
+
+
+        public void AddItem(TContentItemId id, ILaunchPadContentPublishingItem<TContentItemId, TSchema> item, bool shouldPreventDuplicates = true);        
     }
 
 }

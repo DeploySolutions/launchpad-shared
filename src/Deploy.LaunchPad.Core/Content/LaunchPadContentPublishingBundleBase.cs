@@ -1,23 +1,32 @@
 ﻿using Deploy.LaunchPad.Core.Domain.Model;
 using DocumentFormat.OpenXml.Spreadsheet;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Runtime.Serialization;
 
 namespace Deploy.LaunchPad.Core.Content
 {
 
-    public abstract partial class LaunchPadContentPublishingItemBase<TContentItemId, TSchema> : LaunchPadCommonProperties, ILaunchPadObject, ILaunchPadContentPublishingItem<TContentItemId, TSchema>
+    public abstract partial class LaunchPadContentPublishingBundleBase<TContentItemId, TSchema> : LaunchPadCommonProperties, ILaunchPadObject, ILaunchPadContentPublishingBundle<TContentItemId, TSchema>
         where TSchema: Schema.NET.Thing
     {
         public virtual TContentItemId Id { get; set; }
 
-        public virtual LaunchPadContentItemType ContentType { get; set; }
+        public virtual IList<ILaunchPadContentPublishingItem<TContentItemId, TSchema>> Items { get; }
 
-        public TSchema? SchemaDotOrg { get; protected set; }
 
-        protected LaunchPadContentPublishingItemBase(string name, LaunchPadContentItemType type)
+        public virtual void AddItem(TContentItemId id, ILaunchPadContentPublishingItem<TContentItemId, TSchema> item, bool shouldPreventDuplicates = true)
         {
-            ContentType = type;
+
+            if (shouldPreventDuplicates && !Items.Any(existingItem => existingItem.Id.Equals(item.Id)))
+            {
+                Items.Add(item);
+            }
+        }
+
+        protected LaunchPadContentPublishingBundleBase(string name, LaunchPadContentItemType type)
+        {            
             Name = new ElementName(name);
             Description = new ElementDescription(name);
             CreationTime = DateTime.Now;
@@ -31,7 +40,7 @@ namespace Deploy.LaunchPad.Core.Content
         /// </summary>
         /// <param name="info">The serialization info</param>
         /// <param name="context">The context of the stream</param>
-        protected LaunchPadContentPublishingItemBase(SerializationInfo info, StreamingContext context)
+        protected LaunchPadContentPublishingBundleBase(SerializationInfo info, StreamingContext context)
         {
             Id = (TContentItemId)info.GetValue("Id", typeof(TContentItemId));
             Name = (ElementName)info.GetValue("Name", typeof(ElementName));
@@ -47,9 +56,7 @@ namespace Deploy.LaunchPad.Core.Content
             DeleterUserId = info.GetInt64("DeleterUserId");
             DeletionTime = info.GetDateTime("DeletionTime");
             IsActive = info.GetBoolean("IsActive");
-            SeqNum = info.GetInt32("SeqNum");
-            ContentType = (LaunchPadContentItemType)info.GetValue("ContentType", typeof(LaunchPadContentItemType));
-            SchemaDotOrg = (TSchema)info.GetValue("SchemaDotOrg", typeof(TSchema));
+            SeqNum = info.GetInt32("SeqNum");            
 
         }
 
@@ -75,8 +82,6 @@ namespace Deploy.LaunchPad.Core.Content
             info.AddValue("DeleterUserId", DeleterUserId);
             info.AddValue("DeletionTime", DeletionTime);
             info.AddValue("IsActive", IsActive);
-            info.AddValue("ContentType", ContentType);
-            info.AddValue("SchemaDotOrg", SchemaDotOrg);
             
         }
 
