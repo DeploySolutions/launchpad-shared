@@ -6,7 +6,7 @@
 // Last Modified By : Nicholas Kellett
 // Last Modified On : 07-26-2023
 // ***********************************************************************
-// <copyright file="IOrganization.cs" company="Deploy Software Solutions, inc.">
+// <copyright file="IPersonDomainEntity.cs" company="Deploy Software Solutions, inc.">
 //     2018-2024 Deploy Software Solutions, inc.
 // </copyright>
 // <summary></summary>
@@ -30,19 +30,19 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Xml.Serialization;
 using Deploy.LaunchPad.Core.Abp.Domain.Model;
-using Deploy.LaunchPad.Core.Organization;
+using Deploy.LaunchPad.Core.Person;
 using Schema.NET;
 
 namespace Deploy.LaunchPad.Core.Abp.Domain
 {
     /// <summary>
-    /// Interface IOrganization
+    /// Interface IPersonDomainEntity
     /// Extends the <see cref="ILaunchPadDomainEntity{TPrimaryKey}" />
     /// </summary>
     /// <typeparam name="TPrimaryKey">The type of the t primary key.</typeparam>
     /// <seealso cref="ILaunchPadDomainEntity{TPrimaryKey}" />
-    public partial interface IOrganizationDomainEntity<TPrimaryKey> : 
-        ILaunchPadDomainEntity<TPrimaryKey>, ILaunchPadOrganization
+    public partial interface IPersonDomainEntity<TPrimaryKey> : 
+        ILaunchPadDomainEntity<TPrimaryKey>, ILaunchPadPerson
     {
         
 

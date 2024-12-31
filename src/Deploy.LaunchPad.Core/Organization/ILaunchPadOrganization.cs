@@ -26,19 +26,21 @@
 //limitations under the License. 
 #endregion
 
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Xml.Serialization;
 using Deploy.LaunchPad.Core.Content;
+using Deploy.LaunchPad.Core.Domain.Model;
 using Deploy.LaunchPad.Core.Schemas.SchemaDotOrg;
 using Schema.NET;
 
-namespace Deploy.LaunchPad.Core.Domain.Model
+namespace Deploy.LaunchPad.Core.Organization
 {
     /// <summary>
     /// Interface ILaunchPadOrganization
     /// </summary>
-    public partial interface ILaunchPadOrganization : ILaunchPadObject, 
+    public partial interface ILaunchPadOrganization : ILaunchPadObject,
         ILaunchPadCommonProperties,
         IMayHaveSchemaDotOrgProperty<Schema.NET.Organization>,
         ICanBeASchemaDotOrgPersonOrOrganization
@@ -55,7 +57,7 @@ namespace Deploy.LaunchPad.Core.Domain.Model
         /// Gets the website.
         /// </summary>
         /// <value>The website.</value>
-        string Website { get; }
+        Uri Website { get; }
 
         /// <summary>
         /// Gets the headquarters address.

@@ -6,7 +6,7 @@
 // Last Modified By : Nicholas Kellett
 // Last Modified On : 07-26-2023
 // ***********************************************************************
-// <copyright file="OrganizationBase.cs" company="Deploy Software Solutions, inc.">
+// <copyright file="PersonBase.cs" company="Deploy Software Solutions, inc.">
 //     2018-2024 Deploy Software Solutions, inc.
 // </copyright>
 // <summary></summary>
@@ -26,9 +26,10 @@
 //limitations under the License. 
 #endregion
 
-using Abp.Domain.Entities;
 using Deploy.LaunchPad.Core.Abp.Domain.Model;
 using Deploy.LaunchPad.Core.Domain.Model;
+using Deploy.LaunchPad.Core.Person;
+using Deploy.LaunchPad.Core.Schemas.SchemaDotOrg;
 using Schema.NET;
 using System;
 using System.Collections.Generic;
@@ -37,17 +38,17 @@ using System.Reflection;
 using System.Runtime.Serialization;
 using System.Xml.Serialization;
 
-namespace Deploy.LaunchPad.Core.Abp.Domain
+namespace Deploy.LaunchPad.Core.Person
 {
 
 
     /// <summary>
-    /// Base class for Organizations.
-    /// Implements <see cref="IOrganization&lt;TPrimaryKey&gt;">IOrganization&lt;TPrimaryKey&gt;</see> and provides
+    /// Base class for Persons.
+    /// Implements <see cref="ILaunchPadPerson">ILaunchPadPerson</see> and provides
     /// base functionality for many of its methods.
     /// </summary>
     /// <typeparam name="TIdType">The type of the t identifier type.</typeparam>
-    public abstract partial class OrganizationBase<TIdType> : LaunchPadDomainEntityBase<TIdType>, IOrganizationDomainEntity<TIdType>, IMayHaveTenant
+    public abstract partial class PersonBase<TIdType> : LaunchPadModelBase, ILaunchPadPerson
     {
         /// <summary>
         /// Gets or sets the schema.
@@ -55,100 +56,41 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
         /// <value>The schema.</value>
         [DataObjectField(false)]
         [XmlAttribute]
-        public virtual Schema.NET.Organization? SchemaDotOrg { get; protected set; }
+        public virtual Schema.NET.Person? SchemaDotOrg { get; protected set; }
 
-        ///<summary>
-        /// Parent organization can be listed (if it exists). Null if this is the root organization.
-        ///</summary>
-        [DataObjectField(false)]
-        [XmlAttribute]
-        public virtual ILaunchPadOrganization? Parent { get; set; }
+        public virtual string Title { get; set; } = string.Empty;
 
-        /// <summary>
-        /// Gets the full name.
-        /// </summary>
-        /// <value>The full name.</value>
-        [DataObjectField(false)]
-        [XmlAttribute]
-        public virtual string FullName { get => SchemaDotOrg.LegalName.ToString(); }
+        public virtual IList<ILaunchPadPerson> Parents { get; set; }
+        public virtual IList<ILaunchPadPerson> Children { get; set; }
+        public virtual IList<ILaunchPadPerson> Siblings { get; set; }
+        public virtual IList<ILaunchPadPerson> Colleagues { get; set; }
 
         /// <summary>
-        /// Gets the abbreviation.
+        /// Initializes a new instance of the <see cref="PersonBase">PersonBase</see> class
         /// </summary>
-        /// <value>The abbreviation.</value>
-        [DataObjectField(false)]
-        [XmlAttribute]
-        public virtual string Abbreviation { get => SchemaDotOrg.AlternateName.ToString(); }
-
-        /// <summary>
-        /// Gets the website.
-        /// </summary>
-        /// <value>The website.</value>
-        [DataObjectField(false)]
-        [XmlAttribute]
-        public virtual string Website { get => SchemaDotOrg.Url.ToString(); }
-
-        /// <summary>
-        /// Gets the headquarters address.
-        /// </summary>
-        /// <value>The headquarters address.</value>
-        [DataObjectField(false)]
-        [XmlAttribute]
-        public virtual string HeadquartersAddress { get => SchemaDotOrg.Address.ToString(); }
-
-        /// <summary>
-        /// Gets or sets the offices.
-        /// </summary>
-        /// <value>The offices.</value>
-        /// <exception cref="System.NotImplementedException"></exception>
-        [DataObjectField(false)]
-        [XmlAttribute]
-        public virtual IList<string> Offices { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        
-        /// <summary>
-        /// TenantId of this entity.
-        /// </summary>
-        /// <value>The tenant identifier.</value>
-        public virtual int? TenantId { get; set; }
-        
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="OrganizationBase&lt;TPrimaryKey&gt;">OrganizationBase&lt;TPrimaryKey&gt;</see> class
-        /// </summary>
-        protected OrganizationBase() : base()
+        protected PersonBase() : base()
         {
+            Parents = new List<ILaunchPadPerson>();
+            Children = new List<ILaunchPadPerson>();
+            Siblings = new List<ILaunchPadPerson>();
+            Colleagues = new List<ILaunchPadPerson>();
         }
 
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="OrganizationBase&lt;TPrimaryKey&gt;">OrganizationBase&lt;TPrimaryKey&gt;</see> class
-        /// </summary>
-        /// <param name="tenantId">The tenant identifier.</param>
-        protected OrganizationBase(int? tenantId) : base()
-        {
-            TenantId = tenantId;
-        }
-
-        /// <summary>
-        /// Creates a new instance of the <see cref="OrganizationBase&lt;TPrimaryKey&gt;">OrganizationBase&lt;TPrimaryKey&gt;</see>
-        /// class given a key, and some metadata.
-        /// </summary>
-        /// <param name="tenantId">The tenant identifier.</param>
-        /// <param name="id">The identifier.</param>
-        protected OrganizationBase(int? tenantId, TIdType id) : base()
-        {
-            TenantId = tenantId;
-        }
 
         /// <summary>
         /// Serialization constructor used for deserialization
         /// </summary>
         /// <param name="info">The serialization info</param>
         /// <param name="context">The context of the stream</param>
-        protected OrganizationBase(SerializationInfo info, StreamingContext context) : base(info, context)
+        protected PersonBase(SerializationInfo info, StreamingContext context) : base(info, context)
         {
-            SchemaDotOrg = (Organization)info.GetValue("SchemaDotOrg", typeof(Organization));
-            Offices = (IList<string>)info.GetValue("Offices", typeof(List<string>));
+            Title = info.GetString("Title");
+            SchemaDotOrg = (Schema.NET.Person)info.GetValue("SchemaDotOrg", typeof(Schema.NET.Person));
+            Parents = (List<ILaunchPadPerson>)info.GetValue("Parents", typeof(List<ILaunchPadPerson>));
+            Children = (List<ILaunchPadPerson>)info.GetValue("Children", typeof(List<ILaunchPadPerson>));
+            Siblings = (List<ILaunchPadPerson>)info.GetValue("Siblings", typeof(List<ILaunchPadPerson>));
+            Colleagues = (List<ILaunchPadPerson>)info.GetValue("Colleagues", typeof(List<ILaunchPadPerson>));
+
         }
 
         /// <summary>
@@ -159,8 +101,12 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
         public override void GetObjectData(SerializationInfo info, StreamingContext context)
         {
             base.GetObjectData(info, context);
+            info.AddValue("Title", Title);
             info.AddValue("SchemaDotOrg", SchemaDotOrg);
-            info.AddValue("Offices", Offices);
+            info.AddValue("Parents", Parents);
+            info.AddValue("Children", Children);
+            info.AddValue("Siblings", Siblings);
+            info.AddValue("Colleagues", Colleagues);
         }
 
 
@@ -169,7 +115,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
         /// </summary>
         /// <typeparam name="TEntity">The source entity to clone</typeparam>
         /// <returns>A shallow clone of the entity and its serializable properties</returns>
-        protected new virtual TEntity Clone<TEntity>() where TEntity : IOrganizationDomainEntity<TIdType>, new()
+        protected new virtual TEntity Clone<TEntity>() where TEntity : ILaunchPadPerson, new()
         {
             TEntity clone = new TEntity();
             foreach (PropertyInfo info in GetType().GetProperties())
@@ -191,9 +137,9 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
         /// </summary>
         /// <param name="other">The other object of this type we are comparing to</param>
         /// <returns>System.Int32.</returns>
-        public virtual int CompareTo(OrganizationBase<TIdType> other)
+        public virtual int CompareTo(PersonBase<TIdType> other)
         {
-            return other == null ? 1 : String.Compare(FullName, other.FullName, StringComparison.InvariantCulture);
+            return other == null ? 1 : String.Compare(Name.Full, other.Name.Full, StringComparison.InvariantCulture);
         }
 
         ///// <summary>
@@ -220,9 +166,9 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
         /// <returns>True if the entities are the same according to business key value</returns>
         public override bool Equals(object obj)
         {
-            if (obj != null && obj is OrganizationBase<TIdType>)
+            if (obj != null && obj is PersonBase<TIdType>)
             {
-                return Equals((OrganizationBase<TIdType>)obj);
+                return Equals((PersonBase<TIdType>)obj);
             }
             return false;
         }
@@ -236,26 +182,18 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
         /// </summary>
         /// <param name="obj">The other object of this type that we are testing equality with</param>
         /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
-        public virtual bool Equals(OrganizationBase<TIdType> obj)
+        public virtual bool Equals(PersonBase<TIdType> obj)
         {
             if (obj != null)
             {
 
-                // Transient objects are not considered as equal
-                if (IsTransient() && obj.IsTransient())
-                {
-                    return false;
-                }
-                else
-                {
                     // For safe equality we need to match on business key equality.
                     // Base domain entities are functionally equal if their key and metadata and tags are equal.
                     // Subclasses should extend to include their own enhanced equality checks, as required.
-                    return Id.Equals(obj.Id)
+                    return Name.Equals(obj.Name)
                         && Culture.Equals(obj.Culture)
-                        && SchemaDotOrg.Equals(obj.SchemaDotOrg);
-                }
-
+                        && SchemaDotOrg.Equals(obj.SchemaDotOrg)
+                        && Parents.Equals(obj.Parents);
             }
             return false;
         }
@@ -266,7 +204,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
         /// <param name="x">The first value</param>
         /// <param name="y">The second value</param>
         /// <returns>True if both objects are fully equal based on the Equals logic</returns>
-        public static bool operator ==(OrganizationBase<TIdType> x, OrganizationBase<TIdType> y)
+        public static bool operator ==(PersonBase<TIdType> x, PersonBase<TIdType> y)
         {
             if (System.Object.ReferenceEquals(x, null))
             {
@@ -285,7 +223,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
         /// <param name="x">The first value</param>
         /// <param name="y">The second value</param>
         /// <returns>True if both objects are not equal based on the Equals logic</returns>
-        public static bool operator !=(OrganizationBase<TIdType> x, OrganizationBase<TIdType> y)
+        public static bool operator !=(PersonBase<TIdType> x, PersonBase<TIdType> y)
         {
             return !(x == y);
         }
@@ -297,7 +235,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
         /// <remarks>This method implements the <see cref="object">Object</see> method.</remarks>
         public override int GetHashCode()
         {
-            return Id.GetHashCode();
+            return Name.GetHashCode();
         }
 
     }

@@ -36,10 +36,10 @@ namespace Deploy.LaunchPad.Organizations.Canada
 
     /// <summary>
     /// Class DeploySolutions.
-    /// Implements the <see cref="Deploy.LaunchPad.Core.Abp.Domain.OrganizationBase{System.Guid}" />
+    /// Implements the <see cref="Deploy.LaunchPad.Core.Abp.Domain.OrganizationDomainEntityBase{System.Guid}" />
     /// </summary>
-    /// <seealso cref="Deploy.LaunchPad.Core.Abp.Domain.OrganizationBase{System.Guid}" />
-    public partial class DeploySolutions : OrganizationBase<Guid>
+    /// <seealso cref="Deploy.LaunchPad.Core.Abp.Domain.OrganizationDomainEntityBase{System.Guid}" />
+    public partial class DeploySolutions : OrganizationDomainEntityBase<Guid>
     {
 
         /// <summary>
