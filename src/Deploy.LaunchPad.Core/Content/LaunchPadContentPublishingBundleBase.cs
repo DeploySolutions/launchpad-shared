@@ -27,6 +27,7 @@ namespace Deploy.LaunchPad.Core.Content
 
         protected LaunchPadContentPublishingBundleBase()
         {
+            Id = Guid.NewGuid();
             string name = "New Bundle " + DateTime.UtcNow.ToString();
             Name = new ElementName(name);
             Description = new ElementDescription(name);
@@ -39,6 +40,7 @@ namespace Deploy.LaunchPad.Core.Content
 
         protected LaunchPadContentPublishingBundleBase(string name)
         {            
+            Id = Guid.NewGuid();
             Name = new ElementName(name);
             Description = new ElementDescription(name);
             CreationTime = DateTime.Now;

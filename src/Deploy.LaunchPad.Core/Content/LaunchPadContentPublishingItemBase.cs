@@ -18,6 +18,7 @@ namespace Deploy.LaunchPad.Core.Content
 
         protected LaunchPadContentPublishingItemBase(string name, LaunchPadContentItemType type)
         {
+            Id = Guid.NewGuid();
             ContentType = type;
             Name = new ElementName(name);
             Description = new ElementDescription(name);
