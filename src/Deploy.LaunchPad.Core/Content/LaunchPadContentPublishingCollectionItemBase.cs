@@ -6,7 +6,7 @@ using System.Runtime.Serialization;
 namespace Deploy.LaunchPad.Core.Content
 {
 
-    public abstract partial class LaunchPadContentPublishingItemBase<TSchema> : LaunchPadCommonProperties, ILaunchPadObject,        
+    public abstract partial class LaunchPadContentPublishingCollectionItemBase<TSchema> : LaunchPadCommonProperties, ILaunchPadObject,        
         ILaunchPadContentPublishingItem<TSchema>
         where TSchema: Schema.NET.Thing
     {
@@ -16,7 +16,7 @@ namespace Deploy.LaunchPad.Core.Content
 
         public TSchema? SchemaDotOrg { get; protected set; }
 
-        protected LaunchPadContentPublishingItemBase(string name, LaunchPadContentItemType type)
+        protected LaunchPadContentPublishingCollectionItemBase(string name, LaunchPadContentItemType type)
         {
             Id = Guid.NewGuid();
             ContentType = type;
@@ -33,7 +33,7 @@ namespace Deploy.LaunchPad.Core.Content
         /// </summary>
         /// <param name="info">The serialization info</param>
         /// <param name="context">The context of the stream</param>
-        protected LaunchPadContentPublishingItemBase(SerializationInfo info, StreamingContext context)
+        protected LaunchPadContentPublishingCollectionItemBase(SerializationInfo info, StreamingContext context)
         {
             Id = (Guid)info.GetValue("Id", typeof(Guid));
             Name = (ElementName)info.GetValue("Name", typeof(ElementName));

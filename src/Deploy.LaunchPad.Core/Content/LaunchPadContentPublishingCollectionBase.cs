@@ -8,15 +8,15 @@ using System.Runtime.Serialization;
 namespace Deploy.LaunchPad.Core.Content
 {
 
-    public abstract partial class LaunchPadContentPublishingBundleBase<TSchema> : LaunchPadCommonProperties, ILaunchPadObject, ILaunchPadContentPublishingBundle<TSchema>
+    public abstract partial class LaunchPadContentPublishingCollectionBase<TSchema> : LaunchPadCommonProperties, ILaunchPadObject, ILaunchPadContentPublishingCollection<TSchema>
         where TSchema: Schema.NET.Thing
     {
         public virtual Guid Id { get; set; }
 
-        public virtual IList<ILaunchPadContentPublishingItem> Items { get; }
+        public virtual IList<ILaunchPadContentPublishingCollectionItem> Items { get; }
 
 
-        public virtual void AddItem(Guid id, ILaunchPadContentPublishingItem item, bool shouldPreventDuplicates = true)
+        public virtual void AddItem(Guid id, ILaunchPadContentPublishingCollectionItem item, bool shouldPreventDuplicates = true)
         {
 
             if (shouldPreventDuplicates && !Items.Any(existingItem => existingItem.Id.Equals(item.Id)))
@@ -25,7 +25,7 @@ namespace Deploy.LaunchPad.Core.Content
             }
         }
 
-        protected LaunchPadContentPublishingBundleBase()
+        protected LaunchPadContentPublishingCollectionBase()
         {
             Id = Guid.NewGuid();
             string name = "New Bundle " + DateTime.UtcNow.ToString();
@@ -35,10 +35,10 @@ namespace Deploy.LaunchPad.Core.Content
             IsActive = true;
             Culture = "en";
             Tags = "{}";
-            Items = new List<ILaunchPadContentPublishingItem>();
+            Items = new List<ILaunchPadContentPublishingCollectionItem>();
         }
 
-        protected LaunchPadContentPublishingBundleBase(string name)
+        protected LaunchPadContentPublishingCollectionBase(string name)
         {            
             Id = Guid.NewGuid();
             Name = new ElementName(name);
@@ -47,7 +47,7 @@ namespace Deploy.LaunchPad.Core.Content
             IsActive = true;
             Culture = "en";
             Tags = "{}";
-            Items = new List<ILaunchPadContentPublishingItem>();
+            Items = new List<ILaunchPadContentPublishingCollectionItem>();
         }
 
         /// <summary>
@@ -55,7 +55,7 @@ namespace Deploy.LaunchPad.Core.Content
         /// </summary>
         /// <param name="info">The serialization info</param>
         /// <param name="context">The context of the stream</param>
-        protected LaunchPadContentPublishingBundleBase(SerializationInfo info, StreamingContext context)
+        protected LaunchPadContentPublishingCollectionBase(SerializationInfo info, StreamingContext context)
         {
             Id = (Guid)info.GetValue("Id", typeof(Guid));
             Name = (ElementName)info.GetValue("Name", typeof(ElementName));
@@ -72,7 +72,7 @@ namespace Deploy.LaunchPad.Core.Content
             DeletionTime = info.GetDateTime("DeletionTime");
             IsActive = info.GetBoolean("IsActive");
             SeqNum = info.GetInt32("SeqNum");
-            Items = (IList<ILaunchPadContentPublishingItem>)info.GetValue("Items", typeof(IList<ILaunchPadContentPublishingItem>));            
+            Items = (IList<ILaunchPadContentPublishingCollectionItem>)info.GetValue("Items", typeof(IList<ILaunchPadContentPublishingCollectionItem>));            
 
         }
 
