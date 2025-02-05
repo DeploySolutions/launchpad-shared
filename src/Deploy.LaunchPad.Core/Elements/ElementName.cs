@@ -4,6 +4,8 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Diagnostics;
 using System.Xml.Serialization;
 using System;
+using Newtonsoft.Json;
+using Deploy.LaunchPad.Util;
 
 namespace Deploy.LaunchPad.Core
 {
@@ -28,6 +30,7 @@ namespace Deploy.LaunchPad.Core
         [MaxLength(255, ErrorMessageResourceName = "Validation_ElementName_Full_255CharsOrLess", ErrorMessageResourceType = typeof(Deploy_LaunchPad_Core_Resources))]
         [DataObjectField(false)]
         [XmlAttribute]
+        [JsonProperty("full")]
         public virtual string Full
         {
             get
@@ -48,6 +51,8 @@ namespace Deploy.LaunchPad.Core
         [MaxLength(24, ErrorMessageResourceName = "Validation_ElementName_Short_24CharsOrLess", ErrorMessageResourceType = typeof(Deploy_LaunchPad_Core_Resources))]
         [DataObjectField(false)]
         [XmlAttribute]
+        [JsonProperty("short", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonConverter(typeof(JsonEmptyStringToNullConverter))]
         public virtual string Short
         {
             get
@@ -75,6 +80,8 @@ namespace Deploy.LaunchPad.Core
         [MaxLength(12, ErrorMessageResourceName = "Validation_12CharsOrLess", ErrorMessageResourceType = typeof(Deploy_LaunchPad_Core_Resources))]
         [DataObjectField(false)]
         [XmlAttribute]
+        [JsonProperty("prefix", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonConverter(typeof(JsonEmptyStringToNullConverter))]
         public virtual string Prefix
         {
             get
@@ -96,6 +103,8 @@ namespace Deploy.LaunchPad.Core
         [MaxLength(12, ErrorMessageResourceName = "Validation_12CharsOrLess", ErrorMessageResourceType = typeof(Deploy_LaunchPad_Core_Resources))]
         [DataObjectField(false)]
         [XmlAttribute]
+        [JsonProperty("suffix", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonConverter(typeof(JsonEmptyStringToNullConverter))]
         public virtual string Suffix
         {
             get
