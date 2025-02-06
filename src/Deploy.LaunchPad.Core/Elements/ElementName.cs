@@ -51,7 +51,7 @@ namespace Deploy.LaunchPad.Core
         [MaxLength(24, ErrorMessageResourceName = "Validation_ElementName_Short_24CharsOrLess", ErrorMessageResourceType = typeof(Deploy_LaunchPad_Core_Resources))]
         [DataObjectField(false)]
         [XmlAttribute]
-        [JsonProperty("short", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty("short", NullValueHandling = NullValueHandling.Ignore, DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
         [JsonConverter(typeof(JsonEmptyStringToNullConverter))]
         public virtual string Short
         {
@@ -80,7 +80,7 @@ namespace Deploy.LaunchPad.Core
         [MaxLength(12, ErrorMessageResourceName = "Validation_12CharsOrLess", ErrorMessageResourceType = typeof(Deploy_LaunchPad_Core_Resources))]
         [DataObjectField(false)]
         [XmlAttribute]
-        [JsonProperty("prefix", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty("prefix", NullValueHandling = NullValueHandling.Ignore, DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
         [JsonConverter(typeof(JsonEmptyStringToNullConverter))]
         public virtual string Prefix
         {
@@ -103,7 +103,7 @@ namespace Deploy.LaunchPad.Core
         [MaxLength(12, ErrorMessageResourceName = "Validation_12CharsOrLess", ErrorMessageResourceType = typeof(Deploy_LaunchPad_Core_Resources))]
         [DataObjectField(false)]
         [XmlAttribute]
-        [JsonProperty("suffix", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty("suffix", NullValueHandling = NullValueHandling.Ignore, DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
         [JsonConverter(typeof(JsonEmptyStringToNullConverter))]
         public virtual string Suffix
         {

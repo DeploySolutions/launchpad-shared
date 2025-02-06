@@ -27,7 +27,7 @@ namespace Deploy.LaunchPad.Core
         [RegularExpression(@"^([a-zA-Z_][a-zA-Z0-9_]*\.)*[a-zA-Z_][a-zA-Z0-9_]*$", ErrorMessageResourceName = "Validation_ElementType_InvalidType", ErrorMessageResourceType = typeof(Deploy_LaunchPad_Core_Resources))]
         [DataObjectField(true)]
         [XmlAttribute]
-        [JsonProperty("fullyQualifiedType", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty("fullyQualifiedType", NullValueHandling = NullValueHandling.Ignore, DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
         [JsonConverter(typeof(JsonEmptyStringToNullConverter))]
         public virtual string FullyQualifiedType
         {
@@ -48,7 +48,7 @@ namespace Deploy.LaunchPad.Core
         [MaxLength(20, ErrorMessageResourceName = "Validation_ElementType_FullyQualifiedType_511CharsOrLess", ErrorMessageResourceType = typeof(Deploy_LaunchPad_Core_Resources))]
         [DataObjectField(false)]
         [XmlAttribute]
-        [JsonProperty("typeName", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty("typeName", NullValueHandling = NullValueHandling.Ignore, DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
         [JsonConverter(typeof(JsonEmptyStringToNullConverter))]
         public virtual string TypeName
         {
@@ -84,7 +84,7 @@ namespace Deploy.LaunchPad.Core
         [RegularExpression(@"^[a-zA-Z_][a-zA-Z0-9_]*(\.[a-zA-Z_][a-zA-Z0-9_]*)*(, Version=\d+\.\d+\.\d+\.\d+)?(, Culture=[a-zA-Z0-9\-]+)?(, PublicKeyToken=[a-fA-F0-9]{16}|, PublicKeyToken=null)?$", ErrorMessageResourceName = "Validation_ElementType_InvalidAssembly", ErrorMessageResourceType = typeof(Deploy_LaunchPad_Core_Resources))]
         [DataObjectField(false)]
         [XmlAttribute]
-        [JsonProperty("assemblyFullyQualifiedName", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty("assemblyFullyQualifiedName", NullValueHandling = NullValueHandling.Ignore, DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
         [JsonConverter(typeof(JsonEmptyStringToNullConverter))]
         public virtual string AssemblyFullyQualifiedName
         {
@@ -106,7 +106,7 @@ namespace Deploy.LaunchPad.Core
         [MaxLength(255, ErrorMessageResourceName = "Validation_255CharsOrLess", ErrorMessageResourceType = typeof(Deploy_LaunchPad_Core_Resources))]
         [DataObjectField(false)]
         [XmlAttribute]
-        [JsonProperty("assemblyName", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty("assemblyName", NullValueHandling = NullValueHandling.Ignore, DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
         [JsonConverter(typeof(JsonEmptyStringToNullConverter))]
         public virtual string AssemblyName
         {
@@ -141,7 +141,7 @@ namespace Deploy.LaunchPad.Core
         [Required]
         [DataObjectField(false)]
         [XmlAttribute]
-        [JsonProperty("parentElementType", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty("parentElementType", NullValueHandling = NullValueHandling.Ignore, DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
         public virtual ElementType ParentElementType
         {
             get
@@ -158,7 +158,7 @@ namespace Deploy.LaunchPad.Core
         /// Gets or sets the ElementTypes of any children.
         /// </summary>
         /// <value>The ElementTypes of children, if any. The key is the fullyQualifiedType of the parent, and the value is the Type instance. </value>
-        [JsonProperty("childrenElementTypes", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty("childrenElementTypes", NullValueHandling = NullValueHandling.Ignore, DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
         public virtual IDictionary<string, ElementType> ChildrenElementTypes { get; set; }
 
 
@@ -167,7 +167,7 @@ namespace Deploy.LaunchPad.Core
         /// </summary>
         /// <value>The additional fully qualified interfaces this entity inherits from, if any (and apart from its Parent). The key is the fullyQualifiedType and the value is the Type.</value>
 
-        [JsonProperty("inheritsFrom", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty("inheritsFrom", NullValueHandling = NullValueHandling.Ignore, DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
         public virtual IDictionary<string, string> InheritsFrom { get; set; }
 
         protected ElementType()
