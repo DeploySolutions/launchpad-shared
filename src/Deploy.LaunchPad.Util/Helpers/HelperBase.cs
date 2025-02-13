@@ -105,7 +105,10 @@ namespace Deploy.LaunchPad.Util
             {
                 if (char.IsUpper(input[i]))
                 {
-                    stringBuilder.Append('_');
+                    if (stringBuilder[stringBuilder.Length - 1] != '_')
+                    {
+                        stringBuilder.Append('_');
+                    }
                     stringBuilder.Append(char.ToLower(input[i]));
                 }
                 else
