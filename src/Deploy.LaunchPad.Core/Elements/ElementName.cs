@@ -72,7 +72,7 @@ namespace Deploy.LaunchPad.Core
             }
         }
 
-        protected string _prefix = string.Empty;
+        protected string? _prefix;
         /// <summary>
         /// The prefix, if any
         /// </summary>
@@ -82,7 +82,7 @@ namespace Deploy.LaunchPad.Core
         [XmlAttribute]
         [JsonProperty("prefix", NullValueHandling = NullValueHandling.Ignore, DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
         [JsonConverter(typeof(JsonEmptyStringToNullConverter))]
-        public virtual string Prefix
+        public virtual string? Prefix
         {
             get
             {
@@ -95,7 +95,7 @@ namespace Deploy.LaunchPad.Core
         }
 
 
-        protected string _suffix = string.Empty;
+        protected string? _suffix;
         /// <summary>
         /// The suffix, if any
         /// </summary>
@@ -105,7 +105,7 @@ namespace Deploy.LaunchPad.Core
         [XmlAttribute]
         [JsonProperty("suffix", NullValueHandling = NullValueHandling.Ignore, DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
         [JsonConverter(typeof(JsonEmptyStringToNullConverter))]
-        public virtual string Suffix
+        public virtual string? Suffix
         {
             get
             {

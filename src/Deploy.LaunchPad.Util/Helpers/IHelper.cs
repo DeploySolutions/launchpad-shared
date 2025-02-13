@@ -36,5 +36,9 @@ namespace Deploy.LaunchPad.Util
         /// <param name="shouldReturnOriginalValueIfDescriptionEmpty">if set to <c>true</c> [should return original value if description empty].</param>
         /// <returns>System.String.</returns>
         public string GetDescriptionFromEnum(Enum value, bool shouldReturnOriginalValueIfDescriptionEmpty = true);
+
+        public string ConvertToSnakeCase(string input);
+
+        public string ConvertToPascalCase(string input);
     }
 }
