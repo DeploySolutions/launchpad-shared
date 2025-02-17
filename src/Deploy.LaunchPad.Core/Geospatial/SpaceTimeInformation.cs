@@ -51,6 +51,14 @@ namespace Deploy.LaunchPad.Core.Geospatial
         public virtual DateTime PointInTime { get; set; }
 
         /// <summary>
+        /// How this period relates to an observer's "current moment in time", i.e. is this in the past? The far future?
+        /// </summary>
+        /// <value>The relative temporal position of this object to the observer's current point in time.</value>
+        [DataObjectField(false)]
+        [XmlAttribute]
+        public virtual TemporalContext TemporalContext { get; set; } = TemporalContext.IsUnknownOrUnspecified;
+
+        /// <summary>
         /// The geographic location of this item at a point in time
         /// </summary>
         /// <value>The physical location.</value>
