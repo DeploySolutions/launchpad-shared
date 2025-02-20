@@ -9,10 +9,10 @@ namespace Deploy.LaunchPad.Core.Questions
     [Serializable]
     public partial class SingleChoiceAnswer<T> : IChoiceAnswer<T>
     {
-        public virtual ChoiceOption<T> Value { get; private set; }
-        public virtual List<ChoiceOption<T>> Options { get; }
+        public virtual ChoiceOptions<T> Value { get; private set; }
+        public virtual List<ChoiceOptions<T>> Options { get; }
 
-        public SingleChoiceAnswer(List<ChoiceOption<T>> options, T value)
+        public SingleChoiceAnswer(List<ChoiceOptions<T>> options, T value)
         {
             Options = options ?? throw new ArgumentNullException(nameof(options));
 

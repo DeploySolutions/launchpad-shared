@@ -8,7 +8,7 @@ namespace Deploy.LaunchPad.Core.Questions
 {
     public partial interface IChoiceAnswer<T>
     {
-        public List<ChoiceOption<T>> Options { get; }
+        public List<ChoiceOptions<T>> Options { get; }
         
     }
 }

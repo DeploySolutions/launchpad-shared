@@ -9,10 +9,10 @@ namespace Deploy.LaunchPad.Core.Questions
     [Serializable]
     public partial class LikertScaleNumericAnswer : AnswerBase, ILikertScaleAnswer
     {
-        public virtual LikertScaleOption Value { get; private set; }
-        public virtual List<LikertScaleOption> Scale { get; }
+        public virtual LikertScaleOptions Value { get; private set; }
+        public virtual List<LikertScaleOptions> Scale { get; }
 
-        public LikertScaleNumericAnswer(List<LikertScaleOption> scale, int value)
+        public LikertScaleNumericAnswer(List<LikertScaleOptions> scale, int value)
         {
             Scale = scale ?? throw new ArgumentNullException(nameof(scale));
 

@@ -9,16 +9,16 @@ namespace Deploy.LaunchPad.Core.Questions
     [Serializable]
     public partial class YesNoAnswer : AnswerBase
     {
-        public virtual YesNoAnswerOption Value { get; set; }
-        public YesNoAnswer(YesNoAnswerOption value) => Value = value;
+        public virtual YesNoAnswerOptions Value { get; set; }
+        public YesNoAnswer(YesNoAnswerOptions value) => Value = value;
 
         public override string ToString()
         {
             return Value switch
             {
-                YesNoAnswerOption.Yes => "Yes",
-                YesNoAnswerOption.No => "No",
-                YesNoAnswerOption.NotApplicable => "Not Applicable",
+                YesNoAnswerOptions.Yes => "Yes",
+                YesNoAnswerOptions.No => "No",
+                YesNoAnswerOptions.NotApplicable => "Not Applicable",
                 _ => throw new ArgumentOutOfRangeException()
             };
         }

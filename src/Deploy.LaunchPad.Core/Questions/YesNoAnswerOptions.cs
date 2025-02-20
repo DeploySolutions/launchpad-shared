@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Deploy.LaunchPad.Core.Questions
 {
-    public enum YesNoAnswerOption
+    public enum YesNoAnswerOptions
     {
         Yes = 0,
         No = 1,
