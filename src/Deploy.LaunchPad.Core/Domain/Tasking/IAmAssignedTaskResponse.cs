@@ -22,8 +22,7 @@ namespace Deploy.LaunchPad.Core.Domain.Tasking
     /// <summary>
     /// Once an assigned task is responded to by the assignee
     /// </summary>
-    /// <typeparam name="TTdType">The type of the t td type.</typeparam>
-    public partial interface IAmAssignedTaskResponse<TTdType> : IAmAssignedTaskRequest<TTdType>
+    public partial interface IAmAssignedTaskResponse : IAmAssignedTaskRequest
     {
         /// <summary>
         /// Gets or sets the progress.

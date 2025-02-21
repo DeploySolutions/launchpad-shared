@@ -22,8 +22,7 @@ namespace Deploy.LaunchPad.Core.Domain.Tasking
     /// <summary>
     /// Once a task is assigned to an assignee
     /// </summary>
-    /// <typeparam name="TTdType">The type of the t td type.</typeparam>
-    public partial interface IAmAssignedTaskRequest<TTdType> : IAmAssignableTask<TTdType>
+    public partial interface IAmAssignedTaskRequest : IAmAssignableTask
     {
         /// <summary>
         /// Gets or sets the assignee.

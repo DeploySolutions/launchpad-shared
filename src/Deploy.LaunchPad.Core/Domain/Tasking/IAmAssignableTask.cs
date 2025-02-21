@@ -22,11 +22,10 @@ namespace Deploy.LaunchPad.Core.Domain.Tasking
 {
     /// <summary>
     /// Interface IAmAssignableTask
-    /// Extends the <see cref="ILaunchPadDomainEntityProperties{TIdType}" />
+    /// Extends the <see cref="ILaunchPadCommonProperties" />
     /// </summary>
-    /// <typeparam name="TIdType">The type of the t identifier type.</typeparam>
-    /// <seealso cref="ILaunchPadDomainEntityProperties{TIdType}" />
-    public partial interface IAmAssignableTask<TIdType> : ILaunchPadDomainEntityProperties<TIdType>
+    /// <seealso cref="ILaunchPadCommonProperties" />
+    public partial interface IAmAssignableTask : ILaunchPadCommonProperties
     {
 
         /// <summary>
@@ -50,13 +49,13 @@ namespace Deploy.LaunchPad.Core.Domain.Tasking
         /// Gets or sets the dependent on.
         /// </summary>
         /// <value>The dependent on.</value>
-        public IDictionary<string, IAmAssignableTask<TIdType>> DependentOn { get; set; }
+        public IDictionary<string, IAmAssignableTask> DependentOn { get; set; }
 
         /// <summary>
         /// Gets or sets the sub tasks.
         /// </summary>
         /// <value>The sub tasks.</value>
-        public IDictionary<string, IAmAssignableTask<TIdType>> SubTasks { get; set; }
+        public IDictionary<string, IAmAssignableTask> SubTasks { get; set; }
 
         /// <summary>
         /// Gets or sets the priority.
