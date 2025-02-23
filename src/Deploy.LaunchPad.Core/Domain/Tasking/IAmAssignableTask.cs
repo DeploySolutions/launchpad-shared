@@ -43,7 +43,7 @@ namespace Deploy.LaunchPad.Core.Domain.Tasking
         /// Gets or sets the more information URI.
         /// </summary>
         /// <value>The more information URI.</value>
-        public Uri MoreInformationUri { get; set; }
+        public Uri? MoreInformationUri { get; set; }
 
         /// <summary>
         /// Gets or sets the dependent on.
