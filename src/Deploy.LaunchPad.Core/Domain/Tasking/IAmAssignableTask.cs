@@ -27,7 +27,7 @@ namespace Deploy.LaunchPad.Core.Domain.Tasking
     /// <seealso cref="ILaunchPadCommonProperties" />
     public partial interface IAmAssignableTask : ILaunchPadCommonProperties
     {
-        public ITaskInstructions Instructions { get; set; }
+        public TaskInstruction Instructions { get; set; }
 
         /// <summary>
         /// Gets or sets the dependent on.
