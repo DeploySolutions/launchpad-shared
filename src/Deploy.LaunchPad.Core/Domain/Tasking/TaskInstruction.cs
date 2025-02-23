@@ -70,6 +70,12 @@ namespace Deploy.LaunchPad.Core.Domain.Tasking
         [XmlAttribute]
         public virtual Uri? MoreInformationUri { get; set; }
 
+        public TaskInstruction()
+        {
+            Full = "Missing instructions.";
+            Short = "Missing instructions.";
+        }
+
         public TaskInstruction(string instructionsFull)
         {
             Full = instructionsFull;
