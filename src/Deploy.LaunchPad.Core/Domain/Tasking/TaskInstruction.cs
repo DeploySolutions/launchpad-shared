@@ -68,7 +68,7 @@ namespace Deploy.LaunchPad.Core.Domain.Tasking
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         [DataObjectField(false)]
         [XmlAttribute]
-        public virtual Uri MoreInformationUri { get; set; }
+        public virtual Uri? MoreInformationUri { get; set; }
 
         public TaskInstruction(string instructionsFull)
         {
