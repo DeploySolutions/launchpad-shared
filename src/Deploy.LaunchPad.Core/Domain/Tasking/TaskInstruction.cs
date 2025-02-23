@@ -106,5 +106,10 @@ namespace Deploy.LaunchPad.Core.Domain.Tasking
             MoreInformationUri = moreInformationUri;
         }
 
+        public override string ToString()
+        {
+            return Full;
+        }
+
     }
 }
