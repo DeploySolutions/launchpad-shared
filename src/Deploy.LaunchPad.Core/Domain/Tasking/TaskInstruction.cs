@@ -49,7 +49,7 @@ namespace Deploy.LaunchPad.Core.Domain.Tasking
         /// </summary>
         /// <value>The full name.</value>
         [Required]
-        [MaxLength(255, ErrorMessageResourceName = "Validation_ElementName_Full_255CharsOrLess", ErrorMessageResourceType = typeof(Deploy_LaunchPad_Core_Resources))]
+        [MaxLength(8096, ErrorMessageResourceName = "Validation_ElementDescription_Full_8096CharsOrLess", ErrorMessageResourceType = typeof(Deploy_LaunchPad_Core_Resources))]
         [DataObjectField(false)]
         [XmlAttribute]
         [JsonProperty("full")]
