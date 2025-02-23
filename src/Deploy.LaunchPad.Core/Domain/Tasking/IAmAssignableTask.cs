@@ -61,6 +61,6 @@ namespace Deploy.LaunchPad.Core.Domain.Tasking
         /// Gets or sets the priority.
         /// </summary>
         /// <value>The priority.</value>
-        public string Priority { get; set; }
+        public PriorityLevel Priority { get; set; }
     }
 }
