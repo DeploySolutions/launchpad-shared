@@ -27,23 +27,7 @@ namespace Deploy.LaunchPad.Core.Domain.Tasking
     /// <seealso cref="ILaunchPadCommonProperties" />
     public partial interface IAmAssignableTask : ILaunchPadCommonProperties
     {
-
-        /// <summary>
-        /// Gets or sets the instructions short.
-        /// </summary>
-        /// <value>The instructions short.</value>
-        public string InstructionsShort { get; set; }
-        /// <summary>
-        /// Gets or sets the instructions detailed.
-        /// </summary>
-        /// <value>The instructions detailed.</value>
-        public string InstructionsDetailed { get; set; }
-
-        /// <summary>
-        /// Gets or sets the more information URI.
-        /// </summary>
-        /// <value>The more information URI.</value>
-        public Uri? MoreInformationUri { get; set; }
+        public ITaskInstructions Instructions { get; set; }
 
         /// <summary>
         /// Gets or sets the dependent on.
