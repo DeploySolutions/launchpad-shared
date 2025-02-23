@@ -73,11 +73,19 @@ namespace Deploy.LaunchPad.Core.Domain.Tasking
         public TaskInstruction(string instructionsFull)
         {
             Full = instructionsFull;
+            if (!string.IsNullOrEmpty(instructionsFull))
+            {
+                Short = instructionsFull.Length > 24 ? instructionsFull.Substring(0, 24) : instructionsFull;
+            }
         }
 
         public TaskInstruction(string instructionsFull, Uri moreInformationUri)
         {
             Full = instructionsFull;
+            if (!string.IsNullOrEmpty(instructionsFull))
+            {
+                Short = instructionsFull.Length > 24 ? instructionsFull.Substring(0, 24) : instructionsFull;
+            }
             MoreInformationUri = moreInformationUri;
         }
 
@@ -85,7 +93,10 @@ namespace Deploy.LaunchPad.Core.Domain.Tasking
         public TaskInstruction(string instructionsFull, string instructionsShort, Uri moreInformationUri)
         {
             Full = instructionsFull;
-            Short = instructionsShort;
+            if (!string.IsNullOrEmpty(instructionsShort))
+            {
+                Short = instructionsShort.Length > 24 ? instructionsShort.Substring(0, 24) : instructionsShort;
+            }
             MoreInformationUri = moreInformationUri;
         }
 
