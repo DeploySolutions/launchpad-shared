@@ -17,7 +17,6 @@ namespace Deploy.LaunchPad.Core.Domain.Model
     [Serializable]
     public partial class Score
     {
-        [Required]
         [JsonProperty("total")]
         [DataObjectField(false)]
         [XmlAttribute]
