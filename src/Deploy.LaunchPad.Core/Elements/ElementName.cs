@@ -45,10 +45,10 @@ namespace Deploy.LaunchPad.Core
 
         protected string _short = string.Empty;
         /// <summary>
-        /// The short name of this element (if different from the FullName field). If not set, it will default to the first 20 characters of the full name.
+        /// The short name of this element (if different from the FullName field). If not set, it will default to the first 50 characters of the full name.
         /// </summary>
         /// <value>The fully qualified name of the element.</value>
-        [MaxLength(24, ErrorMessageResourceName = "Validation_ElementName_Short_24CharsOrLess", ErrorMessageResourceType = typeof(Deploy_LaunchPad_Core_Resources))]
+        [MaxLength(50, ErrorMessageResourceName = "Validation_Name_Short_50CharsOrLess", ErrorMessageResourceType = typeof(Deploy_LaunchPad_Core_Resources))]
         [DataObjectField(false)]
         [XmlAttribute]
         [JsonProperty("short", NullValueHandling = NullValueHandling.Ignore, DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
@@ -127,7 +127,7 @@ namespace Deploy.LaunchPad.Core
             Full = fullName;
             if (!string.IsNullOrEmpty(fullName))
             {
-                Short = fullName.Length > 24 ? fullName.Substring(0, 24) : fullName;
+                Short = fullName.Length > 50 ? fullName.Substring(0, 50) : fullName;
             }
         }
 
@@ -136,7 +136,7 @@ namespace Deploy.LaunchPad.Core
             Full = fullName;
             if (!string.IsNullOrEmpty(shortName))
             {
-                Short = shortName.Length > 24 ? shortName.Substring(0, 24) : shortName;
+                Short = shortName.Length > 50 ? shortName.Substring(0, 50) : shortName;
             }
         }
 
@@ -146,7 +146,7 @@ namespace Deploy.LaunchPad.Core
             Full = fullName;
             if (!string.IsNullOrEmpty(shortName))
             {
-                Short = shortName.Length > 24 ? shortName.Substring(0, 24) : shortName;
+                Short = shortName.Length > 50 ? shortName.Substring(0, 50) : shortName;
             }
             Prefix = prefix;
             Suffix = suffix;

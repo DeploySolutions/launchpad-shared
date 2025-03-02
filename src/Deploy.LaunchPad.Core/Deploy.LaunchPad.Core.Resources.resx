@@ -358,11 +358,11 @@
   <data name="Validation_ExternalId_36CharsOrLess" xml:space="preserve">
     <value>External ID field must be 36 characters or less.</value>
   </data>
-  <data name="Validation_Name_100CharsOrLess" xml:space="preserve">
-    <value>Name must be 100 characters or less.</value>
-  </data>
   <data name="Validation_Name_256CharsOrLess" xml:space="preserve">
     <value>Name must be 256 characters or less.</value>
+  </data>
+  <data name="Validation_Name_Short_50CharsOrLess" xml:space="preserve">
+    <value>Name must be 50 characters or less.</value>
   </data>
   <data name="Validation_Token_Name_20CharsOrLess" xml:space="preserve">
     <value>Token name must be 20 characters or less.</value>
