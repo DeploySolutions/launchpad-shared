@@ -22,6 +22,11 @@ namespace Deploy.LaunchPad.Core.Domain.Model
         [XmlAttribute]
         public virtual decimal Total { get; set; } = 0.0M;
 
+        [DataObjectField(false)]
+        [XmlAttribute]
+        [MaxLength(50, ErrorMessageResourceName = "Validation_Name_Short_50CharsOrLess", ErrorMessageResourceType = typeof(Deploy_LaunchPad_Core_Resources))]
+        public virtual string UnitOfMeasure { get; set; } = string.Empty;
+
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         [DataObjectField(false)]
         [XmlAttribute]
@@ -65,16 +70,18 @@ namespace Deploy.LaunchPad.Core.Domain.Model
         }
 
 
-        public Score(decimal total)
+        public Score(string unitOfMeasure, decimal total)
         {
+            UnitOfMeasure = unitOfMeasure;
             Total = total;
             Highest = total;
             Lowest = total;
             Average = total;
         }
 
-        public Score(decimal total, decimal? highest, decimal? lowest)
+        public Score(string unitOfMeasure, decimal total, decimal? highest, decimal? lowest)
         {
+            UnitOfMeasure = unitOfMeasure;
             Total = total;
 
             // Handle cases where highest or lowest are null
