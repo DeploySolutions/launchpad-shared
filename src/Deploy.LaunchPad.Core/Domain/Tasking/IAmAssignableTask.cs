@@ -33,13 +33,13 @@ namespace Deploy.LaunchPad.Core.Domain.Tasking
         /// Gets or sets the dependent on.
         /// </summary>
         /// <value>The dependent on.</value>
-        public IList<IAmAssignableTask> DependentOn { get; set; }
+        public IList<IAmAssignableTask>? DependentOn { get; set; }
 
         /// <summary>
         /// Gets or sets the sub tasks.
         /// </summary>
         /// <value>The sub tasks.</value>
-        public IList<IAmAssignableTask> SubTasks { get; set; }
+        public IList<IAmAssignableTask>? SubTasks { get; set; }
 
         /// <summary>
         /// Gets or sets the priority.
