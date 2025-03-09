@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Deploy.LaunchPad.Util
+namespace Deploy.LaunchPad.Util.ValueConverters
 {
     using Newtonsoft.Json;
     using System;

@@ -14,7 +14,7 @@
 using Newtonsoft.Json;
 using System;
 
-namespace Deploy.LaunchPad.Util
+namespace Deploy.LaunchPad.Util.ValueConverters
 {
     /// <summary>
     /// Class LocalizedJsonConverter.
@@ -41,7 +41,7 @@ namespace Deploy.LaunchPad.Util
         /// </summary>
         /// <param name="objectType">Type of the object.</param>
         /// <returns><c>true</c> if this instance can convert the specified object type; otherwise, <c>false</c>.</returns>
-        /// <exception cref="System.NotImplementedException"></exception>
+        /// <exception cref="NotImplementedException"></exception>
         public override bool CanConvert(Type objectType)
         {
             throw new NotImplementedException();

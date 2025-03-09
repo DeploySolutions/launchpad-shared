@@ -14,7 +14,7 @@
 using Newtonsoft.Json;
 using System;
 
-namespace Deploy.LaunchPad.Util
+namespace Deploy.LaunchPad.Util.ValueConverters
 {
     /// <summary>
     /// Class JavaScriptObjectJsonConverter.

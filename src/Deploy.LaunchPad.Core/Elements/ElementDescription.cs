@@ -4,8 +4,8 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Xml.Serialization;
 using System.Diagnostics;
 using System;
-using Deploy.LaunchPad.Util;
 using Newtonsoft.Json;
+using Deploy.LaunchPad.Util.ValueConverters;
 
 namespace Deploy.LaunchPad.Core
 {
