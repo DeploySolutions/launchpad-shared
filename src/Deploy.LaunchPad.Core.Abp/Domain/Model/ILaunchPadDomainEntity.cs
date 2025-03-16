@@ -47,6 +47,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
         ICreationAudited, IModificationAudited, IDeletionAudited, IPassivable,
         IComparable<LaunchPadDomainEntityBase<TIdType>>, IEquatable<LaunchPadDomainEntityBase<TIdType>>
     {
-        
+
+        public string ComputeChecksum(string input = "");
     }
 }

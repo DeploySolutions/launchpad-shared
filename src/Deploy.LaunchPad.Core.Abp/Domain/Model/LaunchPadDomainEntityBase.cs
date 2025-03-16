@@ -47,6 +47,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
     using System.Linq;
     using System.Reflection;
     using System.Runtime.Serialization;
+    using System.Security.Cryptography;
     using System.Text;
     using System.Xml.Serialization;
 
@@ -262,6 +263,29 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
                 CultureInfo
                 .GetCultures(CultureTypes.SpecificCultures)
                 .Any(c => c.Name == name);
+        }
+
+        /// <summary>
+        /// Computes the checksum based on the chosen properties
+        /// </summary>
+        /// <returns></returns>
+        public virtual string ComputeChecksum(string input = "")
+        {
+            Checksum checksum = new Checksum();
+            // Concatenate the values of the properties you want to include in the checksum
+            if(string.IsNullOrEmpty(input))
+            {
+                input = $"{Name}{Description}{Tags}{Culture}{CreatorUserId}{SeqNum}{IsActive}";
+            }
+            var bytes = checksum.GetSha256HashAsBytes(input);
+            
+            // Convert the byte array to a hexadecimal string
+            StringBuilder sb = new StringBuilder();
+            foreach (byte b in bytes)
+            {
+                sb.Append(b.ToString("x2"));
+            }
+            return sb.ToString();
         }
 
         /// <summary>
