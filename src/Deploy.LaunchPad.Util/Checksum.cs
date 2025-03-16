@@ -13,6 +13,7 @@
 // ***********************************************************************
 using System;
 using System.ComponentModel;
+using System.Runtime.Intrinsics.Arm;
 using System.Security.Cryptography;
 using System.Text;
 using System.Xml.Serialization;
@@ -164,7 +165,7 @@ namespace Deploy.LaunchPad.Util
         public virtual byte[] GetSha256HashAsBytes(byte[] input, string algName = "")
         {
             Guard.Against<ArgumentException>(input == null, "Input cannot be null.");
-            Guard.Against<ArgumentException>(input.Length != 32, "SHA256 byte input must be exactly 32 bytes.");
+           // Guard.Against<ArgumentException>(input.Length != 32, "SHA256 byte input must be exactly 32 bytes.");
 
             SHA256 hashAlgorithm = null;
             if (!string.IsNullOrEmpty(algName))
