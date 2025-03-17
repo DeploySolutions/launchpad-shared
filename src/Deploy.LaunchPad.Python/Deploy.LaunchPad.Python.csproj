@@ -1,8 +1,8 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>net9.0</TargetFrameworks>
-    <Version>10.15.0</Version>
+    <TargetFrameworks>net8.0</TargetFrameworks>
+    <Version>10.11.1</Version>
     <Authors>Nicholas Kellett</Authors>
     <Company>Deploy Software Solutions, inc.</Company>
     <Copyright>2022-2023 Deploy Software Solutions, inc.</Copyright>
