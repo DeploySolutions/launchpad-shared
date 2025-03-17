@@ -6,8 +6,9 @@ namespace Deploy.LaunchPad.Core.Content
 {
     public interface ILaunchPadContentPublishingCollectionItem : ILaunchPadObject, ILaunchPadCommonProperties
     {
-        Guid Id { get; set; }
-        LaunchPadContentItemType ContentType { get; set; }
+        public Guid Id { get; set; }
+        public LaunchPadContentItemType ContentType { get; set; }
+        public Uri? ResourceRelativeUri { get; set; }
     }
 
     public partial interface ILaunchPadContentPublishingItem<TSchema> :

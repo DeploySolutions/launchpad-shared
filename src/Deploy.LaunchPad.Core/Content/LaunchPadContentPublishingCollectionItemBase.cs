@@ -1,7 +1,9 @@
 ﻿using Deploy.LaunchPad.Core.Domain.Model;
 using DocumentFormat.OpenXml.Spreadsheet;
 using System;
+using System.ComponentModel;
 using System.Runtime.Serialization;
+using System.Xml.Serialization;
 
 namespace Deploy.LaunchPad.Core.Content
 {
@@ -14,7 +16,15 @@ namespace Deploy.LaunchPad.Core.Content
 
         public virtual LaunchPadContentItemType ContentType { get; set; }
 
-        public TSchema? SchemaDotOrg { get; protected set; }
+        public virtual TSchema? SchemaDotOrg { get; protected set; }
+
+
+        ///<summary>
+        /// Location of the resource (relative and lower than application root or a selected safe path, to avoid security holes
+        ///</summary>
+        [DataObjectField(false)]
+        [XmlAttribute]
+        public virtual Uri? ResourceRelativeUri { get; set; }
 
         protected LaunchPadContentPublishingCollectionItemBase(string name, LaunchPadContentItemType type)
         {
