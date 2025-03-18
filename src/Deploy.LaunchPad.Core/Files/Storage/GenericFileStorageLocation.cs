@@ -216,7 +216,6 @@ namespace Deploy.LaunchPad.Core.Files.Storage
         /// <param name="context">The context of the stream</param>
         protected GenericFileStorageLocation(SerializationInfo info, StreamingContext context) : base(info, context)
         {
-            base.SerializeCommonProperties(info, context);
             Id = info.GetString(Id);
             IsReadOnly = info.GetBoolean("IsReadOnly");
             RootUri = (Uri)info.GetValue("RootUri", typeof(Uri));
@@ -231,7 +230,7 @@ namespace Deploy.LaunchPad.Core.Files.Storage
         /// <param name="context">The context.</param>
         public virtual void GetObjectData(SerializationInfo info, StreamingContext context)
         {
-            base.DeserializeCommonProperties(info, context);
+            base.GetObjectData(info, context);
             info.AddValue("Id", Id);
             info.AddValue("IsReadOnly", IsReadOnly);
             info.AddValue("RootUri", RootUri);

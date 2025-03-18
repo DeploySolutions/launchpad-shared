@@ -103,7 +103,7 @@ namespace Deploy.LaunchPad.Core.Files
 
         public virtual void GetObjectData(SerializationInfo info, StreamingContext context)
         {
-            base.DeserializeCommonProperties(info, context);
+            base.GetObjectData(info, context);
             info.AddValue("Locations", Locations);
             info.AddValue("Size", Size);
             info.AddValue("MimeType", MimeType);
