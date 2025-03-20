@@ -20,6 +20,7 @@ using System.Reflection;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Xml.Serialization;
+using Deploy.LaunchPad.Core.Abp.Application.Dto.NameDescription;
 
 namespace Deploy.LaunchPad.Core.Abp.Application.Dto
 {
@@ -75,6 +76,8 @@ namespace Deploy.LaunchPad.Core.Abp.Application.Dto
         protected GetAdminOutputDtoBase() : base()
         {
             Culture = ApplicationDetails<TIdType>.DEFAULT_CULTURE;
+            Name = new ElementNameDto();
+            Description = new ElementDescriptionDto();
             IsActive = true;
             IsDeleted = false;
         }
@@ -87,6 +90,8 @@ namespace Deploy.LaunchPad.Core.Abp.Application.Dto
         {
             Id = id;
             Culture = ApplicationDetails<TIdType>.DEFAULT_CULTURE;
+            Name = new ElementNameDto();
+            Description = new ElementDescriptionDto();
             IsActive = true;
             IsDeleted = false;
         }
@@ -100,6 +105,8 @@ namespace Deploy.LaunchPad.Core.Abp.Application.Dto
         {
             Id = id;
             Culture = culture;
+            Name = new ElementNameDto();
+            Description = new ElementDescriptionDto();
             IsActive = true;
             IsDeleted = false;
         }
@@ -113,8 +120,8 @@ namespace Deploy.LaunchPad.Core.Abp.Application.Dto
         {
             Id = (TIdType)info.GetValue("Id", typeof(TIdType));
             Culture = info.GetString("Culture");
-            Name = (ElementName)info.GetValue("Name", typeof(ElementName));
-            Description = (ElementDescription)info.GetValue("Name", typeof(ElementDescription));
+            Name = (ElementNameDto)info.GetValue("Name", typeof(ElementNameDto));
+            Description = (ElementDescriptionDto)info.GetValue("Description", typeof(ElementDescriptionDto));
             CreationTime = info.GetDateTime("CreationTime");
             CreatorUserId = info.GetInt64("CreatorUserId");
             CreatorUserName = info.GetString("CreatorUserName");
@@ -229,7 +236,7 @@ namespace Deploy.LaunchPad.Core.Abp.Application.Dto
         {
             // put comparison of properties in here 
             // for base object we'll just sort by name and description short
-            return Name.CompareTo(other.Name);
+            return Name.Full.CompareTo(other.Name.Full);
         }
 
         /// <summary>
@@ -260,6 +267,8 @@ namespace Deploy.LaunchPad.Core.Abp.Application.Dto
             if (obj != null)
             {
                 return Id.Equals(obj.Id) && Culture.Equals(obj.Culture)
+                    && Name.Equals(obj.Name)
+                    && Description.Equals(obj.Description)
                     && TranslatedFromId.Equals(obj.TranslatedFromId)
                     && IsActive.Equals(obj.IsActive)
                     && IsDeleted.Equals(obj.IsDeleted)

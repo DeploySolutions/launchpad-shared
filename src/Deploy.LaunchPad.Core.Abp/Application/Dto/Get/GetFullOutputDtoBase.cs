@@ -21,17 +21,76 @@ using System.Reflection;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Xml.Serialization;
+using Deploy.LaunchPad.Core.Abp.Application.Dto.NameDescription;
 
 namespace Deploy.LaunchPad.Core.Abp.Application.Dto
 {
     /// <summary>
     /// Class GetFullOutputDtoBase.
-    /// Implements the <see cref="Deploy.LaunchPad.Core.Abp.Application.Dto.GetDetailOutputDtoBase{TIdType}" />
+    /// Implements the <see cref="Deploy.LaunchPad.Core.Abp.Application.Dto.GetOutputDtoBase{TIdType}" />
     /// </summary>
     /// <typeparam name="TIdType">The type of the t identifier type.</typeparam>
-    /// <seealso cref="Deploy.LaunchPad.Core.Abp.Application.Dto.GetDetailOutputDtoBase{TIdType}" />
-    public abstract partial class GetFullOutputDtoBase<TIdType> : GetDetailOutputDtoBase<TIdType>
+    /// <seealso cref="Deploy.LaunchPad.Core.Abp.Application.Dto.GetOutputDtoBase{TIdType}" />
+    public abstract partial class GetFullOutputDtoBase<TIdType> : GetOutputDtoBase<TIdType>
     {
+        protected ElementNameDto _name;
+        /// <summary>
+        /// A short description of this item.
+        /// </summary>
+        /// <value>The description short.</value>
+        [DataObjectField(false)]
+        [XmlAttribute]
+        public virtual ElementNameDto Name
+        {
+            get { return _name; }
+            set { _name = value; }
+        }
+
+        protected ElementDescriptionDto _description;
+        /// <summary>
+        /// A short description of this item.
+        /// </summary>
+        /// <value>The description short.</value>
+        [DataObjectField(false)]
+        [XmlAttribute]
+        public virtual ElementDescriptionDto Description
+        {
+            get { return _description; }
+            set { _description = value; }
+        }
+
+
+        /// <summary>
+        /// The date and time that this object was created.
+        /// </summary>
+        /// <value>The creation time.</value>
+        [DataObjectField(false)]
+        [XmlAttribute]
+        public virtual DateTime CreationTime { get; set; }
+
+        /// <summary>
+        /// The user name that created the entity
+        /// </summary>
+        /// <value>The name of the creator user.</value>
+        [DataObjectField(false)]
+        [XmlAttribute]
+        public virtual String CreatorUserName { get; set; }
+
+        /// <summary>
+        /// The date and time that the location and/or properties of this object were last modified.
+        /// </summary>
+        /// <value>The last modification time.</value>
+        [DataObjectField(false)]
+        [XmlAttribute]
+        public virtual DateTime? LastModificationTime { get; set; }
+
+        /// <summary>
+        /// The user name that last modified the entity
+        /// </summary>
+        /// <value>The last name of the modifier user.</value>
+        [DataObjectField(false)]
+        [XmlAttribute]
+        public virtual String LastModifierUserName { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether this instance is active.
@@ -68,7 +127,8 @@ namespace Deploy.LaunchPad.Core.Abp.Application.Dto
         {
             Culture = ApplicationDetails<TIdType>.DEFAULT_CULTURE;
             IsActive = true;
-            Description = new ElementDescription(string.Empty);
+            Name = new ElementNameDto();
+            Description = new ElementDescriptionDto();
         }
 
         /// <summary>
@@ -80,7 +140,8 @@ namespace Deploy.LaunchPad.Core.Abp.Application.Dto
             Id = id;
             Culture = ApplicationDetails<TIdType>.DEFAULT_CULTURE;
             IsActive = true;
-            Description = new ElementDescription(string.Empty);
+            Name = new ElementNameDto();
+            Description = new ElementDescriptionDto();
         }
 
         /// <summary>
@@ -93,7 +154,8 @@ namespace Deploy.LaunchPad.Core.Abp.Application.Dto
             Id = id;
             Culture = culture;
             IsActive = true;
-            Description = new ElementDescription(string.Empty);
+            Name = new ElementNameDto();
+            Description = new ElementDescriptionDto();
         }
 
         /// <summary>
@@ -105,8 +167,8 @@ namespace Deploy.LaunchPad.Core.Abp.Application.Dto
         {
             Id = (TIdType)info.GetValue("Id", typeof(TIdType));
             Culture = info.GetString("Culture");
-            Name = (ElementName)info.GetValue("Name", typeof(ElementName));
-            Description = (ElementDescription)info.GetValue("Description", typeof(ElementDescription));
+            Name = (ElementNameDto)info.GetValue("Name", typeof(ElementNameDto));
+            Description = (ElementDescriptionDto)info.GetValue("Description", typeof(ElementDescriptionDto));
             CreationTime = info.GetDateTime("CreationTime");
             CreatorUserId = info.GetInt64("CreatorUserId");
             CreatorUserName = info.GetString("CreatorUserName");
@@ -209,7 +271,7 @@ namespace Deploy.LaunchPad.Core.Abp.Application.Dto
         {
             // put comparison of properties in here 
             // for base object we'll just sort by name and description short
-            return Name.CompareTo(other.Name);
+            return Name.Full.CompareTo(other.Name.Full);
         }
 
         /// <summary>

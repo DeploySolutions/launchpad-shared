@@ -20,6 +20,7 @@ using System.Reflection;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Xml.Serialization;
+using Deploy.LaunchPad.Core.Abp.Application.Dto.NameDescription;
 
 namespace Deploy.LaunchPad.Core.Abp.Application.Dto
 {
@@ -31,18 +32,30 @@ namespace Deploy.LaunchPad.Core.Abp.Application.Dto
     /// <seealso cref="Deploy.LaunchPad.Core.Abp.Application.Dto.GetOutputDtoBase{TIdType}" />
     public abstract partial class GetDetailOutputDtoBase<TIdType> : GetOutputDtoBase<TIdType>
     {
+        protected IElementNameLightDto _name;
+        /// <summary>
+        /// A name of this item.
+        /// </summary>
+        /// <value>The name.</value>
+        [DataObjectField(false)]
+        [XmlAttribute]
+        public virtual IElementNameLightDto Name
+        {
+            get { return _name; }
+            set { _name = value; }
+        }
 
-        protected ElementDescription _description;
+        protected IElementDescriptionLightDto _description;
         /// <summary>
         /// A short description of this item.
         /// </summary>
         /// <value>The description short.</value>
         [DataObjectField(false)]
         [XmlAttribute]
-        public virtual ElementDescription Description
+        public virtual IElementDescriptionLightDto Description
         {
             get { return _description; }
-            protected set { _description = value; }
+            set { _description = value; }
         }
 
         /// <summary>
@@ -77,13 +90,6 @@ namespace Deploy.LaunchPad.Core.Abp.Application.Dto
         [XmlAttribute]
         public virtual String LastModifierUserName { get; set; }
 
-        /// <summary>
-        /// The sequence number for this entity, if any (for sorting and ordering purposes). Defaults to 0 if not set.
-        /// </summary>
-        /// <value>The seq number.</value>
-        [DataObjectField(false)]
-        [XmlAttribute]
-        public virtual Int32 SeqNum { get; set; } = 0;
 
         #region "Constructors"
 
@@ -93,7 +99,8 @@ namespace Deploy.LaunchPad.Core.Abp.Application.Dto
         protected GetDetailOutputDtoBase() : base()
         {
             Culture = ApplicationDetails<TIdType>.DEFAULT_CULTURE;
-            Description = new ElementDescription(string.Empty);
+            Name = new ElementNameLightDto();
+            Description = new ElementDescriptionLightDto();
         }
 
         /// <summary>
@@ -104,7 +111,8 @@ namespace Deploy.LaunchPad.Core.Abp.Application.Dto
         {
             Id = id;
             Culture = ApplicationDetails<TIdType>.DEFAULT_CULTURE;
-            Description = new ElementDescription(string.Empty);
+            Name = new ElementNameLightDto();
+            Description = new ElementDescriptionLightDto();
         }
 
         /// <summary>
@@ -116,7 +124,8 @@ namespace Deploy.LaunchPad.Core.Abp.Application.Dto
         {
             Id = id;
             Culture = culture;
-            Description = new ElementDescription(string.Empty);
+            Name = new ElementNameLightDto();
+            Description = new ElementDescriptionLightDto();
         }
 
         /// <summary>
@@ -128,8 +137,8 @@ namespace Deploy.LaunchPad.Core.Abp.Application.Dto
         {
             Id = (TIdType)info.GetValue("Id", typeof(TIdType));
             Culture = info.GetString("Culture");
-            Name = (ElementName)info.GetValue("Name", typeof(ElementName)); 
-            Description = (ElementDescription)info.GetValue("Description", typeof(ElementDescription));
+            Name = (ElementNameLightDto)info.GetValue("Name", typeof(ElementNameLightDto)); 
+            Description = (ElementDescriptionLightDto)info.GetValue("Description", typeof(ElementDescriptionLightDto));
             CreationTime = info.GetDateTime("CreationTime");
             CreatorUserName = info.GetString("CreatorUserName");
             LastModifierUserName = info.GetString("LastModifierUserName");
@@ -223,7 +232,7 @@ namespace Deploy.LaunchPad.Core.Abp.Application.Dto
         {
             // put comparison of properties in here 
             // for base object we'll just sort by name and description short
-            return Name.CompareTo(other.Name);
+            return Name.Full.CompareTo(other.Name.Full);
         }
 
         /// <summary>

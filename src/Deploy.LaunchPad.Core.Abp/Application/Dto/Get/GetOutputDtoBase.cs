@@ -44,14 +44,6 @@ namespace Deploy.LaunchPad.Core.Abp.Application.Dto
         [MaxLength(5, ErrorMessageResourceName = "Validation_Culture_5CharsOrLess", ErrorMessageResourceType = typeof(Deploy_LaunchPad_Core_Resources))]
         public virtual string Culture { get; set; }
 
-        /// <summary>
-        /// Gets or sets the name.
-        /// </summary>
-        /// <value>The name.</value>
-        [DataObjectField(false)]
-        [XmlAttribute]
-        public virtual ElementName Name { get; set; }
-
 
         /// <summary>
         /// The sequence number for this entity, if any (for sorting and ordering purposes). Defaults to 0 if not set.
@@ -79,7 +71,6 @@ namespace Deploy.LaunchPad.Core.Abp.Application.Dto
         protected GetOutputDtoBase() : base()
         {
             Culture = ApplicationDetails<TIdType>.DEFAULT_CULTURE;
-            Name = new ElementName(string.Empty);
             ExternalId = string.Empty;
         }
 
@@ -91,7 +82,6 @@ namespace Deploy.LaunchPad.Core.Abp.Application.Dto
         {
             Id = id;
             Culture = ApplicationDetails<TIdType>.DEFAULT_CULTURE;
-            Name = new ElementName(string.Empty);
             ExternalId = string.Empty;
         }
 
@@ -104,7 +94,6 @@ namespace Deploy.LaunchPad.Core.Abp.Application.Dto
         {
             Id = id;
             Culture = culture;
-            Name = new ElementName(string.Empty);
             ExternalId = string.Empty;
         }
 
@@ -115,7 +104,6 @@ namespace Deploy.LaunchPad.Core.Abp.Application.Dto
         /// <param name="context">The context of the stream</param>
         protected GetOutputDtoBase(SerializationInfo info, StreamingContext context) : base(info, context)
         {
-            Name = (ElementName)info.GetValue("Name", typeof(ElementName));
             Culture = info.GetString("Culture");
             SeqNum = info.GetInt32("SeqNum");
             ExternalId = info.GetString("ExternalId");
@@ -131,7 +119,6 @@ namespace Deploy.LaunchPad.Core.Abp.Application.Dto
         public override void GetObjectData(SerializationInfo info, StreamingContext context)
         {
             base.GetObjectData(info, context);
-            info.AddValue("Name", Name);
             info.AddValue("Culture", Culture);
             info.AddValue("ExternalId", ExternalId);
             info.AddValue("SeqNum", SeqNum);
@@ -161,7 +148,6 @@ namespace Deploy.LaunchPad.Core.Abp.Application.Dto
             // LaunchPAD RAD properties
             sb.AppendFormat("Id={0};", Id);
             sb.AppendFormat("Culture={0};", Culture);
-            sb.AppendFormat("Name={0};", Name);
             sb.AppendFormat("SeqNum={0};", SeqNum);
             sb.AppendFormat("ExternalId={0};", ExternalId);
 
@@ -200,8 +186,8 @@ namespace Deploy.LaunchPad.Core.Abp.Application.Dto
         public virtual int CompareTo(GetOutputDtoBase<TIdType> other)
         {
             // put comparison of properties in here 
-            // for base object we'll just sort by name and description short
-            return Name.CompareTo(other.Name);
+            // for base object we'll just compare to ID
+            return Id.ToString().CompareTo(other.Id.ToString());
         }
 
         /// <summary>
@@ -231,7 +217,7 @@ namespace Deploy.LaunchPad.Core.Abp.Application.Dto
         {
             if (obj != null)
             {
-                return Id.Equals(obj.Id) && Culture.Equals(obj.Culture) && Name.Equals(obj.Name)
+                return Id.Equals(obj.Id) && Culture.Equals(obj.Culture)
                     && ExternalId.Equals(obj.ExternalId) && SeqNum == obj.SeqNum;
             }
             return false;
@@ -274,7 +260,8 @@ namespace Deploy.LaunchPad.Core.Abp.Application.Dto
         /// <remarks>This method implements the <see cref="Object">Object</see> method.</remarks>
         public override int GetHashCode()
         {
-            return Id.GetHashCode() + Culture.GetHashCode() + Name.GetHashCode() + ExternalId.GetHashCode() + SeqNum.GetHashCode();
+            return Id.GetHashCode() + Culture.GetHashCode() 
+                + ExternalId.GetHashCode() + SeqNum.GetHashCode();
         }
 
     }

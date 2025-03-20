@@ -80,15 +80,6 @@ namespace Deploy.LaunchPad.Core.Abp.Application.Dto
         public virtual String LastModifierUserName { get; set; }
 
 
-        /// <summary>
-        /// The sequence number for this entity, if any (for sorting and ordering purposes). Defaults to 0 if not set.
-        /// </summary>
-        /// <value>The seq number.</value>
-        [DataObjectField(false)]
-        [XmlAttribute]
-        public virtual Int32 SeqNum { get; set; } = 0;
-
-
         #region "Constructors"
 
         /// <summary>

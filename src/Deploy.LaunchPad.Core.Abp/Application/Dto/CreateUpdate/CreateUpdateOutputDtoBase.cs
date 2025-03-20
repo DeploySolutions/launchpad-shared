@@ -11,6 +11,7 @@
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
+using Deploy.LaunchPad.Core.Abp.Application.Dto.NameDescription;
 using Deploy.LaunchPad.Core.Abp.Domain.SoftwareApplications;
 using Deploy.LaunchPad.Util;
 using System;
@@ -32,14 +33,27 @@ namespace Deploy.LaunchPad.Core.Abp.Application.Dto
     public abstract partial class CreateUpdateOutputDtoBase<TIdType> : GetOutputDtoBase<TIdType>
     {
 
-        protected ElementDescription _description;
+        protected ElementNameDto _name;
         /// <summary>
-        /// A short description of this item.
+        /// The name of this item.
         /// </summary>
-        /// <value>The description short.</value>
+        /// <value>The name.</value>
         [DataObjectField(false)]
         [XmlAttribute]
-        public virtual ElementDescription Description
+        public virtual ElementNameDto Name
+        {
+            get { return _name; }
+            protected set { _name = value; }
+        }
+
+        protected ElementDescriptionDto _description;
+        /// <summary>
+        /// A description of this item.
+        /// </summary>
+        /// <value>The description.</value>
+        [DataObjectField(false)]
+        [XmlAttribute]
+        public virtual ElementDescriptionDto Description
         {
             get { return _description; }
             protected set { _description = value; }
@@ -109,8 +123,8 @@ namespace Deploy.LaunchPad.Core.Abp.Application.Dto
             ExternalId = info.GetString("ExternalId");
             TranslatedFromId = (TIdType)info.GetValue("TranslatedFromId", typeof(TIdType));
             Culture = info.GetString("Culture");
-            Name = (ElementName)info.GetValue("Name", typeof(ElementName)); // DisplayName?
-            Description = (ElementDescription)info.GetValue("Description", typeof(ElementDescription));
+            Name = (ElementNameDto)info.GetValue("Name", typeof(ElementNameDto)); // DisplayName?
+            Description = (ElementDescriptionDto)info.GetValue("Description", typeof(ElementDescriptionDto));
         }
 
         #endregion
@@ -123,10 +137,10 @@ namespace Deploy.LaunchPad.Core.Abp.Application.Dto
         public override void GetObjectData(SerializationInfo info, StreamingContext context)
         {
             info.AddValue("Id", Id);
-            info.AddValue("TranslatedFromId", TranslatedFromId);
             info.AddValue("Name", Name);
-            info.AddValue("Culture", Culture);
             info.AddValue("Description", Description);
+            info.AddValue("TranslatedFromId", TranslatedFromId);
+            info.AddValue("Culture", Culture);
             info.AddValue("ExternalId", ExternalId);
             info.AddValue("SeqNum", SeqNum);
 
@@ -156,10 +170,10 @@ namespace Deploy.LaunchPad.Core.Abp.Application.Dto
             sb.Append(base.ToStringBaseProperties());
             // LaunchPAD RAD properties
             //
-            sb.AppendFormat("TranslatedFromId={0};", TranslatedFromId);
             sb.AppendFormat("Name={0};", Name);
             sb.AppendFormat("Description={0};", Description);
             sb.AppendFormat("SeqNum={0};", SeqNum);
+            sb.AppendFormat("TranslatedFromId={0};", TranslatedFromId);
             sb.AppendFormat("ExternalId={0};", ExternalId);
             // ABP properties
             //
@@ -197,7 +211,7 @@ namespace Deploy.LaunchPad.Core.Abp.Application.Dto
         {
             // put comparison of properties in here 
             // for base object we'll just sort by name and description short
-            return Name.CompareTo(other.Name);
+            return Name.Full.CompareTo(other.Name.Full);
         }
 
         /// <summary>

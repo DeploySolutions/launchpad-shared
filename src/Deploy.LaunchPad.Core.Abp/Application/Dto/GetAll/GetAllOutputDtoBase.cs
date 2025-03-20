@@ -19,6 +19,7 @@ using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
 using System.Xml.Serialization;
+using Deploy.LaunchPad.Core.Abp.Application.Dto.NameDescription;
 
 namespace Deploy.LaunchPad.Core.Abp.Application.Dto
 {
@@ -32,6 +33,13 @@ namespace Deploy.LaunchPad.Core.Abp.Application.Dto
     /// <seealso cref="IMayHaveTenant" />
     public abstract partial class GetAllOutputDtoBase<TIdType> : GetOutputDtoBase<TIdType>, IMayHaveTenant
     {
+        /// <summary>
+        /// The name of this item.
+        /// </summary>
+        /// <value>The name.</value>
+        [DataObjectField(false)]
+        [XmlAttribute]
+        public virtual ElementNameDto Name { get; set; }
 
         /// <summary>
         /// A short description of this item.
@@ -39,7 +47,7 @@ namespace Deploy.LaunchPad.Core.Abp.Application.Dto
         /// <value>The description short.</value>
         [DataObjectField(false)]
         [XmlAttribute]
-        public virtual ElementDescription Description { get; set; }
+        public virtual ElementDescriptionDto Description { get; set; }
 
         /// <summary>
         /// Gets or sets the name of the tenant.
@@ -64,6 +72,8 @@ namespace Deploy.LaunchPad.Core.Abp.Application.Dto
         /// </summary>
         protected GetAllOutputDtoBase() : base()
         {
+            Name = new ElementNameDto();
+            Description = new ElementDescriptionDto();
         }
 
         /// <summary>
@@ -73,7 +83,8 @@ namespace Deploy.LaunchPad.Core.Abp.Application.Dto
         /// <param name="context">The context of the stream</param>
         protected GetAllOutputDtoBase(SerializationInfo info, StreamingContext context) : base(info, context)
         {
-
+            Name = new ElementNameDto();
+            Description = new ElementDescriptionDto();
         }
 
         #endregion
