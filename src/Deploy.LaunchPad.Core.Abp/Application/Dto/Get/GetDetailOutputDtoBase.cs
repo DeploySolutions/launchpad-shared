@@ -32,27 +32,27 @@ namespace Deploy.LaunchPad.Core.Abp.Application.Dto
     /// <seealso cref="Deploy.LaunchPad.Core.Abp.Application.Dto.GetOutputDtoBase{TIdType}" />
     public abstract partial class GetDetailOutputDtoBase<TIdType> : GetOutputDtoBase<TIdType>
     {
-        protected IElementNameLightDto _name;
+        protected ElementNameLightDto _name;
         /// <summary>
         /// A name of this item.
         /// </summary>
         /// <value>The name.</value>
         [DataObjectField(false)]
         [XmlAttribute]
-        public virtual IElementNameLightDto Name
+        public virtual ElementNameLightDto Name
         {
             get { return _name; }
             set { _name = value; }
         }
 
-        protected IElementDescriptionLightDto _description;
+        protected ElementDescriptionLightDto _description;
         /// <summary>
         /// A short description of this item.
         /// </summary>
         /// <value>The description short.</value>
         [DataObjectField(false)]
         [XmlAttribute]
-        public virtual IElementDescriptionLightDto Description
+        public virtual ElementDescriptionLightDto Description
         {
             get { return _description; }
             set { _description = value; }
