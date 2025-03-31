@@ -90,13 +90,13 @@ namespace Deploy.LaunchPad.Core.Domain.Model
             Description = new ElementDescription(string.Empty);
         }
 
-        public Score(ElementNameLight name, ElementDescription description)
+        public Score(ElementNameLight name, ElementDescriptionLight description)
         {
             Name = name;
             Description = description;
         }
 
-        public Score(ElementNameLight name, ElementDescription description, string unitOfMeasure)
+        public Score(ElementNameLight name, ElementDescriptionLight description, string unitOfMeasure)
         {
             Name = name;
             Description = description;
@@ -105,7 +105,7 @@ namespace Deploy.LaunchPad.Core.Domain.Model
 
         public Score(string unitOfMeasure, decimal total)
         {
-            Description = new ElementDescription(string.Empty);
+            Description = new ElementDescriptionLight(string.Empty);
             UnitOfMeasure = unitOfMeasure;
             Total = total;
             Highest = total;
@@ -113,7 +113,7 @@ namespace Deploy.LaunchPad.Core.Domain.Model
             Average = total;
         }
 
-        public Score(ElementNameLight name, ElementDescription description, string unitOfMeasure, decimal total)
+        public Score(ElementNameLight name, ElementDescriptionLight description, string unitOfMeasure, decimal total)
         {
             Name = name;
             Description = description;
@@ -123,7 +123,7 @@ namespace Deploy.LaunchPad.Core.Domain.Model
             Lowest = total;
             Average = total;
         }
-        public Score(ElementNameLight name, ElementDescription description, string unitOfMeasure, 
+        public Score(ElementNameLight name, ElementDescriptionLight description, string unitOfMeasure, 
             decimal total, decimal? highest, decimal? lowest)
         {
             Name = name;
@@ -154,7 +154,7 @@ namespace Deploy.LaunchPad.Core.Domain.Model
 
         public Score(string unitOfMeasure, decimal total, decimal? highest, decimal? lowest)
         {
-            Description = new ElementDescription(string.Empty);
+            Description = new ElementDescriptionLight(string.Empty);
             UnitOfMeasure = unitOfMeasure;
             Total = total;
 
