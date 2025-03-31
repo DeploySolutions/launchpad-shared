@@ -17,6 +17,26 @@ namespace Deploy.LaunchPad.Core.Domain.Model
     [Serializable]
     public partial class Score
     {
+        /// <summary>
+        /// Provides a friendly label for a particular score, useful for display purposes
+        /// such as in pills or when displaying a score in a table as "Very Good" or "Very Poor" 
+        /// rather than a numeric data.
+        /// </summary>
+        [JsonProperty("name")]
+        [DataObjectField(false)]
+        [XmlAttribute]
+        public virtual ElementNameLight Name { get; set; } = new ElementNameLight();
+
+        /// <summary>
+        /// Provides a friendly description / explanation for a particular score, useful for display purposes
+        /// such as in pills or when displaying a score in a table as "Very Good" or "Very Poor" 
+        /// rather than a numeric data.
+        /// </summary>
+        [JsonProperty("description")]
+        [DataObjectField(false)]
+        [XmlAttribute]
+        public virtual ElementDescription Description { get; set; }
+
         [JsonProperty("total")]
         [DataObjectField(false)]
         [XmlAttribute]
@@ -67,11 +87,25 @@ namespace Deploy.LaunchPad.Core.Domain.Model
 
         public Score()
         {
+            Description = new ElementDescription(string.Empty);
         }
 
+        public Score(ElementNameLight name, ElementDescription description)
+        {
+            Name = name;
+            Description = description;
+        }
+
+        public Score(ElementNameLight name, ElementDescription description, string unitOfMeasure)
+        {
+            Name = name;
+            Description = description;
+            UnitOfMeasure = unitOfMeasure;
+        }
 
         public Score(string unitOfMeasure, decimal total)
         {
+            Description = new ElementDescription(string.Empty);
             UnitOfMeasure = unitOfMeasure;
             Total = total;
             Highest = total;
@@ -79,8 +113,48 @@ namespace Deploy.LaunchPad.Core.Domain.Model
             Average = total;
         }
 
+        public Score(ElementNameLight name, ElementDescription description, string unitOfMeasure, decimal total)
+        {
+            Name = name;
+            Description = description;
+            UnitOfMeasure = unitOfMeasure;
+            Total = total;
+            Highest = total;
+            Lowest = total;
+            Average = total;
+        }
+        public Score(ElementNameLight name, ElementDescription description, string unitOfMeasure, 
+            decimal total, decimal? highest, decimal? lowest)
+        {
+            Name = name;
+            Description = description;
+            UnitOfMeasure = unitOfMeasure;
+            Total = total;
+
+            // Handle cases where highest or lowest are null
+            if (highest == null)
+            {
+                Highest = total;
+            }
+            else
+            {
+                Highest = highest;
+            }
+            if (lowest == null)
+            {
+                Lowest = total;
+            }
+            else
+            {
+                Lowest = lowest;
+            }
+            // Compute the average without throwing errors
+            Average = Highest / Lowest;
+        }
+
         public Score(string unitOfMeasure, decimal total, decimal? highest, decimal? lowest)
         {
+            Description = new ElementDescription(string.Empty);
             UnitOfMeasure = unitOfMeasure;
             Total = total;
 
