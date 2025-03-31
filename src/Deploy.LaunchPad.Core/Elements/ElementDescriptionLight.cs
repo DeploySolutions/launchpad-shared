@@ -1,18 +1,18 @@
 ﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Diagnostics;
 using System.Xml.Serialization;
+using System.Diagnostics;
 using System;
 using Newtonsoft.Json;
 using Deploy.LaunchPad.Util.ValueConverters;
 
 namespace Deploy.LaunchPad.Core
 {
-    [Serializable]      
+    [Serializable]
     [ComplexType]
     [DebuggerDisplay("{_debugDisplay}")]
-    public partial class ElementNameLight : IElementNameLight
+    public partial class ElementDescriptionLight : IElementDescriptionLight
     {
         /// <summary>
         /// Controls the DebuggerDisplay attribute presentation (above). This will only appear during VS debugging sessions and should never be logged.
@@ -20,15 +20,14 @@ namespace Deploy.LaunchPad.Core
         /// <value>The debug display.</value>
         protected virtual string _debugDisplay => $"{Full}.";
 
-
         protected string _full = string.Empty;
         /// <summary>
-        /// The full name of this element
+        /// The full description for this object
         /// </summary>
-        /// <value>The full name.</value>
-        [MaxLength(255, ErrorMessageResourceName = "Validation_ElementName_Full_255CharsOrLess", ErrorMessageResourceType = typeof(Deploy_LaunchPad_Core_Resources))]
+        /// <value>The description full.</value>
+        [MaxLength(8096, ErrorMessageResourceName = "Validation_ElementDescription_Full_8096CharsOrLess", ErrorMessageResourceType = typeof(Deploy_LaunchPad_Core_Resources))]
         [DataObjectField(false)]
-        [XmlAttribute]
+        [XmlElement]
         [JsonProperty("full")]
         public virtual string Full
         {
@@ -44,10 +43,10 @@ namespace Deploy.LaunchPad.Core
 
         protected string _short = string.Empty;
         /// <summary>
-        /// The short name of this element (if different from the FullName field). If not set, it will default to the first 50 characters of the full name.
+        /// A short description for this object. If not set, it will default to the first 255 characters of the full description.
         /// </summary>
-        /// <value>The fully qualified name of the element.</value>
-        [MaxLength(50, ErrorMessageResourceName = "Validation_Name_Short_50CharsOrLess", ErrorMessageResourceType = typeof(Deploy_LaunchPad_Core_Resources))]
+        /// <value>The description short.</value>
+        [MaxLength(255, ErrorMessageResourceName = "Validation_ElementDescription_Short_255CharsOrLess", ErrorMessageResourceType = typeof(Deploy_LaunchPad_Core_Resources))]
         [DataObjectField(false)]
         [XmlAttribute]
         [JsonProperty("short", NullValueHandling = NullValueHandling.Ignore, DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
@@ -71,29 +70,27 @@ namespace Deploy.LaunchPad.Core
             }
         }
 
-
-        public ElementNameLight()
+        protected ElementDescriptionLight()
         {
         }
 
-        public ElementNameLight(string fullName)
+        public ElementDescriptionLight(string fullDescription)
         {
-            Full = fullName;
-            if (!string.IsNullOrEmpty(fullName))
+            Full = fullDescription;
+            if (!string.IsNullOrEmpty(fullDescription))
             {
-                Short = fullName.Length > 50 ? fullName.Substring(0, 50) : fullName;
+                Short = fullDescription.Length > 255 ? fullDescription.Substring(0, 255) : fullDescription;
             }
         }
 
-        public ElementNameLight(string fullName, string shortName)
+        public ElementDescriptionLight(string fullDescription, string shortDescription)
         {
-            Full = fullName;
-            if (!string.IsNullOrEmpty(shortName))
+            Full = fullDescription;
+            if (!string.IsNullOrEmpty(shortDescription))
             {
-                Short = shortName.Length > 50 ? shortName.Substring(0, 50) : shortName;
+                Short = shortDescription.Length > 255 ? shortDescription.Substring(0, 255) : shortDescription;
             }
         }
-
 
         /// <summary>
         /// Comparison method between two objects of the same type, used for sorting.
@@ -102,13 +99,9 @@ namespace Deploy.LaunchPad.Core
         /// </summary>
         /// <param name="other">The other object of this type we are comparing to</param>
         /// <returns>System.Int32.</returns>
-        public virtual int CompareTo(ElementNameLight other)
+        public virtual int CompareTo(ElementDescriptionLight other)
         {
-            // put comparison of properties in here 
-            // for base object we'll just sort by DisplayName
-            return Full.CompareTo(other.Full)
-                & Short.CompareTo(other.Short)
-            ;
+            return Full.CompareTo(other.Full) & Short.CompareTo(other.Short);
         }
 
         /// <summary>
@@ -117,7 +110,7 @@ namespace Deploy.LaunchPad.Core
         /// <returns>A string representation of the object.</returns>
         public override string ToString()
         {
-            return Short;
+            return Full;
         }
 
 
@@ -128,9 +121,9 @@ namespace Deploy.LaunchPad.Core
         /// <returns>True if the entities are the same according to business key value</returns>
         public override bool Equals(object obj)
         {
-            if (obj != null && obj is ElementNameLight)
+            if (obj != null && obj is ElementDescriptionLight)
             {
-                return Equals(obj as ElementNameLight);
+                return Equals(obj as ElementDescriptionLight);
             }
             return false;
         }
@@ -144,13 +137,11 @@ namespace Deploy.LaunchPad.Core
         /// </summary>
         /// <param name="obj">The other object of this type that we are testing equality with</param>
         /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
-        public virtual bool Equals(ElementNameLight obj)
+        public virtual bool Equals(ElementDescriptionLight obj)
         {
             if (obj != null)
             {
-                return Full.Equals(obj.Full)
-                    && Short.Equals(obj.Short)
-                ;
+                return Short.Equals(obj.Short) && Full.Equals(obj.Full);
             }
             return false;
         }
@@ -161,7 +152,7 @@ namespace Deploy.LaunchPad.Core
         /// <param name="x">The first value</param>
         /// <param name="y">The second value</param>
         /// <returns>True if both objects are fully equal based on the Equals logic</returns>
-        public static bool operator ==(ElementNameLight x, ElementNameLight y)
+        public static bool operator ==(ElementDescriptionLight x, ElementDescriptionLight y)
         {
             if (x is null)
             {
@@ -180,7 +171,7 @@ namespace Deploy.LaunchPad.Core
         /// <param name="x">The first value</param>
         /// <param name="y">The second value</param>
         /// <returns>True if both objects are not equal based on the Equals logic</returns>
-        public static bool operator !=(ElementNameLight x, ElementNameLight y)
+        public static bool operator !=(ElementDescriptionLight x, ElementDescriptionLight y)
         {
             return !(x == y);
         }
@@ -192,9 +183,9 @@ namespace Deploy.LaunchPad.Core
         /// <remarks>This method implements the <see cref="object">Object</see> method.</remarks>
         public override int GetHashCode()
         {
-            return Full.GetHashCode()
-                + Short.GetHashCode()
-            ;
+            return Short.GetHashCode()
+                + Full.GetHashCode();
         }
+
     }
 }

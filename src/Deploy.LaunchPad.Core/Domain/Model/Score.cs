@@ -35,7 +35,7 @@ namespace Deploy.LaunchPad.Core.Domain.Model
         [JsonProperty("description")]
         [DataObjectField(false)]
         [XmlAttribute]
-        public virtual ElementDescription Description { get; set; }
+        public virtual ElementDescriptionLight Description { get; set; }
 
         [JsonProperty("total")]
         [DataObjectField(false)]

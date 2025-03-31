@@ -12,14 +12,8 @@ namespace Deploy.LaunchPad.Core
     [Serializable]
     [ComplexType]
     [DebuggerDisplay("{_debugDisplay}")]
-    public partial class ElementDescription : IElementDescription
+    public partial class ElementDescription : ElementDescriptionLight, IElementDescription
     {
-        /// <summary>
-        /// Controls the DebuggerDisplay attribute presentation (above). This will only appear during VS debugging sessions and should never be logged.
-        /// </summary>
-        /// <value>The debug display.</value>
-        protected virtual string _debugDisplay => $"{Full}.";
-
         protected string _full = string.Empty;
         /// <summary>
         /// The full description for this object
@@ -30,7 +24,7 @@ namespace Deploy.LaunchPad.Core
         [DataObjectField(false)]
         [XmlElement]
         [JsonProperty("full")]
-        public virtual string Full
+        public override string Full
         {
             get
             {
@@ -39,35 +33,6 @@ namespace Deploy.LaunchPad.Core
             set
             {
                 _full = value;
-            }
-        }
-
-        protected string _short = string.Empty;
-        /// <summary>
-        /// A short description for this object. If not set, it will default to the first 255 characters of the full description.
-        /// </summary>
-        /// <value>The description short.</value>
-        [MaxLength(255, ErrorMessageResourceName = "Validation_ElementDescription_Short_255CharsOrLess", ErrorMessageResourceType = typeof(Deploy_LaunchPad_Core_Resources))]
-        [DataObjectField(false)]
-        [XmlAttribute]
-        [JsonProperty("short", NullValueHandling = NullValueHandling.Ignore, DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
-        [JsonConverter(typeof(JsonEmptyStringToNullConverter))]
-        public virtual string Short
-        {
-            get
-            {
-                if (string.IsNullOrEmpty(_short))
-                {
-                    return Full;
-                }
-                else
-                {
-                    return _short;
-                }
-            }
-            set
-            {
-                _short = value;
             }
         }
 
