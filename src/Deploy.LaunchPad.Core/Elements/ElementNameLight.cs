@@ -12,60 +12,72 @@ namespace Deploy.LaunchPad.Core
     [Serializable]      
     [ComplexType]
     [DebuggerDisplay("{_debugDisplay}")]
-    public partial class ElementName : ElementNameLight, IElementName
+    public partial class ElementNameLight : IElementNameLight
     {
-        
-        protected string? _prefix;
         /// <summary>
-        /// The prefix, if any
+        /// Controls the DebuggerDisplay attribute presentation (above). This will only appear during VS debugging sessions and should never be logged.
         /// </summary>
-        /// <value>The prefix of the element.</value>
-        [MaxLength(12, ErrorMessageResourceName = "Validation_12CharsOrLess", ErrorMessageResourceType = typeof(Deploy_LaunchPad_Core_Resources))]
+        /// <value>The debug display.</value>
+        protected virtual string _debugDisplay => $"{Full}.";
+
+
+        protected string _full = string.Empty;
+        /// <summary>
+        /// The full name of this element
+        /// </summary>
+        /// <value>The full name.</value>
+        [Required]
+        [MaxLength(255, ErrorMessageResourceName = "Validation_ElementName_Full_255CharsOrLess", ErrorMessageResourceType = typeof(Deploy_LaunchPad_Core_Resources))]
         [DataObjectField(false)]
         [XmlAttribute]
-        [JsonProperty("prefix", NullValueHandling = NullValueHandling.Ignore, DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
-        [JsonConverter(typeof(JsonEmptyStringToNullConverter))]
-        public virtual string? Prefix
+        [JsonProperty("full")]
+        public virtual string Full
         {
             get
             {
-                return _prefix;
+                return _full;
             }
             set
             {
-                _prefix = value;
+                _full = value;
             }
         }
 
-
-        protected string? _suffix;
+        protected string _short = string.Empty;
         /// <summary>
-        /// The suffix, if any
+        /// The short name of this element (if different from the FullName field). If not set, it will default to the first 50 characters of the full name.
         /// </summary>
-        /// <value>The suffix of the element.</value>
-        [MaxLength(12, ErrorMessageResourceName = "Validation_12CharsOrLess", ErrorMessageResourceType = typeof(Deploy_LaunchPad_Core_Resources))]
+        /// <value>The fully qualified name of the element.</value>
+        [MaxLength(50, ErrorMessageResourceName = "Validation_Name_Short_50CharsOrLess", ErrorMessageResourceType = typeof(Deploy_LaunchPad_Core_Resources))]
         [DataObjectField(false)]
         [XmlAttribute]
-        [JsonProperty("suffix", NullValueHandling = NullValueHandling.Ignore, DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
+        [JsonProperty("short", NullValueHandling = NullValueHandling.Ignore, DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
         [JsonConverter(typeof(JsonEmptyStringToNullConverter))]
-        public virtual string? Suffix
+        public virtual string Short
         {
             get
             {
-                return _suffix;
+                if (string.IsNullOrEmpty(_short))
+                {
+                    return Full;
+                }
+                else
+                {
+                    return _short;
+                }
             }
             set
             {
-                _suffix = value;
+                _short = value;
             }
         }
 
 
-        protected ElementName() : base()
+        public ElementNameLight()
         {
         }
 
-        public ElementName(string fullName) : base(fullName)
+        public ElementNameLight(string fullName)
         {
             Full = fullName;
             if (!string.IsNullOrEmpty(fullName))
@@ -74,7 +86,7 @@ namespace Deploy.LaunchPad.Core
             }
         }
 
-        public ElementName(string fullName, string shortName) : base(fullName, shortName)
+        public ElementNameLight(string fullName, string shortName)
         {
             Full = fullName;
             if (!string.IsNullOrEmpty(shortName))
@@ -83,17 +95,6 @@ namespace Deploy.LaunchPad.Core
             }
         }
 
-
-        public ElementName(string fullName, string shortName, string prefix, string suffix) : base(fullName, shortName)
-        {
-            Full = fullName;
-            if (!string.IsNullOrEmpty(shortName))
-            {
-                Short = shortName.Length > 50 ? shortName.Substring(0, 50) : shortName;
-            }
-            Prefix = prefix;
-            Suffix = suffix;
-        }
 
         /// <summary>
         /// Comparison method between two objects of the same type, used for sorting.
@@ -102,14 +103,12 @@ namespace Deploy.LaunchPad.Core
         /// </summary>
         /// <param name="other">The other object of this type we are comparing to</param>
         /// <returns>System.Int32.</returns>
-        public virtual int CompareTo(ElementName other)
+        public virtual int CompareTo(ElementNameLight other)
         {
             // put comparison of properties in here 
             // for base object we'll just sort by DisplayName
             return Full.CompareTo(other.Full)
                 & Short.CompareTo(other.Short)
-                & Prefix.CompareTo(other.Prefix)
-                & Suffix.CompareTo(other.Suffix)
             ;
         }
 
@@ -130,9 +129,9 @@ namespace Deploy.LaunchPad.Core
         /// <returns>True if the entities are the same according to business key value</returns>
         public override bool Equals(object obj)
         {
-            if (obj != null && obj is ElementName)
+            if (obj != null && obj is ElementNameLight)
             {
-                return Equals(obj as ElementName);
+                return Equals(obj as ElementNameLight);
             }
             return false;
         }
@@ -146,14 +145,12 @@ namespace Deploy.LaunchPad.Core
         /// </summary>
         /// <param name="obj">The other object of this type that we are testing equality with</param>
         /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
-        public virtual bool Equals(ElementName obj)
+        public virtual bool Equals(ElementNameLight obj)
         {
             if (obj != null)
             {
                 return Full.Equals(obj.Full)
                     && Short.Equals(obj.Short)
-                    && Prefix.Equals(obj.Prefix)
-                    && Suffix.Equals(obj.Suffix)
                 ;
             }
             return false;
@@ -165,7 +162,7 @@ namespace Deploy.LaunchPad.Core
         /// <param name="x">The first value</param>
         /// <param name="y">The second value</param>
         /// <returns>True if both objects are fully equal based on the Equals logic</returns>
-        public static bool operator ==(ElementName x, ElementName y)
+        public static bool operator ==(ElementNameLight x, ElementNameLight y)
         {
             if (x is null)
             {
@@ -184,7 +181,7 @@ namespace Deploy.LaunchPad.Core
         /// <param name="x">The first value</param>
         /// <param name="y">The second value</param>
         /// <returns>True if both objects are not equal based on the Equals logic</returns>
-        public static bool operator !=(ElementName x, ElementName y)
+        public static bool operator !=(ElementNameLight x, ElementNameLight y)
         {
             return !(x == y);
         }
@@ -198,8 +195,6 @@ namespace Deploy.LaunchPad.Core
         {
             return Full.GetHashCode()
                 + Short.GetHashCode()
-                + Prefix.GetHashCode()
-                + Suffix.GetHashCode()
             ;
         }
     }
