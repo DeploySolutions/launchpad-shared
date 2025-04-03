@@ -53,6 +53,17 @@ namespace Deploy.LaunchPad.Core.Abp.Application.Dto
         public string Sort { get; set; }
 
         /// <summary>
+        /// Gets or sets the properties to filter on (if any).
+        /// Note this only says which ones will be used, but requires the actual
+        /// filtering values to be set in other input properties
+        /// </summary>
+        /// <value>The sort.</value>
+        [DataObjectField(false)]
+        [XmlAttribute]
+        [NotMapped]
+        public string Filter { get; set; }
+
+        /// <summary>
         /// Gets or sets the sort direction.
         /// </summary>
         /// <value>The sort direction.</value>
