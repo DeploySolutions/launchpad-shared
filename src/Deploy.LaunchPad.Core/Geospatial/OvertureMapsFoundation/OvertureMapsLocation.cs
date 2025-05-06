@@ -5,10 +5,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Deploy.LaunchPad.Core.Geospatial.OvertureMapsFoundation
+namespace Deploy.LaunchPad.Core.Geospatial.Overture
 {
     [Serializable]
-    public partial class OvertureMapsLocation : IMayHaveOvertureMapsLocation
+    public partial class OvertureMapsLocation : IOvertureMapsLocation
     {
         public virtual Guid? GERSId { get; set; }
         public virtual string Features { get; set; }

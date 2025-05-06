@@ -6,29 +6,37 @@
 // Last Modified By : Nicholas Kellett
 // Last Modified On : 07-26-2023
 // ***********************************************************************
-// <copyright file="IMayHaveOvertureMapsLocation.cs" company="Deploy Software Solutions, inc.">
+// <copyright file="IMayHaveOvertureMapsDefinition.cs" company="Deploy Software Solutions, inc.">
 //     2018-2024 Deploy Software Solutions, inc.
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
-using Deploy.LaunchPad.Core.Domain.Model;
+using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Xml.Serialization;
 
 namespace Deploy.LaunchPad.Core.Geospatial.Overture
 {
     /// <summary>
-    /// Interface IMayHaveOvertureMapsLocation
+    /// Interface IOvertureMapsLocation
     /// </summary>
-    public partial interface IMayHaveOvertureMapsLocation : ILaunchPadObject
+    public partial interface IOvertureMapsLocation
     {
-        ///<summary>
-        /// Overture Map's location details includnig Global Entity Reference System (GERS) ID, if known.
-        /// <seealso cref="https://docs.overturemaps.org/gers/">Global Entity Reference System (GERS)</seealso>
-        ///</summary>
+        /// <summary>
+        /// Gets or sets the GERS ID.
+        /// </summary>
+        /// <value>The index of the h3.</value>
         [DataObjectField(false)]
         [XmlAttribute]
-        public OvertureMapsLocation? OvertureMapsLocation { get; set; }
+        public Guid? GERSId { get; set; }
 
+        /// <summary>
+        /// Describes any Overture Maps json features for the asset, if any. Facilitates data overlays.
+        /// </summary>
+        /// <value>The index of the h3.</value>
+        [DataObjectField(false)]
+        [XmlAttribute]
+        public string? Features { get; set; }
     }
 }

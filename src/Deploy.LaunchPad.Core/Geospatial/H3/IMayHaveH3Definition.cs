@@ -11,6 +11,7 @@
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
+using Deploy.LaunchPad.Core.Domain.Model;
 using H3;
 using System.Collections.Generic;
 
@@ -19,7 +20,7 @@ namespace Deploy.LaunchPad.Core.Geospatial.H3
     /// <summary>
     /// Interface IMayHaveH3Definition
     /// </summary>
-    public partial interface IMayHaveH3Definition
+    public partial interface IMayHaveH3Definition: ILaunchPadObject
     {
         /// <summary>
         /// Gets or sets the index of the h3.
