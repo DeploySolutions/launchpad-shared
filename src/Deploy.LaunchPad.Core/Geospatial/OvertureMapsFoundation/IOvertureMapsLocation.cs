@@ -37,6 +37,6 @@ namespace Deploy.LaunchPad.Core.Geospatial.Overture
         /// <value>The index of the h3.</value>
         [DataObjectField(false)]
         [XmlAttribute]
-        public string? Features { get; set; }
+        public string? FeaturesJson { get; set; }
     }
 }

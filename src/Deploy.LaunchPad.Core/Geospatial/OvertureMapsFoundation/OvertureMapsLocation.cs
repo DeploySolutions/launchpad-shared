@@ -11,24 +11,24 @@ namespace Deploy.LaunchPad.Core.Geospatial.Overture
     public partial class OvertureMapsLocation : IOvertureMapsLocation
     {
         public virtual Guid? GERSId { get; set; }
-        public virtual string Features { get; set; }
+        public virtual string? FeaturesJson { get; set; }
 
         public OvertureMapsLocation()
         {
             GERSId = Guid.NewGuid();
-            Features = string.Empty;
+            FeaturesJson = string.Empty;
         }
 
         public OvertureMapsLocation(Guid gersId)
         {
             GERSId = gersId;
-            Features = string.Empty;
+            FeaturesJson = string.Empty;
         }
 
         public OvertureMapsLocation(Guid gersId, string features)
         {
             GERSId = gersId;
-            Features = features;
+            FeaturesJson = features;
         }
     }
 }
