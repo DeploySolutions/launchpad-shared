@@ -18,8 +18,13 @@ namespace Deploy.LaunchPad.Core.STAC
     using System.Collections.Generic;
 
     using System.Globalization;
+    using System.Runtime.Serialization;
+    using Deploy.LaunchPad.Core.Geospatial;
     using Deploy.LaunchPad.Core.Geospatial.GeoJson;
     using Deploy.LaunchPad.Core.Geospatial.STAC;
+    using Deploy.LaunchPad.Core.Temporal;
+    using Deploy.LaunchPad.Util;
+    using DocumentFormat.OpenXml.Wordprocessing;
     using NetTopologySuite.Geometries;
     using Newtonsoft.Json;
     using Newtonsoft.Json.Converters;
@@ -99,7 +104,7 @@ namespace Deploy.LaunchPad.Core.STAC
     /// <summary>
     /// Class CommonMetadata.
     /// </summary>
-    public partial class CommonMetadata
+    public partial class CommonMetadata : IMayHaveDateRanges
     {
         /// <summary>
         /// Detailed multi-line description to fully explain the Item.
@@ -127,21 +132,21 @@ namespace Deploy.LaunchPad.Core.STAC
         /// </summary>
         /// <value>The datetime.</value>
         [JsonProperty("datetime")]
-        public virtual DateTimeOffset? Datetime { get; set; }
+        public virtual DateTimeOffset? EffectiveDateTimeInUtc { get; set; }
 
         /// <summary>
         /// The searchable end date/time of the assets, in UTC (Formatted in RFC 3339)
         /// </summary>
         /// <value>The end datetime.</value>
         [JsonProperty("end_datetime", NullValueHandling = NullValueHandling.Ignore)]
-        public virtual DateTimeOffset? EndDatetime { get; set; }
+        public virtual DateTimeOffset? EndDateTimeInUtc { get; set; }
 
         /// <summary>
         /// The searchable start date/time of the assets, in UTC (Formatted in RFC 3339)
         /// </summary>
         /// <value>The start datetime.</value>
         [JsonProperty("start_datetime", NullValueHandling = NullValueHandling.Ignore)]
-        public virtual DateTimeOffset? StartDatetime { get; set; }
+        public virtual DateTimeOffset? StartDateTimeInUtc { get; set; }
 
         /// <summary>
         /// Gets or sets the updated.
@@ -198,6 +203,63 @@ namespace Deploy.LaunchPad.Core.STAC
         /// <value>The providers.</value>
         [JsonProperty("providers", NullValueHandling = NullValueHandling.Ignore)]
         public virtual List<Provider> Providers { get; set; }
+
+        public CommonMetadata(string title, string description)
+        {
+            Title = title;
+            Description = description;
+            Created = DateTimeOffset.UtcNow;
+            Updated = DateTimeOffset.UtcNow;
+            Providers = new List<Provider>();
+            Instruments = new List<string>();
+        }
+
+        /// <summary>
+        /// Serialization constructor used for deserialization
+        /// </summary>
+        /// <param name="info">The serialization info</param>
+        /// <param name="context">The context of the stream</param>
+        protected CommonMetadata(SerializationInfo info, StreamingContext context)
+        {
+            Title = info.GetString("Title");
+            Description = info.GetString("Description");
+            Providers = (List<Provider>)info.GetValue("Providers", typeof(List<Provider>));
+            Created = (DateTimeOffset)info.GetValue("Created", typeof(DateTimeOffset));
+            Updated = (DateTimeOffset)info.GetValue("Updated", typeof(DateTimeOffset));
+            EffectiveDateTimeInUtc = (DateTimeOffset)info.GetValue("EffectiveDateTimeInUtc", typeof(DateTimeOffset));
+            StartDateTimeInUtc = (DateTimeOffset)info.GetValue("StartDateTimeInUtc", typeof(DateTimeOffset));
+            EndDateTimeInUtc = (DateTimeOffset)info.GetValue("EndDateTimeInUtc", typeof(DateTimeOffset));
+            Constellation = info.GetString("Constellation");
+            Gsd = info.GetDouble("Gsd");
+            Instruments = (List<string>)info.GetValue("Instruments", typeof(List<string>));
+            License = info.GetString("License");
+            Platform = info.GetString("Platform");
+            Mission = info.GetString("Mission");
+        }
+
+        /// <summary>
+        /// The method required for implementing ISerializable
+        /// </summary>
+        /// <param name="info">The information.</param>
+        /// <param name="context">The context.</param>
+        public virtual void GetObjectData(SerializationInfo info, StreamingContext context)
+        {
+            info.AddValue("Title", Title);
+            info.AddValue("Description", Description);
+            info.AddValue("Providers", Providers);
+            info.AddValue("Created", Created);
+            info.AddValue("Updated", Updated);
+            info.AddValue("EffectiveDateTimeInUtc", EffectiveDateTimeInUtc);
+            info.AddValue("StartDateTimeInUtc", StartDateTimeInUtc);
+            info.AddValue("EndDateTimeInUtc", EndDateTimeInUtc);
+            info.AddValue("Constellation", Constellation);
+            info.AddValue("Gsd", Gsd);
+            info.AddValue("Instruments", Instruments);
+            info.AddValue("License", License);
+            info.AddValue("Platform", Platform);
+            info.AddValue("Mission", Mission);
+        }
+
     }
 
     /// <summary>
