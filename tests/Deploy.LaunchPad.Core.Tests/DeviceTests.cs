@@ -36,6 +36,7 @@ namespace Deploy.LaunchPad.Core.Tests
     using Deploy.LaunchPad.Core.Domain.Devices;
     using Deploy.LaunchPad.Core.Geospatial;
     using NetTopologySuite.Geometries;
+    using Deploy.LaunchPad.Core.Geospatial.Position;
 
     /// <summary>
     /// Class DeviceTests.

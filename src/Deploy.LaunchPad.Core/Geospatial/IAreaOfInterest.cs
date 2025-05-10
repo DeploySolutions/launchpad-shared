@@ -29,9 +29,7 @@
 
 namespace Deploy.LaunchPad.Core.Geospatial
 {
-    using Deploy.LaunchPad.Core.Geospatial.GeoJson;
-    using Deploy.LaunchPad.Core.Geospatial.H3;
-    using Deploy.LaunchPad.Core.Geospatial.Overture;
+    using Deploy.LaunchPad.Core.Geospatial.Position;
     using NetTopologySuite.Geometries;
     using System.Collections.Generic;
     using System.ComponentModel;

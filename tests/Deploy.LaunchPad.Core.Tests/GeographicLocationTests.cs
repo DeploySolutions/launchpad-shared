@@ -33,8 +33,8 @@ namespace Deploy.LaunchPad.Core.Tests
     using System;
     using Xunit.Sdk;
     using Deploy.LaunchPad.Core;
-    using Deploy.LaunchPad.Core.Geospatial;
     using NetTopologySuite.Geometries;
+    using Deploy.LaunchPad.Core.Geospatial.Position;
 
     /// <summary>
     /// Class GeographicLocationTests.

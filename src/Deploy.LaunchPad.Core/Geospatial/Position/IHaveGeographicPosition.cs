@@ -26,16 +26,40 @@
 //limitations under the License. 
 #endregion
 
+
+// ***********************************************************************
+// Assembly         : Deploy.LaunchPad.Core
+// Author           : Nicholas Kellett
+// Created          : 11-19-2023
+//
+// Last Modified By : Nicholas Kellett
+// Last Modified On : 07-26-2023
+// ***********************************************************************
+// <copyright file="IHaveGeographicPosition.cs" company="Deploy Software Solutions, inc.">
+//     2018-2024 Deploy Software Solutions, inc.
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
+
+#region license
+//Licensed under the Apache License, Version 2.0 (the "License"); 
+//you may not use this file except in compliance with the License. 
+//You may obtain a copy of the License at 
+
+//http://www.apache.org/licenses/LICENSE-2.0 
+
+//Unless required by applicable law or agreed to in writing, software 
+//distributed under the License is distributed on an "AS IS" BASIS, 
+//WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. 
+//See the License for the specific language governing permissions and 
+//limitations under the License. 
+#endregion
+
 using Deploy.LaunchPad.Core.Domain;
 
-namespace Deploy.LaunchPad.Core.Geospatial
+namespace Deploy.LaunchPad.Core.Geospatial.Position
 {
     using Deploy.LaunchPad.Core.Geospatial.GeoJson;
-    using Deploy.LaunchPad.Core.Geospatial.H3;
-    using Deploy.LaunchPad.Core.Geospatial.Overture;
-    using DocumentFormat.OpenXml.Spreadsheet;
-    using NetTopologySuite.Algorithm;
-    using NetTopologySuite.Geometries;
     using System.ComponentModel;
     using System.Runtime.Serialization;
     using System.Xml.Serialization;
@@ -57,14 +81,14 @@ namespace Deploy.LaunchPad.Core.Geospatial
         ///</summary>
         [DataObjectField(false)]
         [XmlAttribute]
-        public System.Double Latitude { get; }
+        public double Latitude { get; }
 
         ///<summary>
         /// Describes GPS Longitude for the asset (ex 45.4201, -75.68775264 )
         ///</summary>
         [DataObjectField(false)]
         [XmlAttribute]
-        public System.Double Longitude { get; }
+        public double Longitude { get; }
 
         public double CenterLatitude { get; }
         public double CenterLongitude { get; }
@@ -82,10 +106,6 @@ namespace Deploy.LaunchPad.Core.Geospatial
         /// For a Polygon, .Centroid returns the geometric center (center of mass).
         /// It may lie outside the polygon for non-convex shapes.
         /// </summary>
-        public (double Latitude, double Longitude) CentroidPoint { get; }
-
-        public void SetGeographicPosition(string geoJson, double? elevation, Coordinate? userDefinedCenter = null, double[]? userDefinedBoundingBox = null);
-
-        public void SetGeographicPosition(Geometry geometry, double? elevation, Coordinate? userDefinedCenter = null, double[]? userDefinedBoundingBox = null);
+        public (double Latitude, double Longitude) CentroidPoint { get; }        
     }
 }

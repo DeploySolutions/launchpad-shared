@@ -11,18 +11,16 @@
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
-using Deploy.LaunchPad.Core.Geospatial.GeoJson;
-using Deploy.LaunchPad.Core.Geospatial.H3;
-using NetTopologySuite.Geometries;
+using Deploy.LaunchPad.Core.Geospatial.Position;
 
 namespace Deploy.LaunchPad.Core.Geospatial
 {
     /// <summary>
     /// Interface IObservationPoint
-    /// Extends the <see cref="Deploy.LaunchPad.Core.Geospatial.IHaveGeographicPosition" />
+    /// Extends the <see cref="GeographicPosition.IHaveGeographicPosition" />
     /// </summary>
     /// <typeparam name="TParentAreaOfInterest">The type of the t parent area of interest.</typeparam>
-    /// <seealso cref="Deploy.LaunchPad.Core.Geospatial.IHaveGeographicPosition" />
+    /// <seealso cref="GeographicPosition.IHaveGeographicPosition" />
     public partial interface IObservationPoint<TParentAreaOfInterest> : IHaveGeographicPosition
         where TParentAreaOfInterest : IAreaOfInterest
     {

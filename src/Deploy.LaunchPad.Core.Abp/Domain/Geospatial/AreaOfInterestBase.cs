@@ -164,46 +164,6 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
         }
 
 
-        /// <summary>
-        /// Sets the geographic position of the item, as well as any user provided center and bounding box.
-        /// </summary>
-        /// <param name="geometry"></param>
-        /// <param name="elevation"></param>
-        /// <param name="userDefinedCenter"></param>
-        /// <param name="userDefinedBoundingBox"></param>
-        public virtual void SetGeographicPosition(string geoJson, double? elevation, Coordinate? userDefinedCenter = null, double[]? userDefinedBoundingBox = null)
-        {
-            Guard.Against<ArgumentException>(string.IsNullOrEmpty(geoJson), "geoJson must not be null or empty.");
-            Guard.Against<ArgumentException>(userDefinedBoundingBox != null && userDefinedBoundingBox.Length != 4, "If provided, bounding box must be [west, south, east, north].");
-            Guard.Against<ArgumentException>(double.IsNaN(elevation.Value), Deploy_LaunchPad_Core_Resources.Guard_GeographicLocation_Set_Elevation);
-
-            Geometry geom = _helper.SetGeometryFromGeoJson(geoJson);
-            Guard.Against<ArgumentException>(geom == null || geom.IsEmpty || !geom.IsValid, "Geometry conversion was null, empty, or invalid.");
-
-            _geometry = geom;
-            _elevation = elevation;
-            _userDefinedBoundingBox = userDefinedBoundingBox;
-            _userDefinedCenter = userDefinedCenter;
-        }
-
-        /// <summary>
-        /// Sets the geographic position of the item, as well as any user provided center and bounding box.
-        /// </summary>
-        /// <param name="geometry"></param>
-        /// <param name="elevation"></param>
-        /// <param name="userDefinedCenter"></param>
-        /// <param name="userDefinedBoundingBox"></param>
-        public virtual void SetGeographicPosition(Geometry geometry, double? elevation, Coordinate? userDefinedCenter = null, double[]? userDefinedBoundingBox = null)
-        {
-            Guard.Against<ArgumentNullException>(geometry == null || geometry.IsEmpty || !geometry.IsValid, "Geometry must be specified and valid.");
-            Guard.Against<ArgumentException>(userDefinedBoundingBox != null && userDefinedBoundingBox.Length != 4, "If provided, bounding box must be [west, south, east, north].");
-            Guard.Against<ArgumentException>(double.IsNaN(elevation.Value), Deploy_LaunchPad_Core_Resources.Guard_GeographicLocation_Set_Elevation);
-            _geometry = geometry;
-            _elevation = elevation;
-            _userDefinedBoundingBox = userDefinedBoundingBox;
-            _userDefinedCenter = userDefinedCenter;
-        }
-
         #endregion
 
         /// <summary>
@@ -237,7 +197,13 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
         protected AreaOfInterestBase(int? tenantId, string geoJson) : base()
         {
             TenantId = tenantId;
-            GeoJson = geoJson;
+            GeospatialHelper helper = new GeospatialHelper();
+            var position = helper.GetGeographicPositionDto(geoJson);
+            GeoJson = position.GeoJson;
+            _geometry = position.Geometry;
+            _elevation = position.Elevation;
+            _userDefinedBoundingBox = position.UserDefinedBoundingBox;
+            _userDefinedCenter = position.UserDefinedCenter;
 
         }
 
