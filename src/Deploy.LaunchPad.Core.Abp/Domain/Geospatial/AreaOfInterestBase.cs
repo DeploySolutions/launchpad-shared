@@ -30,15 +30,9 @@ using Abp.Domain.Entities;
 using Deploy.LaunchPad.Core.Abp.Domain.Model;
 using Deploy.LaunchPad.Core.Geospatial;
 using Deploy.LaunchPad.Util;
-using H3;
 using NetTopologySuite.Geometries;
-using NetTopologySuite.IO;
-using Newtonsoft.Json;
 using System;
 using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.IO;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Xml.Serialization;
@@ -54,32 +48,31 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
     public abstract partial class AreaOfInterestBase<TIdType> :
         LaunchPadDomainEntityBase<TIdType>, IAreaOfInterest, IMayHaveTenant
     {
-        /// <summary>
-        /// TenantId of this entity.
-        /// </summary>
-        /// <value>The tenant identifier.</value>
-        public virtual int? TenantId { get; set; }
+
+        #region "Geographic Properties"
+
+        protected readonly GeospatialHelper _helper = new GeospatialHelper();
 
         /// <summary>
         /// The geometry
-        /// </summary>
-        [NotMapped]
-        protected Polygon _geometry;
+        /// </summary>        
+        protected Geometry _geometry;
 
         /// <summary>
-        /// Sets the geometry.
+        /// The user defined center coordinate. If it's null, will be determined from the geometry.
         /// </summary>
-        /// <returns>Polygon.</returns>
-        public virtual Polygon SetGeometry()
-        {
-            var serializer = GeoJsonSerializer.Create();
-            using (var stringReader = new StringReader(GeoJson))
-            using (var jsonReader = new JsonTextReader(stringReader))
-            {
-                _geometry = serializer.Deserialize<Polygon>(jsonReader);
-            }
-            return _geometry;
-        }
+        protected Coordinate? _userDefinedCenter;
+
+        /// <summary>
+        /// The user defined bounding box. If it's null, will be determined from the geometry.
+        /// </summary>
+        protected double[]? _userDefinedBoundingBox;
+
+
+        public virtual bool IsPoint => _geometry is Point;
+
+        public virtual bool IsArea => _geometry is Polygon or MultiPolygon;
+
 
 
         /// <summary>
@@ -88,85 +81,17 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
         /// <value>The geo json.</value>
         [DataObjectField(false)]
         [XmlAttribute]
-        [MaxLength]
-        public virtual string? GeoJson { get; set; }
-
-        /// <summary>
-        /// The earth coordinate
-        /// </summary>
-        protected Coordinate _earthCoordinate;
-        /// <summary>
-        /// Gets or sets the coordinate.
-        /// </summary>
-        /// <value>The coordinate.</value>
-        [DataObjectField(false)]
-        [XmlAttribute]
-        public virtual Coordinate Coordinate
+        public virtual string GeoJson
         {
-            get
-            {
-                return _earthCoordinate;
-            }
-            set
-            {
-                Guard.Against<ArgumentException>(double.IsNaN(value.X), Deploy_LaunchPad_Core_Resources.Guard_GeographicLocation_Set_Longitude_NaN);
-                Guard.Against<ArgumentOutOfRangeException>(value.X > 180, Deploy_LaunchPad_Core_Resources.Guard_GeographicLocation_Set_Longitude_Not_GreaterThan_180);
-                Guard.Against<ArgumentOutOfRangeException>(value.X < -180, Deploy_LaunchPad_Core_Resources.Guard_GeographicLocation_Set_Longitude_Not_LessThan_Minus180);
-                Guard.Against<ArgumentException>(double.IsNaN(value.Y), Deploy_LaunchPad_Core_Resources.Guard_GeographicLocation_Set_Latitude_NaN);
-                Guard.Against<ArgumentOutOfRangeException>(value.Y > 90, Deploy_LaunchPad_Core_Resources.Guard_GeographicLocation_Set_Latitude_Not_GreaterThan_90);
-                Guard.Against<ArgumentOutOfRangeException>(value.Y < -90, Deploy_LaunchPad_Core_Resources.Guard_GeographicLocation_Set_Latitude_Not_LessThan_Minus_90);
-                Guard.Against<ArgumentOutOfRangeException>(value.Y < -90, Deploy_LaunchPad_Core_Resources.Guard_GeographicLocation_Set_Latitude_Not_LessThan_Minus_90);
-                Guard.Against<ArgumentOutOfRangeException>(value.Y < -90, Deploy_LaunchPad_Core_Resources.Guard_GeographicLocation_Set_Latitude_Not_LessThan_Minus_90);
-                _earthCoordinate = value;
-            }
+            get; protected set;
         }
 
-        /// <summary>
-        /// The h3 index
-        /// </summary>
-        protected H3Index? _h3Index;
-        /// <summary>
-        /// Gets or sets the index of the h3.
-        /// </summary>
-        /// <value>The index of the h3.</value>
-        [DataObjectField(false)]
-        [XmlAttribute]
-        public virtual H3Index? H3Index
-        {
-            get
-            {
-                return _h3Index;
-            }
-            set
-            {
-                _h3Index = value;
-            }
-        }
-
-        /// <summary>
-        /// The altitude
-        /// </summary>
-        protected double? _altitude;
-        /// <summary>
-        /// Gets or sets the altitude.
-        /// </summary>
-        /// <value>The altitude.</value>
-        [DataObjectField(false)]
-        [XmlAttribute]
-        public virtual double? Altitude
-        {
-            get { return _altitude; }
-            set
-            {
-                Guard.Against<ArgumentException>(double.IsNaN(value.Value), Deploy_LaunchPad_Core_Resources.Guard_GeographicLocation_Set_Altitude);
-                _altitude = value;
-            }
-        }
 
         /// <summary>
         /// The elevation
         /// </summary>
         protected double? _elevation;
+
         /// <summary>
         /// Gets or sets the elevation.
         /// </summary>
@@ -182,6 +107,110 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
                 _elevation = value;
             }
         }
+
+        ///<summary>
+        /// Describes central latitude (Y) based on the representative coordinate of the item
+        ///</summary>
+        [DataObjectField(false)]
+        [XmlAttribute]
+        public virtual System.Double Latitude => _helper.GetRepresentativeCoordinate(_geometry, _userDefinedCenter).Y;
+
+        ///<summary>
+        /// Describes central longitude (X) based on the representative coordinate of the item
+        ///</summary>
+        [DataObjectField(false)]
+        [XmlAttribute]
+        public virtual System.Double Longitude => _helper.GetRepresentativeCoordinate(_geometry, _userDefinedCenter).X;
+
+        public virtual double CenterLatitude => _helper.GetCentroid(_geometry).Y;
+        public virtual double CenterLongitude => _helper.GetCentroid(_geometry).X;
+
+
+        /// <summary>
+        /// Gets the representative point of the geographic position as a tuple of latitude and longitude.
+        /// In NetTopologySuite, geometry.PointOnSurface returns a point guaranteed to lie within the geometry (unlike Centroid, which may fall outside a polygon).
+        /// Useful when: You want a "safe for labeling" or "safe for hit-testing" point. You need a representative location inside the area(e.g., for maps, UI, or region tagging).        
+        /// Caller's choice: representative vs centroid
+        /// </summary>
+        public (double Latitude, double Longitude) RepresentativePoint => (Latitude, Longitude);
+
+        /// <summary>
+        /// Gets the centroid of the geographic position as a tuple of latitude and longitude.
+        /// For a Point, .Centroid just returns the same point.
+        /// For a Polygon, .Centroid returns the geometric center (center of mass).
+        /// It may lie outside the polygon for non-convex shapes.
+        /// Caller's choice: representative vs centroid
+        /// </summary>
+        public (double Latitude, double Longitude) CentroidPoint => (CenterLatitude, CenterLongitude);
+
+        /// <summary>
+        /// Return the user defined bounding box, if any. Otherwise, return the bounding box of the geometry
+        /// </summary>
+        public virtual double[]? BoundingBox
+        {
+            get
+            {
+                if (_userDefinedBoundingBox != null)
+                    return _userDefinedBoundingBox;
+
+                if (_geometry == null) return null;
+
+                var envelope = _geometry.EnvelopeInternal;
+                return
+                [
+                    envelope.MinX, envelope.MinY, envelope.MaxX, envelope.MaxY
+                ];
+            }
+        }
+
+
+        /// <summary>
+        /// Sets the geographic position of the item, as well as any user provided center and bounding box.
+        /// </summary>
+        /// <param name="geometry"></param>
+        /// <param name="elevation"></param>
+        /// <param name="userDefinedCenter"></param>
+        /// <param name="userDefinedBoundingBox"></param>
+        public virtual void SetGeographicPosition(string geoJson, double? elevation, Coordinate? userDefinedCenter = null, double[]? userDefinedBoundingBox = null)
+        {
+            Guard.Against<ArgumentException>(string.IsNullOrEmpty(geoJson), "geoJson must not be null or empty.");
+            Guard.Against<ArgumentException>(userDefinedBoundingBox != null && userDefinedBoundingBox.Length != 4, "If provided, bounding box must be [west, south, east, north].");
+            Guard.Against<ArgumentException>(double.IsNaN(elevation.Value), Deploy_LaunchPad_Core_Resources.Guard_GeographicLocation_Set_Elevation);
+
+            Geometry geom = _helper.SetGeometryFromGeoJson(geoJson);
+            Guard.Against<ArgumentException>(geom == null || geom.IsEmpty || !geom.IsValid, "Geometry conversion was null, empty, or invalid.");
+
+            _geometry = geom;
+            _elevation = elevation;
+            _userDefinedBoundingBox = userDefinedBoundingBox;
+            _userDefinedCenter = userDefinedCenter;
+        }
+
+        /// <summary>
+        /// Sets the geographic position of the item, as well as any user provided center and bounding box.
+        /// </summary>
+        /// <param name="geometry"></param>
+        /// <param name="elevation"></param>
+        /// <param name="userDefinedCenter"></param>
+        /// <param name="userDefinedBoundingBox"></param>
+        public virtual void SetGeographicPosition(Geometry geometry, double? elevation, Coordinate? userDefinedCenter = null, double[]? userDefinedBoundingBox = null)
+        {
+            Guard.Against<ArgumentNullException>(geometry == null || geometry.IsEmpty || !geometry.IsValid, "Geometry must be specified and valid.");
+            Guard.Against<ArgumentException>(userDefinedBoundingBox != null && userDefinedBoundingBox.Length != 4, "If provided, bounding box must be [west, south, east, north].");
+            Guard.Against<ArgumentException>(double.IsNaN(elevation.Value), Deploy_LaunchPad_Core_Resources.Guard_GeographicLocation_Set_Elevation);
+            _geometry = geometry;
+            _elevation = elevation;
+            _userDefinedBoundingBox = userDefinedBoundingBox;
+            _userDefinedCenter = userDefinedCenter;
+        }
+
+        #endregion
+
+        /// <summary>
+        /// TenantId of this entity.
+        /// </summary>
+        /// <value>The tenant identifier.</value>
+        public virtual int? TenantId { get; set; }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="AreaOfInterestBase{TIdType}"/> class.

@@ -24,10 +24,10 @@ namespace Deploy.LaunchPad.Core.Geospatial.GeoJson
     {
 
         /// <summary>
-        /// Gets or sets the geo json.
+        /// Gets the geo json.
         /// </summary>
         /// <value>The geo json.</value>
-        public string? GeoJson { get; set; }
+        public string? GeoJson { get; }
 
     }
 }

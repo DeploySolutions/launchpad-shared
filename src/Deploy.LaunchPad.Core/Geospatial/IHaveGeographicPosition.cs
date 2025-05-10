@@ -32,21 +32,60 @@ namespace Deploy.LaunchPad.Core.Geospatial
 {
     using Deploy.LaunchPad.Core.Geospatial.GeoJson;
     using Deploy.LaunchPad.Core.Geospatial.H3;
+    using Deploy.LaunchPad.Core.Geospatial.Overture;
+    using DocumentFormat.OpenXml.Spreadsheet;
+    using NetTopologySuite.Algorithm;
     using NetTopologySuite.Geometries;
+    using System.ComponentModel;
     using System.Runtime.Serialization;
+    using System.Xml.Serialization;
 
     /// <summary>
     /// This interface defines the physical position of something, in terms of its latitude, longitude.
     /// </summary>
-    public partial interface IHaveGeographicPosition : IMayHaveElevation, IMayHaveAltitude, IMayHaveH3Definition, IMayHaveGeoJsonDefinition
+    public partial interface IHaveGeographicPosition :
+        IMayHaveBoundingBox,
+        IMayHaveGeoJsonDefinition,
+        IMayHaveElevation
     {
+        public bool IsPoint { get; }
+
+        public bool IsArea { get; }
+
+        ///<summary>
+        /// Describes GPS location for the asset (ex 45.4201, -75.68775264 )
+        ///</summary>
+        [DataObjectField(false)]
+        [XmlAttribute]
+        public System.Double Latitude { get; }
+
+        ///<summary>
+        /// Describes GPS Longitude for the asset (ex 45.4201, -75.68775264 )
+        ///</summary>
+        [DataObjectField(false)]
+        [XmlAttribute]
+        public System.Double Longitude { get; }
+
+        public double CenterLatitude { get; }
+        public double CenterLongitude { get; }
+
         /// <summary>
-        /// Gets or sets the coordinate.
+        /// Gets the representative point of the geographic position as a tuple of latitude and longitude.
+        /// In NetTopologySuite, geometry.PointOnSurface returns a point guaranteed to lie within the geometry (unlike Centroid, which may fall outside a polygon).
+        /// Useful when: You want a "safe for labeling" or "safe for hit-testing" point. You need a representative location inside the area(e.g., for maps, UI, or region tagging).
         /// </summary>
-        /// <value>The coordinate.</value>
-        public Coordinate Coordinate { get; set; }
+        public (double Latitude, double Longitude) RepresentativePoint { get; }
 
+        /// <summary>
+        /// Gets the centroid of the geographic position as a tuple of latitude and longitude.
+        /// For a Point, .Centroid just returns the same point.
+        /// For a Polygon, .Centroid returns the geometric center (center of mass).
+        /// It may lie outside the polygon for non-convex shapes.
+        /// </summary>
+        public (double Latitude, double Longitude) CentroidPoint { get; }
 
+        public void SetGeographicPosition(string geoJson, double? elevation, Coordinate? userDefinedCenter = null, double[]? userDefinedBoundingBox = null);
 
+        public void SetGeographicPosition(Geometry geometry, double? elevation, Coordinate? userDefinedCenter = null, double[]? userDefinedBoundingBox = null);
     }
 }

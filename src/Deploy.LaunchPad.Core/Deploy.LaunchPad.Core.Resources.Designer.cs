@@ -295,6 +295,24 @@ namespace Deploy.LaunchPad.Core {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Longitudinal coordinate decimal cannot be more than 180..
+        /// </summary>
+        public static string Guard_GeographicLocation_Set_Longitude_Not_MoreThan_180 {
+            get {
+                return ResourceManager.GetString("Guard_GeographicLocation_Set_Longitude_Not_MoreThan_180", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Point is invalid.
+        /// </summary>
+        public static string Guard_GeographicLocation_Validate_Point {
+            get {
+                return ResourceManager.GetString("Guard_GeographicLocation_Validate_Point", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Max Results must be -1 or a positive number..
         /// </summary>
         public static string Guard_InMemoryRepository_ConstrainQueryInput_MaxResult_Equals0 {

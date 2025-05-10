@@ -370,4 +370,10 @@
   <data name="Validation_Token_Prefix_9CharsOrLess" xml:space="preserve">
     <value>Token prefix must be 9 characters or less.</value>
   </data>
+  <data name="Guard_GeographicLocation_Set_Longitude_Not_MoreThan_180" xml:space="preserve">
+    <value>Longitudinal coordinate decimal cannot be more than 180.</value>
+  </data>
+  <data name="Guard_GeographicLocation_Validate_Point" xml:space="preserve">
+    <value>Point is invalid</value>
+  </data>
 </root>

@@ -138,8 +138,9 @@ namespace Deploy.LaunchPad.Space.Satellites.GoC
                 c.X = longitude;
                 GeographicPosition centre = new GeographicPosition
                 (
+                    new Point(
                     c.Y,
-                    c.X
+                    c.X),0
                 );
 
                 // get the image corner coordinates

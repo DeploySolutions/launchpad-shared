@@ -47,6 +47,7 @@ namespace Deploy.LaunchPad.Core.Geospatial
     using Newtonsoft.Json;
     using System.IO;
     using System.ComponentModel.DataAnnotations.Schema;
+    using Deploy.LaunchPad.Core.Geospatial.Overture;
 
     /// <summary>
     /// This class defines the physical position of something, in terms of its latitude, longitude, and elevation.
@@ -54,26 +55,29 @@ namespace Deploy.LaunchPad.Core.Geospatial
     [Serializable()]
     public partial class GeographicPosition : IHaveGeographicPosition, IEquatable<GeographicPosition>
     {
-        /// <summary>
-        /// The geometry
-        /// </summary>
-        [NotMapped]
-        protected Point _geometry;
+        protected readonly GeospatialHelper _helper = new GeospatialHelper();
 
         /// <summary>
-        /// Sets the geometry.
+        /// The geometry
+        /// </summary>        
+        protected Geometry _geometry;
+
+        /// <summary>
+        /// The user defined center coordinate. If it's null, will be determined from the geometry.
         /// </summary>
-        /// <returns>Point.</returns>
-        public virtual Point SetGeometry()
-        {
-            var serializer = GeoJsonSerializer.Create();
-            using (var stringReader = new StringReader(GeoJson))
-            using (var jsonReader = new JsonTextReader(stringReader))
-            {
-                _geometry = serializer.Deserialize<Point> (jsonReader);
-            }
-            return _geometry;
-        }
+        protected Coordinate? _userDefinedCenter;
+
+        /// <summary>
+        /// The user defined bounding box. If it's null, will be determined from the geometry.
+        /// </summary>
+        protected double[]? _userDefinedBoundingBox;
+
+
+        public virtual bool IsPoint => _geometry is Point;
+
+        public virtual bool IsArea => _geometry is Polygon or MultiPolygon;
+
+
 
         /// <summary>
         /// Gets or sets the geo json.
@@ -83,34 +87,15 @@ namespace Deploy.LaunchPad.Core.Geospatial
         [XmlAttribute]
         public virtual string GeoJson
         {
-            get; set;
+            get; protected set;
         }
 
-
-        /// <summary>
-        /// The altitude
-        /// </summary>
-        protected double? _altitude;
-        /// <summary>
-        /// Gets or sets the altitude.
-        /// </summary>
-        /// <value>The altitude.</value>
-        [DataObjectField(false)]
-        [XmlAttribute]
-        public virtual double? Altitude
-        {
-            get { return _altitude; }
-            set
-            {
-                Guard.Against<ArgumentException>(double.IsNaN(value.Value), Deploy_LaunchPad_Core_Resources.Guard_GeographicLocation_Set_Altitude);
-                _altitude = value;
-            }
-        }
 
         /// <summary>
         /// The elevation
         /// </summary>
         protected double? _elevation;
+
         /// <summary>
         /// Gets or sets the elevation.
         /// </summary>
@@ -127,47 +112,72 @@ namespace Deploy.LaunchPad.Core.Geospatial
             }
         }
 
-        /// <summary>
-        /// The earth coordinate
-        /// </summary>
-        protected Coordinate _earthCoordinate;
-        /// <summary>
-        /// Gets or sets the coordinate.
-        /// </summary>
-        /// <value>The coordinate.</value>
+        ///<summary>
+        /// Describes central latitude (Y) based on the representative coordinate of the item
+        ///</summary>
         [DataObjectField(false)]
         [XmlAttribute]
-        public virtual Coordinate Coordinate
+        public virtual System.Double Latitude => _helper.GetRepresentativeCoordinate(_geometry, _userDefinedCenter).Y;
+
+        ///<summary>
+        /// Describes central longitude (X) based on the representative coordinate of the item
+        ///</summary>
+        [DataObjectField(false)]
+        [XmlAttribute]
+        public virtual System.Double Longitude => _helper.GetRepresentativeCoordinate(_geometry, _userDefinedCenter).X;
+
+        public virtual double CenterLatitude => _helper.GetCentroid(_geometry).Y;
+        public virtual double CenterLongitude => _helper.GetCentroid(_geometry).X;
+
+
+        /// <summary>
+        /// Gets the representative point of the geographic position as a tuple of latitude and longitude.
+        /// In NetTopologySuite, geometry.PointOnSurface returns a point guaranteed to lie within the geometry (unlike Centroid, which may fall outside a polygon).
+        /// Useful when: You want a "safe for labeling" or "safe for hit-testing" point. You need a representative location inside the area(e.g., for maps, UI, or region tagging).        
+        /// Caller's choice: representative vs centroid
+        /// </summary>
+        public (double Latitude, double Longitude) RepresentativePoint => (Latitude, Longitude);
+
+        /// <summary>
+        /// Gets the centroid of the geographic position as a tuple of latitude and longitude.
+        /// For a Point, .Centroid just returns the same point.
+        /// For a Polygon, .Centroid returns the geometric center (center of mass).
+        /// It may lie outside the polygon for non-convex shapes.
+        /// Caller's choice: representative vs centroid
+        /// </summary>
+        public (double Latitude, double Longitude) CentroidPoint => (CenterLatitude, CenterLongitude);
+
+        /// <summary>
+        /// Return the user defined bounding box, if any. Otherwise, return the bounding box of the geometry
+        /// </summary>
+        public virtual double[]? BoundingBox
         {
             get
             {
-                return _earthCoordinate;
-            }
-            set
-            {
-                Guard.Against<ArgumentException>(double.IsNaN(value.X), Deploy_LaunchPad_Core_Resources.Guard_GeographicLocation_Set_Longitude_NaN);
-                Guard.Against<ArgumentOutOfRangeException>(value.X > 180, Deploy_LaunchPad_Core_Resources.Guard_GeographicLocation_Set_Longitude_Not_GreaterThan_180);
-                Guard.Against<ArgumentOutOfRangeException>(value.X < -180, Deploy_LaunchPad_Core_Resources.Guard_GeographicLocation_Set_Longitude_Not_LessThan_Minus180);
-                Guard.Against<ArgumentException>(double.IsNaN(value.Y), Deploy_LaunchPad_Core_Resources.Guard_GeographicLocation_Set_Latitude_NaN);
-                Guard.Against<ArgumentOutOfRangeException>(value.Y > 90, Deploy_LaunchPad_Core_Resources.Guard_GeographicLocation_Set_Latitude_Not_GreaterThan_90);
-                Guard.Against<ArgumentOutOfRangeException>(value.Y < -90, Deploy_LaunchPad_Core_Resources.Guard_GeographicLocation_Set_Latitude_Not_LessThan_Minus_90);
-                Guard.Against<ArgumentOutOfRangeException>(value.Y < -90, Deploy_LaunchPad_Core_Resources.Guard_GeographicLocation_Set_Latitude_Not_LessThan_Minus_90);
-                Guard.Against<ArgumentOutOfRangeException>(value.Y < -90, Deploy_LaunchPad_Core_Resources.Guard_GeographicLocation_Set_Latitude_Not_LessThan_Minus_90);
-                _earthCoordinate = value;
+                if (_userDefinedBoundingBox != null)
+                    return _userDefinedBoundingBox;
+
+                if (_geometry == null) return null;
+
+                var envelope = _geometry.EnvelopeInternal;
+                return
+                [
+                    envelope.MinX, envelope.MinY, envelope.MaxX, envelope.MaxY
+                ];
             }
         }
 
         /// <summary>
         /// The h3 index
         /// </summary>
-        protected H3Index _h3Index;
+        protected H3Index? _h3Index;
         /// <summary>
         /// Gets or sets the index of the h3.
         /// </summary>
         /// <value>The index of the h3.</value>
         [DataObjectField(false)]
         [XmlAttribute]
-        public virtual H3Index H3Index
+        public virtual H3Index? H3Index
         {
             get
             {
@@ -180,29 +190,100 @@ namespace Deploy.LaunchPad.Core.Geospatial
         }
 
         /// <summary>
+        /// The Overture Map location
+        /// </summary>
+        protected OvertureMapsLocation? _overtureLocation;
+
+        /// <summary>
+        /// Gets or sets the Overture Maps Foundation location information, including GERS ID.
+        /// </summary>
+        /// <value>The Overture data.</value>
+        [DataObjectField(false)]
+        [XmlAttribute]
+        public virtual OvertureMapsLocation? OvertureMapsLocation
+        {
+            get
+            {
+                return _overtureLocation;
+            }
+            set
+            {
+                _overtureLocation = value;
+            }
+        }
+
+
+        /// <summary>
+        /// Sets the geographic position of the item, as well as any user provided center and bounding box.
+        /// </summary>
+        /// <param name="geometry"></param>
+        /// <param name="elevation"></param>
+        /// <param name="userDefinedCenter"></param>
+        /// <param name="userDefinedBoundingBox"></param>
+        public virtual void SetGeographicPosition(string geoJson, double? elevation, Coordinate? userDefinedCenter = null, double[]? userDefinedBoundingBox = null)
+        {
+
+            Guard.Against<ArgumentException>(string.IsNullOrEmpty(geoJson), "geoJson must not be null or empty.");
+            Guard.Against<ArgumentException>(userDefinedBoundingBox != null && userDefinedBoundingBox.Length != 4, "If provided, bounding box must be [west, south, east, north].");
+            Guard.Against<ArgumentException>(double.IsNaN(elevation.Value), Deploy_LaunchPad_Core_Resources.Guard_GeographicLocation_Set_Elevation);
+
+            Geometry geom = _helper.SetGeometryFromGeoJson(geoJson);
+            Guard.Against<ArgumentException>(geom == null || geom.IsEmpty || !geom.IsValid, "Geometry conversion was null, empty, or invalid.");
+
+            _geometry = geom;
+            _elevation = elevation;
+            _userDefinedBoundingBox = userDefinedBoundingBox;
+            _userDefinedCenter = userDefinedCenter;
+            _h3Index = _helper.CalculateH3CellFromCoordinate(_geometry, _userDefinedCenter);
+        }
+
+        /// <summary>
+        /// Sets the geographic position of the item, as well as any user provided center and bounding box.
+        /// </summary>
+        /// <param name="geometry"></param>
+        /// <param name="elevation"></param>
+        /// <param name="userDefinedCenter"></param>
+        /// <param name="userDefinedBoundingBox"></param>
+        public virtual void SetGeographicPosition(Geometry geometry, double? elevation, Coordinate? userDefinedCenter = null, double[]? userDefinedBoundingBox = null)
+        {
+            Guard.Against<ArgumentNullException>(geometry == null || geometry.IsEmpty, "Geometry must be specified.");
+            Guard.Against<ArgumentException>(userDefinedBoundingBox != null && userDefinedBoundingBox.Length != 4, "If provided, bounding box must be [west, south, east, north].");
+            Guard.Against<ArgumentException>(double.IsNaN(elevation.Value), Deploy_LaunchPad_Core_Resources.Guard_GeographicLocation_Set_Elevation);
+
+            // If the geometry is a Point, validate its coordinates
+            if (geometry is Point point)
+            {
+                 _helper.ValidateWgs84Point(point, true); // Throws an exception if invalid
+            }
+            _geometry = geometry;
+            _elevation = elevation;
+            _userDefinedBoundingBox = userDefinedBoundingBox;
+            _userDefinedCenter = userDefinedCenter;
+            _h3Index = _helper.CalculateH3CellFromCoordinate(_geometry, _userDefinedCenter);
+        }
+
+        /// <summary>
         /// The default location is always Greenwich.
         /// </summary>
         public GeographicPosition()
         {
-            // We will set the elevation, longitude and latitude of Greenwich
-            _elevation = 46;
-            Coordinate = new Coordinate(51.476852, -0.000500);
-            // calculate the h3 cell
-            _h3Index = _earthCoordinate.ToH3Index(9);
+            // We will default to the elevation, longitude and latitude of Greenwich
+            SetGeographicPosition(new Point(new Coordinate(51.476852, -0.000500)), 46);
+            _h3Index = _helper.CalculateH3CellFromCoordinate(_geometry,_userDefinedCenter);
         }
+
 
         /// <summary>
         /// Initializes a new instance of the <see cref="GeographicPosition"/> class.
         /// </summary>
         /// <param name="longitude">The longitude.</param>
         /// <param name="latitude">The latitude.</param>
-        public GeographicPosition(double longitude, double latitude)
+        public GeographicPosition(Geometry geometry, double? elevation, Coordinate? userDefinedCenter = null, double[]? userDefinedBoundingBox = null)
         {
-            Elevation = 0;
-            Coordinate = new Coordinate(longitude, latitude);
-            // calcualte the h3 cell
-            _h3Index = Coordinate.ToH3Index(9);
+            SetGeographicPosition(geometry, elevation, userDefinedCenter, userDefinedBoundingBox);
+            _h3Index = _helper.CalculateH3CellFromCoordinate(_geometry, _userDefinedCenter);
         }
+
 
         /// <summary>
         /// Serialization constructor used for deserialization
@@ -211,9 +292,24 @@ namespace Deploy.LaunchPad.Core.Geospatial
         /// <param name="context">The context of the stream</param>
         public GeographicPosition(SerializationInfo info, StreamingContext context)
         {
-            Elevation = (double)info.GetDouble("Elevation");
-            Coordinate = (Coordinate)info.GetValue("Coordinate", typeof(Coordinate));
-            H3Index = (H3Index)info.GetDouble("H3Index");
+            // Deserialize GeoJson and reconstruct _geometry
+            GeoJson = info.GetString("GeoJson");
+            Geometry geom = null;
+            if (!string.IsNullOrEmpty(GeoJson))
+            {
+                geom = _helper.SetGeometryFromGeoJson(GeoJson); // Reconstruct _geometry from GeoJson
+            }
+            double? elevation = (double?)info.GetValue("Elevation", typeof(double?));
+            Coordinate? userDefinedCenter = (Coordinate?)info.GetValue("Coordinate", typeof(Coordinate));
+            double[]? userDefinedBoundingBox = (double[]?)info.GetValue("UserBoundingBox", typeof(double[]));
+
+            SetGeographicPosition(geom, elevation, userDefinedCenter, userDefinedBoundingBox);
+
+            // Deserialize H3Index
+            H3Index = (H3Index?)info.GetValue("H3Index", typeof(H3Index));
+
+            // Deserialize _overtureLocation
+            _overtureLocation = (OvertureMapsLocation?)info.GetValue("OvertureMapsLocation", typeof(OvertureMapsLocation));
         }
 
         /// <summary>
@@ -224,8 +320,12 @@ namespace Deploy.LaunchPad.Core.Geospatial
         public void GetObjectData(SerializationInfo info, StreamingContext context)
         {
             info.AddValue("Elevation", Elevation);
-            info.AddValue("Coordinate", Coordinate);
+            info.AddValue("OvertureMapsLocation", OvertureMapsLocation);
             info.AddValue("H3Index", H3Index);
+            info.AddValue("GeoJson", GeoJson);
+            info.AddValue("Coordinate", _userDefinedCenter); // Serialize backing field for Latitude/Longitude
+            info.AddValue("UserBoundingBox", _userDefinedBoundingBox);
+            info.AddValue("OvertureMapsLocation", _overtureLocation);
         }
 
         /// <summary>
@@ -236,10 +336,22 @@ namespace Deploy.LaunchPad.Core.Geospatial
         /// Event called once deserialization constructor finishes.
         /// Useful for reattaching connections and other
         public virtual void OnDeserialization(object sender)
-        {
+        { 
+            // Reconstruct _geometry from GeoJson
+            if (!string.IsNullOrEmpty(GeoJson))
+            {
+                GeospatialHelper helper = new GeospatialHelper();
+                _geometry = helper.SetGeometryFromGeoJson(GeoJson);
+            }
+            // Recalculate derived properties if needed
+            if (_userDefinedCenter != null)
+            {
+                // Latitude and Longitude are derived from _userDefinedCenter
+                // No explicit action needed as they are read-only
+            }
+
             // reconnect connection strings and other resources that won't be serialized
         }
-
 
         /// <summary>
         /// Displays information about the <c>Field</c> in readable format.
@@ -249,10 +361,13 @@ namespace Deploy.LaunchPad.Core.Geospatial
         {
             StringBuilder sb = new StringBuilder();
             sb.Append("[GeographicLocation : ");
-            sb.Append(string.Format("Coordinate: {0}", Coordinate));
+            sb.Append(string.Format("Longitude: {0}", Longitude));
+            sb.Append(string.Format("Latitude: {0}", Latitude));
             sb.Append(string.Format("Elevation: {0}", Elevation));
+            sb.Append(string.Format("BoundingBox: {0}", BoundingBox));
             sb.Append(string.Format("GeoJson: {0}", GeoJson));
             sb.Append(string.Format("H3Index: {0}", H3Index));
+            sb.Append(string.Format("OvertureMapsLocation: {0}", OvertureMapsLocation));
             sb.Append(']');
             return sb.ToString();
         }
@@ -281,25 +396,23 @@ namespace Deploy.LaunchPad.Core.Geospatial
         /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
         public bool Equals(GeographicPosition obj)
         {
-            if (obj != null)
+            if (obj == null)
             {
-                if (
-                    (
-                        (Elevation.HasValue && obj.Elevation.HasValue) &&  
-                        Math.Abs(Elevation.Value - obj.Elevation.Value) < 0.0001
-                    )
-                    && Math.Abs(Coordinate.X - obj.Coordinate.X) < 0.0001
-                    && Math.Abs(Coordinate.Y - obj.Coordinate.Y) < 0.0001
-                )
-                {
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
+                return false;
             }
-            return false;
+
+            // Compare Elevation with a small tolerance for imprecision
+            bool elevationEqual = Elevation.HasValue && obj.Elevation.HasValue
+                ? Math.Abs(Elevation.Value - obj.Elevation.Value) < 0.0001
+                : Elevation == obj.Elevation; // Handles cases where one or both are null
+
+            // Compare _geometry using EqualsExact (or EqualsTopologically if needed)
+            bool geometryEqual = _geometry != null && obj._geometry != null
+                ? _geometry.EqualsExact(obj._geometry)
+                : _geometry == obj._geometry; // Handles cases where one or both are null
+
+            // Return true only if both Elevation and Geometry are equal
+            return elevationEqual && geometryEqual;
         }
 
         /// <summary>
@@ -339,7 +452,7 @@ namespace Deploy.LaunchPad.Core.Geospatial
         /// <remarks>This method implements the <see cref="object">Object</see> method.</remarks>
         public override int GetHashCode()
         {
-            return Elevation.GetHashCode() + Coordinate.GetHashCode() + H3Index.GetHashCode();
+            return Elevation.GetHashCode() + _userDefinedCenter.GetHashCode() + H3Index.GetHashCode();
         }
     }
 

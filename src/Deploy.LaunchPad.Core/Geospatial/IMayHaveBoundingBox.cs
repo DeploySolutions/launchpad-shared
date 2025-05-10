@@ -44,7 +44,7 @@ namespace Deploy.LaunchPad.Core.Geospatial
         /// https://github.com/radiantearth/stac-spec/blob/master/collection-spec/collection-spec.md#spatial-extent-object
         /// </summary>
         /// <value>Array of bounding box coordinates.</value>
-        public double[]? BBox { get; set; }
+        public double[]? BoundingBox { get; }
 
     }
 }
