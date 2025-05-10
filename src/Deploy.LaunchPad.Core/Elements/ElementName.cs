@@ -150,11 +150,10 @@ namespace Deploy.LaunchPad.Core
         {
             if (obj != null)
             {
-                return Full.Equals(obj.Full)
-                    && Short.Equals(obj.Short)
-                    && Prefix.Equals(obj.Prefix)
-                    && Suffix.Equals(obj.Suffix)
-                ;
+                return string.Equals(Full, obj.Full, StringComparison.Ordinal) &&
+                    string.Equals(Short, obj.Short, StringComparison.Ordinal) &&
+                    string.Equals(Prefix, obj.Prefix, StringComparison.Ordinal) &&
+                    string.Equals(Suffix, obj.Suffix, StringComparison.Ordinal);
             }
             return false;
         }
