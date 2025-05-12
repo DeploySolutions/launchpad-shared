@@ -104,7 +104,7 @@ namespace Deploy.LaunchPad.Core.STAC
     /// <summary>
     /// Class CommonMetadata.
     /// </summary>
-    public partial class CommonMetadata : IMayHaveDateRanges
+    public partial class CommonMetadata : IHaveTemporalInformation
     {
         /// <summary>
         /// Detailed multi-line description to fully explain the Item.
@@ -127,27 +127,9 @@ namespace Deploy.LaunchPad.Core.STAC
         [JsonProperty("created", NullValueHandling = NullValueHandling.Ignore)]
         public virtual DateTimeOffset? Created { get; set; }
 
-        /// <summary>
-        /// The searchable date/time of the assets, in UTC (Formatted in RFC 3339)
-        /// </summary>
-        /// <value>The datetime.</value>
-        [JsonProperty("datetime")]
-        public virtual DateTimeOffset? EffectiveDateTimeInUtc { get; set; }
-
-        /// <summary>
-        /// The searchable end date/time of the assets, in UTC (Formatted in RFC 3339)
-        /// </summary>
-        /// <value>The end datetime.</value>
-        [JsonProperty("end_datetime", NullValueHandling = NullValueHandling.Ignore)]
-        public virtual DateTimeOffset? EndDateTimeInUtc { get; set; }
-
-        /// <summary>
-        /// The searchable start date/time of the assets, in UTC (Formatted in RFC 3339)
-        /// </summary>
-        /// <value>The start datetime.</value>
-        [JsonProperty("start_datetime", NullValueHandling = NullValueHandling.Ignore)]
-        public virtual DateTimeOffset? StartDateTimeInUtc { get; set; }
-
+        [JsonProperty("properties", NullValueHandling = NullValueHandling.Ignore)]
+        public virtual TemporalInformation TemporalInformation { get; set; }
+        
         /// <summary>
         /// Gets or sets the updated.
         /// </summary>
@@ -212,6 +194,7 @@ namespace Deploy.LaunchPad.Core.STAC
             Updated = DateTimeOffset.UtcNow;
             Providers = new List<Provider>();
             Instruments = new List<string>();
+            TemporalInformation = new TemporalInformation();
         }
 
         /// <summary>
@@ -226,9 +209,7 @@ namespace Deploy.LaunchPad.Core.STAC
             Providers = (List<Provider>)info.GetValue("Providers", typeof(List<Provider>));
             Created = (DateTimeOffset)info.GetValue("Created", typeof(DateTimeOffset));
             Updated = (DateTimeOffset)info.GetValue("Updated", typeof(DateTimeOffset));
-            EffectiveDateTimeInUtc = (DateTimeOffset)info.GetValue("EffectiveDateTimeInUtc", typeof(DateTimeOffset));
-            StartDateTimeInUtc = (DateTimeOffset)info.GetValue("StartDateTimeInUtc", typeof(DateTimeOffset));
-            EndDateTimeInUtc = (DateTimeOffset)info.GetValue("EndDateTimeInUtc", typeof(DateTimeOffset));
+            TemporalInformation = (TemporalInformation)info.GetValue("TemporalInformation", typeof(TemporalInformation));
             Constellation = info.GetString("Constellation");
             Gsd = info.GetDouble("Gsd");
             Instruments = (List<string>)info.GetValue("Instruments", typeof(List<string>));
@@ -249,9 +230,7 @@ namespace Deploy.LaunchPad.Core.STAC
             info.AddValue("Providers", Providers);
             info.AddValue("Created", Created);
             info.AddValue("Updated", Updated);
-            info.AddValue("EffectiveDateTimeInUtc", EffectiveDateTimeInUtc);
-            info.AddValue("StartDateTimeInUtc", StartDateTimeInUtc);
-            info.AddValue("EndDateTimeInUtc", EndDateTimeInUtc);
+            info.AddValue("TemporalInformation", TemporalInformation);
             info.AddValue("Constellation", Constellation);
             info.AddValue("Gsd", Gsd);
             info.AddValue("Instruments", Instruments);

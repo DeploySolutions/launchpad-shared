@@ -40,6 +40,7 @@ namespace Deploy.LaunchPad.Space.Satellites.GoC
     using Deploy.LaunchPad.Core.Files;
     using Deploy.LaunchPad.Core.Geospatial;
     using Deploy.LaunchPad.Core.Geospatial.Position;
+    using Deploy.LaunchPad.Core.Temporal;
     using Deploy.LaunchPad.Space.Satellites.Core;
     using System;
     using System.ComponentModel.DataAnnotations;
@@ -247,6 +248,8 @@ namespace Deploy.LaunchPad.Space.Satellites.GoC
            ImageObservationCornerCoordinates cornerCoordinates
         ) : base()
         {
+            TemporalInformation temporalInfo = new TemporalInformation();
+            temporalInfo.StartDateTimeInUtc = sceneStart;
             CurrentLocation = new SpaceTimeInformation();
             SceneId = sceneId;
             MdaOrderNumber = mdaOrderNumber;
@@ -267,7 +270,7 @@ namespace Deploy.LaunchPad.Space.Satellites.GoC
             CreationTime = Clock.Now;
             LastModificationTime = Clock.Now;
             CurrentLocation.PhysicalLocation = SceneCentre;
-            CurrentLocation.PointInTime = SceneStartTime;
+            CurrentLocation.TemporalInformation = temporalInfo;
         }
 
         /// <summary>

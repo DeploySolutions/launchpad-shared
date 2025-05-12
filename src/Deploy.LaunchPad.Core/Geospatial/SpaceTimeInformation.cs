@@ -41,24 +41,16 @@ namespace Deploy.LaunchPad.Core.Geospatial
     /// This class allows us to track the location of an entity in terms of its location in space and time.
     /// </summary>
     [Serializable()]
-    public partial class SpaceTimeInformation : IEquatable<SpaceTimeInformation>
+    public partial class SpaceTimeInformation : IEquatable<SpaceTimeInformation>, IMayHaveTemporalInformation
     {
 
         /// <summary>
-        /// The date and time that this object was present in this physical location
+        /// The date and time extents that this object was present in this physical location
         /// </summary>
         /// <value>The point in time.</value>
         [DataObjectField(false)]
         [XmlAttribute]
-        public virtual DateTime PointInTime { get; set; }
-
-        /// <summary>
-        /// How this period relates to an observer's "current moment in time", i.e. is this in the past? The far future?
-        /// </summary>
-        /// <value>The relative temporal position of this object to the observer's current point in time.</value>
-        [DataObjectField(false)]
-        [XmlAttribute]
-        public virtual TemporalContext TemporalContext { get; set; } = TemporalContext.IsUnknownOrUnspecified;
+        public virtual TemporalInformation TemporalInformation { get; set; }
 
         /// <summary>
         /// The geographic location of this item at a point in time
@@ -76,7 +68,7 @@ namespace Deploy.LaunchPad.Core.Geospatial
         public SpaceTimeInformation()
         {
             PhysicalLocation = new GeographicPosition();
-            PointInTime = new DateTimeProvider().UtcNow;
+            TemporalInformation = new TemporalInformation();
         }
 
 
@@ -88,7 +80,7 @@ namespace Deploy.LaunchPad.Core.Geospatial
         public SpaceTimeInformation(GeographicPosition location)
         {
             PhysicalLocation = location;
-            PointInTime = new DateTimeProvider().UtcNow;
+            TemporalInformation = new TemporalInformation();
         }
 
         /// <summary>
@@ -99,7 +91,7 @@ namespace Deploy.LaunchPad.Core.Geospatial
         public SpaceTimeInformation(DateTime pointInTime)
         {
             PhysicalLocation = new GeographicPosition();
-            PointInTime = pointInTime;
+            TemporalInformation = new TemporalInformation();
         }
 
         /// <summary>
@@ -108,10 +100,10 @@ namespace Deploy.LaunchPad.Core.Geospatial
         /// </summary>
         /// <param name="location">The location.</param>
         /// <param name="pointInTime">The point in time.</param>
-        public SpaceTimeInformation(GeographicPosition location, DateTime pointInTime)
+        public SpaceTimeInformation(GeographicPosition location, TemporalInformation pointInTime)
         {
             PhysicalLocation = location;
-            PointInTime = pointInTime;
+            TemporalInformation = pointInTime;
         }
 
         /// <summary>
@@ -122,7 +114,7 @@ namespace Deploy.LaunchPad.Core.Geospatial
         public SpaceTimeInformation(SerializationInfo info, StreamingContext context)
         {
             PhysicalLocation = (IHaveGeographicPosition)info.GetValue("PhysicalLocation", typeof(IHaveGeographicPosition));
-            PointInTime = info.GetDateTime("PointInTime");
+            TemporalInformation = (TemporalInformation)info.GetValue("TemporalInformation", typeof(TemporalInformation));
         }
 
         #endregion
@@ -134,7 +126,7 @@ namespace Deploy.LaunchPad.Core.Geospatial
         public void GetObjectData(SerializationInfo info, StreamingContext context)
         {
             info.AddValue("PhysicalLocation", PhysicalLocation);
-            info.AddValue("PointInTime", PointInTime);
+            info.AddValue("TemporalInformation", TemporalInformation);
         }
 
         /// <summary>
@@ -159,7 +151,7 @@ namespace Deploy.LaunchPad.Core.Geospatial
             StringBuilder sb = new StringBuilder();
             sb.Append("[SpaceTimeInformation : ");
             sb.AppendFormat("PhysicalLocation={0};", PhysicalLocation);
-            sb.AppendFormat("PointInTime={0};", PointInTime);
+            sb.AppendFormat("TemporalInformation={0};", TemporalInformation);
             sb.Append(']');
             return sb.ToString();
         }
@@ -191,7 +183,7 @@ namespace Deploy.LaunchPad.Core.Geospatial
             if (obj != null)
             {
                 if (PhysicalLocation.Equals(obj.PhysicalLocation) &&
-                    PointInTime.Equals(obj.PointInTime)
+                    TemporalInformation.Equals(obj.TemporalInformation)
                     )
                 {
                     return true;
@@ -242,7 +234,7 @@ namespace Deploy.LaunchPad.Core.Geospatial
         /// <remarks>This method implements the <see cref="object">Object</see> method.</remarks>
         public override int GetHashCode()
         {
-            return PhysicalLocation.GetHashCode() + PointInTime.GetHashCode();
+            return PhysicalLocation.GetHashCode() + TemporalInformation.GetHashCode();
         }
 
     }
