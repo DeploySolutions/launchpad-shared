@@ -20,17 +20,23 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Licenses", "Licenses", "{DA
 		Licenses\Castle.Core.License.txt = Licenses\Castle.Core.License.txt
 		Licenses\Castle.Windsor.License.txt = Licenses\Castle.Windsor.License.txt
 		Licenses\CodeProject.SequentialGuid.License.txt = Licenses\CodeProject.SequentialGuid.License.txt
+		Licenses\DeploySoftware.LaunchPad.License.txt = Licenses\DeploySoftware.LaunchPad.License.txt
+		Licenses\File.TypeChecker.License.txt = Licenses\File.TypeChecker.License.txt
 		FluentAssertions.License.txt = FluentAssertions.License.txt
 		Geolocation.License.txt = Geolocation.License.txt
 		Licenses\HtmlAgilityPack.License.txt = Licenses\HtmlAgilityPack.License.txt
-		Licenses\log4net.License.txt = Licenses\log4net.License.txt
 		Licenses\Magick.NET.License.txt = Licenses\Magick.NET.License.txt
 		Licenses\Microsoft.System.Collections.Immutable.License.txt = Licenses\Microsoft.System.Collections.Immutable.License.txt
+		Licenses\NetTopologySuite.Features.License.txt = Licenses\NetTopologySuite.Features.License.txt
+		Licenses\NetTopologySuite.IO.GeoJSON.License.txt = Licenses\NetTopologySuite.IO.GeoJSON.License.txt
+		Licenses\NetTopologySuite.License.txt = Licenses\NetTopologySuite.License.txt
 		Licenses\Newtonsoft.Json.License.txt = Licenses\Newtonsoft.Json.License.txt
+		Licenses\Pocketken.H3.License.txt = Licenses\Pocketken.H3.License.txt
+		Licenses\quicktype.License.txt = Licenses\quicktype.License.txt
 		Licenses\RestSharp.License.txt = Licenses\RestSharp.License.txt
 		schemaNET.License.txt = schemaNET.License.txt
+		Licenses\Serilog.License.txt = Licenses\Serilog.License.txt
 		Licenses\Shoudly.License.txt = Licenses\Shoudly.License.txt
-		Volo.ABP.License.txt = Volo.ABP.License.txt
 		Xunit.License.txt = Xunit.License.txt
 	EndProjectSection
 EndProject
