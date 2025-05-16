@@ -22,18 +22,7 @@ namespace Deploy.LaunchPad.Core.Organization
         [Required]
         [DataObjectField(false)]
         [XmlAttribute]
-        public virtual ElementNameLight Name { get; }
-
-        /// <summary>
-        /// The culture of this object
-        /// </summary>
-        /// <value>The culture.</value>
-        [Required]
-        [MaxLength(5, ErrorMessageResourceName = "Validation_Culture_5CharsOrLess", ErrorMessageResourceType = typeof(Deploy_LaunchPad_Core_Resources))]
-        [DataObjectField(true)]
-        [XmlAttribute]
-
-        public virtual string Culture { get; }
+        public virtual string Name { get; }
 
         /// <summary>
         /// A person or organization can have different contact points, for different purposes. For example, a sales contact point, a PR contact point and so on. This property is used to specify the kind of contact point.
