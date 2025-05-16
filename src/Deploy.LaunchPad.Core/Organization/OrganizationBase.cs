@@ -29,6 +29,7 @@
 using Deploy.LaunchPad.Core.Abp.Domain.Model;
 using Deploy.LaunchPad.Core.Domain.Model;
 using Deploy.LaunchPad.Core.Schemas.SchemaDotOrg;
+using Newtonsoft.Json.Linq;
 using Schema.NET;
 using System;
 using System.Collections.Generic;
@@ -49,13 +50,33 @@ namespace Deploy.LaunchPad.Core.Organization
     /// <typeparam name="TIdType">The type of the t identifier type.</typeparam>
     public abstract partial class OrganizationBase<TIdType> : LaunchPadModelBase, ILaunchPadOrganization, IMayHaveOrganizationContactPointInformation
     {
+        
+        protected virtual Schema.NET.Organization? _schemaDotOrg { get; set; }
+        
         /// <summary>
         /// Gets or sets the schema.
         /// </summary>
         /// <value>The schema.</value>
-        [DataObjectField(false)]
-        [XmlAttribute]
-        public virtual Schema.NET.Organization? SchemaDotOrg { get; protected set; }
+        public virtual string SchemaDotOrgJson 
+        {
+            get
+            {
+                if (_schemaDotOrg != null)
+                {
+                    return _schemaDotOrg.ToString();
+                }
+                return "{}";
+            }
+            set
+            {
+                if (value != null)
+                {
+                    _schemaDotOrg = // read from Json using Newtonsoft
+                        Newtonsoft.Json.JsonConvert.DeserializeObject<Schema.NET.Organization>(value);
+                }
+            }
+        }
+
         public virtual ILaunchPadOrganization Parent { get; set; }
 
         public virtual Uri Website { get; set; }
@@ -93,7 +114,8 @@ namespace Deploy.LaunchPad.Core.Organization
             Website = (System.Uri)info.GetValue("Website", typeof(System.Uri));
             HeadquartersAddress = info.GetString("HeadquartersAddress");
             Offices = (List<string>)info.GetValue("Offices", typeof(List<string>));
-            SchemaDotOrg = (Schema.NET.Organization)info.GetValue("SchemaDotOrg", typeof(Schema.NET.Organization));
+            _schemaDotOrg = (Schema.NET.Organization)info.GetValue("_schemaDotOrg", typeof(Schema.NET.Organization));
+            SchemaDotOrgJson = info.GetString("SchemaDotOrgJson");
 
         }
 
@@ -109,7 +131,8 @@ namespace Deploy.LaunchPad.Core.Organization
             info.AddValue("Website", Website);
             info.AddValue("HeadquartersAddress", HeadquartersAddress);
             info.AddValue("Offices", Offices);
-            info.AddValue("SchemaDotOrg", SchemaDotOrg);
+            info.AddValue("_schemaDotOrg", _schemaDotOrg);
+            info.AddValue("SchemaDotOrgJson", SchemaDotOrgJson);
         }
 
 
@@ -195,7 +218,7 @@ namespace Deploy.LaunchPad.Core.Organization
                     // Subclasses should extend to include their own enhanced equality checks, as required.
                     return Name.Equals(obj.Name)
                         && Culture.Equals(obj.Culture)
-                        && SchemaDotOrg.Equals(obj.SchemaDotOrg)
+                        && SchemaDotOrgJson.Equals(obj.SchemaDotOrgJson)
                     ;
             }
             return false;

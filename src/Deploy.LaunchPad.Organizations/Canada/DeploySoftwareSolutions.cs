@@ -63,7 +63,7 @@ namespace Deploy.LaunchPad.Organizations.Canada
                 Email = "support@deploy.solutions"
 
             };
-            SchemaDotOrg = org;
+            _schemaDotOrg = org;
 
 
 

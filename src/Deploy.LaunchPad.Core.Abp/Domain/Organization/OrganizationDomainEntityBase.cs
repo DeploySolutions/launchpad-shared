@@ -49,14 +49,32 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
     /// <typeparam name="TIdType">The type of the t identifier type.</typeparam>
     public abstract partial class OrganizationDomainEntityBase<TIdType> : LaunchPadDomainEntityBase<TIdType>, IOrganizationDomainEntity<TIdType>, IMayHaveTenant
     {
+
+        protected virtual Schema.NET.Organization? _schemaDotOrg { get; set; }
+
         /// <summary>
         /// Gets or sets the schema.
         /// </summary>
         /// <value>The schema.</value>
-        [DataObjectField(false)]
-        [XmlAttribute]
-        public virtual Schema.NET.Organization? SchemaDotOrg { get; protected set; }
-
+        public virtual string SchemaDotOrgJson
+        {
+            get
+            {
+                if (_schemaDotOrg != null)
+                {
+                    return _schemaDotOrg.ToString();
+                }
+                return "{}";
+            }
+            set
+            {
+                if (value != null)
+                {
+                    _schemaDotOrg = // read from Json using Newtonsoft
+                        Newtonsoft.Json.JsonConvert.DeserializeObject<Schema.NET.Organization>(value);
+                }
+            }
+        }
         ///<summary>
         /// Parent organization can be listed (if it exists). Null if this is the root organization.
         ///</summary>
@@ -70,7 +88,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
         /// <value>The full name.</value>
         [DataObjectField(false)]
         [XmlAttribute]
-        public virtual string FullName { get => SchemaDotOrg.LegalName.ToString(); }
+        public virtual string FullName { get => _schemaDotOrg.LegalName.ToString(); }
 
         /// <summary>
         /// Gets the abbreviation.
@@ -78,7 +96,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
         /// <value>The abbreviation.</value>
         [DataObjectField(false)]
         [XmlAttribute]
-        public virtual string Abbreviation { get => SchemaDotOrg.AlternateName.ToString(); }
+        public virtual string Abbreviation { get => _schemaDotOrg.AlternateName.ToString(); }
 
         /// <summary>
         /// Gets the website.
@@ -86,7 +104,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
         /// <value>The website.</value>
         [DataObjectField(false)]
         [XmlAttribute]
-        public virtual Uri Website { get => SchemaDotOrg.Url; }
+        public virtual Uri Website { get => _schemaDotOrg.Url; }
 
         /// <summary>
         /// Gets the headquarters address.
@@ -94,7 +112,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
         /// <value>The headquarters address.</value>
         [DataObjectField(false)]
         [XmlAttribute]
-        public virtual string HeadquartersAddress { get => SchemaDotOrg.Address.ToString(); }
+        public virtual string HeadquartersAddress { get => _schemaDotOrg.Address.ToString(); }
 
         /// <summary>
         /// Gets or sets the offices.
@@ -147,7 +165,8 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
         /// <param name="context">The context of the stream</param>
         protected OrganizationDomainEntityBase(SerializationInfo info, StreamingContext context) : base(info, context)
         {
-            SchemaDotOrg = (Schema.NET.Organization)info.GetValue("SchemaDotOrg", typeof(Schema.NET.Organization));
+            SchemaDotOrgJson = info.GetString("SchemaDotOrgJson");
+            _schemaDotOrg = (Schema.NET.Organization)info.GetValue("_schemaDotOrg", typeof(Schema.NET.Organization));
             Offices = (IList<string>)info.GetValue("Offices", typeof(List<string>));
         }
 
@@ -159,7 +178,8 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
         public override void GetObjectData(SerializationInfo info, StreamingContext context)
         {
             base.GetObjectData(info, context);
-            info.AddValue("SchemaDotOrg", SchemaDotOrg);
+            info.AddValue("SchemaDotOrgJson", SchemaDotOrgJson);
+            info.AddValue("_schemaDotOrg", _schemaDotOrg);
             info.AddValue("Offices", Offices);
         }
 
@@ -253,7 +273,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
                     // Subclasses should extend to include their own enhanced equality checks, as required.
                     return Id.Equals(obj.Id)
                         && Culture.Equals(obj.Culture)
-                        && SchemaDotOrg.Equals(obj.SchemaDotOrg);
+                        && SchemaDotOrgJson.Equals(obj.SchemaDotOrgJson);
                 }
 
             }

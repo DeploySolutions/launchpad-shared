@@ -50,13 +50,32 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
     /// <typeparam name="TIdType">The type of the t identifier type.</typeparam>
     public abstract partial class PersonDomainEntityBase<TIdType> : LaunchPadDomainEntityBase<TIdType>, IPersonDomainEntity<TIdType>, IMayHaveTenant
     {
+
+        protected virtual Schema.NET.Person? _schemaDotOrg { get; set; }
+
         /// <summary>
         /// Gets or sets the schema.
         /// </summary>
         /// <value>The schema.</value>
-        [DataObjectField(false)]
-        [XmlAttribute]
-        public virtual Schema.NET.Person? SchemaDotOrg { get; protected set; }
+        public virtual string SchemaDotOrgJson
+        {
+            get
+            {
+                if (_schemaDotOrg != null)
+                {
+                    return _schemaDotOrg.ToString();
+                }
+                return "{}";
+            }
+            set
+            {
+                if (value != null)
+                {
+                    _schemaDotOrg = // read from Json using Newtonsoft
+                        Newtonsoft.Json.JsonConvert.DeserializeObject<Schema.NET.Person>(value);
+                }
+            }
+        }
 
         /// <summary>
         /// TenantId of this entity.
@@ -103,7 +122,9 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
         /// <param name="context">The context of the stream</param>
         protected PersonDomainEntityBase(SerializationInfo info, StreamingContext context) : base(info, context)
         {
-            SchemaDotOrg = (Schema.NET.Person)info.GetValue("SchemaDotOrg", typeof(Schema.NET.Person));
+
+            SchemaDotOrgJson = info.GetString("SchemaDotOrgJson");
+            _schemaDotOrg = (Schema.NET.Person)info.GetValue("_schemaDotOrg", typeof(Schema.NET.Person));
             
         }
 
@@ -115,7 +136,8 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
         public override void GetObjectData(SerializationInfo info, StreamingContext context)
         {
             base.GetObjectData(info, context);
-            info.AddValue("SchemaDotOrg", SchemaDotOrg);
+            info.AddValue("_schemaDotOrg", _schemaDotOrg);
+            info.AddValue("SchemaDotOrgJson", SchemaDotOrgJson);
         }
 
 
@@ -208,7 +230,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
                     // Subclasses should extend to include their own enhanced equality checks, as required.
                     return Id.Equals(obj.Id)
                         && Culture.Equals(obj.Culture)
-                        && SchemaDotOrg.Equals(obj.SchemaDotOrg);
+                        && SchemaDotOrgJson.Equals(obj.SchemaDotOrgJson);
                 }
 
             }

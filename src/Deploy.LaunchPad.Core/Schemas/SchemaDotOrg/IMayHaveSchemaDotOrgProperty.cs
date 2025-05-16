@@ -9,6 +9,6 @@ namespace Deploy.LaunchPad.Core.Schemas.SchemaDotOrg
     public partial interface IMayHaveSchemaDotOrgProperty<TSchema>
        where TSchema : Schema.NET.IThing
     {
-        public TSchema? SchemaDotOrg { get; }
+        public string SchemaDotOrgJson { get; set; }
     }
 }

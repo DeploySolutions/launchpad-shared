@@ -50,13 +50,31 @@ namespace Deploy.LaunchPad.Core.Person
     /// <typeparam name="TIdType">The type of the t identifier type.</typeparam>
     public abstract partial class PersonBase<TIdType> : LaunchPadModelBase, ILaunchPadPerson
     {
+        protected virtual Schema.NET.Person? _schemaDotOrg { get; set; }
+
         /// <summary>
         /// Gets or sets the schema.
         /// </summary>
         /// <value>The schema.</value>
-        [DataObjectField(false)]
-        [XmlAttribute]
-        public virtual Schema.NET.Person? SchemaDotOrg { get; protected set; }
+        public virtual string SchemaDotOrgJson
+        {
+            get
+            {
+                if (_schemaDotOrg != null)
+                {
+                    return _schemaDotOrg.ToString();
+                }
+                return "{}";
+            }
+            set
+            {
+                if (value != null)
+                {
+                    _schemaDotOrg = // read from Json using Newtonsoft
+                        Newtonsoft.Json.JsonConvert.DeserializeObject<Schema.NET.Person>(value);
+                }
+            }
+        }
 
         public virtual string Title { get; set; } = string.Empty;
 
@@ -85,7 +103,8 @@ namespace Deploy.LaunchPad.Core.Person
         protected PersonBase(SerializationInfo info, StreamingContext context) : base(info, context)
         {
             Title = info.GetString("Title");
-            SchemaDotOrg = (Schema.NET.Person)info.GetValue("SchemaDotOrg", typeof(Schema.NET.Person));
+            SchemaDotOrgJson = info.GetString("SchemaDotOrgJson");
+            _schemaDotOrg = (Schema.NET.Person)info.GetValue("_schemaDotOrg", typeof(Schema.NET.Person));
             Parents = (List<ILaunchPadPerson>)info.GetValue("Parents", typeof(List<ILaunchPadPerson>));
             Children = (List<ILaunchPadPerson>)info.GetValue("Children", typeof(List<ILaunchPadPerson>));
             Siblings = (List<ILaunchPadPerson>)info.GetValue("Siblings", typeof(List<ILaunchPadPerson>));
@@ -102,7 +121,8 @@ namespace Deploy.LaunchPad.Core.Person
         {
             base.GetObjectData(info, context);
             info.AddValue("Title", Title);
-            info.AddValue("SchemaDotOrg", SchemaDotOrg);
+            info.AddValue("SchemaDotOrgJson", SchemaDotOrgJson);
+            info.AddValue("_schemaDotOrg", _schemaDotOrg);
             info.AddValue("Parents", Parents);
             info.AddValue("Children", Children);
             info.AddValue("Siblings", Siblings);
@@ -192,7 +212,7 @@ namespace Deploy.LaunchPad.Core.Person
                     // Subclasses should extend to include their own enhanced equality checks, as required.
                     return Name.Equals(obj.Name)
                         && Culture.Equals(obj.Culture)
-                        && SchemaDotOrg.Equals(obj.SchemaDotOrg)
+                        && SchemaDotOrgJson.Equals(obj.SchemaDotOrgJson)
                         && Parents.Equals(obj.Parents);
             }
             return false;
