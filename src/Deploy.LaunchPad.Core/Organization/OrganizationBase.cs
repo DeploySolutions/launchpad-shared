@@ -47,7 +47,7 @@ namespace Deploy.LaunchPad.Core.Organization
     /// base functionality for many of its methods.
     /// </summary>
     /// <typeparam name="TIdType">The type of the t identifier type.</typeparam>
-    public abstract partial class OrganizationBase<TIdType> : LaunchPadModelBase, ILaunchPadOrganization
+    public abstract partial class OrganizationBase<TIdType> : LaunchPadModelBase, ILaunchPadOrganization, IMayHaveOrganizationContactPointInformation
     {
         /// <summary>
         /// Gets or sets the schema.
@@ -64,6 +64,13 @@ namespace Deploy.LaunchPad.Core.Organization
 
         public virtual IList<string> Offices { get; set; }
 
+        /// <summary>
+        /// Gets or sets the contact point (if any)
+        /// </summary>
+        /// <value>Gets or sets the contact point (if any)</value>
+        [DataObjectField(false)]
+        [XmlAttribute]
+        public virtual OrganizationContactPoint? ContactPoint { get; set; }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="OrganizationBase">OrganizationBase</see> class
