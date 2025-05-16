@@ -9,7 +9,7 @@ using System.Xml.Serialization;
 
 namespace Deploy.LaunchPad.Core.Domain.Model
 {
-    public partial interface IHaveAnIdProperty<TIdType>
+    public partial interface IHaveIDProperty<TIdType>
     {
        // don't specify the actual property as if we inherit from ABP Domain Entity that will cause shadow property
 
