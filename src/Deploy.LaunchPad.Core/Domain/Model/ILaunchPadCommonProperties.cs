@@ -11,6 +11,7 @@
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
+using Deploy.LaunchPad.Core.Content;
 using Deploy.LaunchPad.Util;
 using System;
 using System.Collections.Generic;
@@ -26,7 +27,7 @@ namespace Deploy.LaunchPad.Core.Domain.Model
     /// Defines the minimum properties LaunchPad expects to have for a Domain Entity or Value Object.
     /// Note these deliberately correspond 1:1 to many of the properties found in various ABP domain entity interfaces, which would also be inherited by implementing classes.
     /// </summary>
-    public partial interface ILaunchPadCommonProperties
+    public partial interface ILaunchPadCommonProperties : IMayHaveTags
     {
 
         /// <summary>
@@ -74,15 +75,6 @@ namespace Deploy.LaunchPad.Core.Domain.Model
         [XmlElement]
         public int SeqNum { get; }
 
-        /// <summary>
-        /// Each value object can have an open-ended set of tags applied to it, that help users find, markup, and display its information
-        /// </summary>
-        /// <value>The tags.</value>
-        [DataObjectField(false)]
-        [XmlAttribute]
-        public string Tags { get; }
-
-        
         /// <summary>
         /// Gets or sets a value indicating whether this instance is active.
         /// </summary>
