@@ -55,9 +55,9 @@ namespace Deploy.LaunchPad.Core.Organization
         /// <summary>
         /// Available languages/cultures for the contact point; for example "en-CA", "es-ES" or "fr".
         /// </summary>
-        [JsonPropertyName("email")]
+        [JsonPropertyName("availableLanguages")]
         [JsonConverter(typeof(ValuesJsonConverter))]
-        public virtual List<CultureInfo> AvailableLanguages { get; set; } = new List<CultureInfo>();
+        public virtual List<string> AvailableLanguages { get; set; } = new List<string>();
 
         public OrganizationContactPoint()
         {
