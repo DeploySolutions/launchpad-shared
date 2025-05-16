@@ -13,7 +13,7 @@ using System.Globalization;
 namespace Deploy.LaunchPad.Core.Organization
 {
     [Serializable]
-    public partial class OrganizationContactPoint
+    public partial class OrganizationContactPoint : IOrganizationContactPoint
     {
         /// <summary>
         /// The name of this contact point
@@ -22,7 +22,7 @@ namespace Deploy.LaunchPad.Core.Organization
         [Required]
         [DataObjectField(false)]
         [XmlAttribute]
-        public ElementNameLight Name { get; }
+        public virtual ElementNameLight Name { get; }
 
         /// <summary>
         /// The culture of this object
@@ -33,45 +33,45 @@ namespace Deploy.LaunchPad.Core.Organization
         [DataObjectField(true)]
         [XmlAttribute]
 
-        public string Culture { get; }
+        public virtual string Culture { get; }
 
         /// <summary>
         /// A person or organization can have different contact points, for different purposes. For example, a sales contact point, a PR contact point and so on. This property is used to specify the kind of contact point.
         /// </summary>
         [JsonPropertyName("contactType")]
         [JsonConverter(typeof(ValuesJsonConverter))]
-        public string ContactType { get; set; }
+        public virtual string ContactType { get; set; }
 
         /// <summary>
         /// Email address.
         /// </summary>
         [JsonPropertyName("email")]
         [JsonConverter(typeof(ValuesJsonConverter))]
-        public List<string> Email { get; set; } = new List<string>();
+        public virtual List<string> Email { get; set; } = new List<string>();
 
         /// <summary>
         /// The fax number.
         /// </summary>
         [JsonPropertyName("faxNumber")]
         [JsonConverter(typeof(ValuesJsonConverter))]
-        public string? FaxNumber { get; set; }
+        public virtual string? FaxNumber { get; set; }
 
         /// <summary>
         /// The telephone number.
         /// </summary>
         [JsonPropertyName("telephone")]
         [JsonConverter(typeof(ValuesJsonConverter))]
-        public List<string> Telephone { get; set; } = new List<string>();
+        public virtual List<string> Telephone { get; set; } = new List<string>();
 
         /// <summary>
         /// Available languages/cultures for the contact point; for example "en-CA", "es-ES" or "fr".
         /// </summary>
         [JsonPropertyName("email")]
         [JsonConverter(typeof(ValuesJsonConverter))]
-        public List<CultureInfo> AvailableLanguages { get; set; } = new List<CultureInfo>();
+        public virtual List<CultureInfo> AvailableLanguages { get; set; } = new List<CultureInfo>();
 
         public OrganizationContactPoint()
-        { 
+        {
         }
 
         public OrganizationContactPoint(Schema.NET.ContactPoint schemaDotOrgContactPoint)
