@@ -19,21 +19,35 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Diagnostics.CodeAnalysis;
 using System.Xml.Serialization;
 
-namespace Deploy.LaunchPad.Core.Domain.Model
+namespace Deploy.LaunchPad.Core.Content
 {
     /// <summary>
-    /// Defines the minimum properties LaunchPad expects to have for a versionable Domain Entity or Value Object.
+    /// Defines the minimum properties LaunchPad expects to have for publishing information.
     /// </summary>
-    /// <typeparam name="TIdType">The type of the t identifier type.</typeparam>
-    public partial interface IVersionableProperties: ILaunchPadCommonProperties
+    public partial interface IMayHavePublishingInformation
     {
 
         /// <summary>
-        /// Version number of this entity
+        /// Is this item published?
         /// </summary>        
         [DataObjectField(false)]
         [XmlAttribute]
-        public string? Version { get; set; }
+        public bool IsPublished { get; set; }
+
+        /// <summary>
+        /// Which user published this item?
+        /// </summary>
+        [DataObjectField(false)]
+        [XmlAttribute]
+        public long? PublisherUserId { get; set; }
+
+        /// <summary>
+        /// Publishing time of this item.
+        /// </summary>
+        [DataObjectField(false)]
+        [XmlAttribute]
+        public DateTimeOffset? PublishedTimeInUtc { get; set; }
+
 
     }
 }
