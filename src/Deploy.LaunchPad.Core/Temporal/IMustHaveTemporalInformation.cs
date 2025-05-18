@@ -4,9 +4,9 @@
 // Created          : 11-19-2023
 //
 // Last Modified By : Nicholas Kellett
-// Last Modified On : 06-11-2023
+// Last Modified On : 07-26-2023
 // ***********************************************************************
-// <copyright file="IPhysicallyLocatable.cs" company="Deploy Software Solutions, inc.">
+// <copyright file="IMustHaveTemporalInformation.cs" company="Deploy Software Solutions, inc.">
 //     2018-2024 Deploy Software Solutions, inc.
 // </copyright>
 // <summary></summary>
@@ -27,26 +27,21 @@
 #endregion
 
 
-namespace Deploy.LaunchPad.Core.Geospatial
+
+using Deploy.LaunchPad.Core.Domain;
+
+namespace Deploy.LaunchPad.Core.Temporal
 {
-    using System.Collections.Generic;
+    using Deploy.LaunchPad.Core.Domain.Model;
+    using System;
+    using System.Runtime.Serialization;
 
     /// <summary>
-    /// This interface contracts that an object has a physical position that can be located in time and space
+    /// This interface defines the temporal (time) boundaries around something, including its effective date, and potentially a start and end date
     /// </summary>
-    public partial interface IPhysicallyLocatable
+    public partial interface IMustHaveTemporalInformation : ILaunchPadObject
     {
-        /// <summary>
-        /// The current physical location of the object in time and space
-        /// </summary>
-        /// <value>The current location.</value>
-        SpaceTimeInformation CurrentLocation { get; set; }
-
-        /// <summary>
-        /// A list (not necessarily comprehensive) of this object's previous (but not current) physical positions.
-        /// </summary>
-        /// <value>The previous locations.</value>
-        IList<SpaceTimeInformation> PreviousLocations { get; set; }
+        public TemporalInformation TemporalInformation {get;set;}
 
     }
 }

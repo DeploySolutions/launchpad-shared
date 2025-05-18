@@ -12,7 +12,7 @@ using System.Xml.Serialization;
 namespace Deploy.LaunchPad.Core.Domain.Tasking
 {
     [Serializable]
-    public partial class TaskInstruction : ITaskInstructions
+    public partial class TaskInstruction : IMayHaveTaskInstructions
     {
         protected string _short = string.Empty;
         /// <summary>

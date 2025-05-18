@@ -58,7 +58,7 @@ namespace Deploy.LaunchPad.Core.Geospatial
         /// <value>The physical location.</value>
         [DataObjectField(false)]
         [XmlAttribute]
-        public virtual IHaveGeographicPosition PhysicalLocation { get; set; }
+        public virtual IMustHaveGeographicPosition PhysicalLocation { get; set; }
 
         #region Constructors
 
@@ -113,7 +113,7 @@ namespace Deploy.LaunchPad.Core.Geospatial
         /// <param name="context">The context of the stream</param>
         public SpaceTimeInformation(SerializationInfo info, StreamingContext context)
         {
-            PhysicalLocation = (IHaveGeographicPosition)info.GetValue("PhysicalLocation", typeof(IHaveGeographicPosition));
+            PhysicalLocation = (IMustHaveGeographicPosition)info.GetValue("PhysicalLocation", typeof(IMustHaveGeographicPosition));
             TemporalInformation = (TemporalInformation)info.GetValue("TemporalInformation", typeof(TemporalInformation));
         }
 

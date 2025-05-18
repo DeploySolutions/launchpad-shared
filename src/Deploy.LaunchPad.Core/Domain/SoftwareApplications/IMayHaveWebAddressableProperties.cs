@@ -11,6 +11,7 @@
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
+using Deploy.LaunchPad.Core.Content;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -24,17 +25,8 @@ namespace Deploy.LaunchPad.Core.Domain.Model
     /// Defines the minimum properties LaunchPad expects to have for a web-addressable Domain Entity or Value Object.
     /// </summary>
     /// <typeparam name="TIdType">The type of the t identifier type.</typeparam>
-    public partial interface IWebAddressableProperties: ILaunchPadCommonProperties
+    public partial interface IMayHaveWebAddressableProperties: ILaunchPadCommonProperties, IMayHaveASlug
     {
-        // <summary>
-        /// If this object is has a unique "slug" that can be used in a url to identify the object in an easy-to-read form.
-        /// </summary>
-        /// <value>The slug of the entity.</value>
-        [MaxLength(255, ErrorMessageResourceName = "Validation_255CharsOrLess", ErrorMessageResourceType = typeof(Deploy_LaunchPad_Core_Resources))]
-        [DataObjectField(false)]
-        [XmlAttribute]
-        public string? Slug { get; }
-
 
         /// <summary>
         /// The external ID stored in a client system (if any). Can be any type on client system, but retained here as text.

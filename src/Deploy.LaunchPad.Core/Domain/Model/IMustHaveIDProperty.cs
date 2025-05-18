@@ -9,13 +9,13 @@ using System.Xml.Serialization;
 
 namespace Deploy.LaunchPad.Core.Domain.Model
 {
-    public partial interface IHaveIDProperty
+    public partial interface IMustHaveIDProperty
     {
         // don't specify the actual property as if we inherit from ABP Domain Entity that will cause shadow property
 
     }
 
-    public partial interface IHaveIDProperty<TIdType> : IHaveIDProperty
+    public partial interface IHaveIDProperty<TIdType> : IMustHaveIDProperty
     {
        // don't specify the actual property as if we inherit from ABP Domain Entity that will cause shadow property
 

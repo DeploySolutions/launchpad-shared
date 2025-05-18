@@ -9,14 +9,14 @@ using System.Xml.Serialization;
 
 namespace Deploy.LaunchPad.Core.Data
 {
-    public partial interface IHaveDataSetId<TIdType>
+    public partial interface IMayHaveDataSetId<TIdType>
     {
         ///<summary>
         /// DataSet Id
         ///</summary>
         [DataObjectField(false)]
         [XmlAttribute]
-        public TIdType DataSetId { get; set; }
+        public TIdType? DataSetId { get; set; }
 
     }
 }

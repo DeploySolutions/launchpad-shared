@@ -4,9 +4,9 @@
 // Created          : 11-19-2023
 //
 // Last Modified By : Nicholas Kellett
-// Last Modified On : 07-26-2023
+// Last Modified On : 06-11-2023
 // ***********************************************************************
-// <copyright file="IAreaOfInterest.cs" company="Deploy Software Solutions, inc.">
+// <copyright file="IPhysicallyLocatable.cs" company="Deploy Software Solutions, inc.">
 //     2018-2024 Deploy Software Solutions, inc.
 // </copyright>
 // <summary></summary>
@@ -29,16 +29,24 @@
 
 namespace Deploy.LaunchPad.Core.Geospatial
 {
-    using Deploy.LaunchPad.Core.Geospatial.Position;
-    using NetTopologySuite.Geometries;
     using System.Collections.Generic;
-    using System.ComponentModel;
-    using System.Xml.Serialization;
 
     /// <summary>
-    /// This interface defines the geographical boundaries of an Area of Interest being observed.
+    /// This interface contracts that an object has a physical position that can be located in time and space
     /// </summary>
-    public partial interface IAreaOfInterest : IMustHaveGeographicPosition
+    public partial interface IMustBePhysicallyLocatable
     {
+        /// <summary>
+        /// The current physical location of the object in time and space
+        /// </summary>
+        /// <value>The current location.</value>
+        SpaceTimeInformation CurrentLocation { get; set; }
+
+        /// <summary>
+        /// A list (not necessarily comprehensive) of this object's previous (but not current) physical positions.
+        /// </summary>
+        /// <value>The previous locations.</value>
+        IList<SpaceTimeInformation> PreviousLocations { get; set; }
+
     }
 }

@@ -137,7 +137,7 @@ namespace Deploy.LaunchPad.Core.Geospatial
         /// <param name="elevation"></param>
         /// <param name="userDefinedCenter"></param>
         /// <param name="userDefinedBoundingBox"></param>
-        public virtual GeographicPositionDto GetGeographicPositionDto(IHaveGeographicPosition location)
+        public virtual GeographicPositionDto GetGeographicPositionDto(IMustHaveGeographicPosition location)
         {
             Guard.Against<ArgumentException>(location == null, "location cannot be null.");
             GeographicPositionDto position = new GeographicPositionDto(

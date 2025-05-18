@@ -48,7 +48,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
     /// </summary>
     /// <typeparam name="TIdType">The type of the t identifier type.</typeparam>
     [Serializable()]
-    public partial class Device<TIdType> : LaunchPadDomainEntityBase<TIdType>, IDevice, IPhysicallyLocatable, IMayHaveTenant
+    public partial class Device<TIdType> : LaunchPadDomainEntityBase<TIdType>, IDevice, IMustBePhysicallyLocatable, IMayHaveTenant
 
     {
         /// <summary>

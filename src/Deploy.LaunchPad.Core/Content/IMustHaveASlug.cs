@@ -6,7 +6,7 @@
 // Last Modified By : Nicholas Kellett
 // Last Modified On : 10-27-2023
 // ***********************************************************************
-// <copyright file="IMayHaveASlug.cs" company="Deploy Software Solutions, inc.">
+// <copyright file="IMustHaveASlug.cs" company="Deploy Software Solutions, inc.">
 //     2018-2024 Deploy Software Solutions, inc.
 // </copyright>
 // <summary></summary>
@@ -30,11 +30,11 @@ namespace Deploy.LaunchPad.Core.Content
     /// -stripped of punctuation and special characters
     /// -ASCII-only(though some systems allow Unicode slugs)
     /// </summary>
-    public partial interface IMayHaveASlug
+    public partial interface IMustHaveASlug
     {
         [MaxLength(100)]
         [RegularExpression("^[a-z0-9]+(?:-[a-z0-9]+)*$", ErrorMessage = "Slug must be lowercase and hyphen-separated.")]
-        public string? Slug { get; set; }
+        public string Slug { get; set; }
 
     }
 }

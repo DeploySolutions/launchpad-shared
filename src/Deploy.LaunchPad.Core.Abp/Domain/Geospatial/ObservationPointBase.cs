@@ -213,7 +213,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
         /// </summary>
         /// <param name="tenantId">The tenant identifier.</param>
         /// <param name="location">The location.</param>
-        protected ObservationPointBase(int? tenantId, IHaveGeographicPosition location) : base()
+        protected ObservationPointBase(int? tenantId, IMustHaveGeographicPosition location) : base()
         {
             TenantId = tenantId;
             GeospatialHelper helper = new GeospatialHelper();

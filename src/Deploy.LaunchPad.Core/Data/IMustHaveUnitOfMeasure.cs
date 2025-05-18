@@ -9,7 +9,7 @@ using System.Xml.Serialization;
 
 namespace Deploy.LaunchPad.Core.Data
 {
-    public partial interface IHaveUnitOfMeasure
+    public partial interface IMustHaveUnitOfMeasure
     {
         ///<summary>
         /// Unit of measure (ex "kg", "m", "cm", "mm", "g", "l", "ml", "oz", "in", "ft", etc.)

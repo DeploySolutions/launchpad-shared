@@ -6,7 +6,7 @@
 // Last Modified By : Nicholas Kellett
 // Last Modified On : 07-26-2023
 // ***********************************************************************
-// <copyright file="IHaveTemporalInformation.cs" company="Deploy Software Solutions, inc.">
+// <copyright file="IMustHaveElevation.cs" company="Deploy Software Solutions, inc.">
 //     2018-2024 Deploy Software Solutions, inc.
 // </copyright>
 // <summary></summary>
@@ -26,22 +26,25 @@
 //limitations under the License. 
 #endregion
 
-
-
 using Deploy.LaunchPad.Core.Domain;
 
-namespace Deploy.LaunchPad.Core.Temporal
+namespace Deploy.LaunchPad.Core.Geospatial
 {
     using Deploy.LaunchPad.Core.Domain.Model;
-    using System;
     using System.Runtime.Serialization;
 
     /// <summary>
-    /// This interface defines the temporal (time) boundaries around something, including its effective date, and potentially a start and end date
+    /// This interface defines the physical elevation of something
     /// </summary>
-    public partial interface IHaveTemporalInformation : ILaunchPadObject
+    public partial interface IMustHaveElevation : ILaunchPadObject
     {
-        public TemporalInformation TemporalInformation {get;set;}
+
+        /// <summary>
+        /// Gets or sets the elevation.
+        /// </summary>
+        /// <value>The elevation.</value>
+        public double Elevation { get; set; }
+
 
     }
 }

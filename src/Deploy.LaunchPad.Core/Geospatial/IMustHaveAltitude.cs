@@ -6,7 +6,7 @@
 // Last Modified By : Nicholas Kellett
 // Last Modified On : 07-26-2023
 // ***********************************************************************
-// <copyright file="IAreaOfInterest.cs" company="Deploy Software Solutions, inc.">
+// <copyright file="IMustHaveAltitude.cs" company="Deploy Software Solutions, inc.">
 //     2018-2024 Deploy Software Solutions, inc.
 // </copyright>
 // <summary></summary>
@@ -26,19 +26,25 @@
 //limitations under the License. 
 #endregion
 
+using Deploy.LaunchPad.Core.Domain;
 
 namespace Deploy.LaunchPad.Core.Geospatial
 {
-    using Deploy.LaunchPad.Core.Geospatial.Position;
-    using NetTopologySuite.Geometries;
-    using System.Collections.Generic;
-    using System.ComponentModel;
-    using System.Xml.Serialization;
+    using Deploy.LaunchPad.Core.Domain.Model;
+    using System.Runtime.Serialization;
 
     /// <summary>
-    /// This interface defines the geographical boundaries of an Area of Interest being observed.
+    /// This interface defines the physical altitude of something
     /// </summary>
-    public partial interface IAreaOfInterest : IMustHaveGeographicPosition
+    public partial interface IMustHaveAltitude : ILaunchPadObject
     {
+
+        /// <summary>
+        /// Gets or sets the altitude.
+        /// </summary>
+        /// <value>The altitude.</value>
+        public double Altitude { get; set; }
+
+
     }
 }

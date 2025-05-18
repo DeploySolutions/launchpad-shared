@@ -6,7 +6,7 @@
 // Last Modified By : Nicholas Kellett
 // Last Modified On : 10-27-2023
 // ***********************************************************************
-// <copyright file="IMayHavePublishingInformation.cs" company="Deploy Software Solutions, inc.">
+// <copyright file="ILaunchPadDomainEntityProperties.cs" company="Deploy Software Solutions, inc.">
 //     2018-2024 Deploy Software Solutions, inc.
 // </copyright>
 // <summary></summary>
@@ -19,35 +19,21 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Diagnostics.CodeAnalysis;
 using System.Xml.Serialization;
 
-namespace Deploy.LaunchPad.Core.Content
+namespace Deploy.LaunchPad.Core.Domain.Model
 {
     /// <summary>
-    /// Defines the minimum properties LaunchPad expects to have for publishing information.
+    /// Defines the minimum properties LaunchPad expects to have for a versionable Domain Entity or Value Object.
     /// </summary>
-    public partial interface IMayHavePublishingInformation
+    /// <typeparam name="TIdType">The type of the t identifier type.</typeparam>
+    public partial interface IMustHaveVersionInformation: ILaunchPadCommonProperties
     {
 
         /// <summary>
-        /// Is this item published?
+        /// Version number of this item
         /// </summary>        
         [DataObjectField(false)]
         [XmlAttribute]
-        public bool? IsPublished { get; set; }
-
-        /// <summary>
-        /// Which user published this item?
-        /// </summary>
-        [DataObjectField(false)]
-        [XmlAttribute]
-        public long? PublisherUserId { get; set; }
-
-        /// <summary>
-        /// Publishing time of this item.
-        /// </summary>
-        [DataObjectField(false)]
-        [XmlAttribute]
-        public DateTimeOffset? PublishedTimeInUtc { get; set; }
-
+        public string Version { get; set; }
 
     }
 }

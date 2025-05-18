@@ -21,7 +21,7 @@ namespace Deploy.LaunchPad.Core.Geospatial
     /// </summary>
     /// <typeparam name="TParentAreaOfInterest">The type of the t parent area of interest.</typeparam>
     /// <seealso cref="GeographicPosition.IHaveGeographicPosition" />
-    public partial interface IObservationPoint<TParentAreaOfInterest> : IHaveGeographicPosition
+    public partial interface IObservationPoint<TParentAreaOfInterest> : IMustHaveGeographicPosition
         where TParentAreaOfInterest : IAreaOfInterest
     {
         /// <summary>

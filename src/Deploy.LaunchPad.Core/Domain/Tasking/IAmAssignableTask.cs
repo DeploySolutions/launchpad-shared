@@ -25,7 +25,7 @@ namespace Deploy.LaunchPad.Core.Domain.Tasking
     /// Extends the <see cref="ILaunchPadCommonProperties" />
     /// </summary>
     /// <seealso cref="ILaunchPadCommonProperties" />
-    public partial interface IAmAssignableTask : ILaunchPadCommonProperties
+    public partial interface IAmAssignableTask : ILaunchPadCommonProperties, IMayHaveAPriority
     {
         public TaskInstruction Instructions { get; set; }
 
@@ -41,10 +41,5 @@ namespace Deploy.LaunchPad.Core.Domain.Tasking
         /// <value>The sub tasks.</value>
         public IList<IAmAssignableTask>? SubTasks { get; set; }
 
-        /// <summary>
-        /// Gets or sets the priority.
-        /// </summary>
-        /// <value>The priority.</value>
-        public PriorityLevel Priority { get; set; }
     }
 }

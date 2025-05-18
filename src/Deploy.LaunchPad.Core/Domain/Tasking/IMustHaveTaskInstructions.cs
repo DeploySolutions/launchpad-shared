@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Deploy.LaunchPad.Core.Domain.Tasking
 {
-    public partial interface ITaskInstructions
+    public partial interface IMustHaveTaskInstructions
     {
         /// <summary>
          /// Gets or sets the instructions short.

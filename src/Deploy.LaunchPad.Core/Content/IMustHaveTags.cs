@@ -6,7 +6,7 @@
 // Last Modified By : Nicholas Kellett
 // Last Modified On : 10-27-2023
 // ***********************************************************************
-// <copyright file="IMayHaveASlug.cs" company="Deploy Software Solutions, inc.">
+// <copyright file="IMustHaveTags.cs" company="Deploy Software Solutions, inc.">
 //     2018-2024 Deploy Software Solutions, inc.
 // </copyright>
 // <summary></summary>
@@ -23,18 +23,17 @@ using System.Xml.Serialization;
 namespace Deploy.LaunchPad.Core.Content
 {
     /// <summary>
-    /// Allows a URL-like "slug" reference such as in WordPress my-content-slug.
-    /// A slug is a human-readable, URL-safe string that uniquely identifies a resource — typically used in blog posts, articles, products, or anything accessible via URL. It's often derived from a title or name but formatted to be:
-    /// -lowercase
-    /// -hyphen-separated(-)
-    /// -stripped of punctuation and special characters
-    /// -ASCII-only(though some systems allow Unicode slugs)
+    /// Allows metadata tags to be stored
     /// </summary>
-    public partial interface IMayHaveASlug
+    public partial interface IMustHaveTags
     {
-        [MaxLength(100)]
-        [RegularExpression("^[a-z0-9]+(?:-[a-z0-9]+)*$", ErrorMessage = "Slug must be lowercase and hyphen-separated.")]
-        public string? Slug { get; set; }
+        /// <summary>
+        /// Each item can have an open-ended set of tags applied to it, to help with data labelling or help users find, markup, and display its information
+        /// </summary>
+        /// <value>The tags.</value>
+        [DataObjectField(false)]
+        [XmlAttribute]
+        public string Tags { get; }
 
     }
 }

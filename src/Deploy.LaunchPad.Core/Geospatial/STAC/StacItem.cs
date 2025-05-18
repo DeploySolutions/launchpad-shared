@@ -104,7 +104,7 @@ namespace Deploy.LaunchPad.Core.STAC
     /// <summary>
     /// Class CommonMetadata.
     /// </summary>
-    public partial class CommonMetadata : IHaveTemporalInformation
+    public partial class CommonMetadata : IMustHaveTemporalInformation
     {
         /// <summary>
         /// Detailed multi-line description to fully explain the Item.

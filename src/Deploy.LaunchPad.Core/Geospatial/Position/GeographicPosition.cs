@@ -45,7 +45,7 @@ namespace Deploy.LaunchPad.Core.Geospatial.Position
     /// This class defines the physical position of something, in terms of its latitude, longitude, and elevation.
     /// </summary>
     [Serializable()]
-    public partial class GeographicPosition : IHaveGeographicPosition, IEquatable<GeographicPosition>
+    public partial class GeographicPosition : IMustHaveGeographicPosition, IEquatable<GeographicPosition>
     {
         protected readonly GeospatialHelper _helper = new GeospatialHelper();
 

@@ -6,12 +6,11 @@
 // Last Modified By : Nicholas Kellett
 // Last Modified On : 10-27-2023
 // ***********************************************************************
-// <copyright file="IMayHaveASlug.cs" company="Deploy Software Solutions, inc.">
+// <copyright file="IMustHavePublishingInformation.cs" company="Deploy Software Solutions, inc.">
 //     2018-2024 Deploy Software Solutions, inc.
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
-using Schema.NET;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -23,18 +22,32 @@ using System.Xml.Serialization;
 namespace Deploy.LaunchPad.Core.Content
 {
     /// <summary>
-    /// Allows a URL-like "slug" reference such as in WordPress my-content-slug.
-    /// A slug is a human-readable, URL-safe string that uniquely identifies a resource — typically used in blog posts, articles, products, or anything accessible via URL. It's often derived from a title or name but formatted to be:
-    /// -lowercase
-    /// -hyphen-separated(-)
-    /// -stripped of punctuation and special characters
-    /// -ASCII-only(though some systems allow Unicode slugs)
+    /// Defines the minimum properties LaunchPad expects to have for publishing information.
     /// </summary>
-    public partial interface IMayHaveASlug
+    public partial interface IMustHavePublishingInformation
     {
-        [MaxLength(100)]
-        [RegularExpression("^[a-z0-9]+(?:-[a-z0-9]+)*$", ErrorMessage = "Slug must be lowercase and hyphen-separated.")]
-        public string? Slug { get; set; }
+
+        /// <summary>
+        /// Is this item published?
+        /// </summary>        
+        [DataObjectField(false)]
+        [XmlAttribute]
+        public bool IsPublished { get; set; }
+
+        /// <summary>
+        /// Which user published this item?
+        /// </summary>
+        [DataObjectField(false)]
+        [XmlAttribute]
+        public long PublisherUserId { get; set; }
+
+        /// <summary>
+        /// Publishing time of this item.
+        /// </summary>
+        [DataObjectField(false)]
+        [XmlAttribute]
+        public DateTimeOffset PublishedTimeInUtc { get; set; }
+
 
     }
 }
