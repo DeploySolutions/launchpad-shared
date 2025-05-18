@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
 using System.ComponentModel.DataAnnotations;
+using Deploy.LaunchPad.Core.Data;
 
 namespace Deploy.LaunchPad.Core.Domain.Model
 {
@@ -15,7 +16,7 @@ namespace Deploy.LaunchPad.Core.Domain.Model
     /// This is a score for a particular item
     /// </summary>
     [Serializable]
-    public partial class Score
+    public partial class Score : IMustHaveUnitOfMeasure
     {
         /// <summary>
         /// Provides a friendly label for a particular score, useful for display purposes
