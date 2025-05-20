@@ -14,6 +14,7 @@
 using Abp.Dependency;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
+using System;
 
 namespace Deploy.LaunchPad.Core.Abp.AbpModuleConfig
 {
@@ -32,13 +33,24 @@ namespace Deploy.LaunchPad.Core.Abp.AbpModuleConfig
         /// <value>The configuration.</value>
         public IConfigurationRoot Configuration { get; }
 
+        ///// <summary>
+        ///// Initializes a new instance of the <see cref="LaunchPadAbpAppConfigurationAccessor"/> class.
+        ///// </summary>
+        ///// <param name="env">The env.</param>
+        //public LaunchPadAbpAppConfigurationAccessor(IWebHostEnvironment env)
+        //{
+        //    Configuration = env.GetAppConfiguration();
+        //}
+
         /// <summary>
         /// Initializes a new instance of the <see cref="LaunchPadAbpAppConfigurationAccessor"/> class.
         /// </summary>
-        /// <param name="env">The env.</param>
-        public LaunchPadAbpAppConfigurationAccessor(IWebHostEnvironment env)
+        /// <param name="configuration">The configuration provided by DI.</param>
+        public LaunchPadAbpAppConfigurationAccessor(IConfiguration configuration)
         {
-            Configuration = env.GetAppConfiguration();
+            // If you need IConfigurationRoot for reloading, cast; otherwise, just use IConfiguration
+            Configuration = configuration as IConfigurationRoot
+                ?? throw new ArgumentException("configuration must be an IConfigurationRoot", nameof(configuration));
         }
     }
 }
