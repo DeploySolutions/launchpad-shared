@@ -138,11 +138,11 @@ namespace Deploy.LaunchPad.AWS.Abp.S3.Services
                 };
                 if(modifiedSinceDateUtc.HasValue)
                 {
-                    fileTransferUtilityRequest.ModifiedSinceDateUtc = modifiedSinceDateUtc.Value.ToUniversalTime();
+                    fileTransferUtilityRequest.ModifiedSinceDate = modifiedSinceDateUtc.Value.ToUniversalTime();
                 }
                 if (unmodifiedSinceDateUtc.HasValue)
                 {
-                    fileTransferUtilityRequest.UnmodifiedSinceDateUtc = unmodifiedSinceDateUtc.Value.ToUniversalTime();
+                    fileTransferUtilityRequest.UnmodifiedSinceDate = unmodifiedSinceDateUtc.Value.ToUniversalTime();
                 }
                 await transferUtil.DownloadAsync(fileTransferUtilityRequest);
                 transferUtil.Dispose();

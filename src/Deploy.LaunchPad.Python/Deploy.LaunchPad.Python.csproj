@@ -1,11 +1,11 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>net8.0</TargetFrameworks>
-    <Version>10.15.1</Version>
+    <TargetFrameworks>net9.0</TargetFrameworks>
+    <Version>10.17.0</Version>
     <Authors>Nicholas Kellett</Authors>
     <Company>Deploy Software Solutions, inc.</Company>
-    <Copyright>2022-2023 Deploy Software Solutions, inc.</Copyright>
+    <Copyright>2022-2025 Deploy Software Solutions, inc.</Copyright>
     <PackageLicenseExpression></PackageLicenseExpression>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
