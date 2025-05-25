@@ -14,15 +14,15 @@
 using System;
 using Castle.Core.Logging;
 
-namespace Deploy.LaunchPad.Core
+namespace Deploy.LaunchPad.Core.Services
 {
     /// <summary>
     /// Base service for LaunchPad Services, ensuring they can have a name, description, and logger.
     /// </summary>
     public abstract partial class LaunchPadServiceBase : ILaunchPadService
     {
-        public virtual ElementName Name { get; set; }
-        public virtual ElementDescription Description { get; set; }
+        public virtual ElementNameLight Name { get; set; }
+        public virtual ElementDescriptionLight Description { get; set; }
 
         /// <summary>
         /// Gets or sets the logger.
@@ -34,32 +34,32 @@ namespace Deploy.LaunchPad.Core
         {
             string id = Guid.NewGuid().ToString();
             string name = GetType().Name;
-            Name = new ElementName(string.Format("{0} {1} ", name, id));
-            Description = new ElementDescription(string.Format("{0} {1} ", name, id));
+            Name = new ElementNameLight(string.Format("{0} {1} ", name, id));
+            Description = new ElementDescriptionLight(string.Format("{0} {1} ", name, id));
         }
 
         protected LaunchPadServiceBase(ILogger logger)
         {
             string id = Guid.NewGuid().ToString();
             string name = GetType().Name;
-            Name = new ElementName(string.Format("{0} {1} ", name, id));
-            Description = new ElementDescription(string.Format("{0} {1} ", name, id));
+            Name = new ElementNameLight(string.Format("{0} {1} ", name, id));
+            Description = new ElementDescriptionLight(string.Format("{0} {1} ", name, id));
             Logger = logger;
         }
 
 
         protected LaunchPadServiceBase(ILogger logger, string name)
         {
-            Name = new ElementName(name);
-            Description = new ElementDescription(name);
+            Name = new ElementNameLight(name);
+            Description = new ElementDescriptionLight(name);
             Logger = logger;
         }
 
 
         protected LaunchPadServiceBase(ILogger logger, string name, string description)
         {
-            Name = new ElementName(name);
-            Description = new ElementDescription(description);
+            Name = new ElementNameLight(name);
+            Description = new ElementDescriptionLight(description);
             Logger = logger;
         }
     }

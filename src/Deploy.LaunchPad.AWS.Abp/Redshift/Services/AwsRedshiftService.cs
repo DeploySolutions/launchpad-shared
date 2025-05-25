@@ -12,7 +12,7 @@
 // <summary></summary>
 // ***********************************************************************
 using Castle.Core.Logging;
-using Deploy.LaunchPad.Core.Abp.Application;
+using Deploy.LaunchPad.Core.Abp.Services;
 
 namespace Deploy.LaunchPad.AWS.Redshift.Services
 {

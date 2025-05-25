@@ -36,6 +36,7 @@ using ImageMagick;
 using System;
 using System.IO;
 using System.Reflection;
+using Deploy.LaunchPad.Core.Services;
 
 namespace Deploy.LaunchPad.Images.Domain
 {

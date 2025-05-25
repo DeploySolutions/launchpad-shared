@@ -14,7 +14,7 @@
 using Castle.Core.Logging;
 using Deploy.LaunchPad.AWS.Lambda;
 using Deploy.LaunchPad.AWS.Lambda.Services;
-using Deploy.LaunchPad.Core.Abp.Application;
+using Deploy.LaunchPad.Core.Abp.Services;
 
 namespace Deploy.LaunchPad.AWS.Abp.Lambda.Services
 {

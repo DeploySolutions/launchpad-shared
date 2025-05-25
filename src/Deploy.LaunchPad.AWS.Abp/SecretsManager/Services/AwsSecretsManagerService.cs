@@ -12,7 +12,7 @@
 // <summary></summary>
 // ***********************************************************************
 using Deploy.LaunchPad.AWS.SecretsManager.Services;
-using Deploy.LaunchPad.Core.Abp.Application;
+using Deploy.LaunchPad.Core.Abp.Services;
 
 namespace Deploy.LaunchPad.AWS.Abp.SecretsManager.Services
 {

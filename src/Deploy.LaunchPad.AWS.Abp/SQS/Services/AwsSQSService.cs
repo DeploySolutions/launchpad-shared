@@ -14,7 +14,7 @@
 using Castle.Core.Logging;
 using Deploy.LaunchPad.AWS.SQS;
 using Deploy.LaunchPad.AWS.SQS.Services;
-using Deploy.LaunchPad.Core.Abp.Application;
+using Deploy.LaunchPad.Core.Abp.Services;
 
 namespace Deploy.LaunchPad.AWS.Abp.SQS.Services
 {

@@ -14,15 +14,15 @@
 
 using Castle.Core.Logging;
 
-namespace Deploy.LaunchPad.Core
+namespace Deploy.LaunchPad.Core.Services
 {
     /// <summary>
     /// Base service interface for LaunchPad
     /// </summary>
     public partial interface ILaunchPadService
     {
-        public ElementName Name { get; set; }
-        public ElementDescription Description { get; set; }
+        public ElementNameLight Name { get; set; }
+        public ElementDescriptionLight Description { get; set; }
 
         /// <summary>
         /// Gets or sets the logger.

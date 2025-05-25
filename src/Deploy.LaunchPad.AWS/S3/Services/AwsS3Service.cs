@@ -19,7 +19,7 @@ using AwsSignatureVersion4.Private;
 using Castle.Core.Logging;
 using Deploy.LaunchPad.AWS.S3;
 using Deploy.LaunchPad.AWS.S3.Services;
-using Deploy.LaunchPad.Core.Application;
+using Deploy.LaunchPad.Core.Services;
 using System;
 using System.Collections.Generic;
 using System.IO;

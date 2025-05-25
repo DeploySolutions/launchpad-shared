@@ -15,9 +15,9 @@
 using Deploy.LaunchPad.Util;
 using System.Collections.Generic;
 
-namespace Deploy.LaunchPad.Core
+namespace Deploy.LaunchPad.Core.Services
 {
-    public interface ILaunchPadTokenService : ILaunchPadService
+    public partial interface ILaunchPadTokenService : ILaunchPadService
     {
         public IDictionary<string, LaunchPadToken> MatchedTokens { get; set; }
         public string TokenizedText { get; set; }

@@ -14,7 +14,7 @@
 using Castle.Core.Logging;
 using Deploy.LaunchPad.AWS.ElasticFileSystem;
 using Deploy.LaunchPad.AWS.ElasticFileSystem.Services;
-using Deploy.LaunchPad.Core.Abp.Application;
+using Deploy.LaunchPad.Core.Abp.Services;
 using Microsoft.Extensions.Configuration;
 
 namespace Deploy.LaunchPad.AWS.Abp.ElasticFileSystem.Services

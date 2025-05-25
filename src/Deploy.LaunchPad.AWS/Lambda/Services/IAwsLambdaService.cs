@@ -11,7 +11,7 @@
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
-using Deploy.LaunchPad.Core.Application;
+using Deploy.LaunchPad.Core.Services;
 
 namespace Deploy.LaunchPad.AWS.Lambda.Services
 {

@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Deploy.LaunchPad.Core
+namespace Deploy.LaunchPad.Core.Services
 {
     public partial interface ILaunchPadCacheService : ILaunchPadService
     {

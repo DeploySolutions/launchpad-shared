@@ -19,7 +19,7 @@ using System.Diagnostics;
 using System.Text;
 using System.Text.RegularExpressions;
 
-namespace Deploy.LaunchPad.Core
+namespace Deploy.LaunchPad.Core.Services
 {
     /// <summary>
     /// Class LaunchPadTokenizer.
