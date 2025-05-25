@@ -16,7 +16,7 @@ namespace Deploy.LaunchPad.Core.Domain.Model
     /// This is a score for a particular item
     /// </summary>
     [Serializable]
-    public partial class Score : IMustHaveUnitOfMeasure
+    public partial class Score : IMustHaveUnitOfMeasure, IScore
     {
         /// <summary>
         /// Provides a friendly label for a particular score, useful for display purposes
@@ -29,14 +29,22 @@ namespace Deploy.LaunchPad.Core.Domain.Model
         public virtual ElementNameLight Name { get; set; } = new ElementNameLight();
 
         /// <summary>
-        /// Provides a friendly description / explanation for a particular score, useful for display purposes
-        /// such as in pills or when displaying a score in a table as "Very Good" or "Very Poor" 
+        /// Provides a description of the purpose of a particular score, useful for display purposes
+        /// such as describing the algorithms, calculation process, or purpose of the scoring, in on-hover/alt text, or when displaying a score in a table as "Very Good" or "Very Poor" 
         /// rather than a numeric data.
         /// </summary>
         [JsonProperty("description")]
         [DataObjectField(false)]
         [XmlAttribute]
         public virtual ElementDescriptionLight Description { get; set; }
+
+        /// <summary>
+        /// Provides a explanation for why the particular score was the result.
+        /// </summary>
+        [JsonProperty("explanation")]
+        [DataObjectField(false)]
+        [XmlAttribute]
+        public virtual ElementDescriptionLight Explanation { get; set; }
 
         [JsonProperty("total")]
         [DataObjectField(false)]
@@ -124,7 +132,7 @@ namespace Deploy.LaunchPad.Core.Domain.Model
             Lowest = total;
             Average = total;
         }
-        public Score(ElementNameLight name, ElementDescriptionLight description, string unitOfMeasure, 
+        public Score(ElementNameLight name, ElementDescriptionLight description, string unitOfMeasure,
             decimal total, decimal? highest, decimal? lowest)
         {
             Name = name;
