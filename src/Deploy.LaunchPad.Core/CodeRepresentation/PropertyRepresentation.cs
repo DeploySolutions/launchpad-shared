@@ -13,6 +13,7 @@ namespace Deploy.LaunchPad.Core.CodeRepresentation
         public virtual ElementName Name { get; set; }
         public virtual ElementDescription Description { get; set; }
         public virtual ElementType PropertyType { get; set; }
+        public virtual object? Value { get; set; }
 
         public PropertyRepresentation(string name, Type propertyType)
         {

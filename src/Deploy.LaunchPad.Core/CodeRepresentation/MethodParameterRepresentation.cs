@@ -13,6 +13,8 @@ namespace Deploy.LaunchPad.Core.CodeRepresentation
         public virtual ElementDescription Description { get; set; }
         public virtual ElementType ParameterType { get; set; }
 
+        public virtual object? Value { get; set; }
+
         public MethodParameterRepresentation(string name, ElementType parameterType)
         {
             Name = new ElementName(name);
