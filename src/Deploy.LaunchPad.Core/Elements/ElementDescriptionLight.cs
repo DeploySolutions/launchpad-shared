@@ -41,35 +41,6 @@ namespace Deploy.LaunchPad.Core
             }
         }
 
-        protected string _short = string.Empty;
-        /// <summary>
-        /// A short description for this object. If not set, it will default to the first 255 characters of the full description.
-        /// </summary>
-        /// <value>The description short.</value>
-        [MaxLength(255, ErrorMessageResourceName = "Validation_ElementDescription_Short_255CharsOrLess", ErrorMessageResourceType = typeof(Deploy_LaunchPad_Core_Resources))]
-        [DataObjectField(false)]
-        [XmlAttribute]
-        [JsonProperty("short", NullValueHandling = NullValueHandling.Ignore, DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
-        [JsonConverter(typeof(JsonEmptyStringToNullConverter))]
-        public virtual string Short
-        {
-            get
-            {
-                if (string.IsNullOrEmpty(_short))
-                {
-                    return Full;
-                }
-                else
-                {
-                    return _short;
-                }
-            }
-            set
-            {
-                _short = value;
-            }
-        }
-
         protected ElementDescriptionLight()
         {
         }
@@ -77,19 +48,11 @@ namespace Deploy.LaunchPad.Core
         public ElementDescriptionLight(string fullDescription)
         {
             Full = fullDescription;
-            if (!string.IsNullOrEmpty(fullDescription))
-            {
-                Short = fullDescription.Length > 255 ? fullDescription.Substring(0, 255) : fullDescription;
-            }
         }
 
         public ElementDescriptionLight(string fullDescription, string shortDescription)
         {
             Full = fullDescription;
-            if (!string.IsNullOrEmpty(shortDescription))
-            {
-                Short = shortDescription.Length > 255 ? shortDescription.Substring(0, 255) : shortDescription;
-            }
         }
 
         /// <summary>
@@ -101,7 +64,7 @@ namespace Deploy.LaunchPad.Core
         /// <returns>System.Int32.</returns>
         public virtual int CompareTo(ElementDescriptionLight other)
         {
-            return Full.CompareTo(other.Full) & Short.CompareTo(other.Short);
+            return Full.CompareTo(other.Full);
         }
 
         /// <summary>
@@ -141,7 +104,7 @@ namespace Deploy.LaunchPad.Core
         {
             if (obj != null)
             {
-                return Short.Equals(obj.Short) && Full.Equals(obj.Full);
+                return Full.Equals(obj.Full);
             }
             return false;
         }
@@ -183,8 +146,7 @@ namespace Deploy.LaunchPad.Core
         /// <remarks>This method implements the <see cref="object">Object</see> method.</remarks>
         public override int GetHashCode()
         {
-            return Short.GetHashCode()
-                + Full.GetHashCode();
+            return Full.GetHashCode();
         }
 
     }

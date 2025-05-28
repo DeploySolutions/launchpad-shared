@@ -2,9 +2,8 @@
 
 namespace Deploy.LaunchPad.Core
 {
-    public partial interface IElementDescriptionLight : IComparable<ElementDescriptionLight>, IEquatable<ElementDescriptionLight>
+    public partial interface IElementDescription : IElementDescriptionLight, IComparable<ElementDescriptionLight>, IEquatable<ElementDescriptionLight>
     {
-        public string Full { get; set; }
         public string Short { get; set; }
     }
 }

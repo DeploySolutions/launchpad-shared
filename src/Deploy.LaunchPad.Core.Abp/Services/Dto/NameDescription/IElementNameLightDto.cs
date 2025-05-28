@@ -3,6 +3,5 @@
     public partial interface IElementNameLightDto
     {
         public string Full { get; set; }
-        public string Short { get; set; }
     }
 }

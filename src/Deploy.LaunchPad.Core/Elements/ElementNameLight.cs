@@ -42,36 +42,6 @@ namespace Deploy.LaunchPad.Core
             }
         }
 
-        protected string _short = string.Empty;
-        /// <summary>
-        /// The short name of this element (if different from the FullName field). If not set, it will default to the first 50 characters of the full name.
-        /// </summary>
-        /// <value>The fully qualified name of the element.</value>
-        [MaxLength(50, ErrorMessageResourceName = "Validation_Name_Short_50CharsOrLess", ErrorMessageResourceType = typeof(Deploy_LaunchPad_Core_Resources))]
-        [DataObjectField(false)]
-        [XmlAttribute]
-        [JsonProperty("short", NullValueHandling = NullValueHandling.Ignore, DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
-        [JsonConverter(typeof(JsonEmptyStringToNullConverter))]
-        public virtual string Short
-        {
-            get
-            {
-                if (string.IsNullOrEmpty(_short))
-                {
-                    return Full;
-                }
-                else
-                {
-                    return _short;
-                }
-            }
-            set
-            {
-                _short = value;
-            }
-        }
-
-
         public ElementNameLight()
         {
         }
@@ -79,19 +49,11 @@ namespace Deploy.LaunchPad.Core
         public ElementNameLight(string fullName)
         {
             Full = fullName;
-            if (!string.IsNullOrEmpty(fullName))
-            {
-                Short = fullName.Length > 50 ? fullName.Substring(0, 50) : fullName;
-            }
         }
 
         public ElementNameLight(string fullName, string shortName)
         {
             Full = fullName;
-            if (!string.IsNullOrEmpty(shortName))
-            {
-                Short = shortName.Length > 50 ? shortName.Substring(0, 50) : shortName;
-            }
         }
 
 
@@ -107,7 +69,6 @@ namespace Deploy.LaunchPad.Core
             // put comparison of properties in here 
             // for base object we'll just sort by DisplayName
             return Full.CompareTo(other.Full)
-                & Short.CompareTo(other.Short)
             ;
         }
 
@@ -117,7 +78,7 @@ namespace Deploy.LaunchPad.Core
         /// <returns>A string representation of the object.</returns>
         public override string ToString()
         {
-            return Short;
+            return Full;
         }
 
 
@@ -149,7 +110,6 @@ namespace Deploy.LaunchPad.Core
             if (obj != null)
             {
                 return Full.Equals(obj.Full)
-                    && Short.Equals(obj.Short)
                 ;
             }
             return false;
@@ -193,7 +153,6 @@ namespace Deploy.LaunchPad.Core
         public override int GetHashCode()
         {
             return Full.GetHashCode()
-                + Short.GetHashCode()
             ;
         }
     }

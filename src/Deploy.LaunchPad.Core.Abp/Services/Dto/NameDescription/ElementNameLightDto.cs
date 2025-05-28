@@ -14,9 +14,6 @@ namespace Deploy.LaunchPad.Core.Services.Dto.NameDescription
     [AutoMap(typeof(ElementName))]
     public partial class ElementNameLightDto : IElementNameLightDto
     {
-        [DataObjectField(false)]
-        [XmlAttribute]
-        public virtual string Short { get; set; } = string.Empty;
 
         [DataObjectField(false)]
         [XmlAttribute]

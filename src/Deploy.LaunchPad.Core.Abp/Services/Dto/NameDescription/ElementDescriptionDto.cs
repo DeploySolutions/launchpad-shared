@@ -12,7 +12,7 @@ namespace Deploy.LaunchPad.Core.Services.Dto.NameDescription
 {
     [Serializable]
     [AutoMap(typeof(ElementDescription))]
-    public partial class ElementDescriptionDto : ElementDescriptionLightDto, IElementDescriptionLightDto
+    public partial class ElementDescriptionDto : ElementDescriptionLightDto, IElementDescriptionLightDto, IElementDescriptionDto
     {
         [DataObjectField(false)]
         [XmlAttribute]

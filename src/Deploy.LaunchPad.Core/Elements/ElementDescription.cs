@@ -14,25 +14,33 @@ namespace Deploy.LaunchPad.Core
     [DebuggerDisplay("{_debugDisplay}")]
     public partial class ElementDescription : ElementDescriptionLight, IElementDescription
     {
-        protected string _full = string.Empty;
+
+        protected string _short = string.Empty;
         /// <summary>
-        /// The full description for this object
+        /// A short description for this object. If not set, it will default to the first 255 characters of the full description.
         /// </summary>
-        /// <value>The description full.</value>
-        [Required]
-        [MaxLength(8096, ErrorMessageResourceName = "Validation_ElementDescription_Full_8096CharsOrLess", ErrorMessageResourceType = typeof(Deploy_LaunchPad_Core_Resources))]
+        /// <value>The description short.</value>
+        [MaxLength(255, ErrorMessageResourceName = "Validation_ElementDescription_Short_255CharsOrLess", ErrorMessageResourceType = typeof(Deploy_LaunchPad_Core_Resources))]
         [DataObjectField(false)]
-        [XmlElement]
-        [JsonProperty("full")]
-        public override string Full
+        [XmlAttribute]
+        [JsonProperty("short", NullValueHandling = NullValueHandling.Ignore, DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
+        [JsonConverter(typeof(JsonEmptyStringToNullConverter))]
+        public virtual string Short
         {
             get
             {
-                return _full;
+                if (string.IsNullOrEmpty(_short))
+                {
+                    return Full;
+                }
+                else
+                {
+                    return _short;
+                }
             }
             set
             {
-                _full = value;
+                _short = value;
             }
         }
 
