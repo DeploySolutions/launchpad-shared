@@ -68,12 +68,12 @@ namespace Deploy.LaunchPad.Core.Domain.Model
         public string? Checksum { get; }
 
         /// <summary>
-        /// The sequence number for this value object, if any (for sorting and ordering purposes). Defaults to 0 if not set.
+        /// The sequence number for this value object, if any (for sorting and ordering purposes).
         /// </summary>
         /// <value>The seq number.</value>
         [DataObjectField(false)]
         [XmlElement]
-        public int SeqNum { get; }
+        public int? SeqNum { get; }
 
         /// <summary>
         /// Gets or sets a value indicating whether this instance is active.

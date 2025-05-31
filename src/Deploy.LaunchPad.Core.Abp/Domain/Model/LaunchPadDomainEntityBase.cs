@@ -139,15 +139,15 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
             set { _checksum = value; }
         }
 
-        protected int _seqNum = 0;
+        protected int? _seqNum;
         /// <summary>
-        /// The sequence number for this entity, if any (for sorting and ordering purposes). Defaults to 0 if not set.
+        /// The sequence number for this entity, if any (for sorting and ordering purposes).
         /// </summary>
         /// <value>The seq number.</value>
         [DataObjectField(false)]
-        [DataMember(Name = "seqNum", EmitDefaultValue = true)]
+        [DataMember(Name = "seqNum", EmitDefaultValue = false)]
         [XmlElement]
-        public virtual int SeqNum
+        public virtual int? SeqNum
         {
             get { return _seqNum; }
             set { _seqNum = value; }
