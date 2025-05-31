@@ -22,7 +22,7 @@ namespace Deploy.LaunchPad.Core.Domain.Model
     /// <summary>
     /// Useful if data can be "translated" from one language to another.
     /// </summary>
-    public partial interface IMustHaveTranslationFromId<TIdType>: ILaunchPadCommonProperties
+    public partial interface IMustHaveTranslationFromId<TIdType>
     {
         [DataObjectField(false)]
         [DataMember(Name = "translatedFromId", EmitDefaultValue = false)]

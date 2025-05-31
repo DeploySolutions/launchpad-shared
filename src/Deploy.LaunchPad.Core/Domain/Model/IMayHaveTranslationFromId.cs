@@ -23,7 +23,7 @@ namespace Deploy.LaunchPad.Core.Domain.Model
     /// Useful if data can be "translated" from one language to another.
     /// </summary>
     /// <typeparam name="TIdType">The type of the t identifier type.</typeparam>
-    public partial interface IMayHaveTranslationFromId<TIdType> : ILaunchPadCommonProperties
+    public partial interface IMayHaveTranslationFromId<TIdType>
     {
         [DataObjectField(false)]
         [DataMember(Name = "translatedFromId", EmitDefaultValue = false)]
