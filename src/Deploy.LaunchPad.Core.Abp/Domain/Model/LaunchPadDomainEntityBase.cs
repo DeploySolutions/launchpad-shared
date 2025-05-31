@@ -167,22 +167,6 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
             set { _tags = value; }
         }
 
-        protected TIdType? _translatedFromId;
-        /// <summary>
-        /// If this object is not a translation this field will be null.
-        /// If this object is a translation, this id references the parent object.
-        /// </summary>
-        /// <value>The translated from identifier.</value>
-        [DataObjectField(false)]
-        [DataMember(Name = "translatedFromId", EmitDefaultValue = false)]
-        [CanBeNull]
-        [XmlAttribute]
-        public virtual TIdType? TranslatedFromId
-        {
-            get { return _translatedFromId; }
-            set { _translatedFromId = value; }
-        }
-
         protected bool _isActive = true;
         /// <summary>
         /// Gets or sets a value indicating whether this instance is active.
@@ -360,7 +344,6 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
         protected LaunchPadDomainEntityBase(SerializationInfo info, StreamingContext context)
         {
             Id = (TIdType)info.GetValue("Id", typeof(TIdType));
-            TranslatedFromId = (TIdType)info.GetValue("TranslatedFromId", typeof(TIdType));
             Culture = info.GetString("Culture");
             Name = (ElementName)info.GetValue("Name", typeof(ElementName));
             Description = (ElementDescription)info.GetValue("Description", typeof(ElementDescription));
@@ -385,7 +368,6 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
         public virtual void GetObjectData(SerializationInfo info, StreamingContext context)
         {
             info.AddValue("Id", Id);
-            info.AddValue("TranslatedFromId", TranslatedFromId);
             info.AddValue("Culture", Culture);
             info.AddValue("Name", Name);
             info.AddValue("Description", Description);
@@ -474,7 +456,6 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
             sb.AppendFormat("Name={0};", Name);
             sb.AppendFormat("Description={0};", Description);
             sb.AppendFormat("Checksum={0};", Checksum);
-            sb.AppendFormat("TranslatedFromId={0};", TranslatedFromId);
             sb.AppendFormat(" Tags={0};", Tags.ToString());
             sb.AppendFormat("SeqNum={0};", SeqNum);
 

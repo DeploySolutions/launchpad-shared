@@ -74,7 +74,7 @@ namespace Deploy.LaunchPad.Core.Services.Dto
         /// <value>The translated from identifier.</value>
         [DataObjectField(true)]
         [XmlAttribute]
-        public virtual TIdType TranslatedFromId { get; set; }
+        public virtual Guid? TranslatedFromId { get; set; }
 
 
         #region "Constructors"
@@ -121,7 +121,6 @@ namespace Deploy.LaunchPad.Core.Services.Dto
             Id = (TIdType)info.GetValue("Id", typeof(TIdType));
             SeqNum = info.GetInt32("SeqNum");
             ExternalId = info.GetString("ExternalId");
-            TranslatedFromId = (TIdType)info.GetValue("TranslatedFromId", typeof(TIdType));
             Culture = info.GetString("Culture");
             Name = (ElementNameDto)info.GetValue("Name", typeof(ElementNameDto)); // DisplayName?
             Description = (ElementDescriptionDto)info.GetValue("Description", typeof(ElementDescriptionDto));

@@ -50,7 +50,7 @@ namespace Deploy.LaunchPad.Core.Services.Dto
         /// <value>The translated from identifier.</value>
         [DataObjectField(true)]
         [XmlAttribute]
-        public virtual TIdType TranslatedFromId { get; set; }
+        public virtual Guid? TranslatedFromId { get; set; }
 
         protected string _name;
         /// <summary>
@@ -163,7 +163,6 @@ namespace Deploy.LaunchPad.Core.Services.Dto
             DescriptionShort = info.GetString("DescriptionShort");
             DescriptionFull = info.GetString("DescriptionFull");
             ExternalId = info.GetString("ExternalId");
-            TranslatedFromId = (TIdType)info.GetValue("TranslatedFromId", typeof(TIdType));
             Culture = info.GetString("Culture");
             SeqNum = info.GetInt32("SeqNum");
         }

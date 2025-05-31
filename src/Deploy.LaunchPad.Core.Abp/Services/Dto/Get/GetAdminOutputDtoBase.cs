@@ -40,7 +40,7 @@ namespace Deploy.LaunchPad.Core.Services.Dto
         /// <value>The translated from identifier.</value>
         [DataObjectField(true)]
         [XmlAttribute]
-        public virtual TIdType TranslatedFromId { get; set; }
+        public virtual Guid? TranslatedFromId { get; set; }
 
         /// <summary>
         /// The date and time that this object was deleted.
@@ -128,7 +128,6 @@ namespace Deploy.LaunchPad.Core.Services.Dto
             LastModifierUserName = info.GetString("LastModifierUserName");
             LastModifierUserId = info.GetInt64("LastModifierUserId");
             LastModificationTime = info.GetDateTime("LastModificationTime");
-            TranslatedFromId = (TIdType)info.GetValue("TranslatedFromId", typeof(TIdType));
             IsActive = info.GetBoolean("IsActive");
             IsDeleted = info.GetBoolean("IsDeleted");
             DeletionTime = info.GetDateTime("DeletionTime");

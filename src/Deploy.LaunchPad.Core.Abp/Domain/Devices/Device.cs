@@ -31,6 +31,7 @@ using Abp.Domain.Entities;
 using Deploy.LaunchPad.Core.Abp.Domain.Model;
 using Deploy.LaunchPad.Core.Domain;
 using Deploy.LaunchPad.Core.Domain.Devices;
+using Deploy.LaunchPad.Core.Domain.Model;
 using Deploy.LaunchPad.Core.Geospatial;
 using System;
 using System.Collections.Generic;
@@ -48,7 +49,9 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
     /// </summary>
     /// <typeparam name="TIdType">The type of the t identifier type.</typeparam>
     [Serializable()]
-    public partial class Device<TIdType> : LaunchPadDomainEntityBase<TIdType>, IDevice, IMustBePhysicallyLocatable, IMayHaveTenant
+    public partial class Device<TIdType> : LaunchPadDomainEntityBase<TIdType>, IDevice,
+        IMayHaveTranslationFromId<TIdType>,
+        IMustBePhysicallyLocatable, IMayHaveTenant
 
     {
         /// <summary>
@@ -87,6 +90,21 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
         /// </summary>
         /// <value>The tenant identifier.</value>
         public virtual int? TenantId { get; set; }
+
+        protected TIdType? _translatedFromId;
+        /// <summary>
+        /// If this object is not a translation this field will be null.
+        /// If this object is a translation, this id references the parent object.
+        /// </summary>
+        /// <value>The translated from identifier.</value>
+        [DataObjectField(false)]
+        [DataMember(Name = "translatedFromId", EmitDefaultValue = false)]
+        [XmlAttribute]
+        public virtual TIdType? TranslatedFromId
+        {
+            get { return _translatedFromId; }
+            set { _translatedFromId = value; }
+        }
 
         #region "Constructors"
 

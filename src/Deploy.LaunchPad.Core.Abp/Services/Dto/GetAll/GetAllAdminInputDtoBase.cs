@@ -35,7 +35,7 @@ namespace Deploy.LaunchPad.Core.Services.Dto
         /// <value>The translated from identifier.</value>
         [DataObjectField(false)]
         [XmlAttribute]
-        public virtual TIdType TranslatedFromId { get; set; }
+        public virtual Guid? TranslatedFromId { get; set; }
 
         /// <summary>
         /// The date and time that this object was deleted.
