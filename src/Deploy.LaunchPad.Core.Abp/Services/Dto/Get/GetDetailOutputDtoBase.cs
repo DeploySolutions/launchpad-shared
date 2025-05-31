@@ -32,27 +32,27 @@ namespace Deploy.LaunchPad.Core.Services.Dto
     /// <seealso cref="Deploy.LaunchPad.Core.Services.Dto.GetOutputDtoBase{TIdType}" />
     public abstract partial class GetDetailOutputDtoBase<TIdType> : GetOutputDtoBase<TIdType>
     {
-        protected ElementNameLightDto _name;
+        protected ElementNameDto _name;
         /// <summary>
         /// A name of this item.
         /// </summary>
         /// <value>The name.</value>
         [DataObjectField(false)]
         [XmlAttribute]
-        public virtual ElementNameLightDto Name
+        public virtual ElementNameDto Name
         {
             get { return _name; }
             set { _name = value; }
         }
 
-        protected ElementDescriptionLightDto _description;
+        protected ElementDescriptionDto _description;
         /// <summary>
         /// A short description of this item.
         /// </summary>
         /// <value>The description short.</value>
         [DataObjectField(false)]
         [XmlAttribute]
-        public virtual ElementDescriptionLightDto Description
+        public virtual ElementDescriptionDto Description
         {
             get { return _description; }
             set { _description = value; }
@@ -99,8 +99,8 @@ namespace Deploy.LaunchPad.Core.Services.Dto
         protected GetDetailOutputDtoBase() : base()
         {
             Culture = ApplicationDetails<TIdType>.DEFAULT_CULTURE;
-            Name = new ElementNameLightDto();
-            Description = new ElementDescriptionLightDto();
+            Name = new ElementNameDto();
+            Description = new ElementDescriptionDto();
         }
 
         /// <summary>
@@ -111,8 +111,8 @@ namespace Deploy.LaunchPad.Core.Services.Dto
         {
             Id = id;
             Culture = ApplicationDetails<TIdType>.DEFAULT_CULTURE;
-            Name = new ElementNameLightDto();
-            Description = new ElementDescriptionLightDto();
+            Name = new ElementNameDto();
+            Description = new ElementDescriptionDto();
         }
 
         /// <summary>
@@ -124,8 +124,8 @@ namespace Deploy.LaunchPad.Core.Services.Dto
         {
             Id = id;
             Culture = culture;
-            Name = new ElementNameLightDto();
-            Description = new ElementDescriptionLightDto();
+            Name = new ElementNameDto();
+            Description = new ElementDescriptionDto();
         }
 
         /// <summary>
@@ -137,8 +137,8 @@ namespace Deploy.LaunchPad.Core.Services.Dto
         {
             Id = (TIdType)info.GetValue("Id", typeof(TIdType));
             Culture = info.GetString("Culture");
-            Name = (ElementNameLightDto)info.GetValue("Name", typeof(ElementNameLightDto)); 
-            Description = (ElementDescriptionLightDto)info.GetValue("Description", typeof(ElementDescriptionLightDto));
+            Name = (ElementNameDto)info.GetValue("Name", typeof(ElementNameDto)); 
+            Description = (ElementDescriptionDto)info.GetValue("Description", typeof(ElementDescriptionDto));
             CreationTime = info.GetDateTime("CreationTime");
             CreatorUserName = info.GetString("CreatorUserName");
             LastModifierUserName = info.GetString("LastModifierUserName");

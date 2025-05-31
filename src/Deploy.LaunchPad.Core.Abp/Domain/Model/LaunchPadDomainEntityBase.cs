@@ -26,7 +26,6 @@
 //limitations under the License. 
 #endregion
 
-using JetBrains.Annotations;
 
 namespace Deploy.LaunchPad.Core.Abp.Domain.Model
 {
@@ -132,7 +131,6 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
         [DataObjectField(false)]
         [DataMember(Name = "checksum", EmitDefaultValue = false)]
         [XmlAttribute]
-        [CanBeNull]
         public virtual string Checksum
         {
             get { return _checksum; }

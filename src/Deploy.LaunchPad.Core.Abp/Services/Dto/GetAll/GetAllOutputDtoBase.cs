@@ -20,6 +20,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
 using System.Xml.Serialization;
 using Deploy.LaunchPad.Core.Services.Dto.NameDescription;
+using Deploy.LaunchPad.Core.Domain.Model;
 
 namespace Deploy.LaunchPad.Core.Services.Dto
 {
@@ -64,6 +65,7 @@ namespace Deploy.LaunchPad.Core.Services.Dto
         [DataObjectField(false)]
         [XmlAttribute]
         public virtual int? TenantId { get; set; }
+
 
         #region "Constructors"
 

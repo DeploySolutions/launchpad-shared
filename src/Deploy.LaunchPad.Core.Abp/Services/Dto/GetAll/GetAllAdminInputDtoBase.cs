@@ -12,6 +12,7 @@
 // <summary></summary>
 // ***********************************************************************
 using Deploy.LaunchPad.Core.Abp.Domain.SoftwareApplications;
+using Deploy.LaunchPad.Core.Domain.Model;
 using System;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -28,14 +29,6 @@ namespace Deploy.LaunchPad.Core.Services.Dto
     /// <seealso cref="Deploy.LaunchPad.Core.Services.Dto.GetAllDetailInputDtoBase{TIdType}" />
     public abstract partial class GetAllAdminInputDtoBase<TIdType> : GetAllDetailInputDtoBase<TIdType>
     {
-        /// <summary>
-        /// If this object is not a translation this field will be null.
-        /// If this object is a translation, this id references the parent object.
-        /// </summary>
-        /// <value>The translated from identifier.</value>
-        [DataObjectField(false)]
-        [XmlAttribute]
-        public virtual Guid? TranslatedFromId { get; set; }
 
         /// <summary>
         /// The date and time that this object was deleted.
