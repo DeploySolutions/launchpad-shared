@@ -28,7 +28,7 @@ namespace Deploy.LaunchPad.Util
         public enum GuidConstantType
         {
             Other = 0,
-            Any = 2,
+            Any = 1,
             None = 2,
             Empty = 3,
             Unknown = 4
