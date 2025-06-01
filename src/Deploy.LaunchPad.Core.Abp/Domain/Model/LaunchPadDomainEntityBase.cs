@@ -394,25 +394,13 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
             // reconnect connection strings and other resources that won't be serialized
         }
 
-        /// <summary>
-        /// Shallow clones the entity
-        /// </summary>
-        /// <typeparam name="TEntity">The source entity to clone</typeparam>
-        /// <returns>A shallow clone of the entity and its serializable properties</returns>
-        protected virtual TEntity Clone<TEntity>() where TEntity : ILaunchPadDomainEntity<TIdType>, new()
+        public virtual LaunchPadDomainEntityBase<TIdType> Clone()
         {
-            TEntity clone = new TEntity();
-            foreach (PropertyInfo info in GetType().GetProperties())
-            {
-                // ensure the property type is serializable
-                if (info.GetType().IsSerializable)
-                {
-                    PropertyInfo cloneInfo = GetType().GetProperty(info.Name);
-                    cloneInfo.SetValue(clone, info.GetValue(this, null), null);
-                }
-            }
-            return clone;
+            // Use your protected generic Clone<T> method if available
+            return (LaunchPadDomainEntityBase<TIdType>)this.MemberwiseClone();
         }
+
+        object ICloneable.Clone() => Clone();
 
         /// <summary>
         /// Comparison method between two objects of the same type, used for sorting.

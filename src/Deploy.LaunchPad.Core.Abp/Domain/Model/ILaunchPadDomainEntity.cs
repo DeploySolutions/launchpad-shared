@@ -30,11 +30,12 @@ using Abp.Domain.Entities;
 using Abp.Domain.Entities.Auditing;
 using Deploy.LaunchPad.Core.Domain;
 using Deploy.LaunchPad.Core.Domain.Model;
+using Deploy.LaunchPad.Util;
 using System;
 
 namespace Deploy.LaunchPad.Core.Abp.Domain.Model
 {
-
+   
     /// <summary>
     /// Marks any object as a regular (non-aggregate) Domain Entity that can be manipulated by the LaunchPad platform.
     /// Each entity is uniquely identified by its DomainEntityKey, and contains a
@@ -45,7 +46,8 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
     public partial interface ILaunchPadDomainEntity<TIdType> :
         ILaunchPadDomainEntityProperties<TIdType>, IEntity<TIdType>,
         ICreationAudited, IModificationAudited, IDeletionAudited, IPassivable,
-        IComparable<LaunchPadDomainEntityBase<TIdType>>, IEquatable<LaunchPadDomainEntityBase<TIdType>>
+        IComparable<LaunchPadDomainEntityBase<TIdType>>, IEquatable<LaunchPadDomainEntityBase<TIdType>>,
+        ICloneable, IAmCloneable<LaunchPadDomainEntityBase<TIdType>>
     {
 
         public string ComputeChecksum(string input = "");
