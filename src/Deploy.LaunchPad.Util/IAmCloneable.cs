@@ -8,6 +8,6 @@ namespace Deploy.LaunchPad.Util
 {
     public interface IAmCloneable<out T>
     {
-        T Clone();
+        T CloneGeneric();
     }
 }

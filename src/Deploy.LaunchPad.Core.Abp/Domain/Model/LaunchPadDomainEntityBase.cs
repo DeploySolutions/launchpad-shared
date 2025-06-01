@@ -394,13 +394,13 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
             // reconnect connection strings and other resources that won't be serialized
         }
 
-        public virtual LaunchPadDomainEntityBase<TIdType> Clone()
+        public virtual LaunchPadDomainEntityBase<TIdType> CloneGeneric()
         {
             // Use your protected generic Clone<T> method if available
             return (LaunchPadDomainEntityBase<TIdType>)this.MemberwiseClone();
         }
 
-        object ICloneable.Clone() => Clone();
+        object ICloneable.Clone() => CloneGeneric();
 
         /// <summary>
         /// Comparison method between two objects of the same type, used for sorting.
