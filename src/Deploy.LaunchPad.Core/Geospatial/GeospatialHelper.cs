@@ -77,7 +77,7 @@ namespace Deploy.LaunchPad.Core.Geospatial
             if (_userDefinedCenter != null)
                 return _userDefinedCenter;
 
-            if (geometry is Point pt)
+            if (geometry != null && geometry is Point pt)
                 return pt.Coordinate;
 
             return geometry?.PointOnSurface?.Coordinate;
