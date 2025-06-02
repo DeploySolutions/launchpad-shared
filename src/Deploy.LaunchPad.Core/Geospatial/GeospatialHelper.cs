@@ -85,6 +85,11 @@ namespace Deploy.LaunchPad.Core.Geospatial
 
         public virtual Coordinate GetCentroid(Geometry geometry)
         {
+            if (geometry == null)
+            {
+                // Return a default coordinate (0,0). Adjust as needed for your use case.
+                return new Coordinate(0, 0);
+            }
             return geometry.Centroid.Coordinate;
         }
 
