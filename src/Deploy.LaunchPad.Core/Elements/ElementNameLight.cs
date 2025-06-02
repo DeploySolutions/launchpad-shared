@@ -155,5 +155,15 @@ namespace Deploy.LaunchPad.Core
             return Full.GetHashCode()
             ;
         }
+
+
+        public ElementNameLight CloneGeneric()
+        {
+            // Create a new instance and copy all relevant properties
+            return new ElementNameLight(
+                fullName: this.Full
+            );
+        }
+        object ICloneable.Clone() => CloneGeneric();
     }
 }

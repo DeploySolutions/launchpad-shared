@@ -161,5 +161,14 @@ namespace Deploy.LaunchPad.Core
                 + Full.GetHashCode();
         }
 
+        public ElementDescription CloneGeneric()
+        {
+            // Create a new instance and copy all relevant properties
+            return new ElementDescription(
+                fullDescription: this.Full,
+                shortDescription: this.Short
+            );
+        }
+        object ICloneable.Clone() => CloneGeneric();
     }
 }

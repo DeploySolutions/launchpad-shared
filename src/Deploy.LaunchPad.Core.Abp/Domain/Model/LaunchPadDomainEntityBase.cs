@@ -396,8 +396,12 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
 
         public virtual LaunchPadDomainEntityBase<TIdType> CloneGeneric()
         {
-            // Use your protected generic Clone<T> method if available
-            return (LaunchPadDomainEntityBase<TIdType>)this.MemberwiseClone();
+            var clone = (LaunchPadDomainEntityBase<TIdType>)this.MemberwiseClone();
+            // Deep clone reference-type fields as needed
+            clone._name = _name?.CloneGeneric(); // assuming ElementName has a Clone() method
+            clone._description = _description?.CloneGeneric(); // assuming ElementDescription has a Clone() method
+                                                        // ...repeat for other reference-type fields if needed
+            return clone;
         }
 
         object ICloneable.Clone() => CloneGeneric();
