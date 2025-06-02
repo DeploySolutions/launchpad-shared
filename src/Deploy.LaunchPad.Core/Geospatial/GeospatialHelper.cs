@@ -80,7 +80,13 @@ namespace Deploy.LaunchPad.Core.Geospatial
             if (geometry != null && geometry is Point pt)
                 return pt.Coordinate;
 
-            return geometry?.PointOnSurface?.Coordinate;
+            // Try to get the representative point from geometry
+            var repCoord = geometry?.PointOnSurface?.Coordinate;
+            if (repCoord != null)
+                return repCoord;
+
+            // Fallback: return default coordinate (0,0)
+            return new Coordinate(0, 0);
         }
 
         public virtual Coordinate GetCentroid(Geometry geometry)
