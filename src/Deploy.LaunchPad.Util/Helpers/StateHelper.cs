@@ -31,7 +31,7 @@ namespace Deploy.LaunchPad.Util
     /// <summary>
     /// Utility class for NCommon.State.
     /// </summary>
-    public static class StateHelper
+    public static partial class StateHelper
     {
         /// <summary>
         /// Builds a key from the full name of the type and the supplied user key.

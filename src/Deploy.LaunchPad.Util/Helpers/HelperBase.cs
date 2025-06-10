@@ -24,7 +24,7 @@ namespace Deploy.LaunchPad.Util
     /// Implements the <see cref="Deploy.LaunchPad.Util.IHelper" />
     /// </summary>
     /// <seealso cref="Deploy.LaunchPad.Util.IHelper" />
-    public abstract class HelperBase : IHelper
+    public abstract partial class HelperBase : IHelper
 
     {
         /// <summary>
@@ -85,78 +85,5 @@ namespace Deploy.LaunchPad.Util
             return description;
         }
       
-        /// <summary>
-        /// Helps with converting to "snake case" (lower case words separated by underscores) from a regular string.
-        /// Useful for generating csv and database column names from class properties.
-        /// </summary>
-        /// <param name="input"></param>
-        /// <returns>The same string with the words converted to lower case and separated by underscores.</returns>
-        public virtual string ConvertToSnakeCase(string input)
-        {
-            if (string.IsNullOrEmpty(input))
-            {
-                return input;
-            }
-
-            var stringBuilder = new StringBuilder();
-            stringBuilder.Append(char.ToLower(input[0]));
-
-            for (int i = 1; i < input.Length; i++)
-            {
-                if (char.IsUpper(input[i]))
-                {
-                    if (stringBuilder[stringBuilder.Length - 1] != '_')
-                    {
-                        stringBuilder.Append('_');
-                    }
-                    stringBuilder.Append(char.ToLower(input[i]));
-                }
-                else
-                {
-                    stringBuilder.Append(input[i]);
-                }
-            }
-
-            return stringBuilder.ToString();
-        }
-
-        /// <summary>
-        /// Helps with converting to "pascal case" (Words with capitalized letters and no separation) from a snake case or similar string.
-        /// Useful for generating class property names from csv and database column names.
-        /// </summary>
-        /// <param name="input"></param>
-        /// <returns>The same string with the words converted to pascal case.</returns>
-        public virtual string ConvertToPascalCase(string input)
-        {
-            if (string.IsNullOrEmpty(input))
-            {
-                return input;
-            }
-
-            var stringBuilder = new StringBuilder();
-            bool capitalizeNext = true;
-
-            foreach (var character in input)
-            {
-                if (character == '_')
-                {
-                    capitalizeNext = true;
-                }
-                else
-                {
-                    if (capitalizeNext)
-                    {
-                        stringBuilder.Append(char.ToUpper(character));
-                        capitalizeNext = false;
-                    }
-                    else
-                    {
-                        stringBuilder.Append(character);
-                    }
-                }
-            }
-
-            return stringBuilder.ToString();
-        }
     }
 }
