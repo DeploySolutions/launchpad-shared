@@ -14,12 +14,20 @@ namespace Deploy.LaunchPad.Core.CodeRepresentation
         public virtual ElementDescription Description { get; set; }
         public virtual ElementType PropertyType { get; set; }
         public virtual object? Value { get; set; }
-
+        
         public PropertyRepresentation(string name, Type propertyType)
         {
             Name = new ElementName(name);
             Description = new ElementDescription(name);
             PropertyType = ElementType.GetTypeInformationForElement(NullLogger.Instance, propertyType);
+        }
+
+        public PropertyRepresentation(string name, Type propertyType, object value)
+        {
+            Name = new ElementName(name);
+            Description = new ElementDescription(name);
+            PropertyType = ElementType.GetTypeInformationForElement(NullLogger.Instance, propertyType);
+            Value = value;
         }
     }
 
