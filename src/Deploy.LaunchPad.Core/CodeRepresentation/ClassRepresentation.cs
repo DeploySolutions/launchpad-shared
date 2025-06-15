@@ -9,6 +9,7 @@ namespace Deploy.LaunchPad.Core.CodeRepresentation
 {
     public partial class ClassRepresentation
     {
+        public virtual string Namespace { get; set; }
         public virtual ElementName Name { get; set; }
         public virtual ElementDescription Description { get; set; }
         public virtual SortedDictionary<string, PropertyRepresentation> Properties { get; set; } = new SortedDictionary<string, PropertyRepresentation>();
