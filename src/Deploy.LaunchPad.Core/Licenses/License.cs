@@ -67,6 +67,18 @@ namespace Deploy.LaunchPad.Core.Licenses
         /// <value>The full terms URL.</value>
         public virtual Uri FullTermsUrl { get; set; }
 
+        /// <summary>
+        /// The "family" of the license, for instance "Creative Commons"
+        /// </summary>
+        /// <value>The family.</value>
+        public virtual string Family { get; set; } = string.Empty;
+
+        /// <summary>
+        /// The maintaining organization of the license
+        /// </summary>
+        /// <value>The summary.</value>
+        public virtual string Maintainer { get; set; } = string.Empty;
+
         public License()
         {
 

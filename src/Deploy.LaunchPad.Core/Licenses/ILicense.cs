@@ -36,6 +36,7 @@ namespace Deploy.LaunchPad.Core.Licenses
     /// </summary>
     public partial interface ILicense
     {
+
         /// <summary>
         /// The name of the license
         /// </summary>
@@ -47,6 +48,10 @@ namespace Deploy.LaunchPad.Core.Licenses
         /// </summary>
         /// <value>The summary.</value>
         public ElementDescription Description { get; }
+
+        public string Maintainer { get; }
+
+        public string Family { get; }
 
         public string Text { get; }
 
