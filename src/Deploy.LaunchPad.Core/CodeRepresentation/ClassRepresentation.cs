@@ -20,6 +20,7 @@ namespace Deploy.LaunchPad.Core.CodeRepresentation
 
         public virtual List<string> MethodSortOrder { get; set; } = new List<string>();
         
+        public virtual string FilePath { get; set; } = string.Empty;
 
         public ClassRepresentation(string name)
         {
