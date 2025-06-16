@@ -23,11 +23,12 @@ namespace Deploy.LaunchPad.Core.Licenses
     public partial class Apache2License : License
     {
 
-        public Apache2License() : base()
+        public Apache2License() : base(
+            new ElementName("Apache License 2.0", "Apache-2.0"),
+            new Uri("https://spdx.org/licenses/Apache-2.0.html"),
+            new ElementDescription("Notes: This license was released January 2004")
+        )
         {
-            Name = new ElementName("Apache License 2.0", "Apache-2.0");
-            Description = new ElementDescription("Notes: This license was released January 2004");
-            FullTermsUrl = new Uri("https://spdx.org/licenses/Apache-2.0.html");
             Text = @"
 Apache License
 Version 2.0, January 2004
