@@ -93,6 +93,10 @@ namespace Deploy.LaunchPad.Core.Licenses
         /// </summary>
         public virtual bool? IsFreeLibre { get; set; }
 
+        protected License()
+        {
+        }
+        
         public License(ElementName name, Uri fullTermsUri)
         {
             Guard.Against<ArgumentNullException>(name == null, "Name cannot be null.");
