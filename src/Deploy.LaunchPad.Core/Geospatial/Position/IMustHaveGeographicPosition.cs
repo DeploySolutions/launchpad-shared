@@ -43,7 +43,7 @@ namespace Deploy.LaunchPad.Core.Geospatial.Position
         ILaunchPadObject,
         IMayHaveBoundingBox,
         IMayHaveGeoJsonDefinition,
-        IMayHaveElevation
+        IMayHaveElevation, IMustHaveCountryId
     {
         public bool IsPoint { get; }
 

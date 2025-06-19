@@ -158,7 +158,14 @@ namespace Deploy.LaunchPad.Core.Geospatial.Position
                 ];
             }
         }
-        
+
+        ///<summary>
+        /// Country Id GUID
+        ///</summary>
+        [DataObjectField(false)]
+        [XmlAttribute]
+        public virtual System.Guid CountryId { get; set; } = GuidConstants.Unknown;
+
         /// <summary>
         /// The default location is always Greenwich.
         /// </summary>

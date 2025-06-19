@@ -166,6 +166,13 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
             }
         }
 
+        ///<summary>
+        /// Country Id GUID
+        ///</summary>
+        [DataObjectField(false)]
+        [XmlAttribute]
+        public virtual System.Guid CountryId { get; set; } = GuidConstants.Unknown;
+
         #endregion
 
         /// <summary>
