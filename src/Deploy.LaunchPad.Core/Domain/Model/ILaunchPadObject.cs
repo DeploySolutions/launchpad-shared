@@ -29,12 +29,11 @@
 
 namespace Deploy.LaunchPad.Core.Domain.Model
 {
-    using System.Runtime.Serialization;
 
     /// <summary>
     /// Every entity or file managed by the platform must implement this interface.
     /// </summary>
-    public partial interface ILaunchPadObject : ISerializable
+    public partial interface ILaunchPadObject
     {
 
 

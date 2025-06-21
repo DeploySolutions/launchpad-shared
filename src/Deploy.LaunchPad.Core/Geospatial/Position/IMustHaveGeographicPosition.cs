@@ -66,19 +66,10 @@ namespace Deploy.LaunchPad.Core.Geospatial.Position
         public double CenterLatitude { get; }
         public double CenterLongitude { get; }
 
-        /// <summary>
-        /// Gets the representative point of the geographic position as a tuple of latitude and longitude.
-        /// In NetTopologySuite, geometry.PointOnSurface returns a point guaranteed to lie within the geometry (unlike Centroid, which may fall outside a polygon).
-        /// Useful when: You want a "safe for labeling" or "safe for hit-testing" point. You need a representative location inside the area(e.g., for maps, UI, or region tagging).
-        /// </summary>
-        public (double Latitude, double Longitude) RepresentativePoint { get; }
+        public double RepresentativeLatitude { get; set; }
+        public double RepresentativeLongitude { get; set; }
+        public double CentroidLatitude { get; set; }
+        public double CentroidLongitude { get; set; }
 
-        /// <summary>
-        /// Gets the centroid of the geographic position as a tuple of latitude and longitude.
-        /// For a Point, .Centroid just returns the same point.
-        /// For a Polygon, .Centroid returns the geometric center (center of mass).
-        /// It may lie outside the polygon for non-convex shapes.
-        /// </summary>
-        public (double Latitude, double Longitude) CentroidPoint { get; }        
     }
 }

@@ -128,23 +128,34 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
         public virtual double CenterLatitude => _helper.GetCentroid(_geometry).Y;
         public virtual double CenterLongitude => _helper.GetCentroid(_geometry).X;
 
+        private double? _representativeLatitude;
+        private double? _representativeLongitude;
+        private double? _centroidLatitude;
+        private double? _centroidLongitude;
 
-        /// <summary>
-        /// Gets the representative point of the geographic position as a tuple of latitude and longitude.
-        /// In NetTopologySuite, geometry.PointOnSurface returns a point guaranteed to lie within the geometry (unlike Centroid, which may fall outside a polygon).
-        /// Useful when: You want a "safe for labeling" or "safe for hit-testing" point. You need a representative location inside the area(e.g., for maps, UI, or region tagging).        
-        /// Caller's choice: representative vs centroid
-        /// </summary>
-        public (double Latitude, double Longitude) RepresentativePoint => (Latitude, Longitude);
+        public virtual double RepresentativeLatitude
+        {
+            get => _representativeLatitude ?? _helper.GetRepresentativeCoordinate(_geometry, _userDefinedCenter).Y;
+            set => _representativeLatitude = value;
+        }
 
-        /// <summary>
-        /// Gets the centroid of the geographic position as a tuple of latitude and longitude.
-        /// For a Point, .Centroid just returns the same point.
-        /// For a Polygon, .Centroid returns the geometric center (center of mass).
-        /// It may lie outside the polygon for non-convex shapes.
-        /// Caller's choice: representative vs centroid
-        /// </summary>
-        public (double Latitude, double Longitude) CentroidPoint => (CenterLatitude, CenterLongitude);
+        public virtual double RepresentativeLongitude
+        {
+            get => _representativeLongitude ?? _helper.GetRepresentativeCoordinate(_geometry, _userDefinedCenter).X;
+            set => _representativeLongitude = value;
+        }
+
+        public virtual double CentroidLatitude
+        {
+            get => _centroidLatitude ?? _helper.GetCentroid(_geometry).Y;
+            set => _centroidLatitude = value;
+        }
+
+        public virtual double CentroidLongitude
+        {
+            get => _centroidLongitude ?? _helper.GetCentroid(_geometry).X;
+            set => _centroidLongitude = value;
+        }
 
         /// <summary>
         /// Return the user defined bounding box, if any. Otherwise, return the bounding box of the geometry
@@ -228,7 +239,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
             GeoJson = position.GeoJson;
             _geometry = position.Geometry;
             _elevation = position.Elevation;
-            _userDefinedBoundingBox = position.UserDefinedBoundingBox;
+            _userDefinedBoundingBox = position.BoundingBox;
             _userDefinedCenter = position.UserDefinedCenter;
         }
 
