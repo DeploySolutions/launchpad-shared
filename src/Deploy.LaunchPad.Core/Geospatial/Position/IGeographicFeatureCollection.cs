@@ -12,14 +12,14 @@ namespace Deploy.LaunchPad.Core.Geospatial.Position
         event Action<string> FeatureRemoved;
         event Action<T> FeatureUpdated;
 
-        bool Add(T feature);
-        void CommitChanges();
-        IEnumerable<string> GetAddedIds();
-        IEnumerable<string> GetRemovedIds();
-        IEnumerable<string> GetUpdatedIds();
-        bool Remove(string id);
-        string ToJson(JsonSerializerOptions options = null);
-        bool TryGet(string id, out T feature);
-        bool Update(T feature);
+        bool AddFeature(T feature);
+        void CommitFeatureChanges();
+        IEnumerable<string> GetAddedFeatureIds();
+        IEnumerable<string> GetRemovedFeatureIds();
+        IEnumerable<string> GetUpdatedFeatureIds();
+        bool RemoveFeature(string id);
+        string FeatureToJson(JsonSerializerOptions options = null);
+        bool TryGetFeature(string id, out T feature);
+        bool UpdateFeature(T feature);
     }
 }
