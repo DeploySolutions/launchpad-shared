@@ -379,4 +379,7 @@
   <data name="Guard_GeographicLocation_Set_Height" xml:space="preserve">
     <value>Height must be a valid decimal number.</value>
   </data>
+  <data name="Guard_GeographicLocation_Set_Area" xml:space="preserve">
+    <value>Area must be a valid decimal number.</value>
+  </data>
 </root>

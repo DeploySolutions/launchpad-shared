@@ -232,6 +232,15 @@ namespace Deploy.LaunchPad.Core {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Area must be a valid decimal number..
+        /// </summary>
+        public static string Guard_GeographicLocation_Set_Area {
+            get {
+                return ResourceManager.GetString("Guard_GeographicLocation_Set_Area", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Elevation must be a valid decimal number..
         /// </summary>
         public static string Guard_GeographicLocation_Set_Elevation {
