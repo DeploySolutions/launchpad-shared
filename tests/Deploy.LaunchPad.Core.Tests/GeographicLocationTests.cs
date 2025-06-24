@@ -69,7 +69,7 @@ namespace Deploy.LaunchPad.Core.Tests
             GeographicPosition location = new GeographicPosition();
             double elevation = double.NaN;
             
-            Action act = () => location.Elevation = elevation;
+            Action act = () => location.Elevation.Maximum = elevation;
             act.Should().Throw<ArgumentException>()
                  .WithMessage("*" + Deploy_LaunchPad_Core_Resources.Guard_GeographicLocation_Set_Elevation + "*");
 

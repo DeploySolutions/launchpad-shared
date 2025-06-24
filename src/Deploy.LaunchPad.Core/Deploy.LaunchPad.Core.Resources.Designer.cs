@@ -241,6 +241,15 @@ namespace Deploy.LaunchPad.Core {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Height must be a valid decimal number..
+        /// </summary>
+        public static string Guard_GeographicLocation_Set_Height {
+            get {
+                return ResourceManager.GetString("Guard_GeographicLocation_Set_Height", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Value was either too large or too small for a Decimal..
         /// </summary>
         public static string Guard_GeographicLocation_Set_Latitude_NaN {

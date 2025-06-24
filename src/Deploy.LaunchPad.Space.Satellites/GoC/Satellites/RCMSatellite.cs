@@ -32,7 +32,7 @@
 
 namespace Deploy.LaunchPad.Space.Satellites.GoC
 {
-
+    using Deploy.LaunchPad.Core.Geospatial.ReferencePoint;
     using Deploy.LaunchPad.Organizations.Canada;
     using Deploy.LaunchPad.Space.Satellites.Core;
     using System;
@@ -61,7 +61,7 @@ namespace Deploy.LaunchPad.Space.Satellites.GoC
             };
             ReferenceSystem = "Geocentric";
             OrbitalRegime = "Sun-synchronous orbit";
-            AltitudeInKm = 600;
+            Altitude = new Altitude(600, "km");
             InclinationDegrees = 97.74;
             OrbitalPeriodInMinutes = 96.4;
              

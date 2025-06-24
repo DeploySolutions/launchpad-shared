@@ -39,6 +39,7 @@ namespace Deploy.LaunchPad.Core.Geospatial.Position
     using System.Xml.Serialization;
     using NetTopologySuite.Geometries;
     using Deploy.LaunchPad.Core.Geospatial;
+    using Deploy.LaunchPad.Core.Geospatial.ReferencePoint;
 
     /// <summary>
     /// This class defines the physical position of something, in terms of its latitude, longitude, and elevation.
@@ -81,26 +82,14 @@ namespace Deploy.LaunchPad.Core.Geospatial.Position
         }
 
 
-        /// <summary>
-        /// The elevation
-        /// </summary>
-        protected double? _elevation;
+        // IMayHaveElevation
 
         /// <summary>
         /// Gets or sets the elevation.
         /// </summary>
         /// <value>The elevation.</value>
-        [DataObjectField(false)]
-        [XmlAttribute]
-        public virtual double? Elevation
-        {
-            get { return _elevation; }
-            set
-            {
-                Guard.Against<ArgumentException>(double.IsNaN(value.Value), Deploy_LaunchPad_Core_Resources.Guard_GeographicLocation_Set_Elevation);
-                _elevation = value;
-            }
-        }
+        public Elevation? Elevation { get; set; }
+
 
         ///<summary>
         /// Describes central latitude (Y) based on the representative coordinate of the item
@@ -183,7 +172,7 @@ namespace Deploy.LaunchPad.Core.Geospatial.Position
             // We will default to the elevation, longitude and latitude of Greenwich
             GeographicPositionDto position = _helper.GetGeographicPositionDto(new Point(new Coordinate(51.476852, -0.000500)), 46);
             _geometry = position.Geometry;
-            _elevation = position.Elevation;
+            Elevation = position.Elevation;
             GeoJson = position.GeoJson;
             _userDefinedBoundingBox = position.BoundingBox;
             _userDefinedCenter = position.UserDefinedCenter;
@@ -199,7 +188,7 @@ namespace Deploy.LaunchPad.Core.Geospatial.Position
         {
             GeographicPositionDto position = _helper.GetGeographicPositionDto(geometry, elevation, userDefinedCenter, userDefinedBoundingBox);
             _geometry = position.Geometry;
-            _elevation = position.Elevation;
+            Elevation = position.Elevation;
             GeoJson = position.GeoJson;
             _userDefinedBoundingBox = position.BoundingBox;
             _userDefinedCenter = position.UserDefinedCenter;
@@ -226,7 +215,7 @@ namespace Deploy.LaunchPad.Core.Geospatial.Position
 
             GeographicPositionDto position = _helper.GetGeographicPositionDto(geom, elevation, userDefinedCenter, userDefinedBoundingBox);
             _geometry = position.Geometry;
-            _elevation = position.Elevation;
+            Elevation = position.Elevation;
             GeoJson = position.GeoJson;
             _userDefinedBoundingBox = position.BoundingBox;
             _userDefinedCenter = position.UserDefinedCenter;
@@ -312,9 +301,9 @@ namespace Deploy.LaunchPad.Core.Geospatial.Position
             }
 
             // Compare Elevation with a small tolerance for imprecision
-            bool elevationEqual = Elevation.HasValue && obj.Elevation.HasValue
-                ? Math.Abs(Elevation.Value - obj.Elevation.Value) < 0.0001
-                : Elevation == obj.Elevation; // Handles cases where one or both are null
+            bool minimumElevationEqual = Math.Abs(Elevation.Minimum - obj.Elevation.Minimum) < 0.0001;
+
+            bool maximumElevationEqual = Math.Abs(Elevation.Maximum - obj.Elevation.Maximum) < 0.0001;
 
             // Compare _geometry using EqualsExact (or EqualsTopologically if needed)
             bool geometryEqual = _geometry != null && obj._geometry != null
@@ -322,7 +311,7 @@ namespace Deploy.LaunchPad.Core.Geospatial.Position
                 : _geometry == obj._geometry; // Handles cases where one or both are null
 
             // Return true only if both Elevation and Geometry are equal
-            return elevationEqual && geometryEqual;
+            return minimumElevationEqual && maximumElevationEqual && geometryEqual;
         }
 
         /// <summary>
@@ -362,7 +351,7 @@ namespace Deploy.LaunchPad.Core.Geospatial.Position
         /// <remarks>This method implements the <see cref="object">Object</see> method.</remarks>
         public override int GetHashCode()
         {
-            return Elevation.GetHashCode() + _userDefinedCenter.GetHashCode() + _geometry.GetHashCode();
+            return Elevation.Minimum.GetHashCode() + Elevation.Maximum.GetHashCode() + _userDefinedCenter.GetHashCode() + _geometry.GetHashCode();
         }
     }
 

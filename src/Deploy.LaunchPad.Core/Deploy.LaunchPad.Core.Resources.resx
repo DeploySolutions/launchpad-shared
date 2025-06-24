@@ -376,4 +376,7 @@
   <data name="Guard_GeographicLocation_Validate_Point" xml:space="preserve">
     <value>Point is invalid</value>
   </data>
+  <data name="Guard_GeographicLocation_Set_Height" xml:space="preserve">
+    <value>Height must be a valid decimal number.</value>
+  </data>
 </root>

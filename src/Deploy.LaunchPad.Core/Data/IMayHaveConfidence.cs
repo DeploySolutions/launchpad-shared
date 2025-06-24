@@ -6,7 +6,7 @@
 // Last Modified By : Nicholas Kellett
 // Last Modified On : 07-26-2023
 // ***********************************************************************
-// <copyright file="IMustHaveElevation.cs" company="Deploy Software Solutions, inc.">
+// <copyright file="IMayHaveConfidence.cs" company="Deploy Software Solutions, inc.">
 //     2018-2024 Deploy Software Solutions, inc.
 // </copyright>
 // <summary></summary>
@@ -28,22 +28,20 @@
 
 using Deploy.LaunchPad.Core.Domain;
 
-namespace Deploy.LaunchPad.Core.Geospatial
+namespace Deploy.LaunchPad.Core.Data
 {
-    using Deploy.LaunchPad.Core.Domain.Model;
-    using System.Runtime.Serialization;
 
     /// <summary>
-    /// This interface defines the physical elevation of something
+    /// This interface defines the confidence/accuracy level of something
     /// </summary>
-    public partial interface IMustHaveElevation : ILaunchPadObject
+    public partial interface IMayHaveConfidence
     {
 
         /// <summary>
-        /// Gets or sets the elevation.
+        /// Gets or sets the level of confidence/accuracy of a measurement.
         /// </summary>
-        /// <value>The elevation.</value>
-        public double Elevation { get; set; }
+        /// <value>The confidence level of a measurement.</value>
+        public double? Confidence { get; set; }
 
 
     }

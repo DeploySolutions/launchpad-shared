@@ -29,6 +29,7 @@
 
 namespace Deploy.LaunchPad.Space.Satellites.Core
 {
+    using Deploy.LaunchPad.Core.Geospatial.ReferencePoint;
     using Deploy.LaunchPad.Space.Satellites.Core.Observations;
     using System;
     using System.Collections.Generic;
@@ -55,7 +56,7 @@ namespace Deploy.LaunchPad.Space.Satellites.Core
         /// Gets or sets the altitude in km.
         /// </summary>
         /// <value>The altitude in km.</value>
-        public double AltitudeInKm { get; set; }
+        public Altitude Altitude { get; set; }
 
         /// <summary>
         /// Gets or sets the inclination degrees.

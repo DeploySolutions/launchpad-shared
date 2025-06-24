@@ -30,6 +30,7 @@
 namespace Deploy.LaunchPad.Space.Satellites.Core
 {
     using Deploy.LaunchPad.Core.Abp.Domain.Model;
+    using Deploy.LaunchPad.Core.Geospatial.ReferencePoint;
     using Deploy.LaunchPad.Space.Satellites.Core.Observations;
     using System;
     using System.Collections.Generic;
@@ -65,12 +66,12 @@ namespace Deploy.LaunchPad.Space.Satellites.Core
         public virtual string OrbitalRegime { get; set; }
 
         /// <summary>
-        /// Gets or sets the altitude in km.
+        /// Gets or sets the altitude (in km).
         /// </summary>
         /// <value>The altitude in km.</value>
         [System.ComponentModel.DataObjectField(false)]
         [XmlAttribute]
-        public virtual double AltitudeInKm { get; set; }
+        public virtual Altitude Altitude { get; set; }
 
         /// <summary>
         /// Gets or sets the inclination degrees.

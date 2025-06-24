@@ -358,10 +358,13 @@ Cette licence est régie par les lois de la province de l'Ontario et les lois ap
   <data name="Guard_GeographicLocation_Set_Longitude_Not_MoreThan_180" xml:space="preserve">
     <value>Longitudinal coordinate decimal cannot be greater than 180.</value>
   </data>
+  <data name="Guard_GeographicLocation_Validate_Point" xml:space="preserve">
+    <value />
+  </data>
   <data name="Validation_Name_100CharsOrLess" xml:space="preserve">
     <value>Name must be 100 characters or less.</value>
   </data>
-  <data name="Guard_GeographicLocation_Validate_Point" xml:space="preserve">
-    <value />
+  <data name="Guard_GeographicLocation_Set_Height" xml:space="preserve">
+    <value>L'altitude doit être un nombre valide.</value>
   </data>
 </root>

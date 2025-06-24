@@ -30,6 +30,7 @@ using Abp.Domain.Entities;
 using Deploy.LaunchPad.Core.Abp.Domain.Model;
 using Deploy.LaunchPad.Core.Geospatial;
 using Deploy.LaunchPad.Core.Geospatial.Position;
+using Deploy.LaunchPad.Core.Geospatial.ReferencePoint;
 using Deploy.LaunchPad.Util;
 using NetTopologySuite.Geometries;
 using System;
@@ -90,26 +91,13 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
         }
 
 
-        /// <summary>
-        /// The elevation
-        /// </summary>
-        protected double? _elevation;
+        // IMayHaveElevation
 
         /// <summary>
         /// Gets or sets the elevation.
         /// </summary>
         /// <value>The elevation.</value>
-        [DataObjectField(false)]
-        [XmlAttribute]
-        public virtual double? Elevation
-        {
-            get { return _elevation; }
-            set
-            {
-                Guard.Against<ArgumentException>(double.IsNaN(value.Value), Deploy_LaunchPad_Core_Resources.Guard_GeographicLocation_Set_Elevation);
-                _elevation = value;
-            }
-        }
+        public Elevation? Elevation { get; set; }
 
         ///<summary>
         /// Describes central latitude (Y) based on the representative coordinate of the item
@@ -235,10 +223,10 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
         {
             TenantId = tenantId;
             GeospatialHelper helper = new GeospatialHelper();
-            var position = helper.GetGeographicPositionDto(location.GeoJson, location.Elevation);
+            var position = helper.GetGeographicPositionDto(location.GeoJson);
             GeoJson = position.GeoJson;
             _geometry = position.Geometry;
-            _elevation = position.Elevation;
+            Elevation = position.Elevation;
             _userDefinedBoundingBox = position.BoundingBox;
             _userDefinedCenter = position.UserDefinedCenter;
         }

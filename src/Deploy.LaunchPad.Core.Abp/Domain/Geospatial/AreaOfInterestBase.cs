@@ -29,6 +29,7 @@
 using Abp.Domain.Entities;
 using Deploy.LaunchPad.Core.Abp.Domain.Model;
 using Deploy.LaunchPad.Core.Geospatial;
+using Deploy.LaunchPad.Core.Geospatial.ReferencePoint;
 using Deploy.LaunchPad.Util;
 using NetTopologySuite.Geometries;
 using System;
@@ -87,26 +88,14 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
         }
 
 
-        /// <summary>
-        /// The elevation
-        /// </summary>
-        protected double? _elevation;
+        // IMayHaveElevation
 
         /// <summary>
         /// Gets or sets the elevation.
         /// </summary>
         /// <value>The elevation.</value>
-        [DataObjectField(false)]
-        [XmlAttribute]
-        public virtual double? Elevation
-        {
-            get { return _elevation; }
-            set
-            {
-                Guard.Against<ArgumentException>(double.IsNaN(value.Value), Deploy_LaunchPad_Core_Resources.Guard_GeographicLocation_Set_Elevation);
-                _elevation = value;
-            }
-        }
+        public Elevation? Elevation { get; set; }
+
 
         ///<summary>
         /// Describes central latitude (Y) based on the representative coordinate of the item
@@ -219,7 +208,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
             var position = helper.GetGeographicPositionDto(geoJson);
             GeoJson = position.GeoJson;
             _geometry = position.Geometry;
-            _elevation = position.Elevation;
+            Elevation = position.Elevation;
             _userDefinedBoundingBox = position.BoundingBox;
             _userDefinedCenter = position.UserDefinedCenter;
 
@@ -233,6 +222,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
         public AreaOfInterestBase(SerializationInfo info, StreamingContext context) : base(info, context)
         {
             GeoJson = info.GetString("GeoJson");
+            Elevation = (Elevation)info.GetValue("Elevation", typeof(Elevation));
         }
 
         /// <summary>
@@ -244,6 +234,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
         {
             base.GetObjectData(info, context);
             info.AddValue("GeoJson", GeoJson);
+            info.AddValue("Elevation", Elevation);
         }
 
         /// <summary>
@@ -269,6 +260,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
             sb.Append("[AreaOfInterest : ");
             // sb.AppendFormat(base.ToStringBaseProperties());
             sb.AppendFormat("GeoJson={0};", GeoJson);
+            sb.AppendFormat("Elevation={0};", Elevation);
             sb.Append(']');
             return sb.ToString();
         }
@@ -300,7 +292,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
             if (obj != null)
             {
                 if (
-                    GeoJson.Equals(obj.GeoJson)
+                    GeoJson.Equals(obj.GeoJson) && Elevation.Equals(obj.Elevation)
                 )
                 {
                     return true;

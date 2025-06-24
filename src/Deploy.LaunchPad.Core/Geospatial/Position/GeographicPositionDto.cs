@@ -1,4 +1,5 @@
-﻿using NetTopologySuite.Geometries;
+﻿using Deploy.LaunchPad.Core.Geospatial.ReferencePoint;
+using NetTopologySuite.Geometries;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -40,7 +41,21 @@ namespace Deploy.LaunchPad.Core.Geospatial.Position
         public virtual string? GeoJson { get; set; }
 
         // IMayHaveElevation
-        public virtual double? Elevation { get; set; }
+
+        /// <summary>
+        /// Gets or sets the elevation.
+        /// </summary>
+        /// <value>The elevation.</value>
+        public Elevation? Elevation { get; set; }
+
+        // IMayHaveConfidence
+
+        /// <summary>
+        /// Gets or sets the level of confidence/accuracy of a measurement.
+        /// </summary>
+        /// <value>The confidence level of a measurement.</value>
+        public virtual double? Confidence { get; set; }
+
 
         // IMustHaveCountryId
         [DataObjectField(false)]
@@ -66,6 +81,32 @@ namespace Deploy.LaunchPad.Core.Geospatial.Position
         public GeographicPositionDto(string geoJson, double? elevation)
         {
             GeoJson = geoJson;
+            if (elevation.HasValue)
+            {
+                Elevation = new Elevation(elevation.Value);
+            }
+            GeospatialHelper helper = new GeospatialHelper();
+            var geometry = helper.ConvertGeoJsonToGeometry(GeoJson);
+            Geometry = geometry;
+            if (geometry != null)
+            {
+                IsPoint = geometry is Point;
+                IsArea = geometry is Polygon || geometry is MultiPolygon;
+                Latitude = geometry.Centroid.Y;
+                Longitude = geometry.Centroid.X;
+                CenterLatitude = geometry.Centroid.Y;
+                CenterLongitude = geometry.Centroid.X;
+                RepresentativeLongitude = helper.GetRepresentativeCoordinate(geometry, new Coordinate(CenterLongitude, CentroidLatitude)).X;
+                RepresentativeLatitude = helper.GetRepresentativeCoordinate(geometry, new Coordinate(CenterLongitude, CentroidLatitude)).Y;
+                CentroidLatitude = geometry.Centroid.Y;
+                CentroidLongitude = geometry.Centroid.X;
+            }
+        }
+
+
+        public GeographicPositionDto(string geoJson, Elevation? elevation)
+        {
+            GeoJson = geoJson;
             Elevation = elevation;
             GeospatialHelper helper = new GeospatialHelper();
             var geometry = helper.ConvertGeoJsonToGeometry(GeoJson);
@@ -84,10 +125,14 @@ namespace Deploy.LaunchPad.Core.Geospatial.Position
                 CentroidLongitude = geometry.Centroid.X;
             }
         }
+
         public GeographicPositionDto(string geoJson, double? elevation, double[] userDefinedBoundingBox, Coordinate userDefinedCenter)
         {
             GeoJson = geoJson;
-            Elevation = elevation;
+            if (elevation.HasValue)
+            {
+                Elevation = new Elevation(elevation.Value);
+            }
             GeospatialHelper helper = new GeospatialHelper();
             var geometry = helper.ConvertGeoJsonToGeometry(GeoJson);
             Geometry = geometry;
@@ -115,7 +160,10 @@ namespace Deploy.LaunchPad.Core.Geospatial.Position
             GeoJson = helper.ConvertGeometryToGeoJson(geometry);
             BoundingBox = userDefinedBoundingBox;
             UserDefinedCenter = userDefinedCenter;
-            Elevation = elevation;
+            if (elevation.HasValue)
+            {
+                Elevation = new Elevation(elevation.Value);
+            }
             if (geometry != null)
             {
                 IsPoint = geometry is Point;
