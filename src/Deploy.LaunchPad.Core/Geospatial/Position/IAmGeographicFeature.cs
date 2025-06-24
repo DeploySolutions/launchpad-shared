@@ -32,13 +32,14 @@ namespace Deploy.LaunchPad.Core.Geospatial
 {
     using Deploy.LaunchPad.Core.Domain.Model;
     using Deploy.LaunchPad.Core.Geospatial.Position;
+    using Deploy.LaunchPad.Core.Geospatial.ReferencePoint;
     using System.Runtime.Serialization;
 
     /// <summary>
     /// This interface defines that something is a "geographic feature" meaning a natural or human-made characteristic of the Earth's surface
     /// that is of some note and should be tracked or represented in our code and/or data.
     /// </summary>
-    public partial interface IAmGeographicFeature : IMustHaveGeographicPosition, IMayHaveArea
+    public partial interface IAmGeographicFeature : IMustHaveGeographicPosition, IMayHaveArea, IMayHaveHeight
     {
         public string Key { get; set; }
     }

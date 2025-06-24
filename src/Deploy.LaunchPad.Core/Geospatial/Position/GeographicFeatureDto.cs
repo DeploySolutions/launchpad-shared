@@ -1,3 +1,4 @@
+using Deploy.LaunchPad.Core.Geospatial.ReferencePoint;
 using System;
 
 namespace Deploy.LaunchPad.Core.Geospatial.Position
@@ -9,8 +10,10 @@ namespace Deploy.LaunchPad.Core.Geospatial.Position
         public virtual ElementName Name { get; set; } = new ElementName(string.Empty);
 
         public virtual ElementDescription Description { get; set; } = new ElementDescription(string.Empty);
+        
         public virtual Area? Area { get; set; }
 
+        public virtual Height? Height { get; set; }
         protected GeographicFeatureDto() :base()
         {
         }
