@@ -41,6 +41,6 @@ namespace Deploy.LaunchPad.Core.Geospatial
     /// </summary>
     public partial interface IAmGeographicFeature : IMustHaveGeographicPosition, IMayHaveArea, IMayHaveHeight
     {
-        public string Key { get; set; }
+        public string FeatureId { get; set; }
     }
 }

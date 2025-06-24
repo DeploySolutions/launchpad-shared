@@ -5,7 +5,7 @@ namespace Deploy.LaunchPad.Core.Geospatial.Position
 {
     public partial class GeographicFeatureDto : GeographicPositionDto, IAmGeographicFeature
     {
-        public virtual string Key { get; set; } = Guid.NewGuid().ToString();
+        public virtual string FeatureId { get; set; } = Guid.NewGuid().ToString();
 
         public virtual ElementName Name { get; set; } = new ElementName(string.Empty);
 
@@ -20,7 +20,7 @@ namespace Deploy.LaunchPad.Core.Geospatial.Position
 
         public GeographicFeatureDto(string geoJson, string key) : base(geoJson)
         {
-            Key = key;
+            FeatureId = key;
         }
     }
 }

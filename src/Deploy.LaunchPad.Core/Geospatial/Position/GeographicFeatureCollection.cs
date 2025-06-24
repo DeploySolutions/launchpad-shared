@@ -33,12 +33,12 @@ namespace Deploy.LaunchPad.Core.Geospatial.Position
 
         public virtual bool AddFeature(T feature)
         {
-            if (feature == null || string.IsNullOrWhiteSpace(feature.Key) || string.IsNullOrEmpty(feature.Key) || _features.ContainsKey(feature.Key))
+            if (feature == null || string.IsNullOrWhiteSpace(feature.FeatureId) || string.IsNullOrEmpty(feature.FeatureId) || _features.ContainsKey(feature.FeatureId))
                 return false;
 
-            _features.TryAdd(feature.Key, feature);
-            _featureAdded.Add(feature.Key);
-            _featureRemoved.Remove(feature.Key); // undo removal
+            _features.TryAdd(feature.FeatureId, feature);
+            _featureAdded.Add(feature.FeatureId);
+            _featureRemoved.Remove(feature.FeatureId); // undo removal
             FeatureAdded?.Invoke(feature);
             return true;
         }
@@ -59,12 +59,12 @@ namespace Deploy.LaunchPad.Core.Geospatial.Position
 
         public virtual bool UpdateFeature(T feature)
         {
-            if (feature == null || string.IsNullOrWhiteSpace(feature.Key) || string.IsNullOrEmpty(feature.Key) || !_features.ContainsKey(feature.Key))
+            if (feature == null || string.IsNullOrWhiteSpace(feature.FeatureId) || string.IsNullOrEmpty(feature.FeatureId) || !_features.ContainsKey(feature.FeatureId))
                 return false;
 
-            _features.TryAdd(feature.Key, feature);
-            if (!_featureAdded.Contains(feature.Key)) // Don't track updates for new features
-                _featureUpdated.Add(feature.Key);
+            _features.TryAdd(feature.FeatureId, feature);
+            if (!_featureAdded.Contains(feature.FeatureId)) // Don't track updates for new features
+                _featureUpdated.Add(feature.FeatureId);
 
             FeatureUpdated?.Invoke(feature);
             return true;
