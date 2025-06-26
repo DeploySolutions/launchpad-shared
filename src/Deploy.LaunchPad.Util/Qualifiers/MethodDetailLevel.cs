@@ -13,32 +13,37 @@
 // ***********************************************************************
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Deploy.LaunchPad.Util
+namespace Deploy.LaunchPad.Util.Qualifiers
 {
     /// <summary>
     /// Useful for specifying the level of detail required for a method's return
     /// </summary>
-    public enum DetailLevel
+    public enum MethodDetailLevel
     {
         /// <summary>
         /// The basic
         /// </summary>
+        [Description("basic")]
         Basic = 0,
         /// <summary>
         /// The detailed
         /// </summary>
+        [Description("detailed")]
         Detailed = 1,
         /// <summary>
         /// The full
         /// </summary>
+        [Description("full")]
         Full = 2,
         /// <summary>
         /// The admin
         /// </summary>
+        [Description("admin")]
         Admin = 3
     }
 }

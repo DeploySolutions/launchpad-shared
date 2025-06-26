@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Deploy.LaunchPad.Util.Status
+namespace Deploy.LaunchPad.Util.Qualifiers
 {
     public enum GenericStatus
     {
