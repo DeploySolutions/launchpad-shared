@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Castle.Core.Logging;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -9,6 +10,15 @@ namespace Deploy.LaunchPad.Util.Helpers
 {
     public partial class ClassReflectionHelper : HelperBase
     {
+        public ClassReflectionHelper() :base()
+        {
+
+        }
+
+        public ClassReflectionHelper(ILogger logger) : base(logger)
+        {
+
+        }
 
         /// <summary>
         /// Gets PropertyInfo of a nested property. Used to help with sorting deep properties.

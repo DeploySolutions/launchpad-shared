@@ -30,7 +30,7 @@ namespace Deploy.LaunchPad.Util
         /// <summary>
         /// Initializes a new instance of the <see cref="StringHelper"/> class.
         /// </summary>
-        protected StringHelper()
+        protected StringHelper() :base()
         {
 
         }
@@ -39,12 +39,8 @@ namespace Deploy.LaunchPad.Util
         /// Initializes a new instance of the <see cref="StringHelper"/> class.
         /// </summary>
         /// <param name="logger">The logger.</param>
-        public StringHelper(ILogger logger)
+        public StringHelper(ILogger logger) : base(logger)
         {
-            if (logger != null)
-            {
-                Logger = logger;
-            }
         }
       
         /// <summary>

@@ -26,13 +26,16 @@
 //limitations under the License. 
 #endregion
 
+using Castle.Core.Logging;
+
 namespace Deploy.LaunchPad.Util
 {
     /// <summary>
     /// Utility class for NCommon.State.
     /// </summary>
-    public static partial class StateHelper
+    public static partial class StateHelper 
     {
+        
         /// <summary>
         /// Builds a key from the full name of the type and the supplied user key.
         /// </summary>

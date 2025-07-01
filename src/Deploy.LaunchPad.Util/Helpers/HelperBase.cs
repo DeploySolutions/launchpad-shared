@@ -46,7 +46,7 @@ namespace Deploy.LaunchPad.Util
         /// Initializes a new instance of the <see cref="HelperBase"/> class.
         /// </summary>
         /// <param name="logger">The logger.</param>
-        public HelperBase(ILogger logger)
+        protected HelperBase(ILogger logger)
         {
             if (logger != null)
             {

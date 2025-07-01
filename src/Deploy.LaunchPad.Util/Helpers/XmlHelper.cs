@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Castle.Core.Logging;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,13 +21,13 @@ namespace Deploy.LaunchPad.Util
         public virtual IDictionary<string, string> XmlNamespaces { get { return _xmlNamespaces; } set { _xmlNamespaces = value; } }
 
 
-        public XmlHelper()
+        public XmlHelper() :base()
         {
             XmlNamespaces = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
             NsManager = new XmlNamespaceManager(XmlDocument.NameTable);
         }
 
-        public XmlHelper(IDictionary<string, string> xmlNamespaces)
+        public XmlHelper(ILogger logger, IDictionary<string, string> xmlNamespaces) : base(logger)
         {
             Guard.Against<ArgumentNullException>(xmlNamespaces == null, "xmlNamespaces cannot be null");
             _nsManager = new XmlNamespaceManager(XmlDocument.NameTable);
@@ -37,7 +38,7 @@ namespace Deploy.LaunchPad.Util
             _xmlNamespaces = _nsManager.GetNamespacesInScope(XmlNamespaceScope.ExcludeXml);
         }
 
-        public XmlHelper(IDictionary<string,string> xmlNamespaces, XmlDocument xmlDoc)
+        public XmlHelper(ILogger logger, IDictionary<string,string> xmlNamespaces, XmlDocument xmlDoc) : base(logger)
         {
             Guard.Against<ArgumentNullException>(xmlNamespaces == null, "xmlNamespaces cannot be null");
             Guard.Against<ArgumentNullException>(xmlDoc == null, "XmlDocument cannot be null");
