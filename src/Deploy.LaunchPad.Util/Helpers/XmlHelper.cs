@@ -311,13 +311,16 @@ namespace Deploy.LaunchPad.Util
         /// <param name="xPath"></param>
         /// <param name="startingNode"></param>
         /// <returns></returns>
-        public virtual XmlNode GetNode(string xPath, XmlNode startingNode = null, bool shouldIgnoreCase = false)
+        public virtual XmlNode GetNode(string xPath, XmlNode startingNode = null, bool shouldIgnoreCase = false, bool shouldPreProcessXpath = false)
         {
             Guard.Against<ArgumentNullException>(String.IsNullOrEmpty(xPath), Deploy_LaunchPad_Util_Resources.Guard_Xml_XPath_Is_NullOrEmpty);
 
-            xPath = PreProcessXpath(xPath);
+            if(shouldPreProcessXpath)
+            {
+                xPath = PreProcessXpath(xPath);
+            }
 
-            var contextNode = startingNode ?? _xmlDoc;            
+            var contextNode = startingNode ?? _xmlDoc.DocumentElement;            
             var node = contextNode.SelectSingleNode(xPath, NsManager);
             if (node != null || !shouldIgnoreCase)
             {
@@ -336,13 +339,16 @@ namespace Deploy.LaunchPad.Util
         /// <param name="xpath"></param>
         /// <param name="startingNode"></param>
         /// <returns></returns>
-        public virtual XmlNodeList GetNodes(string xPath, XmlNode startingNode = null, bool shouldIgnoreCase = false)
+        public virtual XmlNodeList GetNodes(string xPath, XmlNode startingNode = null, bool shouldIgnoreCase = false, bool shouldPreProcessXpath = false)
         {
             Guard.Against<ArgumentNullException>(String.IsNullOrEmpty(xPath), Deploy_LaunchPad_Util_Resources.Guard_Xml_XPath_Is_NullOrEmpty);
 
-            xPath = PreProcessXpath(xPath);
+            if (shouldPreProcessXpath)
+            {
+                xPath = PreProcessXpath(xPath);
+            }
 
-            var contextNode = startingNode ?? _xmlDoc;
+            var contextNode = startingNode ?? _xmlDoc.DocumentElement;
             var nodes = contextNode.SelectNodes(xPath, NsManager);
             if ((nodes != null && nodes.Count > 0) || !shouldIgnoreCase)
             {
