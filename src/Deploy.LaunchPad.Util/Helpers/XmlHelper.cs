@@ -1,6 +1,7 @@
 ﻿using Castle.Core.Logging;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -56,10 +57,11 @@ namespace Deploy.LaunchPad.Util
         /// </summary>
         /// <param name="xmlDocumentFilePath"></param>
         /// <returns></returns>
-        public virtual XmlDocument LoadFromFilePath(string xmlDocumentFilePath)
+        public virtual XmlDocument LoadXmlDocument(string folderPath, string fileName)
         {
-            Guard.Against<ArgumentNullException>(string.IsNullOrEmpty(xmlDocumentFilePath), "xmlDocumentFilePath cannot be null or empty");
-            _xmlDoc = LoadFromFilePath(xmlDocumentFilePath, null); // Call the overloaded method with null namespaces
+            Guard.Against<ArgumentNullException>(string.IsNullOrEmpty(folderPath), "folderPath cannot be null or empty");
+            Guard.Against<ArgumentNullException>(string.IsNullOrEmpty(fileName), "fileName cannot be null or empty");
+            _xmlDoc = LoadXmlDocument(folderPath, fileName, null); // Call the overloaded method with null namespaces
             return _xmlDoc; // Return the loaded XmlDocument
         }
 
@@ -70,10 +72,31 @@ namespace Deploy.LaunchPad.Util
         /// <param name="xmlDocumentFilePath"></param>
         /// <param name="xmlNamespaces"></param>
         /// <returns></returns>
-        public virtual XmlDocument LoadFromFilePath(string xmlDocumentFilePath, IDictionary<string, string> xmlNamespaces = null)
+        public virtual XmlDocument LoadXmlDocument(string folderPath, string fileName, IDictionary<string, string> xmlNamespaces = null)
         {
-            Guard.Against<ArgumentNullException>(string.IsNullOrEmpty(xmlDocumentFilePath), "xmlDocumentFilePath cannot be null or empty");
-            _xmlDoc.Load(xmlDocumentFilePath);
+            Guard.Against<ArgumentNullException>(string.IsNullOrEmpty(folderPath), "folderPath cannot be null or empty");
+            Guard.Against<ArgumentNullException>(string.IsNullOrEmpty(fileName), "fileName cannot be null or empty");
+            if(!folderPath.EndsWith(Path.DirectorySeparatorChar))
+            {
+                folderPath += Path.DirectorySeparatorChar;
+            }
+            if (Directory.Exists(folderPath))
+            {
+                DirectoryInfo d = new DirectoryInfo(folderPath);
+                FileInfo[] Files = d.GetFiles()
+                    .Where(f => f.Name.EndsWith(".xml", StringComparison.OrdinalIgnoreCase) || 
+                    f.Name.Contains(".rad.", StringComparison.OrdinalIgnoreCase))
+                    .ToArray();
+                foreach (FileInfo file in Files)
+                {
+
+                    if (file.Name.Contains(fileName))
+                    {
+                        _xmlDoc.Load(file.FullName);
+                    }
+                }
+
+            }
             _nsManager = new XmlNamespaceManager(_xmlDoc.NameTable);
             if(xmlNamespaces == null)
             {
@@ -88,27 +111,221 @@ namespace Deploy.LaunchPad.Util
         }
 
         /// <summary>
+        /// Gets the text from element.
+        /// </summary>
+        /// <param name="parentNode">The parent node.</param>
+        /// <param name="xPath">The x path.</param>
+        /// <param name="shouldReplaceNullWithEmptyString">if set to <c>true</c> [should replace null with empty string].</param>
+        /// <param name="shouldUnescapeAngleBrackets">if set to <c>true</c> [should unescape angle brackets].</param>
+        /// <returns>System.String.</returns>
+        public virtual string GetTextFromElement(XmlNode parentNode, string xPath, bool shouldReplaceNullWithEmptyString = true, bool shouldUnescapeAngleBrackets = true)
+        {
+            Guard.Against<ArgumentNullException>(parentNode == null, Deploy_LaunchPad_Util_Resources.Guard_Xml_Node_Is_Null);
+            Guard.Against<ArgumentNullException>(String.IsNullOrEmpty(xPath), Deploy_LaunchPad_Util_Resources.Guard_Xml_XPath_Is_NullOrEmpty);
+            string elementNodeString = GetElementNodeString(parentNode, xPath, shouldReplaceNullWithEmptyString, shouldUnescapeAngleBrackets);
+            return elementNodeString;
+        }
+
+        /// <summary>
+        /// Gets the element node string.
+        /// </summary>
+        /// <param name="parentNode">The parent node.</param>
+        /// <param name="xPath">The x path.</param>
+        /// <param name="shouldReplaceNullWithEmptyString">if set to <c>true</c> [should replace null with empty string].</param>
+        /// <param name="shouldUnescapeAngleBrackets">if set to <c>true</c> [should unescape angle brackets].</param>
+        /// <returns>System.String.</returns>
+        protected virtual string GetElementNodeString(XmlNode parentNode, string xPath, bool shouldReplaceNullWithEmptyString = true, bool shouldUnescapeAngleBrackets = true, bool shouldIgnoreCase = false)
+        {
+            Guard.Against<ArgumentNullException>(parentNode == null, Deploy_LaunchPad_Util_Resources.Guard_Xml_Node_Is_Null);
+            Guard.Against<ArgumentNullException>(String.IsNullOrEmpty(xPath), Deploy_LaunchPad_Util_Resources.Guard_Xml_XPath_Is_NullOrEmpty);
+            string elementNodeString = string.Empty;
+            var elementNode = GetNode(xPath, parentNode, shouldIgnoreCase);
+            if (elementNode != null)
+            {
+                if (elementNode.InnerXml == "&nbsp;") elementNode.ParentNode?.RemoveChild(elementNode);
+                string innerHtml = elementNode.InnerXml.Replace("<![CDATA[", "").Replace("]]>", String.Empty).Trim();
+                if (shouldReplaceNullWithEmptyString)
+                {
+                    elementNodeString = innerHtml.Replace("null", string.Empty).Trim();
+                }
+                else
+                {
+                    elementNodeString = innerHtml;
+                }
+                if (shouldUnescapeAngleBrackets)
+                {
+                    elementNodeString = elementNodeString.Replace("&lt;", "<").Replace("&gt;", ">");
+                }
+            }
+            return elementNodeString;
+        }
+
+        /// <summary>
+        /// Gets the text from attribute.
+        /// </summary>
+        /// <param name="parentNode">The parent node.</param>
+        /// <param name="attributeName">Name of the attribute.</param>
+        /// <returns>System.String.</returns>
+        public virtual string GetTextFromAttribute(XmlNode parentNode, string attributeName)
+        {
+            Guard.Against<ArgumentNullException>(parentNode == null, Deploy_LaunchPad_Util_Resources.Guard_Xml_Node_Is_Null);
+            Guard.Against<ArgumentNullException>(String.IsNullOrEmpty(attributeName), Deploy_LaunchPad_Util_Resources.Guard_Xml_AttributeName_Is_Null);
+            string value = string.Empty;
+            if (parentNode.Attributes.Count > 0)
+            {
+                try
+                {
+                    XmlAttribute attr = parentNode.Attributes[attributeName.ToLower()];
+                    if (attr != null)
+                    {
+                        value = attr.Value.Trim();
+                    }
+                }
+                catch (NullReferenceException ex)
+                {
+                    // log an error
+                    value = ex.Message;
+                    throw;
+                }
+            }
+            return value;
+        }
+
+        /// <summary>
+        /// Gets the int from attribute.
+        /// </summary>
+        /// <param name="parentNode">The parent node.</param>
+        /// <param name="attributeName">Name of the attribute.</param>
+        /// <returns>System.Int32.</returns>
+        public virtual int GetIntFromAttribute(XmlNode parentNode, string attributeName)
+        {
+            Guard.Against<ArgumentNullException>(parentNode == null, Deploy_LaunchPad_Util_Resources.Guard_Xml_Node_Is_Null);
+            Guard.Against<ArgumentNullException>(String.IsNullOrEmpty(attributeName), Deploy_LaunchPad_Util_Resources.Guard_Xml_AttributeName_Is_Null);
+            int value = 0;
+            if (parentNode.Attributes.Count > 0)
+            {
+                try
+                {
+                    XmlAttribute attr = parentNode.Attributes[attributeName.ToLower()];
+                    if (attr != null)
+                    {
+                        value = int.Parse(attr.Value);
+                    }
+                }
+                catch (NullReferenceException ex)
+                {
+                    // log an error
+                    Logger.Error(ex.Message);
+                    throw;
+                }
+            }
+            return value;
+        }
+
+        /// <summary>
+        /// Gets the bool from attribute.
+        /// </summary>
+        /// <param name="parentNode">The parent node.</param>
+        /// <param name="attributeName">Name of the attribute.</param>
+        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
+        public virtual bool GetBoolFromAttribute(XmlNode parentNode, string attributeName)
+        {
+            Guard.Against<ArgumentNullException>(parentNode == null, Deploy_LaunchPad_Util_Resources.Guard_Xml_Node_Is_Null);
+            Guard.Against<ArgumentNullException>(String.IsNullOrEmpty(attributeName), Deploy_LaunchPad_Util_Resources.Guard_Xml_AttributeName_Is_Null);
+            bool value = false; // Default to false
+            if (parentNode.Attributes.Count > 0)
+            {
+                try
+                {
+                    XmlAttribute attr = parentNode.Attributes[attributeName.ToLower()];
+                    if (attr != null)
+                    {
+                        value = bool.Parse(attr.Value);
+                    }
+                }
+                catch (NullReferenceException ex)
+                {
+                    // log an error
+                    Logger.Error(ex.Message);
+                    throw;
+                }
+            }
+            return value;
+        }
+
+        /// <summary>
+        /// Gets the bool from element.
+        /// </summary>
+        /// <param name="parentNode">The parent node.</param>
+        /// <param name="xPath">The x path.</param>
+        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
+        public virtual bool GetBoolFromElement(XmlNode parentNode, string xPath)
+        {
+            Guard.Against<ArgumentNullException>(parentNode == null, Deploy_LaunchPad_Util_Resources.Guard_Xml_Node_Is_Null);
+            Guard.Against<ArgumentNullException>(String.IsNullOrEmpty(xPath), Deploy_LaunchPad_Util_Resources.Guard_Xml_XPath_Is_NullOrEmpty);
+            bool value = false; // Default to false
+            if (parentNode.Attributes.Count > 0)
+            {
+                try
+                {
+                    string elementNodeString = GetElementNodeString(parentNode, xPath, true).ToLower();
+                    bool.TryParse(elementNodeString, out value);
+                }
+                catch (NullReferenceException ex)
+                {
+                    // log an error
+                    Logger.Error(ex.Message);
+                    throw;
+                }
+            }
+            return value;
+        }
+
+
+        /// <summary>
+        /// Ensures the valid enum from string.
+        /// </summary>
+        /// <typeparam name="TEnum">The type of the t enum.</typeparam>
+        /// <param name="inputValue">The input value.</param>
+        /// <param name="defaultValue">The default value.</param>
+        /// <returns>TEnum.</returns>
+        public virtual TEnum EnsureValidEnumFromString<TEnum>(string inputValue, TEnum defaultValue) where TEnum : struct, Enum
+        {
+            Guard.Against<ArgumentNullException>(string.IsNullOrEmpty(inputValue), Deploy_LaunchPad_Util_Resources.Guard_Input_IsNull);
+            TEnum validEnum = defaultValue;
+            if (!String.IsNullOrEmpty(inputValue))
+            {
+                if (!Enum.TryParse<TEnum>(inputValue, true, out validEnum))
+                {
+                    // log and throw
+                    Logger.Warn("Could not parse enum for user provided value " + inputValue + ". Returning the provided default.");
+                }
+            }
+            return validEnum;
+        }
+
+        /// <summary>
         /// Select the XML node using the provided XPath and automatically using the appropriate namespace manager.
         /// An optional starting node can be provided, alternatively the root document will be used for assessing the XPath.
         /// </summary>
-        /// <param name="xpath"></param>
+        /// <param name="xPath"></param>
         /// <param name="startingNode"></param>
         /// <returns></returns>
-        public virtual XmlNode FindNode(string xpath, XmlNode startingNode = null, bool shouldIgnoreCase = false)
+        public virtual XmlNode GetNode(string xPath, XmlNode startingNode = null, bool shouldIgnoreCase = false)
         {
-            Guard.Against<ArgumentNullException>(string.IsNullOrEmpty(xpath), "xpath cannot be null or empty.");
+            Guard.Against<ArgumentNullException>(String.IsNullOrEmpty(xPath), Deploy_LaunchPad_Util_Resources.Guard_Xml_XPath_Is_NullOrEmpty);
 
-            xpath = PreProcessXpath(xpath);
+            xPath = PreProcessXpath(xPath);
 
             var contextNode = startingNode ?? _xmlDoc;            
-            var node = contextNode.SelectSingleNode(xpath, NsManager);
+            var node = contextNode.SelectSingleNode(xPath, NsManager);
             if (node != null || !shouldIgnoreCase)
             {
                 return node;
             }
 
             // If the node is not found, try a case-insensitive search
-            string insensitiveXpath = ToCaseInsensitiveXPath(xpath);
+            string insensitiveXpath = ToCaseInsensitiveXPath(xPath);
             return contextNode.SelectSingleNode(insensitiveXpath, NsManager);
         }
 
@@ -119,51 +336,53 @@ namespace Deploy.LaunchPad.Util
         /// <param name="xpath"></param>
         /// <param name="startingNode"></param>
         /// <returns></returns>
-        public virtual XmlNodeList FindNodes(string xpath, XmlNode startingNode = null, bool shouldIgnoreCase = false)
+        public virtual XmlNodeList GetNodes(string xPath, XmlNode startingNode = null, bool shouldIgnoreCase = false)
         {
-            Guard.Against<ArgumentNullException>(string.IsNullOrEmpty(xpath), "xpath cannot be null or empty.");
+            Guard.Against<ArgumentNullException>(String.IsNullOrEmpty(xPath), Deploy_LaunchPad_Util_Resources.Guard_Xml_XPath_Is_NullOrEmpty);
 
-            xpath = PreProcessXpath(xpath);
+            xPath = PreProcessXpath(xPath);
 
             var contextNode = startingNode ?? _xmlDoc;
-            var nodes = contextNode.SelectNodes(xpath, NsManager);
+            var nodes = contextNode.SelectNodes(xPath, NsManager);
             if ((nodes != null && nodes.Count > 0) || !shouldIgnoreCase)
             {
                 return nodes;
             }
 
             // If not found, try case-insensitive search
-            string insensitiveXpath = ToCaseInsensitiveXPath(xpath);
+            string insensitiveXpath = ToCaseInsensitiveXPath(xPath);
             var insensitiveNodes = contextNode.SelectNodes(insensitiveXpath, NsManager);
             return insensitiveNodes;
         }
 
-        protected virtual string PreProcessXpath(string xpath)
+        protected virtual string PreProcessXpath(string xPath)
         {
+            Guard.Against<ArgumentNullException>(String.IsNullOrEmpty(xPath), Deploy_LaunchPad_Util_Resources.Guard_Xml_XPath_Is_NullOrEmpty);
+
             // Only preprocess if a default prefix exists
             if (_xmlNamespaces != null && _xmlNamespaces.Count > 0)
             {
                 // Use the first prefix as the default (e.g., "def")
                 string defaultPrefix = _xmlNamespaces.Keys.First();
                 // Regex: match element names not already prefixed (skip ., @, :, (), [], and //)
-                xpath = System.Text.RegularExpressions.Regex.Replace(
-                    xpath,
+                xPath = System.Text.RegularExpressions.Regex.Replace(
+                    xPath,
                     @"(?<=/|^)(?!@|\.|//|[\w-]+:)([\w-]+)",
                     $"{defaultPrefix}:$1"
                 );
             }
-            return xpath;
+            return xPath;
         }
 
-        protected virtual string ToCaseInsensitiveXPath(string xpath)
+        protected virtual string ToCaseInsensitiveXPath(string xPath)
         {
-            Guard.Against<ArgumentNullException>(string.IsNullOrEmpty(xpath), "xpath cannot be null or empty.");
+            Guard.Against<ArgumentNullException>(String.IsNullOrEmpty(xPath), Deploy_LaunchPad_Util_Resources.Guard_Xml_XPath_Is_NullOrEmpty);
             const string upperAlphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
             const string lowerAlphabet = "abcdefghijklmnopqrstuvwxyz";
 
-            bool isDescendant = xpath.StartsWith("//");
-            bool isAbsolute = xpath.StartsWith("/");
-            var segments = xpath.TrimStart('/').Split(new[] { '/' }, StringSplitOptions.RemoveEmptyEntries);
+            bool isDescendant = xPath.StartsWith("//");
+            bool isAbsolute = xPath.StartsWith("/");
+            var segments = xPath.TrimStart('/').Split(new[] { '/' }, StringSplitOptions.RemoveEmptyEntries);
             var insensitiveSegments = segments
                 .Select(s =>
                 {
@@ -186,8 +405,8 @@ namespace Deploy.LaunchPad.Util
         /// <returns></returns>
         public virtual XmlAttribute FindAttribute(XmlNode currentNode, string attributeName, bool shouldIgnoreCase = false)
         {
-            Guard.Against<ArgumentNullException>(currentNode == null, "currentNode cannot be null.");
-            Guard.Against<ArgumentNullException>(string.IsNullOrEmpty(attributeName), "attributeName cannot be null or empty.");
+            Guard.Against<ArgumentNullException>(currentNode == null, Deploy_LaunchPad_Util_Resources.Guard_Xml_Node_Is_Null);
+            Guard.Against<ArgumentNullException>(String.IsNullOrEmpty(attributeName), Deploy_LaunchPad_Util_Resources.Guard_Xml_AttributeName_Is_Null);
             XmlAttribute attribute = currentNode.Attributes[attributeName];
             return attribute;
         }

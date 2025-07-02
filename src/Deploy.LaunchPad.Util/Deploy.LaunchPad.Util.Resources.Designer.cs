@@ -295,6 +295,15 @@ namespace Deploy.LaunchPad.Util {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Longitudinal coordinate decimal cannot be more than 180..
+        /// </summary>
+        public static string Guard_GeographicLocation_Set_Longitude_Not_MoreThan_180 {
+            get {
+                return ResourceManager.GetString("Guard_GeographicLocation_Set_Longitude_Not_MoreThan_180", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Max Results must be -1 or a positive number..
         /// </summary>
         public static string Guard_InMemoryRepository_ConstrainQueryInput_MaxResult_Equals0 {
@@ -345,6 +354,15 @@ namespace Deploy.LaunchPad.Util {
         public static string Guard_Input_IsNull {
             get {
                 return ResourceManager.GetString("Guard_Input_IsNull", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Input string is null or empty.
+        /// </summary>
+        public static string Guard_Input_IsNullOrEmpty {
+            get {
+                return ResourceManager.GetString("Guard_Input_IsNullOrEmpty", resourceCulture);
             }
         }
         
@@ -542,36 +560,36 @@ namespace Deploy.LaunchPad.Util {
         /// <summary>
         ///   Looks up a localized string similar to Attribute name cannot be null or empty..
         /// </summary>
-        public static string Guard_XhtmlHelper_AttributeName_Is_Null {
+        public static string Guard_Xml_AttributeName_Is_Null {
             get {
-                return ResourceManager.GetString("Guard_XhtmlHelper_AttributeName_Is_Null", resourceCulture);
+                return ResourceManager.GetString("Guard_Xml_AttributeName_Is_Null", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to ParentNode cannot be null..
+        ///   Looks up a localized string similar to Node cannot be null..
         /// </summary>
-        public static string Guard_XhtmlHelper_ParentNode_Is_Null {
+        public static string Guard_Xml_Node_Is_Null {
             get {
-                return ResourceManager.GetString("Guard_XhtmlHelper_ParentNode_Is_Null", resourceCulture);
+                return ResourceManager.GetString("Guard_Xml_Node_Is_Null", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to PropertySetsNodes collection is null or empty..
         /// </summary>
-        public static string Guard_XhtmlHelper_PropertySetsNodes_Is_Null {
+        public static string Guard_Xml_PropertySetsNodes_Is_Null {
             get {
-                return ResourceManager.GetString("Guard_XhtmlHelper_PropertySetsNodes_Is_Null", resourceCulture);
+                return ResourceManager.GetString("Guard_Xml_PropertySetsNodes_Is_Null", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to XPath cannot be null or empty..
         /// </summary>
-        public static string Guard_XhtmlHelper_XPath_Is_Null {
+        public static string Guard_Xml_XPath_Is_NullOrEmpty {
             get {
-                return ResourceManager.GetString("Guard_XhtmlHelper_XPath_Is_Null", resourceCulture);
+                return ResourceManager.GetString("Guard_Xml_XPath_Is_NullOrEmpty", resourceCulture);
             }
         }
         
