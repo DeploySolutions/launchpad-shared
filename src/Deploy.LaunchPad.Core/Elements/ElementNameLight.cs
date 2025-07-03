@@ -12,6 +12,7 @@ namespace Deploy.LaunchPad.Core
     [Serializable]      
     [ComplexType]
     [DebuggerDisplay("{_debugDisplay}")]
+    [JsonConverter(typeof(ElementNameLightJsonConverter))]
     public partial class ElementNameLight : IElementNameLight
     {
         /// <summary>

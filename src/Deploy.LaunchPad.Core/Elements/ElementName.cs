@@ -12,6 +12,7 @@ namespace Deploy.LaunchPad.Core
     [Serializable]      
     [ComplexType]
     [DebuggerDisplay("{_debugDisplay}")]
+    [JsonConverter(typeof(ElementNameJsonConverter))]
     public partial class ElementName : ElementNameLight, IElementName
     {
         protected string _short = string.Empty;
