@@ -576,42 +576,6 @@ namespace Deploy.LaunchPad.Core {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Attribute name cannot be null or empty..
-        /// </summary>
-        public static string Guard_XhtmlHelper_AttributeName_Is_Null {
-            get {
-                return ResourceManager.GetString("Guard_XhtmlHelper_AttributeName_Is_Null", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to ParentNode cannot be null..
-        /// </summary>
-        public static string Guard_XhtmlHelper_ParentNode_Is_Null {
-            get {
-                return ResourceManager.GetString("Guard_XhtmlHelper_ParentNode_Is_Null", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to PropertySetsNodes collection is null or empty..
-        /// </summary>
-        public static string Guard_XhtmlHelper_PropertySetsNodes_Is_Null {
-            get {
-                return ResourceManager.GetString("Guard_XhtmlHelper_PropertySetsNodes_Is_Null", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to XPath cannot be null or empty..
-        /// </summary>
-        public static string Guard_XhtmlHelper_XPath_Is_Null {
-            get {
-                return ResourceManager.GetString("Guard_XhtmlHelper_XPath_Is_Null", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Disposing of transaction manager {0}..
         /// </summary>
         public static string Info_TransactionManager_Dispose {
@@ -787,56 +751,11 @@ namespace Deploy.LaunchPad.Core {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Description Full must be 8096 characters or less..
-        /// </summary>
-        public static string Validation_DescriptionFull_8096CharsOrLess {
-            get {
-                return ResourceManager.GetString("Validation_DescriptionFull_8096CharsOrLess", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Description Short must be 256 characters or less..
-        /// </summary>
-        public static string Validation_DescriptionShort_256CharsOrLess {
-            get {
-                return ResourceManager.GetString("Validation_DescriptionShort_256CharsOrLess", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to External ID field must be 36 characters or less..
         /// </summary>
         public static string Validation_ExternalId_36CharsOrLess {
             get {
                 return ResourceManager.GetString("Validation_ExternalId_36CharsOrLess", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Name must be 100 characters or less.
-        /// </summary>
-        public static string Validation_Name_100CharsOrLess {
-            get {
-                return ResourceManager.GetString("Validation_Name_100CharsOrLess", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Name must be 256 characters or less..
-        /// </summary>
-        public static string Validation_Name_256CharsOrLess {
-            get {
-                return ResourceManager.GetString("Validation_Name_256CharsOrLess", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Name must be 50 characters or less..
-        /// </summary>
-        public static string Validation_Name_Short_50CharsOrLess {
-            get {
-                return ResourceManager.GetString("Validation_Name_Short_50CharsOrLess", resourceCulture);
             }
         }
         

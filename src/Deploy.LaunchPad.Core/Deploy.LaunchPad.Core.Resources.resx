@@ -276,18 +276,6 @@
   <data name="Guard_UnitOfWorkTransaction_UnitOfWorkTransaction_ArgumentNullException_unitOfWork" xml:space="preserve">
     <value>Expected a non-null UnitOfWork instance.</value>
   </data>
-  <data name="Guard_XhtmlHelper_AttributeName_Is_Null" xml:space="preserve">
-    <value>Attribute name cannot be null or empty.</value>
-  </data>
-  <data name="Guard_XhtmlHelper_ParentNode_Is_Null" xml:space="preserve">
-    <value>ParentNode cannot be null.</value>
-  </data>
-  <data name="Guard_XhtmlHelper_PropertySetsNodes_Is_Null" xml:space="preserve">
-    <value>PropertySetsNodes collection is null or empty.</value>
-  </data>
-  <data name="Guard_XhtmlHelper_XPath_Is_Null" xml:space="preserve">
-    <value>XPath cannot be null or empty.</value>
-  </data>
   <data name="Info_TransactionManager_Dispose" xml:space="preserve">
     <value>Disposing of transaction manager {0}.</value>
   </data>
@@ -349,20 +337,8 @@
   <data name="Validation_Culture_5CharsOrLess" xml:space="preserve">
     <value>Culture must be 5 characters or less.</value>
   </data>
-  <data name="Validation_DescriptionFull_8096CharsOrLess" xml:space="preserve">
-    <value>Description Full must be 8096 characters or less.</value>
-  </data>
-  <data name="Validation_DescriptionShort_256CharsOrLess" xml:space="preserve">
-    <value>Description Short must be 256 characters or less.</value>
-  </data>
   <data name="Validation_ExternalId_36CharsOrLess" xml:space="preserve">
     <value>External ID field must be 36 characters or less.</value>
-  </data>
-  <data name="Validation_Name_256CharsOrLess" xml:space="preserve">
-    <value>Name must be 256 characters or less.</value>
-  </data>
-  <data name="Validation_Name_Short_50CharsOrLess" xml:space="preserve">
-    <value>Name must be 50 characters or less.</value>
   </data>
   <data name="Validation_Token_Name_20CharsOrLess" xml:space="preserve">
     <value>Token name must be 20 characters or less.</value>
@@ -381,8 +357,5 @@
   </data>
   <data name="Guard_GeographicLocation_Set_Area" xml:space="preserve">
     <value>Area must be a valid decimal number.</value>
-  </data>
-  <data name="Validation_Name_100CharsOrLess" xml:space="preserve">
-    <value>Name must be 100 characters or less</value>
   </data>
 </root>
