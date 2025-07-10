@@ -382,4 +382,7 @@
   <data name="Guard_GeographicLocation_Set_Area" xml:space="preserve">
     <value>Area must be a valid decimal number.</value>
   </data>
+  <data name="Validation_Name_100CharsOrLess" xml:space="preserve">
+    <value>Name must be 100 characters or less</value>
+  </data>
 </root>

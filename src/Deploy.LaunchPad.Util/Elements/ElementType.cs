@@ -11,7 +11,7 @@ using System.Reflection;
 using System.Text.RegularExpressions;
 using System.Xml.Serialization;
 
-namespace Deploy.LaunchPad.Core
+namespace Deploy.LaunchPad.Util
 {
     [Serializable]
     [ComplexType]
@@ -24,8 +24,8 @@ namespace Deploy.LaunchPad.Core
         /// </summary>
         /// <value>The fully qualified type of the object.</value>
         [Required]
-        [MaxLength(511, ErrorMessageResourceName = "Validation_ElementType_FullyQualifiedType_511CharsOrLess", ErrorMessageResourceType = typeof(Deploy_LaunchPad_Core_Resources))]
-        [RegularExpression(@"^([a-zA-Z_][a-zA-Z0-9_]*\.)*[a-zA-Z_][a-zA-Z0-9_]*$", ErrorMessageResourceName = "Validation_ElementType_InvalidType", ErrorMessageResourceType = typeof(Deploy_LaunchPad_Core_Resources))]
+        [MaxLength(511, ErrorMessageResourceName = "Validation_ElementType_FullyQualifiedType_511CharsOrLess", ErrorMessageResourceType = typeof(Deploy_LaunchPad_Util_Resources))]
+        [RegularExpression(@"^([a-zA-Z_][a-zA-Z0-9_]*\.)*[a-zA-Z_][a-zA-Z0-9_]*$", ErrorMessageResourceName = "Validation_ElementType_InvalidType", ErrorMessageResourceType = typeof(Deploy_LaunchPad_Util_Resources))]
         [DataObjectField(true)]
         [XmlAttribute]
         [JsonProperty("fullyQualifiedType", NullValueHandling = NullValueHandling.Ignore, DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
@@ -46,7 +46,7 @@ namespace Deploy.LaunchPad.Core
         /// The type of this object (it should of course be identical to calling GetType() but is intended for storage for documentation purposes or sharing externally).
         /// </summary>
         /// <value>The type of this object.</value>
-        [MaxLength(20, ErrorMessageResourceName = "Validation_ElementType_FullyQualifiedType_511CharsOrLess", ErrorMessageResourceType = typeof(Deploy_LaunchPad_Core_Resources))]
+        [MaxLength(20, ErrorMessageResourceName = "Validation_ElementType_FullyQualifiedType_511CharsOrLess", ErrorMessageResourceType = typeof(Deploy_LaunchPad_Util_Resources))]
         [DataObjectField(false)]
         [XmlAttribute]
         [JsonProperty("typeName", NullValueHandling = NullValueHandling.Ignore, DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
@@ -81,8 +81,8 @@ namespace Deploy.LaunchPad.Core
         /// The fully qualified namename of the assembly.
         /// </summary>
         /// <value>The fully qualified name of the assembly.</value>
-        [MaxLength(255, ErrorMessageResourceName = "Validation_255CharsOrLess", ErrorMessageResourceType = typeof(Deploy_LaunchPad_Core_Resources))]
-        [RegularExpression(@"^[a-zA-Z_][a-zA-Z0-9_]*(\.[a-zA-Z_][a-zA-Z0-9_]*)*(, Version=\d+\.\d+\.\d+\.\d+)?(, Culture=[a-zA-Z0-9\-]+)?(, PublicKeyToken=[a-fA-F0-9]{16}|, PublicKeyToken=null)?$", ErrorMessageResourceName = "Validation_ElementType_InvalidAssembly", ErrorMessageResourceType = typeof(Deploy_LaunchPad_Core_Resources))]
+        [MaxLength(255, ErrorMessageResourceName = "Validation_255CharsOrLess", ErrorMessageResourceType = typeof(Deploy_LaunchPad_Util_Resources))]
+        [RegularExpression(@"^[a-zA-Z_][a-zA-Z0-9_]*(\.[a-zA-Z_][a-zA-Z0-9_]*)*(, Version=\d+\.\d+\.\d+\.\d+)?(, Culture=[a-zA-Z0-9\-]+)?(, PublicKeyToken=[a-fA-F0-9]{16}|, PublicKeyToken=null)?$", ErrorMessageResourceName = "Validation_ElementType_InvalidAssembly", ErrorMessageResourceType = typeof(Deploy_LaunchPad_Util_Resources))]
         [DataObjectField(false)]
         [XmlAttribute]
         [JsonProperty("assemblyFullyQualifiedName", NullValueHandling = NullValueHandling.Ignore, DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
@@ -104,7 +104,7 @@ namespace Deploy.LaunchPad.Core
         /// The name of the assembly.
         /// </summary>
         /// <value>The name of the assembly.</value>
-        [MaxLength(255, ErrorMessageResourceName = "Validation_255CharsOrLess", ErrorMessageResourceType = typeof(Deploy_LaunchPad_Core_Resources))]
+        [MaxLength(255, ErrorMessageResourceName = "Validation_255CharsOrLess", ErrorMessageResourceType = typeof(Deploy_LaunchPad_Util_Resources))]
         [DataObjectField(false)]
         [XmlAttribute]
         [JsonProperty("assemblyName", NullValueHandling = NullValueHandling.Ignore, DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]

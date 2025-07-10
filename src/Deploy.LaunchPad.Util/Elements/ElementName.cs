@@ -7,7 +7,7 @@ using System;
 using Newtonsoft.Json;
 using Deploy.LaunchPad.Util.ValueConverters;
 
-namespace Deploy.LaunchPad.Core
+namespace Deploy.LaunchPad.Util
 {
     [Serializable]      
     [ComplexType]
@@ -20,7 +20,7 @@ namespace Deploy.LaunchPad.Core
         /// The short name of this element (if different from the FullName field). If not set, it will default to the first 50 characters of the full name.
         /// </summary>
         /// <value>The fully qualified name of the element.</value>
-        [MaxLength(50, ErrorMessageResourceName = "Validation_Name_Short_50CharsOrLess", ErrorMessageResourceType = typeof(Deploy_LaunchPad_Core_Resources))]
+        [MaxLength(50, ErrorMessageResourceName = "Validation_Name_Short_50CharsOrLess", ErrorMessageResourceType = typeof(Deploy_LaunchPad_Util_Resources))]
         [DataObjectField(false)]
         [XmlAttribute]
         [JsonProperty("short", NullValueHandling = NullValueHandling.Ignore, DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
@@ -50,7 +50,7 @@ namespace Deploy.LaunchPad.Core
         /// The prefix, if any
         /// </summary>
         /// <value>The prefix of the element.</value>
-        [MaxLength(12, ErrorMessageResourceName = "Validation_12CharsOrLess", ErrorMessageResourceType = typeof(Deploy_LaunchPad_Core_Resources))]
+        [MaxLength(12, ErrorMessageResourceName = "Validation_12CharsOrLess", ErrorMessageResourceType = typeof(Deploy_LaunchPad_Util_Resources))]
         [DataObjectField(false)]
         [XmlAttribute]
         [JsonProperty("prefix", NullValueHandling = NullValueHandling.Ignore, DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
@@ -73,7 +73,7 @@ namespace Deploy.LaunchPad.Core
         /// The suffix, if any
         /// </summary>
         /// <value>The suffix of the element.</value>
-        [MaxLength(12, ErrorMessageResourceName = "Validation_12CharsOrLess", ErrorMessageResourceType = typeof(Deploy_LaunchPad_Core_Resources))]
+        [MaxLength(12, ErrorMessageResourceName = "Validation_12CharsOrLess", ErrorMessageResourceType = typeof(Deploy_LaunchPad_Util_Resources))]
         [DataObjectField(false)]
         [XmlAttribute]
         [JsonProperty("suffix", NullValueHandling = NullValueHandling.Ignore, DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]

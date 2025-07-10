@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Xml.Serialization;
 using System.ComponentModel.DataAnnotations;
 using Deploy.LaunchPad.Core.Data;
+using Deploy.LaunchPad.Util;
 
 namespace Deploy.LaunchPad.Core.Domain.Model
 {

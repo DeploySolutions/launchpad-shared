@@ -7,52 +7,63 @@ using System;
 using Newtonsoft.Json;
 using Deploy.LaunchPad.Util.ValueConverters;
 
-namespace Deploy.LaunchPad.Core
+namespace Deploy.LaunchPad.Util
 {
     [Serializable]
     [ComplexType]
     [DebuggerDisplay("{_debugDisplay}")]
-    public partial class ElementDescriptionLight : IElementDescriptionLight
+    public partial class ElementDescription : ElementDescriptionLight, IElementDescription
     {
-        /// <summary>
-        /// Controls the DebuggerDisplay attribute presentation (above). This will only appear during VS debugging sessions and should never be logged.
-        /// </summary>
-        /// <value>The debug display.</value>
-        protected virtual string _debugDisplay => $"{Full}.";
 
-        protected string _full = string.Empty;
+        protected string _short = string.Empty;
         /// <summary>
-        /// The full description for this object
+        /// A short description for this object. If not set, it will default to the first 255 characters of the full description.
         /// </summary>
-        /// <value>The description full.</value>
-        [MaxLength(8096, ErrorMessageResourceName = "Validation_ElementDescription_Full_8096CharsOrLess", ErrorMessageResourceType = typeof(Deploy_LaunchPad_Core_Resources))]
+        /// <value>The description short.</value>
+        [MaxLength(255, ErrorMessageResourceName = "Validation_ElementDescription_Short_255CharsOrLess", ErrorMessageResourceType = typeof(Deploy_LaunchPad_Util_Resources))]
         [DataObjectField(false)]
-        [XmlElement]
-        [JsonProperty("full")]
-        public virtual string Full
+        [XmlAttribute]
+        [JsonProperty("short", NullValueHandling = NullValueHandling.Ignore, DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
+        [JsonConverter(typeof(JsonEmptyStringToNullConverter))]
+        public virtual string Short
         {
             get
             {
-                return _full;
+                if (string.IsNullOrEmpty(_short))
+                {
+                    return Full;
+                }
+                else
+                {
+                    return _short;
+                }
             }
             set
             {
-                _full = value;
+                _short = value;
             }
         }
 
-        protected ElementDescriptionLight()
+        protected ElementDescription()
         {
         }
 
-        public ElementDescriptionLight(string fullDescription)
+        public ElementDescription(string fullDescription)
         {
             Full = fullDescription;
+            if (!string.IsNullOrEmpty(fullDescription))
+            {
+                Short = fullDescription.Length > 255 ? fullDescription.Substring(0, 255) : fullDescription;
+            }
         }
 
-        public ElementDescriptionLight(string fullDescription, string shortDescription)
+        public ElementDescription(string fullDescription, string shortDescription)
         {
             Full = fullDescription;
+            if (!string.IsNullOrEmpty(shortDescription))
+            {
+                Short = shortDescription.Length > 255 ? shortDescription.Substring(0, 255) : shortDescription;
+            }
         }
 
         /// <summary>
@@ -62,9 +73,9 @@ namespace Deploy.LaunchPad.Core
         /// </summary>
         /// <param name="other">The other object of this type we are comparing to</param>
         /// <returns>System.Int32.</returns>
-        public virtual int CompareTo(ElementDescriptionLight other)
+        public virtual int CompareTo(ElementDescription other)
         {
-            return Full.CompareTo(other.Full);
+            return Full.CompareTo(other.Full) & Short.CompareTo(other.Short);
         }
 
         /// <summary>
@@ -84,9 +95,9 @@ namespace Deploy.LaunchPad.Core
         /// <returns>True if the entities are the same according to business key value</returns>
         public override bool Equals(object obj)
         {
-            if (obj != null && obj is ElementDescriptionLight)
+            if (obj != null && obj is ElementDescription)
             {
-                return Equals(obj as ElementDescriptionLight);
+                return Equals(obj as ElementDescription);
             }
             return false;
         }
@@ -100,11 +111,11 @@ namespace Deploy.LaunchPad.Core
         /// </summary>
         /// <param name="obj">The other object of this type that we are testing equality with</param>
         /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
-        public virtual bool Equals(ElementDescriptionLight obj)
+        public virtual bool Equals(ElementDescription obj)
         {
             if (obj != null)
             {
-                return Full.Equals(obj.Full);
+                return Short.Equals(obj.Short) && Full.Equals(obj.Full);
             }
             return false;
         }
@@ -115,7 +126,7 @@ namespace Deploy.LaunchPad.Core
         /// <param name="x">The first value</param>
         /// <param name="y">The second value</param>
         /// <returns>True if both objects are fully equal based on the Equals logic</returns>
-        public static bool operator ==(ElementDescriptionLight x, ElementDescriptionLight y)
+        public static bool operator ==(ElementDescription x, ElementDescription y)
         {
             if (x is null)
             {
@@ -134,7 +145,7 @@ namespace Deploy.LaunchPad.Core
         /// <param name="x">The first value</param>
         /// <param name="y">The second value</param>
         /// <returns>True if both objects are not equal based on the Equals logic</returns>
-        public static bool operator !=(ElementDescriptionLight x, ElementDescriptionLight y)
+        public static bool operator !=(ElementDescription x, ElementDescription y)
         {
             return !(x == y);
         }
@@ -146,14 +157,16 @@ namespace Deploy.LaunchPad.Core
         /// <remarks>This method implements the <see cref="object">Object</see> method.</remarks>
         public override int GetHashCode()
         {
-            return Full.GetHashCode();
+            return Short.GetHashCode()
+                + Full.GetHashCode();
         }
 
-        public ElementDescriptionLight CloneGeneric()
+        public ElementDescription CloneGeneric()
         {
             // Create a new instance and copy all relevant properties
-            return new ElementDescriptionLight(
-                fullDescription: this.Full
+            return new ElementDescription(
+                fullDescription: this.Full,
+                shortDescription: this.Short
             );
         }
         object ICloneable.Clone() => CloneGeneric();

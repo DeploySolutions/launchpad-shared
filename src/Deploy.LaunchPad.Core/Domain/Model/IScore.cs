@@ -1,4 +1,6 @@
-﻿namespace Deploy.LaunchPad.Core.Domain.Model
+﻿using Deploy.LaunchPad.Util;
+
+namespace Deploy.LaunchPad.Core.Domain.Model
 {
     public partial interface IScore
     {

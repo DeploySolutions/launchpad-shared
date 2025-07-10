@@ -28,6 +28,7 @@
 
 namespace Deploy.LaunchPad.Core.Licenses
 {
+    using Deploy.LaunchPad.Util;
     using System;
 
     /// <summary>

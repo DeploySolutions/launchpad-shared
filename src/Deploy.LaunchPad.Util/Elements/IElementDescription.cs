@@ -1,8 +1,6 @@
-﻿using Deploy.LaunchPad.Util;
-using Schema.NET;
-using System;
+﻿using System;
 
-namespace Deploy.LaunchPad.Core
+namespace Deploy.LaunchPad.Util
 {
     public partial interface IElementDescription : IElementDescriptionLight, 
         IComparable<ElementDescriptionLight>, IEquatable<ElementDescriptionLight>,
