@@ -29,7 +29,7 @@ namespace Deploy.LaunchPad.Core.Services
         /// Gets or sets the logger.
         /// </summary>
         /// <value>The logger.</value>
-        public ILogger Logger { get; set; }
+        public ILogger Logger { get; }
 
 
     }

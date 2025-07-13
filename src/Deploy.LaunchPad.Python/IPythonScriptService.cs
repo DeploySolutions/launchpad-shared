@@ -12,24 +12,22 @@
 // <summary></summary>
 // ***********************************************************************
 using Castle.Core.Logging;
+using Deploy.LaunchPad.Core.Services;
 
 namespace Deploy.LaunchPad.Python
 {
     /// <summary>
     /// Interface IPythonScriptService
     /// </summary>
-    public partial interface IPythonScriptService
+    public partial interface IPythonScriptService : ILaunchPadService
     {
-        /// <summary>
-        /// Gets or sets the logger.
-        /// </summary>
-        /// <value>The logger.</value>
-        ILogger Logger { get; set; }
+        
         /// <summary>
         /// Gets or sets the python.
         /// </summary>
         /// <value>The python.</value>
         IPythonInstallation Python { get; set; }
+
         /// <summary>
         /// Gets or sets the script.
         /// </summary>
