@@ -37,7 +37,7 @@ namespace Deploy.LaunchPad.Core.Domain.Model
         [Required]
         [DataObjectField(false)]
         [XmlAttribute]
-        public ElementName Name { get; }
+        public ElementName Name { get; set; }
 
         /// <summary>
         /// The description of this object
@@ -46,7 +46,7 @@ namespace Deploy.LaunchPad.Core.Domain.Model
         [Required]
         [DataObjectField(false)]
         [XmlAttribute]
-        public ElementDescription Description { get; }
+        public ElementDescription Description { get; set;}
 
         /// <summary>
         /// The culture of this object
