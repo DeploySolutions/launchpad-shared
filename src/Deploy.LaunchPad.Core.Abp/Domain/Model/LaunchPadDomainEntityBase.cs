@@ -288,6 +288,38 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
         /// Creates a new instance of the <see cref="DomainEntityBase">Entity</see> class given a key, and some metadata.
         /// </summary>
         /// <param name="id">The identifier.</param>
+        /// <param name="name">The name of the object.</param>
+        /// <param name="description">The description for this entity</param>
+        protected LaunchPadDomainEntityBase(ElementName name) : base()
+        {
+            Culture = ApplicationDetails<TIdType>.DEFAULT_CULTURE;
+            CreatorUserId = 1; // TODO - default user account?
+            IsDeleted = false;
+            IsActive = true;
+            Name = name;
+            Description = new ElementDescription(name.Full);
+        }
+
+        /// <summary>
+        /// Creates a new instance of the <see cref="DomainEntityBase">Entity</see> class given a key, and some metadata.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <param name="name">The name of the object.</param>
+        /// <param name="description">The description for this entity</param>
+        protected LaunchPadDomainEntityBase(ElementName name, ElementDescription description) : base()
+        {
+            Culture = ApplicationDetails<TIdType>.DEFAULT_CULTURE;
+            CreatorUserId = 1; // TODO - default user account?
+            IsDeleted = false;
+            IsActive = true;
+            Name = name;
+            Description = description;
+        }
+
+        /// <summary>
+        /// Creates a new instance of the <see cref="DomainEntityBase">Entity</see> class given a key, and some metadata.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
         protected LaunchPadDomainEntityBase(TIdType id) : base()
         {
             Id = id;
@@ -333,6 +365,39 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
             Description = new ElementDescription(string.Empty, string.Empty);
         }
 
+        /// <summary>
+        /// Creates a new instance of the <see cref="DomainEntityBase">Entity</see> class given a key, and some metadata.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <param name="name">The name of the object.</param>
+        /// <param name="culture">The culture for this entity</param>
+        protected LaunchPadDomainEntityBase(TIdType id, ElementName name, CultureInfo culture) : base()
+        {
+            Id = id;
+            Culture = culture.Name;
+            CreatorUserId = 1; // TODO - default user account?
+            IsDeleted = false;
+            IsActive = true;
+            Name = name;
+            Description = new ElementDescription(string.Empty, string.Empty);
+        }
+
+        /// <summary>
+        /// Creates a new instance of the <see cref="DomainEntityBase">Entity</see> class given a key, and some metadata.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <param name="name">The name of the object.</param>
+        /// <param name="culture">The culture for this entity</param>
+        protected LaunchPadDomainEntityBase(TIdType id, ElementName name, ElementDescription description, CultureInfo culture) : base()
+        {
+            Id = id;
+            Culture = culture.Name;
+            CreatorUserId = 1; // TODO - default user account?
+            IsDeleted = false;
+            IsActive = true;
+            Name = name;
+            Description = description;
+        }
 
         /// <summary>
         /// Serialization constructor used for deserialization
