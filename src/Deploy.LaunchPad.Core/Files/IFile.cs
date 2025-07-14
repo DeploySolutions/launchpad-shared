@@ -65,7 +65,7 @@ namespace Deploy.LaunchPad.Core.Files
         /// <value>The extension.</value>
         [DataObjectField(false)]
         [XmlAttribute]
-        String Extension { get; set; }
+        public string Extension { get; set; }
 
         /// <summary>
         /// The encoding of the file

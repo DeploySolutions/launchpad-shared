@@ -24,7 +24,7 @@ namespace Deploy.LaunchPad.Core.Metadata
     /// <summary>
     /// Interface ILaunchPadSchemaDetails
     /// </summary>
-    public partial interface ILaunchPadSchemaDetails<TSchemaFormat> : ILaunchPadObject, ILaunchPadCommonProperties
+    public partial interface ILaunchPadSchemaDetails<TSchemaFormat> : ILaunchPadObject
     {
         public IFileStorageLocation? Location { get; set; }
 
