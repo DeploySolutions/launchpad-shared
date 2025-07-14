@@ -32,7 +32,7 @@ namespace Deploy.LaunchPad.Core.Domain.Model
 {
 
     /// <summary>
-    /// Marks any object that can be manipulated by the LaunchPad platfom as a transient / value object,
+    /// Marks any object that can be manipulated by the LaunchPad platform as a transient / value object,
     /// ie. those that are not Domain Entities / have no specific identity, and are not persisted to database
     /// </summary>
     public partial interface ILaunchPadValueObject :
