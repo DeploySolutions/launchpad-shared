@@ -571,7 +571,7 @@ namespace Deploy.LaunchPad.Util
             return description;
         }
 
-        public virtual XmlElement GetXmlElementFromName(XmlHelper helper, ElementName name, XmlDocument doc = null, string topLevelNodePrefix = "")
+        public virtual XmlElement GetXmlElementFromName( ElementName name, XmlDocument doc = null, string topLevelNodePrefix = "")
         {
             if (doc == null)
             {
@@ -615,7 +615,7 @@ namespace Deploy.LaunchPad.Util
             return nameElement;
         }
 
-        public virtual XmlElement GetXmlElementFromDescription(XmlHelper helper, ElementName name, XmlDocument doc = null, string topLevelNodePrefix = "")
+        public virtual XmlElement GetXmlElementFromDescription( ElementName name, XmlDocument doc = null, string topLevelNodePrefix = "")
         {
             if (doc == null)
             {
@@ -770,9 +770,8 @@ namespace Deploy.LaunchPad.Util
             return nsAttributes;
         }
 
-        public virtual StringBuilder GetXmlOpeningRootElementSnippet(XmlHelper helper, string elementName, Guid id, IDictionary<string, string> attributes = null)
+        public virtual StringBuilder GetXmlOpeningRootElementSnippet( string elementName, Guid id, IDictionary<string, string> attributes = null)
         {
-            Guard.Against<ArgumentNullException>(helper == null, "helper cannot be null.");
             Guard.Against<ArgumentNullException>(string.IsNullOrEmpty(elementName), "elementName cannot be null.");
             StringBuilder sbXml = new StringBuilder();
 
@@ -796,9 +795,8 @@ namespace Deploy.LaunchPad.Util
             return sbXml;
         }
 
-        public virtual StringBuilder GetXmlSnippetFromName(XmlHelper helper, ElementName name, string topLevelNodePrefix = "")
+        public virtual StringBuilder GetXmlSnippetFromName( ElementName name, string topLevelNodePrefix = "")
         {
-            Guard.Against<ArgumentNullException>(helper == null, "helper cannot be null.");
             Guard.Against<ArgumentNullException>(name == null, "name cannot be null.");
             StringBuilder sbXml = new StringBuilder();
 
@@ -823,9 +821,8 @@ namespace Deploy.LaunchPad.Util
         }
 
 
-        public virtual StringBuilder GetXmlSnippetFromDescription(XmlHelper helper, ElementDescription description, string topLevelNodePrefix = "")
+        public virtual StringBuilder GetXmlSnippetFromDescription( ElementDescription description, string topLevelNodePrefix = "")
         {
-            Guard.Against<ArgumentNullException>(helper == null, "helper cannot be null.");
             Guard.Against<ArgumentNullException>(description == null, "description cannot be null.");
             StringBuilder sbXml = new StringBuilder();
 
@@ -842,11 +839,10 @@ namespace Deploy.LaunchPad.Util
             return sbXml;
         }
 
-        public virtual XmlElement GetXmlElementFromDescription(XmlHelper helper, ElementDescription description, XmlDocument doc = null, string topLevelNodePrefix = "")
+        public virtual XmlElement GetXmlElementFromDescription( ElementDescription description, XmlDocument doc = null, string topLevelNodePrefix = "")
         {
-            Guard.Against<ArgumentNullException>(helper == null, "helper cannot be null.");
             Guard.Against<ArgumentNullException>(description == null, "description cannot be null.");
-            string coreNamespaceValue = helper.NsManager.LookupNamespace("core");
+            string coreNamespaceValue = NsManager.LookupNamespace("core");
             XNamespace coreNs = coreNamespaceValue;
             XElement root = null;
             if (doc == null)
@@ -879,9 +875,8 @@ namespace Deploy.LaunchPad.Util
         }
 
 
-        public virtual StringBuilder GetXmlSnippetFromElementType(XmlHelper helper, ElementType type, string topLevelNodePrefix = "")
+        public virtual StringBuilder GetXmlSnippetFromElementType( ElementType type, string topLevelNodePrefix = "")
         {
-            Guard.Against<ArgumentNullException>(helper == null, "helper cannot be null.");
             Guard.Against<ArgumentNullException>(type == null, "type cannot be null.");
             StringBuilder sbXml = new StringBuilder();
 
