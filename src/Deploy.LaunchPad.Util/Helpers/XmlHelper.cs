@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
+using System.Xml.Linq;
 
 namespace Deploy.LaunchPad.Util
 {
@@ -26,6 +27,19 @@ namespace Deploy.LaunchPad.Util
         {
             XmlNamespaces = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
             NsManager = new XmlNamespaceManager(XmlDocument.NameTable);
+        }
+
+
+        public XmlHelper(ILogger logger) : base(logger)
+        {
+            XmlNamespaces = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
+            NsManager = new XmlNamespaceManager(XmlDocument.NameTable);
+        }
+
+        public XmlHelper(ILogger logger, XmlNamespaceManager xmlNamespaces) : base(logger)
+        {
+            Guard.Against<ArgumentNullException>(xmlNamespaces == null, "xmlNamespaces cannot be null.");
+            _nsManager = xmlNamespaces;
         }
 
         public XmlHelper(ILogger logger, IDictionary<string, string> xmlNamespaces) : base(logger)
@@ -52,6 +66,14 @@ namespace Deploy.LaunchPad.Util
             _xmlNamespaces = _nsManager.GetNamespacesInScope(XmlNamespaceScope.ExcludeXml);
         }
 
+        public XmlHelper(ILogger logger, XmlNamespaceManager xmlNamespaces, XmlDocument xmlDoc) : base(logger)
+        {
+            Guard.Against<ArgumentNullException>(xmlNamespaces == null, "xmlNamespaces cannot be null");
+            Guard.Against<ArgumentNullException>(xmlDoc == null, "XmlDocument cannot be null");
+            XmlDocument = xmlDoc;
+            _nsManager = xmlNamespaces;
+        }
+
         /// <summary>
         /// Load the XML document from a file path without applying any custom XML namespaces.
         /// </summary>
@@ -63,6 +85,26 @@ namespace Deploy.LaunchPad.Util
             Guard.Against<ArgumentNullException>(string.IsNullOrEmpty(fileName), "fileName cannot be null or empty");
             _xmlDoc = LoadXmlDocument(folderPath, fileName, null); // Call the overloaded method with null namespaces
             return _xmlDoc; // Return the loaded XmlDocument
+        }
+
+
+
+        /// <summary>
+        /// Gets the cdata open.
+        /// </summary>
+        /// <value>The cdata open.</value>
+        public virtual string CdataOpen
+        {
+            get { return "<![CDATA["; }
+        }
+
+        /// <summary>
+        /// Gets the cdata close.
+        /// </summary>
+        /// <value>The cdata close.</value>
+        public virtual string CdataClose
+        {
+            get { return "]]>"; }
         }
 
         /// <summary>
@@ -529,6 +571,75 @@ namespace Deploy.LaunchPad.Util
             return description;
         }
 
+        public virtual XmlElement GetXmlElementFromName(XmlHelper helper, ElementName name, XmlDocument doc = null, string topLevelNodePrefix = "")
+        {
+            if (doc == null)
+            {
+                doc = new XmlDocument();
+            }
+            XmlElement nameElement = doc.CreateElement(topLevelNodePrefix + "Name");
+
+            // Full property
+            XmlElement fullChildElement = new XmlDocument().CreateElement("core:Full");
+            XmlCDataSection fullCdata = doc.CreateCDataSection(name.Full);
+            fullChildElement.AppendChild(fullCdata);
+            nameElement.AppendChild(fullChildElement);
+
+            // Short property
+            if (!string.IsNullOrEmpty(name.Short))
+            {
+                XmlElement shortChildElement = new XmlDocument().CreateElement("core:Short");
+                XmlCDataSection shortCdata = doc.CreateCDataSection(name.Short);
+                shortChildElement.AppendChild(shortCdata);
+                nameElement.AppendChild(shortChildElement);
+            }
+
+            // Suffix property
+            if (!string.IsNullOrEmpty(name.Suffix))
+            {
+                XmlElement suffixChildElement = new XmlDocument().CreateElement("core:Suffix");
+                XmlCDataSection suffixCdata = doc.CreateCDataSection(name.Suffix);
+                suffixChildElement.AppendChild(suffixCdata);
+                nameElement.AppendChild(suffixChildElement);
+            }
+
+            // Prefix property
+            if (!string.IsNullOrEmpty(name.Prefix))
+            {
+                XmlElement prefixChildElement = new XmlDocument().CreateElement("core:Prefix");
+                XmlCDataSection prefixChildElementCdata = doc.CreateCDataSection(name.Prefix);
+                prefixChildElement.AppendChild(prefixChildElementCdata);
+                nameElement.AppendChild(prefixChildElement);
+            }
+
+            return nameElement;
+        }
+
+        public virtual XmlElement GetXmlElementFromDescription(XmlHelper helper, ElementName name, XmlDocument doc = null, string topLevelNodePrefix = "")
+        {
+            if (doc == null)
+            {
+                doc = new XmlDocument();
+            }
+            XmlElement element = doc.CreateElement(topLevelNodePrefix + "Description");
+
+            // Full property
+            XmlElement fullChildElement = new XmlDocument().CreateElement("core:Full");
+            XmlCDataSection fullCdata = doc.CreateCDataSection(name.Full);
+            fullChildElement.AppendChild(fullCdata);
+            element.AppendChild(fullChildElement);
+
+            // Short property
+            if (!string.IsNullOrEmpty(name.Short))
+            {
+                XmlElement shortChildElement = new XmlDocument().CreateElement("core:Short");
+                XmlCDataSection shortCdata = doc.CreateCDataSection(name.Short);
+                shortChildElement.AppendChild(shortCdata);
+                element.AppendChild(shortChildElement);
+            }
+            return element;
+        }
+        
         public virtual ElementType GetElementTypeFromXmlNode(XmlNode parentNode, string xPath = null)
         {
             Guard.Against<ArgumentNullException>(parentNode == null, Deploy_LaunchPad_Util_Resources.Guard_Input_IsNull);
@@ -586,6 +697,236 @@ namespace Deploy.LaunchPad.Util
             return xhtml.Replace("<![CDATA[", string.Empty).Replace("]]>", string.Empty).Trim();
         }
 
+        protected virtual string CreateXmlOpeningElementString(string elementName, IDictionary<string, string> attributes = null)
+        {
+            StringBuilder sbXml = new StringBuilder();
+            sbXml.Append("<");
+            sbXml.Append(elementName);
+            if (attributes != null && attributes.Count > 0)
+            {
+                foreach (var attribute in attributes)
+                {
+                    sbXml.Append(" ");
+                    sbXml.Append(attribute.Key);
+                    sbXml.Append("=\"");
+                    sbXml.Append(attribute.Value);
+                    sbXml.Append("\"");
+                }
+            }
+            sbXml.Append(">");
+            return sbXml.ToString();
+        }
+
+        protected virtual string CreateXmlClosingElementString(string elementName)
+        {
+            StringBuilder sbXml = new StringBuilder();
+            sbXml.Append("</");
+            sbXml.Append(elementName);
+            sbXml.Append(">");
+            return sbXml.ToString();
+        }
+
+        protected virtual string CreateXmlElementString(string elementName, string elementValue, bool shouldUseCDataForvalue = true)
+        {
+            StringBuilder sbXml = new StringBuilder();
+            sbXml.Append(CreateXmlOpeningElementString(elementName));
+            if (!string.IsNullOrEmpty(elementValue))
+            {
+                if (shouldUseCDataForvalue)
+                {
+                    sbXml.Append("<![CDATA[");
+                }
+                sbXml.Append(elementValue);
+                if (shouldUseCDataForvalue)
+                {
+                    sbXml.Append("]]>");
+                }
+            }
+            sbXml.Append(CreateXmlClosingElementString(elementName));
+            return sbXml.ToString();
+        }
+
+        public virtual IDictionary<string, string> CreateAttributeDictionaryFromXmlNamespaceManager(XmlNamespaceManager namespaceManager)
+        {
+            Guard.Against<ArgumentNullException>(namespaceManager == null, "namespaceManager cannot be null.");
+            IDictionary<string, string> nsAttributes = new Dictionary<string, string>();
+            foreach (string prefix in namespaceManager)
+            {
+                if (!string.IsNullOrEmpty(prefix))
+                {
+                    string ns = namespaceManager.LookupNamespace(prefix);
+                    nsAttributes.Add($"xmlns:{prefix}", ns);
+                }
+                else
+                {
+                    // Default namespace (rarely used in your context, but for completeness)
+                    string ns = namespaceManager.LookupNamespace(string.Empty);
+                    if (!string.IsNullOrEmpty(ns))
+                    {
+                        nsAttributes.Add("xmlns", ns);
+                    }
+                }
+            }
+            return nsAttributes;
+        }
+
+        public virtual StringBuilder GetXmlOpeningRootElementSnippet(XmlHelper helper, string elementName, Guid id, IDictionary<string, string> attributes = null)
+        {
+            Guard.Against<ArgumentNullException>(helper == null, "helper cannot be null.");
+            Guard.Against<ArgumentNullException>(string.IsNullOrEmpty(elementName), "elementName cannot be null.");
+            StringBuilder sbXml = new StringBuilder();
+
+            // ensure ID is added if not present
+            if (attributes == null)
+            {
+                attributes = new Dictionary<string, string>();
+                attributes.TryAdd("xmlns:xs", "http://www.w3.org/2001/XMLSchema");
+                attributes.TryAdd("xmlns:xsi", "http://www.w3.org/2001/XMLSchema-instance");
+                attributes.TryAdd("xmlns", $"http://assets.deploy.solutions/SpaceAppsRAD/{elementName}.v1.xsd");
+                attributes.TryAdd("xsi:schemaLocation", $"http://assets.deploy.solutions/SpaceAppsRAD/{elementName}.v1.xsd ../../../DeploySolutionsFactory/Schemas/PUT YOUR SCHEMA HERE.v1.xsd");
+            }
+            if (attributes != null && !attributes.ContainsKey("id"))
+            {
+                attributes.TryAdd("id", id.ToString());
+            }
+
+            // add header
+            sbXml.Append(CreateXmlOpeningElementString(elementName, attributes));
+
+            return sbXml;
+        }
+
+        public virtual StringBuilder GetXmlSnippetFromName(XmlHelper helper, ElementName name, string topLevelNodePrefix = "")
+        {
+            Guard.Against<ArgumentNullException>(helper == null, "helper cannot be null.");
+            Guard.Against<ArgumentNullException>(name == null, "name cannot be null.");
+            StringBuilder sbXml = new StringBuilder();
+
+            // add Name
+            sbXml.Append(CreateXmlOpeningElementString(topLevelNodePrefix + "Name"));
+            sbXml.Append(CreateXmlElementString("core:Full", name.Full.Trim(), true));
+
+            if (!string.IsNullOrEmpty(name.Short))
+            {
+                sbXml.Append(CreateXmlElementString("core:Short", name.Short.Trim(), true));
+            }
+            if (!string.IsNullOrEmpty(name.Suffix))
+            {
+                sbXml.Append(CreateXmlElementString("core:Suffix", name.Suffix.Trim(), true));
+            }
+            if (!string.IsNullOrEmpty(name.Prefix))
+            {
+                sbXml.Append(CreateXmlElementString("core:Prefix", name.Prefix.Trim(), true));
+            }
+            sbXml.Append(CreateXmlClosingElementString(topLevelNodePrefix + "Name"));
+            return sbXml;
+        }
+
+
+        public virtual StringBuilder GetXmlSnippetFromDescription(XmlHelper helper, ElementDescription description, string topLevelNodePrefix = "")
+        {
+            Guard.Against<ArgumentNullException>(helper == null, "helper cannot be null.");
+            Guard.Against<ArgumentNullException>(description == null, "description cannot be null.");
+            StringBuilder sbXml = new StringBuilder();
+
+            // add Description
+            sbXml.Append(CreateXmlOpeningElementString(topLevelNodePrefix + "Description"));
+            sbXml.Append(CreateXmlElementString("core:Full", description.Full.Trim(), true));
+
+            if (!string.IsNullOrEmpty(description.Short))
+            {
+                sbXml.Append(CreateXmlElementString("core:Short", description.Short.Trim(), true));
+            }
+            sbXml.Append(CreateXmlClosingElementString(topLevelNodePrefix + "Description"));
+
+            return sbXml;
+        }
+
+        public virtual XmlElement GetXmlElementFromDescription(XmlHelper helper, ElementDescription description, XmlDocument doc = null, string topLevelNodePrefix = "")
+        {
+            Guard.Against<ArgumentNullException>(helper == null, "helper cannot be null.");
+            Guard.Against<ArgumentNullException>(description == null, "description cannot be null.");
+            string coreNamespaceValue = helper.NsManager.LookupNamespace("core");
+            XNamespace coreNs = coreNamespaceValue;
+            XElement root = null;
+            if (doc == null)
+            {
+
+                doc = new XmlDocument();
+                // Create a root element and add all namespaces from helper.NsManager
+                root = new XElement("Root",
+                    new XAttribute(XNamespace.Xmlns + "core", coreNs)
+                );
+            }
+
+            // add Description
+            var descriptionElement = new XElement(topLevelNodePrefix + "Description");
+            root.Add(descriptionElement);
+            var fullElement = new XElement(coreNs + "Full", "Some content");
+            descriptionElement.Add(fullElement);
+            if (!string.IsNullOrEmpty(description.Short))
+            {
+                var shortElement = new XElement(coreNs + "Short", description.Short.Trim());
+                descriptionElement.Add(shortElement);
+            }
+            // Convert to XmlDocument
+            using (var reader = root.CreateReader())
+            {
+                doc.Load(reader);
+            }
+            var element = doc.DocumentElement;
+            return element;
+        }
+
+
+        public virtual StringBuilder GetXmlSnippetFromElementType(XmlHelper helper, ElementType type, string topLevelNodePrefix = "")
+        {
+            Guard.Against<ArgumentNullException>(helper == null, "helper cannot be null.");
+            Guard.Against<ArgumentNullException>(type == null, "type cannot be null.");
+            StringBuilder sbXml = new StringBuilder();
+
+            // add type
+            sbXml.Append(CreateXmlOpeningElementString(topLevelNodePrefix + "ElementType"));
+            sbXml.Append(CreateXmlElementString("core:FullyQualifiedType", type.FullyQualifiedType.Trim(), true));
+
+            if (type.ParentElementType != null)
+            {
+            }
+            if (type.InheritsFrom != null)
+            {
+            }
+            if (type.ChildrenElementTypes != null)
+            {
+            }
+            sbXml.Append(CreateXmlClosingElementString(topLevelNodePrefix + "ElementType"));
+            return sbXml;
+        }
+
+
+        protected XmlElement RemoveAllChildXmlnsAttributes(XmlElement element)
+        {
+            // Remove all xmlns attributes from the element
+            foreach (XmlNode child in element.ChildNodes)
+            {
+                if (child.Attributes != null)
+                {
+                    // Collect attributes to remove to avoid modifying the collection while iterating
+                    var attrsToRemove = new List<XmlAttribute>();
+                    foreach (XmlAttribute attr in child.Attributes)
+                    {
+                        if (attr.Prefix == "xmlns" || attr.Name == "xmlns")
+                        {
+                            attrsToRemove.Add(attr);
+                        }
+                    }
+                    foreach (var attr in attrsToRemove)
+                    {
+                        child.Attributes.Remove(attr);
+                    }
+                }
+            }
+            return element;
+        }
 
     }
 }
