@@ -1,4 +1,5 @@
 ﻿using Castle.Core.Logging;
+using DocumentFormat.OpenXml.ExtendedProperties;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -23,55 +24,93 @@ namespace Deploy.LaunchPad.Util
         public virtual IDictionary<string, string> XmlNamespaces { get { return _xmlNamespaces; } set { _xmlNamespaces = value; } }
 
 
+        /// <summary>
+        /// Gets the cdata open.
+        /// </summary>
+        /// <value>The cdata open.</value>
+       public const string CdataOpen = "<![CDATA["; 
+
+        /// <summary>
+        /// Gets the cdata close.
+        /// </summary>
+        /// <value>The cdata close.</value>
+        public const string CdataClose = "]]>"; 
+
+
         public XmlHelper() :base()
         {
-            XmlNamespaces = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
-            NsManager = new XmlNamespaceManager(XmlDocument.NameTable);
+            _nsManager = new XmlNamespaceManager(_xmlDoc.NameTable);
+            _xmlNamespaces = CreateDictionaryFromXmlNamespaceManager(_nsManager);
         }
 
 
         public XmlHelper(ILogger logger) : base(logger)
-        {
-            XmlNamespaces = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
-            NsManager = new XmlNamespaceManager(XmlDocument.NameTable);
+        {            
+            _nsManager = new XmlNamespaceManager(_xmlDoc.NameTable);
+            _xmlNamespaces = CreateDictionaryFromXmlNamespaceManager(_nsManager);
         }
 
-        public XmlHelper(ILogger logger, XmlNamespaceManager xmlNamespaces) : base(logger)
+        public XmlHelper(ILogger logger, XmlNamespaceManager nsManager) : base(logger)
         {
-            Guard.Against<ArgumentNullException>(xmlNamespaces == null, "xmlNamespaces cannot be null.");
-            _nsManager = xmlNamespaces;
+            Guard.Against<ArgumentNullException>(nsManager == null, "nsManager cannot be null.");
+            _nsManager = nsManager;
+            _xmlNamespaces = CreateDictionaryFromXmlNamespaceManager(nsManager);
         }
 
         public XmlHelper(ILogger logger, IDictionary<string, string> xmlNamespaces) : base(logger)
         {
             Guard.Against<ArgumentNullException>(xmlNamespaces == null, "xmlNamespaces cannot be null");
-            _nsManager = new XmlNamespaceManager(XmlDocument.NameTable);
-            foreach (var xmlNamespace in xmlNamespaces)
-            {
-                _nsManager.AddNamespace(xmlNamespace.Key, xmlNamespace.Value);
-            }
-            _xmlNamespaces = _nsManager.GetNamespacesInScope(XmlNamespaceScope.ExcludeXml);
+            _xmlNamespaces = xmlNamespaces;
+            _nsManager = CreateXmlNamespaceManagerFromDictionary(xmlNamespaces);
         }
 
         public XmlHelper(ILogger logger, IDictionary<string,string> xmlNamespaces, XmlDocument xmlDoc) : base(logger)
         {
             Guard.Against<ArgumentNullException>(xmlNamespaces == null, "xmlNamespaces cannot be null");
-            Guard.Against<ArgumentNullException>(xmlDoc == null, "XmlDocument cannot be null");
-            XmlDocument = xmlDoc;
-            _nsManager = new XmlNamespaceManager(XmlDocument.NameTable);
-            foreach (var xmlNamespace in xmlNamespaces)
-            {
-                _nsManager.AddNamespace(xmlNamespace.Key, xmlNamespace.Value);
-            }
-            _xmlNamespaces = _nsManager.GetNamespacesInScope(XmlNamespaceScope.ExcludeXml);
+            Guard.Against<ArgumentNullException>(xmlDoc == null, "xmlDoc cannot be null");
+            _xmlNamespaces = xmlNamespaces; 
+            _xmlDoc = xmlDoc;
+            _nsManager = CreateXmlNamespaceManagerFromDictionary(xmlNamespaces, xmlDoc);
         }
 
-        public XmlHelper(ILogger logger, XmlNamespaceManager xmlNamespaces, XmlDocument xmlDoc) : base(logger)
+        public XmlHelper(ILogger logger, XmlNamespaceManager nsManager, XmlDocument xmlDoc) : base(logger)
+        {
+            Guard.Against<ArgumentNullException>(nsManager == null, "nsManager cannot be null");
+            Guard.Against<ArgumentNullException>(xmlDoc == null, "xmlDoc cannot be null");
+            _xmlDoc = xmlDoc;
+            _nsManager = nsManager;
+            _xmlNamespaces = CreateDictionaryFromXmlNamespaceManager(nsManager);
+        }
+
+        public virtual IDictionary<string, string>  CreateDictionaryFromXmlNamespaceManager(XmlNamespaceManager nsManager)
+        {
+            Guard.Against<ArgumentNullException>(nsManager == null, "nsManager cannot be null");
+            IDictionary<string, string> xmlNamespaces = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
+            xmlNamespaces = nsManager.GetNamespacesInScope(XmlNamespaceScope.ExcludeXml).ToDictionary(kvp => kvp.Key, kvp => kvp.Value, StringComparer.OrdinalIgnoreCase);
+            return xmlNamespaces;
+        }
+
+
+        public virtual XmlNamespaceManager CreateXmlNamespaceManagerFromDictionary(IDictionary<string, string> xmlNamespaces)
         {
             Guard.Against<ArgumentNullException>(xmlNamespaces == null, "xmlNamespaces cannot be null");
-            Guard.Against<ArgumentNullException>(xmlDoc == null, "XmlDocument cannot be null");
-            XmlDocument = xmlDoc;
-            _nsManager = xmlNamespaces;
+            Guard.Against<ArgumentNullException>(_xmlDoc == null, "_xmlDoc cannot be null");
+            var nsManager = new XmlNamespaceManager(_xmlDoc.NameTable);
+            foreach (var ns in xmlNamespaces)
+            {
+                nsManager.AddNamespace(ns.Key, ns.Value);
+            }
+            return nsManager;
+        }
+
+        public virtual XmlNamespaceManager CreateXmlNamespaceManagerFromDictionary(IDictionary<string, string> xmlNamespaces, XmlDocument xmlDoc = null)
+        {
+            Guard.Against<ArgumentNullException>(xmlNamespaces == null, "xmlNamespaces cannot be null");
+            if (xmlDoc == null)
+            {
+                xmlDoc = _xmlDoc;
+            }
+            return CreateXmlNamespaceManagerFromDictionary(xmlNamespaces, xmlDoc);
         }
 
         /// <summary>
@@ -85,26 +124,6 @@ namespace Deploy.LaunchPad.Util
             Guard.Against<ArgumentNullException>(string.IsNullOrEmpty(fileName), "fileName cannot be null or empty");
             _xmlDoc = LoadXmlDocument(folderPath, fileName, null); // Call the overloaded method with null namespaces
             return _xmlDoc; // Return the loaded XmlDocument
-        }
-
-
-
-        /// <summary>
-        /// Gets the cdata open.
-        /// </summary>
-        /// <value>The cdata open.</value>
-        public virtual string CdataOpen
-        {
-            get { return "<![CDATA["; }
-        }
-
-        /// <summary>
-        /// Gets the cdata close.
-        /// </summary>
-        /// <value>The cdata close.</value>
-        public virtual string CdataClose
-        {
-            get { return "]]>"; }
         }
 
         /// <summary>
@@ -571,12 +590,10 @@ namespace Deploy.LaunchPad.Util
             return description;
         }
 
-        public virtual XmlElement GetXmlElementFromName( ElementName name, XmlDocument doc = null, string topLevelNodePrefix = "")
+        public virtual XmlElement GetXmlElementFromName(ElementName name, XmlDocument doc, string topLevelNodePrefix = "")
         {
-            if (doc == null)
-            {
-                doc = new XmlDocument();
-            }
+            Guard.Against<ArgumentNullException>(doc == null, Deploy_LaunchPad_Util_Resources.Guard_Input_IsNull);
+            Guard.Against<ArgumentNullException>(name == null, Deploy_LaunchPad_Util_Resources.Guard_Input_IsNull);
             XmlElement nameElement = doc.CreateElement(topLevelNodePrefix + "Name");
 
             // Full property
@@ -694,7 +711,7 @@ namespace Deploy.LaunchPad.Util
         /// <returns></returns>
         public virtual string GetCleanTextFromXhtml(string xhtml)
         {
-            return xhtml.Replace("<![CDATA[", string.Empty).Replace("]]>", string.Empty).Trim();
+            return xhtml.Replace(CdataOpen, string.Empty).Replace(CdataClose, string.Empty).Trim();
         }
 
         protected virtual string CreateXmlOpeningElementString(string elementName, IDictionary<string, string> attributes = null)
@@ -734,12 +751,12 @@ namespace Deploy.LaunchPad.Util
             {
                 if (shouldUseCDataForvalue)
                 {
-                    sbXml.Append("<![CDATA[");
+                    sbXml.Append(CdataOpen);
                 }
                 sbXml.Append(elementValue);
                 if (shouldUseCDataForvalue)
                 {
-                    sbXml.Append("]]>");
+                    sbXml.Append(CdataClose);
                 }
             }
             sbXml.Append(CreateXmlClosingElementString(elementName));
