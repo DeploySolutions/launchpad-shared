@@ -81,7 +81,6 @@ namespace Deploy.LaunchPad.Util
         /// The fully qualified namename of the assembly.
         /// </summary>
         /// <value>The fully qualified name of the assembly.</value>
-        [MaxLength(255, ErrorMessageResourceName = "Validation_255CharsOrLess", ErrorMessageResourceType = typeof(Deploy_LaunchPad_Util_Resources))]
         [RegularExpression(@"^[a-zA-Z_][a-zA-Z0-9_]*(\.[a-zA-Z_][a-zA-Z0-9_]*)*(, Version=\d+\.\d+\.\d+\.\d+)?(, Culture=[a-zA-Z0-9\-]+)?(, PublicKeyToken=[a-fA-F0-9]{16}|, PublicKeyToken=null)?$", ErrorMessageResourceName = "Validation_ElementType_InvalidAssembly", ErrorMessageResourceType = typeof(Deploy_LaunchPad_Util_Resources))]
         [DataObjectField(false)]
         [XmlAttribute]
@@ -177,18 +176,32 @@ namespace Deploy.LaunchPad.Util
             InheritsFrom = new Dictionary<string, string>();
         }
 
-        public ElementType(string fullyQualifiedTypeName)
+        public ElementType(string assemblyFullyQualifiedName)
         {
-            FullyQualifiedType = fullyQualifiedTypeName;
-            ChildrenElementTypes = new Dictionary<string, ElementType>();
-            InheritsFrom = new Dictionary<string, string>();
-        }
+            // Split at the first comma
+            int commaIndex = assemblyFullyQualifiedName.IndexOf(',');
+            string typeFullName = commaIndex >= 0
+                ? assemblyFullyQualifiedName.Substring(0, commaIndex).Trim()
+                : assemblyFullyQualifiedName.Trim();
 
+            string assemblyDisplayName = commaIndex >= 0
+                ? assemblyFullyQualifiedName.Substring(commaIndex + 1).Trim()
+                : string.Empty;
 
-        public ElementType(string fullyQualifiedTypeName, string assemblyFullyQualifiedName)
-        {
-            FullyQualifiedType = fullyQualifiedTypeName;
+            // TypeName is after the last dot
+            int lastDotIndex = typeFullName.LastIndexOf('.');
+            string typeName = lastDotIndex >= 0
+                ? typeFullName.Substring(lastDotIndex + 1)
+                : typeFullName;
+
+            // Namespace is everything before the last dot
+            string @namespace = lastDotIndex > 0
+                ? typeFullName.Substring(0, lastDotIndex)
+                : string.Empty;
+
             AssemblyFullyQualifiedName = assemblyFullyQualifiedName;
+            FullyQualifiedType = typeFullName;
+            Namespace = @namespace;
             ChildrenElementTypes = new Dictionary<string, ElementType>();
             InheritsFrom = new Dictionary<string, string>();
         }
@@ -313,7 +326,7 @@ namespace Deploy.LaunchPad.Util
             Type baseType = type.BaseType;
             if (baseType != null)
             {
-                ElementType parentElementType = new ElementType(baseType.FullName, baseType.AssemblyQualifiedName);
+                ElementType parentElementType = new ElementType(baseType.AssemblyQualifiedName);
                 parentElementType.Namespace = baseType.Namespace;
                 element.ParentElementType = parentElementType;
             }
@@ -343,7 +356,7 @@ namespace Deploy.LaunchPad.Util
                         {
                             if (childType.BaseType == type)
                             {
-                                ElementType childElementType = new ElementType(childType.FullName, childType.AssemblyQualifiedName);
+                                ElementType childElementType = new ElementType(childType.AssemblyQualifiedName);
                                 childElementType.Namespace = childType.Namespace;
                                 string message = string.Format("Found child type '{0}' for type '{1}', in assembly {2}.",
                                     childType.FullName, element.FullyQualifiedType, assemblyWithPossibleChildren.FullName

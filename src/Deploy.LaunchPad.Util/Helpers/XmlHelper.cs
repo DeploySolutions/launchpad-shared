@@ -114,30 +114,17 @@ namespace Deploy.LaunchPad.Util
         }
 
         /// <summary>
-        /// Load the XML document from a file path without applying any custom XML namespaces.
-        /// </summary>
-        /// <param name="xmlDocumentFilePath"></param>
-        /// <returns></returns>
-        public virtual XmlDocument LoadXmlDocument(string folderPath, string fileName)
-        {
-            Guard.Against<ArgumentNullException>(string.IsNullOrEmpty(folderPath), "folderPath cannot be null or empty");
-            Guard.Against<ArgumentNullException>(string.IsNullOrEmpty(fileName), "fileName cannot be null or empty");
-            _xmlDoc = LoadXmlDocument(folderPath, fileName, null); // Call the overloaded method with null namespaces
-            return _xmlDoc; // Return the loaded XmlDocument
-        }
-
-        /// <summary>
         /// Load the XML document from a file path and apply the provided custom XML namespaces (if any).
         /// If no namespaces are provided, it will use the default namespaces defined in the class.
         /// </summary>
         /// <param name="xmlDocumentFilePath"></param>
         /// <param name="xmlNamespaces"></param>
         /// <returns></returns>
-        public virtual XmlDocument LoadXmlDocument(string folderPath, string fileName, IDictionary<string, string> xmlNamespaces = null)
+        public virtual XmlDocument LoadXmlDocument(string folderPath, string fileName)
         {
-            Guard.Against<ArgumentNullException>(string.IsNullOrEmpty(folderPath), "folderPath cannot be null or empty");
-            Guard.Against<ArgumentNullException>(string.IsNullOrEmpty(fileName), "fileName cannot be null or empty");
-            if(!folderPath.EndsWith(Path.DirectorySeparatorChar))
+            Guard.Against<ArgumentNullException>(string.IsNullOrEmpty(folderPath), "folderPath cannot be null or empty.");
+            Guard.Against<ArgumentNullException>(string.IsNullOrEmpty(fileName), "fileName cannot be null or empty.");
+            if (!folderPath.EndsWith(Path.DirectorySeparatorChar))
             {
                 folderPath += Path.DirectorySeparatorChar;
             }
@@ -159,14 +146,6 @@ namespace Deploy.LaunchPad.Util
 
             }
             _nsManager = new XmlNamespaceManager(_xmlDoc.NameTable);
-            if(xmlNamespaces == null)
-            {
-                xmlNamespaces = _xmlNamespaces;
-            }
-            foreach (var xmlNamespace in xmlNamespaces)
-            {
-                _nsManager.AddNamespace(xmlNamespace.Key, xmlNamespace.Value);
-            }
             _xmlNamespaces = _nsManager.GetNamespacesInScope(XmlNamespaceScope.ExcludeXml);
             return _xmlDoc; // Return the loaded XmlDocument
         }
