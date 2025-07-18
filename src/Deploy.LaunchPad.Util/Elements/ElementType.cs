@@ -66,6 +66,7 @@ namespace Deploy.LaunchPad.Util
         }
 
 
+        protected string _namespace = string.Empty;
         /// <summary>
         /// The namespace of this object
         /// </summary>
@@ -74,7 +75,7 @@ namespace Deploy.LaunchPad.Util
         [XmlAttribute]
         [JsonProperty("namespace", NullValueHandling = NullValueHandling.Ignore)]
         [JsonConverter(typeof(JsonEmptyStringToNullConverter))]
-        public virtual string Namespace { get; set; }
+        public virtual string Namespace { get { return _namespace; } set { _namespace = value; } }
 
         protected string _assemblyFullyQualifiedName = string.Empty;
         /// <summary>
@@ -199,9 +200,9 @@ namespace Deploy.LaunchPad.Util
                 ? typeFullName.Substring(0, lastDotIndex)
                 : string.Empty;
 
-            AssemblyFullyQualifiedName = assemblyFullyQualifiedName;
-            FullyQualifiedType = typeFullName;
-            Namespace = @namespace;
+            _assemblyFullyQualifiedName = assemblyFullyQualifiedName;
+            _fullyQualifiedType = typeFullName;
+            _namespace = @namespace;
             ChildrenElementTypes = new Dictionary<string, ElementType>();
             InheritsFrom = new Dictionary<string, string>();
         }
