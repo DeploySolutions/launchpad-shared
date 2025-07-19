@@ -36,7 +36,7 @@ namespace Deploy.LaunchPad.Util
             {
                 return _fullyQualifiedType;
             }
-            init
+            set
             {
                 _fullyQualifiedType = value;
             }
@@ -58,7 +58,8 @@ namespace Deploy.LaunchPad.Util
                 return _type;
 
             }
-            init {                 
+            set
+            {                 
                 _type = value;
             }
         }
@@ -73,7 +74,7 @@ namespace Deploy.LaunchPad.Util
         [XmlAttribute]
         [JsonProperty("namespace", NullValueHandling = NullValueHandling.Ignore)]
         [JsonConverter(typeof(JsonEmptyStringToNullConverter))]
-        public virtual string Namespace { get { return _namespace; } init { _namespace = value; } }
+        public virtual string Namespace { get { return _namespace; } set { _namespace = value; } }
 
         protected string _assemblyFullyQualifiedName = string.Empty;
         /// <summary>
@@ -91,7 +92,7 @@ namespace Deploy.LaunchPad.Util
             {
                 return _assemblyFullyQualifiedName;
             }
-            init
+            set
             {
                 _assemblyFullyQualifiedName = value;
             }
@@ -113,7 +114,7 @@ namespace Deploy.LaunchPad.Util
             {
                 return _assemblyName;
             }
-            init
+            set
             {
                 _assemblyName = value;
             }

@@ -11,38 +11,38 @@ namespace Deploy.LaunchPad.Util
         ///The fully qualified type of the object.
         /// </summary>
         /// <value>The fully qualified type of the object.</value>
-        public string FullyQualifiedType { get; init; }
+        public string FullyQualifiedType { get; set; }
 
         /// <summary>
         /// The type of this object (it should of course be identical to calling GetType() but is intended for storage for documentation purposes or sharing externally).
         /// </summary>
         /// <value>The type of this object.</value>
-        public string TypeName { get; init;  }
+        public string TypeName { get; set;  }
 
 
         /// <summary>
         /// The namespace of this object
         /// </summary>
         /// <value>The namespace of this object.</value>
-        public string Namespace { get; init; }
+        public string Namespace { get; set; }
 
         /// <summary>
         /// The name of the assembly.
         /// </summary>
         /// <value>The name of the assembly.</value>
-        public string AssemblyName { get; init; }
+        public string AssemblyName { get; set; }
 
         /// <summary>
         /// The fully qualified name of the assembly.
         /// </summary>
         /// <value>The fully qualified name of the assembly.</value>
-        public string AssemblyFullyQualifiedName { get; init; }
+        public string AssemblyFullyQualifiedName { get; set; }
 
         /// <summary>
         /// The ElementType of the parent.
         /// </summary>
         /// <value>The ElementType of the parent.</value>
-        public ElementType ParentElementType { get; }
+        public ElementType ParentElementType { get; set; }
 
         /// <summary>
         /// Gets or sets the ElementTypes of any children.
