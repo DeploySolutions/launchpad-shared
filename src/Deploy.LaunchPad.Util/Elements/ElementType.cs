@@ -187,6 +187,7 @@ namespace Deploy.LaunchPad.Util
                 : string.Empty;
 
             _assemblyFullyQualifiedName = assemblyFullyQualifiedName;
+            _assemblyName = assemblyDisplayName.Split(',')[0].Trim();
             _fullyQualifiedType = typeFullName;
             _namespace = @namespace;
             ChildrenElementTypes = new Dictionary<string, ElementType>();
