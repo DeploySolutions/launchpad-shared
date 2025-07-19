@@ -145,11 +145,32 @@ namespace Deploy.LaunchPad.Util
                 }
 
             }
-            _nsManager = new XmlNamespaceManager(_xmlDoc.NameTable);
-            _xmlNamespaces = _nsManager.GetNamespacesInScope(XmlNamespaceScope.ExcludeXml);
+            _xmlNamespaces = GetCustomNamespacesFromXmlDocument(_xmlDoc);
+            _nsManager = CreateXmlNamespaceManagerFromDictionary(_xmlNamespaces);
             return _xmlDoc; // Return the loaded XmlDocument
         }
 
+        public virtual IDictionary<string, string> GetCustomNamespacesFromXmlDocument(XmlDocument doc)
+        {
+            Guard.Against<ArgumentNullException>(doc == null, "doc cannot be null");
+
+            var namespaces = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
+
+            if (doc.DocumentElement != null && doc.DocumentElement.Attributes != null)
+            {
+                foreach (XmlAttribute attr in doc.DocumentElement.Attributes)
+                {
+                    // Look for xmlns or xmlns:prefix attributes
+                    if (attr.Prefix == "xmlns" || attr.Name == "xmlns")
+                    {
+                        string prefix = attr.Prefix == "xmlns" ? attr.LocalName : string.Empty;
+                        namespaces[prefix] = attr.Value;
+                    }
+                }
+            }
+
+            return namespaces;
+        }
 
         protected virtual string PreProcessXpath(string xPath)
         {
