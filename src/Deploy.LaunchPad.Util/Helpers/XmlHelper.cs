@@ -654,7 +654,6 @@ namespace Deploy.LaunchPad.Util
             {
                 string fullyQualifiedValue = GetTextFromElement(inheritanceNode, "core:FullyQualifiedType");
                 inheritance = new ElementType(fullyQualifiedValue);
-                inheritance.FullyQualifiedType = fullyQualifiedValue;
                 string parentFullyQualifiedTypeValue = GetTextFromElement(inheritanceNode, "core:ParentFullyQualifiedType");
                 if (!string.IsNullOrEmpty(parentFullyQualifiedTypeValue))
                 {

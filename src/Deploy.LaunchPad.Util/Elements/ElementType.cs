@@ -36,12 +36,12 @@ namespace Deploy.LaunchPad.Util
             {
                 return _fullyQualifiedType;
             }
-            set
+            init
             {
                 _fullyQualifiedType = value;
             }
         }
-
+        protected string _type = string.Empty;
         /// <summary>
         /// The type of this object (it should of course be identical to calling GetType() but is intended for storage for documentation purposes or sharing externally).
         /// </summary>
@@ -55,13 +55,11 @@ namespace Deploy.LaunchPad.Util
         {
             get
             {
-                int lastDotIndex = FullyQualifiedType.LastIndexOf('.');
-                if (lastDotIndex == -1)
-                {
-                    return FullyQualifiedType; // No namespace, just return the name
-                }
-                return FullyQualifiedType.Substring(lastDotIndex + 1);
+                return _type;
 
+            }
+            init {                 
+                _type = value;
             }
         }
 
@@ -75,7 +73,7 @@ namespace Deploy.LaunchPad.Util
         [XmlAttribute]
         [JsonProperty("namespace", NullValueHandling = NullValueHandling.Ignore)]
         [JsonConverter(typeof(JsonEmptyStringToNullConverter))]
-        public virtual string Namespace { get { return _namespace; } set { _namespace = value; } }
+        public virtual string Namespace { get { return _namespace; } init { _namespace = value; } }
 
         protected string _assemblyFullyQualifiedName = string.Empty;
         /// <summary>
@@ -93,7 +91,7 @@ namespace Deploy.LaunchPad.Util
             {
                 return _assemblyFullyQualifiedName;
             }
-            set
+            init
             {
                 _assemblyFullyQualifiedName = value;
             }
@@ -113,24 +111,11 @@ namespace Deploy.LaunchPad.Util
         {
             get
             {
-                if (string.IsNullOrEmpty(_assemblyName))
-                {
-                    string pattern = @"(?<=, )[^,]+";
-
-                    // Use regex to match the short assembly name
-                    Match match = Regex.Match(AssemblyFullyQualifiedName, pattern);
-
-                    // Return the matched value or the AssemblyFullyQualifiedName string if no match is found
-                    if (match.Success)
-                    {
-                        _assemblyName = match.Value;
-                    }
-                    else
-                    {
-                        _assemblyName = _assemblyFullyQualifiedName;
-                    }
-                }
                 return _assemblyName;
+            }
+            init
+            {
+                _assemblyName = value;
             }
         }
 
@@ -320,15 +305,13 @@ namespace Deploy.LaunchPad.Util
         public static ElementType GetTypeInformationForElement(ILogger logger, Type type, bool shouldThrowOnError = true, bool shouldIgnoreCase = true, IList<string> assembliesContainingChildren = null)
         {
             Guard.Against<ArgumentNullException>(type == null, "Type cannot be null.");
-            ElementType element = new ElementType(type.FullName);
-            element.AssemblyFullyQualifiedName = type.AssemblyQualifiedName;
+            ElementType element = new ElementType(type.AssemblyQualifiedName);
 
             // Get the Parent type
             Type baseType = type.BaseType;
             if (baseType != null)
             {
                 ElementType parentElementType = new ElementType(baseType.AssemblyQualifiedName);
-                parentElementType.Namespace = baseType.Namespace;
                 element.ParentElementType = parentElementType;
             }
             Type[] interfaces = type.GetInterfaces();
@@ -358,7 +341,6 @@ namespace Deploy.LaunchPad.Util
                             if (childType.BaseType == type)
                             {
                                 ElementType childElementType = new ElementType(childType.AssemblyQualifiedName);
-                                childElementType.Namespace = childType.Namespace;
                                 string message = string.Format("Found child type '{0}' for type '{1}', in assembly {2}.",
                                     childType.FullName, element.FullyQualifiedType, assemblyWithPossibleChildren.FullName
                                 );
