@@ -13,6 +13,7 @@
 // ***********************************************************************
 using ImageMagick;
 using ImageMagick.Configuration;
+using System.IO;
 
 namespace Deploy.LaunchPad.Images.Domain
 {
@@ -70,6 +71,11 @@ namespace Deploy.LaunchPad.Images.Domain
             IConfigurationFiles configFiles = ConfigurationFiles.Default;
             configFiles.Policy.Data = policyMap;
             TemporaryImagesFilePath = temporaryImagesFilePath;
+            var mimePath = Path.Combine(temporaryImagesFilePath, "mime.xml");
+            if (File.Exists(mimePath))
+            {
+                File.Delete(mimePath);
+            }
             MagickNET.Initialize(configFiles, TemporaryImagesFilePath);
         }
     }
