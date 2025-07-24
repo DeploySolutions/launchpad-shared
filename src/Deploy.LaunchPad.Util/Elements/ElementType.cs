@@ -157,7 +157,7 @@ namespace Deploy.LaunchPad.Util
         [JsonProperty("inheritsFrom", NullValueHandling = NullValueHandling.Ignore, DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
         public virtual IDictionary<string, string> InheritsFrom { get; set; }
 
-        protected ElementType()
+        public ElementType()
         {
             ChildrenElementTypes = new Dictionary<string, ElementType>();
             InheritsFrom = new Dictionary<string, string>();

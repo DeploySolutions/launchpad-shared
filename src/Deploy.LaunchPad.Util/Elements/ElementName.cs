@@ -91,7 +91,7 @@ namespace Deploy.LaunchPad.Util
         }
 
 
-        protected ElementName() : base()
+        public ElementName() : base()
         {
         }
 

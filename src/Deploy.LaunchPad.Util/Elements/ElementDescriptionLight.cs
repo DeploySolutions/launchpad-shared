@@ -41,7 +41,7 @@ namespace Deploy.LaunchPad.Util
             }
         }
 
-        protected ElementDescriptionLight()
+        public ElementDescriptionLight()
         {
         }
 

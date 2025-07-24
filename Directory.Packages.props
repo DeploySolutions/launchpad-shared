@@ -21,40 +21,45 @@
   <ItemGroup>
     <PackageVersion Include="Abp.AutoMapper" Version="10.2.0" />
     <PackageVersion Include="Abp.AspNetCore" Version="10.2.0" />
-    <PackageVersion Include="Abp.AspNetCore.OData" Version="9.4.2" />
-    <PackageVersion Include="Abp.AspNetCore.SignalR" Version="9.4.2" />
-    <PackageVersion Include="Abp.Castle.Log4Net" Version="9.4.2" />
-    <PackageVersion Include="Abp.HangFire.AspNetCore" Version="9.4.2" />
+    <PackageVersion Include="Abp.AspNetCore.OData" Version="10.2.0" />
+    <PackageVersion Include="Abp.AspNetCore.SignalR" Version="10.2.0" />
+    <PackageVersion Include="Abp.HangFire.AspNetCore" Version="10.2.0" />
     <PackageVersion Include="Abp.FluentValidation" Version="10.2.0" />
-    <PackageVersion Include="Abp.HangFire.AspNetCore" Version="9.4.2" />
-    <PackageVersion Include="Abp.HtmlSanitizer" Version="9.4.2" />
-    <PackageVersion Include="Abp.ZeroCore" Version="9.4.2" />
-    <PackageVersion Include="Abp.ZeroCore.EntityFrameworkCore" Version="9.4.2" />
+    <PackageVersion Include="Abp.HangFire.AspNetCore" Version="10.2.0" />
+    <PackageVersion Include="Abp.HtmlSanitizer" Version="10.2.0" />
+    <PackageVersion Include="Abp.ZeroCore" Version="10.2.0" />
+    <PackageVersion Include="Abp.ZeroCore.EntityFrameworkCore" Version="10.2.0" />
   </ItemGroup>
   <!-- ABP Packages Ends -->
   <!-- Microsoft Packages Starts -->
   <ItemGroup>
+    <PackageVersion Include="Microsoft.CodeAnalysis.CSharp" Version="4.14.0" />
+    <PackageVersion Include="Microsoft.CodeAnalysis.CSharp.Workspaces" Version="4.14.0" />
+    <PackageVersion Include="Microsoft.CodeAnalysis.Workspaces.Common" Version="4.14.0" />
     <PackageVersion Include="Microsoft.CSharp" Version="4.7.0" />
-    <PackageVersion Include="Microsoft.EntityFrameworkCore" Version="9.0.7" />
-    <PackageVersion Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.0" />
-    <PackageVersion Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.0">
+    <PackageVersion Include="Microsoft.EntityFrameworkCore" Version="9.0.5" />
+    <PackageVersion Include="Microsoft.EntityFrameworkCore.SqlServer" Version="9.0.0" />
+    <PackageVersion Include="Microsoft.EntityFrameworkCore.Tools" Version="9.0.0">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
     </PackageVersion>
-    <PackageVersion Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.0">
+    <PackageVersion Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.0">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageVersion>
-    <PackageVersion Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.0" />
-    <PackageVersion Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="8.0.8" />
-    <PackageVersion Include="Microsoft.Extensions.Configuration" Version="8.0.0" />
+    <PackageVersion Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="9.0.0" />
+    <PackageVersion Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="9.0.0" />
+    <PackageVersion Include="Microsoft.Extensions.Configuration" Version="9.0.7" />
     <PackageVersion Include="Microsoft.Extensions.Configuration.Abstractions" Version="9.0.7" />
-    <PackageVersion Include="Microsoft.Extensions.Configuration.EnvironmentVariables" Version="8.0.0" />
-    <PackageVersion Include="Microsoft.Extensions.Configuration.FileExtensions" Version="8.0.0" />
-    <PackageVersion Include="Microsoft.Extensions.Configuration.Json" Version="8.0.0" />
+    <PackageVersion Include="Microsoft.Extensions.Configuration.Binder" Version="9.0.6" />
+    <PackageVersion Include="Microsoft.Extensions.Configuration.EnvironmentVariables" Version="9.0.6" />
+    <PackageVersion Include="Microsoft.Extensions.Configuration.FileExtensions" Version="9.0.0" />
+    <PackageVersion Include="Microsoft.Extensions.Configuration.Json" Version="9.0.0" />
     <PackageVersion Include="Microsoft.Extensions.Configuration.UserSecrets" Version="9.0.7" />
+    <PackageVersion Include="Microsoft.Extensions.Hosting" Version="9.0.6" />
     <PackageVersion Include="Microsoft.Extensions.Hosting.Abstractions" Version="9.0.7" />
-    <PackageVersion Include="Microsoft.NET.Build.Containers" Version="8.0.0" />
+    <PackageVersion Include="Microsoft.NET.Build.Containers" Version="9.0.0" />
+    <PackageVersion Include="Microsoft.NET.Build.Containers" Version="9.0.0" />
     <PackageVersion Include="System.Collections" Version="4.3.0" />
   </ItemGroup>
   <!-- Microsoft Packages Ends -->
@@ -110,26 +115,20 @@
   <!-- Testing Packages Ends -->
   <!-- All Other Packages Starts -->
   <ItemGroup>
-    <PackageVersion Include="Castle.Windsor" Version="6.0.0" />
-    <PackageVersion Include="Castle.Windsor.MsDependencyInjection" Version="4.1.0" />
     <PackageVersion Include="Constructs" Version="10.3.0" />
     <PackageVersion Include="CsvHelper" Version="33.0.1" />
     <PackageVersion Include="DocumentFormat.OpenXml" Version="3.3.0" />
     <PackageVersion Include="File.TypeChecker" Version="4.1.1" />
     <PackageVersion Include="FluentResults" Version="3.16.0" />
     <PackageVersion Include="FluentValidation" Version="11.11.0" />
-    <PackageVersion Include="Hangfire.PostgreSql" Version="1.20.10" />
     <PackageVersion Include="JsonSubTypes" Version="2.0.1" />
     <PackageVersion Include="Markdig" Version="0.38.0" />
-    <PackageVersion Include="MassTransit.RabbitMQ" Version="8.3.0" />
-    <PackageVersion Include="MassTransit" Version="8.3.0" />
     <PackageVersion Include="MediatR" Version="12.4.1" />
     <PackageVersion Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageVersion Include="NetTopologySuite" Version="2.5.0" />
     <PackageVersion Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="8.0.11" />
     <PackageVersion Include="Polly" Version="8.5.0" />
     <PackageVersion Include="Schema.NET" Version="13.0.0" />
-    <PackageVersion Include="Swashbuckle.AspNetCore" Version="7.0.0" />
     <PackageVersion Include="RestSharp" Version="112.1.0" />
   </ItemGroup>
   <!-- All Other Packages Ends -->
