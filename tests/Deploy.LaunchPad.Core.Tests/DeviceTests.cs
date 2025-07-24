@@ -29,7 +29,7 @@
 namespace Deploy.LaunchPad.Core.Tests
 {
     using Xunit;
-    using FluentAssertions;
+    
     using System.Collections.Generic;
     using System;
     using Deploy.LaunchPad.Core.Abp.Domain;
@@ -76,7 +76,7 @@ namespace Deploy.LaunchPad.Core.Tests
         [Fact]
         public void Should_Have_NotNull_Culture_When_Instantiated()
         {
-            _fixture.SUT.Culture.Should().NotBeNullOrEmpty();
+            Assert.False(string.IsNullOrEmpty(_fixture.SUT.Culture));
         }
 
         /// <summary>
@@ -85,7 +85,7 @@ namespace Deploy.LaunchPad.Core.Tests
         [Fact]
         public void Should_Have_NotNull_CurrentPhysicalLocation_When_Instantiated()
         {
-            _fixture.SUT.CurrentLocation.Should().NotBeNull();
+            Assert.NotNull(_fixture.SUT.CurrentLocation);
         }
 
         /// <summary>
@@ -94,7 +94,7 @@ namespace Deploy.LaunchPad.Core.Tests
         [Fact]
         public void Should_Have_NotNull_PowerLevel_When_Instantiated()
         {
-            _fixture.SUT.Power.Should().NotBeNull();
+            Assert.NotNull(_fixture.SUT.Power);
         }
 
         /// <summary>
@@ -103,7 +103,7 @@ namespace Deploy.LaunchPad.Core.Tests
         [Fact]
         public void Should_Have_Unknown_PowerLevel_When_Instantiated()
         {
-            _fixture.SUT.Power.PowerLevel.Should().Be(DevicePowerChargeLevel.Unknown);
+            Assert.Equal(DevicePowerChargeLevel.Unknown, _fixture.SUT.Power.PowerLevel);
         }
 
         /// <summary>
@@ -112,7 +112,7 @@ namespace Deploy.LaunchPad.Core.Tests
         [Fact]
         public void Should_Have_Unknown_Power_RemainingChargeTime_When_Instantiated_Without_Providing_Value_In_Constructor()
         {
-            _fixture.SUT.Power.RemainingChargeTime.Should().NotHaveValue();
+            Assert.False(_fixture.SUT.Power.RemainingChargeTime.HasValue);
         }
 
         /// <summary>
@@ -121,7 +121,7 @@ namespace Deploy.LaunchPad.Core.Tests
         [Fact]
         public void Should_Have_PreviousPhysicalLocations_When_Instantiated_Without_Providing_Value_In_Constructor()
         {
-            _fixture.SUT.PreviousLocations.Should().HaveCount(0);
+            Assert.Equal(0, _fixture.SUT.PreviousLocations.Count);
         }
 
         /// <summary>
@@ -143,11 +143,10 @@ namespace Deploy.LaunchPad.Core.Tests
             _fixture.SUT.PreviousLocations.Add(newyork);
             _fixture.SUT.PreviousLocations.Add(kingston);
             _fixture.SUT.PreviousLocations.Add(halifax);
-            _fixture.SUT.PreviousLocations.Should().HaveCount(5);
-            _fixture.SUT.PreviousLocations[0].Should().Be(sydney);
-            _fixture.SUT.PreviousLocations[4].Should().Be(halifax);
             Assert.Equal(5, _fixture.SUT.PreviousLocations.Count);
-            
+            Assert.Equal(sydney, _fixture.SUT.PreviousLocations[0]);
+            Assert.Equal(halifax, _fixture.SUT.PreviousLocations[4]);
+            Assert.Equal(5, _fixture.SUT.PreviousLocations.Count);
         }
 
         /// <summary>

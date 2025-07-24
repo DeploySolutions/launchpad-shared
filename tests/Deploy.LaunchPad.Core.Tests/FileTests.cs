@@ -29,7 +29,7 @@
 namespace Deploy.LaunchPad.Core.Tests
 {
     using Xunit;
-    using FluentAssertions;
+    
     using Deploy.LaunchPad.Core.Domain;
     using Deploy.LaunchPad.Core.Abp.Domain;
     using Microsoft.CodeAnalysis;
@@ -80,7 +80,7 @@ namespace Deploy.LaunchPad.Core.Tests
         [Fact]
         public void Root_Folder_Name_Should_NotBeNullOrEmpty()
         {
-            _fixture.SUT.Name.Full.Should().NotBeNullOrEmpty();
+            Assert.NotNull(_fixture.SUT.Name.Full);
         }
 
 

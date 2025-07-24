@@ -29,7 +29,7 @@
 namespace Deploy.LaunchPad.Core.Tests
 {
     using Xunit;
-    using FluentAssertions;
+    
     using System;
     using System.Collections.Generic;
     using Deploy.LaunchPad.Util;
@@ -69,7 +69,7 @@ namespace Deploy.LaunchPad.Core.Tests
         [Fact]
         public void Should_Have_NotNull_Prefix_When_Instantiated()
         {
-            _fixture.SUT.Prefix.Should().NotBeNull();
+            Assert.NotNull(_fixture.SUT.Prefix);
         }
 
         /// <summary>
@@ -78,7 +78,7 @@ namespace Deploy.LaunchPad.Core.Tests
         [Fact]
         public void Should_Have_NotNull_DefaultValue_When_Instantiated()
         {
-            _fixture.SUT.DefaultValue.Should().NotBeNull();
+            Assert.NotNull(_fixture.SUT.DefaultValue);
         }
 
         /// <summary>
@@ -87,7 +87,7 @@ namespace Deploy.LaunchPad.Core.Tests
         [Fact]
         public void Should_Have_NotNull_Value_When_Instantiated()
         {
-            _fixture.SUT.Value.Should().NotBeNull();
+            Assert.NotNull(_fixture.SUT.Value);
         }
 
         /// <summary>
@@ -96,7 +96,7 @@ namespace Deploy.LaunchPad.Core.Tests
         [Fact]
         public void Should_Have_NotNull_Name_When_Instantiated()
         {
-            _fixture.SUT.Name.Should().NotBeNull();
+            Assert.NotNull(_fixture.SUT.Name);
         }
 
         /// <summary>

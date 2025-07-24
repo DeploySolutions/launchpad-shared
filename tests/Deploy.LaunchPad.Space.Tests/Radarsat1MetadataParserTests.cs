@@ -32,7 +32,7 @@ namespace Deploy.LaunchPad.Space.Tests
 
     using System;
     using Xunit;
-    using FluentAssertions;
+    
     using Deploy.LaunchPad.Util;
     using Deploy.LaunchPad.Core;
     using Deploy.LaunchPad.Space.Satellites;
@@ -73,7 +73,7 @@ namespace Deploy.LaunchPad.Space.Tests
         [Fact]
         public void Scene_ID_Should_Not_Be_NullOrEmpty()
         {
-            _fixture.Observation.SceneId.Should().NotBeNullOrEmpty();
+            Assert.False(string.IsNullOrEmpty(_fixture.Observation.SceneId));
         }
 
         /// <summary>
@@ -82,8 +82,7 @@ namespace Deploy.LaunchPad.Space.Tests
         [Fact]
         public void Scene_ID_Should_Have_Correct_Value()
         {
-
-            _fixture.Observation.SceneId.Should().Be("m0700836");
+            Assert.Equal("m0700836", _fixture.Observation.SceneId);
         }
 
         /// <summary>
@@ -92,7 +91,7 @@ namespace Deploy.LaunchPad.Space.Tests
         [Fact]
         public void Mda_Order_Number_Should_Not_Be_NullOrEmpty()
         {
-            _fixture.Observation.MdaOrderNumber.Should().NotBeNullOrEmpty();
+            Assert.False(string.IsNullOrEmpty(_fixture.Observation.MdaOrderNumber));
         }
 
         /// <summary>
@@ -101,8 +100,7 @@ namespace Deploy.LaunchPad.Space.Tests
         [Fact]
         public void Mda_Order_Number_Should_Have_Correct_Value()
         {
-
-            _fixture.Observation.MdaOrderNumber.Should().Be("OGD_12546");
+            Assert.Equal("OGD_12546", _fixture.Observation.MdaOrderNumber);
         }
 
         /// <summary>
@@ -111,7 +109,7 @@ namespace Deploy.LaunchPad.Space.Tests
         [Fact]
         public void Geographical_Area_Should_Not_Be_NullOrEmpty()
         {
-            _fixture.Observation.GeographicalArea.Should().NotBeNullOrEmpty();
+            Assert.False(string.IsNullOrEmpty(_fixture.Observation.GeographicalArea));
         }
 
         /// <summary>
@@ -120,8 +118,7 @@ namespace Deploy.LaunchPad.Space.Tests
         [Fact]
         public void Geographical_Area_Should_Have_Correct_Value()
         {
-
-            _fixture.Observation.GeographicalArea.Should().Be("Toronto");
+            Assert.Equal("Toronto", _fixture.Observation.GeographicalArea);
         }
 
         /// <summary>
@@ -130,7 +127,7 @@ namespace Deploy.LaunchPad.Space.Tests
         [Fact]
         public void Scene_Start_Time_Should_Not_Be_NullOrEmpty()
         {
-            _fixture.Observation.SceneStartTime.Should().NotHaveYear(0001);
+            Assert.NotEqual(0001, _fixture.Observation.SceneStartTime.Year);
         }
 
         /// <summary>
@@ -140,7 +137,7 @@ namespace Deploy.LaunchPad.Space.Tests
         public void Scene_Start_Time_Should_Have_Correct_Value()
         {
             DateTime startDate = new DateTime(1997, 08, 20, 23, 14, 59, 649);
-            _fixture.Observation.SceneStartTime.Should().Be(startDate);
+            Assert.Equal(startDate, _fixture.Observation.SceneStartTime);
         }
 
 
@@ -150,7 +147,7 @@ namespace Deploy.LaunchPad.Space.Tests
         [Fact]
         public void Scene_Stop_Time_Should_Not_Be_NullOrEmpty()
         {
-            _fixture.Observation.SceneStopTime.Should().NotHaveYear(0001);
+            Assert.NotEqual(0001, _fixture.Observation.SceneStopTime.Year);
         }
 
         /// <summary>
@@ -160,7 +157,7 @@ namespace Deploy.LaunchPad.Space.Tests
         public void Scene_Stop_Time_Should_Have_Correct_Value()
         {
             DateTime stopDate = new DateTime(1997, 08, 20, 23, 15, 15, 369);
-            _fixture.Observation.SceneStopTime.Should().Be(stopDate);
+            Assert.Equal(stopDate, _fixture.Observation.SceneStopTime);
         }
 
         /// <summary>
@@ -169,7 +166,7 @@ namespace Deploy.LaunchPad.Space.Tests
         [Fact]
         public void License_Should_Be_Open_Government_Canada()
         {
-            _fixture.Observation.Copyright.GoverningLicense.Should().BeOfType(typeof(OpenGovernmentCanadaLicense));
+            Assert.IsType<OpenGovernmentCanadaLicense>(_fixture.Observation.Copyright.GoverningLicense);
         }
 
         /// <summary>
@@ -178,8 +175,8 @@ namespace Deploy.LaunchPad.Space.Tests
         [Fact]
         public void License_Name_Should_Be_Open_Government_Canada()
         {
-            ElementName name = new ElementName( Deploy_LaunchPad_Core_Resources.Text_OpenGovernmentCanadaLicense_LicenseName);
-            _fixture.Observation.Copyright.GoverningLicense.Name.Should().Be(name);
+            ElementName name = new ElementName(Deploy_LaunchPad_Core_Resources.Text_OpenGovernmentCanadaLicense_LicenseName);
+            Assert.Equal(name, _fixture.Observation.Copyright.GoverningLicense.Name);
         }
 
         /// <summary>
@@ -188,8 +185,8 @@ namespace Deploy.LaunchPad.Space.Tests
         [Fact]
         public void License_Description_Should_Be_Open_Government_Canada()
         {
-            ElementDescription description = new ElementDescription (Deploy_LaunchPad_Core_Resources.Text_OpenGovernmentCanadaLicense_LicenseDescription);
-            _fixture.Observation.Copyright.GoverningLicense.Description.Should().Be(description);
+            ElementDescription description = new ElementDescription(Deploy_LaunchPad_Core_Resources.Text_OpenGovernmentCanadaLicense_LicenseDescription);
+            Assert.Equal(description, _fixture.Observation.Copyright.GoverningLicense.Description);
         }
 
         /// <summary>
@@ -199,9 +196,8 @@ namespace Deploy.LaunchPad.Space.Tests
         public void License_Uri_Should_Be_To_Open_Government_Canada_Online()
         {
             Uri openGovtTerms = new Uri(Deploy_LaunchPad_Core_Resources.Text_OpenGovernmentCanadaLicense_LicenseTerms);
-            _fixture.Observation.Copyright.GoverningLicense.FullTermsUrl.Should().Be(openGovtTerms);
+            Assert.Equal(openGovtTerms, _fixture.Observation.Copyright.GoverningLicense.FullTermsUrl);
         }
-
 
         /// <summary>
         /// Defines the test method Copyright_Owner_Should_Be_To_Canada_Space_Agency.
@@ -209,8 +205,7 @@ namespace Deploy.LaunchPad.Space.Tests
         [Fact]
         public void Copyright_Owner_Should_Be_To_Canada_Space_Agency()
         {
-            
-            _fixture.Observation.Copyright.Owner.Should().Be(Deploy_LaunchPad_Space_Resources.Text_Radarsat1DataUsageRights_Owner);
+            Assert.Equal(Deploy_LaunchPad_Space_Resources.Text_Radarsat1DataUsageRights_Owner, _fixture.Observation.Copyright.Owner);
         }
 
         /// <summary>
@@ -219,8 +214,7 @@ namespace Deploy.LaunchPad.Space.Tests
         [Fact]
         public void Copyright_Information_Should_Be_To_Canada_Space_Agency()
         {
-            _fixture.Observation.Copyright.Attribution.Should().Be(Deploy_LaunchPad_Space_Resources.Text_Radarsat1DataUsageRights_Attribution);
+            Assert.Equal(Deploy_LaunchPad_Space_Resources.Text_Radarsat1DataUsageRights_Attribution, _fixture.Observation.Copyright.Attribution);
         }
-
     }
 }

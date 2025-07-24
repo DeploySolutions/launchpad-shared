@@ -37,7 +37,6 @@
   <ItemGroup>
     <PackageReference Include="Castle.LoggingFacility" />
     <PackageReference Include="DocumentFormat.OpenXml" />
-    <PackageReference Include="HtmlAgilityPack" />
     <PackageReference Include="Microsoft.CSharp" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" />

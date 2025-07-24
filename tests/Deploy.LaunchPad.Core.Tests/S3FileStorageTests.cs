@@ -32,7 +32,7 @@ namespace Deploy.LaunchPad.Core.Tests
     using Deploy.LaunchPad.AWS;
     using Deploy.LaunchPad.AWS.S3;
     using Deploy.LaunchPad.Core.Domain;
-    using FluentAssertions;
+    
     using Xunit;
 
     /// <summary>
@@ -63,8 +63,7 @@ namespace Deploy.LaunchPad.Core.Tests
         [Fact]
         public void FileExtension_Should_Be_DotTFW()
         {
-            
-            _fixture.TfwFile.Extension.Should().Be(".tfw");
+            Assert.Equal(".tfw", _fixture.TfwFile.Extension);
         }
 
         /// <summary>
@@ -73,7 +72,7 @@ namespace Deploy.LaunchPad.Core.Tests
         [Fact]
         public void A_Should_Equal_First_Line_In_File()
         {
-            _fixture.TfwFile.A.Should().Be(12.413247108000000m);
+            Assert.Equal(12.413247108000000m, _fixture.TfwFile.A);
         }
 
         /// <summary>
@@ -82,7 +81,7 @@ namespace Deploy.LaunchPad.Core.Tests
         [Fact]
         public void D_Should_Equal_Second_Line_In_File()
         {
-            _fixture.TfwFile.D.Should().Be(0.000000000000000m);
+            Assert.Equal(0.000000000000000m, _fixture.TfwFile.D);
         }
 
         /// <summary>
@@ -91,7 +90,7 @@ namespace Deploy.LaunchPad.Core.Tests
         [Fact]
         public void B_Should_Equal_Third_Line_In_File()
         {
-            _fixture.TfwFile.B.Should().Be(0.000000000000000m);
+            Assert.Equal(0.000000000000000m, _fixture.TfwFile.B);
         }
 
         /// <summary>
@@ -100,7 +99,7 @@ namespace Deploy.LaunchPad.Core.Tests
         [Fact]
         public void E_Should_Equal_Fourth_Line_In_File()
         {
-            _fixture.TfwFile.E.Should().Be(-12.382885933000001m);
+            Assert.Equal(-12.382885933000001m, _fixture.TfwFile.E);
         }
 
         /// <summary>
@@ -109,7 +108,7 @@ namespace Deploy.LaunchPad.Core.Tests
         [Fact]
         public void C_Should_Equal_Fifth_Line_In_File()
         {
-            _fixture.TfwFile.C.Should().Be(511283.0285078580m);
+            Assert.Equal(511283.0285078580m, _fixture.TfwFile.C);
         }
 
         /// <summary>
@@ -118,7 +117,7 @@ namespace Deploy.LaunchPad.Core.Tests
         [Fact]
         public void F_Should_Equal_Sixth_Line_In_File()
         {
-            _fixture.TfwFile.F.Should().Be(7755841.0522885220m);
+            Assert.Equal(7755841.0522885220m, _fixture.TfwFile.F);
         }
 
         /// <summary>
@@ -127,7 +126,7 @@ namespace Deploy.LaunchPad.Core.Tests
         [Fact]
         public void Location_Region_Should_Be_Us_East()
         {
-            _fixture.TfwParser.Location.Region.Should().Be(S3BucketStorageLocation.DEFAULT_REGION);
+            Assert.Equal(S3BucketStorageLocation.DEFAULT_REGION, _fixture.TfwParser.Location.Region);
         }
 
         /// <summary>
@@ -136,7 +135,7 @@ namespace Deploy.LaunchPad.Core.Tests
         [Fact]
         public void Location_Bucket_Root_Should_Be_Us_East()
         {
-            _fixture.TfwParser.Location.RootUri.ToString().Should().StartWith("https://s3.us-east-1.amazonaws.com");
+            Assert.StartsWith("https://s3.us-east-1.amazonaws.com", _fixture.TfwParser.Location.RootUri.ToString());
         }
 
     }

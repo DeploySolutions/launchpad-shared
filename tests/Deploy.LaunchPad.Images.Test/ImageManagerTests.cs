@@ -28,7 +28,7 @@
 
 namespace Deploy.LaunchPad.Images.Tests
 {
-    using FluentAssertions;
+    
     using System;
     using System.IO;
     using Xunit;
@@ -71,8 +71,8 @@ namespace Deploy.LaunchPad.Images.Tests
             byte[] imageB = _fixture.NotEmptyBytes;
             
             Action act = () => _fixture.SUT.CompareImages(imageA, imageB, _fixture.Settings);
-            act.Should().Throw<NullReferenceException>()
-                 .WithMessage(Deploy_LaunchPad_Images_Resources.Guard_ImageManager_Thumbnail_ImageA_NullReferenceException);
+            var ex = Assert.Throws<NullReferenceException>(act);
+            Assert.Equal(Deploy_LaunchPad_Images_Resources.Guard_ImageManager_Thumbnail_ImageA_NullReferenceException, ex.Message);
         }
 
         /// <summary>
@@ -85,8 +85,8 @@ namespace Deploy.LaunchPad.Images.Tests
             byte[] imageB = _fixture.NotEmptyBytes;
             
             Action act = () => _fixture.SUT.CompareImages(imageA, imageB, _fixture.Settings);
-            act.Should().Throw<ArgumentException>()
-                .WithMessage(Deploy_LaunchPad_Images_Resources.Exception_ImageManager_CompareImages_MagickMissingDelegateErrorException);
+            var ex = Assert.Throws<ArgumentException>(act);
+            Assert.Equal(Deploy_LaunchPad_Images_Resources.Exception_ImageManager_CompareImages_MagickMissingDelegateErrorException, ex.Message);
         }
 
         /// <summary>
@@ -98,8 +98,8 @@ namespace Deploy.LaunchPad.Images.Tests
             byte[] imageA = _fixture.NotEmptyBytes;
             byte[] imageB = null;
             Action act = () =>  _fixture.SUT.CompareImages(imageA, imageB, _fixture.Settings);
-            act.Should().Throw<NullReferenceException>()
-                 .WithMessage(Deploy_LaunchPad_Images_Resources.Guard_ImageManager_Thumbnail_ImageB_NullReferenceException);
+            var ex = Assert.Throws<NullReferenceException>(act);
+            Assert.Equal(Deploy_LaunchPad_Images_Resources.Guard_ImageManager_Thumbnail_ImageB_NullReferenceException, ex.Message);
         }
 
         /// <summary>
@@ -112,7 +112,7 @@ namespace Deploy.LaunchPad.Images.Tests
             MagickImage imageB = new MagickImage(_fixture.LogoDark);
 
             byte[] diffImage = _fixture.SUT.CompareImages(imageA, imageB, _fixture.Settings);
-            diffImage.Should().NotBeNull();
+            Assert.NotNull(diffImage);
         }
 
         /// <summary>
@@ -124,8 +124,8 @@ namespace Deploy.LaunchPad.Images.Tests
             FileInfo info = new FileInfo(@"not_a_valid_path");
 
             Action act = () => _fixture.SUT.GetMagickImageFromFile(info);
-            act.Should().Throw<InvalidOperationException>()
-                .WithMessage(Deploy_LaunchPad_Images_Resources.Exception_ImageManager_GetMagickImageFromFile_InvalidOperationException);
+            var ex = Assert.Throws<InvalidOperationException>(act);
+            Assert.Equal(Deploy_LaunchPad_Images_Resources.Exception_ImageManager_GetMagickImageFromFile_InvalidOperationException, ex.Message);
         }
 
         /// <summary>
@@ -135,7 +135,7 @@ namespace Deploy.LaunchPad.Images.Tests
         public void Default_Small_Thumbnail_Width_ShouldBe_LessThanOrEqualTo_100()
         {
             MagickImage image = new MagickImage(_fixture.SUT.GetThumbnailFromImage(_fixture.LogoWhite, ImageManager.ThumbnailSize.Small));
-            image.Width.Should().BeLessThanOrEqualTo(100);
+            Assert.True(image.Width <= 100);
         }
 
         /// <summary>
@@ -145,7 +145,7 @@ namespace Deploy.LaunchPad.Images.Tests
         public void Default_Small_Thumbnail_Height_ShouldBe_LessThanOrEqualTo_100()
         {
             MagickImage image = new MagickImage(_fixture.SUT.GetThumbnailFromImage(_fixture.LogoWhite, ImageManager.ThumbnailSize.Small));
-            image.Height.Should().BeLessThanOrEqualTo(100);
+            Assert.True(image.Height <= 100);
         }
 
         /// <summary>
@@ -155,7 +155,7 @@ namespace Deploy.LaunchPad.Images.Tests
         public void Default_Medium_Thumbnail_Width_ShouldBe_LessThanOrEqualTo_300()
         {
             MagickImage image = new MagickImage(_fixture.SUT.GetThumbnailFromImage(_fixture.LogoWhite, ImageManager.ThumbnailSize.Medium));
-            image.Width.Should().BeLessThanOrEqualTo(300);
+            Assert.True(image.Width <= 300);
         }
 
         /// <summary>
@@ -165,7 +165,7 @@ namespace Deploy.LaunchPad.Images.Tests
         public void Default_Medium_Thumbnail_Height_ShouldBe_LessThanOrEqualTo_300()
         {
             MagickImage image = new MagickImage(_fixture.SUT.GetThumbnailFromImage(_fixture.LogoWhite, ImageManager.ThumbnailSize.Medium));
-            image.Height.Should().BeLessThanOrEqualTo(300);
+            Assert.True(image.Height <= 300);
         }
 
         /// <summary>
@@ -175,7 +175,7 @@ namespace Deploy.LaunchPad.Images.Tests
         public void Default_Large_Thumbnail_Width_ShouldBe_LessThanOrEqualTo_600()
         {
             MagickImage image = new MagickImage(_fixture.SUT.GetThumbnailFromImage(_fixture.LogoWhite, ImageManager.ThumbnailSize.Large));
-            image.Width.Should().BeLessThanOrEqualTo(600);
+            Assert.True(image.Width <= 600);
         }
 
         /// <summary>
@@ -185,7 +185,7 @@ namespace Deploy.LaunchPad.Images.Tests
         public void Default_Large_Thumbnail_Height_ShouldBe_LessThanOrEqualTo_600()
         {
             MagickImage image = new MagickImage(_fixture.SUT.GetThumbnailFromImage(_fixture.LogoWhite, ImageManager.ThumbnailSize.Large));
-            image.Height.Should().BeLessThanOrEqualTo(600);
+            Assert.True(image.Height <= 600);
         }
 
         /// <summary>
@@ -196,7 +196,7 @@ namespace Deploy.LaunchPad.Images.Tests
         {
             _fixture.SUT.SetThumbnailSizeDimensions(ImageManager.ThumbnailSize.Small,99,99);
             MagickImage image = new MagickImage(_fixture.SUT.GetThumbnailFromImage(_fixture.LogoWhite, ImageManager.ThumbnailSize.Small));
-            image.Width.Should().BeLessThanOrEqualTo(99);
+            Assert.True(image.Width <= 99);
         }
 
         /// <summary>
@@ -207,7 +207,7 @@ namespace Deploy.LaunchPad.Images.Tests
         {
             _fixture.SUT.SetThumbnailSizeDimensions(ImageManager.ThumbnailSize.Small,99,99);
             MagickImage image = new MagickImage(_fixture.SUT.GetThumbnailFromImage(_fixture.LogoWhite, ImageManager.ThumbnailSize.Small));
-            image.Height.Should().BeLessThanOrEqualTo(99);
+            Assert.True(image.Height <= 99);
         }
 
         /// <summary>
@@ -218,7 +218,7 @@ namespace Deploy.LaunchPad.Images.Tests
         {
             _fixture.SUT.SetThumbnailSizeDimensions(ImageManager.ThumbnailSize.Medium,299,299);
             MagickImage image = new MagickImage(_fixture.SUT.GetThumbnailFromImage(_fixture.LogoWhite, ImageManager.ThumbnailSize.Medium));
-            image.Width.Should().BeLessThanOrEqualTo(299);
+            Assert.True(image.Width <= 299);
         }
 
         /// <summary>
@@ -229,7 +229,7 @@ namespace Deploy.LaunchPad.Images.Tests
         {
             _fixture.SUT.SetThumbnailSizeDimensions(ImageManager.ThumbnailSize.Medium,299,299);
             MagickImage image = new MagickImage(_fixture.SUT.GetThumbnailFromImage(_fixture.LogoWhite, ImageManager.ThumbnailSize.Medium));
-            image.Height.Should().BeLessThanOrEqualTo(299);
+            Assert.True(image.Height <= 299);
         }
 
         /// <summary>
@@ -240,7 +240,7 @@ namespace Deploy.LaunchPad.Images.Tests
         {
             _fixture.SUT.SetThumbnailSizeDimensions(ImageManager.ThumbnailSize.Large,599,599);
             MagickImage image = new MagickImage(_fixture.SUT.GetThumbnailFromImage(_fixture.LogoWhite, ImageManager.ThumbnailSize.Large));
-            image.Width.Should().BeLessThanOrEqualTo(599);
+            Assert.True(image.Width <= 599);
         }
 
         /// <summary>
@@ -251,7 +251,7 @@ namespace Deploy.LaunchPad.Images.Tests
         {
             _fixture.SUT.SetThumbnailSizeDimensions(ImageManager.ThumbnailSize.Large,599,599);
             MagickImage image = new MagickImage(_fixture.SUT.GetThumbnailFromImage(_fixture.LogoWhite, ImageManager.ThumbnailSize.Large));
-            image.Height.Should().BeLessThanOrEqualTo(599);
+            Assert.True(image.Height <= 599);
         }
 
 
@@ -262,8 +262,7 @@ namespace Deploy.LaunchPad.Images.Tests
         public void Get_Small_Thumbnail_From_MagickImage_ShouldReturn_JpegFormat()
         {
             MagickImage result = new MagickImage(_fixture.SUT.GetThumbnailFromImage(new MagickImage(_fixture.LogoWhite), ImageManager.ThumbnailSize.Small,MagickFormat.Png));
-            result.Format.Should().Be(MagickFormat.Png);
-
+            Assert.Equal(MagickFormat.Png, result.Format);
         }
 
         /// <summary>
@@ -275,7 +274,7 @@ namespace Deploy.LaunchPad.Images.Tests
             byte[] logo = _fixture.LogoDark;
             MagickImage image = new MagickImage(logo);
             byte[] thumbImage = _fixture.SUT.GetThumbnailFromImage(image, ImageManager.ThumbnailSize.Small);
-            thumbImage.Length.Should().BeGreaterThan(0);
+            Assert.True(thumbImage.Length > 0);
         }
     }
 }

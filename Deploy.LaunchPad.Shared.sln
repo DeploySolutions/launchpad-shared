@@ -23,7 +23,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Licenses", "Licenses", "{DA
 		Licenses\CodeProject.SequentialGuid.License.txt = Licenses\CodeProject.SequentialGuid.License.txt
 		Licenses\DeploySoftware.LaunchPad.License.txt = Licenses\DeploySoftware.LaunchPad.License.txt
 		Licenses\File.TypeChecker.License.txt = Licenses\File.TypeChecker.License.txt
-		FluentAssertions.License.txt = FluentAssertions.License.txt
 		Geolocation.License.txt = Geolocation.License.txt
 		Licenses\HtmlAgilityPack.License.txt = Licenses\HtmlAgilityPack.License.txt
 		Licenses\Magick.NET.License.txt = Licenses\Magick.NET.License.txt

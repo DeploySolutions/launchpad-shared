@@ -29,7 +29,7 @@
 namespace Deploy.LaunchPad.Core.Tests
 {
     using Xunit;
-    using FluentAssertions;
+    
     using System;
     using Xunit.Sdk;
     using Deploy.LaunchPad.Core;
@@ -57,7 +57,8 @@ namespace Deploy.LaunchPad.Core.Tests
             double lat = 0.0;
             double longi = 0.0;
             Action act = () => new GeographicPosition(new Point(longi, lat),0);
-            act.Should().NotThrow<Exception>();
+            var ex = Record.Exception(act);
+            Assert.Null(ex);
         }
 
         /// <summary>
@@ -70,9 +71,8 @@ namespace Deploy.LaunchPad.Core.Tests
             double elevation = double.NaN;
             
             Action act = () => location.Elevation.Maximum = elevation;
-            act.Should().Throw<ArgumentException>()
-                 .WithMessage("*" + Deploy_LaunchPad_Core_Resources.Guard_GeographicLocation_Set_Elevation + "*");
-
+            var ex = Assert.Throws<ArgumentException>(act);
+            Assert.Contains(Deploy_LaunchPad_Core_Resources.Guard_GeographicLocation_Set_Elevation, ex.Message);
         }
 
         /// <summary>

@@ -29,7 +29,7 @@
 namespace Deploy.LaunchPad.Core.Tests
 {
     using Xunit;
-    using FluentAssertions;
+    
     using Deploy.LaunchPad.Core.Domain;
     using Deploy.LaunchPad.Util;
     using Deploy.LaunchPad.Core.Abp.Domain;
@@ -53,7 +53,8 @@ namespace Deploy.LaunchPad.Core.Tests
         public void Should_Not_Have_Null_TenantId_When_Instantiated()
         {
             Device<System.Guid> a = new Device<System.Guid>();
-            //a.TenantId.Should().NotBeNull();
+            // Uncomment below if you want to check for non-null TenantId
+            // Assert.NotNull(a.TenantId);
         }
 
         /// <summary>
@@ -63,7 +64,7 @@ namespace Deploy.LaunchPad.Core.Tests
         public void Should_Have_Empty_Id_When_Instantiated()
         {
             Device<System.Guid> a = new Device<System.Guid>();
-            a.Id.Should().BeEmpty();
+            Assert.Equal(System.Guid.Empty, a.Id);
         }
 
         /// <summary>
@@ -74,7 +75,7 @@ namespace Deploy.LaunchPad.Core.Tests
         {
             var id = SequentialGuid.NewGuid();
             Device<System.Guid> a = new Device<System.Guid>(null, id);
-            a.Id.Should().NotBeEmpty();
+            Assert.NotEqual(System.Guid.Empty, a.Id);
         }
 
         /// <summary>
@@ -87,7 +88,7 @@ namespace Deploy.LaunchPad.Core.Tests
             Device<System.Guid> a = new Device<System.Guid>(null, aId);
             var bId = SequentialGuid.NewGuid();
             Device<System.Guid> b = new Device<System.Guid>(null, bId);
-            a.Id.Should().NotBe(b.Id);
+            Assert.NotEqual(b.Id, a.Id);
         }
 
 
