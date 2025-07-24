@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFrameworks>net9.0</TargetFrameworks>
-    <Version>10.19.2</Version>
+    <Version>10.19.3</Version>
     <Authors>Nicholas Kellett</Authors>
     <Company>Deploy Software Solutions, inc.</Company>
     <Copyright>2022-2025 Deploy Software Solutions, inc.</Copyright>
@@ -40,6 +40,7 @@
 
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" />
+    <PackageReference Include="System.Text.Json" />
   </ItemGroup>
 
   <ItemGroup>

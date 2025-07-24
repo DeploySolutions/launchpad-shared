@@ -10,7 +10,7 @@
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageProjectUrl>https://github.com/DeploySolutions/launchpad-shared</PackageProjectUrl>
     <RepositoryUrl>https://github.com/DeploySolutions/launchpad-shared</RepositoryUrl>
-    <Version>10.19.1</Version>
+    <Version>10.19.2</Version>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <PackageIcon>icon.png</PackageIcon>
     <IncludeSymbols>true</IncludeSymbols>
@@ -32,6 +32,7 @@
     <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" />
     <PackageReference Include="Newtonsoft.Json" />
     <PackageReference Include="RestSharp" />
+    <PackageReference Include="System.Text.Json" />
   </ItemGroup>
 
   <ItemGroup>

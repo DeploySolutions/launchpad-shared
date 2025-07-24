@@ -11,7 +11,7 @@
     <GenerateBindingRedirectsOutputType>true</GenerateBindingRedirectsOutputType>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
-    <Version>10.19.12</Version>
+    <Version>10.19.13</Version>
     <Description>Shared code for LaunchPad framework.</Description>
     <Copyright>2018-2025 Deploy Software Solutions, inc.</Copyright>
     <PackageIconUrl></PackageIconUrl>
@@ -35,7 +35,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Castle.LoggingFacility" />
+    <PackageReference Include="Castle.Core" />
     <PackageReference Include="DocumentFormat.OpenXml" />
     <PackageReference Include="Microsoft.CSharp" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" />
@@ -48,6 +48,7 @@
     <PackageReference Include="RestSharp" />
     <PackageReference Include="Schema.NET.Pending" />
     <PackageReference Include="System.Collections" />
+    <PackageReference Include="System.Text.Json" />
   </ItemGroup>
 
   <ItemGroup>

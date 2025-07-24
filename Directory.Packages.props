@@ -14,17 +14,18 @@
     <PackageVersion Include="Deploy.LaunchPad.AWS" Version="10.11.0" />
     <PackageVersion Include="Deploy.LaunchPad.AWS.Abp" Version="10.11.0" />
     <PackageVersion Include="Schema.NET.Pending" Version="13.0.0" />
+    <PackageVersion Include="System.Text.Json" Version="9.0.7" />
   </ItemGroup>
   <!-- Deploy Solutions Packages Ends -->
   <!-- ABP Packages Starts -->
   <ItemGroup>
-    <PackageVersion Include="Abp.AutoMapper" Version="10.1.0" />
-    <PackageVersion Include="Abp.AspNetCore" Version="10.1.0" />
+    <PackageVersion Include="Abp.AutoMapper" Version="10.2.0" />
+    <PackageVersion Include="Abp.AspNetCore" Version="10.2.0" />
     <PackageVersion Include="Abp.AspNetCore.OData" Version="9.4.2" />
     <PackageVersion Include="Abp.AspNetCore.SignalR" Version="9.4.2" />
     <PackageVersion Include="Abp.Castle.Log4Net" Version="9.4.2" />
     <PackageVersion Include="Abp.HangFire.AspNetCore" Version="9.4.2" />
-    <PackageVersion Include="Abp.FluentValidation" Version="10.1.0" />
+    <PackageVersion Include="Abp.FluentValidation" Version="10.2.0" />
     <PackageVersion Include="Abp.HangFire.AspNetCore" Version="9.4.2" />
     <PackageVersion Include="Abp.HtmlSanitizer" Version="9.4.2" />
     <PackageVersion Include="Abp.ZeroCore" Version="9.4.2" />
@@ -59,22 +60,22 @@
   <!-- Microsoft Packages Ends -->
   <!-- AWS Packages Starts -->
   <ItemGroup>
-    <PackageVersion Include="AWSSDK.APIGateway" Version="4.0.0.4" />
+    <PackageVersion Include="AWSSDK.APIGateway" Version="4.0.1.10" />
     <PackageVersion Include="Amazon.CDK.Lib" Version="2.158.0" />
-    <PackageVersion Include="AWSSDK.Core" Version="4.0.0.6" />
-    <PackageVersion Include="AWSSDK.ElasticFileSystem" Version="4.0.0.4" />
-    <PackageVersion Include="AWSSDK.Lambda" Version="4.0.0.4" />
-    <PackageVersion Include="AWSSDK.Redshift" Version="4.0.0.4" />
-    <PackageVersion Include="AWSSDK.S3" Version="4.0.0.7" />
-    <PackageVersion Include="AWSSDK.SecretsManager" Version="4.0.0.4" />
-    <PackageVersion Include="AWSSDK.SimpleNotificationService" Version="4.0.0.4" />
-    <PackageVersion Include="AWSSDK.SQS" Version="4.0.0.4" />
+    <PackageVersion Include="AWSSDK.Core" Version="4.0.0.16" />
+    <PackageVersion Include="AWSSDK.ElasticFileSystem" Version="4.0.1.9" />
+    <PackageVersion Include="AWSSDK.Lambda" Version="4.0.2" />
+    <PackageVersion Include="AWSSDK.Redshift" Version="4.0.0.14" />
+    <PackageVersion Include="AWSSDK.S3" Version="4.0.6.1" />
+    <PackageVersion Include="AWSSDK.SecretsManager" Version="4.0.0.14" />
+    <PackageVersion Include="AWSSDK.SimpleNotificationService" Version="4.0.0.14" />
+    <PackageVersion Include="AWSSDK.SQS" Version="4.0.0.15" />
     <PackageVersion Include="AwsSignatureVersion4" Version="5.0.1" />
   </ItemGroup>
   <!-- AWS Packages Ends -->
   <!-- Logging Packages Starts -->
   <ItemGroup>
-    <PackageVersion Include="Castle.LoggingFacility" Version="6.0.0" />
+    <PackageVersion Include="Castle.Core" Version="5.2.1" />
     <PackageVersion Include="Castle.Core-Serilog" Version="5.1.1" />
     <PackageVersion Include="Serilog" Version="4.1.0" />
     <PackageVersion Include="Serilog.AspNetCore" Version="8.0.3" />
@@ -101,7 +102,7 @@
   <ItemGroup>
     <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="17.14.1" />
     <PackageVersion Include="xunit" Version="2.9.3" />
-    <PackageVersion Include="xunit.runner.visualstudio" Version="3.1.0">
+    <PackageVersion Include="xunit.runner.visualstudio" Version="3.1.2">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageVersion>
