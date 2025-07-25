@@ -495,7 +495,7 @@ namespace Deploy.LaunchPad.Util
             {
                 try
                 {
-                    guid = Guid.Parse(attributeValue);
+                    guid = Guid.Parse(attributeValue.Replace("id_", string.Empty).Replace("_", string.Empty));
                 }
                 catch (Exception ex)
                 {
@@ -521,7 +521,7 @@ namespace Deploy.LaunchPad.Util
             {
                 try
                 {
-                    guid = Guid.Parse(elementValue);
+                    guid = Guid.Parse(elementValue.Replace("id_", string.Empty).Replace("_",string.Empty));
                 }
                 catch (Exception ex)
                 {
@@ -539,7 +539,7 @@ namespace Deploy.LaunchPad.Util
             string idValue = GetTextFromAttribute(parentNode, xPath);
             if (!string.IsNullOrEmpty(idValue))
             {
-                id = Guid.Parse(idValue);
+                id = Guid.Parse(idValue.Replace("id_", string.Empty).Replace("_", string.Empty));
             }
             return id;
         }
