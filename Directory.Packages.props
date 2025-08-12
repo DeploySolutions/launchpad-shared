@@ -21,14 +21,14 @@
   <ItemGroup>
     <PackageVersion Include="Abp.AutoMapper" Version="10.2.0" />
     <PackageVersion Include="Abp.AspNetCore" Version="10.2.0" />
-    <PackageVersion Include="Abp.AspNetCore.OData" Version="10.2.0" />
-    <PackageVersion Include="Abp.AspNetCore.SignalR" Version="10.2.0" />
-    <PackageVersion Include="Abp.HangFire.AspNetCore" Version="10.2.0" />
+    <PackageVersion Include="Abp.AspNetCore.OData" Version="10.2.2" />
+    <PackageVersion Include="Abp.AspNetCore.SignalR" Version="10.2.2" />
+    <PackageVersion Include="Abp.HangFire.AspNetCore" Version="10.2.2" />
     <PackageVersion Include="Abp.FluentValidation" Version="10.2.0" />
-    <PackageVersion Include="Abp.HangFire.AspNetCore" Version="10.2.0" />
-    <PackageVersion Include="Abp.HtmlSanitizer" Version="10.2.0" />
-    <PackageVersion Include="Abp.ZeroCore" Version="10.2.0" />
-    <PackageVersion Include="Abp.ZeroCore.EntityFrameworkCore" Version="10.2.0" />
+    <PackageVersion Include="Abp.HangFire.AspNetCore" Version="10.2.2" />
+    <PackageVersion Include="Abp.HtmlSanitizer" Version="10.2.2" />
+    <PackageVersion Include="Abp.ZeroCore" Version="10.2.2" />
+    <PackageVersion Include="Abp.ZeroCore.EntityFrameworkCore" Version="10.2.2" />
   </ItemGroup>
   <!-- ABP Packages Ends -->
   <!-- Microsoft Packages Starts -->
