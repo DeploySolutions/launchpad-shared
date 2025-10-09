@@ -37,7 +37,7 @@ using System.Runtime.InteropServices;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
-using DocumentFormat.OpenXml.Packaging;
+//using DocumentFormat.OpenXml.Packaging;
 using Deploy.LaunchPad.Util;
 
 namespace Deploy.LaunchPad.Core.Files.Storage
@@ -251,23 +251,23 @@ namespace Deploy.LaunchPad.Core.Files.Storage
                         metadata.TryAdd("Size", size.ToString());
 
                         // if it's word
-                        if (sourceFile.Extension == "docx")
-                        {
-                            // use office power tools
-                            using (WordprocessingDocument wDoc = WordprocessingDocument.Open(output, true))
-                            {
-                                var extendedProperties = wDoc.ExtendedFilePropertiesPart;
-                                if (extendedProperties != null)
-                                {
-                                    metadata.TryAdd("Lines", extendedProperties.Properties.Lines.InnerText);
-                                    metadata.TryAdd("Words", extendedProperties.Properties.Words.InnerText);
-                                    metadata.TryAdd("Paragraphs", extendedProperties.Properties.Paragraphs.InnerText);
-                                    metadata.TryAdd("Application", extendedProperties.Properties.Application.InnerText);
-                                    metadata.TryAdd("Application Version", extendedProperties.Properties.ApplicationVersion.InnerText);
+                        //if (sourceFile.Extension == "docx")
+                        //{
+                        //    // use office power tools
+                        //    using (WordprocessingDocument wDoc = WordprocessingDocument.Open(output, true))
+                        //    {
+                        //        var extendedProperties = wDoc.ExtendedFilePropertiesPart;
+                        //        if (extendedProperties != null)
+                        //        {
+                        //            metadata.TryAdd("Lines", extendedProperties.Properties.Lines.InnerText);
+                        //            metadata.TryAdd("Words", extendedProperties.Properties.Words.InnerText);
+                        //            metadata.TryAdd("Paragraphs", extendedProperties.Properties.Paragraphs.InnerText);
+                        //            metadata.TryAdd("Application", extendedProperties.Properties.Application.InnerText);
+                        //            metadata.TryAdd("Application Version", extendedProperties.Properties.ApplicationVersion.InnerText);
 
-                                }
-                            }
-                        }
+                        //        }
+                        //    }
+                        //}
                     }
                 }
                 catch (AccessViolationException avEx)

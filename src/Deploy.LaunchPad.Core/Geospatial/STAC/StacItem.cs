@@ -24,7 +24,6 @@ namespace Deploy.LaunchPad.Core.STAC
     using Deploy.LaunchPad.Core.Geospatial.STAC;
     using Deploy.LaunchPad.Core.Temporal;
     using Deploy.LaunchPad.Util;
-    using DocumentFormat.OpenXml.Wordprocessing;
     using NetTopologySuite.Geometries;
     using Newtonsoft.Json;
     using Newtonsoft.Json.Converters;

@@ -1,5 +1,4 @@
 ﻿using Castle.Core.Logging;
-using DocumentFormat.OpenXml.ExtendedProperties;
 using System;
 using System.Collections.Generic;
 using System.IO;

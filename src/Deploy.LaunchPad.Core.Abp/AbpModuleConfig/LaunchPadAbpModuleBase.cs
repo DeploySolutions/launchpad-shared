@@ -25,8 +25,6 @@ using Microsoft.Extensions.Hosting;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using FluentValidation;
-using FluentValidation.Results;
 
 namespace Deploy.LaunchPad.Core.Abp.AbpModuleConfig
 {
@@ -117,38 +115,38 @@ namespace Deploy.LaunchPad.Core.Abp.AbpModuleConfig
 
         }
 
-        /// <summary>
-        /// Determines whether [is configuration valid] [the specified configuration].
-        /// </summary>
-        /// <typeparam name="TAbpModuleConfig">The type of the t abp module configuration.</typeparam>
-        /// <param name="config">The configuration.</param>
-        /// <param name="shouldValidateAndThrow">if set to <c>true</c> [should validate and throw].</param>
-        /// <returns>ValidationResult.</returns>
-        protected virtual ValidationResult IsConfigurationValid<TAbpModuleConfig>(TAbpModuleConfig config, bool shouldValidateAndThrow = false)
-            where TAbpModuleConfig : LaunchPadAbpModuleConfigBase<IWebHostEnvironment>
-        {
-            IValidator<TAbpModuleConfig> validator = null;
-            ValidationResult validationResult = null;
-            using (var scope = IocManager.CreateScope())
-            {
-                validator = scope.Resolve<IValidator<TAbpModuleConfig>>();
-            }
+        ///// <summary>
+        ///// Determines whether [is configuration valid] [the specified configuration].
+        ///// </summary>
+        ///// <typeparam name="TAbpModuleConfig">The type of the t abp module configuration.</typeparam>
+        ///// <param name="config">The configuration.</param>
+        ///// <param name="shouldValidateAndThrow">if set to <c>true</c> [should validate and throw].</param>
+        ///// <returns>ValidationResult.</returns>
+        //protected virtual ValidationResult IsConfigurationValid<TAbpModuleConfig>(TAbpModuleConfig config, bool shouldValidateAndThrow = false)
+        //    where TAbpModuleConfig : LaunchPadAbpModuleConfigBase<IWebHostEnvironment>
+        //{
+        //    IValidator<TAbpModuleConfig> validator = null;
+        //    ValidationResult validationResult = null;
+        //    using (var scope = IocManager.CreateScope())
+        //    {
+        //        validator = scope.Resolve<IValidator<TAbpModuleConfig>>();
+        //    }
 
-            if (validator != null)
-            {
-                if (shouldValidateAndThrow)
-                {
+        //    if (validator != null)
+        //    {
+        //        if (shouldValidateAndThrow)
+        //        {
 
-                    validator.ValidateAndThrow(config);
-                }
-                else
-                {
-                    validationResult = validator.Validate(config);
-                }
-            }
+        //            validator.ValidateAndThrow(config);
+        //        }
+        //        else
+        //        {
+        //            validationResult = validator.Validate(config);
+        //        }
+        //    }
 
-            return validationResult;
-        }
+        //    return validationResult;
+        //}
 
         /// <summary>
         /// Load the AbpModule base properties, starting a new scope
