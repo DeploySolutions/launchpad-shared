@@ -179,7 +179,7 @@ namespace Deploy.LaunchPad.Util
         /// Parses the specified token string.
         /// </summary>
         /// <param name="tokenString">The token string.</param>
-        protected void Parse(string tokenString)
+        public void Parse(string tokenString)
         {
             string tokenInnerSections = tokenString.Trim().Substring(2, tokenString.Length - 4);
             string[] tokens = tokenInnerSections.Split("|");
