@@ -10,14 +10,14 @@ namespace Deploy.LaunchPad.Util.CommandLine
 {
     public sealed class CliApp
     {
-        private readonly FrozenDictionary<string, ICliCommand> _commands;
+        private readonly FrozenDictionary<string, ICommand> _commands;
 
-        public CliApp(IEnumerable<ICliCommand> commands)
+        public CliApp(IEnumerable<ICommand> commands)
         {
-            _commands = commands.ToDictionary(c => c.Name, StringComparer.OrdinalIgnoreCase).ToFrozenDictionary();
+            _commands = commands.ToDictionary(c => c.Name.Full, StringComparer.OrdinalIgnoreCase).ToFrozenDictionary();
         }
 
-        public ICliCommand? TryGetCommand(string name) => _commands.GetValueOrDefault(name);
+        public ICommand? TryGetCommand(string name) => _commands.GetValueOrDefault(name);
 
         public void PrintTopLevelHelp()
         {
@@ -36,7 +36,7 @@ namespace Deploy.LaunchPad.Util.CommandLine
             Console.WriteLine("Use 'myapp <command> --help' for command-specific help.");
         }
 
-        public void PrintCommandHelp(ICliCommand cmd)
+        public void PrintCommandHelp(ICommand cmd)
         {
             Console.WriteLine($"Usage: myapp {cmd.Name} [options]");
             Console.WriteLine();

@@ -7,14 +7,13 @@ using System.Threading.Tasks;
 
 namespace Deploy.LaunchPad.Util.CommandLine
 {
-    public interface ICliCommand
+    public interface ICommand
     {
-        string Name { get; }
-        string Description { get; }
+        public ElementNameLight Name { get; }
+        public ElementDescriptionLight Description { get; }
         IReadOnlyList<OptionDefinition> Options { get; }
 
         /// <summary>Execute the command with parsed/typed options.</summary>
-        Task<TOutput> ExecuteAsync<TOutput>(CliParseResult args, IServiceProvider services, CancellationToken ct)
-            where TOutput: class, new();            
+        public Task<CommandResult> ExecuteAsync<TOutput>(CliParseResult args, IServiceProvider services, CancellationToken ct);
     }
 }

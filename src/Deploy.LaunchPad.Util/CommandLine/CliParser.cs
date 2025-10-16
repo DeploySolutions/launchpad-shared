@@ -10,7 +10,7 @@ namespace Deploy.LaunchPad.Util.CommandLine
     public static class CliParser
     {
         /// <summary>Parse argv for a specific command.</summary>
-        public static CliParseResult Parse(ICliCommand command, string[] argv, out string? error)
+        public static CliParseResult Parse(ICommand command, string[] argv, out string? error)
         {
             error = null;
 
