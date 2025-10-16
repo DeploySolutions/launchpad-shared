@@ -14,6 +14,7 @@ namespace Deploy.LaunchPad.Util.CommandLine
         IReadOnlyList<OptionDefinition> Options { get; }
 
         /// <summary>Execute the command with parsed/typed options.</summary>
-        Task<TOutput> ExecuteAsync<TOutput>(CliParseResult args, IServiceProvider services, CancellationToken ct);
+        Task<TOutput> ExecuteAsync<TOutput>(CliParseResult args, IServiceProvider services, CancellationToken ct)
+            where TOutput: class, new();            
     }
 }
