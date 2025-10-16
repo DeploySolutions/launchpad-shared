@@ -11,9 +11,9 @@ namespace Deploy.LaunchPad.Util.CommandLine
     {
         public ElementNameLight Name { get; init; }
         public ElementDescriptionLight Description { get; init; }
-        IReadOnlyList<OptionDefinition> Options { get; init; }
+        IReadOnlyList<OptionDefinition> Options { get; }
 
         /// <summary>Execute the command with parsed/typed options.</summary>
-        public Task<ICommandResult> ExecuteAsync<TOutput>(CliParseResult args, IServiceProvider services, CancellationToken ct);
+        public Task<ICommandResult> ExecuteAsync(CliParseResult args, IServiceProvider services, CancellationToken ct);
     }
 }
