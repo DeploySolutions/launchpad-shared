@@ -42,7 +42,7 @@ namespace Deploy.LaunchPad.Core.Files
         /// The extension of the file
         /// </summary>
         /// <value>The extension.</value>
-        public override string Extension => ".tif";
+        public override string Extension => "." + FileExtensions.tiff;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="TifFile{TIdType}"/> class.

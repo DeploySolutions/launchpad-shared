@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using Deploy.LaunchPad.Core.Files.Formats;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
@@ -11,8 +12,7 @@ namespace Deploy.LaunchPad.Core.Files
 {
     public partial class JsonFile : FileBase<JToken, JToken>, IJsonFile
     {
-        public override string Extension => ".json";
-
+        public override string Extension => "." + FileExtensions.json;
 
         /// <summary>
         /// Constructor

@@ -8,7 +8,7 @@ namespace Deploy.LaunchPad.Core.Files
     public partial class CSharpClassFile : FileBase<string, CSharpClassSchema>, ICSharpClassFile
     {
 
-        public override string Extension => ".cs";
+        public override string Extension => "." + FileExtensions.cs;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="CSharpClassFile{TIdType}"/> class.

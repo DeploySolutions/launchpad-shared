@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Deploy.LaunchPad.Core.Files.Formats;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,7 +12,7 @@ namespace Deploy.LaunchPad.Core.Files
 
     public partial class XmlFile : FileBase<XmlDocument, XmlSchemaSet>, IXmlFile
     {
-        public override string Extension => ".xml";
+        public override string Extension => "." + FileExtensions.xml;
 
         /// <summary>
         /// Constructor

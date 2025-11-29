@@ -9,7 +9,7 @@ namespace Deploy.LaunchPad.Core.Files
 {
     public partial class SqlFile : FileBase<string, SqlSchema>, ISqlFile
     {
-        public override string Extension => ".sql";
+        public override string Extension => "." + FileExtensions.sql;
         public virtual bool IsTransaction { get; set; } = false;
         public string? DatabaseName { get; set; }
         public string? DatabaseSchema { get; set; }

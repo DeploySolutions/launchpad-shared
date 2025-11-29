@@ -10,8 +10,7 @@ namespace Deploy.LaunchPad.Core.Files
     /// </summary>
     public partial class MdxFile : FileBase<string, MdxSchema>, IMdxFile
     {
-
-        public override string Extension => ".mdx";
+        public override string Extension => "." + FileExtensions.mdx;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="MdxFile"/> class.

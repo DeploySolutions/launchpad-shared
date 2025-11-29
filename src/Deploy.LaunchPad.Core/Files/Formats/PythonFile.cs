@@ -7,8 +7,7 @@ namespace Deploy.LaunchPad.Core.Files
 {
     public partial class PythonFile : FileBase<string, PythonSchema>, IPythonFile
     {
-
-        public override string Extension => ".py";
+        public override string Extension => "." + FileExtensions.py;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="PythonFile{TIdType}"/> class.

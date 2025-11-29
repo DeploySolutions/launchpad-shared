@@ -7,8 +7,7 @@ namespace Deploy.LaunchPad.Core.Files
 {
     public partial class PowershellFile : FileBase<string, PowershellSchema>, IPowershellFile
     {
-
-        public override string Extension => ".ps1";
+        public override string Extension => "." + FileExtensions.ps1;
 
         /// <summary>
         /// Constructor
