@@ -113,7 +113,7 @@
     <PackageVersion Include="CsvHelper" Version="33.0.1" />
     <PackageVersion Include="File.TypeChecker" Version="4.1.1" />
     <PackageVersion Include="FluentValidation" Version="12.1.0" />
-    <PackageVersion Include="FluentResults" Version="3.16.0" />
+    <PackageVersion Include="FluentResults" Version="4.0.0" />
     <PackageVersion Include="JsonSubTypes" Version="2.0.1" />
     <PackageVersion Include="Markdig" Version="0.38.0" />
     <PackageVersion Include="MediatR" Version="12.4.1" />
