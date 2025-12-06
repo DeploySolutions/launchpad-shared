@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Deploy.LaunchPad.FactoryLite.CommandLine;
+using Deploy.LaunchPad.Util.Methods;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,6 +16,10 @@ namespace Deploy.LaunchPad.Util.CommandLine
         IReadOnlyList<OptionDefinition> Options { get; }
 
         /// <summary>Execute the command with parsed/typed options.</summary>
-        public Task<ICommandResult> ExecuteAsync(CliParseResult args, IServiceProvider services, CancellationToken ct);
+        public Task<LaunchPadMethodResult<TResultValue>> ExecuteAsync<TCommand,TResultValue>(CommandInput input)
+            where TCommand : Deploy.LaunchPad.Util.CommandLine.ICommand
+            where TResultValue : class, ILaunchPadMethodResultValue
+        ;
+
     }
 }

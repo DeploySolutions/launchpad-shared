@@ -1,0 +1,25 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://www.deploy.solutions/schemas/launchpad/commandline/UserContextSchema.json",
+  "type": "object",
+  "properties": {
+    "username": { "type": "string" },
+    "userId": { "type": "string" },
+    "roles": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "email": {
+      "type": "string",
+      "format": "email"
+    },
+    "organization": { "type": "string" },
+    "ipAddress": {
+      "type": "string",
+      "format": "ipv4"
+    },
+    "isAuthenticated": { "type": "boolean" }
+  },
+  "required": [ "username", "userId" ],
+  "additionalProperties": false
+}

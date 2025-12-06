@@ -1,4 +1,5 @@
-﻿using Castle.Components.DictionaryAdapter;
+﻿using Deploy.LaunchPad.Util.Methods;
+using FluentResults;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,10 +8,11 @@ using System.Threading.Tasks;
 
 namespace Deploy.LaunchPad.Util.CommandLine
 {
-    public partial class CommandResult : ICommandResult
+    public partial class CommandResult<TResultValue> : LaunchPadMethodResult<TResultValue>, ICommandResult
+        where TResultValue : LaunchPadMethodResultValueBase, ILaunchPadMethodResultValue
     {
-        public virtual bool Success { get; set; } = false;
-        public virtual string? Message { get; set; }
-        public virtual object? Data { get; set; }
+        public CommandResult(Result<TResultValue> result) : base(result)
+        {
+        }
     }
 }

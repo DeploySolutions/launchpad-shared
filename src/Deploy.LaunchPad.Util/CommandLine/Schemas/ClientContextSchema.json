@@ -1,0 +1,21 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://www.deploy.solutions/schemas/launchpad/commandline/ClientContextSchema.json",
+  "type": "object",
+  "properties": {
+    "type": {
+      "type": "string",
+      "enum": [ "Web", "Mobile", "API", "Console", "Workflow" ]
+    },
+    "version": { "type": "string" },
+    "platform": { "type": "string" },
+    "ipAddress": {
+      "type": "string",
+      "format": "ipv4"
+    },
+    "userAgent": { "type": "string" },
+    "deviceId": { "type": "string" }
+  },
+  "required": [ "type" ],
+  "additionalProperties": false
+}
