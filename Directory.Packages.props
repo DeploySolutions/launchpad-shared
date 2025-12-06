@@ -112,10 +112,14 @@
     <PackageVersion Include="Constructs" Version="10.3.0" />
     <PackageVersion Include="CsvHelper" Version="33.0.1" />
     <PackageVersion Include="File.TypeChecker" Version="4.1.1" />
+    <PackageVersion Include="FluentValidation" Version="12.1.0" />
     <PackageVersion Include="FluentResults" Version="3.16.0" />
     <PackageVersion Include="JsonSubTypes" Version="2.0.1" />
     <PackageVersion Include="Markdig" Version="0.38.0" />
     <PackageVersion Include="MediatR" Version="12.4.1" />
+    <PackageVersion Include="Microsoft.Extensions.DependencyInjection" Version="10.0.0" />
+    <PackageVersion Include="Microsoft.Extensions.Hosting" Version="10.0.0" />
+    <PackageVersion Include="Microsoft.Extensions.Logging.Abstractions" Version="10.0.0" />
     <PackageVersion Include="Newtonsoft.Json" Version="13.0.4" />
     <PackageVersion Include="NetTopologySuite" Version="2.5.0" />
     <PackageVersion Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="8.0.11" />
