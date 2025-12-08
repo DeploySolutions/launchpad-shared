@@ -32,6 +32,14 @@ namespace Deploy.LaunchPad.Core.Files.Formats
         mov,
         mp3,
         mp4,
+        odb, // Base (Database)
+        ods, // Calc (Spreadsheet)
+        ots, // Calc (Spreadsheet) template 
+        odg, // Draw (Vector Graphics)
+        odt, // Libre Office Writer (Word Processor) document 
+        ott, // Libre Office Writer (Word Processor) template format
+        odp, // Libre Office presentation format
+        otp, // Libre Office presentation template format
         pdf,
         png,
         potx,
