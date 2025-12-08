@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace Deploy.LaunchPad.Core.Files
 {
-    public partial class OfficeWordDocument : FileBase<string, OfficeWordDocumentSchema>, IOfficeWordDocument
+    public partial class OfficeWordDocument : FileBase<string, OfficeWordDocumentFileSchema>, IOfficeWordDocument
     {
         public override string Extension => "." + FileExtensions.docx;
 

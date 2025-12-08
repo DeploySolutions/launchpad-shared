@@ -2,7 +2,7 @@
 
 namespace Deploy.LaunchPad.Core.Files
 {
-    public partial interface IOfficePresentationFile : IFile<byte[], OfficePresentationSchema>
+    public partial interface IOfficePresentationFile : IFile<byte[], OfficePresentationFileSchema>
     {
     }
 }

@@ -4,7 +4,7 @@ using System.Text.Json;
 
 namespace Deploy.LaunchPad.Core.Files
 {
-    public partial interface IZarrFile : IFile<Dictionary<string, byte[]>, ZarrSchema>
+    public partial interface IZarrFile : IFile<Dictionary<string, byte[]>, ZarrFileSchema>
     {
         public JsonDocument Metadata { get; }
 

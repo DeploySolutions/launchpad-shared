@@ -7,8 +7,7 @@ using System.Threading.Tasks;
 namespace Deploy.LaunchPad.Core.Content
 {
 
-    public partial interface ILaunchPadContentPublishingCollection<TSchema>
-            where TSchema : Schema.NET.Thing
+    public partial interface ILaunchPadContentPublishingCollection
     {
         public IList<ILaunchPadContentPublishingCollectionItem> Items { get; }
 

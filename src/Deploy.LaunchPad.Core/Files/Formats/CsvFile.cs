@@ -5,7 +5,7 @@ using System.Globalization;
 
 namespace Deploy.LaunchPad.Core.Files
 {
-    public partial class CsvFile : FileBase<string, IFrictionlessSchema>, ICsvFile
+    public partial class CsvFile : FileBase<string, IFrictionlessFileSchema>, ICsvFile
     {
         public override string Extension => "." + FileExtensions.csv;
         public virtual bool IsHeaderCaseSensitive { get; set; } = false;

@@ -31,8 +31,6 @@ using System.ComponentModel;
 using System.Xml.Serialization;
 using Deploy.LaunchPad.Core.Content;
 using Deploy.LaunchPad.Core.Domain.Model;
-using Deploy.LaunchPad.Core.Schemas.SchemaDotOrg;
-using Schema.NET;
 
 namespace Deploy.LaunchPad.Core.Person
 {
@@ -40,9 +38,7 @@ namespace Deploy.LaunchPad.Core.Person
     /// Interface ILaunchPadPerson
     /// </summary>
     public partial interface ILaunchPadPerson : ILaunchPadObject,
-        ILaunchPadCommonProperties,
-        IMayHaveSchemaDotOrgProperty<Schema.NET.Person>,
-        ICanBeASchemaDotOrgPersonOrOrganization
+        ILaunchPadCommonProperties
     {
         ///<summary>
         /// Parents can be listed (if they exist).

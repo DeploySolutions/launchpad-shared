@@ -8,7 +8,7 @@ namespace Deploy.LaunchPad.Core.Files
     /// <summary>
     /// MDX (Markdown for Components)
     /// </summary>
-    public partial class MdxFile : FileBase<string, MdxSchema>, IMdxFile
+    public partial class MdxFile : FileBase<string, MdxFileSchema>, IMdxFile
     {
         public override string Extension => "." + FileExtensions.mdx;
 

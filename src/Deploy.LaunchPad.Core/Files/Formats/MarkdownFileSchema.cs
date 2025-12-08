@@ -4,12 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Deploy.LaunchPad.Core.Content
+namespace Deploy.LaunchPad.Core.Files.Formats
 {
-
-    public partial interface ICanBeASchemaDotOrgPersonOrOrganization
+    public partial class MarkdownFileSchema
     {
-
     }
-
 }

@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace Deploy.LaunchPad.Core.Files
 {
-    public partial class MarkdownFile : FileBase<string, MarkdownSchema>, IMarkdownFile
+    public partial class MarkdownFile : FileBase<string, MarkdownFileSchema>, IMarkdownFile
     {
         public virtual string Frontmatter { get; set; } //YAML/JSON/TOML
         public override string Extension => "." + FileExtensions.md;

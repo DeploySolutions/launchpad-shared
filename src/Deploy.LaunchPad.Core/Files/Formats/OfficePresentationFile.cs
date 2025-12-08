@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace Deploy.LaunchPad.Core.Files
 {
-    public partial class OfficePresentationFile : FileBase<byte[], OfficePresentationSchema>, IOfficePresentationFile
+    public partial class OfficePresentationFile : FileBase<byte[], OfficePresentationFileSchema>, IOfficePresentationFile
     {
         public override string Extension => "." + FileExtensions.pptx;
 

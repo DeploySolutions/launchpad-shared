@@ -11,7 +11,7 @@
     <GenerateBindingRedirectsOutputType>true</GenerateBindingRedirectsOutputType>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
-    <Version>10.22.2</Version>
+    <Version>10.22.3</Version>
     <Description>Shared code for LaunchPad framework.</Description>
     <Copyright>2018-2025 Deploy Software Solutions, inc.</Copyright>
     <PackageIconUrl></PackageIconUrl>
@@ -36,7 +36,6 @@
 
   <ItemGroup>
     <PackageReference Include="Castle.Core" />
-    <PackageReference Include="Microsoft.CSharp" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" />
     <PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" />
@@ -45,9 +44,6 @@
     <PackageReference Include="Newtonsoft.Json" />
     <PackageReference Include="pocketken.H3" />
     <PackageReference Include="RestSharp" />
-    <PackageReference Include="Schema.NET.Pending" />
-    <PackageReference Include="System.Collections" />
-    <PackageReference Include="System.Text.Json" />
   </ItemGroup>
 
   <ItemGroup>
@@ -77,6 +73,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Schemas\" />
     <Folder Include="Services\Dto\GetAll\" />
   </ItemGroup>
 

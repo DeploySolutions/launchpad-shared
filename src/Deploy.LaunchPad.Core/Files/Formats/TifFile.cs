@@ -36,7 +36,7 @@ namespace Deploy.LaunchPad.Core.Files
     /// Implements the <see cref="Model.DomainEntityFileBase{System.Byte[]}" />
     /// </summary>
     /// <seealso cref="Model.DomainEntityFileBase{ System.Byte[]}" />
-    public partial class TifFile : FileBase<byte[], TifImageSchema>
+    public partial class TifFile : FileBase<byte[], TifImageFileSchema>
     {
         /// <summary>
         /// The extension of the file

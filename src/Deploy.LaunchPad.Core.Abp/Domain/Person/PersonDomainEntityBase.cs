@@ -29,7 +29,6 @@
 using Abp.Domain.Entities;
 using Deploy.LaunchPad.Core.Abp.Domain.Model;
 using Deploy.LaunchPad.Core.Person;
-using Deploy.LaunchPad.Core.Schemas.SchemaDotOrg;
 using Schema.NET;
 using System;
 using System.Collections.Generic;

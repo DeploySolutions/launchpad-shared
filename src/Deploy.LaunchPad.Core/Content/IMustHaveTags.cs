@@ -11,7 +11,6 @@
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
-using Schema.NET;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;

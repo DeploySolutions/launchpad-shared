@@ -5,7 +5,7 @@ namespace Deploy.LaunchPad.Core.Files
     /// <summary>
     /// MDX (Markdown for Components)
     /// </summary>
-    public partial interface IMdxFile : IFile<string, MdxSchema>
+    public partial interface IMdxFile : IFile<string, MdxFileSchema>
     {
     }
 }

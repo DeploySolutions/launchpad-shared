@@ -2,7 +2,7 @@
 
 namespace Deploy.LaunchPad.Core.Files
 {
-    public partial interface IPdfFile : IFile<byte[], PdfSchemaFormat>
+    public partial interface IPdfFile : IFile<byte[], PdfFileSchema>
     {
     }
 }

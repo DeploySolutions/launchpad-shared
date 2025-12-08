@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Deploy.LaunchPad.Core.Files.Formats
 {
-    public partial class OfficeWordDocumentSchema
+    public partial class PythonFileSchema
     {
     }
 }

@@ -2,7 +2,7 @@
 
 namespace Deploy.LaunchPad.Core.Files
 {
-    public partial interface IOfficeWordDocument : IFile<string, OfficeWordDocumentSchema>
+    public partial interface IOfficeWordDocument : IFile<string, OfficeWordDocumentFileSchema>
     {
     }
 }

@@ -6,10 +6,7 @@ using System.Threading.Tasks;
 
 namespace Deploy.LaunchPad.Core.Files.Formats
 {
-    /// <summary>
-    /// MDX (Markdown for Components)
-    /// </summary>
-    public partial class MdxSchema
+    public partial class PowershellFileSchema
     {
     }
 }

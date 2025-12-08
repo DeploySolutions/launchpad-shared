@@ -8,17 +8,12 @@ using System.Xml.Serialization;
 namespace Deploy.LaunchPad.Core.Content
 {
 
-    public abstract partial class LaunchPadContentPublishingCollectionItemBase<TSchema> : LaunchPadCommonProperties, ILaunchPadObject,        
-        ILaunchPadContentPublishingItem<TSchema>
-        where TSchema: Schema.NET.Thing
+    public abstract partial class LaunchPadContentPublishingCollectionItemBase : LaunchPadCommonProperties, ILaunchPadObject,        
+        ILaunchPadContentPublishingItem
     {
         public virtual Guid Id { get; set; }
 
         public virtual LaunchPadContentItemType ContentType { get; set; }
-
-        protected virtual TSchema? _schemaDotOrg { get; set; }
-
-        public virtual string SchemaDotOrgJson { get; set; }
 
         ///<summary>
         /// Location of the resource (relative and lower than application root or a selected safe path, to avoid security holes
@@ -62,8 +57,6 @@ namespace Deploy.LaunchPad.Core.Content
             IsActive = info.GetBoolean("IsActive");
             SeqNum = info.GetInt32("SeqNum");
             ContentType = (LaunchPadContentItemType)info.GetValue("ContentType", typeof(LaunchPadContentItemType));
-            _schemaDotOrg = (TSchema)info.GetValue("_schemaDotOrg", typeof(TSchema));
-            SchemaDotOrgJson = info.GetString("SchemaDotOrgJson");
         }
 
         /// <summary>
@@ -89,8 +82,6 @@ namespace Deploy.LaunchPad.Core.Content
             info.AddValue("DeletionTime", DeletionTime);
             info.AddValue("IsActive", IsActive);
             info.AddValue("ContentType", ContentType);
-            info.AddValue("_schemaDotOrg", _schemaDotOrg);
-            info.AddValue("SchemaDotOrgJson", SchemaDotOrgJson);
         }
 
     }

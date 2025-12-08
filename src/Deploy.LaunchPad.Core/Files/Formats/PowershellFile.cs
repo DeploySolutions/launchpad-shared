@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace Deploy.LaunchPad.Core.Files
 {
-    public partial class PowershellFile : FileBase<string, PowershellSchema>, IPowershellFile
+    public partial class PowershellFile : FileBase<string, PowershellFileSchema>, IPowershellFile
     {
         public override string Extension => "." + FileExtensions.ps1;
 

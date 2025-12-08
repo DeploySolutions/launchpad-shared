@@ -6,7 +6,10 @@ using System.Threading.Tasks;
 
 namespace Deploy.LaunchPad.Core.Files.Formats
 {
-    public partial class AstroFileSchema
+    /// <summary>
+    /// MDX (Markdown for Components)
+    /// </summary>
+    public partial class MdxFileSchema
     {
     }
 }
