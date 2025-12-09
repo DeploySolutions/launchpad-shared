@@ -3,7 +3,7 @@ using System;
 
 namespace Deploy.LaunchPad.Core.Content
 {
-    public partial interface ILaunchPadContentPublishingCollectionItem : ILaunchPadObject, ILaunchPadCommonProperties
+    public partial interface ILaunchPadContentPublishingCollectionItem : ILaunchPadObject, ILaunchPadCommonProperties, IMustHavePublishingInformation
     {
         public Guid Id { get; set; }
         public LaunchPadContentItemType ContentType { get; set; }

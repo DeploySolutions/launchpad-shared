@@ -13,7 +13,9 @@ namespace Deploy.LaunchPad.Core.Content
         public virtual Guid Id { get; set; }
 
         public virtual IList<ILaunchPadContentPublishingCollectionItem> Items { get; }
-
+        public virtual bool IsPublished { get; set; }
+        public virtual long PublisherUserId { get; set; }
+        public virtual DateTimeOffset PublishedTimeInUtc { get; set; }
 
         public virtual void AddItem(Guid id, ILaunchPadContentPublishingCollectionItem item, bool shouldPreventDuplicates = true)
         {

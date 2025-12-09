@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace Deploy.LaunchPad.Core.Content
 {
 
-    public partial interface ILaunchPadContentPublishingCollection
+    public partial interface ILaunchPadContentPublishingCollection : IMustHavePublishingInformation
     {
         public IList<ILaunchPadContentPublishingCollectionItem> Items { get; }
 

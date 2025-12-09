@@ -12,8 +12,11 @@ namespace Deploy.LaunchPad.Core.Content
         ILaunchPadContentPublishingItem
     {
         public virtual Guid Id { get; set; }
-
         public virtual LaunchPadContentItemType ContentType { get; set; }
+
+        public virtual bool IsPublished { get; set; }
+        public virtual long PublisherUserId { get; set; }
+        public virtual DateTimeOffset PublishedTimeInUtc { get; set; }
 
         ///<summary>
         /// Location of the resource (relative and lower than application root or a selected safe path, to avoid security holes

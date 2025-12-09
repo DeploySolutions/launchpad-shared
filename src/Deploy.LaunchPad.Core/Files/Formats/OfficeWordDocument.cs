@@ -7,7 +7,7 @@ namespace Deploy.LaunchPad.Core.Files
 {
     public partial class OfficeWordDocument : FileBase<string, OfficeWordDocumentFileSchema>, IOfficeWordDocument
     {
-        public override string Extension => "." + FileExtensions.docx;
+        public override string Extension => "." + FileExtensions.docx; // could also use Libre Office extensions
 
         /// <summary>
         /// Initializes a new instance of the <see cref="OfficeWordFile{TIdType}"/> class.
