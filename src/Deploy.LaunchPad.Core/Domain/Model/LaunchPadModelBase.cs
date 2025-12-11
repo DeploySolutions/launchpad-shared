@@ -122,7 +122,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
         /// </summary>
         /// <param name="info">The information.</param>
         /// <param name="context">The context.</param>
-        public virtual void GetObjectData(SerializationInfo info, StreamingContext context)
+        public override void GetObjectData(SerializationInfo info, StreamingContext context)
         {
             info.AddValue("Name", Name);
             info.AddValue("Description", Description);

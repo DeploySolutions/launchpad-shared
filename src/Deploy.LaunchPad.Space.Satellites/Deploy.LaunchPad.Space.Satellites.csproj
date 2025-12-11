@@ -9,7 +9,7 @@
     <RepositoryUrl>https://github.com/DeploySolutions/launchpad-shared</RepositoryUrl>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
-    <Version>10.22.2</Version>
+    <Version>10.22.4</Version>
     <Description>Satellite-related code for LaunchPad framework.</Description>
     <Copyright>2018-2025 Deploy Software Solutions, inc.</Copyright>
     <PackageIconUrl></PackageIconUrl>
@@ -18,6 +18,7 @@
     <PackageIcon>icon.png</PackageIcon>
     <IncludeSymbols>true</IncludeSymbols>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
   </PropertyGroup>
 
   <ItemGroup>
@@ -25,12 +26,6 @@
     <ProjectReference Include="..\Deploy.LaunchPad.Organizations\Deploy.LaunchPad.Organizations.csproj" />
     <ProjectReference Include="..\Deploy.LaunchPad.Python\Deploy.LaunchPad.Python.csproj" />
     <ProjectReference Include="..\Deploy.LaunchPad.Util\Deploy.LaunchPad.Util.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Reference Include="CoordinateSharp">
-      <HintPath>..\..\..\..\External Repos\CoordinateSharp\CoordinateSharp\bin\Debug\netstandard2.0\CoordinateSharp.dll</HintPath>
-    </Reference>
   </ItemGroup>
 
   <ItemGroup>
@@ -58,10 +53,12 @@
       <Pack>True</Pack>
       <PackagePath></PackagePath>
     </None>
+    <None Include="README.md" Pack="true" PackagePath="" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" />
   </ItemGroup>
+
 
 </Project>

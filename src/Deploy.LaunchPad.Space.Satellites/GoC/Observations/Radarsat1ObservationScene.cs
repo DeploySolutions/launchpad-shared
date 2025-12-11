@@ -93,13 +93,6 @@ namespace Deploy.LaunchPad.Space.Satellites.GoC
         }
 
         /// <summary>
-        /// Gets or sets the scene identifier.
-        /// </summary>
-        /// <value>The scene identifier.</value>
-        [Required]
-        public string SceneId { get; set; }
-
-        /// <summary>
         /// Gets or sets the mda order number.
         /// </summary>
         /// <value>The mda order number.</value>
@@ -112,13 +105,6 @@ namespace Deploy.LaunchPad.Space.Satellites.GoC
         /// <value>The geographical area.</value>
         [Required]
         public string GeographicalArea { get; set; }
-
-        /// <summary>
-        /// Gets or sets the scene start time.
-        /// </summary>
-        /// <value>The scene start time.</value>
-        [Required]
-        public DateTime SceneStartTime { get; set; }
 
         /// <summary>
         /// Gets or sets the scene stop time.

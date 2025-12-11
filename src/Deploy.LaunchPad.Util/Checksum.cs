@@ -57,11 +57,10 @@ namespace Deploy.LaunchPad.Util
         /// Gets the MD5 hash.
         /// </summary>
         /// <param name="input">The input.</param>
-        /// <param name="algName">Name of the alg.</param>
         /// <returns>System.String.</returns>
-        public virtual string GetMd5Hash(string input, string algName = "")
+        public virtual string GetMd5Hash(string input)
         {
-            byte[] hash = GetMd5HashAsBytes(input, algName);
+            byte[] hash = GetMd5HashAsBytes(input);
             string checksum = BitConverter.ToString(hash);
             return checksum;
         }
@@ -70,11 +69,10 @@ namespace Deploy.LaunchPad.Util
         /// Gets the MD5 hash.
         /// </summary>
         /// <param name="input">The input.</param>
-        /// <param name="algName">Name of the alg.</param>
         /// <returns>System.String.</returns>
-        public virtual string GetMd5Hash(byte[] input, string algName = "")
+        public virtual string GetMd5Hash(byte[] input)
         {
-            byte[] hash = GetMd5HashAsBytes(input, algName);
+            byte[] hash = GetMd5HashAsBytes(input);
             string checksum = BitConverter.ToString(hash);
             return checksum;
         }
@@ -83,12 +81,11 @@ namespace Deploy.LaunchPad.Util
         /// Gets the MD5 hash as bytes.
         /// </summary>
         /// <param name="input">The input.</param>
-        /// <param name="algName">Name of the alg.</param>
         /// <returns>System.Byte[].</returns>
-        public virtual byte[] GetMd5HashAsBytes(string input, string algName = "")
+        public virtual byte[] GetMd5HashAsBytes(string input)
         {
             byte[] inputAsBytes = Encoding.UTF8.GetBytes(input);
-            var hash = GetMd5HashAsBytes(inputAsBytes, algName);
+            var hash = GetMd5HashAsBytes(inputAsBytes);
             return hash;
         }
 
@@ -96,22 +93,13 @@ namespace Deploy.LaunchPad.Util
         /// Gets the MD5 hash as bytes.
         /// </summary>
         /// <param name="input">The input.</param>
-        /// <param name="algName">Name of the alg.</param>
         /// <returns>System.Byte[].</returns>
-        public virtual byte[] GetMd5HashAsBytes(byte[] input, string algName = "")
+        public virtual byte[] GetMd5HashAsBytes(byte[] input)
         {
             Guard.Against<ArgumentException>(input == null, "Input cannot be null.");
             Guard.Against<ArgumentException>(input.Length != 16, "MD5 byte input must be exactly 16 bytes.");
 
-            MD5 hashAlgorithm = null;
-            if (!string.IsNullOrEmpty(algName))
-            {
-                hashAlgorithm = MD5.Create(algName);
-            }
-            else
-            {
-                hashAlgorithm = MD5.Create();
-            }
+            MD5 hashAlgorithm = MD5.Create();
             var hash = hashAlgorithm.ComputeHash(input);
             return hash;
         }
@@ -120,11 +108,10 @@ namespace Deploy.LaunchPad.Util
         /// Gets the sha256 hash.
         /// </summary>
         /// <param name="input">The input.</param>
-        /// <param name="algName">Name of the alg.</param>
         /// <returns>System.String.</returns>
-        public virtual string GetSha256Hash(string input, string algName = "")
+        public virtual string GetSha256Hash(string input)
         {
-            var hash = GetSha256HashAsBytes(input, algName);
+            var hash = GetSha256HashAsBytes(input);
             string checksum = Convert.ToHexString(hash);
             return checksum;
         }
@@ -134,11 +121,10 @@ namespace Deploy.LaunchPad.Util
         /// Gets the sha256 hash.
         /// </summary>
         /// <param name="input">The input.</param>
-        /// <param name="algName">Name of the alg.</param>
         /// <returns>System.String.</returns>
-        public virtual string GetSha256Hash(byte[] input, string algName = "")
+        public virtual string GetSha256Hash(byte[] input)
         {
-            var hash = GetSha256HashAsBytes(input, algName);
+            var hash = GetSha256HashAsBytes(input);
             string checksum = Convert.ToHexString(hash);
             return checksum;
         }
@@ -147,12 +133,11 @@ namespace Deploy.LaunchPad.Util
         /// Gets the sha256 hash as bytes.
         /// </summary>
         /// <param name="input">The input.</param>
-        /// <param name="algName">Name of the alg.</param>
         /// <returns>System.Byte[].</returns>
-        public virtual byte[] GetSha256HashAsBytes(string input, string algName = "")
+        public virtual byte[] GetSha256HashAsBytes(string input)
         {
             byte[] inputAsBytes = Encoding.UTF8.GetBytes(input);
-            var hash = GetSha256HashAsBytes(inputAsBytes, algName);
+            var hash = GetSha256HashAsBytes(inputAsBytes);
             return hash;
         }
 
@@ -160,22 +145,13 @@ namespace Deploy.LaunchPad.Util
         /// Gets the sha256 hash as bytes.
         /// </summary>
         /// <param name="input">The input.</param>
-        /// <param name="algName">Name of the alg.</param>
         /// <returns>System.Byte[].</returns>
-        public virtual byte[] GetSha256HashAsBytes(byte[] input, string algName = "")
+        public virtual byte[] GetSha256HashAsBytes(byte[] input)
         {
             Guard.Against<ArgumentException>(input == null, "Input cannot be null.");
            // Guard.Against<ArgumentException>(input.Length != 32, "SHA256 byte input must be exactly 32 bytes.");
 
-            SHA256 hashAlgorithm = null;
-            if (!string.IsNullOrEmpty(algName))
-            {
-                hashAlgorithm = SHA256.Create(algName);
-            }
-            else
-            {
-                hashAlgorithm = SHA256.Create();
-            }
+            SHA256 hashAlgorithm = SHA256.Create();
             var hash = hashAlgorithm.ComputeHash(input);
             return hash;
         }
