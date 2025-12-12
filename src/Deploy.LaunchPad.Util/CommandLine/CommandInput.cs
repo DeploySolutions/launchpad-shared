@@ -6,6 +6,7 @@ using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json;
 using System.Threading;
 
 public partial record CommandInput : LaunchPadMethodInputBase
@@ -134,5 +135,80 @@ public partial record CommandInput : LaunchPadMethodInputBase
             nestedCommand
         );
     }
+    
+    /// <summary>
+    /// Retrieves and converts an option value from the CommandInput.Args dictionary.
+    /// </summary>
+    /// <typeparam name="T">The expected type of the option value.</typeparam>
+    /// <param name="input">The CommandInput object.</param>
+    /// <param name="optionName">The name of the option to retrieve.</param>
+    /// <returns>The converted value of the option.</returns>
+    public virtual T GetOptionValue<T>(CommandInput input, string optionName)
+    {
+        // Ensure the Args dictionary is not null
+        if (input.Args == null)
+        {
+            throw new ArgumentNullException(nameof(input.Args), "CommandInput.Args cannot be null.");
+        }
 
+        // Retrieve the raw value from the Args dictionary
+        var rawValue = input.Args.Get<string>(optionName).ValueOrDefault;
+
+        // If the expected type is a string, return the raw value directly
+        if (typeof(T) == typeof(string))
+        {
+            return (T)(object)rawValue;
+        }
+
+        // Attempt to deserialize the raw value into the expected type
+        try
+        {
+            return JsonSerializer.Deserialize<T>(rawValue, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+        }
+        catch (JsonException ex)
+        {
+            throw new ArgumentException($"Invalid value for '{optionName}': {ex.Message}");
+        }
+    }
+
+    /// <summary>
+    /// Retrieves and converts an option value from the CommandInput.Args dictionary as a list.
+    /// </summary>
+    /// <typeparam name="T">The expected type of the list elements.</typeparam>
+    /// <param name="input">The CommandInput object.</param>
+    /// <param name="optionName">The name of the option to retrieve.</param>
+    /// <returns>The converted list of values.</returns>
+    /// <summary>
+    /// Retrieves and converts an option value from the CommandInput.Args dictionary as a list.
+    /// </summary>
+    /// <typeparam name="T">The expected type of the list elements.</typeparam>
+    /// <param name="input">The CommandInput object.</param>
+    /// <param name="optionName">The name of the option to retrieve.</param>
+    /// <returns>The converted list of values.</returns>
+    public virtual List<T> GetOptionsListValue<T>(CommandInput input, string optionName)
+    {
+        // Ensure the Args dictionary is not null
+        if (input.Args == null)
+        {
+            throw new ArgumentNullException(nameof(input.Args), "CommandInput.Args cannot be null.");
+        }
+
+        // Retrieve the raw value from the Args dictionary
+        var rawValue = input.Args.Get<string>(optionName).ValueOrDefault;
+
+        // Log the raw JSON value for debugging purposes
+        input.Logger?.Debug($"Raw JSON value for '{optionName}': {rawValue}");
+
+        // Attempt to deserialize the raw value into a list of the expected type
+        try
+        {
+            return JsonSerializer.Deserialize<List<T>>(rawValue, new JsonSerializerOptions { PropertyNameCaseInsensitive = true })
+                    ?? new List<T>(); // Return an empty list if deserialization results in null
+        }
+        catch (JsonException ex)
+        {
+            input.Logger?.Error($"Failed to deserialize JSON for '{optionName}'. Error: {ex.Message}");
+            throw new ArgumentException($"Invalid value for '{optionName}': {ex.Message}");
+        }
+    }
 }
