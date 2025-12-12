@@ -143,16 +143,16 @@ public partial record CommandInput : LaunchPadMethodInputBase
     /// <param name="input">The CommandInput object.</param>
     /// <param name="optionName">The name of the option to retrieve.</param>
     /// <returns>The converted value of the option.</returns>
-    public virtual T GetOptionValue<T>(CommandInput input, string optionName)
+    public virtual T GetOptionValue<T>(string optionName)
     {
         // Ensure the Args dictionary is not null
-        if (input.Args == null)
+        if (Args == null)
         {
-            throw new ArgumentNullException(nameof(input.Args), "CommandInput.Args cannot be null.");
+            throw new ArgumentNullException(nameof(Args), "CommandInput.Args cannot be null.");
         }
 
         // Retrieve the raw value from the Args dictionary
-        var rawValue = input.Args.Get<string>(optionName).ValueOrDefault;
+        var rawValue = Args.Get<string>(optionName).ValueOrDefault;
 
         // If the expected type is a string, return the raw value directly
         if (typeof(T) == typeof(string))
@@ -185,19 +185,19 @@ public partial record CommandInput : LaunchPadMethodInputBase
     /// <param name="input">The CommandInput object.</param>
     /// <param name="optionName">The name of the option to retrieve.</param>
     /// <returns>The converted list of values.</returns>
-    public virtual List<T> GetOptionsListValue<T>(CommandInput input, string optionName)
+    public virtual List<T> GetOptionsListValue<T>(string optionName)
     {
         // Ensure the Args dictionary is not null
-        if (input.Args == null)
+        if (Args == null)
         {
-            throw new ArgumentNullException(nameof(input.Args), "CommandInput.Args cannot be null.");
+            throw new ArgumentNullException(nameof(Args), "CommandInput.Args cannot be null.");
         }
 
         // Retrieve the raw value from the Args dictionary
-        var rawValue = input.Args.Get<string>(optionName).ValueOrDefault;
+        var rawValue = Args.Get<string>(optionName).ValueOrDefault;
 
         // Log the raw JSON value for debugging purposes
-        input.Logger?.Debug($"Raw JSON value for '{optionName}': {rawValue}");
+        Logger?.Debug($"Raw JSON value for '{optionName}': {rawValue}");
 
         // Attempt to deserialize the raw value into a list of the expected type
         try
@@ -207,7 +207,7 @@ public partial record CommandInput : LaunchPadMethodInputBase
         }
         catch (JsonException ex)
         {
-            input.Logger?.Error($"Failed to deserialize JSON for '{optionName}'. Error: {ex.Message}");
+            Logger?.Error($"Failed to deserialize JSON for '{optionName}'. Error: {ex.Message}");
             throw new ArgumentException($"Invalid value for '{optionName}': {ex.Message}");
         }
     }
