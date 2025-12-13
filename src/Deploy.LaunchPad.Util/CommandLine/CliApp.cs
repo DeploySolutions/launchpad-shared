@@ -1,9 +1,14 @@
-﻿using System;
+﻿using Castle.Core.Logging;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
+using System;
 using System.Collections.Frozen;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.Json;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Deploy.LaunchPad.Util.CommandLine
@@ -18,6 +23,101 @@ namespace Deploy.LaunchPad.Util.CommandLine
         }
 
         public ICommand? TryGetCommand(string name) => _commands.GetValueOrDefault(name);
+
+        // Helper to execute a command by name and args
+        public async Task<ICommandResult> ExecuteCommand(CliApp app, IServiceProvider serviceProvider, Castle.Core.Logging.ILogger logger, Dictionary<string,(Type CommandType, Type ValueType)> commandTypeMap, string commandName, Dictionary<string, object>? argDict)
+        {
+            if (!commandTypeMap.TryGetValue(commandName, out var types))
+            {
+                logger.Error($"Unknown command '{commandName}'.");
+                app.PrintTopLevelHelp();
+                return null;
+            }
+
+            var (commandType, valueType) = types;
+            var command = app.TryGetCommand(commandName);
+            if (command == null)
+            {
+                logger.Error($"Unknown command '{commandName}'.");
+                return null;
+            }
+
+            var method = command.GetType().GetMethod("ExecuteAsync");
+            var genericMethod = method.MakeGenericMethod(commandType, valueType);
+
+            var argList = new List<string>();
+            if (argDict != null)
+            {
+                foreach (var kvp in argDict)
+                {
+                    Console.WriteLine($"Key: {kvp.Key}, Value Type: {kvp.Value?.GetType()}, Value: {kvp.Value}");
+                    if (kvp.Value is JsonElement jsonElement)
+                    {
+                        // Handle JsonElement based on its type
+                        switch (jsonElement.ValueKind)
+                        {
+                            case JsonValueKind.String:
+                                argList.Add($"--{kvp.Key}");
+                                argList.Add(jsonElement.GetString());
+                                break;
+                            case JsonValueKind.Object:
+                            case JsonValueKind.Array:
+                                // Serialize JSON objects/arrays back to string
+                                argList.Add($"--{kvp.Key}");
+                                argList.Add(jsonElement.GetRawText());
+                                break;
+                            default:
+                                throw new ArgumentException($"Unsupported JsonElement type for key '{kvp.Key}': {jsonElement.ValueKind}");
+                        }
+                    }
+                    else if (kvp.Value is bool b && b)
+                    {
+                        argList.Add($"--{kvp.Key}");
+                    }
+                    else if (kvp.Value is string strValue)
+                    {
+                        // Directly add string values (e.g., file paths)
+                        argList.Add($"--{kvp.Key}");
+                        argList.Add(strValue);
+                    }
+                    else if (kvp.Value is not null && !(kvp.Value.GetType().IsPrimitive))
+                    {
+                        // Serialize complex objects to JSON strings
+                        string jsonValue = JsonSerializer.Serialize(kvp.Value, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+                        argList.Add($"--{kvp.Key}");
+                        argList.Add(jsonValue);
+                    }
+                    else
+                    {
+                        argList.Add($"--{kvp.Key}");
+                        argList.Add(kvp.Value?.ToString() ?? "");
+                    }
+                }
+            }
+
+            var parseResult = CommandArgsParser.Parse(command, argList.ToArray());
+            if (parseResult != null && !parseResult.Succeeded)
+            {
+                string errorMessage = $"Error in parse of command '{commandName}': {parseResult.Errors}";
+                logger.Error(errorMessage);
+                throw new ArgumentException(errorMessage);
+            }
+            CommandInput input = new CommandInput
+            {
+                Logger = logger,
+                Args = parseResult.UnderlyingResult.Value,
+                Services = serviceProvider,
+                Ct = CancellationToken.None
+            };
+            var task = (Task)genericMethod.Invoke(command, new object[] { input });
+            await task.ConfigureAwait(false);
+
+            var resultProperty = task.GetType().GetProperty("Result");
+            var output = (ICommandResult)resultProperty.GetValue(task);
+
+            return output;
+        }
+
 
         public void PrintTopLevelHelp()
         {
