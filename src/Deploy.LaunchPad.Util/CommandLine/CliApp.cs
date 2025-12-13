@@ -1,4 +1,5 @@
 ﻿using Castle.Core.Logging;
+using Deploy.LaunchPad.Util.Helpers;
 using Deploy.LaunchPad.Util.Methods;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -199,6 +200,106 @@ namespace Deploy.LaunchPad.Util.CommandLine
              : t == typeof(int) ? "int"
              : t == typeof(FileInfo) ? "file"
              : t.Name;
+
+        /// <summary>
+        /// Parses the arguments and determines whether to execute in batch mode or single command mode.
+        /// </summary>
+        public static async Task<int> ParseArgumentsAndExecuteCommand(
+            string[] args,
+            CliApp app,
+            IServiceProvider services,
+            Castle.Core.Logging.ILogger logger,
+            Dictionary<string, (Type CommandType, Type ValueType)> commandTypeMap)
+        {
+            if (args.Length >= 2 && args[0] == "--batch")
+            {
+                var batchFile = args[1];
+                if (!File.Exists(batchFile))
+                {
+                    Console.Error.WriteLine($"Batch file not found: {batchFile}");
+                    return 1;
+                }
+
+                var json = await File.ReadAllTextAsync(batchFile);
+                var batch = JsonSerializer.Deserialize<List<BatchCommand>>(json, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+                if (batch == null)
+                {
+                    Console.Error.WriteLine("Failed to parse batch file.");
+                    return 1;
+                }
+
+                return await ExecuteBatchOrSingleCommand(app, services, logger, commandTypeMap, batchCommands: batch);
+            }
+
+            if (args.Length == 0 || args is ["--help"] or ["-h"])
+            {
+                app.PrintTopLevelHelp();
+                return 1;
+            }
+
+            if (args is ["--version"] or ["-v"])
+            {
+                Console.WriteLine(new AssemblyHelper().GetAssemblyVersionString());
+                return 0;
+            }
+
+            string cmdName = args[0];
+            Dictionary<string, object>? singleArgs = null;
+            if (args.Length > 1)
+            {
+                singleArgs = new Dictionary<string, object>();
+                for (int i = 1; i < args.Length; i++)
+                {
+                    if (args[i].StartsWith("--"))
+                    {
+                        var key = args[i][2..];
+                        object? value = true;
+                        if (i + 1 < args.Length && !args[i + 1].StartsWith("--"))
+                        {
+                            value = args[i + 1];
+                            i++;
+                        }
+                        singleArgs[key] = value;
+                    }
+                }
+            }
+
+            return await ExecuteBatchOrSingleCommand(app, services, logger, commandTypeMap, singleCommand: (cmdName, singleArgs));
+        }
+
+        /// <summary>
+        /// Executes either a batch of commands or a single command.
+        /// </summary>
+        public static async Task<int> ExecuteBatchOrSingleCommand(
+            CliApp app,
+            IServiceProvider services,
+            Castle.Core.Logging.ILogger logger,
+            Dictionary<string, (Type CommandType, Type ValueType)> commandTypeMap,
+            List<BatchCommand>? batchCommands = null,
+            (string CommandName, Dictionary<string, object>? Args)? singleCommand = null)
+        {
+            if (batchCommands != null)
+            {
+                int overallExit = 0;
+                foreach (var entry in batchCommands)
+                {
+                    var exit = await app.ExecuteCommand(app, services, logger, commandTypeMap, entry.command, entry.args);
+                    if (!exit.Succeeded) overallExit = 1;
+                }
+                return overallExit;
+            }
+
+            if (singleCommand.HasValue)
+            {
+                var (cmdName, args) = singleCommand.Value;
+                var result = await app.ExecuteCommand(app, services, logger, commandTypeMap, cmdName, args);
+                return result is not null && result.Succeeded ? 0 : 1;
+            }
+
+            throw new InvalidOperationException("Neither batch commands nor a single command were provided.");
+        }
+
     }
+
 
 }
