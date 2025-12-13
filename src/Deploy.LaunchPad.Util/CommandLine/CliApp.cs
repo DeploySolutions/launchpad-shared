@@ -77,7 +77,7 @@ namespace Deploy.LaunchPad.Util.CommandLine
                                 // Serialize JSON objects/arrays back to string
                                 argList.Add($"--{kvp.Key}");
                                 argList.Add(jsonElement.GetRawText());
-                                methodResult.AddSuccess($"Added JsonValueKind.String {jsonElement.GetString()}");
+                                methodResult.AddSuccess($"Added JsonValueKind.String {jsonElement.GetRawText()}");
                                 break;
                             default:
                                 string errorMessage = $"Unsupported JsonElement type for key '{kvp.Key}': {jsonElement.ValueKind}";
