@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace Deploy.LaunchPad.Util.CommandLine
 {
+    
     public partial class CommandResult<TResultValue> : LaunchPadMethodResult<TResultValue>, ICommandResult
         where TResultValue : LaunchPadMethodResultValueBase, ILaunchPadMethodResultValue
     {

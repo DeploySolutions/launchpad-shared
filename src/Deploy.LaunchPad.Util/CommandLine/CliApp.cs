@@ -1,4 +1,5 @@
 ﻿using Castle.Core.Logging;
+using Deploy.LaunchPad.Util.Methods;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using System;
@@ -13,6 +14,11 @@ using System.Threading.Tasks;
 
 namespace Deploy.LaunchPad.Util.CommandLine
 {
+    public sealed partial class CliAppResultValue : LaunchPadMethodResultValueBase, ILaunchPadMethodResultValue
+    { 
+
+    }
+
     public sealed class CliApp
     {
         private readonly FrozenDictionary<string, ICommand> _commands;
@@ -27,19 +33,24 @@ namespace Deploy.LaunchPad.Util.CommandLine
         // Helper to execute a command by name and args
         public async Task<ICommandResult> ExecuteCommand(CliApp app, IServiceProvider serviceProvider, Castle.Core.Logging.ILogger logger, Dictionary<string,(Type CommandType, Type ValueType)> commandTypeMap, string commandName, Dictionary<string, object>? argDict)
         {
+            ICommandResult methodResult = new CommandResult<CliAppResultValue>(new CliAppResultValue());
             if (!commandTypeMap.TryGetValue(commandName, out var types))
             {
-                logger.Error($"Unknown command '{commandName}'.");
+                string errorMessage = $"Unknown command '{commandName}'.";
+                methodResult.AddError(errorMessage);
+                logger.Error(errorMessage);
                 app.PrintTopLevelHelp();
-                return null;
+                return methodResult;
             }
 
             var (commandType, valueType) = types;
             var command = app.TryGetCommand(commandName);
             if (command == null)
             {
-                logger.Error($"Unknown command '{commandName}'.");
-                return null;
+                string errorMessage = $"Unknown command '{commandName}'.";
+                methodResult.AddError(errorMessage);
+                logger.Error(errorMessage);
+                return methodResult;
             }
 
             var method = command.GetType().GetMethod("ExecuteAsync");
@@ -59,26 +70,34 @@ namespace Deploy.LaunchPad.Util.CommandLine
                             case JsonValueKind.String:
                                 argList.Add($"--{kvp.Key}");
                                 argList.Add(jsonElement.GetString());
+                                methodResult.AddSuccess($"Added JsonValueKind.String {jsonElement.GetString()}");
                                 break;
                             case JsonValueKind.Object:
                             case JsonValueKind.Array:
                                 // Serialize JSON objects/arrays back to string
                                 argList.Add($"--{kvp.Key}");
                                 argList.Add(jsonElement.GetRawText());
+                                methodResult.AddSuccess($"Added JsonValueKind.String {jsonElement.GetString()}");
                                 break;
                             default:
-                                throw new ArgumentException($"Unsupported JsonElement type for key '{kvp.Key}': {jsonElement.ValueKind}");
+                                string errorMessage = $"Unsupported JsonElement type for key '{kvp.Key}': {jsonElement.ValueKind}";
+                                methodResult.AddError(errorMessage);
+                                logger.Error(errorMessage);
+                                throw new ArgumentException(errorMessage);
                         }
                     }
                     else if (kvp.Value is bool b && b)
                     {
                         argList.Add($"--{kvp.Key}");
+                        methodResult.AddSuccess($"Added {kvp.Key}");
                     }
                     else if (kvp.Value is string strValue)
                     {
                         // Directly add string values (e.g., file paths)
                         argList.Add($"--{kvp.Key}");
                         argList.Add(strValue);
+                        methodResult.AddSuccess($"Added {strValue}");
+
                     }
                     else if (kvp.Value is not null && !(kvp.Value.GetType().IsPrimitive))
                     {
@@ -86,11 +105,13 @@ namespace Deploy.LaunchPad.Util.CommandLine
                         string jsonValue = JsonSerializer.Serialize(kvp.Value, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
                         argList.Add($"--{kvp.Key}");
                         argList.Add(jsonValue);
+                        methodResult.AddSuccess($"Added {kvp.Key}");
                     }
                     else
                     {
                         argList.Add($"--{kvp.Key}");
                         argList.Add(kvp.Value?.ToString() ?? "");
+                        methodResult.AddSuccess($"Added {kvp.Key}");
                     }
                 }
             }
@@ -99,6 +120,7 @@ namespace Deploy.LaunchPad.Util.CommandLine
             if (parseResult != null && !parseResult.Succeeded)
             {
                 string errorMessage = $"Error in parse of command '{commandName}': {parseResult.Errors}";
+                methodResult.AddError(errorMessage);
                 logger.Error(errorMessage);
                 throw new ArgumentException(errorMessage);
             }
@@ -113,9 +135,20 @@ namespace Deploy.LaunchPad.Util.CommandLine
             await task.ConfigureAwait(false);
 
             var resultProperty = task.GetType().GetProperty("Result");
-            var output = (ICommandResult)resultProperty.GetValue(task);
+            var newResult = (ICommandResult)resultProperty.GetValue(task);
 
-            return output;
+            // Merge success messages
+            foreach (var successMessage in newResult.Successes.Values)
+            {
+                methodResult.AddSuccess(successMessage);
+            }
+
+            // Merge error messages
+            foreach (var errorMessage in newResult.Errors.Values)
+            {
+                methodResult.AddError(errorMessage);
+            }
+            return methodResult;
         }
 
 
