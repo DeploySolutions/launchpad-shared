@@ -1,6 +1,8 @@
-﻿using Deploy.LaunchPad.Util.Helpers;
+﻿using Deploy.LaunchPad.FactoryLite.CommandLine;
+using Deploy.LaunchPad.Util.Helpers;
 using Deploy.LaunchPad.Util.Methods;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using Serilog;
 using Serilog.Events;
 using System;
@@ -8,6 +10,7 @@ using System.Collections.Frozen;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
@@ -319,7 +322,50 @@ namespace Deploy.LaunchPad.Util.CommandLine
             return Log.Logger;
         }
 
-        
+        public static void RegisterCommands(IServiceCollection services, Dictionary<string, (Type CommandType, Type ValueType)> commandTypeMap, params Assembly[] assemblies)
+        {
+            if (assemblies == null || assemblies.Length == 0)
+            {
+                assemblies = new[] { Assembly.GetExecutingAssembly() };
+            }
+
+            // Loop through each provided assembly
+            foreach (var assembly in assemblies)
+            {
+                // Automatically register all ICommand implementations as transient
+                var commandInterfaceType = typeof(ICommand);
+                var commandTypes = assembly.GetTypes()
+                .Where(t => commandInterfaceType.IsAssignableFrom(t) && !t.IsAbstract && !t.IsInterface);
+
+                foreach (var commandType in commandTypes)
+                {
+
+                    //IocManager.Instance.RegisterIfNot(commandType, DependencyLifeStyle.Transient);
+                    //IocManager.Instance.Register(commandInterfaceType, commandType, DependencyLifeStyle.Transient);
+                    // Register the command type as both its concrete type and as ICommand
+                    services.AddTransient(commandType); // Register the concrete type
+                    services.AddTransient(commandInterfaceType, commandType); // Register as ICommand
+                }
+
+
+                foreach (var commandType in commandTypes)
+                {
+                    var valueTypeAttribute = commandType.GetCustomAttribute<CommandValueTypeAttribute>();
+                    if (valueTypeAttribute != null)
+                    {
+                        var commandName = commandType.Name.EndsWith("Command")
+                            ? commandType.Name[..^"Command".Length]
+                            : commandType.Name;
+
+                        // Ensure no duplicate entries in the commandTypeMap
+                        if (!commandTypeMap.ContainsKey(commandName))
+                        {
+                            commandTypeMap[commandName] = (commandType, valueTypeAttribute.ValueType);
+                        }
+                    }
+                }
+            }
+        }
     }
 
 
