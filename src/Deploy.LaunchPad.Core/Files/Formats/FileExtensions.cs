@@ -54,12 +54,14 @@ namespace Deploy.LaunchPad.Core.Files.Formats
         svg,
         tar,
         tiff,
+        toon,
         wav,
         webp,
         wmv,
         xls,
         xlsx,
         xml,
+        yaml,
         zarr,
         zip
     }
