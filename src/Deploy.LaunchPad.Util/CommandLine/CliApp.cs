@@ -1,14 +1,13 @@
-﻿using Castle.Core.Logging;
-using Deploy.LaunchPad.Util.Helpers;
+﻿using Deploy.LaunchPad.Util.Helpers;
 using Deploy.LaunchPad.Util.Methods;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Configuration;
+using Serilog;
+using Serilog.Events;
 using System;
 using System.Collections.Frozen;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
@@ -299,6 +298,28 @@ namespace Deploy.LaunchPad.Util.CommandLine
             throw new InvalidOperationException("Neither batch commands nor a single command were provided.");
         }
 
+
+        public static async Task<Serilog.ILogger> ConfigureLogging(string serilogFilePath = "serilog.json")
+        {
+            var loggerConfiguration = new ConfigurationBuilder().AddJsonFile(serilogFilePath).Build();
+
+            Log.Logger = new LoggerConfiguration()
+#if DEBUG
+            .MinimumLevel.Debug()
+#else
+            .MinimumLevel.Information()
+#endif
+
+            .WriteTo.Async(c => c.Console())
+            .ReadFrom.Configuration(loggerConfiguration)
+            .MinimumLevel.Override("Microsoft", LogEventLevel.Information)
+            .MinimumLevel.Override("Microsoft.EntityFrameworkCore", LogEventLevel.Warning)
+            .Enrich.FromLogContext()
+            .CreateLogger();
+            return Log.Logger;
+        }
+
+        
     }
 
 
