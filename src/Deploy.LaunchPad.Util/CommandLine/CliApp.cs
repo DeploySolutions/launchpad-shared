@@ -322,7 +322,7 @@ namespace Deploy.LaunchPad.Util.CommandLine
             return Log.Logger;
         }
 
-        public static void RegisterCommands(IServiceCollection services, Dictionary<string, (Type CommandType, Type ValueType)> commandTypeMap, params Assembly[] assemblies)
+        public static Dictionary<string, (Type CommandType, Type ValueType)> RegisterCommands(IServiceCollection services, Dictionary<string, (Type CommandType, Type ValueType)> commandTypeMap, params Assembly[] assemblies)
         {
             if (assemblies == null || assemblies.Length == 0)
             {
@@ -365,6 +365,7 @@ namespace Deploy.LaunchPad.Util.CommandLine
                     }
                 }
             }
+            return commandTypeMap;
         }
     }
 
