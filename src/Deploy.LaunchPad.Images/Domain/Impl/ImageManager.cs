@@ -325,7 +325,7 @@ namespace Deploy.LaunchPad.Images.Domain
         /// <param name="outputPath"></param>
         /// <param name="quality"></param>
         /// <exception cref="ArgumentOutOfRangeException"></exception>
-        public void ConvertToWebp(string inputPath, string outputPath, uint quality = 75)
+        public bool ConvertToWebp(string inputPath, string outputPath, uint quality = 75)
         {
             if (quality is < 0 or > 100) throw new ArgumentOutOfRangeException(nameof(quality));
 
@@ -336,9 +336,20 @@ namespace Deploy.LaunchPad.Images.Domain
 
             image.Format = MagickFormat.WebP;
             image.Quality = quality;
+            bool conversionSucceeded = false;
+            try
+            {
 
-            Directory.CreateDirectory(Path.GetDirectoryName(outputPath)!);
-            image.Write(outputPath);
+                Directory.CreateDirectory(Path.GetDirectoryName(outputPath)!);
+                image.Write(outputPath);
+                conversionSucceeded = true;
+            }
+            catch (Exception ex)
+            {
+                // Handle exceptions (e.g., log them)
+                Console.Error.WriteLine($"Error converting image to WebP: {ex.Message}");
+            }
+            return conversionSucceeded;
         }
     }
 }

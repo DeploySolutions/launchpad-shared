@@ -65,6 +65,6 @@ namespace Deploy.LaunchPad.Images.Domain
         /// <param name="height">The new height of this category</param>
         void SetThumbnailSizeDimensions(ImageManager.ThumbnailSize size, int width, int height);
 
-        void ConvertToWebp(string inputImageFilePath, string outputWebpFilePath, uint quality = 75);
+        bool ConvertToWebp(string inputImageFilePath, string outputWebpFilePath, uint quality = 75);
     }
 }
