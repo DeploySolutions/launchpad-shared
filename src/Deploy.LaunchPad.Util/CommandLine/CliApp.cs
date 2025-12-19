@@ -103,10 +103,10 @@ namespace Deploy.LaunchPad.Util.CommandLine
                                 }
                                 else
                                 {
-                                    string errorMessage = $"Unsupported numeric type for key '{kvp.Key}'";
-                                    methodResult.AddError(errorMessage);
-                                    logger.Error(errorMessage);
-                                    throw new ArgumentException(errorMessage);
+                                    string message = $"Unsupported numeric type for key '{kvp.Key}'";
+                                    methodResult.AddError(message);
+                                    logger.Error(message);
+                                    throw new ArgumentException(message);
                                 }
                                 break;
                             case JsonValueKind.Array:
