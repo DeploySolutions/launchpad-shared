@@ -16,6 +16,7 @@ namespace Deploy.LaunchPad.Images.Domain
 {
     using Abp.Domain.Services;
     using ImageMagick;
+    using System;
     using System.IO;
 
     /// <summary>
@@ -63,5 +64,7 @@ namespace Deploy.LaunchPad.Images.Domain
         /// <param name="width">The new width of this category</param>
         /// <param name="height">The new height of this category</param>
         void SetThumbnailSizeDimensions(ImageManager.ThumbnailSize size, int width, int height);
+
+        void ConvertToWebp(string inputImageFilePath, string outputWebpFilePath, uint quality = 75);
     }
 }

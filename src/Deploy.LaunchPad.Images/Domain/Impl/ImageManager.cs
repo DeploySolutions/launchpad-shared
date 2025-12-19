@@ -318,5 +318,27 @@ namespace Deploy.LaunchPad.Images.Domain
 
         }
 
+        /// <summary>
+        /// Converts an image to WebP format at the given compression
+        /// </summary>
+        /// <param name="inputPath"></param>
+        /// <param name="outputPath"></param>
+        /// <param name="quality"></param>
+        /// <exception cref="ArgumentOutOfRangeException"></exception>
+        public void ConvertToWebp(string inputPath, string outputPath, uint quality = 75)
+        {
+            if (quality is < 0 or > 100) throw new ArgumentOutOfRangeException(nameof(quality));
+
+            using var image = new MagickImage(inputPath);
+
+            // Optional: strip metadata
+            image.Strip();
+
+            image.Format = MagickFormat.WebP;
+            image.Quality = quality;
+
+            Directory.CreateDirectory(Path.GetDirectoryName(outputPath)!);
+            image.Write(outputPath);
+        }
     }
 }
