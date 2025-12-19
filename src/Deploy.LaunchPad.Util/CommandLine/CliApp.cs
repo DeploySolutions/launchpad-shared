@@ -76,6 +76,39 @@ namespace Deploy.LaunchPad.Util.CommandLine
                                 methodResult.AddSuccess($"Added JsonValueKind.String {jsonElement.GetString()}");
                                 break;
                             case JsonValueKind.Object:
+                            case JsonValueKind.Number:
+                                if (jsonElement.TryGetInt32(out int intValue))
+                                {
+                                    argList.Add($"--{kvp.Key}");
+                                    argList.Add(intValue.ToString());
+                                    methodResult.AddSuccess($"Added JsonValueKind.Number (int) {intValue}");
+                                }
+                                else if (jsonElement.TryGetInt64(out long longValue))
+                                {
+                                    argList.Add($"--{kvp.Key}");
+                                    argList.Add(longValue.ToString());
+                                    methodResult.AddSuccess($"Added JsonValueKind.Number (long) {longValue}");
+                                }
+                                else if (jsonElement.TryGetDouble(out double doubleValue))
+                                {
+                                    argList.Add($"--{kvp.Key}");
+                                    argList.Add(doubleValue.ToString());
+                                    methodResult.AddSuccess($"Added JsonValueKind.Number (double) {doubleValue}");
+                                }
+                                else if (jsonElement.TryGetDecimal(out decimal decimalValue))
+                                {
+                                    argList.Add($"--{kvp.Key}");
+                                    argList.Add(decimalValue.ToString());
+                                    methodResult.AddSuccess($"Added JsonValueKind.Number (decimal) {decimalValue}");
+                                }
+                                else
+                                {
+                                    string errorMessage = $"Unsupported numeric type for key '{kvp.Key}'";
+                                    methodResult.AddError(errorMessage);
+                                    logger.Error(errorMessage);
+                                    throw new ArgumentException(errorMessage);
+                                }
+                                break;
                             case JsonValueKind.Array:
                                 // Serialize JSON objects/arrays back to string
                                 argList.Add($"--{kvp.Key}");
