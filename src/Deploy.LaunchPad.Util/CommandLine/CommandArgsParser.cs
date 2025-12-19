@@ -271,23 +271,18 @@ namespace Deploy.LaunchPad.Util.CommandLine
                 // Convert arguments to a string array for CliParser.Parse
                 var argv = args.SelectMany(kvp =>
                 {
-                    // Handle Dictionary<string, object> arguments
                     if (kvp.Value is Dictionary<string, object> nestedDictionaryWithObject)
                     {
-                        // Serialize the nested dictionary to JSON
                         var serializedDictionary = System.Text.Json.JsonSerializer.Serialize(nestedDictionaryWithObject);
                         return new[] { $"--{kvp.Key}", serializedDictionary };
                     }
                     if (kvp.Value is Dictionary<string, string> nestedDictionaryWithString)
                     {
-                        // Serialize the nested dictionary to JSON
                         var serializedDictionary = System.Text.Json.JsonSerializer.Serialize(nestedDictionaryWithString);
                         return new[] { $"--{kvp.Key}", serializedDictionary };
                     }
-                    // Handle Dictionary<string, LaunchPadToken> arguments
                     else if (kvp.Value is Dictionary<string, LaunchPadToken> tokenDictionary)
                     {
-                        // Serialize the token dictionary to JSON
                         var serializedDictionary = System.Text.Json.JsonSerializer.Serialize(tokenDictionary);
                         return new[] { $"--{kvp.Key}", serializedDictionary };
                     }
@@ -295,12 +290,10 @@ namespace Deploy.LaunchPad.Util.CommandLine
                     {
                         return new[] { $"--{kvp.Key}", elementNameValue.Full };
                     }
-                    // Handle string arguments
-                    else if (kvp.Value is string stringValue)
+                    else if (kvp.Value is string stringValue || kvp.Value is int || kvp.Value is uint || kvp.Value is long || kvp.Value is double || kvp.Value is float || kvp.Value is decimal)
                     {
-                        return new[] { $"--{kvp.Key}", stringValue };
+                        return new[] { $"--{kvp.Key}", kvp.Value.ToString() };
                     }
-                    // Handle other types (convert to string)
                     else
                     {
                         return new[] { $"--{kvp.Key}", kvp.Value?.ToString() ?? string.Empty };
