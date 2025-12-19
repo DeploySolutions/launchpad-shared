@@ -1,0 +1,51 @@
+<Solution>
+  <Folder Name="/.nuget/" />
+  <Folder Name="/Solution Items/">
+    <File Path="Directory.Packages.props" />
+    <File Path="nuget.config" />
+  </Folder>
+  <Folder Name="/Solution Items/Docs/" />
+  <Folder Name="/Solution Items/Libs/" />
+  <Folder Name="/Solution Items/Licenses/">
+    <File Path="Geolocation.License.txt" />
+    <File Path="Licenses/AspNetBoilerplate.License.txt" />
+    <File Path="Licenses/AWSSDKSecretsManager.License.txt" />
+    <File Path="Licenses/AwsSignatureVersion4.License.txt" />
+    <File Path="Licenses/Castle.Core.License.txt" />
+    <File Path="Licenses/Castle.Windsor.License.txt" />
+    <File Path="Licenses/CodeProject.SequentialGuid.License.txt" />
+    <File Path="Licenses/DeploySoftware.LaunchPad.License.txt" />
+    <File Path="Licenses/File.TypeChecker.License.txt" />
+    <File Path="Licenses/HtmlAgilityPack.License.txt" />
+    <File Path="Licenses/Magick.NET.License.txt" />
+    <File Path="Licenses/Microsoft.System.Collections.Immutable.License.txt" />
+    <File Path="Licenses/NetTopologySuite.Features.License.txt" />
+    <File Path="Licenses/NetTopologySuite.IO.GeoJSON.License.txt" />
+    <File Path="Licenses/NetTopologySuite.License.txt" />
+    <File Path="Licenses/Newtonsoft.Json.License.txt" />
+    <File Path="Licenses/Pocketken.H3.License.txt" />
+    <File Path="Licenses/quicktype.License.txt" />
+    <File Path="Licenses/RestSharp.License.txt" />
+    <File Path="Licenses/Serilog.License.txt" />
+    <File Path="Licenses/Shoudly.License.txt" />
+    <File Path="schemaNET.License.txt" />
+    <File Path="Xunit.License.txt" />
+  </Folder>
+  <Folder Name="/Src/">
+    <Project Path="src/Deploy.LaunchPad.AWS.Abp/Deploy.LaunchPad.AWS.Abp.csproj" />
+    <Project Path="src/Deploy.LaunchPad.AWS/Deploy.LaunchPad.AWS.csproj" />
+    <Project Path="src/Deploy.LaunchPad.Core.Abp/Deploy.LaunchPad.Core.Abp.csproj" />
+    <Project Path="src/Deploy.LaunchPad.Core/Deploy.LaunchPad.Core.csproj" />
+    <Project Path="src/Deploy.LaunchPad.ECommerce.Abp/Deploy.LaunchPad.ECommerce.Abp.csproj" />
+    <Project Path="src/Deploy.LaunchPad.Images/Deploy.LaunchPad.Images.csproj" />
+    <Project Path="src/Deploy.LaunchPad.Organizations/Deploy.LaunchPad.Organizations.csproj" />
+    <Project Path="src/Deploy.LaunchPad.Python/Deploy.LaunchPad.Python.csproj" />
+    <Project Path="src/Deploy.LaunchPad.Space.Satellites/Deploy.LaunchPad.Space.Satellites.csproj" />
+    <Project Path="src/Deploy.LaunchPad.Util/Deploy.LaunchPad.Util.csproj" />
+  </Folder>
+  <Folder Name="/Tests/">
+    <Project Path="tests/Deploy.LaunchPad.Core.Tests/Deploy.LaunchPad.Core.Tests.csproj" />
+    <Project Path="tests/Deploy.LaunchPad.Images.Test/Deploy.LaunchPad.Images.Tests.csproj" />
+    <Project Path="tests/Deploy.LaunchPad.Space.Tests/Deploy.LaunchPad.Space.Tests.csproj" />
+  </Folder>
+</Solution>
