@@ -27,7 +27,6 @@
     <File Path="Licenses/quicktype.License.txt" />
     <File Path="Licenses/RestSharp.License.txt" />
     <File Path="Licenses/Serilog.License.txt" />
-    <File Path="Licenses/Shoudly.License.txt" />
     <File Path="schemaNET.License.txt" />
     <File Path="Xunit.License.txt" />
   </Folder>

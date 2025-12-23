@@ -61,16 +61,16 @@
   <!-- Microsoft Packages Ends -->
   <!-- AWS Packages Starts -->
   <ItemGroup>
-    <PackageVersion Include="AWSSDK.APIGateway" Version="4.0.5.2" />
+    <PackageVersion Include="AWSSDK.APIGateway" Version="4.0.5.3" />
     <PackageVersion Include="Amazon.CDK.Lib" Version="2.158.0" />
-    <PackageVersion Include="AWSSDK.Core" Version="4.0.3.5" />
-    <PackageVersion Include="AWSSDK.ElasticFileSystem" Version="4.0.3.7" />
-    <PackageVersion Include="AWSSDK.Lambda" Version="4.0.11.2" />
-    <PackageVersion Include="AWSSDK.Redshift" Version="4.0.5.2" />
-    <PackageVersion Include="AWSSDK.S3" Version="4.0.14.2" />
-    <PackageVersion Include="AWSSDK.SecretsManager" Version="4.0.3.3" />
-    <PackageVersion Include="AWSSDK.SimpleNotificationService" Version="4.0.2.9" />
-    <PackageVersion Include="AWSSDK.SQS" Version="4.0.2.7" />
+    <PackageVersion Include="AWSSDK.Core" Version="4.0.3.6" />
+    <PackageVersion Include="AWSSDK.ElasticFileSystem" Version="4.0.3.8" />
+    <PackageVersion Include="AWSSDK.Lambda" Version="4.0.12.1" />
+    <PackageVersion Include="AWSSDK.Redshift" Version="4.0.5.3" />
+    <PackageVersion Include="AWSSDK.S3" Version="4.0.15.2" />
+    <PackageVersion Include="AWSSDK.SecretsManager" Version="4.0.4.1" />
+    <PackageVersion Include="AWSSDK.SimpleNotificationService" Version="4.0.2.10" />
+    <PackageVersion Include="AWSSDK.SQS" Version="4.0.2.8" />
     <PackageVersion Include="AwsSignatureVersion4" Version="5.0.1" />
   </ItemGroup>
   <!-- AWS Packages Ends -->
@@ -79,9 +79,9 @@
     <PackageVersion Include="Castle.Core" Version="5.2.1" />
     <PackageVersion Include="Castle.Core-Serilog" Version="5.1.1" />
     <PackageVersion Include="Serilog" Version="4.1.0" />
-    <PackageVersion Include="Serilog.AspNetCore" Version="8.0.3" />
-    <PackageVersion Include="Serilog.Extensions.Logging" Version="8.0.0" />
-    <PackageVersion Include="Serilog.Sinks.Async" Version="2.0.0" />
+    <PackageVersion Include="Serilog.AspNetCore" Version="10.0.0" />
+    <PackageVersion Include="Serilog.Extensions.Logging" Version="10.0.0" />
+    <PackageVersion Include="Serilog.Sinks.Async" Version="2.1.0" />
     <PackageVersion Include="Serilog.Sinks.Console" Version="6.1.1" />
     <PackageVersion Include="Serilog.Sinks.File" Version="6.0.0" />
   </ItemGroup>
