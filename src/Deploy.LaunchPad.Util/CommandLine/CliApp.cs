@@ -115,6 +115,12 @@ namespace Deploy.LaunchPad.Util.CommandLine
                                 argList.Add(jsonElement.GetRawText());
                                 methodResult.AddSuccess($"Added JsonValueKind.String {jsonElement.GetRawText()}");
                                 break;
+                            case JsonValueKind.True:
+                            case JsonValueKind.False:
+                                argList.Add($"--{kvp.Key}");
+                                argList.Add(jsonElement.GetBoolean().ToString().ToLower());
+                                methodResult.AddSuccess($"Added JsonValueKind.Boolean {jsonElement.GetBoolean()}");
+                                break;
                             default:
                                 string errorMessage = $"Unsupported JsonElement type for key '{kvp.Key}': {jsonElement.ValueKind}";
                                 methodResult.AddError(errorMessage);
