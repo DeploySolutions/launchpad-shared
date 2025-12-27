@@ -97,16 +97,17 @@ public partial record CommandInput : LaunchPadMethodInputBase
         Ct = ct;
 
         // Parse the raw arguments into CliParseResultValue
-        Args = ParseArgs(command);
+        Args = ParseArgs(logger, command);
     }
 
     /// <summary>
     /// Parses the raw arguments into a CliParseResultValue.
     /// </summary>
-    private Deploy.LaunchPad.Util.CommandLine.CommandArgsParseResultValue ParseArgs(ICommand command)
+    private Deploy.LaunchPad.Util.CommandLine.CommandArgsParseResultValue ParseArgs(ILogger logger, ICommand command)
     {
         // Use the CliParser to parse the raw arguments
         var parseResult = Deploy.LaunchPad.Util.CommandLine.CommandArgsParser.Parse(
+            logger,
             command,
             _args.Select(kvp => new[] { $"--{kvp.Key}", kvp.Value.ToString() }).SelectMany(x => x).ToArray()
         );

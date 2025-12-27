@@ -76,6 +76,11 @@ namespace Deploy.LaunchPad.Util.CommandLine
                                 methodResult.AddSuccess($"Added JsonValueKind.String {jsonElement.GetString()}");
                                 break;
                             case JsonValueKind.Object:
+                                string jsonObject = jsonElement.GetRawText();
+                                argList.Add($"--{kvp.Key}");
+                                argList.Add(jsonObject);
+                                methodResult.AddSuccess($"Added JsonValueKind.Object {jsonObject}");
+                                break;
                             case JsonValueKind.Number:
                                 if (jsonElement.TryGetInt32(out int intValue))
                                 {
@@ -158,7 +163,18 @@ namespace Deploy.LaunchPad.Util.CommandLine
                 }
             }
 
-            var parseResult = CommandArgsParser.Parse(command, argList.ToArray());
+            LaunchPadMethodResult<CommandArgsParseResultValue> parseResult = null;
+            try
+            {
+                parseResult = CommandArgsParser.Parse(logger, command, argList.ToArray());
+            }
+            catch(InvalidOperationException ioe)
+            {
+                string errorMessage = $"Error in parse of command '{commandName}': {ioe.Message}";
+                methodResult.AddError(errorMessage);
+                logger.Error(errorMessage);
+                throw new ArgumentException(errorMessage, ioe);
+            }
             if (parseResult != null && !parseResult.Succeeded)
             {
                 string errorMessage = $"Error in parse of command '{commandName}': {parseResult.Errors}";

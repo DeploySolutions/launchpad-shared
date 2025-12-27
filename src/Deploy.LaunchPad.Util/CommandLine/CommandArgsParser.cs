@@ -1,4 +1,5 @@
-﻿using Deploy.LaunchPad.Util.Methods;
+﻿using Castle.Core.Logging;
+using Deploy.LaunchPad.Util.Methods;
 using FluentResults;
 using System;
 using System.Collections.Generic;
@@ -37,7 +38,7 @@ namespace Deploy.LaunchPad.Util.CommandLine
         /// </list>
         /// It validates the arguments against the command's options, converts them to their expected types, and fills in default values for optional arguments.
         /// </remarks>
-        public static LaunchPadMethodResult<CommandArgsParseResultValue> Parse(ICommand command, object args)
+        public static LaunchPadMethodResult<CommandArgsParseResultValue> Parse(ILogger logger, ICommand command, object args)
         {
             Guard.Against<ArgumentNullException>(command == null, "CliParseResult.Parse() => command cannot be null.");
             Guard.Against<ArgumentNullException>(command.Options == null, "CliParseResult.Parse() => command.Options cannot be null.");
@@ -52,6 +53,7 @@ namespace Deploy.LaunchPad.Util.CommandLine
                 // Check if the arguments are a Dictionary<string, object>
                 if (args is Dictionary<string, object> dictionaryArgs)
                 {
+                    logger.Debug("CommandArgsParser.Parse() => Dictionary<string, object>");
                     // Delegate to ValidateArguments for Dictionary<string, object>
                     return ValidateArguments(command, dictionaryArgs);
                 }
@@ -72,10 +74,11 @@ namespace Deploy.LaunchPad.Util.CommandLine
                     for (int i = 0; i < argv.Length; i++)
                     {
                         var token = argv[i];
-
+                        
                         // --foo=bar
                         if (token.StartsWith("--", StringComparison.Ordinal))
                         {
+                            logger.Debug("CommandArgsParser.Parse() => --foo=bar");
                             string key, maybeVal = "";
                             var eqIdx = token.IndexOf('=', StringComparison.Ordinal);
                             if (eqIdx >= 0)
@@ -138,6 +141,7 @@ namespace Deploy.LaunchPad.Util.CommandLine
                         // -n foo or -n=foo or -y
                         if (token.StartsWith("-", StringComparison.Ordinal))
                         {
+                            logger.Debug("CommandArgsParser.Parse() => -n foo or -n=foo or -y");
                             var eqIdx = token.IndexOf('=', StringComparison.Ordinal);
                             var key = eqIdx >= 0 ? token[..eqIdx] : token;
 
@@ -201,7 +205,9 @@ namespace Deploy.LaunchPad.Util.CommandLine
                         {
                             if (def.Required)
                             {
-                                validateArgumentsResult.WithError($"Missing required option '{def.LongSwitch}'.");
+                                string message = $"Missing required option '{def.LongSwitch}'.";
+                                logger.Error(message);
+                                validateArgumentsResult.WithError(message);
                             }
                             else
                             {
