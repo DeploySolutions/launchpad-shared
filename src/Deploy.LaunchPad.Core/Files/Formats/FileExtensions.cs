@@ -106,7 +106,7 @@ namespace Deploy.LaunchPad.Core.Files.Formats
         svg,
         [Display(Name = ".tar")]
         tar,
-        [Display(Name = "tar.gz")]
+        [Display(Name = ".tar.gz")]
         targz,
         [Display(Name = ".tiff")]
         tiff,
