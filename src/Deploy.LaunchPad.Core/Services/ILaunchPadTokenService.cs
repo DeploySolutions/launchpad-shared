@@ -12,7 +12,7 @@
 // <summary></summary>
 // ***********************************************************************
 
-using Deploy.LaunchPad.Util;
+using Deploy.LaunchPad.Util.Tokens;    
 using System.Collections.Generic;
 
 namespace Deploy.LaunchPad.Core.Services
@@ -25,6 +25,6 @@ namespace Deploy.LaunchPad.Core.Services
 
         public IDictionary<string, LaunchPadToken> FindTokensInText(string text, string tokenPattern = "\\{\\{p:.*?\\|\\}\\}", TokenLoggingStrategy shouldLogTokens = TokenLoggingStrategy.DoNotLogTokenMatching);
         public LaunchPadToken FindTokenWithName(string text, string tokenName, string tokenPattern = "\\{\\{p:.*?\\|\\}\\}", TokenLoggingStrategy shouldLogTokens = TokenLoggingStrategy.DoNotLogTokenMatching);
-        public string Tokenize(string originalText, IDictionary<string, LaunchPadToken> tokens, TokenMatchingStrategy tokenMatching = TokenMatchingStrategy.IgnoreTokenValuesWhenMatching, TokenLoggingStrategy shouldLogTokens = TokenLoggingStrategy.DoNotLogTokenMatching);
+        public string Tokenize(string originalText, IDictionary<string, LaunchPadToken> tokens, TokenMatchingStrategy tokenMatching = TokenMatchingStrategy.IgnoreTokenValuesWhenMatching, TokenLoggingStrategy shouldLogTokens = TokenLoggingStrategy.DoNotLogTokenMatching, string tokenStartPrefix = @"\{\{", string tokenEndPrefix = @"\}\}");
     }
 }

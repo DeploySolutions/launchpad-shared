@@ -32,7 +32,7 @@ namespace Deploy.LaunchPad.Core.Tests
     
     using System;
     using System.Collections.Generic;
-    using Deploy.LaunchPad.Util;
+    using Deploy.LaunchPad.Util.Tokens;
     using Deploy.LaunchPad.Core.Services;
 
     /// <summary>

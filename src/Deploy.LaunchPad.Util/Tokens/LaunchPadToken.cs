@@ -19,7 +19,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Xml.Serialization;
 
-namespace Deploy.LaunchPad.Util
+namespace Deploy.LaunchPad.Util.Tokens
 {
     /// <summary>
     /// Class LaunchPadToken.

@@ -13,6 +13,7 @@
 // ***********************************************************************
 using Castle.Core.Logging;
 using Deploy.LaunchPad.Util;
+using Deploy.LaunchPad.Util.Tokens;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -105,10 +106,13 @@ namespace Deploy.LaunchPad.Core.Services
         /// <param name="logger">The logger.</param>
         /// <param name="shouldLogTokens">if set to <c>true</c> [should log tokens].</param>
         /// <returns>System.String.</returns>
-        public string Tokenize(string originalText, IDictionary<string, LaunchPadToken> tokens, TokenMatchingStrategy tokenMatching = TokenMatchingStrategy.IgnoreTokenValuesWhenMatching, TokenLoggingStrategy shouldLogTokens = TokenLoggingStrategy.DoNotLogTokenMatching)
+        public string Tokenize(string originalText, IDictionary<string, LaunchPadToken> tokens, TokenMatchingStrategy tokenMatching = TokenMatchingStrategy.IgnoreTokenValuesWhenMatching, TokenLoggingStrategy shouldLogTokens = TokenLoggingStrategy.DoNotLogTokenMatching, string tokenStartPrefix = @"{{", string tokenEndPrefix = @"}}")
         {
             Guard.Against<ArgumentException>(String.IsNullOrEmpty(originalText), Deploy_LaunchPad_Core_Resources.Guard_LaunchPadTokenizer_ArgumentException_OriginalText);
             Guard.Against<ArgumentException>(tokens.Count == 0, Deploy_LaunchPad_Core_Resources.Guard_LaunchPadTokenizer_ArgumentException_Tokens);
+
+            TokenHelper helper = new TokenHelper();
+
             var comparer = StringComparer.OrdinalIgnoreCase;
             MatchedTokens = new Dictionary<string, LaunchPadToken>(comparer);
             UnmatchedTokens = new Dictionary<string, LaunchPadToken>(comparer);
@@ -127,7 +131,8 @@ namespace Deploy.LaunchPad.Core.Services
             foreach (var token in tokens.Values)
             {
                 StringBuilder sbRegExp = new StringBuilder();
-                sbRegExp.Append(@"\{\{p:");
+                sbRegExp.Append(helper.EscapeTextForRegex(tokenStartPrefix)); 
+                sbRegExp.Append(@"p:");
                 sbRegExp.Append(token.Prefix);
                 sbRegExp.Append(@"\|n:");
                 sbRegExp.Append(token.Name);
@@ -140,9 +145,9 @@ namespace Deploy.LaunchPad.Core.Services
                     // generate the token tags format for the kvps
                     foreach (var tag in token.Tags)
                     {
-                        sbRegExp.Append(EscapeTextForRegex(tag.Key));
+                        sbRegExp.Append(helper.EscapeTextForRegex(tag.Key));
                         sbRegExp.Append("=");
-                        sbRegExp.Append(EscapeTextForRegex(tag.Value));
+                        sbRegExp.Append(helper.EscapeTextForRegex(tag.Value));
                         sbRegExp.Append(";");
                     }
                     sbRegExp.Append(@".*?)+))))+)))"); // match the token tags
@@ -150,20 +155,20 @@ namespace Deploy.LaunchPad.Core.Services
                 else if (tokenMatching == TokenMatchingStrategy.ConsiderTokenValuesWhenMatching && !string.IsNullOrEmpty(token.Value))
                 {
                     sbRegExp.Append(@"(?:\|v:(("); // start of the v: element
-                    sbRegExp.Append(EscapeTextForRegex(token.Value));
+                    sbRegExp.Append(helper.EscapeTextForRegex(token.Value));
                     sbRegExp.Append(@".*?)+))"); // ending of the v: element
                 }
                 else if (!string.IsNullOrEmpty(token.DefaultValue))
                 {
                     sbRegExp.Append(@"(?:\|dv:(("); // start of the dv: element
-                    sbRegExp.Append(EscapeTextForRegex(token.DefaultValue));
+                    sbRegExp.Append(helper.EscapeTextForRegex(token.DefaultValue));
                     sbRegExp.Append(@".*?)+))"); // ending of the dv: element
                 }
                 else // don't filter, just close out the name element and match on the remaining characters
                 {
                     sbRegExp.Append(@"\|((.*?)+)");
                 }
-                sbRegExp.Append(@"\}\}");
+                sbRegExp.Append(helper.EscapeTextForRegex(tokenEndPrefix));
                 //string regexPattern = Regex.Escape(sbRegExp.ToString());
                 string regexPattern = sbRegExp.ToString();
                 sw = Stopwatch.StartNew();
@@ -218,35 +223,7 @@ namespace Deploy.LaunchPad.Core.Services
             return TokenizedText;
         }
 
-        /// <summary>
-        /// Escapes RegEx characters from provided text to ensure the resulting Regex pattern is valid.
-        /// </summary>
-        /// <param name="value">The value.</param>
-        /// <returns>System.String.</returns>
-        protected string EscapeTextForRegex(string value)
-        {
-            IList<string> escapeCharacters = new List<string>();
-            escapeCharacters.Add("(");
-            escapeCharacters.Add(")");
-            escapeCharacters.Add("[");
-            escapeCharacters.Add("]");
-            escapeCharacters.Add("/");
-            escapeCharacters.Add("{");
-            escapeCharacters.Add("}");
-            escapeCharacters.Add("*");
-            escapeCharacters.Add("+");
-            escapeCharacters.Add("?");
-            escapeCharacters.Add(".");
-            escapeCharacters.Add("$");
-
-            StringBuilder sb = new StringBuilder(value);
-            foreach (string unwanted in escapeCharacters)
-            {
-                sb.Replace(unwanted, '\\' + unwanted);
-            }
-            return sb.ToString();
-        }
-
+        
         /// <summary>
         /// Find a token with the given name in the text. If the token is found, return the token, otherwise return null.
         /// </summary>
@@ -311,25 +288,5 @@ namespace Deploy.LaunchPad.Core.Services
         }
     }
 
-    /// <summary>
-    /// Token matching can be done in two ways. By default, the token's value is ignored when checking for a match. 
-    /// If you want to consider (require) the token's value is present when checking for a match, set this to ConsiderTokenValuesWhenMatching.
-    /// </summary>
-    public enum TokenMatchingStrategy
-    {
-        IgnoreTokenValuesWhenMatching = 0, // when checking for token matches, ignore what's currently in the token's Value field. (the default)
-        ConsiderTokenValuesWhenMatching = 1, // when checking for token matches, only consider a match if what is in the token's Value field is also present in the token in the source text.        
-    }
-
-    /// <summary>
-    /// Token matching can generate a lot of logging noise and incur processing overhead. By default, logging is disabled. 
-    /// It can be enabled if you want to verify unexpected matching results or errors. If enabled, it uses the standard logging engine configuration.
-    /// </summary>
-    public enum TokenLoggingStrategy
-    {
-        DoNotLogTokenMatching = 0, // do not log any token matching activities. Calling methods can do any logging they need. (the default)
-        LogTokenMatching = 1 // log all token matching activities 
-        
-
-    }
+    
 }

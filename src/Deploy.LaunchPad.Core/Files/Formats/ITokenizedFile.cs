@@ -1,4 +1,4 @@
-﻿using Deploy.LaunchPad.Util;
+﻿using Deploy.LaunchPad.Util.Tokens;
 using System.Collections.Generic;
 
 namespace Deploy.LaunchPad.Core.Files
