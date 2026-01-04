@@ -46,7 +46,7 @@ namespace Deploy.LaunchPad.Core.SourceControl
         /// <summary>
         /// Initializes a new instance of the <see cref="GitRepository"/> class.
         /// </summary>
-        protected GitRepository() : base()
+        public GitRepository() : base()
         {
         }
 

@@ -38,5 +38,7 @@ namespace Deploy.LaunchPad.Core.SourceControl
         /// </summary>
         /// <value>The URI.</value>
         Uri Uri { get; set; }
+
+        string LocalFilePath { get; set; }
     }
 }

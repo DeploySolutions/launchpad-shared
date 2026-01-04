@@ -43,7 +43,7 @@ namespace Deploy.LaunchPad.Core.SourceControl
         /// <value>The URI.</value>
         public virtual Uri Uri { get; set; }
 
-
+        public virtual string LocalFilePath { get; set; }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="SourceControlRepository"/> class.
