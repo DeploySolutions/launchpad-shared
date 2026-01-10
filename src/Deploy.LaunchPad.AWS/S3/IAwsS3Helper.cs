@@ -29,5 +29,11 @@ namespace Deploy.LaunchPad.AWS.S3
         /// <value>The s3 client.</value>
         public AmazonS3Client S3Client { get; }
 
+        /// <summary>
+        /// Returns a bucket name from the provided bucket ARN
+        /// </summary>
+        /// <param name="bucketArn"></param>
+        /// <returns>A bucket name (removes the "arn:aws:s3::" prefix from a provided ARN</returns>
+        public string GetBucketNameFromArn(string bucketArn);
     }
 }

@@ -14,6 +14,8 @@
 using Amazon.S3;
 using Castle.Core.Logging;
 using Newtonsoft.Json;
+using System;
+using Deploy.LaunchPad.Util;
 
 namespace Deploy.LaunchPad.AWS.S3
 {
@@ -26,6 +28,9 @@ namespace Deploy.LaunchPad.AWS.S3
     /// <seealso cref="Deploy.LaunchPad.AWS.S3.IAwsS3Helper" />
     public partial class AwsS3Helper : AwsHelperBase<AmazonS3Config>, IAwsS3Helper
     {
+
+        protected const string BucketArnPrefix = "arn:aws:s3:::";
+
         /// <summary>
         /// The s3 client
         /// </summary>
@@ -78,6 +83,20 @@ namespace Deploy.LaunchPad.AWS.S3
         {
             AwsProfileName = localAwsProfileName;
             _s3Client = s3Client;
+        }
+
+        /// <summary>
+        /// Returns a bucket name from the provided bucket ARN
+        /// </summary>
+        /// <param name="bucketArn"></param>
+        /// <returns>A bucket name (removes the "arn:aws:s3::" prefix from a provided ARN</returns>
+        public virtual string GetBucketNameFromArn(string bucketArn)
+        {
+            Guard.Against<ArgumentNullException>(string.IsNullOrEmpty(bucketArn), "bucketArn cannot be null or empty.");
+            Guard.Against<ArgumentException>(!bucketArn.StartsWith(BucketArnPrefix), $"bucketArn must start with {BucketArnPrefix}");
+
+            string bucketName = bucketArn.Replace(BucketArnPrefix, string.Empty);
+            return bucketName;
         }
     }
 }

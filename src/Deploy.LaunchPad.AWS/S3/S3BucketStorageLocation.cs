@@ -29,7 +29,6 @@
 using Amazon.S3.Model;
 using Amazon.S3;
 using Castle.Core.Logging;
-using Deploy.LaunchPad.AWS.Abp.S3.Services;
 using Deploy.LaunchPad.Core.Domain;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -44,6 +43,7 @@ using Deploy.LaunchPad.Core.Files;
 using Deploy.LaunchPad.Core.Files.Storage;
 using Deploy.LaunchPad.Core;
 using Deploy.LaunchPad.Util;
+using Deploy.LaunchPad.AWS.S3.Services;
 
 namespace Deploy.LaunchPad.AWS.S3
 {

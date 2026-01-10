@@ -26,7 +26,7 @@ using System.IO;
 using System.Net;
 using System.Threading.Tasks;
 
-namespace Deploy.LaunchPad.AWS.Abp.S3.Services
+namespace Deploy.LaunchPad.AWS.S3.Services
 {
     /// <summary>
     /// Class AwsS3Service.
