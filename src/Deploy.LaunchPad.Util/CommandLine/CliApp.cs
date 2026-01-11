@@ -208,7 +208,8 @@ namespace Deploy.LaunchPad.Util.CommandLine
             }
             if (parseResult != null && !parseResult.Succeeded)
             {
-                string errorMessage = $"Error in parse of command '{commandName}': {parseResult.Errors}";
+                string errorMessages = string.Join(Environment.NewLine, parseResult.Errors.Select(kvp => $"{kvp.Key}: {kvp.Value}"));
+                string errorMessage = $"Error in parse of command '{commandName}': {errorMessages}";
                 methodResult.AddError(errorMessage);
                 logger.Error(errorMessage);
                 throw new ArgumentException(errorMessage);
