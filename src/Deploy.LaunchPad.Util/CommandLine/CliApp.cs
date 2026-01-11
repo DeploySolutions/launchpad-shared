@@ -60,106 +60,137 @@ namespace Deploy.LaunchPad.Util.CommandLine
             var genericMethod = method.MakeGenericMethod(commandType, valueType);
 
             var argList = new List<string>();
+
             if (argDict != null)
             {
-                foreach (var kvp in argDict)
+                try
                 {
-                    Console.WriteLine($"Key: {kvp.Key}, Value Type: {kvp.Value?.GetType()}, Value: {kvp.Value}");
-                    if (kvp.Value is JsonElement jsonElement)
+                    foreach (var kvp in argDict)
                     {
-                        // Handle JsonElement based on its type
-                        switch (jsonElement.ValueKind)
+                        logger.Debug($"Key: {kvp.Key}, Value Type: {kvp.Value?.GetType()}, Value: {kvp.Value}");
+                        if (kvp.Value is JsonElement jsonElement)
                         {
-                            case JsonValueKind.String:
-                                argList.Add($"--{kvp.Key}");
-                                argList.Add(jsonElement.GetString());
-                                methodResult.AddSuccess($"Added JsonValueKind.String {jsonElement.GetString()}");
-                                break;
-                            case JsonValueKind.Object:
-                                string jsonObject = jsonElement.GetRawText();
-                                argList.Add($"--{kvp.Key}");
-                                argList.Add(jsonObject);
-                                methodResult.AddSuccess($"Added JsonValueKind.Object {jsonObject}");
-                                break;
-                            case JsonValueKind.Number:
-                                if (jsonElement.TryGetInt32(out int intValue))
-                                {
+                            // Handle JsonElement based on its type
+                            switch (jsonElement.ValueKind)
+                            {
+                                case JsonValueKind.String:
                                     argList.Add($"--{kvp.Key}");
-                                    argList.Add(intValue.ToString());
-                                    methodResult.AddSuccess($"Added JsonValueKind.Number (int) {intValue}");
-                                }
-                                else if (jsonElement.TryGetInt64(out long longValue))
-                                {
+                                    argList.Add(jsonElement.GetString());
+                                    methodResult.AddSuccess($"Added JsonValueKind.String {jsonElement.GetString()}");
+                                    break;
+                                case JsonValueKind.Object:
+                                    string jsonObject = jsonElement.GetRawText();
                                     argList.Add($"--{kvp.Key}");
-                                    argList.Add(longValue.ToString());
-                                    methodResult.AddSuccess($"Added JsonValueKind.Number (long) {longValue}");
-                                }
-                                else if (jsonElement.TryGetDouble(out double doubleValue))
-                                {
+                                    argList.Add(jsonObject);
+                                    methodResult.AddSuccess($"Added JsonValueKind.Object {jsonObject}");
+                                    break;
+                                case JsonValueKind.Number:
+                                    if (jsonElement.TryGetInt32(out int intValue))
+                                    {
+                                        argList.Add($"--{kvp.Key}");
+                                        argList.Add(intValue.ToString());
+                                        methodResult.AddSuccess($"Added JsonValueKind.Number (int) {intValue}");
+                                    }
+                                    else if (jsonElement.TryGetInt64(out long longValue))
+                                    {
+                                        argList.Add($"--{kvp.Key}");
+                                        argList.Add(longValue.ToString());
+                                        methodResult.AddSuccess($"Added JsonValueKind.Number (long) {longValue}");
+                                    }
+                                    else if (jsonElement.TryGetDouble(out double doubleValue))
+                                    {
+                                        argList.Add($"--{kvp.Key}");
+                                        argList.Add(doubleValue.ToString());
+                                        methodResult.AddSuccess($"Added JsonValueKind.Number (double) {doubleValue}");
+                                    }
+                                    else if (jsonElement.TryGetDecimal(out decimal decimalValue))
+                                    {
+                                        argList.Add($"--{kvp.Key}");
+                                        argList.Add(decimalValue.ToString());
+                                        methodResult.AddSuccess($"Added JsonValueKind.Number (decimal) {decimalValue}");
+                                    }
+                                    else
+                                    {
+                                        string message = $"Unsupported numeric type for key '{kvp.Key}'";
+                                        methodResult.AddError(message);
+                                        logger.Error(message);
+                                        throw new ArgumentException(message);
+                                    }
+                                    break;
+                                case JsonValueKind.Array:
+                                    // Serialize JSON objects/arrays back to string
                                     argList.Add($"--{kvp.Key}");
-                                    argList.Add(doubleValue.ToString());
-                                    methodResult.AddSuccess($"Added JsonValueKind.Number (double) {doubleValue}");
-                                }
-                                else if (jsonElement.TryGetDecimal(out decimal decimalValue))
-                                {
+                                    argList.Add(jsonElement.GetRawText());
+                                    methodResult.AddSuccess($"Added JsonValueKind.String {jsonElement.GetRawText()}");
+                                    break;
+                                case JsonValueKind.True:
+                                case JsonValueKind.False:
                                     argList.Add($"--{kvp.Key}");
-                                    argList.Add(decimalValue.ToString());
-                                    methodResult.AddSuccess($"Added JsonValueKind.Number (decimal) {decimalValue}");
-                                }
-                                else
-                                {
-                                    string message = $"Unsupported numeric type for key '{kvp.Key}'";
-                                    methodResult.AddError(message);
-                                    logger.Error(message);
-                                    throw new ArgumentException(message);
-                                }
-                                break;
-                            case JsonValueKind.Array:
-                                // Serialize JSON objects/arrays back to string
-                                argList.Add($"--{kvp.Key}");
-                                argList.Add(jsonElement.GetRawText());
-                                methodResult.AddSuccess($"Added JsonValueKind.String {jsonElement.GetRawText()}");
-                                break;
-                            case JsonValueKind.True:
-                            case JsonValueKind.False:
-                                argList.Add($"--{kvp.Key}");
-                                argList.Add(jsonElement.GetBoolean().ToString().ToLower());
-                                methodResult.AddSuccess($"Added JsonValueKind.Boolean {jsonElement.GetBoolean()}");
-                                break;
-                            default:
-                                string errorMessage = $"Unsupported JsonElement type for key '{kvp.Key}': {jsonElement.ValueKind}";
-                                methodResult.AddError(errorMessage);
-                                logger.Error(errorMessage);
-                                throw new ArgumentException(errorMessage);
+                                    argList.Add(jsonElement.GetBoolean().ToString().ToLower());
+                                    methodResult.AddSuccess($"Added JsonValueKind.Boolean {jsonElement.GetBoolean()}");
+                                    break;
+                                default:
+                                    string errorMessage = $"Unsupported JsonElement type for key '{kvp.Key}': {jsonElement.ValueKind}";
+                                    methodResult.AddError(errorMessage);
+                                    logger.Error(errorMessage);
+                                    throw new ArgumentException(errorMessage);
+                            }
+                        }
+                        else if (kvp.Value is bool b && b)
+                        {
+                            argList.Add($"--{kvp.Key}");
+                            methodResult.AddSuccess($"Added {kvp.Key}");
+                        }
+                        else if (kvp.Value is string strValue)
+                        {
+                            // Directly add string values (e.g., file paths)
+                            argList.Add($"--{kvp.Key}");
+                            argList.Add(strValue);
+                            methodResult.AddSuccess($"Added {strValue}");
+
+                        }
+                        else if (kvp.Value is not null && !(kvp.Value.GetType().IsPrimitive))
+                        {
+                            // Serialize complex objects to JSON strings
+                            string jsonValue = JsonSerializer.Serialize(kvp.Value, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+                            argList.Add($"--{kvp.Key}");
+                            argList.Add(jsonValue);
+                            methodResult.AddSuccess($"Added {kvp.Key}");
+                        }
+                        else
+                        {
+                            argList.Add($"--{kvp.Key}");
+                            argList.Add(kvp.Value?.ToString() ?? "");
+                            methodResult.AddSuccess($"Added {kvp.Key}");
                         }
                     }
-                    else if (kvp.Value is bool b && b)
-                    {
-                        argList.Add($"--{kvp.Key}");
-                        methodResult.AddSuccess($"Added {kvp.Key}");
-                    }
-                    else if (kvp.Value is string strValue)
-                    {
-                        // Directly add string values (e.g., file paths)
-                        argList.Add($"--{kvp.Key}");
-                        argList.Add(strValue);
-                        methodResult.AddSuccess($"Added {strValue}");
+                }
+                catch (ArgumentException ex)
+                {
+                    logger.Error($"ArgumentException occurred: {ex.Message}");
+                    logger.Error($"Stack Trace: {ex.StackTrace}");
 
-                    }
-                    else if (kvp.Value is not null && !(kvp.Value.GetType().IsPrimitive))
+                    if (ex.Data != null)
                     {
-                        // Serialize complex objects to JSON strings
-                        string jsonValue = JsonSerializer.Serialize(kvp.Value, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
-                        argList.Add($"--{kvp.Key}");
-                        argList.Add(jsonValue);
-                        methodResult.AddSuccess($"Added {kvp.Key}");
+                        foreach (var key in ex.Data.Keys)
+                        {
+                            logger.Error($"Additional Data - {key}: {ex.Data[key]}");
+                        }
                     }
-                    else
+
+                    throw; // Re-throw the exception to preserve the original stack trace
+                }
+                catch (Exception ex)
+                {
+                    logger.Error($"Unexpected error occurred: {ex.Message}");
+                    logger.Error($"Stack Trace: {ex.StackTrace}");
+
+                    if (ex.InnerException != null)
                     {
-                        argList.Add($"--{kvp.Key}");
-                        argList.Add(kvp.Value?.ToString() ?? "");
-                        methodResult.AddSuccess($"Added {kvp.Key}");
+                        logger.Error($"Inner Exception: {ex.InnerException.Message}");
+                        logger.Error($"Inner Stack Trace: {ex.InnerException.StackTrace}");
                     }
+                    throw; // Re-throw the exception to preserve the original stack trace
                 }
             }
 
