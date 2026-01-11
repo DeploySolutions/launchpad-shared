@@ -268,60 +268,91 @@ namespace Deploy.LaunchPad.Util.CommandLine
             Castle.Core.Logging.ILogger logger,
             Dictionary<string, (Type CommandType, Type ValueType)> commandTypeMap)
         {
-            if (args.Length >= 2 && args[0] == "--batch")
+            int result = 0;
+            try
             {
-                var batchFile = args[1];
-                if (!File.Exists(batchFile))
+                if (args.Length >= 2 && args[0] == "--batch")
                 {
-                    Console.Error.WriteLine($"Batch file not found: {batchFile}");
-                    return 1;
-                }
-
-                var json = await File.ReadAllTextAsync(batchFile);
-                var batch = JsonSerializer.Deserialize<List<BatchCommand>>(json, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
-                if (batch == null)
-                {
-                    Console.Error.WriteLine("Failed to parse batch file.");
-                    return 1;
-                }
-
-                return await ExecuteBatchOrSingleCommand(app, services, logger, commandTypeMap, batchCommands: batch);
-            }
-
-            if (args.Length == 0 || args is ["--help"] or ["-h"])
-            {
-                app.PrintTopLevelHelp();
-                return 1;
-            }
-
-            if (args is ["--version"] or ["-v"])
-            {
-                Console.WriteLine(new AssemblyHelper().GetAssemblyVersionString());
-                return 0;
-            }
-
-            string cmdName = args[0];
-            Dictionary<string, object>? singleArgs = null;
-            if (args.Length > 1)
-            {
-                singleArgs = new Dictionary<string, object>();
-                for (int i = 1; i < args.Length; i++)
-                {
-                    if (args[i].StartsWith("--"))
+                    var batchFile = args[1];
+                    if (!File.Exists(batchFile))
                     {
-                        var key = args[i][2..];
-                        object? value = true;
-                        if (i + 1 < args.Length && !args[i + 1].StartsWith("--"))
+                        logger.Error($"Batch file not found: {batchFile}");
+                        return 1;
+                    }
+
+                    var json = await File.ReadAllTextAsync(batchFile);
+                    var batch = JsonSerializer.Deserialize<List<BatchCommand>>(json, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+                    if (batch == null)
+                    {
+                        logger.Error("Failed to parse batch file.");
+                        return 1;
+                    }
+
+                    return await ExecuteBatchOrSingleCommand(app, services, logger, commandTypeMap, batchCommands: batch);
+                }
+
+                if (args.Length == 0 || args is ["--help"] or ["-h"])
+                {
+                    app.PrintTopLevelHelp();
+                    return 1;
+                }
+
+                if (args is ["--version"] or ["-v"])
+                {
+                    logger.Info(new AssemblyHelper().GetAssemblyVersionString());
+                    return 0;
+                }
+
+                string cmdName = args[0];
+                Dictionary<string, object>? singleArgs = null;
+                if (args.Length > 1)
+                {
+                    singleArgs = new Dictionary<string, object>();
+                    for (int i = 1; i < args.Length; i++)
+                    {
+                        if (args[i].StartsWith("--"))
                         {
-                            value = args[i + 1];
-                            i++;
+                            var key = args[i][2..];
+                            object? value = true;
+                            if (i + 1 < args.Length && !args[i + 1].StartsWith("--"))
+                            {
+                                value = args[i + 1];
+                                i++;
+                            }
+                            singleArgs[key] = value;
                         }
-                        singleArgs[key] = value;
                     }
                 }
+                result = await ExecuteBatchOrSingleCommand(app, services, logger, commandTypeMap, singleCommand: (cmdName, singleArgs));
             }
+            catch (ArgumentException ex)
+            {
+                logger.Error($"ArgumentException occurred: {ex.Message}");
+                logger.Error($"Stack Trace: {ex.StackTrace}");
 
-            return await ExecuteBatchOrSingleCommand(app, services, logger, commandTypeMap, singleCommand: (cmdName, singleArgs));
+                if (ex.Data != null)
+                {
+                    foreach (var key in ex.Data.Keys)
+                    {
+                        logger.Error($"Additional Data - {key}: {ex.Data[key]}");
+                    }
+                }
+
+                throw; // Re-throw the exception to preserve the original stack trace
+            }
+            catch (Exception ex)
+            {
+                logger.Error($"Unexpected error occurred: {ex.Message}");
+                logger.Error($"Stack Trace: {ex.StackTrace}");
+
+                if (ex.InnerException != null)
+                {
+                    logger.Error($"Inner Exception: {ex.InnerException.Message}");
+                    logger.Error($"Inner Stack Trace: {ex.InnerException.StackTrace}");
+                }
+                throw; // Re-throw the exception to preserve the original stack trace
+            }
+            return result;
         }
 
         /// <summary>
