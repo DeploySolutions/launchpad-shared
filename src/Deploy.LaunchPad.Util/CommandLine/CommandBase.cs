@@ -2,6 +2,7 @@
 using Deploy.LaunchPad.FactoryLite.Methods;
 using Deploy.LaunchPad.Util;
 using Deploy.LaunchPad.Util.CommandLine;
+using Deploy.LaunchPad.Util.Helpers;
 using Deploy.LaunchPad.Util.Methods;
 using FluentResults;
 using FluentValidation;
@@ -23,6 +24,8 @@ namespace Deploy.LaunchPad.FactoryLite.CommandLine
         public ElementDescriptionLight Description { get; init; }
         public virtual IReadOnlyList<OptionDefinition> Options { get; }
 
+        public virtual ErrorHandlingHelper ErrorHandlingHelper { get; init; }
+
         // Define event handlers
         public event EventHandler<MethodEventArgs>? MethodStart;
         public event EventHandler<MethodEventArgs>? MethodEnd; 
@@ -33,6 +36,7 @@ namespace Deploy.LaunchPad.FactoryLite.CommandLine
         {
             Logger = logger;
             _clock = clock;
+            ErrorHandlingHelper = new ErrorHandlingHelper(Logger);
             // Subscribe to various events
             MethodStart += (sender, args) =>
             {

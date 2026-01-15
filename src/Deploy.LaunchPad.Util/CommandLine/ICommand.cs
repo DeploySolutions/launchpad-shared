@@ -1,4 +1,5 @@
 ﻿using Deploy.LaunchPad.FactoryLite.CommandLine;
+using Deploy.LaunchPad.Util.Helpers;
 using Deploy.LaunchPad.Util.Methods;
 using System;
 using System.Collections.Generic;
@@ -14,6 +15,8 @@ namespace Deploy.LaunchPad.Util.CommandLine
         public ElementNameLight Name { get; init; }
         public ElementDescriptionLight Description { get; init; }
         IReadOnlyList<OptionDefinition> Options { get; }
+
+        ErrorHandlingHelper ErrorHandlingHelper { get; init; }
 
         /// <summary>Execute the command with parsed/typed options.</summary>
         public Task<LaunchPadMethodResult<TResultValue>> ExecuteAsync<TCommand,TResultValue>(CommandInput input)
