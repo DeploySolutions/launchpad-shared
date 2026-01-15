@@ -86,11 +86,11 @@ namespace Deploy.LaunchPad.Util.Methods
         /// 
         /// </summary>
         /// <param name="result"></param>
-        public LaunchPadMethodResult(Result<TResultValue> result, LaunchPadValidationResult<TResultValue>? validationResult = null) : base(result)
+        public LaunchPadMethodResult(Result<TResultValue> result, LaunchPadValidationResult<TResultValue> validationResult) : base(result)
         {
             // uses a FluentResults result
             _fluentResult = result;
-            _validationResult = validationResult?.UnderlyingResult;
+            _validationResult = validationResult.UnderlyingResult;
             Value = _fluentResult.Value;
             AggregateResultData(_fluentResult, validationResult);
         }
