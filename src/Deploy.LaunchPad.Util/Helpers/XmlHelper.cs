@@ -90,7 +90,7 @@ namespace Deploy.LaunchPad.Util
         }
 
 
-        public virtual XmlNamespaceManager CreateXmlNamespaceManagerFromDictionary(IDictionary<string, string> xmlNamespaces)
+        private XmlNamespaceManager CreateXmlNamespaceManagerFromDictionary(IDictionary<string, string> xmlNamespaces)
         {
             Guard.Against<ArgumentNullException>(xmlNamespaces == null, "xmlNamespaces cannot be null");
             Guard.Against<ArgumentNullException>(_xmlDoc == null, "_xmlDoc cannot be null");
@@ -102,7 +102,7 @@ namespace Deploy.LaunchPad.Util
             return nsManager;
         }
 
-        public virtual XmlNamespaceManager CreateXmlNamespaceManagerFromDictionary(IDictionary<string, string> xmlNamespaces, XmlDocument xmlDoc = null)
+        private XmlNamespaceManager CreateXmlNamespaceManagerFromDictionary(IDictionary<string, string> xmlNamespaces, XmlDocument xmlDoc = null)
         {
             Guard.Against<ArgumentNullException>(xmlNamespaces == null, "xmlNamespaces cannot be null");
             if (xmlDoc == null)
