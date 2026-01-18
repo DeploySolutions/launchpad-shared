@@ -34,6 +34,18 @@ namespace Deploy.LaunchPad.Util.CommandLine
         }
 
         /// <summary>
+        /// Asynchronously checks if the specified key exists in the parsed arguments.
+        /// </summary>
+        public async Task<bool> ContainsKeyAsync(string name)
+        {
+            // Simulate asynchronous behavior (e.g., if future logic involves async operations)
+            await Task.Yield();
+
+            // Reuse the synchronous ContainsKey logic
+            return ContainsKey(name);
+        }
+
+        /// <summary>
         /// Retrieves the value associated with the specified key, or returns an error if the key is missing or the type is invalid.
         /// </summary>
         public FluentResults.Result<T> Get<T>(string name)
@@ -67,11 +79,35 @@ namespace Deploy.LaunchPad.Util.CommandLine
         }
 
         /// <summary>
+        /// Asynchronously retrieves the value associated with the specified key, or returns an error if the key is missing or the type is invalid.
+        /// </summary>
+        public async Task<FluentResults.Result<T>> GetAsync<T>(string name)
+        {
+            // Simulate asynchronous behavior (e.g., if future logic involves async operations)
+            await Task.Yield();
+
+            // Reuse the synchronous Get<T> logic
+            return Get<T>(name);
+        }
+
+        /// <summary>
         /// Retrieves the value associated with the specified key, or returns the default value if the key is missing.
         /// </summary>
         public FluentResults.Result<T> GetOrDefault<T>(string name, T defaultValue = default!)
         {
             return _values.ContainsKey(name) ? Get<T>(name) : FluentResults.Result.Ok(defaultValue);
+        }
+
+        /// <summary>
+        /// Asynchronously retrieves the value associated with the specified key, or returns the default value if the key is missing.
+        /// </summary>
+        public async Task<FluentResults.Result<T>> GetOrDefaultAsync<T>(string name, T defaultValue = default!)
+        {
+            // Simulate asynchronous behavior (e.g., if future logic involves async operations)
+            await Task.Yield();
+
+            // Reuse the synchronous GetOrDefault<T> logic
+            return _values.ContainsKey(name) ? await GetAsync<T>(name) : FluentResults.Result.Ok(defaultValue);
         }
     }
 }
