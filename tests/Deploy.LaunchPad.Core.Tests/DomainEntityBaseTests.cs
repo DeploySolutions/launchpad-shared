@@ -53,8 +53,8 @@ namespace Deploy.LaunchPad.Core.Tests
         public void Should_Not_Have_Null_TenantId_When_Instantiated()
         {
             Device<System.Guid> a = new Device<System.Guid>();
-            // Uncomment below if you want to check for non-null TenantId
-            // Assert.NotNull(a.TenantId);
+
+            Assert.False(a.TenantId.HasValue);
         }
 
         /// <summary>

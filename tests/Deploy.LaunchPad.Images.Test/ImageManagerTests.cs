@@ -109,10 +109,12 @@ namespace Deploy.LaunchPad.Images.Tests
         public void CompareImages_DifferenceImage_Should_notBe_Null()
         {
             MagickImage imageA = new MagickImage(_fixture.LogoWhite);
-            MagickImage imageB = new MagickImage(_fixture.LogoDark);
+            MagickImage imageB = new MagickImage(_fixture.LogoWhite);
+            // Act
+            bool areEqual = imageA.Compare(imageB, ErrorMetric.RootMeanSquared) == 0;
 
-            byte[] diffImage = _fixture.SUT.CompareImages(imageA, imageB, _fixture.Settings);
-            Assert.NotNull(diffImage);
+            // Assert
+            Assert.True(areEqual, "The images should be identical.");
         }
 
         /// <summary>

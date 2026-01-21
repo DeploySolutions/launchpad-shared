@@ -280,8 +280,9 @@ namespace Deploy.LaunchPad.Images.Tests
         public void Get_Medium_Thumbnail_In_Png_Format_From_FileInfo_Should_Return_Image_In_Png_Format()
         {
             FileInfo info = new FileInfo(_fixture.LogoFilePath);
-            MagickImage result = new MagickImage(_fixture.SUT.GetThumbnailMedium(info,MagickFormat.Png));
+            MagickImage result = new MagickImage(_fixture.SUT.GetThumbnailMedium(info, MagickFormat.Png));
             Assert.Equal(MagickFormat.Png, result.Format);
+
         }
 
         // large thumbnail tests
