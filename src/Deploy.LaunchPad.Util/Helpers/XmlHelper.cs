@@ -90,26 +90,18 @@ namespace Deploy.LaunchPad.Util
         }
 
 
-        private XmlNamespaceManager CreateXmlNamespaceManagerFromDictionary(IDictionary<string, string> xmlNamespaces)
+        private XmlNamespaceManager CreateXmlNamespaceManagerFromDictionary(IDictionary<string, string> xmlNamespaces, XmlDocument xmlDoc = null)
         {
             Guard.Against<ArgumentNullException>(xmlNamespaces == null, "xmlNamespaces cannot be null");
-            Guard.Against<ArgumentNullException>(_xmlDoc == null, "_xmlDoc cannot be null");
-            var nsManager = new XmlNamespaceManager(_xmlDoc.NameTable);
+            xmlDoc ??= _xmlDoc; // Use the provided XmlDocument or fallback to the class-level _xmlDoc
+            Guard.Against<ArgumentNullException>(xmlDoc == null, "xmlDoc cannot be null");
+
+            var nsManager = new XmlNamespaceManager(xmlDoc.NameTable);
             foreach (var ns in xmlNamespaces)
             {
                 nsManager.AddNamespace(ns.Key, ns.Value);
             }
             return nsManager;
-        }
-
-        private XmlNamespaceManager CreateXmlNamespaceManagerFromDictionary(IDictionary<string, string> xmlNamespaces, XmlDocument xmlDoc = null)
-        {
-            Guard.Against<ArgumentNullException>(xmlNamespaces == null, "xmlNamespaces cannot be null");
-            if (xmlDoc == null)
-            {
-                xmlDoc = _xmlDoc;
-            }
-            return CreateXmlNamespaceManagerFromDictionary(xmlNamespaces, xmlDoc);
         }
 
         /// <summary>

@@ -54,16 +54,6 @@ namespace Deploy.LaunchPad.AWS
         /// <value>The type.</value>
         public override string Type { get; protected set; } = "Deploy.LaunchPad.AWS.AwsSecretProvider";
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="AwsSecretProvider"/> class.
-        /// </summary>
-        public AwsSecretProvider() : base()
-        {
-            RegionEndpoint region = RegionEndpoint.GetBySystemName("us-east-1");
-            string awsProfileName = "";
-            bool shouldUseLocalAwsProfile = false;
-            _secretClient = GetSecretClient(region, awsProfileName, shouldUseLocalAwsProfile);
-        }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="AwsSecretProvider"/> class.

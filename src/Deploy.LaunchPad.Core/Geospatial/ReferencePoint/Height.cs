@@ -91,13 +91,6 @@ namespace Deploy.LaunchPad.Core.Geospatial.ReferencePoint
             Maximum = Height;
         }
 
-        public Height(double Height, double? confidence = null)
-        {
-            Minimum = Height;
-            Maximum = Height;
-            Confidence = confidence;
-        }
-
         public Height(double Height, string unitOfMeasure, double? confidence = null)
         {
             Minimum = Height;

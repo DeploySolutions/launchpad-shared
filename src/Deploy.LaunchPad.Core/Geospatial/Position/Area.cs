@@ -92,13 +92,6 @@ namespace Deploy.LaunchPad.Core.Geospatial.Position
             Maximum = Area;
         }
 
-        public Area(double Area, double? confidence = null)
-        {
-            Minimum = Area;
-            Maximum = Area;
-            Confidence = confidence;
-        }
-
         public Area(double Area, string unitOfMeasure, double? confidence = null)
         {
             Minimum = Area;

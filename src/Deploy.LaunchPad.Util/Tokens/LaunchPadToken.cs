@@ -253,7 +253,8 @@ namespace Deploy.LaunchPad.Util.Tokens
             Guard.Against<ArgumentException>(!tokenString.Contains("p:"), Deploy_LaunchPad_Util_Resources.Guard_LaunchPadToken_ArgumentException_MissingPrefix);
             Guard.Against<ArgumentException>(!tokenString.Contains("n:"), Deploy_LaunchPad_Util_Resources.Guard_LaunchPadToken_ArgumentException_MissingName);
             int length = tokenString.Split("|").Length;
-            Guard.Against<ArgumentException>(length > 5 | length < 2, Deploy_LaunchPad_Util_Resources.Guard_LaunchPadToken_ArgumentException_WrongNumberSections);
+            bool isInvalidLength = length > 5 || length < 2;
+            Guard.Against<ArgumentException>(isInvalidLength, Deploy_LaunchPad_Util_Resources.Guard_LaunchPadToken_ArgumentException_WrongNumberSections);
         }
 
         /// <summary>

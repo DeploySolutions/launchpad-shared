@@ -199,36 +199,6 @@ namespace Deploy.LaunchPad.Core.Temporal
         }
 
         /// <summary>
-        /// Override the == operator to test for equality
-        /// </summary>
-        /// <param name="x">The first value</param>
-        /// <param name="y">The second value</param>
-        /// <returns>True if both objects are fully equal based on the Equals logic</returns>
-        public static bool operator == (TemporalInformation x, TemporalInformation y)
-        {
-            if (ReferenceEquals(x, null))
-            {
-                if (ReferenceEquals(y, null))
-                {
-                    return true;
-                }
-                return false;
-            }
-            return x.Equals(y);
-        }
-
-        /// <summary>
-        /// Override the != operator to test for inequality
-        /// </summary>
-        /// <param name="x">The first value</param>
-        /// <param name="y">The second value</param>
-        /// <returns>True if both objects are not equal based on the Equals logic</returns>
-        public static bool operator !=(TemporalInformation x, TemporalInformation y)
-        {
-            return !(x == y);
-        }
-
-        /// <summary>
         /// Computes and retrieves a hash code for an object.
         /// </summary>
         /// <returns>A hash code for an object.</returns>

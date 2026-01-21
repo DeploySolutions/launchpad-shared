@@ -85,12 +85,6 @@ namespace Deploy.LaunchPad.Core.Geospatial.ReferencePoint
 
         }
 
-        public Altitude(double Altitude)
-        {
-            Minimum = Altitude;
-            Maximum = Altitude;
-        }
-
         public Altitude(double Altitude, double? confidence = null)
         {
             Minimum = Altitude;

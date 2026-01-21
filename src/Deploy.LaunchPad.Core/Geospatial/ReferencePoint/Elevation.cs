@@ -91,13 +91,6 @@ namespace Deploy.LaunchPad.Core.Geospatial.ReferencePoint
             Maximum = elevation;
         }
 
-        public Elevation(double elevation, double? confidence = null)
-        {
-            Minimum = elevation;
-            Maximum = elevation;
-            Confidence = confidence;
-        }
-
         public Elevation(double elevation, string unitOfMeasure, double? confidence = null)
         {
             Minimum = elevation;
