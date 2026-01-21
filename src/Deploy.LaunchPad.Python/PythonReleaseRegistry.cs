@@ -111,7 +111,7 @@ namespace Deploy.LaunchPad.Python
                 new DateTime(2027, 12, 6),
                 PythonMaintenanceStatus.Security,
                 new Uri("https://www.python.org/downloads/release/python-3916/"),
-                new Uri("http://docs.python.org/release/3.9.16/whatsnew/changelog.html")
+                new Uri("https://docs.python.org/release/3.9.16/whatsnew/changelog.html")
             );
             releases.Add(py39p16.GetFullVersion(), py39p16);
 
@@ -124,7 +124,7 @@ namespace Deploy.LaunchPad.Python
                 new DateTime(2027, 12, 6),
                 PythonMaintenanceStatus.Security,
                 new Uri("https://www.python.org/downloads/release/python-3816/"),
-                new Uri("http://docs.python.org/release/3.8.16/whatsnew/changelog.html")
+                new Uri("https://docs.python.org/release/3.8.16/whatsnew/changelog.html")
             );
             releases.Add(py38p16.GetFullVersion(), py38p16);
 

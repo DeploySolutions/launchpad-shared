@@ -60,7 +60,7 @@ namespace Deploy.LaunchPad.Space.Satellites.GoC
             };
             SatelliteCatalogNumber = "23710";
             CosparID = "1995-059A";
-            Website = new Uri("http://www.asc-csa.gc.ca/eng/satellites/radarsat1/");
+            Website = new Uri("https://www.asc-csa.gc.ca/eng/satellites/radarsat1/");
         }
 
     }

@@ -172,7 +172,7 @@ namespace Deploy.LaunchPad.Core.Services
                 //string regexPattern = Regex.Escape(sbRegExp.ToString());
                 string regexPattern = sbRegExp.ToString();
                 sw = Stopwatch.StartNew();
-                bool succeeded = Regex.IsMatch(originalText, regexPattern, RegexOptions.Compiled | RegexOptions.IgnoreCase);
+                bool succeeded = Regex.IsMatch(originalText, regexPattern, RegexOptions.Compiled | RegexOptions.IgnoreCase, TimeSpan.FromMilliseconds(100));
                 sw.Stop();
                 if (succeeded) // do the RegEx replacement
                 {
@@ -184,7 +184,7 @@ namespace Deploy.LaunchPad.Core.Services
                         ));
                     }
 
-                    var regex = new Regex(regexPattern, RegexOptions.Compiled | RegexOptions.IgnoreCase);
+                    var regex = new Regex(regexPattern, RegexOptions.Compiled | RegexOptions.IgnoreCase, TimeSpan.FromMilliseconds(100));
                     if (string.IsNullOrEmpty(token.Value))
                     {
                         modifiedText = regex.Replace(modifiedText, token.DefaultValue);
@@ -235,7 +235,7 @@ namespace Deploy.LaunchPad.Core.Services
         {
             LaunchPadToken token = null;
             var comparer = StringComparer.OrdinalIgnoreCase;
-            MatchCollection matches = Regex.Matches(text, tokenPattern);
+            MatchCollection matches = Regex.Matches(text, tokenPattern, RegexOptions.Compiled | RegexOptions.IgnoreCase, TimeSpan.FromMilliseconds(100));
             foreach (Match match in matches)
             {
                 if (match.Value.ToLower().Equals(tokenName.ToLower()))
@@ -271,7 +271,7 @@ namespace Deploy.LaunchPad.Core.Services
         {
             var comparer = StringComparer.OrdinalIgnoreCase;
             IDictionary<string, LaunchPadToken> tokens = new Dictionary<string, LaunchPadToken>(comparer);
-            MatchCollection matches = Regex.Matches(text, tokenPattern);
+            MatchCollection matches = Regex.Matches(text, tokenPattern, RegexOptions.Compiled | RegexOptions.IgnoreCase, TimeSpan.FromMilliseconds(100));
             foreach (Match match in matches)
             {
                 LaunchPadToken token = new LaunchPadToken(match.Value);

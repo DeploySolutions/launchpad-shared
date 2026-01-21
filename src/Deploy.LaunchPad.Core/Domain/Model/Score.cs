@@ -1,15 +1,16 @@
-﻿using Newtonsoft.Json;
+﻿using Deploy.LaunchPad.Core.Data;
+using Deploy.LaunchPad.Util;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
-using System.ComponentModel.DataAnnotations;
-using Deploy.LaunchPad.Core.Data;
-using Deploy.LaunchPad.Util;
 
 namespace Deploy.LaunchPad.Core.Domain.Model
 {
@@ -189,5 +190,34 @@ namespace Deploy.LaunchPad.Core.Domain.Model
             Average = Highest / Lowest;
         }
 
+        /// <summary>
+        /// Validates the deserialized data to ensure it meets the expected constraints.
+        /// </summary>
+        [OnDeserialized]
+        private void OnDeserializedMethod(StreamingContext context)
+        {
+            Validate();
+        }
+
+        /// <summary>
+        /// Validates the properties of the Score object.
+        /// </summary>
+        public void Validate()
+        {
+            if (Total < 0)
+            {
+                throw new InvalidOperationException("Total cannot be negative.");
+            }
+
+            if (Highest.HasValue && Lowest.HasValue && Highest < Lowest)
+            {
+                throw new InvalidOperationException("Highest cannot be less than Lowest.");
+            }
+
+            if (!string.IsNullOrEmpty(UnitOfMeasure) && UnitOfMeasure.Length > 50)
+            {
+                throw new InvalidOperationException("UnitOfMeasure cannot exceed 50 characters.");
+            }
+        }
     }
 }

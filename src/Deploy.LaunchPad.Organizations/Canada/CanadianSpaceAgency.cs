@@ -61,7 +61,7 @@ namespace Deploy.LaunchPad.Organizations.Canada
                     AddressRegion = "Quebec",
                     AddressCountry = "Canada",
                 },
-                Url = new Uri("http://www.asc-csa.gc.ca/"),
+                Url = new Uri("https://www.asc-csa.gc.ca/"),
                 Email = "asc.info.csa@canada.ca"
 
             };

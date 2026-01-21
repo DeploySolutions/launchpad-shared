@@ -9,6 +9,7 @@ namespace Deploy.LaunchPad.Util.Helpers
 {
     public partial class RandomGenerationHelper : HelperBase
     {
+
         /// <summary>
         /// Initializes a new instance of the <see cref="RandomGenerationHelper"/> class.
         /// </summary>

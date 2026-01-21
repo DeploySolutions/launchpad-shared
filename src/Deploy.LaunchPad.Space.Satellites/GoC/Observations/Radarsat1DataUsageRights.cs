@@ -45,7 +45,7 @@ namespace Deploy.LaunchPad.Space.Satellites.GoC
             Owner = Deploy_LaunchPad_Space_Resources.Text_Radarsat1DataUsageRights_Owner;
             Attribution = Deploy_LaunchPad_Space_Resources.Text_Radarsat1DataUsageRights_Attribution;
             GoverningLicense = new OpenGovernmentCanadaLicense();
-            ProjectLink = new Uri("http://www.asc-csa.gc.ca/eng/satellites/radarsat1/");
+            ProjectLink = new Uri("https://www.asc-csa.gc.ca/eng/satellites/radarsat1/");
         }
 
     }

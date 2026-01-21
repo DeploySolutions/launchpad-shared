@@ -63,7 +63,7 @@ namespace Deploy.LaunchPad.Organizations.Canada
                     PostalCode = "K1A 0K2",
                     StreetAddress = "National Defence Headquarters Major - General George R.Pearkes Building 101 Colonel By Dr"
                 },
-                Url = new Uri("http://www.drdc-rddc.gc.ca/"),
+                Url = new Uri("https://www.drdc-rddc.gc.ca/"),
                 Email = "information@forces.gc.ca"
 
             };
