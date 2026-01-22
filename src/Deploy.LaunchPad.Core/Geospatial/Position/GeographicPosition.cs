@@ -351,7 +351,17 @@ namespace Deploy.LaunchPad.Core.Geospatial.Position
         /// <remarks>This method implements the <see cref="object">Object</see> method.</remarks>
         public override int GetHashCode()
         {
-            return Elevation.Minimum.GetHashCode() + Elevation.Maximum.GetHashCode() + _userDefinedCenter.GetHashCode() + _geometry.GetHashCode();
+            unchecked // Allow overflow
+            {
+                int hash = 17;
+
+                // Include immutable properties in the hash calculation
+                hash = hash * 23 + (GeoJson?.GetHashCode() ?? 0); // GeoJson is immutable
+                hash = hash * 23 + (Elevation?.GetHashCode() ?? 0); // Elevation is immutable
+                hash = hash * 23 + CountryId.GetHashCode(); // CountryId is immutable
+
+                return hash;
+            }
         }
     }
 
