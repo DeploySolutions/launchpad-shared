@@ -96,7 +96,7 @@ namespace Deploy.LaunchPad.Util
         /// <returns>System.Byte[].</returns>
         public virtual byte[] GetMd5HashAsBytes(byte[] input)
         {
-            Guard.Against<ArgumentException>(input == null, "Input cannot be null.");
+            Guard.Against<ArgumentNullException>(input == null, "Input cannot be null.");
             Guard.Against<ArgumentException>(input.Length != 16, "MD5 byte input must be exactly 16 bytes.");
 
             MD5 hashAlgorithm = MD5.Create();
