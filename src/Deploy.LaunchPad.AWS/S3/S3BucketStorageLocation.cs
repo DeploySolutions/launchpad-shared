@@ -26,24 +26,25 @@
 //limitations under the License. 
 #endregion
 
-using Amazon.S3.Model;
 using Amazon.S3;
+using Amazon.S3.Model;
 using Castle.Core.Logging;
+using Deploy.LaunchPad.AWS.S3.Services;
+using Deploy.LaunchPad.Core;
 using Deploy.LaunchPad.Core.Domain;
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.ComponentModel;
-using System.Runtime.Serialization;
-using System.Text;
-using System.Xml.Serialization;
-using System.Threading.Tasks;
-using System.Collections.Generic;
 using Deploy.LaunchPad.Core.Domain.Model;
 using Deploy.LaunchPad.Core.Files;
 using Deploy.LaunchPad.Core.Files.Storage;
-using Deploy.LaunchPad.Core;
 using Deploy.LaunchPad.Util;
-using Deploy.LaunchPad.AWS.S3.Services;
+using Microsoft.EntityFrameworkCore;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.IO;
+using System.Runtime.Serialization;
+using System.Text;
+using System.Threading.Tasks;
+using System.Xml.Serialization;
 
 namespace Deploy.LaunchPad.AWS.S3
 {
@@ -264,7 +265,9 @@ namespace Deploy.LaunchPad.AWS.S3
         /// <returns>A Task&lt;System.Boolean&gt; representing the asynchronous operation.</returns>
         public override async Task<bool> CreateFileAsync<TFile, TFileContentType, TFileSchema>(TFile sourceFile, IDictionary<string, string> fileTags, string contentType, IDictionary<string, string> writeTags, string filePrefix, string fileSuffix)
         {
-            bool succeeded = await S3Service.UploadLocalFileToBucketviaTransferUtilityAsync(Name.Full,sourceFile.Name.Full, @"c:\temp\",fileTags,filePrefix,contentType,writeTags,S3StorageClass.Standard);
+            string tempFilePath = Path.GetTempPath();
+
+            bool succeeded = await S3Service.UploadLocalFileToBucketviaTransferUtilityAsync(Name.Full,sourceFile.Name.Full, tempFilePath, fileTags,filePrefix,contentType,writeTags,S3StorageClass.Standard);
             return succeeded;
         }
 
