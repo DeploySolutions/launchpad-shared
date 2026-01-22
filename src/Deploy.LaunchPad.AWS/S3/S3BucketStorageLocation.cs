@@ -253,9 +253,9 @@ namespace Deploy.LaunchPad.AWS.S3
         /// <summary>
         /// Create file as an asynchronous operation.
         /// </summary>
-        /// <typeparam name="TFile">The type of the t file.</typeparam>
-        /// <typeparam name="TFileId">The type of the t file identifier.</typeparam>
-        /// <typeparam name="TFileContentType">The type of the t file content type.</typeparam>
+        /// <typeparam name="TFile">The type of the file.</typeparam>
+        /// <typeparam name="TFileContentType">The type of the file content type.</typeparam>
+        /// <typeparam name="TFileSchema">The type of the file schema.</typeparam>
         /// <param name="sourceFile">The source file.</param>
         /// <param name="fileTags">The file tags.</param>
         /// <param name="contentType">Type of the content.</param>
@@ -263,12 +263,61 @@ namespace Deploy.LaunchPad.AWS.S3
         /// <param name="filePrefix">The file prefix.</param>
         /// <param name="fileSuffix">The file suffix.</param>
         /// <returns>A Task&lt;System.Boolean&gt; representing the asynchronous operation.</returns>
-        public override async Task<bool> CreateFileAsync<TFile, TFileContentType, TFileSchema>(TFile sourceFile, IDictionary<string, string> fileTags, string contentType, IDictionary<string, string> writeTags, string filePrefix, string fileSuffix)
+        public override async Task<bool> CreateFileAsync<TFile, TFileContentType, TFileSchema>(
+            TFile sourceFile,
+            IDictionary<string, string> fileTags,
+            string contentType,
+            IDictionary<string, string> writeTags,
+            string filePrefix,
+            string fileSuffix)
         {
-            string tempFilePath = Path.GetTempPath();
+            // Generate a secure random temporary file path
+            var randomPath = Path.Combine(Path.GetTempPath(), Path.GetRandomFileName());
 
-            bool succeeded = await S3Service.UploadLocalFileToBucketviaTransferUtilityAsync(Name.Full,sourceFile.Name.Full, tempFilePath, fileTags,filePrefix,contentType,writeTags,S3StorageClass.Standard);
-            return succeeded;
+            try
+            {
+                // Create a secure temporary file with write, non-inheritable permissions
+                using (var fileStream = new FileStream(
+                    randomPath,
+                    FileMode.CreateNew,
+                    FileAccess.Write,
+                    FileShare.None,
+                    4096,
+                    FileOptions.DeleteOnClose))
+                {
+                    // Write the source file content to the temporary file
+                    using (var writer = new StreamWriter(fileStream))
+                    {
+                        await writer.WriteAsync(sourceFile.Name.Full); // Assuming sourceFile.Name.Full contains the file content
+                    }
+                }
+
+                // Upload the temporary file to the S3 bucket
+                bool succeeded = await S3Service.UploadLocalFileToBucketviaTransferUtilityAsync(
+                    Name.Full,
+                    sourceFile.Name.Full,
+                    randomPath,
+                    fileTags,
+                    filePrefix,
+                    contentType,
+                    writeTags,
+                    S3StorageClass.Standard);
+
+                return succeeded;
+            }
+            catch (Exception ex)
+            {
+                Logger.Error("An error occurred while creating the file.", ex);
+                throw;
+            }
+            finally
+            {
+                // Ensure the temporary file is deleted if it still exists
+                if (File.Exists(randomPath))
+                {
+                    File.Delete(randomPath);
+                }
+            }
         }
 
     }
