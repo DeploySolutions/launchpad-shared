@@ -1,9 +1,6 @@
 ﻿using Castle.Core.Logging;
 using FluentResults;
 using System;
-using System.Collections.Generic;
-using System.Text;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Deploy.LaunchPad.Util.Methods
 {
@@ -13,11 +10,11 @@ namespace Deploy.LaunchPad.Util.Methods
         {
 
         }
-        
-         /// <summary>
-         /// Initializes a new instance of the <see cref="RandomGenerationHelper"/> class.
-         /// </summary>
-         /// <param name="logger">The logger.</param>
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="LaunchPadMethodHelper"/> class.
+        /// </summary>
+        /// <param name="logger">The logger.</param>
         public LaunchPadMethodHelper(ILogger logger) : base(logger)
         {
 

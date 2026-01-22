@@ -24,6 +24,7 @@ namespace Deploy.LaunchPad.FactoryLite.CommandLine
         public ElementDescriptionLight Description { get; init; }
         public virtual IReadOnlyList<OptionDefinition> Options { get; }
 
+        public virtual CommandHelper CommandHelper { get; init; }
         public virtual LaunchPadMethodHelper MethodHelper { get; init; }
         public virtual ErrorHandlingHelper ErrorHandlingHelper { get; init; }
 
@@ -37,6 +38,7 @@ namespace Deploy.LaunchPad.FactoryLite.CommandLine
         {
             Logger = logger;
             _clock = clock;
+            CommandHelper = new CommandHelper(Logger);
             MethodHelper = new LaunchPadMethodHelper(Logger);
             ErrorHandlingHelper = new ErrorHandlingHelper(Logger);
             // Subscribe to various events
@@ -59,6 +61,59 @@ namespace Deploy.LaunchPad.FactoryLite.CommandLine
             
         }
 
+
+        public virtual LaunchPadMethodResult<TResultValue> HandleError<TResultValue>(
+             CommandInput input,
+             Exception ex)
+             where TResultValue : class, ILaunchPadMethodResultValue
+        {
+            return HandleError<TResultValue>(input, ex, ex.Message);
+        }
+
+        public virtual LaunchPadMethodResult<TResultValue> HandleError<TResultValue>(
+             CommandInput input,
+             Exception ex,
+             string errorMessage)
+             where TResultValue : class, ILaunchPadMethodResultValue
+        {
+            // Log the start of the error handling
+            OnMethodStart(this.GetType().Name, nameof(HandleError), new { Exception = ex, ErrorMessage = errorMessage });
+
+            var args = new ErrorEventArgs(errorMessage, ex);
+            OnError?.Invoke(this, args);
+
+            LaunchPadMethodResult<TResultValue> result;
+
+            if (args.Handled)
+            {
+                result = (LaunchPadMethodResult<TResultValue>)args.Result!;
+            }
+            else
+            {
+                Logger.Error(errorMessage, ex);
+
+                if (input.CustomExceptionHandler != null)
+                {
+                    result = (LaunchPadMethodResult<TResultValue>)input.CustomExceptionHandler(new InvalidOperationException(errorMessage, ex));
+                }
+                else if (input.ExceptionHandling == ExceptionHandlingStrategy.ThrowException)
+                {
+                    throw new InvalidOperationException(errorMessage, ex);
+                }
+                else
+                {
+                    // Create the result object using a constructor or factory method
+                    var resultValue = Activator.CreateInstance<TResultValue>();
+                    var failResult = Result.Fail<TResultValue>(new Error(errorMessage));
+                    result = new LaunchPadMethodResult<TResultValue>(failResult);
+                }
+            }
+
+            // Log the end of the error handling
+            OnMethodEnd(this.GetType().Name, nameof(HandleError));
+
+            return result;
+        }
 
 
         public abstract Task<LaunchPadMethodResult<TResultValue>> ExecuteAsync<TCommand, TResultValue>(CommandInput input)
@@ -142,270 +197,6 @@ namespace Deploy.LaunchPad.FactoryLite.CommandLine
             Logger.Debug($"Method {Name.Full} ended.");
         }
 
-        protected virtual LaunchPadMethodResult<TResultValue> HandleError<TResultValue>(
-             CommandInput input,
-             Exception ex)
-             where TResultValue : class, ILaunchPadMethodResultValue
-        {
-            return HandleError<TResultValue>(input, ex, ex.Message);
-        }
-
-        protected virtual LaunchPadMethodResult<TResultValue> HandleError<TResultValue>(
-             CommandInput input,
-             Exception ex,
-             string errorMessage)
-             where TResultValue : class, ILaunchPadMethodResultValue
-        {
-            // Log the start of the error handling
-            OnMethodStart(this.GetType().Name, nameof(HandleError), new { Exception = ex, ErrorMessage = errorMessage });
-
-            var args = new ErrorEventArgs(errorMessage, ex);
-            OnError?.Invoke(this, args);
-
-            LaunchPadMethodResult<TResultValue> result;
-
-            if (args.Handled)
-            {
-                result = (LaunchPadMethodResult<TResultValue>)args.Result!;
-            }
-            else
-            {
-                Logger.Error(errorMessage, ex);
-
-                if (input.CustomExceptionHandler != null)
-                {
-                    result = (LaunchPadMethodResult<TResultValue>)input.CustomExceptionHandler(new InvalidOperationException(errorMessage, ex));
-                }
-                else if (input.ExceptionHandling == ExceptionHandlingStrategy.ThrowException)
-                {
-                    throw new InvalidOperationException(errorMessage, ex);
-                }
-                else
-                {
-                    // Create the result object using a constructor or factory method
-                    var resultValue = Activator.CreateInstance<TResultValue>();
-                    var failResult = Result.Fail<TResultValue>(new Error(errorMessage));
-                    result = new LaunchPadMethodResult<TResultValue>(failResult);
-                }
-            }
-
-            // Log the end of the error handling
-            OnMethodEnd(this.GetType().Name, nameof(HandleError));
-
-            return result;
-        }
-
-        /// <summary>
-        /// Retrieves a boolean value from the command arguments.
-        /// If the argument is not present or cannot be parsed, the default value is returned.
-        /// </summary>
-        /// <param name="input">The command input containing the arguments.</param>
-        /// <param name="key">The key of the argument to retrieve.</param>
-        /// <param name="defaultValue">The default value to return if the argument is not present or invalid.</param>
-        /// <returns>The boolean value of the argument, or the default value if not found or invalid.</returns>
-        /// <example>
-        /// Args format:
-        /// {
-        ///   "shouldMoveSource": true
-        /// }
-        /// </example>
-        protected virtual bool GetBoolValueFromArgs(CommandInput input, string key, bool defaultValue)
-        {
-            Guard.Against<ArgumentNullException>(input == null, "CommandBase.GetBoolValueFromArgs() => input cannot be null.");
-            Guard.Against<ArgumentNullException>(input.Args == null, "CommandBase.GetBoolValueFromArgs() => input.Args cannot be null.");
-            if (input.Args.ContainsKey(key))
-            {
-                try
-                {
-                    var value = input.Args.GetOrDefault<object>(key, null).ValueOrDefault;
-                    if (value is bool boolValue)
-                    {
-                        return boolValue;
-                    }
-                    if (value is string stringValue)
-                    {
-                        // If the value is null, it means the flag was passed without a value, so default to true
-                        if (string.IsNullOrEmpty(stringValue))
-                        {
-                            return true;
-                        }
-                        // Otherwise, parse the string value as a boolean
-                        if (bool.TryParse(stringValue, out var result))
-                        {
-                            return result;
-                        }
-                        Logger.Warn($"Invalid boolean value for argument '{key}': {stringValue}. Using default: {defaultValue}");
-                    }
-                }
-                catch (Exception ex)
-                {
-                    Logger.Error($"Error retrieving argument '{key}': {ex.Message}. Using default: {defaultValue}");
-                }
-            }
-            return defaultValue;
-        }
-
-        /// <summary>
-        /// Retrieves a string value from the command arguments.
-        /// If the argument is not present, the default value is returned.
-        /// </summary>
-        /// <param name="input">The command input containing the arguments.</param>
-        /// <param name="key">The key of the argument to retrieve.</param>
-        /// <param name="defaultValue">The default value to return if the argument is not present.</param>
-        /// <returns>The string value of the argument, or the default value if not found.</returns>
-        /// <example>
-        /// Args format:
-        /// {
-        ///   "source": "C:\\SourceFolder"
-        /// }
-        /// </example>
-        protected virtual string GetStringValueFromArgs(CommandInput input, string key, string defaultValue)
-        {
-            Guard.Against<ArgumentNullException>(input == null, "CommandBase.GetBoolValueFromArgs() => input cannot be null.");
-            Guard.Against<ArgumentNullException>(input.Args == null, "CommandBase.GetBoolValueFromArgs() => input.Args cannot be null.");
-            if (input.Args.ContainsKey(key))
-            {
-                return input.Args.Get<string>(key).ValueOrDefault;
-            }
-
-            // Fallback to the default value from Options
-            var option = Options.FirstOrDefault(o => o.Name.Equals(key, StringComparison.OrdinalIgnoreCase));
-            if (option != null && option.DefaultValue is string defaultFromOptions)
-            {
-                return defaultFromOptions;
-            }
-            return defaultValue;
-        }
-
-        /// <summary>
-        /// Retrieves a string value from the command arguments.
-        /// If the argument is not present, the default value is returned.
-        /// </summary>
-        /// <param name="input">The command input containing the arguments.</param>
-        /// <param name="key">The key of the argument to retrieve.</param>
-        /// <param name="defaultValue">The default value to return if the argument is not present.</param>
-        /// <returns>The string value of the argument, or the default value if not found.</returns>
-        /// <example>
-        /// Args format:
-        /// {
-        ///   "source": "C:\\SourceFolder"
-        /// }
-        /// </example>
-        protected int GetIntValueFromArgs(CommandInput input, string key, int defaultValue)
-        {
-            Guard.Against<ArgumentNullException>(input == null, "CommandBase.GetBoolValueFromArgs() => input cannot be null.");
-            Guard.Against<ArgumentNullException>(input.Args == null, "CommandBase.GetBoolValueFromArgs() => input.Args cannot be null.");
-            if (input.Args.ContainsKey(key))
-            {
-                try
-                {
-                    var value = input.Args.GetOrDefault<object>(key, null).ValueOrDefault;
-                    if (value is int intValue)
-                    {
-                        return intValue;
-                    }
-                    if (value is string stringValue && int.TryParse(stringValue, out var result))
-                    {
-                        return result;
-                    }
-                    Logger.Warn($"Invalid integer value for argument '{key}': {value}. Using default: {defaultValue}");
-                }
-                catch (Exception ex)
-                {
-                    Logger.Error($"Error retrieving argument '{key}': {ex.Message}. Using default: {defaultValue}");
-                }
-            }
-            return defaultValue;
-        }
-
-        /// <summary>
-        /// Retrieves a long value from the command arguments.
-        /// If the argument is not present or cannot be parsed, the default value is returned.
-        /// </summary>
-        /// <param name="input">The command input containing the arguments.</param>
-        /// <param name="key">The key of the argument to retrieve.</param>
-        /// <param name="defaultValue">The default value to return if the argument is not present or invalid.</param>
-        /// <returns>The long value of the argument, or the default value if not found or invalid.</returns>
-        /// <example>
-        /// Args format:
-        /// {
-        ///   "fileSizeLimit": 1048576
-        /// }
-        /// </example>
-        protected virtual long GetLongValueFromArgs(CommandInput input, string key, long defaultValue)
-        {
-            Guard.Against<ArgumentNullException>(input == null, "CommandBase.GetBoolValueFromArgs() => input cannot be null.");
-            Guard.Against<ArgumentNullException>(input.Args == null, "CommandBase.GetBoolValueFromArgs() => input.Args cannot be null.");
-            if (input.Args.ContainsKey(key))
-            {
-                try
-                {
-                    var value = input.Args.GetOrDefault<object>(key, null).ValueOrDefault;
-                    if (value is long longValue)
-                    {
-                        return longValue;
-                    }
-                    if (value is string stringValue && long.TryParse(stringValue, out var result))
-                    {
-                        return result;
-                    }
-                    Logger.Warn($"Invalid long value for argument '{key}': {value}. Using default: {defaultValue}");
-                }
-                catch (Exception ex)
-                {
-                    Logger.Error($"Error retrieving argument '{key}': {ex.Message}. Using default: {defaultValue}");
-                }
-            }
-            return defaultValue;
-        }
-
-        /// <summary>
-        /// Retrieves a DateTime value from the command arguments.
-        /// If the argument is not present or cannot be parsed, the default value is returned.
-        /// The DateTimeKind parameter specifies whether the DateTime should be treated as UTC, Local, or Unspecified.
-        /// </summary>
-        /// <param name="input">The command input containing the arguments.</param>
-        /// <param name="key">The key of the argument to retrieve.</param>
-        /// <param name="defaultValue">The default value to return if the argument is not present or invalid.</param>
-        /// <param name="kind">Specifies the DateTimeKind (UTC, Local, or Unspecified) for the returned DateTime. Defaults to DateTimeKind.Utc.</param>
-        /// <returns>The DateTime value of the argument, or the default value if not found or invalid, with the specified DateTimeKind.</returns>
-        /// <example>
-        /// Args format:
-        /// {
-        ///   "startDate": "2023-10-01T12:00:00Z"
-        /// }
-        /// Example usage:
-        /// DateTime startDate = GetDateTimeValueFromArgs(input, "startDate", DateTime.UtcNow, DateTimeKind.Utc);
-        /// DateTime localDate = GetDateTimeValueFromArgs(input, "startDate", DateTime.Now, DateTimeKind.Local);
-        /// </example>
-        protected virtual DateTime GetDateTimeValueFromArgs(CommandInput input, string key, DateTime defaultValue, DateTimeKind kind = DateTimeKind.Utc)
-        {
-            Guard.Against<ArgumentNullException>(input == null, "CommandBase.GetDateTimeValueFromArgs() => input cannot be null.");
-            Guard.Against<ArgumentNullException>(input.Args == null, "CommandBase.GetDateTimeValueFromArgs() => input.Args cannot be null.");
-
-            if (input.Args.ContainsKey(key))
-            {
-                try
-                {
-                    var value = input.Args.GetOrDefault<object>(key, null).ValueOrDefault;
-                    if (value is DateTime dateTimeValue)
-                    {
-                        return DateTime.SpecifyKind(dateTimeValue, kind); // Use specified kind
-                    }
-                    if (value is string stringValue && DateTime.TryParse(stringValue, out var result))
-                    {
-                        return DateTime.SpecifyKind(result, kind); // Use specified kind
-                    }
-                    Logger.Warn($"Invalid DateTime value for argument '{key}': {value}. Using default: {defaultValue}");
-                }
-                catch (Exception ex)
-                {
-                    Logger.Error($"Error retrieving argument '{key}': {ex.Message}. Using default: {defaultValue}");
-                }
-            }
-
-            return DateTime.SpecifyKind(defaultValue, kind); // Use specified kind for default
-        }
     }
 
     public class ErrorEventArgs : EventArgs
