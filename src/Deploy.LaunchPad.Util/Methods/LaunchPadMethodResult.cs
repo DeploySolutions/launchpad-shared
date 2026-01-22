@@ -90,7 +90,7 @@ namespace Deploy.LaunchPad.Util.Methods
         {
             // uses a FluentResults result
             _fluentResult = result;
-            _validationResult = validationResult.UnderlyingResult;
+            _validationResult = validationResult?.UnderlyingResult;
             Value = _fluentResult.Value;
             AggregateResultData(_fluentResult, validationResult);
         }
