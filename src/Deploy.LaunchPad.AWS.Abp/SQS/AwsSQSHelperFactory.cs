@@ -27,15 +27,15 @@ namespace Deploy.LaunchPad.AWS.Abp.SQS
     /// </summary>
     /// <seealso cref="Deploy.LaunchPad.AWS.AwsHelperBase{Amazon.SQS.AmazonSQSConfig}" />
     /// <seealso cref="ISingletonDependency" />
-    public partial class AwsSQSHelperFactory : AwsHelperBase<AmazonSQSConfig>, ISingletonDependency
+    public partial class AwsSqsHelperFactory : AwsHelperBase<AmazonSQSConfig>, ISingletonDependency
     {
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="AwsSQSHelperFactory"/> class.
+        /// Initializes a new instance of the <see cref="AwsSqsHelperFactory"/> class.
         /// </summary>
         /// <param name="logger">The logger.</param>
         /// <param name="awsRegionEndpointName">Name of the aws region endpoint.</param>
-        public AwsSQSHelperFactory(ILogger logger, string awsRegionEndpointName) : base(logger, awsRegionEndpointName)
+        public AwsSqsHelperFactory(ILogger logger, string awsRegionEndpointName) : base(logger, awsRegionEndpointName)
         {
 
         }
@@ -48,13 +48,13 @@ namespace Deploy.LaunchPad.AWS.Abp.SQS
         /// <param name="awsProfileName">Name of the aws profile.</param>
         /// <param name="shouldUseLocalAwsProfile">if set to <c>true</c> [should use local aws profile].</param>
         /// <returns>AwsSQSHelper.</returns>
-        public virtual AwsSQSHelper Create(
+        public virtual AwsSqsHelper Create(
             ILogger logger,
             string awsRegionEndpointName = DefaultRegionEndpointName,
             string awsProfileName = DefaultLocalAwsProfileName,
             bool shouldUseLocalAwsProfile = DefaultShouldUseLocalAwsProfile)
         {
-            AwsSQSHelper helper = null;
+            AwsSqsHelper helper = null;
             if (logger == null)
             {
                 logger = NullLogger.Instance;
@@ -64,7 +64,7 @@ namespace Deploy.LaunchPad.AWS.Abp.SQS
             AwsProfileName = awsProfileName;
             if (shouldUseLocalAwsProfile)
             {
-                helper = new AwsSQSHelper(logger, awsRegionEndpointName);
+                helper = new AwsSqsHelper(logger, awsRegionEndpointName);
                 helper.ShouldUseLocalAwsProfile = true;
             }
             else // do not use a named local profile, instead try to determine the AWS client from the credential resolution order
@@ -74,14 +74,14 @@ namespace Deploy.LaunchPad.AWS.Abp.SQS
                 {
                     try
                     {
-                        helper = IocManager.Instance.Resolve<AwsSQSHelper>();
+                        helper = IocManager.Instance.Resolve<AwsSqsHelper>();
                         logger.Debug("AwsSQSHelper was registered; returning the resolved instance.");
                     }
                     catch (ComponentNotFoundException)
                     {
                         // create the helper using the AWS credentials resolution pattern.
                         // Since we are not using local profile here, we presumably load from EC2 role or environment
-                        helper = new AwsSQSHelper(logger, awsRegionEndpointName);
+                        helper = new AwsSqsHelper(logger, awsRegionEndpointName);
                         logger.Debug("AwsSQSHelper was not registered; returning a new instance.");
                     }
                 }
@@ -94,7 +94,7 @@ namespace Deploy.LaunchPad.AWS.Abp.SQS
                 {
                     // create the helper using the AWS credentials resolution pattern.
                     // Since we are not using local profile here, we presumably load from EC2 role or environment
-                    helper = new AwsSQSHelper(logger, awsRegionEndpointName);
+                    helper = new AwsSqsHelper(logger, awsRegionEndpointName);
                     logger.Debug("AwsSQSHelper was null; returning a new instance.");
                 }
             }

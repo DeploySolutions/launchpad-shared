@@ -20,7 +20,7 @@ namespace Deploy.LaunchPad.AWS.SQS
     /// Extends the <see cref="Deploy.LaunchPad.AWS.IAwsHelper{Amazon.SQS.AmazonSQSConfig}" />
     /// </summary>
     /// <seealso cref="Deploy.LaunchPad.AWS.IAwsHelper{Amazon.SQS.AmazonSQSConfig}" />
-    public partial interface IAwsSQSHelper : IAwsHelper<AmazonSQSConfig>
+    public partial interface IAwsSqsHelper : IAwsHelper<AmazonSQSConfig>
     {
     }
 }

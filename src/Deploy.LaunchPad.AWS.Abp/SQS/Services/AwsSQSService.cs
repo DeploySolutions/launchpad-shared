@@ -21,40 +21,40 @@ namespace Deploy.LaunchPad.AWS.Abp.SQS.Services
     /// <summary>
     /// Class AwsSQSService.
     /// Implements the <see cref="LaunchPadAbpSystemIntegrationServiceBase" />
-    /// Implements the <see cref="IAwsSQSService" />
+    /// Implements the <see cref="IAwsSqsService" />
     /// </summary>
     /// <seealso cref="LaunchPadAbpSystemIntegrationServiceBase" />
-    /// <seealso cref="IAwsSQSService" />
-    public partial class AwsSQSService : LaunchPadAbpSystemIntegrationServiceBase, IAwsSQSService
+    /// <seealso cref="IAwsSqsService" />
+    public partial class AwsSqsService : LaunchPadAbpSystemIntegrationServiceBase, IAwsSqsService
     {
         /// <summary>
         /// Gets or sets the helper.
         /// </summary>
         /// <value>The helper.</value>
-        public IAwsSQSHelper Helper { get; set; }
+        public IAwsSqsHelper Helper { get; set; }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="AwsSQSService"/> class.
+        /// Initializes a new instance of the <see cref="AwsSqsService"/> class.
         /// </summary>
         /// <param name="logger">The logger.</param>
         /// <param name="regionEndpointName">Name of the region endpoint.</param>
         /// <param name="localAwsProfileName">Name of the local aws profile.</param>
         /// <param name="shouldUseLocalAwsProfile">if set to <c>true</c> [should use local aws profile].</param>
-        public AwsSQSService(ILogger logger,
+        public AwsSqsService(ILogger logger,
             string regionEndpointName,
             string localAwsProfileName,
             bool shouldUseLocalAwsProfile) : base(logger)
         {
-            var secretHelperFactory = new AwsSQSHelperFactory(logger, regionEndpointName);
+            var secretHelperFactory = new AwsSqsHelperFactory(logger, regionEndpointName);
             Helper = secretHelperFactory.Create(logger, regionEndpointName, localAwsProfileName, shouldUseLocalAwsProfile);
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="AwsSQSService"/> class.
+        /// Initializes a new instance of the <see cref="AwsSqsService"/> class.
         /// </summary>
         /// <param name="logger">The logger.</param>
         /// <param name="helper">The helper.</param>
-        public AwsSQSService(ILogger logger, IAwsSQSHelper helper) : base(logger)
+        public AwsSqsService(ILogger logger, IAwsSqsHelper helper) : base(logger)
         {
             Helper = helper;
         }

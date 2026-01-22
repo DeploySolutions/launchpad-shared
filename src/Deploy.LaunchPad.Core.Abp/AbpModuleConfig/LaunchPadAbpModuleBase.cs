@@ -63,6 +63,7 @@ namespace Deploy.LaunchPad.Core.Abp.AbpModuleConfig
             get { return _abpModuleHelper; }
             set { _abpModuleHelper = value; }
         }
+
         /// <summary>
         /// Initializes a new instance of the <see cref="LaunchPadAbpModuleBase{TAbpModuleHelper}"/> class.
         /// </summary>
@@ -74,7 +75,7 @@ namespace Deploy.LaunchPad.Core.Abp.AbpModuleConfig
         /// Initializes a new instance of the <see cref="LaunchPadAbpModuleBase{TAbpModuleHelper}"/> class.
         /// </summary>
         /// <param name="logger">The logger.</param>
-        public LaunchPadAbpModuleBase(ILogger logger)
+        protected LaunchPadAbpModuleBase(ILogger logger)
         {
             Logger = logger;
         }
@@ -114,39 +115,6 @@ namespace Deploy.LaunchPad.Core.Abp.AbpModuleConfig
             base.PostInitialize();
 
         }
-
-        ///// <summary>
-        ///// Determines whether [is configuration valid] [the specified configuration].
-        ///// </summary>
-        ///// <typeparam name="TAbpModuleConfig">The type of the t abp module configuration.</typeparam>
-        ///// <param name="config">The configuration.</param>
-        ///// <param name="shouldValidateAndThrow">if set to <c>true</c> [should validate and throw].</param>
-        ///// <returns>ValidationResult.</returns>
-        //protected virtual ValidationResult IsConfigurationValid<TAbpModuleConfig>(TAbpModuleConfig config, bool shouldValidateAndThrow = false)
-        //    where TAbpModuleConfig : LaunchPadAbpModuleConfigBase<IWebHostEnvironment>
-        //{
-        //    IValidator<TAbpModuleConfig> validator = null;
-        //    ValidationResult validationResult = null;
-        //    using (var scope = IocManager.CreateScope())
-        //    {
-        //        validator = scope.Resolve<IValidator<TAbpModuleConfig>>();
-        //    }
-
-        //    if (validator != null)
-        //    {
-        //        if (shouldValidateAndThrow)
-        //        {
-
-        //            validator.ValidateAndThrow(config);
-        //        }
-        //        else
-        //        {
-        //            validationResult = validator.Validate(config);
-        //        }
-        //    }
-
-        //    return validationResult;
-        //}
 
         /// <summary>
         /// Load the AbpModule base properties, starting a new scope

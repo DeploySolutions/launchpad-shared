@@ -20,13 +20,13 @@ namespace Deploy.LaunchPad.AWS.SNS.Services
     /// Extends the <see cref="ILaunchPadSystemIntegrationService" />
     /// </summary>
     /// <seealso cref="ILaunchPadSystemIntegrationService" />
-    public partial interface IAwsSNSService : ILaunchPadSystemIntegrationService
+    public partial interface IAwsSnsService : ILaunchPadSystemIntegrationService
     {
         /// <summary>
         /// Gets or sets the helper.
         /// </summary>
         /// <value>The helper.</value>
-        public IAwsSNSHelper Helper { get; set; }
+        public IAwsSnsHelper Helper { get; set; }
 
     }
 }

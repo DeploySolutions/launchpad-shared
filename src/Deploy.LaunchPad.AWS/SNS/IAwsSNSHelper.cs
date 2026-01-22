@@ -20,7 +20,7 @@ namespace Deploy.LaunchPad.AWS.SNS
     /// Extends the <see cref="Deploy.LaunchPad.AWS.IAwsHelper{Amazon.SimpleNotificationService.AmazonSimpleNotificationServiceConfig}" />
     /// </summary>
     /// <seealso cref="Deploy.LaunchPad.AWS.IAwsHelper{Amazon.SimpleNotificationService.AmazonSimpleNotificationServiceConfig}" />
-    public partial interface IAwsSNSHelper : IAwsHelper<AmazonSimpleNotificationServiceConfig>
+    public partial interface IAwsSnsHelper : IAwsHelper<AmazonSimpleNotificationServiceConfig>
     {
     }
 }

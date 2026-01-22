@@ -22,49 +22,49 @@ namespace Deploy.LaunchPad.AWS.Abp.SNS.Services
     /// <summary>
     /// Class AwsSNSService.
     /// Implements the <see cref="LaunchPadAbpSystemIntegrationServiceBase" />
-    /// Implements the <see cref="IAwsSNSService" />
+    /// Implements the <see cref="IAwsSnsService" />
     /// </summary>
     /// <seealso cref="LaunchPadAbpSystemIntegrationServiceBase" />
-    /// <seealso cref="IAwsSNSService" />
-    public partial class AwsSNSService : LaunchPadAbpSystemIntegrationServiceBase, IAwsSNSService
+    /// <seealso cref="IAwsSnsService" />
+    public partial class AwsSnsService : LaunchPadAbpSystemIntegrationServiceBase, IAwsSnsService
     {
         /// <summary>
         /// Gets or sets the helper.
         /// </summary>
         /// <value>The helper.</value>
-        public IAwsSNSHelper Helper { get; set; }
+        public IAwsSnsHelper Helper { get; set; }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="AwsSNSService"/> class.
+        /// Initializes a new instance of the <see cref="AwsSnsService"/> class.
         /// </summary>
-        protected AwsSNSService() : base()
+        protected AwsSnsService() : base()
         {
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="AwsSNSService"/> class.
+        /// Initializes a new instance of the <see cref="AwsSnsService"/> class.
         /// </summary>
         /// <param name="logger">The logger.</param>
         /// <param name="configurationRoot">The configuration root.</param>
         /// <param name="regionEndpointName">Name of the region endpoint.</param>
         /// <param name="localAwsProfileName">Name of the local aws profile.</param>
         /// <param name="shouldUseLocalAwsProfile">if set to <c>true</c> [should use local aws profile].</param>
-        public AwsSNSService(ILogger logger,
+        public AwsSnsService(ILogger logger,
             IConfigurationRoot configurationRoot,
             string regionEndpointName,
             string localAwsProfileName,
             bool shouldUseLocalAwsProfile) : base(logger)
         {
-            var secretHelperFactory = new AwsSNSHelperFactory(logger, regionEndpointName);
+            var secretHelperFactory = new AwsSnsHelperFactory(logger, regionEndpointName);
             Helper = secretHelperFactory.Create(logger, regionEndpointName, localAwsProfileName, shouldUseLocalAwsProfile);
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="AwsSNSService"/> class.
+        /// Initializes a new instance of the <see cref="AwsSnsService"/> class.
         /// </summary>
         /// <param name="logger">The logger.</param>
         /// <param name="helper">The helper.</param>
-        public AwsSNSService(ILogger logger, IAwsSNSHelper helper) : base(logger)
+        public AwsSnsService(ILogger logger, IAwsSnsHelper helper) : base(logger)
         {
             Helper = helper;
         }

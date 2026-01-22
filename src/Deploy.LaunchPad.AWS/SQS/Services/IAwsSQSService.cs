@@ -20,12 +20,12 @@ namespace Deploy.LaunchPad.AWS.SQS.Services
     /// Extends the <see cref="ILaunchPadSystemIntegrationService" />
     /// </summary>
     /// <seealso cref="ILaunchPadSystemIntegrationService" />
-    public partial interface IAwsSQSService : ILaunchPadSystemIntegrationService
+    public partial interface IAwsSqsService : ILaunchPadSystemIntegrationService
     {
         /// <summary>
         /// Gets or sets the helper.
         /// </summary>
         /// <value>The helper.</value>
-        public IAwsSQSHelper Helper { get; set; }
+        public IAwsSqsHelper Helper { get; set; }
     }
 }

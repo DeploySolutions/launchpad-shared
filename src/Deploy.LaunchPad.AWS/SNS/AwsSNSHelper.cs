@@ -19,25 +19,25 @@ namespace Deploy.LaunchPad.AWS.SNS
     /// <summary>
     /// Class AwsSNSHelper.
     /// Implements the <see cref="Deploy.LaunchPad.AWS.AwsHelperBase{Amazon.SimpleNotificationService.AmazonSimpleNotificationServiceConfig}" />
-    /// Implements the <see cref="Deploy.LaunchPad.AWS.SNS.IAwsSNSHelper" />
+    /// Implements the <see cref="Deploy.LaunchPad.AWS.SNS.IAwsSnsHelper" />
     /// </summary>
     /// <seealso cref="Deploy.LaunchPad.AWS.AwsHelperBase{Amazon.SimpleNotificationService.AmazonSimpleNotificationServiceConfig}" />
-    /// <seealso cref="Deploy.LaunchPad.AWS.SNS.IAwsSNSHelper" />
-    public partial class AwsSNSHelper : AwsHelperBase<AmazonSimpleNotificationServiceConfig>, IAwsSNSHelper
+    /// <seealso cref="Deploy.LaunchPad.AWS.SNS.IAwsSnsHelper" />
+    public partial class AwsSnsHelper : AwsHelperBase<AmazonSimpleNotificationServiceConfig>, IAwsSnsHelper
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="AwsSNSHelper"/> class.
+        /// Initializes a new instance of the <see cref="AwsSnsHelper"/> class.
         /// </summary>
-        public AwsSNSHelper() : base()
+        public AwsSnsHelper() : base()
         {
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="AwsSNSHelper"/> class.
+        /// Initializes a new instance of the <see cref="AwsSnsHelper"/> class.
         /// </summary>
         /// <param name="logger">The logger.</param>
         /// <param name="awsRegionEndpointName">Name of the aws region endpoint.</param>
-        public AwsSNSHelper(ILogger logger, string awsRegionEndpointName) : base(logger, awsRegionEndpointName)
+        public AwsSnsHelper(ILogger logger, string awsRegionEndpointName) : base(logger, awsRegionEndpointName)
         {
 
         }

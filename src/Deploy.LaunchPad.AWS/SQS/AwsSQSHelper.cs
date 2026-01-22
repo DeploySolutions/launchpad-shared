@@ -19,25 +19,25 @@ namespace Deploy.LaunchPad.AWS.SQS
     /// <summary>
     /// Class AwsSQSHelper.
     /// Implements the <see cref="Deploy.LaunchPad.AWS.AwsHelperBase{Amazon.SQS.AmazonSQSConfig}" />
-    /// Implements the <see cref="Deploy.LaunchPad.AWS.SQS.IAwsSQSHelper" />
+    /// Implements the <see cref="Deploy.LaunchPad.AWS.SQS.IAwsSqsHelper" />
     /// </summary>
     /// <seealso cref="Deploy.LaunchPad.AWS.AwsHelperBase{Amazon.SQS.AmazonSQSConfig}" />
-    /// <seealso cref="Deploy.LaunchPad.AWS.SQS.IAwsSQSHelper" />
-    public partial class AwsSQSHelper : AwsHelperBase<AmazonSQSConfig>, IAwsSQSHelper
+    /// <seealso cref="Deploy.LaunchPad.AWS.SQS.IAwsSqsHelper" />
+    public partial class AwsSqsHelper : AwsHelperBase<AmazonSQSConfig>, IAwsSqsHelper
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="AwsSQSHelper"/> class.
+        /// Initializes a new instance of the <see cref="AwsSqsHelper"/> class.
         /// </summary>
-        public AwsSQSHelper() : base()
+        public AwsSqsHelper() : base()
         {
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="AwsSQSHelper"/> class.
+        /// Initializes a new instance of the <see cref="AwsSqsHelper"/> class.
         /// </summary>
         /// <param name="logger">The logger.</param>
         /// <param name="awsRegionEndpointName">Name of the aws region endpoint.</param>
-        public AwsSQSHelper(ILogger logger, string awsRegionEndpointName) : base(logger, awsRegionEndpointName)
+        public AwsSqsHelper(ILogger logger, string awsRegionEndpointName) : base(logger, awsRegionEndpointName)
         {
 
         }

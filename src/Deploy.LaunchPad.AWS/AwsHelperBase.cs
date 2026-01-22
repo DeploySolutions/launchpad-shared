@@ -81,7 +81,7 @@ namespace Deploy.LaunchPad.AWS
         /// <summary>
         /// Initializes a new instance of the <see cref="AwsHelperBase{TClientConfig}"/> class.
         /// </summary>
-        public AwsHelperBase() : base()
+        protected AwsHelperBase() : base()
         {
             Config = new TClientConfig();
             TryGetRegionEndpoint(string.Empty, out RegionEndpoint region);
@@ -93,7 +93,7 @@ namespace Deploy.LaunchPad.AWS
         /// </summary>
         /// <param name="logger">The logger.</param>
         /// <param name="awsRegionEndpointName">Name of the aws region endpoint.</param>
-        public AwsHelperBase(ILogger logger, string awsRegionEndpointName) : base(logger)
+        protected AwsHelperBase(ILogger logger, string awsRegionEndpointName) : base(logger)
         {
             Config = new TClientConfig();
             TryGetRegionEndpoint(awsRegionEndpointName, out RegionEndpoint region);

@@ -25,7 +25,7 @@ namespace Deploy.LaunchPad.Core.Abp.AbpModuleConfig
     /// </summary>
     /// <seealso cref="Deploy.LaunchPad.Core.Abp.AbpModuleConfig.ILaunchPadAppConfigurationAccessor" />
     /// <seealso cref="ISingletonDependency" />
-    public partial class LaunchPadAbpAppConfigurationAccessor : ILaunchPadAppConfigurationAccessor, ISingletonDependency
+    public partial class LaunchPadAbpAppConfigurationAccessor : ILaunchPadAppConfigurationAccessor
     {
         /// <summary>
         /// Gets the configuration.
@@ -33,15 +33,7 @@ namespace Deploy.LaunchPad.Core.Abp.AbpModuleConfig
         /// <value>The configuration.</value>
         public IConfigurationRoot Configuration { get; }
 
-        ///// <summary>
-        ///// Initializes a new instance of the <see cref="LaunchPadAbpAppConfigurationAccessor"/> class.
-        ///// </summary>
-        ///// <param name="env">The env.</param>
-        //public LaunchPadAbpAppConfigurationAccessor(IWebHostEnvironment env)
-        //{
-        //    Configuration = env.GetAppConfiguration();
-        //}
-
+       
         /// <summary>
         /// Initializes a new instance of the <see cref="LaunchPadAbpAppConfigurationAccessor"/> class.
         /// </summary>

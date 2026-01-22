@@ -127,13 +127,13 @@ namespace Deploy.LaunchPad.AWS
         /// <summary>
         /// Gets the o authentication token using secret credentials.
         /// </summary>
-        /// <param name="arn">The arn.</param>
+        /// <param name="secretArn">The arn.</param>
         /// <param name="scopes">The scopes.</param>
         /// <returns>TemporaryAccessToken.</returns>
-        public virtual TemporaryAccessToken GetOAuthTokenUsingSecretCredentials(string arn, IList<string> scopes = null)
+        public virtual TemporaryAccessToken GetOAuthTokenUsingSecretCredentials(string secretArn, IList<string> scopes = null)
         {
             AwsSecretProvider provider = new AwsSecretProvider(Region.SystemName, AwsProfileName, ShouldUseLocalAwsProfile);
-            AwsSecretVault vault = (AwsSecretVault)provider.GetSecretVaultByVaultId(arn, "AwsApiGatewayHelper.GetOAuthTokenUsingSecretCredentials(string arn, IList<string> scopes = null)");
+            AwsSecretVault vault = (AwsSecretVault)provider.GetSecretVaultByVaultId(secretArn, "AwsApiGatewayHelper.GetOAuthTokenUsingSecretCredentials(string arn, IList<string> scopes = null)");
             return GetOAuthTokenUsingSecretCredentialsAsync(vault, scopes).Result;
         }
 
@@ -161,7 +161,6 @@ namespace Deploy.LaunchPad.AWS
             Logger.Info(string.Format(Deploy_LaunchPad_AWS_Resources.ApiGatewayHelper_GetOAuthTokenUsingSecretCredentials_Getting, OAuthTokenEndpoint, OAuthBaseUri.ToString(), vault.VaultId));
             TemporaryAccessToken token = null;
 
-            string accessToken = string.Empty;
             AwsSecretProvider provider = new AwsSecretProvider(Region.SystemName, AwsProfileName, ShouldUseLocalAwsProfile);
             string secretJson = await provider.GetJsonFromSecretVaultAsync(vault, "AwsApiGatewayHelper.GetOAuthTokenUsingSecretCredentialsAsync()");
             dynamic secret = JsonConvert.DeserializeObject(secretJson);
@@ -252,7 +251,7 @@ namespace Deploy.LaunchPad.AWS
             if (Token == null)
             {
                 AwsSecretProvider provider = new AwsSecretProvider(Region.SystemName, AwsProfileName, ShouldUseLocalAwsProfile);
-                AwsSecretVault vault = (AwsSecretVault)provider.GetSecretVaultByVaultId(secretArn, "AwsApiGatewayHelper.MakeApiRequestAsync(string secretArn, RestRequest request, string requestId = \"\", string correlationId = \"\")");
+                AwsSecretVault vault =  (AwsSecretVault)await provider.GetSecretVaultByVaultIdAsync(secretArn, "AwsApiGatewayHelper.MakeApiRequestAsync(string secretArn, RestRequest request, string requestId = \"\", string correlationId = \"\")");
                 Token = await GetOAuthTokenUsingSecretCredentialsAsync(vault);
                 // TODO save the token in the secret
 

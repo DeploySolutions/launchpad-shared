@@ -84,10 +84,6 @@ namespace Deploy.LaunchPad.AWS.Redshift
                         logger.Debug("AwsRedshiftHelper was not registered; returning a new instance.");
                     }
                 }
-                else
-                {
-
-                }
                 // after all that, load the helper
                 if (helper == null)
                 {

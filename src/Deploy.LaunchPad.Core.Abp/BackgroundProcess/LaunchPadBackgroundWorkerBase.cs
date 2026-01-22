@@ -49,9 +49,11 @@ namespace Deploy.LaunchPad.Core.Abp.BackgroundProcess
         /// </summary>
         public override void Stop()
         {
-            Logger.Debug(string.Format(Deploy_LaunchPad_Core_Abp_Resources.Logger_Debug_BackgroundWorker_Stopping, ToString()));
+            string message = string.Format(Deploy_LaunchPad_Core_Abp_Resources.Logger_Debug_BackgroundWorker_Stopping, ToString());
+            Logger.Debug(message);
             base.Stop();
-            Logger.Debug(string.Format(Deploy_LaunchPad_Core_Abp_Resources.Logger_Debug_BackgroundWorker_Stopped, ToString()));
+            message = string.Format(Deploy_LaunchPad_Core_Abp_Resources.Logger_Debug_BackgroundWorker_Stopped, ToString());
+            Logger.Debug(message);
         }
 
         /// <summary>
@@ -60,9 +62,11 @@ namespace Deploy.LaunchPad.Core.Abp.BackgroundProcess
         /// </summary>
         public override void WaitToStop()
         {
-            Logger.Debug(string.Format(Deploy_LaunchPad_Core_Abp_Resources.Logger_Debug_BackgroundWorker_WaitingToStop, ToString()));
+            string message = string.Format(Deploy_LaunchPad_Core_Abp_Resources.Logger_Debug_BackgroundWorker_WaitingToStop, ToString());
+            Logger.Debug(message);
             base.WaitToStop();
-            Logger.Debug(string.Format(Deploy_LaunchPad_Core_Abp_Resources.Logger_Debug_BackgroundWorker_WaitedToStop, ToString()));
+            message = string.Format(Deploy_LaunchPad_Core_Abp_Resources.Logger_Debug_BackgroundWorker_WaitedToStop, ToString());
+            Logger.Debug(message);
         }
 
     }

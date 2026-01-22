@@ -35,8 +35,7 @@ namespace Deploy.LaunchPad.Core.Abp.AbpModuleConfig
     /// <seealso cref="Deploy.LaunchPad.Core.Abp.AbpModuleConfig.ILaunchPadAbpModuleHelper" />
     /// <seealso cref="ISingletonDependency" />
     public abstract class LaunchPadAbpModuleHelperBase : HelperBase,
-        ILaunchPadAbpModuleHelper,
-        ISingletonDependency
+        ILaunchPadAbpModuleHelper
     {
 
 
@@ -44,7 +43,7 @@ namespace Deploy.LaunchPad.Core.Abp.AbpModuleConfig
         /// Initializes a new instance of the <see cref="LaunchPadAbpModuleHelperBase"/> class.
         /// </summary>
         /// <param name="logger">The logger.</param>
-        public LaunchPadAbpModuleHelperBase(ILogger logger) : base(logger)
+        protected LaunchPadAbpModuleHelperBase(ILogger logger) : base(logger)
         {
             Logger = logger;
         }
@@ -93,7 +92,7 @@ namespace Deploy.LaunchPad.Core.Abp.AbpModuleConfig
             where TSecretVault : ISecretVault, new()
         {
             var comparer = StringComparer.OrdinalIgnoreCase;
-            IDictionary<string, TSecretVault> vaults = new Dictionary<string, TSecretVault>();
+            IDictionary<string, TSecretVault> vaults = new Dictionary<string, TSecretVault>(comparer);
 
             // add the secret vaults to the module's SecretProvider provider
             var appSettings = IocManager.Instance.Resolve<ISettingManager>();

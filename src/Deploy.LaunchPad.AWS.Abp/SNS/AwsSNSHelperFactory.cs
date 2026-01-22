@@ -27,15 +27,15 @@ namespace Deploy.LaunchPad.AWS.Abp.SNS
     /// </summary>
     /// <seealso cref="Deploy.LaunchPad.AWS.AwsHelperBase{Amazon.SimpleNotificationService.AmazonSimpleNotificationServiceConfig}" />
     /// <seealso cref="ISingletonDependency" />
-    public partial class AwsSNSHelperFactory : AwsHelperBase<AmazonSimpleNotificationServiceConfig>, ISingletonDependency
+    public partial class AwsSnsHelperFactory : AwsHelperBase<AmazonSimpleNotificationServiceConfig>, ISingletonDependency
     {
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="AwsSNSHelperFactory"/> class.
+        /// Initializes a new instance of the <see cref="AwsSnsHelperFactory"/> class.
         /// </summary>
         /// <param name="logger">The logger.</param>
         /// <param name="awsRegionEndpointName">Name of the aws region endpoint.</param>
-        public AwsSNSHelperFactory(ILogger logger, string awsRegionEndpointName) : base(logger, awsRegionEndpointName)
+        public AwsSnsHelperFactory(ILogger logger, string awsRegionEndpointName) : base(logger, awsRegionEndpointName)
         {
 
         }
@@ -48,13 +48,13 @@ namespace Deploy.LaunchPad.AWS.Abp.SNS
         /// <param name="awsProfileName">Name of the aws profile.</param>
         /// <param name="shouldUseLocalAwsProfile">if set to <c>true</c> [should use local aws profile].</param>
         /// <returns>AwsSNSHelper.</returns>
-        public virtual AwsSNSHelper Create(
+        public virtual AwsSnsHelper Create(
             ILogger logger,
             string awsRegionEndpointName = DefaultRegionEndpointName,
             string awsProfileName = DefaultLocalAwsProfileName,
             bool shouldUseLocalAwsProfile = DefaultShouldUseLocalAwsProfile)
         {
-            AwsSNSHelper helper = null;
+            AwsSnsHelper helper = null;
             if (logger == null)
             {
                 logger = NullLogger.Instance;
@@ -64,7 +64,7 @@ namespace Deploy.LaunchPad.AWS.Abp.SNS
             AwsProfileName = awsProfileName;
             if (shouldUseLocalAwsProfile)
             {
-                helper = new AwsSNSHelper(logger, awsRegionEndpointName);
+                helper = new AwsSnsHelper(logger, awsRegionEndpointName);
                 helper.ShouldUseLocalAwsProfile = true;
             }
             else // do not use a named local profile, instead try to determine the AWS client from the credential resolution order
@@ -74,14 +74,14 @@ namespace Deploy.LaunchPad.AWS.Abp.SNS
                 {
                     try
                     {
-                        helper = IocManager.Instance.Resolve<AwsSNSHelper>();
+                        helper = IocManager.Instance.Resolve<AwsSnsHelper>();
                         logger.Debug("AwsSNSHelper was registered; returning the resolved instance.");
                     }
                     catch (ComponentNotFoundException)
                     {
                         // create the helper using the AWS credentials resolution pattern.
                         // Since we are not using local profile here, we presumably load from EC2 role or environment
-                        helper = new AwsSNSHelper(logger, awsRegionEndpointName);
+                        helper = new AwsSnsHelper(logger, awsRegionEndpointName);
                         logger.Debug("AwsSNSHelper was not registered; returning a new instance.");
                     }
                 }
@@ -94,7 +94,7 @@ namespace Deploy.LaunchPad.AWS.Abp.SNS
                 {
                     // create the helper using the AWS credentials resolution pattern.
                     // Since we are not using local profile here, we presumably load from EC2 role or environment
-                    helper = new AwsSNSHelper(logger, awsRegionEndpointName);
+                    helper = new AwsSnsHelper(logger, awsRegionEndpointName);
                     logger.Debug("AwsSNSHelper was null; returning a new instance.");
                 }
             }
