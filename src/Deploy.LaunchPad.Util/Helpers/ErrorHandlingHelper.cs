@@ -3,6 +3,8 @@ using Deploy.LaunchPad.Util.Methods;
 using FluentResults;
 using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Runtime.CompilerServices;
 using System.Text;
 
 namespace Deploy.LaunchPad.Util.Helpers
@@ -44,8 +46,22 @@ namespace Deploy.LaunchPad.Util.Helpers
         /// <typeparam name="TResultValue"></typeparam>
         /// <param name="logger"></param>
         /// <param name="errors"></param>
-        public virtual void LogErrors(ILogger logger, string caller, IReadOnlyList<IError> errors)
+        /// <param name="callerMemberName">The calling method name (determined using reflection unless passed in)</param>
+        /// <param name="callerFilePath">The calling class filepath (determiend using reflection unless passed in)</param>
+        public virtual void LogErrors(
+            ILogger logger, 
+            IReadOnlyList<IError> errors,
+            [CallerMemberName] string callerMemberName = "",
+            [CallerFilePath] string callerFilePath = "")
         {
+            // Extract the class name from the file path
+            string className = !string.IsNullOrEmpty(callerFilePath)
+                ? Path.GetFileNameWithoutExtension(callerFilePath)
+                : "UnknownClass"
+            ;
+            // Combine the class name and method name
+            string caller = $"{className}.{callerMemberName}";
+
             foreach (var error in errors)
             {
                 logger.Error($"Error in {caller}: {error.Message}");
