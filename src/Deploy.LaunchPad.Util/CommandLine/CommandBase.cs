@@ -24,6 +24,7 @@ namespace Deploy.LaunchPad.FactoryLite.CommandLine
         public ElementDescriptionLight Description { get; init; }
         public virtual IReadOnlyList<OptionDefinition> Options { get; }
 
+        public virtual LaunchPadMethodHelper MethodHelper { get; init; }
         public virtual ErrorHandlingHelper ErrorHandlingHelper { get; init; }
 
         // Define event handlers
@@ -36,6 +37,7 @@ namespace Deploy.LaunchPad.FactoryLite.CommandLine
         {
             Logger = logger;
             _clock = clock;
+            MethodHelper = new LaunchPadMethodHelper(Logger);
             ErrorHandlingHelper = new ErrorHandlingHelper(Logger);
             // Subscribe to various events
             MethodStart += (sender, args) =>
