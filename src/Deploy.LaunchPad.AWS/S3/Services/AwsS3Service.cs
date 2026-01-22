@@ -92,7 +92,7 @@ namespace Deploy.LaunchPad.AWS.S3.Services
                     Console.WriteLine("Object metadata, Title: {0}", title);
                     Console.WriteLine("Content type: {0}", contentType);
 
-                    responseBody = reader.ReadToEnd(); // Now you process the response body.
+                    responseBody = await reader.ReadToEndAsync(); // Now you process the response body.
                 }
             }
             catch (Exception e)
