@@ -10,7 +10,7 @@
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageProjectUrl>https://github.com/DeploySolutions/launchpad-shared</PackageProjectUrl>
     <RepositoryUrl>https://github.com/DeploySolutions/launchpad-shared</RepositoryUrl>
-    <Version>10.22.8</Version>
+    <Version>10.22.9</Version>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <PackageIcon>icon.png</PackageIcon>
     <IncludeSymbols>true</IncludeSymbols>
