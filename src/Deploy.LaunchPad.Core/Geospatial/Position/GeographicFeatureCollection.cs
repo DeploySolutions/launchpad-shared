@@ -33,9 +33,12 @@ namespace Deploy.LaunchPad.Core.Geospatial.Position
 
         public virtual bool AddFeature(T feature)
         {
-            if (feature == null || string.IsNullOrWhiteSpace(feature.FeatureId) || string.IsNullOrEmpty(feature.FeatureId) || _features.ContainsKey(feature.FeatureId))
+            if (EqualityComparer<T>.Default.Equals(feature, default(T)) ||
+                string.IsNullOrWhiteSpace(feature.FeatureId) ||
+                _features.ContainsKey(feature.FeatureId))
+            {
                 return false;
-
+            }
             _features.TryAdd(feature.FeatureId, feature);
             _featureAdded.Add(feature.FeatureId);
             _featureRemoved.Remove(feature.FeatureId); // undo removal
@@ -59,8 +62,12 @@ namespace Deploy.LaunchPad.Core.Geospatial.Position
 
         public virtual bool UpdateFeature(T feature)
         {
-            if (feature == null || string.IsNullOrWhiteSpace(feature.FeatureId) || string.IsNullOrEmpty(feature.FeatureId) || !_features.ContainsKey(feature.FeatureId))
+            if (EqualityComparer<T>.Default.Equals(feature, default(T)) ||
+             string.IsNullOrWhiteSpace(feature.FeatureId) ||
+             !_features.ContainsKey(feature.FeatureId))
+            {
                 return false;
+            }
 
             _features.TryAdd(feature.FeatureId, feature);
             if (!_featureAdded.Contains(feature.FeatureId)) // Don't track updates for new features
