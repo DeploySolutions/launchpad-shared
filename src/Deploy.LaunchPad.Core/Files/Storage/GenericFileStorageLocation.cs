@@ -50,7 +50,7 @@ namespace Deploy.LaunchPad.Core.Files.Storage
     /// <seealso cref="Domain.IFileStorageLocation" />
     [DebuggerDisplay("{_debugDisplay}")]
     [Serializable]
-    public partial class GenericFileStorageLocation : LaunchPadCommonProperties, IFileStorageLocation
+    public partial class GenericFileStorageLocation : LaunchPadCoreProperties, IFileStorageLocation
     {
         /// <summary>
         /// Controls the DebuggerDisplay attribute presentation (above). This will only appear during VS debugging sessions and should never be logged.

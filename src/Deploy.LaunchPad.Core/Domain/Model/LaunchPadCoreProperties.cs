@@ -12,10 +12,11 @@ using System.Threading.Tasks;
 using System.Xml.Linq;
 using System.Xml.Serialization;
 using System.Globalization;
+using Deploy.LaunchPad.Util.Elements;
 
 namespace Deploy.LaunchPad.Core.Domain.Model
 {
-    public partial class LaunchPadCommonProperties : ILaunchPadCommonProperties
+    public partial class LaunchPadCoreProperties : LaunchPadMinimalProperties, ILaunchPadCoreProperties
     {
         // List of common property names (including some like ID that are not present here but are common in domain entities)
         public static readonly IList<string> CommonProperties = new List<string>
@@ -42,34 +43,6 @@ namespace Deploy.LaunchPad.Core.Domain.Model
             "DataSet",
             "DataSetId"
         };
-
-        protected ElementName _name;
-        /// <summary>
-        /// The name of this object
-        /// </summary>
-        /// <value>The name.</value>
-        [Required]
-        [DataObjectField(false)]
-        [XmlAttribute]
-        public virtual ElementName Name
-        {
-            get { return _name; }
-            set { _name = value; }
-        }
-
-        protected ElementDescription _description;
-        /// <summary>
-        /// A  description for this entity
-        /// </summary>
-        /// <value>The description.</value>
-        [Required]
-        [DataObjectField(false)]
-        [XmlAttribute]
-        public virtual ElementDescription Description
-        {
-            get { return _description; }
-            set { _description = value; }
-        }
 
         protected string _culture = "en";
         /// <summary>
@@ -282,7 +255,7 @@ namespace Deploy.LaunchPad.Core.Domain.Model
         /// <summary>
         ///  constructor 
         /// </summary>
-        public LaunchPadCommonProperties()
+        public LaunchPadCoreProperties() : base()
         {
           
         }
@@ -290,10 +263,8 @@ namespace Deploy.LaunchPad.Core.Domain.Model
         /// <summary>
         ///  constructor 
         /// </summary>
-        public LaunchPadCommonProperties(string name)
+        public LaunchPadCoreProperties(string name) : base(new ElementName(name), new ElementDescription(name))
         {
-            Name = new ElementName(name);
-            Description = new ElementDescription(name);
         }
 
         /// <summary>
@@ -301,11 +272,10 @@ namespace Deploy.LaunchPad.Core.Domain.Model
         /// </summary>
         /// <param name="info">The serialization info</param>
         /// <param name="context">The context of the stream</param>
-        protected LaunchPadCommonProperties(SerializationInfo info, StreamingContext context)
+        protected LaunchPadCoreProperties(SerializationInfo info, StreamingContext context)
+            : base(info,context)
         {
             Culture = info.GetString("Culture");
-            Name = (ElementName)info.GetValue("Name", typeof(ElementName));
-            Description = (ElementDescription)info.GetValue("Description", typeof(ElementDescription));
             Checksum = info.GetString("Checksum");
             Tags = info.GetString("Tags");
             CreationTime = info.GetDateTime("CreationTime");
@@ -324,11 +294,10 @@ namespace Deploy.LaunchPad.Core.Domain.Model
         /// </summary>
         /// <param name="info">The information.</param>
         /// <param name="context">The context.</param>
-        public virtual void GetObjectData(SerializationInfo info, StreamingContext context)
+        public override void GetObjectData(SerializationInfo info, StreamingContext context)
         {
+            base.GetObjectData(info, context);
             info.AddValue("Culture", Culture);
-            info.AddValue("Name", Name);
-            info.AddValue("Description", Description);
             info.AddValue("Checksum", Checksum);
             info.AddValue("Tags", Tags);
             info.AddValue("CreationTime", CreationTime);

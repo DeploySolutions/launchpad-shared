@@ -39,7 +39,7 @@ namespace Deploy.LaunchPad.Core.Organization
     /// Interface ILaunchPadOrganization
     /// </summary>
     public partial interface ILaunchPadOrganization : ILaunchPadObject,
-        ILaunchPadCommonProperties
+        ILaunchPadCoreProperties
     {
 
         ///<summary>

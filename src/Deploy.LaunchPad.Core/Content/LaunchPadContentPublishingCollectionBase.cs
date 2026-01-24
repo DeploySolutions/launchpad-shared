@@ -8,7 +8,7 @@ using System.Runtime.Serialization;
 namespace Deploy.LaunchPad.Core.Content
 {
 
-    public abstract partial class LaunchPadContentPublishingCollectionBase : LaunchPadCommonProperties, ILaunchPadObject, ILaunchPadContentPublishingCollection
+    public abstract partial class LaunchPadContentPublishingCollectionBase : LaunchPadCoreProperties, ILaunchPadObject, ILaunchPadContentPublishingCollection
     {
         public virtual Guid Id { get; set; }
 

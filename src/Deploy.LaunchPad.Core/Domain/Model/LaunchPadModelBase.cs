@@ -47,13 +47,13 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
     using System.Xml.Serialization;
 
     /// <summary>
-    /// Base class for Entities. Implements <see cref="ILaunchPadCommonProperties">ILaunchPadBaseProperties</see> and provides
+    /// Base class for Entities. Implements <see cref="ILaunchPadCoreProperties">ILaunchPadBaseProperties</see> and provides
     /// base functionality for many of its properties.
     /// </summary>
     [DebuggerDisplay("{_debugDisplay}")]
     [Serializable]
     public abstract partial class LaunchPadModelBase :
-        LaunchPadCommonProperties, IEquatable<LaunchPadModelBase>, IComparable<LaunchPadModelBase>
+        LaunchPadCoreProperties, IEquatable<LaunchPadModelBase>, IComparable<LaunchPadModelBase>
     {
 
         /// <summary>
@@ -156,7 +156,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
         /// </summary>
         /// <typeparam name="TEntity">The source entity to clone</typeparam>
         /// <returns>A shallow clone of the entity and its serializable properties</returns>
-        protected virtual TEntity Clone<TEntity>() where TEntity : ILaunchPadCommonProperties, new()
+        protected virtual TEntity Clone<TEntity>() where TEntity : ILaunchPadCoreProperties, new()
         {
             TEntity clone = new TEntity();
             foreach (PropertyInfo info in GetType().GetProperties())

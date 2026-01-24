@@ -22,12 +22,12 @@ namespace Deploy.LaunchPad.Space.Satellites.Core.Observations
 {
     /// <summary>
     /// Interface IEarthObservationSwath
-    /// Extends the <see cref="ILaunchPadCommonProperties" />
+    /// Extends the <see cref="ILaunchPadCoreProperties" />
     /// Extends the <see cref="ILaunchPadObject" />
     /// </summary>
-    /// <seealso cref="ILaunchPadCommonProperties" />
+    /// <seealso cref="ILaunchPadCoreProperties" />
     /// <seealso cref="ILaunchPadObject" />
-    public partial interface IEarthObservationSwath : ILaunchPadCommonProperties, ILaunchPadObject
+    public partial interface IEarthObservationSwath : ILaunchPadCoreProperties, ILaunchPadObject
     {
         /// <summary>
         /// Gets or sets the scenes.

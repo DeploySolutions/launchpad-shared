@@ -39,14 +39,14 @@ namespace Deploy.LaunchPad.Space.Satellites.Core
 
     /// <summary>
     /// Interface IEarthObservationScene
-    /// Extends the <see cref="ILaunchPadCommonProperties" />
+    /// Extends the <see cref="ILaunchPadCoreProperties" />
     /// Extends the <see cref="ILaunchPadObject" />
     /// Extends the <see cref="IMustBePhysicallyLocatable" />
     /// </summary>
-    /// <seealso cref="ILaunchPadCommonProperties" />
+    /// <seealso cref="ILaunchPadCoreProperties" />
     /// <seealso cref="ILaunchPadObject" />
     /// <seealso cref="IMustBePhysicallyLocatable" />
-    public partial interface IEarthObservationScene : ILaunchPadCommonProperties, ILaunchPadObject, IMustBePhysicallyLocatable
+    public partial interface IEarthObservationScene : ILaunchPadCoreProperties, ILaunchPadObject, IMustBePhysicallyLocatable
     {
 
         /// <summary>

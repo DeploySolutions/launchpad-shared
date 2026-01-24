@@ -25,7 +25,7 @@ namespace Deploy.LaunchPad.Core.Domain.Model
     /// Defines the minimum properties LaunchPad expects to have for a web-addressable Domain Entity or Value Object.
     /// </summary>
     /// <typeparam name="TIdType">The type of the t identifier type.</typeparam>
-    public partial interface IMayHaveWebAddressableProperties: ILaunchPadCommonProperties, IMayHaveASlug
+    public partial interface IMayHaveWebAddressableProperties: ILaunchPadCoreProperties, IMayHaveASlug
     {
 
         /// <summary>

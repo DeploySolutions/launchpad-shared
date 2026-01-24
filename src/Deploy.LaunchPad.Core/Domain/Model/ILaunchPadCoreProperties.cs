@@ -13,6 +13,7 @@
 // ***********************************************************************
 using Deploy.LaunchPad.Core.Content;
 using Deploy.LaunchPad.Util;
+using Deploy.LaunchPad.Util.Elements;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -27,26 +28,8 @@ namespace Deploy.LaunchPad.Core.Domain.Model
     /// Defines the minimum properties LaunchPad expects to have for a Domain Entity or Value Object.
     /// Note these deliberately correspond 1:1 to many of the properties found in various ABP domain entity interfaces, which would also be inherited by implementing classes.
     /// </summary>
-    public partial interface ILaunchPadCommonProperties : IMayHaveTags
+    public partial interface ILaunchPadCoreProperties : ILaunchPadMinimalProperties, IMayHaveTags
     {
-
-        /// <summary>
-        /// The name of this object
-        /// </summary>
-        /// <value>The name.</value>
-        [Required]
-        [DataObjectField(false)]
-        [XmlAttribute]
-        public ElementName Name { get; set; }
-
-        /// <summary>
-        /// The description of this object
-        /// </summary>
-        /// <value>The description.</value>
-        [Required]
-        [DataObjectField(false)]
-        [XmlAttribute]
-        public ElementDescription Description { get; set;}
 
         /// <summary>
         /// The culture of this object

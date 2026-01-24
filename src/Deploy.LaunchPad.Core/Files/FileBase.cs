@@ -19,7 +19,7 @@ namespace Deploy.LaunchPad.Core.Files
     /// </summary>
     /// <typeparam name="TFileContentType">The type of the content which will be stored within.</typeparam>
     /// <typeparam name="TSchemaFormat">The format of the file schema, used to validate it or ensure output is correct.</typeparam>
-    public abstract partial class FileBase<TFileContentType, TSchemaFormat> : LaunchPadCommonProperties, IFile<TFileContentType, TSchemaFormat>
+    public abstract partial class FileBase<TFileContentType, TSchemaFormat> : LaunchPadCoreProperties, IFile<TFileContentType, TSchemaFormat>
     {
         /// <summary>
         /// The size of the file, in bytes
