@@ -234,6 +234,42 @@ namespace Deploy.LaunchPad.Util.CommandLine
             return DateTime.SpecifyKind(defaultValue, kind); // Use specified kind for default
         }
 
+
+        /// <summary>
+        /// Retrieves an enum value from the command arguments.
+        /// If the argument is not present or cannot be parsed, the default value is returned.
+        /// </summary>
+        /// <typeparam name="TEnum">The enum type to retrieve.</typeparam>
+        /// <param name="input">The command input containing the arguments.</param>
+        /// <param name="key">The key of the argument to retrieve.</param>
+        /// <param name="defaultValue">The default value to return if the argument is not present or invalid.</param>
+        /// <returns>The enum value of the argument, or the default value if not found or invalid.</returns>
+        public virtual TEnum GetEnumValueFromArgs<TEnum>(CommandInput input, string key, TEnum defaultValue) where TEnum : struct, Enum
+        {
+            Guard.Against<ArgumentNullException>(input == null, "CommandHelper.GetEnumValueFromArgs() => input cannot be null.");
+            Guard.Against<ArgumentNullException>(input.Args == null, "CommandHelper.GetEnumValueFromArgs() => input.Args cannot be null.");
+            Guard.Against<ArgumentNullException>(string.IsNullOrEmpty(key), "CommandHelper.GetEnumValueFromArgs() => key cannot be null or empty.");
+
+            if (input.Args.ContainsKey(key))
+            {
+                try
+                {
+                    var value = input.Args.Get<string>(key).ValueOrDefault;
+                    if (Enum.TryParse(value, true, out TEnum result))
+                    {
+                        return result;
+                    }
+                    Logger.Warn($"Invalid enum value for argument '{key}': {value}. Using default: {defaultValue}");
+                }
+                catch (Exception ex)
+                {
+                    Logger.Error($"Error retrieving argument '{key}': {ex.Message}. Using default: {defaultValue}");
+                }
+            }
+
+            return defaultValue;
+        }
+
         public virtual TExpectedType DeserializeTypeFromJsonInput<TExpectedType, TResultValue>(string jsonInput, CommandInput input, ref LaunchPadMethodResult<TResultValue> methodResult)
             where TResultValue : class, ILaunchPadMethodResultValue
         {
