@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Text.RegularExpressions;
 using System.Xml.Serialization;
 
@@ -20,6 +21,7 @@ namespace Deploy.LaunchPad.Util.Elements
         [Required]
         [DataObjectField(false)]
         [XmlAttribute]
+        [JsonPropertyName("name")]
         public virtual ElementName Name
         {
             get { return _name; }
@@ -34,6 +36,7 @@ namespace Deploy.LaunchPad.Util.Elements
         [Required]
         [DataObjectField(false)]
         [XmlAttribute]
+        [JsonPropertyName("description")]
         public virtual ElementDescription Description
         {
             get { return _description; }
@@ -46,11 +49,19 @@ namespace Deploy.LaunchPad.Util.Elements
             _description = new ElementDescription();
         }
 
-        public LaunchPadMinimalProperties(ElementName name, ElementDescription? description)
+        public LaunchPadMinimalProperties(string name, string description = null)
+        {
+            _name = new ElementName(name);
+            _description = description != null ? new ElementDescription(description) : new ElementDescription();
+        }
+
+
+        public LaunchPadMinimalProperties(ElementName name, ElementDescription description = null)
         {
             _name = name;
             _description = description ?? new ElementDescription();
         }
+
         /// <summary>
         /// Serialization constructor used for deserialization
         /// </summary>
