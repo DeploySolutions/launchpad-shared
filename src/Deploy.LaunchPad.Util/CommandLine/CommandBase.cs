@@ -35,7 +35,7 @@ namespace Deploy.LaunchPad.FactoryLite.CommandLine
         public event EventHandler<MethodEventArgs>? MethodEnd; 
         public event EventHandler<ErrorEventArgs>? OnError;
 
-        protected JsonSerializerOptions _jsonSerializerOptions = new JsonSerializerOptions
+        public static JsonSerializerOptions JsonSerializerOptions = new JsonSerializerOptions
         {
             PropertyNameCaseInsensitive = true,
             Converters = { new JsonStringEnumConverter() }
