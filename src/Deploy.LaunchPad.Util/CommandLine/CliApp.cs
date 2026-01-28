@@ -152,7 +152,7 @@ namespace Deploy.LaunchPad.Util.CommandLine
                         else if (kvp.Value is not null && !(kvp.Value.GetType().IsPrimitive))
                         {
                             // Serialize complex objects to JSON strings
-                            string jsonValue = JsonSerializer.Serialize(kvp.Value, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+                            string jsonValue = JsonSerializer.Serialize(kvp.Value, JsonSerializerOptions);
                             argList.Add($"--{kvp.Key}");
                             argList.Add(jsonValue);
                             methodResult.AddSuccess($"Added {kvp.Key}");
@@ -313,7 +313,7 @@ namespace Deploy.LaunchPad.Util.CommandLine
                     }
 
                     var json = await File.ReadAllTextAsync(batchFile);
-                    var batch = JsonSerializer.Deserialize<List<BatchCommand>>(json, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+                    var batch = JsonSerializer.Deserialize<List<BatchCommand>>(json, JsonSerializerOptions);
                     if (batch == null)
                     {
                         logger.Error("Failed to parse batch file.");
