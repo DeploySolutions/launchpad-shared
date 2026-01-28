@@ -10,6 +10,8 @@ using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace Deploy.LaunchPad.FactoryLite.CommandLine
@@ -33,6 +35,11 @@ namespace Deploy.LaunchPad.FactoryLite.CommandLine
         public event EventHandler<MethodEventArgs>? MethodEnd; 
         public event EventHandler<ErrorEventArgs>? OnError;
 
+        protected JsonSerializerOptions _jsonSerializerOptions = new JsonSerializerOptions
+        {
+            PropertyNameCaseInsensitive = true,
+            Converters = { new JsonStringEnumConverter() }
+        };
 
         protected CommandBase(ILogger logger, TimeProvider clock)
         {
