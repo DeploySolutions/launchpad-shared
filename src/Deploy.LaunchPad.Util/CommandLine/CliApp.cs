@@ -336,7 +336,7 @@ namespace Deploy.LaunchPad.Util.CommandLine
                     }
 
                     var json = await File.ReadAllTextAsync(batchFile);
-                    var batch = JsonSerializer.Deserialize<List<BatchCommand>>(json, CommandBase.JsonSerializerOptions);
+                    var batch = JsonSerializer.Deserialize<List<BatchCommand>>(json, CommandBase.JsonOptions);
                     if (batch == null)
                     {
                         logger.Error("Failed to parse batch file.");

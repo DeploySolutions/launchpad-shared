@@ -344,7 +344,7 @@ namespace Deploy.LaunchPad.Util.CommandLine
 
                 // Otherwise, deserialize the raw value into the expected output type
                 string rawJson = rawValue.ToString();
-                return JsonSerializer.Deserialize<TOutput>(rawJson);
+                return JsonSerializer.Deserialize<TOutput>(rawJson, CommandBase.JsonOptions);
             }
             catch (JsonException ex)
             {

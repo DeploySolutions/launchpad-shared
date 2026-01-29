@@ -1,4 +1,5 @@
 ﻿using Castle.Core.Logging;
+using Deploy.LaunchPad.FactoryLite.CommandLine;
 using Deploy.LaunchPad.FactoryLite.Methods;
 using Deploy.LaunchPad.Util;
 using Deploy.LaunchPad.Util.CommandLine;
@@ -14,9 +15,9 @@ using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
-namespace Deploy.LaunchPad.FactoryLite.CommandLine
+namespace Deploy.LaunchPad.Util.CommandLine
 {
-    public abstract partial class CommandBase : Deploy.LaunchPad.Util.CommandLine.ICommand
+    public abstract partial class CommandBase : ICommand
     {
         protected readonly TimeProvider _clock;
 
@@ -35,7 +36,7 @@ namespace Deploy.LaunchPad.FactoryLite.CommandLine
         public event EventHandler<MethodEventArgs>? MethodEnd; 
         public event EventHandler<ErrorEventArgs>? OnError;
 
-        public static JsonSerializerOptions JsonSerializerOptions = new JsonSerializerOptions
+        public static JsonSerializerOptions JsonOptions = new JsonSerializerOptions
         {
             PropertyNameCaseInsensitive = true,
             Converters = { new JsonStringEnumConverter() }
@@ -121,7 +122,6 @@ namespace Deploy.LaunchPad.FactoryLite.CommandLine
 
             return result;
         }
-
 
         public abstract Task<LaunchPadMethodResult<TResultValue>> ExecuteAsync<TCommand, TResultValue>(CommandInput input)
             where TCommand : Deploy.LaunchPad.Util.CommandLine.ICommand
