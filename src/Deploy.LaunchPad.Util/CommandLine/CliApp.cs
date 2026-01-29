@@ -34,9 +34,18 @@ namespace Deploy.LaunchPad.Util.CommandLine
         public ICommand? TryGetCommand(string name) => _commands.GetValueOrDefault(name);
 
         // Helper to execute a command by name and args
-        public async Task<ICommandResult> ExecuteCommand(CliApp app, IServiceProvider serviceProvider, Castle.Core.Logging.ILogger logger, Dictionary<string,(Type CommandType, Type ValueType)> commandTypeMap, string commandName, Dictionary<string, object>? argDict)
+        public async Task<ICommandResult> ExecuteCommand(
+            CliApp app,
+            IServiceProvider serviceProvider,
+            Castle.Core.Logging.ILogger logger,
+            Dictionary<string, (Type CommandType, Type ValueType)> commandTypeMap,
+            string commandName,
+            Dictionary<string, object>? argDict
+        )
         {
+            logger.Info($"Starting execution of command: {commandName}");
             ICommandResult methodResult = new CommandResult<CliAppResultValue>(new CliAppResultValue());
+
             if (!commandTypeMap.TryGetValue(commandName, out var types))
             {
                 string errorMessage = $"Unknown command '{commandName}'.";
@@ -47,6 +56,8 @@ namespace Deploy.LaunchPad.Util.CommandLine
             }
 
             var (commandType, valueType) = types;
+            logger.Debug($"Resolved command type: {commandType}, value type: {valueType}");
+
             var command = app.TryGetCommand(commandName);
             if (command == null)
             {
@@ -56,13 +67,18 @@ namespace Deploy.LaunchPad.Util.CommandLine
                 return methodResult;
             }
 
+            logger.Debug($"Command instance resolved: {command.GetType().FullName}");
+
             var method = command.GetType().GetMethod("ExecuteAsync");
             var genericMethod = method.MakeGenericMethod(commandType, valueType);
+
+            logger.Debug($"Generic ExecuteAsync method created: {genericMethod}");
 
             var argList = new List<string>();
 
             if (argDict != null)
             {
+                logger.Debug("Processing argument dictionary...");
                 try
                 {
                     foreach (var kvp in argDict)
@@ -147,12 +163,11 @@ namespace Deploy.LaunchPad.Util.CommandLine
                             argList.Add($"--{kvp.Key}");
                             argList.Add(strValue);
                             methodResult.AddSuccess($"Added {strValue}");
-
                         }
                         else if (kvp.Value is not null && !(kvp.Value.GetType().IsPrimitive))
                         {
                             // Serialize complex objects to JSON strings
-                            string jsonValue = JsonSerializer.Serialize(kvp.Value, JsonSerializerOptions);
+                            string jsonValue = JsonSerializer.Serialize(kvp.Value, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
                             argList.Add($"--{kvp.Key}");
                             argList.Add(jsonValue);
                             methodResult.AddSuccess($"Added {kvp.Key}");
@@ -194,18 +209,20 @@ namespace Deploy.LaunchPad.Util.CommandLine
                 }
             }
 
+            logger.Debug("Parsing arguments...");
             LaunchPadMethodResult<CommandArgsParseResultValue> parseResult = null;
             try
             {
                 parseResult = CommandArgsParser.Parse(logger, command, argList.ToArray());
             }
-            catch(InvalidOperationException ioe)
+            catch (InvalidOperationException ioe)
             {
                 string errorMessage = $"Error in parse of command '{commandName}': {ioe.Message}";
                 methodResult.AddError(errorMessage);
                 logger.Error(errorMessage);
                 throw new ArgumentException(errorMessage, ioe);
             }
+
             if (parseResult != null && !parseResult.Succeeded)
             {
                 string errorMessages = string.Join(Environment.NewLine, parseResult.Errors.Select(kvp => $"{kvp.Key}: {kvp.Value}"));
@@ -214,6 +231,8 @@ namespace Deploy.LaunchPad.Util.CommandLine
                 logger.Error(errorMessage);
                 throw new ArgumentException(errorMessage);
             }
+
+            logger.Debug("Creating CommandInput...");
             CommandInput input = new CommandInput
             {
                 Logger = logger,
@@ -221,6 +240,8 @@ namespace Deploy.LaunchPad.Util.CommandLine
                 Services = serviceProvider,
                 Ct = CancellationToken.None
             };
+
+            logger.Info($"Executing command: {commandName}");
             var task = (Task)genericMethod.Invoke(command, new object[] { input });
             await task.ConfigureAwait(false);
 
@@ -230,17 +251,19 @@ namespace Deploy.LaunchPad.Util.CommandLine
             // Merge success messages
             foreach (var successMessage in newResult.Successes.Values)
             {
+                logger.Debug("Success: " + successMessage);
                 methodResult.AddSuccess(successMessage);
             }
-
             // Merge error messages
             foreach (var errorMessage in newResult.Errors.Values)
             {
+                logger.Error("Error: " + errorMessage);
                 methodResult.AddError(errorMessage);
             }
+
+            logger.Info($"Finished execution of command: {commandName}");
             return methodResult;
         }
-
 
         public void PrintTopLevelHelp()
         {
@@ -313,7 +336,7 @@ namespace Deploy.LaunchPad.Util.CommandLine
                     }
 
                     var json = await File.ReadAllTextAsync(batchFile);
-                    var batch = JsonSerializer.Deserialize<List<BatchCommand>>(json, JsonSerializerOptions);
+                    var batch = JsonSerializer.Deserialize<List<BatchCommand>>(json, CommandBase.JsonSerializerOptions);
                     if (batch == null)
                     {
                         logger.Error("Failed to parse batch file.");
