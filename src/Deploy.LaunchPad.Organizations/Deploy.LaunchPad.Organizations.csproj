@@ -1,41 +1,17 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
+  <Import Project="..\..\common.props" />
+  <Import Project="..\..\configureawait.props" />
+
   <PropertyGroup>
-    <TargetFrameworks>net10.0</TargetFrameworks>
-    <Company>Deploy Software Solutions, inc.</Company>
-    <Authors>Nicholas Kellett</Authors>
-    <PackageLicenseUrl></PackageLicenseUrl>
-    <PackageProjectUrl>https://github.com/DeploySolutions/launchpad-shared</PackageProjectUrl>
-    <RepositoryUrl>https://github.com/DeploySolutions/launchpad-shared</RepositoryUrl>
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <Version>10.22.5</Version>
     <Description>Organization-related code for LaunchPad framework.</Description>
-    <Copyright>2018-2025 Deploy Software Solutions, inc.</Copyright>
-    <PackageIconUrl></PackageIconUrl>
-    <PackageLicenseFile>LICENSE</PackageLicenseFile>
-    <PackageIcon>icon.png</PackageIcon>
-    <IncludeSymbols>true</IncludeSymbols>
-    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
-    <PackageReadmeFile>README.md</PackageReadmeFile>
   </PropertyGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Deploy.LaunchPad.Core.Abp\Deploy.LaunchPad.Core.Abp.csproj" />
     <ProjectReference Include="..\Deploy.LaunchPad.Core\Deploy.LaunchPad.Core.csproj" />
     <ProjectReference Include="..\Deploy.LaunchPad.Util\Deploy.LaunchPad.Util.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Include="..\..\LICENSE">
-      <Pack>True</Pack>
-      <PackagePath></PackagePath>
-    </None>
-    <None Include="..\icon.png">
-      <Pack>True</Pack>
-      <PackagePath></PackagePath>
-    </None>
-    <None Include="README.md" Pack="true" PackagePath="" />
   </ItemGroup>
 
   <ItemGroup>

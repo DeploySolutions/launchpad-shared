@@ -1,0 +1,35 @@
+<Project>
+    <PropertyGroup>
+      <Company>Deploy Software Solutions, inc.</Company>
+      <Copyright>2018-2026 Deploy Software Solutions, inc.</Copyright>
+      <Authors>Nicholas Kellett</Authors>
+      <TargetFramework>net10.0</TargetFramework>
+      <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+      <GenerateBindingRedirectsOutputType>true</GenerateBindingRedirectsOutputType>
+      <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+      <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+      <NoWarn>$(NoWarn);CS1591</NoWarn>
+      <PackageIcon>icon.png</PackageIcon>
+      <PackageLicenseFile>LICENSE.md</PackageLicenseFile>
+      <PackageReadmeFile>README.md</PackageReadmeFile>
+      <PackageProjectUrl>https://github.com/DeploySolutions/launchpad-shared</PackageProjectUrl>
+      <IncludeSymbols>true</IncludeSymbols>
+      <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+      <RepositoryType>git</RepositoryType>
+      <RepositoryUrl>https://github.com/DeploySolutions/launchpad-shared</RepositoryUrl>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Configuration)' == 'Release' ">
+        <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    </PropertyGroup>
+    <ItemGroup>
+        <None Include="..\..\LICENSE.md" Link="LICENSE.md">
+            <PackagePath></PackagePath>
+            <Pack>True</Pack>
+        </None>
+        <None Include="..\..\icon.png" Link="icon.png">
+            <PackagePath></PackagePath>
+            <Pack>True</Pack>
+        </None>
+        <None Include="..\..\README.md" Pack="true" PackagePath="" />
+    </ItemGroup>
+</Project>

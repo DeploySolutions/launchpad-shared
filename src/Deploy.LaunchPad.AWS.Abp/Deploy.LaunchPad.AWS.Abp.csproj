@@ -1,33 +1,13 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
+  <Import Project="..\..\common.props" />
+  <Import Project="..\..\configureawait.props" />
+
   <PropertyGroup>
-    <TargetFrameworks>net10.0</TargetFrameworks>
-    <Authors>Nicholas Kellett</Authors>
-    <Company>Deploy Software Solutions, inc.</Company>
-    <Copyright>2021-2025 Deploy Software Solutions, inc.</Copyright>
-    <PackageLicenseExpression></PackageLicenseExpression>
-    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <PackageProjectUrl>https://github.com/DeploySolutions/launchpad-shared</PackageProjectUrl>
-    <RepositoryUrl>https://github.com/DeploySolutions/launchpad-shared</RepositoryUrl>
     <Version>10.22.9</Version>
-    <PackageLicenseFile>LICENSE</PackageLicenseFile>
-    <PackageIcon>icon.png</PackageIcon>
-    <IncludeSymbols>true</IncludeSymbols>
-    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
-    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <Description>Shared code for LaunchPad AWS using the AspBoilerPlate framework.</Description>
   </PropertyGroup>
-  <ItemGroup>
-    <None Include="..\..\LICENSE">
-      <Pack>True</Pack>
-      <PackagePath></PackagePath>
-    </None>
-    <None Include="..\icon.png">
-      <Pack>True</Pack>
-      <PackagePath></PackagePath>
-    </None>
-    <None Include="README.md" Pack="true" PackagePath="" />
-  </ItemGroup>
+ 
   <ItemGroup>
     <PackageReference Include="AWSSDK.APIGateway" />
     <PackageReference Include="AWSSDK.Core" />

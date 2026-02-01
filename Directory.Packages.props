@@ -115,6 +115,8 @@
   <ItemGroup>
     <PackageVersion Include="Constructs" Version="10.3.0" />
     <PackageVersion Include="CsvHelper" Version="33.0.1" />
+    <PackageVersion Include="Fody" Version="6.9.3" />
+    <PackageVersion Include="ConfigureAwait.Fody" Version="3.3.2" />
     <PackageVersion Include="File.TypeChecker" Version="4.1.1" />
     <PackageVersion Include="FluentValidation" Version="12.1.1" />
     <PackageVersion Include="FluentResults" Version="4.0.0" />

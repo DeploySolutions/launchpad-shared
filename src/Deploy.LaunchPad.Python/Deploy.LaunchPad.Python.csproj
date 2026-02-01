@@ -1,21 +1,11 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
+  <Import Project="..\..\common.props" />
+  <Import Project="..\..\configureawait.props" />
+
   <PropertyGroup>
-    <TargetFrameworks>net10.0</TargetFrameworks>
     <Version>10.22.5</Version>
-    <Authors>Nicholas Kellett</Authors>
-    <Company>Deploy Software Solutions, inc.</Company>
-    <Copyright>2022-2025 Deploy Software Solutions, inc.</Copyright>
-    <PackageLicenseExpression></PackageLicenseExpression>
-    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <PackageProjectUrl>https://github.com/DeploySolutions/launchpad-shared</PackageProjectUrl>
-    <RepositoryUrl>https://github.com/DeploySolutions/launchpad-shared</RepositoryUrl>
-    <PackageLicenseFile>LICENSE</PackageLicenseFile>
-    <PackageIcon>icon.png</PackageIcon>
-    <IncludeSymbols>true</IncludeSymbols>
-    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
-    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <Description>Shared code for python usage in the Framework.</Description>
   </PropertyGroup>
 
   <ItemGroup>
@@ -26,18 +16,6 @@
     <Content Include="helloworld.py">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Include="..\..\LICENSE">
-      <Pack>True</Pack>
-      <PackagePath></PackagePath>
-    </None>
-    <None Include="..\icon.png">
-      <Pack>True</Pack>
-      <PackagePath></PackagePath>
-    </None>
-    <None Include="README.md" Pack="true" PackagePath="" />
   </ItemGroup>
 
   <ItemGroup>
