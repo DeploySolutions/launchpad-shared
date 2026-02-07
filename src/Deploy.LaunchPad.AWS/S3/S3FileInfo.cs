@@ -8,12 +8,12 @@ using System.Text;
 
 namespace Deploy.LaunchPad.AWS.S3
 {
-    public partial class S3FileDetails : LaunchPadMinimalProperties, ILaunchPadObject
+    public partial class S3FileInfo : LaunchPadMinimalProperties, ILaunchPadObject
     {
       
         public IFileContent<object> Content { get; set; }
         public long? FileSize { get; set; }
-        public S3FileDetails()
+        public S3FileInfo()
         {
         }
     }

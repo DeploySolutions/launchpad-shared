@@ -7,15 +7,15 @@ using System.Text;
 
 namespace Deploy.LaunchPad.AWS.S3
 {
-    public class S3FolderDetails : LaunchPadMinimalProperties, ILaunchPadObject
+    public class S3FolderInfo : LaunchPadMinimalProperties, ILaunchPadObject
     {
         public long FileCount { get; set; }
 
-        public IList<S3FileDetails> Files { get; set; }
+        public IList<S3FileInfo> Files { get; set; }
 
-        public S3FolderDetails()
+        public S3FolderInfo()
         {
-            Files = new List<S3FileDetails>();
+            Files = new List<S3FileInfo>();
         }
     }
 }

@@ -42,6 +42,7 @@ namespace Deploy.LaunchPad.AWS.S3.Services
         /// </summary>
         /// <value>The helper.</value>
         public IAwsS3Helper Helper { get; set; }
+        public AmazonS3Client? Client { get; protected set; }
 
 
         /// <summary>
@@ -53,6 +54,30 @@ namespace Deploy.LaunchPad.AWS.S3.Services
         {
             Logger = logger;
             Helper = new AwsS3Helper(logger, awsRegionEndpointName);
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="AwsS3Service"/> class.
+        /// </summary>
+        /// <param name="logger">The logger.</param>
+        /// <param name="awsRegionEndpointName">Name of the aws region endpoint.</param>
+        public AwsS3Service(ILogger logger, AmazonS3Client client) : base(logger)
+        {
+            Logger = logger;
+            Client = client;
+            Helper = new AwsS3Helper(logger, client.Config.RegionEndpoint.DisplayName);
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="AwsS3Service"/> class.
+        /// </summary>
+        /// <param name="logger">The logger.</param>
+        /// <param name="awsRegionEndpointName">Name of the aws region endpoint.</param>
+        public AwsS3Service(ILogger logger, string awsRegionEndpointName, AmazonS3Client client) : base(logger)
+        {
+            Logger = logger;
+            Helper = new AwsS3Helper(logger, awsRegionEndpointName);
+            Client = client;
         }
 
         /// <summary>
