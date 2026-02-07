@@ -3,7 +3,7 @@
   <Import Project="..\..\common.props" />
   <Import Project="..\..\configureawait.props" />
   <PropertyGroup>
-    <Version>10.22.11</Version>
+    <Version>10.22.12</Version>
     <Description>Shared code for LaunchPad AWS usage.</Description>
   </PropertyGroup>
 

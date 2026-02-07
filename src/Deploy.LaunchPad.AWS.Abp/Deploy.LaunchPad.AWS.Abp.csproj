@@ -4,7 +4,7 @@
   <Import Project="..\..\configureawait.props" />
 
   <PropertyGroup>
-    <Version>10.22.9</Version>
+    <Version>10.22.10</Version>
     <Description>Shared code for LaunchPad AWS using the AspBoilerPlate framework.</Description>
   </PropertyGroup>
  
