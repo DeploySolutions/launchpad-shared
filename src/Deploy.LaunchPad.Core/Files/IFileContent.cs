@@ -22,7 +22,6 @@ namespace Deploy.LaunchPad.Core.Files
     /// </summary>
     /// <typeparam name="TFileContentType">The type of the t file content type.</typeparam>
     public partial interface IFileContent<TFileContentType>
-        where TFileContentType : class
     {
         /// <summary>
         /// Get the content/data of the file
