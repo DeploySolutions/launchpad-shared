@@ -11,8 +11,13 @@ using System.Threading.Tasks;
 
 namespace Deploy.LaunchPad.Util.CommandLine
 {
+   
+
     public partial class CommandHelper : HelperBase
     {
+        public CommandArgValueSeparator ArgumentSeparator { get; set; }
+       
+
         public CommandHelper() : base()
         {
 
@@ -25,6 +30,46 @@ namespace Deploy.LaunchPad.Util.CommandLine
         public CommandHelper(ILogger logger) : base(logger)
         {
 
+        }
+
+        /// <summary>
+        /// Converts command-line arguments into a Dictionary of key value pairs. Cmd arguments must be in form key[separator character]value.
+        /// </summary>
+        /// <param name="args">The string array containing the key value pairs</param>
+        /// <returns>A dictionary containing the key value pairs</returns>
+        public virtual Dictionary<string, string> ResolveArguments(string[] args, CommandArgValueSeparator separator)
+        {
+            // determine how the user is separating the argument name and value
+            var charSeparator = new char();
+            switch (separator)
+            {
+                case CommandArgValueSeparator.Colon:
+                    charSeparator = ':';
+                    break;
+                case CommandArgValueSeparator.Equals:
+                    charSeparator = '=';
+                    break;
+                case CommandArgValueSeparator.SingleSpace:
+                    charSeparator = ' ';
+                    break;
+            }
+
+            if (args == null)
+                return null;
+
+            if (args.Length >= 1)
+            {
+                var arguments = new Dictionary<string, string>();
+                foreach (string argument in args)
+                {
+                    int idx = argument.IndexOf(charSeparator);
+                    if (idx > 0)
+                        arguments[argument.Substring(0, idx)] = argument.Substring(idx + 1);
+                }
+                return arguments;
+            }
+
+            return null;
         }
 
         /// <summary>
