@@ -12,6 +12,7 @@
 // <summary></summary>
 // ***********************************************************************
 using Amazon.S3;
+using Amazon.S3.Transfer;
 using Deploy.LaunchPad.Core.Services;
 using System;
 using System.Collections.Generic;
@@ -36,7 +37,9 @@ namespace Deploy.LaunchPad.AWS.S3.Services
         /// Gets or sets the s3 client.
         /// </summary>
         /// <value>The s3 client.</value>
-        public static AmazonS3Client S3Client { get; set; }
+        public AmazonS3Client S3Client { get; }
+
+        public TransferUtility S3Transfer { get; }
 
         /// <summary>
         /// Checks if file exists.

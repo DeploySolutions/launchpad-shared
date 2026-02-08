@@ -41,9 +41,10 @@ namespace Deploy.LaunchPad.AWS.S3.Services
         /// Gets or sets the helper.
         /// </summary>
         /// <value>The helper.</value>
-        public IAwsS3Helper Helper { get; set; }
-        public AmazonS3Client? Client { get; protected set; }
+        public virtual IAwsS3Helper Helper { get; set; }
+        public virtual AmazonS3Client S3Client { get; protected set; }
 
+        public virtual TransferUtility S3Transfer { get; protected set; }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="AwsS3Service"/> class.
@@ -64,7 +65,7 @@ namespace Deploy.LaunchPad.AWS.S3.Services
         public AwsS3Service(ILogger logger, AmazonS3Client client) : base(logger)
         {
             Logger = logger;
-            Client = client;
+            S3Client = client;
             Helper = new AwsS3Helper(logger, client.Config.RegionEndpoint.DisplayName);
         }
 
@@ -77,7 +78,7 @@ namespace Deploy.LaunchPad.AWS.S3.Services
         {
             Logger = logger;
             Helper = new AwsS3Helper(logger, awsRegionEndpointName);
-            Client = client;
+            S3Client = client;
         }
 
         /// <summary>
