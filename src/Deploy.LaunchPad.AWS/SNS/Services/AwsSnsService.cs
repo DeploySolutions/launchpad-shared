@@ -11,7 +11,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace CDA_S3_to_Redshift_Intake
+namespace Deploy.LaunchPad.AWS.SNS.Services
 {
     public class AwsSnsService : SystemIntegrationServiceBase, IAwsSnsService
     {
