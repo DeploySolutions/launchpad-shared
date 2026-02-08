@@ -11,7 +11,9 @@
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
+using Amazon.SimpleNotificationService;
 using Deploy.LaunchPad.Core.Services;
+using System.Threading.Tasks;
 
 namespace Deploy.LaunchPad.AWS.SNS.Services
 {
@@ -22,11 +24,14 @@ namespace Deploy.LaunchPad.AWS.SNS.Services
     /// <seealso cref="ILaunchPadSystemIntegrationService" />
     public partial interface IAwsSnsService : ILaunchPadSystemIntegrationService
     {
+        public AmazonSimpleNotificationServiceClient SnsClient { get; }
+
         /// <summary>
         /// Gets or sets the helper.
         /// </summary>
         /// <value>The helper.</value>
         public IAwsSnsHelper Helper { get; set; }
 
+        public void SendNotification(string topicArn, string message);
     }
 }
