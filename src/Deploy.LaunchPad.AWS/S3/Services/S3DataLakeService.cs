@@ -17,6 +17,11 @@ namespace Deploy.LaunchPad.AWS.S3.Services
     /// </summary>
     public partial class S3DataLakeService : AwsS3Service
     {
+        /// <summary>
+        /// Sets limits on maximum files to count in buckets for various operations. 
+        /// This is intended to be used as a safety mechanism to prevent accidentally counting too many files in a bucket and causing performance issues or other problems.
+        /// </summary>
+        public long MaxFilesToCount { get; set; } = 1;
 
         public virtual S3DataLakeInfo DataLakeInfo { get; set; }
 

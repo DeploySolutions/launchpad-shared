@@ -13,34 +13,30 @@ namespace Deploy.LaunchPad.AWS.S3
         public virtual string DevOpsBucketName { get; set; }
         public virtual string LoggingBucketName { get; set; }
 
-        public long MaxFilesToCount { get; set; }
+        
 
         public S3DataLakeInfo()
         {
             DefaultBucketName = string.Empty;
             DevOpsBucketName = string.Empty;
-            MaxFilesToCount = -1;
         }
         public S3DataLakeInfo(string bucketName)
         {
             DefaultBucketName = bucketName;
             DevOpsBucketName = bucketName;
-            MaxFilesToCount = -1;
         }
 
-        public S3DataLakeInfo(string defaultBucketName, string devopsBucketName, long maxFilesToCount)
+        public S3DataLakeInfo(string defaultBucketName, string devopsBucketName)
         {
             DefaultBucketName = defaultBucketName;
             DevOpsBucketName = devopsBucketName;
-            MaxFilesToCount = maxFilesToCount;
         }
 
-        public S3DataLakeInfo(string defaultBucketName, string devopsBucketName, string loggingBucketName, long maxFilesToCount)
+        public S3DataLakeInfo(string defaultBucketName, string devopsBucketName, string loggingBucketName)
         {
             DefaultBucketName = defaultBucketName;
             DevOpsBucketName = devopsBucketName;
             LoggingBucketName = loggingBucketName;
-            MaxFilesToCount = maxFilesToCount;
         }
     }
 }

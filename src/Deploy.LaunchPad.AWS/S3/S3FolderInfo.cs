@@ -1,4 +1,5 @@
 ﻿using Deploy.LaunchPad.Core.Domain.Model;
+using Deploy.LaunchPad.Util;
 using Deploy.LaunchPad.Util.Elements;
 using System;
 using System.Collections.Generic;
@@ -13,8 +14,10 @@ namespace Deploy.LaunchPad.AWS.S3
 
         public IList<S3FileInfo> Files { get; set; }
 
-        public S3FolderInfo()
+        public S3FolderInfo(string name)
         {
+            Name = new ElementName(name);
+            Description = new ElementDescription(name);
             Files = new List<S3FileInfo>();
         }
     }
