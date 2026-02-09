@@ -19,5 +19,8 @@
     <ProjectReference Include="..\Deploy.LaunchPad.Core.Abp\Deploy.LaunchPad.Core.Abp.csproj" />
     <ProjectReference Include="..\Deploy.LaunchPad.Util\Deploy.LaunchPad.Util.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="SecretsManager\Services\" />
+  </ItemGroup>
 
 </Project>

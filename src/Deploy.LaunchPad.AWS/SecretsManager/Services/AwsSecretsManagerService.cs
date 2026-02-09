@@ -12,9 +12,9 @@
 // <summary></summary>
 // ***********************************************************************
 using Deploy.LaunchPad.AWS.SecretsManager.Services;
-using Deploy.LaunchPad.Core.Abp.Services;
+using Deploy.LaunchPad.Core.Services;
 
-namespace Deploy.LaunchPad.AWS.Abp.SecretsManager.Services
+namespace Deploy.LaunchPad.AWS.SecretsManager.Services
 {
     /// <summary>
     /// Class AwsSecretsManagerService.
@@ -23,7 +23,7 @@ namespace Deploy.LaunchPad.AWS.Abp.SecretsManager.Services
     /// </summary>
     /// <seealso cref="LaunchPadAbpSystemIntegrationServiceBase" />
     /// <seealso cref="IAwsSecretsManagerService" />
-    public partial class AwsSecretsManagerService : LaunchPadAbpSystemIntegrationServiceBase, IAwsSecretsManagerService
+    public partial class AwsSecretsManagerService : SystemIntegrationServiceBase, IAwsSecretsManagerService
     {
 
         /// <summary>
