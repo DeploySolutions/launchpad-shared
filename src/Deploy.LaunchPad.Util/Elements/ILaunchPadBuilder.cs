@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Deploy.LaunchPad.Core
+namespace Deploy.LaunchPad.Util.Elements
 {
     /// <summary>
     /// Allows the creation of LaunchPad objects using a builder pattern.
