@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Deploy.LaunchPad.Core.Questions
+namespace Deploy.LaunchPad.Domain.Questions
 {
     [Serializable]
     public partial class YesNoAnswer : AnswerBase

@@ -17,7 +17,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Deploy.LaunchPad.Core.SourceControl
+namespace Deploy.LaunchPad.Domain.SourceControl
 {
     /// <summary>
     /// Class ReleaseAssetBase.

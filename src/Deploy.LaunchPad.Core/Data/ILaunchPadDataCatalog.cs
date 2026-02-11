@@ -30,7 +30,7 @@
 using Deploy.LaunchPad.Util.Metadata;
 using System.Collections.Generic;
 
-namespace Deploy.LaunchPad.Core.Data
+namespace Deploy.LaunchPad.Domain.Data
 {
     /// <summary>
     /// Interface IDataCatalog

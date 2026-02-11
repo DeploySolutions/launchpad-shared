@@ -26,9 +26,9 @@
 //limitations under the License. 
 #endregion
 
-using Deploy.LaunchPad.Core.Domain;
+using Deploy.LaunchPad.Domain;
 
-namespace Deploy.LaunchPad.Core.Data
+namespace Deploy.LaunchPad.Domain.Data
 {
 
     /// <summary>

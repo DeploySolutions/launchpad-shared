@@ -28,7 +28,7 @@
 
 using System;
 
-namespace Deploy.LaunchPad.Core.Licenses
+namespace Deploy.LaunchPad.Domain.Licenses
 {
     /// <summary>
     /// Interface IUsageRights

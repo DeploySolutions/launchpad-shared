@@ -12,17 +12,17 @@
 // <summary></summary>
 // ***********************************************************************
 
-namespace Deploy.LaunchPad.Core.STAC
+namespace Deploy.LaunchPad.Domain.STAC
 {
     using System;
     using System.Collections.Generic;
 
     using System.Globalization;
     using System.Runtime.Serialization;
-    using Deploy.LaunchPad.Core.Geospatial;
-    using Deploy.LaunchPad.Core.Geospatial.GeoJson;
-    using Deploy.LaunchPad.Core.Geospatial.STAC;
-    using Deploy.LaunchPad.Core.Temporal;
+    using Deploy.LaunchPad.Domain.Geospatial;
+    using Deploy.LaunchPad.Domain.Geospatial.GeoJson;
+    using Deploy.LaunchPad.Domain.Geospatial.STAC;
+    using Deploy.LaunchPad.Domain.Temporal;
     using Deploy.LaunchPad.Util;
     using NetTopologySuite.Geometries;
     using Newtonsoft.Json;
@@ -258,7 +258,7 @@ namespace Deploy.LaunchPad.Core.STAC
         /// </summary>
         /// <param name="json">The json.</param>
         /// <returns>StacItem.</returns>
-        public static StacItem FromJson(string json) => JsonConvert.DeserializeObject<StacItem>(json, Deploy.LaunchPad.Core.STAC.StacItemConverter.Settings);
+        public static StacItem FromJson(string json) => JsonConvert.DeserializeObject<StacItem>(json, Deploy.LaunchPad.Domain.STAC.StacItemConverter.Settings);
     }
 
     /// <summary>
@@ -271,7 +271,7 @@ namespace Deploy.LaunchPad.Core.STAC
         /// </summary>
         /// <param name="self">The self.</param>
         /// <returns>System.String.</returns>
-        public static string ToJson(this StacItem self) => JsonConvert.SerializeObject(self, Deploy.LaunchPad.Core.STAC.StacItemConverter.Settings);
+        public static string ToJson(this StacItem self) => JsonConvert.SerializeObject(self, Deploy.LaunchPad.Domain.STAC.StacItemConverter.Settings);
     }
 
     /// <summary>

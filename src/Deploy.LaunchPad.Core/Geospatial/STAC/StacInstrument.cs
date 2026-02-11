@@ -12,7 +12,7 @@
 // <summary></summary>
 // ***********************************************************************
 
-namespace Deploy.LaunchPad.Core.STAC
+namespace Deploy.LaunchPad.Domain.STAC
 {
     using System;
     using System.Collections.Generic;
@@ -69,7 +69,7 @@ namespace Deploy.LaunchPad.Core.STAC
         /// </summary>
         /// <param name="json">The json.</param>
         /// <returns>StacInstrument.</returns>
-        public static StacInstrument FromJson(string json) => JsonConvert.DeserializeObject<StacInstrument>(json, Deploy.LaunchPad.Core.STAC.StacInstrumentConverter.Settings);
+        public static StacInstrument FromJson(string json) => JsonConvert.DeserializeObject<StacInstrument>(json, Deploy.LaunchPad.Domain.STAC.StacInstrumentConverter.Settings);
     }
 
     /// <summary>
@@ -82,7 +82,7 @@ namespace Deploy.LaunchPad.Core.STAC
         /// </summary>
         /// <param name="self">The self.</param>
         /// <returns>System.String.</returns>
-        public static string ToJson(this StacInstrument self) => JsonConvert.SerializeObject(self, Deploy.LaunchPad.Core.STAC.StacInstrumentConverter.Settings);
+        public static string ToJson(this StacInstrument self) => JsonConvert.SerializeObject(self, Deploy.LaunchPad.Domain.STAC.StacInstrumentConverter.Settings);
     }
     /// <summary>
     /// Class StacInstrumentConverter.

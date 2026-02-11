@@ -1,8 +1,8 @@
-using Deploy.LaunchPad.Core.Geospatial.ReferencePoint;
+using Deploy.LaunchPad.Domain.Geospatial.ReferencePoint;
 using Deploy.LaunchPad.Util;
 using System;
 
-namespace Deploy.LaunchPad.Core.Geospatial.Position
+namespace Deploy.LaunchPad.Domain.Geospatial.Position
 {
     public partial class GeographicFeatureDto : GeographicPositionDto, IAmGeographicFeature
     {

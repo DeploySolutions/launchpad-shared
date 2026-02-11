@@ -11,7 +11,7 @@
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
-using Deploy.LaunchPad.Core.Domain;
+using Deploy.LaunchPad.Domain;
 using Deploy.LaunchPad.Space.Satellites.Core;
 
 namespace Deploy.LaunchPad.Space.Satellites.Sentinel

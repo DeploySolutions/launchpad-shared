@@ -14,7 +14,7 @@
 using Deploy.LaunchPad.Util;
 using System;
 
-namespace Deploy.LaunchPad.Core.Licenses
+namespace Deploy.LaunchPad.Domain.Licenses
 {
     /// <summary>
     /// Implements the Canadian Open Government license term information.

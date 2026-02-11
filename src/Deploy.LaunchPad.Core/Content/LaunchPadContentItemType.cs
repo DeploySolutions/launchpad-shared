@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Deploy.LaunchPad.Core.Content
+namespace Deploy.LaunchPad.Domain.Content
 {
 
     public enum LaunchPadContentItemType

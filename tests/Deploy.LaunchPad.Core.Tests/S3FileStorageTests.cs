@@ -27,11 +27,11 @@
 #endregion
 
 
-namespace Deploy.LaunchPad.Core.Tests
+namespace Deploy.LaunchPad.Domain.Tests
 {
     using Deploy.LaunchPad.AWS;
     using Deploy.LaunchPad.AWS.S3;
-    using Deploy.LaunchPad.Core.Domain;
+    using Deploy.LaunchPad.Domain;
     
     using Xunit;
 

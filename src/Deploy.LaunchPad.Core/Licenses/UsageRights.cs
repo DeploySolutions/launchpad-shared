@@ -27,7 +27,7 @@
 #endregion
 
 
-namespace Deploy.LaunchPad.Core.Licenses
+namespace Deploy.LaunchPad.Domain.Licenses
 {
     using System;
 

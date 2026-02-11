@@ -12,7 +12,7 @@
 // <summary></summary>
 // ***********************************************************************
 using Deploy.LaunchPad.Code.Services.Dto.NameDescription;
-using Deploy.LaunchPad.Core.Abp.Domain.SoftwareApplications;
+using Deploy.LaunchPad.Core.Abp.SoftwareApplications;
 using Deploy.LaunchPad.Util;
 using System;
 using System.ComponentModel;

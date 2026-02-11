@@ -26,7 +26,7 @@
 //limitations under the License. 
 #endregion
 
-namespace Deploy.LaunchPad.Core.Tests
+namespace Deploy.LaunchPad.Domain.Tests
 {
     using Xunit;
     

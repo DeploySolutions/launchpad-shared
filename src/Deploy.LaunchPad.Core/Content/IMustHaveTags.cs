@@ -19,7 +19,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Diagnostics.CodeAnalysis;
 using System.Xml.Serialization;
 
-namespace Deploy.LaunchPad.Core.Content
+namespace Deploy.LaunchPad.Domain.Content
 {
     /// <summary>
     /// Allows metadata tags to be stored

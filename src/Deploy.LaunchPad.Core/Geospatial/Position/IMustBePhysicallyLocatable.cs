@@ -27,7 +27,7 @@
 #endregion
 
 
-namespace Deploy.LaunchPad.Core.Geospatial
+namespace Deploy.LaunchPad.Domain.Geospatial
 {
     using System.Collections.Generic;
 

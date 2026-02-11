@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using System.Xml.Serialization;
 using System.ComponentModel.DataAnnotations;
 
-namespace Deploy.LaunchPad.Core.Data
+namespace Deploy.LaunchPad.Domain.Data
 {
     public partial interface IMayHaveUnitOfMeasure
     {

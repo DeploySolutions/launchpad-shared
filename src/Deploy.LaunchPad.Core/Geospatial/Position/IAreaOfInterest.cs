@@ -27,9 +27,9 @@
 #endregion
 
 
-namespace Deploy.LaunchPad.Core.Geospatial
+namespace Deploy.LaunchPad.Domain.Geospatial
 {
-    using Deploy.LaunchPad.Core.Geospatial.Position;
+    using Deploy.LaunchPad.Domain.Geospatial.Position;
     using NetTopologySuite.Geometries;
     using System.Collections.Generic;
     using System.ComponentModel;

@@ -27,7 +27,7 @@
 #endregion
 
 
-namespace Deploy.LaunchPad.Core.Tests
+namespace Deploy.LaunchPad.Domain.Tests
 {
     
     

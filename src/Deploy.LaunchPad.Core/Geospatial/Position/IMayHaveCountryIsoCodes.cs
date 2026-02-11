@@ -26,9 +26,9 @@
 //limitations under the License. 
 #endregion
 
-using Deploy.LaunchPad.Core.Domain;
+using Deploy.LaunchPad.Domain;
 
-namespace Deploy.LaunchPad.Core.Geospatial
+namespace Deploy.LaunchPad.Domain.Geospatial
 {
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel;

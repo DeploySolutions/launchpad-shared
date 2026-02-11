@@ -26,17 +26,18 @@
 //limitations under the License. 
 #endregion
 
-namespace Deploy.LaunchPad.Core.Tests
+namespace Deploy.LaunchPad.Domain.Tests
 {
     using Xunit;
     
     using System.Collections.Generic;
     using System;
-    using Deploy.LaunchPad.Core.Abp.Domain;
-    using Deploy.LaunchPad.Core.Domain.Devices;
-    using Deploy.LaunchPad.Core.Geospatial;
+    using Deploy.LaunchPad.Core.Abp;
+    using Deploy.LaunchPad.Domain.Devices;
+    using Deploy.LaunchPad.Domain.Geospatial;
     using NetTopologySuite.Geometries;
-    using Deploy.LaunchPad.Core.Geospatial.Position;
+    using Deploy.LaunchPad.Domain.Geospatial.Position;
+    using Deploy.LaunchPad.Core.Abp.Devices;
 
     /// <summary>
     /// Class DeviceTests.

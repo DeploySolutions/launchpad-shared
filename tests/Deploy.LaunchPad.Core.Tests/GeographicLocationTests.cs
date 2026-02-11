@@ -26,15 +26,15 @@
 //limitations under the License. 
 #endregion
 
-namespace Deploy.LaunchPad.Core.Tests
+namespace Deploy.LaunchPad.Domain.Tests
 {
     using Xunit;
     
     using System;
     using Xunit.Sdk;
-    using Deploy.LaunchPad.Core;
+    using Deploy.LaunchPad.Domain;
     using NetTopologySuite.Geometries;
-    using Deploy.LaunchPad.Core.Geospatial.Position;
+    using Deploy.LaunchPad.Domain.Geospatial.Position;
 
     /// <summary>
     /// Class GeographicLocationTests.

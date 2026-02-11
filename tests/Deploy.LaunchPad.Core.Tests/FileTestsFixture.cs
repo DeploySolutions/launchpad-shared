@@ -26,14 +26,13 @@
 //limitations under the License. 
 #endregion
 
-namespace Deploy.LaunchPad.Core.Tests
+namespace Deploy.LaunchPad.Domain.Tests
 {
 
     using System.IO;
     using System.Reflection;
     using System;
-    using Deploy.LaunchPad.Core.Abp.Domain;
-    using Deploy.LaunchPad.Files.Storage;
+    using Deploy.LaunchPad.Core.Abp;
     using Deploy.LaunchPad.Files.Storage;
 
     /// <summary>

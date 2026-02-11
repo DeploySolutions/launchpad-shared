@@ -13,9 +13,9 @@
 // ***********************************************************************
 using Abp.Application.Services.Dto;
 using Abp.Domain.Entities;
-using Deploy.LaunchPad.Core.Abp.Domain.SoftwareApplications;
+using Deploy.LaunchPad.Core.Abp.SoftwareApplications;
 using Deploy.LaunchPad.Code.Services;
-using Deploy.LaunchPad.Core.Domain.Model;
+using Deploy.LaunchPad.Domain.Model;
 using Deploy.LaunchPad.Util;
 using System;
 using System.ComponentModel;
@@ -25,7 +25,7 @@ using System.Reflection;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Xml.Serialization;
-using Deploy.LaunchPad.Core;
+using Deploy.LaunchPad.Domain;
 
 namespace Deploy.LaunchPad.Code.Services.Dto
 {

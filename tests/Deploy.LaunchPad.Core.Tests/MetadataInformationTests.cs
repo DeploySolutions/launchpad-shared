@@ -26,10 +26,10 @@
 //limitations under the License. 
 #endregion
 
-namespace Deploy.LaunchPad.Core.Tests
+namespace Deploy.LaunchPad.Domain.Tests
 {
     using Xunit;
-    using Deploy.LaunchPad.Core;
+    using Deploy.LaunchPad.Domain;
 
     /// <summary>
     /// Class MetadataInformationTests.

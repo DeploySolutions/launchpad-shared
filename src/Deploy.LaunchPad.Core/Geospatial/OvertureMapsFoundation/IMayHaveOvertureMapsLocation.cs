@@ -15,7 +15,7 @@ using Deploy.LaunchPad.Util.Elements;
 using System.ComponentModel;
 using System.Xml.Serialization;
 
-namespace Deploy.LaunchPad.Core.Geospatial.Overture
+namespace Deploy.LaunchPad.Domain.Geospatial.Overture
 {
     /// <summary>
     /// Interface IMayHaveOvertureMapsLocation

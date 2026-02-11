@@ -26,17 +26,18 @@
 //limitations under the License. 
 #endregion
 
-namespace Deploy.LaunchPad.Core.Tests
+namespace Deploy.LaunchPad.Domain.Tests
 {
     using Xunit;
     
-    using Deploy.LaunchPad.Core.Domain;
+    using Deploy.LaunchPad.Domain;
     using System.Collections.Generic;
     using System;
-    using Deploy.LaunchPad.Core.Domain.Devices;
-    using Deploy.LaunchPad.Core.Abp.Domain;
-    using Deploy.LaunchPad.Core.Domain.Model;
+    using Deploy.LaunchPad.Domain.Devices;
+    using Deploy.LaunchPad.Core.Abp;
+    using Deploy.LaunchPad.Domain.Model;
     using Deploy.LaunchPad.Util;
+    using Deploy.LaunchPad.Core.Abp.Devices;
 
     /// <summary>
     /// Class DtoTests.

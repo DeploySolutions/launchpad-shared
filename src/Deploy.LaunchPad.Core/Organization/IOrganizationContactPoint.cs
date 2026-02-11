@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Globalization;
 
-namespace Deploy.LaunchPad.Core.Organization
+namespace Deploy.LaunchPad.Domain.Organization
 {
     public partial interface IOrganizationContactPoint
     {

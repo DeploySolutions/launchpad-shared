@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
 
-namespace Deploy.LaunchPad.Core.Organization
+namespace Deploy.LaunchPad.Domain.Organization
 {
     public partial interface IMayHaveOrganizationContactPointInformation
     {

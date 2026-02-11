@@ -30,7 +30,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\src\Deploy.LaunchPad.Core.Abp\Deploy.LaunchPad.Core.Abp.csproj" />
-    <ProjectReference Include="..\..\src\Deploy.LaunchPad.Core\Deploy.LaunchPad.Core.csproj" />
+    <ProjectReference Include="..\..\src\Deploy.LaunchPad.Core\Deploy.LaunchPad.Domain.csproj" />
     <ProjectReference Include="..\..\src\Deploy.LaunchPad.Organizations\Deploy.LaunchPad.Organizations.csproj" />
     <ProjectReference Include="..\..\src\Deploy.LaunchPad.Space.Satellites\Deploy.LaunchPad.Space.Satellites.csproj" />
     <ProjectReference Include="..\..\src\Deploy.LaunchPad.Util\Deploy.LaunchPad.Util.csproj" />

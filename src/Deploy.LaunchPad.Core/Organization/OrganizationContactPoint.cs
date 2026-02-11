@@ -9,7 +9,7 @@ using System.Xml.Serialization;
 using System.Text.Json.Serialization;
 using System.Globalization;
 
-namespace Deploy.LaunchPad.Core.Organization
+namespace Deploy.LaunchPad.Domain.Organization
 {
     [Serializable]
     public partial class OrganizationContactPoint : IOrganizationContactPoint

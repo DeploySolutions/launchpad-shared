@@ -1,8 +1,8 @@
-﻿using Deploy.LaunchPad.Core.Domain.Model;
+﻿using Deploy.LaunchPad.Domain.Model;
 using Deploy.LaunchPad.Util.Elements;
 using System;
 
-namespace Deploy.LaunchPad.Core.Content
+namespace Deploy.LaunchPad.Domain.Content
 {
     public partial interface ILaunchPadContentPublishingCollectionItem : ILaunchPadObject, ILaunchPadCoreProperties, IMustHavePublishingInformation
     {

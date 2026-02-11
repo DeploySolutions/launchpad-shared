@@ -26,13 +26,13 @@
 //limitations under the License. 
 #endregion
 
-using Deploy.LaunchPad.Core.Domain;
+using Deploy.LaunchPad.Domain;
 
-namespace Deploy.LaunchPad.Core.Temporal
+namespace Deploy.LaunchPad.Domain.Temporal
 {
-    using Deploy.LaunchPad.Core.Domain.Model;
-    using Deploy.LaunchPad.Core.Geospatial.Position;
-    using Deploy.LaunchPad.Core.Geospatial;
+    using Deploy.LaunchPad.Domain.Model;
+    using Deploy.LaunchPad.Domain.Geospatial.Position;
+    using Deploy.LaunchPad.Domain.Geospatial;
     using NetTopologySuite.Geometries;
     using System;
     using System.Runtime.Serialization;

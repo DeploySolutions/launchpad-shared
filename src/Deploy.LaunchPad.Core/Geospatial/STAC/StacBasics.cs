@@ -12,7 +12,7 @@
 // <summary></summary>
 // ***********************************************************************
 
-namespace Deploy.LaunchPad.Core.STAC
+namespace Deploy.LaunchPad.Domain.STAC
 {
     using System;
     using System.Collections.Generic;
@@ -48,7 +48,7 @@ namespace Deploy.LaunchPad.Core.STAC
         /// </summary>
         /// <param name="json">The json.</param>
         /// <returns>StacBasics.</returns>
-        public static StacBasics FromJson(string json) => JsonConvert.DeserializeObject<StacBasics>(json, Deploy.LaunchPad.Core.STAC.StacBasicsConverter.Settings);
+        public static StacBasics FromJson(string json) => JsonConvert.DeserializeObject<StacBasics>(json, Deploy.LaunchPad.Domain.STAC.StacBasicsConverter.Settings);
     }
 
     /// <summary>
@@ -61,7 +61,7 @@ namespace Deploy.LaunchPad.Core.STAC
         /// </summary>
         /// <param name="self">The self.</param>
         /// <returns>System.String.</returns>
-        public static string ToJson(this StacBasics self) => JsonConvert.SerializeObject(self, Deploy.LaunchPad.Core.STAC.StacBasicsConverter.Settings);
+        public static string ToJson(this StacBasics self) => JsonConvert.SerializeObject(self, Deploy.LaunchPad.Domain.STAC.StacBasicsConverter.Settings);
     }
 
     /// <summary>

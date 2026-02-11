@@ -1,11 +1,11 @@
-﻿using Deploy.LaunchPad.Core.Geospatial.Overture;
+﻿using Deploy.LaunchPad.Domain.Geospatial.Overture;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Deploy.LaunchPad.Core.Geospatial.Overture
+namespace Deploy.LaunchPad.Domain.Geospatial.Overture
 {
     [Serializable]
     public partial class OvertureMapsLocation : IOvertureMapsLocation

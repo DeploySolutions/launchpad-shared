@@ -12,9 +12,9 @@
 // <summary></summary>
 // ***********************************************************************
 
-using Deploy.LaunchPad.Core.Domain;
+using Deploy.LaunchPad.Domain;
 
-namespace Deploy.LaunchPad.Core.Geospatial.ReferencePoint
+namespace Deploy.LaunchPad.Domain.Geospatial.ReferencePoint
 {
 
     /// <summary>

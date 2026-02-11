@@ -26,7 +26,7 @@
 //limitations under the License. 
 #endregion
 
-namespace Deploy.LaunchPad.Core.Licenses
+namespace Deploy.LaunchPad.Domain.Licenses
 {
     using Deploy.LaunchPad.Util;
     using System;

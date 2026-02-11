@@ -27,8 +27,8 @@
 #endregion
 
 
-using Deploy.LaunchPad.Core.Abp.Domain;
-using Deploy.LaunchPad.Core.Domain;
+using Deploy.LaunchPad.Core.Abp;
+using Deploy.LaunchPad.Domain;
 using Deploy.LaunchPad.Files;
 using Deploy.LaunchPad.Files.Storage;
 using System;

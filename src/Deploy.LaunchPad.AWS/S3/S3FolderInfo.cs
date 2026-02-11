@@ -1,4 +1,4 @@
-﻿using Deploy.LaunchPad.Core.Domain.Model;
+﻿using Deploy.LaunchPad.Domain.Model;
 using Deploy.LaunchPad.Util;
 using Deploy.LaunchPad.Util.Elements;
 using NetTopologySuite.Index.HPRtree;

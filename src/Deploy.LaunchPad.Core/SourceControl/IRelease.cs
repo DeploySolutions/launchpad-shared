@@ -14,7 +14,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace Deploy.LaunchPad.Core.SourceControl
+namespace Deploy.LaunchPad.Domain.SourceControl
 {
     /// <summary>
     /// Interface IRelease

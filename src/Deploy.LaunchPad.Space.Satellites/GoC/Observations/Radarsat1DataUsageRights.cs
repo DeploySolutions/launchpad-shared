@@ -28,7 +28,7 @@
 
 namespace Deploy.LaunchPad.Space.Satellites.GoC
 {
-    using Deploy.LaunchPad.Core.Licenses;
+    using Deploy.LaunchPad.Domain.Licenses;
     using System;
 
     /// <summary>

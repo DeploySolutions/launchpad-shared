@@ -11,13 +11,14 @@
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
-using Deploy.LaunchPad.Core.Abp.Domain;
-using Deploy.LaunchPad.Core.Domain;
+using Deploy.LaunchPad.Core.Abp;
+using Deploy.LaunchPad.Core.Abp.Devices;
+using Deploy.LaunchPad.Domain;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Deploy.LaunchPad.Core.Tests
+namespace Deploy.LaunchPad.Domain.Tests
 {
     /// <summary>
     /// Class DtoTestsFixture.

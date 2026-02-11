@@ -26,10 +26,10 @@
 //limitations under the License. 
 #endregion
 
-namespace Deploy.LaunchPad.Core.Geospatial
+namespace Deploy.LaunchPad.Domain.Geospatial
 {
-    using Deploy.LaunchPad.Core.Geospatial.Position;
-    using Deploy.LaunchPad.Core.Temporal;
+    using Deploy.LaunchPad.Domain.Geospatial.Position;
+    using Deploy.LaunchPad.Domain.Temporal;
     using Deploy.LaunchPad.Util;
     using System;
     using System.ComponentModel;

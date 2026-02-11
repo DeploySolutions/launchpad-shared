@@ -12,7 +12,7 @@
 // <summary></summary>
 // ***********************************************************************
 
-namespace Deploy.LaunchPad.Core.STAC
+namespace Deploy.LaunchPad.Domain.STAC
 {
     using System;
     using System.Collections.Generic;
@@ -41,7 +41,7 @@ namespace Deploy.LaunchPad.Core.STAC
         /// </summary>
         /// <param name="json">The json.</param>
         /// <returns>StacLicensing.</returns>
-        public static StacLicensing FromJson(string json) => JsonConvert.DeserializeObject<StacLicensing>(json, Deploy.LaunchPad.Core.STAC.StacLicensingConverter.Settings);
+        public static StacLicensing FromJson(string json) => JsonConvert.DeserializeObject<StacLicensing>(json, Deploy.LaunchPad.Domain.STAC.StacLicensingConverter.Settings);
     }
 
     /// <summary>
@@ -54,7 +54,7 @@ namespace Deploy.LaunchPad.Core.STAC
         /// </summary>
         /// <param name="self">The self.</param>
         /// <returns>System.String.</returns>
-        public static string ToJson(this StacLicensing self) => JsonConvert.SerializeObject(self, Deploy.LaunchPad.Core.STAC.StacLicensingConverter.Settings);
+        public static string ToJson(this StacLicensing self) => JsonConvert.SerializeObject(self, Deploy.LaunchPad.Domain.STAC.StacLicensingConverter.Settings);
     }
 
     /// <summary>

@@ -1,4 +1,4 @@
-﻿using Deploy.LaunchPad.Core.Domain.Model;
+﻿using Deploy.LaunchPad.Domain.Model;
 using Deploy.LaunchPad.Util;
 using Deploy.LaunchPad.Util.Elements;
 using System;
@@ -6,7 +6,7 @@ using System.ComponentModel;
 using System.Runtime.Serialization;
 using System.Xml.Serialization;
 
-namespace Deploy.LaunchPad.Core.Content
+namespace Deploy.LaunchPad.Domain.Content
 {
 
     public abstract partial class LaunchPadContentPublishingCollectionItemBase : LaunchPadCoreProperties, ILaunchPadObject,        

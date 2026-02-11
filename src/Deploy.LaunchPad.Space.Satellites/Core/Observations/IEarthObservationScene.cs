@@ -28,11 +28,11 @@
 
 namespace Deploy.LaunchPad.Space.Satellites.Core
 {
-    using Deploy.LaunchPad.Core.Abp.Domain;
-    using Deploy.LaunchPad.Core.Domain.Model;
-    using Deploy.LaunchPad.Core.Geospatial;
-    using Deploy.LaunchPad.Core.Geospatial.Position;
-    using Deploy.LaunchPad.Core.Licenses;
+    using Deploy.LaunchPad.Core.Abp;
+    using Deploy.LaunchPad.Domain.Model;
+    using Deploy.LaunchPad.Domain.Geospatial;
+    using Deploy.LaunchPad.Domain.Geospatial.Position;
+    using Deploy.LaunchPad.Domain.Licenses;
     using Deploy.LaunchPad.Util.Elements;
     using System;
     using System.Collections.Generic;

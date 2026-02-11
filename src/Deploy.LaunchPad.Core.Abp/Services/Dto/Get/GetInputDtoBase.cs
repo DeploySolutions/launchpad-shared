@@ -12,7 +12,7 @@
 // <summary></summary>
 // ***********************************************************************
 using Deploy.LaunchPad.Code.Services;
-using Deploy.LaunchPad.Core;
+using Deploy.LaunchPad.Domain;
 using System;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;

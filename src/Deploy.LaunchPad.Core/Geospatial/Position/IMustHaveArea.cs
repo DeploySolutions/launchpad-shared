@@ -12,9 +12,9 @@
 // <summary></summary>
 // ***********************************************************************
 
-using Deploy.LaunchPad.Core.Domain;
+using Deploy.LaunchPad.Domain;
 
-namespace Deploy.LaunchPad.Core.Geospatial.Position
+namespace Deploy.LaunchPad.Domain.Geospatial.Position
 {
 
     /// <summary>

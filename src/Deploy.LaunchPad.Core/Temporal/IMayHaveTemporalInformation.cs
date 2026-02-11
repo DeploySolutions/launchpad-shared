@@ -27,9 +27,9 @@
 //limitations under the License. 
 #endregion
 
-using Deploy.LaunchPad.Core.Domain;
+using Deploy.LaunchPad.Domain;
 
-namespace Deploy.LaunchPad.Core.Temporal
+namespace Deploy.LaunchPad.Domain.Temporal
 {
     using Deploy.LaunchPad.Util.Elements;
     using System;

@@ -12,9 +12,9 @@
 // <summary></summary>
 // ***********************************************************************
 
-using Deploy.LaunchPad.Core.Data;
+using Deploy.LaunchPad.Domain.Data;
 
-namespace Deploy.LaunchPad.Core.Geospatial.ReferencePoint
+namespace Deploy.LaunchPad.Domain.Geospatial.ReferencePoint
 {
     public interface IElevation : IMustHaveUnitOfMeasure, IMayHaveConfidence
     {

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text.Json;
 
-namespace Deploy.LaunchPad.Core.Geospatial.Position
+namespace Deploy.LaunchPad.Domain.Geospatial.Position
 {
     public interface IGeographicFeatureCollection<T> where T : IAmGeographicFeature
     {

@@ -16,7 +16,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
-namespace Deploy.LaunchPad.Core.Content
+namespace Deploy.LaunchPad.Domain.Content
 {
     /// <summary>
     /// Allows a URL-like "slug" reference such as in WordPress my-content-slug.

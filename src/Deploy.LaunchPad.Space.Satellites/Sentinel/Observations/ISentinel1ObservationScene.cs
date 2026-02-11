@@ -28,7 +28,7 @@
 
 namespace Deploy.LaunchPad.Space.Satellites.Sentinel
 {
-    using Deploy.LaunchPad.Core.Domain;
+    using Deploy.LaunchPad.Domain;
     using Deploy.LaunchPad.Space.Satellites.Core;
 
     /// <summary>

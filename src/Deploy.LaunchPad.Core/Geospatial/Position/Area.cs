@@ -22,7 +22,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
 
-namespace Deploy.LaunchPad.Core.Geospatial.Position
+namespace Deploy.LaunchPad.Domain.Geospatial.Position
 {
     public partial class Area : IArea
     {

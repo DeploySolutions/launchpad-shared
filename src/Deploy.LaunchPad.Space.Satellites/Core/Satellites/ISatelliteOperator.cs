@@ -29,7 +29,8 @@
 
 namespace Deploy.LaunchPad.Space.Satellites.Core
 {
-    using Deploy.LaunchPad.Core.Abp.Domain;
+    using Deploy.LaunchPad.Core.Abp;
+    using Deploy.LaunchPad.Core.Abp.Organization;
 
     /// <summary>
     /// Interface ISatelliteOperator

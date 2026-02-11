@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Deploy.LaunchPad.Core {
+namespace Deploy.LaunchPad.Domain {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace Deploy.LaunchPad.Core {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Deploy.LaunchPad.Core.Deploy.LaunchPad.Core.Resources", typeof(Deploy_LaunchPad_Core_Resources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Deploy.LaunchPad.Domain.Deploy.LaunchPad.Core.Resources", typeof(Deploy_LaunchPad_Core_Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -483,7 +483,15 @@ namespace Deploy.LaunchPad.Core {
             }
         }
         
-      
+        /// <summary>
+        ///   Looks up a localized string similar to Expected a non null expression as a predicate for the specification..
+        /// </summary>
+        public static string Guard_Specification_Specification {
+            get {
+                return ResourceManager.GetString("Guard_Specification_Specification", resourceCulture);
+            }
+        }
+        
         /// <summary>
         ///   Looks up a localized string similar to This unit of work scope has been marked completed. A child scope participating in the transaction has rolledback and the transaction aborted. The parent scope cannot be commit..
         /// </summary>

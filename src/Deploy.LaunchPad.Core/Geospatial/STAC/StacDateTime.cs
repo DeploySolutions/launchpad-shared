@@ -12,7 +12,7 @@
 // <summary></summary>
 // ***********************************************************************
 
-namespace Deploy.LaunchPad.Core.STAC
+namespace Deploy.LaunchPad.Domain.STAC
 {
     using System;
     using System.Collections.Generic;
@@ -69,7 +69,7 @@ namespace Deploy.LaunchPad.Core.STAC
         /// </summary>
         /// <param name="json">The json.</param>
         /// <returns>StacDateTime.</returns>
-        public static StacDateTime FromJson(string json) => JsonConvert.DeserializeObject<StacDateTime>(json, Deploy.LaunchPad.Core.STAC.StacDateTimeConverter.Settings);
+        public static StacDateTime FromJson(string json) => JsonConvert.DeserializeObject<StacDateTime>(json, Deploy.LaunchPad.Domain.STAC.StacDateTimeConverter.Settings);
     }
 
     /// <summary>
@@ -82,7 +82,7 @@ namespace Deploy.LaunchPad.Core.STAC
         /// </summary>
         /// <param name="self">The self.</param>
         /// <returns>System.String.</returns>
-        public static string ToJson(this StacDateTime self) => JsonConvert.SerializeObject(self, Deploy.LaunchPad.Core.STAC.StacDateTimeConverter.Settings);
+        public static string ToJson(this StacDateTime self) => JsonConvert.SerializeObject(self, Deploy.LaunchPad.Domain.STAC.StacDateTimeConverter.Settings);
     }
 
     /// <summary>

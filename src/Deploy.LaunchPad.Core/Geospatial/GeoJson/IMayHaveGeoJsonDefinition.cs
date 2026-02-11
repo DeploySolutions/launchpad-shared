@@ -15,7 +15,7 @@ using NetTopologySuite.Geometries;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Deploy.LaunchPad.Core.Geospatial.GeoJson
+namespace Deploy.LaunchPad.Domain.Geospatial.GeoJson
 {
     /// <summary>
     /// Interface IMayHaveGeoJsonDefinition

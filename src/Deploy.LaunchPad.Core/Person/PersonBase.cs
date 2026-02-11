@@ -26,9 +26,8 @@
 //limitations under the License. 
 #endregion
 
-using Deploy.LaunchPad.Core.Abp.Domain.Model;
-using Deploy.LaunchPad.Core.Domain.Model;
-using Deploy.LaunchPad.Core.Person;
+using Deploy.LaunchPad.Domain.Model;
+using Deploy.LaunchPad.Domain.Person;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -36,7 +35,7 @@ using System.Reflection;
 using System.Runtime.Serialization;
 using System.Xml.Serialization;
 
-namespace Deploy.LaunchPad.Core.Person
+namespace Deploy.LaunchPad.Domain.Person
 {
 
 

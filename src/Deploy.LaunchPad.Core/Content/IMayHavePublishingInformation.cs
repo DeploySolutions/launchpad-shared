@@ -19,7 +19,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Diagnostics.CodeAnalysis;
 using System.Xml.Serialization;
 
-namespace Deploy.LaunchPad.Core.Content
+namespace Deploy.LaunchPad.Domain.Content
 {
     /// <summary>
     /// Defines the minimum properties LaunchPad expects to have for publishing information.

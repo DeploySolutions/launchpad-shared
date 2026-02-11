@@ -28,9 +28,9 @@
 
 
 
-namespace Deploy.LaunchPad.Core.Geospatial.Position
+namespace Deploy.LaunchPad.Domain.Geospatial.Position
 {
-    using Deploy.LaunchPad.Core;
+    using Deploy.LaunchPad.Domain;
     using Deploy.LaunchPad.Util;
     using System;
     using System.ComponentModel;
@@ -38,8 +38,8 @@ namespace Deploy.LaunchPad.Core.Geospatial.Position
     using System.Text;
     using System.Xml.Serialization;
     using NetTopologySuite.Geometries;
-    using Deploy.LaunchPad.Core.Geospatial;
-    using Deploy.LaunchPad.Core.Geospatial.ReferencePoint;
+    using Deploy.LaunchPad.Domain.Geospatial;
+    using Deploy.LaunchPad.Domain.Geospatial.ReferencePoint;
 
     /// <summary>
     /// This class defines the physical position of something, in terms of its latitude, longitude, and elevation.

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Deploy.LaunchPad.Core.Temporal
+namespace Deploy.LaunchPad.Domain.Temporal
 {
     public enum TemporalContext
     {

@@ -30,7 +30,7 @@
 
 namespace Deploy.LaunchPad.Space.Satellites.Core
 {
-    using Deploy.LaunchPad.Core.Abp.Domain.Model;
+    using Deploy.LaunchPad.Core.Abp.Model;
 
     /// <summary>
     /// Class SartFile.

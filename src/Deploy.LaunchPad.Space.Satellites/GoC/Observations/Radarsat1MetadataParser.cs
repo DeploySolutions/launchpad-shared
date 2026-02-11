@@ -29,10 +29,9 @@
 
 namespace Deploy.LaunchPad.Space.Satellites.GoC
 {
-    using Deploy.LaunchPad.Core;
-    using Deploy.LaunchPad.Core.Abp.Domain;
-    using Deploy.LaunchPad.Core.Domain;
-    using Deploy.LaunchPad.Core.Domain.Model;
+    using Deploy.LaunchPad.Domain;
+    using Deploy.LaunchPad.Core.Abp;
+    using Deploy.LaunchPad.Domain.Model;
     using Deploy.LaunchPad.Files;
     using Deploy.LaunchPad.Files.Storage;
     using Deploy.LaunchPad.Util;
@@ -44,8 +43,8 @@ namespace Deploy.LaunchPad.Space.Satellites.GoC
     using System.IO;
     using System.Text;
     using System.Text.RegularExpressions;
-    using Deploy.LaunchPad.Core.Licenses;
-    using Deploy.LaunchPad.Core.Geospatial.Position;
+    using Deploy.LaunchPad.Domain.Licenses;
+    using Deploy.LaunchPad.Domain.Geospatial.Position;
     using Deploy.LaunchPad.Files.Storage;
     using Deploy.LaunchPad.Files;
 

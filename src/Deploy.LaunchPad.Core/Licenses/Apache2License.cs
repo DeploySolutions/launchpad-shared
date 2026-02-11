@@ -15,7 +15,7 @@ using Deploy.LaunchPad.Util;
 using System;
 using System.ComponentModel;
 
-namespace Deploy.LaunchPad.Core.Licenses
+namespace Deploy.LaunchPad.Domain.Licenses
 {
     /// <summary>
     /// Implements the Apache2 license term information.

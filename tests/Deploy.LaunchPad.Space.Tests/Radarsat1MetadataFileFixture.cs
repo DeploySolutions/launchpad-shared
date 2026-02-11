@@ -29,9 +29,9 @@
 namespace Deploy.LaunchPad.Space.Tests
 {
     using Deploy.LaunchPad.Space.Satellites.GoC;
-    using Deploy.LaunchPad.Core.Domain;
+    using Deploy.LaunchPad.Domain;
     using System;
-    using Deploy.LaunchPad.Core.Abp.Domain;
+    using Deploy.LaunchPad.Core.Abp;
     using Deploy.LaunchPad.Files.Storage;
 
     /// <summary>

@@ -35,12 +35,12 @@
 namespace Deploy.LaunchPad.Space.Satellites.GoC
 {
     using Abp.Timing;
-    using Deploy.LaunchPad.Core.Abp.Domain;
-    using Deploy.LaunchPad.Core.Domain;
+    using Deploy.LaunchPad.Core.Abp;
+    using Deploy.LaunchPad.Domain;
     using Deploy.LaunchPad.Files;
-    using Deploy.LaunchPad.Core.Geospatial;
-    using Deploy.LaunchPad.Core.Geospatial.Position;
-    using Deploy.LaunchPad.Core.Temporal;
+    using Deploy.LaunchPad.Domain.Geospatial;
+    using Deploy.LaunchPad.Domain.Geospatial.Position;
+    using Deploy.LaunchPad.Domain.Temporal;
     using Deploy.LaunchPad.Space.Satellites.Core;
     using System;
     using System.ComponentModel.DataAnnotations;

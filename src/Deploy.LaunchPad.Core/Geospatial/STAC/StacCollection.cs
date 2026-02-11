@@ -12,13 +12,13 @@
 // <summary></summary>
 // ***********************************************************************
 
-namespace Deploy.LaunchPad.Core.STAC
+namespace Deploy.LaunchPad.Domain.STAC
 {
     using System;
     using System.Collections.Generic;
 
     using System.Globalization;
-    using Deploy.LaunchPad.Core.Geospatial.STAC;
+    using Deploy.LaunchPad.Domain.Geospatial.STAC;
     using Newtonsoft.Json;
     using Newtonsoft.Json.Converters;
 
@@ -42,7 +42,7 @@ namespace Deploy.LaunchPad.Core.STAC
         /// </summary>
         /// <param name="json">The json.</param>
         /// <returns>StacCollection.</returns>
-        public static StacCollection FromJson(string json) => JsonConvert.DeserializeObject<StacCollection>(json, Deploy.LaunchPad.Core.STAC.StacCollectionConverter.Settings);
+        public static StacCollection FromJson(string json) => JsonConvert.DeserializeObject<StacCollection>(json, Deploy.LaunchPad.Domain.STAC.StacCollectionConverter.Settings);
     }
 
     /// <summary>
@@ -55,7 +55,7 @@ namespace Deploy.LaunchPad.Core.STAC
         /// </summary>
         /// <param name="self">The self.</param>
         /// <returns>System.String.</returns>
-        public static string ToJson(this StacCollection self) => JsonConvert.SerializeObject(self, Deploy.LaunchPad.Core.STAC.StacCollectionConverter.Settings);
+        public static string ToJson(this StacCollection self) => JsonConvert.SerializeObject(self, Deploy.LaunchPad.Domain.STAC.StacCollectionConverter.Settings);
     }
 
     /// <summary>

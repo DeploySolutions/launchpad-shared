@@ -15,7 +15,7 @@ using Deploy.LaunchPad.Util.Elements;
 using H3;
 using System.Collections.Generic;
 
-namespace Deploy.LaunchPad.Core.Geospatial.H3
+namespace Deploy.LaunchPad.Domain.Geospatial.H3
 {
     /// <summary>
     /// Interface IMustHaveH3Location

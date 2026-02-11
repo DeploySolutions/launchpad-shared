@@ -11,7 +11,7 @@
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
-using Deploy.LaunchPad.Core.Domain;
+using Deploy.LaunchPad.Domain;
 using Deploy.LaunchPad.Files.Storage;
 using Deploy.LaunchPad.Files.Storage;
 using Microsoft.EntityFrameworkCore;

@@ -20,7 +20,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
 using System.Xml.Serialization;
 using Deploy.LaunchPad.Code.Services.Dto.NameDescription;
-using Deploy.LaunchPad.Core.Domain.Model;
+using Deploy.LaunchPad.Domain.Model;
 
 namespace Deploy.LaunchPad.Code.Services.Dto
 {

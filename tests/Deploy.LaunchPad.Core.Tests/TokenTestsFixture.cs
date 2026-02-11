@@ -14,7 +14,7 @@
 using Deploy.LaunchPad.Util.Tokens;
 using System;
 
-namespace Deploy.LaunchPad.Core.Tests
+namespace Deploy.LaunchPad.Domain.Tests
 {
     /// <summary>
     /// Class TokenTestsFixture.

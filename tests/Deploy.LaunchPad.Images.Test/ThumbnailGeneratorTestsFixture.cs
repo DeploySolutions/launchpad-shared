@@ -30,7 +30,7 @@
 using System.Drawing;
 using System.IO;
 using System.Resources;
-using Deploy.LaunchPad.Core;
+using Deploy.LaunchPad.Domain;
 using Deploy.LaunchPad.Util;
 
 namespace Deploy.LaunchPad.Images.Tests

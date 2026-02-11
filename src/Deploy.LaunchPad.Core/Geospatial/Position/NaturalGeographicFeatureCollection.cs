@@ -5,7 +5,7 @@ using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 
-namespace Deploy.LaunchPad.Core.Geospatial.Position
+namespace Deploy.LaunchPad.Domain.Geospatial.Position
 {
     public partial class NaturalGeographicFeatureCollection<T> : GeographicFeatureCollection<T>
         where T : IAmNaturalGeographicFeature

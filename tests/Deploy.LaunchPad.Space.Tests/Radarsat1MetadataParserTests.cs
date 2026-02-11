@@ -34,9 +34,9 @@ namespace Deploy.LaunchPad.Space.Tests
     using Xunit;
     
     using Deploy.LaunchPad.Util;
-    using Deploy.LaunchPad.Core;
+    using Deploy.LaunchPad.Domain;
     using Deploy.LaunchPad.Space.Satellites;
-    using Deploy.LaunchPad.Core.Licenses;
+    using Deploy.LaunchPad.Domain.Licenses;
 
     /// <summary>
     /// Class Radarsat1MetadataParserTests.

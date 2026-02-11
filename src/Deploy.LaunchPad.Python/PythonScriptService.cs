@@ -12,7 +12,7 @@
 // <summary></summary>
 // ***********************************************************************
 using Castle.Core.Logging;
-using Deploy.LaunchPad.Core;
+using Deploy.LaunchPad.Domain;
 using Deploy.LaunchPad.Code.Services;
 using Deploy.LaunchPad.Code.Config;
 using Deploy.LaunchPad.Util;

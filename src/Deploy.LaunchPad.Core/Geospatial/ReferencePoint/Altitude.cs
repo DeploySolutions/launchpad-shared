@@ -21,7 +21,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
 
-namespace Deploy.LaunchPad.Core.Geospatial.ReferencePoint
+namespace Deploy.LaunchPad.Domain.Geospatial.ReferencePoint
 {
     public partial class Altitude : IAltitude
     {

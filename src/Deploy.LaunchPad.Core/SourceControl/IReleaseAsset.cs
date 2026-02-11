@@ -13,7 +13,7 @@
 // ***********************************************************************
 using System;
 
-namespace Deploy.LaunchPad.Core.SourceControl
+namespace Deploy.LaunchPad.Domain.SourceControl
 {
     /// <summary>
     /// Interface IReleaseAsset

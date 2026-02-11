@@ -12,7 +12,7 @@
 // <summary></summary>
 // ***********************************************************************
 
-using Deploy.LaunchPad.Core.STAC;
+using Deploy.LaunchPad.Domain.STAC;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -20,7 +20,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Deploy.LaunchPad.Core.Geospatial.STAC
+namespace Deploy.LaunchPad.Domain.Geospatial.STAC
 {
     /// <summary>
     /// Class StacAsset.

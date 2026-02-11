@@ -11,9 +11,9 @@
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
-using Deploy.LaunchPad.Core.Geospatial.Position;
+using Deploy.LaunchPad.Domain.Geospatial.Position;
 
-namespace Deploy.LaunchPad.Core.Geospatial
+namespace Deploy.LaunchPad.Domain.Geospatial
 {
     /// <summary>
     /// Interface IObservationPoint

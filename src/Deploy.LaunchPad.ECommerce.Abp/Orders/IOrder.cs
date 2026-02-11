@@ -11,7 +11,7 @@
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
-using Deploy.LaunchPad.Core.Abp.Domain.Model;
+using Deploy.LaunchPad.Core.Abp.Model;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Xml.Serialization;
