@@ -37,7 +37,7 @@ namespace Deploy.LaunchPad.Core.Tests
     using Deploy.LaunchPad.AWS;
     using Deploy.LaunchPad.AWS.S3;
     using Deploy.LaunchPad.Core.Abp.Domain;
-    using Deploy.LaunchPad.Util.Files;
+    using Deploy.LaunchPad.Files;
     using Deploy.LaunchPad.Core.Abp;
 
     /// <summary>

@@ -30,8 +30,9 @@ using Abp.Domain.Entities;
 using Deploy.LaunchPad.Core.Abp.Domain.Model;
 using Deploy.LaunchPad.Core.Data;
 using Deploy.LaunchPad.Core.Domain.Model;
-using Deploy.LaunchPad.Util.Files;
-using Deploy.LaunchPad.Util.Files.Formats;
+using Deploy.LaunchPad.Files;
+using Deploy.LaunchPad.Util.Metadata;
+
 
 namespace Deploy.LaunchPad.Core.Abp.Domain
 {

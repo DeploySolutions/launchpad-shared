@@ -32,8 +32,9 @@ namespace Deploy.LaunchPad.Core.Domain.Model
     using System.ComponentModel;
     using System.Xml.Serialization;
     using Deploy.LaunchPad.Core.Abp.Domain.Model;
-    using Deploy.LaunchPad.Util.Files;
+    using Deploy.LaunchPad.Files;
     using Deploy.LaunchPad.Util;
+    using Deploy.LaunchPad.Files;
 
     /// <summary>
     /// Marks any object as a file that can be manipulated by the platform AND tracked as a domain entity.

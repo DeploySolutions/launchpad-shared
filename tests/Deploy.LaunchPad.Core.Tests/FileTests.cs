@@ -37,7 +37,7 @@ namespace Deploy.LaunchPad.Core.Tests
     using System.Reflection;
     using System;
     using Castle.Core.Logging;
-    using Deploy.LaunchPad.Util.Files.Storage;
+    using Deploy.LaunchPad.Files.Storage;
 
     /// <summary>
     /// Class FileTests.

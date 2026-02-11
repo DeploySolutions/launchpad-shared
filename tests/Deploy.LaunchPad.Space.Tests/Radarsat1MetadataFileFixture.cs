@@ -32,7 +32,7 @@ namespace Deploy.LaunchPad.Space.Tests
     using Deploy.LaunchPad.Core.Domain;
     using System;
     using Deploy.LaunchPad.Core.Abp.Domain;
-    using Deploy.LaunchPad.Util.Files.Storage;
+    using Deploy.LaunchPad.Files.Storage;
 
     /// <summary>
     /// Class Radarsat1MetadataFileFixture.

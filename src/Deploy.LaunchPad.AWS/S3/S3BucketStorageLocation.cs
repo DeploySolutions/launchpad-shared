@@ -30,11 +30,6 @@ using Amazon.S3;
 using Amazon.S3.Model;
 using Castle.Core.Logging;
 using Deploy.LaunchPad.AWS.S3.Services;
-using Deploy.LaunchPad.Core;
-using Deploy.LaunchPad.Core.Domain;
-using Deploy.LaunchPad.Core.Domain.Model;
-using Deploy.LaunchPad.Util.Files;
-using Deploy.LaunchPad.Util.Files.Storage;
 using Deploy.LaunchPad.Util;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -45,6 +40,8 @@ using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
+using Deploy.LaunchPad.Files.Storage;
+using Deploy.LaunchPad.Files;
 
 namespace Deploy.LaunchPad.AWS.S3
 {
