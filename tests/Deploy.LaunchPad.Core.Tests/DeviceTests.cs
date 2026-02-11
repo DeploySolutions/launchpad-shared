@@ -76,7 +76,7 @@ namespace Deploy.LaunchPad.Core.Tests
         [Fact]
         public void Should_Have_NotNull_Culture_When_Instantiated()
         {
-            Assert.False(string.IsNullOrEmpty(_fixture.SUT.Culture));
+            Assert.False(string.IsNullOrEmpty(_fixture.SUT.Culture.DisplayName));
         }
 
         /// <summary>
@@ -156,10 +156,10 @@ namespace Deploy.LaunchPad.Core.Tests
         public void Should_Be_Equal()
         {
             Device<Guid> a = new Device<Guid>();
-            a.Culture = "en-CA";
+            a.Culture = new System.Globalization.CultureInfo("en-CA");
             a.Id = new Guid("9fa65d30-ecc4-446f-b9ad-6ca29be9dab8");
             Device<Guid> b = new Device<Guid>();
-            b.Culture = "en-CA";
+            b.Culture = new System.Globalization.CultureInfo("en-CA");
             b.Id = new Guid("9fa65d30-ecc4-446f-b9ad-6ca29be9dab8");
             Assert.Equal(a, b);
         }

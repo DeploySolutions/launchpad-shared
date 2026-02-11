@@ -14,7 +14,7 @@
 using Deploy.LaunchPad.Core.Domain;
 using Deploy.LaunchPad.Core.Domain.Model;
 using System.Collections.Generic;
-using Deploy.LaunchPad.Core.Files.Storage;
+using Deploy.LaunchPad.Util.Files.Storage;
 
 namespace Deploy.LaunchPad.Core.Abp.Domain.Model
 {

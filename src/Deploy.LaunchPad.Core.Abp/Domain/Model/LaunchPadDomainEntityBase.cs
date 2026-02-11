@@ -105,7 +105,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
         public virtual DomainEntityType EntityType { get; } = DomainEntityType.DomainEntity;
 
 
-        protected string _culture;
+        protected CultureInfo _culture;
         /// <summary>
         /// The culture of this object
         /// </summary>
@@ -115,7 +115,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
         [DataObjectField(false)]
         [DataMember(Name = "culture", EmitDefaultValue = false)]
         [XmlAttribute]
-        public virtual string Culture
+        public virtual CultureInfo Culture
         {
             get { return _culture; }
             set { _culture = value; }
@@ -224,28 +224,6 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
             set { _deleterUserName = value; }
         }
 
-        /// <summary>
-        /// A convenience readonly method to get a <see cref="CultureInfo">CultureInfo</see> instance from the current
-        /// culture code
-        /// </summary>
-        /// <returns>CultureInfo.</returns>
-        public virtual CultureInfo GetCultureInfo()
-        {
-            return new CultureInfo(Culture);
-        }
-
-        /// <summary>
-        /// Ensure the culture is one of the supported ones
-        /// </summary>
-        /// <param name="name">The name.</param>
-        /// <returns><c>true</c> if [is valid culture information name] [the specified name]; otherwise, <c>false</c>.</returns>
-        private static bool IsValidCultureInfoName(string name)
-        {
-            return
-                CultureInfo
-                .GetCultures(CultureTypes.SpecificCultures)
-                .Any(c => c.Name == name);
-        }
 
         /// <summary>
         /// Computes the checksum based on the chosen properties
@@ -275,7 +253,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
         /// </summary>
         protected LaunchPadDomainEntityBase() : base()
         {
-            Culture = ApplicationDetails<TIdType>.DEFAULT_CULTURE;
+            Culture = new CultureInfo(ApplicationDetails<TIdType>.DEFAULT_CULTURE);
             //TenantId = 0; // default tenant
             IsDeleted = false;
             IsActive = true;
@@ -292,7 +270,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
         /// <param name="description">The description for this entity</param>
         protected LaunchPadDomainEntityBase(ElementName name) : base()
         {
-            Culture = ApplicationDetails<TIdType>.DEFAULT_CULTURE;
+            Culture = new CultureInfo(ApplicationDetails<TIdType>.DEFAULT_CULTURE);
             CreatorUserId = 1; // TODO - default user account?
             IsDeleted = false;
             IsActive = true;
@@ -308,7 +286,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
         /// <param name="description">The description for this entity</param>
         protected LaunchPadDomainEntityBase(ElementName name, ElementDescription description) : base()
         {
-            Culture = ApplicationDetails<TIdType>.DEFAULT_CULTURE;
+            Culture = new CultureInfo(ApplicationDetails<TIdType>.DEFAULT_CULTURE);
             CreatorUserId = 1; // TODO - default user account?
             IsDeleted = false;
             IsActive = true;
@@ -323,7 +301,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
         protected LaunchPadDomainEntityBase(TIdType id) : base()
         {
             Id = id;
-            Culture = ApplicationDetails<TIdType>.DEFAULT_CULTURE;
+            Culture = new CultureInfo(ApplicationDetails<TIdType>.DEFAULT_CULTURE);
             CreatorUserId = 1; // TODO - default user account?
             IsDeleted = false;
             IsActive = true;
@@ -340,7 +318,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
         protected LaunchPadDomainEntityBase(TIdType id, string name) : base()
         {
             Id = id;
-            Culture = ApplicationDetails<TIdType>.DEFAULT_CULTURE;
+            Culture = new CultureInfo(ApplicationDetails<TIdType>.DEFAULT_CULTURE);
             CreatorUserId = 1; // TODO - default user account?
             IsDeleted = false;
             IsActive = true;
@@ -357,7 +335,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
         protected LaunchPadDomainEntityBase(TIdType id, string name, CultureInfo culture) : base()
         {
             Id = id;
-            Culture = culture.Name;
+            Culture = culture;
             CreatorUserId = 1; // TODO - default user account?
             IsDeleted = false;
             IsActive = true;
@@ -374,7 +352,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
         protected LaunchPadDomainEntityBase(TIdType id, ElementName name, CultureInfo culture) : base()
         {
             Id = id;
-            Culture = culture.Name;
+            Culture = culture;
             CreatorUserId = 1; // TODO - default user account?
             IsDeleted = false;
             IsActive = true;
@@ -391,7 +369,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
         protected LaunchPadDomainEntityBase(TIdType id, ElementName name, ElementDescription description, CultureInfo culture) : base()
         {
             Id = id;
-            Culture = culture.Name;
+            Culture = culture;
             CreatorUserId = 1; // TODO - default user account?
             IsDeleted = false;
             IsActive = true;
@@ -407,7 +385,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
         protected LaunchPadDomainEntityBase(SerializationInfo info, StreamingContext context)
         {
             Id = (TIdType)info.GetValue("Id", typeof(TIdType));
-            Culture = info.GetString("Culture");
+            Culture = (CultureInfo)info.GetValue("Culture", typeof(CultureInfo));
             Name = (ElementName)info.GetValue("Name", typeof(ElementName));
             Description = (ElementDescription)info.GetValue("Description", typeof(ElementDescription));
             Checksum = info.GetString("Checksum");

@@ -31,7 +31,7 @@ using Deploy.LaunchPad.Core.Abp.Domain.Model;
 using Deploy.LaunchPad.Core.Data;
 using Deploy.LaunchPad.Core.Domain.Model;
 using Deploy.LaunchPad.Core.Licenses;
-using Deploy.LaunchPad.Core.Metadata;
+using Deploy.LaunchPad.Util.Metadata;
 using System.Collections.Generic;
 
 namespace Deploy.LaunchPad.Core.Abp.Domain

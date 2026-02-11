@@ -73,7 +73,7 @@ namespace Deploy.LaunchPad.Core.Tests
                 Description = new ElementDescription("Short description", "Lorem ipsum et dolor sit amet bla bla bla"),
                 IsActive = true,
                 IsDeleted = false,
-                Culture = "en-CA",
+                Culture = new System.Globalization.CultureInfo("en-CA"),
                 TranslatedFromId = 1,
                 Power = power
             };

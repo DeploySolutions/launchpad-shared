@@ -33,8 +33,8 @@ namespace Deploy.LaunchPad.Space.Satellites.GoC
     using Deploy.LaunchPad.Core.Abp.Domain;
     using Deploy.LaunchPad.Core.Domain;
     using Deploy.LaunchPad.Core.Domain.Model;
-    using Deploy.LaunchPad.Core.Files;
-    using Deploy.LaunchPad.Core.Files.Storage;
+    using Deploy.LaunchPad.Util.Files;
+    using Deploy.LaunchPad.Util.Files.Storage;
     using Deploy.LaunchPad.Util;
     using Deploy.LaunchPad.Space.Satellites.Core;
     using NetTopologySuite.Geometries;

@@ -29,8 +29,8 @@
 
 using Deploy.LaunchPad.Core.Abp.Domain;
 using Deploy.LaunchPad.Core.Domain;
-using Deploy.LaunchPad.Core.Files;
-using Deploy.LaunchPad.Core.Files.Storage;
+using Deploy.LaunchPad.Util.Files;
+using Deploy.LaunchPad.Util.Files.Storage;
 using System;
 using System.Globalization;
 using System.IO;

@@ -81,6 +81,14 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
         {
         }
 
+        /// <summary>
+        /// Creates a new instance of the <see cref="LaunchPadAggregateChildBase">LaunchPadAggregateChildBase</see> class given a key, and some metadata.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        protected LaunchPadAggregateChildBase(TIdType id) : base(id)
+        {
+        }
+
 
         /// <summary>
         /// Creates a new instance of the <see cref="LaunchPadAggregateChildBase">LaunchPadAggregateChildBase</see> class given a key, and some metadata.

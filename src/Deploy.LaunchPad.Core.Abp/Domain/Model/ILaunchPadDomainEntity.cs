@@ -31,6 +31,7 @@ using Abp.Domain.Entities.Auditing;
 using Deploy.LaunchPad.Core.Domain;
 using Deploy.LaunchPad.Core.Domain.Model;
 using Deploy.LaunchPad.Util;
+using Deploy.LaunchPad.Util.Metadata;
 using System;
 
 namespace Deploy.LaunchPad.Core.Abp.Domain.Model
@@ -47,7 +48,8 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
         ILaunchPadDomainEntityProperties<TIdType>, IEntity<TIdType>,
         ICreationAudited, IModificationAudited, IDeletionAudited, IPassivable,
         IComparable<LaunchPadDomainEntityBase<TIdType>>, IEquatable<LaunchPadDomainEntityBase<TIdType>>,
-        ICloneable, IAmCloneable<LaunchPadDomainEntityBase<TIdType>>
+        ICloneable, IAmCloneable<LaunchPadDomainEntityBase<TIdType>>,
+        IMustHaveCulture
     {
 
         public string ComputeChecksum(string input = "");

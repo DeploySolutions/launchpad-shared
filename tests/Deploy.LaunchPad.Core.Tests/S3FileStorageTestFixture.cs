@@ -38,7 +38,7 @@ namespace Deploy.LaunchPad.Core.Tests
     using Deploy.LaunchPad.AWS.S3;
     using Deploy.LaunchPad.Core.Abp.Util;
     using Deploy.LaunchPad.Core.Abp.Domain;
-    using Deploy.LaunchPad.Core.Files;
+    using Deploy.LaunchPad.Util.Files;
 
     /// <summary>
     /// Class S3FileStorageTestsFixture.

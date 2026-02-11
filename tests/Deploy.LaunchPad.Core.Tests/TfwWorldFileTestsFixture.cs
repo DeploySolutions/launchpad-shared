@@ -36,8 +36,8 @@ namespace Deploy.LaunchPad.Core.Tests
     using System;
     using Deploy.LaunchPad.Core.Abp.Util;
     using Deploy.LaunchPad.Core.Abp.Domain;
-    using Deploy.LaunchPad.Core.Files.Storage;
-    using Deploy.LaunchPad.Core.Files;
+    using Deploy.LaunchPad.Util.Files.Storage;
+    using Deploy.LaunchPad.Util.Files;
 
     /// <summary>
     /// Class TfwWorldFileTestsFixture.

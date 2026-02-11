@@ -31,16 +31,7 @@ namespace Deploy.LaunchPad.Core.Domain.Model
     public partial interface ILaunchPadCoreProperties : ILaunchPadMinimalProperties, IMayHaveTags
     {
 
-        /// <summary>
-        /// The culture of this object
-        /// </summary>
-        /// <value>The culture.</value>
-        [Required]
-        [MaxLength(5, ErrorMessageResourceName = "Validation_Culture_5CharsOrLess", ErrorMessageResourceType = typeof(Deploy_LaunchPad_Core_Resources))]
-        [DataObjectField(true)]
-        [XmlAttribute]
-        public string Culture { get; }
-
+        
         /// <summary>
         /// The checksum for this  object, if any
         /// </summary>

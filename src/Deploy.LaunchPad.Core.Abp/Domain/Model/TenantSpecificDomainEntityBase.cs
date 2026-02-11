@@ -28,7 +28,7 @@
 
 using Abp.Domain.Entities;
 using Deploy.LaunchPad.Core.Domain;
-using Deploy.LaunchPad.Core.Metadata;
+using Deploy.LaunchPad.Util.Metadata;
 using System;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
@@ -104,7 +104,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
         /// <param name="id">The identifier.</param>
         /// <param name="metadata">The desired metadata for this entity</param>
         protected TenantSpecificDomainEntityBase(int tenantId, TIdType id, MetadataInformation metadata)
-            : base(id, metadata.Culture)
+            : base(id)
         {
             TenantId = tenantId;
         }

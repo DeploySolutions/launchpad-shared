@@ -31,7 +31,7 @@ using Deploy.LaunchPad.Core.Domain;
 
 namespace Deploy.LaunchPad.Core.Temporal
 {
-    using Deploy.LaunchPad.Core.Domain.Model;
+    using Deploy.LaunchPad.Util.Elements;
     using System;
     using System.Runtime.Serialization;
 

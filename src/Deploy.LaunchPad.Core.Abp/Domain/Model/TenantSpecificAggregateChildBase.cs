@@ -29,7 +29,7 @@
 using Abp.Domain.Entities;
 using Deploy.LaunchPad.Core.Domain;
 using Deploy.LaunchPad.Core.Domain.Model;
-using Deploy.LaunchPad.Core.Metadata;
+using Deploy.LaunchPad.Util.Metadata;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -103,7 +103,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
         /// <param name="tenantId">The tenant identifier.</param>
         /// <param name="id">The identifier.</param>
         /// <param name="metadata">The desired metadata for this entity</param>
-        protected TenantSpecificAggregateChildBase(int tenantId, TIdType id, MetadataInformation metadata) : base(id, metadata.Culture)
+        protected TenantSpecificAggregateChildBase(int tenantId, TIdType id, MetadataInformation metadata) : base(id)
         {
 
             TenantId = tenantId;

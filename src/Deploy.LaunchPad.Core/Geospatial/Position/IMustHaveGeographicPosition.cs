@@ -26,9 +26,9 @@
 //limitations under the License. 
 #endregion
 
-using Deploy.LaunchPad.Core.Domain.Model;
 using Deploy.LaunchPad.Core.Geospatial.GeoJson;
 using Deploy.LaunchPad.Core.Geospatial.ReferencePoint;
+using Deploy.LaunchPad.Util.Elements;
 using System.ComponentModel;
 using System.Xml.Serialization;
 

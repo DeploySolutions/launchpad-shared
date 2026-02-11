@@ -27,7 +27,7 @@
 #endregion
 
 
-using Deploy.LaunchPad.Core.Metadata;
+using Deploy.LaunchPad.Util.Metadata;
 using System.Collections.Generic;
 
 namespace Deploy.LaunchPad.Core.Data
@@ -36,7 +36,7 @@ namespace Deploy.LaunchPad.Core.Data
     /// Interface IDataCatalog
     /// </summary>
     /// <typeparam name="TDictionaryKey">The type of the t dictionary key.</typeparam>
-    public partial interface ILaunchPadDataCatalog<TDictionaryKey, TSchemaFormat> : IMayHaveSchemaDetails<TSchemaFormat>
+    public partial interface ILaunchPadDataCatalog<TDictionaryKey, TSchemaFormat> : IMayHaveSchema<TSchemaFormat>
         where TDictionaryKey : struct
     {
 

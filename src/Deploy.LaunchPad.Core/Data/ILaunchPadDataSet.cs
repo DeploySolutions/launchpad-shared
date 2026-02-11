@@ -27,7 +27,7 @@
 #endregion
 
 using Deploy.LaunchPad.Core.Licenses;
-using Deploy.LaunchPad.Core.Metadata;
+using Deploy.LaunchPad.Util.Metadata;
 using System.Collections.Generic;
 
 namespace Deploy.LaunchPad.Core.Data
@@ -36,7 +36,7 @@ namespace Deploy.LaunchPad.Core.Data
     /// <summary>
     /// Interface IDataSet
     /// </summary>
-    public partial interface ILaunchPadDataSet<TDictionaryKey, TSchemaFormat> : IMayHaveSchemaDetails<TSchemaFormat>
+    public partial interface ILaunchPadDataSet<TDictionaryKey, TSchemaFormat> : IMayHaveSchema<TSchemaFormat>
         where TDictionaryKey : struct
     {
         

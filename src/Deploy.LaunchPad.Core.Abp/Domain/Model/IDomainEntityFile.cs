@@ -32,7 +32,7 @@ namespace Deploy.LaunchPad.Core.Domain.Model
     using System.ComponentModel;
     using System.Xml.Serialization;
     using Deploy.LaunchPad.Core.Abp.Domain.Model;
-    using Deploy.LaunchPad.Core.Files;
+    using Deploy.LaunchPad.Util.Files;
     using Deploy.LaunchPad.Util;
 
     /// <summary>

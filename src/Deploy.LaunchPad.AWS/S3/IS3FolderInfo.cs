@@ -1,5 +1,4 @@
-﻿using Deploy.LaunchPad.Core.Domain.Model;
-using Deploy.LaunchPad.Util.Elements;
+﻿using Deploy.LaunchPad.Util.Elements;
 using System.Collections.Generic;
 
 namespace Deploy.LaunchPad.AWS.S3

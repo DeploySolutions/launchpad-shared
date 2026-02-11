@@ -30,7 +30,7 @@ using Deploy.LaunchPad.Core.Domain;
 
 namespace Deploy.LaunchPad.Core.Geospatial
 {
-    using Deploy.LaunchPad.Core.Domain.Model;
+    using Deploy.LaunchPad.Util.Elements;
     using System.Runtime.Serialization;
 
     /// <summary>

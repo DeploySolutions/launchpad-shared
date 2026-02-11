@@ -26,6 +26,7 @@
 //limitations under the License. 
 #endregion
 
+using Deploy.LaunchPad.Util.Elements;
 using System;
 
 namespace Deploy.LaunchPad.Core.Domain.Model

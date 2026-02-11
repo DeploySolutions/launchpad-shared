@@ -94,6 +94,16 @@ namespace Deploy.LaunchPad.Core.Abp.Domain.Model
             //ChildrenFullyQualifiedTypes = new List<string>();    
         }
 
+        /// <summary>
+        /// Creates a new instance of the <see cref="AggregateRootBase">AggregateRootBase</see> class given a key, and some metadata.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <param name="cultureName">The culture for this entity</param>
+        protected LaunchPadAggregateRootBase(TIdType id) : base(id)
+        {
+            DomainEvents = new Collection<IEventData>();
+            //ChildrenFullyQualifiedTypes = new List<string>();
+        }
 
         /// <summary>
         /// Creates a new instance of the <see cref="AggregateRootBase">AggregateRootBase</see> class given a key, and some metadata.

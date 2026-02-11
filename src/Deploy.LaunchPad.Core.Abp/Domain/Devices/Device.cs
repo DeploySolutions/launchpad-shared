@@ -36,6 +36,7 @@ using Deploy.LaunchPad.Core.Geospatial;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Globalization;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Xml.Serialization;
@@ -150,7 +151,7 @@ namespace Deploy.LaunchPad.Core.Abp.Domain
         /// <param name="tenantId">The tenant identifier.</param>
         /// <param name="id">The identifier.</param>
         /// <param name="culture">The culture.</param>
-        public Device(int? tenantId, TIdType id, string culture) : base(id, culture)
+        public Device(int? tenantId, TIdType id, CultureInfo culture) : base(id)
         {
             Id = id;
             TenantId = tenantId;

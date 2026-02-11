@@ -27,15 +27,16 @@
 #endregion
 
 using Deploy.LaunchPad.Core.Domain.Model;
-using Deploy.LaunchPad.Core.Files.Storage;
-using Deploy.LaunchPad.Core.Metadata;
+using Deploy.LaunchPad.Util.Files.Storage;
 using Deploy.LaunchPad.Util;
+using Deploy.LaunchPad.Util.Files.Formats;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
 using System.Xml.Serialization;
+using Deploy.LaunchPad.Util.Files;
 
 namespace Deploy.LaunchPad.Core.Abp.Domain.Model
 {

@@ -32,6 +32,7 @@ using System.ComponentModel;
 using System.Xml.Serialization;
 using Deploy.LaunchPad.Core.Content;
 using Deploy.LaunchPad.Core.Domain.Model;
+using Deploy.LaunchPad.Util.Elements;
 
 namespace Deploy.LaunchPad.Core.Organization
 {
