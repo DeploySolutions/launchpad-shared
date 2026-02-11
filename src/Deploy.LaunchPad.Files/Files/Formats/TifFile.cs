@@ -4,9 +4,9 @@
 // Created          : 11-19-2023
 //
 // Last Modified By : Nicholas Kellett
-// Last Modified On : 07-26-2023
+// Last Modified On : 01-22-2023
 // ***********************************************************************
-// <copyright file="IDataPoint.cs" company="Deploy Software Solutions, inc.">
+// <copyright file="TifFile.cs" company="Deploy Software Solutions, inc.">
 //     2018-2024 Deploy Software Solutions, inc.
 // </copyright>
 // <summary></summary>
@@ -26,21 +26,33 @@
 //limitations under the License. 
 #endregion
 
+using Deploy.LaunchPad.Files.Formats;
 
 
 
-namespace Deploy.LaunchPad.Util.Metadata
+namespace Deploy.LaunchPad.Files
 {
-
     /// <summary>
-    /// Interface IDataPoint
+    /// Class TifFile.
+    /// Implements the <see cref="Model.DomainEntityFileBase{System.Byte[]}" />
     /// </summary>
-    public partial interface IMayHaveSchema<TSchemaFormat>
+    /// <seealso cref="Model.DomainEntityFileBase{ System.Byte[]}" />
+    public partial class TifFile : FileBase<byte[], TifImageFileSchema>
     {
         /// <summary>
-        /// Describes the schema (where known) according to which this data is structured.
+        /// The extension of the file
         /// </summary>
-        /// <value>The schema.</value>
-        public ILaunchPadSchemaDetails<TSchemaFormat>? Schema { get; set; }
+        /// <value>The extension.</value>
+        public override string Extension => "." + FileExtensions.tiff;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="TifFile{TIdType}"/> class.
+        /// </summary>
+        /// <param name="fileName">Name of the file.</param>
+        public TifFile(string fileName) : base(fileName)
+        {
+
+        }
+
     }
 }

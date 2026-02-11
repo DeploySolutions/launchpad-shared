@@ -39,6 +39,7 @@
     <Project Path="src/Deploy.LaunchPad.Core.Abp/Deploy.LaunchPad.Core.Abp.csproj" />
     <Project Path="src/Deploy.LaunchPad.Core/Deploy.LaunchPad.Core.csproj" />
     <Project Path="src/Deploy.LaunchPad.ECommerce.Abp/Deploy.LaunchPad.ECommerce.Abp.csproj" />
+    <Project Path="src/Deploy.LaunchPad.Files/Deploy.LaunchPad.Files.csproj" Id="56426fe1-9576-42aa-9fd9-5e27dcfa45f2" />
     <Project Path="src/Deploy.LaunchPad.Images/Deploy.LaunchPad.Images.csproj" />
     <Project Path="src/Deploy.LaunchPad.Organizations/Deploy.LaunchPad.Organizations.csproj" />
     <Project Path="src/Deploy.LaunchPad.Python/Deploy.LaunchPad.Python.csproj" />

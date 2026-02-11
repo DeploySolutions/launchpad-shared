@@ -33,8 +33,8 @@ namespace Deploy.LaunchPad.Space.Satellites.GoC
     using Deploy.LaunchPad.Core.Abp.Domain;
     using Deploy.LaunchPad.Core.Domain;
     using Deploy.LaunchPad.Core.Domain.Model;
-    using Deploy.LaunchPad.Util.Files;
-    using Deploy.LaunchPad.Util.Files.Storage;
+    using Deploy.LaunchPad.Files;
+    using Deploy.LaunchPad.Files.Storage;
     using Deploy.LaunchPad.Util;
     using Deploy.LaunchPad.Space.Satellites.Core;
     using NetTopologySuite.Geometries;
@@ -46,6 +46,8 @@ namespace Deploy.LaunchPad.Space.Satellites.GoC
     using System.Text.RegularExpressions;
     using Deploy.LaunchPad.Core.Licenses;
     using Deploy.LaunchPad.Core.Geospatial.Position;
+    using Deploy.LaunchPad.Files.Storage;
+    using Deploy.LaunchPad.Files;
 
     /// <summary>
     /// Utility to parse a Radarsat1 image observation metadata file and populate a Radarsat1Observation object from it.
