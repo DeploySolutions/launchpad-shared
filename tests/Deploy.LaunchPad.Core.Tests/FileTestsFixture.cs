@@ -32,7 +32,6 @@ namespace Deploy.LaunchPad.Core.Tests
     using System.IO;
     using System.Reflection;
     using System;
-    using Deploy.LaunchPad.Core.Abp.Util;
     using Deploy.LaunchPad.Core.Abp.Domain;
     using Deploy.LaunchPad.Util.Files.Storage;
 

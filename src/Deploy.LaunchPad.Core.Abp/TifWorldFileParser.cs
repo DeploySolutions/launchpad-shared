@@ -36,7 +36,7 @@ using System.Globalization;
 using System.IO;
 using System.Text;
 
-namespace Deploy.LaunchPad.Core.Abp.Util
+namespace Deploy.LaunchPad.Core.Abp
 {
     /// <summary>
     /// Class TifWorldFileParser.
