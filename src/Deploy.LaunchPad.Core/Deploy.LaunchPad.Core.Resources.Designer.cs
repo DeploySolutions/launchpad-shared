@@ -19,7 +19,7 @@ namespace Deploy.LaunchPad.Core {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "18.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class Deploy_LaunchPad_Core_Resources {
@@ -483,15 +483,7 @@ namespace Deploy.LaunchPad.Core {
             }
         }
         
-        /// <summary>
-        ///   Looks up a localized string similar to Expected a non null expression as a predicate for the specification..
-        /// </summary>
-        public static string Guard_Specification_Specification {
-            get {
-                return ResourceManager.GetString("Guard_Specification_Specification", resourceCulture);
-            }
-        }
-        
+      
         /// <summary>
         ///   Looks up a localized string similar to This unit of work scope has been marked completed. A child scope participating in the transaction has rolledback and the transaction aborted. The parent scope cannot be commit..
         /// </summary>

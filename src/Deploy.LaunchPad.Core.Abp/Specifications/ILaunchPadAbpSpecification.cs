@@ -12,7 +12,7 @@
 // <summary></summary>
 // ***********************************************************************
 using Abp.Specifications;
-using Deploy.LaunchPad.Core.Specifications;
+using Deploy.LaunchPad.Util.Specifications;
 
 namespace Deploy.LaunchPad.Core.Abp.Specifications
 {

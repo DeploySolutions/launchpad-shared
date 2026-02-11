@@ -29,7 +29,7 @@
 using System;
 using System.Linq.Expressions;
 
-namespace Deploy.LaunchPad.Core.Specifications
+namespace Deploy.LaunchPad.Util.Specifications
 {
     /// <summary>
     /// The <see cref="ILaunchPadSpecification{TEntity}" /> interface defines a basic contract to express specifications declaratively.

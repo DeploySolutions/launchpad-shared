@@ -31,7 +31,7 @@ using System;
 using System.Linq;
 using System.Linq.Expressions;
 
-namespace Deploy.LaunchPad.Core.Specifications
+namespace Deploy.LaunchPad.Util.Specifications
 {
     /// <summary>
     /// Provides a default implementation of the <see cref="ILaunchPadSpecification{TEntity}" /> interface.
@@ -59,7 +59,7 @@ namespace Deploy.LaunchPad.Core.Specifications
         /// satisfy the specification.</param>
         public LaunchPadSpecification(Expression<Func<T, bool>> predicate)
         {
-            Guard.Against<ArgumentNullException>(predicate == null, Deploy_LaunchPad_Core_Resources.Guard_Specification_Specification);
+            Guard.Against<ArgumentNullException>(predicate == null, Deploy_LaunchPad_Util_Resources.Guard_Specification_Specification);
             _predicate = predicate;
             _predicateCompiled = predicate.Compile();
         }

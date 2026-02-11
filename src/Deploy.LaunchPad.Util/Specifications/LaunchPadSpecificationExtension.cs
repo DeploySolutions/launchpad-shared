@@ -30,7 +30,7 @@ using System;
 using System.Linq;
 using System.Linq.Expressions;
 
-namespace Deploy.LaunchPad.Core.Specifications
+namespace Deploy.LaunchPad.Util.Specifications
 {
     /// <summary>
     /// Extension methods for <see cref="ILaunchPadSpecification{T}" />.

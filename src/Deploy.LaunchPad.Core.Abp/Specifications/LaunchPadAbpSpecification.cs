@@ -11,7 +11,7 @@
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
-using Deploy.LaunchPad.Core.Specifications;
+using Deploy.LaunchPad.Util.Specifications;
 using System;
 using System.Linq.Expressions;
 
