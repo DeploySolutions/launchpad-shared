@@ -7,16 +7,13 @@ using System.Text;
 
 namespace Deploy.LaunchPad.AWS.S3
 {
-    public class S3BucketInfo : LaunchPadMinimalProperties, ILaunchPadObject
+    public partial class S3BucketInfo : LaunchPadMinimalProperties, IS3BucketInfo
     {
         
-        public IDictionary<string,S3FolderInfo> Folders { get; set; }
-
         public S3BucketInfo(string bucketName)
         {
             Name = new ElementName(bucketName);
             Description = new ElementDescription(bucketName);
-            Folders = new Dictionary<string, S3FolderInfo>();
         }
     }
 }
