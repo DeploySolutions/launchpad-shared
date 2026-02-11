@@ -11,7 +11,7 @@
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
-using Deploy.LaunchPad.Core.BackgroundProcess;
+using Deploy.LaunchPad.Code.BackgroundProcess;
 using System;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;

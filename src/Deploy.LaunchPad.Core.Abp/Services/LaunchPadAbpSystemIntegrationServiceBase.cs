@@ -21,7 +21,7 @@ using Castle.Core.Logging;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Globalization;
-using Deploy.LaunchPad.Core.Services;
+using Deploy.LaunchPad.Code.Services;
 
 namespace Deploy.LaunchPad.Core.Abp.Services
 {

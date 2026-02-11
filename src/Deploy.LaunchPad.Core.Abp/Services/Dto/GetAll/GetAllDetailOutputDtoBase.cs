@@ -18,14 +18,14 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Runtime.Serialization;
 using System.Xml.Serialization;
 
-namespace Deploy.LaunchPad.Core.Services.Dto
+namespace Deploy.LaunchPad.Code.Services.Dto
 {
     /// <summary>
     /// Class GetAllDetailOutputDtoBase.
-    /// Implements the <see cref="Deploy.LaunchPad.Core.Services.Dto.GetAllOutputDtoBase{TIdType}" />
+    /// Implements the <see cref="Deploy.LaunchPad.Code.Services.Dto.GetAllOutputDtoBase{TIdType}" />
     /// </summary>
     /// <typeparam name="TIdType">The type of the t identifier type.</typeparam>
-    /// <seealso cref="Deploy.LaunchPad.Core.Services.Dto.GetAllOutputDtoBase{TIdType}" />
+    /// <seealso cref="Deploy.LaunchPad.Code.Services.Dto.GetAllOutputDtoBase{TIdType}" />
     public abstract partial class GetAllDetailOutputDtoBase<TIdType> : GetAllOutputDtoBase<TIdType>
     {
 

@@ -20,16 +20,16 @@ using System.Reflection;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Xml.Serialization;
-using Deploy.LaunchPad.Core.Services.Dto.NameDescription;
+using Deploy.LaunchPad.Code.Services.Dto.NameDescription;
 
-namespace Deploy.LaunchPad.Core.Services.Dto
+namespace Deploy.LaunchPad.Code.Services.Dto
 {
     /// <summary>
     /// Class GetDetailOutputDtoBase.
-    /// Implements the <see cref="Deploy.LaunchPad.Core.Services.Dto.GetOutputDtoBase{TIdType}" />
+    /// Implements the <see cref="Deploy.LaunchPad.Code.Services.Dto.GetOutputDtoBase{TIdType}" />
     /// </summary>
     /// <typeparam name="TIdType">The type of the t identifier type.</typeparam>
-    /// <seealso cref="Deploy.LaunchPad.Core.Services.Dto.GetOutputDtoBase{TIdType}" />
+    /// <seealso cref="Deploy.LaunchPad.Code.Services.Dto.GetOutputDtoBase{TIdType}" />
     public abstract partial class GetDetailOutputDtoBase<TIdType> : GetOutputDtoBase<TIdType>
     {
         protected ElementNameDto _name;

@@ -27,7 +27,7 @@
 #endregion
 
 using Abp.Application.Services.Dto;
-using Deploy.LaunchPad.Core.Services;
+using Deploy.LaunchPad.Code.Services;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -36,7 +36,7 @@ using System.Runtime.Serialization;
 using System.Text;
 using System.Xml.Serialization;
 
-namespace Deploy.LaunchPad.Core.Services.Dto
+namespace Deploy.LaunchPad.Code.Services.Dto
 {
     /// <summary>
     /// Represents the base properties a LaunchPad Data Transfer Object would show in a list.

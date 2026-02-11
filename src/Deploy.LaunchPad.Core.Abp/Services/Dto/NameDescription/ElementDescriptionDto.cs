@@ -9,7 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
 
-namespace Deploy.LaunchPad.Core.Services.Dto.NameDescription
+namespace Deploy.LaunchPad.Code.Services.Dto.NameDescription
 {
     [Serializable]
     [AutoMap(typeof(ElementDescription))]

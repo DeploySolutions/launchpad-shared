@@ -12,7 +12,7 @@
 // <summary></summary>
 // ***********************************************************************
 using Amazon.APIGateway;
-using Deploy.LaunchPad.Core.Api;
+using Deploy.LaunchPad.Code.Api;
 using RestSharp;
 using System;
 using System.Collections.Generic;

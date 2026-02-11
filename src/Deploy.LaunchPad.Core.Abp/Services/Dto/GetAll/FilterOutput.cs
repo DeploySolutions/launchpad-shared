@@ -30,7 +30,7 @@
 using Deploy.LaunchPad.Core.Abp.Domain.Model;
 using System.Collections.Generic;
 
-namespace Deploy.LaunchPad.Core.Services.Dto
+namespace Deploy.LaunchPad.Code.Services.Dto
 {
     /// <summary>
     /// Represents the minimal properties that may be used in order to filter an entity in a list

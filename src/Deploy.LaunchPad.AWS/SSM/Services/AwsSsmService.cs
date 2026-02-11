@@ -2,7 +2,7 @@
 using Amazon.SimpleSystemsManagement;
 using Amazon.SimpleSystemsManagement.Model;
 using Castle.Core.Logging;
-using Deploy.LaunchPad.Core.Services;
+using Deploy.LaunchPad.Code.Services;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;

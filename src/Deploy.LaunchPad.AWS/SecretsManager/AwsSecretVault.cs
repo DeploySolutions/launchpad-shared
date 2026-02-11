@@ -11,7 +11,7 @@
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
-using Deploy.LaunchPad.Core.Config;
+using Deploy.LaunchPad.Code.Config;
 
 namespace Deploy.LaunchPad.AWS
 {

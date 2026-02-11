@@ -12,9 +12,9 @@
 // <summary></summary>
 // ***********************************************************************
 
-using Deploy.LaunchPad.Core.Services;
+using Deploy.LaunchPad.Code.Services;
 
-namespace Deploy.LaunchPad.Core.Services.Dto
+namespace Deploy.LaunchPad.Code.Services.Dto
 {
     /// <summary>
     /// Class DeleteOutputDtoBase.

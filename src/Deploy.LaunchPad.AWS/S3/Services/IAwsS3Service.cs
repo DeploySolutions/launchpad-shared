@@ -13,7 +13,7 @@
 // ***********************************************************************
 using Amazon.S3;
 using Amazon.S3.Transfer;
-using Deploy.LaunchPad.Core.Services;
+using Deploy.LaunchPad.Code.Services;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;

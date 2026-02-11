@@ -12,13 +12,13 @@
 // <summary></summary>
 // ***********************************************************************
 
-using Deploy.LaunchPad.Core.Services;
+using Deploy.LaunchPad.Code.Services;
 using Deploy.LaunchPad.Core.Domain.Model;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Xml.Serialization;
 
-namespace Deploy.LaunchPad.Core.Services.Dto
+namespace Deploy.LaunchPad.Code.Services.Dto
 {
 
     /// <summary>

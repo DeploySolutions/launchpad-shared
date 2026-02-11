@@ -35,7 +35,7 @@ using System.Text;
 using System.Xml.Serialization;
 
 
-namespace Deploy.LaunchPad.Core.Services.Dto
+namespace Deploy.LaunchPad.Code.Services.Dto
 {
     /// <summary>
     /// Represents the minimum amount of base properties a LaunchPad Data Transfer Object should possess.

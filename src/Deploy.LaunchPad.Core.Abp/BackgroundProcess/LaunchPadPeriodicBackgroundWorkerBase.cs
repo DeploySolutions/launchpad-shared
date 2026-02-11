@@ -13,7 +13,7 @@
 // ***********************************************************************
 using Abp.Threading.BackgroundWorkers;
 using Abp.Threading.Timers;
-using Deploy.LaunchPad.Core.BackgroundProcess;
+using Deploy.LaunchPad.Code.BackgroundProcess;
 
 namespace Deploy.LaunchPad.Core.Abp.BackgroundProcess
 {

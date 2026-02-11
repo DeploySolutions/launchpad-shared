@@ -11,7 +11,8 @@
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
-using Deploy.LaunchPad.Core.Services;
+using Deploy.LaunchPad.Code.Services;
+using Deploy.LaunchPad.Core;
 using System;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
@@ -19,15 +20,15 @@ using System.Runtime.Serialization;
 using System.Text;
 using System.Xml.Serialization;
 
-namespace Deploy.LaunchPad.Core.Services.Dto
+namespace Deploy.LaunchPad.Code.Services.Dto
 {
     /// <summary>
     /// Class GetInputDtoBase.
-    /// Implements the <see cref="Deploy.LaunchPad.Core.Services.Dto.EntityDtoBase{TIdType}" />
+    /// Implements the <see cref="Deploy.LaunchPad.Code.Services.Dto.EntityDtoBase{TIdType}" />
     /// Implements the <see cref="ICanBeAppServiceMethodInput" />
     /// </summary>
     /// <typeparam name="TIdType">The type of the t identifier type.</typeparam>
-    /// <seealso cref="Deploy.LaunchPad.Core.Services.Dto.EntityDtoBase{TIdType}" />
+    /// <seealso cref="Deploy.LaunchPad.Code.Services.Dto.EntityDtoBase{TIdType}" />
     /// <seealso cref="ICanBeAppServiceMethodInput" />
     public abstract partial class GetInputDtoBase<TIdType> : EntityDtoBase<TIdType>,
         ICanBeAppServiceMethodInput

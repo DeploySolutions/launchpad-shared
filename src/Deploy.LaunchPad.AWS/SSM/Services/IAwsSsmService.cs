@@ -13,7 +13,7 @@
 // ***********************************************************************
 using Amazon.SimpleNotificationService;
 using Amazon.SimpleSystemsManagement;
-using Deploy.LaunchPad.Core.Services;
+using Deploy.LaunchPad.Code.Services;
 using System.Threading.Tasks;
 
 namespace Deploy.LaunchPad.AWS.SSM.Services

@@ -19,18 +19,18 @@ using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
 using System.Xml.Serialization;
-using Deploy.LaunchPad.Core.Services.Dto.NameDescription;
+using Deploy.LaunchPad.Code.Services.Dto.NameDescription;
 using Deploy.LaunchPad.Core.Domain.Model;
 
-namespace Deploy.LaunchPad.Core.Services.Dto
+namespace Deploy.LaunchPad.Code.Services.Dto
 {
     /// <summary>
     /// Class GetAllOutputDtoBase.
-    /// Implements the <see cref="Deploy.LaunchPad.Core.Services.Dto.GetOutputDtoBase{TIdType}" />
+    /// Implements the <see cref="Deploy.LaunchPad.Code.Services.Dto.GetOutputDtoBase{TIdType}" />
     /// Implements the <see cref="IMayHaveTenant" />
     /// </summary>
     /// <typeparam name="TIdType">The type of the t identifier type.</typeparam>
-    /// <seealso cref="Deploy.LaunchPad.Core.Services.Dto.GetOutputDtoBase{TIdType}" />
+    /// <seealso cref="Deploy.LaunchPad.Code.Services.Dto.GetOutputDtoBase{TIdType}" />
     /// <seealso cref="IMayHaveTenant" />
     public abstract partial class GetAllOutputDtoBase<TIdType> : GetOutputDtoBase<TIdType>, IMayHaveTenant
     {

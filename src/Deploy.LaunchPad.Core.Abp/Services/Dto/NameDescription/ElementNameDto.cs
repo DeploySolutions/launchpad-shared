@@ -1,4 +1,5 @@
 ﻿using Abp.AutoMapper;
+using Deploy.LaunchPad.Core;
 using Deploy.LaunchPad.Util;
 using Deploy.LaunchPad.Util.ValueConverters;
 using Newtonsoft.Json;
@@ -11,7 +12,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
 
-namespace Deploy.LaunchPad.Core.Services.Dto.NameDescription
+namespace Deploy.LaunchPad.Code.Services.Dto.NameDescription
 {
     [Serializable]
     [AutoMap(typeof(ElementName))]

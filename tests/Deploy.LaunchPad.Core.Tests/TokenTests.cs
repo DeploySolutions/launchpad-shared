@@ -33,7 +33,7 @@ namespace Deploy.LaunchPad.Core.Tests
     using System;
     using System.Collections.Generic;
     using Deploy.LaunchPad.Util.Tokens;
-    using Deploy.LaunchPad.Core.Services;
+    using Deploy.LaunchPad.Code.Services;
 
     /// <summary>
     /// Class TokenTests.

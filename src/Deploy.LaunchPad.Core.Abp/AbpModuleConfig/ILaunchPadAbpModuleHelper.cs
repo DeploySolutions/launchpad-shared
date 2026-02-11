@@ -13,7 +13,7 @@
 // ***********************************************************************
 
 using Abp.Dependency;
-using Deploy.LaunchPad.Core.Config;
+using Deploy.LaunchPad.Code.Config;
 using Microsoft.Extensions.Configuration;
 using System.Collections.Generic;
 

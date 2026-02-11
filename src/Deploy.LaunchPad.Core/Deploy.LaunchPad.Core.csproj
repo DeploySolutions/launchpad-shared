@@ -48,7 +48,6 @@
 
   <ItemGroup>
     <Folder Include="Schemas\" />
-    <Folder Include="Services\Dto\GetAll\" />
   </ItemGroup>
 
   <ItemGroup>

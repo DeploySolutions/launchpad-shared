@@ -1,4 +1,4 @@
-﻿namespace Deploy.LaunchPad.Core.Services.Dto.NameDescription
+﻿namespace Deploy.LaunchPad.Code.Services.Dto.NameDescription
 {
     public interface IElementDescriptionDto : IElementDescriptionLightDto
     {

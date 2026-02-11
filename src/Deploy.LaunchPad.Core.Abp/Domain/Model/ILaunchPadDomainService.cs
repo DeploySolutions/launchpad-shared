@@ -28,8 +28,8 @@
 
 using Abp.Domain.Services;
 using Deploy.LaunchPad.Util;
-using Deploy.LaunchPad.Core.Config;
-using Deploy.LaunchPad.Core.Services;
+using Deploy.LaunchPad.Code.Config;
+using Deploy.LaunchPad.Code.Services;
 
 namespace Deploy.LaunchPad.Core.Abp.Domain.Model
 {

@@ -15,14 +15,14 @@ using Deploy.LaunchPad.Core.Abp.Domain.SoftwareApplications;
 using System;
 using System.Runtime.Serialization;
 
-namespace Deploy.LaunchPad.Core.Services.Dto
+namespace Deploy.LaunchPad.Code.Services.Dto
 {
     /// <summary>
     /// Class GetAllDetailInputDtoBase.
-    /// Implements the <see cref="Deploy.LaunchPad.Core.Services.Dto.GetAllInputDtoBase{TIdType}" />
+    /// Implements the <see cref="Deploy.LaunchPad.Code.Services.Dto.GetAllInputDtoBase{TIdType}" />
     /// </summary>
     /// <typeparam name="TIdType">The type of the t identifier type.</typeparam>
-    /// <seealso cref="Deploy.LaunchPad.Core.Services.Dto.GetAllInputDtoBase{TIdType}" />
+    /// <seealso cref="Deploy.LaunchPad.Code.Services.Dto.GetAllInputDtoBase{TIdType}" />
     public abstract partial class GetAllDetailInputDtoBase<TIdType> : GetAllInputDtoBase<TIdType>
     {
 

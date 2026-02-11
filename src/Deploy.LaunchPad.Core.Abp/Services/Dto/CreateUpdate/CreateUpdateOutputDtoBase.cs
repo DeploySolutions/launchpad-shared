@@ -11,7 +11,7 @@
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
-using Deploy.LaunchPad.Core.Services.Dto.NameDescription;
+using Deploy.LaunchPad.Code.Services.Dto.NameDescription;
 using Deploy.LaunchPad.Core.Abp.Domain.SoftwareApplications;
 using Deploy.LaunchPad.Util;
 using System;
@@ -22,14 +22,14 @@ using System.Runtime.Serialization;
 using System.Text;
 using System.Xml.Serialization;
 
-namespace Deploy.LaunchPad.Core.Services.Dto
+namespace Deploy.LaunchPad.Code.Services.Dto
 {
     /// <summary>
     /// Class CreateUpdateOutputDtoBase.
-    /// Implements the <see cref="Deploy.LaunchPad.Core.Services.Dto.GetOutputDtoBase{TIdType}" />
+    /// Implements the <see cref="Deploy.LaunchPad.Code.Services.Dto.GetOutputDtoBase{TIdType}" />
     /// </summary>
     /// <typeparam name="TIdType">The type of the t identifier type.</typeparam>
-    /// <seealso cref="Deploy.LaunchPad.Core.Services.Dto.GetOutputDtoBase{TIdType}" />
+    /// <seealso cref="Deploy.LaunchPad.Code.Services.Dto.GetOutputDtoBase{TIdType}" />
     public abstract partial class CreateUpdateOutputDtoBase<TIdType> : GetOutputDtoBase<TIdType>
     {
 

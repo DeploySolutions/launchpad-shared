@@ -12,7 +12,7 @@
 // <summary></summary>
 // ***********************************************************************
 using Amazon.S3;
-using Deploy.LaunchPad.Core.Services;
+using Deploy.LaunchPad.Code.Services;
 using System;
 using System.Collections.Generic;
 using System.Threading;

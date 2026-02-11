@@ -22,7 +22,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Abp.ObjectMapping;
-using Deploy.LaunchPad.Core.Services;
+using Deploy.LaunchPad.Code.Services;
 
 namespace Deploy.LaunchPad.Core.Abp.Services
 {

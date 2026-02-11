@@ -11,7 +11,7 @@
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
-using Deploy.LaunchPad.Core.Services;
+using Deploy.LaunchPad.Code.Services;
 
 namespace Deploy.LaunchPad.AWS.ApiGateway.Services
 {

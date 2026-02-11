@@ -31,12 +31,12 @@ using Castle.Core.Logging;
 using Deploy.LaunchPad.Util;
 using Deploy.LaunchPad.Core;
 using Deploy.LaunchPad.Core.Abp.Domain.Model;
-using Deploy.LaunchPad.Core.Config;
+using Deploy.LaunchPad.Code.Config;
 using ImageMagick;
 using System;
 using System.IO;
 using System.Reflection;
-using Deploy.LaunchPad.Core.Services;
+using Deploy.LaunchPad.Code.Services;
 
 namespace Deploy.LaunchPad.Images.Domain
 {

@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 using System.Xml.Serialization;
 
-namespace Deploy.LaunchPad.Core.Services.Dto.NameDescription
+namespace Deploy.LaunchPad.Code.Services.Dto.NameDescription
 {
     public partial interface IElementNameDto: IElementNameLightDto
     {

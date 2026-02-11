@@ -13,7 +13,7 @@
 // ***********************************************************************
 using Amazon.APIGateway;
 using Castle.Core.Logging;
-using Deploy.LaunchPad.Core.Api;
+using Deploy.LaunchPad.Code.Api;
 using Deploy.LaunchPad.Util;
 using Newtonsoft.Json;
 using RestSharp;
