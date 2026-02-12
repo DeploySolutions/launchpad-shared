@@ -20,6 +20,7 @@
     <File Path="Licenses/File.TypeChecker.License.txt" />
     <File Path="Licenses/HtmlAgilityPack.License.txt" />
     <File Path="Licenses/Magick.NET.License.txt" />
+    <File Path="Licenses/Microsoft.Extensions.License.txt" />
     <File Path="Licenses/Microsoft.System.Collections.Immutable.License.txt" />
     <File Path="Licenses/NetTopologySuite.Features.License.txt" />
     <File Path="Licenses/NetTopologySuite.IO.GeoJSON.License.txt" />
