@@ -15,7 +15,7 @@ using Abp.Dependency;
 using Amazon;
 using Amazon.Redshift;
 using Castle.Core.Logging;
-using Castle.MicroKernel;
+using System;
 
 namespace Deploy.LaunchPad.AWS.Redshift
 {
@@ -76,7 +76,7 @@ namespace Deploy.LaunchPad.AWS.Redshift
                         helper = IocManager.Instance.Resolve<AwsRedshiftHelper>();
                         logger.Debug("AwsRedshiftHelper was registered; returning the resolved instance.");
                     }
-                    catch (ComponentNotFoundException)
+                    catch (Exception ex)
                     {
                         // create the helper using the AWS credentials resolution pattern.
                         // Since we are not using local profile here, we presumably load from EC2 role or environment

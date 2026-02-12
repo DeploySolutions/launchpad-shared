@@ -16,8 +16,8 @@ using Amazon;
 using Amazon.S3;
 using Amazon.SecretsManager;
 using Castle.Core.Logging;
-using Castle.MicroKernel;
 using Deploy.LaunchPad.AWS.S3;
+using System;
 
 namespace Deploy.LaunchPad.AWS.Abp.S3
 {
@@ -93,7 +93,7 @@ namespace Deploy.LaunchPad.AWS.Abp.S3
                         helper = IocManager.Instance.Resolve<AwsS3Helper>();
                         logger.Debug("AwsS3HelperFactory.Create() => IocManager.Instance != null, resolved AwsS3Helper from IoC.");
                     }
-                    catch (ComponentNotFoundException)
+                    catch (Exception ex)
                     {
                         // create the helper using the AWS credentials resolution pattern.
                         // Since we are not using local profile here, we presumably load from EC2 role or environment

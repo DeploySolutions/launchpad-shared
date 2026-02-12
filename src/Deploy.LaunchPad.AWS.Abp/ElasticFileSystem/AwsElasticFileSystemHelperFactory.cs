@@ -15,8 +15,8 @@ using Abp.Dependency;
 using Amazon;
 using Amazon.ElasticFileSystem;
 using Castle.Core.Logging;
-using Castle.MicroKernel;
 using Deploy.LaunchPad.AWS.ElasticFileSystem;
+using System;
 
 namespace Deploy.LaunchPad.AWS.Abp.ElasticFileSystem
 {
@@ -77,7 +77,7 @@ namespace Deploy.LaunchPad.AWS.Abp.ElasticFileSystem
                         helper = IocManager.Instance.Resolve<AwsElasticFileSystemHelper>();
                         logger.Debug("AwsElasticFileSystemHelper was registered; returning the resolved instance.");
                     }
-                    catch (ComponentNotFoundException)
+                    catch (Exception ex)
                     {
                         // create the helper using the AWS credentials resolution pattern.
                         // Since we are not using local profile here, we presumably load from EC2 role or environment

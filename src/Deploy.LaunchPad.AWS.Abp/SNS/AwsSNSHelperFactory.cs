@@ -15,8 +15,8 @@ using Abp.Dependency;
 using Amazon;
 using Amazon.SimpleNotificationService;
 using Castle.Core.Logging;
-using Castle.MicroKernel;
 using Deploy.LaunchPad.AWS.SNS;
+using System;
 
 namespace Deploy.LaunchPad.AWS.Abp.SNS
 {
@@ -77,7 +77,7 @@ namespace Deploy.LaunchPad.AWS.Abp.SNS
                         helper = IocManager.Instance.Resolve<AwsSnsHelper>();
                         logger.Debug("AwsSNSHelper was registered; returning the resolved instance.");
                     }
-                    catch (ComponentNotFoundException)
+                    catch (Exception ex)
                     {
                         // create the helper using the AWS credentials resolution pattern.
                         // Since we are not using local profile here, we presumably load from EC2 role or environment

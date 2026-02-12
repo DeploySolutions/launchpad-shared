@@ -15,7 +15,6 @@ using Abp.Dependency;
 using Amazon;
 using Amazon.APIGateway;
 using Castle.Core.Logging;
-using Castle.MicroKernel;
 using System;
 
 namespace Deploy.LaunchPad.AWS.Abp.ApiGateway
@@ -79,7 +78,7 @@ namespace Deploy.LaunchPad.AWS.Abp.ApiGateway
                         helper = IocManager.Instance.Resolve<AwsApiGatewayHelper>();
                         logger.Debug("AwsApiGatewayHelper was registered; returning the resolved instance.");
                     }
-                    catch (ComponentNotFoundException)
+                    catch (Exception ex)
                     {
                         // create the helper using the AWS credentials resolution pattern.
                         // Since we are not using local profile here, we presumably load from EC2 role or environment
