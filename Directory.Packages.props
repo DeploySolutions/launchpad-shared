@@ -14,6 +14,7 @@
   </ItemGroup>
   <!-- Deploy Solutions Packages Ends -->
   <!-- ABP Packages Starts -->
+  <!-- 
   <ItemGroup>
     <PackageVersion Include="Abp" Version="10.3.0" />
     <PackageVersion Include="Abp.AutoMapper" Version="10.3.0" />
@@ -26,6 +27,7 @@
     <PackageVersion Include="Abp.ZeroCore" Version="10.3.0" />
     <PackageVersion Include="Abp.ZeroCore.EntityFrameworkCore" Version="10.3.0" />
   </ItemGroup>
+   -->
   <!-- ABP Packages Ends -->
   <!-- Microsoft Packages Starts -->
   <ItemGroup>
@@ -114,6 +116,7 @@
   <!-- Testing Packages Ends -->
   <!-- All Other Packages Starts -->
   <ItemGroup>
+    <PackageVersion Include="AutoMapper" Version="14.0.0" />
     <PackageVersion Include="Constructs" Version="10.3.0" />
     <PackageVersion Include="CsvHelper" Version="33.0.1" />
     <PackageVersion Include="Fody" Version="6.9.3" />

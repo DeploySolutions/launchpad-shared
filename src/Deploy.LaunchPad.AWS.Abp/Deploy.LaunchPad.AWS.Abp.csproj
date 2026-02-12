@@ -23,5 +23,4 @@
   <ItemGroup>
     <Folder Include="SecretsManager\Services\" />
   </ItemGroup>
-
 </Project>
