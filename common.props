@@ -32,4 +32,21 @@
         </None>
         <None Include="..\..\README.md" Pack="true" PackagePath="" />
     </ItemGroup>
+
+  <!-- Custom Target to Copy Debug Assemblies -->
+  <Target Name="CopyDebugAssemblies" AfterTargets="Build">
+    <PropertyGroup>
+      <!-- Define the build folder relative to the solution directory -->
+      <BuildOutputFolder>$(SolutionDir)build\$(MSBuildProjectName)</BuildOutputFolder>
+      <SharedBuildOutputFolder>$(SolutionDir)build\shared</SharedBuildOutputFolder>
+    </PropertyGroup>
+    <ItemGroup>
+      <!-- Include the Debug assembly and its metadata -->
+      <DebugAssemblies Include="$(OutputPath)*.*" />
+    </ItemGroup>
+    <MakeDir Directories="$(BuildOutputFolder)" />
+    <MakeDir Directories="$(SharedBuildOutputFolder)" />
+    <Copy SourceFiles="@(DebugAssemblies)" DestinationFolder="$(BuildOutputFolder)" />
+    <Copy SourceFiles="@(DebugAssemblies)" DestinationFolder="$(SharedBuildOutputFolder)" />
+  </Target>
 </Project>
