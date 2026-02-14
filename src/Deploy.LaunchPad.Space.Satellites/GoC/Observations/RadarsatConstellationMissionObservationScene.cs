@@ -34,7 +34,7 @@ namespace Deploy.LaunchPad.Space.Satellites.GoC
 {
 
     using Deploy.LaunchPad.Domain;
-    using Deploy.LaunchPad.Domain.Geospatial;
+    using Deploy.LaunchPad.Geospatial;
     using Newtonsoft.Json;
     using System;
 

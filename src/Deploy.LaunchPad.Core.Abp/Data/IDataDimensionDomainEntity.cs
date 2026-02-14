@@ -13,7 +13,7 @@
 // ***********************************************************************
 using Abp.Domain.Entities;
 using Deploy.LaunchPad.Core.Abp.Model;
-using Deploy.LaunchPad.Domain.Data;
+using Deploy.LaunchPad.Util.Data;
 
 namespace Deploy.LaunchPad.Core.Abp.Data
 {

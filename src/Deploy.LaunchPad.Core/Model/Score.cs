@@ -1,5 +1,5 @@
-﻿using Deploy.LaunchPad.Domain.Data;
-using Deploy.LaunchPad.Util;
+﻿using Deploy.LaunchPad.Util;
+using Deploy.LaunchPad.Util.Data;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;

@@ -44,6 +44,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Deploy.LaunchPad.Files\Deploy.LaunchPad.Files.csproj" />
+    <ProjectReference Include="..\Deploy.LaunchPad.Geospatial\Deploy.LaunchPad.Geospatial.csproj" />
     <ProjectReference Include="..\Deploy.LaunchPad.Util\Deploy.LaunchPad.Util.csproj" />
   </ItemGroup>
 

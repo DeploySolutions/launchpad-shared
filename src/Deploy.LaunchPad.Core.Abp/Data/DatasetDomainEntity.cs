@@ -33,9 +33,9 @@ namespace Deploy.LaunchPad.Core.Abp.Data
     using System.Runtime.Serialization;
     using System.Text;
     using Deploy.LaunchPad.Core.Abp.Model;
-    using Deploy.LaunchPad.Domain.Data;
+    using Deploy.LaunchPad.Util.Data;
     using Deploy.LaunchPad.Domain.Model;
-    using Deploy.LaunchPad.Domain.Licenses;
+    using Deploy.LaunchPad.Util.Licenses;
     using Deploy.LaunchPad.Util;
     using Deploy.LaunchPad.Files;
     using Deploy.LaunchPad.Util.Metadata;
@@ -105,6 +105,8 @@ namespace Deploy.LaunchPad.Core.Abp.Data
         /// </summary>
         /// <value>The schema.</value>
         public virtual ILaunchPadSchemaDetails<TSchemaFormat>? Schema { get; set; }
+
+        IDictionary<TDictionaryKey, ILaunchPadDataPoint> ILaunchPadDataSet<TDictionaryKey, TSchemaFormat>.Data => throw new NotImplementedException();
 
         /// <summary>
         /// Adds the data.
@@ -218,6 +220,7 @@ namespace Deploy.LaunchPad.Core.Abp.Data
             sb.Append(']');
             return sb.ToString();
         }
+
     }
 
 }

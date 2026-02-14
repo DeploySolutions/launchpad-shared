@@ -28,9 +28,9 @@
 
 using Abp.Domain.Entities;
 using Deploy.LaunchPad.Core.Abp.Model;
-using Deploy.LaunchPad.Domain.Geospatial;
-using Deploy.LaunchPad.Domain.Geospatial.Position;
-using Deploy.LaunchPad.Domain.Geospatial.ReferencePoint;
+using Deploy.LaunchPad.Geospatial;
+using Deploy.LaunchPad.Geospatial.Position;
+using Deploy.LaunchPad.Geospatial.ReferencePoint;
 using Deploy.LaunchPad.Util;
 using NetTopologySuite.Geometries;
 using System;

@@ -12,7 +12,7 @@
 // <summary></summary>
 // ***********************************************************************
 
-using Deploy.LaunchPad.Domain.Geospatial;
+using Deploy.LaunchPad.Geospatial;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
 

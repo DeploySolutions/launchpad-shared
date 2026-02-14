@@ -34,7 +34,7 @@ namespace Deploy.LaunchPad.Domain.Tests
     using Xunit.Sdk;
     using Deploy.LaunchPad.Domain;
     using NetTopologySuite.Geometries;
-    using Deploy.LaunchPad.Domain.Geospatial.Position;
+    using Deploy.LaunchPad.Geospatial.Position;
 
     /// <summary>
     /// Class GeographicLocationTests.

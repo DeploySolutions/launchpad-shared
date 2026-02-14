@@ -32,9 +32,9 @@ namespace Deploy.LaunchPad.Space.Satellites.Core
 
     using Deploy.LaunchPad.Core.Abp;
     using Deploy.LaunchPad.Core.Abp.Model;
-    using Deploy.LaunchPad.Domain.Geospatial;
-    using Deploy.LaunchPad.Domain.Geospatial.Position;
-    using Deploy.LaunchPad.Domain.Licenses;
+    using Deploy.LaunchPad.Geospatial;
+    using Deploy.LaunchPad.Geospatial.Position;
+    using Deploy.LaunchPad.Util.Licenses;
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;

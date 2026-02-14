@@ -1,0 +1,34 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="..\..\common.props" />
+  <Import Project="..\..\configureawait.props" />
+
+  <PropertyGroup>
+    <Version>10.22.16</Version>
+    <Description>Common Geospatial functionality for the LaunchPad framework.</Description>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Deploy.LaunchPad.Util\Deploy.LaunchPad.Util.csproj" />
+    <PackageReference Include="Microsoft.CodeAnalysis" />
+    <PackageReference Include="NetTopologySuite" />
+    <PackageReference Include="NetTopologySuite.IO.GeoJSON" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Deploy.LaunchPad.Geospatial.Resources.Designer.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <DependentUpon>Deploy.LaunchPad.Geospatial.Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Deploy.LaunchPad.Geospatial.Resources.resx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <LastGenOutput>Deploy.LaunchPad.Geospatial.Resources.Designer.cs</LastGenOutput>
+      <Generator>PublicResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+
+</Project>
