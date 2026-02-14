@@ -6,17 +6,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
+using System.ComponentModel.DataAnnotations;
 
-namespace Deploy.LaunchPad.Util.Data
+namespace Deploy.LaunchPad.Util.Metadata
 {
-    public partial interface IMustHaveUnitOfMeasure
+    public partial interface IMayHaveUnitOfMeasure
     {
         ///<summary>
         /// Unit of measure (ex "kg", "m", "cm", "mm", "g", "l", "ml", "oz", "in", "ft", etc.)
         ///</summary>
         [DataObjectField(false)]
         [XmlAttribute]
-        public string UnitOfMeasure { get; set; }
+        public string? UnitOfMeasure { get; set; }
 
     }
 }

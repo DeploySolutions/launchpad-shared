@@ -15,7 +15,7 @@
 
 using Deploy.LaunchPad.Util.Metadata;
 
-namespace Deploy.LaunchPad.Util.Data
+namespace Deploy.LaunchPad.Data
 {
     /// <summary>
     /// Describes a dimension for data warehouse reporting. Facts have FK lookups to such dimensions.

@@ -18,7 +18,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Deploy.LaunchPad.Util.Qualifiers
+namespace Deploy.LaunchPad.Code.Methods
 {
     /// <summary>
     /// Useful for specifying the level of detail required for a method's return

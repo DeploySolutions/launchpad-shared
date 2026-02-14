@@ -7,16 +7,16 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
 
-namespace Deploy.LaunchPad.Util.Data
+namespace Deploy.LaunchPad.Util.Metadata
 {
-    public partial interface IMayHaveDataSetId<TIdType>
+    public partial interface IMustHaveUnitOfMeasure
     {
         ///<summary>
-        /// DataSet Id
+        /// Unit of measure (ex "kg", "m", "cm", "mm", "g", "l", "ml", "oz", "in", "ft", etc.)
         ///</summary>
         [DataObjectField(false)]
         [XmlAttribute]
-        public TIdType? DataSetId { get; set; }
+        public string UnitOfMeasure { get; set; }
 
     }
 }

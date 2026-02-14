@@ -27,7 +27,7 @@
 #endregion
 
 
-namespace Deploy.LaunchPad.Util.Data
+namespace Deploy.LaunchPad.Data
 {
 
     /// <summary>

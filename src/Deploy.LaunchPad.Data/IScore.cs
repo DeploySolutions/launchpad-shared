@@ -1,6 +1,6 @@
 ﻿using Deploy.LaunchPad.Util;
 
-namespace Deploy.LaunchPad.Domain.Model
+namespace Deploy.LaunchPad.Data
 {
     public partial interface IScore
     {

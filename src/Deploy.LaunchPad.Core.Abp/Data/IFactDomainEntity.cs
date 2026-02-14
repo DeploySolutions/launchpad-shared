@@ -11,7 +11,7 @@
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
-using Deploy.LaunchPad.Util.Data;
+using Deploy.LaunchPad.Data;
 
 namespace Deploy.LaunchPad.Core.Abp.Data
 {

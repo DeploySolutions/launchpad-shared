@@ -1,5 +1,5 @@
 ﻿using Deploy.LaunchPad.Util;
-using Deploy.LaunchPad.Util.Data;
+using Deploy.LaunchPad.Data;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -11,8 +11,9 @@ using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
+using Deploy.LaunchPad.Util.Metadata;
 
-namespace Deploy.LaunchPad.Domain.Model
+namespace Deploy.LaunchPad.Data
 {
     /// <summary>
     /// This is a score for a particular item
@@ -55,7 +56,7 @@ namespace Deploy.LaunchPad.Domain.Model
 
         [DataObjectField(false)]
         [XmlAttribute]
-        [MaxLength(50, ErrorMessageResourceName = "Validation_Name_Short_50CharsOrLess", ErrorMessageResourceType = typeof(Deploy_LaunchPad_Core_Resources))]
+        [MaxLength(50, ErrorMessageResourceName = "Validation_Name_Short_50CharsOrLess", ErrorMessageResourceType = typeof(Deploy_LaunchPad_Util_Resources))]
         public virtual string UnitOfMeasure { get; set; } = string.Empty;
 
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]

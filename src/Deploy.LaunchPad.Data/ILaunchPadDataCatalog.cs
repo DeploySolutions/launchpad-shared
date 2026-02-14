@@ -1,12 +1,12 @@
 ﻿// ***********************************************************************
-// Assembly         : Deploy.LaunchPad.Core
+// Assembly         : Deploy.LaunchPad.Core.Abp
 // Author           : Nicholas Kellett
 // Created          : 11-19-2023
 //
 // Last Modified By : Nicholas Kellett
 // Last Modified On : 07-26-2023
 // ***********************************************************************
-// <copyright file="IMayHaveConfidence.cs" company="Deploy Software Solutions, inc.">
+// <copyright file="IDataCatalog.cs" company="Deploy Software Solutions, inc.">
 //     2018-2024 Deploy Software Solutions, inc.
 // </copyright>
 // <summary></summary>
@@ -27,21 +27,37 @@
 #endregion
 
 
-namespace Deploy.LaunchPad.Util.Data
-{
+using Deploy.LaunchPad.Util.Metadata;
+using System.Collections.Generic;
 
+namespace Deploy.LaunchPad.Data
+{
     /// <summary>
-    /// This interface defines the confidence/accuracy level of something
+    /// Interface IDataCatalog
     /// </summary>
-    public partial interface IMayHaveConfidence
+    /// <typeparam name="TDictionaryKey">The type of the t dictionary key.</typeparam>
+    public partial interface ILaunchPadDataCatalog<TDictionaryKey, TSchemaFormat> : IMayHaveSchema<TSchemaFormat>
+        where TDictionaryKey : struct
     {
 
         /// <summary>
-        /// Gets or sets the level of confidence/accuracy of a measurement.
+        /// Gets or sets the data sets count.
         /// </summary>
-        /// <value>The confidence level of a measurement.</value>
-        public double? Confidence { get; set; }
+        /// <value>The data sets count.</value>
+        int DataSetsCount { get; }
 
+        /// <summary>
+        /// Gets or sets the items count.
+        /// </summary>
+        /// <value>The items count.</value>
+        long ItemsCount { get;  }
+
+
+        /// <summary>
+        /// Gets or sets the data sets.
+        /// </summary>
+        /// <value>The data sets.</value>
+        IEnumerable<ILaunchPadDataSet<TDictionaryKey, TSchemaFormat>> DataSets { get; set; }
 
     }
 }

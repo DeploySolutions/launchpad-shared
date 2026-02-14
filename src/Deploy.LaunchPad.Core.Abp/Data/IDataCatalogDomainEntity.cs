@@ -29,7 +29,7 @@
 
 using Abp.Domain.Entities;
 using Deploy.LaunchPad.Core.Abp.Model;
-using Deploy.LaunchPad.Util.Data;
+using Deploy.LaunchPad.Data;
 using System.Collections.Generic;
 
 namespace Deploy.LaunchPad.Core.Abp.Data

@@ -14,16 +14,16 @@
 using Deploy.LaunchPad.Util.Metadata;
 using System.Collections.Generic;
 
-namespace Deploy.LaunchPad.Util.Data
+namespace Deploy.LaunchPad.Data
 {
     /// <summary>
     /// Interface IFactSet
-    /// Extends the <see cref="Deploy.LaunchPad.Core.Abp.IDataSet{TPrimaryKey, TDictionaryKey, TDataPointPrimaryKey}" />
+    /// Extends the <see cref="LaunchPad.Core.Abp.IDataSet{TPrimaryKey, TDictionaryKey, TDataPointPrimaryKey}" />
     /// </summary>
     /// <typeparam name="TPrimaryKey">The type of the t primary key.</typeparam>
     /// <typeparam name="TDictionaryKey">The type of the t dictionary key.</typeparam>
     /// <typeparam name="TDataPointPrimaryKey">The type of the t data point primary key.</typeparam>
-    /// <seealso cref="Deploy.LaunchPad.Core.Abp.IDataSet{TPrimaryKey, TDictionaryKey, TDataPointPrimaryKey}" />
+    /// <seealso cref="LaunchPad.Core.Abp.IDataSet{TPrimaryKey, TDictionaryKey, TDataPointPrimaryKey}" />
     public partial interface IFactSet<TDictionaryKey, TSchemaFormat> : ILaunchPadDataSet<TDictionaryKey, TSchemaFormat>
         where TDictionaryKey : struct
     {

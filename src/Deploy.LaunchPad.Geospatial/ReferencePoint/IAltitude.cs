@@ -28,7 +28,7 @@
 // ***********************************************************************
 
 
-using Deploy.LaunchPad.Util.Data;
+using Deploy.LaunchPad.Util.Metadata;
 
 namespace Deploy.LaunchPad.Geospatial.ReferencePoint
 {

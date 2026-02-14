@@ -1,5 +1,5 @@
 ﻿using Deploy.LaunchPad.AWS.S3;
-using Deploy.LaunchPad.Util.Data;
+using Deploy.LaunchPad.Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;

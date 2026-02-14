@@ -30,7 +30,7 @@ using Deploy.LaunchPad.Util.Licenses;
 using Deploy.LaunchPad.Util.Metadata;
 using System.Collections.Generic;
 
-namespace Deploy.LaunchPad.Util.Data
+namespace Deploy.LaunchPad.Data
 {
 
     /// <summary>

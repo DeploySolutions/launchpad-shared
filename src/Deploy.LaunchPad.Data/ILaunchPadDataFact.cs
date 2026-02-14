@@ -11,7 +11,7 @@
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
-namespace Deploy.LaunchPad.Util.Data
+namespace Deploy.LaunchPad.Data
 {
     /// <summary>
     /// Describes a fact (a "business event-based" data point) for data warehouse reporting purposes.

@@ -7,16 +7,16 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
 
-namespace Deploy.LaunchPad.Util.Data
+namespace Deploy.LaunchPad.Data
 {
-    public partial interface IMustHaveDataSetId<TIdType>
+    public partial interface IMayHaveDataSetId<TIdType>
     {
         ///<summary>
         /// DataSet Id
         ///</summary>
         [DataObjectField(false)]
         [XmlAttribute]
-        public TIdType DataSetId { get; set; }
+        public TIdType? DataSetId { get; set; }
 
     }
 }
