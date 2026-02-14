@@ -14,7 +14,7 @@
 using System;
 using Deploy.LaunchPad.Util;
 
-namespace Deploy.LaunchPad.Domain.SourceControl
+namespace Deploy.LaunchPad.Code.SourceControl
 {
     /// <summary>
     /// Interface ISourceControlRepository

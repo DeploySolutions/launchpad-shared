@@ -17,7 +17,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Deploy.LaunchPad.Domain.SourceControl
+namespace Deploy.LaunchPad.Code.SourceControl
 {
     /// <summary>
     /// Class ReleaseSourceCode.

@@ -15,7 +15,7 @@ using System;
 using Deploy.LaunchPad.Util;
 using System.Collections;
 
-namespace Deploy.LaunchPad.Domain.SourceControl
+namespace Deploy.LaunchPad.Code.SourceControl
 {
     /// <summary>
     /// Class SourceControlRepository.
