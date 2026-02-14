@@ -19,13 +19,13 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Diagnostics.CodeAnalysis;
 using System.Xml.Serialization;
 
-namespace Deploy.LaunchPad.Domain.Model
+namespace Deploy.LaunchPad.Util.Metadata
 {
     /// <summary>
     /// Defines the minimum properties LaunchPad expects to have for a versionable Domain Entity or Value Object.
     /// </summary>
     /// <typeparam name="TIdType">The type of the t identifier type.</typeparam>
-    public partial interface IMustHaveVersionInformation: ILaunchPadCoreProperties
+    public partial interface IMustHaveVersionInformation
     {
 
         /// <summary>
