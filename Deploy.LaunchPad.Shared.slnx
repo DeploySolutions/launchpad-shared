@@ -39,6 +39,7 @@
     <Project Path="src/Deploy.LaunchPad.Code/Deploy.LaunchPad.Code.csproj" Id="267ef999-9ad6-40db-a06e-fcf8454bf2d3" />
     <Project Path="src/Deploy.LaunchPad.Core.Abp/Deploy.LaunchPad.Core.Abp.csproj" />
     <Project Path="src/Deploy.LaunchPad.Core/Deploy.LaunchPad.Domain.csproj" />
+    <Project Path="src/Deploy.LaunchPad.Data/Deploy.LaunchPad.Data.csproj" Id="28374291-c6a8-4326-9ceb-237398ceaa4e" />
     <Project Path="src/Deploy.LaunchPad.ECommerce.Abp/Deploy.LaunchPad.ECommerce.Abp.csproj" />
     <Project Path="src/Deploy.LaunchPad.Files/Deploy.LaunchPad.Files.csproj" Id="56426fe1-9576-42aa-9fd9-5e27dcfa45f2" />
     <Project Path="src/Deploy.LaunchPad.Geospatial/Deploy.LaunchPad.Geospatial.csproj" Id="7bd6f153-e784-49c4-8eed-7a9998f29258" />
