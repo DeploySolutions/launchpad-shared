@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Deploy.LaunchPad.Core.Results
+namespace Deploy.LaunchPad.Code.Results
 {
     [Serializable]
     public partial class Warning : Success, IWarning

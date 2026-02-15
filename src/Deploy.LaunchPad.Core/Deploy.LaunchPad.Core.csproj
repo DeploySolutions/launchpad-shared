@@ -12,7 +12,6 @@
   <ItemGroup>
     <PackageReference Include="Castle.Core" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" />
-    <PackageReference Include="FluentResults" />
     <PackageReference Include="NetTopologySuite.IO.GeoJSON" />
     <PackageReference Include="RestSharp" />
   </ItemGroup>
