@@ -26,7 +26,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Deploy.LaunchPad.Core\Deploy.LaunchPad.Domain.csproj" />
+    <ProjectReference Include="..\Deploy.LaunchPad.Core\Deploy.LaunchPad.Core.csproj" />
     <ProjectReference Include="..\Deploy.LaunchPad.Code\Deploy.LaunchPad.Code.csproj" />
     <ProjectReference Include="..\Deploy.LaunchPad.Data\Deploy.LaunchPad.Data.csproj" />
     <ProjectReference Include="..\Deploy.LaunchPad.Files\Deploy.LaunchPad.Files.csproj" />

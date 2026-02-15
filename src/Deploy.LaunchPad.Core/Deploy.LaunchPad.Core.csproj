@@ -6,6 +6,7 @@
   <PropertyGroup>
     <Version>10.22.16</Version>
     <Description>Shared code for LaunchPad framework.</Description>
+    <AppDesignerFolder>Property</AppDesignerFolder>
   </PropertyGroup>
 
   <ItemGroup>
@@ -43,8 +44,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Deploy.LaunchPad.Files\Deploy.LaunchPad.Files.csproj" />
-    <ProjectReference Include="..\Deploy.LaunchPad.Geospatial\Deploy.LaunchPad.Geospatial.csproj" />
     <ProjectReference Include="..\Deploy.LaunchPad.Util\Deploy.LaunchPad.Util.csproj" />
   </ItemGroup>
 
