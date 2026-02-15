@@ -26,6 +26,7 @@ using System.Runtime.Serialization;
 using System.Text;
 using System.Xml.Serialization;
 using Deploy.LaunchPad.Domain;
+using Deploy.LaunchPad.Core;
 
 namespace Deploy.LaunchPad.Code.Services.Dto
 {

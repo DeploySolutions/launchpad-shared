@@ -11,8 +11,9 @@
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
+using Deploy.LaunchPad.Core;
+using Deploy.LaunchPad.Core.Metadata;
 using Deploy.LaunchPad.Domain.Content;
-using Deploy.LaunchPad.Domain.Model;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;

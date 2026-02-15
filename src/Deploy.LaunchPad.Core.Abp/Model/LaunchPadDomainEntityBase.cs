@@ -48,6 +48,7 @@ namespace Deploy.LaunchPad.Core.Abp.Model
     using System.Security.Cryptography;
     using System.Text;
     using System.Xml.Serialization;
+    using Deploy.LaunchPad.Core.Elements;
 
     /// <summary>
     /// Base class for Entities. Implements <see cref="IDomainEntity">IDomainEntity</see> and provides

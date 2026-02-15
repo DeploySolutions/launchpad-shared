@@ -12,9 +12,10 @@
 // <summary></summary>
 // ***********************************************************************
 using Deploy.LaunchPad.Core.Abp.Model;
+using Deploy.LaunchPad.Core.Metadata;
 using Deploy.LaunchPad.Domain;
 using Deploy.LaunchPad.Domain.Model;
-using Deploy.LaunchPad.Util.Elements;
+using Deploy.LaunchPad.Core.Elements;
 using System;
 using System.Collections.Generic;
 using System.Runtime.Serialization;

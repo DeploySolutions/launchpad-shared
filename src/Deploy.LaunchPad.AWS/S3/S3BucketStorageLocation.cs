@@ -42,6 +42,7 @@ using System.Threading.Tasks;
 using System.Xml.Serialization;
 using Deploy.LaunchPad.Files.Storage;
 using Deploy.LaunchPad.Files;
+using Deploy.LaunchPad.Core.Elements;
 
 namespace Deploy.LaunchPad.AWS.S3
 {

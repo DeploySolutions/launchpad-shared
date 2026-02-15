@@ -28,7 +28,7 @@
 
 namespace Deploy.LaunchPad.Files.Storage
 {
-    using Deploy.LaunchPad.Util.Elements;
+    using Deploy.LaunchPad.Core.Elements;
     using System;
     using System.Collections.Generic;
     using System.ComponentModel;

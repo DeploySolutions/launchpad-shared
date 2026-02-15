@@ -37,6 +37,7 @@ using System;
 using System.IO;
 using System.Reflection;
 using Deploy.LaunchPad.Code.Services;
+using Deploy.LaunchPad.Core.Elements;
 
 namespace Deploy.LaunchPad.Images.Domain
 {

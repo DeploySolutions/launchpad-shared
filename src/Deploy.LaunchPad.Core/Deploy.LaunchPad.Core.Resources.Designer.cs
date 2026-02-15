@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Deploy.LaunchPad.Domain {
+namespace Deploy.LaunchPad.Core {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace Deploy.LaunchPad.Domain {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Deploy.LaunchPad.Domain.Deploy.LaunchPad.Core.Resources", typeof(Deploy_LaunchPad_Core_Resources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Deploy.LaunchPad.Core.Deploy.LaunchPad.Core.Resources", typeof(Deploy_LaunchPad_Core_Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;

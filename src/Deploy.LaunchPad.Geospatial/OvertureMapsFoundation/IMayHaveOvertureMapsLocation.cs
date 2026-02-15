@@ -11,7 +11,7 @@
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
-using Deploy.LaunchPad.Util.Elements;
+using Deploy.LaunchPad.Core.Elements;
 using System.ComponentModel;
 using System.Xml.Serialization;
 

@@ -57,7 +57,7 @@
 
 namespace Deploy.LaunchPad.Geospatial.Position
 {
-    using Deploy.LaunchPad.Util.Elements;
+    using Deploy.LaunchPad.Core.Elements;
     using System.Runtime.Serialization;
 
     /// <summary>

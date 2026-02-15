@@ -34,7 +34,7 @@ namespace Deploy.LaunchPad.Space.Satellites.Core
     using Deploy.LaunchPad.Core.Abp.Model;
     using Deploy.LaunchPad.Geospatial;
     using Deploy.LaunchPad.Geospatial.Position;
-    using Deploy.LaunchPad.Util.Licenses;
+    using Deploy.LaunchPad.Core.Licenses;
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;

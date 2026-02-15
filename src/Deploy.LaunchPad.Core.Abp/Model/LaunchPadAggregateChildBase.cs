@@ -29,8 +29,6 @@
 namespace Deploy.LaunchPad.Core.Abp.Model
 {
     using Deploy.LaunchPad.Domain.Model;
-    using global::Abp.Domain.Entities;
-    using global::Abp.Events.Bus;
     using System;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;

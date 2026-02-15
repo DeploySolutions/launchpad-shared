@@ -1,7 +1,5 @@
-﻿using Deploy.LaunchPad.Domain.Model;
-using Deploy.LaunchPad.Util;
-using Deploy.LaunchPad.Util.Elements;
-using NetTopologySuite.Index.HPRtree;
+﻿using Deploy.LaunchPad.Util;
+using Deploy.LaunchPad.Core.Elements;
 using System;
 using System.Collections.Generic;
 using System.Linq;

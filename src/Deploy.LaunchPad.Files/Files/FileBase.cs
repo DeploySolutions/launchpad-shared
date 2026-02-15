@@ -8,9 +8,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
 using Deploy.LaunchPad.Util;
-using Deploy.LaunchPad.Util.Elements;
+using Deploy.LaunchPad.Core.Elements;
 using Deploy.LaunchPad.Files.Formats;
-using Deploy.LaunchPad.Util.Metadata;
+using Deploy.LaunchPad.Core.Metadata;
 
 
 namespace Deploy.LaunchPad.Files

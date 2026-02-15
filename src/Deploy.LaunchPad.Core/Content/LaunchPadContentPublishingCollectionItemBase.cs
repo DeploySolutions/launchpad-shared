@@ -1,6 +1,6 @@
-﻿using Deploy.LaunchPad.Domain.Model;
+﻿using Deploy.LaunchPad.Core.Metadata;
 using Deploy.LaunchPad.Util;
-using Deploy.LaunchPad.Util.Elements;
+using Deploy.LaunchPad.Core.Elements;
 using System;
 using System.ComponentModel;
 using System.Runtime.Serialization;

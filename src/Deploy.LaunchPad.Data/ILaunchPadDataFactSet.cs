@@ -11,7 +11,7 @@
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
-using Deploy.LaunchPad.Util.Metadata;
+using Deploy.LaunchPad.Core.Metadata;
 using System.Collections.Generic;
 
 namespace Deploy.LaunchPad.Data

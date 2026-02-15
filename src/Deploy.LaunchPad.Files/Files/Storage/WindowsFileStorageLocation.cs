@@ -37,6 +37,7 @@ using System.Text;
 using System.Threading.Tasks;
 //using DocumentFormat.OpenXml.Packaging;
 using Deploy.LaunchPad.Util;
+using Deploy.LaunchPad.Core.Elements;
 
 namespace Deploy.LaunchPad.Files.Storage
 {

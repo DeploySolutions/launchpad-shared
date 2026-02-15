@@ -61,7 +61,7 @@ namespace Deploy.LaunchPad.Geospatial.Position
     using System.ComponentModel;
     using System.Runtime.Serialization;
     using System.Xml.Serialization;
-    using Deploy.LaunchPad.Util.Elements;
+    using Deploy.LaunchPad.Core.Elements;
 
     /// <summary>
     /// This interface defines the details of the country in which this item is located, using a GUID ID value for the Countries, which may 

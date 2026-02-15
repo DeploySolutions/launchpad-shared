@@ -38,13 +38,14 @@ namespace Deploy.LaunchPad.Domain.Tests
     using Deploy.LaunchPad.Domain.Model;
     using Deploy.LaunchPad.Util;
     using Deploy.LaunchPad.Core.Abp.Devices;
+    using Deploy.LaunchPad.Core.Elements;
 
     /// <summary>
     /// Class DtoTests.
     /// Implements the <see cref="Xunit.IClassFixture{Deploy.LaunchPad.Core.Tests.DeviceTestsFixture}" />
     /// </summary>
     /// <seealso cref="Xunit.IClassFixture{Deploy.LaunchPad.Core.Tests.DeviceTestsFixture}" />
-    public partial class DtoTests : IClassFixture<DeviceTestsFixture>
+    public partial class DtoTests : IClassFixture<DtoTestsFixture>
     {
         #region "Test Classes"
 

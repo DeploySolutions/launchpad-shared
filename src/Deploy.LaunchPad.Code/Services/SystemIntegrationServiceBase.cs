@@ -12,6 +12,7 @@
 // <summary></summary>
 // ***********************************************************************
 using Castle.Core.Logging;
+using Deploy.LaunchPad.Core.Elements;
 using Deploy.LaunchPad.Util;
 using Microsoft.Extensions.Configuration;
 using System;

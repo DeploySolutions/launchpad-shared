@@ -34,11 +34,10 @@ using System.Runtime.Serialization;
 using System.Text;
 using Deploy.LaunchPad.Core.Abp.Model;
 using Deploy.LaunchPad.Data;
-using Deploy.LaunchPad.Domain.Model;
 using Deploy.LaunchPad.Util;
 using Deploy.LaunchPad.Files;
-using Deploy.LaunchPad.Util.Metadata;
-using Deploy.LaunchPad.Data;
+using Deploy.LaunchPad.Core.Metadata;
+using Deploy.LaunchPad.Core.Elements;
 
 namespace Deploy.LaunchPad.Core.Abp.Data
 {

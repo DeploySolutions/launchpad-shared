@@ -12,6 +12,7 @@ using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using Deploy.LaunchPad.Code.Helpers;
+using Deploy.LaunchPad.Core.Elements;
 
 namespace Deploy.LaunchPad.Code.CommandLine
 {

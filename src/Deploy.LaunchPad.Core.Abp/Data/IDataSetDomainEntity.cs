@@ -30,8 +30,8 @@ using Abp.Domain.Entities;
 using Deploy.LaunchPad.Core.Abp.Model;
 using Deploy.LaunchPad.Domain.Model;
 using Deploy.LaunchPad.Data;
-using Deploy.LaunchPad.Util.Licenses;
-using Deploy.LaunchPad.Util.Metadata;
+using Deploy.LaunchPad.Core.Licenses;
+using Deploy.LaunchPad.Core.Metadata;
 using System.Collections.Generic;
 
 namespace Deploy.LaunchPad.Core.Abp.Data

@@ -17,6 +17,7 @@ using Deploy.LaunchPad.Util;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Deploy.LaunchPad.Core.Elements;
 
 namespace Deploy.LaunchPad.Code.SourceControl
 {

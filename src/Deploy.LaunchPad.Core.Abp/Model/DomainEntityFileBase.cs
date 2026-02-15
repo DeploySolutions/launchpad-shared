@@ -37,7 +37,8 @@ using System.Runtime.Serialization;
 using System.Xml.Serialization;
 using Deploy.LaunchPad.Files;
 using Deploy.LaunchPad.Files.Storage;
-using Deploy.LaunchPad.Util.Metadata;
+using Deploy.LaunchPad.Core.Metadata;
+using Deploy.LaunchPad.Core.Elements;
 
 namespace Deploy.LaunchPad.Core.Abp.Model
 {

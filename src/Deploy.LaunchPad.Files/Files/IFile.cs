@@ -34,8 +34,8 @@ namespace Deploy.LaunchPad.Files
     using System.Xml.Serialization;
     using Deploy.LaunchPad.Files.Formats;
 
-    using Deploy.LaunchPad.Util.Elements;
-    using Deploy.LaunchPad.Util.Metadata;
+    using Deploy.LaunchPad.Core.Elements;
+    using Deploy.LaunchPad.Core.Metadata;
 
     /// <summary>
     /// Marks any object as a file that can be manipulated by the platform.

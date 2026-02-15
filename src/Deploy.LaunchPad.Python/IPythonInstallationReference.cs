@@ -12,7 +12,7 @@
 // <summary></summary>
 // ***********************************************************************
 using Deploy.LaunchPad.Domain;
-using Deploy.LaunchPad.Util.Elements;
+using Deploy.LaunchPad.Core.Elements;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;

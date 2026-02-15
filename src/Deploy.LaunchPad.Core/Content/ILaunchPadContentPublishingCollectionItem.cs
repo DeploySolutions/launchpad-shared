@@ -1,5 +1,5 @@
-﻿using Deploy.LaunchPad.Domain.Model;
-using Deploy.LaunchPad.Util.Elements;
+﻿using Deploy.LaunchPad.Core.Metadata;
+using Deploy.LaunchPad.Core.Elements;
 using System;
 
 namespace Deploy.LaunchPad.Domain.Content
