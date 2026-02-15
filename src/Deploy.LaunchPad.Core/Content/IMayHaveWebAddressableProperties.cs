@@ -21,7 +21,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Xml.Serialization;
 
-namespace Deploy.LaunchPad.Domain.SoftwareApplications
+namespace Deploy.LaunchPad.Core.Content
 {
     /// <summary>
     /// Defines the minimum properties LaunchPad expects to have for a web-addressable Domain Entity or Value Object.
