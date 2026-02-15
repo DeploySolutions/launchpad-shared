@@ -130,6 +130,7 @@
     <PackageVersion Include="Polly" Version="8.5.0" />
     <PackageVersion Include="RestSharp" Version="113.1.0" />
     <PackageVersion Include="Schema.NET.Pending" Version="13.0.0" />
+    <PackageVersion Include="TimeZoneConverter" Version="7.2.0" />
   </ItemGroup>
   <!-- All Other Packages Ends -->
 </Project>
