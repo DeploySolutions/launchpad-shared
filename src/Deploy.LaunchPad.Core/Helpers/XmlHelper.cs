@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 using System.Xml;
 using System.Xml.Linq;
 
-namespace Deploy.LaunchPad.Core
+namespace Deploy.LaunchPad.Core.Helpers
 {
     public partial class XmlHelper :HelperBase
     {
