@@ -34,7 +34,7 @@
 
 namespace Deploy.LaunchPad.Space.Satellites.GoC
 {
-    using Abp.Timing;
+    using Deploy.LaunchPad.Util.Timing;
     using Deploy.LaunchPad.Core.Abp;
     using Deploy.LaunchPad.Domain;
     using Deploy.LaunchPad.Files;
