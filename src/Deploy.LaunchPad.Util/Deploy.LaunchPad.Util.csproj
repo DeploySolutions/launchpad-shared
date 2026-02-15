@@ -4,7 +4,7 @@
   <Import Project="..\..\configureawait.props" />
 
   <PropertyGroup>
-    <Version>10.22.41</Version>
+    <Version>11.0.0</Version>
     <Description>Shared code for LaunchPad framework.</Description>
   </PropertyGroup>
   <ItemGroup>

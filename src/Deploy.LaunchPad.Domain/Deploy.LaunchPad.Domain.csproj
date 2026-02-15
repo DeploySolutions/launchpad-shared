@@ -1,7 +1,11 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
+  <Import Project="..\..\common.props" />
+  <Import Project="..\..\configureawait.props" />
+
   <PropertyGroup>
-    <TargetFramework>net10.0</TargetFramework>
+    <Version>11.0.0</Version>
+    <Description>LaunchPad project for handling Domain Driven Design.</Description>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
   </PropertyGroup>

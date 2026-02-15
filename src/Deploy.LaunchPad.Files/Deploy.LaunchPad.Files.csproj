@@ -3,8 +3,8 @@
   <Import Project="..\..\configureawait.props" />
 
   <PropertyGroup>
-    <Version>10.22.16</Version>
-    <Description>Shared code for LaunchPad framework.</Description>
+    <Version>11.0.0</Version>
+    <Description>Shared code for LaunchPad framework for handling Files.</Description>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Castle.Core" />

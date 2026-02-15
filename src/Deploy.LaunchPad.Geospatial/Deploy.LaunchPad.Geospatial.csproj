@@ -3,7 +3,7 @@
   <Import Project="..\..\configureawait.props" />
 
   <PropertyGroup>
-    <Version>10.22.16</Version>
+    <Version>11.0.0</Version>
     <Description>Common Geospatial functionality for the LaunchPad framework.</Description>
   </PropertyGroup>
 

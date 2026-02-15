@@ -4,7 +4,7 @@
   <Import Project="..\..\configureawait.props" />
 
   <PropertyGroup>
-    <Version>10.22.5</Version>
+    <Version>11.0.0</Version>
     <Description>Shared code for python usage in the Framework.</Description>
   </PropertyGroup>
 
