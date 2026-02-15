@@ -13,7 +13,7 @@
 // ***********************************************************************
 
 using Deploy.LaunchPad.Code.Services;
-using Deploy.LaunchPad.Domain.Model;
+using Deploy.LaunchPad.Domain.Metadata;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Xml.Serialization;

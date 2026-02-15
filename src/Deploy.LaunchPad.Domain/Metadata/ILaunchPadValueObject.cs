@@ -29,7 +29,7 @@
 using Deploy.LaunchPad.Core.Elements;
 using System;
 
-namespace Deploy.LaunchPad.Domain.Model
+namespace Deploy.LaunchPad.Domain.Metadata
 {
 
     /// <summary>

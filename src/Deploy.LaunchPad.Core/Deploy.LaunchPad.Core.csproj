@@ -47,8 +47,4 @@
     <ProjectReference Include="..\Deploy.LaunchPad.Util\Deploy.LaunchPad.Util.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="SoftwareApplications\" />
-  </ItemGroup>
-
 </Project>

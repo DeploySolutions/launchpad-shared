@@ -17,7 +17,7 @@ using System.ComponentModel;
 using System.Runtime.Serialization;
 using System.Xml.Serialization;
 
-namespace Deploy.LaunchPad.Domain.Model
+namespace Deploy.LaunchPad.Domain.Metadata
 {
     /// <summary>
     /// Useful if data can be "translated" from one language to another.

@@ -15,7 +15,7 @@ using Abp.Application.Services.Dto;
 using Abp.Domain.Entities;
 using Deploy.LaunchPad.Core.Abp.SoftwareApplications;
 using Deploy.LaunchPad.Code.Services;
-using Deploy.LaunchPad.Domain.Model;
+using Deploy.LaunchPad.Domain.Metadata;
 using Deploy.LaunchPad.Util;
 using System;
 using System.ComponentModel;

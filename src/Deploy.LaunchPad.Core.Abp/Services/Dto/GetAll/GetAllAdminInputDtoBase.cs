@@ -12,7 +12,7 @@
 // <summary></summary>
 // ***********************************************************************
 using Deploy.LaunchPad.Core.Abp.SoftwareApplications;
-using Deploy.LaunchPad.Domain.Model;
+using Deploy.LaunchPad.Domain.Metadata;
 using System;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations.Schema;

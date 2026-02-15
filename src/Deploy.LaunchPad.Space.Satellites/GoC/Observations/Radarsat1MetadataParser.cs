@@ -31,7 +31,7 @@ namespace Deploy.LaunchPad.Space.Satellites.GoC
 {
     using Deploy.LaunchPad.Domain;
     using Deploy.LaunchPad.Core.Abp;
-    using Deploy.LaunchPad.Domain.Model;
+    using Deploy.LaunchPad.Domain.Metadata;
     using Deploy.LaunchPad.Files;
     using Deploy.LaunchPad.Files.Storage;
     using Deploy.LaunchPad.Util;
@@ -45,8 +45,6 @@ namespace Deploy.LaunchPad.Space.Satellites.GoC
     using System.Text.RegularExpressions;
     using Deploy.LaunchPad.Core.Licenses;
     using Deploy.LaunchPad.Geospatial.Position;
-    using Deploy.LaunchPad.Files.Storage;
-    using Deploy.LaunchPad.Files;
     using Deploy.LaunchPad.Core.Elements;
 
     /// <summary>

@@ -12,11 +12,12 @@
 // <summary></summary>
 // ***********************************************************************
 using Deploy.LaunchPad.Core.Metadata;
+using Deploy.LaunchPad.Domain.Metadata;
 using System;
 using System.ComponentModel;
 using System.Xml.Serialization;
 
-namespace Deploy.LaunchPad.Domain.Model
+namespace Deploy.LaunchPad.Domain.Metadata
 {
     /// <summary>
     /// Defines the minimum properties LaunchPad expects to have for a Domain Entity or Value Object.

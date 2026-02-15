@@ -31,7 +31,7 @@ using System.ComponentModel;
 using System.Xml.Serialization;
 using Deploy.LaunchPad.Core.Metadata;
 using Deploy.LaunchPad.Domain.Content;
-using Deploy.LaunchPad.Domain.Model;
+using Deploy.LaunchPad.Domain.Metadata;
 using Deploy.LaunchPad.Core.Elements;
 
 namespace Deploy.LaunchPad.Domain.Person

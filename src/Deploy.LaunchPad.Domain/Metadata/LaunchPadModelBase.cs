@@ -26,26 +26,16 @@
 //limitations under the License. 
 #endregion
 
-namespace Deploy.LaunchPad.Domain.Model
-{
-    using Deploy.LaunchPad.Core.Elements;
-    using Deploy.LaunchPad.Core.Metadata;
-    using Deploy.LaunchPad.Domain;
-    using Deploy.LaunchPad.Util;
-    using Newtonsoft.Json;
-    using System;
-    using System.Collections.Generic;
-    using System.ComponentModel;
-    using System.ComponentModel.DataAnnotations;
-    using System.Diagnostics;
-    using System.Diagnostics.CodeAnalysis;
-    using System.Globalization;
-    using System.Linq;
-    using System.Reflection;
-    using System.Runtime.Serialization;
-    using System.Text;
-    using System.Xml.Serialization;
+using Deploy.LaunchPad.Core.Elements;
+using Deploy.LaunchPad.Core.Metadata;
+using System.Diagnostics;
+using System.Reflection;
+using System.Runtime.Serialization;
+using System.Text;
 
+namespace Deploy.LaunchPad.Domain.Metadata
+{
+   
     /// <summary>
     /// Base class for Entities. Implements <see cref="ILaunchPadCoreProperties">ILaunchPadBaseProperties</see> and provides
     /// base functionality for many of its properties.

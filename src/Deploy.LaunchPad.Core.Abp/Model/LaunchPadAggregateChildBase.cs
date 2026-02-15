@@ -28,7 +28,7 @@
 
 namespace Deploy.LaunchPad.Core.Abp.Model
 {
-    using Deploy.LaunchPad.Domain.Model;
+    using Deploy.LaunchPad.Domain.Metadata;
     using System;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;

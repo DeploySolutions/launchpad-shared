@@ -6,7 +6,7 @@
 // Last Modified By : Nicholas Kellett
 // Last Modified On : 10-27-2023
 // ***********************************************************************
-// <copyright file="DomainEntityTenancyType.cs" company="Deploy Software Solutions, inc.">
+// <copyright file="DomainEntityType.cs" company="Deploy Software Solutions, inc.">
 //     2018-2024 Deploy Software Solutions, inc.
 // </copyright>
 // <summary></summary>
@@ -17,25 +17,29 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Deploy.LaunchPad.Domain.Model
+namespace Deploy.LaunchPad.Domain.Metadata
 {
     /// <summary>
-    /// Enum DomainEntityTenancyType
+    /// Enum DomainEntityType
     /// </summary>
     [Serializable]
-    public enum DomainEntityTenancyType
+    public enum DomainEntityType
     {
         /// <summary>
-        /// The none
+        /// The domain entity
         /// </summary>
-        None = 0,
+        DomainEntity = 0,
         /// <summary>
-        /// The i must have tenant
+        /// The aggregate root
         /// </summary>
-        IMustHaveTenant = 1,
+        AggregateRoot = 1,
         /// <summary>
-        /// The i may have tenant
+        /// The aggregate child
         /// </summary>
-        IMayHaveTenant = 2
+        AggregateChild = 2,
+        /// <summary>
+        /// The value object
+        /// </summary>
+        ValueObject = 3
     }
 }

@@ -18,7 +18,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Xml.Serialization;
 
-namespace Deploy.LaunchPad.Domain.Model
+namespace Deploy.LaunchPad.Domain.Metadata
 {
     /// <summary>
     /// Defines the minimum properties LaunchPad expects to have for an Aggregate Root Domain Entity.

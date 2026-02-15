@@ -31,7 +31,6 @@ namespace Deploy.LaunchPad.Core.Abp.Model
 {
     using Deploy.LaunchPad.Domain;
     using Deploy.LaunchPad.Core.Abp.SoftwareApplications;
-    using Deploy.LaunchPad.Domain.Model;
     using Deploy.LaunchPad.Util;
     using global::Abp.Domain.Entities.Auditing;
     using Newtonsoft.Json;
@@ -49,6 +48,7 @@ namespace Deploy.LaunchPad.Core.Abp.Model
     using System.Text;
     using System.Xml.Serialization;
     using Deploy.LaunchPad.Core.Elements;
+    using Deploy.LaunchPad.Domain.Metadata;
 
     /// <summary>
     /// Base class for Entities. Implements <see cref="IDomainEntity">IDomainEntity</see> and provides

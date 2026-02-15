@@ -29,7 +29,7 @@
 namespace Deploy.LaunchPad.Space.Satellites.Core
 {
     using Deploy.LaunchPad.Core.Abp;
-    using Deploy.LaunchPad.Domain.Model;
+    using Deploy.LaunchPad.Domain.Metadata;
     using Deploy.LaunchPad.Geospatial;
     using Deploy.LaunchPad.Geospatial.Position;
     using Deploy.LaunchPad.Core.Licenses;

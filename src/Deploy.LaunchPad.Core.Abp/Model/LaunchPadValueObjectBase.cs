@@ -27,7 +27,7 @@
 #endregion
 
 using Abp.Domain.Values;
-using Deploy.LaunchPad.Domain.Model;
+using Deploy.LaunchPad.Domain.Metadata;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;

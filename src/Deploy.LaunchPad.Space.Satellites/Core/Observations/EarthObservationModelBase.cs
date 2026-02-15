@@ -38,7 +38,7 @@ namespace Deploy.LaunchPad.Space.Satellites.Core
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
-    using Deploy.LaunchPad.Domain.Model;
+    using Deploy.LaunchPad.Domain.Metadata;
 
     /// <summary>
     /// Class EarthObservationModelBase.
