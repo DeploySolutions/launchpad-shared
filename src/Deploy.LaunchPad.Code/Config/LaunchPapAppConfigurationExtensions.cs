@@ -11,18 +11,18 @@
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
-using Abp.Extensions;
+using Deploy.LaunchPad.Util.Extensions;
 using Microsoft.Extensions.Configuration;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.IO;
 
-namespace Deploy.LaunchPad.Core.Abp.AbpModuleConfig
+namespace Deploy.LaunchPad.Code.Config
 {
     /// <summary>
     /// Class LaunchPadAbpAppConfigurations.
     /// </summary>
-    public static class LaunchPadAbpAppConfigurations
+    public static class LaunchPapAppConfigurationExtensions
     {
         /// <summary>
         /// The configuration cache
@@ -30,9 +30,9 @@ namespace Deploy.LaunchPad.Core.Abp.AbpModuleConfig
         private static readonly ConcurrentDictionary<string, IConfigurationRoot> _configurationCache;
 
         /// <summary>
-        /// Initializes static members of the <see cref="LaunchPadAbpAppConfigurations"/> class.
+        /// Initializes static members of the <see cref="LaunchPapAppConfigurationExtensions"/> class.
         /// </summary>
-        static LaunchPadAbpAppConfigurations()
+        static LaunchPapAppConfigurationExtensions()
         {
             _configurationCache = new ConcurrentDictionary<string, IConfigurationRoot>();
         }

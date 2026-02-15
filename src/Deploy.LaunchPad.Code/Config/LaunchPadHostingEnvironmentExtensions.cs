@@ -17,7 +17,7 @@ using Microsoft.Extensions.Hosting;
 using System.Collections;
 using System.Collections.Generic;
 
-namespace Deploy.LaunchPad.Core.Abp.AbpModuleConfig
+namespace Deploy.LaunchPad.Code.Config
 {
     /// <summary>
     /// Class LaunchPadHostingEnvironmentExtensions.
@@ -33,7 +33,7 @@ namespace Deploy.LaunchPad.Core.Abp.AbpModuleConfig
         /// <returns>IConfigurationRoot.</returns>
         public static IConfigurationRoot GetAppConfiguration(this IWebHostEnvironment env, string userSecretId = "", IList<string> jsonFiles = null)
         {
-            return LaunchPadAbpAppConfigurations.Get(env.ContentRootPath, env.EnvironmentName, env.IsDevelopment(), userSecretId, jsonFiles);
+            return LaunchPapAppConfigurationExtensions.Get(env.ContentRootPath, env.EnvironmentName, env.IsDevelopment(), userSecretId, jsonFiles);
         }
     }
 }
