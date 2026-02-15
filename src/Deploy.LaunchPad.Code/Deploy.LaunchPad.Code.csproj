@@ -44,5 +44,9 @@
     </EmbeddedResource>
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Secrets\" />
+  </ItemGroup>
+
 
 </Project>

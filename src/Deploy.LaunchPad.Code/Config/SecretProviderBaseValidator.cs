@@ -11,14 +11,12 @@
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
-using Abp.Dependency;
 using Castle.Core.Logging;
-using Deploy.LaunchPad.Code.Config;
 using FluentValidation;
 using System;
 using System.Collections.Generic;
 
-namespace Deploy.LaunchPad.Core.Abp.AbpModuleConfig
+namespace Deploy.LaunchPad.Code.Config
 {
     /// <summary>
     /// Validates the SecretProviderBase and its properties
