@@ -30,6 +30,7 @@
     <File Path="Licenses/quicktype.License.md" />
     <File Path="Licenses/RestSharp.License.md" />
     <File Path="Licenses/Serilog.License.md" />
+    <File Path="Licenses/TimeZoneConverter.md" />
     <File Path="schemaNET.License.md" />
     <File Path="Xunit.License.md" />
   </Folder>
