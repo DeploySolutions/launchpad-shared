@@ -5,7 +5,7 @@
 //   Original license: MIT License
 //
 // Modifications in this forked/copied version:
-//   - Integrated into Deploy.LaunchPad.Core (namespace adjustments)
+//   - Integrated into Deploy.LaunchPad.X (namespace adjustments)
 //   - Local fixes and adaptations (see git history for details)
 //
 // Original Copyright (c) Volosoft (https://volosoft.com) and contributors
