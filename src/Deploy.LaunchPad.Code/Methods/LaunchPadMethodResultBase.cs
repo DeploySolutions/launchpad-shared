@@ -103,10 +103,4 @@ namespace Deploy.LaunchPad.Code.Methods
 
     }
 
-    public class Warning : Success
-    {
-        public Warning(string message) : base(message)
-        {
-        }
-    }
 }
