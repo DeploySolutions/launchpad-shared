@@ -36,7 +36,7 @@ using System.Reflection;
 using System.Runtime.Serialization;
 using System.Xml.Serialization;
 
-namespace Deploy.LaunchPad.Core.Abp.Model
+namespace Deploy.LaunchPad.Core.Entities
 {
 
     /// <summary>

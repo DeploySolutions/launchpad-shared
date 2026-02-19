@@ -47,6 +47,7 @@
   <ItemGroup>
     <PackageReference Include="Magick.NET-Q16-AnyCPU" />
     <PackageReference Include="Magick.NET.Core" />
+    <PackageReference Include="Castle.Core" />
   </ItemGroup>
 
 

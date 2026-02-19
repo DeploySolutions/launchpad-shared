@@ -32,12 +32,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.Text;
-using Deploy.LaunchPad.Core.Abp.Model;
 using Deploy.LaunchPad.Data;
 using Deploy.LaunchPad.Util;
 using Deploy.LaunchPad.Files;
 using Deploy.LaunchPad.Core.Metadata;
 using Deploy.LaunchPad.Core.Elements;
+using Deploy.LaunchPad.Core.Entities;
 
 namespace Deploy.LaunchPad.Core.Abp.Data
 {

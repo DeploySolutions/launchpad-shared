@@ -32,8 +32,9 @@ using Deploy.LaunchPad.Domain.Metadata;
 using Deploy.LaunchPad.Util;
 using Deploy.LaunchPad.Core.Metadata;
 using System;
+using IPassivable = Abp.Domain.Entities.IPassivable;
 
-namespace Deploy.LaunchPad.Core.Abp.Model
+namespace Deploy.LaunchPad.Core.Entities
 {
    
     /// <summary>

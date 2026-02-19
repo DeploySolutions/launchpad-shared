@@ -32,7 +32,7 @@ namespace Deploy.LaunchPad.Core.Abp.SoftwareApplications
     using System.Collections.Generic;
     using System.ComponentModel;
     using System.Xml.Serialization;
-    using Deploy.LaunchPad.Core.Abp.Model;
+    using Deploy.LaunchPad.Core.Entities;
 
     /// <summary>
     /// Represents a comopnent in a software module.

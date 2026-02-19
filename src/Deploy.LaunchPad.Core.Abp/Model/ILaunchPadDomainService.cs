@@ -31,7 +31,7 @@ using Deploy.LaunchPad.Util;
 using Deploy.LaunchPad.Code.Config;
 using Deploy.LaunchPad.Code.Services;
 
-namespace Deploy.LaunchPad.Core.Abp.Model
+namespace Deploy.LaunchPad.Core.Entities
 {
     /// <summary>
     /// This is a marker interface to support auto-registration as a IoC / Dependency Injection component.

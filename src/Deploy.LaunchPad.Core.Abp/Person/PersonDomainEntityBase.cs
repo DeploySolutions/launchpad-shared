@@ -27,8 +27,8 @@
 #endregion
 
 using Abp.Domain.Entities;
-using Deploy.LaunchPad.Core.Abp.Model;
 using Deploy.LaunchPad.Core.Abp.Organization;
+using Deploy.LaunchPad.Core.Entities;
 using Deploy.LaunchPad.Domain.Person;
 using Schema.NET;
 using System;
@@ -37,6 +37,7 @@ using System.ComponentModel;
 using System.Reflection;
 using System.Runtime.Serialization;
 using System.Xml.Serialization;
+using IMayHaveTenant = Deploy.LaunchPad.Core.Entities.IMayHaveTenant;
 
 namespace Deploy.LaunchPad.Core.Abp.Person
 {

@@ -20,7 +20,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Deploy.LaunchPad.Core.Abp.Model
+namespace Deploy.LaunchPad.Core.Entities
 {
     /// <summary>
     /// Marks an object as a child of a particular Aggregate Root.

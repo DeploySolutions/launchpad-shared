@@ -27,7 +27,7 @@
 #endregion
 
 
-namespace Deploy.LaunchPad.Core.Abp.Model
+namespace Deploy.LaunchPad.Core.Entities
 {
     using Deploy.LaunchPad.Domain;
     using Deploy.LaunchPad.Core.Abp.SoftwareApplications;

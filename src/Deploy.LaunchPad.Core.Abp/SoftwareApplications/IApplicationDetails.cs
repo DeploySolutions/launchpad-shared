@@ -33,7 +33,7 @@ namespace Deploy.LaunchPad.Core.Abp.SoftwareApplications
     using System.ComponentModel;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Xml.Serialization;
-    using Deploy.LaunchPad.Core.Abp.Model;
+    using Deploy.LaunchPad.Core.Entities;
 
     /// <summary>
     /// Represents the specific settings of an application.

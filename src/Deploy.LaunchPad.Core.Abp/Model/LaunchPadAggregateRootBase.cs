@@ -26,7 +26,7 @@
 //limitations under the License. 
 #endregion
 
-namespace Deploy.LaunchPad.Core.Abp.Model
+namespace Deploy.LaunchPad.Core.Entities
 {
     using Deploy.LaunchPad.Domain.Metadata;
     using global::Abp.Domain.Entities;

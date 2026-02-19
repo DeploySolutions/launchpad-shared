@@ -27,7 +27,7 @@
 #endregion
 
 
-using Deploy.LaunchPad.Core.Abp.Model;
+using Deploy.LaunchPad.Core.Entities;
 using System.Collections.Generic;
 
 namespace Deploy.LaunchPad.Code.Services.Dto

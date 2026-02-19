@@ -28,7 +28,7 @@
 
 
 using Abp.Domain.Entities;
-using Deploy.LaunchPad.Core.Abp.Model;
+using Deploy.LaunchPad.Core.Entities;
 using Deploy.LaunchPad.Domain.Devices;
 using Deploy.LaunchPad.Domain.Metadata;
 using Deploy.LaunchPad.Geospatial;
@@ -40,6 +40,7 @@ using System.Globalization;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Xml.Serialization;
+using IMayHaveTenant = Deploy.LaunchPad.Core.Entities.IMayHaveTenant;
 
 namespace Deploy.LaunchPad.Core.Abp.Devices
 {

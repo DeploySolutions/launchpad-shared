@@ -33,7 +33,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Xml.Serialization;
-using Deploy.LaunchPad.Core.Abp.Model;
+using Deploy.LaunchPad.Core.Entities;
 
 namespace Deploy.LaunchPad.Core.Abp.Deployments
 {

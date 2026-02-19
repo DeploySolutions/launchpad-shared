@@ -29,7 +29,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Xml.Serialization;
-using Deploy.LaunchPad.Core.Abp.Model;
+using Deploy.LaunchPad.Core.Entities;
 using Deploy.LaunchPad.Domain.Person;
 using Schema.NET;
 

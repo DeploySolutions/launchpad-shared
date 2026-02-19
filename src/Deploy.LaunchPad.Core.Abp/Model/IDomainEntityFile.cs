@@ -26,15 +26,13 @@
 //limitations under the License. 
 #endregion
 
-namespace Deploy.LaunchPad.Core.Abp.Model
+namespace Deploy.LaunchPad.Core.Entities
 {
     using System;
     using System.ComponentModel;
     using System.Xml.Serialization;
-    using Deploy.LaunchPad.Core.Abp.Model;
     using Deploy.LaunchPad.Files;
     using Deploy.LaunchPad.Util;
-    using Deploy.LaunchPad.Files;
 
     /// <summary>
     /// Marks any object as a file that can be manipulated by the platform AND tracked as a domain entity.

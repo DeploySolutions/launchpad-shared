@@ -29,10 +29,10 @@
 
 namespace Deploy.LaunchPad.Core.Abp.SoftwareApplications
 {
+    using Deploy.LaunchPad.Core.Entities;
     using System.Collections.Generic;
     using System.ComponentModel;
     using System.Xml.Serialization;
-    using Deploy.LaunchPad.Core.Abp.Model;
 
     /// <summary>
     /// Represents an application in the LaunchPad RAD framework.

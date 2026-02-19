@@ -27,11 +27,12 @@
 #endregion
 
 using Abp.Domain.Entities;
-using Deploy.LaunchPad.Core.Abp.Model;
+using Deploy.LaunchPad.Core.Entities;
 using System;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Xml.Serialization;
+using IMustHaveTenant = Deploy.LaunchPad.Core.Entities.IMustHaveTenant;
 
 namespace Deploy.LaunchPad.Core.Abp.Deployments
 {

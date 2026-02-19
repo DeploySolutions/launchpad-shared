@@ -26,7 +26,6 @@
 //limitations under the License. 
 #endregion
 
-using Abp.Reflection.Extensions;
 
 namespace Deploy.LaunchPad.Images.Tests
 {

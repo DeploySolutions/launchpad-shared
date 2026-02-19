@@ -11,7 +11,8 @@
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
-using Deploy.LaunchPad.Core.Abp.Model;
+
+using Deploy.LaunchPad.Core.Entities;
 using Deploy.LaunchPad.ECommerce.Abp.Orders;
 using System.Collections.Generic;
 using System.ComponentModel;

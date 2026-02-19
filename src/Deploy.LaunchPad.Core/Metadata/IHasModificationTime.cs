@@ -30,16 +30,19 @@
  */
 #endregion
 
-namespace Deploy.LaunchPad.Domain.Entities
+using System;
+
+namespace Deploy.LaunchPad.Core.Metadata
 {
     /// <summary>
-    /// Implement this interface for an entity which may optionally have TenantId.
+    /// An entity can implement this interface if <see cref="LastModificationTime"/> of this entity must be stored.
+    /// <see cref="LastModificationTime"/> is automatically set when updating <see cref="Entity"/>.
     /// </summary>
-    public interface IMayHaveTenant
+    public interface IHasModificationTime
     {
         /// <summary>
-        /// TenantId of this entity.
+        /// The last modified time for this entity.
         /// </summary>
-        int? TenantId { get; set; }
+        DateTime? LastModificationTime { get; set; }
     }
 }

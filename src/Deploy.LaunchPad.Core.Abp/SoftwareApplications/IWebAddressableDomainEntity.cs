@@ -28,7 +28,7 @@
 
 using Abp.Domain.Entities;
 using Abp.Domain.Entities.Auditing;
-using Deploy.LaunchPad.Core.Abp.Model;
+using Deploy.LaunchPad.Core.Entities;
 using Deploy.LaunchPad.Domain.Metadata;
 using System;
 using System.ComponentModel;

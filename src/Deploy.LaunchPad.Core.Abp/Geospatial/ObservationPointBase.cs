@@ -27,7 +27,7 @@
 #endregion
 
 using Abp.Domain.Entities;
-using Deploy.LaunchPad.Core.Abp.Model;
+using Deploy.LaunchPad.Core.Entities;
 using Deploy.LaunchPad.Geospatial;
 using Deploy.LaunchPad.Geospatial.Position;
 using Deploy.LaunchPad.Geospatial.ReferencePoint;
@@ -39,6 +39,7 @@ using System.ComponentModel;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Xml.Serialization;
+using IMayHaveTenant = Deploy.LaunchPad.Core.Entities.IMayHaveTenant;
 
 namespace Deploy.LaunchPad.Core.Abp.Geospatial
 {

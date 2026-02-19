@@ -29,7 +29,7 @@
 
 namespace Deploy.LaunchPad.Space.Satellites.Core
 {
-    using Deploy.LaunchPad.Core.Abp.Model;
+    using Deploy.LaunchPad.Core.Entities;
     using Deploy.LaunchPad.Geospatial.ReferencePoint;
     using Deploy.LaunchPad.Space.Satellites.Core.Observations;
     using System;

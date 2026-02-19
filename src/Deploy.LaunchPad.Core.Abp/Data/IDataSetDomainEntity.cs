@@ -27,13 +27,9 @@
 #endregion
 
 using Abp.Domain.Entities;
-using Deploy.LaunchPad.Core.Abp.Model;
-using Deploy.LaunchPad.Domain.Metadata;
+using Deploy.LaunchPad.Core.Entities;
 using Deploy.LaunchPad.Data;
-using Deploy.LaunchPad.Core.Licenses;
-using Deploy.LaunchPad.Core.Metadata;
-using System.Collections.Generic;
-
+using IMayHaveTenant = Deploy.LaunchPad.Core.Entities.IMayHaveTenant;
 namespace Deploy.LaunchPad.Core.Abp.Data
 {
 

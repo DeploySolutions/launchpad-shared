@@ -11,7 +11,8 @@
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
-using Deploy.LaunchPad.Core.Abp.Model;
+
+using Deploy.LaunchPad.Core.Entities;
 using System;
 using System.ComponentModel;
 using System.Xml.Serialization;

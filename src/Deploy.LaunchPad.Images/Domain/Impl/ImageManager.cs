@@ -30,8 +30,8 @@ using System.Diagnostics.CodeAnalysis;
 
 namespace Deploy.LaunchPad.Images.Domain
 {
-    using Abp.Domain.Services;
     using Castle.Core.Logging;
+    using Deploy.LaunchPad.Code.Services;
     using Deploy.LaunchPad.Util;
     using ImageMagick;
     using System;
@@ -43,7 +43,7 @@ namespace Deploy.LaunchPad.Images.Domain
     /// Important: MagickImage which we use has a dependency on ImageMagick, which you can download here: https://imagemagick.org/script/download.php#windows
     /// (please ensure you are compliant with their licensing).
     /// </summary>
-    public partial class ImageManager : DomainService, IImageManager
+    public partial class ImageManager : SystemIntegrationServiceBase, IImageManager
     {
         /// <summary>
         /// The general size category of the thumbnail. Default dimensions are set for each size, but can be overriden by a user or developer

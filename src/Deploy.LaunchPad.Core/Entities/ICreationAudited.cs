@@ -30,16 +30,33 @@
  */
 #endregion
 
-namespace Deploy.LaunchPad.Domain.Entities
+
+using Deploy.LaunchPad.Core.Metadata;
+
+namespace Deploy.LaunchPad.Core.Entities
 {
     /// <summary>
-    /// Implement this interface for an entity which must have TenantId.
+    /// This interface is implemented by entities that is wanted to store creation information (who and when created).
+    /// Creation time and creator user are automatically set when saving <see cref="Entity"/> to database.
     /// </summary>
-    public interface IMustHaveTenant
+    public interface ICreationAudited : IHasCreationTime
     {
         /// <summary>
-        /// TenantId of this entity.
+        /// Id of the creator user of this entity.
         /// </summary>
-        int TenantId { get; set; }
+        long? CreatorUserId { get; set; }
+    }
+
+    /// <summary>
+    /// Adds navigation properties to <see cref="ICreationAudited"/> interface for user.
+    /// </summary>
+    /// <typeparam name="TUser">Type of the user</typeparam>
+    public interface ICreationAudited<TUser> : ICreationAudited
+        where TUser : IEntity<long>
+    {
+        /// <summary>
+        /// Reference to the creator user of this entity.
+        /// </summary>
+        TUser CreatorUser { get; set; }
     }
 }

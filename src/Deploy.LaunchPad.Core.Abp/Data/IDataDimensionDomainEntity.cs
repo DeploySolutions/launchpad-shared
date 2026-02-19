@@ -12,8 +12,9 @@
 // <summary></summary>
 // ***********************************************************************
 using Abp.Domain.Entities;
-using Deploy.LaunchPad.Core.Abp.Model;
+using Deploy.LaunchPad.Core.Entities;
 using Deploy.LaunchPad.Data;
+using IMayHaveTenant = Deploy.LaunchPad.Core.Entities.IMayHaveTenant;
 
 namespace Deploy.LaunchPad.Core.Abp.Data
 {

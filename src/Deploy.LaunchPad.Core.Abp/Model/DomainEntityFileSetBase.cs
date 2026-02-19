@@ -13,9 +13,8 @@
 // ***********************************************************************
 using System.Collections.Generic;
 using Deploy.LaunchPad.Files.Storage;
-using Deploy.LaunchPad.Files.Storage;
 
-namespace Deploy.LaunchPad.Core.Abp.Model
+namespace Deploy.LaunchPad.Core.Entities
 {
     /// <summary>
     /// A set of files all of the same type, often contained in a specific location (such as in a folder, or as a subset of files within a folder).

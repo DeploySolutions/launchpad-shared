@@ -30,24 +30,19 @@
  */
 #endregion
 
-using Deploy.LaunchPad.Core.Elements;
-using Deploy.LaunchPad.Domain.Metadata;
+using System;
 
-namespace Deploy.LaunchPad.Domain.Entities
+namespace Deploy.LaunchPad.Core.Metadata
 {
     /// <summary>
-    /// Defines interface for base entity type. All entities in the system must implement this interface.
+    /// An entity can implement this interface if <see cref="CreationTime"/> of this entity must be stored.
+    /// <see cref="CreationTime"/> is automatically set when saving <see cref="Entity"/> to database.
     /// </summary>
-    /// <typeparam name="TPrimaryKey">Type of the primary key of the entity</typeparam>
-    public interface IEntity<TPrimaryKey> : ILaunchPadObject, 
-        ILaunchPadMinimalProperties, 
-        IMustHaveIDProperty<TPrimaryKey>
+    public interface IHasCreationTime
     {
-
         /// <summary>
-        /// Checks if this entity is transient (not persisted to database and it has not an <see cref="Id"/>).
+        /// Creation time of this entity.
         /// </summary>
-        /// <returns>True, if this entity is transient</returns>
-        bool IsTransient();
+        DateTime CreationTime { get; set; }
     }
 }

@@ -30,14 +30,24 @@
  */
 #endregion
 
-using Deploy.LaunchPad.Core.Elements;
 
-namespace Deploy.LaunchPad.Domain.Entities
+namespace Deploy.LaunchPad.Core.Entities
 {
     /// <summary>
-    /// A shortcut of <see cref="IEntity{TPrimaryKey}"/> for most used primary key type (<see cref="int"/>).
+    /// This interface is implemented by entities which must be audited.
+    /// Related properties automatically set when saving/updating <see cref="Entity"/> objects.
     /// </summary>
-    public interface IEntity : IEntity<int>
+    public interface IAudited : ICreationAudited, IModificationAudited
+    {
+
+    }
+
+    /// <summary>
+    /// Adds navigation properties to <see cref="IAudited"/> interface for user.
+    /// </summary>
+    /// <typeparam name="TUser">Type of the user</typeparam>
+    public interface IAudited<TUser> : IAudited, ICreationAudited<TUser>, IModificationAudited<TUser>
+        where TUser : IEntity<long>
     {
 
     }

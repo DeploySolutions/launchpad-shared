@@ -14,7 +14,7 @@
 
 namespace Deploy.LaunchPad.Images.Domain
 {
-    using Abp.Domain.Services;
+    using Deploy.LaunchPad.Code.Services;
     using ImageMagick;
     using System;
     using System.IO;
@@ -22,7 +22,7 @@ namespace Deploy.LaunchPad.Images.Domain
     /// <summary>
     /// Domain service interface for handling Image domain entities
     /// </summary>
-    public partial interface IImageManager : IDomainService
+    public partial interface IImageManager : ILaunchPadSystemIntegrationService
     {
         /// <summary>
         /// Get a MagickImage object from the provided file

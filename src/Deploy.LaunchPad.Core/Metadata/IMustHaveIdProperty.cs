@@ -7,10 +7,10 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
 
-namespace Deploy.LaunchPad.Domain.Metadata
+namespace Deploy.LaunchPad.Core.Metadata
 {
     
-    public partial interface IMustHaveIDProperty<TPrimaryKey>
+    public partial interface IMustHaveIdProperty<TPrimaryKey>
     {
         /// <summary>
         /// Unique identifier for this entity.

@@ -37,7 +37,7 @@ using System.Collections.Generic;
 using System.Reflection;
 
 
-namespace Deploy.LaunchPad.Domain.Entities
+namespace Deploy.LaunchPad.Core.Entities
 {
     /// <summary>
     /// A shortcut of <see cref="Entity{TPrimaryKey}"/> for most used primary key type (<see cref="int"/>).

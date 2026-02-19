@@ -31,7 +31,7 @@ using Abp.Domain.Entities.Auditing;
 using Deploy.LaunchPad.Domain.Metadata;
 using System;
 
-namespace Deploy.LaunchPad.Core.Abp.Model
+namespace Deploy.LaunchPad.Core.Entities
 {
 
     /// <summary>

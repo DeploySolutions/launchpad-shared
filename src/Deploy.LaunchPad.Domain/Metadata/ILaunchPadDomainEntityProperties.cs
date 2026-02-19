@@ -24,7 +24,7 @@ namespace Deploy.LaunchPad.Domain.Metadata
     /// Note these deliberately correspond 1:1 to many of the properties found in various ABP domain entity interfaces, which would also be inherited by implementing classes.
     /// </summary>
     /// <typeparam name="TIdType">The type of the t identifier type.</typeparam>
-    public partial interface ILaunchPadDomainEntityProperties<TIdType> : ILaunchPadCoreProperties, IMustHaveIDProperty<TIdType>
+    public partial interface ILaunchPadDomainEntityProperties<TIdType> : ILaunchPadCoreProperties, IMustHaveIdProperty<TIdType>
     {
         /// <summary>
         /// If this object is a regular domain entity, an aggregate root, or an aggregate child

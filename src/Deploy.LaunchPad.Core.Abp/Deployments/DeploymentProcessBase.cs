@@ -26,12 +26,12 @@
 //limitations under the License. 
 #endregion
 
+using Deploy.LaunchPad.Core.Entities;
 using System;
 using System.ComponentModel;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Xml.Serialization;
-using Deploy.LaunchPad.Core.Abp.Model;
 
 namespace Deploy.LaunchPad.Core.Abp.Deployments
 {

@@ -29,11 +29,11 @@
 
 namespace Deploy.LaunchPad.Core.Abp.SoftwareApplications
 {
+    using Deploy.LaunchPad.Core.Entities;
     using System;
     using System.ComponentModel;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Xml.Serialization;
-    using Deploy.LaunchPad.Core.Abp.Model;
 
     /// <summary>
     /// Represents a tenant in an application.

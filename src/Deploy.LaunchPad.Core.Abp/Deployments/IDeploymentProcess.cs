@@ -29,7 +29,7 @@
 using System;
 using System.ComponentModel;
 using System.Xml.Serialization;
-using Deploy.LaunchPad.Core.Abp.Model;
+using Deploy.LaunchPad.Core.Entities;
 
 namespace Deploy.LaunchPad.Core.Abp.Deployments
 {
