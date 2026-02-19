@@ -1,9 +1,9 @@
 ﻿using Deploy.LaunchPad.Util;
-using Deploy.LaunchPad.Core.Elements;
 using System;
 using System.Collections.Generic;
 using System.Text;
 using Deploy.LaunchPad.Files;
+using Deploy.LaunchPad.Core.Entities;
 
 namespace Deploy.LaunchPad.AWS.S3
 {

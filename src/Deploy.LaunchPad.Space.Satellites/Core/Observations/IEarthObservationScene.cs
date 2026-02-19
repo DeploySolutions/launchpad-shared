@@ -33,11 +33,11 @@ namespace Deploy.LaunchPad.Space.Satellites.Core
     using Deploy.LaunchPad.Geospatial;
     using Deploy.LaunchPad.Geospatial.Position;
     using Deploy.LaunchPad.Core.Licenses;
-    using Deploy.LaunchPad.Core.Elements;
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using Deploy.LaunchPad.Core.Metadata;
+    using Deploy.LaunchPad.Core.Entities;
 
     /// <summary>
     /// Interface IEarthObservationScene

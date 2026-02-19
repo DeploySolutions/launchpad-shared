@@ -11,7 +11,7 @@
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
-using Deploy.LaunchPad.Core.Elements;
+using Deploy.LaunchPad.Core.Entities;
 using Deploy.LaunchPad.Geospatial.H3;
 using System.Collections.Generic;
 

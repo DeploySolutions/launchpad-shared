@@ -11,6 +11,7 @@ using Deploy.LaunchPad.Util;
 using Deploy.LaunchPad.Core.Elements;
 using Deploy.LaunchPad.Files.Formats;
 using Deploy.LaunchPad.Core.Metadata;
+using Deploy.LaunchPad.Core.Entities;
 
 
 namespace Deploy.LaunchPad.Files

@@ -27,7 +27,7 @@
 #endregion
 
 
-using Deploy.LaunchPad.Core.Elements;
+using Deploy.LaunchPad.Core.Entities;
 
 namespace Deploy.LaunchPad.Geospatial.Temporal
 {

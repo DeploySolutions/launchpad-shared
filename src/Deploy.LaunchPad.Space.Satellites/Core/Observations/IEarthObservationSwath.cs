@@ -14,10 +14,10 @@
 using Deploy.LaunchPad.Core.Metadata;
 using Deploy.LaunchPad.Domain;
 using Deploy.LaunchPad.Domain.Metadata;
-using Deploy.LaunchPad.Core.Elements;
 using System;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
+using Deploy.LaunchPad.Core.Entities;
 
 namespace Deploy.LaunchPad.Space.Satellites.Core.Observations
 {

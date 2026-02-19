@@ -13,6 +13,7 @@ using System.Xml.Linq;
 using System.Xml.Serialization;
 using System.Globalization;
 using Deploy.LaunchPad.Core.Elements;
+using Deploy.LaunchPad.Core.Entities;
 
 namespace Deploy.LaunchPad.Core.Metadata
 {

@@ -30,7 +30,6 @@
  */
 #endregion
 
-using Deploy.LaunchPad.Core.Elements;
 using Deploy.LaunchPad.Core.Metadata;
 
 namespace Deploy.LaunchPad.Core.Entities

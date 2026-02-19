@@ -12,7 +12,6 @@
 // <summary></summary>
 // ***********************************************************************
 using Deploy.LaunchPad.Util;
-using Deploy.LaunchPad.Core.Elements;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -20,6 +19,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Runtime.Serialization;
 using System.Xml.Serialization;
+using Deploy.LaunchPad.Core.Entities;
 
 namespace Deploy.LaunchPad.Core.Metadata
 {

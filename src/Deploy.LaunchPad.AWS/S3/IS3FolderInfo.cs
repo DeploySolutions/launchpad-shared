@@ -1,4 +1,4 @@
-﻿using Deploy.LaunchPad.Core.Elements;
+﻿using Deploy.LaunchPad.Core.Entities;
 using System.Collections.Generic;
 
 namespace Deploy.LaunchPad.AWS.S3

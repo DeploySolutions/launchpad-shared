@@ -61,7 +61,7 @@ namespace Deploy.LaunchPad.Geospatial.Position
     using System.ComponentModel;
     using System.Runtime.Serialization;
     using System.Xml.Serialization;
-    using Deploy.LaunchPad.Core.Elements;
+    using Deploy.LaunchPad.Core.Entities;
 
     /// <summary>
     /// This interface defines the details of the country in which this item is located, using the ISO Alpha-3 code.

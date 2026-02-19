@@ -28,9 +28,9 @@
 
 using Deploy.LaunchPad.Geospatial.GeoJson;
 using Deploy.LaunchPad.Geospatial.ReferencePoint;
-using Deploy.LaunchPad.Core.Elements;
 using System.ComponentModel;
 using System.Xml.Serialization;
+using Deploy.LaunchPad.Core.Entities;
 
 namespace Deploy.LaunchPad.Geospatial.Position
 {
