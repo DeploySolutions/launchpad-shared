@@ -9,15 +9,13 @@ using System.Xml.Serialization;
 
 namespace Deploy.LaunchPad.Domain.Metadata
 {
-    public partial interface IMustHaveIDProperty
+    
+    public partial interface IMustHaveIDProperty<TPrimaryKey>
     {
-        // don't specify the actual property as if we inherit from ABP Domain Entity that will cause shadow property
-
-    }
-
-    public partial interface IHaveIDProperty<TIdType> : IMustHaveIDProperty
-    {
-       // don't specify the actual property as if we inherit from ABP Domain Entity that will cause shadow property
+        /// <summary>
+        /// Unique identifier for this entity.
+        /// </summary>
+        public TPrimaryKey Id { get; set; }
 
     }
 }
