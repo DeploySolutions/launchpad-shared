@@ -18,6 +18,20 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Reference Include="Abp">
+      <HintPath>..\..\..\..\deploysolutionssandbox\aspnetboilerplate\build\shared\Abp.dll</HintPath>
+    </Reference>
+    <Reference Include="Abp.AutoMapper">
+      <HintPath>..\..\..\..\deploysolutionssandbox\aspnetboilerplate\build\shared\Abp.AutoMapper.dll</HintPath>
+    </Reference>
+    <Reference Include="Abp.AspNetCore">
+      <HintPath>..\..\..\..\deploysolutionssandbox\aspnetboilerplate\build\shared\Abp.AspNetCore.dll</HintPath>
+    </Reference>
+    <Reference Include="Abp.FluentValidation">
+      <HintPath>..\..\..\..\deploysolutionssandbox\aspnetboilerplate\build\shared\Abp.FluentValidation.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
     <Compile Update="Deploy.LaunchPad.Space.Resources.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>

@@ -28,7 +28,22 @@
     <ProjectReference Include="..\Deploy.LaunchPad.Util\Deploy.LaunchPad.Util.csproj" />
   </ItemGroup>
 
-  
+
+  <ItemGroup>
+    <Reference Include="Abp">
+      <HintPath>..\..\..\..\deploysolutionssandbox\aspnetboilerplate\build\shared\Abp.dll</HintPath>
+    </Reference>
+    <Reference Include="Abp.AutoMapper">
+      <HintPath>..\..\..\..\deploysolutionssandbox\aspnetboilerplate\build\shared\Abp.AutoMapper.dll</HintPath>
+    </Reference>
+    <Reference Include="Abp.AspNetCore">
+      <HintPath>..\..\..\..\deploysolutionssandbox\aspnetboilerplate\build\shared\Abp.AspNetCore.dll</HintPath>
+    </Reference>
+    <Reference Include="Abp.FluentValidation">
+      <HintPath>..\..\..\..\deploysolutionssandbox\aspnetboilerplate\build\shared\Abp.FluentValidation.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
   <ItemGroup>
     <Compile Update="Deploy.LaunchPad.Core.Abp.Resources.Designer.cs">
       <DesignTime>True</DesignTime>

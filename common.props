@@ -50,19 +50,4 @@
     <Copy SourceFiles="@(DebugAssemblies)" DestinationFolder="$(SharedBuildOutputFolder)" />
   </Target>
 
-  <ItemGroup>
-    <Reference Include="Abp">
-      <HintPath>..\..\..\..\deploysolutionssandbox\aspnetboilerplate\build\shared\Abp.dll</HintPath>
-    </Reference>
-    <Reference Include="Abp.AutoMapper">
-      <HintPath>..\..\..\..\deploysolutionssandbox\aspnetboilerplate\build\shared\Abp.AutoMapper.dll</HintPath>
-    </Reference>
-    <Reference Include="Abp.AspNetCore">
-      <HintPath>..\..\..\..\deploysolutionssandbox\aspnetboilerplate\build\shared\Abp.AspNetCore.dll</HintPath>
-    </Reference>
-    <Reference Include="Abp.FluentValidation">
-      <HintPath>..\..\..\..\deploysolutionssandbox\aspnetboilerplate\build\shared\Abp.FluentValidation.dll</HintPath>
-    </Reference>
-  </ItemGroup>
-
 </Project>
