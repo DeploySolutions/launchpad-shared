@@ -30,26 +30,24 @@
  */
 #endregion
 
+using Deploy.LaunchPad.Core.Entities;
+using Deploy.LaunchPad.Core.Metadata;
 
-using Deploy.LaunchPad.Core.Domain.Entities;
-
-namespace Deploy.LaunchPad.Core.Entities
+namespace Deploy.LaunchPad.Core.Domain.Entities
 {
     /// <summary>
-    /// This interface ads <see cref="IDeletionAudited"/> to <see cref="IAudited"/> for a fully audited entity.
+    /// Defines interface for base entity type. All entities in the system must implement this interface.
     /// </summary>
-    public interface IFullAudited : IAudited, IDeletionAudited
-    {
-        
-    }
-
-    /// <summary>
-    /// Adds navigation properties to <see cref="IFullAudited"/> interface for user.
-    /// </summary>
-    /// <typeparam name="TUser">Type of the user</typeparam>
-    public interface IFullAudited<TUser> : IAudited<TUser>, IFullAudited, IDeletionAudited<TUser>
-        where TUser : IEntity<long>
+    /// <typeparam name="TPrimaryKey">Type of the primary key of the entity</typeparam>
+    public interface IEntity<TPrimaryKey> : ILaunchPadObject, 
+        ILaunchPadMinimalProperties, 
+        IMustHaveIdProperty<TPrimaryKey>
     {
 
+        /// <summary>
+        /// Checks if this entity is transient (not persisted to database and it has not an <see cref="Id"/>).
+        /// </summary>
+        /// <returns>True, if this entity is transient</returns>
+        bool IsTransient();
     }
 }

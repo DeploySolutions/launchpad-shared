@@ -30,23 +30,16 @@
  */
 #endregion
 
-using Deploy.LaunchPad.Core.Metadata;
-
-namespace Deploy.LaunchPad.Core.Entities
+namespace Deploy.LaunchPad.Core.Metadata
 {
     /// <summary>
-    /// Defines interface for base entity type. All entities in the system must implement this interface.
+    /// Implement this interface for an entity which must have TenantId.
     /// </summary>
-    /// <typeparam name="TPrimaryKey">Type of the primary key of the entity</typeparam>
-    public interface IEntity<TPrimaryKey> : ILaunchPadObject, 
-        ILaunchPadMinimalProperties, 
-        IMustHaveIdProperty<TPrimaryKey>
+    public interface IMustHaveTenant
     {
-
         /// <summary>
-        /// Checks if this entity is transient (not persisted to database and it has not an <see cref="Id"/>).
+        /// TenantId of this entity.
         /// </summary>
-        /// <returns>True, if this entity is transient</returns>
-        bool IsTransient();
+        int TenantId { get; set; }
     }
 }

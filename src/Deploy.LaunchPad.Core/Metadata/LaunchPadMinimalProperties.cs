@@ -1,4 +1,5 @@
 ﻿using Deploy.LaunchPad.Core.Elements;
+using Deploy.LaunchPad.Core.Entities;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -8,7 +9,7 @@ using System.Text;
 using System.Text.Json.Serialization;
 using System.Xml.Serialization;
 
-namespace Deploy.LaunchPad.Core.Entities
+namespace Deploy.LaunchPad.Core.Metadata
 {
     public partial class LaunchPadMinimalProperties : ILaunchPadMinimalProperties
     {

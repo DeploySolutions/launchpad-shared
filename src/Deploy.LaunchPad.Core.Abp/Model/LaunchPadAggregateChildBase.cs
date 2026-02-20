@@ -28,6 +28,7 @@
 
 namespace Deploy.LaunchPad.Core.Entities
 {
+    using Deploy.LaunchPad.Core.Domain.Entities;
     using Deploy.LaunchPad.Domain.Metadata;
     using System;
     using System.Collections.Generic;

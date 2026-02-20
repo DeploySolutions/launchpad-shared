@@ -11,8 +11,6 @@
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
-using Abp.Domain.Entities;
-using Abp.Domain.Entities.Auditing;
 using Deploy.LaunchPad.Domain.Metadata;
 using System;
 using System.Collections.Generic;

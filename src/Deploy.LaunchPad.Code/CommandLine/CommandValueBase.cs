@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Text;
-using Deploy.LaunchPad.Core.Entities;
+using Deploy.LaunchPad.Core.Metadata;
 
 namespace Deploy.LaunchPad.Code.CommandLine
 {

@@ -26,8 +26,7 @@
 //limitations under the License. 
 #endregion
 
-using Abp.Domain.Entities;
-using Abp.Domain.Entities.Auditing;
+using Deploy.LaunchPad.Core.Domain.Entities;
 using Deploy.LaunchPad.Domain.Metadata;
 using System;
 

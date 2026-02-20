@@ -31,7 +31,7 @@ using Abp.Domain.Entities;
 using Deploy.LaunchPad.Core.Entities;
 using Deploy.LaunchPad.Data;
 using System.Collections.Generic;
-using IMayHaveTenant = Deploy.LaunchPad.Core.Entities.IMayHaveTenant;
+using IMayHaveTenant = Deploy.LaunchPad.Core.Metadata.IMayHaveTenant;
 
 namespace Deploy.LaunchPad.Core.Abp.Data
 {

@@ -34,7 +34,7 @@ using System.ComponentModel;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Xml.Serialization;
-using IMayHaveTenant = Deploy.LaunchPad.Core.Entities.IMayHaveTenant;
+using IMayHaveTenant = Deploy.LaunchPad.Core.Metadata.IMayHaveTenant;
 
 
 namespace Deploy.LaunchPad.Core.Abp.SoftwareApplications

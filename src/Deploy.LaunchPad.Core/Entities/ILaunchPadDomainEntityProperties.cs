@@ -17,7 +17,7 @@ using System;
 using System.ComponentModel;
 using System.Xml.Serialization;
 
-namespace Deploy.LaunchPad.Domain.Metadata
+namespace Deploy.LaunchPad.Core.Entities
 {
     /// <summary>
     /// Defines the minimum properties LaunchPad expects to have for a Domain Entity or Value Object.

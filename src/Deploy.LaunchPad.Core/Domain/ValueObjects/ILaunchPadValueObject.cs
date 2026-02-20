@@ -29,7 +29,7 @@
 using Deploy.LaunchPad.Core.Entities;
 using System;
 
-namespace Deploy.LaunchPad.Domain.Metadata
+namespace Deploy.LaunchPad.Core.Domain.ValueObjects
 {
 
     /// <summary>

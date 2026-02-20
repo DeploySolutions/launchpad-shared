@@ -30,16 +30,26 @@
  */
 #endregion
 
-namespace Deploy.LaunchPad.Core.Entities
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.ComponentModel.DataAnnotations.Schema;
+using Deploy.LaunchPad.Core.Metadata;
+
+namespace Deploy.LaunchPad.Core.Domain.Entities
 {
-    /// <summary>
-    /// Implement this interface for an entity which must have TenantId.
-    /// </summary>
-    public interface IMustHaveTenant
+    public class AggregateRoot : AggregateRoot<int>, IAggregateRoot
     {
-        /// <summary>
-        /// TenantId of this entity.
-        /// </summary>
-        int TenantId { get; set; }
+
+    }
+
+    public class AggregateRoot<TPrimaryKey> : Entity<TPrimaryKey>, IAggregateRoot<TPrimaryKey>
+    {
+        [NotMapped]
+        public virtual ICollection<IEventData> DomainEvents { get; }
+
+        public AggregateRoot()
+        {
+            DomainEvents = new Collection<IEventData>();
+        }
     }
 }

@@ -30,13 +30,14 @@
  */
 #endregion
 
+using Deploy.LaunchPad.Core.Metadata;
 using Deploy.LaunchPad.Util.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Reflection;
 
 
-namespace Deploy.LaunchPad.Core.Entities
+namespace Deploy.LaunchPad.Core.Domain.Entities
 {
     /// <summary>
     /// A shortcut of <see cref="Entity{TPrimaryKey}"/> for most used primary key type (<see cref="int"/>).

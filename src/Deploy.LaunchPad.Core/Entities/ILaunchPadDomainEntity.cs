@@ -26,13 +26,10 @@
 //limitations under the License. 
 #endregion
 
-using Abp.Domain.Entities;
-using Abp.Domain.Entities.Auditing;
-using Deploy.LaunchPad.Domain.Metadata;
 using Deploy.LaunchPad.Util;
 using Deploy.LaunchPad.Core.Metadata;
 using System;
-using IPassivable = Abp.Domain.Entities.IPassivable;
+using Deploy.LaunchPad.Core.Domain.Entities;
 
 namespace Deploy.LaunchPad.Core.Entities
 {

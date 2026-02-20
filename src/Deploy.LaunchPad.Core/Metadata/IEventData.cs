@@ -30,15 +30,23 @@
  */
 #endregion
 
-using Deploy.LaunchPad.Core.Elements;
+using System;
 
-namespace Deploy.LaunchPad.Core.Entities
+namespace Deploy.LaunchPad.Core.Metadata
 {
     /// <summary>
-    /// A shortcut of <see cref="IEntity{TPrimaryKey}"/> for most used primary key type (<see cref="int"/>).
+    /// Defines interface for all Event data classes.
     /// </summary>
-    public interface IEntity : IEntity<int>
+    public interface IEventData
     {
+        /// <summary>
+        /// The time when the event occured.
+        /// </summary>
+        DateTime EventTime { get; set; }
 
+        /// <summary>
+        /// The object which triggers the event (optional).
+        /// </summary>
+        object EventSource { get; set; }
     }
 }

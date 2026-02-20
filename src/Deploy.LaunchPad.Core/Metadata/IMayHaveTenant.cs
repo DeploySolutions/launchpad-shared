@@ -30,7 +30,7 @@
  */
 #endregion
 
-namespace Deploy.LaunchPad.Core.Entities
+namespace Deploy.LaunchPad.Core.Metadata
 {
     /// <summary>
     /// Implement this interface for an entity which may optionally have TenantId.

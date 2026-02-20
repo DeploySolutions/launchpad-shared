@@ -32,7 +32,7 @@ using System;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Xml.Serialization;
-using IMustHaveTenant = Deploy.LaunchPad.Core.Entities.IMustHaveTenant;
+using IMustHaveTenant = Deploy.LaunchPad.Core.Metadata.IMustHaveTenant;
 
 namespace Deploy.LaunchPad.Core.Abp.Deployments
 {

@@ -17,7 +17,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Deploy.LaunchPad.Domain.Metadata
+namespace Deploy.LaunchPad.Core.Domain.Entities
 {
     /// <summary>
     /// Enum DomainEntityType

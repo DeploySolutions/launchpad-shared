@@ -28,9 +28,9 @@
 
 namespace Deploy.LaunchPad.Core.Entities
 {
+    using Deploy.LaunchPad.Core.Domain.Entities;
+    using Deploy.LaunchPad.Core.Metadata;
     using Deploy.LaunchPad.Domain.Metadata;
-    using global::Abp.Domain.Entities;
-    using global::Abp.Events.Bus;
     using System;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;

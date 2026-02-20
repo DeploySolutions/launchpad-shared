@@ -30,26 +30,20 @@
  */
 #endregion
 
+using Deploy.LaunchPad.Core.Entities;
+using Deploy.LaunchPad.Core.Metadata;
+using System.Collections.Generic;
 
-using Deploy.LaunchPad.Core.Domain.Entities;
-
-namespace Deploy.LaunchPad.Core.Entities
+namespace Deploy.LaunchPad.Core.Domain.Entities
 {
-    /// <summary>
-    /// This interface ads <see cref="IDeletionAudited"/> to <see cref="IAudited"/> for a fully audited entity.
-    /// </summary>
-    public interface IFullAudited : IAudited, IDeletionAudited
-    {
-        
-    }
-
-    /// <summary>
-    /// Adds navigation properties to <see cref="IFullAudited"/> interface for user.
-    /// </summary>
-    /// <typeparam name="TUser">Type of the user</typeparam>
-    public interface IFullAudited<TUser> : IAudited<TUser>, IFullAudited, IDeletionAudited<TUser>
-        where TUser : IEntity<long>
+    public interface IAggregateRoot : IAggregateRoot<int>, IEntity
     {
 
     }
+
+    public interface IAggregateRoot<TPrimaryKey> : IEntity<TPrimaryKey>, IGenerateDomainEvents
+    {
+
+    }
+
 }

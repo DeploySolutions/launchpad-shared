@@ -30,7 +30,7 @@ using Abp.Domain.Entities;
 using Deploy.LaunchPad.Data;
 using Deploy.LaunchPad.Core.Metadata;
 using Deploy.LaunchPad.Core.Entities;
-using IMayHaveTenant = Deploy.LaunchPad.Core.Entities.IMayHaveTenant;
+using IMayHaveTenant = Deploy.LaunchPad.Core.Metadata.IMayHaveTenant;
 
 
 namespace Deploy.LaunchPad.Core.Abp.Data

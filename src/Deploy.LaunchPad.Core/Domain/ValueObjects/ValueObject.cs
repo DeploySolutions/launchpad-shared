@@ -1,33 +1,36 @@
-﻿// ***********************************************************************
-// Assembly         : Deploy.LaunchPad.Core.Abp
-// Author           : Nicholas Kellett
-// Created          : 11-19-2023
-//
-// Last Modified By : Nicholas Kellett
-// Last Modified On : 10-28-2023
-// ***********************************************************************
-// <copyright file="LaunchPadValueObjectBase.cs" company="Deploy Software Solutions, inc.">
-//     2018-2024 Deploy Software Solutions, inc.
-// </copyright>
-// <summary></summary>
-// ***********************************************************************
-
-#region license
-//Licensed under the Apache License, Version 2.0 (the "License"); 
-//you may not use this file except in compliance with the License. 
-//You may obtain a copy of the License at 
-
-//http://www.apache.org/licenses/LICENSE-2.0 
-
-//Unless required by applicable law or agreed to in writing, software 
-//distributed under the License is distributed on an "AS IS" BASIS, 
-//WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. 
-//See the License for the specific language governing permissions and 
-//limitations under the License. 
+#region "Licensing"
+/*
+ * SPDX-FileCopyrightText: Copyright (c) Volosoft (https://volosoft.com) and contributors
+ * SPDX-License-Identifier: MIT
+ *
+ * This file contains code originally from the ASP.NET Boilerplate - Web Application Framework:
+ *   Repository: https://github.com/aspnetboilerplate/aspnetboilerplate
+ *
+ * The original portions of this file remain licensed under the MIT License.
+ * You may obtain a copy of the MIT License at:
+ *
+ *   https://opensource.org/license/mit
+ *
+ *
+ * SPDX-FileCopyrightText: Copyright (c) 2026 Deploy Software Solutions (https://www.deploy.solutions)
+ * SPDX-License-Identifier: Apache-2.0
+ *
+ * Modifications and additional code in this file are licensed under
+ * the Apache License, Version 2.0.
+ *
+ * You may obtain a copy of the Apache License at:
+ *
+ *   https://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the Apache License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *
+ * See the applicable license for governing permissions and limitations.
+ */
 #endregion
 
-using Abp.Domain.Values;
-using Deploy.LaunchPad.Domain.Metadata;
+using Deploy.LaunchPad.Core.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -36,20 +39,15 @@ using System.Reflection;
 using System.Runtime.Serialization;
 using System.Xml.Serialization;
 
-namespace Deploy.LaunchPad.Core.Entities
+namespace Deploy.LaunchPad.Core.Domain.ValueObjects
 {
-
+    //Inspired from https://docs.microsoft.com/en-us/dotnet/standard/microservices-architecture/microservice-ddd-cqrs-patterns/implement-value-objects
     /// <summary>
-    /// Base class for transient / value objects, ie. those that are not Domain Entities.
-    /// By definition this value object has no specific identity, and is transient / not persisted.
-    /// Implements <see cref="IValueObject">IValueObject</see> and inherits from ABP's ValueObject base class, which provides
-    /// base functionality for many of its methods. Inherits from ABP's ValueObject class.
-    /// Implements AspNetBoilerplate's auditing interfaces.
+    /// Base class for value objects.
     /// </summary>
-    [Serializable]
-    public abstract partial class LaunchPadValueObjectBase : ValueObject,
-        ILaunchPadValueObject, IEquatable<LaunchPadValueObjectBase>
+    public abstract class ValueObject : ILaunchPadValueObject, IEquatable<ValueObject>
     {
+        protected abstract IEnumerable<object> GetAtomicValues();
 
         /// <summary>
         /// If this object is a regular domain entity, an aggregate root, or an aggregate child
@@ -59,22 +57,49 @@ namespace Deploy.LaunchPad.Core.Entities
         [XmlAttribute]
         public virtual DomainEntityType EntityType { get; } = DomainEntityType.ValueObject;
 
+        public virtual bool ValueEquals(object obj)
+        {
+            if (obj == null || obj.GetType() != GetType())
+            {
+                return false;
+            }
+
+            ValueObject other = (ValueObject)obj;
+            IEnumerator<object> thisValues = GetAtomicValues().GetEnumerator();
+            IEnumerator<object> otherValues = other.GetAtomicValues().GetEnumerator();
+            while (thisValues.MoveNext() && otherValues.MoveNext())
+            {
+                if (ReferenceEquals(thisValues.Current, null) ^
+                    ReferenceEquals(otherValues.Current, null))
+                {
+                    return false;
+                }
+
+                if (thisValues.Current != null &&
+                    !thisValues.Current.Equals(otherValues.Current))
+                {
+                    return false;
+                }
+            }
+
+            return !thisValues.MoveNext() && !otherValues.MoveNext();
+        }
+
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="ValueObjectBase">ValueObject</see> class
+        /// Initializes a new instance of the <see cref="ValueObject">ValueObject</see> class
         /// </summary>
-        protected LaunchPadValueObjectBase() : base()
+        protected ValueObject() : base()
         {
 
 
         }
-
         /// <summary>
         /// Serialization constructor used for deserialization
         /// </summary>
         /// <param name="info">The serialization info</param>
         /// <param name="context">The context of the stream</param>
-        protected LaunchPadValueObjectBase(SerializationInfo info, StreamingContext context)
+        protected ValueObject(SerializationInfo info, StreamingContext context)
         {
 
         }
@@ -87,8 +112,6 @@ namespace Deploy.LaunchPad.Core.Entities
         /// <param name="context">The destination (see <see cref="T:System.Runtime.Serialization.StreamingContext" />) for this serialization.</param>
         public virtual void GetObjectData(SerializationInfo info, StreamingContext context)
         {
-
-
         }
 
         /// <summary>
@@ -122,7 +145,7 @@ namespace Deploy.LaunchPad.Core.Entities
             return clone;
         }
 
-        public static bool operator ==(LaunchPadValueObjectBase? a, LaunchPadValueObjectBase? b)
+        public static bool operator ==(ValueObject? a, ValueObject? b)
         {
             if (a is null && b is null)
             {
@@ -137,14 +160,14 @@ namespace Deploy.LaunchPad.Core.Entities
             return a.Equals(b);
         }
 
-        public static bool operator !=(LaunchPadValueObjectBase? a, LaunchPadValueObjectBase? b) =>
+        public static bool operator !=(ValueObject? a, ValueObject? b) =>
             !(a == b);
 
-        public virtual bool Equals(LaunchPadValueObjectBase? other) =>
+        public virtual bool Equals(ValueObject? other) =>
             other is not null && ValuesAreEqual(other);
 
         public override bool Equals(object? obj) =>
-            obj is LaunchPadValueObjectBase valueObject && ValuesAreEqual(valueObject);
+            obj is ValueObject valueObject && ValuesAreEqual(valueObject);
 
         public override int GetHashCode() =>
             GetAtomicValues().Aggregate(
@@ -153,7 +176,7 @@ namespace Deploy.LaunchPad.Core.Entities
                     HashCode.Combine(hashcode, value.GetHashCode()));
 
 
-        protected bool ValuesAreEqual(LaunchPadValueObjectBase valueObject) =>
+        protected bool ValuesAreEqual(ValueObject valueObject) =>
             GetAtomicValues().SequenceEqual(valueObject.GetAtomicValues());
     }
 }

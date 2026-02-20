@@ -27,28 +27,26 @@
 #endregion
 
 
+using Deploy.LaunchPad.Util;
+using Newtonsoft.Json;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Diagnostics;
+using System.Globalization;
+using System.Linq;
+using System.Reflection;
+using System.Runtime.Serialization;
+using System.Security.Cryptography;
+using System.Text;
+using System.Xml.Serialization;
+using Deploy.LaunchPad.Core.Elements;
+using Deploy.LaunchPad.Core.Domain.Entities;
+
 namespace Deploy.LaunchPad.Core.Entities
 {
-    using Deploy.LaunchPad.Domain;
-    using Deploy.LaunchPad.Core.Abp.SoftwareApplications;
-    using Deploy.LaunchPad.Util;
-    using global::Abp.Domain.Entities.Auditing;
-    using Newtonsoft.Json;
-    using System;
-    using System.Collections.Generic;
-    using System.ComponentModel;
-    using System.ComponentModel.DataAnnotations;
-    using System.ComponentModel.DataAnnotations.Schema;
-    using System.Diagnostics;
-    using System.Globalization;
-    using System.Linq;
-    using System.Reflection;
-    using System.Runtime.Serialization;
-    using System.Security.Cryptography;
-    using System.Text;
-    using System.Xml.Serialization;
-    using Deploy.LaunchPad.Core.Elements;
-    using Deploy.LaunchPad.Domain.Metadata;
 
     /// <summary>
     /// Base class for Entities. Implements <see cref="IDomainEntity">IDomainEntity</see> and provides
@@ -253,7 +251,7 @@ namespace Deploy.LaunchPad.Core.Entities
         /// </summary>
         protected LaunchPadDomainEntityBase() : base()
         {
-            Culture = new CultureInfo(ApplicationDetails<TIdType>.DEFAULT_CULTURE);
+            Culture = new CultureInfo("en-CA");
             //TenantId = 0; // default tenant
             IsDeleted = false;
             IsActive = true;
@@ -270,7 +268,7 @@ namespace Deploy.LaunchPad.Core.Entities
         /// <param name="description">The description for this entity</param>
         protected LaunchPadDomainEntityBase(ElementName name) : base()
         {
-            Culture = new CultureInfo(ApplicationDetails<TIdType>.DEFAULT_CULTURE);
+            Culture = new CultureInfo("en-CA");
             CreatorUserId = 1; // TODO - default user account?
             IsDeleted = false;
             IsActive = true;
@@ -286,7 +284,7 @@ namespace Deploy.LaunchPad.Core.Entities
         /// <param name="description">The description for this entity</param>
         protected LaunchPadDomainEntityBase(ElementName name, ElementDescription description) : base()
         {
-            Culture = new CultureInfo(ApplicationDetails<TIdType>.DEFAULT_CULTURE);
+            Culture = new CultureInfo("en-CA");
             CreatorUserId = 1; // TODO - default user account?
             IsDeleted = false;
             IsActive = true;
@@ -301,7 +299,7 @@ namespace Deploy.LaunchPad.Core.Entities
         protected LaunchPadDomainEntityBase(TIdType id) : base()
         {
             Id = id;
-            Culture = new CultureInfo(ApplicationDetails<TIdType>.DEFAULT_CULTURE);
+            Culture = new CultureInfo("en-CA");
             CreatorUserId = 1; // TODO - default user account?
             IsDeleted = false;
             IsActive = true;
@@ -318,7 +316,7 @@ namespace Deploy.LaunchPad.Core.Entities
         protected LaunchPadDomainEntityBase(TIdType id, string name) : base()
         {
             Id = id;
-            Culture = new CultureInfo(ApplicationDetails<TIdType>.DEFAULT_CULTURE);
+            Culture = new CultureInfo("en-CA");
             CreatorUserId = 1; // TODO - default user account?
             IsDeleted = false;
             IsActive = true;

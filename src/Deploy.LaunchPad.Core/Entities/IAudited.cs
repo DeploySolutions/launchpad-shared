@@ -31,6 +31,8 @@
 #endregion
 
 
+using Deploy.LaunchPad.Core.Domain.Entities;
+
 namespace Deploy.LaunchPad.Core.Entities
 {
     /// <summary>
