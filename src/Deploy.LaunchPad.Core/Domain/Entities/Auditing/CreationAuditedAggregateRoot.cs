@@ -32,26 +32,25 @@
 
 using System;
 using System.ComponentModel.DataAnnotations.Schema;
-using Deploy.LaunchPad.Core.Entities;
 using Deploy.LaunchPad.Util.Timing;
 
-namespace Deploy.LaunchPad.Core.Domain.Entities
+namespace Deploy.LaunchPad.Core.Domain.Entities.Auditing
 {
     /// <summary>
-    /// A shortcut of <see cref="CreationAuditedEntity{TPrimaryKey}"/> for most used primary key type (<see cref="int"/>).
+    /// A shortcut of <see cref="CreationAuditedAggregateRoot{TPrimaryKey}"/> for most used primary key type (<see cref="int"/>).
     /// </summary>
     [Serializable]
-    public abstract class CreationAuditedEntity : CreationAuditedEntity<int>, IEntity
+    public abstract class CreationAuditedAggregateRoot : CreationAuditedAggregateRoot<int>
     {
-
+        
     }
 
     /// <summary>
-    /// This class can be used to simplify implementing <see cref="ICreationAudited"/>.
+    /// This class can be used to simplify implementing <see cref="ICreationAudited"/> for aggregate roots.
     /// </summary>
     /// <typeparam name="TPrimaryKey">Type of the primary key of the entity</typeparam>
     [Serializable]
-    public abstract class CreationAuditedEntity<TPrimaryKey> : Entity<TPrimaryKey>, ICreationAudited
+    public abstract class CreationAuditedAggregateRoot<TPrimaryKey> : AggregateRoot<TPrimaryKey>, ICreationAudited
     {
         /// <summary>
         /// Creation time of this entity.
@@ -66,19 +65,19 @@ namespace Deploy.LaunchPad.Core.Domain.Entities
         /// <summary>
         /// Constructor.
         /// </summary>
-        protected CreationAuditedEntity()
+        protected CreationAuditedAggregateRoot()
         {
             CreationTime = Clock.Now;
         }
     }
 
     /// <summary>
-    /// This class can be used to simplify implementing <see cref="ICreationAudited{TUser}"/>.
+    /// This class can be used to simplify implementing <see cref="ICreationAudited{TUser}"/> for aggregate roots.
     /// </summary>
     /// <typeparam name="TPrimaryKey">Type of the primary key of the entity</typeparam>
     /// <typeparam name="TUser">Type of the user</typeparam>
     [Serializable]
-    public abstract class CreationAuditedEntity<TPrimaryKey, TUser> : CreationAuditedEntity<TPrimaryKey>, ICreationAudited<TUser>
+    public abstract class CreationAuditedAggregateRoot<TPrimaryKey, TUser> : CreationAuditedAggregateRoot<TPrimaryKey>, ICreationAudited<TUser>
         where TUser : IEntity<long>
     {
         /// <summary>

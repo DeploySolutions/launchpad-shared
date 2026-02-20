@@ -30,6 +30,7 @@ using Deploy.LaunchPad.Util;
 using Deploy.LaunchPad.Core.Metadata;
 using System;
 using Deploy.LaunchPad.Core.Domain.Entities;
+using Deploy.LaunchPad.Core.Domain.Entities.Auditing;
 
 namespace Deploy.LaunchPad.Core.Entities
 {

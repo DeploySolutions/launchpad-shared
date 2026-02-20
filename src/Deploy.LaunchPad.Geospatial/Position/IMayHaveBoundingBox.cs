@@ -63,7 +63,7 @@ namespace Deploy.LaunchPad.Geospatial.Position
     /// <summary>
     /// This interface defines the physical boundaries around something, in Bounding Box format of an array of coordinates (usually 4 of more)
     /// </summary>
-    public partial interface IMayHaveBoundingBox : ILaunchPadObject
+    public partial interface IMayHaveBoundingBox
     {
 
         /// <summary>

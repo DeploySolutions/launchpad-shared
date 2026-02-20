@@ -32,31 +32,24 @@
 
 
 using Deploy.LaunchPad.Core.Domain.Entities;
-using Deploy.LaunchPad.Core.Metadata;
 
-namespace Deploy.LaunchPad.Core.Entities
+namespace Deploy.LaunchPad.Core.Domain.Entities.Auditing
 {
     /// <summary>
-    /// This interface is implemented by entities which wanted to store deletion information (who and when deleted).
+    /// This interface ads <see cref="IDeletionAudited"/> to <see cref="IAudited"/> for a fully audited entity.
     /// </summary>
-    public interface IDeletionAudited : IHasDeletionTime
+    public interface IFullAudited : IAudited, IDeletionAudited
     {
-        /// <summary>
-        /// Which user deleted this entity?
-        /// </summary>
-        long? DeleterUserId { get; set; }
+        
     }
 
     /// <summary>
-    /// Adds navigation properties to <see cref="IDeletionAudited"/> interface for user.
+    /// Adds navigation properties to <see cref="IFullAudited"/> interface for user.
     /// </summary>
     /// <typeparam name="TUser">Type of the user</typeparam>
-    public interface IDeletionAudited<TUser> : IDeletionAudited
+    public interface IFullAudited<TUser> : IAudited<TUser>, IFullAudited, IDeletionAudited<TUser>
         where TUser : IEntity<long>
     {
-        /// <summary>
-        /// Reference to the deleter user of this entity.
-        /// </summary>
-        TUser DeleterUser { get; set; }
+
     }
 }

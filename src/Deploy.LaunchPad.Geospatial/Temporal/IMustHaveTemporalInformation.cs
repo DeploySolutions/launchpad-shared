@@ -27,14 +27,13 @@
 #endregion
 
 
-using Deploy.LaunchPad.Core.Entities;
 
 namespace Deploy.LaunchPad.Geospatial.Temporal
 {
     /// <summary>
     /// This interface defines the temporal (time) boundaries around something, including its effective date, and potentially a start and end date
     /// </summary>
-    public partial interface IMustHaveTemporalInformation : ILaunchPadObject
+    public partial interface IMustHaveTemporalInformation
     {
         public TemporalInformation TemporalInformation {get;set;}
 

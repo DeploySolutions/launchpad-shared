@@ -20,7 +20,7 @@ namespace Deploy.LaunchPad.Geospatial.H3
     /// <summary>
     /// Interface IMayHaveUberH3Location
     /// </summary>
-    public partial interface IMayHaveH3Location: ILaunchPadObject
+    public partial interface IMayHaveH3Location
     {
         /// <summary>
         /// Gets or sets the Uber H3 cell information.

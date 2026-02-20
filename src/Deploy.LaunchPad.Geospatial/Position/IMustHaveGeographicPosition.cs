@@ -39,7 +39,6 @@ namespace Deploy.LaunchPad.Geospatial.Position
     /// This interface defines the physical position of something, in terms of its latitude, longitude.
     /// </summary>
     public partial interface IMustHaveGeographicPosition :
-        ILaunchPadObject,
         IMayHaveBoundingBox,
         IMayHaveGeoJsonDefinition,
         IMayHaveElevation, IMustHaveCountryId

@@ -30,72 +30,57 @@
  */
 #endregion
 
-using Deploy.LaunchPad.Core.Entities;
 using System;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Deploy.LaunchPad.Core.Domain.Entities
+namespace Deploy.LaunchPad.Core.Domain.Entities.Auditing
 {
     /// <summary>
-    /// A shortcut of <see cref="FullAuditedEntity{TPrimaryKey}"/> for most used primary key type (<see cref="int"/>).
+    /// A shortcut of <see cref="AuditedAggregateRoot{TPrimaryKey}"/> for most used primary key type (<see cref="int"/>).
     /// </summary>
     [Serializable]
-    public abstract class FullAuditedEntity : FullAuditedEntity<int>, IEntity
+    public abstract class AuditedAggregateRoot : AuditedAggregateRoot<int>
     {
 
     }
 
     /// <summary>
-    /// Implements <see cref="IFullAudited"/> to be a base class for full-audited entities.
+    /// This class can be used to simplify implementing <see cref="IAudited"/> for aggregate roots.
     /// </summary>
     /// <typeparam name="TPrimaryKey">Type of the primary key of the entity</typeparam>
     [Serializable]
-    public abstract class FullAuditedEntity<TPrimaryKey> : AuditedEntity<TPrimaryKey>, IFullAudited
+    public abstract class AuditedAggregateRoot<TPrimaryKey> : CreationAuditedAggregateRoot<TPrimaryKey>, IAudited
     {
         /// <summary>
-        /// Is this entity Deleted?
+        /// Last modification date of this entity.
         /// </summary>
-        public virtual bool IsDeleted { get; set; }
+        public virtual DateTime? LastModificationTime { get; set; }
 
         /// <summary>
-        /// Which user deleted this entity?
+        /// Last modifier user of this entity.
         /// </summary>
-        public virtual long? DeleterUserId { get; set; }
-
-        /// <summary>
-        /// Deletion time of this entity.
-        /// </summary>
-        public virtual DateTime? DeletionTime { get; set; }
+        public virtual long? LastModifierUserId { get; set; }
     }
 
     /// <summary>
-    /// Implements <see cref="IFullAudited{TUser}"/> to be a base class for full-audited entities.
+    /// This class can be used to simplify implementing <see cref="IAudited{TUser}"/> for aggregate roots.
     /// </summary>
     /// <typeparam name="TPrimaryKey">Type of the primary key of the entity</typeparam>
     /// <typeparam name="TUser">Type of the user</typeparam>
     [Serializable]
-    public abstract class FullAuditedEntity<TPrimaryKey, TUser> : AuditedEntity<TPrimaryKey, TUser>, IFullAudited<TUser>
+    public abstract class AuditedAggregateRoot<TPrimaryKey, TUser> : AuditedAggregateRoot<TPrimaryKey>, IAudited<TUser>
         where TUser : IEntity<long>
     {
         /// <summary>
-        /// Is this entity Deleted?
+        /// Reference to the creator user of this entity.
         /// </summary>
-        public virtual bool IsDeleted { get; set; }
+        [ForeignKey("CreatorUserId")]
+        public virtual TUser CreatorUser { get; set; }
 
         /// <summary>
-        /// Reference to the deleter user of this entity.
+        /// Reference to the last modifier user of this entity.
         /// </summary>
-        [ForeignKey("DeleterUserId")]
-        public virtual TUser DeleterUser { get; set; }
-
-        /// <summary>
-        /// Which user deleted this entity?
-        /// </summary>
-        public virtual long? DeleterUserId { get; set; }
-
-        /// <summary>
-        /// Deletion time of this entity.
-        /// </summary>
-        public virtual DateTime? DeletionTime { get; set; }
+        [ForeignKey("LastModifierUserId")]
+        public virtual TUser LastModifierUser { get; set; }
     }
 }

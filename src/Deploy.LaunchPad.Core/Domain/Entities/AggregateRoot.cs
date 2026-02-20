@@ -33,7 +33,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations.Schema;
-using Deploy.LaunchPad.Core.Metadata;
+using Deploy.LaunchPad.Core.Events;
 
 namespace Deploy.LaunchPad.Core.Domain.Entities
 {

@@ -29,10 +29,6 @@
 
 namespace Deploy.LaunchPad.Geospatial.Position
 {
-    using NetTopologySuite.Geometries;
-    using System.Collections.Generic;
-    using System.ComponentModel;
-    using System.Xml.Serialization;
 
     /// <summary>
     /// This interface defines the geographical boundaries of an Area of Interest being observed.

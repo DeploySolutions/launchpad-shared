@@ -19,7 +19,6 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Runtime.Serialization;
 using System.Xml.Serialization;
-using Deploy.LaunchPad.Core.Entities;
 
 namespace Deploy.LaunchPad.Core.Metadata
 {

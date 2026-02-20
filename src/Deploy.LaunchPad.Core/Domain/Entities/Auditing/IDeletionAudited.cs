@@ -34,30 +34,29 @@
 using Deploy.LaunchPad.Core.Domain.Entities;
 using Deploy.LaunchPad.Core.Metadata;
 
-namespace Deploy.LaunchPad.Core.Entities
+namespace Deploy.LaunchPad.Core.Domain.Entities.Auditing
 {
     /// <summary>
-    /// This interface is implemented by entities that is wanted to store creation information (who and when created).
-    /// Creation time and creator user are automatically set when saving <see cref="Entity"/> to database.
+    /// This interface is implemented by entities which wanted to store deletion information (who and when deleted).
     /// </summary>
-    public interface ICreationAudited : IHasCreationTime
+    public interface IDeletionAudited : IHasDeletionTime
     {
         /// <summary>
-        /// Id of the creator user of this entity.
+        /// Which user deleted this entity?
         /// </summary>
-        long? CreatorUserId { get; set; }
+        long? DeleterUserId { get; set; }
     }
 
     /// <summary>
-    /// Adds navigation properties to <see cref="ICreationAudited"/> interface for user.
+    /// Adds navigation properties to <see cref="IDeletionAudited"/> interface for user.
     /// </summary>
     /// <typeparam name="TUser">Type of the user</typeparam>
-    public interface ICreationAudited<TUser> : ICreationAudited
+    public interface IDeletionAudited<TUser> : IDeletionAudited
         where TUser : IEntity<long>
     {
         /// <summary>
-        /// Reference to the creator user of this entity.
+        /// Reference to the deleter user of this entity.
         /// </summary>
-        TUser CreatorUser { get; set; }
+        TUser DeleterUser { get; set; }
     }
 }

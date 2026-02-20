@@ -30,27 +30,23 @@
  */
 #endregion
 
+using System;
 
-using Deploy.LaunchPad.Core.Domain.Entities;
-
-namespace Deploy.LaunchPad.Core.Entities
+namespace Deploy.LaunchPad.Core.Events
 {
     /// <summary>
-    /// This interface is implemented by entities which must be audited.
-    /// Related properties automatically set when saving/updating <see cref="Entity"/> objects.
+    /// Defines interface for all Event data classes.
     /// </summary>
-    public interface IAudited : ICreationAudited, IModificationAudited
+    public interface IEventData
     {
+        /// <summary>
+        /// The time when the event occured.
+        /// </summary>
+        DateTime EventTime { get; set; }
 
-    }
-
-    /// <summary>
-    /// Adds navigation properties to <see cref="IAudited"/> interface for user.
-    /// </summary>
-    /// <typeparam name="TUser">Type of the user</typeparam>
-    public interface IAudited<TUser> : IAudited, ICreationAudited<TUser>, IModificationAudited<TUser>
-        where TUser : IEntity<long>
-    {
-
+        /// <summary>
+        /// The object which triggers the event (optional).
+        /// </summary>
+        object EventSource { get; set; }
     }
 }

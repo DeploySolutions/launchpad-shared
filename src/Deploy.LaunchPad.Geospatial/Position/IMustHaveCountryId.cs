@@ -67,7 +67,7 @@ namespace Deploy.LaunchPad.Geospatial.Position
     /// This interface defines the details of the country in which this item is located, using a GUID ID value for the Countries, which may 
     /// be stored in the database.
     /// </summary>
-    public partial interface IMustHaveCountryId : ILaunchPadObject
+    public partial interface IMustHaveCountryId
     {
 
         ///<summary>

@@ -35,6 +35,7 @@ namespace Deploy.LaunchPad.Files
     using Deploy.LaunchPad.Files.Formats;
     using Deploy.LaunchPad.Core.Metadata;
     using Deploy.LaunchPad.Core.Entities;
+    using Deploy.LaunchPad.Util;
 
     /// <summary>
     /// Marks any object as a file that can be manipulated by the platform.

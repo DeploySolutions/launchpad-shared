@@ -27,6 +27,7 @@
 #endregion
 
 using Deploy.LaunchPad.Core.Domain.Entities;
+using Deploy.LaunchPad.Core.Domain.Entities.Auditing;
 using Deploy.LaunchPad.Core.Metadata;
 using Deploy.LaunchPad.Domain.Metadata;
 using System;

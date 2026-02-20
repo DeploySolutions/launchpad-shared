@@ -38,6 +38,7 @@ namespace Deploy.LaunchPad.Space.Satellites.Core
     using System.ComponentModel.DataAnnotations;
     using Deploy.LaunchPad.Core.Metadata;
     using Deploy.LaunchPad.Core.Entities;
+    using Deploy.LaunchPad.Util;
 
     /// <summary>
     /// Interface IEarthObservationScene

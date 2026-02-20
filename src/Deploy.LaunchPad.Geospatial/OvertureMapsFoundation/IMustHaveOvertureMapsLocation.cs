@@ -20,7 +20,7 @@ namespace Deploy.LaunchPad.Geospatial.OvertureMapsFoundation
     /// <summary>
     /// Interface IMustHaveOvertureMapsLocation
     /// </summary>
-    public partial interface IMustHaveOvertureMapsLocation : ILaunchPadObject
+    public partial interface IMustHaveOvertureMapsLocation
     {
         ///<summary>
         /// Overture Map's location details includnig Global Entity Reference System (GERS) ID, if known.

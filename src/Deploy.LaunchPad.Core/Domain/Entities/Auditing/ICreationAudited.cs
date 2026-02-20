@@ -30,23 +30,34 @@
  */
 #endregion
 
-using System;
 
-namespace Deploy.LaunchPad.Core.Metadata
+using Deploy.LaunchPad.Core.Domain.Entities;
+using Deploy.LaunchPad.Core.Metadata;
+
+namespace Deploy.LaunchPad.Core.Domain.Entities.Auditing
 {
     /// <summary>
-    /// Defines interface for all Event data classes.
+    /// This interface is implemented by entities that is wanted to store creation information (who and when created).
+    /// Creation time and creator user are automatically set when saving <see cref="Entity"/> to database.
     /// </summary>
-    public interface IEventData
+    public interface ICreationAudited : IHasCreationTime
     {
         /// <summary>
-        /// The time when the event occured.
+        /// Id of the creator user of this entity.
         /// </summary>
-        DateTime EventTime { get; set; }
+        long? CreatorUserId { get; set; }
+    }
 
+    /// <summary>
+    /// Adds navigation properties to <see cref="ICreationAudited"/> interface for user.
+    /// </summary>
+    /// <typeparam name="TUser">Type of the user</typeparam>
+    public interface ICreationAudited<TUser> : ICreationAudited
+        where TUser : IEntity<long>
+    {
         /// <summary>
-        /// The object which triggers the event (optional).
+        /// Reference to the creator user of this entity.
         /// </summary>
-        object EventSource { get; set; }
+        TUser CreatorUser { get; set; }
     }
 }

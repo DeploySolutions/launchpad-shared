@@ -44,6 +44,7 @@ using System.Text;
 using System.Xml.Serialization;
 using Deploy.LaunchPad.Core.Elements;
 using Deploy.LaunchPad.Core.Domain.Entities;
+using Deploy.LaunchPad.Core.Domain.Entities.Auditing;
 
 namespace Deploy.LaunchPad.Core.Entities
 {

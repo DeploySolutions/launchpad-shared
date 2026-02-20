@@ -57,13 +57,11 @@
 
 namespace Deploy.LaunchPad.Geospatial.Position
 {
-    using Deploy.LaunchPad.Core.Entities;
-    using System.Runtime.Serialization;
 
     /// <summary>
     /// This interface defines the physical altitude of something
     /// </summary>
-    public partial interface IMustHaveAltitude : ILaunchPadObject
+    public partial interface IMustHaveAltitude
     {
 
         /// <summary>

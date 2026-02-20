@@ -1,9 +1,10 @@
 ﻿using Deploy.LaunchPad.Core.Entities;
+using Deploy.LaunchPad.Core.Metadata;
 using System.Collections.Generic;
 
 namespace Deploy.LaunchPad.AWS.S3
 {
-    public partial interface IS3FolderInfo<out TFileInfo> : ILaunchPadMinimalProperties, ILaunchPadObject
+    public partial interface IS3FolderInfo<out TFileInfo> : ILaunchPadMinimalProperties
         where TFileInfo : S3FileInfo
     {
         long FileCount { get; set; }

@@ -27,7 +27,6 @@
 //limitations under the License. 
 #endregion
 
-using Deploy.LaunchPad.Core.Entities;
 
 namespace Deploy.LaunchPad.Geospatial.Temporal
 {
@@ -35,7 +34,7 @@ namespace Deploy.LaunchPad.Geospatial.Temporal
     /// <summary>
     /// This interface defines the temporal (time) boundaries around something, including its effective date, and potentially a start and end date
     /// </summary>
-    public partial interface IMayHaveTemporalInformation : ILaunchPadObject
+    public partial interface IMayHaveTemporalInformation
     {
         public TemporalInformation? TemporalInformation {get;set;}
 

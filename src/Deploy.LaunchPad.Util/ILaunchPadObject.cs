@@ -27,7 +27,7 @@
 #endregion
 
 
-namespace Deploy.LaunchPad.Core.Entities
+namespace Deploy.LaunchPad.Util
 {
 
     /// <summary>

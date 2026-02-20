@@ -63,7 +63,7 @@ namespace Deploy.LaunchPad.Geospatial.Position
     /// <summary>
     /// This interface defines the physical altitude of something
     /// </summary>
-    public partial interface IMayHaveAltitude : ILaunchPadObject
+    public partial interface IMayHaveAltitude
     {
 
         /// <summary>

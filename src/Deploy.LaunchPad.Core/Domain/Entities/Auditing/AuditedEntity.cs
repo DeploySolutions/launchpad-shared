@@ -30,27 +30,26 @@
  */
 #endregion
 
-using Deploy.LaunchPad.Core.Entities;
 using System;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Deploy.LaunchPad.Core.Domain.Entities
+namespace Deploy.LaunchPad.Core.Domain.Entities.Auditing
 {
     /// <summary>
-    /// A shortcut of <see cref="AuditedAggregateRoot{TPrimaryKey}"/> for most used primary key type (<see cref="int"/>).
+    /// A shortcut of <see cref="AuditedEntity{TPrimaryKey}"/> for most used primary key type (<see cref="int"/>).
     /// </summary>
     [Serializable]
-    public abstract class AuditedAggregateRoot : AuditedAggregateRoot<int>
+    public abstract class AuditedEntity : AuditedEntity<int>, IEntity
     {
 
     }
 
     /// <summary>
-    /// This class can be used to simplify implementing <see cref="IAudited"/> for aggregate roots.
+    /// This class can be used to simplify implementing <see cref="IAudited"/>.
     /// </summary>
     /// <typeparam name="TPrimaryKey">Type of the primary key of the entity</typeparam>
     [Serializable]
-    public abstract class AuditedAggregateRoot<TPrimaryKey> : CreationAuditedAggregateRoot<TPrimaryKey>, IAudited
+    public abstract class AuditedEntity<TPrimaryKey> : CreationAuditedEntity<TPrimaryKey>, IAudited
     {
         /// <summary>
         /// Last modification date of this entity.
@@ -64,12 +63,12 @@ namespace Deploy.LaunchPad.Core.Domain.Entities
     }
 
     /// <summary>
-    /// This class can be used to simplify implementing <see cref="IAudited{TUser}"/> for aggregate roots.
+    /// This class can be used to simplify implementing <see cref="IAudited{TUser}"/>.
     /// </summary>
     /// <typeparam name="TPrimaryKey">Type of the primary key of the entity</typeparam>
     /// <typeparam name="TUser">Type of the user</typeparam>
     [Serializable]
-    public abstract class AuditedAggregateRoot<TPrimaryKey, TUser> : AuditedAggregateRoot<TPrimaryKey>, IAudited<TUser>
+    public abstract class AuditedEntity<TPrimaryKey, TUser> : AuditedEntity<TPrimaryKey>, IAudited<TUser>
         where TUser : IEntity<long>
     {
         /// <summary>

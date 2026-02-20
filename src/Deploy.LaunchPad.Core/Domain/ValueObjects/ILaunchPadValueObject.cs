@@ -27,6 +27,7 @@
 #endregion
 
 using Deploy.LaunchPad.Core.Entities;
+using Deploy.LaunchPad.Util;
 using System;
 
 namespace Deploy.LaunchPad.Core.Domain.ValueObjects
