@@ -28,12 +28,13 @@
 
 namespace Deploy.LaunchPad.Domain.Tests
 {
-    using Xunit;
+    using Deploy.LaunchPad.Core.Abp;
+    using Deploy.LaunchPad.Core.Abp.Devices;
     
     using Deploy.LaunchPad.Domain;
     using Deploy.LaunchPad.Util;
-    using Deploy.LaunchPad.Core.Abp;
-    using Deploy.LaunchPad.Core.Abp.Devices;
+    using System;
+    using Xunit;
 
     /// <summary>
     /// Class DomainEntityBaseTests.
@@ -74,7 +75,7 @@ namespace Deploy.LaunchPad.Domain.Tests
         [Fact]
         public void Should_NotHave_Empty_Id_When_Instantiated_With_Id()
         {
-            var id = SequentialGuid.NewGuid();
+            var id = Guid.NewGuid();
             Device<System.Guid> a = new Device<System.Guid>(null, id);
             Assert.NotEqual(System.Guid.Empty, a.Id);
         }
@@ -85,9 +86,9 @@ namespace Deploy.LaunchPad.Domain.Tests
         [Fact]
         public void Should_Have_Unique_Id_When_Instantiated_With_Id()
         {
-            var aId = SequentialGuid.NewGuid();
+            var aId = Guid.NewGuid();
             Device<System.Guid> a = new Device<System.Guid>(null, aId);
-            var bId = SequentialGuid.NewGuid();
+            var bId = Guid.NewGuid();
             Device<System.Guid> b = new Device<System.Guid>(null, bId);
             Assert.NotEqual(b.Id, a.Id);
         }

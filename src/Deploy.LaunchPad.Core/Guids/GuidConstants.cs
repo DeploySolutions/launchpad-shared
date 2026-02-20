@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Deploy.LaunchPad.Util
+namespace Deploy.LaunchPad.Core.Guids
 {
     /// <summary>
     /// Static GUID special values to allow consistency for data handling purposes. Design rules:

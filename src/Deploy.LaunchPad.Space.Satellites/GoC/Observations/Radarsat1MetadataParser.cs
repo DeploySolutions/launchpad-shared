@@ -46,6 +46,7 @@ namespace Deploy.LaunchPad.Space.Satellites.GoC
     using Deploy.LaunchPad.Core.Licenses;
     using Deploy.LaunchPad.Geospatial.Position;
     using Deploy.LaunchPad.Core.Elements;
+    using Deploy.LaunchPad.Core.Guids;
 
     /// <summary>
     /// Utility to parse a Radarsat1 image observation metadata file and populate a Radarsat1Observation object from it.
@@ -234,7 +235,7 @@ namespace Deploy.LaunchPad.Space.Satellites.GoC
             {
                 observationFiles.Nvol = new NvolFile<Guid>()
                 {
-                    Id = SequentialGuid.NewGuid(),
+                    Id = Guid.NewGuid(),
                     Name = new ElementName(Path.GetFileName(expectedFiles[0].Value)) 
                 };
             }
@@ -242,7 +243,7 @@ namespace Deploy.LaunchPad.Space.Satellites.GoC
             {
                 observationFiles.Sard = new SardFile<Guid>()
                 {
-                    Id = SequentialGuid.NewGuid(),
+                    Id = Guid.NewGuid(),
                     Name = new ElementName(Path.GetFileName(expectedFiles[1].Value))
                 };
             }
@@ -250,7 +251,7 @@ namespace Deploy.LaunchPad.Space.Satellites.GoC
             {
                 observationFiles.Sarl = new SarlFile<Guid>()
                 {
-                    Id = SequentialGuid.NewGuid(),
+                    Id = Guid.NewGuid(),
                     Name = new ElementName(Path.GetFileName(expectedFiles[2].Value))
                 };
             }
@@ -258,7 +259,7 @@ namespace Deploy.LaunchPad.Space.Satellites.GoC
             {
                 observationFiles.Sart = new SartFile<Guid>()
                 {
-                    Id = SequentialGuid.NewGuid(),
+                    Id = Guid.NewGuid(),
                     Name = new ElementName(Path.GetFileName(expectedFiles[3].Value))
                 };
             }
@@ -276,7 +277,7 @@ namespace Deploy.LaunchPad.Space.Satellites.GoC
             {
                 observationFiles.Vol = new VolFile<Guid>()
                 {
-                    Id = SequentialGuid.NewGuid(),
+                    Id = Guid.NewGuid(),
                     Name = new ElementName(Path.GetFileName(expectedFiles[6].Value))
                 };
             }
