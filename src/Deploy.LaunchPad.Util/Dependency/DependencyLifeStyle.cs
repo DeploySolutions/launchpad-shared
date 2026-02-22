@@ -30,13 +30,22 @@
  */
 #endregion
 
-namespace Deploy.LaunchPad.Core.Dependency
+namespace Deploy.LaunchPad.Util.Dependency
 {
     /// <summary>
-    /// All classes implement this interface are automatically registered to dependency injection as singleton object.
+    /// Lifestyles of types used in dependency injection system.
     /// </summary>
-    public interface ISingletonDependency
+    public enum DependencyLifeStyle
     {
+        /// <summary>
+        /// Singleton object. Created a single object on first resolving
+        /// and same instance is used for subsequent resolves.
+        /// </summary>
+        Singleton,
 
+        /// <summary>
+        /// Transient object. Created one object for every resolving.
+        /// </summary>
+        Transient
     }
 }

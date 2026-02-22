@@ -30,7 +30,7 @@
  */
 #endregion
 
-using Deploy.LaunchPad.Core.Dependency;
+using Deploy.LaunchPad.Util.Dependency;
 
 namespace Deploy.LaunchPad.Core.Domain.Services
 {
