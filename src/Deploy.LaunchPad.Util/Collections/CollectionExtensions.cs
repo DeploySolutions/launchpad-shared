@@ -29,7 +29,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace Deploy.LaunchPad.Util
+namespace Deploy.LaunchPad.Util.Collections
 {
     /// <summary>
     /// Contains some useful extensions for working with collections.
