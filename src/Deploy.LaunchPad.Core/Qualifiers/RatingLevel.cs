@@ -18,7 +18,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Deploy.LaunchPad.Domain.Qualifiers
+namespace Deploy.LaunchPad.Core.Qualifiers
 {
     /// <summary>
     /// Useful for specifying the rating level
