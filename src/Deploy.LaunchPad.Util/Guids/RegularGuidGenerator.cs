@@ -30,30 +30,19 @@
  */
 #endregion
 
-using System.Threading.Tasks;
+using Deploy.LaunchPad.Util.Dependency;
+using System;
 
-namespace Deploy.LaunchPad.Core.Threading
+namespace Deploy.LaunchPad.Util.Guids
 {
     /// <summary>
-    /// Interface to start/stop self threaded services.
+    /// Implements <see cref="IGuidGenerator"/> by using <see cref="Guid.NewGuid"/>.
     /// </summary>
-    public interface IRunnable
+    public class RegularGuidGenerator : IGuidGenerator, ITransientDependency
     {
-        /// <summary>
-        /// Starts the service.
-        /// </summary>
-        void Start();
-
-        /// <summary>
-        /// Sends stop command to the service.
-        /// Service may return immediately and stop asynchronously.
-        /// A client should then call <see cref="WaitToStop"/> method to ensure it's stopped.
-        /// </summary>
-        void Stop();
-
-        /// <summary>
-        /// Waits the service to stop.
-        /// </summary>
-        void WaitToStop();
+        public virtual Guid Create()
+        {
+            return Guid.NewGuid();
+        }
     }
 }

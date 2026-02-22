@@ -30,15 +30,18 @@
  */
 #endregion
 
-using Deploy.LaunchPad.Util.Threading;
+using System;
 
-namespace Deploy.LaunchPad.Core.Threading.BackgroundWorkers
+namespace Deploy.LaunchPad.Util.Guids
 {
     /// <summary>
-    /// Interface for a worker (thread) that runs on background to perform some tasks.
+    /// Used to generate Ids.
     /// </summary>
-    public interface IBackgroundWorker : IRunnable
+    public interface IGuidGenerator
     {
-
+        /// <summary>
+        /// Creates a GUID.
+        /// </summary>
+        Guid Create();
     }
 }

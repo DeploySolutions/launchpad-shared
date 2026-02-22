@@ -34,7 +34,7 @@ using Deploy.LaunchPad.Util.Threading;
 using System;
 using System.Security.Cryptography;
 
-namespace Deploy.LaunchPad.Core.Guids
+namespace Deploy.LaunchPad.Util.Guids
 {
     /// <summary>
     /// Implements <see cref="IGuidGenerator"/> by creating sequential Guids.

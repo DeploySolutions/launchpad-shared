@@ -30,6 +30,8 @@
  */
 #endregion
 
+using Deploy.LaunchPad.Util.Threading;
+
 namespace Deploy.LaunchPad.Core.Threading.BackgroundWorkers
 {
     /// <summary>

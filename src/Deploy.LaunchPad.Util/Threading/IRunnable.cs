@@ -30,15 +30,30 @@
  */
 #endregion
 
-using Deploy.LaunchPad.Util.Threading;
+using System.Threading.Tasks;
 
-namespace Deploy.LaunchPad.Core.Threading.BackgroundWorkers
+namespace Deploy.LaunchPad.Util.Threading
 {
     /// <summary>
-    /// Interface for a worker (thread) that runs on background to perform some tasks.
+    /// Interface to start/stop self threaded services.
     /// </summary>
-    public interface IBackgroundWorker : IRunnable
+    public interface IRunnable
     {
+        /// <summary>
+        /// Starts the service.
+        /// </summary>
+        void Start();
 
+        /// <summary>
+        /// Sends stop command to the service.
+        /// Service may return immediately and stop asynchronously.
+        /// A client should then call <see cref="WaitToStop"/> method to ensure it's stopped.
+        /// </summary>
+        void Stop();
+
+        /// <summary>
+        /// Waits the service to stop.
+        /// </summary>
+        void WaitToStop();
     }
 }

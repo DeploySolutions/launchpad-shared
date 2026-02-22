@@ -32,7 +32,7 @@
 
 using System;
 
-namespace Deploy.LaunchPad.Core.Threading
+namespace Deploy.LaunchPad.Util.Threading
 {
     /// <summary>
     /// Extension methods to make locking easier.
