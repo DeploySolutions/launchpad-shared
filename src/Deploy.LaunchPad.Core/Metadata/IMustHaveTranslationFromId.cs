@@ -6,7 +6,7 @@
 // Last Modified By : Nicholas Kellett
 // Last Modified On : 10-27-2023
 // ***********************************************************************
-// <copyright file="IMayHaveTranslationFromId.cs" company="Deploy Software Solutions, inc.">
+// <copyright file="IMustHaveTranslationFromId.cs" company="Deploy Software Solutions, inc.">
 //     2018-2024 Deploy Software Solutions, inc.
 // </copyright>
 // <summary></summary>
@@ -17,17 +17,16 @@ using System.ComponentModel;
 using System.Runtime.Serialization;
 using System.Xml.Serialization;
 
-namespace Deploy.LaunchPad.Domain.Metadata
+namespace Deploy.LaunchPad.Core.Metadata
 {
     /// <summary>
     /// Useful if data can be "translated" from one language to another.
     /// </summary>
-    /// <typeparam name="TIdType">The type of the t identifier type.</typeparam>
-    public partial interface IMayHaveTranslationFromId<TIdType>
+    public partial interface IMustHaveTranslationFromId<TIdType>
     {
         [DataObjectField(false)]
         [DataMember(Name = "translatedFromId", EmitDefaultValue = false)]
         [XmlAttribute]
-        public TIdType? TranslatedFromId { get; set; }
+        public TIdType TranslatedFromId { get; set; }
     }
 }
