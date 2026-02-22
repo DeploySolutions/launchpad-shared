@@ -37,7 +37,7 @@ namespace Deploy.LaunchPad.Util.Helpers
     /// <summary>
     /// A helper class for File operations.
     /// </summary>
-    public static class FileHelper
+    public partial class FileHelper : HelperBase
     {
         /// <summary>
         /// Checks and deletes given file if it does exists.

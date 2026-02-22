@@ -37,7 +37,7 @@ namespace Deploy.LaunchPad.Util.Helpers
     /// <summary>
     /// A helper class for Directory operations.
     /// </summary>
-    public static class DirectoryHelper
+    public partial class DirectoryHelper : HelperBase
     {
         /// <summary>
         /// Creates a new directory if it does not exists.
