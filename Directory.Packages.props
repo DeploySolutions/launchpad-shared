@@ -151,13 +151,10 @@
     <PackageVersion Include="Fody" Version="6.9.3" />
     <PackageVersion Include="Hangfire.Core" Version="1.8.23" />
     <PackageVersion Include="Hangfire.AspNetCore" Version="1.8.23" />
-    <PackageVersion Include="HtmlSanitizer" Version="9.0.892" />
     <PackageVersion Include="JetBrains.Annotations" Version="2025.2.4" />
     <PackageVersion Include="JsonSubTypes" Version="2.0.1" />
-    <PackageVersion Include="MailKit" Version="4.14.1" />
     <PackageVersion Include="Markdig" Version="0.38.0" />
     <PackageVersion Include="MediatR" Version="12.4.1" />
-    <PackageVersion Include="mongocsharpdriver" Version="2.30.0" />
     <PackageVersion Include="Newtonsoft.Json" Version="13.0.4" />
     <PackageVersion Include="NetTopologySuite" Version="2.6.0" />
     <PackageVersion Include="Nito.AsyncEx.Context" Version="5.1.2" />
@@ -168,12 +165,8 @@
     <PackageVersion Include="OpenIddict.Core" Version="7.2.0" />
     <PackageVersion Include="OpenIddict.EntityFrameworkCore" Version="7.2.0" />
     <PackageVersion Include="Polly" Version="8.6.5" />
-    <PackageVersion Include="protobuf-net" Version="3.2.56" />
-    <PackageVersion Include="Quartz" Version="3.15.1" />
     <PackageVersion Include="RestSharp" Version="113.1.0" />
     <PackageVersion Include="Schema.NET.Pending" Version="13.0.0" />
-    <PackageVersion Include="Slapper.AutoMapper" Version="2.0.5" />
-    <PackageVersion Include="StackExchange.Redis" Version="2.11.0" />
     <PackageVersion Include="System.Linq.Dynamic.Core" Version="1.7.1" />
     <PackageVersion Include="TimeZoneConverter" Version="7.2.0" />
   </ItemGroup>
