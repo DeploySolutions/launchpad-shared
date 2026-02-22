@@ -30,7 +30,6 @@
  */
 #endregion
 
-using System.Threading.Tasks;
 
 namespace Deploy.LaunchPad.Util.Threading
 {

@@ -30,7 +30,7 @@
  */
 #endregion
 
-using Deploy.LaunchPad.Core.Threading.BackgroundWorkers;
+using Deploy.LaunchPad.Util.Threading.BackgroundWorkers;
 using System;
 using System.Threading.Tasks;
 
