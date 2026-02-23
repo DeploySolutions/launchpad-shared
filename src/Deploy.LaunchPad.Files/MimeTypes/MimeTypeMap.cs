@@ -740,7 +740,8 @@ namespace Deploy.LaunchPad.Files.MimeTypes
                 {"application/x-x509-ca-cert", ".cer"},
                 {"application/x-zip-compressed", ".zip"},
                 {"application/xhtml+xml", ".xhtml"},
-                {"application/xml", ".xml"}, // anomaly, .xml -> text/xml, but application/xml -> many things, but all are xml, so safest is .xml                                
+                {"application/xml", ".xml"}, // anomaly, .xml -> text/xml, but application/xml -> many things, but all are xml, so safest is .xml                                                
+                {"application/x-toon",".toon" },
                 {"application/x-yaml",".yaml" },
                 {"application/x-zarr",".zarr"},
                 {"audio/aac", ".AAC"},
@@ -762,8 +763,11 @@ namespace Deploy.LaunchPad.Files.MimeTypes
                 {"image/x-macpaint", ".mac"},
                 {"image/x-quicktime", ".qti"},
                 {"message/rfc822", ".eml"},
+                {"text/astro",".astro"},
                 {"text/calendar", ".ics"},
                 {"text/html", ".html"},
+                {"text/markdown",".md"},
+                {"text/mdx",".mdx"},
                 {"text/plain", ".txt"},
                 {"text/scriptlet", ".wsc"},
                 {"text/xml", ".xml"},
