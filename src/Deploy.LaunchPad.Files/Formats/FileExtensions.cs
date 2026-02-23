@@ -40,6 +40,8 @@ namespace Deploy.LaunchPad.Files.Formats
         gif,
         [Display(Name = ".gz")]
         gz,
+        [Display(Name = ".htm")]
+        htm,
         [Display(Name = ".html")]
         html,
         [Display(Name = ".ini")]
@@ -534,6 +536,8 @@ namespace Deploy.LaunchPad.Files.Formats
         library_ms,
         [Display(Name = ".lit")]
         lit,
+        [Display(Name = ".log")]
+        log,
         [Display(Name = ".loadtest")]
         loadtest,
         [Display(Name = ".lpk")]
