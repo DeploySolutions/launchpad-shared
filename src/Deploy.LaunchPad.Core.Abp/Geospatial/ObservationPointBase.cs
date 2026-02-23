@@ -31,7 +31,7 @@ using Deploy.LaunchPad.Core.Entities;
 using Deploy.LaunchPad.Geospatial;
 using Deploy.LaunchPad.Geospatial.Position;
 using Deploy.LaunchPad.Geospatial.ReferencePoint;
-using Deploy.LaunchPad.Core.Guids;
+using Deploy.LaunchPad.Util.Guids;
 using NetTopologySuite.Geometries;
 using System;
 using System.Collections.Generic;
