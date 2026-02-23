@@ -14,7 +14,7 @@
 using System;
 using Deploy.LaunchPad.Util;
 using System.Collections;
-using Deploy.LaunchPad.Core.Elements;
+using Deploy.LaunchPad.Util.Elements;
 
 namespace Deploy.LaunchPad.Code.SourceControl
 {

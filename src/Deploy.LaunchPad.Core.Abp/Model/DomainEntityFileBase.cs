@@ -36,7 +36,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
 using System.Xml.Serialization;
 using Deploy.LaunchPad.Core.Metadata;
-using Deploy.LaunchPad.Core.Elements;
+using Deploy.LaunchPad.Util.Elements;
 
 namespace Deploy.LaunchPad.Core.Entities
 {

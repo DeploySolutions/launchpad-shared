@@ -1,7 +1,7 @@
 ﻿using Deploy.LaunchPad.Util;
 using System;
 
-namespace Deploy.LaunchPad.Core.Elements
+namespace Deploy.LaunchPad.Util.Elements
 {
     public partial interface IElementDescriptionLight : IComparable<ElementDescriptionLight>, 
         IEquatable<ElementDescriptionLight>,

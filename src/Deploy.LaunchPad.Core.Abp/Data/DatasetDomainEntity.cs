@@ -37,7 +37,7 @@ namespace Deploy.LaunchPad.Core.Abp.Data
     using Deploy.LaunchPad.Util;
     using Deploy.LaunchPad.Files;
     using Deploy.LaunchPad.Core.Metadata;
-    using Deploy.LaunchPad.Core.Elements;
+    using Deploy.LaunchPad.Util.Elements;
     using Deploy.LaunchPad.Core.Entities;
 
 

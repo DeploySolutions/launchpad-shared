@@ -63,7 +63,7 @@
  */
 #endregion
 
-using Deploy.LaunchPad.Core.Elements;
+using Deploy.LaunchPad.Util.Elements;
 
 namespace Deploy.LaunchPad.Core.Domain.Entities
 {

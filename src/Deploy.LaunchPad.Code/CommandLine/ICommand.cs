@@ -7,7 +7,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Deploy.LaunchPad.Util;
 using Deploy.LaunchPad.Code.Helpers;
-using Deploy.LaunchPad.Core.Elements;
+using Deploy.LaunchPad.Util.Elements;
 
 namespace Deploy.LaunchPad.Code.CommandLine
 {

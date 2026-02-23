@@ -11,7 +11,7 @@ using System.Reflection;
 using System.Text.RegularExpressions;
 using System.Xml.Serialization;
 
-namespace Deploy.LaunchPad.Core.Elements
+namespace Deploy.LaunchPad.Util.Elements
 {
     [Serializable]
     [ComplexType]

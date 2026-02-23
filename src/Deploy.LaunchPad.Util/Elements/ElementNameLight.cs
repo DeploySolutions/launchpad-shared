@@ -7,7 +7,7 @@ using System;
 using Newtonsoft.Json;
 using Deploy.LaunchPad.Util.ValueConverters;
 
-namespace Deploy.LaunchPad.Core.Elements
+namespace Deploy.LaunchPad.Util.Elements
 {
     [Serializable]      
     [ComplexType]
@@ -27,7 +27,7 @@ namespace Deploy.LaunchPad.Core.Elements
         /// The full name of this element
         /// </summary>
         /// <value>The full name.</value>
-        [MaxLength(255, ErrorMessageResourceName = "Validation_ElementName_Full_255CharsOrLess", ErrorMessageResourceType = typeof(Deploy_LaunchPad_Core_Resources))]
+        [MaxLength(255, ErrorMessageResourceName = "Validation_ElementName_Full_255CharsOrLess", ErrorMessageResourceType = typeof(Deploy_LaunchPad_Util_Resources))]
         [DataObjectField(false)]
         [XmlAttribute]
         [JsonProperty("full")]

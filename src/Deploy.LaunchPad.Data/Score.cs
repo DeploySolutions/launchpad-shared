@@ -12,7 +12,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
 using Deploy.LaunchPad.Core.Metadata;
-using Deploy.LaunchPad.Core.Elements;
+using Deploy.LaunchPad.Util.Elements;
 
 namespace Deploy.LaunchPad.Data
 {

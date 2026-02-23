@@ -45,7 +45,7 @@ namespace Deploy.LaunchPad.Space.Satellites.GoC
     using System.Text.RegularExpressions;
     using Deploy.LaunchPad.Core.Licenses;
     using Deploy.LaunchPad.Geospatial.Position;
-    using Deploy.LaunchPad.Core.Elements;
+    using Deploy.LaunchPad.Util.Elements;
     using Deploy.LaunchPad.Core.Guids;
 
     /// <summary>

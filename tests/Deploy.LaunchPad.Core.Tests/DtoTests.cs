@@ -38,7 +38,7 @@ namespace Deploy.LaunchPad.Domain.Tests
     using Deploy.LaunchPad.Domain.Metadata;
     using Deploy.LaunchPad.Util;
     using Deploy.LaunchPad.Core.Abp.Devices;
-    using Deploy.LaunchPad.Core.Elements;
+    using Deploy.LaunchPad.Util.Elements;
 
     /// <summary>
     /// Class DtoTests.

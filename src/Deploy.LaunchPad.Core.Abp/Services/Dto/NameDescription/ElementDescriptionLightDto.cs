@@ -1,5 +1,5 @@
 ﻿using Abp.AutoMapper;
-using Deploy.LaunchPad.Core.Elements;
+using Deploy.LaunchPad.Util.Elements;
 using Deploy.LaunchPad.Util;
 using Newtonsoft.Json;
 using System;

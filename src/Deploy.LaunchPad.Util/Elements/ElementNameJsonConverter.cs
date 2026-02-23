@@ -5,11 +5,11 @@ using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 
-namespace Deploy.LaunchPad.Core.Elements
+namespace Deploy.LaunchPad.Util.Elements
 {
-    public partial class ElementNameLightJsonConverter : JsonConverter<ElementNameLight>
+    public partial class ElementNameJsonConverter : JsonConverter<ElementName>
     {
-        public override ElementNameLight ReadJson(JsonReader reader, Type objectType, ElementNameLight existingValue, bool hasExistingValue, JsonSerializer serializer)
+        public override ElementName ReadJson(JsonReader reader, Type objectType, ElementName existingValue, bool hasExistingValue, JsonSerializer serializer)
         {
             var value = reader.Value as string;
             if (string.IsNullOrEmpty(value))
@@ -17,7 +17,7 @@ namespace Deploy.LaunchPad.Core.Elements
             return new ElementName(value);
         }
 
-        public override void WriteJson(JsonWriter writer, ElementNameLight value, JsonSerializer serializer)
+        public override void WriteJson(JsonWriter writer, ElementName value, JsonSerializer serializer)
         {
             writer.WriteValue(value?.ToString());
         }

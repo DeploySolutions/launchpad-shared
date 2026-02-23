@@ -38,7 +38,7 @@ namespace Deploy.LaunchPad.Space.Tests
     using Deploy.LaunchPad.Space.Satellites;
     using Deploy.LaunchPad.Core.Licenses;
     using Deploy.LaunchPad.Core;
-    using Deploy.LaunchPad.Core.Elements;
+    using Deploy.LaunchPad.Util.Elements;
 
     /// <summary>
     /// Class Radarsat1MetadataParserTests.

@@ -3,7 +3,7 @@ using Castle.Core.Logging;
 using System;
 using System.Collections.Generic;
 
-namespace Deploy.LaunchPad.Core.Elements
+namespace Deploy.LaunchPad.Util.Elements
 {
     public partial interface IElementType : IComparable<ElementType>, IEquatable<ElementType>
     {
