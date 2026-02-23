@@ -30,9 +30,10 @@
  */
 #endregion
 
+using Deploy.LaunchPad.Util;
 using System.IO;
 
-namespace Deploy.LaunchPad.Util.Helpers
+namespace Deploy.LaunchPad.Files.Helpers
 {
     /// <summary>
     /// A helper class for File operations.
