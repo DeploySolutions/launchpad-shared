@@ -40,7 +40,7 @@ namespace Deploy.LaunchPad.Files.Formats
         /// The extension of the file
         /// </summary>
         /// <value>The extension.</value>
-        public override string Extension => "." + FileExtensions.tiff;
+        public override string Extension => "." + FileExtension.tiff;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="TifFile{TIdType}"/> class.

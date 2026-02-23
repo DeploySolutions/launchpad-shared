@@ -8,7 +8,7 @@ namespace Deploy.LaunchPad.Files.Formats
 {
     public partial class PdfFile : FileBase<byte[], PdfFileSchema>, IPdfFile
     {
-        public override string Extension => "." + FileExtensions.pdf;
+        public override string Extension => "." + FileExtension.pdf;
 
 
         /// <summary>

@@ -11,7 +11,7 @@ namespace Deploy.LaunchPad.Files.Formats
     /// </summary>
     public partial class ToonFile : FileBase<string, ToonFileSchema>, IToonFile
     {
-        public override string Extension => "." + FileExtensions.toon;
+        public override string Extension => "." + FileExtension.toon;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ToonFile"/> class.

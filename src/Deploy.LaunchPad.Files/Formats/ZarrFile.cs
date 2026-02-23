@@ -13,7 +13,7 @@ namespace Deploy.LaunchPad.Files.Formats
     {
         public virtual JsonDocument Metadata { get; private set; } // Represents the metadata of the Zarr file
 
-        public override string Extension => "." + FileExtensions.zarr;
+        public override string Extension => "." + FileExtension.zarr;
 
 
         /// <summary>

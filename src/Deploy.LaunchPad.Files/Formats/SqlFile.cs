@@ -10,7 +10,7 @@ namespace Deploy.LaunchPad.Files.Formats
 {
     public partial class SqlFile : FileBase<string, SqlFileSchema>, ISqlFile
     {
-        public override string Extension => "." + FileExtensions.sql;
+        public override string Extension => "." + FileExtension.sql;
         public virtual bool IsTransaction { get; set; } = false;
         public string? DatabaseName { get; set; }
         public string? DatabaseSchema { get; set; }

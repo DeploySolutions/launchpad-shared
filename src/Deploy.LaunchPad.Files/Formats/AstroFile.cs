@@ -14,7 +14,7 @@ namespace Deploy.LaunchPad.Files.Formats
         public virtual IReadOnlyList<string> Imports { get; set; }
             = Array.Empty<string>(); // import Footer... etc.
 
-        public override string Extension => "." + FileExtensions.astro;
+        public override string Extension => "." + FileExtension.astro;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="AstroFile{TIdType}"/> class.

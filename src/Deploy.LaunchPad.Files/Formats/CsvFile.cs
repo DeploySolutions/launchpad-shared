@@ -6,7 +6,7 @@ namespace Deploy.LaunchPad.Files.Formats
 {
     public partial class CsvFile : FileBase<string, IFrictionlessFileSchema>, ICsvFile
     {
-        public override string Extension => "." + FileExtensions.csv;
+        public override string Extension => "." + FileExtension.csv;
         public virtual bool IsHeaderCaseSensitive { get; set; } = false;
         public virtual string Delimiter { get; set; } = ",";
         public virtual char Quote { get; set; } = '"';

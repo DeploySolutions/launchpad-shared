@@ -12,7 +12,7 @@ namespace Deploy.LaunchPad.Files.Formats
 {
     public partial class JsonFile : FileBase<JToken, JToken>, IJsonFile
     {
-        public override string Extension => "." + FileExtensions.json;
+        public override string Extension => "." + FileExtension.json;
 
         /// <summary>
         /// Constructor

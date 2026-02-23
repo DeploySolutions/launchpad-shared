@@ -8,7 +8,7 @@ namespace Deploy.LaunchPad.Files.Formats
 {
     public partial class PowershellFile : FileBase<string, PowershellFileSchema>, IPowershellFile
     {
-        public override string Extension => "." + FileExtensions.ps1;
+        public override string Extension => "." + FileExtension.ps1;
 
         /// <summary>
         /// Constructor

@@ -11,7 +11,7 @@ namespace Deploy.LaunchPad.Files.Formats
     /// </summary>
     public partial class YamlFile : FileBase<string, YamlFileSchema>, IYamlFile
     {
-        public override string Extension => "." + FileExtensions.yaml;
+        public override string Extension => "." + FileExtension.yaml;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="YamlFile"/> class.

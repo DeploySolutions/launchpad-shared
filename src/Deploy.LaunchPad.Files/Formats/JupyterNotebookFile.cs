@@ -8,7 +8,7 @@ namespace Deploy.LaunchPad.Files.Formats
 {
     public partial class JupyterNotebookFile : FileBase<byte[], JToken>, IJupyterNotebookFile
     {
-        public override string Extension => "." + FileExtensions.ipynb;
+        public override string Extension => "." + FileExtension.ipynb;
 
         /// <summary>
         /// Constructor

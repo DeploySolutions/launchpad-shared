@@ -12,7 +12,7 @@ namespace Deploy.LaunchPad.Files.Formats
 
     public partial class XmlFile : FileBase<XmlDocument, XmlSchemaSet>, IXmlFile
     {
-        public override string Extension => "." + FileExtensions.xml;
+        public override string Extension => "." + FileExtension.xml;
 
         /// <summary>
         /// Constructor

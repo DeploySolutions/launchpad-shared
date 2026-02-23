@@ -8,7 +8,7 @@ namespace Deploy.LaunchPad.Files.Formats
 {
     public partial class OfficePresentationFile : FileBase<byte[], OfficePresentationFileSchema>, IOfficePresentationFile
     {
-        public override string Extension => "." + FileExtensions.pptx; // could also use Libre Office extensions
+        public override string Extension => "." + FileExtension.pptx; // could also use Libre Office extensions
 
         /// <summary>
         /// Initializes a new instance of the <see cref="OfficePresentationFile{TIdType}"/> class.

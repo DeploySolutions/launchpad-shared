@@ -7,10 +7,12 @@ using System.Threading.Tasks;
 
 namespace Deploy.LaunchPad.Files.Formats
 {
-    public enum FileExtensions
+    public enum FileExtension
     {
         [Display(Name = "None")]
-        None,
+        None, 
+        [Display(Name = "Unknown")]
+        Unknown,
         [Display(Name = ".astro")]
         astro,
         // Camtasia / Techsmith Audiate .audiate

@@ -8,7 +8,7 @@ namespace Deploy.LaunchPad.Files.Formats
     public partial class HtmlFile : FileBase<string, XmlSchemaSet>, IHtmlFile
     {
 
-        public override string Extension => "." + FileExtensions.html;
+        public override string Extension => "." + FileExtension.html;
 
         /// Initializes a new instance of the <see cref="HtmlFile{TIdType}"/> class.
         /// </summary>
