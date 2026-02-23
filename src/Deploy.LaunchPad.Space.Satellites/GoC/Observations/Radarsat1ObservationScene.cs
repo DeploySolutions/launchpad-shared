@@ -37,7 +37,6 @@ namespace Deploy.LaunchPad.Space.Satellites.GoC
     using Deploy.LaunchPad.Util.Timing;
     using Deploy.LaunchPad.Core.Abp;
     using Deploy.LaunchPad.Domain;
-    using Deploy.LaunchPad.Files;
     using Deploy.LaunchPad.Geospatial;
     using Deploy.LaunchPad.Geospatial.Position;
     using Deploy.LaunchPad.Geospatial.Temporal;
@@ -45,6 +44,7 @@ namespace Deploy.LaunchPad.Space.Satellites.GoC
     using System;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
+    using Deploy.LaunchPad.Files.Formats;
 
     /// <summary>
     /// Class Radarsat1ObservationScene.

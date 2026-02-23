@@ -38,7 +38,7 @@ namespace Deploy.LaunchPad.Geospatial.Position
     using NetTopologySuite.Geometries;
     using Deploy.LaunchPad.Geospatial;
     using Deploy.LaunchPad.Geospatial.ReferencePoint;
-    using Deploy.LaunchPad.Core.Guids;
+    using Deploy.LaunchPad.Util.Guids;
 
     /// <summary>
     /// This class defines the physical position of something, in terms of its latitude, longitude, and elevation.

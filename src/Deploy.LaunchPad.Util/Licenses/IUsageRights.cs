@@ -1,12 +1,12 @@
 ﻿// ***********************************************************************
-// Assembly         : Deploy.LaunchPad.Space.Satellites
+// Assembly         : Deploy.LaunchPad.Core
 // Author           : Nicholas Kellett
 // Created          : 11-19-2023
 //
 // Last Modified By : Nicholas Kellett
 // Last Modified On : 01-22-2023
 // ***********************************************************************
-// <copyright file="Radarsat1DataUsageRights.cs" company="Deploy Software Solutions, inc.">
+// <copyright file="IUsageRights.cs" company="Deploy Software Solutions, inc.">
 //     2018-2024 Deploy Software Solutions, inc.
 // </copyright>
 // <summary></summary>
@@ -26,27 +26,37 @@
 //limitations under the License. 
 #endregion
 
-namespace Deploy.LaunchPad.Space.Satellites.GoC
-{
-    using Deploy.LaunchPad.Util.Licenses;
-    using System;
+using System;
 
+namespace Deploy.LaunchPad.Util.Licenses
+{
     /// <summary>
-    /// Implements the Radarsat1 observation data copyright information.
+    /// Interface IUsageRights
     /// </summary>
-    public partial class Radarsat1DataUsageRights : UsageRights
+    public partial interface IUsageRights
     {
+        /// <summary>
+        /// Gets or sets the owner.
+        /// </summary>
+        /// <value>The owner.</value>
+        string Owner { get; set; }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Radarsat1DataUsageRights"/> class.
+        /// Gets or sets the attribution.
         /// </summary>
-        public Radarsat1DataUsageRights() : base()
-        {
-            Owner = Deploy_LaunchPad_Space_Resources.Text_Radarsat1DataUsageRights_Owner;
-            Attribution = Deploy_LaunchPad_Space_Resources.Text_Radarsat1DataUsageRights_Attribution;
-            GoverningLicense = new OpenGovernmentCanadaLicense();
-            ProjectLink = new Uri("https://www.asc-csa.gc.ca/eng/satellites/radarsat1/");
-        }
+        /// <value>The attribution.</value>
+        string Attribution { get; set; }
 
+        /// <summary>
+        /// Gets or sets the governing license.
+        /// </summary>
+        /// <value>The governing license.</value>
+        ILicense GoverningLicense { get; set; }
+
+        /// <summary>
+        /// Gets or sets the project link.
+        /// </summary>
+        /// <value>The project link.</value>
+        Uri ProjectLink { get; set; }
     }
 }

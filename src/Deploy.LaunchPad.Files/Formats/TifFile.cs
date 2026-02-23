@@ -1,12 +1,12 @@
 ﻿// ***********************************************************************
-// Assembly         : Deploy.LaunchPad.Space.Satellites
+// Assembly         : Deploy.LaunchPad.Core.Abp
 // Author           : Nicholas Kellett
 // Created          : 11-19-2023
 //
 // Last Modified By : Nicholas Kellett
 // Last Modified On : 01-22-2023
 // ***********************************************************************
-// <copyright file="Radarsat1DataUsageRights.cs" company="Deploy Software Solutions, inc.">
+// <copyright file="TifFile.cs" company="Deploy Software Solutions, inc.">
 //     2018-2024 Deploy Software Solutions, inc.
 // </copyright>
 // <summary></summary>
@@ -26,26 +26,29 @@
 //limitations under the License. 
 #endregion
 
-namespace Deploy.LaunchPad.Space.Satellites.GoC
-{
-    using Deploy.LaunchPad.Util.Licenses;
-    using System;
 
+namespace Deploy.LaunchPad.Files.Formats
+{
     /// <summary>
-    /// Implements the Radarsat1 observation data copyright information.
+    /// Class TifFile.
+    /// Implements the <see cref="Model.DomainEntityFileBase{System.Byte[]}" />
     /// </summary>
-    public partial class Radarsat1DataUsageRights : UsageRights
+    /// <seealso cref="Model.DomainEntityFileBase{ System.Byte[]}" />
+    public partial class TifFile : FileBase<byte[], TifImageFileSchema>
     {
+        /// <summary>
+        /// The extension of the file
+        /// </summary>
+        /// <value>The extension.</value>
+        public override string Extension => "." + FileExtensions.tiff;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Radarsat1DataUsageRights"/> class.
+        /// Initializes a new instance of the <see cref="TifFile{TIdType}"/> class.
         /// </summary>
-        public Radarsat1DataUsageRights() : base()
+        /// <param name="fileName">Name of the file.</param>
+        public TifFile(string fileName) : base(fileName)
         {
-            Owner = Deploy_LaunchPad_Space_Resources.Text_Radarsat1DataUsageRights_Owner;
-            Attribution = Deploy_LaunchPad_Space_Resources.Text_Radarsat1DataUsageRights_Attribution;
-            GoverningLicense = new OpenGovernmentCanadaLicense();
-            ProjectLink = new Uri("https://www.asc-csa.gc.ca/eng/satellites/radarsat1/");
+
         }
 
     }

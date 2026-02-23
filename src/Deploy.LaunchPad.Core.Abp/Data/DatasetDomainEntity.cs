@@ -33,7 +33,7 @@ namespace Deploy.LaunchPad.Core.Abp.Data
     using System.Runtime.Serialization;
     using System.Text;
     using Deploy.LaunchPad.Data;
-    using Deploy.LaunchPad.Core.Licenses;
+    using Deploy.LaunchPad.Util.Licenses;
     using Deploy.LaunchPad.Util;
     using Deploy.LaunchPad.Files;
     using Deploy.LaunchPad.Core.Metadata;

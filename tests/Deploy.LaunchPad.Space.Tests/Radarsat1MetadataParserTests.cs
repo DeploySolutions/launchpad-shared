@@ -36,7 +36,7 @@ namespace Deploy.LaunchPad.Space.Tests
     using Deploy.LaunchPad.Util;
     using Deploy.LaunchPad.Domain;
     using Deploy.LaunchPad.Space.Satellites;
-    using Deploy.LaunchPad.Core.Licenses;
+    using Deploy.LaunchPad.Util.Licenses;
     using Deploy.LaunchPad.Core;
     using Deploy.LaunchPad.Util.Elements;
 
