@@ -12,13 +12,14 @@
 // <summary></summary>
 // ***********************************************************************
 using Abp.Configuration;
+using Deploy.LaunchPad.Core.Application;
 using Deploy.LaunchPad.Util;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Deploy.LaunchPad.Core.Abp.AbpModuleConfig
+namespace Deploy.LaunchPad.Core.Config
 {
     /// <summary>
     /// Class LaunchPadAbpAppSettingProvider.

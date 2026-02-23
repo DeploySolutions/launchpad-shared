@@ -13,6 +13,7 @@
     <PackageReference Include="Castle.Core" />
     <PackageReference Include="JetBrains.Annotations" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" />
+    <PackageReference Include="Microsoft.Extensions.Configuration" />
     <PackageReference Include="NetTopologySuite.IO.GeoJSON" />
     <PackageReference Include="RestSharp" />
   </ItemGroup>

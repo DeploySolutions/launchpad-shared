@@ -11,12 +11,11 @@
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
-using Abp.Dependency;
-using Microsoft.AspNetCore.Hosting;
+
 using Microsoft.Extensions.Configuration;
 using System;
 
-namespace Deploy.LaunchPad.Core.Abp.AbpModuleConfig
+namespace Deploy.LaunchPad.Core.Application
 {
     /// <summary>
     /// Class LaunchPadAbpAppConfigurationAccessor.

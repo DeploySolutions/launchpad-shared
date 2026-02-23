@@ -11,10 +11,10 @@
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
-using Abp.Dependency;
+using Deploy.LaunchPad.Util.Dependency;
 using Microsoft.Extensions.Configuration;
 
-namespace Deploy.LaunchPad.Core.Abp.AbpModuleConfig
+namespace Deploy.LaunchPad.Core.Application
 {
     /// <summary>
     /// Interface ILaunchPadAppConfigurationAccessor
