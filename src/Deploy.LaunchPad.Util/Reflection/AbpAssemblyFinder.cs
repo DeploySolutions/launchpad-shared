@@ -33,7 +33,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using Abp.Modules;
+using Deploy.LaunchPad.Util.Modules;  
 
 namespace Deploy.LaunchPad.Util.Reflection
 {
