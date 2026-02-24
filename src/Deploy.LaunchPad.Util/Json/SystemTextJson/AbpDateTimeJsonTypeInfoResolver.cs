@@ -35,7 +35,7 @@ using System.Text.Json.Serialization.Metadata;
 
 namespace Deploy.LaunchPad.Util.Json.SystemTextJson
 {
-    public class AbpDateTimeJsonTypeInfoResolver : DefaultJsonTypeInfoResolver
+    public partial class AbpDateTimeJsonTypeInfoResolver : DefaultJsonTypeInfoResolver
     {
         public AbpDateTimeJsonTypeInfoResolver(List<string> inputDateTimeFormats = null, string outputDateTimeFormat = null)
         {

@@ -35,7 +35,7 @@ using System.Collections.Generic;
 
 namespace Deploy.LaunchPad.Core.Auditing
 {
-    public interface IAbpAuditingDefaultOptions
+    public partial interface IAbpAuditingDefaultOptions
     {
         /// <summary>
         /// A list of selectors to determine conventional Auditing classes.

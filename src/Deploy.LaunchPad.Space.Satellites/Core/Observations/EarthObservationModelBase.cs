@@ -47,7 +47,7 @@ namespace Deploy.LaunchPad.Space.Satellites.Core
     /// </summary>
     /// <seealso cref="LaunchPadModelBase" />
     /// <seealso cref="Deploy.LaunchPad.Space.Satellites.Core.IEarthObservationScene" />
-    public abstract class EarthObservationModelBase : LaunchPadModelBase,
+    public abstract partial class EarthObservationModelBase : LaunchPadModelBase,
         IEarthObservationScene
 
     {

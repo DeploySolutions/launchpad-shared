@@ -37,7 +37,7 @@ namespace Deploy.LaunchPad.Util.ObjectMapping
     /// <summary>
     /// Defines a simple interface to map objects.
     /// </summary>
-    public interface IObjectMapper
+    public partial interface IObjectMapper
     {
         /// <summary>
         /// Converts an object to another. Creates a new object of <typeparamref name="TDestination"/>.

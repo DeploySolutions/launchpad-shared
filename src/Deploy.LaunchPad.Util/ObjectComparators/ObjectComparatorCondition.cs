@@ -37,7 +37,7 @@ using Deploy.LaunchPad.Util.Extensions;
 
 namespace Deploy.LaunchPad.Util.ObjectComparators
 {
-    public class ObjectComparatorCondition<TValueType>
+    public partial class ObjectComparatorCondition<TValueType>
     {
         public string CompareType { get; set; }
 
@@ -56,7 +56,7 @@ namespace Deploy.LaunchPad.Util.ObjectComparators
         }
     }
 
-    public class ObjectComparatorCondition<TValueType, TEnumCompareType>
+    public partial class ObjectComparatorCondition<TValueType, TEnumCompareType>
         where TEnumCompareType : Enum
     {
         public TEnumCompareType CompareType { get; set; }

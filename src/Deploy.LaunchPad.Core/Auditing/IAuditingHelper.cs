@@ -37,7 +37,7 @@ using System.Threading.Tasks;
 
 namespace Deploy.LaunchPad.Core.Auditing
 {
-    public interface IAuditingHelper
+    public partial interface IAuditingHelper
     {
         bool ShouldSaveAudit(MethodInfo methodInfo, bool defaultValue = false);
 

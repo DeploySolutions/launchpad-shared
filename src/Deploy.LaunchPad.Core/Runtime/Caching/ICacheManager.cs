@@ -40,11 +40,11 @@ namespace Deploy.LaunchPad.Core.Runtime.Caching
     /// An upper level container for <see cref="ICache"/> objects. 
     /// A cache manager should work as Singleton and track and manage <see cref="ICache"/> objects.
     /// </summary>
-    public interface ICacheManager : ICacheManager<ICache>
+    public partial interface ICacheManager : ICacheManager<ICache>
     {
     }
 
-    public interface ICacheManager<TCache> : IDisposable
+    public partial interface ICacheManager<TCache> : IDisposable
         where TCache : class
     {
         /// <summary>

@@ -37,7 +37,7 @@ namespace Deploy.LaunchPad.Core.Application.Services.Dto
     /// <summary>
     /// Simply implements <see cref="ILimitedResultRequest"/>.
     /// </summary>
-    public class LimitedResultRequestDto : ILimitedResultRequest
+    public partial class LimitedResultRequestDto : ILimitedResultRequest
     {
         public static int DefaultMaxResultCount { get; set; } = 10;
 

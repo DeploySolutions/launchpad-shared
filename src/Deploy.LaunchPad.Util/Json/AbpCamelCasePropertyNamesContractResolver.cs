@@ -36,7 +36,7 @@ using Newtonsoft.Json.Serialization;
 
 namespace Deploy.LaunchPad.Util.Json
 {
-    public class AbpCamelCasePropertyNamesContractResolver : CamelCasePropertyNamesContractResolver
+    public partial class AbpCamelCasePropertyNamesContractResolver : CamelCasePropertyNamesContractResolver
     {
         protected override JsonProperty CreateProperty(MemberInfo member, MemberSerialization memberSerialization)
         {

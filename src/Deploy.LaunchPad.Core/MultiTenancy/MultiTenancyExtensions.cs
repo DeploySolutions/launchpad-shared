@@ -37,7 +37,7 @@ namespace Deploy.LaunchPad.Core.MultiTenancy
     /// <summary>
     /// Extension methods for multi-tenancy.
     /// </summary>
-    public static class MultiTenancyExtensions
+    public static partial class MultiTenancyExtensions
     {
         /// <summary>
         /// Gets multi-tenancy side (<see cref="MultiTenancySides"/>) of an object that implements <see cref="IMayHaveTenant"/>.

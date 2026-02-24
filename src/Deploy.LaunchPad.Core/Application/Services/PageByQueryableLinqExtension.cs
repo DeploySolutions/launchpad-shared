@@ -42,7 +42,7 @@ namespace Deploy.LaunchPad.Core.Application.Services
     /// <summary>
     /// Some useful extension methods for <see cref="IQueryable{T}"/>. Also see QueryableLinqExtensions
     /// </summary>
-    public static class PageByQueryableLinqExtension
+    public static partial class PageByQueryableLinqExtension
     {
         
         /// <summary>

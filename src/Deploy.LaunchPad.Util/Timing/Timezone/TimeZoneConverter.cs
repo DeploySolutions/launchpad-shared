@@ -32,7 +32,7 @@ namespace Deploy.LaunchPad.Util.Timing.Timezone
     /// <summary>
     /// Time zone converter class
     /// </summary>
-    public class TimeZoneConverter : ITimeZoneConverter
+    public partial class TimeZoneConverter : ITimeZoneConverter
     {
 
         /// <summary>

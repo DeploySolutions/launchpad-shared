@@ -40,7 +40,7 @@ namespace Deploy.LaunchPad.Core.Domain.Entities.Auditing
     /// A shortcut of <see cref="CreationAuditedEntity{TPrimaryKey}"/> for most used primary key type (<see cref="int"/>).
     /// </summary>
     [Serializable]
-    public abstract class CreationAuditedEntity : CreationAuditedEntity<int>, IEntity
+    public abstract partial class CreationAuditedEntity : CreationAuditedEntity<int>, IEntity
     {
 
     }
@@ -50,7 +50,7 @@ namespace Deploy.LaunchPad.Core.Domain.Entities.Auditing
     /// </summary>
     /// <typeparam name="TPrimaryKey">Type of the primary key of the entity</typeparam>
     [Serializable]
-    public abstract class CreationAuditedEntity<TPrimaryKey> : Entity<TPrimaryKey>, ICreationAudited
+    public abstract partial class CreationAuditedEntity<TPrimaryKey> : Entity<TPrimaryKey>, ICreationAudited
     {
         /// <summary>
         /// Creation time of this entity.
@@ -77,7 +77,7 @@ namespace Deploy.LaunchPad.Core.Domain.Entities.Auditing
     /// <typeparam name="TPrimaryKey">Type of the primary key of the entity</typeparam>
     /// <typeparam name="TUser">Type of the user</typeparam>
     [Serializable]
-    public abstract class CreationAuditedEntity<TPrimaryKey, TUser> : CreationAuditedEntity<TPrimaryKey>, ICreationAudited<TUser>
+    public abstract partial class CreationAuditedEntity<TPrimaryKey, TUser> : CreationAuditedEntity<TPrimaryKey>, ICreationAudited<TUser>
         where TUser : IEntity<long>
     {
         /// <summary>

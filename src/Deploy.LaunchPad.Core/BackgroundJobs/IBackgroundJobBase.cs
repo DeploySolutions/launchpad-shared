@@ -36,7 +36,7 @@ namespace Deploy.LaunchPad.Core.BackgroundJobs
     /// This interface is used to mark background jobs
     /// </summary>
     /// <typeparam name="TArgs"></typeparam>
-    public interface IBackgroundJobBase<in TArgs>
+    public partial interface IBackgroundJobBase<in TArgs>
     {
         
     }

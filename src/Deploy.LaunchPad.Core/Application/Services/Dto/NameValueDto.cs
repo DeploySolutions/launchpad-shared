@@ -38,7 +38,7 @@ namespace Deploy.LaunchPad.Core.Application.Services.Dto
     /// Can be used to send/receive Name/Value (or Key/Value) pairs.
     /// </summary>
     [Serializable]
-    public class NameValueDto : NameValueDto<string>
+    public partial class NameValueDto : NameValueDto<string>
     {
         /// <summary>
         /// Creates a new <see cref="NameValueDto"/>.
@@ -72,7 +72,7 @@ namespace Deploy.LaunchPad.Core.Application.Services.Dto
     /// Can be used to send/receive Name/Value (or Key/Value) pairs.
     /// </summary>
     [Serializable]
-    public class NameValueDto<T> : NameValue<T>
+    public partial class NameValueDto<T> : NameValue<T>
     {
         /// <summary>
         /// Creates a new <see cref="NameValueDto"/>.

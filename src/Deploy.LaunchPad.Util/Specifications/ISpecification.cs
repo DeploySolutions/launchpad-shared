@@ -41,7 +41,7 @@ namespace Deploy.LaunchPad.Util.Specifications
     /// http://martinfowler.com/apsupp/spec.pdf.
     /// </summary>
     /// <typeparam name="T">The type of the object to which the specification is applied.</typeparam>
-    public interface ISpecification<T>
+    public partial interface ISpecification<T>
     {
         /// <summary>
         /// Returns a <see cref="bool"/> value which indicates whether the specification

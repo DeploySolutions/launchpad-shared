@@ -37,7 +37,7 @@ namespace Deploy.LaunchPad.Core.Auditing
     /// <summary>
     /// List of selector functions to select classes/interfaces to be audited.
     /// </summary>
-    public interface IAuditingSelectorList : IList<NamedTypeSelector>
+    public partial interface IAuditingSelectorList : IList<NamedTypeSelector>
     {
         /// <summary>
         /// Removes a selector by name.

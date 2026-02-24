@@ -36,7 +36,7 @@ using System.Text.Json.Serialization;
 
 namespace Deploy.LaunchPad.Util.Json.SystemTextJson
 {
-    public class AbpStringToGuidConverter : JsonConverter<Guid>
+    public partial class AbpStringToGuidConverter : JsonConverter<Guid>
     {
         public override Guid Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
         {
@@ -62,7 +62,7 @@ namespace Deploy.LaunchPad.Util.Json.SystemTextJson
         }
     }
 
-    public class AbpNullableStringToGuidConverter : JsonConverter<Guid?>
+    public partial class AbpNullableStringToGuidConverter : JsonConverter<Guid?>
     {
         public override Guid? Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
         {

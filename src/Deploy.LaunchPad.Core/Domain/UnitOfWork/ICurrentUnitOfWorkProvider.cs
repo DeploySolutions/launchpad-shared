@@ -35,7 +35,7 @@ namespace Deploy.LaunchPad.Core.Domain.UnitOfWork
     /// <summary>
     /// Used to get/set current <see cref="IUnitOfWork"/>. 
     /// </summary>
-    public interface ICurrentUnitOfWorkProvider
+    public partial interface ICurrentUnitOfWorkProvider
     {
         /// <summary>
         /// Gets/sets current <see cref="IUnitOfWork"/>.

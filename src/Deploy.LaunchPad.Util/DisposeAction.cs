@@ -40,7 +40,7 @@ namespace LaunchPad.Core.Util
     /// This class can be used to provide an action when
     /// Dipose method is called.
     /// </summary>
-    public class DisposeAction : IDisposable
+    public partial class DisposeAction : IDisposable
     {
         public static readonly DisposeAction Empty = new DisposeAction(null);
 

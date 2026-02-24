@@ -22,7 +22,7 @@ namespace Deploy.LaunchPad.Code.Config
     /// <summary>
     /// Class LaunchPadAbpAppConfigurations.
     /// </summary>
-    public static class LaunchPapAppConfigurationExtensions
+    public static partial class LaunchPapAppConfigurationExtensions
     {
         /// <summary>
         /// The configuration cache

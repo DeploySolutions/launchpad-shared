@@ -40,7 +40,7 @@ namespace Deploy.LaunchPad.Util.Timing.Timezone
     /// <summary>
     /// A helper class for timezone operations
     /// </summary>
-    public static class TimezoneHelper
+    public static partial class TimezoneHelper
     {
         static readonly Dictionary<string, string> WindowsTimeZoneMappings = new Dictionary<string, string>();
         static readonly Dictionary<string, string> IanaTimeZoneMappings = new Dictionary<string, string>();

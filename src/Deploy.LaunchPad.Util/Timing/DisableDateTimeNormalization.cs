@@ -30,7 +30,7 @@ using System;
 namespace Deploy.LaunchPad.Util.Timing
 {
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Property | AttributeTargets.Parameter)]
-    public class DisableDateTimeNormalizationAttribute : Attribute
+    public partial class DisableDateTimeNormalizationAttribute : Attribute
     {
         
     }

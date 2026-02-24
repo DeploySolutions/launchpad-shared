@@ -34,7 +34,7 @@ namespace Deploy.LaunchPad.Util.Timing
     /// A basic implementation of <see cref="IZonedDateTimeRange"/> to store a date range with a timezone.
     /// Default timezone is UTC
     /// </summary>
-    public class ZonedDateTimeRange : DateTimeRange, IZonedDateTimeRange
+    public partial class ZonedDateTimeRange : DateTimeRange, IZonedDateTimeRange
     {
         public ZonedDateTimeRange()
         {

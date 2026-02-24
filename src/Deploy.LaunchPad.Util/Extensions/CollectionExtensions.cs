@@ -39,7 +39,7 @@ namespace Deploy.LaunchPad.Util.Extensions
     /// <summary>
     /// Extension methods for Collections.
     /// </summary>
-    public static class CollectionExtensions
+    public static partial class CollectionExtensions
     {
         /// <summary>
         /// Checks whatever given collection object is null or has no item.

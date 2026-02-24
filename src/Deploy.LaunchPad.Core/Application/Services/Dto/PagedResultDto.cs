@@ -40,7 +40,7 @@ namespace Deploy.LaunchPad.Core.Application.Services.Dto
     /// </summary>
     /// <typeparam name="T">Type of the items in the <see cref="ListResultDto{T}.Items"/> list</typeparam>
     [Serializable]
-    public class PagedResultDto<T> : ListResultDto<T>, IPagedResult<T>
+    public partial class PagedResultDto<T> : ListResultDto<T>, IPagedResult<T>
     {
         /// <summary>
         /// Total count of Items.

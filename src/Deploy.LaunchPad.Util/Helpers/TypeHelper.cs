@@ -41,7 +41,7 @@ namespace Deploy.LaunchPad.Util.Helpers
     /// <summary>
     /// Some simple type-checking methods used internally.
     /// </summary>
-    public static class TypeHelper
+    public static partial class TypeHelper
     {
         private static readonly IReadOnlyList<string> SystemAssemblyNames = new List<string> { "mscorlib", "System.Private.CoreLib" };
         

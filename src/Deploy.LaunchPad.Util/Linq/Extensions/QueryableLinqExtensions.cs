@@ -39,7 +39,7 @@ namespace Deploy.LaunchPad.Util.Linq.Extensions
     /// <summary>
     /// Some useful extension methods for <see cref="IQueryable{T}"/>.
     /// </summary>
-    public static class QueryableLinqExtensions
+    public static partial class QueryableLinqExtensions
     {
         /// <summary>
         /// Used for paging. Can be used as an alternative to Skip(...).Take(...) chaining.

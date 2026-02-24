@@ -38,7 +38,7 @@ namespace Deploy.LaunchPad.Core.Application.Services.Dto
     /// A shortcut of <see cref="EntityDto{TPrimaryKey}"/> for most used primary key type (<see cref="int"/>).
     /// </summary>
     [Serializable]
-    public class EntityDto : EntityDto<int>, IEntityDto
+    public partial class EntityDto : EntityDto<int>, IEntityDto
     {
         /// <summary>
         /// Creates a new <see cref="EntityDto"/> object.
@@ -63,7 +63,7 @@ namespace Deploy.LaunchPad.Core.Application.Services.Dto
     /// </summary>
     /// <typeparam name="TPrimaryKey">Type of the primary key</typeparam>
     [Serializable]
-    public class EntityDto<TPrimaryKey> : IEntityDto<TPrimaryKey>
+    public partial class EntityDto<TPrimaryKey> : IEntityDto<TPrimaryKey>
     {
         /// <summary>
         /// Id of the entity.

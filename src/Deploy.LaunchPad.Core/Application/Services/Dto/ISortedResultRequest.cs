@@ -35,7 +35,7 @@ namespace Deploy.LaunchPad.Core.Application.Services.Dto
     /// <summary>
     /// This interface is defined to standardize to request a sorted result.
     /// </summary>
-    public interface ISortedResultRequest
+    public partial interface ISortedResultRequest
     {
         /// <summary>
         /// Sorting information.

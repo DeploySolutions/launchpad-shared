@@ -40,7 +40,7 @@ namespace Deploy.LaunchPad.Core.Domain.UnitOfWork
     /// <summary>
     /// Unit of work options.
     /// </summary>
-    public class UnitOfWorkOptions
+    public partial class UnitOfWorkOptions
     {
         /// <summary>
         /// Scope option.

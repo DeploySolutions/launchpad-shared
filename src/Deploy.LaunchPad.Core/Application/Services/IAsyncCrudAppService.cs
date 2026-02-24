@@ -35,28 +35,28 @@ using System.Threading.Tasks;
 
 namespace Deploy.LaunchPad.Core.Application.Services
 {
-    public interface IAsyncCrudAppService<TEntityDto>
+    public partial interface IAsyncCrudAppService<TEntityDto>
         : IAsyncCrudAppService<TEntityDto, int>
         where TEntityDto : IEntityDto<int>
     {
 
     }
 
-    public interface IAsyncCrudAppService<TEntityDto, TPrimaryKey>
+    public partial interface IAsyncCrudAppService<TEntityDto, TPrimaryKey>
         : IAsyncCrudAppService<TEntityDto, TPrimaryKey, PagedAndSortedResultRequestDto>
         where TEntityDto : IEntityDto<TPrimaryKey>
     {
 
     }
 
-    public interface IAsyncCrudAppService<TEntityDto, TPrimaryKey, in TGetAllInput>
+    public partial interface IAsyncCrudAppService<TEntityDto, TPrimaryKey, in TGetAllInput>
         : IAsyncCrudAppService<TEntityDto, TPrimaryKey, TGetAllInput, TEntityDto, TEntityDto>
         where TEntityDto : IEntityDto<TPrimaryKey>
     {
 
     }
 
-    public interface IAsyncCrudAppService<TEntityDto, TPrimaryKey, in TGetAllInput, in TCreateInput>
+    public partial interface IAsyncCrudAppService<TEntityDto, TPrimaryKey, in TGetAllInput, in TCreateInput>
         : IAsyncCrudAppService<TEntityDto, TPrimaryKey, TGetAllInput, TCreateInput, TCreateInput>
         where TEntityDto : IEntityDto<TPrimaryKey>
         where TCreateInput : IEntityDto<TPrimaryKey>
@@ -64,7 +64,7 @@ namespace Deploy.LaunchPad.Core.Application.Services
 
     }
 
-    public interface IAsyncCrudAppService<TEntityDto, TPrimaryKey, in TGetAllInput, in TCreateInput, in TUpdateInput>
+    public partial interface IAsyncCrudAppService<TEntityDto, TPrimaryKey, in TGetAllInput, in TCreateInput, in TUpdateInput>
         : IAsyncCrudAppService<TEntityDto, TPrimaryKey, TGetAllInput, TCreateInput, TUpdateInput, EntityDto<TPrimaryKey>>
         where TEntityDto : IEntityDto<TPrimaryKey>
         where TUpdateInput : IEntityDto<TPrimaryKey>
@@ -72,7 +72,7 @@ namespace Deploy.LaunchPad.Core.Application.Services
 
     }
 
-    public interface IAsyncCrudAppService<TEntityDto, TPrimaryKey, in TGetAllInput, in TCreateInput, in TUpdateInput, in TGetInput>
+    public partial interface IAsyncCrudAppService<TEntityDto, TPrimaryKey, in TGetAllInput, in TCreateInput, in TUpdateInput, in TGetInput>
         : IAsyncCrudAppService<TEntityDto, TPrimaryKey, TGetAllInput, TCreateInput, TUpdateInput, TGetInput, EntityDto<TPrimaryKey>>
         where TEntityDto : IEntityDto<TPrimaryKey>
         where TUpdateInput : IEntityDto<TPrimaryKey>
@@ -81,7 +81,7 @@ namespace Deploy.LaunchPad.Core.Application.Services
 
     }
 
-    public interface IAsyncCrudAppService<TEntityDto, TPrimaryKey, in TGetAllInput, in TCreateInput, in TUpdateInput, in TGetInput, in TDeleteInput>
+    public partial interface IAsyncCrudAppService<TEntityDto, TPrimaryKey, in TGetAllInput, in TCreateInput, in TUpdateInput, in TGetInput, in TDeleteInput>
         : IApplicationService
         where TEntityDto : IEntityDto<TPrimaryKey>
         where TUpdateInput : IEntityDto<TPrimaryKey>

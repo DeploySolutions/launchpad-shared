@@ -38,7 +38,7 @@ namespace Deploy.LaunchPad.Util.Extensions
     /// <summary>
     /// Extension methods for Dictionary.
     /// </summary>
-    public static class DictionaryExtensions
+    public static partial class DictionaryExtensions
     {
         /// <summary>
         /// This method is used to try to get a value in a dictionary if it does exists.

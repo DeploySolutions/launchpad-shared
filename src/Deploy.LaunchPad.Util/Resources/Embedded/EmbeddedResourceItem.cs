@@ -40,7 +40,7 @@ namespace Deploy.LaunchPad.Util.Resources.Embedded
     /// <summary>
     /// Stores needed information of an embedded resource.
     /// </summary>
-    public class EmbeddedResourceItem
+    public partial class EmbeddedResourceItem
     {
         /// <summary>
         /// File name including extension.

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Deploy.LaunchPad.Code.Methods
 {
-    public class TestPoco
+    public partial class TestPoco
     {
         public ElementName Name { get; set; }
         public int SeqNum { get; set; }

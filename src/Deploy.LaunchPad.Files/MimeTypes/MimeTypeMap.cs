@@ -40,7 +40,7 @@ using Deploy.LaunchPad.Util.Dependency;
 
 namespace Deploy.LaunchPad.Files.MimeTypes
 {
-    public class MimeTypeMap : IMimeTypeMap, ITransientDependency
+    public partial class MimeTypeMap : IMimeTypeMap, ITransientDependency
     {
         protected const string Dot = ".";
         protected const string QuestionMark = "?";

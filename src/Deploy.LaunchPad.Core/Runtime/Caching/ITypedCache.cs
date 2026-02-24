@@ -41,7 +41,7 @@ namespace Deploy.LaunchPad.Core.Runtime.Caching
     /// </summary>
     /// <typeparam name="TKey">Key type for cache items</typeparam>
     /// <typeparam name="TValue">Value type for cache items</typeparam>
-    public interface ITypedCache<TKey, TValue> : IDisposable, ICacheOptions, ILaunchPadCache<TKey, TValue>
+    public partial interface ITypedCache<TKey, TValue> : IDisposable, ICacheOptions, ILaunchPadCache<TKey, TValue>
     {
         /// <summary>
         /// Gets the internal cache.

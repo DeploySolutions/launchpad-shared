@@ -35,7 +35,7 @@ using System.Reflection;
 
 namespace Deploy.LaunchPad.Util.Extensions
 {
-    public static class AssemblyExtensions
+    public static partial class AssemblyExtensions
     {
         /// <summary>
         /// Gets directory path of given assembly or returns null if can not find.

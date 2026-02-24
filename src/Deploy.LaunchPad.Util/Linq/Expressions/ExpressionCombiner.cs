@@ -35,7 +35,7 @@ using System.Linq.Expressions;
 
 namespace Deploy.LaunchPad.Util.Linq.Expressions
 {
-    public static class ExpressionCombiner
+    public static partial class ExpressionCombiner
     {
         public static Expression<Func<T, bool>> Combine<T>(Expression<Func<T, bool>> expression1, Expression<Func<T, bool>> expression2)
         {

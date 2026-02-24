@@ -36,7 +36,7 @@ using System;
 
 namespace Deploy.LaunchPad.Util.ObjectComparators.StringComparators
 {
-    public class StringObjectComparator : ObjectComparatorBase<string, StringCompareTypes>
+    public partial class StringObjectComparator : ObjectComparatorBase<string, StringCompareTypes>
     {
         protected override bool Compare(string baseObject, string compareObject, StringCompareTypes compareTypes)
         {

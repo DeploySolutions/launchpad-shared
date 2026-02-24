@@ -35,12 +35,12 @@ using System.Collections.Generic;
 
 namespace Deploy.LaunchPad.Core.Domain.Entities
 {
-    public interface IAggregateRoot : IAggregateRoot<int>, IEntity
+    public partial interface IAggregateRoot : IAggregateRoot<int>, IEntity
     {
 
     }
 
-    public interface IAggregateRoot<TPrimaryKey> : IEntity<TPrimaryKey>, IGenerateDomainEvents
+    public partial interface IAggregateRoot<TPrimaryKey> : IEntity<TPrimaryKey>, IGenerateDomainEvents
     {
 
     }

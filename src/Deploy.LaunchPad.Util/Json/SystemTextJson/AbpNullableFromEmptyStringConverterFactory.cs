@@ -38,7 +38,7 @@ using System.Text.Json.Serialization;
 
 namespace Deploy.LaunchPad.Util.Json.SystemTextJson
 {
-    public class AbpNullableFromEmptyStringConverterFactory : JsonConverterFactory
+    public partial class AbpNullableFromEmptyStringConverterFactory : JsonConverterFactory
     {
         public override bool CanConvert(Type typeToConvert)
         {
@@ -57,7 +57,7 @@ namespace Deploy.LaunchPad.Util.Json.SystemTextJson
         }
     }
 
-    public class AbpNullableFromEmptyStringConverter<TNullableType> : JsonConverter<TNullableType>
+    public partial class AbpNullableFromEmptyStringConverter<TNullableType> : JsonConverter<TNullableType>
     {
         private JsonSerializerOptions _readJsonSerializerOptions;
         private JsonSerializerOptions _writeJsonSerializerOptions;

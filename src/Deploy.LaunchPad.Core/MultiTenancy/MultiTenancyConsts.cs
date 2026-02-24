@@ -32,7 +32,7 @@
 
 namespace Deploy.LaunchPad.Core.MultiTenancy
 {
-    public static class MultiTenancyConsts
+    public static partial class MultiTenancyConsts
     {
         /// <summary>
         /// Default tenant id: 1.

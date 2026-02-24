@@ -37,7 +37,7 @@ using Deploy.LaunchPad.Util.Extensions;
 
 namespace Deploy.LaunchPad.Util.Resources.Embedded
 {
-    public class EmbeddedResourceSet
+    public partial class EmbeddedResourceSet
     {
         public string RootPath { get; }
 

@@ -40,7 +40,7 @@ namespace Deploy.LaunchPad.Util.Specifications
     /// can be satisifed by the given object whereas the second one cannot.
     /// </summary>
     /// <typeparam name="T">The type of the object to which the specification is applied.</typeparam>
-    public class AndNotSpecification<T> : CompositeSpecification<T>
+    public partial class AndNotSpecification<T> : CompositeSpecification<T>
     {
         /// <summary>
         /// Constructs a new instance of <see cref="AndNotSpecification{T}"/> class.

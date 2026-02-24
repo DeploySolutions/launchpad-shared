@@ -39,7 +39,7 @@ using JetBrains.Annotations;
 namespace Deploy.LaunchPad.Util
 {
     [DebuggerStepThrough]
-    public static class Check
+    public static partial class Check
     {
         [ContractAnnotation("value:null => halt")]
         public static T NotNull<T>(T value, [InvokerParameterName] [NotNull] string parameterName)

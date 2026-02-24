@@ -35,7 +35,7 @@ namespace Deploy.LaunchPad.Core.Metadata
     /// <summary>
     /// This interface is used to make an entity active/passive.
     /// </summary>
-    public interface IPassivable
+    public partial interface IPassivable
     {
         /// <summary>
         /// True: This entity is active.

@@ -38,7 +38,7 @@ using System.Linq;
 
 namespace Deploy.LaunchPad.Util.Resources.Embedded
 {
-    public class EmbeddedResourceManager : IEmbeddedResourceManager, ISingletonDependency
+    public partial class EmbeddedResourceManager : IEmbeddedResourceManager, ISingletonDependency
     {
         private readonly IEmbeddedResourcesConfiguration _configuration;
         private readonly Lazy<Dictionary<string, EmbeddedResourceItem>> _resources;

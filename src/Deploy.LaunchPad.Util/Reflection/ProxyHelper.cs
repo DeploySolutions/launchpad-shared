@@ -35,7 +35,7 @@ using System;
 
 namespace Deploy.LaunchPad.Util.Reflection
 {
-    public static class ProxyHelper
+    public static partial class ProxyHelper
     {
         /// <summary>
         /// Returns dynamic proxy target object if this is a proxied object, otherwise returns the given object. 

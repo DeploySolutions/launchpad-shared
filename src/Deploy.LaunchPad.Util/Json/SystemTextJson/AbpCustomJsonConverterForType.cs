@@ -39,7 +39,7 @@ using Deploy.LaunchPad.Util.Helpers;
 
 namespace Deploy.LaunchPad.Util.Json.SystemTextJson
 {
-    public class AbpJsonConverterForType: JsonConverter<Type>
+    public partial class AbpJsonConverterForType: JsonConverter<Type>
     {
         public override Type Read(
             ref Utf8JsonReader reader,

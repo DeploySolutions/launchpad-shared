@@ -38,7 +38,7 @@ using System.Text.Json.Serialization;
 
 namespace Deploy.LaunchPad.Util.Json.SystemTextJson
 {
-    public class AbpStringToBooleanConverter : JsonConverter<bool>
+    public partial class AbpStringToBooleanConverter : JsonConverter<bool>
     {
         public override bool Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
         {

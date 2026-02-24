@@ -38,7 +38,7 @@ namespace Deploy.LaunchPad.Util.Extensions
     /// <summary>
     /// Extension methods for <see cref="DayOfWeekExtensions"/>.
     /// </summary>
-    public static class DayOfWeekExtensions
+    public static partial class DayOfWeekExtensions
     {
         /// <summary>
         /// Check if a given <see cref="DayOfWeek"/> value is weekend.

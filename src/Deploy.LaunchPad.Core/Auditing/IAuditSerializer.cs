@@ -32,7 +32,7 @@
 
 namespace Deploy.LaunchPad.Core.Auditing
 {
-    public interface IAuditSerializer
+    public partial interface IAuditSerializer
     {
         string Serialize(object obj);
     }

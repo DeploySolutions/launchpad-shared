@@ -37,12 +37,12 @@ using Deploy.LaunchPad.Core.Events;
 
 namespace Deploy.LaunchPad.Core.Domain.Entities
 {
-    public class AggregateRoot : AggregateRoot<int>, IAggregateRoot
+    public partial class AggregateRoot : AggregateRoot<int>, IAggregateRoot
     {
 
     }
 
-    public class AggregateRoot<TPrimaryKey> : Entity<TPrimaryKey>, IAggregateRoot<TPrimaryKey>
+    public partial class AggregateRoot<TPrimaryKey> : Entity<TPrimaryKey>, IAggregateRoot<TPrimaryKey>
     {
         [NotMapped]
         public virtual ICollection<IEventData> DomainEvents { get; }

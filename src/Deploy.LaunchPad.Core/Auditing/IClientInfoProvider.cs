@@ -32,7 +32,7 @@
 
 namespace Deploy.LaunchPad.Core.Auditing
 {
-    public interface IClientInfoProvider
+    public partial interface IClientInfoProvider
     {
         string BrowserInfo { get; }
 

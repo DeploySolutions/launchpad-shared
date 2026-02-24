@@ -42,7 +42,7 @@ using JsonSerializer = System.Text.Json.JsonSerializer;
 
 namespace Deploy.LaunchPad.Util.Json
 {
-    public static class JsonExtensions
+    public static partial class JsonExtensions
     {
         public static bool UseNewtonsoft { get; set; }
 

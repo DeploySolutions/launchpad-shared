@@ -11,7 +11,7 @@ using Deploy.LaunchPad.Util.Elements;
 
 namespace Deploy.LaunchPad.Code.CommandLine
 {
-    public interface ICommand
+    public partial interface ICommand
     {
         public ElementNameLight Name { get; init; }
         public ElementDescriptionLight Description { get; init; }

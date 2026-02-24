@@ -38,7 +38,7 @@ namespace Deploy.LaunchPad.Core.Events
     /// <summary>
     /// Defines interface of the event bus.
     /// </summary>
-    public interface IEventBus
+    public partial interface IEventBus
     {
         #region Register
 

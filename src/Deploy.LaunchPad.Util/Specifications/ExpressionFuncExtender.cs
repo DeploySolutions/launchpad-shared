@@ -43,7 +43,7 @@ namespace Deploy.LaunchPad.Util.Specifications
     /// the expression parameter problem when going to Entity Framework.
     /// For more information about this solution please refer to http://blogs.msdn.com/b/meek/archive/2008/05/02/linq-to-entities-combining-predicates.aspx.
     /// </summary>
-    public static class ExpressionFuncExtender
+    public static partial class ExpressionFuncExtender
     {
         private static Expression<T> Compose<T>(this Expression<T> first, Expression<T> second, Func<Expression, Expression, Expression> merge)
         {

@@ -38,7 +38,7 @@ namespace Deploy.LaunchPad.Util.Extensions
     /// <summary>
     /// Extension methods for <see cref="Exception"/> class.
     /// </summary>
-    public static class ExceptionExtensions
+    public static partial class ExceptionExtensions
     {
         /// <summary>
         /// Uses <see cref="ExceptionDispatchInfo.Capture"/> method to re-throws exception

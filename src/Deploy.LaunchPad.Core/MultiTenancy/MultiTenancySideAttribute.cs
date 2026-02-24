@@ -38,7 +38,7 @@ namespace Deploy.LaunchPad.Core.MultiTenancy
     /// Used to declare multi tenancy side of an object.
     /// </summary>
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Property | AttributeTargets.Method | AttributeTargets.Interface)]
-    public class MultiTenancySideAttribute : Attribute
+    public partial class MultiTenancySideAttribute : Attribute
     {
         /// <summary>
         /// Multitenancy side.

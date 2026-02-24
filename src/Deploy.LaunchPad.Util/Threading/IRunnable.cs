@@ -36,7 +36,7 @@ namespace Deploy.LaunchPad.Util.Threading
     /// <summary>
     /// Interface to start/stop self threaded services.
     /// </summary>
-    public interface IRunnable
+    public partial interface IRunnable
     {
         /// <summary>
         /// Starts the service.

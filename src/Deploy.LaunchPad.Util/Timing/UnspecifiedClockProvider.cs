@@ -29,7 +29,7 @@ using System;
 
 namespace Deploy.LaunchPad.Util.Timing
 {
-    public class UnspecifiedClockProvider : IClockProvider
+    public partial class UnspecifiedClockProvider : IClockProvider
     {
         public DateTime Now => DateTime.Now;
 

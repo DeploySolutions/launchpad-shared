@@ -41,7 +41,7 @@ namespace Deploy.LaunchPad.Core.Application.Services.Dto
     /// A shortcut of <see cref="FullAuditedEntityDto{TPrimaryKey}"/> for most used primary key type (<see cref="int"/>).
     /// </summary>
     [Serializable]
-    public abstract class FullAuditedEntityDto : FullAuditedEntityDto<int>
+    public abstract partial class FullAuditedEntityDto : FullAuditedEntityDto<int>
     {
 
     }
@@ -51,7 +51,7 @@ namespace Deploy.LaunchPad.Core.Application.Services.Dto
     /// </summary>
     /// <typeparam name="TPrimaryKey">Type of primary key</typeparam>
     [Serializable]
-    public abstract class FullAuditedEntityDto<TPrimaryKey> : AuditedEntityDto<TPrimaryKey>, IFullAudited
+    public abstract partial class FullAuditedEntityDto<TPrimaryKey> : AuditedEntityDto<TPrimaryKey>, IFullAudited
     {
         /// <summary>
         /// Is this entity deleted?

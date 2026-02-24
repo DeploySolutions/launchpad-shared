@@ -43,7 +43,7 @@ namespace Deploy.LaunchPad.Core.Domain.Entities
     /// A shortcut of <see cref="Entity{TPrimaryKey}"/> for most used primary key type (<see cref="int"/>).
     /// </summary>
     [Serializable]
-    public abstract class Entity : Entity<int>, IEntity
+    public abstract partial class Entity : Entity<int>, IEntity
     {
 
     }
@@ -54,7 +54,7 @@ namespace Deploy.LaunchPad.Core.Domain.Entities
     /// </summary>
     /// <typeparam name="TPrimaryKey">Type of the primary key of the entity</typeparam>
     [Serializable]
-    public abstract class Entity<TPrimaryKey> : LaunchPadMinimalProperties, IEntity<TPrimaryKey>
+    public abstract partial class Entity<TPrimaryKey> : LaunchPadMinimalProperties, IEntity<TPrimaryKey>
     {
         /// <summary>
         /// Unique identifier for this entity.

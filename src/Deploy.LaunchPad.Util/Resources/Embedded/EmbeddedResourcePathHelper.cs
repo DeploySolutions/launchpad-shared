@@ -35,7 +35,7 @@ using System.Text;
 
 namespace Deploy.LaunchPad.Util.Resources.Embedded
 {
-    public static class EmbeddedResourcePathHelper
+    public static partial class EmbeddedResourcePathHelper
     {
         public static string NormalizePath(string fullPath)
         {

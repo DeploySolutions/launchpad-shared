@@ -37,7 +37,7 @@ using System.Threading.Tasks;
 
 namespace Deploy.LaunchPad.Util.Linq
 {
-    public class NullAsyncQueryableExecuter : IAsyncQueryableExecuter
+    public partial class NullAsyncQueryableExecuter : IAsyncQueryableExecuter
     {
         public static NullAsyncQueryableExecuter Instance { get; } = new NullAsyncQueryableExecuter();
 

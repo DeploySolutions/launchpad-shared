@@ -32,7 +32,7 @@ namespace Deploy.LaunchPad.Util.Timing
     /// <summary>
     /// Used to perform some common date-time operations.
     /// </summary>
-    public static class Clock
+    public static partial class Clock
     {
         /// <summary>
         /// This object is used to perform all <see cref="Clock"/> operations.

@@ -42,7 +42,7 @@ namespace Deploy.LaunchPad.Core.Application.Services.Dto
     ///  A shortcut of <see cref="CreationAuditedEntityDto"/> for most used primary key type (<see cref="int"/>).
     /// </summary>
     [Serializable]
-    public abstract class CreationAuditedEntityDto : CreationAuditedEntityDto<int>
+    public abstract partial class CreationAuditedEntityDto : CreationAuditedEntityDto<int>
     {
         
     }
@@ -52,7 +52,7 @@ namespace Deploy.LaunchPad.Core.Application.Services.Dto
     /// </summary>
     /// <typeparam name="TPrimaryKey">Type of primary key</typeparam>
     [Serializable]
-    public abstract class CreationAuditedEntityDto<TPrimaryKey> : EntityDto<TPrimaryKey>, ICreationAudited
+    public abstract partial class CreationAuditedEntityDto<TPrimaryKey> : EntityDto<TPrimaryKey>, ICreationAudited
     {
         /// <summary>
         /// Creation date of this entity.

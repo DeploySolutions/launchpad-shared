@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Deploy.LaunchPad.Util
 {
-    public interface IAmCloneable<out T>
+    public partial interface IAmCloneable<out T>
     {
         T CloneGeneric();
     }

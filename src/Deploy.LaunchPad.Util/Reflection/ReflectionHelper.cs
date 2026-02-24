@@ -41,7 +41,7 @@ namespace Deploy.LaunchPad.Util.Reflection
     /// <summary>
     /// Defines helper methods for reflection.
     /// </summary>
-    public static class ReflectionHelper
+    public static partial class ReflectionHelper
     {
         /// <summary>
         /// Checks whether <paramref name="givenType"/> implements/inherits <paramref name="genericType"/>.

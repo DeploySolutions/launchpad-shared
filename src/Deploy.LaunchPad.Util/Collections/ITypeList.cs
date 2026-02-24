@@ -38,7 +38,7 @@ namespace Deploy.LaunchPad.Util.Collections
     /// <summary>
     /// A shortcut for <see cref="ITypeList{TBaseType}"/> to use object as base type.
     /// </summary>
-    public interface ITypeList : ITypeList<object>
+    public partial interface ITypeList : ITypeList<object>
     {
 
     }
@@ -47,7 +47,7 @@ namespace Deploy.LaunchPad.Util.Collections
     /// Extends <see cref="IList{Type}"/> to add restriction a specific base type.
     /// </summary>
     /// <typeparam name="TBaseType">Base Type of <see cref="Type"/>s in this list</typeparam>
-    public interface ITypeList<in TBaseType> : IList<Type>
+    public partial interface ITypeList<in TBaseType> : IList<Type>
     {
         /// <summary>
         /// Adds a type to list.

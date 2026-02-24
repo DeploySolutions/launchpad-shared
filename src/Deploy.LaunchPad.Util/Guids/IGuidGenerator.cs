@@ -37,7 +37,7 @@ namespace Deploy.LaunchPad.Util.Guids
     /// <summary>
     /// Used to generate Ids.
     /// </summary>
-    public interface IGuidGenerator
+    public partial interface IGuidGenerator
     {
         /// <summary>
         /// Creates a GUID.

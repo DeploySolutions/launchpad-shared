@@ -32,7 +32,7 @@ namespace Deploy.LaunchPad.Util.Timing
     /// <summary>
     /// Defines interface to perform some common date-time operations.
     /// </summary>
-    public interface IClockProvider
+    public partial interface IClockProvider
     {
         /// <summary>
         /// Gets Now.

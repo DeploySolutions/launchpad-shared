@@ -34,7 +34,7 @@ using System.Threading.Tasks;
 
 namespace Deploy.LaunchPad.Core.BackgroundJobs
 {
-    public interface IAsyncBackgroundJob<in TArgs>: IBackgroundJobBase<TArgs>
+    public partial interface IAsyncBackgroundJob<in TArgs>: IBackgroundJobBase<TArgs>
     {
         /// <summary>
         /// Executes the job with the <paramref name="args"/>.

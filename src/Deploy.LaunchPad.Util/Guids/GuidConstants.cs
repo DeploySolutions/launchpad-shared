@@ -13,7 +13,7 @@ namespace Deploy.LaunchPad.Util.Guids
     /// The tail of the GUID encodes meaning in hex such as "any", "none", "unk"
     /// They are compatible with C#, EF Core, Postgres, APIs
     /// </summary>
-    public static class GuidConstants
+    public static partial class GuidConstants
     {
         public static readonly Guid Any = new Guid("aaaaaaaa-aaaa-4aaa-8aaa-616e79000000"); // "any"
         public static readonly Guid None = new Guid("bbbbbbbb-bbbb-4bbb-8bbb-6e6f6e650000"); // "none"

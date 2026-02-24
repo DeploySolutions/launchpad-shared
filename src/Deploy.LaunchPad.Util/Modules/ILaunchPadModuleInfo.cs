@@ -4,7 +4,7 @@ using System.Reflection;
 
 namespace Deploy.LaunchPad.Util.Modules
 {
-    public interface ILaunchPadModuleInfo
+    public partial interface ILaunchPadModuleInfo
     {
         Assembly Assembly { get; }
         List<ILaunchPadModuleInfo> Dependencies { get; }

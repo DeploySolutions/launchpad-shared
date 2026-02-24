@@ -39,7 +39,7 @@ namespace Deploy.LaunchPad.Util.Extensions
     /// <summary>
     /// Extension methods for <see cref="DateTime"/>.
     /// </summary>
-    public static class DateTimeExtensions
+    public static partial class DateTimeExtensions
     {
         /// <summary>
         /// Converts a DateTime to a Unix Timestamp

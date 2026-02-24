@@ -36,7 +36,7 @@ using System.Collections.Immutable;
 
 namespace Deploy.LaunchPad.Util.ObjectComparators
 {
-    public interface IObjectComparatorManager
+    public partial interface IObjectComparatorManager
     {
         bool HasComparator<TBaseType>();
 

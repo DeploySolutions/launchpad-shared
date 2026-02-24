@@ -34,7 +34,7 @@ using System;
 
 namespace Deploy.LaunchPad.Util.ObjectComparators.IntComparators
 {
-    public class IntObjectComparator : ObjectComparatorBase<int, IntCompareTypes>
+    public partial class IntObjectComparator : ObjectComparatorBase<int, IntCompareTypes>
     {
         protected override bool Compare(int baseObject, int compareObject, IntCompareTypes compareType)
         {
@@ -56,7 +56,7 @@ namespace Deploy.LaunchPad.Util.ObjectComparators.IntComparators
         }
     }
 
-    public class NullableIntObjectComparator : ObjectComparatorBase<int?, NullableIntCompareTypes>
+    public partial class NullableIntObjectComparator : ObjectComparatorBase<int?, NullableIntCompareTypes>
     {
         protected override bool Compare(int? baseObject, int? compareObject, NullableIntCompareTypes compareType)
         {

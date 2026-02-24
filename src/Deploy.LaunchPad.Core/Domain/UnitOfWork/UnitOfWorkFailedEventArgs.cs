@@ -37,7 +37,7 @@ namespace Deploy.LaunchPad.Core.Domain.UnitOfWork
     /// <summary>
     /// Used as event arguments on <see cref="IActiveUnitOfWork.Failed"/> event.
     /// </summary>
-    public class UnitOfWorkFailedEventArgs : EventArgs
+    public partial class UnitOfWorkFailedEventArgs : EventArgs
     {
         /// <summary>
         /// Exception that caused failure.

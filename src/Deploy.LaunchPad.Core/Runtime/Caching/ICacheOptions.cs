@@ -34,7 +34,7 @@ using System;
 
 namespace Deploy.LaunchPad.Core.Runtime.Caching
 {
-    public interface ICacheOptions
+    public partial interface ICacheOptions
     {
         /// <summary>
         /// Default sliding expire time of cache items.

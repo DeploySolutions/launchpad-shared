@@ -41,7 +41,7 @@ namespace Deploy.LaunchPad.Util.Linq
     /// <summary>
     /// This interface is intended to be used by ABP.
     /// </summary>
-    public interface IAsyncQueryableExecuter
+    public partial interface IAsyncQueryableExecuter
     {
         Task<int> CountAsync<T>(IQueryable<T> queryable, CancellationToken cancellationToken = default);
 

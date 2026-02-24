@@ -37,7 +37,7 @@ namespace Deploy.LaunchPad.Core.Events
     /// <summary>
     /// Defines an interface for factories those are responsible to create/get and release of event handlers.
     /// </summary>
-    public interface IEventHandlerFactory
+    public partial interface IEventHandlerFactory
     {
         /// <summary>
         /// Gets an event handler.

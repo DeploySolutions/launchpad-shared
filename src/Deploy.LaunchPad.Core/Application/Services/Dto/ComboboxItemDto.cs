@@ -38,7 +38,7 @@ namespace Deploy.LaunchPad.Core.Application.Services.Dto
     /// This DTO can be used as a simple item for a combobox/list.
     /// </summary>
     [Serializable]
-    public class ComboboxItemDto
+    public partial class ComboboxItemDto
     {
         /// <summary>
         /// Value of the item.

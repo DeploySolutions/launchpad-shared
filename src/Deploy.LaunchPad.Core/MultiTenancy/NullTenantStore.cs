@@ -32,7 +32,7 @@
 
 namespace Deploy.LaunchPad.Core.MultiTenancy
 {
-    public class NullTenantStore : ITenantStore
+    public partial class NullTenantStore : ITenantStore
     {
         public TenantInfo Find(int tenantId)
         {

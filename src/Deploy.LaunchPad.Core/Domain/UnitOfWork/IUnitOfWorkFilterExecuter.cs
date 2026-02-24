@@ -32,7 +32,7 @@
 
 namespace Deploy.LaunchPad.Core.Domain.UnitOfWork
 {
-    public interface IUnitOfWorkFilterExecuter
+    public partial interface IUnitOfWorkFilterExecuter
     {
         void ApplyDisableFilter(IUnitOfWork unitOfWork, string filterName);
         void ApplyEnableFilter(IUnitOfWork unitOfWork, string filterName);

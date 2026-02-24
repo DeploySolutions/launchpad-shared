@@ -34,7 +34,7 @@ using System;
 
 namespace Deploy.LaunchPad.Util.Reflection
 {
-    public interface ITypeFinder
+    public partial interface ITypeFinder
     {
         Type[] Find(Func<Type, bool> predicate);
 

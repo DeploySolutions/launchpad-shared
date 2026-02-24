@@ -39,7 +39,7 @@ using Newtonsoft.Json.Serialization;
 
 namespace Deploy.LaunchPad.Util.Json
 {
-    public class AbpContractResolver : DefaultContractResolver
+    public partial class AbpContractResolver : DefaultContractResolver
     {
         protected override JsonProperty CreateProperty(MemberInfo member, MemberSerialization memberSerialization)
         {

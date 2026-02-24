@@ -38,7 +38,7 @@ using Deploy.LaunchPad.Util.Extensions;
 
 namespace Deploy.LaunchPad.Util.Json.SystemTextJson
 {
-    public static class JsonSerializerOptionsHelper
+    public static partial class JsonSerializerOptionsHelper
     {
         public static JsonSerializerOptions Create(JsonSerializerOptions baseOptions, JsonConverter removeConverter, params JsonConverter[] addConverters)
         {

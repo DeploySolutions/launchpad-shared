@@ -36,7 +36,7 @@ using System.Reflection;
 
 namespace Deploy.LaunchPad.Util.Extensions
 {
-    public static class TypeExtensions
+    public static partial class TypeExtensions
     {
         public static Assembly GetAssembly(this Type type)
         {

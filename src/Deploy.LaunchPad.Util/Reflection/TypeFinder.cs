@@ -39,7 +39,7 @@ using Castle.Core.Logging;
 
 namespace Deploy.LaunchPad.Util.Reflection
 {
-    public class TypeFinder : ITypeFinder
+    public partial class TypeFinder : ITypeFinder
     {
         public ILogger Logger { get; set; }
 

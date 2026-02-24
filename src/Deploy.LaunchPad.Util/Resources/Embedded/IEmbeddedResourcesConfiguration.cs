@@ -34,7 +34,7 @@ using System.Collections.Generic;
 
 namespace Deploy.LaunchPad.Util.Resources.Embedded
 {
-    public interface IEmbeddedResourcesConfiguration
+    public partial interface IEmbeddedResourcesConfiguration
     {
         List<EmbeddedResourceSet> Sources { get; }
     }

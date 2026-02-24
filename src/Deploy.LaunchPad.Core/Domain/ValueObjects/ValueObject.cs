@@ -45,7 +45,7 @@ namespace Deploy.LaunchPad.Core.Domain.ValueObjects
     /// <summary>
     /// Base class for value objects.
     /// </summary>
-    public abstract class ValueObject : ILaunchPadValueObject, IEquatable<ValueObject>
+    public abstract partial class ValueObject : ILaunchPadValueObject, IEquatable<ValueObject>
     {
         protected abstract IEnumerable<object> GetAtomicValues();
 

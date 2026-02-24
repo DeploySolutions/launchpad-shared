@@ -38,7 +38,7 @@ namespace Deploy.LaunchPad.Util.Resources.Embedded
     /// <summary>
     /// Provides infrastructure to use any type of resources (files) embedded into assemblies.
     /// </summary>
-    public interface IEmbeddedResourceManager
+    public partial interface IEmbeddedResourceManager
     {
         /// <summary>
         /// Used to get an embedded resource file.

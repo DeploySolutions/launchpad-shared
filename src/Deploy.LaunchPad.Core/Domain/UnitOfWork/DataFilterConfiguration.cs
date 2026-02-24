@@ -34,7 +34,7 @@ using System.Collections.Generic;
 
 namespace Deploy.LaunchPad.Core.Domain.UnitOfWork
 {
-    public class DataFilterConfiguration
+    public partial class DataFilterConfiguration
     {
         public string FilterName { get; }
 

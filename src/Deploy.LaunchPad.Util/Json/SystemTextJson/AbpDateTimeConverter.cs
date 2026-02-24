@@ -41,7 +41,7 @@ using Deploy.LaunchPad.Util.Timing;
 
 namespace Deploy.LaunchPad.Util.Json.SystemTextJson
 {
-    public class AbpDateTimeConverter : JsonConverter<DateTime>
+    public partial class AbpDateTimeConverter : JsonConverter<DateTime>
     {
         protected List<string> InputDateTimeFormats { get; set; }
         protected string OutputDateTimeFormat { get; set; }
@@ -95,7 +95,7 @@ namespace Deploy.LaunchPad.Util.Json.SystemTextJson
         }
     }
 
-    public class AbpNullableDateTimeConverter : JsonConverter<DateTime?>, ITransientDependency
+    public partial class AbpNullableDateTimeConverter : JsonConverter<DateTime?>, ITransientDependency
     {
         protected List<string> InputDateTimeFormats { get; set; }
         protected string OutputDateTimeFormat { get; set; }

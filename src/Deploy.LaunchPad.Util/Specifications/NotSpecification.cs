@@ -39,7 +39,7 @@ namespace Deploy.LaunchPad.Util.Specifications
     /// Represents the specification which indicates the semantics opposite to the given specification.
     /// </summary>
     /// <typeparam name="T">The type of the object to which the specification is applied.</typeparam>
-    public class NotSpecification<T> : Specification<T>
+    public partial class NotSpecification<T> : Specification<T>
     {
         private readonly ISpecification<T> _specification;
 

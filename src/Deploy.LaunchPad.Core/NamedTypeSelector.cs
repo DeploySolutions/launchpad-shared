@@ -37,7 +37,7 @@ namespace Deploy.LaunchPad.Core
     /// <summary>
     /// Used to represent a named type selector.
     /// </summary>
-    public class NamedTypeSelector
+    public partial class NamedTypeSelector
     {
         /// <summary>
         /// Name of the selector.

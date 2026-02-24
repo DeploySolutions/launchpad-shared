@@ -38,7 +38,7 @@ namespace Deploy.LaunchPad.Core.Application.Services.Dto
     /// Simply implements <see cref="IPagedAndSortedResultRequest"/>.
     /// </summary>
     [Serializable]
-    public class PagedAndSortedResultRequestDto : PagedResultRequestDto, IPagedAndSortedResultRequest
+    public partial class PagedAndSortedResultRequestDto : PagedResultRequestDto, IPagedAndSortedResultRequest
     {
         public virtual string Sorting { get; set; }
     }

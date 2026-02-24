@@ -35,7 +35,7 @@ using System.Collections.Immutable;
 
 namespace Deploy.LaunchPad.Util.ObjectComparators
 {
-    public interface IObjectComparator
+    public partial interface IObjectComparator
     {
         /// <summary>
         /// Comparator object type

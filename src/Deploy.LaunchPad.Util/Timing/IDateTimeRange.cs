@@ -32,7 +32,7 @@ namespace Deploy.LaunchPad.Util.Timing
     /// <summary>
     /// Defines interface for a DateTime range.
     /// </summary>
-    public interface IDateTimeRange
+    public partial interface IDateTimeRange
     {
         /// <summary>
         /// Start time of the datetime range.

@@ -39,7 +39,7 @@ namespace Deploy.LaunchPad.Core.Auditing
     /// make auditing working.
     /// Default implementation is <see cref="SimpleLogAuditingStore"/>.
     /// </summary>
-    public interface IAuditingStore
+    public partial interface IAuditingStore
     {
         /// <summary>
         /// Should save audits to a persistent store.

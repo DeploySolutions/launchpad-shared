@@ -39,7 +39,7 @@ namespace Deply.LaunchPad.Util.Extensions
     /// <summary>
     /// Extension methods for <see cref="XmlNode"/> class.
     /// </summary>
-    public static class XmlNodeExtensions
+    public static partial class XmlNodeExtensions
     {
         /// <summary>
         /// Gets an attribute's value from an Xml node.

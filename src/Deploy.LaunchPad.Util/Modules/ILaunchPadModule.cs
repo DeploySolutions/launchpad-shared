@@ -6,7 +6,7 @@ using System.Reflection;
 
 namespace Deploy.LaunchPad.Util.Modules
 {
-    public interface ILaunchPadModule
+    public partial interface ILaunchPadModule
     {
         ILogger Logger { get; set; }
 

@@ -37,7 +37,7 @@ namespace Deploy.LaunchPad.Core.Abp.AbpModuleConfig
     /// <seealso cref="AbpModule" />
     /// <seealso cref="Deploy.LaunchPad.Core.Abp.AbpModuleConfig.ILaunchPadAbpModule{TAbpModuleHelper}" />
     [Serializable()]
-    public abstract class LaunchPadAbpModuleBase<TAbpModuleHelper> : AbpModule,
+    public abstract partial class LaunchPadAbpModuleBase<TAbpModuleHelper> : AbpModule,
         ILaunchPadAbpModule<TAbpModuleHelper>
         where TAbpModuleHelper : ILaunchPadAbpModuleHelper
     {

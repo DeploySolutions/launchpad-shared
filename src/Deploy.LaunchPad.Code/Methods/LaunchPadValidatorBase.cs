@@ -74,7 +74,7 @@ namespace Deploy.LaunchPad.Code.Methods
     /// <summary>
     /// Encapsulates validation results with errors and warnings separated.
     /// </summary>
-    public class ValidationResultWithWarnings
+    public partial class ValidationResultWithWarnings
     {
         public ValidationResult ValidationResult { get; }
         public IReadOnlyCollection<ValidationFailure> Errors { get; }

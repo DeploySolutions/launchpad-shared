@@ -34,7 +34,7 @@ using System;
 
 namespace Deploy.LaunchPad.Util.ObjectComparators.BooleanComparators
 {
-    public class BooleanObjectComparator : ObjectComparatorBase<bool, BooleanCompareTypes>
+    public partial class BooleanObjectComparator : ObjectComparatorBase<bool, BooleanCompareTypes>
     {
         protected override bool Compare(bool baseObject, bool compareObject, BooleanCompareTypes compareType)
         {
@@ -48,7 +48,7 @@ namespace Deploy.LaunchPad.Util.ObjectComparators.BooleanComparators
         }
     }
 
-    public class NullableBooleanObjectComparator : ObjectComparatorBase<bool?, NullableBooleanCompareTypes>
+    public partial class NullableBooleanObjectComparator : ObjectComparatorBase<bool?, NullableBooleanCompareTypes>
     {
         protected override bool Compare(bool? baseObject, bool? compareObject, NullableBooleanCompareTypes compareType)
         {

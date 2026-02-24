@@ -35,7 +35,7 @@ namespace Deploy.LaunchPad.Core.BackgroundJobs
     /// <summary>
     /// Defines interface of a background job.
     /// </summary>
-    public interface IBackgroundJob<in TArgs>: IBackgroundJobBase<TArgs>
+    public partial interface IBackgroundJob<in TArgs>: IBackgroundJobBase<TArgs>
     {
         /// <summary>
         /// Executes the job with the <paramref name="args"/>.

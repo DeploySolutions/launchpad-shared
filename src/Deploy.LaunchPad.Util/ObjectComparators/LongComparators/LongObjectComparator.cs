@@ -35,7 +35,7 @@ using System;
 namespace Deploy.LaunchPad.Util.ObjectComparators.LongComparators
 {
 
-    public class LongObjectComparator : ObjectComparatorBase<long, LongCompareTypes>
+    public partial class LongObjectComparator : ObjectComparatorBase<long, LongCompareTypes>
     {
         protected override bool Compare(long baseObject, long compareObject, LongCompareTypes compareType)
         {
@@ -57,7 +57,7 @@ namespace Deploy.LaunchPad.Util.ObjectComparators.LongComparators
         }
     }
 
-    public class NullableLongObjectComparator : ObjectComparatorBase<long?, NullableLongCompareTypes>
+    public partial class NullableLongObjectComparator : ObjectComparatorBase<long?, NullableLongCompareTypes>
     {
         protected override bool Compare(long? baseObject, long? compareObject, NullableLongCompareTypes compareType)
         {

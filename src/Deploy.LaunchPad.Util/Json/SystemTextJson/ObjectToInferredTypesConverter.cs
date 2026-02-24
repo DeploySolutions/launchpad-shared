@@ -39,7 +39,7 @@ namespace Deploy.LaunchPad.Util.Json.SystemTextJson
     /// <summary>
     /// https://docs.microsoft.com/en-us/dotnet/standard/serialization/system-text-json-converters-how-to#deserialize-inferred-types-to-object-properties
     /// </summary>
-    public class ObjectToInferredTypesConverter : JsonConverter<object>
+    public partial class ObjectToInferredTypesConverter : JsonConverter<object>
     {
         public override object Read(
             ref Utf8JsonReader reader,

@@ -54,7 +54,7 @@ namespace Deploy.LaunchPad.Util.Linq.Expressions
     /// <summary>
     /// See http://www.albahari.com/expressions for information and examples.
     /// </summary>
-    public static class PredicateBuilder
+    public static partial class PredicateBuilder
     {
         private class RebindParameterVisitor : ExpressionVisitor
         {
@@ -137,7 +137,7 @@ namespace Deploy.LaunchPad.Util.Linq.Expressions
     /// ExpressionStarter{T} which eliminates the default 1=0 or 1=1 stub expressions
     /// </summary>
     /// <typeparam name="T">The type</typeparam>
-    public class ExpressionStarter<T>
+    public partial class ExpressionStarter<T>
     {
         public ExpressionStarter() : this(false) { }
 

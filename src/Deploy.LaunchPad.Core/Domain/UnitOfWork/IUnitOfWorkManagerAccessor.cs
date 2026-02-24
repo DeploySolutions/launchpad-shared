@@ -32,7 +32,7 @@
 
 namespace Deploy.LaunchPad.Core.Domain.UnitOfWork
 {
-    public interface IUnitOfWorkManagerAccessor
+    public partial interface IUnitOfWorkManagerAccessor
     {
         IUnitOfWorkManager UnitOfWorkManager { get; }
     }

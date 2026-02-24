@@ -37,7 +37,7 @@ namespace Deploy.LaunchPad.Util.Json
     /// <summary>
     /// Defines helper methods to work with JSON.
     /// </summary>
-    public static class JsonSerializationHelper
+    public static partial class JsonSerializationHelper
     {
         private const char TypeSeparator = '|';
 

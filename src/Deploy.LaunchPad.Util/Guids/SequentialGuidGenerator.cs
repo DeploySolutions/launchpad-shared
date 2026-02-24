@@ -40,7 +40,7 @@ namespace Deploy.LaunchPad.Util.Guids
     /// Implements <see cref="IGuidGenerator"/> by creating sequential Guids.
     /// This code is taken from https://github.com/jhtodd/SequentialGuid/blob/master/SequentialGuid/Classes/SequentialGuid.cs
     /// </summary>
-    public class SequentialGuidGenerator : IGuidGenerator
+    public partial class SequentialGuidGenerator : IGuidGenerator
     {
         /// <summary>
         /// Gets the singleton <see cref="SequentialGuidGenerator"/> instance.

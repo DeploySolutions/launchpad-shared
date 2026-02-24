@@ -22,7 +22,7 @@ namespace Deploy.LaunchPad.Code.Config
     /// <summary>
     /// Class LaunchPadHostingEnvironmentExtensions.
     /// </summary>
-    public static class LaunchPadHostingEnvironmentExtensions
+    public static partial class LaunchPadHostingEnvironmentExtensions
     {
         /// <summary>
         /// Gets the application configuration.

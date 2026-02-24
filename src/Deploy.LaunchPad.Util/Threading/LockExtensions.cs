@@ -37,7 +37,7 @@ namespace Deploy.LaunchPad.Util.Threading
     /// <summary>
     /// Extension methods to make locking easier.
     /// </summary>
-    public static class LockExtensions
+    public static partial class LockExtensions
     {
         /// <summary>
         /// Executes given <paramref name="action"/> by locking given <paramref name="source"/> object.

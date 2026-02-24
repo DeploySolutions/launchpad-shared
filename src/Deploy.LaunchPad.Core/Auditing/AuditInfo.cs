@@ -37,7 +37,7 @@ namespace Deploy.LaunchPad.Core.Auditing
     /// <summary>
     /// This informations are collected for an <see cref="AuditedAttribute"/> method.
     /// </summary>
-    public class AuditInfo
+    public partial class AuditInfo
     {
         /// <summary>
         /// TenantId.

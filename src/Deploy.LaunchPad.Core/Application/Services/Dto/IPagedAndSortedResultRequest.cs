@@ -35,7 +35,7 @@ namespace Deploy.LaunchPad.Core.Application.Services.Dto
     /// <summary>
     /// This interface is defined to standardize to request a paged and sorted result.
     /// </summary>
-    public interface IPagedAndSortedResultRequest : IPagedResultRequest, ISortedResultRequest
+    public partial interface IPagedAndSortedResultRequest : IPagedResultRequest, ISortedResultRequest
     {
         
     }

@@ -27,7 +27,7 @@
 
 namespace Deploy.LaunchPad.Util.Timing
 {
-    public static class ClockProviders
+    public static partial class ClockProviders
     {
         public static UnspecifiedClockProvider Unspecified { get; } = new UnspecifiedClockProvider();
 

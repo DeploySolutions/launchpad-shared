@@ -40,7 +40,7 @@ namespace Deploy.LaunchPad.Core.Domain.UnitOfWork
     /// Unit of work manager.
     /// Used to begin and control a unit of work.
     /// </summary>
-    public interface IUnitOfWorkManager
+    public partial interface IUnitOfWorkManager
     {
         /// <summary>
         /// Gets currently active unit of work (or null if not exists).

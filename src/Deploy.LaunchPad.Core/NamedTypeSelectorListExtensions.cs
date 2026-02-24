@@ -37,7 +37,7 @@ using System.Linq;
 
 namespace Deploy.LaunchPad.Core
 {
-    public static class NamedTypeSelectorListExtensions
+    public static partial class NamedTypeSelectorListExtensions
     {
         /// <summary>
         /// Add list of types to the list.

@@ -35,7 +35,7 @@ namespace Deploy.LaunchPad.Core.Metadata
     /// <summary>
     /// Implement this interface for an entity which may optionally have TenantId.
     /// </summary>
-    public interface IMayHaveTenant
+    public partial interface IMayHaveTenant
     {
         /// <summary>
         /// TenantId of this entity.

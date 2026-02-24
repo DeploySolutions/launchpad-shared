@@ -37,7 +37,7 @@ namespace Deploy.LaunchPad.Util.Specifications
     /// Represents that the implemented classes are composite specifications.
     /// </summary>
     /// <typeparam name="T">The type of the object to which the specification is applied.</typeparam>
-    public interface ICompositeSpecification<T> : ISpecification<T>
+    public partial interface ICompositeSpecification<T> : ISpecification<T>
     {
         /// <summary>
         /// Gets the left side of the specification.

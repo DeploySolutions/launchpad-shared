@@ -32,7 +32,7 @@ namespace Deploy.LaunchPad.Util.Timing
     /// <summary>
     /// Defines interface for a DateTime range with timezone.
     /// </summary>
-    public interface IZonedDateTimeRange : IDateTimeRange
+    public partial interface IZonedDateTimeRange : IDateTimeRange
     {
         /// <summary>
         /// The Timezone of the datetime range

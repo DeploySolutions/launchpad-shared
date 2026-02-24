@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Deploy.LaunchPad.Util.Helpers
 {
-    public static class EnumExtensions
+    public static partial class EnumExtensions
     {
         public static string GetDisplayName(this Enum enumValue)
         {

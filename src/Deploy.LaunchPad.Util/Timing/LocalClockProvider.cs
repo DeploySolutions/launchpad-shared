@@ -32,7 +32,7 @@ namespace Deploy.LaunchPad.Util.Timing
     /// <summary>
     /// Implements <see cref="IClockProvider"/> to work with local times.
     /// </summary>
-    public class LocalClockProvider : IClockProvider
+    public partial class LocalClockProvider : IClockProvider
     {
         public DateTime Now => DateTime.Now;
 

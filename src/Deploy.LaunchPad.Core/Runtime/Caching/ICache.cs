@@ -37,7 +37,7 @@ namespace Deploy.LaunchPad.Core.Runtime.Caching
     /// <summary>
     /// Defines a cache that uses <see cref="string"/> as key, <see cref="object"/> as value.
     /// </summary>
-    public interface ICache : IDisposable, ICacheOptions, ILaunchPadCache<string, object>
+    public partial interface ICache : IDisposable, ICacheOptions, ILaunchPadCache<string, object>
     {
     }
 }

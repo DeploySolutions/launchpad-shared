@@ -39,7 +39,7 @@ namespace Deploy.LaunchPad.Util.Extensions
     /// <summary>
     /// Extensions to <see cref="MemberInfo"/>.
     /// </summary>
-    public static class MemberInfoExtensions
+    public static partial class MemberInfoExtensions
     {
         /// <summary>
         /// Gets a single attribute for a member.

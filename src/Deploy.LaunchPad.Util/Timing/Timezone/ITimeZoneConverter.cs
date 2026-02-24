@@ -32,7 +32,7 @@ namespace Deploy.LaunchPad.Util.Timing.Timezone
     /// <summary>
     /// Interface for timezone converter
     /// </summary>
-    public interface ITimeZoneConverter
+    public partial interface ITimeZoneConverter
     {
         /// <summary>
         /// Converts given date to user's time zone. 

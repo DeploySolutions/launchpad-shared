@@ -35,7 +35,7 @@ using System.Collections.Generic;
 
 namespace Deploy.LaunchPad.Util.Modules
 {
-    public interface ILaunchPadModuleManager
+    public partial interface ILaunchPadModuleManager
     {
         ILaunchPadModuleInfo StartupModule { get; }
 

@@ -34,7 +34,7 @@ using System.Threading.Tasks;
 
 namespace Deploy.LaunchPad.Core.Domain.Entities.Caching
 {
-    public interface IEntityCacheBase<TCacheItem, TPrimaryKey>
+    public partial interface IEntityCacheBase<TCacheItem, TPrimaryKey>
     {
         TCacheItem this[TPrimaryKey id] { get; }
 

@@ -33,7 +33,7 @@ namespace Deploy.LaunchPad.Core.Abp.Services
     /// <seealso cref="SystemIntegrationServiceBase" />
     /// <seealso cref="Deploy.LaunchPad.Core.Abp.Services.IAbpSystemIntegrationService" />
     [Serializable()]
-    public abstract class LaunchPadAbpSystemIntegrationServiceBase : SystemIntegrationServiceBase, IAbpSystemIntegrationService
+    public abstract partial class LaunchPadAbpSystemIntegrationServiceBase : SystemIntegrationServiceBase, IAbpSystemIntegrationService
     {
 
 

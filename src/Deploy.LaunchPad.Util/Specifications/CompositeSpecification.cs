@@ -36,7 +36,7 @@ namespace Deploy.LaunchPad.Util.Specifications
     /// Represents the base class for composite specifications.
     /// </summary>
     /// <typeparam name="T">The type of the object to which the specification is applied.</typeparam>
-    public abstract class CompositeSpecification<T> : Specification<T>, ICompositeSpecification<T>
+    public abstract partial class CompositeSpecification<T> : Specification<T>, ICompositeSpecification<T>
     {
         /// <summary>
         /// Gets the first specification.

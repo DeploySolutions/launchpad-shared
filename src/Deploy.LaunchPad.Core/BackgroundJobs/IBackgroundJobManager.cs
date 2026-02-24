@@ -40,7 +40,7 @@ namespace Deploy.LaunchPad.Core.BackgroundJobs
     /// <summary>
     /// Defines interface of a job manager.
     /// </summary>
-    public interface IBackgroundJobManager : IBackgroundWorker
+    public partial interface IBackgroundJobManager : IBackgroundWorker
     {
         /// <summary>
         /// Enqueues a job to be executed.

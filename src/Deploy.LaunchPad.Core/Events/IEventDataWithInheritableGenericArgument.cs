@@ -41,7 +41,7 @@ namespace Deploy.LaunchPad.Core.Events
     /// EntityCreatedEventData{Person} is also triggered if EntityCreatedEventData implements
     /// this interface.
     /// </summary>
-    public interface IEventDataWithInheritableGenericArgument
+    public partial interface IEventDataWithInheritableGenericArgument
     {
         /// <summary>
         /// Gets arguments to create this class since a new instance of this class is created.

@@ -40,7 +40,7 @@ namespace Deploy.LaunchPad.Util.Specifications
     /// specifications should be satisfied by the given object.
     /// </summary>
     /// <typeparam name="T">The type of the object to which the specification is applied.</typeparam>
-    public class AndSpecification<T> : CompositeSpecification<T>
+    public partial class AndSpecification<T> : CompositeSpecification<T>
     {
         /// <summary>
         /// Constructs a new instance of <see cref="AndSpecification{T}"/> class.

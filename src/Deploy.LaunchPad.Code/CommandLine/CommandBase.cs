@@ -205,7 +205,7 @@ namespace Deploy.LaunchPad.Code.CommandLine
 
     }
 
-    public class ErrorEventArgs : EventArgs
+    public partial class ErrorEventArgs : EventArgs
     {
         public string ErrorMessage { get; }
         public Exception Exception { get; }

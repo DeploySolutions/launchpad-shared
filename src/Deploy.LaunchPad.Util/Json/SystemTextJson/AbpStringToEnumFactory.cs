@@ -38,7 +38,7 @@ using System.Text.Json.Serialization;
 
 namespace Deploy.LaunchPad.Util.Json.SystemTextJson
 {
-    public class AbpStringToEnumFactory : JsonConverterFactory
+    public partial class AbpStringToEnumFactory : JsonConverterFactory
     {
         private readonly JsonNamingPolicy _namingPolicy;
         private readonly bool _allowIntegerValues;
@@ -71,7 +71,7 @@ namespace Deploy.LaunchPad.Util.Json.SystemTextJson
         }
     }
 
-    public class AbpStringToEnumConverter<T> : JsonConverter<T>
+    public partial class AbpStringToEnumConverter<T> : JsonConverter<T>
         where T : struct, Enum
     {
         private readonly JsonStringEnumConverter _innerJsonStringEnumConverter;

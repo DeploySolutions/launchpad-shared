@@ -33,7 +33,7 @@ namespace Deploy.LaunchPad.Util
     /// <summary>
     /// Class StringParser.
     /// </summary>
-    public static class StringParser
+    public static partial class StringParser
     {
         /// <summary>
         /// Parse a string and return a value between two anchor strings.

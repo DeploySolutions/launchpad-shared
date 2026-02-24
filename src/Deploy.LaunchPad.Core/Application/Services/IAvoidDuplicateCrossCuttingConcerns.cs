@@ -34,7 +34,7 @@ using System.Collections.Generic;
 
 namespace Deploy.LaunchPad.Core.Application.Services
 {
-    public interface IAvoidDuplicateCrossCuttingConcerns
+    public partial interface IAvoidDuplicateCrossCuttingConcerns
     {
         List<string> AppliedCrossCuttingConcerns { get; }
     }

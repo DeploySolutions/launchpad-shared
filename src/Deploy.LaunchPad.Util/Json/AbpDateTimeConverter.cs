@@ -45,7 +45,7 @@ using Newtonsoft.Json.Serialization;
 
 namespace Deploy.LaunchPad.Util.Json
 {
-    public class AbpDateTimeConverter : DateTimeConverterBase, ITransientDependency
+    public partial class AbpDateTimeConverter : DateTimeConverterBase, ITransientDependency
     {
         private const string DefaultDateTimeFormat = "yyyy'-'MM'-'dd'T'HH':'mm':'ss.FFFFFFFK";
         private readonly DateTimeStyles _dateTimeStyles = DateTimeStyles.RoundtripKind;

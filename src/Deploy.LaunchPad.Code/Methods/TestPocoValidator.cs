@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Deploy.LaunchPad.Code.Methods
 {
-    public class TestPocoValidator : LaunchPadValidatorBase<TestPoco>
+    public partial class TestPocoValidator : LaunchPadValidatorBase<TestPoco>
     {
         public TestPocoValidator()
         {

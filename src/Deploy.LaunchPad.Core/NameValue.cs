@@ -38,7 +38,7 @@ namespace Deploy.LaunchPad.Core
     /// Can be used to store Name/Value (or Key/Value) pairs.
     /// </summary>
     [Serializable]
-    public class NameValue : NameValue<string>
+    public partial class NameValue : NameValue<string>
     {
         /// <summary>
         /// Creates a new <see cref="NameValue"/>.
@@ -62,7 +62,7 @@ namespace Deploy.LaunchPad.Core
     /// Can be used to store Name/Value (or Key/Value) pairs.
     /// </summary>
     [Serializable]
-    public class NameValue<T>
+    public partial class NameValue<T>
     {
         /// <summary>
         /// Name.

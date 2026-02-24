@@ -32,7 +32,7 @@
 
 namespace Deploy.LaunchPad.Core.MultiTenancy
 {
-    public class NullTenantResolverCache : ITenantResolverCache
+    public partial class NullTenantResolverCache : ITenantResolverCache
     {
         public TenantResolverCacheItem Value
         {

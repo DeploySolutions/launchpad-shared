@@ -34,7 +34,7 @@ using System;
 
 namespace Deploy.LaunchPad.Util.ObjectComparators.DateTimeComparators
 {
-    public class DateTimeObjectComparator : ObjectComparatorBase<DateTime, DateTimeCompareTypes>
+    public partial class DateTimeObjectComparator : ObjectComparatorBase<DateTime, DateTimeCompareTypes>
     {
         protected override bool Compare(DateTime baseObject, DateTime compareObject, DateTimeCompareTypes compareType)
         {
@@ -56,7 +56,7 @@ namespace Deploy.LaunchPad.Util.ObjectComparators.DateTimeComparators
         }
     }
 
-    public class NullableDateTimeObjectComparator : ObjectComparatorBase<DateTime?, NullableDateTimeCompareTypes>
+    public partial class NullableDateTimeObjectComparator : ObjectComparatorBase<DateTime?, NullableDateTimeCompareTypes>
     {
         protected override bool Compare(DateTime? baseObject, DateTime? compareObject, NullableDateTimeCompareTypes compareType)
         {

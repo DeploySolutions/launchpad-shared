@@ -9,7 +9,7 @@ namespace Deploy.LaunchPad.Util.ValueConverters
     using Newtonsoft.Json;
     using System;
 
-    public class JsonEmptyStringToNullConverter : JsonConverter
+    public partial class JsonEmptyStringToNullConverter : JsonConverter
     {
         public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
         {

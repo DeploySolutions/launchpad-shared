@@ -39,7 +39,7 @@ namespace Deploy.LaunchPad.Core.Domain.UnitOfWork
     /// <summary>
     /// Used to get/set default options for a unit of work.
     /// </summary>
-    public interface IUnitOfWorkDefaultOptions
+    public partial interface IUnitOfWorkDefaultOptions
     {
         /// <summary>
         /// Scope option.

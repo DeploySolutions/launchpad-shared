@@ -37,7 +37,7 @@ namespace Deploy.LaunchPad.Util.Extensions
     /// <summary>
     /// Extension methods for <see cref="IComparable{T}"/>.
     /// </summary>
-    public static class ComparableExtensions
+    public static partial class ComparableExtensions
     {
         /// <summary>
         /// Checks a value is between a minimum and maximum value.

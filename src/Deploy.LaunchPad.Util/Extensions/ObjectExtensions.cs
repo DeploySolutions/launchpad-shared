@@ -40,7 +40,7 @@ namespace Deploy.LaunchPad.Util.Extensions
     /// <summary>
     /// Extension methods for all objects.
     /// </summary>
-    public static class ObjectExtensions
+    public static partial class ObjectExtensions
     {
         /// <summary>
         /// Used to simplify and beautify casting an object to a type. 

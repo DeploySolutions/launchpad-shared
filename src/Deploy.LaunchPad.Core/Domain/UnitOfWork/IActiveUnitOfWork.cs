@@ -41,7 +41,7 @@ namespace Deploy.LaunchPad.Core.Domain.UnitOfWork
     /// This interface can not be injected.
     /// Use <see cref="IUnitOfWorkManager"/> instead.
     /// </summary>
-    public interface IActiveUnitOfWork
+    public partial interface IActiveUnitOfWork
     {
         /// <summary>
         /// This event is raised when this UOW is successfully completed.

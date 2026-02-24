@@ -36,7 +36,7 @@ namespace Deploy.LaunchPad.Util.Threading.BackgroundWorkers
     /// <summary>
     /// Used to manage background workers.
     /// </summary>
-    public interface IBackgroundWorkerManager : IRunnable
+    public partial interface IBackgroundWorkerManager : IRunnable
     {
         /// <summary>
         /// Adds a new worker. Starts the worker immediately if <see cref="IBackgroundWorkerManager"/> has started.

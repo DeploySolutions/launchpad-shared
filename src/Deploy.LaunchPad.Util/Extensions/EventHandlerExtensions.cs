@@ -37,7 +37,7 @@ namespace Deploy.LaunchPad.Util.Extensions
     /// <summary>
     /// Extension methods for <see cref="EventHandler"/>.
     /// </summary>
-    public static class EventHandlerExtensions
+    public static partial class EventHandlerExtensions
     {
         /// <summary>
         /// Raises given event safely with given arguments.

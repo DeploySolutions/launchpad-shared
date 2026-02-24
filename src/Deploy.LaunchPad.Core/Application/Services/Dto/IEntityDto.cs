@@ -35,7 +35,7 @@ namespace Deploy.LaunchPad.Core.Application.Services.Dto
     /// <summary>
     /// A shortcut of <see cref="IEntityDto{TPrimaryKey}"/> for most used primary key type (<see cref="int"/>).
     /// </summary>
-    public interface IEntityDto : IEntityDto<int>
+    public partial interface IEntityDto : IEntityDto<int>
     {
 
     }
@@ -44,7 +44,7 @@ namespace Deploy.LaunchPad.Core.Application.Services.Dto
     /// Defines common properties for entity based DTOs.
     /// </summary>
     /// <typeparam name="TPrimaryKey"></typeparam>
-    public interface IEntityDto<TPrimaryKey>
+    public partial interface IEntityDto<TPrimaryKey>
     {
         /// <summary>
         /// Id of the entity.

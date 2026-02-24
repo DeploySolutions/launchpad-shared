@@ -40,7 +40,7 @@ namespace Deploy.LaunchPad.Util.Collections
     /// <summary>
     /// A shortcut for <see cref="TypeList{TBaseType}"/> to use object as base type.
     /// </summary>
-    public class TypeList : TypeList<object>, ITypeList
+    public partial class TypeList : TypeList<object>, ITypeList
     {
     }
 
@@ -48,7 +48,7 @@ namespace Deploy.LaunchPad.Util.Collections
     /// Extends <see cref="List{Type}"/> to add restriction a specific base type.
     /// </summary>
     /// <typeparam name="TBaseType">Base Type of <see cref="Type"/>s in this list</typeparam>
-    public class TypeList<TBaseType> : ITypeList<TBaseType>
+    public partial class TypeList<TBaseType> : ITypeList<TBaseType>
     {
         /// <summary>
         /// Gets the count.

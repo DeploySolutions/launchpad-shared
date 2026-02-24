@@ -25,7 +25,7 @@ namespace Deploy.LaunchPad.Code.Services
     /// </summary>
     /// <seealso cref="Deploy.LaunchPad.Code.Services.ILaunchPadSystemIntegrationService" />
     [Serializable()]
-    public abstract class SystemIntegrationServiceBase : LaunchPadServiceBase, ILaunchPadSystemIntegrationService
+    public abstract partial class SystemIntegrationServiceBase : LaunchPadServiceBase, ILaunchPadSystemIntegrationService
     {
         /// <summary>
         /// The configuration root

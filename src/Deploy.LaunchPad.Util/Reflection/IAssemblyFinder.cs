@@ -39,7 +39,7 @@ namespace Deploy.LaunchPad.Util.Reflection
     /// This interface is used to get assemblies in the application.
     /// It may not return all assemblies, but those are related with modules.
     /// </summary>
-    public interface IAssemblyFinder
+    public partial interface IAssemblyFinder
     {
         /// <summary>
         /// Gets all assemblies.

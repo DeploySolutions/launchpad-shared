@@ -39,7 +39,7 @@ namespace Deploy.LaunchPad.Util.Specifications
     /// Represents the base class for specifications.
     /// </summary>
     /// <typeparam name="T">The type of the object to which the specification is applied.</typeparam>
-    public abstract class Specification<T> : ISpecification<T>
+    public abstract partial class Specification<T> : ISpecification<T>
     {
         /// <summary>
         /// Returns a <see cref="bool"/> value which indicates whether the specification

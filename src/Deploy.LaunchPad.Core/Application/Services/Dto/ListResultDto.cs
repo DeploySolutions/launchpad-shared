@@ -40,7 +40,7 @@ namespace Deploy.LaunchPad.Core.Application.Services.Dto
     /// </summary>
     /// <typeparam name="T">Type of the items in the <see cref="Items"/> list</typeparam>
     [Serializable]
-    public class ListResultDto<T> : IListResult<T>
+    public partial class ListResultDto<T> : IListResult<T>
     {
         /// <summary>
         /// List of items.

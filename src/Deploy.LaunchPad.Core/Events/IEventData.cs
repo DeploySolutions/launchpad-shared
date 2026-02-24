@@ -37,7 +37,7 @@ namespace Deploy.LaunchPad.Core.Events
     /// <summary>
     /// Defines interface for all Event data classes.
     /// </summary>
-    public interface IEventData
+    public partial interface IEventData
     {
         /// <summary>
         /// The time when the event occured.

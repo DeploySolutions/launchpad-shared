@@ -32,7 +32,7 @@ namespace Deploy.LaunchPad.Util.Timing
     /// <summary>
     /// Implements <see cref="IClockProvider"/> to work with UTC times.
     /// </summary>
-    public class UtcClockProvider : IClockProvider
+    public partial class UtcClockProvider : IClockProvider
     {
         public DateTime Now => DateTime.UtcNow;
 

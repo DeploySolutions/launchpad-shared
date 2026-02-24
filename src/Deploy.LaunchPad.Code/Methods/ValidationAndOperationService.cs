@@ -8,7 +8,7 @@ namespace Deploy.LaunchPad.Code.Methods
 {
 
 
-    public class ValidationAndOperationService
+    public partial class ValidationAndOperationService
     {
 
         public ValidationAndOperationService()
@@ -81,7 +81,7 @@ namespace Deploy.LaunchPad.Code.Methods
 
     }
 
-    public class ValidateAndPerformOperationInput
+    public partial class ValidateAndPerformOperationInput
     {
         public TestPoco TestPoco { get; set; }
         public string SomeInput{ get; set; } = string.Empty;
@@ -91,7 +91,7 @@ namespace Deploy.LaunchPad.Code.Methods
         }
     }
 
-    public class ValidateAndPerformOperationInputValidator : LaunchPadValidatorBase<ValidateAndPerformOperationInput>
+    public partial class ValidateAndPerformOperationInputValidator : LaunchPadValidatorBase<ValidateAndPerformOperationInput>
     {
         public ValidateAndPerformOperationInputValidator()
         {
@@ -102,7 +102,7 @@ namespace Deploy.LaunchPad.Code.Methods
         }
     }
 
-    public class ValidateAndPerformOperationOutput : LaunchPadMethodResultValueBase, ILaunchPadMethodResultValue
+    public partial class ValidateAndPerformOperationOutput : LaunchPadMethodResultValueBase, ILaunchPadMethodResultValue
     {
         public TestPoco TestPoco { get; set; }
         public string SomeOutput { get; set; } = string.Empty;

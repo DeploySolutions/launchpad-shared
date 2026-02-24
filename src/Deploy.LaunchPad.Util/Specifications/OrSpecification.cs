@@ -40,7 +40,7 @@ namespace Deploy.LaunchPad.Util.Specifications
     /// specification should be satisfied by the given object.
     /// </summary>
     /// <typeparam name="T">The type of the object to which the specification is applied.</typeparam>
-    public class OrSpecification<T> : CompositeSpecification<T>
+    public partial class OrSpecification<T> : CompositeSpecification<T>
     {
         /// <summary>
         /// Initializes a new instance of <see cref="OrSpecification{T}"/> class.

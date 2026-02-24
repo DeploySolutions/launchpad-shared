@@ -36,7 +36,7 @@ using System.Threading;
 
 namespace Deploy.LaunchPad.Util.Extensions
 {
-    public static class StreamExtensions
+    public static partial class StreamExtensions
     {
         public static byte[] GetAllBytes(this Stream stream)
         {

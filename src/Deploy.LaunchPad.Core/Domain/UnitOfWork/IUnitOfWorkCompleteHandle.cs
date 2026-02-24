@@ -40,7 +40,7 @@ namespace Deploy.LaunchPad.Core.Domain.UnitOfWork
     /// This interface can not be injected or directly used.
     /// Use <see cref="IUnitOfWorkManager"/> instead.
     /// </summary>
-    public interface IUnitOfWorkCompleteHandle : IDisposable
+    public partial interface IUnitOfWorkCompleteHandle : IDisposable
     {
         /// <summary>
         /// Completes this unit of work.

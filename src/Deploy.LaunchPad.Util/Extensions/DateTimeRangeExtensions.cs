@@ -40,7 +40,7 @@ namespace Deploy.LaunchPad.Util.Extensions
     /// <summary>
     /// Extension methods for <see cref="IDateTimeRange"/>.
     /// </summary>
-    public static class DateTimeRangeExtensions
+    public static partial class DateTimeRangeExtensions
     {
         /// <summary>
         /// Sets date range to given target.

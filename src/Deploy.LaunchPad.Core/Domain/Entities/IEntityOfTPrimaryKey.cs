@@ -40,7 +40,7 @@ namespace Deploy.LaunchPad.Core.Domain.Entities
     /// Defines interface for base entity type. All entities in the system must implement this interface.
     /// </summary>
     /// <typeparam name="TPrimaryKey">Type of the primary key of the entity</typeparam>
-    public interface IEntity<TPrimaryKey> : 
+    public partial interface IEntity<TPrimaryKey> : 
         ILaunchPadObject, 
         ILaunchPadMinimalProperties, 
         IMustHaveIdProperty<TPrimaryKey>

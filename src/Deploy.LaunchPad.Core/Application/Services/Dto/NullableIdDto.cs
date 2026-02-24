@@ -40,7 +40,7 @@ namespace Deploy.LaunchPad.Core.Application.Services.Dto
     /// </summary>
     /// <typeparam name="TId">Type of the Id</typeparam>
     [Serializable]
-    public class NullableIdDto<TId>
+    public partial class NullableIdDto<TId>
         where TId : struct
     {
         public TId? Id { get; set; }
@@ -60,7 +60,7 @@ namespace Deploy.LaunchPad.Core.Application.Services.Dto
     /// A shortcut of <see cref="NullableIdDto{TId}"/> for <see cref="int"/>.
     /// </summary>
     [Serializable]
-    public class NullableIdDto : NullableIdDto<int>
+    public partial class NullableIdDto : NullableIdDto<int>
     {
         public NullableIdDto()
         {

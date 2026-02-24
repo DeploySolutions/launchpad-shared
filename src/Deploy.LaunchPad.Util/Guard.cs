@@ -33,7 +33,7 @@ namespace Deploy.LaunchPad.Util
     /// <summary>
     /// Provides utility methods to guard parameter and local variables.
     /// </summary>
-    public static class Guard
+    public static partial class Guard
     {
         /// <summary>
         /// Throws an exception of type <typeparamref name="TException" /> with the specified message

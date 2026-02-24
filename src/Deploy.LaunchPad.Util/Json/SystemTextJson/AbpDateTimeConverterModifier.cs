@@ -40,7 +40,7 @@ using Deploy.LaunchPad.Util.Timing;
 
 namespace Deploy.LaunchPad.Util.Json.SystemTextJson
 {
-    public class AbpDateTimeConverterModifier
+    public partial class AbpDateTimeConverterModifier
     {
         private readonly List<string> _inputDateTimeFormats;
         private readonly string _outputDateTimeFormat;

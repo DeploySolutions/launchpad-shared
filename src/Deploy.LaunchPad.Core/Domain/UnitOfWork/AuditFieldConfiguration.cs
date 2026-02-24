@@ -32,7 +32,7 @@
 
 namespace Deploy.LaunchPad.Core.Domain.UnitOfWork
 {
-    public class AuditFieldConfiguration
+    public partial class AuditFieldConfiguration
     {
         public string FieldName { get; set; }
         

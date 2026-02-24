@@ -39,7 +39,7 @@ namespace Deploy.LaunchPad.Util.Modules
     /// It should be used for a class derived from <see cref="AbpModule"/>.
     /// </summary>
     [AttributeUsage(AttributeTargets.Class, AllowMultiple = true)]
-    public class DependsOnAttribute : Attribute
+    public partial class DependsOnAttribute : Attribute
     {
         /// <summary>
         /// Types of depended modules.

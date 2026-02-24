@@ -37,7 +37,7 @@ using Deploy.LaunchPad.Util.Modules;
 
 namespace Deploy.LaunchPad.Util.Reflection
 {
-    public class AbpAssemblyFinder : IAssemblyFinder
+    public partial class AbpAssemblyFinder : IAssemblyFinder
     {
         private readonly ILaunchPadModuleManager _moduleManager;
 

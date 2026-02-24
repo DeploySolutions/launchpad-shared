@@ -35,7 +35,7 @@ namespace Deploy.LaunchPad.Core.Auditing
     /// <summary>
     /// Provides an interface to provide audit informations in the upper layers.
     /// </summary>
-    public interface IAuditInfoProvider
+    public partial interface IAuditInfoProvider
     {
         /// <summary>
         /// Called to fill needed properties.

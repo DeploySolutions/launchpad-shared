@@ -33,7 +33,7 @@ namespace Deploy.LaunchPad.Util.Timing
     /// A basic implementation of <see cref="IDateTimeRange"/> to store a date range.
     /// </summary>
     [Serializable]
-    public class DateTimeRange : IDateTimeRange
+    public partial class DateTimeRange : IDateTimeRange
     {
         /// <summary>
         /// Start time of the datetime range.

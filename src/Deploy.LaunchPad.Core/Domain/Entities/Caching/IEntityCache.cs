@@ -34,11 +34,11 @@ using Deploy.LaunchPad.Core.Runtime.Caching;
 
 namespace Deploy.LaunchPad.Core.Domain.Entities.Caching
 {
-    public interface IEntityCache<TCacheItem> : IEntityCache<TCacheItem, int>
+    public partial interface IEntityCache<TCacheItem> : IEntityCache<TCacheItem, int>
     {
     }
 
-    public interface IEntityCache<TCacheItem, TPrimaryKey> : IEntityCacheBase<TCacheItem, TPrimaryKey>
+    public partial interface IEntityCache<TCacheItem, TPrimaryKey> : IEntityCacheBase<TCacheItem, TPrimaryKey>
     {
         ITypedCache<TPrimaryKey, TCacheItem> InternalCache { get; }
     }

@@ -36,7 +36,7 @@ using System;
 
 namespace Deploy.LaunchPad.Util.ObjectComparators
 {
-    public static class ObjectComparatorExtensions
+    public static partial class ObjectComparatorExtensions
     {
         public static bool IsNullOrEmpty<T1, T2>(this ObjectComparatorCondition<T1, T2> objectComparator) where T2 : Enum
         {

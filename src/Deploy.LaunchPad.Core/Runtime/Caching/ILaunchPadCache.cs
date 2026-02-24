@@ -37,7 +37,7 @@ using System.Threading.Tasks;
 
 namespace Deploy.LaunchPad.Core.Runtime.Caching
 {
-    public interface ILaunchPadCache<TKey, TValue> : IAbpCache
+    public partial interface ILaunchPadCache<TKey, TValue> : IAbpCache
     {
         /// <summary>
         /// Gets an item from the cache.
@@ -214,7 +214,7 @@ namespace Deploy.LaunchPad.Core.Runtime.Caching
     /// <summary>
     /// Base interface for caches.
     /// </summary>
-    public interface IAbpCache
+    public partial interface IAbpCache
     {
         /// <summary>
         /// Unique name of the cache.

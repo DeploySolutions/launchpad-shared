@@ -34,7 +34,7 @@ namespace Deploy.LaunchPad.Core.Abp.AbpModuleConfig
     /// <seealso cref="HelperBase" />
     /// <seealso cref="Deploy.LaunchPad.Core.Abp.AbpModuleConfig.ILaunchPadAbpModuleHelper" />
     /// <seealso cref="ISingletonDependency" />
-    public abstract class LaunchPadAbpModuleHelperBase : HelperBase,
+    public abstract partial class LaunchPadAbpModuleHelperBase : HelperBase,
         ILaunchPadAbpModuleHelper
     {
 

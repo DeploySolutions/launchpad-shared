@@ -36,7 +36,7 @@ using Deploy.LaunchPad.Util.Dependency;
 
 namespace Deploy.LaunchPad.Util.ObjectComparators
 {
-    public abstract class ObjectComparatorBase : IObjectComparator, ITransientDependency
+    public abstract partial class ObjectComparatorBase : IObjectComparator, ITransientDependency
     {
         public abstract Type ObjectType { get; }
 
@@ -47,7 +47,7 @@ namespace Deploy.LaunchPad.Util.ObjectComparators
         public abstract bool CanCompare(Type baseObjectType, string compareType);
     }
 
-    public abstract class ObjectComparatorBase<TBaseType> : ObjectComparatorBase
+    public abstract partial class ObjectComparatorBase<TBaseType> : ObjectComparatorBase
     {
         public sealed override Type ObjectType => typeof(TBaseType);
 
@@ -112,7 +112,7 @@ namespace Deploy.LaunchPad.Util.ObjectComparators
         }
     }
 
-    public abstract class ObjectComparatorBase<TBaseType, TEnumCompareTypes> : ObjectComparatorBase<TBaseType>
+    public abstract partial class ObjectComparatorBase<TBaseType, TEnumCompareTypes> : ObjectComparatorBase<TBaseType>
         where TEnumCompareTypes : Enum
     {
         public override ImmutableList<string> CompareTypes { get; }

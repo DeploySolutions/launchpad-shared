@@ -38,7 +38,7 @@ namespace Deploy.LaunchPad.Util.Extensions
     /// <summary>
     /// Extension methods for <see cref="IList{T}"/>.
     /// </summary>
-    public static class ListExtensions
+    public static partial class ListExtensions
     {
         /// <summary>
         /// Sort a list by a topological sorting, which consider their  dependencies

@@ -39,7 +39,7 @@ namespace Deploy.LaunchPad.Core.Domain.Entities.Auditing
     /// <summary>
     /// This interface is implemented by entities which wanted to store deletion information (who and when deleted).
     /// </summary>
-    public interface IDeletionAudited : IHasDeletionTime
+    public partial interface IDeletionAudited : IHasDeletionTime
     {
         /// <summary>
         /// Which user deleted this entity?
@@ -51,7 +51,7 @@ namespace Deploy.LaunchPad.Core.Domain.Entities.Auditing
     /// Adds navigation properties to <see cref="IDeletionAudited"/> interface for user.
     /// </summary>
     /// <typeparam name="TUser">Type of the user</typeparam>
-    public interface IDeletionAudited<TUser> : IDeletionAudited
+    public partial interface IDeletionAudited<TUser> : IDeletionAudited
         where TUser : IEntity<long>
     {
         /// <summary>

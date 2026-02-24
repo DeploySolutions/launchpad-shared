@@ -34,7 +34,7 @@ namespace Deploy.LaunchPad.Util.Collections
     /// <summary>
     /// Contains some useful extensions for working with collections.
     /// </summary>
-    public static class CollectionExtensions
+    public static partial class CollectionExtensions
     {
         /// <summary>
         /// ForEach extension that enumerates over all items in an <see cref="IEnumerable{T}" /> and executes

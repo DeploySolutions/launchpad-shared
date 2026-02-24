@@ -39,7 +39,7 @@ namespace Deploy.LaunchPad.Core.Domain.UnitOfWork
     /// This interface is internally used by ABP.
     /// Use <see cref="IUnitOfWorkManager.Begin()"/> to start a new unit of work.
     /// </summary>
-    public interface IUnitOfWork : IActiveUnitOfWork, IUnitOfWorkCompleteHandle
+    public partial interface IUnitOfWork : IActiveUnitOfWork, IUnitOfWorkCompleteHandle
     {
         /// <summary>
         /// Unique id of this UOW.

@@ -34,7 +34,7 @@ using JetBrains.Annotations;
 
 namespace Deploy.LaunchPad.Util.Specifications
 {
-    public static class SpecificationExtensions
+    public static partial class SpecificationExtensions
     {
         /// <summary>
         /// Combines the current specification instance with another specification instance

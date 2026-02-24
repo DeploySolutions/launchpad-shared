@@ -38,7 +38,7 @@ namespace Deploy.LaunchPad.Core.Auditing
     /// <summary>
     /// Used to configure auditing.
     /// </summary>
-    public interface IAuditingConfiguration
+    public partial interface IAuditingConfiguration
     {
         /// <summary>
         /// Used to enable/disable auditing system.

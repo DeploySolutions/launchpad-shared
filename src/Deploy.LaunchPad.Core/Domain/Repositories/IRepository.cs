@@ -38,7 +38,7 @@ namespace Deploy.LaunchPad.Core.Domain.Repositories
     /// This interface must be implemented by all repositories to identify them by convention.
     /// Implement generic version instead of this one.
     /// </summary>
-    public interface IRepository : ITransientDependency
+    public partial interface IRepository : ITransientDependency
     {
         
     }

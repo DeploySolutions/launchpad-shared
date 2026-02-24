@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace Deploy.LaunchPad.Code.CommandLine
 {
     [AttributeUsage(AttributeTargets.Class, Inherited = false)]
-    public class CommandValueTypeAttribute : Attribute
+    public partial class CommandValueTypeAttribute : Attribute
     {
         public Type ValueType { get; }
 

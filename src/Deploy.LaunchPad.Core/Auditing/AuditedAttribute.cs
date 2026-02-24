@@ -39,7 +39,7 @@ namespace Deploy.LaunchPad.Core.Auditing
     /// all methods of a class or interface.
     /// </summary>
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method | AttributeTargets.Property)]
-    public class AuditedAttribute : Attribute
+    public partial class AuditedAttribute : Attribute
     {
 
     }
