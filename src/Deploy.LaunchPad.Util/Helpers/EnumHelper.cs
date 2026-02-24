@@ -16,5 +16,28 @@ namespace Deploy.LaunchPad.Util.Helpers
 
             return displayAttribute?.Name ?? enumValue.ToString();
         }
+
+        /// <summary>
+        /// Gets the description from enum.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <param name="shouldReturnOriginalValueIfDescriptionEmpty">if set to <c>true</c> [should return original value if description empty].</param>
+        /// <returns>System.String.</returns>
+        public static string GetDescriptionFromEnum(Enum value, bool shouldReturnOriginalValueIfDescriptionEmpty = true)
+        {
+            var descriptionAttribute = value.GetType()
+                .GetField(value.ToString())
+                ?.GetCustomAttributes(typeof(System.ComponentModel.DescriptionAttribute), false)
+                .FirstOrDefault() as System.ComponentModel.DescriptionAttribute;
+
+            if (descriptionAttribute != null && !string.IsNullOrWhiteSpace(descriptionAttribute.Description))
+            {
+                return descriptionAttribute.Description;
+            }
+
+            return shouldReturnOriginalValueIfDescriptionEmpty ? value.ToString() : string.Empty;
+
+        }
+
     }
 }

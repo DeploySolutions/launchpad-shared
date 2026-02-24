@@ -29,13 +29,6 @@ namespace Deploy.LaunchPad.Util
         /// <value>The logger.</value>
         public ILogger Logger { get; set; }
 
-        /// <summary>
-        /// Gets the description from enum.
-        /// </summary>
-        /// <param name="value">The value.</param>
-        /// <param name="shouldReturnOriginalValueIfDescriptionEmpty">if set to <c>true</c> [should return original value if description empty].</param>
-        /// <returns>System.String.</returns>
-        public string GetDescriptionFromEnum(Enum value, bool shouldReturnOriginalValueIfDescriptionEmpty = true);
-
+        
     }
 }
