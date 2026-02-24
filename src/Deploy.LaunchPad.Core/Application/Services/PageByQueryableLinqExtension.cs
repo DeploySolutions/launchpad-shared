@@ -31,24 +31,29 @@
 #endregion
 
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
+using System.Linq.Expressions;
+using Deploy.LaunchPad.Core.Application.Services;
+using Deploy.LaunchPad.Core.Application.Services.Dto;
+using Deploy.LaunchPad.Util.Linq.Extensions;
 
-namespace Deploy.LaunchPad.Core.Linq
+namespace Deploy.LaunchPad.Core.Application.Services
 {
     /// <summary>
-    /// This interface is intended to be used by ABP.
+    /// Some useful extension methods for <see cref="IQueryable{T}"/>. Also see QueryableLinqExtensions
     /// </summary>
-    public interface IAsyncQueryableExecuter
+    public static class PageByQueryableLinqExtension
     {
-        Task<int> CountAsync<T>(IQueryable<T> queryable, CancellationToken cancellationToken = default);
+        
+        /// <summary>
+        /// Used for paging with an <see cref="IPagedResultRequest"/> object.
+        /// </summary>
+        /// <param name="query">Queryable to apply paging</param>
+        /// <param name="pagedResultRequest">An object implements <see cref="IPagedResultRequest"/> interface</param>
+        public static IQueryable<T> PageBy<T>(this IQueryable<T> query, IPagedResultRequest pagedResultRequest)
+        {
+            return query.PageBy(pagedResultRequest.SkipCount, pagedResultRequest.MaxResultCount);
+        }
 
-        Task<List<T>> ToListAsync<T>(IQueryable<T> queryable, CancellationToken cancellationToken = default);
-
-        Task<T> FirstOrDefaultAsync<T>(IQueryable<T> queryable, CancellationToken cancellationToken = default);
-
-        Task<bool> AnyAsync<T>(IQueryable<T> queryable, CancellationToken cancellationToken = default);
     }
 }

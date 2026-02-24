@@ -8,8 +8,8 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Castle.Core" />
-    <PackageReference Include="RestSharp" />
     <PackageReference Include="Newtonsoft.Json" />
+    <PackageReference Include="File.TypeChecker" />
   </ItemGroup>
 
   <ItemGroup>

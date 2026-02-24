@@ -33,7 +33,7 @@
 using System;
 using System.Linq.Expressions;
 
-namespace Deploy.LaunchPad.Core.Linq.Expressions
+namespace Deploy.LaunchPad.Util.Linq.Expressions
 {
     public static class ExpressionCombiner
     {

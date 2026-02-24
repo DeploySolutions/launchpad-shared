@@ -48,4 +48,8 @@
     <ProjectReference Include="..\Deploy.LaunchPad.Util\Deploy.LaunchPad.Util.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Linq\Extensions\" />
+  </ItemGroup>
+
 </Project>

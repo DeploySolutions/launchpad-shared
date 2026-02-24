@@ -30,35 +30,25 @@
  */
 #endregion
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Deploy.LaunchPad.Core.Linq
+namespace Deploy.LaunchPad.Util.Linq
 {
-    public class NullAsyncQueryableExecuter : IAsyncQueryableExecuter
+    /// <summary>
+    /// This interface is intended to be used by ABP.
+    /// </summary>
+    public interface IAsyncQueryableExecuter
     {
-        public static NullAsyncQueryableExecuter Instance { get; } = new NullAsyncQueryableExecuter();
+        Task<int> CountAsync<T>(IQueryable<T> queryable, CancellationToken cancellationToken = default);
 
-        public Task<int> CountAsync<T>(IQueryable<T> queryable, CancellationToken cancellationToken = default)
-        {
-            return Task.FromResult(queryable.Count());
-        }
+        Task<List<T>> ToListAsync<T>(IQueryable<T> queryable, CancellationToken cancellationToken = default);
 
-        public Task<List<T>> ToListAsync<T>(IQueryable<T> queryable, CancellationToken cancellationToken = default)
-        {
-            return Task.FromResult(queryable.ToList());
-        }
+        Task<T> FirstOrDefaultAsync<T>(IQueryable<T> queryable, CancellationToken cancellationToken = default);
 
-        public Task<T> FirstOrDefaultAsync<T>(IQueryable<T> queryable, CancellationToken cancellationToken = default)
-        {
-            return Task.FromResult(queryable.FirstOrDefault());
-        }
-
-        public Task<bool> AnyAsync<T>(IQueryable<T> queryable, CancellationToken cancellationToken = default)
-        {
-            return Task.FromResult(queryable.Any());
-        }
+        Task<bool> AnyAsync<T>(IQueryable<T> queryable, CancellationToken cancellationToken = default);
     }
 }

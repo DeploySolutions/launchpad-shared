@@ -37,7 +37,7 @@ using System.Linq.Expressions;
 using System.Runtime.CompilerServices;
 using JetBrains.Annotations;
 
-namespace Deploy.LaunchPad.Core.Linq.Expressions
+namespace Deploy.LaunchPad.Util.Linq.Expressions
 {
     // Codes below are taken from https://github.com/scottksmith95/LINQKit project.
 
