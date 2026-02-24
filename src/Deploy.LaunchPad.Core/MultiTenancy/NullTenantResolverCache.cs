@@ -34,7 +34,7 @@ namespace Deploy.LaunchPad.Core.MultiTenancy
 {
     public partial class NullTenantResolverCache : ITenantResolverCache
     {
-        public TenantResolverCacheItem Value
+        public virtual TenantResolverCacheItem Value
         {
             get { return null; }
             set {  }

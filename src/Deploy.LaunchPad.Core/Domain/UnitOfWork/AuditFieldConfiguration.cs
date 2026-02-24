@@ -34,9 +34,9 @@ namespace Deploy.LaunchPad.Core.Domain.UnitOfWork
 {
     public partial class AuditFieldConfiguration
     {
-        public string FieldName { get; set; }
-        
-        public bool IsSavingEnabled { get; }
+        public virtual string FieldName { get; set; }
+
+        public virtual bool IsSavingEnabled { get; }
         
         public AuditFieldConfiguration(string fieldName, bool isSavingEnabled)
         {

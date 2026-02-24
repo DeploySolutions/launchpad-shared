@@ -39,7 +39,7 @@ namespace Deploy.LaunchPad.Util
         /// Returns the current date
         /// </summary>
         /// <value>The now.</value>
-        public DateTime Now
+        public virtual DateTime Now
         {
             get
             {
@@ -51,7 +51,7 @@ namespace Deploy.LaunchPad.Util
         /// Returns the current date, in UTC format
         /// </summary>
         /// <value>The UTC now.</value>
-        public DateTime UtcNow
+        public virtual DateTime UtcNow
         {
             get
             {
@@ -66,7 +66,7 @@ namespace Deploy.LaunchPad.Util
         /// <param name="month">The month.</param>
         /// <param name="day">The day.</param>
         /// <returns>DateTime.</returns>
-        public DateTime SpecifyDate(int year, int month, int day)
+        public virtual DateTime SpecifyDate(int year, int month, int day)
         {
             return new DateTime(year, month, day);
         }

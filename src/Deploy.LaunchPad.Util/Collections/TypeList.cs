@@ -54,13 +54,13 @@ namespace Deploy.LaunchPad.Util.Collections
         /// Gets the count.
         /// </summary>
         /// <value>The count.</value>
-        public int Count { get { return _typeList.Count; } }
+        public virtual int Count { get { return _typeList.Count; } }
 
         /// <summary>
         /// Gets a value indicating whether this instance is read only.
         /// </summary>
         /// <value><c>true</c> if this instance is read only; otherwise, <c>false</c>.</value>
-        public bool IsReadOnly { get { return false; } }
+        public virtual bool IsReadOnly { get { return false; } }
 
         /// <summary>
         /// Gets or sets the <see cref="Type"/> at the specified index.
@@ -87,12 +87,12 @@ namespace Deploy.LaunchPad.Util.Collections
         }
 
         /// <inheritdoc/>
-        public void Add<T>() where T : TBaseType
+        public virtual void Add<T>() where T : TBaseType
         {
             _typeList.Add(typeof(T));
         }
 
-        public bool TryAdd<T>() where T : TBaseType
+        public virtual bool TryAdd<T>() where T : TBaseType
         {
             if (Contains<T>())
             {
@@ -104,68 +104,68 @@ namespace Deploy.LaunchPad.Util.Collections
         }
 
         /// <inheritdoc/>
-        public void Add(Type item)
+        public virtual void Add(Type item)
         {
             CheckType(item);
             _typeList.Add(item);
         }
 
         /// <inheritdoc/>
-        public void Insert(int index, Type item)
+        public virtual void Insert(int index, Type item)
         {
             _typeList.Insert(index, item);
         }
 
         /// <inheritdoc/>
-        public int IndexOf(Type item)
+        public virtual int IndexOf(Type item)
         {
             return _typeList.IndexOf(item);
         }
 
         /// <inheritdoc/>
-        public bool Contains<T>() where T : TBaseType
+        public virtual bool Contains<T>() where T : TBaseType
         {
             return Contains(typeof(T));
         }
 
         /// <inheritdoc/>
-        public bool Contains(Type item)
+        public virtual bool Contains(Type item)
         {
             return _typeList.Contains(item);
         }
 
         /// <inheritdoc/>
-        public void Remove<T>() where T : TBaseType
+        public virtual void Remove<T>() where T : TBaseType
         {
             _typeList.Remove(typeof(T));
         }
 
         /// <inheritdoc/>
-        public bool Remove(Type item)
+        public virtual bool Remove(Type item)
         {
             return _typeList.Remove(item);
         }
 
         /// <inheritdoc/>
-        public void RemoveAt(int index)
+        public virtual void RemoveAt(int index)
         {
             _typeList.RemoveAt(index);
         }
 
         /// <inheritdoc/>
-        public void Clear()
+        public virtual void Clear()
         {
             _typeList.Clear();
         }
 
         /// <inheritdoc/>
-        public void CopyTo(Type[] array, int arrayIndex)
+        public virtual void CopyTo(Type[] array, int arrayIndex)
         {
             _typeList.CopyTo(array, arrayIndex);
         }
 
         /// <inheritdoc/>
-        public IEnumerator<Type> GetEnumerator()
+        public virtual IEnumerator<Type> GetEnumerator()
         {
             return _typeList.GetEnumerator();
         }

@@ -42,12 +42,12 @@ namespace Deploy.LaunchPad.Core
         /// <summary>
         /// Name of the selector.
         /// </summary>
-        public string Name { get; set; }
-        
+        public virtual string Name { get; set; }
+
         /// <summary>
         /// Predicate.
         /// </summary>
-        public Func<Type, bool> Predicate { get; set; }
+        public virtual Func<Type, bool> Predicate { get; set; }
 
         /// <summary>
         /// Creates new <see cref="NamedTypeSelector"/> object.

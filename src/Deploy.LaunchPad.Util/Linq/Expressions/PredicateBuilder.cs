@@ -160,17 +160,17 @@ namespace Deploy.LaunchPad.Util.Linq.Expressions
         private Expression<Func<T, bool>> _predicate;
 
         /// <summary>Determines if the predicate is started.</summary>
-        public bool IsStarted => _predicate != null;
+        public virtual bool IsStarted => _predicate != null;
 
         /// <summary> A default expression to use only when the expression is null </summary>
-        public bool UseDefaultExpression => DefaultExpression != null;
+        public virtual bool UseDefaultExpression => DefaultExpression != null;
 
         /// <summary>The default expression</summary>
-        public Expression<Func<T, bool>> DefaultExpression { get; set; }
+        public virtual Expression<Func<T, bool>> DefaultExpression { get; set; }
 
         /// <summary>Set the Expression predicate</summary>
         /// <param name="exp">The first expression</param>
-        public Expression<Func<T, bool>> Start(Expression<Func<T, bool>> exp)
+        public virtual Expression<Func<T, bool>> Start(Expression<Func<T, bool>> exp)
         {
             if (IsStarted)
                 throw new Exception("Predicate cannot be started again.");
@@ -179,7 +179,7 @@ namespace Deploy.LaunchPad.Util.Linq.Expressions
         }
 
         /// <summary>Or</summary>
-        public Expression<Func<T, bool>> Or([NotNull] Expression<Func<T, bool>> expr2)
+        public virtual Expression<Func<T, bool>> Or([NotNull] Expression<Func<T, bool>> expr2)
         {
             return (IsStarted) ? _predicate = Predicate.Or(expr2) : Start(expr2);
         }
@@ -229,42 +229,42 @@ namespace Deploy.LaunchPad.Util.Linq.Expressions
 #if !(NET35)
 
         /// <summary></summary>
-        public Func<T, bool> Compile() { return Predicate.Compile(); }
+        public virtual Func<T, bool> Compile() { return Predicate.Compile(); }
 #endif
 
 #if !(NET35 || WINDOWS_APP || NETSTANDARD || PORTABLE || PORTABLE40 || UAP)
         /// <summary></summary>
-        public Func<T, bool> Compile(DebugInfoGenerator debugInfoGenerator) { return Predicate.Compile(debugInfoGenerator); }
+        public virtual Func<T, bool> Compile(DebugInfoGenerator debugInfoGenerator) { return Predicate.Compile(debugInfoGenerator); }
 
         /// <summary></summary>
-        public Expression<Func<T, bool>> Update(Expression body, IEnumerable<ParameterExpression> parameters) { return Predicate.Update(body, parameters); }
+        public virtual Expression<Func<T, bool>> Update(Expression body, IEnumerable<ParameterExpression> parameters) { return Predicate.Update(body, parameters); }
 #endif
         #endregion
 
         #region Implement LamdaExpression methods and properties
 
         /// <summary></summary>
-        public Expression Body => Predicate.Body;
+        public virtual Expression Body => Predicate.Body;
 
 
         /// <summary></summary>
-        public ExpressionType NodeType => Predicate.NodeType;
+        public virtual ExpressionType NodeType => Predicate.NodeType;
 
         /// <summary></summary>
-        public ReadOnlyCollection<ParameterExpression> Parameters => Predicate.Parameters;
+        public virtual ReadOnlyCollection<ParameterExpression> Parameters => Predicate.Parameters;
 
         /// <summary></summary>
-        public Type Type => Predicate.Type;
+        public virtual Type Type => Predicate.Type;
 
 #if !(NET35)
         /// <summary></summary>
-        public string Name => Predicate.Name;
+        public virtual string Name => Predicate.Name;
 
         /// <summary></summary>
-        public Type ReturnType => Predicate.ReturnType;
+        public virtual Type ReturnType => Predicate.ReturnType;
 
         /// <summary></summary>
-        public bool TailCall => Predicate.TailCall;
+        public virtual bool TailCall => Predicate.TailCall;
 #endif
         
         #endregion

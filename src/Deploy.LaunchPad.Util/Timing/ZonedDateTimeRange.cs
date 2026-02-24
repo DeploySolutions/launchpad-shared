@@ -69,12 +69,12 @@ namespace Deploy.LaunchPad.Util.Timing
         /// <summary>
         /// The Timezone of the datetime range
         /// </summary>
-        public string Timezone { get; set; } = "UTC";
+        public virtual string Timezone { get; set; } = "UTC";
 
         /// <summary>
         /// The StartTime with Offset
         /// </summary>
-        public DateTimeOffset StartTimeOffset
+        public virtual DateTimeOffset StartTimeOffset
         {
             get => TimezoneHelper.ConvertToDateTimeOffset(StartTime, Timezone);
             set => StartTimeUtc = value.UtcDateTime;
@@ -83,7 +83,7 @@ namespace Deploy.LaunchPad.Util.Timing
         /// <summary>
         /// The EndTime with Offset
         /// </summary>
-        public DateTimeOffset EndTimeOffset
+        public virtual DateTimeOffset EndTimeOffset
         {
             get => TimezoneHelper.ConvertToDateTimeOffset(EndTime, Timezone);
             set => EndTimeUtc = value.UtcDateTime;
@@ -92,7 +92,7 @@ namespace Deploy.LaunchPad.Util.Timing
         /// <summary>
         /// The StartTime in UTC
         /// </summary>
-        public DateTime StartTimeUtc
+        public virtual DateTime StartTimeUtc
         {
             get => StartTimeOffset.UtcDateTime;
             set
@@ -108,7 +108,7 @@ namespace Deploy.LaunchPad.Util.Timing
         /// <summary>
         /// The EndTime in UTC
         /// </summary>
-        public DateTime EndTimeUtc
+        public virtual DateTime EndTimeUtc
         {
             get => EndTimeOffset.UtcDateTime;
             set
@@ -124,7 +124,7 @@ namespace Deploy.LaunchPad.Util.Timing
         /// <summary>
         /// The current time based on the timezone
         /// </summary>
-        public DateTime Now
+        public virtual DateTime Now
         {
             get
             {
@@ -151,7 +151,7 @@ namespace Deploy.LaunchPad.Util.Timing
         /// <summary>
         /// Gets a zoned date range representing yesterday.
         /// </summary>
-        public new ZonedDateTimeRange Yesterday
+        public virtual new ZonedDateTimeRange Yesterday
         {
             get
             {
@@ -163,7 +163,7 @@ namespace Deploy.LaunchPad.Util.Timing
         /// <summary>
         /// Gets a zoned date range representing today.
         /// </summary>
-        public new ZonedDateTimeRange Today
+        public virtual new ZonedDateTimeRange Today
         {
             get
             {
@@ -175,7 +175,7 @@ namespace Deploy.LaunchPad.Util.Timing
         /// <summary>
         /// Gets a zoned date range representing tomorrow.
         /// </summary>
-        public new ZonedDateTimeRange Tomorrow
+        public virtual new ZonedDateTimeRange Tomorrow
         {
             get
             {
@@ -187,7 +187,7 @@ namespace Deploy.LaunchPad.Util.Timing
         /// <summary>
         /// Gets a zoned date range representing the last month.
         /// </summary>
-        public new ZonedDateTimeRange LastMonth
+        public virtual new ZonedDateTimeRange LastMonth
         {
             get
             {
@@ -201,7 +201,7 @@ namespace Deploy.LaunchPad.Util.Timing
         /// <summary>
         /// Gets a zoned date range representing this month.
         /// </summary>
-        public new ZonedDateTimeRange ThisMonth
+        public virtual new ZonedDateTimeRange ThisMonth
         {
             get
             {
@@ -215,7 +215,7 @@ namespace Deploy.LaunchPad.Util.Timing
         /// <summary>
         /// Gets a zoned date range representing the next month.
         /// </summary>
-        public new ZonedDateTimeRange NextMonth
+        public virtual new ZonedDateTimeRange NextMonth
         {
             get
             {
@@ -230,7 +230,7 @@ namespace Deploy.LaunchPad.Util.Timing
         /// <summary>
         /// Gets a zoned date range representing the last year.
         /// </summary>
-        public new ZonedDateTimeRange LastYear
+        public virtual new ZonedDateTimeRange LastYear
         {
             get
             {
@@ -242,7 +242,7 @@ namespace Deploy.LaunchPad.Util.Timing
         /// <summary>
         /// Gets a zoned date range representing this year.
         /// </summary>
-        public new ZonedDateTimeRange ThisYear
+        public virtual new ZonedDateTimeRange ThisYear
         {
             get
             {
@@ -254,7 +254,7 @@ namespace Deploy.LaunchPad.Util.Timing
         /// <summary>
         /// Gets a zoned date range representing the next year.
         /// </summary>
-        public new ZonedDateTimeRange NextYear
+        public virtual new ZonedDateTimeRange NextYear
         {
             get
             {
@@ -267,7 +267,7 @@ namespace Deploy.LaunchPad.Util.Timing
         /// <summary>
         /// Gets a zoned date range representing the last 30 days (30x24 hours) including today.
         /// </summary>
-        public new ZonedDateTimeRange Last30Days
+        public virtual new ZonedDateTimeRange Last30Days
         {
             get
             {
@@ -279,7 +279,7 @@ namespace Deploy.LaunchPad.Util.Timing
         /// <summary>
         /// Gets a zoned date range representing the last 30 days excluding today.
         /// </summary>
-        public new ZonedDateTimeRange Last30DaysExceptToday
+        public virtual new ZonedDateTimeRange Last30DaysExceptToday
         {
             get
             {
@@ -291,7 +291,7 @@ namespace Deploy.LaunchPad.Util.Timing
         /// <summary>
         /// Gets a zoned date range representing the last 7 days (7x24 hours) including today.
         /// </summary>
-        public new ZonedDateTimeRange Last7Days
+        public virtual new ZonedDateTimeRange Last7Days
         {
             get
             {
@@ -303,7 +303,7 @@ namespace Deploy.LaunchPad.Util.Timing
         /// <summary>
         /// Gets a zoned date range representing the last 7 days excluding today.
         /// </summary>
-        public new ZonedDateTimeRange Last7DaysExceptToday
+        public virtual new ZonedDateTimeRange Last7DaysExceptToday
         {
             get
             {

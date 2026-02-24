@@ -36,11 +36,11 @@ namespace Deploy.LaunchPad.Core.Domain.UnitOfWork
 {
     public partial class DataFilterConfiguration
     {
-        public string FilterName { get; }
+        public virtual string FilterName { get; }
 
-        public bool IsEnabled { get; }
+        public virtual bool IsEnabled { get; }
 
-        public IDictionary<string, object> FilterParameters { get; }
+        public virtual IDictionary<string, object> FilterParameters { get; }
 
         public DataFilterConfiguration(string filterName, bool isEnabled)
         {

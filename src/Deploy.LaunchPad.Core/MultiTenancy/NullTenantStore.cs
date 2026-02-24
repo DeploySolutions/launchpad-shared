@@ -34,12 +34,12 @@ namespace Deploy.LaunchPad.Core.MultiTenancy
 {
     public partial class NullTenantStore : ITenantStore
     {
-        public TenantInfo Find(int tenantId)
+        public virtual TenantInfo Find(int tenantId)
         {
             return null;
         }
 
-        public TenantInfo Find(string tenancyName)
+        public virtual TenantInfo Find(string tenancyName)
         {
             return null;
         }

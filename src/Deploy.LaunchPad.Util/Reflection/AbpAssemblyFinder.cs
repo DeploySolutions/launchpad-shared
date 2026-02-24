@@ -46,7 +46,7 @@ namespace Deploy.LaunchPad.Util.Reflection
             _moduleManager = moduleManager;
         }
 
-        public List<Assembly> GetAllAssemblies()
+        public virtual List<Assembly> GetAllAssemblies()
         {
             var assemblies = new List<Assembly>();
 

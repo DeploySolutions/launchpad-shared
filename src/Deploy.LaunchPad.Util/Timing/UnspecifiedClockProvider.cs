@@ -31,13 +31,13 @@ namespace Deploy.LaunchPad.Util.Timing
 {
     public partial class UnspecifiedClockProvider : IClockProvider
     {
-        public DateTime Now => DateTime.Now;
+        public virtual DateTime Now => DateTime.Now;
 
-        public DateTimeKind Kind => DateTimeKind.Unspecified;
+        public virtual DateTimeKind Kind => DateTimeKind.Unspecified;
 
-        public bool SupportsMultipleTimezone => false;
+        public virtual bool SupportsMultipleTimezone => false;
 
-        public DateTime Normalize(DateTime dateTime)
+        public virtual DateTime Normalize(DateTime dateTime)
         {
             return dateTime;
         }

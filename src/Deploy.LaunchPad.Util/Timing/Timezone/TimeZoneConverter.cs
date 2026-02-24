@@ -44,7 +44,7 @@ namespace Deploy.LaunchPad.Util.Timing.Timezone
         }
 
         /// <inheritdoc/>
-        public DateTime? Convert(DateTime? date, int? tenantId, long userId, string userTimeZone = "")
+        public virtual DateTime? Convert(DateTime? date, int? tenantId, long userId, string userTimeZone = "")
         {
             if (!date.HasValue)
             {
@@ -65,7 +65,7 @@ namespace Deploy.LaunchPad.Util.Timing.Timezone
         }
 
         /// <inheritdoc/>
-        public DateTime? Convert(DateTime? date, int tenantId, string tenantsTimeZone = "")
+        public virtual DateTime? Convert(DateTime? date, int tenantId, string tenantsTimeZone = "")
         {
             if (!date.HasValue)
             {
@@ -84,9 +84,9 @@ namespace Deploy.LaunchPad.Util.Timing.Timezone
 
             return TimezoneHelper.ConvertFromUtc(date.Value.ToUniversalTime(), tenantsTimeZone);
         }
-        
+
         /// <inheritdoc/>
-        public DateTime? Convert(DateTime? date, string applicationsTimeZone = "")
+        public virtual DateTime? Convert(DateTime? date, string applicationsTimeZone = "")
         {
             if (!date.HasValue)
             {

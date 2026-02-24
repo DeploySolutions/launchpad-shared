@@ -55,7 +55,7 @@ namespace LaunchPad.Core.Util
             _action = action;
         }
 
-        public void Dispose()
+        public virtual void Dispose()
         {
             // Interlocked prevents multiple execution of the _action.
             var action = Interlocked.Exchange(ref _action, null);

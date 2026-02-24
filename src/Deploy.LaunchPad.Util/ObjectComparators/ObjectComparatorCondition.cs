@@ -39,18 +39,18 @@ namespace Deploy.LaunchPad.Util.ObjectComparators
 {
     public partial class ObjectComparatorCondition<TValueType>
     {
-        public string CompareType { get; set; }
+        public virtual string CompareType { get; set; }
 
-        public string JsonValue { get; set; }
+        public virtual string JsonValue { get; set; }
 
-        public TValueType GetValue()
+        public virtual TValueType GetValue()
         {
             return JsonValue.IsNullOrWhiteSpace()
                     ? default
                     : JsonValue.FromJsonString<TValueType>();
         }
 
-        public void SetValue(TValueType value)
+        public virtual void SetValue(TValueType value)
         {
             JsonValue = value.ToJsonString();
         }
@@ -59,18 +59,18 @@ namespace Deploy.LaunchPad.Util.ObjectComparators
     public partial class ObjectComparatorCondition<TValueType, TEnumCompareType>
         where TEnumCompareType : Enum
     {
-        public TEnumCompareType CompareType { get; set; }
+        public virtual TEnumCompareType CompareType { get; set; }
 
-        public string JsonValue { get; set; }
+        public virtual string JsonValue { get; set; }
 
-        public TValueType GetValue()
+        public virtual TValueType GetValue()
         {
             return JsonValue.IsNullOrWhiteSpace()
                 ? default
                 : JsonValue.FromJsonString<TValueType>();
         }
 
-        public void SetValue(TValueType value)
+        public virtual void SetValue(TValueType value)
         {
             JsonValue = value.ToJsonString();
         }

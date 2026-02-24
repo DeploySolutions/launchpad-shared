@@ -45,36 +45,36 @@ namespace Deploy.LaunchPad.Core.Domain.UnitOfWork
         /// <summary>
         /// Scope option.
         /// </summary>
-        public TransactionScopeOption? Scope { get; set; }
+        public virtual TransactionScopeOption? Scope { get; set; }
 
         /// <summary>
         /// Is this UOW transactional?
         /// Uses default value if not supplied.
         /// </summary>
-        public bool? IsTransactional { get; set; }
+        public virtual bool? IsTransactional { get; set; }
 
         /// <summary>
         /// Timeout of UOW As milliseconds.
         /// Uses default value if not supplied.
         /// </summary>
-        public TimeSpan? Timeout { get; set; }
+        public virtual TimeSpan? Timeout { get; set; }
 
         /// <summary>
         /// If this UOW is transactional, this option indicated the isolation level of the transaction.
         /// Uses default value if not supplied.
         /// </summary>
-        public IsolationLevel? IsolationLevel { get; set; }
+        public virtual IsolationLevel? IsolationLevel { get; set; }
 
         /// <summary>
         /// This option should be set to <see cref="TransactionScopeAsyncFlowOption.Enabled"/>
         /// if unit of work is used in an async scope.
         /// </summary>
-        public TransactionScopeAsyncFlowOption? AsyncFlowOption { get; set; }
+        public virtual TransactionScopeAsyncFlowOption? AsyncFlowOption { get; set; }
 
         /// <summary>
         /// Can be used to enable/disable some filters.
         /// </summary>
-        public List<DataFilterConfiguration> FilterOverrides { get; }
+        public virtual List<DataFilterConfiguration> FilterOverrides { get; }
         
         
         /// <summary>
@@ -85,7 +85,7 @@ namespace Deploy.LaunchPad.Core.Domain.UnitOfWork
             FilterOverrides = new List<DataFilterConfiguration>();
         }
 
-        public void FillDefaultsForNonProvidedOptions(IUnitOfWorkDefaultOptions defaultOptions)
+        public virtual void FillDefaultsForNonProvidedOptions(IUnitOfWorkDefaultOptions defaultOptions)
         {
             //TODO: Do not change options object..?
 
@@ -110,7 +110,7 @@ namespace Deploy.LaunchPad.Core.Domain.UnitOfWork
             }
         }
 
-        public void FillOuterUowFiltersForNonProvidedOptions(List<DataFilterConfiguration> filterOverrides)
+        public virtual void FillOuterUowFiltersForNonProvidedOptions(List<DataFilterConfiguration> filterOverrides)
         {
             foreach (var filterOverride in filterOverrides)
             {

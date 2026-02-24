@@ -43,7 +43,7 @@ namespace Deploy.LaunchPad.Core.Application.Services.Dto
     public partial class NullableIdDto<TId>
         where TId : struct
     {
-        public TId? Id { get; set; }
+        public virtual TId? Id { get; set; }
 
         public NullableIdDto()
         {

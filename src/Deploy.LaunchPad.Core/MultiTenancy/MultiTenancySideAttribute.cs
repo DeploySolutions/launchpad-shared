@@ -43,7 +43,7 @@ namespace Deploy.LaunchPad.Core.MultiTenancy
         /// <summary>
         /// Multitenancy side.
         /// </summary>
-        public MultiTenancySides Side { get; set; }
+        public virtual MultiTenancySides Side { get; set; }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="MultiTenancySideAttribute"/> class.

@@ -36,7 +36,7 @@ namespace Deploy.LaunchPad.Util.Resources.Embedded
 {
     public partial class EmbeddedResourcesConfiguration : IEmbeddedResourcesConfiguration
     {
-        public List<EmbeddedResourceSet> Sources { get; }
+        public virtual List<EmbeddedResourceSet> Sources { get; }
 
         public EmbeddedResourcesConfiguration()
         {

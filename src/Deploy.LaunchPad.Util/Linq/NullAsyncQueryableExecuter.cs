@@ -41,22 +41,22 @@ namespace Deploy.LaunchPad.Util.Linq
     {
         public static NullAsyncQueryableExecuter Instance { get; } = new NullAsyncQueryableExecuter();
 
-        public Task<int> CountAsync<T>(IQueryable<T> queryable, CancellationToken cancellationToken = default)
+        public virtual Task<int> CountAsync<T>(IQueryable<T> queryable, CancellationToken cancellationToken = default)
         {
             return Task.FromResult(queryable.Count());
         }
 
-        public Task<List<T>> ToListAsync<T>(IQueryable<T> queryable, CancellationToken cancellationToken = default)
+        public virtual Task<List<T>> ToListAsync<T>(IQueryable<T> queryable, CancellationToken cancellationToken = default)
         {
             return Task.FromResult(queryable.ToList());
         }
 
-        public Task<T> FirstOrDefaultAsync<T>(IQueryable<T> queryable, CancellationToken cancellationToken = default)
+        public virtual Task<T> FirstOrDefaultAsync<T>(IQueryable<T> queryable, CancellationToken cancellationToken = default)
         {
             return Task.FromResult(queryable.FirstOrDefault());
         }
 
-        public Task<bool> AnyAsync<T>(IQueryable<T> queryable, CancellationToken cancellationToken = default)
+        public virtual Task<bool> AnyAsync<T>(IQueryable<T> queryable, CancellationToken cancellationToken = default)
         {
             return Task.FromResult(queryable.Any());
         }

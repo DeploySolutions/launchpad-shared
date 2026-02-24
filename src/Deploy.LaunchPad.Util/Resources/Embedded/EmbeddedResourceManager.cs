@@ -53,13 +53,13 @@ namespace Deploy.LaunchPad.Util.Resources.Embedded
         }
 
         /// <inheritdoc/>
-        public EmbeddedResourceItem GetResource(string fullPath)
+        public virtual EmbeddedResourceItem GetResource(string fullPath)
         {
             var encodedPath = EmbeddedResourcePathHelper.EncodeAsResourcesPath(fullPath);
             return _resources.Value.GetOrDefault(encodedPath);
         }
 
-        public IEnumerable<EmbeddedResourceItem> GetResources(string fullPath)
+        public virtual IEnumerable<EmbeddedResourceItem> GetResources(string fullPath)
         {
             var encodedPath = EmbeddedResourcePathHelper.EncodeAsResourcesPath(fullPath);
             if (encodedPath.Length > 0 && !encodedPath.EndsWith("."))
@@ -74,7 +74,7 @@ namespace Deploy.LaunchPad.Util.Resources.Embedded
             return _resources.Value.Where(k => k.Key.StartsWith(encodedPath)).Select(d => d.Value);
         }
 
-        private Dictionary<string, EmbeddedResourceItem> CreateResourcesDictionary()
+        protected virtual Dictionary<string, EmbeddedResourceItem> CreateResourcesDictionary()
         {
             var resources = new Dictionary<string, EmbeddedResourceItem>(StringComparer.OrdinalIgnoreCase);
 

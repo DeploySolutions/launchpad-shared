@@ -56,16 +56,16 @@ namespace Deploy.LaunchPad.Core.Application.Services.Dto
         /// <summary>
         /// Is this entity deleted?
         /// </summary>
-        public bool IsDeleted { get; set; }
+        public virtual bool IsDeleted { get; set; }
 
         /// <summary>
         /// Deleter user's Id, if this entity is deleted,
         /// </summary>
-        public long? DeleterUserId { get; set; }
+        public virtual long? DeleterUserId { get; set; }
 
         /// <summary>
         /// Deletion time, if this entity is deleted,
         /// </summary>
-        public DateTime? DeletionTime { get; set; }
+        public virtual DateTime? DeletionTime { get; set; }
     }
 }

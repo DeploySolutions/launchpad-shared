@@ -10,10 +10,9 @@ using Deploy.LaunchPad.Core.Entities;
 namespace Deploy.LaunchPad.Domain.Content
 {
 
-    public abstract partial class LaunchPadContentPublishingCollectionItemBase : LaunchPadCoreProperties, ILaunchPadObject,        
+    public abstract partial class LaunchPadContentPublishingCollectionItemBase : LaunchPadCoreProperties,        
         ILaunchPadContentPublishingItem
     {
-        public virtual Guid Id { get; set; }
         public virtual LaunchPadContentItemType ContentType { get; set; }
 
         public virtual bool IsPublished { get; set; }
@@ -29,7 +28,6 @@ namespace Deploy.LaunchPad.Domain.Content
 
         protected LaunchPadContentPublishingCollectionItemBase(string name, LaunchPadContentItemType type)
         {
-            Id = Guid.NewGuid();
             ContentType = type;
             Name = new ElementName(name);
             Description = new ElementDescription(name);
@@ -46,7 +44,6 @@ namespace Deploy.LaunchPad.Domain.Content
         /// <param name="context">The context of the stream</param>
         protected LaunchPadContentPublishingCollectionItemBase(SerializationInfo info, StreamingContext context)
         {
-            Id = (Guid)info.GetValue("Id", typeof(Guid));
             Name = (ElementName)info.GetValue("Name", typeof(ElementName));
             Description = (ElementDescription)info.GetValue("Description", typeof(ElementDescription));
             Culture = info.GetString("Culture");
@@ -71,7 +68,6 @@ namespace Deploy.LaunchPad.Domain.Content
         /// <param name="context">The context.</param>
         public virtual void GetObjectData(SerializationInfo info, StreamingContext context)
         {
-            info.AddValue("Id", Id);
             info.AddValue("Name", Name);
             info.AddValue("Description", Description);
             info.AddValue("Culture", Culture);

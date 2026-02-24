@@ -67,12 +67,12 @@ namespace Deploy.LaunchPad.Core
         /// <summary>
         /// Name.
         /// </summary>
-        public string Name { get; set; }
+        public virtual string Name { get; set; }
 
         /// <summary>
         /// Value.
         /// </summary>
-        public T Value { get; set; }
+        public virtual T Value { get; set; }
 
         /// <summary>
         /// Creates a new <see cref="NameValue"/>.

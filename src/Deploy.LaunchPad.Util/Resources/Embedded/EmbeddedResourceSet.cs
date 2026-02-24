@@ -39,11 +39,11 @@ namespace Deploy.LaunchPad.Util.Resources.Embedded
 {
     public partial class EmbeddedResourceSet
     {
-        public string RootPath { get; }
+        public virtual string RootPath { get; }
 
-        public Assembly Assembly { get; }
+        public virtual Assembly Assembly { get; }
 
-        public string ResourceNamespace { get; }
+        public virtual string ResourceNamespace { get; }
 
         public EmbeddedResourceSet(string rootPath, Assembly assembly, string resourceNamespace)
         {
@@ -75,7 +75,7 @@ namespace Deploy.LaunchPad.Util.Resources.Embedded
             }
         }
 
-        private string ConvertToRelativePath(string resourceName)
+        protected virtual string ConvertToRelativePath(string resourceName)
         {
             return resourceName.Substring(ResourceNamespace.Length + 1);
         }

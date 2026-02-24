@@ -45,7 +45,7 @@ namespace Deploy.LaunchPad.Core.Application.Services.Dto
         /// <summary>
         /// List of items.
         /// </summary>
-        public IReadOnlyList<T> Items
+        public virtual IReadOnlyList<T> Items
         {
             get { return _items ?? (_items = new List<T>()); }
             set { _items = value; }

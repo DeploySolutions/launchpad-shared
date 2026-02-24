@@ -30,6 +30,8 @@
  */
 #endregion
 
+using Deploy.LaunchPad.Core.Metadata;
+
 namespace Deploy.LaunchPad.Core.MultiTenancy
 {
     public partial class TenantResolverCacheItem

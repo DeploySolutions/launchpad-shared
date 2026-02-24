@@ -41,7 +41,7 @@ namespace Deploy.LaunchPad.Util.Reflection
 {
     public partial class TypeFinder : ITypeFinder
     {
-        public ILogger Logger { get; set; }
+        public virtual ILogger Logger { get; set; }
 
         private readonly IAssemblyFinder _assemblyFinder;
         private readonly object _syncObj = new object();
@@ -53,17 +53,17 @@ namespace Deploy.LaunchPad.Util.Reflection
             Logger = NullLogger.Instance;
         }
 
-        public Type[] Find(Func<Type, bool> predicate)
+        public virtual Type[] Find(Func<Type, bool> predicate)
         {
             return GetAllTypes().Where(predicate).ToArray();
         }
 
-        public Type[] FindAll()
+        public virtual Type[] FindAll()
         {
             return GetAllTypes().ToArray();
         }
 
-        private Type[] GetAllTypes()
+        protected virtual Type[] GetAllTypes()
         {
             if (_types == null)
             {
@@ -79,7 +79,7 @@ namespace Deploy.LaunchPad.Util.Reflection
             return _types;
         }
 
-        private List<Type> CreateTypeList()
+        protected virtual List<Type> CreateTypeList()
         {
             var allTypes = new List<Type>();
 

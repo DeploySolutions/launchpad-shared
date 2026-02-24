@@ -34,13 +34,13 @@ namespace Deploy.LaunchPad.Util.Timing
     /// </summary>
     public partial class LocalClockProvider : IClockProvider
     {
-        public DateTime Now => DateTime.Now;
+        public virtual DateTime Now => DateTime.Now;
 
-        public DateTimeKind Kind => DateTimeKind.Local;
+        public virtual DateTimeKind Kind => DateTimeKind.Local;
 
-        public bool SupportsMultipleTimezone => false;
+        public virtual bool SupportsMultipleTimezone => false;
 
-        public DateTime Normalize(DateTime dateTime)
+        public virtual DateTime Normalize(DateTime dateTime)
         {
             if (dateTime.Kind == DateTimeKind.Unspecified)
             {

@@ -51,7 +51,7 @@ namespace Deploy.LaunchPad.Util.Json.SystemTextJson
             _outputDateTimeFormat = outputDateTimeFormat;
         }
 
-        public Action<JsonTypeInfo> CreateModifyAction()
+        public virtual Action<JsonTypeInfo> CreateModifyAction()
         {
             return Modify;
         }

@@ -49,7 +49,7 @@ namespace Deploy.LaunchPad.Util.Guids
 
         private static readonly RandomNumberGenerator Rng = RandomNumberGenerator.Create();
 
-        public SequentialGuidDatabaseType DatabaseType { get; set; }
+        public virtual SequentialGuidDatabaseType DatabaseType { get; set; }
 
         /// <summary>
         /// Prevents a default instance of the <see cref="SequentialGuidGenerator"/> class from being created.
@@ -60,12 +60,12 @@ namespace Deploy.LaunchPad.Util.Guids
             DatabaseType = SequentialGuidDatabaseType.SqlServer;
         }
 
-        public Guid Create()
+        public virtual Guid Create()
         {
             return Create(DatabaseType);
         }
 
-        public Guid Create(SequentialGuidDatabaseType databaseType)
+        public virtual Guid Create(SequentialGuidDatabaseType databaseType)
         {
             switch (databaseType)
             {
@@ -82,7 +82,7 @@ namespace Deploy.LaunchPad.Util.Guids
             }
         }
 
-        public Guid Create(SequentialGuidType guidType)
+        public virtual Guid Create(SequentialGuidType guidType)
         {
             // We start with 16 bytes of cryptographically strong random data.
             var randomBytes = new byte[10];

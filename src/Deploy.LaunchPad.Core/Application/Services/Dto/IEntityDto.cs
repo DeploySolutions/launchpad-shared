@@ -30,6 +30,8 @@
  */
 #endregion
 
+using Deploy.LaunchPad.Core.Metadata;
+
 namespace Deploy.LaunchPad.Core.Application.Services.Dto
 {
     /// <summary>
@@ -44,11 +46,8 @@ namespace Deploy.LaunchPad.Core.Application.Services.Dto
     /// Defines common properties for entity based DTOs.
     /// </summary>
     /// <typeparam name="TPrimaryKey"></typeparam>
-    public partial interface IEntityDto<TPrimaryKey>
+    public partial interface IEntityDto<TPrimaryKey> : IMustHaveIdProperty<TPrimaryKey>
     {
-        /// <summary>
-        /// Id of the entity.
-        /// </summary>
-        TPrimaryKey Id { get; set; }
+        
     }
 }

@@ -44,7 +44,7 @@ namespace Deploy.LaunchPad.Util.Modules
         /// <summary>
         /// Types of depended modules.
         /// </summary>
-        public Type[] DependedModuleTypes { get; private set; }
+        public virtual Type[] DependedModuleTypes { get; private set; }
 
         /// <summary>
         /// Used to define dependencies of an ABP module to other modules.

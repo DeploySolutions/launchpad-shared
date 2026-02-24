@@ -57,12 +57,12 @@ namespace Deploy.LaunchPad.Core.Application.Services.Dto
         /// <summary>
         /// Creation date of this entity.
         /// </summary>
-        public DateTime CreationTime { get; set; }
+        public virtual DateTime CreationTime { get; set; }
 
         /// <summary>
         /// Creator user's id for this entity.
         /// </summary>
-        public long? CreatorUserId { get; set; }
+        public virtual long? CreatorUserId { get; set; }
 
         /// <summary>
         /// Constructor.

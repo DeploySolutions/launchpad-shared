@@ -45,7 +45,7 @@ namespace Deploy.LaunchPad.Core.Application.Services.Dto
         /// <summary>
         /// Total count of Items.
         /// </summary>
-        public long TotalCount { get; set; }
+        public virtual long TotalCount { get; set; }
 
         /// <summary>
         /// Creates a new <see cref="PagedResultDto{T}"/> object.

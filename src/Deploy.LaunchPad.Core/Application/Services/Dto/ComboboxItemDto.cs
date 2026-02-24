@@ -43,17 +43,17 @@ namespace Deploy.LaunchPad.Core.Application.Services.Dto
         /// <summary>
         /// Value of the item.
         /// </summary>
-        public string Value { get; set; }
+        public virtual string Value { get; set; }
 
         /// <summary>
         /// Display text of the item.
         /// </summary>
-        public string DisplayText { get; set; }
+        public virtual string DisplayText { get; set; }
 
         /// <summary>
         /// Is selected?
         /// </summary>
-        public bool IsSelected { get; set; }
+        public virtual bool IsSelected { get; set; }
 
         /// <summary>
         /// Creates a new <see cref="ComboboxItemDto"/>.

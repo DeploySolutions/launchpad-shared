@@ -78,7 +78,7 @@ namespace Deploy.LaunchPad.Util
         /// <param name="shouldOverwriteIfExists">if set to <c>true</c> [should overwrite if exists].</param>
         /// <param name="loggingStrategy">The logging strategy.</param>
         /// <returns>IDictionary&lt;TKey, TValue&gt;.</returns>
-        public IDictionary<TKey, TValue> AddToDictionary<TKey, TValue>(IDictionary<TKey, TValue> dictionary, TKey key, TValue item, bool shouldOverwriteIfExists = false, DictionaryHelperLoggingStrategy loggingStrategy = DictionaryHelperLoggingStrategy.LogOnlyOverwrites)
+        public virtual IDictionary<TKey, TValue> AddToDictionary<TKey, TValue>(IDictionary<TKey, TValue> dictionary, TKey key, TValue item, bool shouldOverwriteIfExists = false, DictionaryHelperLoggingStrategy loggingStrategy = DictionaryHelperLoggingStrategy.LogOnlyOverwrites)
         {
             Guard.Against<ArgumentNullException>(key == null, Deploy_LaunchPad_Util_Resources.Guard_Input_IsNull);
             Guard.Against<ArgumentNullException>(item == null, Deploy_LaunchPad_Util_Resources.Guard_Input_IsNull);
@@ -130,7 +130,7 @@ namespace Deploy.LaunchPad.Util
         /// <param name="dictionary1">The dictionary1.</param>
         /// <param name="dictionary2">The dictionary2.</param>
         /// <returns>IDictionary&lt;TKey, TValue&gt;.</returns>
-        public IDictionary<TKey, TValue> MergeDictionaries<TKey, TValue>(IDictionary<TKey, TValue> dictionary1, IDictionary<TKey, TValue> dictionary2)
+        public virtual IDictionary<TKey, TValue> MergeDictionaries<TKey, TValue>(IDictionary<TKey, TValue> dictionary1, IDictionary<TKey, TValue> dictionary2)
         {
             Guard.Against<ArgumentNullException>(dictionary1 == null || dictionary2 == null, Deploy_LaunchPad_Util_Resources.Guard_Input_IsNull);
             var merged = dictionary1.Concat(dictionary2)
@@ -149,7 +149,7 @@ namespace Deploy.LaunchPad.Util
         /// <typeparam name="TDerivedType">The type of the t derived type.</typeparam>
         /// <param name="derivedTypesDictionary">The derived types dictionary.</param>
         /// <returns>IDictionary&lt;System.String, TBaseType&gt;.</returns>
-        public IDictionary<string, TBaseType> ToBaseTypeDictionary<TBaseType, TDerivedType>(IDictionary<string, TDerivedType> derivedTypesDictionary)
+        public virtual IDictionary<string, TBaseType> ToBaseTypeDictionary<TBaseType, TDerivedType>(IDictionary<string, TDerivedType> derivedTypesDictionary)
             where TDerivedType : TBaseType, new()
         {
             IDictionary<string, TBaseType> baseDictionary = derivedTypesDictionary.ToDictionary(

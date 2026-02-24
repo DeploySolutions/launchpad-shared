@@ -45,22 +45,22 @@ namespace Deploy.LaunchPad.Util.Resources.Embedded
         /// <summary>
         /// File name including extension.
         /// </summary>
-        public string FileName { get; }
+        public virtual string FileName { get; }
 
         [CanBeNull]
-        public string FileExtension { get; }
+        public virtual string FileExtension { get; }
 
         /// <summary>
         /// Content of the resource file.
         /// </summary>
-        public byte[] Content { get; set; }
+        public virtual byte[] Content { get; set; }
 
         /// <summary>
         /// The assembly that contains the resource.
         /// </summary>
-        public Assembly Assembly { get; set; }
+        public virtual Assembly Assembly { get; set; }
 
-        public DateTime LastModifiedUtc { get; }
+        public virtual DateTime LastModifiedUtc { get; }
 
         internal EmbeddedResourceItem(string fileName, byte[] content, Assembly assembly)
         {

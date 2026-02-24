@@ -41,12 +41,12 @@ namespace Deploy.LaunchPad.Util.Specifications
         /// <summary>
         /// Gets the first specification.
         /// </summary>
-        public ISpecification<T> Left { get; }
+        public virtual ISpecification<T> Left { get; }
 
         /// <summary>
         /// Gets the second specification.
         /// </summary>
-        public ISpecification<T> Right { get; }
+        public virtual ISpecification<T> Right { get; }
 
         /// <summary>
         /// Constructs a new instance of <see cref="CompositeSpecification{T}"/> class.

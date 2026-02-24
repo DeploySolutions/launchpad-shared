@@ -56,11 +56,11 @@ namespace Deploy.LaunchPad.Core.Application.Services.Dto
         /// <summary>
         /// Last modification date of this entity.
         /// </summary>
-        public DateTime? LastModificationTime { get; set; }
+        public virtual DateTime? LastModificationTime { get; set; }
 
         /// <summary>
         /// Last modifier user of this entity.
         /// </summary>
-        public long? LastModifierUserId { get; set; }
+        public virtual long? LastModifierUserId { get; set; }
     }
 }

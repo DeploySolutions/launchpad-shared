@@ -30,7 +30,7 @@ namespace Deploy.LaunchPad.Core.Application
         /// Gets the configuration.
         /// </summary>
         /// <value>The configuration.</value>
-        public IConfigurationRoot Configuration { get; }
+        public virtual IConfigurationRoot Configuration { get; }
 
        
         /// <summary>

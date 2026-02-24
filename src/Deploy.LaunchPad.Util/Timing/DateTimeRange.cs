@@ -38,18 +38,18 @@ namespace Deploy.LaunchPad.Util.Timing
         /// <summary>
         /// Start time of the datetime range.
         /// </summary>
-        public DateTime StartTime { get; set; }
+        public virtual DateTime StartTime { get; set; }
 
         /// <summary>
         /// End time of the datetime range.
         /// </summary>
-        public DateTime EndTime { get; set; }
+        public virtual DateTime EndTime { get; set; }
 
         /// <summary>
         /// Gets the time span of the datetime range.  
         /// When set, EndTime is recalculated
         /// </summary>
-        public TimeSpan TimeSpan
+        public virtual TimeSpan TimeSpan
         {
             get => EndTime - StartTime;
             set => EndTime = StartTime.Add(value);

@@ -10,27 +10,19 @@ using Deploy.LaunchPad.Core.Entities;
 namespace Deploy.LaunchPad.Domain.Content
 {
 
-    public abstract partial class LaunchPadContentPublishingCollectionBase : LaunchPadCoreProperties, ILaunchPadObject, ILaunchPadContentPublishingCollection
+    public abstract partial class LaunchPadContentPublishingCollectionBase : LaunchPadCoreProperties, 
+        ILaunchPadContentPublishingCollection
     {
-        public virtual Guid Id { get; set; }
 
         public virtual IList<ILaunchPadContentPublishingCollectionItem> Items { get; }
         public virtual bool IsPublished { get; set; }
         public virtual long PublisherUserId { get; set; }
         public virtual DateTimeOffset PublishedTimeInUtc { get; set; }
 
-        public virtual void AddItem(Guid id, ILaunchPadContentPublishingCollectionItem item, bool shouldPreventDuplicates = true)
-        {
-
-            if (shouldPreventDuplicates && !Items.Any(existingItem => existingItem.Id.Equals(item.Id)))
-            {
-                Items.Add(item);
-            }
-        }
+        public abstract void AddItem(Guid id, ILaunchPadContentPublishingCollectionItem item, bool shouldPreventDuplicates = true);        
 
         protected LaunchPadContentPublishingCollectionBase()
         {
-            Id = Guid.NewGuid();
             string name = "New Bundle " + DateTime.UtcNow.ToString();
             Name = new ElementName(name);
             Description = new ElementDescription(name);
@@ -43,7 +35,6 @@ namespace Deploy.LaunchPad.Domain.Content
 
         protected LaunchPadContentPublishingCollectionBase(string name)
         {            
-            Id = Guid.NewGuid();
             Name = new ElementName(name);
             Description = new ElementDescription(name);
             CreationTime = DateTime.Now;
@@ -60,7 +51,6 @@ namespace Deploy.LaunchPad.Domain.Content
         /// <param name="context">The context of the stream</param>
         protected LaunchPadContentPublishingCollectionBase(SerializationInfo info, StreamingContext context)
         {
-            Id = (Guid)info.GetValue("Id", typeof(Guid));
             Name = (ElementName)info.GetValue("Name", typeof(ElementName));
             Description = (ElementDescription)info.GetValue("Description", typeof(ElementDescription));
             Culture = info.GetString("Culture");
@@ -86,7 +76,6 @@ namespace Deploy.LaunchPad.Domain.Content
         /// <param name="context">The context.</param>
         public virtual void GetObjectData(SerializationInfo info, StreamingContext context)
         {
-            info.AddValue("Id", Id);
             info.AddValue("Name", Name);
             info.AddValue("Description", Description);
             info.AddValue("Culture", Culture);

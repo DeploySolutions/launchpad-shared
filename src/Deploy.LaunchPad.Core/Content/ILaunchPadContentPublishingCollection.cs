@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Deploy.LaunchPad.Core.Metadata;
+using Deploy.LaunchPad.Util;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,7 +9,9 @@ using System.Threading.Tasks;
 namespace Deploy.LaunchPad.Domain.Content
 {
 
-    public partial interface ILaunchPadContentPublishingCollection : IMustHavePublishingInformation
+    public partial interface ILaunchPadContentPublishingCollection : 
+        ILaunchPadObject,
+        IMustHavePublishingInformation
     {
         public IList<ILaunchPadContentPublishingCollectionItem> Items { get; }
 

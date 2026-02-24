@@ -68,7 +68,7 @@ namespace Deploy.LaunchPad.Core.Application.Services.Dto
         /// <summary>
         /// Id of the entity.
         /// </summary>
-        public TPrimaryKey Id { get; set; }
+        public virtual TPrimaryKey Id { get; set; }
 
         /// <summary>
         /// Creates a new <see cref="EntityDto{TPrimaryKey}"/> object.
