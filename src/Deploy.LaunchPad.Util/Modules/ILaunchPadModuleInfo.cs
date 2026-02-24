@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Reflection;
 
-namespace Abp.Modules
+namespace Deploy.LaunchPad.Util.Modules
 {
     public interface ILaunchPadModuleInfo
     {

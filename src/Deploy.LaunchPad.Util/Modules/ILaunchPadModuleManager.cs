@@ -33,7 +33,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace Abp.Modules
+namespace Deploy.LaunchPad.Util.Modules
 {
     public interface ILaunchPadModuleManager
     {
