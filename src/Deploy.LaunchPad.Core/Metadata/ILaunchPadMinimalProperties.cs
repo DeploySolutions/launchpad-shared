@@ -8,25 +8,13 @@ using System.Xml.Serialization;
 
 namespace Deploy.LaunchPad.Core.Metadata
 {
-    public partial interface ILaunchPadMinimalProperties
+    public partial interface ILaunchPadMinimalProperties :
+        IMustHaveName,
+        IMustHaveDescription
     {
 
-        /// <summary>
-        /// The name of this object
-        /// </summary>
-        /// <value>The name.</value>
-        [Required]
-        [DataObjectField(false)]
-        [XmlAttribute]
-        public ElementName Name { get; set; }
 
-        /// <summary>
-        /// The description of this object
-        /// </summary>
-        /// <value>The description.</value>
-        [DataObjectField(false)]
-        [XmlAttribute]
-        public ElementDescription Description { get; set; }
+        
 
     }
 }

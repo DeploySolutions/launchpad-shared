@@ -43,7 +43,7 @@ namespace Deploy.LaunchPad.Core.Domain.Entities
     public partial interface IEntity<TPrimaryKey> : 
         ILaunchPadObject, 
         ILaunchPadMinimalProperties, 
-        IMustHaveIdProperty<TPrimaryKey>
+        IMustHaveId<TPrimaryKey>
     {
 
         /// <summary>

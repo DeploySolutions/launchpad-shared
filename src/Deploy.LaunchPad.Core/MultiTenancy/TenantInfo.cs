@@ -34,7 +34,7 @@ using Deploy.LaunchPad.Core.Metadata;
 
 namespace Deploy.LaunchPad.Core.MultiTenancy
 {
-    public partial class TenantInfo  : IMustHaveIdProperty<int>
+    public partial class TenantInfo  : IMustHaveId<int>
     {
         public virtual int Id { get; set; }
 
