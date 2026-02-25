@@ -35,9 +35,9 @@ using Deploy.LaunchPad.Core.Metadata;
 namespace Deploy.LaunchPad.Core.Application.Services.Dto
 {
     /// <summary>
-    /// A shortcut of <see cref="IEntityDto{TPrimaryKey}"/> for most used primary key type (<see cref="int"/>).
+    /// A shortcut of <see cref="IEntityDto{TPrimaryKey}"/> for most used primary key type (<see cref="System.Guid"/>).
     /// </summary>
-    public partial interface IEntityDto : IEntityDto<int>
+    public partial interface IEntityDto : IEntityDto<System.Guid>
     {
 
     }

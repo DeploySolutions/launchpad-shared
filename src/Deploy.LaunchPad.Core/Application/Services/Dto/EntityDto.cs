@@ -35,10 +35,10 @@ using System;
 namespace Deploy.LaunchPad.Core.Application.Services.Dto
 {
     /// <summary>
-    /// A shortcut of <see cref="EntityDto{TPrimaryKey}"/> for most used primary key type (<see cref="int"/>).
+    /// A shortcut of <see cref="EntityDto{TPrimaryKey}"/> for most used primary key type (<see cref="System.Guid"/>).
     /// </summary>
     [Serializable]
-    public partial class EntityDto : EntityDto<int>, IEntityDto
+    public partial class EntityDto : EntityDto<System.Guid>, IEntityDto
     {
         /// <summary>
         /// Creates a new <see cref="EntityDto"/> object.
@@ -52,7 +52,7 @@ namespace Deploy.LaunchPad.Core.Application.Services.Dto
         /// Creates a new <see cref="EntityDto"/> object.
         /// </summary>
         /// <param name="id">Id of the entity</param>
-        public EntityDto(int id)
+        public EntityDto(System.Guid id)
             : base(id)
         {
         }

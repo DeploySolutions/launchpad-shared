@@ -38,10 +38,10 @@ using Deploy.LaunchPad.Core.Domain.Entities.Auditing;
 namespace Deploy.LaunchPad.Core.Application.Services.Dto
 {
     /// <summary>
-    /// A shortcut of <see cref="AuditedEntityDto{TPrimaryKey}"/> for most used primary key type (<see cref="int"/>).
+    /// A shortcut of <see cref="AuditedEntityDto{TPrimaryKey}"/> for most used primary key type (<see cref="System.Guid"/>).
     /// </summary>
     [Serializable]
-    public abstract partial class AuditedEntityDto : AuditedEntityDto<int>
+    public abstract partial class AuditedEntityDto : AuditedEntityDto<System.Guid>
     {
 
     }

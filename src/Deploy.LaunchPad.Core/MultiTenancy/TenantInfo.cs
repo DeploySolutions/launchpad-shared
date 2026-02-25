@@ -34,13 +34,13 @@ using Deploy.LaunchPad.Core.Metadata;
 
 namespace Deploy.LaunchPad.Core.MultiTenancy
 {
-    public partial class TenantInfo  : IMustHaveId<int>
+    public partial class TenantInfo  : IMustHaveId<System.Guid>
     {
-        public virtual int Id { get; set; }
+        public virtual System.Guid Id { get; set; }
 
         public virtual string TenancyName { get; set; }
 
-        public TenantInfo(int id, string tenancyName)
+        public TenantInfo(System.Guid id, string tenancyName)
         {
             Id = id;
             TenancyName = tenancyName;
