@@ -41,7 +41,7 @@ namespace Deploy.LaunchPad.Core.Application.Services.Dto
     /// A shortcut of <see cref="FullAuditedEntityDto{TPrimaryKey}"/> for most used primary key type (<see cref="int"/>).
     /// </summary>
     [Serializable]
-    public abstract partial class FullAuditedEntityDto : FullAuditedEntityDto<int>
+    public abstract partial class FullAuditedEntityDto : FullAuditedEntityDto<System.Guid>
     {
 
     }

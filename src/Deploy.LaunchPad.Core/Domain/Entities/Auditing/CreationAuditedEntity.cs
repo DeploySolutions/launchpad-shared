@@ -37,10 +37,10 @@ using Deploy.LaunchPad.Util.Timing;
 namespace Deploy.LaunchPad.Core.Domain.Entities.Auditing
 {
     /// <summary>
-    /// A shortcut of <see cref="CreationAuditedEntity{TPrimaryKey}"/> for most used primary key type (<see cref="int"/>).
+    /// A shortcut of <see cref="CreationAuditedEntity{TPrimaryKey}"/> for most used primary key type (<see cref="System.Guid"/>).
     /// </summary>
     [Serializable]
-    public abstract partial class CreationAuditedEntity : CreationAuditedEntity<int>, IEntity
+    public abstract partial class CreationAuditedEntity : CreationAuditedEntity<System.Guid>, IEntity
     {
 
     }

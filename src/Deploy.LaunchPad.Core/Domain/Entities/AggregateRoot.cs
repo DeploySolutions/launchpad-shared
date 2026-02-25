@@ -37,7 +37,7 @@ using Deploy.LaunchPad.Core.Events;
 
 namespace Deploy.LaunchPad.Core.Domain.Entities
 {
-    public partial class AggregateRoot : AggregateRoot<int>, IAggregateRoot
+    public partial class AggregateRoot : AggregateRoot<System.Guid>, IAggregateRoot
     {
 
     }

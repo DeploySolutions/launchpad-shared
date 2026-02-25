@@ -39,7 +39,7 @@ namespace Deploy.LaunchPad.Core.Domain.Entities.Auditing
     /// A shortcut of <see cref="FullAuditedEntity{TPrimaryKey}"/> for most used primary key type (<see cref="int"/>).
     /// </summary>
     [Serializable]
-    public abstract partial class FullAuditedEntity : FullAuditedEntity<int>, IEntity
+    public abstract partial class FullAuditedEntity : FullAuditedEntity<System.Guid>, IEntity
     {
 
     }

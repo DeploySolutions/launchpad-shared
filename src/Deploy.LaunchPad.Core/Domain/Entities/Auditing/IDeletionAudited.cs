@@ -39,7 +39,7 @@ namespace Deploy.LaunchPad.Core.Domain.Entities.Auditing
     /// <summary>
     /// This interface is implemented by entities which wanted to store deletion information (who and when deleted).
     /// </summary>
-    public partial interface IDeletionAudited : IHasDeletionTime
+    public partial interface IDeletionAudited : IMayHaveDeletionTime
     {
         /// <summary>
         /// Which user deleted this entity?

@@ -35,7 +35,7 @@ using System.Collections.Generic;
 
 namespace Deploy.LaunchPad.Core.Domain.Entities
 {
-    public partial interface IAggregateRoot : IAggregateRoot<int>, IEntity
+    public partial interface IAggregateRoot : IAggregateRoot<System.Guid>, IEntity
     {
 
     }

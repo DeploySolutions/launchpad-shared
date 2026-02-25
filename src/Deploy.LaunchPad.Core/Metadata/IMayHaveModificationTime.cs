@@ -35,14 +35,14 @@ using System;
 namespace Deploy.LaunchPad.Core.Metadata
 {
     /// <summary>
-    /// An entity can implement this interface if <see cref="DeletionTime"/> of this entity must be stored.
-    /// <see cref="DeletionTime"/> is automatically set when deleting <see cref="Entity"/>.
+    /// An entity can implement this interface if <see cref="LastModificationTime"/> of this entity must be stored.
+    /// <see cref="LastModificationTime"/> is automatically set when updating <see cref="Entity"/>.
     /// </summary>
-    public partial interface IHasDeletionTime : ISoftDelete
+    public partial interface IMayHaveModificationTime
     {
         /// <summary>
-        /// Deletion time of this entity.
+        /// The last modified time for this entity.
         /// </summary>
-        DateTime? DeletionTime { get; set; }
+        DateTime? LastModificationTime { get; set; }
     }
 }

@@ -30,19 +30,17 @@
  */
 #endregion
 
-using System;
-
 namespace Deploy.LaunchPad.Core.Metadata
 {
     /// <summary>
-    /// An entity can implement this interface if <see cref="CreationTime"/> of this entity must be stored.
-    /// <see cref="CreationTime"/> is automatically set when saving <see cref="Entity"/> to database.
+    /// This interface is used to make an entity active/passive.
     /// </summary>
-    public partial interface IHasCreationTime
+    public partial interface IHavePassivable
     {
         /// <summary>
-        /// Creation time of this entity.
+        /// True: This entity is active.
+        /// False: This entity is not active.
         /// </summary>
-        DateTime CreationTime { get; set; }
+        bool IsActive { get; set; }
     }
 }

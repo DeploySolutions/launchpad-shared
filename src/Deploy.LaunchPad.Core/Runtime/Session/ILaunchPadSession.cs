@@ -51,7 +51,7 @@ namespace Deploy.LaunchPad.Core.Runtime.Session
         /// This TenantId should be the TenantId of the <see cref="UserId"/>.
         /// It can be null if given <see cref="UserId"/> is a host user or no user logged in.
         /// </summary>
-        int? TenantId { get; }
+        System.Guid? TenantId { get; }
 
         /// <summary>
         /// Gets current multi-tenancy side.

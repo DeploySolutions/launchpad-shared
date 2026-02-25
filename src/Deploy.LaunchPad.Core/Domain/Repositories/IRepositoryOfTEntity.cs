@@ -35,10 +35,10 @@ using Deploy.LaunchPad.Core.Domain.Entities;
 namespace Deploy.LaunchPad.Core.Domain.Repositories
 {
     /// <summary>
-    /// A shortcut of <see cref="IRepository{TEntity,TPrimaryKey}"/> for most used primary key type (<see cref="int"/>).
+    /// A shortcut of <see cref="IRepository{TEntity,TPrimaryKey}"/> for most used primary key type (<see cref="guid"/>).
     /// </summary>
     /// <typeparam name="TEntity">Entity type</typeparam>
-    public partial interface IRepository<TEntity> : IRepository<TEntity, int> where TEntity : class, IEntity<int>
+    public partial interface IRepository<TEntity> : IRepository<TEntity, System.Guid> where TEntity : class, IEntity<System.Guid>
     {
 
     }

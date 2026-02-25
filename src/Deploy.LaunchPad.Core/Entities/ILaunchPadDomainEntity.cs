@@ -44,7 +44,7 @@ namespace Deploy.LaunchPad.Core.Entities
     /// <typeparam name="TIdType">The type of the t identifier type.</typeparam>
     public partial interface ILaunchPadDomainEntity<TIdType> :
         ILaunchPadDomainEntityProperties<TIdType>, IEntity<TIdType>,
-        ICreationAudited, IModificationAudited, IDeletionAudited, IPassivable,
+        ICreationAudited, IModificationAudited, IDeletionAudited, IHavePassivable,
         IComparable<LaunchPadDomainEntityBase<TIdType>>, IEquatable<LaunchPadDomainEntityBase<TIdType>>,
         ICloneable, IAmCloneable<LaunchPadDomainEntityBase<TIdType>>,
         IMustHaveCulture

@@ -43,7 +43,7 @@ namespace Deploy.LaunchPad.Core.Auditing
         /// <summary>
         /// TenantId.
         /// </summary>
-        public virtual int? TenantId { get; set; }
+        public virtual System.Guid? TenantId { get; set; }
 
         /// <summary>
         /// UserId.

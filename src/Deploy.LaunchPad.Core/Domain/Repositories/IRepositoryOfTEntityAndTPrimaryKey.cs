@@ -352,55 +352,27 @@ namespace Deploy.LaunchPad.Core.Domain.Repositories
         /// Gets count of all entities in this repository.
         /// </summary>
         /// <returns>Count of entities</returns>
-        int Count();
+        long Count();
 
         /// <summary>
         /// Gets count of all entities in this repository.
         /// </summary>
         /// <returns>Count of entities</returns>
-        Task<int> CountAsync();
+        Task<long> CountAsync();
 
         /// <summary>
         /// Gets count of all entities in this repository based on given <paramref name="predicate"/>.
         /// </summary>
         /// <param name="predicate">A method to filter count</param>
         /// <returns>Count of entities</returns>
-        int Count(Expression<Func<TEntity, bool>> predicate);
+        long Count(Expression<Func<TEntity, bool>> predicate);
 
         /// <summary>
         /// Gets count of all entities in this repository based on given <paramref name="predicate"/>.
         /// </summary>
         /// <param name="predicate">A method to filter count</param>
         /// <returns>Count of entities</returns>
-        Task<int> CountAsync(Expression<Func<TEntity, bool>> predicate);
-
-        /// <summary>
-        /// Gets count of all entities in this repository (use if expected return value is greater than <see cref="int.MaxValue"/>.
-        /// </summary>
-        /// <returns>Count of entities</returns>
-        long LongCount();
-
-        /// <summary>
-        /// Gets count of all entities in this repository (use if expected return value is greater than <see cref="int.MaxValue"/>.
-        /// </summary>
-        /// <returns>Count of entities</returns>
-        Task<long> LongCountAsync();
-
-        /// <summary>
-        /// Gets count of all entities in this repository based on given <paramref name="predicate"/>
-        /// (use this overload if expected return value is greater than <see cref="int.MaxValue"/>).
-        /// </summary>
-        /// <param name="predicate">A method to filter count</param>
-        /// <returns>Count of entities</returns>
-        long LongCount(Expression<Func<TEntity, bool>> predicate);
-
-        /// <summary>
-        /// Gets count of all entities in this repository based on given <paramref name="predicate"/>
-        /// (use this overload if expected return value is greater than <see cref="int.MaxValue"/>).
-        /// </summary>
-        /// <param name="predicate">A method to filter count</param>
-        /// <returns>Count of entities</returns>
-        Task<long> LongCountAsync(Expression<Func<TEntity, bool>> predicate);
+        Task<long> CountAsync(Expression<Func<TEntity, bool>> predicate);
 
         #endregion
     }

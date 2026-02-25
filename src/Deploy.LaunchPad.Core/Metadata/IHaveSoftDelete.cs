@@ -38,7 +38,7 @@ namespace Deploy.LaunchPad.Core.Metadata
     /// marked as IsDeleted = true in the database,
     /// but can not be retrieved to the application.
     /// </summary>
-    public partial interface ISoftDelete
+    public partial interface IHaveSoftDelete
     {
         /// <summary>
         /// Used to mark an Entity as 'Deleted'. 

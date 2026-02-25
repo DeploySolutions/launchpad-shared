@@ -36,10 +36,10 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace Deploy.LaunchPad.Core.Domain.Entities.Auditing
 {
     /// <summary>
-    /// A shortcut of <see cref="AuditedEntity{TPrimaryKey}"/> for most used primary key type (<see cref="int"/>).
+    /// A shortcut of <see cref="AuditedEntity{TPrimaryKey}"/> for most used primary key type (<see cref="System.Guid"/>).
     /// </summary>
     [Serializable]
-    public abstract partial class AuditedEntity : AuditedEntity<int>, IEntity
+    public abstract partial class AuditedEntity : AuditedEntity<System.Guid>, IEntity
     {
 
     }

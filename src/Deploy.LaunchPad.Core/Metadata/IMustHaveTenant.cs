@@ -40,6 +40,6 @@ namespace Deploy.LaunchPad.Core.Metadata
         /// <summary>
         /// TenantId of this entity.
         /// </summary>
-        int TenantId { get; set; }
+        System.Guid TenantId { get; set; }
     }
 }
