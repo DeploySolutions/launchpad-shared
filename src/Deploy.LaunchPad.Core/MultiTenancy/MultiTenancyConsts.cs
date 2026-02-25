@@ -30,6 +30,9 @@
  */
 #endregion
 
+using Deploy.LaunchPad.Util.Guids;
+using System;
+
 namespace Deploy.LaunchPad.Core.MultiTenancy
 {
     public static partial class MultiTenancyConsts
@@ -37,6 +40,6 @@ namespace Deploy.LaunchPad.Core.MultiTenancy
         /// <summary>
         /// Default tenant id: 1.
         /// </summary>
-        public const int DefaultTenantId = 1;
+        public static readonly Guid DefaultTenantId = GuidConstants.Default;
     }
 }

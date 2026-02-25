@@ -171,6 +171,6 @@ namespace Deploy.LaunchPad.Core.Domain.UnitOfWork
         /// Gets Tenant Id for this UOW.
         /// </summary>
         /// <returns></returns>
-        int? GetTenantId();
+        Guid? GetTenantId();
     }
 }
