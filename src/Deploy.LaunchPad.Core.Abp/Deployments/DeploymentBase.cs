@@ -135,7 +135,7 @@ namespace Deploy.LaunchPad.Core.Abp.Deployments
         /// Default constructor where the tenant id is known
         /// </summary>
         /// <param name="tenantId">The id of the tenant to which this entity belongs</param>
-        public DeploymentBase(int tenantId) : base(tenantId)
+        public DeploymentBase(System.Guid tenantId) : base(tenantId)
         {
             DeploymentState = DeploymentStates.Not_Started;
         }
@@ -147,7 +147,7 @@ namespace Deploy.LaunchPad.Core.Abp.Deployments
         /// <param name="id">The identifier.</param>
         /// <param name="cultureName">Name of the culture.</param>
         /// <param name="text">The text.</param>
-        public DeploymentBase(int tenantId, TIdType id, string cultureName, String text) : base(tenantId, id, cultureName)
+        public DeploymentBase(System.Guid tenantId, TIdType id, string cultureName, String text) : base(tenantId, id, cultureName)
         {
             DeploymentState = DeploymentStates.Not_Started;
         }

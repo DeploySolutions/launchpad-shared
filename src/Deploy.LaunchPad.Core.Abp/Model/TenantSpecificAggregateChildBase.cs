@@ -27,6 +27,7 @@
 #endregion
 
 using Deploy.LaunchPad.Core.Metadata;
+using Deploy.LaunchPad.Util.Guids;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -51,7 +52,7 @@ namespace Deploy.LaunchPad.Core.Entities
         LaunchPadAggregateChildBase<TIdType>, IMustHaveTenant
 
     {
-        protected int _tenantId;
+        protected System.Guid _tenantId;
         /// <summary>
         /// The id of the tenant that domain entity this belongs to
         /// </summary>
@@ -60,7 +61,7 @@ namespace Deploy.LaunchPad.Core.Entities
         [XmlAttribute]
         [Required]
         [ForeignKey(nameof(TenantId))]
-        public virtual int TenantId
+        public virtual System.Guid TenantId
         {
             get { return _tenantId; }
             set { _tenantId = value; }
@@ -71,14 +72,14 @@ namespace Deploy.LaunchPad.Core.Entities
         /// </summary>
         protected TenantSpecificAggregateChildBase() : base()
         {
-            TenantId = 1;
+            TenantId = GuidConstants.Default;
         }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="TenantSpecificAggregateChildBase">TenantSpecificAggregateChildBase</see> class
         /// </summary>
         /// <param name="tenantId">The tenant identifier.</param>
-        protected TenantSpecificAggregateChildBase(int tenantId) : base()
+        protected TenantSpecificAggregateChildBase(System.Guid tenantId) : base()
         {
             TenantId = tenantId;
         }
@@ -89,7 +90,7 @@ namespace Deploy.LaunchPad.Core.Entities
         /// <param name="tenantId">The tenant identifier.</param>
         /// <param name="id">The identifier.</param>
         /// <param name="cultureName">The culture for this entity</param>
-        protected TenantSpecificAggregateChildBase(int tenantId, TIdType id, string cultureName) : base(id, cultureName)
+        protected TenantSpecificAggregateChildBase(System.Guid tenantId, TIdType id, string cultureName) : base(id, cultureName)
         {
             TenantId = tenantId;
         }
@@ -100,7 +101,7 @@ namespace Deploy.LaunchPad.Core.Entities
         /// <param name="tenantId">The tenant identifier.</param>
         /// <param name="id">The identifier.</param>
         /// <param name="metadata">The desired metadata for this entity</param>
-        protected TenantSpecificAggregateChildBase(int tenantId, TIdType id, MetadataInformation metadata) : base(id)
+        protected TenantSpecificAggregateChildBase(System.Guid tenantId, TIdType id, MetadataInformation metadata) : base(id)
         {
 
             TenantId = tenantId;
@@ -113,7 +114,7 @@ namespace Deploy.LaunchPad.Core.Entities
         /// <param name="context">The context of the stream</param>
         protected TenantSpecificAggregateChildBase(SerializationInfo info, StreamingContext context) : base(info, context)
         {
-            TenantId = info.GetInt32("TenantId");
+            TenantId = (System.Guid)info.GetValue("TenantId", typeof(System.Guid));
         }
 
         /// <summary>

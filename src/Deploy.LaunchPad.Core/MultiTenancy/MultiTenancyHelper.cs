@@ -47,10 +47,10 @@ namespace Deploy.LaunchPad.Core.MultiTenancy
 
         /// <param name="entity">The entity to check</param>
         /// <param name="expectedTenantId">TenantId or null for host</param>
-        public static bool IsTenantEntity(object entity, int? expectedTenantId)
+        public static bool IsTenantEntity(object entity, System.Guid? expectedTenantId)
         {
-            return (entity is IMayHaveTenant && entity.As<IMayHaveTenant>().TenantId == expectedTenantId) ||
-                   (entity is IMustHaveTenant && entity.As<IMustHaveTenant>().TenantId == expectedTenantId);
+            return (entity is IMayHaveTenant && entity.As<IMayHaveTenant>().TenantId.Equals(expectedTenantId)) ||
+                   (entity is IMustHaveTenant && entity.As<IMustHaveTenant>().TenantId.Equals(expectedTenantId));
         }
 
         public static bool IsHostEntity(object entity)

@@ -70,7 +70,7 @@ namespace Deploy.LaunchPad.Code.Services.Dto
         /// Default constructor where the id is known
         /// </summary>
         /// <param name="tenantId">The tenant identifier.</param>
-        protected GetAllAdminInputDtoBase(int tenantId) : base()
+        protected GetAllAdminInputDtoBase(System.Guid tenantId) : base()
         {
             TenantId = tenantId;
             Culture = ApplicationDetails<TIdType>.DEFAULT_CULTURE;
@@ -81,7 +81,7 @@ namespace Deploy.LaunchPad.Code.Services.Dto
         /// </summary>
         /// <param name="tenantId">The tenant identifier.</param>
         /// <param name="culture">The culture.</param>
-        protected GetAllAdminInputDtoBase(int tenantId, String culture) : base()
+        protected GetAllAdminInputDtoBase(System.Guid tenantId, String culture) : base()
         {
             TenantId = tenantId;
             Culture = culture;

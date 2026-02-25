@@ -185,7 +185,7 @@ namespace Deploy.LaunchPad.Core.Abp.Geospatial
         /// TenantId of this entity.
         /// </summary>
         /// <value>The tenant identifier.</value>
-        public virtual int? TenantId { get; set; }
+        public virtual System.Guid? TenantId { get; set; }
 
 
         /// <summary>
@@ -199,7 +199,7 @@ namespace Deploy.LaunchPad.Core.Abp.Geospatial
         /// Initializes a new instance of the <see cref="ObservationPointBase{TIdType, TParentAreaOfInterest}"/> class.
         /// </summary>
         /// <param name="tenantId">The tenant identifier.</param>
-        protected ObservationPointBase(int? tenantId) : base()
+        protected ObservationPointBase(System.Guid? tenantId) : base()
         {
             TenantId = tenantId;
         }
@@ -209,7 +209,7 @@ namespace Deploy.LaunchPad.Core.Abp.Geospatial
         /// </summary>
         /// <param name="tenantId">The tenant identifier.</param>
         /// <param name="parentAoi">The parent aoi.</param>
-        protected ObservationPointBase(int? tenantId, TParentAreaOfInterest parentAoi) : base()
+        protected ObservationPointBase(System.Guid? tenantId, TParentAreaOfInterest parentAoi) : base()
         {
             TenantId = tenantId;
             ParentAoi = parentAoi;
@@ -220,7 +220,7 @@ namespace Deploy.LaunchPad.Core.Abp.Geospatial
         /// </summary>
         /// <param name="tenantId">The tenant identifier.</param>
         /// <param name="location">The location.</param>
-        protected ObservationPointBase(int? tenantId, IMustHaveGeographicPosition location) : base()
+        protected ObservationPointBase(System.Guid? tenantId, IMustHaveGeographicPosition location) : base()
         {
             TenantId = tenantId;
             GeospatialHelper helper = new GeospatialHelper();

@@ -38,11 +38,6 @@ namespace Deploy.LaunchPad.Domain.Devices
         /// </summary>
         /// <value>The previous locations.</value>
         IList<SpaceTimeInformation> PreviousLocations { get; set; }
-        /// <summary>
-        /// Gets or sets the tenant identifier.
-        /// </summary>
-        /// <value>The tenant identifier.</value>
-        int? TenantId { get; set; }
 
         /// <summary>
         /// Gets the object data.

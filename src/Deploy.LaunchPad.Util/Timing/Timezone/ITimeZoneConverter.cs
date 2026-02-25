@@ -42,7 +42,7 @@ namespace Deploy.LaunchPad.Util.Timing.Timezone
         /// <param name="tenantId">TenantId of user</param>
         /// <param name="userId">UserId to convert date for</param>
         /// <returns></returns>
-        DateTime? Convert(DateTime? date, int? tenantId, long userId, string userTimeZone = "");
+        DateTime? Convert(DateTime? date, System.Guid? tenantId, long userId, string userTimeZone = "");
 
         /// <summary>
         /// Converts given date to tenant's time zone. 
@@ -51,7 +51,7 @@ namespace Deploy.LaunchPad.Util.Timing.Timezone
         /// <param name="date">Base date to convert</param>
         /// <param name="tenantId">TenantId  to convert date for</param>
         /// <returns></returns>
-        DateTime? Convert(DateTime? date, int tenantId, string tenantsTimeZone = "");
+        DateTime? Convert(DateTime? date, System.Guid TenantId, string tenantsTimeZone = "");
 
         /// <summary>
         /// Converts given date to application's time zone. 

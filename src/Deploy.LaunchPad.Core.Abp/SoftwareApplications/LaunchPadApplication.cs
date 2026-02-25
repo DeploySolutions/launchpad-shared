@@ -79,7 +79,7 @@ namespace Deploy.LaunchPad.Core.Abp.SoftwareApplications
         /// TenantId of this entity.
         /// </summary>
         /// <value>The tenant identifier.</value>
-        public virtual int? TenantId { get; set; }
+        public virtual System.Guid? TenantId { get; set; }
 
 
         #region "Constructors"
@@ -98,7 +98,7 @@ namespace Deploy.LaunchPad.Core.Abp.SoftwareApplications
         /// Initializes a new instance of the <see cref="LaunchPadApplication{TIdType, TEntityIdType}"/> class.
         /// </summary>
         /// <param name="tenantId">The tenant identifier.</param>
-        public LaunchPadApplication(int? tenantId) : base()
+        public LaunchPadApplication(System.Guid? tenantId) : base()
         {
             TenantId = tenantId;
             AppInfo = new ApplicationDetails<TIdType>(tenantId);
@@ -112,7 +112,7 @@ namespace Deploy.LaunchPad.Core.Abp.SoftwareApplications
         /// <param name="tenantId">The tenant identifier.</param>
         /// <param name="id">The identifier.</param>
         /// <param name="cultureName">Name of the culture.</param>
-        public LaunchPadApplication(int? tenantId, TIdType id, string cultureName) : base(id, cultureName)
+        public LaunchPadApplication(System.Guid? tenantId, TIdType id, string cultureName) : base(id, cultureName)
         {
             AppInfo = new ApplicationDetails<TIdType>(tenantId);
             TenantInfo = new List<TenantDetails<TIdType>>();

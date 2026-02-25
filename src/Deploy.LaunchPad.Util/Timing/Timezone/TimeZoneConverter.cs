@@ -44,7 +44,7 @@ namespace Deploy.LaunchPad.Util.Timing.Timezone
         }
 
         /// <inheritdoc/>
-        public virtual DateTime? Convert(DateTime? date, int? tenantId, long userId, string userTimeZone = "")
+        public virtual DateTime? Convert(DateTime? date, System.Guid? tenantId, long userId, string userTimeZone = "")
         {
             if (!date.HasValue)
             {
@@ -65,7 +65,7 @@ namespace Deploy.LaunchPad.Util.Timing.Timezone
         }
 
         /// <inheritdoc/>
-        public virtual DateTime? Convert(DateTime? date, int tenantId, string tenantsTimeZone = "")
+        public virtual DateTime? Convert(DateTime? date, System.Guid TenantId, string tenantsTimeZone = "")
         {
             if (!date.HasValue)
             {

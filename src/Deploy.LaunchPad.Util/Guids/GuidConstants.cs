@@ -18,6 +18,7 @@ namespace Deploy.LaunchPad.Util.Guids
         public static readonly Guid Any = new Guid("aaaaaaaa-aaaa-4aaa-8aaa-616e79000000"); // "any"
         public static readonly Guid None = new Guid("bbbbbbbb-bbbb-4bbb-8bbb-6e6f6e650000"); // "none"
         public static readonly Guid Unknown = new Guid("ffffffff-ffff-4fff-8fff-756e6b000000"); // "unk"
+        public static readonly Guid Default = new Guid("00000000-0000-0000-0000-000000000001"); // Default ID of 1
         public static readonly Guid Empty = Guid.Empty;
         public static bool IsAny(Guid guid) => guid == Any;
         public static bool IsNone(Guid guid) => guid == None;

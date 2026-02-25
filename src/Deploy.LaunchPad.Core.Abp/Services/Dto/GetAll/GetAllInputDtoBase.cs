@@ -12,7 +12,6 @@
 // <summary></summary>
 // ***********************************************************************
 using Abp.Application.Services.Dto;
-using Abp.Domain.Entities;
 using Deploy.LaunchPad.Core.Abp.SoftwareApplications;
 using Deploy.LaunchPad.Code.Services;
 using Deploy.LaunchPad.Domain.Metadata;
@@ -27,6 +26,7 @@ using System.Text;
 using System.Xml.Serialization;
 using Deploy.LaunchPad.Domain;
 using Deploy.LaunchPad.Core;
+using Deploy.LaunchPad.Core.Metadata;
 
 namespace Deploy.LaunchPad.Code.Services.Dto
 {
@@ -98,7 +98,7 @@ namespace Deploy.LaunchPad.Code.Services.Dto
         /// <value>The tenant identifier.</value>
         [DataObjectField(false)]
         [XmlAttribute]
-        public virtual int? TenantId { get; set; }
+        public virtual System.Guid? TenantId { get; set; }
 
         /// <summary>
         /// A short description of this item.
@@ -197,7 +197,7 @@ namespace Deploy.LaunchPad.Code.Services.Dto
         /// Default constructor where the id is known
         /// </summary>
         /// <param name="tenantId">The tenant identifier.</param>
-        protected GetAllInputDtoBase(int tenantId) : base()
+        protected GetAllInputDtoBase(System.Guid tenantId) : base()
         {
             TenantId = tenantId;
             Culture = ApplicationDetails<TIdType>.DEFAULT_CULTURE;
@@ -214,7 +214,7 @@ namespace Deploy.LaunchPad.Code.Services.Dto
         /// </summary>
         /// <param name="tenantId">The tenant identifier.</param>
         /// <param name="culture">The culture.</param>
-        protected GetAllInputDtoBase(int tenantId, String culture) : base()
+        protected GetAllInputDtoBase(System.Guid tenantId, String culture) : base()
         {
             TenantId = tenantId;
             Culture = culture;
@@ -234,7 +234,7 @@ namespace Deploy.LaunchPad.Code.Services.Dto
         protected GetAllInputDtoBase(SerializationInfo info, StreamingContext context)
         {
             Culture = info.GetString("Culture");
-            TenantId = info.GetInt32("TenantId");
+            TenantId = (Guid?)info.GetValue("TenantId", typeof(Guid?));
             Name = info.GetString("DisplayName");
             DescriptionShort = info.GetString("DescriptionShort");
             DescriptionFull = info.GetString("DescriptionFull");

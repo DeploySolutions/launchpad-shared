@@ -36,17 +36,9 @@ namespace Deploy.LaunchPad.Core.Metadata
     /// This interface holds common metadata information for entities used by the framework,
     /// such as the author or the date last modified. It is a core component of any Entity class.
     /// </summary>
-    public partial interface IMetadataInformation : IEquatable<MetadataInformation>
+    public partial interface IMetadataInformation : IEquatable<MetadataInformation>,
+        IMayHaveTenant
     {
-
-   
-        /// <summary>
-        /// The id of the tenant that domain entity this belongs to (null if not known/applicable)
-        /// </summary>
-        /// <value>The tenant identifier.</value>
-        [DataObjectField(false)]
-        [XmlAttribute]
-        int? TenantId { get; set; }
 
         /// <summary>
         /// The display name that can be displayed as a label externally to users when referring to this object

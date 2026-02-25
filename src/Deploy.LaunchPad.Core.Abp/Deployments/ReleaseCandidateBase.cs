@@ -41,12 +41,6 @@ namespace Deploy.LaunchPad.Core.Abp.Deployments
     {
 
         /// <summary>
-        /// The checksum (from git or elsewhere)
-        /// </summary>
-        /// <value>The checksum.</value>
-        public virtual string Checksum { get; set; }
-
-        /// <summary>
         /// The version of this release
         /// </summary>
         /// <value>The version.</value>
@@ -108,7 +102,7 @@ namespace Deploy.LaunchPad.Core.Abp.Deployments
         /// Initializes a new instance of the <see cref="ReleaseCandidateBase{TIdType}"/> class.
         /// </summary>
         /// <param name="tenantId">The id of the tenant to which this entity belongs</param>
-        public ReleaseCandidateBase(int tenantId) : base()
+        public ReleaseCandidateBase(System.Guid tenantId) : base()
         {
             TenantId = tenantId;
         }
@@ -120,7 +114,7 @@ namespace Deploy.LaunchPad.Core.Abp.Deployments
         /// <param name="id">The identifier.</param>
         /// <param name="cultureName">Name of the culture.</param>
         /// <param name="text">The text.</param>
-        public ReleaseCandidateBase(int tenantId, TIdType id, string cultureName, String text) : base(tenantId, id, cultureName)
+        public ReleaseCandidateBase(System.Guid tenantId, TIdType id, string cultureName, String text) : base(tenantId, id, cultureName)
         {
             TenantId = tenantId;
         }

@@ -78,7 +78,7 @@ namespace Deploy.LaunchPad.Core.Abp.Organization
         /// Initializes a new instance of the <see cref="GovernmentOrganizationBase">GovernmentOrganizationBase</see> class
         /// </summary>
         /// <param name="tenantId">The tenant identifier.</param>
-        protected GovernmentOrganizationBase(int? tenantId) : base(tenantId)
+        protected GovernmentOrganizationBase(System.Guid? tenantId) : base(tenantId)
         {
 
         }
@@ -88,7 +88,7 @@ namespace Deploy.LaunchPad.Core.Abp.Organization
         /// </summary>
         /// <param name="tenantId">The tenant identifier.</param>
         /// <param name="id">The identifier.</param>
-        protected GovernmentOrganizationBase(int? tenantId, TPrimaryKey id) : base(tenantId)
+        protected GovernmentOrganizationBase(System.Guid? tenantId, TPrimaryKey id) : base(tenantId)
         {
             Id = id;
         }

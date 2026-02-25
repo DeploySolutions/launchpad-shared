@@ -75,7 +75,7 @@ namespace Deploy.LaunchPad.Core.Abp.Data
         /// TenantId of this entity.
         /// </summary>
         /// <value>The tenant identifier.</value>
-        public virtual int? TenantId { get; set; }
+        public virtual System.Guid? TenantId { get; set; }
         /// <summary>
         /// Gets or sets the data sets.
         /// </summary>
@@ -111,7 +111,7 @@ namespace Deploy.LaunchPad.Core.Abp.Data
         /// <param name="_numberOfDatasets">The number of datasets.</param>
         /// <param name="_totalNumberOfRecords">The total number of records.</param>
         public DataCatalogDomainEntity(
-            int tenantId,
+            System.Guid tenantId,
             string _datacatalogueName,
             string _datacatalogueDescription,
             int _totalNumberOfRecords
@@ -127,7 +127,7 @@ namespace Deploy.LaunchPad.Core.Abp.Data
         /// Initializes a new instance of the <see cref="DataCatalogDomainEntity{TPrimaryKey, TDictionaryKey, TDataPointPrimaryKey}"/> class.
         /// </summary>
         /// <param name="tenantId">The tenant identifier.</param>
-        protected DataCatalogDomainEntity(int tenantId) : base()
+        protected DataCatalogDomainEntity(System.Guid tenantId) : base()
         {
             TenantId = tenantId;
             Name = new ElementName(String.Empty);

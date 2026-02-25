@@ -128,7 +128,7 @@ namespace Deploy.LaunchPad.Core.Abp.Organization
         /// TenantId of this entity.
         /// </summary>
         /// <value>The tenant identifier.</value>
-        public virtual int? TenantId { get; set; }
+        public virtual System.Guid? TenantId { get; set; }
         
 
         /// <summary>
@@ -143,7 +143,7 @@ namespace Deploy.LaunchPad.Core.Abp.Organization
         /// Initializes a new instance of the <see cref="OrganizationDomainEntityBase&lt;TPrimaryKey&gt;">OrganizationBase&lt;TPrimaryKey&gt;</see> class
         /// </summary>
         /// <param name="tenantId">The tenant identifier.</param>
-        protected OrganizationDomainEntityBase(int? tenantId) : base()
+        protected OrganizationDomainEntityBase(System.Guid? tenantId) : base()
         {
             TenantId = tenantId;
         }
@@ -154,7 +154,7 @@ namespace Deploy.LaunchPad.Core.Abp.Organization
         /// </summary>
         /// <param name="tenantId">The tenant identifier.</param>
         /// <param name="id">The identifier.</param>
-        protected OrganizationDomainEntityBase(int? tenantId, TIdType id) : base()
+        protected OrganizationDomainEntityBase(System.Guid? tenantId, TIdType id) : base()
         {
             TenantId = tenantId;
         }

@@ -80,7 +80,7 @@ namespace Deploy.LaunchPad.Core.Abp.SoftwareApplications
         /// TenantId of this entity.
         /// </summary>
         /// <value>The tenant identifier.</value>
-        public virtual int? TenantId { get; set; }
+        public virtual System.Guid? TenantId { get; set; }
 
         #region "Constructors"
         /// <summary>
@@ -96,7 +96,7 @@ namespace Deploy.LaunchPad.Core.Abp.SoftwareApplications
         /// Initializes a new instance of the <see cref="Module{TIdType, TEntityIdType}"/> class.
         /// </summary>
         /// <param name="tenantId">The tenant identifier.</param>
-        public Module(int? tenantId) : base()
+        public Module(System.Guid? tenantId) : base()
         {
             Type = string.Empty;
             TenantId = tenantId;
@@ -109,7 +109,7 @@ namespace Deploy.LaunchPad.Core.Abp.SoftwareApplications
         /// <param name="tenantId">The tenant identifier.</param>
         /// <param name="id">The identifier.</param>
         /// <param name="cultureName">Name of the culture.</param>
-        public Module(int? tenantId, TIdType id, string cultureName) : base(id, cultureName)
+        public Module(System.Guid? tenantId, TIdType id, string cultureName) : base(id, cultureName)
         {
             Type = string.Empty;
             TenantId = tenantId;
@@ -124,7 +124,7 @@ namespace Deploy.LaunchPad.Core.Abp.SoftwareApplications
         /// <param name="id">The identifier.</param>
         /// <param name="cultureName">Name of the culture.</param>
         /// <param name="cultureDefault">The culture default.</param>
-        public Module(int? tenantId, TIdType id, string cultureName, String cultureDefault) : base(id, cultureName)
+        public Module(System.Guid? tenantId, TIdType id, string cultureName, String cultureDefault) : base(id, cultureName)
         {
             Type = string.Empty;
             CultureDefault = cultureDefault;

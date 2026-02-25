@@ -39,6 +39,7 @@ namespace Deploy.LaunchPad.Domain.Tests
     using Deploy.LaunchPad.Util;
     using Deploy.LaunchPad.Core.Abp.Devices;
     using Deploy.LaunchPad.Util.Elements;
+    using Deploy.LaunchPad.Util.Guids;
 
     /// <summary>
     /// Class DtoTests.
@@ -70,7 +71,7 @@ namespace Deploy.LaunchPad.Domain.Tests
             Device<int> device = new Device<int>()
             {
                 Id = 1,
-                TenantId = 1,
+                TenantId = GuidConstants.Default,
                 Name = new ElementName("Device for testing DTOs"),
                 Description = new ElementDescription("Short description", "Lorem ipsum et dolor sit amet bla bla bla"),
                 IsActive = true,

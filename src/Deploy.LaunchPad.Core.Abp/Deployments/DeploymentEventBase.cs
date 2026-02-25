@@ -101,7 +101,7 @@ namespace Deploy.LaunchPad.Core.Abp.Deployments
         /// Initializes a new instance of the <see cref="DeploymentEventBase{TIdType}"/> class.
         /// </summary>
         /// <param name="tenantId">The id of the tenant to which this entity belongs</param>
-        public DeploymentEventBase(int tenantId) : base()
+        public DeploymentEventBase(System.Guid tenantId) : base()
         {
             TenantId = tenantId;
         }
@@ -113,7 +113,7 @@ namespace Deploy.LaunchPad.Core.Abp.Deployments
         /// <param name="id">The identifier.</param>
         /// <param name="cultureName">Name of the culture.</param>
         /// <param name="text">The text.</param>
-        public DeploymentEventBase(int tenantId, TIdType id, string cultureName, String text) : base(tenantId, id, cultureName)
+        public DeploymentEventBase(System.Guid tenantId, TIdType id, string cultureName, String text) : base(tenantId, id, cultureName)
         {
             TenantId = tenantId;
         }

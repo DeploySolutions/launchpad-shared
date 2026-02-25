@@ -27,6 +27,7 @@
 #endregion
 
 using Deploy.LaunchPad.Core.Metadata;
+using Deploy.LaunchPad.Util.Guids;
 using System;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
@@ -51,7 +52,7 @@ namespace Deploy.LaunchPad.Core.Entities
 
     {
 
-        protected int _tenantId;
+        protected System.Guid _tenantId;
         /// <summary>
         /// The id of the tenant that domain entity this belongs to
         /// </summary>
@@ -60,7 +61,7 @@ namespace Deploy.LaunchPad.Core.Entities
         [XmlAttribute]
         [Required]
         [ForeignKey(nameof(TenantId))]
-        public virtual int TenantId
+        public virtual System.Guid TenantId
         {
             get { return _tenantId; }
             set { _tenantId = value; }
@@ -71,7 +72,7 @@ namespace Deploy.LaunchPad.Core.Entities
         /// </summary>
         protected TenantSpecificDomainEntityBase() : base()
         {
-            TenantId = 1;
+            TenantId = GuidConstants.Default;
         }
 
 
@@ -79,7 +80,7 @@ namespace Deploy.LaunchPad.Core.Entities
         /// Initializes a new instance of the <see cref="LaunchPadDomainEntityBase{TIdType}">DomainEntityBase{TIdType}</see> abstract class
         /// </summary>
         /// <param name="tenantId">The id of the tenant to which this entity belongs</param>
-        protected TenantSpecificDomainEntityBase(int tenantId) : base()
+        protected TenantSpecificDomainEntityBase(System.Guid tenantId) : base()
         {
             TenantId = tenantId;
         }
@@ -90,7 +91,7 @@ namespace Deploy.LaunchPad.Core.Entities
         /// <param name="tenantId">The id of the tenant to which this entity belongs</param>
         /// <param name="id">The identifier.</param>
         /// <param name="culture">The culture for this entity</param>
-        protected TenantSpecificDomainEntityBase(int tenantId, TIdType id, string culture) : base(id, culture)
+        protected TenantSpecificDomainEntityBase(System.Guid tenantId, TIdType id, string culture) : base(id, culture)
         {
             TenantId = tenantId;
         }
@@ -101,7 +102,7 @@ namespace Deploy.LaunchPad.Core.Entities
         /// <param name="tenantId">The id of the tenant to which this entity belongs</param>
         /// <param name="id">The identifier.</param>
         /// <param name="metadata">The desired metadata for this entity</param>
-        protected TenantSpecificDomainEntityBase(int tenantId, TIdType id, MetadataInformation metadata)
+        protected TenantSpecificDomainEntityBase(System.Guid tenantId, TIdType id, MetadataInformation metadata)
             : base(id)
         {
             TenantId = tenantId;
@@ -114,7 +115,7 @@ namespace Deploy.LaunchPad.Core.Entities
         /// <param name="context">The context of the stream</param>
         protected TenantSpecificDomainEntityBase(SerializationInfo info, StreamingContext context) : base(info, context)
         {
-            TenantId = info.GetInt32("TenantId");
+            TenantId = (System.Guid)info.GetValue("TenantId", typeof(System.Guid));
         }
 
         /// <summary>

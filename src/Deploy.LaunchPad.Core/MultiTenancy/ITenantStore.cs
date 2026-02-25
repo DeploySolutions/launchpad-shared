@@ -37,7 +37,7 @@ namespace Deploy.LaunchPad.Core.MultiTenancy
     public partial interface ITenantStore
     {
         [CanBeNull]
-        TenantInfo Find(int tenantId);
+        TenantInfo Find(System.Guid TenantId);
 
         [CanBeNull]
         TenantInfo Find([NotNull] string tenancyName);

@@ -36,9 +36,9 @@ namespace Deploy.LaunchPad.Core.MultiTenancy
 {
     public partial class TenantResolverCacheItem
     {
-        public virtual int? TenantId { get; }
+        public virtual System.Guid? TenantId { get; }
 
-        public TenantResolverCacheItem(int? tenantId)
+        public TenantResolverCacheItem(System.Guid? tenantId)
         {
             TenantId = tenantId;
         }

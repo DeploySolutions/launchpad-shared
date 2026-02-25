@@ -188,7 +188,7 @@ namespace Deploy.LaunchPad.Space.Satellites.GoC
         /// <param name="tenantId">The tenant identifier.</param>
         /// <param name="sceneId">The scene identifier.</param>
         public Radarsat1ObservationScene(
-           int? tenantId,
+           System.Guid? tenantId,
            string sceneId)
         {
             SceneId = sceneId;
@@ -215,7 +215,7 @@ namespace Deploy.LaunchPad.Space.Satellites.GoC
         /// <param name="sceneCentre">The scene centre.</param>
         /// <param name="cornerCoordinates">The corner coordinates.</param>
         public Radarsat1ObservationScene(
-           int? tenantId,
+           System.Guid? tenantId,
            string sceneId,
            string mdaOrderNumber,
            string geographicalArea,

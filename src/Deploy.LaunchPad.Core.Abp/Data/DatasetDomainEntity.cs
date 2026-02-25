@@ -98,7 +98,7 @@ namespace Deploy.LaunchPad.Core.Abp.Data
         /// </summary>
         /// <value>The tenant identifier.</value>
         /// <exception cref="System.NotImplementedException"></exception>
-        public virtual int? TenantId { get; set; }
+        public virtual System.Guid? TenantId { get; set; }
 
         /// <summary>
         /// Describes the schema (where known) according to which this data is structured.
@@ -139,7 +139,7 @@ namespace Deploy.LaunchPad.Core.Abp.Data
         /// <param name="datasetName">Name of the dataset.</param>
         /// <param name="datasetDescription">The dataset description.</param>
         public DatasetDomainEntity(
-            int tenantId,
+            System.Guid TenantId,
            string datasetName,
            string datasetDescription
         ) : base()
@@ -153,7 +153,7 @@ namespace Deploy.LaunchPad.Core.Abp.Data
         /// Initializes a new instance of the <see cref="DatasetDomainEntity{TPrimaryKey, TDictionaryKey, TDataPointPrimaryKey}"/> class.
         /// </summary>
         /// <param name="tenantId">The tenant identifier.</param>
-        protected DatasetDomainEntity(int tenantId) : base()
+        protected DatasetDomainEntity(System.Guid tenantId) : base()
         {
             TenantId = tenantId;
             Name = new ElementName(String.Empty);

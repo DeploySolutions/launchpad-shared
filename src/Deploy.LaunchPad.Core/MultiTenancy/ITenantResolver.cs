@@ -36,8 +36,8 @@ namespace Deploy.LaunchPad.Core.MultiTenancy
 {
     public partial interface ITenantResolver
     {
-        int? ResolveTenantId();
+        System.Guid? ResolveTenantId();
         
-        Task<int?> ResolveTenantIdAsync();
+        Task<System.Guid?> ResolveTenantIdAsync();
     }
 }

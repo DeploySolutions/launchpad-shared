@@ -45,7 +45,7 @@ namespace Deploy.LaunchPad.Organizations.Canada
         /// Initializes a new instance of the <see cref="CanadianSpaceAgency"/> class.
         /// </summary>
         /// <param name="tenantId">The tenant identifier.</param>
-        public CanadianSpaceAgency(int? tenantId) : base(tenantId)
+        public CanadianSpaceAgency(System.Guid? tenantId) : base(tenantId)
         {
             GovernmentOrganization org = new GovernmentOrganization()
             {

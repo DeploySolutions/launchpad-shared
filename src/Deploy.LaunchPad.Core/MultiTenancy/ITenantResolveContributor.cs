@@ -34,6 +34,6 @@ namespace Deploy.LaunchPad.Core.MultiTenancy
 {
     public partial interface ITenantResolveContributor
     {
-        int? ResolveTenantId();
+        System.Guid? ResolveTenantId();
     }
 }

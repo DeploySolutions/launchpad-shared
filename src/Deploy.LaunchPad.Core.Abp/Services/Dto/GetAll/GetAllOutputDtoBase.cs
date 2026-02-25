@@ -12,15 +12,11 @@
 // <summary></summary>
 // ***********************************************************************
 
-using Deploy.LaunchPad.Util;
-using Abp.Domain.Entities;
-using System;
 using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
 using System.Xml.Serialization;
 using Deploy.LaunchPad.Code.Services.Dto.NameDescription;
-using Deploy.LaunchPad.Domain.Metadata;
+using Deploy.LaunchPad.Core.Metadata;
 
 namespace Deploy.LaunchPad.Code.Services.Dto
 {
@@ -64,7 +60,7 @@ namespace Deploy.LaunchPad.Code.Services.Dto
         /// <value>The tenant identifier.</value>
         [DataObjectField(false)]
         [XmlAttribute]
-        public virtual int? TenantId { get; set; }
+        public virtual System.Guid? TenantId { get; set; }
 
 
         #region "Constructors"

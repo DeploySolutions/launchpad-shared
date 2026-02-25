@@ -50,7 +50,7 @@ namespace Deploy.LaunchPad.Core.Metadata
         /// <value>The tenant identifier.</value>
         [DataObjectField(false)]
         [XmlAttribute]
-        public int? TenantId { get; set; }
+        public System.Guid? TenantId { get; set; }
 
         /// <summary>
         /// The display name that can be displayed as a label externally to users when referring to this object
@@ -165,7 +165,7 @@ namespace Deploy.LaunchPad.Core.Metadata
         /// <param name="context">The context of the stream</param>
         public MetadataInformation(SerializationInfo info, StreamingContext context)
         {
-            TenantId = info.GetInt32("TenantId");
+            TenantId = (System.Guid?)info.GetValue("TenantId", typeof(System.Guid?));
             Name = info.GetString("DisplayName");
             DescriptionFull = info.GetString("DescriptionFull");
             DescriptionShort = info.GetString("DescriptionShort");

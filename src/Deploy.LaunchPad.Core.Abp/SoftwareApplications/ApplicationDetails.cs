@@ -74,7 +74,7 @@ namespace Deploy.LaunchPad.Core.Abp.SoftwareApplications
         [XmlAttribute]
         [Required]
         [ForeignKey(nameof(TenantId))]
-        public virtual int? TenantId { get; set; }
+        public virtual System.Guid? TenantId { get; set; }
 
         /// <summary>
         /// The default culture of this application
@@ -165,7 +165,7 @@ namespace Deploy.LaunchPad.Core.Abp.SoftwareApplications
         /// Initializes a new instance of the <see cref="ApplicationDetails{TIdType}"/> class.
         /// </summary>
         /// <param name="tenantId">The tenant identifier.</param>
-        public ApplicationDetails(int? tenantId) : base()
+        public ApplicationDetails(System.Guid? tenantId) : base()
         {
             TenantId = tenantId;
             PrimaryColourHex = DEFAULT_HEX_COlOUR;
@@ -179,7 +179,7 @@ namespace Deploy.LaunchPad.Core.Abp.SoftwareApplications
         /// <param name="tenantId">The tenant identifier.</param>
         /// <param name="id">The identifier.</param>
         /// <param name="cultureName">Name of the culture.</param>
-        public ApplicationDetails(int? tenantId, TIdType id, string cultureName) : base(id, cultureName)
+        public ApplicationDetails(System.Guid? tenantId, TIdType id, string cultureName) : base(id, cultureName)
         {
             TenantId = tenantId;
             PrimaryColourHex = DEFAULT_HEX_COlOUR;
@@ -194,7 +194,7 @@ namespace Deploy.LaunchPad.Core.Abp.SoftwareApplications
         /// <param name="id">The identifier.</param>
         /// <param name="cultureName">Name of the culture.</param>
         /// <param name="cultureDefault">The culture default.</param>
-        public ApplicationDetails(int? tenantId, TIdType id, string cultureName, String cultureDefault) : base(id, cultureName)
+        public ApplicationDetails(System.Guid? tenantId, TIdType id, string cultureName, String cultureDefault) : base(id, cultureName)
         {
             TenantId = tenantId;
             Id = id;
@@ -211,7 +211,7 @@ namespace Deploy.LaunchPad.Core.Abp.SoftwareApplications
         /// <param name="cultureName">Name of the culture.</param>
         /// <param name="cultureDefault">The culture default.</param>
         /// <param name="cultureSupported">The culture supported.</param>
-        public ApplicationDetails(int? tenantId, TIdType id, string cultureName, String cultureDefault, String cultureSupported) : base(id, cultureName)
+        public ApplicationDetails(System.Guid? tenantId, TIdType id, string cultureName, String cultureDefault, String cultureSupported) : base(id, cultureName)
         {
             TenantId = tenantId;
             Id = id;
@@ -227,7 +227,7 @@ namespace Deploy.LaunchPad.Core.Abp.SoftwareApplications
         /// <param name="context">The context of the stream</param>
         protected ApplicationDetails(SerializationInfo info, StreamingContext context) : base(info, context)
         {
-            TenantId = info.GetInt32("TenantId");
+            TenantId = (System.Guid?)info.GetValue("TenantId", typeof(System.Guid?));
             ApplicationKey = info.GetString("ApplicationKey");
             CultureDefault = info.GetString("CultureDefault");
             CultureSupported = info.GetString("CultureSupported");

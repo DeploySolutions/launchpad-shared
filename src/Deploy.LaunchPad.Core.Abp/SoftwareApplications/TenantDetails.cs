@@ -118,7 +118,7 @@ namespace Deploy.LaunchPad.Core.Abp.SoftwareApplications
         /// Initializes a new instance of the <see cref="TenantDetails{TIdType}"/> class.
         /// </summary>
         /// <param name="tenantId">The id of the tenant to which this entity belongs</param>
-        public TenantDetails(int tenantId) : base(tenantId)
+        public TenantDetails(System.Guid tenantId) : base(tenantId)
         {
             PrimaryColourHex = ApplicationDetails<TIdType>.DEFAULT_HEX_COlOUR;
             CultureDefault = ApplicationDetails<TIdType>.DEFAULT_CULTURE;
@@ -133,7 +133,7 @@ namespace Deploy.LaunchPad.Core.Abp.SoftwareApplications
         /// <param name="id">The identifier.</param>
         /// <param name="cultureName">Name of the culture.</param>
         /// <param name="cultureDefault">The culture default.</param>
-        public TenantDetails(int tenantId, TIdType id, string cultureName, String cultureDefault) : base(tenantId, id, cultureName)
+        public TenantDetails(System.Guid tenantId, TIdType id, string cultureName, String cultureDefault) : base(tenantId, id, cultureName)
         {
             PrimaryColourHex = ApplicationDetails<TIdType>.DEFAULT_HEX_COlOUR;
             CultureDefault = cultureDefault;
@@ -148,7 +148,7 @@ namespace Deploy.LaunchPad.Core.Abp.SoftwareApplications
         /// <param name="cultureName">Name of the culture.</param>
         /// <param name="cultureDefault">The culture default.</param>
         /// <param name="cultureSupported">The culture supported.</param>
-        public TenantDetails(int tenantId, TIdType id, string cultureName, String cultureDefault, String cultureSupported) : base(tenantId, id, cultureName)
+        public TenantDetails(System.Guid tenantId, TIdType id, string cultureName, String cultureDefault, String cultureSupported) : base(tenantId, id, cultureName)
         {
             PrimaryColourHex = ApplicationDetails<TIdType>.DEFAULT_HEX_COlOUR;
             CultureDefault = cultureDefault;

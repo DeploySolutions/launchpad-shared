@@ -82,7 +82,7 @@ namespace Deploy.LaunchPad.Core.Abp.Person
         /// TenantId of this entity.
         /// </summary>
         /// <value>The tenant identifier.</value>
-        public virtual int? TenantId { get; set; }
+        public virtual System.Guid? TenantId { get; set; }
         public IList<ILaunchPadPerson> Parents { get; set; }
         public IList<ILaunchPadPerson> Children { get; set; }
         public IList<ILaunchPadPerson> Siblings { get; set; }
@@ -100,7 +100,7 @@ namespace Deploy.LaunchPad.Core.Abp.Person
         /// Initializes a new instance of the <see cref="PersonDomainEntityBase&lt;TPrimaryKey&gt;">OrganizationBase&lt;TPrimaryKey&gt;</see> class
         /// </summary>
         /// <param name="tenantId">The tenant identifier.</param>
-        protected PersonDomainEntityBase(int? tenantId) : base()
+        protected PersonDomainEntityBase(System.Guid? tenantId) : base()
         {
             TenantId = tenantId;
         }
@@ -111,7 +111,7 @@ namespace Deploy.LaunchPad.Core.Abp.Person
         /// </summary>
         /// <param name="tenantId">The tenant identifier.</param>
         /// <param name="id">The identifier.</param>
-        protected PersonDomainEntityBase(int? tenantId, TIdType id) : base()
+        protected PersonDomainEntityBase(System.Guid? tenantId, TIdType id) : base()
         {
             TenantId = tenantId;
         }

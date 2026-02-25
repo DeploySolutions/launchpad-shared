@@ -92,7 +92,7 @@ namespace Deploy.LaunchPad.Core.Abp.Devices
         /// Gets or sets the tenant identifier.
         /// </summary>
         /// <value>The tenant identifier.</value>
-        public virtual int? TenantId { get; set; }
+        public virtual System.Guid? TenantId { get; set; }
 
         protected TIdType? _translatedFromId;
         /// <summary>
@@ -125,7 +125,7 @@ namespace Deploy.LaunchPad.Core.Abp.Devices
         /// Creates a new instance of the <see cref="Device">Device</see> class given some metadata.
         /// </summary>
         /// <param name="tenantId">The tenant identifier.</param>
-        public Device(int? tenantId) : base()
+        public Device(System.Guid? tenantId) : base()
         {
             TenantId = tenantId;
             CurrentLocation = new SpaceTimeInformation();
@@ -138,7 +138,7 @@ namespace Deploy.LaunchPad.Core.Abp.Devices
         /// </summary>
         /// <param name="tenantId">The tenant identifier.</param>
         /// <param name="id">The identifier.</param>
-        public Device(int? tenantId, TIdType id) : base(id)
+        public Device(System.Guid? tenantId, TIdType id) : base(id)
         {
             Id = id;
             TenantId = tenantId;
@@ -153,7 +153,7 @@ namespace Deploy.LaunchPad.Core.Abp.Devices
         /// <param name="tenantId">The tenant identifier.</param>
         /// <param name="id">The identifier.</param>
         /// <param name="culture">The culture.</param>
-        public Device(int? tenantId, TIdType id, CultureInfo culture) : base(id)
+        public Device(System.Guid? tenantId, TIdType id, CultureInfo culture) : base(id)
         {
             Id = id;
             TenantId = tenantId;
@@ -169,7 +169,7 @@ namespace Deploy.LaunchPad.Core.Abp.Devices
         /// <param name="tenantId">The tenant identifier.</param>
         /// <param name="id">The identifier.</param>
         /// <param name="currentLocation">The current physical location of this device</param>
-        public Device(int? tenantId, TIdType id, SpaceTimeInformation currentLocation)
+        public Device(System.Guid? tenantId, TIdType id, SpaceTimeInformation currentLocation)
             : base()
         {
             Id = id;
@@ -186,7 +186,7 @@ namespace Deploy.LaunchPad.Core.Abp.Devices
         /// <param name="id">The identifier.</param>
         /// <param name="currentLocation">The current physical location of this device</param>
         /// <param name="previousLocations">The previous physical location(s) of this device</param>
-        public Device(int? tenantId, TIdType id, SpaceTimeInformation currentLocation, IList<SpaceTimeInformation> previousLocations)
+        public Device(System.Guid? tenantId, TIdType id, SpaceTimeInformation currentLocation, IList<SpaceTimeInformation> previousLocations)
             : base(id)
         {
             CurrentLocation = currentLocation;
@@ -201,7 +201,7 @@ namespace Deploy.LaunchPad.Core.Abp.Devices
         /// <param name="id">The unique identifier for this Device</param>
         /// <param name="currentLocation">The current physical location of this device</param>
         /// <param name="power">The current power level of this device</param>
-        public Device(int? tenantId, TIdType id, SpaceTimeInformation currentLocation, DevicePower power) :
+        public Device(System.Guid? tenantId, TIdType id, SpaceTimeInformation currentLocation, DevicePower power) :
             base()
         {
             Id = id;

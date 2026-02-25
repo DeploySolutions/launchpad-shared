@@ -59,7 +59,7 @@ namespace Deploy.LaunchPad.Core.Abp.SoftwareApplications
         /// TenantId of this entity.
         /// </summary>
         /// <value>The tenant identifier.</value>
-        public virtual int? TenantId { get; set; }
+        public virtual System.Guid? TenantId { get; set; }
 
         #region "Constructors"
         /// <summary>
@@ -74,7 +74,7 @@ namespace Deploy.LaunchPad.Core.Abp.SoftwareApplications
         /// Initializes a new instance of the <see cref="Component{TIdType, TEntityIdType}"/> class.
         /// </summary>
         /// <param name="tenantId">The tenant identifier.</param>
-        public Component(int? tenantId) : base()
+        public Component(System.Guid? tenantId) : base()
         {
             TenantId = tenantId;
             DomainEntities = new List<LaunchPadDomainEntityBase<TEntityIdType>>();

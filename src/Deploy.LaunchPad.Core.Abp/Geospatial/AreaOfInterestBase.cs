@@ -179,7 +179,7 @@ namespace Deploy.LaunchPad.Core.Abp.Geospatial
         /// TenantId of this entity.
         /// </summary>
         /// <value>The tenant identifier.</value>
-        public virtual int? TenantId { get; set; }
+        public virtual System.Guid? TenantId { get; set; }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="AreaOfInterestBase{TIdType}"/> class.
@@ -193,7 +193,7 @@ namespace Deploy.LaunchPad.Core.Abp.Geospatial
         /// Initializes a new instance of the <see cref="AreaOfInterestBase{TIdType}"/> class.
         /// </summary>
         /// <param name="tenantId">The tenant identifier.</param>
-        protected AreaOfInterestBase(int? tenantId) : base()
+        protected AreaOfInterestBase(System.Guid? tenantId) : base()
         {
             TenantId = tenantId;
         }
@@ -203,7 +203,7 @@ namespace Deploy.LaunchPad.Core.Abp.Geospatial
         /// </summary>
         /// <param name="tenantId">The tenant identifier.</param>
         /// <param name="geoJson">The geo json.</param>
-        protected AreaOfInterestBase(int? tenantId, string geoJson) : base()
+        protected AreaOfInterestBase(System.Guid? tenantId, string geoJson) : base()
         {
             TenantId = tenantId;
             GeospatialHelper helper = new GeospatialHelper();

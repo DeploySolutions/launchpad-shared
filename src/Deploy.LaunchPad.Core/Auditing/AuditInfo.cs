@@ -58,7 +58,7 @@ namespace Deploy.LaunchPad.Core.Auditing
         /// <summary>
         /// ImpersonatorTenantId.
         /// </summary>
-        public virtual int? ImpersonatorTenantId { get; set; }
+        public virtual System.Guid? ImpersonatorTenantId { get; set; }
 
         /// <summary>
         /// Service (class/interface) name.
