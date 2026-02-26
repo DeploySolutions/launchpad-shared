@@ -37,7 +37,7 @@ namespace Deploy.LaunchPad.Core.Application.Features
     /// <summary>
     /// This class should be inherited in order to provide <see cref="Feature"/>s.
     /// </summary>
-    public abstract class FeatureProvider : ITransientDependency, IFeatureProvider
+    public abstract partial class FeatureProvider : ITransientDependency, IFeatureProvider
     {
         /// <summary>
         /// Used to set <see cref="Feature"/>s.

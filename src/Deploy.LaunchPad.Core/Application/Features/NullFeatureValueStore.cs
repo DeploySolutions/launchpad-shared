@@ -39,7 +39,7 @@ namespace Deploy.LaunchPad.Core.Application.Features
     /// It gets null for all feature values.
     /// <see cref="Instance"/> can be used via property injection of <see cref="IFeatureValueStore"/>.
     /// </summary>
-    public class NullFeatureValueStore : IFeatureValueStore
+    public partial class NullFeatureValueStore : IFeatureValueStore
     {
         /// <summary>
         /// Gets the singleton instance.
@@ -47,13 +47,13 @@ namespace Deploy.LaunchPad.Core.Application.Features
         public static NullFeatureValueStore Instance { get; } = new NullFeatureValueStore();
 
         /// <inheritdoc/>
-        public Task<string> GetValueOrNullAsync(System.Guid tenantId, IFeature feature)
+        public virtual Task<string> GetValueOrNullAsync(System.Guid tenantId, IFeature feature)
         {
             return Task.FromResult((string)null);
         }
 
         /// <inheritdoc/>
-        public string GetValueOrNull(System.Guid tenantId, IFeature feature)
+        public virtual string GetValueOrNull(System.Guid tenantId, IFeature feature)
         {
             return (string)null;
         }

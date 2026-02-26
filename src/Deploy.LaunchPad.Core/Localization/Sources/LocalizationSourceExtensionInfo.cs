@@ -43,12 +43,12 @@ namespace Deploy.LaunchPad.Core.Localization.Sources
         /// <summary>
         /// Source name.
         /// </summary>
-        public string SourceName { get; private set; }
+        public virtual string SourceName { get; private set; }
 
         /// <summary>
         /// Extension dictionaries.
         /// </summary>
-        public ILocalizationDictionaryProvider DictionaryProvider { get; private set; }
+        public virtual ILocalizationDictionaryProvider DictionaryProvider { get; private set; }
 
         /// <summary>
         /// Creates a new <see cref="LocalizationSourceExtensionInfo"/> object.

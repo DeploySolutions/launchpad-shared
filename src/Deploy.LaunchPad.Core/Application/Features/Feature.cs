@@ -62,53 +62,53 @@ namespace Deploy.LaunchPad.Core.Application.Features
         /// Arbitrary objects related to this object.
         /// These objects must be serializable.
         /// </summary>
-        public IDictionary<string, object> Attributes { get; private set; }
+        public virtual IDictionary<string, object> Attributes { get; private set; }
 
         /// <summary>
         /// Parent of this feature, if one exists.
         /// If set, this feature can be enabled only if the parent is enabled.
         /// </summary>
-        public IFeature Parent { get; private set; }
+        public virtual IFeature Parent { get; private set; }
 
         /// <summary>
         /// Unique name of the feature.
         /// </summary>
-        public string Name { get; private set; }
+        public virtual string Name { get; private set; }
 
         /// <summary>
         /// Display name of this feature.
         /// This can be used to show features on the UI.
         /// </summary>
-        public ILocalizableString DisplayName { get; set; }
+        public virtual ILocalizableString DisplayName { get; set; }
 
         /// <summary>
         /// A brief description for this feature.
         /// This can be used to show this feature's description on the UI. 
         /// </summary>
-        public ILocalizableString Description { get; set; }
+        public virtual ILocalizableString Description { get; set; }
 
         /// <summary>
         /// Input type.
         /// This can be used to prepare an input for changing this feature's value.
         /// Default: <see cref="CheckboxInputType"/>.
         /// </summary>
-        public IInputType InputType { get; set; }
+        public virtual IInputType InputType { get; set; }
 
         /// <summary>
         /// Default value of this feature.
         /// This value is used if this feature's value is not defined for the current edition or tenant.
         /// </summary>
-        public string DefaultValue { get; set; }
+        public virtual string DefaultValue { get; set; }
 
         /// <summary>
         /// Feature's scope.
         /// </summary>
-        public FeatureScopes Scope { get; set; }
+        public virtual FeatureScopes Scope { get; set; }
 
         /// <summary>
         /// List of child features.
         /// </summary>
-        public IReadOnlyList<IFeature> Children => _children.ToImmutableList();
+        public virtual IReadOnlyList<IFeature> Children => _children.ToImmutableList();
 
         private readonly List<IFeature> _children;
 
@@ -138,14 +138,14 @@ namespace Deploy.LaunchPad.Core.Application.Features
         /// Adds a child feature.
         /// </summary>
         /// <returns>Returns a newly created child feature</returns>
-        public IFeature CreateChildFeature(string name, string defaultValue, ILocalizableString displayName = null, ILocalizableString description = null, FeatureScopes scope = FeatureScopes.All, IInputType inputType = null)
+        public virtual IFeature CreateChildFeature(string name, string defaultValue, ILocalizableString displayName = null, ILocalizableString description = null, FeatureScopes scope = FeatureScopes.All, IInputType inputType = null)
         {
             var feature = new Feature(name, defaultValue, displayName, description, scope, inputType) { Parent = this };
             _children.Add(feature);
             return feature;
         }
 
-        public void RemoveChildFeature(string name)
+        public virtual void RemoveChildFeature(string name)
         {
             var featureToRemove = _children.FirstOrDefault(f => f.Name == name);
 
