@@ -30,8 +30,11 @@
  */
 #endregion
 
+using Deploy.LaunchPad.Util.Elements;
 using System;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Globalization;
+using System.Runtime.Serialization;
 
 namespace Deploy.LaunchPad.Core.Domain.Entities.Auditing
 {
@@ -41,7 +44,109 @@ namespace Deploy.LaunchPad.Core.Domain.Entities.Auditing
     [Serializable]
     public abstract partial class FullAuditedEntity : FullAuditedEntity<System.Guid>, IEntity
     {
+        /// <summary>
+        /// Constructor.
+        /// </summary>
+        protected FullAuditedEntity() : base()
+        {
+        }
 
+        /// <summary>
+        /// Creates a new instance of the <see cref="FullAuditedEntity">FullAuditedEntity</see> class given a key, and some metadata.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <param name="name">The name of the object.</param>
+        /// <param name="description">The description for this entity</param>
+        protected FullAuditedEntity(string name) : base(name)
+        {
+        }
+
+        /// <summary>
+        /// Creates a new instance of the <see cref="FullAuditedEntity">FullAuditedEntity</see> class given a key, and some metadata.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <param name="name">The name of the object.</param>
+        /// <param name="description">The description for this entity</param>
+        protected FullAuditedEntity(ElementName name) : base(name)
+        {
+        }
+
+        /// <summary>
+        /// Creates a new instance of the <see cref="FullAuditedEntity">FullAuditedEntity</see> class given a key, and some metadata.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <param name="name">The name of the object.</param>
+        /// <param name="description">The description for this entity</param>
+        protected FullAuditedEntity(ElementName name, ElementDescription description) : base(name, description)
+        {
+        }
+
+        /// <summary>
+        /// Creates a new instance of the <see cref="FullAuditedEntity">FullAuditedEntity</see> class given a key, and some metadata.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        protected FullAuditedEntity(System.Guid id) : base(id)
+        {
+        }
+
+
+        /// <summary>
+        /// Creates a new instance of the <see cref="FullAuditedEntity">FullAuditedEntity</see> class given a key, and some metadata.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <param name="name">The name of the object.</param>
+        protected FullAuditedEntity(System.Guid id, string name) : base(id, name)
+        {
+        }
+
+        /// <summary>
+        /// Creates a new instance of the <see cref="FullAuditedEntity">FullAuditedEntity</see> class given a key, and some metadata.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <param name="name">The name of the object.</param>
+        /// <param name="culture">The culture for this entity</param>
+        protected FullAuditedEntity(System.Guid id, string name, CultureInfo culture) : base(id, name, culture)
+        {
+        }
+
+        /// <summary>
+        /// Creates a new instance of the <see cref="FullAuditedEntity">FullAuditedEntity</see> class given a key, and some metadata.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <param name="name">The name of the object.</param>
+        /// <param name="culture">The culture for this entity</param>
+        protected FullAuditedEntity(System.Guid id, ElementName name, CultureInfo culture) : base(id, name, culture)
+        {
+        }
+
+        /// <summary>
+        /// Creates a new instance of the <see cref="FullAuditedEntity">FullAuditedEntity</see> class given a key, and some metadata.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <param name="name">The name of the object.</param>
+        /// <param name="culture">The culture for this entity</param>
+        protected FullAuditedEntity(System.Guid id, ElementName name, ElementDescription description, CultureInfo culture) : base(id, name, description, culture)
+        {
+        }
+
+        /// <summary>
+        /// Serialization constructor used for deserialization
+        /// </summary>
+        /// <param name="info">The serialization info</param>
+        /// <param name="context">The context of the stream</param>
+        protected FullAuditedEntity(SerializationInfo info, StreamingContext context) : base(info, context)
+        {
+        }
+
+        /// <summary>
+        /// The method required for implementing ISerializable
+        /// </summary>
+        /// <param name="info">The information.</param>
+        /// <param name="context">The context.</param>
+        public override void GetObjectData(SerializationInfo info, StreamingContext context)
+        {
+            base.GetObjectData(info, context);
+        }
     }
 
     /// <summary>
@@ -65,6 +170,116 @@ namespace Deploy.LaunchPad.Core.Domain.Entities.Auditing
         /// Deletion time of this entity.
         /// </summary>
         public virtual DateTime? DeletionTime { get; set; }
+
+        /// <summary>
+        /// Constructor.
+        /// </summary>
+        protected FullAuditedEntity() : base()
+        {
+        }
+
+        /// <summary>
+        /// Creates a new instance of the <see cref="FullAuditedEntity">FullAuditedEntity</see> class given a key, and some metadata.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <param name="name">The name of the object.</param>
+        /// <param name="description">The description for this entity</param>
+        protected FullAuditedEntity(string name) : base(name)
+        {
+        }
+
+        /// <summary>
+        /// Creates a new instance of the <see cref="FullAuditedEntity">FullAuditedEntity</see> class given a key, and some metadata.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <param name="name">The name of the object.</param>
+        /// <param name="description">The description for this entity</param>
+        protected FullAuditedEntity(ElementName name) : base(name)
+        {
+        }
+
+        /// <summary>
+        /// Creates a new instance of the <see cref="FullAuditedEntity">FullAuditedEntity</see> class given a key, and some metadata.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <param name="name">The name of the object.</param>
+        /// <param name="description">The description for this entity</param>
+        protected FullAuditedEntity(ElementName name, ElementDescription description) : base(name, description)
+        {
+        }
+
+        /// <summary>
+        /// Creates a new instance of the <see cref="FullAuditedEntity">FullAuditedEntity</see> class given a key, and some metadata.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        protected FullAuditedEntity(TPrimaryKey id) : base(id)
+        {
+        }
+
+
+        /// <summary>
+        /// Creates a new instance of the <see cref="FullAuditedEntity">FullAuditedEntity</see> class given a key, and some metadata.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <param name="name">The name of the object.</param>
+        protected FullAuditedEntity(TPrimaryKey id, string name) : base(id, name)
+        {
+        }
+
+        /// <summary>
+        /// Creates a new instance of the <see cref="FullAuditedEntity">FullAuditedEntity</see> class given a key, and some metadata.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <param name="name">The name of the object.</param>
+        /// <param name="culture">The culture for this entity</param>
+        protected FullAuditedEntity(TPrimaryKey id, string name, CultureInfo culture) : base(id, name, culture)
+        {
+        }
+
+        /// <summary>
+        /// Creates a new instance of the <see cref="FullAuditedEntity">FullAuditedEntity</see> class given a key, and some metadata.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <param name="name">The name of the object.</param>
+        /// <param name="culture">The culture for this entity</param>
+        protected FullAuditedEntity(TPrimaryKey id, ElementName name, CultureInfo culture) : base(id, name, culture)
+        {
+        }
+
+        /// <summary>
+        /// Creates a new instance of the <see cref="FullAuditedEntity">FullAuditedEntity</see> class given a key, and some metadata.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <param name="name">The name of the object.</param>
+        /// <param name="culture">The culture for this entity</param>
+        protected FullAuditedEntity(TPrimaryKey id, ElementName name, ElementDescription description, CultureInfo culture) : base(id, name, description, culture)
+        {
+        }
+
+        /// <summary>
+        /// Serialization constructor used for deserialization
+        /// </summary>
+        /// <param name="info">The serialization info</param>
+        /// <param name="context">The context of the stream</param>
+        protected FullAuditedEntity(SerializationInfo info, StreamingContext context) : base(info, context)
+        {
+            IsDeleted = info.GetBoolean("IsDeleted");
+            DeleterUserId = (long?)info.GetValue("DeleterUserId", typeof(long?));
+            DeletionTime = (DateTime?)info.GetValue("DeletionTime", typeof(DateTime?));
+        }
+
+        /// <summary>
+        /// The method required for implementing ISerializable
+        /// </summary>
+        /// <param name="info">The information.</param>
+        /// <param name="context">The context.</param>
+        public override void GetObjectData(SerializationInfo info, StreamingContext context)
+        {
+            base.GetObjectData(info, context);
+            info.AddValue("IsDeleted", IsDeleted);
+            info.AddValue("DeleterUserId", DeleterUserId);
+            info.AddValue("DeletionTime", DeletionTime);
+        }
     }
 
     /// <summary>
@@ -96,5 +311,117 @@ namespace Deploy.LaunchPad.Core.Domain.Entities.Auditing
         /// Deletion time of this entity.
         /// </summary>
         public virtual DateTime? DeletionTime { get; set; }
+
+        /// <summary>
+        /// Constructor.
+        /// </summary>
+        protected FullAuditedEntity() : base()
+        {
+        }
+
+        /// <summary>
+        /// Creates a new instance of the <see cref="FullAuditedEntity">FullAuditedEntity</see> class given a key, and some metadata.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <param name="name">The name of the object.</param>
+        /// <param name="description">The description for this entity</param>
+        protected FullAuditedEntity(string name) : base(name)
+        {
+        }
+
+        /// <summary>
+        /// Creates a new instance of the <see cref="FullAuditedEntity">FullAuditedEntity</see> class given a key, and some metadata.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <param name="name">The name of the object.</param>
+        /// <param name="description">The description for this entity</param>
+        protected FullAuditedEntity(ElementName name) : base(name)
+        {
+        }
+
+        /// <summary>
+        /// Creates a new instance of the <see cref="FullAuditedEntity">FullAuditedEntity</see> class given a key, and some metadata.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <param name="name">The name of the object.</param>
+        /// <param name="description">The description for this entity</param>
+        protected FullAuditedEntity(ElementName name, ElementDescription description) : base(name, description)
+        {
+        }
+
+        /// <summary>
+        /// Creates a new instance of the <see cref="FullAuditedEntity">FullAuditedEntity</see> class given a key, and some metadata.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        protected FullAuditedEntity(TPrimaryKey id) : base(id)
+        {
+        }
+
+
+        /// <summary>
+        /// Creates a new instance of the <see cref="FullAuditedEntity">FullAuditedEntity</see> class given a key, and some metadata.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <param name="name">The name of the object.</param>
+        protected FullAuditedEntity(TPrimaryKey id, string name) : base(id, name)
+        {
+        }
+
+        /// <summary>
+        /// Creates a new instance of the <see cref="FullAuditedEntity">FullAuditedEntity</see> class given a key, and some metadata.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <param name="name">The name of the object.</param>
+        /// <param name="culture">The culture for this entity</param>
+        protected FullAuditedEntity(TPrimaryKey id, string name, CultureInfo culture) : base(id, name, culture)
+        {
+        }
+
+        /// <summary>
+        /// Creates a new instance of the <see cref="FullAuditedEntity">FullAuditedEntity</see> class given a key, and some metadata.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <param name="name">The name of the object.</param>
+        /// <param name="culture">The culture for this entity</param>
+        protected FullAuditedEntity(TPrimaryKey id, ElementName name, CultureInfo culture) : base(id, name, culture)
+        {
+        }
+
+        /// <summary>
+        /// Creates a new instance of the <see cref="FullAuditedEntity">FullAuditedEntity</see> class given a key, and some metadata.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <param name="name">The name of the object.</param>
+        /// <param name="culture">The culture for this entity</param>
+        protected FullAuditedEntity(TPrimaryKey id, ElementName name, ElementDescription description, CultureInfo culture) : base(id, name, description, culture)
+        {
+        }
+
+        /// <summary>
+        /// Serialization constructor used for deserialization
+        /// </summary>
+        /// <param name="info">The serialization info</param>
+        /// <param name="context">The context of the stream</param>
+        protected FullAuditedEntity(SerializationInfo info, StreamingContext context) : base(info, context)
+        {
+            IsDeleted = info.GetBoolean("IsDeleted");
+            DeleterUserId = (long?)info.GetValue("DeleterUserId", typeof(long?));
+            DeletionTime = (DateTime?)info.GetValue("DeletionTime", typeof(DateTime?));
+            DeleterUser = (TUser)info.GetValue("DeleterUser", typeof(TUser));
+        }
+
+        /// <summary>
+        /// The method required for implementing ISerializable
+        /// </summary>
+        /// <param name="info">The information.</param>
+        /// <param name="context">The context.</param>
+        public override void GetObjectData(SerializationInfo info, StreamingContext context)
+        {
+            base.GetObjectData(info, context);
+            info.AddValue("IsDeleted", IsDeleted);
+            info.AddValue("DeleterUserId", DeleterUserId);
+            info.AddValue("DeletionTime", DeletionTime);
+            info.AddValue("DeleterUser", DeleterUser);
+        }
     }
 }

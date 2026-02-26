@@ -26,9 +26,10 @@ namespace Deploy.LaunchPad.Core.Metadata
     /// Defines the minimum properties LaunchPad expects to have for a Domain Entity or Value Object.
     /// Note these deliberately correspond 1:1 to many of the properties found in various ABP domain entity interfaces, which would also be inherited by implementing classes.
     /// </summary>
-    public partial interface ILaunchPadCoreProperties : ILaunchPadMinimalProperties, IMayHaveTags
+    public partial interface ILaunchPadCoreProperties : 
+        ILaunchPadMinimalProperties,         
+        IMayHaveTags
     {
-
         
         /// <summary>
         /// The checksum for this  object, if any

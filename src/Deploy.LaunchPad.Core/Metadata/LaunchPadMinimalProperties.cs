@@ -49,14 +49,14 @@ namespace Deploy.LaunchPad.Core.Metadata
             _description = new ElementDescription();
         }
 
-        public LaunchPadMinimalProperties(string name, string description = null)
+        protected LaunchPadMinimalProperties(string name, string description = null)
         {
             _name = new ElementName(name);
             _description = description != null ? new ElementDescription(description) : new ElementDescription();
         }
 
 
-        public LaunchPadMinimalProperties(ElementName name, ElementDescription description = null)
+        protected LaunchPadMinimalProperties(ElementName name, ElementDescription description = null)
         {
             _name = name;
             _description = description ?? new ElementDescription();

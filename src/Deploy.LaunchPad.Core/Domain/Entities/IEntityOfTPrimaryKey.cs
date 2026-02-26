@@ -33,6 +33,7 @@
 using Deploy.LaunchPad.Core.Entities;
 using Deploy.LaunchPad.Core.Metadata;
 using Deploy.LaunchPad.Util;
+using System;
 
 namespace Deploy.LaunchPad.Core.Domain.Entities
 {
@@ -43,7 +44,11 @@ namespace Deploy.LaunchPad.Core.Domain.Entities
     public partial interface IEntity<TPrimaryKey> : 
         ILaunchPadObject, 
         ILaunchPadMinimalProperties, 
-        IMustHaveId<TPrimaryKey>
+        IMustHaveId<TPrimaryKey>,
+        IMayHaveChecksumValue,
+        IMayHaveTags,
+        IComparable<Entity<TPrimaryKey>>, IEquatable<Entity<TPrimaryKey>>,
+        ICloneable, IAmCloneable<Entity<TPrimaryKey>>
     {
 
         /// <summary>

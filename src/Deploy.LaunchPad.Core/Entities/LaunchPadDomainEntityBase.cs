@@ -61,39 +61,39 @@ namespace Deploy.LaunchPad.Core.Entities
         FullAuditedEntity<TIdType>, ILaunchPadDomainEntity<TIdType>
     {
         
-        /// <summary>
-        /// Controls the DebuggerDisplay attribute presentation (above). This will only appear during VS debugging sessions and should never be logged.
-        /// </summary>
-        /// <value>The debug display.</value>
-        protected virtual string _debugDisplay => $"Name {Name}. Description {Description}";
+        ///// <summary>
+        ///// Controls the DebuggerDisplay attribute presentation (above). This will only appear during VS debugging sessions and should never be logged.
+        ///// </summary>
+        ///// <value>The debug display.</value>
+        //protected virtual string _debugDisplay => $"Name {Name}. Description {Description}";
 
-        protected ElementName _name;
-        /// <summary>
-        /// The name of this object
-        /// </summary>
-        /// <value>The name.</value>
-        [Required]
-        [DataObjectField(false)]
-        [XmlAttribute]
-        public virtual ElementName Name 
-        { 
-            get { return _name; }
-            set { _name = value; }
-        }
+        //protected ElementName _name;
+        ///// <summary>
+        ///// The name of this object
+        ///// </summary>
+        ///// <value>The name.</value>
+        //[Required]
+        //[DataObjectField(false)]
+        //[XmlAttribute]
+        //public virtual ElementName Name 
+        //{ 
+        //    get { return _name; }
+        //    set { _name = value; }
+        //}
 
-        protected ElementDescription _description;
-        /// <summary>
-        /// A  description for this entity
-        /// </summary>
-        /// <value>The description.</value>
-        [Required]
-        [DataObjectField(false)]
-        [XmlAttribute]
-        public virtual ElementDescription Description
-        {
-            get { return _description; }
-            set { _description = value; }
-        }
+        //protected ElementDescription _description;
+        ///// <summary>
+        ///// A  description for this entity
+        ///// </summary>
+        ///// <value>The description.</value>
+        //[Required]
+        //[DataObjectField(false)]
+        //[XmlAttribute]
+        //public virtual ElementDescription Description
+        //{
+        //    get { return _description; }
+        //    set { _description = value; }
+        //}
 
         /// <summary>
         /// If this object is a regular domain entity, an aggregate root, or an aggregate child
@@ -121,20 +121,20 @@ namespace Deploy.LaunchPad.Core.Entities
         }
 
 
-        protected string _checksum;
-        /// <summary>
-        /// The checksum for this  object, if any
-        /// </summary>
-        /// <value>The checksum.</value>
-        [MaxLength(40, ErrorMessageResourceName = "Validation_Checksum_40CharsOrLess", ErrorMessageResourceType = typeof(Deploy_LaunchPad_Core_Resources))]
-        [DataObjectField(false)]
-        [DataMember(Name = "checksum", EmitDefaultValue = false)]
-        [XmlAttribute]
-        public virtual string Checksum
-        {
-            get { return _checksum; }
-            set { _checksum = value; }
-        }
+        //protected string _checksum;
+        ///// <summary>
+        ///// The checksum for this  object, if any
+        ///// </summary>
+        ///// <value>The checksum.</value>
+        //[MaxLength(40, ErrorMessageResourceName = "Validation_Checksum_40CharsOrLess", ErrorMessageResourceType = typeof(Deploy_LaunchPad_Core_Resources))]
+        //[DataObjectField(false)]
+        //[DataMember(Name = "checksum", EmitDefaultValue = false)]
+        //[XmlAttribute]
+        //public virtual string Checksum
+        //{
+        //    get { return _checksum; }
+        //    set { _checksum = value; }
+        //}
 
         protected int? _seqNum;
         /// <summary>
@@ -224,28 +224,28 @@ namespace Deploy.LaunchPad.Core.Entities
         }
 
 
-        /// <summary>
-        /// Computes the checksum based on the chosen properties
-        /// </summary>
-        /// <returns></returns>
-        public virtual string ComputeChecksum(string input = "")
-        {
-            Checksum checksum = new Checksum();
-            // Concatenate the values of the properties you want to include in the checksum
-            if(string.IsNullOrEmpty(input))
-            {
-                input = $"{Name}{Description}{Tags}{Culture}{CreatorUserId}{SeqNum}{IsActive}";
-            }
-            var bytes = checksum.GetSha256HashAsBytes(input);
+        ///// <summary>
+        ///// Computes the checksum based on the chosen properties
+        ///// </summary>
+        ///// <returns></returns>
+        //public virtual string ComputeChecksum(string input = "")
+        //{
+        //    Checksum checksum = new Checksum();
+        //    // Concatenate the values of the properties you want to include in the checksum
+        //    if(string.IsNullOrEmpty(input))
+        //    {
+        //        input = $"{Name}{Description}{Tags}{Culture}{CreatorUserId}{SeqNum}{IsActive}";
+        //    }
+        //    var bytes = checksum.GetSha256HashAsBytes(input);
             
-            // Convert the byte array to a hexadecimal string
-            StringBuilder sb = new StringBuilder();
-            foreach (byte b in bytes)
-            {
-                sb.Append(b.ToString("x2"));
-            }
-            return sb.ToString();
-        }
+        //    // Convert the byte array to a hexadecimal string
+        //    StringBuilder sb = new StringBuilder();
+        //    foreach (byte b in bytes)
+        //    {
+        //        sb.Append(b.ToString("x2"));
+        //    }
+        //    return sb.ToString();
+        //}
 
         /// <summary>
         /// Initializes a new instance of the <see cref="DomainEntityBase">Entity</see> class
