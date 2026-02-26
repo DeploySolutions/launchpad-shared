@@ -4,7 +4,7 @@ using System.Text.Json;
 
 namespace Deploy.LaunchPad.Geospatial.Position
 {
-    public interface IGeographicFeatureCollection<T> where T : IAmGeographicFeature
+    public partial interface IGeographicFeatureCollection<T> where T : IAmGeographicFeature
     {
         IReadOnlyDictionary<string, T> Features { get; }
 

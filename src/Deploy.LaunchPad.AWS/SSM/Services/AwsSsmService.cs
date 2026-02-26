@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Deploy.LaunchPad.AWS.SSM.Services
 {
-    public class AwsSsmService : SystemIntegrationServiceBase, IAwsSsmService
+    public partial class AwsSsmService : SystemIntegrationServiceBase, IAwsSsmService
     {
         public virtual AmazonSimpleSystemsManagementClient SsmClient { get; protected set; }
 

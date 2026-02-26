@@ -34,7 +34,7 @@ using System;
 
 namespace Deploy.LaunchPad.Files.MimeTypes
 {
-    public interface IMimeTypeMap
+    public partial interface IMimeTypeMap
     {
         /// <summary>
         /// Tries to get the type of the MIME from the provided string.

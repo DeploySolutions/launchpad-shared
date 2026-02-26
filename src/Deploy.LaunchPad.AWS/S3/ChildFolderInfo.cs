@@ -7,7 +7,7 @@ using System.Text;
 
 namespace Deploy.LaunchPad.AWS.S3
 {
-    public class ChildFolderInfo : S3FolderInfo
+    public partial class ChildFolderInfo : S3FolderInfo
     {
         public new IReadOnlyS3FileCollection<ChildFileInfo> Items
         {

@@ -32,7 +32,7 @@ using Deploy.LaunchPad.Core.Metadata;
 
 namespace Deploy.LaunchPad.Geospatial.ReferencePoint
 {
-    public interface IAltitude : IMustHaveUnitOfMeasure, IMayHaveConfidence
+    public partial interface IAltitude : IMustHaveUnitOfMeasure, IMayHaveConfidence
     {
         public double Minimum { get; set; }
         public double Maximum { get; set; }

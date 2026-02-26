@@ -13,7 +13,7 @@ using System.Text;
 
 namespace Deploy.LaunchPad.AWS.SNS.Services
 {
-    public class AwsSnsService : SystemIntegrationServiceBase, IAwsSnsService
+    public partial class AwsSnsService : SystemIntegrationServiceBase, IAwsSnsService
     {
         public virtual AmazonSimpleNotificationServiceClient SnsClient { get; protected set; }
 

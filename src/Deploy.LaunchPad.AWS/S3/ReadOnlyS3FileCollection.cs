@@ -6,7 +6,7 @@ using System.Collections;
 namespace Deploy.LaunchPad.AWS.S3
 {
 
-    public class ReadOnlyS3FileCollection<TFile> : IReadOnlyS3FileCollection<TFile>, IEnumerable<TFile>
+    public partial class ReadOnlyS3FileCollection<TFile> : IReadOnlyS3FileCollection<TFile>, IEnumerable<TFile>
         where TFile : IS3FileInfo
     {
         private readonly List<TFile> _files;

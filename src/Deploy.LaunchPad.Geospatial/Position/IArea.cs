@@ -33,7 +33,7 @@ using Deploy.LaunchPad.Core.Metadata;
 
 namespace Deploy.LaunchPad.Geospatial.Position
 {
-    public interface IArea : IMustHaveUnitOfMeasure, IMayHaveConfidence
+    public partial interface IArea : IMustHaveUnitOfMeasure, IMayHaveConfidence
     {
         public double Minimum { get; set; }
         public double Maximum { get; set; }

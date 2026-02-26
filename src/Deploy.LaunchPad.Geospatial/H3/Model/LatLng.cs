@@ -54,7 +54,7 @@ public partial class GeoCoord : LatLng {
     }
 }
 
-public class LatLng {
+public partial class LatLng {
 
     public double Latitude { get; set; }
     public double Longitude { get; set; }

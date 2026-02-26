@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Deploy.LaunchPad.Domain.Tasking
 {
-    public class IListIamAssignableTaskEFConverter<TInterface, TConcrete> : ValueConverter<IList<TInterface>, string>
+    public partial class IListIamAssignableTaskEFConverter<TInterface, TConcrete> : ValueConverter<IList<TInterface>, string>
         where TConcrete : class, TInterface
     {
         public IListIamAssignableTaskEFConverter()

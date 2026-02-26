@@ -60,13 +60,13 @@ public readonly partial struct RingCell {
 /// a pentagon or due to encountering indexes within the pentagon distortion
 /// area.
 /// </summary>
-public class HexRingPentagonException : Exception { }
+public partial class HexRingPentagonException : Exception { }
 
 /// <summary>
 /// Indicates that k-ring traversal failed due to the ring encountering
 /// an index with deleted k-subsequence distortion.
 /// </summary>
-public class HexRingKSequenceException : Exception { }
+public partial class HexRingKSequenceException : Exception { }
 
 /// <summary>
 /// Extends the H3Index class with support for kRing and hex ring queries.

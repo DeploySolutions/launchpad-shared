@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Deploy.LaunchPad.AWS.S3
 {
-    public class ChildFileInfo : S3FileInfo
+    public partial class ChildFileInfo : S3FileInfo
     {
         public virtual ILaunchPadDataFact RegularFact { get; set; }
         public virtual ILaunchPadDataFact OutlierFact { get; set; }

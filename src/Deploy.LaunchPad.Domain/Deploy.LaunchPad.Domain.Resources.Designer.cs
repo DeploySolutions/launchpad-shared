@@ -22,7 +22,7 @@ namespace Deploy.LaunchPad.Domain {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "18.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public class Deploy_LaunchPad_Domain_Resources {
+    public partial class Deploy_LaunchPad_Domain_Resources {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
