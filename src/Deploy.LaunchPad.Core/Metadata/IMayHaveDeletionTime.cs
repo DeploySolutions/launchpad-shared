@@ -38,7 +38,7 @@ namespace Deploy.LaunchPad.Core.Metadata
     /// An entity can implement this interface if <see cref="DeletionTime"/> of this entity must be stored.
     /// <see cref="DeletionTime"/> is automatically set when deleting <see cref="Entity"/>.
     /// </summary>
-    public partial interface IMayHaveDeletionTime : IHaveSoftDelete
+    public partial interface IMayHaveDeletionTime 
     {
         /// <summary>
         /// Deletion time of this entity.
