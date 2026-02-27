@@ -44,7 +44,7 @@ namespace Deploy.LaunchPad.Core.Runtime.Session
         /// Gets current UserId or null.
         /// It can be null if no user logged in.
         /// </summary>
-        long? UserId { get; }
+        System.Guid? UserId { get; }
 
         /// <summary>
         /// Gets current TenantId or null.
@@ -62,7 +62,7 @@ namespace Deploy.LaunchPad.Core.Runtime.Session
         /// UserId of the impersonator.
         /// This is filled if a user is performing actions behalf of the <see cref="UserId"/>.
         /// </summary>
-        long? ImpersonatorUserId { get; }
+        System.Guid? ImpersonatorUserId { get; }
 
         /// <summary>
         /// TenantId of the impersonator.
@@ -76,6 +76,6 @@ namespace Deploy.LaunchPad.Core.Runtime.Session
         /// <param name="tenantId"></param>
         /// <param name="userId"></param>
         /// <returns></returns>
-        IDisposable Use(System.Guid? tenantId, long? userId);
+        IDisposable Use(System.Guid? tenantId, System.Guid? userId);
     }
 }
