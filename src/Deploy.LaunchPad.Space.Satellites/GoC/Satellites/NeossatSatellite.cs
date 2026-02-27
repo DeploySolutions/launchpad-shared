@@ -52,10 +52,14 @@ namespace Deploy.LaunchPad.Space.Satellites.GoC
         /// <param name="tenantId">The tenant identifier.</param>
         protected NeossatSatellite(System.Guid? tenantId) : base()
         {
-            var csaOperator = new CanadianSpaceAgency(tenantId);
-            csaOperator.Id = Guid.NewGuid();
-            var drdcOperator = new DefenceResearchDevelopmentCanada(tenantId);
-            drdcOperator.Id = Guid.NewGuid();
+            var csaOperator = new CanadianSpaceAgency(tenantId)
+            {
+                Id = Guid.NewGuid()
+            };
+            var drdcOperator = new DefenceResearchDevelopmentCanada(tenantId)
+            {
+                Id = Guid.NewGuid()
+            };
             Operators = new Dictionary<Guid, ISatelliteOperator<Guid>>
             {
                 { csaOperator.Id, csaOperator as ISatelliteOperator<Guid> },

@@ -40,6 +40,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Reflection;
 using System.Runtime.Serialization;
@@ -77,7 +78,7 @@ namespace Deploy.LaunchPad.Core.Domain.Entities
         /// <summary>
         /// Unique identifier for this entity.
         /// </summary>
-        public virtual TPrimaryKey Id { get; set; }
+        public virtual required TPrimaryKey Id { get; set; }
 
         protected string _checksumValue;
         /// <summary>
@@ -130,6 +131,7 @@ namespace Deploy.LaunchPad.Core.Domain.Entities
         /// <param name="id">The identifier.</param>
         /// <param name="name">The name of the object.</param>
         /// <param name="description">The description for this entity</param>
+        [SetsRequiredMembers]
         protected Entity(string name) : base(name)
         {
         }
@@ -140,6 +142,7 @@ namespace Deploy.LaunchPad.Core.Domain.Entities
         /// <param name="id">The identifier.</param>
         /// <param name="name">The name of the object.</param>
         /// <param name="description">The description for this entity</param>
+        [SetsRequiredMembers]
         protected Entity(ElementName name) : base(name)
         {
         }
@@ -150,6 +153,7 @@ namespace Deploy.LaunchPad.Core.Domain.Entities
         /// <param name="id">The identifier.</param>
         /// <param name="name">The name of the object.</param>
         /// <param name="description">The description for this entity</param>
+        [SetsRequiredMembers]
         protected Entity(ElementName name, ElementDescription description) : base(name, description)
         {
            
@@ -159,6 +163,7 @@ namespace Deploy.LaunchPad.Core.Domain.Entities
         /// Creates a new instance of the <see cref="DomainEntityBase">Entity</see> class given a key, and some metadata.
         /// </summary>
         /// <param name="id">The identifier.</param>
+        [SetsRequiredMembers]
         protected Entity(TPrimaryKey id) : base()
         {
             Id = id;
@@ -170,6 +175,7 @@ namespace Deploy.LaunchPad.Core.Domain.Entities
         /// </summary>
         /// <param name="id">The identifier.</param>
         /// <param name="name">The name of the object.</param>
+        [SetsRequiredMembers]
         protected Entity(TPrimaryKey id, string name) : base(name)
         {
             Id = id;
@@ -180,6 +186,7 @@ namespace Deploy.LaunchPad.Core.Domain.Entities
         /// </summary>
         /// <param name="id">The identifier.</param>
         /// <param name="name">The name of the object.</param>
+        [SetsRequiredMembers]
         protected Entity(TPrimaryKey id, ElementName name) : base(name)
         {
             Id = id;
@@ -191,6 +198,7 @@ namespace Deploy.LaunchPad.Core.Domain.Entities
         /// <param name="id">The identifier.</param>
         /// <param name="name">The name of the object.</param>
         /// <param name="culture">The culture for this entity</param>
+        [SetsRequiredMembers]
         protected Entity(TPrimaryKey id, string name, CultureInfo culture) : base(name)
         {
             Id = id;
@@ -202,6 +210,7 @@ namespace Deploy.LaunchPad.Core.Domain.Entities
         /// <param name="id">The identifier.</param>
         /// <param name="name">The name of the object.</param>
         /// <param name="culture">The culture for this entity</param>
+        [SetsRequiredMembers]
         protected Entity(TPrimaryKey id, ElementName name, CultureInfo culture) : base(name)
         {
             Id = id;
@@ -213,6 +222,7 @@ namespace Deploy.LaunchPad.Core.Domain.Entities
         /// <param name="id">The identifier.</param>
         /// <param name="name">The name of the object.</param>
         /// <param name="culture">The culture for this entity</param>
+        [SetsRequiredMembers]
         protected Entity(TPrimaryKey id, ElementName name, ElementDescription description) : base(name, description)
         {
             Id = id;
@@ -224,6 +234,7 @@ namespace Deploy.LaunchPad.Core.Domain.Entities
         /// <param name="id">The identifier.</param>
         /// <param name="name">The name of the object.</param>
         /// <param name="culture">The culture for this entity</param>
+        [SetsRequiredMembers]
         protected Entity(TPrimaryKey id, ElementName name, ElementDescription description, CultureInfo culture) : base(name, description)
         {
             Id = id;

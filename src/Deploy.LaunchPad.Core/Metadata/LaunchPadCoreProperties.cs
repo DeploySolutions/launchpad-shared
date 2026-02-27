@@ -1,9 +1,12 @@
 ﻿using Deploy.LaunchPad.Util;
+using Deploy.LaunchPad.Util.Elements;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
+using System.Diagnostics.CodeAnalysis;
+using System.Globalization;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.Text;
@@ -11,8 +14,6 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 using System.Xml.Serialization;
-using System.Globalization;
-using Deploy.LaunchPad.Util.Elements;
 
 namespace Deploy.LaunchPad.Core.Metadata
 {
@@ -263,6 +264,7 @@ namespace Deploy.LaunchPad.Core.Metadata
         /// <summary>
         ///  constructor 
         /// </summary>
+        [SetsRequiredMembers]
         public LaunchPadCoreProperties(string name) : base(new ElementName(name), new ElementDescription(name))
         {
         }

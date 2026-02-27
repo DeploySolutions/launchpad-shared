@@ -26,15 +26,15 @@
 //limitations under the License. 
 #endregion
 
-using Abp.Domain.Entities;
-using Deploy.LaunchPad.Core.Entities;
+using Deploy.LaunchPad.Core.Domain.Entities;
+using Deploy.LaunchPad.Core.Metadata;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics.CodeAnalysis;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Xml.Serialization;
-using IMayHaveTenant = Deploy.LaunchPad.Core.Metadata.IMayHaveTenant;
 
 
 namespace Deploy.LaunchPad.Core.Abp.SoftwareApplications
@@ -45,7 +45,7 @@ namespace Deploy.LaunchPad.Core.Abp.SoftwareApplications
     /// <typeparam name="TIdType">The type of the key id field</typeparam>
     /// <typeparam name="TEntityIdType">The base ID type of any domain entities contained within the application</typeparam>
     [Serializable()]
-    public partial class LaunchPadApplication<TIdType, TEntityIdType> : LaunchPadDomainEntityBase<TIdType>, ILaunchPadApplication<TIdType, TEntityIdType>, IMayHaveTenant
+    public partial class LaunchPadApplication<TIdType, TEntityIdType> : Entity<TIdType>, ILaunchPadApplication<TIdType, TEntityIdType>, IMayHaveTenant
     {
 
         /// <summary>
@@ -101,7 +101,8 @@ namespace Deploy.LaunchPad.Core.Abp.SoftwareApplications
         public LaunchPadApplication(System.Guid? tenantId) : base()
         {
             TenantId = tenantId;
-            AppInfo = new ApplicationDetails<TIdType>(tenantId);
+            AppInfo = new ApplicationDetails<TIdType>();
+            AppInfo.TenantId = tenantId;
             TenantInfo = new List<TenantDetails<TIdType>>();
             Modules = new List<Module<TIdType, TEntityIdType>>();
         }
@@ -112,9 +113,12 @@ namespace Deploy.LaunchPad.Core.Abp.SoftwareApplications
         /// <param name="tenantId">The tenant identifier.</param>
         /// <param name="id">The identifier.</param>
         /// <param name="cultureName">Name of the culture.</param>
+        [SetsRequiredMembers]
         public LaunchPadApplication(System.Guid? tenantId, TIdType id, string cultureName) : base(id, cultureName)
         {
-            AppInfo = new ApplicationDetails<TIdType>(tenantId);
+            TenantId = tenantId;
+            AppInfo = new ApplicationDetails<TIdType>();
+            AppInfo.TenantId = tenantId;
             TenantInfo = new List<TenantDetails<TIdType>>();
             Modules = new List<Module<TIdType, TEntityIdType>>();
         }

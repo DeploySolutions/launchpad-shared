@@ -13,7 +13,7 @@ namespace Deploy.LaunchPad.Code.CommandLine
         public required LaunchPadMinimalProperties Core { get; init; }
 
         [SetsRequiredMembers]
-        public CommandValueBase()
+        public CommandValueBase(string name)
         {
             Core = new LaunchPadMinimalProperties();
         }

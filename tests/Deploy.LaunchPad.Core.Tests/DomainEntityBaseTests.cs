@@ -54,7 +54,10 @@ namespace Deploy.LaunchPad.Domain.Tests
         [Fact]
         public void Should_Not_Have_Null_TenantId_When_Instantiated()
         {
-            Device<System.Guid> a = new Device<System.Guid>();
+            Device<System.Guid> a = new Device<System.Guid>()
+            {
+                Id = Guid.NewGuid()
+            };
 
             Assert.False(a.TenantId.HasValue);
         }
@@ -65,7 +68,10 @@ namespace Deploy.LaunchPad.Domain.Tests
         [Fact]
         public void Should_Have_Empty_Id_When_Instantiated()
         {
-            Device<System.Guid> a = new Device<System.Guid>();
+            Device<System.Guid> a = new Device<System.Guid>()
+            {
+                Id = Guid.NewGuid()
+            };
             Assert.Equal(System.Guid.Empty, a.Id);
         }
 
@@ -76,7 +82,10 @@ namespace Deploy.LaunchPad.Domain.Tests
         public void Should_NotHave_Empty_Id_When_Instantiated_With_Id()
         {
             var id = Guid.NewGuid();
-            Device<System.Guid> a = new Device<System.Guid>(null, id);
+            Device<System.Guid> a = new Device<System.Guid>()
+            {
+                Id = Guid.NewGuid()
+            }; ;
             Assert.NotEqual(System.Guid.Empty, a.Id);
         }
 
@@ -87,9 +96,15 @@ namespace Deploy.LaunchPad.Domain.Tests
         public void Should_Have_Unique_Id_When_Instantiated_With_Id()
         {
             var aId = Guid.NewGuid();
-            Device<System.Guid> a = new Device<System.Guid>(null, aId);
+            Device<System.Guid> a = new Device<System.Guid>()
+            {
+                Id = aId
+            };
             var bId = Guid.NewGuid();
-            Device<System.Guid> b = new Device<System.Guid>(null, bId);
+            Device<System.Guid> b = new Device<System.Guid>()
+            {
+                Id = bId
+            };
             Assert.NotEqual(b.Id, a.Id);
         }
 

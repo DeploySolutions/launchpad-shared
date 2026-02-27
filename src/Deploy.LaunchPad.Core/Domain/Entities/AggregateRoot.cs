@@ -35,6 +35,7 @@ using Deploy.LaunchPad.Util.Elements;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Runtime.Serialization;
 
@@ -56,6 +57,7 @@ namespace Deploy.LaunchPad.Core.Domain.Entities
         /// <param name="id">The identifier.</param>
         /// <param name="name">The name of the object.</param>
         /// <param name="description">The description for this entity</param>
+        [SetsRequiredMembers]
         protected AggregateRoot(string name) : base(name)
         {
         }
@@ -66,6 +68,7 @@ namespace Deploy.LaunchPad.Core.Domain.Entities
         /// <param name="id">The identifier.</param>
         /// <param name="name">The name of the object.</param>
         /// <param name="description">The description for this entity</param>
+        [SetsRequiredMembers]
         protected AggregateRoot(ElementName name) : base(name)
         {
         }
@@ -76,6 +79,7 @@ namespace Deploy.LaunchPad.Core.Domain.Entities
         /// <param name="id">The identifier.</param>
         /// <param name="name">The name of the object.</param>
         /// <param name="description">The description for this entity</param>
+        [SetsRequiredMembers]
         protected AggregateRoot(ElementName name, ElementDescription description) : base(name, description)
         {
         }
@@ -84,6 +88,7 @@ namespace Deploy.LaunchPad.Core.Domain.Entities
         /// Creates a new instance of the <see cref="AggregateRoot">AggregateRoot</see> class given a key, and some metadata.
         /// </summary>
         /// <param name="id">The identifier.</param>
+        [SetsRequiredMembers]
         protected AggregateRoot(System.Guid id) : base(id)
         {
         }
@@ -94,6 +99,7 @@ namespace Deploy.LaunchPad.Core.Domain.Entities
         /// </summary>
         /// <param name="id">The identifier.</param>
         /// <param name="name">The name of the object.</param>
+        [SetsRequiredMembers]
         protected AggregateRoot(System.Guid id, string name) : base(id, name)
         {
         }
@@ -104,6 +110,7 @@ namespace Deploy.LaunchPad.Core.Domain.Entities
         /// <param name="id">The identifier.</param>
         /// <param name="name">The name of the object.</param>
         /// <param name="culture">The culture for this entity</param>
+        [SetsRequiredMembers]
         protected AggregateRoot(System.Guid id, string name, CultureInfo culture) : base(id, name)
         {
         }
@@ -114,6 +121,7 @@ namespace Deploy.LaunchPad.Core.Domain.Entities
         /// <param name="id">The identifier.</param>
         /// <param name="name">The name of the object.</param>
         /// <param name="culture">The culture for this entity</param>
+        [SetsRequiredMembers]
         protected AggregateRoot(System.Guid id, ElementName name, CultureInfo culture) : base(id, name, culture)
         {
         }
@@ -124,6 +132,7 @@ namespace Deploy.LaunchPad.Core.Domain.Entities
         /// <param name="id">The identifier.</param>
         /// <param name="name">The name of the object.</param>
         /// <param name="culture">The culture for this entity</param>
+        [SetsRequiredMembers]
         protected AggregateRoot(System.Guid id, ElementName name, ElementDescription description, CultureInfo culture) : base(id, name, description, culture)
         {
         }
@@ -164,6 +173,7 @@ namespace Deploy.LaunchPad.Core.Domain.Entities
         /// <param name="id">The identifier.</param>
         /// <param name="name">The name of the object.</param>
         /// <param name="description">The description for this entity</param>
+        [SetsRequiredMembers]
         public AggregateRoot(string name) : base(name)
         {
             DomainEvents = new Collection<IEventData>();
@@ -175,6 +185,7 @@ namespace Deploy.LaunchPad.Core.Domain.Entities
         /// <param name="id">The identifier.</param>
         /// <param name="name">The name of the object.</param>
         /// <param name="description">The description for this entity</param>
+        [SetsRequiredMembers]
         public AggregateRoot(ElementName name) : base(name)
         {
             DomainEvents = new Collection<IEventData>();
@@ -186,6 +197,7 @@ namespace Deploy.LaunchPad.Core.Domain.Entities
         /// <param name="id">The identifier.</param>
         /// <param name="name">The name of the object.</param>
         /// <param name="description">The description for this entity</param>
+        [SetsRequiredMembers]
         public AggregateRoot(ElementName name, ElementDescription description) : base(name, description)
         {
             DomainEvents = new Collection<IEventData>();
@@ -195,6 +207,7 @@ namespace Deploy.LaunchPad.Core.Domain.Entities
         /// Creates a new instance of the <see cref="AggregateRoot">AggregateRoot</see> class given a key, and some metadata.
         /// </summary>
         /// <param name="id">The identifier.</param>
+        [SetsRequiredMembers]
         public AggregateRoot(TPrimaryKey id) : base(id)
         {
             DomainEvents = new Collection<IEventData>();
@@ -206,6 +219,7 @@ namespace Deploy.LaunchPad.Core.Domain.Entities
         /// </summary>
         /// <param name="id">The identifier.</param>
         /// <param name="name">The name of the object.</param>
+        [SetsRequiredMembers]
         public AggregateRoot(TPrimaryKey id, string name) : base(id, name)
         {
             DomainEvents = new Collection<IEventData>();
@@ -217,6 +231,7 @@ namespace Deploy.LaunchPad.Core.Domain.Entities
         /// <param name="id">The identifier.</param>
         /// <param name="name">The name of the object.</param>
         /// <param name="culture">The culture for this entity</param>
+        [SetsRequiredMembers]
         public AggregateRoot(TPrimaryKey id, string name, CultureInfo culture) : base(id, name)
         {
             DomainEvents = new Collection<IEventData>();
@@ -228,6 +243,7 @@ namespace Deploy.LaunchPad.Core.Domain.Entities
         /// <param name="id">The identifier.</param>
         /// <param name="name">The name of the object.</param>
         /// <param name="culture">The culture for this entity</param>
+        [SetsRequiredMembers]
         public AggregateRoot(TPrimaryKey id, ElementName name, CultureInfo culture) : base(id, name, culture)
         {
             DomainEvents = new Collection<IEventData>();
@@ -239,6 +255,7 @@ namespace Deploy.LaunchPad.Core.Domain.Entities
         /// <param name="id">The identifier.</param>
         /// <param name="name">The name of the object.</param>
         /// <param name="culture">The culture for this entity</param>
+        [SetsRequiredMembers]
         public AggregateRoot(TPrimaryKey id, ElementName name, ElementDescription description, CultureInfo culture) : base(id, name, description, culture)
         {
             DomainEvents = new Collection<IEventData>();

@@ -29,6 +29,7 @@
 
 namespace Deploy.LaunchPad.Core.Abp.SoftwareApplications
 {
+    using Deploy.LaunchPad.Core.Domain.Entities;
     using Deploy.LaunchPad.Core.Entities;
     using System.Collections.Generic;
     using System.ComponentModel;
@@ -39,7 +40,7 @@ namespace Deploy.LaunchPad.Core.Abp.SoftwareApplications
     /// </summary>
     /// <typeparam name="TIdType">The type of the t identifier type.</typeparam>
     /// <typeparam name="TEntityIdType">The type of the t entity identifier type.</typeparam>
-    public partial interface ILaunchPadApplication<TIdType, TEntityIdType> : ILaunchPadDomainEntity<TIdType>
+    public partial interface ILaunchPadApplication<TIdType, TEntityIdType> : IEntity<TIdType>
     {
 
         /// <summary>

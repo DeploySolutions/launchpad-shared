@@ -26,12 +26,17 @@
 //limitations under the License. 
 #endregion
 
-using Abp.Domain.Entities;
+using Deploy.LaunchPad.Core.Domain.Entities;
 using Deploy.LaunchPad.Core.Entities;
+using Deploy.LaunchPad.Util;
+using Deploy.LaunchPad.Util.Elements;
+using Deploy.LaunchPad.Util.Guids;
 using System;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Diagnostics.CodeAnalysis;
+using System.Globalization;
 using System.Reflection;
 using System.Runtime.Serialization;
 using System.Text;
@@ -46,7 +51,7 @@ namespace Deploy.LaunchPad.Core.Abp.SoftwareApplications
     /// </summary>
     /// <typeparam name="TIdType">The type of the t identifier type.</typeparam>
     [Serializable()]
-    public partial class ApplicationDetails<TIdType> : LaunchPadDomainEntityBase<TIdType>, IApplicationDetails<TIdType>, IMayHaveTenant
+    public partial class ApplicationDetails<TIdType> : Entity<TIdType>, IApplicationDetails<TIdType>, IMayHaveTenant
     {
         /// <summary>
         /// The default culture
@@ -150,24 +155,34 @@ namespace Deploy.LaunchPad.Core.Abp.SoftwareApplications
             get; set;
         }
 
+        Domain.Entities.DomainEntityType ILaunchPadDomainEntityProperties<TIdType>.EntityType => throw new NotImplementedException();
+
+        ElementName Metadata.IMustHaveName.Name { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        ElementDescription Metadata.IMustHaveDescription.Description { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+
+        string Metadata.IMayHaveTags.Tags => throw new NotImplementedException();
+
+        string Metadata.IMayHaveChecksumValue.Checksum { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        DateTime Metadata.IMustHaveCreationTime.CreationTime { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        long? Metadata.IMayHaveCreatorUserId.CreatorUserId { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        DateTime? Metadata.IMayHaveModificationTime.LastModificationTime { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        long? Metadata.IMayHaveLastModifierUserId.LastModifierUserId { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        DateTime? Metadata.IMayHaveDeletionTime.DeletionTime { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        long? Metadata.IMayHaveDeleterUserId.DeleterUserId { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        bool Metadata.IHaveSoftDelete.IsDeleted { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        bool Metadata.IHavePassivable.IsActive { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        CultureInfo Metadata.IMustHaveCulture.Culture { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+
         #region "Constructors"
-        /// <summary>
-        /// Initializes a new instance of the <see cref="ApplicationDetails{TIdType}"/> class.
-        /// </summary>
-        public ApplicationDetails() : base()
-        {
-            PrimaryColourHex = DEFAULT_HEX_COlOUR;
-            CultureDefault = DEFAULT_CULTURE;
-            CultureSupported = DEFAULT_CULTURE;
-        }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ApplicationDetails{TIdType}"/> class.
         /// </summary>
         /// <param name="tenantId">The tenant identifier.</param>
-        public ApplicationDetails(System.Guid? tenantId) : base()
+        [SetsRequiredMembers]
+        public ApplicationDetails() : base()
         {
-            TenantId = tenantId;
+            TenantId = GuidConstants.Default;
             PrimaryColourHex = DEFAULT_HEX_COlOUR;
             CultureDefault = DEFAULT_CULTURE;
             CultureSupported = DEFAULT_CULTURE;
@@ -179,6 +194,7 @@ namespace Deploy.LaunchPad.Core.Abp.SoftwareApplications
         /// <param name="tenantId">The tenant identifier.</param>
         /// <param name="id">The identifier.</param>
         /// <param name="cultureName">Name of the culture.</param>
+        [SetsRequiredMembers]
         public ApplicationDetails(System.Guid? tenantId, TIdType id, string cultureName) : base(id, cultureName)
         {
             TenantId = tenantId;
@@ -194,6 +210,7 @@ namespace Deploy.LaunchPad.Core.Abp.SoftwareApplications
         /// <param name="id">The identifier.</param>
         /// <param name="cultureName">Name of the culture.</param>
         /// <param name="cultureDefault">The culture default.</param>
+        [SetsRequiredMembers]
         public ApplicationDetails(System.Guid? tenantId, TIdType id, string cultureName, String cultureDefault) : base(id, cultureName)
         {
             TenantId = tenantId;
@@ -211,6 +228,7 @@ namespace Deploy.LaunchPad.Core.Abp.SoftwareApplications
         /// <param name="cultureName">Name of the culture.</param>
         /// <param name="cultureDefault">The culture default.</param>
         /// <param name="cultureSupported">The culture supported.</param>
+        [SetsRequiredMembers]
         public ApplicationDetails(System.Guid? tenantId, TIdType id, string cultureName, String cultureDefault, String cultureSupported) : base(id, cultureName)
         {
             TenantId = tenantId;
@@ -351,14 +369,12 @@ namespace Deploy.LaunchPad.Core.Abp.SoftwareApplications
                     if (TenantId != null)
                     {
                         return Id.Equals(obj.Id)
-                        && Culture.Equals(obj.Culture)
                         && ApplicationKey.Equals(obj.ApplicationKey)
                         && Name.Equals(obj.Name);
                     }
                     else
                     {
                         return Id.Equals(obj.Id)
-                        && Culture.Equals(obj.Culture)
                         && ApplicationKey.Equals(obj.ApplicationKey)
                         && Name.Equals(obj.Name)
                         && TenantId.Equals(obj.TenantId);
@@ -407,8 +423,52 @@ namespace Deploy.LaunchPad.Core.Abp.SoftwareApplications
         /// <remarks>This method implements the <see cref="object">Object</see> method.</remarks>
         public override int GetHashCode()
         {
-            return Id.GetHashCode() + Culture.GetHashCode() + ApplicationKey.GetHashCode();
+            return Id.GetHashCode() + ApplicationKey.GetHashCode();
         }
 
+        string ILaunchPadDomainEntity<TIdType>.ComputeChecksum(string input)
+        {
+            throw new NotImplementedException();
+        }
+
+        string Domain.Entities.IEntity<TIdType>.ComputeChecksum(string input)
+        {
+            throw new NotImplementedException();
+        }
+
+        int IComparable<Domain.Entities.Entity<TIdType>>.CompareTo(Domain.Entities.Entity<TIdType> other)
+        {
+            throw new NotImplementedException();
+        }
+
+        bool IEquatable<Domain.Entities.Entity<TIdType>>.Equals(Domain.Entities.Entity<TIdType> other)
+        {
+            throw new NotImplementedException();
+        }
+
+        Domain.Entities.Entity<TIdType> IAmCloneable<Domain.Entities.Entity<TIdType>>.CloneGeneric()
+        {
+            throw new NotImplementedException();
+        }
+
+        int IComparable<LaunchPadDomainEntityBase<TIdType>>.CompareTo(LaunchPadDomainEntityBase<TIdType> other)
+        {
+            throw new NotImplementedException();
+        }
+
+        bool IEquatable<LaunchPadDomainEntityBase<TIdType>>.Equals(LaunchPadDomainEntityBase<TIdType> other)
+        {
+            throw new NotImplementedException();
+        }
+
+        object ICloneable.Clone()
+        {
+            throw new NotImplementedException();
+        }
+
+        LaunchPadDomainEntityBase<TIdType> IAmCloneable<LaunchPadDomainEntityBase<TIdType>>.CloneGeneric()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

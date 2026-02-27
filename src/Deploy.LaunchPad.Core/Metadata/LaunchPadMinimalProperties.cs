@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.Diagnostics.CodeAnalysis;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Text.Json.Serialization;
@@ -18,7 +19,6 @@ namespace Deploy.LaunchPad.Core.Metadata
         /// The name of this object
         /// </summary>
         /// <value>The name.</value>
-        [Required]
         [DataObjectField(false)]
         [XmlAttribute]
         [JsonPropertyName("name")]

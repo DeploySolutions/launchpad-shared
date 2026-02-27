@@ -1,16 +1,17 @@
-﻿using System;
+﻿using Deploy.LaunchPad.Core.Metadata;
+using Deploy.LaunchPad.Files.Formats;
+using Deploy.LaunchPad.Util;
+using Deploy.LaunchPad.Util.Elements;
+using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
-using Deploy.LaunchPad.Util;
-using Deploy.LaunchPad.Util.Elements;
-using Deploy.LaunchPad.Files.Formats;
-using Deploy.LaunchPad.Core.Metadata;
 
 
 namespace Deploy.LaunchPad.Files
