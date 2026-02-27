@@ -62,7 +62,7 @@ namespace Deploy.LaunchPad.Core.Metadata
         }
 
 
-        protected string _checksum;
+        protected string _checksum = string.Empty;
         /// <summary>
         /// The checksum for this  object, if any
         /// </summary>
