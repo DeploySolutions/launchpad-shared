@@ -31,13 +31,14 @@
 #endregion
 
 using Deploy.LaunchPad.Core.Application.Services.Dto;
+using System;
 using System.Threading.Tasks;
 
 namespace Deploy.LaunchPad.Core.Application.Services
 {
     public partial interface IAsyncCrudAppService<TEntityDto>
-        : IAsyncCrudAppService<TEntityDto, int>
-        where TEntityDto : IEntityDto<int>
+        : IAsyncCrudAppService<TEntityDto, Guid>
+        where TEntityDto : IEntityDto<Guid>
     {
 
     }
