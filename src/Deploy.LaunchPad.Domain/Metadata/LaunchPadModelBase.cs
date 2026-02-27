@@ -77,7 +77,7 @@ namespace Deploy.LaunchPad.Domain.Metadata
             Name = new ElementName(string.Empty, string.Empty);
             Description = new ElementDescription(string.Empty, string.Empty);
             Culture = culture;
-            CreatorUserId = 1; // TODO - default user account?
+            CreatorUserId = Guid.NewGuid(); // TODO - default user account?
             IsDeleted = false;
             IsActive = true;
         }
@@ -96,11 +96,11 @@ namespace Deploy.LaunchPad.Domain.Metadata
             Checksum = info.GetString("Checksum");
             Tags = info.GetString("Metadata");
             CreationTime = info.GetDateTime("CreationTime");
-            CreatorUserId = info.GetInt64("CreatorUserId");
+            CreatorUserId = (Guid?)info.GetValue("CreatorUserId", typeof(Guid?));
             LastModificationTime = info.GetDateTime("LastModificationTime");
-            LastModifierUserId = info.GetInt64("LastModifierUserId");
+            LastModifierUserId = (Guid?)info.GetValue("LastModifierUserId", typeof(Guid?));
             IsDeleted = info.GetBoolean("IsDeleted");
-            DeleterUserId = info.GetInt64("DeleterUserId");
+            DeleterUserId = (Guid?)info.GetValue("DeleterUserId", typeof(Guid?));
             DeletionTime = info.GetDateTime("DeletionTime");
             IsActive = info.GetBoolean("IsActive");
             SeqNum = info.GetInt32("SeqNum");

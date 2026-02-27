@@ -164,7 +164,7 @@ namespace Deploy.LaunchPad.Core.Domain.Entities.Auditing
         /// <summary>
         /// Last modifier user of this entity.
         /// </summary>
-        public virtual long? LastModifierUserId { get; set; }
+        public virtual System.Guid? LastModifierUserId { get; set; }
 
         /// <summary>
         /// Constructor.
@@ -267,7 +267,7 @@ namespace Deploy.LaunchPad.Core.Domain.Entities.Auditing
         protected AuditedEntity(SerializationInfo info, StreamingContext context) : base(info, context)
         {
             LastModificationTime = info.GetDateTime("LastModificationTime");
-            LastModifierUserId = info.GetInt64("LastModifierUserId");
+            LastModifierUserId = (Guid?)info.GetValue("LastModifierUserId", typeof(Guid?));
         }
 
         /// <summary>

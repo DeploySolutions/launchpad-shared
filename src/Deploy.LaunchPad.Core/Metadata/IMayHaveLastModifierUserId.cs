@@ -9,6 +9,6 @@ namespace Deploy.LaunchPad.Core.Metadata
         /// <summary>
         /// Last modifier user for this entity.
         /// </summary>
-        long? LastModifierUserId { get; set; }
+        System.Guid? LastModifierUserId { get; set; }
     }
 }

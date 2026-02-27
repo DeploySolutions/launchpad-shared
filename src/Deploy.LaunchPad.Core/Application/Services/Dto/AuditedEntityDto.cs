@@ -61,6 +61,6 @@ namespace Deploy.LaunchPad.Core.Application.Services.Dto
         /// <summary>
         /// Last modifier user of this entity.
         /// </summary>
-        public virtual long? LastModifierUserId { get; set; }
+        public virtual Guid? LastModifierUserId { get; set; }
     }
 }

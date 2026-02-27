@@ -30,27 +30,20 @@
  */
 #endregion
 
-using System.Threading.Tasks;
+using System;
 
-namespace Deploy.LaunchPad.Core.Auditing
+namespace Deploy.LaunchPad.Core.Runtime.Session
 {
-    /// <summary>
-    /// This interface should be implemented by vendors to
-    /// make auditing working.
-    /// Default implementation is <see cref="SimpleLogAuditingStore"/>.
-    /// </summary>
-    public partial interface IAuditingStore
+    public class SessionOverride
     {
-        /// <summary>
-        /// Should save audits to a persistent store.
-        /// </summary>
-        /// <param name="auditInfo">Audit informations</param>
-        Task SaveAsync(IAuditInfo auditInfo);
+        public Guid? UserId { get; }
 
-        /// <summary>
-        /// Should save audits to a persistent store.
-        /// </summary>
-        /// <param name="auditInfo">Audit informations</param>
-        void Save(IAuditInfo auditInfo);
+        public Guid? TenantId { get; }
+
+        public SessionOverride(Guid? tenantId, Guid? userId)
+        {
+            TenantId = tenantId;
+            UserId = userId;
+        }
     }
 }

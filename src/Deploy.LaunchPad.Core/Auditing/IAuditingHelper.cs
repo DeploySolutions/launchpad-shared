@@ -41,12 +41,12 @@ namespace Deploy.LaunchPad.Core.Auditing
     {
         bool ShouldSaveAudit(MethodInfo methodInfo, bool defaultValue = false);
 
-        AuditInfo CreateAuditInfo(Type type, MethodInfo method, object[] arguments);
+        IAuditInfo CreateAuditInfo(Type type, MethodInfo method, object[] arguments);
 
-        AuditInfo CreateAuditInfo(Type type, MethodInfo method, IDictionary<string, object> arguments);
+        IAuditInfo CreateAuditInfo(Type type, MethodInfo method, IDictionary<string, object> arguments);
 
-        void Save(AuditInfo auditInfo);
+        void Save(IAuditInfo auditInfo);
 
-        Task SaveAsync(AuditInfo auditInfo);
+        Task SaveAsync(IAuditInfo auditInfo);
     }
 }

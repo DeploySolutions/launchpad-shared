@@ -30,27 +30,53 @@
  */
 #endregion
 
-using System.Threading.Tasks;
+using System;
+using System.Runtime.Serialization;
 
-namespace Deploy.LaunchPad.Core.Auditing
+namespace Deploy.LaunchPad.Util
 {
     /// <summary>
-    /// This interface should be implemented by vendors to
-    /// make auditing working.
-    /// Default implementation is <see cref="SimpleLogAuditingStore"/>.
+    /// Base exception type for those exceptions that are thrown by LaunchPad system for specific exceptions.
     /// </summary>
-    public partial interface IAuditingStore
+    [Serializable]
+    public class LaunchPadException : Exception
     {
         /// <summary>
-        /// Should save audits to a persistent store.
+        /// Creates a new <see cref="LaunchPadException"/> object.
         /// </summary>
-        /// <param name="auditInfo">Audit informations</param>
-        Task SaveAsync(IAuditInfo auditInfo);
+        public LaunchPadException()
+        {
+
+        }
 
         /// <summary>
-        /// Should save audits to a persistent store.
+        /// Creates a new <see cref="LaunchPadException"/> object.
         /// </summary>
-        /// <param name="auditInfo">Audit informations</param>
-        void Save(IAuditInfo auditInfo);
+        public LaunchPadException(SerializationInfo serializationInfo, StreamingContext context)
+            : base(serializationInfo, context)
+        {
+
+        }
+
+        /// <summary>
+        /// Creates a new <see cref="LaunchPadException"/> object.
+        /// </summary>
+        /// <param name="message">Exception message</param>
+        public LaunchPadException(string message)
+            : base(message)
+        {
+
+        }
+
+        /// <summary>
+        /// Creates a new <see cref="LaunchPadException"/> object.
+        /// </summary>
+        /// <param name="message">Exception message</param>
+        /// <param name="innerException">Inner exception</param>
+        public LaunchPadException(string message, Exception innerException)
+            : base(message, innerException)
+        {
+
+        }
     }
 }

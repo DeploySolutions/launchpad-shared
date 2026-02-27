@@ -175,7 +175,7 @@ namespace Deploy.LaunchPad.Core.Domain.Entities.Auditing
         /// <summary>
         /// Which user deleted this entity?
         /// </summary>
-        public virtual long? DeleterUserId { get; set; }
+        public virtual Guid? DeleterUserId { get; set; }
 
         /// <summary>
         /// Deletion time of this entity.
@@ -284,7 +284,7 @@ namespace Deploy.LaunchPad.Core.Domain.Entities.Auditing
         protected FullAuditedAggregateRoot(SerializationInfo info, StreamingContext context) : base(info, context)
         {
             IsDeleted = info.GetBoolean("IsDeleted");
-            DeleterUserId = (long?)info.GetValue("DeleterUserId", typeof(long?));
+            DeleterUserId = (Guid?)info.GetValue("DeleterUserId", typeof(Guid?));
             DeletionTime = (DateTime?)info.GetValue("DeletionTime", typeof(DateTime?));
         }
 
@@ -325,7 +325,7 @@ namespace Deploy.LaunchPad.Core.Domain.Entities.Auditing
         /// <summary>
         /// Which user deleted this entity?
         /// </summary>
-        public virtual long? DeleterUserId { get; set; }
+        public virtual Guid? DeleterUserId { get; set; }
 
         /// <summary>
         /// Deletion time of this entity.
@@ -435,7 +435,7 @@ namespace Deploy.LaunchPad.Core.Domain.Entities.Auditing
         protected FullAuditedAggregateRoot(SerializationInfo info, StreamingContext context) : base(info, context)
         {
             IsDeleted = info.GetBoolean("IsDeleted");
-            DeleterUserId = (long?)info.GetValue("DeleterUserId", typeof(long?));
+            DeleterUserId = (Guid?)info.GetValue("DeleterUserId", typeof(Guid?));
             DeletionTime = (DateTime?)info.GetValue("DeletionTime", typeof(DateTime?));
         }
 

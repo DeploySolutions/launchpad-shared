@@ -61,7 +61,7 @@ namespace Deploy.LaunchPad.Core.Application.Services.Dto
         /// <summary>
         /// Deleter user's Id, if this entity is deleted,
         /// </summary>
-        public virtual long? DeleterUserId { get; set; }
+        public virtual Guid? DeleterUserId { get; set; }
 
         /// <summary>
         /// Deletion time, if this entity is deleted,

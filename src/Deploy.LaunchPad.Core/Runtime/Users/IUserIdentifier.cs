@@ -30,27 +30,21 @@
  */
 #endregion
 
-using System.Threading.Tasks;
-
-namespace Deploy.LaunchPad.Core.Auditing
+namespace Deploy.LaunchPad.Core.Runtime.Users
 {
     /// <summary>
-    /// This interface should be implemented by vendors to
-    /// make auditing working.
-    /// Default implementation is <see cref="SimpleLogAuditingStore"/>.
+    /// Interface to get a user identifier.
     /// </summary>
-    public partial interface IAuditingStore
+    public interface IUserIdentifier
     {
         /// <summary>
-        /// Should save audits to a persistent store.
+        /// Tenant Id. Can be null for host users.
         /// </summary>
-        /// <param name="auditInfo">Audit informations</param>
-        Task SaveAsync(IAuditInfo auditInfo);
+        System.Guid? TenantId { get; }
 
         /// <summary>
-        /// Should save audits to a persistent store.
+        /// Id of the user.
         /// </summary>
-        /// <param name="auditInfo">Audit informations</param>
-        void Save(IAuditInfo auditInfo);
+        System.Guid UserId { get; }
     }
 }

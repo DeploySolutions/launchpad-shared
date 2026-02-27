@@ -131,14 +131,14 @@ namespace Deploy.LaunchPad.Core.Metadata
             set { _creationTime = value; }
         }
 
-        protected long? _creatorUserId;
+        protected Guid? _creatorUserId;
         /// <summary>
         /// The id of the User Agent which created this value object
         /// </summary>
         /// <value>The creator user identifier.</value>
         [DataObjectField(false)]
         [XmlAttribute]
-        public long? CreatorUserId
+        public Guid? CreatorUserId
         {
             get { return _creatorUserId; }
             set { _creatorUserId = value; }
@@ -173,14 +173,14 @@ namespace Deploy.LaunchPad.Core.Metadata
             set { _lastModificationTime = value; }
         }
 
-        protected long? _lastModifierUserId;
+        protected Guid? _lastModifierUserId;
         /// <summary>
         /// The id of the User Agent which last modified this object.
         /// </summary>
         /// <value>The last modifier user identifier.</value>
         [DataObjectField(false)]
         [XmlAttribute]
-        public long? LastModifierUserId
+        public Guid? LastModifierUserId
         {
             get { return _lastModifierUserId; }
             set { _lastModifierUserId = value; }
@@ -217,14 +217,14 @@ namespace Deploy.LaunchPad.Core.Metadata
         }
 
 
-        protected long? _deleterUserId;
+        protected Guid? _deleterUserId;
         /// <summary>
         /// The id of the user which deleted. Used for preserving information for a domain entity, obviously a Value Object can't be deleted.
         /// </summary>
         /// <value>The deleter user identifier.</value>
         [DataObjectField(false)]
         [XmlAttribute]
-        public long? DeleterUserId
+        public Guid? DeleterUserId
         {
             get { return _deleterUserId; }
             set { _deleterUserId = value; }
@@ -281,11 +281,11 @@ namespace Deploy.LaunchPad.Core.Metadata
             Checksum = info.GetString("Checksum");
             Tags = info.GetString("Tags");
             CreationTime = info.GetDateTime("CreationTime");
-            CreatorUserId = info.GetInt64("CreatorUserId");
+            CreatorUserId = (Guid?)info.GetValue("CreatorUserId", typeof(Guid?));
             LastModificationTime = info.GetDateTime("LastModificationTime");
-            LastModifierUserId = info.GetInt64("LastModifierUserId");
+            LastModifierUserId = (Guid?)info.GetValue("LastModifierUserId", typeof(Guid?));
             IsDeleted = info.GetBoolean("IsDeleted");
-            DeleterUserId = info.GetInt64("DeleterUserId");
+            DeleterUserId = (Guid?)info.GetValue("DeleterUserId", typeof(Guid?));
             DeletionTime = info.GetDateTime("DeletionTime");
             IsActive = info.GetBoolean("IsActive");
             SeqNum = info.GetInt32("SeqNum");

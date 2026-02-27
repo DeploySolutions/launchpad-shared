@@ -164,11 +164,11 @@ namespace Deploy.LaunchPad.Core.Abp.SoftwareApplications
 
         string Metadata.IMayHaveChecksumValue.Checksum { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
         DateTime Metadata.IMustHaveCreationTime.CreationTime { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        long? Metadata.IMayHaveCreatorUserId.CreatorUserId { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        Guid? Metadata.IMayHaveCreatorUserId.CreatorUserId { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
         DateTime? Metadata.IMayHaveModificationTime.LastModificationTime { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        long? Metadata.IMayHaveLastModifierUserId.LastModifierUserId { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        Guid? Metadata.IMayHaveLastModifierUserId.LastModifierUserId { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
         DateTime? Metadata.IMayHaveDeletionTime.DeletionTime { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        long? Metadata.IMayHaveDeleterUserId.DeleterUserId { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        Guid? Metadata.IMayHaveDeleterUserId.DeleterUserId { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
         bool Metadata.IHaveSoftDelete.IsDeleted { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
         bool Metadata.IHavePassivable.IsActive { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
         CultureInfo Metadata.IMustHaveCulture.Culture { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }

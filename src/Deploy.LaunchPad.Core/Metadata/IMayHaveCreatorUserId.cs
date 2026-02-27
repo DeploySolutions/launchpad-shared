@@ -9,6 +9,6 @@ namespace Deploy.LaunchPad.Core.Metadata
         /// <summary>
         /// Id of the creator user of this entity.
         /// </summary>
-        long? CreatorUserId { get; set; }
+        System.Guid? CreatorUserId { get; set; }
     }
 }

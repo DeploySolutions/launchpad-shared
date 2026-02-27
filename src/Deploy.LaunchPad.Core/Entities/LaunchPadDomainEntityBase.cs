@@ -181,7 +181,7 @@ namespace Deploy.LaunchPad.Core.Entities
         protected LaunchPadDomainEntityBase(ElementName name) : base()
         {
             Culture = new CultureInfo("en-CA");
-            CreatorUserId = 1; // TODO - default user account?
+            CreatorUserId = Guid.NewGuid(); // TODO - default user account?
             IsDeleted = false;
             IsActive = true;
             Name = name;
@@ -197,7 +197,7 @@ namespace Deploy.LaunchPad.Core.Entities
         protected LaunchPadDomainEntityBase(ElementName name, ElementDescription description) : base()
         {
             Culture = new CultureInfo("en-CA");
-            CreatorUserId = 1; // TODO - default user account?
+            CreatorUserId = Guid.NewGuid(); // TODO - default user account?
             IsDeleted = false;
             IsActive = true;
             Name = name;
@@ -212,7 +212,7 @@ namespace Deploy.LaunchPad.Core.Entities
         {
             Id = id;
             Culture = new CultureInfo("en-CA");
-            CreatorUserId = 1; // TODO - default user account?
+            CreatorUserId = Guid.NewGuid(); // TODO - default user account?
             IsDeleted = false;
             IsActive = true;
             Name = new ElementName(Id.ToString(), Id.ToString());
@@ -229,7 +229,7 @@ namespace Deploy.LaunchPad.Core.Entities
         {
             Id = id;
             Culture = new CultureInfo("en-CA");
-            CreatorUserId = 1; // TODO - default user account?
+            CreatorUserId = Guid.NewGuid(); // TODO - default user account?
             IsDeleted = false;
             IsActive = true;
             Name = new ElementName(name);
@@ -246,7 +246,7 @@ namespace Deploy.LaunchPad.Core.Entities
         {
             Id = id;
             Culture = culture;
-            CreatorUserId = 1; // TODO - default user account?
+            CreatorUserId = Guid.NewGuid(); // TODO - default user account?
             IsDeleted = false;
             IsActive = true;
             Name = new ElementName(name);
@@ -263,7 +263,7 @@ namespace Deploy.LaunchPad.Core.Entities
         {
             Id = id;
             Culture = culture;
-            CreatorUserId = 1; // TODO - default user account?
+            CreatorUserId = Guid.NewGuid(); // TODO - default user account?
             IsDeleted = false;
             IsActive = true;
             Name = name;
@@ -280,7 +280,7 @@ namespace Deploy.LaunchPad.Core.Entities
         {
             Id = id;
             Culture = culture;
-            CreatorUserId = 1; // TODO - default user account?
+            CreatorUserId = Guid.NewGuid(); // TODO - default user account?
             IsDeleted = false;
             IsActive = true;
             Name = name;
@@ -301,11 +301,11 @@ namespace Deploy.LaunchPad.Core.Entities
             Checksum = info.GetString("Checksum");
             Tags = info.GetString("Tags");
             CreationTime = info.GetDateTime("CreationTime");
-            CreatorUserId = info.GetInt64("CreatorUserId");
+            CreatorUserId = (Guid)info.GetValue("CreatorUserId", typeof(Guid));
             LastModificationTime = info.GetDateTime("LastModificationTime");
-            LastModifierUserId = info.GetInt64("LastModifierUserId");
+            LastModifierUserId = (Guid)info.GetValue("LastModifierUserId", typeof(Guid));
             IsDeleted = info.GetBoolean("IsDeleted");
-            DeleterUserId = info.GetInt64("DeleterUserId");
+            DeleterUserId = (Guid?)info.GetValue("DeleterUserId", typeof(Guid?));
             DeletionTime = info.GetDateTime("DeletionTime");
             IsActive = info.GetBoolean("IsActive");
             SeqNum = info.GetInt32("SeqNum");

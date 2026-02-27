@@ -41,6 +41,6 @@ namespace Deploy.LaunchPad.Core.Auditing
         /// Called to fill needed properties.
         /// </summary>
         /// <param name="auditInfo">Audit info that is partially filled</param>
-        void Fill(AuditInfo auditInfo);
+        void Fill(IAuditInfo auditInfo);
     }
 }

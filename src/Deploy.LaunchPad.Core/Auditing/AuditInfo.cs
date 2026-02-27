@@ -38,7 +38,7 @@ namespace Deploy.LaunchPad.Core.Auditing
     /// <summary>
     /// This informations are collected for an <see cref="AuditedAttribute"/> method.
     /// </summary>
-    public partial class AuditInfo : IMayHaveTenant
+    public partial class AuditInfo : IMayHaveTenant, IAuditInfo
     {
         /// <summary>
         /// TenantId.
@@ -48,12 +48,12 @@ namespace Deploy.LaunchPad.Core.Auditing
         /// <summary>
         /// UserId.
         /// </summary>
-        public virtual long? UserId { get; set; }
+        public virtual System.Guid? UserId { get; set; }
 
         /// <summary>
         /// ImpersonatorUserId.
         /// </summary>
-        public virtual long? ImpersonatorUserId { get; set; }
+        public virtual System.Guid? ImpersonatorUserId { get; set; }
 
         /// <summary>
         /// ImpersonatorTenantId.

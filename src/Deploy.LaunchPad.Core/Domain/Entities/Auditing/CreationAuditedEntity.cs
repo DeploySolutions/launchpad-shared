@@ -64,7 +64,7 @@ namespace Deploy.LaunchPad.Core.Domain.Entities.Auditing
         /// <summary>
         /// Creator of this entity.
         /// </summary>
-        public virtual long? CreatorUserId { get; set; }
+        public virtual Guid? CreatorUserId { get; set; }
 
         /// <summary>
         /// Constructor.
@@ -176,6 +176,7 @@ namespace Deploy.LaunchPad.Core.Domain.Entities.Auditing
         protected CreationAuditedEntity(SerializationInfo info, StreamingContext context) : base(info, context)
         {
             CreationTime = info.GetDateTime("CreationTime");
+            CreatorUserId = (Guid?)info.GetValue("CreatorUserId", typeof(Guid?));
         }
 
         /// <summary>
@@ -187,6 +188,7 @@ namespace Deploy.LaunchPad.Core.Domain.Entities.Auditing
         {
             base.GetObjectData(info, context);
             info.AddValue("CreationTime", CreationTime);
+            info.AddValue("CreatorUserId", CreatorUserId);
         }
 
     }

@@ -50,11 +50,11 @@ namespace Deploy.LaunchPad.Domain.Content
             Checksum = info.GetString("Checksum");
             Tags = info.GetString("Metadata");
             CreationTime = info.GetDateTime("CreationTime");
-            CreatorUserId = info.GetInt64("CreatorUserId");
+            CreatorUserId = (Guid?)info.GetValue("CreatorUserId", typeof(Guid?));
             LastModificationTime = info.GetDateTime("LastModificationTime");
-            LastModifierUserId = info.GetInt64("LastModifierUserId");
+            LastModifierUserId = (Guid?)info.GetValue("LastModifierUserId", typeof(Guid?));
             IsDeleted = info.GetBoolean("IsDeleted");
-            DeleterUserId = info.GetInt64("DeleterUserId");
+            DeleterUserId = (Guid?)info.GetValue("DeleterUserId", typeof(Guid?));
             DeletionTime = info.GetDateTime("DeletionTime");
             IsActive = info.GetBoolean("IsActive");
             SeqNum = info.GetInt32("SeqNum");

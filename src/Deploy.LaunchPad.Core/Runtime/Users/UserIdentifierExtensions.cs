@@ -30,27 +30,20 @@
  */
 #endregion
 
-using System.Threading.Tasks;
-
-namespace Deploy.LaunchPad.Core.Auditing
+namespace Deploy.LaunchPad.Core.Runtime.Users
 {
     /// <summary>
-    /// This interface should be implemented by vendors to
-    /// make auditing working.
-    /// Default implementation is <see cref="SimpleLogAuditingStore"/>.
+    /// Extension methods for <see cref="UserIdentifier"/> and <see cref="IUserIdentifier"/>.
     /// </summary>
-    public partial interface IAuditingStore
+    public static class UserIdentifierExtensions
     {
         /// <summary>
-        /// Should save audits to a persistent store.
+        /// Creates a new <see cref="UserIdentifier"/> object from any object implements <see cref="IUserIdentifier"/>.
         /// </summary>
-        /// <param name="auditInfo">Audit informations</param>
-        Task SaveAsync(IAuditInfo auditInfo);
-
-        /// <summary>
-        /// Should save audits to a persistent store.
-        /// </summary>
-        /// <param name="auditInfo">Audit informations</param>
-        void Save(IAuditInfo auditInfo);
+        /// <param name="userIdentifier">User identifier.</param>
+        public static UserIdentifier ToUserIdentifier(this IUserIdentifier userIdentifier)
+        {
+            return new UserIdentifier(userIdentifier.TenantId, userIdentifier.UserId);
+        }
     }
 }

@@ -9,6 +9,6 @@ namespace Deploy.LaunchPad.Core.Metadata
         /// <summary>
         /// Which user deleted this entity?
         /// </summary>
-        long? DeleterUserId { get; set; }
+        Guid? DeleterUserId { get; set; }
     }
 }

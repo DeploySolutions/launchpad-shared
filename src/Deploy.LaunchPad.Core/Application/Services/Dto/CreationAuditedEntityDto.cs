@@ -62,7 +62,7 @@ namespace Deploy.LaunchPad.Core.Application.Services.Dto
         /// <summary>
         /// Creator user's id for this entity.
         /// </summary>
-        public virtual long? CreatorUserId { get; set; }
+        public virtual Guid? CreatorUserId { get; set; }
 
         /// <summary>
         /// Constructor.
