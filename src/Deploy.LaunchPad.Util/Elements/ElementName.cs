@@ -227,8 +227,8 @@ namespace Deploy.LaunchPad.Util.Elements
         {
             return Full.GetHashCode()
                 + Short.GetHashCode()
-                + Prefix.GetHashCode()
-                + Suffix.GetHashCode()
+                + (Prefix?.GetHashCode() ?? 0)
+                + (Suffix?.GetHashCode() ?? 0)
             ;
         }
 
