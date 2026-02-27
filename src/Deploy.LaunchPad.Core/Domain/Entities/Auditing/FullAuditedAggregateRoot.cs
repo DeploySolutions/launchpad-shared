@@ -30,8 +30,11 @@
  */
 #endregion
 
+using Deploy.LaunchPad.Util.Elements;
 using System;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Globalization;
+using System.Runtime.Serialization;
 
 namespace Deploy.LaunchPad.Core.Domain.Entities.Auditing
 {
@@ -39,9 +42,112 @@ namespace Deploy.LaunchPad.Core.Domain.Entities.Auditing
     /// A shortcut of <see cref="FullAuditedAggregateRoot{TPrimaryKey}"/> for most used primary key type (<see cref="int"/>).
     /// </summary>
     [Serializable]
-    public abstract partial class FullAuditedAggregateRoot : FullAuditedAggregateRoot<int>
+    public abstract partial class FullAuditedAggregateRoot : FullAuditedAggregateRoot<System.Guid>
     {
 
+        /// <summary>
+        /// Constructor.
+        /// </summary>
+        protected FullAuditedAggregateRoot() : base()
+        {
+        }
+
+        /// <summary>
+        /// Creates a new instance of the <see cref="FullFullAuditedAggregateRoot">FullFullAuditedAggregateRoot</see> class given a key, and some metadata.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <param name="name">The name of the object.</param>
+        /// <param name="description">The description for this entity</param>
+        protected FullAuditedAggregateRoot(string name) : base(name)
+        {
+        }
+
+        /// <summary>
+        /// Creates a new instance of the <see cref="FullAuditedAggregateRoot">FullAuditedAggregateRoot</see> class given a key, and some metadata.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <param name="name">The name of the object.</param>
+        /// <param name="description">The description for this entity</param>
+        protected FullAuditedAggregateRoot(ElementName name) : base(name)
+        {
+        }
+
+        /// <summary>
+        /// Creates a new instance of the <see cref="FullAuditedAggregateRoot">FullAuditedAggregateRoot</see> class given a key, and some metadata.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <param name="name">The name of the object.</param>
+        /// <param name="description">The description for this entity</param>
+        protected FullAuditedAggregateRoot(ElementName name, ElementDescription description) : base(name, description)
+        {
+        }
+
+        /// <summary>
+        /// Creates a new instance of the <see cref="FullAuditedAggregateRoot">FullAuditedAggregateRoot</see> class given a key, and some metadata.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        protected FullAuditedAggregateRoot(System.Guid id) : base(id)
+        {
+        }
+
+
+        /// <summary>
+        /// Creates a new instance of the <see cref="FullAuditedAggregateRoot">FullAuditedAggregateRoot</see> class given a key, and some metadata.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <param name="name">The name of the object.</param>
+        protected FullAuditedAggregateRoot(System.Guid id, string name) : base(id, name)
+        {
+        }
+
+        /// <summary>
+        /// Creates a new instance of the <see cref="FullAuditedAggregateRoot">FullAuditedAggregateRoot</see> class given a key, and some metadata.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <param name="name">The name of the object.</param>
+        /// <param name="culture">The culture for this entity</param>
+        protected FullAuditedAggregateRoot(System.Guid id, string name, CultureInfo culture) : base(id, name)
+        {
+        }
+
+        /// <summary>
+        /// Creates a new instance of the <see cref="FullAuditedAggregateRoot">FullAuditedAggregateRoot</see> class given a key, and some metadata.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <param name="name">The name of the object.</param>
+        /// <param name="culture">The culture for this entity</param>
+        protected FullAuditedAggregateRoot(System.Guid id, ElementName name, CultureInfo culture) : base(id, name, culture)
+        {
+        }
+
+        /// <summary>
+        /// Creates a new instance of the <see cref="FullAuditedAggregateRoot">FullAuditedAggregateRoot</see> class given a key, and some metadata.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <param name="name">The name of the object.</param>
+        /// <param name="culture">The culture for this entity</param>
+        protected FullAuditedAggregateRoot(System.Guid id, ElementName name, ElementDescription description, CultureInfo culture) : base(id, name, description, culture)
+        {
+        }
+
+        /// <summary>
+        /// Serialization constructor used for deserialization
+        /// </summary>
+        /// <param name="info">The serialization info</param>
+        /// <param name="context">The context of the stream</param>
+        protected FullAuditedAggregateRoot(SerializationInfo info, StreamingContext context) : base(info, context)
+        {
+        }
+
+        /// <summary>
+        /// The method required for implementing ISerializable
+        /// </summary>
+        /// <param name="info">The information.</param>
+        /// <param name="context">The context.</param>
+        public override void GetObjectData(SerializationInfo info, StreamingContext context)
+        {
+            base.GetObjectData(info, context);
+        }
     }
 
     /// <summary>
@@ -65,6 +171,116 @@ namespace Deploy.LaunchPad.Core.Domain.Entities.Auditing
         /// Deletion time of this entity.
         /// </summary>
         public virtual DateTime? DeletionTime { get; set; }
+
+        /// <summary>
+        /// Constructor.
+        /// </summary>
+        protected FullAuditedAggregateRoot() : base()
+        {
+        }
+
+        /// <summary>
+        /// Creates a new instance of the <see cref="FullFullAuditedAggregateRoot">FullFullAuditedAggregateRoot</see> class given a key, and some metadata.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <param name="name">The name of the object.</param>
+        /// <param name="description">The description for this entity</param>
+        protected FullAuditedAggregateRoot(string name) : base(name)
+        {
+        }
+
+        /// <summary>
+        /// Creates a new instance of the <see cref="FullAuditedAggregateRoot">FullAuditedAggregateRoot</see> class given a key, and some metadata.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <param name="name">The name of the object.</param>
+        /// <param name="description">The description for this entity</param>
+        protected FullAuditedAggregateRoot(ElementName name) : base(name)
+        {
+        }
+
+        /// <summary>
+        /// Creates a new instance of the <see cref="FullAuditedAggregateRoot">FullAuditedAggregateRoot</see> class given a key, and some metadata.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <param name="name">The name of the object.</param>
+        /// <param name="description">The description for this entity</param>
+        protected FullAuditedAggregateRoot(ElementName name, ElementDescription description) : base(name, description)
+        {
+        }
+
+        /// <summary>
+        /// Creates a new instance of the <see cref="FullAuditedAggregateRoot">FullAuditedAggregateRoot</see> class given a key, and some metadata.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        protected FullAuditedAggregateRoot(TPrimaryKey id) : base(id)
+        {
+        }
+
+
+        /// <summary>
+        /// Creates a new instance of the <see cref="FullAuditedAggregateRoot">FullAuditedAggregateRoot</see> class given a key, and some metadata.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <param name="name">The name of the object.</param>
+        protected FullAuditedAggregateRoot(TPrimaryKey id, string name) : base(id, name)
+        {
+        }
+
+        /// <summary>
+        /// Creates a new instance of the <see cref="FullAuditedAggregateRoot">FullAuditedAggregateRoot</see> class given a key, and some metadata.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <param name="name">The name of the object.</param>
+        /// <param name="culture">The culture for this entity</param>
+        protected FullAuditedAggregateRoot(TPrimaryKey id, string name, CultureInfo culture) : base(id, name)
+        {
+        }
+
+        /// <summary>
+        /// Creates a new instance of the <see cref="FullAuditedAggregateRoot">FullAuditedAggregateRoot</see> class given a key, and some metadata.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <param name="name">The name of the object.</param>
+        /// <param name="culture">The culture for this entity</param>
+        protected FullAuditedAggregateRoot(TPrimaryKey id, ElementName name, CultureInfo culture) : base(id, name, culture)
+        {
+        }
+
+        /// <summary>
+        /// Creates a new instance of the <see cref="FullAuditedAggregateRoot">FullAuditedAggregateRoot</see> class given a key, and some metadata.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <param name="name">The name of the object.</param>
+        /// <param name="culture">The culture for this entity</param>
+        protected FullAuditedAggregateRoot(TPrimaryKey id, ElementName name, ElementDescription description, CultureInfo culture) : base(id, name, description, culture)
+        {
+        }
+
+        /// <summary>
+        /// Serialization constructor used for deserialization
+        /// </summary>
+        /// <param name="info">The serialization info</param>
+        /// <param name="context">The context of the stream</param>
+        protected FullAuditedAggregateRoot(SerializationInfo info, StreamingContext context) : base(info, context)
+        {
+            IsDeleted = info.GetBoolean("IsDeleted");
+            DeleterUserId = (long?)info.GetValue("DeleterUserId", typeof(long?));
+            DeletionTime = (DateTime?)info.GetValue("DeletionTime", typeof(DateTime?));
+        }
+
+        /// <summary>
+        /// The method required for implementing ISerializable
+        /// </summary>
+        /// <param name="info">The information.</param>
+        /// <param name="context">The context.</param>
+        public override void GetObjectData(SerializationInfo info, StreamingContext context)
+        {
+            base.GetObjectData(info, context);
+            info.AddValue("IsDeleted", IsDeleted);
+            info.AddValue("DeleterUserId", DeleterUserId);
+            info.AddValue("DeletionTime", DeletionTime);
+        }
     }
 
     /// <summary>
@@ -96,5 +312,116 @@ namespace Deploy.LaunchPad.Core.Domain.Entities.Auditing
         /// Deletion time of this entity.
         /// </summary>
         public virtual DateTime? DeletionTime { get; set; }
+
+
+        /// <summary>
+        /// Constructor.
+        /// </summary>
+        protected FullAuditedAggregateRoot() : base()
+        {
+        }
+
+        /// <summary>
+        /// Creates a new instance of the <see cref="FullFullAuditedAggregateRoot">FullFullAuditedAggregateRoot</see> class given a key, and some metadata.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <param name="name">The name of the object.</param>
+        /// <param name="description">The description for this entity</param>
+        protected FullAuditedAggregateRoot(string name) : base(name)
+        {
+        }
+
+        /// <summary>
+        /// Creates a new instance of the <see cref="FullAuditedAggregateRoot">FullAuditedAggregateRoot</see> class given a key, and some metadata.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <param name="name">The name of the object.</param>
+        /// <param name="description">The description for this entity</param>
+        protected FullAuditedAggregateRoot(ElementName name) : base(name)
+        {
+        }
+
+        /// <summary>
+        /// Creates a new instance of the <see cref="FullAuditedAggregateRoot">FullAuditedAggregateRoot</see> class given a key, and some metadata.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <param name="name">The name of the object.</param>
+        /// <param name="description">The description for this entity</param>
+        protected FullAuditedAggregateRoot(ElementName name, ElementDescription description) : base(name, description)
+        {
+        }
+
+        /// <summary>
+        /// Creates a new instance of the <see cref="FullAuditedAggregateRoot">FullAuditedAggregateRoot</see> class given a key, and some metadata.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        protected FullAuditedAggregateRoot(TPrimaryKey id) : base(id)
+        {
+        }
+
+
+        /// <summary>
+        /// Creates a new instance of the <see cref="FullAuditedAggregateRoot">FullAuditedAggregateRoot</see> class given a key, and some metadata.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <param name="name">The name of the object.</param>
+        protected FullAuditedAggregateRoot(TPrimaryKey id, string name) : base(id, name)
+        {
+        }
+
+        /// <summary>
+        /// Creates a new instance of the <see cref="FullAuditedAggregateRoot">FullAuditedAggregateRoot</see> class given a key, and some metadata.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <param name="name">The name of the object.</param>
+        /// <param name="culture">The culture for this entity</param>
+        protected FullAuditedAggregateRoot(TPrimaryKey id, string name, CultureInfo culture) : base(id, name)
+        {
+        }
+
+        /// <summary>
+        /// Creates a new instance of the <see cref="FullAuditedAggregateRoot">FullAuditedAggregateRoot</see> class given a key, and some metadata.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <param name="name">The name of the object.</param>
+        /// <param name="culture">The culture for this entity</param>
+        protected FullAuditedAggregateRoot(TPrimaryKey id, ElementName name, CultureInfo culture) : base(id, name, culture)
+        {
+        }
+
+        /// <summary>
+        /// Creates a new instance of the <see cref="FullAuditedAggregateRoot">FullAuditedAggregateRoot</see> class given a key, and some metadata.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <param name="name">The name of the object.</param>
+        /// <param name="culture">The culture for this entity</param>
+        protected FullAuditedAggregateRoot(TPrimaryKey id, ElementName name, ElementDescription description, CultureInfo culture) : base(id, name, description, culture)
+        {
+        }
+
+        /// <summary>
+        /// Serialization constructor used for deserialization
+        /// </summary>
+        /// <param name="info">The serialization info</param>
+        /// <param name="context">The context of the stream</param>
+        protected FullAuditedAggregateRoot(SerializationInfo info, StreamingContext context) : base(info, context)
+        {
+            IsDeleted = info.GetBoolean("IsDeleted");
+            DeleterUserId = (long?)info.GetValue("DeleterUserId", typeof(long?));
+            DeletionTime = (DateTime?)info.GetValue("DeletionTime", typeof(DateTime?));
+        }
+
+        /// <summary>
+        /// The method required for implementing ISerializable
+        /// </summary>
+        /// <param name="info">The information.</param>
+        /// <param name="context">The context.</param>
+        public override void GetObjectData(SerializationInfo info, StreamingContext context)
+        {
+            base.GetObjectData(info, context);
+            info.AddValue("IsDeleted", IsDeleted);
+            info.AddValue("DeleterUserId", DeleterUserId);
+            info.AddValue("DeletionTime", DeletionTime);
+        }
     }
 }

@@ -30,8 +30,11 @@
  */
 #endregion
 
+using Deploy.LaunchPad.Util.Elements;
 using System;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Globalization;
+using System.Runtime.Serialization;
 
 namespace Deploy.LaunchPad.Core.Domain.Entities.Auditing
 {
@@ -39,9 +42,112 @@ namespace Deploy.LaunchPad.Core.Domain.Entities.Auditing
     /// A shortcut of <see cref="AuditedAggregateRoot{TPrimaryKey}"/> for most used primary key type (<see cref="int"/>).
     /// </summary>
     [Serializable]
-    public abstract partial class AuditedAggregateRoot : AuditedAggregateRoot<int>
+    public abstract partial class AuditedAggregateRoot : AuditedAggregateRoot<System.Guid>
     {
 
+        /// <summary>
+        /// Constructor.
+        /// </summary>
+        protected AuditedAggregateRoot() : base()
+        {
+        }
+
+        /// <summary>
+        /// Creates a new instance of the <see cref="AuditedAggregateRoot">AuditedAggregateRoot</see> class given a key, and some metadata.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <param name="name">The name of the object.</param>
+        /// <param name="description">The description for this entity</param>
+        protected AuditedAggregateRoot(string name) : base(name)
+        {
+        }
+
+        /// <summary>
+        /// Creates a new instance of the <see cref="AuditedAggregateRoot">AuditedAggregateRoot</see> class given a key, and some metadata.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <param name="name">The name of the object.</param>
+        /// <param name="description">The description for this entity</param>
+        protected AuditedAggregateRoot(ElementName name) : base(name)
+        {
+        }
+
+        /// <summary>
+        /// Creates a new instance of the <see cref="AuditedAggregateRoot">AuditedAggregateRoot</see> class given a key, and some metadata.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <param name="name">The name of the object.</param>
+        /// <param name="description">The description for this entity</param>
+        protected AuditedAggregateRoot(ElementName name, ElementDescription description) : base(name, description)
+        {
+        }
+
+        /// <summary>
+        /// Creates a new instance of the <see cref="AuditedAggregateRoot">AuditedAggregateRoot</see> class given a key, and some metadata.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        protected AuditedAggregateRoot(System.Guid id) : base(id)
+        {
+        }
+
+
+        /// <summary>
+        /// Creates a new instance of the <see cref="AuditedAggregateRoot">AuditedAggregateRoot</see> class given a key, and some metadata.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <param name="name">The name of the object.</param>
+        protected AuditedAggregateRoot(System.Guid id, string name) : base(id, name)
+        {
+        }
+
+        /// <summary>
+        /// Creates a new instance of the <see cref="AuditedAggregateRoot">AuditedAggregateRoot</see> class given a key, and some metadata.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <param name="name">The name of the object.</param>
+        /// <param name="culture">The culture for this entity</param>
+        protected AuditedAggregateRoot(System.Guid id, string name, CultureInfo culture) : base(id, name)
+        {
+        }
+
+        /// <summary>
+        /// Creates a new instance of the <see cref="AuditedAggregateRoot">AuditedAggregateRoot</see> class given a key, and some metadata.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <param name="name">The name of the object.</param>
+        /// <param name="culture">The culture for this entity</param>
+        protected AuditedAggregateRoot(System.Guid id, ElementName name, CultureInfo culture) : base(id, name, culture)
+        {
+        }
+
+        /// <summary>
+        /// Creates a new instance of the <see cref="AuditedAggregateRoot">AuditedAggregateRoot</see> class given a key, and some metadata.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <param name="name">The name of the object.</param>
+        /// <param name="culture">The culture for this entity</param>
+        protected AuditedAggregateRoot(System.Guid id, ElementName name, ElementDescription description, CultureInfo culture) : base(id, name, description, culture)
+        {
+        }
+
+        /// <summary>
+        /// Serialization constructor used for deserialization
+        /// </summary>
+        /// <param name="info">The serialization info</param>
+        /// <param name="context">The context of the stream</param>
+        protected AuditedAggregateRoot(SerializationInfo info, StreamingContext context) : base(info, context)
+        {
+        }
+
+        /// <summary>
+        /// The method required for implementing ISerializable
+        /// </summary>
+        /// <param name="info">The information.</param>
+        /// <param name="context">The context.</param>
+        public override void GetObjectData(SerializationInfo info, StreamingContext context)
+        {
+            base.GetObjectData(info, context);
+        }
     }
 
     /// <summary>
@@ -60,6 +166,114 @@ namespace Deploy.LaunchPad.Core.Domain.Entities.Auditing
         /// Last modifier user of this entity.
         /// </summary>
         public virtual long? LastModifierUserId { get; set; }
+
+        /// <summary>
+        /// Constructor.
+        /// </summary>
+        protected AuditedAggregateRoot() : base()
+        {
+        }
+
+        /// <summary>
+        /// Creates a new instance of the <see cref="AuditedAggregateRoot">AuditedAggregateRoot</see> class given a key, and some metadata.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <param name="name">The name of the object.</param>
+        /// <param name="description">The description for this entity</param>
+        protected AuditedAggregateRoot(string name) : base(name)
+        {
+        }
+
+        /// <summary>
+        /// Creates a new instance of the <see cref="AuditedAggregateRoot">AuditedAggregateRoot</see> class given a key, and some metadata.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <param name="name">The name of the object.</param>
+        /// <param name="description">The description for this entity</param>
+        protected AuditedAggregateRoot(ElementName name) : base(name)
+        {
+        }
+
+        /// <summary>
+        /// Creates a new instance of the <see cref="AuditedAggregateRoot">AuditedAggregateRoot</see> class given a key, and some metadata.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <param name="name">The name of the object.</param>
+        /// <param name="description">The description for this entity</param>
+        protected AuditedAggregateRoot(ElementName name, ElementDescription description) : base(name, description)
+        {
+        }
+
+        /// <summary>
+        /// Creates a new instance of the <see cref="AuditedAggregateRoot">AuditedAggregateRoot</see> class given a key, and some metadata.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        protected AuditedAggregateRoot(TPrimaryKey id) : base(id)
+        {
+        }
+
+
+        /// <summary>
+        /// Creates a new instance of the <see cref="AuditedAggregateRoot">AuditedAggregateRoot</see> class given a key, and some metadata.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <param name="name">The name of the object.</param>
+        protected AuditedAggregateRoot(TPrimaryKey id, string name) : base(id, name)
+        {
+        }
+
+        /// <summary>
+        /// Creates a new instance of the <see cref="AuditedAggregateRoot">AuditedAggregateRoot</see> class given a key, and some metadata.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <param name="name">The name of the object.</param>
+        /// <param name="culture">The culture for this entity</param>
+        protected AuditedAggregateRoot(TPrimaryKey id, string name, CultureInfo culture) : base(id, name)
+        {
+        }
+
+        /// <summary>
+        /// Creates a new instance of the <see cref="AuditedAggregateRoot">AuditedAggregateRoot</see> class given a key, and some metadata.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <param name="name">The name of the object.</param>
+        /// <param name="culture">The culture for this entity</param>
+        protected AuditedAggregateRoot(TPrimaryKey id, ElementName name, CultureInfo culture) : base(id, name, culture)
+        {
+        }
+
+        /// <summary>
+        /// Creates a new instance of the <see cref="AuditedAggregateRoot">AuditedAggregateRoot</see> class given a key, and some metadata.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <param name="name">The name of the object.</param>
+        /// <param name="culture">The culture for this entity</param>
+        protected AuditedAggregateRoot(TPrimaryKey id, ElementName name, ElementDescription description, CultureInfo culture) : base(id, name, description, culture)
+        {
+        }
+
+        /// <summary>
+        /// Serialization constructor used for deserialization
+        /// </summary>
+        /// <param name="info">The serialization info</param>
+        /// <param name="context">The context of the stream</param>
+        protected AuditedAggregateRoot(SerializationInfo info, StreamingContext context) : base(info, context)
+        {
+            LastModificationTime = info.GetDateTime("LastModificationTime");
+            LastModifierUserId = info.GetInt64("LastModifierUserId");
+        }
+
+        /// <summary>
+        /// The method required for implementing ISerializable
+        /// </summary>
+        /// <param name="info">The information.</param>
+        /// <param name="context">The context.</param>
+        public override void GetObjectData(SerializationInfo info, StreamingContext context)
+        {
+            base.GetObjectData(info, context);
+            info.AddValue("LastModificationTime", LastModificationTime);
+            info.AddValue("LastModifierUserId", LastModifierUserId);
+        }
     }
 
     /// <summary>
@@ -82,5 +296,113 @@ namespace Deploy.LaunchPad.Core.Domain.Entities.Auditing
         /// </summary>
         [ForeignKey("LastModifierUserId")]
         public virtual TUser LastModifierUser { get; set; }
+
+        /// <summary>
+        /// Constructor.
+        /// </summary>
+        protected AuditedAggregateRoot() : base()
+        {
+        }
+
+        /// <summary>
+        /// Creates a new instance of the <see cref="AuditedAggregateRoot">AuditedAggregateRoot</see> class given a key, and some metadata.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <param name="name">The name of the object.</param>
+        /// <param name="description">The description for this entity</param>
+        protected AuditedAggregateRoot(string name) : base(name)
+        {
+        }
+
+        /// <summary>
+        /// Creates a new instance of the <see cref="AuditedAggregateRoot">AuditedAggregateRoot</see> class given a key, and some metadata.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <param name="name">The name of the object.</param>
+        /// <param name="description">The description for this entity</param>
+        protected AuditedAggregateRoot(ElementName name) : base(name)
+        {
+        }
+
+        /// <summary>
+        /// Creates a new instance of the <see cref="AuditedAggregateRoot">AuditedAggregateRoot</see> class given a key, and some metadata.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <param name="name">The name of the object.</param>
+        /// <param name="description">The description for this entity</param>
+        protected AuditedAggregateRoot(ElementName name, ElementDescription description) : base(name, description)
+        {
+        }
+
+        /// <summary>
+        /// Creates a new instance of the <see cref="AuditedAggregateRoot">AuditedAggregateRoot</see> class given a key, and some metadata.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        protected AuditedAggregateRoot(TPrimaryKey id) : base(id)
+        {
+        }
+
+
+        /// <summary>
+        /// Creates a new instance of the <see cref="AuditedAggregateRoot">AuditedAggregateRoot</see> class given a key, and some metadata.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <param name="name">The name of the object.</param>
+        protected AuditedAggregateRoot(TPrimaryKey id, string name) : base(id, name)
+        {
+        }
+
+        /// <summary>
+        /// Creates a new instance of the <see cref="AuditedAggregateRoot">AuditedAggregateRoot</see> class given a key, and some metadata.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <param name="name">The name of the object.</param>
+        /// <param name="culture">The culture for this entity</param>
+        protected AuditedAggregateRoot(TPrimaryKey id, string name, CultureInfo culture) : base(id, name)
+        {
+        }
+
+        /// <summary>
+        /// Creates a new instance of the <see cref="AuditedAggregateRoot">AuditedAggregateRoot</see> class given a key, and some metadata.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <param name="name">The name of the object.</param>
+        /// <param name="culture">The culture for this entity</param>
+        protected AuditedAggregateRoot(TPrimaryKey id, ElementName name, CultureInfo culture) : base(id, name, culture)
+        {
+        }
+
+        /// <summary>
+        /// Creates a new instance of the <see cref="AuditedAggregateRoot">AuditedAggregateRoot</see> class given a key, and some metadata.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <param name="name">The name of the object.</param>
+        /// <param name="culture">The culture for this entity</param>
+        protected AuditedAggregateRoot(TPrimaryKey id, ElementName name, ElementDescription description, CultureInfo culture) : base(id, name, description, culture)
+        {
+        }
+
+        /// <summary>
+        /// Serialization constructor used for deserialization
+        /// </summary>
+        /// <param name="info">The serialization info</param>
+        /// <param name="context">The context of the stream</param>
+        protected AuditedAggregateRoot(SerializationInfo info, StreamingContext context) : base(info, context)
+        {
+            LastModificationTime = info.GetDateTime("LastModificationTime");
+            LastModifierUserId = info.GetInt64("LastModifierUserId");
+        }
+
+        /// <summary>
+        /// The method required for implementing ISerializable
+        /// </summary>
+        /// <param name="info">The information.</param>
+        /// <param name="context">The context.</param>
+        public override void GetObjectData(SerializationInfo info, StreamingContext context)
+        {
+            base.GetObjectData(info, context);
+            info.AddValue("LastModificationTime", LastModificationTime);
+            info.AddValue("LastModifierUserId", LastModifierUserId);
+        }
     }
 }

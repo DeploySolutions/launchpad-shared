@@ -30,16 +30,122 @@
  */
 #endregion
 
+using Deploy.LaunchPad.Core.Events;
+using Deploy.LaunchPad.Util.Elements;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations.Schema;
-using Deploy.LaunchPad.Core.Events;
+using System.Globalization;
+using System.Runtime.Serialization;
 
 namespace Deploy.LaunchPad.Core.Domain.Entities
 {
     public partial class AggregateRoot : AggregateRoot<System.Guid>, IAggregateRoot
     {
 
+        /// <summary>
+        /// Constructor.
+        /// </summary>
+        protected AggregateRoot() : base()
+        {
+        }
+
+        /// <summary>
+        /// Creates a new instance of the <see cref="FullAggregateRoot">FullAggregateRoot</see> class given a key, and some metadata.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <param name="name">The name of the object.</param>
+        /// <param name="description">The description for this entity</param>
+        protected AggregateRoot(string name) : base(name)
+        {
+        }
+
+        /// <summary>
+        /// Creates a new instance of the <see cref="AggregateRoot">AggregateRoot</see> class given a key, and some metadata.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <param name="name">The name of the object.</param>
+        /// <param name="description">The description for this entity</param>
+        protected AggregateRoot(ElementName name) : base(name)
+        {
+        }
+
+        /// <summary>
+        /// Creates a new instance of the <see cref="AggregateRoot">AggregateRoot</see> class given a key, and some metadata.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <param name="name">The name of the object.</param>
+        /// <param name="description">The description for this entity</param>
+        protected AggregateRoot(ElementName name, ElementDescription description) : base(name, description)
+        {
+        }
+
+        /// <summary>
+        /// Creates a new instance of the <see cref="AggregateRoot">AggregateRoot</see> class given a key, and some metadata.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        protected AggregateRoot(System.Guid id) : base(id)
+        {
+        }
+
+
+        /// <summary>
+        /// Creates a new instance of the <see cref="AggregateRoot">AggregateRoot</see> class given a key, and some metadata.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <param name="name">The name of the object.</param>
+        protected AggregateRoot(System.Guid id, string name) : base(id, name)
+        {
+        }
+
+        /// <summary>
+        /// Creates a new instance of the <see cref="AggregateRoot">AggregateRoot</see> class given a key, and some metadata.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <param name="name">The name of the object.</param>
+        /// <param name="culture">The culture for this entity</param>
+        protected AggregateRoot(System.Guid id, string name, CultureInfo culture) : base(id, name)
+        {
+        }
+
+        /// <summary>
+        /// Creates a new instance of the <see cref="AggregateRoot">AggregateRoot</see> class given a key, and some metadata.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <param name="name">The name of the object.</param>
+        /// <param name="culture">The culture for this entity</param>
+        protected AggregateRoot(System.Guid id, ElementName name, CultureInfo culture) : base(id, name, culture)
+        {
+        }
+
+        /// <summary>
+        /// Creates a new instance of the <see cref="AggregateRoot">AggregateRoot</see> class given a key, and some metadata.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <param name="name">The name of the object.</param>
+        /// <param name="culture">The culture for this entity</param>
+        protected AggregateRoot(System.Guid id, ElementName name, ElementDescription description, CultureInfo culture) : base(id, name, description, culture)
+        {
+        }
+
+        /// <summary>
+        /// Serialization constructor used for deserialization
+        /// </summary>
+        /// <param name="info">The serialization info</param>
+        /// <param name="context">The context of the stream</param>
+        protected AggregateRoot(SerializationInfo info, StreamingContext context) : base(info, context)
+        {
+        }
+
+        /// <summary>
+        /// The method required for implementing ISerializable
+        /// </summary>
+        /// <param name="info">The information.</param>
+        /// <param name="context">The context.</param>
+        public override void GetObjectData(SerializationInfo info, StreamingContext context)
+        {
+            base.GetObjectData(info, context);
+        }
     }
 
     public partial class AggregateRoot<TPrimaryKey> : Entity<TPrimaryKey>, IAggregateRoot<TPrimaryKey>
@@ -50,6 +156,113 @@ namespace Deploy.LaunchPad.Core.Domain.Entities
         public AggregateRoot()
         {
             DomainEvents = new Collection<IEventData>();
+        }
+
+        /// <summary>
+        /// Creates a new instance of the <see cref="FullAggregateRoot">FullAggregateRoot</see> class given a key, and some metadata.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <param name="name">The name of the object.</param>
+        /// <param name="description">The description for this entity</param>
+        public AggregateRoot(string name) : base(name)
+        {
+            DomainEvents = new Collection<IEventData>();
+        }
+
+        /// <summary>
+        /// Creates a new instance of the <see cref="AggregateRoot">AggregateRoot</see> class given a key, and some metadata.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <param name="name">The name of the object.</param>
+        /// <param name="description">The description for this entity</param>
+        public AggregateRoot(ElementName name) : base(name)
+        {
+            DomainEvents = new Collection<IEventData>();
+        }
+
+        /// <summary>
+        /// Creates a new instance of the <see cref="AggregateRoot">AggregateRoot</see> class given a key, and some metadata.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <param name="name">The name of the object.</param>
+        /// <param name="description">The description for this entity</param>
+        public AggregateRoot(ElementName name, ElementDescription description) : base(name, description)
+        {
+            DomainEvents = new Collection<IEventData>();
+        }
+
+        /// <summary>
+        /// Creates a new instance of the <see cref="AggregateRoot">AggregateRoot</see> class given a key, and some metadata.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        public AggregateRoot(TPrimaryKey id) : base(id)
+        {
+            DomainEvents = new Collection<IEventData>();
+        }
+
+
+        /// <summary>
+        /// Creates a new instance of the <see cref="AggregateRoot">AggregateRoot</see> class given a key, and some metadata.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <param name="name">The name of the object.</param>
+        public AggregateRoot(TPrimaryKey id, string name) : base(id, name)
+        {
+            DomainEvents = new Collection<IEventData>();
+        }
+
+        /// <summary>
+        /// Creates a new instance of the <see cref="AggregateRoot">AggregateRoot</see> class given a key, and some metadata.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <param name="name">The name of the object.</param>
+        /// <param name="culture">The culture for this entity</param>
+        public AggregateRoot(TPrimaryKey id, string name, CultureInfo culture) : base(id, name)
+        {
+            DomainEvents = new Collection<IEventData>();
+        }
+
+        /// <summary>
+        /// Creates a new instance of the <see cref="AggregateRoot">AggregateRoot</see> class given a key, and some metadata.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <param name="name">The name of the object.</param>
+        /// <param name="culture">The culture for this entity</param>
+        public AggregateRoot(TPrimaryKey id, ElementName name, CultureInfo culture) : base(id, name, culture)
+        {
+            DomainEvents = new Collection<IEventData>();
+        }
+
+        /// <summary>
+        /// Creates a new instance of the <see cref="AggregateRoot">AggregateRoot</see> class given a key, and some metadata.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <param name="name">The name of the object.</param>
+        /// <param name="culture">The culture for this entity</param>
+        public AggregateRoot(TPrimaryKey id, ElementName name, ElementDescription description, CultureInfo culture) : base(id, name, description, culture)
+        {
+            DomainEvents = new Collection<IEventData>();
+        }
+
+        /// <summary>
+        /// Serialization constructor used for deserialization
+        /// </summary>
+        /// <param name="info">The serialization info</param>
+        /// <param name="context">The context of the stream</param>
+        public AggregateRoot(SerializationInfo info, StreamingContext context) : base(info, context)
+        {
+            DomainEvents = (Collection<IEventData>)info.GetValue("DomainEvents", typeof(Collection<IEventData>));
+        }
+
+        /// <summary>
+        /// The method required for implementing ISerializable
+        /// </summary>
+        /// <param name="info">The information.</param>
+        /// <param name="context">The context.</param>
+        public override void GetObjectData(SerializationInfo info, StreamingContext context)
+        {
+            base.GetObjectData(info, context);
+            info.AddValue("DomainEvents", DomainEvents);
         }
     }
 }
