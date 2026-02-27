@@ -42,11 +42,8 @@ namespace Deploy.LaunchPad.Core.Domain.Entities
     /// </summary>
     /// <typeparam name="TPrimaryKey">Type of the primary key of the entity</typeparam>
     public partial interface IEntity<TPrimaryKey> : 
-        ILaunchPadObject, 
-        ILaunchPadMinimalProperties, 
-        IMustHaveId<TPrimaryKey>,
-        IMayHaveChecksumValue,
-        IMayHaveTags,
+        ILaunchPadObject,
+        ILaunchPadDomainEntityProperties<TPrimaryKey>,
         IComparable<Entity<TPrimaryKey>>, IEquatable<Entity<TPrimaryKey>>,
         ICloneable, IAmCloneable<Entity<TPrimaryKey>>
     {
@@ -56,5 +53,12 @@ namespace Deploy.LaunchPad.Core.Domain.Entities
         /// </summary>
         /// <returns>True, if this entity is transient</returns>
         bool IsTransient();
+
+        /// <summary>
+        /// Calculate the Checksum value of this entity, based on chosen properties.
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        string ComputeChecksum(string input = "");
     }
 }

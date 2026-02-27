@@ -45,6 +45,7 @@ using System.Xml.Serialization;
 using Deploy.LaunchPad.Util.Elements;
 using Deploy.LaunchPad.Core.Domain.Entities;
 using Deploy.LaunchPad.Core.Domain.Entities.Auditing;
+using Deploy.LaunchPad.Core.Metadata;
 
 namespace Deploy.LaunchPad.Core.Entities
 {
@@ -58,83 +59,28 @@ namespace Deploy.LaunchPad.Core.Entities
     [DebuggerDisplay("{_debugDisplay}")]
     [Serializable]
     public abstract partial class LaunchPadDomainEntityBase<TIdType> :
-        FullAuditedEntity<TIdType>, ILaunchPadDomainEntity<TIdType>
+        FullAuditedEntity<TIdType>, ILaunchPadDomainEntity<TIdType>, IMayHaveSequenceNumber, IMayHaveCulture
     {
-        
+
         ///// <summary>
         ///// Controls the DebuggerDisplay attribute presentation (above). This will only appear during VS debugging sessions and should never be logged.
         ///// </summary>
         ///// <value>The debug display.</value>
         //protected virtual string _debugDisplay => $"Name {Name}. Description {Description}";
 
-        //protected ElementName _name;
-        ///// <summary>
-        ///// The name of this object
-        ///// </summary>
-        ///// <value>The name.</value>
-        //[Required]
-        //[DataObjectField(false)]
-        //[XmlAttribute]
-        //public virtual ElementName Name 
-        //{ 
-        //    get { return _name; }
-        //    set { _name = value; }
-        //}
-
-        //protected ElementDescription _description;
-        ///// <summary>
-        ///// A  description for this entity
-        ///// </summary>
-        ///// <value>The description.</value>
-        //[Required]
-        //[DataObjectField(false)]
-        //[XmlAttribute]
-        //public virtual ElementDescription Description
-        //{
-        //    get { return _description; }
-        //    set { _description = value; }
-        //}
-
+        protected bool _isActive = true;
         /// <summary>
-        /// If this object is a regular domain entity, an aggregate root, or an aggregate child
+        /// Gets or sets a value indicating whether this instance is active.
         /// </summary>
-        /// <value>The type of the entity.</value>
+        /// <value><c>true</c> if this instance is active; otherwise, <c>false</c>.</value>
         [DataObjectField(false)]
         [XmlAttribute]
-        public virtual DomainEntityType EntityType { get; } = DomainEntityType.DomainEntity;
-
-
-        protected CultureInfo _culture;
-        /// <summary>
-        /// The culture of this object
-        /// </summary>
-        /// <value>The culture.</value>
-        [Required]
-        [MaxLength(5, ErrorMessageResourceName = "Validation_Culture_5CharsOrLess", ErrorMessageResourceType = typeof(Deploy_LaunchPad_Core_Resources))]
-        [DataObjectField(false)]
-        [DataMember(Name = "culture", EmitDefaultValue = false)]
-        [XmlAttribute]
-        public virtual CultureInfo Culture
+        public virtual bool IsActive
         {
-            get { return _culture; }
-            set { _culture = value; }
+            get { return _isActive; }
+            set { _isActive = value; }
         }
 
-
-        //protected string _checksum;
-        ///// <summary>
-        ///// The checksum for this  object, if any
-        ///// </summary>
-        ///// <value>The checksum.</value>
-        //[MaxLength(40, ErrorMessageResourceName = "Validation_Checksum_40CharsOrLess", ErrorMessageResourceType = typeof(Deploy_LaunchPad_Core_Resources))]
-        //[DataObjectField(false)]
-        //[DataMember(Name = "checksum", EmitDefaultValue = false)]
-        //[XmlAttribute]
-        //public virtual string Checksum
-        //{
-        //    get { return _checksum; }
-        //    set { _checksum = value; }
-        //}
 
         protected int? _seqNum;
         /// <summary>
@@ -150,31 +96,20 @@ namespace Deploy.LaunchPad.Core.Entities
             set { _seqNum = value; }
         }
 
-        protected string _tags = "{}";
+        protected CultureInfo _culture;
         /// <summary>
-        /// Each entity can have an open-ended set of tags applied to it, that help users find, markup, and display its information
+        /// The culture of this object
         /// </summary>
-        /// <value>The tags.</value>
+        /// <value>The culture.</value>
+        [Required]
+        [MaxLength(5, ErrorMessageResourceName = "Validation_Culture_5CharsOrLess", ErrorMessageResourceType = typeof(Deploy_LaunchPad_Core_Resources))]
         [DataObjectField(false)]
-        [DataMember(Name = "tags", EmitDefaultValue = false)]
+        [DataMember(Name = "culture", EmitDefaultValue = false)]
         [XmlAttribute]
-        public virtual string Tags 
+        public virtual CultureInfo Culture
         {
-            get { return _tags; }
-            set { _tags = value; }
-        }
-
-        protected bool _isActive = true;
-        /// <summary>
-        /// Gets or sets a value indicating whether this instance is active.
-        /// </summary>
-        /// <value><c>true</c> if this instance is active; otherwise, <c>false</c>.</value>
-        [DataObjectField(false)]
-        [XmlAttribute]
-        public virtual bool IsActive
-        {
-            get { return _isActive; }
-            set { _isActive = value; }
+            get { return _culture; }
+            set { _culture = value; }
         }
 
         protected string _creatorUserName;
@@ -222,30 +157,6 @@ namespace Deploy.LaunchPad.Core.Entities
             get { return _deleterUserName; }
             set { _deleterUserName = value; }
         }
-
-
-        ///// <summary>
-        ///// Computes the checksum based on the chosen properties
-        ///// </summary>
-        ///// <returns></returns>
-        //public virtual string ComputeChecksum(string input = "")
-        //{
-        //    Checksum checksum = new Checksum();
-        //    // Concatenate the values of the properties you want to include in the checksum
-        //    if(string.IsNullOrEmpty(input))
-        //    {
-        //        input = $"{Name}{Description}{Tags}{Culture}{CreatorUserId}{SeqNum}{IsActive}";
-        //    }
-        //    var bytes = checksum.GetSha256HashAsBytes(input);
-            
-        //    // Convert the byte array to a hexadecimal string
-        //    StringBuilder sb = new StringBuilder();
-        //    foreach (byte b in bytes)
-        //    {
-        //        sb.Append(b.ToString("x2"));
-        //    }
-        //    return sb.ToString();
-        //}
 
         /// <summary>
         /// Initializes a new instance of the <see cref="DomainEntityBase">Entity</see> class

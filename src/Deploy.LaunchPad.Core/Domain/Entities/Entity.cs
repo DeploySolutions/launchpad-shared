@@ -110,6 +110,14 @@ namespace Deploy.LaunchPad.Core.Domain.Entities
         }
 
         /// <summary>
+        /// If this object is a regular domain entity, an aggregate root, or an aggregate child
+        /// </summary>
+        /// <value>The type of the entity.</value>
+        [DataObjectField(false)]
+        [XmlAttribute]
+        public virtual DomainEntityType EntityType { get; } = DomainEntityType.DomainEntity;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="Entity">Entity</see> class
         /// </summary>
         protected Entity() : base()

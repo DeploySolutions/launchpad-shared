@@ -23,8 +23,12 @@ namespace Deploy.LaunchPad.Core.Entities
     /// Defines the minimum properties LaunchPad expects to have for a Domain Entity or Value Object.
     /// Note these deliberately correspond 1:1 to many of the properties found in various ABP domain entity interfaces, which would also be inherited by implementing classes.
     /// </summary>
-    /// <typeparam name="TIdType">The type of the t identifier type.</typeparam>
-    public partial interface ILaunchPadDomainEntityProperties<TIdType> : ILaunchPadCoreProperties, IMustHaveId<TIdType>
+    /// <typeparam name="TPrimaryKey">The type of the primary key.</typeparam>
+    public partial interface ILaunchPadDomainEntityProperties<TPrimaryKey> :
+        ILaunchPadMinimalProperties, 
+        IMustHaveId<TPrimaryKey>,
+        IMayHaveTags,
+        IMayHaveChecksumValue
     {
         /// <summary>
         /// If this object is a regular domain entity, an aggregate root, or an aggregate child

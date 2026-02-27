@@ -28,18 +28,11 @@ namespace Deploy.LaunchPad.Core.Metadata
     /// </summary>
     public partial interface ILaunchPadCoreProperties : 
         ILaunchPadMinimalProperties,         
-        IMayHaveTags
+        IMayHaveTags,
+        IMayHaveChecksumValue
     {
         
-        /// <summary>
-        /// The checksum for this  object, if any
-        /// </summary>
-        /// <value>The checksum.</value>
-        [MaxLength(40, ErrorMessageResourceName = "Validation_Checksum_40CharsOrLess", ErrorMessageResourceType = typeof(Deploy_LaunchPad_Core_Resources))]
-        [DataObjectField(false)]
-        [XmlElement]
-        public string? Checksum { get; }
-
+        
         /// <summary>
         /// The sequence number for this value object, if any (for sorting and ordering purposes).
         /// </summary>
