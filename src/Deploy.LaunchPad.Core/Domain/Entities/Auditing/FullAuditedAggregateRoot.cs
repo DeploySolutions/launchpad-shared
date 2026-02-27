@@ -309,7 +309,7 @@ namespace Deploy.LaunchPad.Core.Domain.Entities.Auditing
     /// <typeparam name="TUser">Type of the user</typeparam>
     [Serializable]
     public abstract partial class FullAuditedAggregateRoot<TPrimaryKey, TUser> : AuditedAggregateRoot<TPrimaryKey, TUser>, IFullAudited<TUser>
-        where TUser : IEntity<long>
+        where TUser : IEntity<System.Guid>
     {
         /// <summary>
         /// Is this entity Deleted?

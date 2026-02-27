@@ -83,7 +83,7 @@ namespace Deploy.LaunchPad.Core.Domain.Entities.Auditing
     /// </summary>
     /// <typeparam name="TUser">Type of the user</typeparam>
     public partial interface IAudited<TUser> : IAudited, ICreationAudited<TUser>, IModificationAudited<TUser>
-        where TUser : IEntity<long>
+        where TUser : IEntity<System.Guid>
     {
 
     }

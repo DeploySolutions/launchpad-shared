@@ -48,7 +48,7 @@ namespace Deploy.LaunchPad.Core.Domain.Entities.Auditing
     /// </summary>
     /// <typeparam name="TUser">Type of the user</typeparam>
     public partial interface IDeletionAudited<TUser> : IDeletionAudited
-        where TUser : IEntity<long>
+        where TUser : IEntity<System.Guid>
     {
         /// <summary>
         /// Reference to the deleter user of this entity.
