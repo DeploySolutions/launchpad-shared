@@ -80,7 +80,7 @@ namespace Deploy.LaunchPad.Core.Domain.Entities
         /// </summary>
         public virtual required TPrimaryKey Id { get; set; }
 
-        protected string _checksumValue;
+        protected string _checksumValue = string.Empty;
         /// <summary>
         /// The checksum for this  object, if any
         /// </summary>
@@ -278,6 +278,10 @@ namespace Deploy.LaunchPad.Core.Domain.Entities
                 return true;
             }
 
+            if (typeof(TPrimaryKey) == typeof(Guid))
+            {
+                return Id.Equals(default(TPrimaryKey));
+            }
             //Workaround for EF Core since it sets int/long to min value when attaching to dbcontext
             if (typeof(TPrimaryKey) == typeof(int))
             {
