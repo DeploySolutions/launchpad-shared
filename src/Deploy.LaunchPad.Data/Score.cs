@@ -30,7 +30,7 @@ namespace Deploy.LaunchPad.Data
         [JsonProperty("name")]
         [DataObjectField(false)]
         [XmlAttribute]
-        public virtual ElementNameLight Name { get; set; } = new ElementNameLight();
+        public virtual ElementNameLight Name { get; set; }
 
         /// <summary>
         /// Provides a description of the purpose of a particular score, useful for display purposes

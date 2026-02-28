@@ -6,6 +6,7 @@ using System.Xml.Serialization;
 using System;
 using Newtonsoft.Json;
 using Deploy.LaunchPad.Util.ValueConverters;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Deploy.LaunchPad.Util.Elements
 {
@@ -91,10 +92,12 @@ namespace Deploy.LaunchPad.Util.Elements
         }
 
 
-        public ElementName() : base()
+        [SetsRequiredMembers]
+        protected ElementName() : base()
         {
         }
 
+        [SetsRequiredMembers]
         public ElementName(string fullName) : base(fullName)
         {
             Full = fullName;
@@ -104,6 +107,7 @@ namespace Deploy.LaunchPad.Util.Elements
             }
         }
 
+        [SetsRequiredMembers]
         public ElementName(string fullName, string shortName) : base(fullName, shortName)
         {
             Full = fullName;
@@ -114,6 +118,7 @@ namespace Deploy.LaunchPad.Util.Elements
         }
 
 
+        [SetsRequiredMembers]
         public ElementName(string fullName, string shortName, string prefix, string suffix) : base(fullName, shortName)
         {
             Full = fullName;

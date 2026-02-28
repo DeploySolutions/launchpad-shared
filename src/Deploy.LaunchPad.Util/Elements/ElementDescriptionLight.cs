@@ -1,11 +1,12 @@
-﻿using System.ComponentModel;
+﻿using Deploy.LaunchPad.Util.ValueConverters;
+using Newtonsoft.Json;
+using System;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Xml.Serialization;
 using System.Diagnostics;
-using System;
-using Newtonsoft.Json;
-using Deploy.LaunchPad.Util.ValueConverters;
+using System.Diagnostics.CodeAnalysis;
+using System.Xml.Serialization;
 
 namespace Deploy.LaunchPad.Util.Elements
 {
@@ -29,7 +30,7 @@ namespace Deploy.LaunchPad.Util.Elements
         [DataObjectField(false)]
         [XmlElement]
         [JsonProperty("full")]
-        public virtual string Full
+        public virtual required string Full
         {
             get
             {
@@ -41,15 +42,18 @@ namespace Deploy.LaunchPad.Util.Elements
             }
         }
 
-        public ElementDescriptionLight()
+        protected ElementDescriptionLight()
         {
+            Full = string.Empty;
         }
 
+        [SetsRequiredMembers]
         public ElementDescriptionLight(string fullDescription)
         {
             Full = fullDescription;
         }
 
+        [SetsRequiredMembers]
         public ElementDescriptionLight(string fullDescription, string shortDescription)
         {
             Full = fullDescription;

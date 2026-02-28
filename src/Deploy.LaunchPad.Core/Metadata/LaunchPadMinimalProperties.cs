@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Diagnostics.CodeAnalysis;
 using System.Runtime.Serialization;
 using System.Text;
@@ -19,9 +20,11 @@ namespace Deploy.LaunchPad.Core.Metadata
         /// The name of this object
         /// </summary>
         /// <value>The name.</value>
+        [Required]
         [DataObjectField(false)]
         [XmlAttribute]
         [JsonPropertyName("name")]
+        [NotMapped]
         public virtual ElementName Name
         {
             get { return _name; }
@@ -37,29 +40,28 @@ namespace Deploy.LaunchPad.Core.Metadata
         [DataObjectField(false)]
         [XmlAttribute]
         [JsonPropertyName("description")]
+        [NotMapped]
         public virtual ElementDescription Description
         {
             get { return _description; }
             set { _description = value; }
         }
 
-        public LaunchPadMinimalProperties()
+        protected LaunchPadMinimalProperties()
         {
-            _name = new ElementName();
-            _description = new ElementDescription();
         }
 
-        protected LaunchPadMinimalProperties(string name, string description = null)
+        public LaunchPadMinimalProperties(string name, string description = null)
         {
             _name = new ElementName(name);
-            _description = description != null ? new ElementDescription(description) : new ElementDescription();
+            _description = new ElementDescription(description);
         }
 
 
         protected LaunchPadMinimalProperties(ElementName name, ElementDescription description = null)
         {
             _name = name;
-            _description = description ?? new ElementDescription();
+            _description = description;
         }
 
         /// <summary>

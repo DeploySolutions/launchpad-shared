@@ -1,11 +1,12 @@
-﻿using System.ComponentModel;
+﻿using Deploy.LaunchPad.Util.ValueConverters;
+using Newtonsoft.Json;
+using System;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Xml.Serialization;
 using System.Diagnostics;
-using System;
-using Newtonsoft.Json;
-using Deploy.LaunchPad.Util.ValueConverters;
+using System.Diagnostics.CodeAnalysis;
+using System.Xml.Serialization;
 
 namespace Deploy.LaunchPad.Util.Elements
 {
@@ -44,22 +45,28 @@ namespace Deploy.LaunchPad.Util.Elements
             }
         }
 
-        public ElementDescription()
+        [SetsRequiredMembers]
+        protected ElementDescription() :base()
         {
         }
 
+        [SetsRequiredMembers]
         public ElementDescription(string fullDescription)
         {
-            Full = fullDescription;
             if (!string.IsNullOrEmpty(fullDescription))
             {
+                Full = fullDescription;
                 Short = fullDescription.Length > 255 ? fullDescription.Substring(0, 255) : fullDescription;
             }
         }
 
+        [SetsRequiredMembers]
         public ElementDescription(string fullDescription, string shortDescription)
         {
-            Full = fullDescription;
+            if (!string.IsNullOrEmpty(fullDescription))
+            {
+                Full = fullDescription;
+            }
             if (!string.IsNullOrEmpty(shortDescription))
             {
                 Short = shortDescription.Length > 255 ? shortDescription.Substring(0, 255) : shortDescription;
