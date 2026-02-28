@@ -7,16 +7,17 @@ using System;
 using Newtonsoft.Json;
 using Deploy.LaunchPad.Util.ValueConverters;
 using System.Diagnostics.CodeAnalysis;
+using Microsoft.EntityFrameworkCore;
 
 namespace Deploy.LaunchPad.Util.Elements
 {
-    [Serializable]      
-    [ComplexType]
+    [Serializable]   
+    [Owned]
     [DebuggerDisplay("{_debugDisplay}")]
     [JsonConverter(typeof(ElementNameJsonConverter))]
     public partial class ElementName : ElementNameLight, IElementName
     {
-        protected string _short = string.Empty;
+        protected string _shortName = string.Empty;
         /// <summary>
         /// The short name of this element (if different from the FullName field). If not set, it will default to the first 50 characters of the full name.
         /// </summary>
@@ -26,71 +27,25 @@ namespace Deploy.LaunchPad.Util.Elements
         [XmlAttribute]
         [JsonProperty("short", NullValueHandling = NullValueHandling.Ignore, DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
         [JsonConverter(typeof(JsonEmptyStringToNullConverter))]
+        [Column("core_name_short")]
         public virtual string Short
         {
             get
             {
-                if (string.IsNullOrEmpty(_short))
+                if (string.IsNullOrEmpty(_shortName))
                 {
                     return Full;
                 }
                 else
                 {
-                    return _short;
+                    return _shortName;
                 }
             }
             set
             {
-                _short = value;
+                _shortName = value;
             }
         }
-
-
-        protected string? _prefix;
-        /// <summary>
-        /// The prefix, if any
-        /// </summary>
-        /// <value>The prefix of the element.</value>
-        [MaxLength(12, ErrorMessageResourceName = "Validation_12CharsOrLess", ErrorMessageResourceType = typeof(Deploy_LaunchPad_Util_Resources))]
-        [DataObjectField(false)]
-        [XmlAttribute]
-        [JsonProperty("prefix", NullValueHandling = NullValueHandling.Ignore, DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
-        [JsonConverter(typeof(JsonEmptyStringToNullConverter))]
-        public virtual string? Prefix
-        {
-            get
-            {
-                return _prefix;
-            }
-            set
-            {
-                _prefix = value;
-            }
-        }
-
-
-        protected string? _suffix;
-        /// <summary>
-        /// The suffix, if any
-        /// </summary>
-        /// <value>The suffix of the element.</value>
-        [MaxLength(12, ErrorMessageResourceName = "Validation_12CharsOrLess", ErrorMessageResourceType = typeof(Deploy_LaunchPad_Util_Resources))]
-        [DataObjectField(false)]
-        [XmlAttribute]
-        [JsonProperty("suffix", NullValueHandling = NullValueHandling.Ignore, DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
-        [JsonConverter(typeof(JsonEmptyStringToNullConverter))]
-        public virtual string? Suffix
-        {
-            get
-            {
-                return _suffix;
-            }
-            set
-            {
-                _suffix = value;
-            }
-        }
-
 
         [SetsRequiredMembers]
         protected ElementName() : base()
@@ -126,8 +81,6 @@ namespace Deploy.LaunchPad.Util.Elements
             {
                 Short = shortName.Length > 50 ? shortName.Substring(0, 50) : shortName;
             }
-            Prefix = prefix;
-            Suffix = suffix;
         }
 
         /// <summary>
@@ -143,8 +96,6 @@ namespace Deploy.LaunchPad.Util.Elements
             // for base object we'll just sort by DisplayName
             return Full.CompareTo(other.Full)
                 & Short.CompareTo(other.Short)
-                & Prefix.CompareTo(other.Prefix)
-                & Suffix.CompareTo(other.Suffix)
             ;
         }
 
@@ -186,9 +137,8 @@ namespace Deploy.LaunchPad.Util.Elements
             if (obj != null)
             {
                 return string.Equals(Full, obj.Full, StringComparison.Ordinal) &&
-                    string.Equals(Short, obj.Short, StringComparison.Ordinal) &&
-                    string.Equals(Prefix, obj.Prefix, StringComparison.Ordinal) &&
-                    string.Equals(Suffix, obj.Suffix, StringComparison.Ordinal);
+                    string.Equals(Short, obj.Short, StringComparison.Ordinal)
+                ;
             }
             return false;
         }
@@ -232,8 +182,6 @@ namespace Deploy.LaunchPad.Util.Elements
         {
             return Full.GetHashCode()
                 + Short.GetHashCode()
-                + (Prefix?.GetHashCode() ?? 0)
-                + (Suffix?.GetHashCode() ?? 0)
             ;
         }
 
@@ -242,9 +190,7 @@ namespace Deploy.LaunchPad.Util.Elements
             // Create a new instance and copy all relevant properties
             return new ElementName(
                 fullName: this.Full,
-                shortName: this.Short,
-                prefix: this.Prefix,
-                suffix: this.Suffix
+                shortName: this.Short
             );
         }
         object ICloneable.Clone() => CloneGeneric();

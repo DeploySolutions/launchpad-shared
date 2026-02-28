@@ -1,4 +1,5 @@
 ﻿using Deploy.LaunchPad.Util.ValueConverters;
+using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using System;
 using System.ComponentModel;
@@ -11,7 +12,7 @@ using System.Xml.Serialization;
 namespace Deploy.LaunchPad.Util.Elements
 {
     [Serializable]
-    [ComplexType]
+    [Owned]
     [DebuggerDisplay("{_debugDisplay}")]
     public partial class ElementDescriptionLight : IElementDescriptionLight
     {
@@ -21,7 +22,6 @@ namespace Deploy.LaunchPad.Util.Elements
         /// <value>The debug display.</value>
         protected virtual string _debugDisplay => $"{Full}.";
 
-        protected string _full = string.Empty;
         /// <summary>
         /// The full description for this object
         /// </summary>
@@ -30,21 +30,12 @@ namespace Deploy.LaunchPad.Util.Elements
         [DataObjectField(false)]
         [XmlElement]
         [JsonProperty("full")]
-        public virtual required string Full
-        {
-            get
-            {
-                return _full;
-            }
-            set
-            {
-                _full = value;
-            }
-        }
+        [Column("core_description_full")]        
+        public virtual required string Full { get; set; } = string.Empty;
 
+        [SetsRequiredMembers]
         protected ElementDescriptionLight()
         {
-            Full = string.Empty;
         }
 
         [SetsRequiredMembers]

@@ -368,8 +368,8 @@ namespace Deploy.LaunchPad.Core.Domain.Entities
         {
             var clone = (Entity<TPrimaryKey>)this.MemberwiseClone();
             // Deep clone reference-type fields as needed
-            clone._name = _name?.CloneGeneric(); // assuming ElementName has a Clone() method
-            clone._description = _description?.CloneGeneric(); // assuming ElementDescription has a Clone() method
+            clone.Name = Name?.CloneGeneric(); // assuming ElementName has a Clone() method
+            clone.Description = Description?.CloneGeneric(); // assuming ElementDescription has a Clone() method
                                                                // ...repeat for other reference-type fields if needed
             return clone;
         }

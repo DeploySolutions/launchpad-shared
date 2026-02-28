@@ -604,24 +604,6 @@ namespace Deploy.LaunchPad.Util.Helpers
                 nameElement.AppendChild(shortChildElement);
             }
 
-            // Suffix property
-            if (!string.IsNullOrEmpty(name.Suffix))
-            {
-                XmlElement suffixChildElement = new XmlDocument().CreateElement("core:Suffix");
-                XmlCDataSection suffixCdata = doc.CreateCDataSection(name.Suffix);
-                suffixChildElement.AppendChild(suffixCdata);
-                nameElement.AppendChild(suffixChildElement);
-            }
-
-            // Prefix property
-            if (!string.IsNullOrEmpty(name.Prefix))
-            {
-                XmlElement prefixChildElement = new XmlDocument().CreateElement("core:Prefix");
-                XmlCDataSection prefixChildElementCdata = doc.CreateCDataSection(name.Prefix);
-                prefixChildElement.AppendChild(prefixChildElementCdata);
-                nameElement.AppendChild(prefixChildElement);
-            }
-
             return nameElement;
         }
 
@@ -817,14 +799,7 @@ namespace Deploy.LaunchPad.Util.Helpers
             {
                 sbXml.Append(CreateXmlElementString("core:Short", name.Short.Trim(), true));
             }
-            if (!string.IsNullOrEmpty(name.Suffix))
-            {
-                sbXml.Append(CreateXmlElementString("core:Suffix", name.Suffix.Trim(), true));
-            }
-            if (!string.IsNullOrEmpty(name.Prefix))
-            {
-                sbXml.Append(CreateXmlElementString("core:Prefix", name.Prefix.Trim(), true));
-            }
+            
             sbXml.Append(CreateXmlClosingElementString(topLevelNodePrefix + "Name"));
             return sbXml;
         }

@@ -7,8 +7,6 @@ namespace Deploy.LaunchPad.Util.Elements
         IEquatable<ElementName>,
         ICloneable, IAmCloneable<ElementName>
     {
-        public string Prefix { get; set; }
         public string Short { get; set; }
-        public string Suffix { get; set; }
     }
 }

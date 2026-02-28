@@ -1,4 +1,5 @@
 ﻿using Deploy.LaunchPad.Util.ValueConverters;
+using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using System;
 using System.ComponentModel;
@@ -10,8 +11,8 @@ using System.Xml.Serialization;
 
 namespace Deploy.LaunchPad.Util.Elements
 {
-    [Serializable]      
-    [ComplexType]
+    [Serializable]
+    [Owned]
     [DebuggerDisplay("{_debugDisplay}")]
     [JsonConverter(typeof(ElementNameLightJsonConverter))]
     public partial class ElementNameLight : IElementNameLight
@@ -22,8 +23,6 @@ namespace Deploy.LaunchPad.Util.Elements
         /// <value>The debug display.</value>
         protected virtual string _debugDisplay => $"{Full}.";
 
-
-        protected string _full = string.Empty;
         /// <summary>
         /// The full name of this element
         /// </summary>
@@ -32,22 +31,12 @@ namespace Deploy.LaunchPad.Util.Elements
         [DataObjectField(false)]
         [XmlAttribute]
         [JsonProperty("full")]
-        public required virtual string Full
-        {
-            get
-            {
-                return _full;
-            }
-            set
-            {
-                _full = value;
-            }
-        }
+        [Column("core_name_full")]
+        public required virtual string Full { get; set; } = String.Empty;
 
         [SetsRequiredMembers]
         protected ElementNameLight() 
         {
-            Full = string.Empty;
         }
 
         [SetsRequiredMembers]

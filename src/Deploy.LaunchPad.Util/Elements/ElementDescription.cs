@@ -1,4 +1,5 @@
 ﻿using Deploy.LaunchPad.Util.ValueConverters;
+using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using System;
 using System.ComponentModel;
@@ -11,12 +12,12 @@ using System.Xml.Serialization;
 namespace Deploy.LaunchPad.Util.Elements
 {
     [Serializable]
-    [ComplexType]
+    [Owned]
     [DebuggerDisplay("{_debugDisplay}")]
     public partial class ElementDescription : ElementDescriptionLight, IElementDescription
     {
 
-        protected string _short = string.Empty;
+        protected string _shortDescription = string.Empty;
         /// <summary>
         /// A short description for this object. If not set, it will default to the first 255 characters of the full description.
         /// </summary>
@@ -26,22 +27,23 @@ namespace Deploy.LaunchPad.Util.Elements
         [XmlAttribute]
         [JsonProperty("short", NullValueHandling = NullValueHandling.Ignore, DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
         [JsonConverter(typeof(JsonEmptyStringToNullConverter))]
+        [Column("core_description_short")]
         public virtual string Short
         {
             get
             {
-                if (string.IsNullOrEmpty(_short))
+                if (string.IsNullOrEmpty(_shortDescription))
                 {
                     return Full;
                 }
                 else
                 {
-                    return _short;
+                    return _shortDescription;
                 }
             }
             set
             {
-                _short = value;
+                _shortDescription = value;
             }
         }
 

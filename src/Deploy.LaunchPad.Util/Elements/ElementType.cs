@@ -1,6 +1,7 @@
 ﻿using Castle.Core.Logging;
 using Deploy.LaunchPad.Util;
 using Deploy.LaunchPad.Util.ValueConverters;
+using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -14,11 +15,10 @@ using System.Xml.Serialization;
 namespace Deploy.LaunchPad.Util.Elements
 {
     [Serializable]
-    [ComplexType]
+    [Owned]
     public partial class ElementType : IElementType
     {
 
-        protected string _fullyQualifiedType = string.Empty;
         /// <summary>
         ///The fully qualified type of the object.
         /// </summary>
@@ -30,18 +30,8 @@ namespace Deploy.LaunchPad.Util.Elements
         [XmlAttribute]
         [JsonProperty("fullyQualifiedType", NullValueHandling = NullValueHandling.Ignore, DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
         [JsonConverter(typeof(JsonEmptyStringToNullConverter))]
-        public virtual string FullyQualifiedType
-        {
-            get
-            {
-                return _fullyQualifiedType;
-            }
-            set
-            {
-                _fullyQualifiedType = value;
-            }
-        }
-        protected string _type = string.Empty;
+        public virtual string FullyQualifiedType { get; set; } = string.Empty;
+        
         /// <summary>
         /// The type of this object (it should of course be identical to calling GetType() but is intended for storage for documentation purposes or sharing externally).
         /// </summary>
@@ -51,21 +41,9 @@ namespace Deploy.LaunchPad.Util.Elements
         [XmlAttribute]
         [JsonProperty("typeName", NullValueHandling = NullValueHandling.Ignore, DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
         [JsonConverter(typeof(JsonEmptyStringToNullConverter))]
-        public virtual string TypeName
-        {
-            get
-            {
-                return _type;
-
-            }
-            set
-            {                 
-                _type = value;
-            }
-        }
+        public virtual string TypeName{ get; set; } = string.Empty;
 
 
-        protected string _namespace = string.Empty;
         /// <summary>
         /// The namespace of this object
         /// </summary>
@@ -74,9 +52,8 @@ namespace Deploy.LaunchPad.Util.Elements
         [XmlAttribute]
         [JsonProperty("namespace", NullValueHandling = NullValueHandling.Ignore)]
         [JsonConverter(typeof(JsonEmptyStringToNullConverter))]
-        public virtual string Namespace { get { return _namespace; } set { _namespace = value; } }
+        public virtual string Namespace { get; set; } = string.Empty;
 
-        protected string _assemblyFullyQualifiedName = string.Empty;
         /// <summary>
         /// The fully qualified namename of the assembly.
         /// </summary>
@@ -86,19 +63,8 @@ namespace Deploy.LaunchPad.Util.Elements
         [XmlAttribute]
         [JsonProperty("assemblyFullyQualifiedName", NullValueHandling = NullValueHandling.Ignore, DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
         [JsonConverter(typeof(JsonEmptyStringToNullConverter))]
-        public virtual string AssemblyFullyQualifiedName
-        {
-            get
-            {
-                return _assemblyFullyQualifiedName;
-            }
-            set
-            {
-                _assemblyFullyQualifiedName = value;
-            }
-        }
+        public virtual string AssemblyFullyQualifiedName { get; set; } = string.Empty;
 
-        protected string _assemblyName = string.Empty;
         /// <summary>
         /// The name of the assembly.
         /// </summary>
@@ -108,19 +74,8 @@ namespace Deploy.LaunchPad.Util.Elements
         [XmlAttribute]
         [JsonProperty("assemblyName", NullValueHandling = NullValueHandling.Ignore, DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
         [JsonConverter(typeof(JsonEmptyStringToNullConverter))]
-        public virtual string AssemblyName
-        {
-            get
-            {
-                return _assemblyName;
-            }
-            set
-            {
-                _assemblyName = value;
-            }
-        }
+        public virtual string AssemblyName { get; set; } = string.Empty;
 
-        protected ElementType _parentElementType;
         /// <summary>
         ///The ElementType of the object's parent.
         /// </summary>
@@ -129,17 +84,7 @@ namespace Deploy.LaunchPad.Util.Elements
         [DataObjectField(false)]
         [XmlAttribute]
         [JsonProperty("parentElementType", NullValueHandling = NullValueHandling.Ignore, DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
-        public virtual ElementType ParentElementType
-        {
-            get
-            {
-                return _parentElementType;
-            }
-            set
-            {
-                _parentElementType = value;
-            }
-        }
+        public virtual ElementType ParentElementType{ get; set; }
 
         /// <summary>
         /// Gets or sets the ElementTypes of any children.
@@ -186,11 +131,11 @@ namespace Deploy.LaunchPad.Util.Elements
                 ? typeFullName.Substring(0, lastDotIndex)
                 : string.Empty;
 
-            _assemblyFullyQualifiedName = assemblyFullyQualifiedName;
-            _assemblyName = assemblyDisplayName.Split(',')[0].Trim();
-            _fullyQualifiedType = typeFullName;
-            _namespace = @namespace;
-            _type = typeName;
+            AssemblyFullyQualifiedName = assemblyFullyQualifiedName;
+            AssemblyName = assemblyDisplayName.Split(',')[0].Trim();
+            FullyQualifiedType = typeFullName;
+            Namespace = @namespace;
+            TypeName = typeName;
             ChildrenElementTypes = new Dictionary<string, ElementType>();
             InheritsFrom = new Dictionary<string, string>();
         }

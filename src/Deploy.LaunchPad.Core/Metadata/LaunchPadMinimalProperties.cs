@@ -1,4 +1,5 @@
 ﻿using Deploy.LaunchPad.Util.Elements;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -14,38 +15,23 @@ namespace Deploy.LaunchPad.Core.Metadata
 {
     public partial class LaunchPadMinimalProperties : ILaunchPadMinimalProperties
     {
-
-        protected ElementName _name;
         /// <summary>
         /// The name of this object
         /// </summary>
         /// <value>The name.</value>
-        [Required]
         [DataObjectField(false)]
         [XmlAttribute]
         [JsonPropertyName("name")]
-        [NotMapped]
-        public virtual ElementName Name
-        {
-            get { return _name; }
-            set { _name = value; }
-        }
+        public virtual ElementName Name { get; set;  }
 
-        protected ElementDescription _description;
         /// <summary>
         /// A  description for this entity
         /// </summary>
         /// <value>The description.</value>
-        [Required]
         [DataObjectField(false)]
         [XmlAttribute]
         [JsonPropertyName("description")]
-        [NotMapped]
-        public virtual ElementDescription Description
-        {
-            get { return _description; }
-            set { _description = value; }
-        }
+        public virtual ElementDescription Description{ get; set; }
 
         protected LaunchPadMinimalProperties()
         {
@@ -53,15 +39,15 @@ namespace Deploy.LaunchPad.Core.Metadata
 
         public LaunchPadMinimalProperties(string name, string description = null)
         {
-            _name = new ElementName(name);
-            _description = new ElementDescription(description);
+            Name = new ElementName(name);
+            Description = new ElementDescription(description);
         }
 
 
         protected LaunchPadMinimalProperties(ElementName name, ElementDescription description = null)
         {
-            _name = name;
-            _description = description;
+            Name = name;
+            Description = description;
         }
 
         /// <summary>
