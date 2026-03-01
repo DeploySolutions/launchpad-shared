@@ -55,7 +55,7 @@ namespace Deploy.LaunchPad.Util.Timing
             set => EndTime = StartTime.Add(value);
         }
 
-        private static DateTime Now => Clock.Now;
+        private static DateTime Now => Clock.Now.ToUniversalTime();
 
         /// <summary>
         /// Creates a new <see cref="DateTimeRange"/> object.

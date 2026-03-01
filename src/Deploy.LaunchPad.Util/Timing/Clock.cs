@@ -62,7 +62,7 @@ namespace Deploy.LaunchPad.Util.Timing
         /// <summary>
         /// Gets Now using current <see cref="Provider"/>.
         /// </summary>
-        public static DateTime Now => Provider.Now;
+        public static DateTime Now => Provider.Now.ToUniversalTime();
 
         public static DateTimeKind Kind => Provider.Kind;
 

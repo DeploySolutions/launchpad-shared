@@ -31,7 +31,7 @@ namespace Deploy.LaunchPad.Util.Timing
 {
     public partial class UnspecifiedClockProvider : IClockProvider
     {
-        public virtual DateTime Now => DateTime.Now;
+        public virtual DateTime Now => DateTime.Now.ToUniversalTime();
 
         public virtual DateTimeKind Kind => DateTimeKind.Unspecified;
 
