@@ -172,11 +172,13 @@ namespace Deploy.LaunchPad.Core.Domain.Entities.Auditing
         /// <summary>
         /// Creation time of this entity.
         /// </summary>
+        [Column("core_temporal_datetime_utc_created")]
         public virtual DateTime CreationTime { get; set; }
 
         /// <summary>
         /// Creator of this entity.
         /// </summary>
+        [Column("core_user_creator_id")]
         public virtual Guid? CreatorUserId { get; set; }
 
         /// <summary>

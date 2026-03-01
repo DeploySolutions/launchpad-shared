@@ -22,6 +22,7 @@ namespace Deploy.LaunchPad.Core.Metadata
         [DataObjectField(false)]
         [XmlAttribute]
         //[JsonPropertyName("name")]
+        [Column("core_name_full")]
         public virtual string Name { get; set;  }
 
         ///// <summary>

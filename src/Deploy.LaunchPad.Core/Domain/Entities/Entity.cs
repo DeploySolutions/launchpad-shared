@@ -39,6 +39,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
@@ -78,6 +79,7 @@ namespace Deploy.LaunchPad.Core.Domain.Entities
         /// <summary>
         /// Unique identifier for this entity.
         /// </summary>
+        [Column("core_id")]
         public virtual required TPrimaryKey Id { get; set; }
 
         protected string _checksumValue = string.Empty;
@@ -89,6 +91,7 @@ namespace Deploy.LaunchPad.Core.Domain.Entities
         [DataObjectField(false)]
         [DataMember(Name = "checksum", EmitDefaultValue = false)]
         [XmlAttribute]
+        [Column("core_checksum")]
         public virtual string Checksum
         {
             get { return _checksumValue; }
@@ -103,6 +106,7 @@ namespace Deploy.LaunchPad.Core.Domain.Entities
         /// <value>The tags.</value>
         [DataObjectField(false)]
         [DataMember(Name = "tags", EmitDefaultValue = false)]
+        [Column("core_tags", TypeName = "jsonb")]
         [XmlAttribute]
         public virtual string Tags
         {

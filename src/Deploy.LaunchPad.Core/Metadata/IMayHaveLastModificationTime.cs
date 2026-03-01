@@ -6,7 +6,7 @@ using System.Xml.Serialization;
 
 namespace Deploy.LaunchPad.Core.Metadata
 {
-    public partial interface IMayHaveLastModificationTimestamp
+    public partial interface IMayHaveLastModificationTime
     {
 
         /// <summary>

@@ -170,11 +170,13 @@ namespace Deploy.LaunchPad.Core.Domain.Entities.Auditing
         /// <summary>
         /// Last modification date of this entity.
         /// </summary>
+        [Column("core_temporal_datetime_utc_last_modified")]
         public virtual DateTime? LastModificationTime { get; set; }
 
         /// <summary>
         /// Last modifier user of this entity.
         /// </summary>
+        [Column("core_user_last_modifier_id")]
         public virtual Guid? LastModifierUserId { get; set; }
 
         /// <summary>

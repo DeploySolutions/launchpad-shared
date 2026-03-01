@@ -168,16 +168,19 @@ namespace Deploy.LaunchPad.Core.Domain.Entities.Auditing
         /// <summary>
         /// Is this entity Deleted?
         /// </summary>
+        [Column("core_is_deleted")]
         public virtual bool IsDeleted { get; set; }
 
         /// <summary>
         /// Which user deleted this entity?
         /// </summary>
+        [Column("core_user_deleter_id")]
         public virtual Guid? DeleterUserId { get; set; }
 
         /// <summary>
         /// Deletion time of this entity.
         /// </summary>
+        [Column("core_temporal_datetime_utc_deleted")]
         public virtual DateTime? DeletionTime { get; set; }
 
         /// <summary>
@@ -311,6 +314,7 @@ namespace Deploy.LaunchPad.Core.Domain.Entities.Auditing
         /// <summary>
         /// Is this entity Deleted?
         /// </summary>
+        [Column("core_is_deleted")]
         public virtual bool IsDeleted { get; set; }
 
         /// <summary>
@@ -322,11 +326,13 @@ namespace Deploy.LaunchPad.Core.Domain.Entities.Auditing
         /// <summary>
         /// Which user deleted this entity?
         /// </summary>
+        [Column("core_user_deleter_id")]
         public virtual Guid? DeleterUserId { get; set; }
 
         /// <summary>
         /// Deletion time of this entity.
         /// </summary>
+        [Column("core_temporal_datetime_utc_deleted")]
         public virtual DateTime? DeletionTime { get; set; }
 
         /// <summary>

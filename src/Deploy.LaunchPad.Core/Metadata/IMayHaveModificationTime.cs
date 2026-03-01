@@ -31,6 +31,7 @@
 #endregion
 
 using System;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Deploy.LaunchPad.Core.Metadata
 {
@@ -43,6 +44,7 @@ namespace Deploy.LaunchPad.Core.Metadata
         /// <summary>
         /// The last modified time for this entity.
         /// </summary>
+        [Column("core_temporal_datetime_utc_last_modified")]
         DateTime? LastModificationTime { get; set; }
     }
 }

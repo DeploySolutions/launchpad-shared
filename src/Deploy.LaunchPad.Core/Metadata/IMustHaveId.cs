@@ -15,6 +15,8 @@ namespace Deploy.LaunchPad.Core.Metadata
         /// <summary>
         /// Unique identifier for this entity.
         /// </summary>
+        /// 
+        [Column("core_id")]
         public TPrimaryKey Id { get; set; }
 
     }

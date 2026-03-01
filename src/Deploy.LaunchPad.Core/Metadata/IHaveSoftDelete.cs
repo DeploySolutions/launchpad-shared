@@ -30,6 +30,8 @@
  */
 #endregion
 
+using System.ComponentModel.DataAnnotations.Schema;
+
 namespace Deploy.LaunchPad.Core.Metadata
 {
     /// <summary>
@@ -43,6 +45,7 @@ namespace Deploy.LaunchPad.Core.Metadata
         /// <summary>
         /// Used to mark an Entity as 'Deleted'. 
         /// </summary>
+        [Column("core_is_deleted")]
         bool IsDeleted { get; set; }
     }
 }

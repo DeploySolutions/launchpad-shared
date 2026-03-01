@@ -30,6 +30,8 @@
  */
 #endregion
 
+using System.ComponentModel.DataAnnotations.Schema;
+
 namespace Deploy.LaunchPad.Core.Metadata
 {
     /// <summary>
@@ -41,6 +43,7 @@ namespace Deploy.LaunchPad.Core.Metadata
         /// True: This entity is active.
         /// False: This entity is not active.
         /// </summary>
+        [Column("core_is_active")]
         bool IsActive { get; set; }
     }
 }

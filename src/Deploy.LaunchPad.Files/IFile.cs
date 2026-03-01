@@ -44,8 +44,8 @@ namespace Deploy.LaunchPad.Files
     public partial interface IFile<TFileContentType, TSchemaFormat> : 
         ILaunchPadObject, 
         ILaunchPadMinimalProperties,
-        IMustHaveCreationTimestamp,
-        IMayHaveLastModificationTimestamp
+        IMustHaveCreationTime,
+        IMayHaveLastModificationTime
     {
        
         /// <summary>

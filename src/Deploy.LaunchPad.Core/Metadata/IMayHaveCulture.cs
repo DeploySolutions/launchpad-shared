@@ -49,6 +49,7 @@ namespace Deploy.LaunchPad.Core.Metadata
         /// <value>The culture (using the .NET culture values).</value>
         [DataObjectField(true)]
         [XmlAttribute]
+        [Column("core_culture")]
         CultureInfo? Culture { get; set; }
 
     }
