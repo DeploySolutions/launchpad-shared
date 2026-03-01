@@ -5,7 +5,6 @@ using System;
 using System.ComponentModel;
 using System.Runtime.Serialization;
 using System.Xml.Serialization;
-using Deploy.LaunchPad.Core.Entities;
 
 namespace Deploy.LaunchPad.Domain.Content
 {

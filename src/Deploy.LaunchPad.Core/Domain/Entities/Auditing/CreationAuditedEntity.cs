@@ -44,7 +44,7 @@ namespace Deploy.LaunchPad.Core.Domain.Entities.Auditing
     /// A shortcut of <see cref="CreationAuditedEntity{TPrimaryKey}"/> for most used primary key type (<see cref="System.Guid"/>).
     /// </summary>
     [Serializable]
-    public abstract partial class CreationAuditedEntity : CreationAuditedEntity<System.Guid>, IEntity
+    public abstract partial class CreationAuditedEntity : CreationAuditedEntity<System.Guid>, IFrameworkEntity
     {
 
     }
@@ -54,7 +54,7 @@ namespace Deploy.LaunchPad.Core.Domain.Entities.Auditing
     /// </summary>
     /// <typeparam name="TPrimaryKey">Type of the primary key of the entity</typeparam>
     [Serializable]
-    public abstract partial class CreationAuditedEntity<TPrimaryKey> : Entity<TPrimaryKey>, ICreationAudited
+    public abstract partial class CreationAuditedEntity<TPrimaryKey> : FrameworkEntityBase<TPrimaryKey>, ICreationAudited
     {
         /// <summary>
         /// Creation time of this entity.
@@ -202,7 +202,7 @@ namespace Deploy.LaunchPad.Core.Domain.Entities.Auditing
     /// <typeparam name="TUser">Type of the user</typeparam>
     [Serializable]
     public abstract partial class CreationAuditedEntity<TPrimaryKey, TUser> : CreationAuditedEntity<TPrimaryKey>, ICreationAudited<TUser>
-        where TUser : IEntity<System.Guid>
+        where TUser : IFrameworkEntity<System.Guid>
     {
         /// <summary>
         /// Reference to the creator user of this entity.

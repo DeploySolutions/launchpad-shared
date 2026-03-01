@@ -29,10 +29,9 @@
 using Deploy.LaunchPad.Util;
 using Deploy.LaunchPad.Core.Metadata;
 using System;
-using Deploy.LaunchPad.Core.Domain.Entities;
 using Deploy.LaunchPad.Core.Domain.Entities.Auditing;
 
-namespace Deploy.LaunchPad.Core.Entities
+namespace Deploy.LaunchPad.Core.Domain.Entities
 {
    
     /// <summary>
@@ -42,14 +41,13 @@ namespace Deploy.LaunchPad.Core.Entities
     /// Each entity also implements ASP.NET Boilerplate's IEntity interface.
     /// </summary>
     /// <typeparam name="TIdType">The type of the t identifier type.</typeparam>
-    public partial interface ILaunchPadDomainEntity<TIdType> :
-        ILaunchPadDomainEntityProperties<TIdType>, IEntity<TIdType>,
-        ICreationAudited, IModificationAudited, IDeletionAudited, IHavePassivable,
-        IComparable<LaunchPadDomainEntityBase<TIdType>>, IEquatable<LaunchPadDomainEntityBase<TIdType>>,
-        ICloneable, IAmCloneable<LaunchPadDomainEntityBase<TIdType>>,
-        IMustHaveCulture
+    public partial interface IDomainEntity<TIdType> :
+        IDomainEntityProperties<TIdType>, IFrameworkEntity<TIdType>,
+        ICreationAudited, IModificationAudited, IDeletionAudited,
+        IComparable<DomainEntityBase<TIdType>>, IEquatable<DomainEntityBase<TIdType>>,
+        ICloneable, IAmCloneable<DomainEntityBase<TIdType>>,
+        IMustHaveCulture, IHavePassivable, IMayHaveTags, IHaveSoftDelete
     {
 
-        public string ComputeChecksum(string input = "");
     }
 }

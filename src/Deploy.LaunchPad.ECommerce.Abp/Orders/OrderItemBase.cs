@@ -12,7 +12,7 @@
 // <summary></summary>
 // ***********************************************************************
 
-using Deploy.LaunchPad.Core.Entities;
+using Deploy.LaunchPad.Core.Domain.Entities;
 using System;
 using System.ComponentModel;
 using System.Xml.Serialization;
@@ -21,14 +21,14 @@ namespace Deploy.LaunchPad.ECommerce.Abp.Orders
 {
     /// <summary>
     /// Class OrderItemBase.
-    /// Implements the <see cref="LaunchPadDomainEntityBase{TIdType}" />
+    /// Implements the <see cref="DomainEntityBase{TIdType}" />
     /// Implements the <see cref="Deploy.LaunchPad.ECommerce.Abp.Orders.IOrderItem{TIdType}" />
     /// </summary>
     /// <typeparam name="TIdType">The type of the t identifier type.</typeparam>
-    /// <seealso cref="LaunchPadDomainEntityBase{TIdType}" />
+    /// <seealso cref="DomainEntityBase{TIdType}" />
     /// <seealso cref="Deploy.LaunchPad.ECommerce.Abp.Orders.IOrderItem{TIdType}" />
     [Serializable]
-    public  abstract partial class OrderItemBase<TIdType> : LaunchPadDomainEntityBase<TIdType>, IOrderItem<TIdType>
+    public  abstract partial class OrderItemBase<TIdType> : DomainEntityBase<TIdType>, IOrderItem<TIdType>
     {
 
         /// <summary>

@@ -29,7 +29,7 @@
 using System;
 using System.ComponentModel;
 using System.Xml.Serialization;
-using Deploy.LaunchPad.Core.Entities;
+using Deploy.LaunchPad.Core.Domain.Entities;
 
 namespace Deploy.LaunchPad.Core.Abp.Deployments
 {
@@ -38,7 +38,7 @@ namespace Deploy.LaunchPad.Core.Abp.Deployments
     /// Represents the process which a deployment will follow as it takes a release candidate (set of code, data, and resources) and places it in a destination environment.
     /// </summary>
     /// <typeparam name="TPrimaryKey">The type of the t primary key.</typeparam>
-    public partial interface IDeploymentProcess<TPrimaryKey> : ILaunchPadDomainEntity<TPrimaryKey>
+    public partial interface IDeploymentProcess<TPrimaryKey> : IDomainEntity<TPrimaryKey>
     {
 
         /// <summary>

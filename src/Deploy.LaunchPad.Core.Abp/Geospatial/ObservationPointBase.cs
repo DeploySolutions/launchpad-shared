@@ -27,7 +27,7 @@
 #endregion
 
 using Abp.Domain.Entities;
-using Deploy.LaunchPad.Core.Entities;
+using Deploy.LaunchPad.Core.Domain.Entities;
 using Deploy.LaunchPad.Geospatial;
 using Deploy.LaunchPad.Geospatial.Position;
 using Deploy.LaunchPad.Geospatial.ReferencePoint;
@@ -51,7 +51,7 @@ namespace Deploy.LaunchPad.Core.Abp.Geospatial
     /// <typeparam name="TParentAreaOfInterest">The type of the t parent area of interest.</typeparam>
     [Serializable()]
     public abstract partial class ObservationPointBase<TIdType, TParentAreaOfInterest> :
-        LaunchPadDomainEntityBase<TIdType>, IObservationPoint<TParentAreaOfInterest>, IMayHaveTenant
+        DomainEntityBase<TIdType>, IObservationPoint<TParentAreaOfInterest>, IMayHaveTenant
         where TParentAreaOfInterest : IAreaOfInterest
     {
         #region "Geographic Properties"

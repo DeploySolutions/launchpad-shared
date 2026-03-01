@@ -27,7 +27,7 @@
 #endregion
 
 using Abp.Domain.Entities;
-using Deploy.LaunchPad.Core.Entities;
+using Deploy.LaunchPad.Core.Domain.Entities;
 using Deploy.LaunchPad.Domain.Organization;
 using Schema.NET;
 using System;
@@ -48,7 +48,7 @@ namespace Deploy.LaunchPad.Core.Abp.Organization
     /// base functionality for many of its methods.
     /// </summary>
     /// <typeparam name="TIdType">The type of the t identifier type.</typeparam>
-    public abstract partial class OrganizationDomainEntityBase<TIdType> : LaunchPadDomainEntityBase<TIdType>, IOrganizationDomainEntity<TIdType>, IMayHaveTenant
+    public abstract partial class OrganizationDomainEntityBase<TIdType> : DomainEntityBase<TIdType>, IOrganizationDomainEntity<TIdType>, IMayHaveTenant
     {
 
         protected virtual Schema.NET.Organization? _schemaDotOrg { get; set; }

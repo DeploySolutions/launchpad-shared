@@ -26,7 +26,7 @@
 //limitations under the License. 
 #endregion
 
-using Deploy.LaunchPad.Core.Entities;
+using Deploy.LaunchPad.Core.Domain.Entities;
 using System;
 using System.ComponentModel;
 using System.Reflection;
@@ -41,7 +41,7 @@ namespace Deploy.LaunchPad.Core.Abp
     /// </summary>
     /// <typeparam name="TIdType">The type of the t identifier type.</typeparam>
     public abstract partial class UserOwnedDomainEntityBase<TIdType> :
-        LaunchPadDomainEntityBase<TIdType>, ILaunchPadDomainEntity<TIdType>
+        DomainEntityBase<TIdType>, IDomainEntity<TIdType>
     {
 
 

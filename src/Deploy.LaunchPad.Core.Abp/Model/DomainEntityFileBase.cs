@@ -37,19 +37,20 @@ using System.Runtime.Serialization;
 using System.Xml.Serialization;
 using Deploy.LaunchPad.Core.Metadata;
 using Deploy.LaunchPad.Util.Elements;
+using Deploy.LaunchPad.Core.Domain.Entities;
 
 namespace Deploy.LaunchPad.Core.Entities
 {
     /// <summary>
     /// Class FileBase.
-    /// Implements the <see cref="LaunchPadDomainEntityBase{TIdType}" />
+    /// Implements the <see cref="DomainEntityBase{TIdType}" />
     /// Implements the <see cref="IDomainEntityFile{TIdType, TFileContentType}" />
     /// </summary>
     /// <typeparam name="TIdType">The type of the t identifier type.</typeparam>
     /// <typeparam name="TFileContentType">The type of the t file content type.</typeparam>
-    /// <seealso cref="LaunchPadDomainEntityBase{TIdType}" />
+    /// <seealso cref="DomainEntityBase{TIdType}" />
     /// <seealso cref="IDomainEntityFile{TIdType, TFileContentType}" />
-    public abstract partial class DomainEntityFileBase<TIdType, TFileContentType, TSchemaFormat> : LaunchPadDomainEntityBase<TIdType>,
+    public abstract partial class DomainEntityFileBase<TIdType, TFileContentType, TSchemaFormat> : DomainEntityBase<TIdType>,
         IDomainEntityFile<TIdType, TFileContentType, TSchemaFormat>
     {
 

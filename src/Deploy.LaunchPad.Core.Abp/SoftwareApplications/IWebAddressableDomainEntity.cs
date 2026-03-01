@@ -28,7 +28,7 @@
 
 using Abp.Domain.Entities;
 using Abp.Domain.Entities.Auditing;
-using Deploy.LaunchPad.Core.Entities;
+using Deploy.LaunchPad.Core.Domain.Entities;
 using Deploy.LaunchPad.Domain.Metadata;
 using System;
 using System.ComponentModel;
@@ -44,7 +44,7 @@ namespace Deploy.LaunchPad.Core.Abp.SoftwareApplications
     /// Each entity also implements ASP.NET Boilerplate's IEntity interface.
     /// </summary>
     /// <typeparam name="TIdType">The type of the t identifier type.</typeparam>
-    public partial interface IWebAddressableDomainEntity<TIdType> : ILaunchPadDomainEntity<TIdType>
+    public partial interface IWebAddressableDomainEntity<TIdType> : IDomainEntity<TIdType>
     {
 
     }

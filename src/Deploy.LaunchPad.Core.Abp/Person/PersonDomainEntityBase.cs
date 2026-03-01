@@ -28,7 +28,7 @@
 
 using Abp.Domain.Entities;
 using Deploy.LaunchPad.Core.Abp.Organization;
-using Deploy.LaunchPad.Core.Entities;
+using Deploy.LaunchPad.Core.Domain.Entities;
 using Deploy.LaunchPad.Domain.Person;
 using Schema.NET;
 using System;
@@ -49,7 +49,7 @@ namespace Deploy.LaunchPad.Core.Abp.Person
     /// base functionality for many of its methods.
     /// </summary>
     /// <typeparam name="TIdType">The type of the t identifier type.</typeparam>
-    public abstract partial class PersonDomainEntityBase<TIdType> : LaunchPadDomainEntityBase<TIdType>, IPersonDomainEntity<TIdType>, IMayHaveTenant
+    public abstract partial class PersonDomainEntityBase<TIdType> : DomainEntityBase<TIdType>, IPersonDomainEntity<TIdType>, IMayHaveTenant
     {
 
         protected virtual Schema.NET.Person? _schemaDotOrg { get; set; }

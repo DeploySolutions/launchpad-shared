@@ -11,7 +11,7 @@
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
-using Deploy.LaunchPad.Core.Entities;
+using Deploy.LaunchPad.Core.Domain.Entities;
 using System.ComponentModel;
 using System.Xml.Serialization;
 
@@ -21,7 +21,7 @@ namespace Deploy.LaunchPad.Domain.Metadata
     /// Defines the minimum properties LaunchPad expects to have for a child entity of an Aggregate Root.
     /// </summary>
     /// <typeparam name="TIdType">The type of the t identifier type.</typeparam>
-    public partial interface ILaunchPadAggregateChildProperties<TIdType> : ILaunchPadDomainEntityProperties<TIdType>
+    public partial interface ILaunchPadAggregateChildProperties<TIdType> : IDomainEntityProperties<TIdType>
     {
         /// <summary>
         /// The fully qualified type name of the parent Aggregate Root

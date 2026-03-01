@@ -29,8 +29,8 @@
 using Abp.Domain.Entities;
 using Deploy.LaunchPad.Data;
 using Deploy.LaunchPad.Core.Metadata;
-using Deploy.LaunchPad.Core.Entities;
 using IMayHaveTenant = Deploy.LaunchPad.Core.Metadata.IMayHaveTenant;
+using Deploy.LaunchPad.Core.Domain.Entities;
 
 
 namespace Deploy.LaunchPad.Core.Abp.Data
@@ -38,13 +38,13 @@ namespace Deploy.LaunchPad.Core.Abp.Data
 
     /// <summary>
     /// Interface IDataPoint
-    /// Extends the <see cref="ILaunchPadDomainEntity{TPrimaryKey}" />
+    /// Extends the <see cref="IDomainEntity{TPrimaryKey}" />
     /// Extends the <see cref="IMayHaveTenant" />
     /// </summary>
     /// <typeparam name="TPrimaryKey">The type of the t primary key.</typeparam>
-    /// <seealso cref="ILaunchPadDomainEntity{TPrimaryKey}" />
+    /// <seealso cref="IDomainEntity{TPrimaryKey}" />
     /// <seealso cref="IMayHaveTenant" />
-    public partial interface IDataPointDomainEntity<TPrimaryKey, TSchemaFormat> : ILaunchPadDataPoint, ILaunchPadDomainEntity<TPrimaryKey>, IMayHaveTenant
+    public partial interface IDataPointDomainEntity<TPrimaryKey, TSchemaFormat> : ILaunchPadDataPoint, IDomainEntity<TPrimaryKey>, IMayHaveTenant
     {
         /// <summary>
         /// Describes the schema (where known) according to which this data is structured.

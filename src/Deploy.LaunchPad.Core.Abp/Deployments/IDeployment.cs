@@ -27,7 +27,7 @@
 #endregion
 
 using Abp.Domain.Entities;
-using Deploy.LaunchPad.Core.Entities;
+using Deploy.LaunchPad.Core.Domain.Entities;
 using System;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
@@ -41,7 +41,7 @@ namespace Deploy.LaunchPad.Core.Abp.Deployments
     /// Represents a deployment that will take a release candidate (set of code, data, and resources) and place it in a destination environment.
     /// </summary>
     /// <typeparam name="TIdType">The type of the Id</typeparam>
-    public partial interface IDeployment<TIdType> : ILaunchPadDomainEntity<TIdType>, IMustHaveTenant
+    public partial interface IDeployment<TIdType> : IDomainEntity<TIdType>, IMustHaveTenant
     {
 
         /// <summary>

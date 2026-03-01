@@ -27,7 +27,7 @@
 #endregion
 
 using Abp.Domain.Entities;
-using Deploy.LaunchPad.Core.Entities;
+using Deploy.LaunchPad.Core.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -45,7 +45,7 @@ namespace Deploy.LaunchPad.Core.Abp.SoftwareApplications
     /// <typeparam name="TIdType">The type of the key id field</typeparam>
     /// <typeparam name="TEntityIdType">The type of the t entity identifier type.</typeparam>
     [Serializable()]
-    public partial class Component<TIdType, TEntityIdType> : LaunchPadDomainEntityBase<TIdType>, IComponent<TIdType, TEntityIdType>, IMayHaveTenant
+    public partial class Component<TIdType, TEntityIdType> : DomainEntityBase<TIdType>, IComponent<TIdType, TEntityIdType>, IMayHaveTenant
     {
 
         /// <summary>
@@ -54,7 +54,7 @@ namespace Deploy.LaunchPad.Core.Abp.SoftwareApplications
         /// <value>The domain entities.</value>
         [DataObjectField(false)]
         [XmlAttribute]
-        public virtual IList<LaunchPadDomainEntityBase<TEntityIdType>> DomainEntities { get; set; }
+        public virtual IList<DomainEntityBase<TEntityIdType>> DomainEntities { get; set; }
         /// <summary>
         /// TenantId of this entity.
         /// </summary>
@@ -67,7 +67,7 @@ namespace Deploy.LaunchPad.Core.Abp.SoftwareApplications
         /// </summary>
         public Component() : base()
         {
-            DomainEntities = new List<LaunchPadDomainEntityBase<TEntityIdType>>();
+            DomainEntities = new List<DomainEntityBase<TEntityIdType>>();
         }
 
         /// <summary>
@@ -77,7 +77,7 @@ namespace Deploy.LaunchPad.Core.Abp.SoftwareApplications
         public Component(System.Guid? tenantId) : base()
         {
             TenantId = tenantId;
-            DomainEntities = new List<LaunchPadDomainEntityBase<TEntityIdType>>();
+            DomainEntities = new List<DomainEntityBase<TEntityIdType>>();
         }
 
 
@@ -88,7 +88,7 @@ namespace Deploy.LaunchPad.Core.Abp.SoftwareApplications
         /// <param name="context">The context of the stream</param>
         protected Component(SerializationInfo info, StreamingContext context) : base(info, context)
         {
-            DomainEntities = (IList<LaunchPadDomainEntityBase<TEntityIdType>>)info.GetValue("DomainEntities", typeof(List<LaunchPadDomainEntityBase<TEntityIdType>>));
+            DomainEntities = (IList<DomainEntityBase<TEntityIdType>>)info.GetValue("DomainEntities", typeof(List<DomainEntityBase<TEntityIdType>>));
         }
 
         #endregion

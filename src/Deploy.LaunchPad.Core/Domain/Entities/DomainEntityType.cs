@@ -24,22 +24,26 @@ namespace Deploy.LaunchPad.Core.Domain.Entities
     /// </summary>
     [Serializable]
     public enum DomainEntityType
-    {
+    { 
+        /// <summary>
+        /// The LaunchPad/Boilerplate framework entity
+        /// </summary>
+        FrameworkEntity = 0,
         /// <summary>
         /// The domain entity
         /// </summary>
-        DomainEntity = 0,
+        DomainEntity = 1,
         /// <summary>
         /// The aggregate root
         /// </summary>
-        AggregateRoot = 1,
+        AggregateRoot = 2,
         /// <summary>
         /// The aggregate child
         /// </summary>
-        AggregateChild = 2,
+        AggregateChild = 3,
         /// <summary>
         /// The value object
         /// </summary>
-        ValueObject = 3
+        ValueObject = 4
     }
 }

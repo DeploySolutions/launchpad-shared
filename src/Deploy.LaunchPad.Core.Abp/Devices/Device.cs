@@ -28,7 +28,7 @@
 
 
 using Abp.Domain.Entities;
-using Deploy.LaunchPad.Core.Entities;
+using Deploy.LaunchPad.Core.Domain.Entities;
 using Deploy.LaunchPad.Core.Metadata;
 using Deploy.LaunchPad.Domain.Devices;
 using Deploy.LaunchPad.Domain.Metadata;
@@ -52,7 +52,7 @@ namespace Deploy.LaunchPad.Core.Abp.Devices
     /// </summary>
     /// <typeparam name="TIdType">The type of the t identifier type.</typeparam>
     [Serializable()]
-    public partial class Device<TIdType> : LaunchPadDomainEntityBase<TIdType>, IDevice,
+    public partial class Device<TIdType> : DomainEntityBase<TIdType>, IDevice,
         IMayHaveTranslationFromId<TIdType>,
         IMustBePhysicallyLocatable, IMayHaveTenant
 

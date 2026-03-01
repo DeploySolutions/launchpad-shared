@@ -27,7 +27,6 @@
 #endregion
 
 using Deploy.LaunchPad.Core.Domain.Entities;
-using Deploy.LaunchPad.Core.Entities;
 using Deploy.LaunchPad.Util;
 using Deploy.LaunchPad.Util.Elements;
 using Deploy.LaunchPad.Util.Guids;
@@ -51,7 +50,7 @@ namespace Deploy.LaunchPad.Core.Abp.SoftwareApplications
     /// </summary>
     /// <typeparam name="TIdType">The type of the t identifier type.</typeparam>
     [Serializable()]
-    public partial class ApplicationDetails<TIdType> : Entity<TIdType>, IApplicationDetails<TIdType>, IMayHaveTenant
+    public partial class ApplicationDetails<TIdType> : FrameworkEntityBase<TIdType>, IApplicationDetails<TIdType>, IMayHaveTenant
     {
         /// <summary>
         /// The default culture
@@ -155,8 +154,6 @@ namespace Deploy.LaunchPad.Core.Abp.SoftwareApplications
             get; set;
         }
 
-        Domain.Entities.DomainEntityType ILaunchPadDomainEntityProperties<TIdType>.EntityType => throw new NotImplementedException();
-    
         string Metadata.IMayHaveTags.Tags => throw new NotImplementedException();
 
         string Metadata.IMayHaveChecksumValue.Checksum { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
@@ -423,37 +420,27 @@ namespace Deploy.LaunchPad.Core.Abp.SoftwareApplications
             return Id.GetHashCode() + ApplicationKey.GetHashCode();
         }
 
-        string ILaunchPadDomainEntity<TIdType>.ComputeChecksum(string input)
+        int IComparable<Domain.Entities.FrameworkEntityBase<TIdType>>.CompareTo(Domain.Entities.FrameworkEntityBase<TIdType> other)
         {
             throw new NotImplementedException();
         }
 
-        string Domain.Entities.IEntity<TIdType>.ComputeChecksum(string input)
+        bool IEquatable<Domain.Entities.FrameworkEntityBase<TIdType>>.Equals(Domain.Entities.FrameworkEntityBase<TIdType> other)
         {
             throw new NotImplementedException();
         }
 
-        int IComparable<Domain.Entities.Entity<TIdType>>.CompareTo(Domain.Entities.Entity<TIdType> other)
+        Domain.Entities.FrameworkEntityBase<TIdType> IAmCloneable<Domain.Entities.FrameworkEntityBase<TIdType>>.CloneGeneric()
         {
             throw new NotImplementedException();
         }
 
-        bool IEquatable<Domain.Entities.Entity<TIdType>>.Equals(Domain.Entities.Entity<TIdType> other)
+        int IComparable<DomainEntityBase<TIdType>>.CompareTo(DomainEntityBase<TIdType> other)
         {
             throw new NotImplementedException();
         }
 
-        Domain.Entities.Entity<TIdType> IAmCloneable<Domain.Entities.Entity<TIdType>>.CloneGeneric()
-        {
-            throw new NotImplementedException();
-        }
-
-        int IComparable<LaunchPadDomainEntityBase<TIdType>>.CompareTo(LaunchPadDomainEntityBase<TIdType> other)
-        {
-            throw new NotImplementedException();
-        }
-
-        bool IEquatable<LaunchPadDomainEntityBase<TIdType>>.Equals(LaunchPadDomainEntityBase<TIdType> other)
+        bool IEquatable<DomainEntityBase<TIdType>>.Equals(DomainEntityBase<TIdType> other)
         {
             throw new NotImplementedException();
         }
@@ -463,7 +450,7 @@ namespace Deploy.LaunchPad.Core.Abp.SoftwareApplications
             throw new NotImplementedException();
         }
 
-        LaunchPadDomainEntityBase<TIdType> IAmCloneable<LaunchPadDomainEntityBase<TIdType>>.CloneGeneric()
+        DomainEntityBase<TIdType> IAmCloneable<DomainEntityBase<TIdType>>.CloneGeneric()
         {
             throw new NotImplementedException();
         }

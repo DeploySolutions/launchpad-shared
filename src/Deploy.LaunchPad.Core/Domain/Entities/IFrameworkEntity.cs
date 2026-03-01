@@ -30,35 +30,18 @@
  */
 #endregion
 
-using Deploy.LaunchPad.Core.Entities;
-using Deploy.LaunchPad.Core.Metadata;
 using Deploy.LaunchPad.Util;
+using Deploy.LaunchPad.Util.Elements;
 using System;
 
 namespace Deploy.LaunchPad.Core.Domain.Entities
 {
     /// <summary>
-    /// Defines interface for base entity type. All entities in the system must implement this interface.
+    /// A shortcut of <see cref="IFrameworkEntity{TPrimaryKey}"/> for most used primary key type (<see cref="System.Guid"/>).
     /// </summary>
-    /// <typeparam name="TPrimaryKey">Type of the primary key of the entity</typeparam>
-    public partial interface IEntity<TPrimaryKey> : 
-        ILaunchPadObject,
-        ILaunchPadDomainEntityProperties<TPrimaryKey>,
-        IComparable<Entity<TPrimaryKey>>, IEquatable<Entity<TPrimaryKey>>,
-        ICloneable, IAmCloneable<Entity<TPrimaryKey>>
+    public partial interface IFrameworkEntity : 
+        IFrameworkEntity<System.Guid>
     {
 
-        /// <summary>
-        /// Checks if this entity is transient (not persisted to database and it has not an <see cref="Id"/>).
-        /// </summary>
-        /// <returns>True, if this entity is transient</returns>
-        bool IsTransient();
-
-        /// <summary>
-        /// Calculate the Checksum value of this entity, based on chosen properties.
-        /// </summary>
-        /// <param name="input"></param>
-        /// <returns></returns>
-        string ComputeChecksum(string input = "");
     }
 }

@@ -29,7 +29,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Xml.Serialization;
-using Deploy.LaunchPad.Core.Entities;
+using Deploy.LaunchPad.Core.Domain.Entities;
 using Deploy.LaunchPad.Domain.Person;
 using Schema.NET;
 
@@ -37,12 +37,12 @@ namespace Deploy.LaunchPad.Core.Abp.Person
 {
     /// <summary>
     /// Interface IPersonDomainEntity
-    /// Extends the <see cref="ILaunchPadDomainEntity{TPrimaryKey}" />
+    /// Extends the <see cref="IDomainEntity{TPrimaryKey}" />
     /// </summary>
     /// <typeparam name="TPrimaryKey">The type of the t primary key.</typeparam>
-    /// <seealso cref="ILaunchPadDomainEntity{TPrimaryKey}" />
+    /// <seealso cref="IDomainEntity{TPrimaryKey}" />
     public partial interface IPersonDomainEntity<TPrimaryKey> : 
-        ILaunchPadDomainEntity<TPrimaryKey>, ILaunchPadPerson
+        IDomainEntity<TPrimaryKey>, ILaunchPadPerson
     {
         
 

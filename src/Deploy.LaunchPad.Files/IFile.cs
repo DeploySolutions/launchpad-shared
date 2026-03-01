@@ -34,7 +34,6 @@ namespace Deploy.LaunchPad.Files
     using System.Xml.Serialization;
     using Deploy.LaunchPad.Files.Formats;
     using Deploy.LaunchPad.Core.Metadata;
-    using Deploy.LaunchPad.Core.Entities;
     using Deploy.LaunchPad.Util;
 
     /// <summary>

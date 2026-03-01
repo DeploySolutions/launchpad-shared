@@ -43,7 +43,7 @@ namespace Deploy.LaunchPad.Core.Domain.Entities.Auditing
     /// A shortcut of <see cref="FullAuditedEntity{TPrimaryKey}"/> for most used primary key type (<see cref="int"/>).
     /// </summary>
     [Serializable]
-    public abstract partial class FullAuditedEntity : FullAuditedEntity<System.Guid>, IEntity
+    public abstract partial class FullAuditedEntity : FullAuditedEntity<System.Guid>
     {
         /// <summary>
         /// Constructor.
@@ -309,7 +309,7 @@ namespace Deploy.LaunchPad.Core.Domain.Entities.Auditing
     /// <typeparam name="TUser">Type of the user</typeparam>
     [Serializable]
     public abstract partial class FullAuditedEntity<TPrimaryKey, TUser> : AuditedEntity<TPrimaryKey, TUser>, IFullAudited<TUser>
-        where TUser : IEntity<System.Guid>
+        where TUser : IFrameworkEntity<System.Guid>
     {
         /// <summary>
         /// Is this entity Deleted?

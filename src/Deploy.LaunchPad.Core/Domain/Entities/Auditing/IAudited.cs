@@ -71,7 +71,7 @@ namespace Deploy.LaunchPad.Core.Domain.Entities.Auditing
 {
     /// <summary>
     /// This interface is implemented by entities which must be audited.
-    /// Related properties automatically set when saving/updating <see cref="Entity"/> objects.
+    /// Related properties automatically set when saving/updating <see cref="FrameworkEntityBase"/> objects.
     /// </summary>
     public partial interface IAudited : ICreationAudited, IModificationAudited
     {
@@ -83,7 +83,7 @@ namespace Deploy.LaunchPad.Core.Domain.Entities.Auditing
     /// </summary>
     /// <typeparam name="TUser">Type of the user</typeparam>
     public partial interface IAudited<TUser> : IAudited, ICreationAudited<TUser>, IModificationAudited<TUser>
-        where TUser : IEntity<System.Guid>
+        where TUser : IFrameworkEntity<System.Guid>
     {
 
     }

@@ -27,7 +27,7 @@
 #endregion
 
 
-using Deploy.LaunchPad.Core.Entities;
+using Deploy.LaunchPad.Core.Domain.Entities;
 using System.Collections.Generic;
 
 namespace Deploy.LaunchPad.Code.Services.Dto
@@ -38,7 +38,7 @@ namespace Deploy.LaunchPad.Code.Services.Dto
     /// <typeparam name="TEntityType">The type of the t entity type.</typeparam>
     /// <typeparam name="TIdType">The type of the t identifier type.</typeparam>
     public partial class FilterOutput<TEntityType, TIdType>
-        where TEntityType : LaunchPadDomainEntityBase<TIdType>
+        where TEntityType : DomainEntityBase<TIdType>
     {
         /// <summary>
         /// Gets or sets the filter.

@@ -29,7 +29,7 @@
 
 namespace Deploy.LaunchPad.Space.Satellites.Core
 {
-    using Deploy.LaunchPad.Core.Entities;
+    using Deploy.LaunchPad.Core.Domain.Entities;
     using Deploy.LaunchPad.Geospatial.ReferencePoint;
     using Deploy.LaunchPad.Space.Satellites.Core.Observations;
     using System;
@@ -39,13 +39,13 @@ namespace Deploy.LaunchPad.Space.Satellites.Core
 
     /// <summary>
     /// Class SatelliteBase.
-    /// Implements the <see cref="LaunchPadDomainEntityBase{TPrimaryKey}" />
+    /// Implements the <see cref="DomainEntityBase{TPrimaryKey}" />
     /// Implements the <see cref="Deploy.LaunchPad.Space.Satellites.Core.ISatellite" />
     /// </summary>
     /// <typeparam name="TPrimaryKey">The type of the t primary key.</typeparam>
-    /// <seealso cref="LaunchPadDomainEntityBase{TPrimaryKey}" />
+    /// <seealso cref="DomainEntityBase{TPrimaryKey}" />
     /// <seealso cref="Deploy.LaunchPad.Space.Satellites.Core.ISatellite" />
-    public abstract partial class SatelliteBase<TPrimaryKey> : LaunchPadDomainEntityBase<TPrimaryKey>, ISatellite
+    public abstract partial class SatelliteBase<TPrimaryKey> : DomainEntityBase<TPrimaryKey>, ISatellite
     {
 
 

@@ -28,7 +28,7 @@
 
 
 using Abp.Domain.Entities;
-using Deploy.LaunchPad.Core.Entities;
+using Deploy.LaunchPad.Core.Domain.Entities;
 using Deploy.LaunchPad.Data;
 using System.Collections.Generic;
 using IMayHaveTenant = Deploy.LaunchPad.Core.Metadata.IMayHaveTenant;
@@ -37,17 +37,17 @@ namespace Deploy.LaunchPad.Core.Abp.Data
 {
     /// <summary>
     /// Interface IDataCatalogue
-    /// Extends the <see cref="ILaunchPadDomainEntity{TPrimaryKey}" />
+    /// Extends the <see cref="IDomainEntity{TPrimaryKey}" />
     /// Extends the <see cref="IMayHaveTenant" />
     /// </summary>
     /// <typeparam name="TPrimaryKey">The type of the t primary key.</typeparam>
     /// <typeparam name="TDictionaryKey">The type of the t dictionary key.</typeparam>
     /// <typeparam name="TDataPointPrimaryKey">The type of the t data point primary key.</typeparam>
-    /// <seealso cref="ILaunchPadDomainEntity{TPrimaryKey}" />
+    /// <seealso cref="IDomainEntity{TPrimaryKey}" />
     /// <seealso cref="IMayHaveTenant" />
     public partial interface IDataCatalogDomainEntity<TPrimaryKey, TDictionaryKey, TDataPointPrimaryKey, TSchemaFormat>  : 
         ILaunchPadDataCatalog<TDictionaryKey, TSchemaFormat>, 
-        ILaunchPadDomainEntity<TPrimaryKey>, IMayHaveTenant
+        IDomainEntity<TPrimaryKey>, IMayHaveTenant
         where TDictionaryKey : struct
         where TDataPointPrimaryKey : struct
     {

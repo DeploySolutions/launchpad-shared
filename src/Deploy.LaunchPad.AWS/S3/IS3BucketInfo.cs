@@ -1,5 +1,4 @@
-﻿using Deploy.LaunchPad.Core.Entities;
-using Deploy.LaunchPad.Core.Metadata;
+﻿using Deploy.LaunchPad.Core.Metadata;
 using System;
 using System.Collections.Generic;
 using System.Text;

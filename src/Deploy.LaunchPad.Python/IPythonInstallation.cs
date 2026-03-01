@@ -12,15 +12,12 @@
 // <summary></summary>
 // ***********************************************************************
 using Deploy.LaunchPad.Core;
-using Deploy.LaunchPad.Domain;
-using Deploy.LaunchPad.Domain;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
 using System.Xml.Serialization;
-using Deploy.LaunchPad.Core.Entities;
 using Deploy.LaunchPad.Util;
 
 namespace Deploy.LaunchPad.Python

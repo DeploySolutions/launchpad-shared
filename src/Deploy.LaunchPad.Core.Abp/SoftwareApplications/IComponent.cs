@@ -32,14 +32,14 @@ namespace Deploy.LaunchPad.Core.Abp.SoftwareApplications
     using System.Collections.Generic;
     using System.ComponentModel;
     using System.Xml.Serialization;
-    using Deploy.LaunchPad.Core.Entities;
+    using Deploy.LaunchPad.Core.Domain.Entities;
 
     /// <summary>
     /// Represents a comopnent in a software module.
     /// </summary>
     /// <typeparam name="TIdType">The type of the t identifier type.</typeparam>
     /// <typeparam name="TEntityIdType">The type of the t entity identifier type.</typeparam>
-    public partial interface IComponent<TIdType, TEntityIdType> : ILaunchPadDomainEntity<TIdType>
+    public partial interface IComponent<TIdType, TEntityIdType> : IDomainEntity<TIdType>
     {
         /// <summary>
         /// Each component can have 0 to many domain entities
@@ -47,7 +47,7 @@ namespace Deploy.LaunchPad.Core.Abp.SoftwareApplications
         /// <value>The domain entities.</value>
         [DataObjectField(false)]
         [XmlAttribute]
-        IList<LaunchPadDomainEntityBase<TEntityIdType>> DomainEntities { get; set; }
+        IList<DomainEntityBase<TEntityIdType>> DomainEntities { get; set; }
 
     }
 }

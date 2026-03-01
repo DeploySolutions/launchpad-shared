@@ -33,14 +33,14 @@ namespace Deploy.LaunchPad.Core.Abp.SoftwareApplications
     using System.Collections.Generic;
     using System.ComponentModel;
     using System.Xml.Serialization;
-    using Deploy.LaunchPad.Core.Entities;
+    using Deploy.LaunchPad.Core.Domain.Entities;
 
     /// <summary>
     /// Represents a module in an application.
     /// </summary>
     /// <typeparam name="TIdType">The type of the t identifier type.</typeparam>
     /// <typeparam name="TEntityIdType">The type of the t entity identifier type.</typeparam>
-    public partial interface IModule<TIdType, TEntityIdType> : ILaunchPadDomainEntity<TIdType>
+    public partial interface IModule<TIdType, TEntityIdType> : IDomainEntity<TIdType>
     {
 
         /// <summary>

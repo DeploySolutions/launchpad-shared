@@ -31,6 +31,7 @@ namespace Deploy.LaunchPad.Core.Entities
     using System;
     using System.ComponentModel;
     using System.Xml.Serialization;
+    using Deploy.LaunchPad.Core.Domain.Entities;
     using Deploy.LaunchPad.Files;
     using Deploy.LaunchPad.Util;
 
@@ -41,7 +42,7 @@ namespace Deploy.LaunchPad.Core.Entities
     /// </summary>
     /// <typeparam name="TIdType">The type of the t identifier type.</typeparam>
     /// <typeparam name="TFileContentType">The type of the t file content type.</typeparam>
-    public partial interface IDomainEntityFile<TIdType, TFileContentType, TSchemaFormat> : ILaunchPadDomainEntity<TIdType>,
+    public partial interface IDomainEntityFile<TIdType, TFileContentType, TSchemaFormat> : IDomainEntity<TIdType>,
         IFile<TFileContentType, TSchemaFormat>
     {
 

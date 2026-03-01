@@ -57,8 +57,6 @@
 
 namespace Deploy.LaunchPad.Geospatial.Position
 {
-    using Deploy.LaunchPad.Core.Entities;
-    using System.Runtime.Serialization;
 
     /// <summary>
     /// This interface defines the physical boundaries around something, in Bounding Box format of an array of coordinates (usually 4 of more)

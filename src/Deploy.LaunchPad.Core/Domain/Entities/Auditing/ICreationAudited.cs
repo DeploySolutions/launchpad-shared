@@ -38,7 +38,7 @@ namespace Deploy.LaunchPad.Core.Domain.Entities.Auditing
 {
     /// <summary>
     /// This interface is implemented by entities that is wanted to store creation information (who and when created).
-    /// Creation time and creator user are automatically set when saving <see cref="Entity"/> to database.
+    /// Creation time and creator user are automatically set when saving <see cref="FrameworkEntityBase"/> to database.
     /// </summary>
     public partial interface ICreationAudited : IMustHaveCreationTime, IMayHaveCreatorUserId
     {
@@ -50,7 +50,7 @@ namespace Deploy.LaunchPad.Core.Domain.Entities.Auditing
     /// </summary>
     /// <typeparam name="TUser">Type of the user</typeparam>
     public partial interface ICreationAudited<TUser> : ICreationAudited
-        where TUser : IEntity<System.Guid>
+        where TUser : IFrameworkEntity<System.Guid>
     {
         /// <summary>
         /// Reference to the creator user of this entity.

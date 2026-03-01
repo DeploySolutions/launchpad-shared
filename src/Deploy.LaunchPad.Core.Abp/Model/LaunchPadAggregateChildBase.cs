@@ -46,7 +46,7 @@ namespace Deploy.LaunchPad.Core.Entities
     /// <typeparam name="TIdType">The type of the t identifier type.</typeparam>
     [Serializable]
     public abstract partial class LaunchPadAggregateChildBase<TIdType> :
-        LaunchPadDomainEntityBase<TIdType>,
+        DomainEntityBase<TIdType>,
         ILaunchPadAggregateChild<TIdType>
 
     {

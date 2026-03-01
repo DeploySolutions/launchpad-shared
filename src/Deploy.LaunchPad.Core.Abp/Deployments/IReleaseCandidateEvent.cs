@@ -27,7 +27,7 @@
 #endregion
 
 using Abp.Domain.Entities;
-using Deploy.LaunchPad.Core.Entities;
+using Deploy.LaunchPad.Core.Domain.Entities;
 using System;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
@@ -41,7 +41,7 @@ namespace Deploy.LaunchPad.Core.Abp.Deployments
     /// Represents a an event that is related to a release candidate.
     /// </summary>
     /// <typeparam name="TIdType">The type of the Id</typeparam>
-    public partial interface IReleaseCandidateEvent<TIdType> : ILaunchPadDomainEntity<TIdType>, IMustHaveTenant
+    public partial interface IReleaseCandidateEvent<TIdType> : IDomainEntity<TIdType>, IMustHaveTenant
     {
         /// <summary>
         /// The id of the release candidate this deployment is for

@@ -12,6 +12,7 @@
 // <summary></summary>
 // ***********************************************************************
 using System.Collections.Generic;
+using Deploy.LaunchPad.Core.Domain.Entities;
 using Deploy.LaunchPad.Files.Storage;
 
 namespace Deploy.LaunchPad.Core.Entities
@@ -23,7 +24,7 @@ namespace Deploy.LaunchPad.Core.Entities
     /// <typeparam name="TFileContentType">The type of the t file content type.</typeparam>
     /// <typeparam name="TFileStorageLocationType">The type of the t file storage location type.</typeparam>
     public abstract partial class DomainEntityFileSetBase<TIdType, TFileContentType, TFileStorageLocationType, TSchemaFormat>
-        : LaunchPadDomainEntityBase<TIdType>        
+        : DomainEntityBase<TIdType>        
         where TFileStorageLocationType : IFileStorageLocation, new()
     {
         /// <summary>

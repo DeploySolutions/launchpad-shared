@@ -30,14 +30,20 @@
  */
 #endregion
 
-using Deploy.LaunchPad.Util.Elements;
+using Deploy.LaunchPad.Core.Metadata;
+using Deploy.LaunchPad.Util;
+using System;
 
 namespace Deploy.LaunchPad.Core.Domain.Entities
 {
     /// <summary>
-    /// A shortcut of <see cref="IEntity{TPrimaryKey}"/> for most used primary key type (<see cref="System.Guid"/>).
+    /// Defines interface for base entity type. All entities in the system must implement this interface.
     /// </summary>
-    public partial interface IEntity : IEntity<System.Guid>
+    /// <typeparam name="TPrimaryKey">Type of the primary key of the entity</typeparam>
+    public partial interface IFrameworkEntity<TPrimaryKey> :
+        ILaunchPadEntityBaseOfTPrimaryKey<TPrimaryKey>,
+        IComparable<FrameworkEntityBase<TPrimaryKey>>, IEquatable<FrameworkEntityBase<TPrimaryKey>>,
+        ICloneable, IAmCloneable<FrameworkEntityBase<TPrimaryKey>>
     {
 
     }

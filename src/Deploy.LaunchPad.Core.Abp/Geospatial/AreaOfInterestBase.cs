@@ -27,7 +27,7 @@
 #endregion
 
 using Abp.Domain.Entities;
-using Deploy.LaunchPad.Core.Entities;
+using Deploy.LaunchPad.Core.Domain.Entities;
 using Deploy.LaunchPad.Geospatial;
 using Deploy.LaunchPad.Geospatial.Position;
 using Deploy.LaunchPad.Geospatial.ReferencePoint;
@@ -49,7 +49,7 @@ namespace Deploy.LaunchPad.Core.Abp.Geospatial
     /// <typeparam name="TIdType">The type of the t identifier type.</typeparam>
     [Serializable()]
     public abstract partial class AreaOfInterestBase<TIdType> :
-        LaunchPadDomainEntityBase<TIdType>, IAreaOfInterest, IMayHaveTenant
+        DomainEntityBase<TIdType>, IAreaOfInterest, IMayHaveTenant
     {
 
         #region "Geographic Properties"

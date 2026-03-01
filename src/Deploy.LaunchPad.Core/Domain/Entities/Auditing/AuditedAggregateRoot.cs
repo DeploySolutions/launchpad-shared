@@ -304,7 +304,7 @@ namespace Deploy.LaunchPad.Core.Domain.Entities.Auditing
     /// <typeparam name="TUser">Type of the user</typeparam>
     [Serializable]
     public abstract partial class AuditedAggregateRoot<TPrimaryKey, TUser> : AuditedAggregateRoot<TPrimaryKey>, IAudited<TUser>
-        where TUser : IEntity<System.Guid>
+        where TUser : IFrameworkEntity<System.Guid>
     {
         /// <summary>
         /// Reference to the creator user of this entity.

@@ -26,7 +26,7 @@
 //limitations under the License. 
 #endregion
 
-using Deploy.LaunchPad.Core.Entities;
+using Deploy.LaunchPad.Core.Domain.Entities;
 using System;
 using System.ComponentModel;
 using System.Runtime.Serialization;
@@ -39,7 +39,7 @@ namespace Deploy.LaunchPad.Core.Abp.Deployments
     /// Represents the process which a deployment will follow as it takes a release candidate (set of code, data, and resources) and places it in a destination environment.
     /// </summary>
     /// <typeparam name="TIdType">The type of the Id</typeparam>
-    public abstract partial class DeploymentProcessBase<TIdType> : LaunchPadDomainEntityBase<TIdType>, IDeploymentProcess<TIdType>
+    public abstract partial class DeploymentProcessBase<TIdType> : DomainEntityBase<TIdType>, IDeploymentProcess<TIdType>
     {
         /// <summary>
         /// The URI to the deployment documentation

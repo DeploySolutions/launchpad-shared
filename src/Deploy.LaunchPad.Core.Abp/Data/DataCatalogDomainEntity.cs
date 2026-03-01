@@ -37,23 +37,23 @@ using Deploy.LaunchPad.Util;
 using Deploy.LaunchPad.Files;
 using Deploy.LaunchPad.Core.Metadata;
 using Deploy.LaunchPad.Util.Elements;
-using Deploy.LaunchPad.Core.Entities;
+using Deploy.LaunchPad.Core.Domain.Entities;
 
 namespace Deploy.LaunchPad.Core.Abp.Data
 {
 
     /// <summary>
     /// Class DataCatalogue.
-    /// Implements the <see cref="LaunchPadDomainEntityBase{TPrimaryKey}" />
+    /// Implements the <see cref="DomainEntityBase{TPrimaryKey}" />
     /// Implements the <see cref="Abp.Domain.IDataCatalogDomainEntity{TPrimaryKey, TDictionaryKey, TDataPointPrimaryKey}" />
     /// </summary>
     /// <typeparam name="TPrimaryKey">The type of the t primary key.</typeparam>
     /// <typeparam name="TDictionaryKey">The type of the t dictionary key.</typeparam>
     /// <typeparam name="TDataPointPrimaryKey">The type of the t data point primary key.</typeparam>
-    /// <seealso cref="LaunchPadDomainEntityBase{TPrimaryKey}" />
+    /// <seealso cref="DomainEntityBase{TPrimaryKey}" />
     /// <seealso cref="Abp.Domain.IDataCatalogDomainEntity{TPrimaryKey, TDictionaryKey, TDataPointPrimaryKey}" />
     public abstract partial class DataCatalogDomainEntity<TPrimaryKey, TDictionaryKey, TDataPointPrimaryKey, TSchemaFormat> :
-        LaunchPadDomainEntityBase<TPrimaryKey>,
+        DomainEntityBase<TPrimaryKey>,
         IDataCatalogDomainEntity<TPrimaryKey, TDictionaryKey, TDataPointPrimaryKey, TSchemaFormat>
         where TDictionaryKey : struct
         where TDataPointPrimaryKey : struct

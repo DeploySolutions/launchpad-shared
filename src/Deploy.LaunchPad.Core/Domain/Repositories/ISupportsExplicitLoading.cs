@@ -40,7 +40,7 @@ using Deploy.LaunchPad.Core.Domain.Entities;
 namespace Deploy.LaunchPad.Core.Domain.Repositories
 {
     public partial interface ISupportsExplicitLoading<TEntity, TPrimaryKey>
-        where TEntity : class, IEntity<TPrimaryKey>
+        where TEntity : class, IFrameworkEntity<TPrimaryKey>
     {
         Task EnsureCollectionLoadedAsync<TProperty>(
             TEntity entity,

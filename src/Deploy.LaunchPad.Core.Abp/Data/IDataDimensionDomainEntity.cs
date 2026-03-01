@@ -11,7 +11,7 @@
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
-using Deploy.LaunchPad.Core.Entities;
+using Deploy.LaunchPad.Core.Domain.Entities;
 using Deploy.LaunchPad.Core.Metadata;
 using Deploy.LaunchPad.Data;
 
@@ -23,7 +23,7 @@ namespace Deploy.LaunchPad.Core.Abp.Data
     /// <typeparam name="TPrimaryKey">The type of the primary key</typeparam>
     public partial interface IDataDimensionDomainEntity<TPrimaryKey> :
         ILaunchPadDataDimension,
-        ILaunchPadDomainEntity<TPrimaryKey>, IMayHaveTenant
+        IDomainEntity<TPrimaryKey>, IMayHaveTenant
     {
     }
 }

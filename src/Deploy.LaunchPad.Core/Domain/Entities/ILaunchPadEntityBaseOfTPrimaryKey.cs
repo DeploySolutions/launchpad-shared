@@ -30,16 +30,28 @@
  */
 #endregion
 
-using Deploy.LaunchPad.Core.Domain.Entities;
+using Deploy.LaunchPad.Core.Metadata;
+using Deploy.LaunchPad.Util;
+using System;
 
-namespace Deploy.LaunchPad.Core.Domain.Repositories
+namespace Deploy.LaunchPad.Core.Domain.Entities
 {
     /// <summary>
-    /// A shortcut of <see cref="IRepository{TEntity,TPrimaryKey}"/> for most used primary key type (<see cref="guid"/>).
+    /// Defines base interface for LaunchPad entity type. 
+    /// All entities in the system must implement this interface.
     /// </summary>
-    /// <typeparam name="TEntity">Entity type</typeparam>
-    public partial interface IRepository<TEntity> : IRepository<TEntity, System.Guid> where TEntity : class, IFrameworkEntity<System.Guid>
+    /// <typeparam name="TPrimaryKey">Type of the primary key of the entity</typeparam>
+    public partial interface ILaunchPadEntityBaseOfTPrimaryKey<TPrimaryKey> : 
+        ILaunchPadObject,
+        ILaunchPadEntityBaseProperties<TPrimaryKey>
     {
 
+        
+        /// <summary>
+        /// Calculate the Checksum value of this entity, based on chosen properties.
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        string ComputeChecksum(string input = "");
     }
 }

@@ -30,15 +30,14 @@
  */
 #endregion
 
-using Deploy.LaunchPad.Core.Domain.Entities;
+using Deploy.LaunchPad.Util.Elements;
 
-namespace Deploy.LaunchPad.Core.Domain.Repositories
+namespace Deploy.LaunchPad.Core.Domain.Entities
 {
     /// <summary>
-    /// A shortcut of <see cref="IRepository{TEntity,TPrimaryKey}"/> for most used primary key type (<see cref="guid"/>).
+    /// A shortcut of <see cref="ILaunchPadEntityBaseOfTPrimaryKey{TPrimaryKey}"/> for most used primary key type (<see cref="System.Guid"/>).
     /// </summary>
-    /// <typeparam name="TEntity">Entity type</typeparam>
-    public partial interface IRepository<TEntity> : IRepository<TEntity, System.Guid> where TEntity : class, IFrameworkEntity<System.Guid>
+    public partial interface ILaunchPadEntityBase : ILaunchPadEntityBaseOfTPrimaryKey<System.Guid>
     {
 
     }

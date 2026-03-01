@@ -1,5 +1,4 @@
 ﻿using Deploy.LaunchPad.Files;
-using Deploy.LaunchPad.Core.Entities;
 using Deploy.LaunchPad.Core.Metadata;
 
 namespace Deploy.LaunchPad.AWS.S3

@@ -41,9 +41,9 @@ namespace Deploy.LaunchPad.Core.Entities
     /// </summary>
     /// <typeparam name="TIdType">The type of the t identifier type.</typeparam>
     public partial interface ILaunchPadAggregateRoot<TIdType> :
-        ILaunchPadDomainEntity<TIdType>,
+        IDomainEntity<TIdType>,
         ILaunchPadAggregateRootProperties<TIdType>, IAggregateRoot<TIdType>,
-        IComparable<LaunchPadDomainEntityBase<TIdType>>, IEquatable<LaunchPadDomainEntityBase<TIdType>>
+        IComparable<DomainEntityBase<TIdType>>, IEquatable<DomainEntityBase<TIdType>>
     {
 
 

@@ -49,7 +49,7 @@ namespace Deploy.LaunchPade.Core.Domain.Entities
     }
 
     public interface IEntityTranslation<TMultiLingualEntity> : IEntityTranslation<TMultiLingualEntity, System.Guid>
-        where TMultiLingualEntity : IEntity
+        where TMultiLingualEntity : IFrameworkEntity
     {
         
     }

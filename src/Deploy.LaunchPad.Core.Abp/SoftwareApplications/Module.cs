@@ -27,7 +27,7 @@
 #endregion
 
 using Abp.Domain.Entities;
-using Deploy.LaunchPad.Core.Entities;
+using Deploy.LaunchPad.Core.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -45,7 +45,7 @@ namespace Deploy.LaunchPad.Core.Abp.SoftwareApplications
     /// <typeparam name="TIdType">The type of the t identifier type.</typeparam>
     /// <typeparam name="TEntityIdType">The type of the t entity identifier type.</typeparam>
     [Serializable()]
-    public partial class Module<TIdType, TEntityIdType> : LaunchPadDomainEntityBase<TIdType>, IModule<TIdType, TEntityIdType>, IMayHaveTenant
+    public partial class Module<TIdType, TEntityIdType> : DomainEntityBase<TIdType>, IModule<TIdType, TEntityIdType>, IMayHaveTenant
     {
         /// <summary>
         /// The type of the module

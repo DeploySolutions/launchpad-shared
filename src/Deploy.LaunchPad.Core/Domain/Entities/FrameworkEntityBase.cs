@@ -30,7 +30,6 @@
  */
 #endregion
 
-using Deploy.LaunchPad.Core.Entities;
 using Deploy.LaunchPad.Core.Metadata;
 using Deploy.LaunchPad.Util;
 using Deploy.LaunchPad.Util.Elements;
@@ -56,7 +55,7 @@ namespace Deploy.LaunchPad.Core.Domain.Entities
     /// A shortcut of <see cref="Entity{TPrimaryKey}"/> for most used primary key type (<see cref="System.Guid"/>).
     /// </summary>
     [Serializable]
-    public abstract partial class Entity : Entity<System.Guid>, IEntity
+    public abstract partial class FrameworkEntityBase : FrameworkEntityBase<System.Guid>, IFrameworkEntity
     {
 
     }
@@ -68,7 +67,7 @@ namespace Deploy.LaunchPad.Core.Domain.Entities
     /// <typeparam name="TPrimaryKey">Type of the primary key of the entity</typeparam>
     [DebuggerDisplay("{_debugDisplay}")]
     [Serializable]
-    public abstract partial class Entity<TPrimaryKey> : LaunchPadMinimalProperties, IEntity<TPrimaryKey>
+    public abstract partial class FrameworkEntityBase<TPrimaryKey> : LaunchPadMinimalProperties, IFrameworkEntity<TPrimaryKey>
     {
         /// <summary>
         /// Controls the DebuggerDisplay attribute presentation (above). This will only appear during VS debugging sessions and should never be logged.
@@ -120,34 +119,34 @@ namespace Deploy.LaunchPad.Core.Domain.Entities
         /// <value>The type of the entity.</value>
         [DataObjectField(false)]
         [XmlAttribute]
-        public virtual DomainEntityType EntityType { get; } = DomainEntityType.DomainEntity;
+        public virtual DomainEntityType EntityType { get; } = DomainEntityType.FrameworkEntity;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Entity">Entity</see> class
+        /// Initializes a new instance of the <see cref="FrameworkEntityBase">Entity</see> class
         /// </summary>
-        protected Entity() : base()
+        protected FrameworkEntityBase() : base()
         {
         }
 
         /// <summary>
-        /// Creates a new instance of the <see cref="Entity">Entity</see> class given a key, and some metadata.
+        /// Creates a new instance of the <see cref="FrameworkEntityBase">Entity</see> class given a key, and some metadata.
         /// </summary>
         /// <param name="id">The identifier.</param>
         /// <param name="name">The name of the object.</param>
         /// <param name="description">The description for this entity</param>
         [SetsRequiredMembers]
-        protected Entity(string name) : base(name)
+        protected FrameworkEntityBase(string name) : base(name)
         {
         }
 
         /// <summary>
-        /// Creates a new instance of the <see cref="Entity">Entity</see> class given a key, and some metadata.
+        /// Creates a new instance of the <see cref="FrameworkEntityBase">Entity</see> class given a key, and some metadata.
         /// </summary>
         /// <param name="id">The identifier.</param>
         /// <param name="name">The name of the object.</param>
         /// <param name="description">The description for this entity</param>
         [SetsRequiredMembers]
-        protected Entity(ElementName name) : base(name)
+        protected FrameworkEntityBase(ElementName name) : base(name)
         {
         }
 
@@ -158,7 +157,7 @@ namespace Deploy.LaunchPad.Core.Domain.Entities
         /// <param name="name">The name of the object.</param>
         /// <param name="description">The description for this entity</param>
         [SetsRequiredMembers]
-        protected Entity(ElementName name, ElementDescription description) : base(name, description)
+        protected FrameworkEntityBase(ElementName name, ElementDescription description) : base(name, description)
         {
            
         }
@@ -168,7 +167,7 @@ namespace Deploy.LaunchPad.Core.Domain.Entities
         /// </summary>
         /// <param name="id">The identifier.</param>
         [SetsRequiredMembers]
-        protected Entity(TPrimaryKey id) : base()
+        protected FrameworkEntityBase(TPrimaryKey id) : base()
         {
             Id = id;
         }
@@ -180,7 +179,7 @@ namespace Deploy.LaunchPad.Core.Domain.Entities
         /// <param name="id">The identifier.</param>
         /// <param name="name">The name of the object.</param>
         [SetsRequiredMembers]
-        protected Entity(TPrimaryKey id, string name) : base(name)
+        protected FrameworkEntityBase(TPrimaryKey id, string name) : base(name)
         {
             Id = id;
         }
@@ -191,43 +190,31 @@ namespace Deploy.LaunchPad.Core.Domain.Entities
         /// <param name="id">The identifier.</param>
         /// <param name="name">The name of the object.</param>
         [SetsRequiredMembers]
-        protected Entity(TPrimaryKey id, ElementName name) : base(name)
+        protected FrameworkEntityBase(TPrimaryKey id, ElementName name) : base(name)
         {
             Id = id;
         }
 
         /// <summary>
-        /// Creates a new instance of the <see cref="Entity">Entity</see> class given a key, and some metadata.
+        /// Creates a new instance of the <see cref="FrameworkEntityBase">Entity</see> class given a key, and some metadata.
         /// </summary>
         /// <param name="id">The identifier.</param>
         /// <param name="name">The name of the object.</param>
         /// <param name="culture">The culture for this entity</param>
         [SetsRequiredMembers]
-        protected Entity(TPrimaryKey id, string name, CultureInfo culture) : base(name)
+        protected FrameworkEntityBase(TPrimaryKey id, string name, CultureInfo culture) : base(name)
         {
             Id = id;
         }
 
         /// <summary>
-        /// Creates a new instance of the <see cref="Entity">Entity</see> class given a key, and some metadata.
+        /// Creates a new instance of the <see cref="FrameworkEntityBase">Entity</see> class given a key, and some metadata.
         /// </summary>
         /// <param name="id">The identifier.</param>
         /// <param name="name">The name of the object.</param>
         /// <param name="culture">The culture for this entity</param>
         [SetsRequiredMembers]
-        protected Entity(TPrimaryKey id, ElementName name, CultureInfo culture) : base(name)
-        {
-            Id = id;
-        }
-
-        /// <summary>
-        /// Creates a new instance of the <see cref="DomainEntityBase">Entity</see> class given a key, and some metadata.
-        /// </summary>
-        /// <param name="id">The identifier.</param>
-        /// <param name="name">The name of the object.</param>
-        /// <param name="culture">The culture for this entity</param>
-        [SetsRequiredMembers]
-        protected Entity(TPrimaryKey id, ElementName name, ElementDescription description) : base(name, description)
+        protected FrameworkEntityBase(TPrimaryKey id, ElementName name, CultureInfo culture) : base(name)
         {
             Id = id;
         }
@@ -239,7 +226,19 @@ namespace Deploy.LaunchPad.Core.Domain.Entities
         /// <param name="name">The name of the object.</param>
         /// <param name="culture">The culture for this entity</param>
         [SetsRequiredMembers]
-        protected Entity(TPrimaryKey id, ElementName name, ElementDescription description, CultureInfo culture) : base(name, description)
+        protected FrameworkEntityBase(TPrimaryKey id, ElementName name, ElementDescription description) : base(name, description)
+        {
+            Id = id;
+        }
+
+        /// <summary>
+        /// Creates a new instance of the <see cref="DomainEntityBase">Entity</see> class given a key, and some metadata.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <param name="name">The name of the object.</param>
+        /// <param name="culture">The culture for this entity</param>
+        [SetsRequiredMembers]
+        protected FrameworkEntityBase(TPrimaryKey id, ElementName name, ElementDescription description, CultureInfo culture) : base(name, description)
         {
             Id = id;
         }
@@ -249,7 +248,7 @@ namespace Deploy.LaunchPad.Core.Domain.Entities
         /// </summary>
         /// <param name="info">The serialization info</param>
         /// <param name="context">The context of the stream</param>
-        protected Entity(SerializationInfo info, StreamingContext context) : base(info, context)
+        protected FrameworkEntityBase(SerializationInfo info, StreamingContext context) : base(info, context)
         {
             Id = (TPrimaryKey)info.GetValue("Id", typeof(TPrimaryKey));
             Name = (string)info.GetValue("Name", typeof(string));
@@ -303,7 +302,7 @@ namespace Deploy.LaunchPad.Core.Domain.Entities
         /// <inheritdoc/>
         public virtual bool EntityEquals(object obj)
         {
-            if (obj == null || !(obj is Entity<TPrimaryKey>))
+            if (obj == null || !(obj is FrameworkEntityBase<TPrimaryKey>))
             {
                 return false;
             }
@@ -315,7 +314,7 @@ namespace Deploy.LaunchPad.Core.Domain.Entities
             }
 
             //Transient objects are not considered as equal
-            var other = (Entity<TPrimaryKey>)obj;
+            var other = (FrameworkEntityBase<TPrimaryKey>)obj;
             if (IsTransient() && other.IsTransient())
             {
                 return false;
@@ -368,9 +367,9 @@ namespace Deploy.LaunchPad.Core.Domain.Entities
             return sb.ToString();
         }
 
-        public virtual Entity<TPrimaryKey> CloneGeneric()
+        public virtual FrameworkEntityBase<TPrimaryKey> CloneGeneric()
         {
-            var clone = (Entity<TPrimaryKey>)this.MemberwiseClone();
+            var clone = (FrameworkEntityBase<TPrimaryKey>)this.MemberwiseClone();
             // Deep clone reference-type fields as needed
             clone.Name = Name; 
             //clone.Description = Description?.CloneGeneric(); // assuming ElementDescription has a Clone() method
@@ -387,7 +386,7 @@ namespace Deploy.LaunchPad.Core.Domain.Entities
         /// </summary>
         /// <param name="other">The other object of this type we are comparing to</param>
         /// <returns>System.Int32.</returns>
-        public virtual int CompareTo(Entity<TPrimaryKey> other)
+        public virtual int CompareTo(FrameworkEntityBase<TPrimaryKey> other)
         {
             // put comparison of properties in here 
             // for base object we'll just sort by DisplayName
@@ -401,9 +400,9 @@ namespace Deploy.LaunchPad.Core.Domain.Entities
         /// <returns>True if the entities are the same according to business key value</returns>
         public override bool Equals(object obj)
         {
-            if (obj != null && obj is Entity<TPrimaryKey>)
+            if (obj != null && obj is FrameworkEntityBase<TPrimaryKey>)
             {
-                return Equals(obj as Entity<TPrimaryKey>);
+                return Equals(obj as FrameworkEntityBase<TPrimaryKey>);
             }
             return false;
         }
@@ -417,7 +416,7 @@ namespace Deploy.LaunchPad.Core.Domain.Entities
         /// </summary>
         /// <param name="obj">The other object of this type that we are testing equality with</param>
         /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
-        public virtual bool Equals(Entity<TPrimaryKey> obj)
+        public virtual bool Equals(FrameworkEntityBase<TPrimaryKey> obj)
         {
             if (obj != null)
             {
@@ -455,7 +454,7 @@ namespace Deploy.LaunchPad.Core.Domain.Entities
         /// <param name="x">The first value</param>
         /// <param name="y">The second value</param>
         /// <returns>True if both objects are fully equal ased on the Equals logic</returns>
-        public static bool operator ==(Entity<TPrimaryKey> x, Entity<TPrimaryKey> y)
+        public static bool operator ==(FrameworkEntityBase<TPrimaryKey> x, FrameworkEntityBase<TPrimaryKey> y)
         {
             if (x is null)
             {
@@ -474,7 +473,7 @@ namespace Deploy.LaunchPad.Core.Domain.Entities
         /// <param name="x">The first value</param>
         /// <param name="y">The second value</param>
         /// <returns>True if both objects are not equal based on the Equals logic</returns>
-        public static bool operator !=(Entity<TPrimaryKey> x, Entity<TPrimaryKey> y)
+        public static bool operator !=(FrameworkEntityBase<TPrimaryKey> x, FrameworkEntityBase<TPrimaryKey> y)
         {
             return !(x == y);
         }

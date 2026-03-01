@@ -11,6 +11,7 @@
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
+using Deploy.LaunchPad.Core.Domain.Entities;
 using Deploy.LaunchPad.Domain.Metadata;
 using System;
 using System.Collections.Generic;
@@ -27,9 +28,9 @@ namespace Deploy.LaunchPad.Core.Entities
     /// Each entity also implements ASP.NET Boilerplate's IAggregateRoot interface.
     /// </summary>
     /// <typeparam name="TIdType">The type of the t identifier type.</typeparam>
-    public partial interface ILaunchPadAggregateChild<TIdType> : ILaunchPadDomainEntity<TIdType>,
+    public partial interface ILaunchPadAggregateChild<TIdType> : IDomainEntity<TIdType>,
         ILaunchPadAggregateChildProperties<TIdType>, 
-        IComparable<LaunchPadDomainEntityBase<TIdType>>, IEquatable<LaunchPadDomainEntityBase<TIdType>>
+        IComparable<DomainEntityBase<TIdType>>, IEquatable<DomainEntityBase<TIdType>>
     {
     }
 }

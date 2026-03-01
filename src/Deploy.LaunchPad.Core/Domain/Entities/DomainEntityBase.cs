@@ -30,36 +30,28 @@
 using Deploy.LaunchPad.Util;
 using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Diagnostics;
 using System.Globalization;
-using System.Linq;
-using System.Reflection;
 using System.Runtime.Serialization;
-using System.Security.Cryptography;
 using System.Text;
 using System.Xml.Serialization;
 using Deploy.LaunchPad.Util.Elements;
-using Deploy.LaunchPad.Core.Domain.Entities;
-using Deploy.LaunchPad.Core.Domain.Entities.Auditing;
-using Deploy.LaunchPad.Core.Metadata;
 
-namespace Deploy.LaunchPad.Core.Entities
+namespace Deploy.LaunchPad.Core.Domain.Entities
 {
 
     /// <summary>
-    /// Base class for Entities. Implements <see cref="IDomainEntity">IDomainEntity</see> and provides
-    /// base functionality for many of its methods. Inherits from AspNetBoilerplate's Entity class.
+    /// Base class for Domain Entities. Implements <see cref="IDomainEntity">IDomainEntity</see> and provides
+    /// base functionality for many of its methods. Inherits from FrameworkEntityBase class which is for AspNetBoilerplate's elements.
     /// Implements AspNetBoilerplate's auditing interfaces.
     /// </summary>
     /// <typeparam name="TIdType">The type of the t identifier type.</typeparam>
     [DebuggerDisplay("{_debugDisplay}")]
     [Serializable]
-    public abstract partial class LaunchPadDomainEntityBase<TIdType> :
-        FullAuditedEntity<TIdType>, ILaunchPadDomainEntity<TIdType>, IMayHaveSequenceNumber, IMayHaveCulture
+    public abstract partial class DomainEntityBase<TIdType> : FrameworkEntityBase<TIdType>,
+         IDomainEntity<TIdType>
     {
 
         ///// <summary>
@@ -158,10 +150,21 @@ namespace Deploy.LaunchPad.Core.Entities
             set { _deleterUserName = value; }
         }
 
+        public override DomainEntityType EntityType { get; } = DomainEntityType.DomainEntity;
+
+        public virtual DateTime CreationTime { get; set; }
+        public virtual Guid? CreatorUserId { get; set; }
+        public virtual DateTime? LastModificationTime { get; set; }
+        public virtual Guid? LastModifierUserId { get; set; }
+        public virtual DateTime? DeletionTime { get; set; }
+        public virtual Guid? DeleterUserId { get; set; }
+        public virtual bool IsDeleted { get; set; }
+
+
         /// <summary>
         /// Initializes a new instance of the <see cref="DomainEntityBase">Entity</see> class
         /// </summary>
-        protected LaunchPadDomainEntityBase() : base()
+        protected DomainEntityBase() : base()
         {
             Culture = new CultureInfo("en-CA");
             //TenantId = 0; // default tenant
@@ -178,7 +181,7 @@ namespace Deploy.LaunchPad.Core.Entities
         /// <param name="id">The identifier.</param>
         /// <param name="name">The name of the object.</param>
         /// <param name="description">The description for this entity</param>
-        protected LaunchPadDomainEntityBase(ElementName name) : base()
+        protected DomainEntityBase(ElementName name) : base()
         {
             Culture = new CultureInfo("en-CA");
             CreatorUserId = Guid.NewGuid(); // TODO - default user account?
@@ -194,7 +197,7 @@ namespace Deploy.LaunchPad.Core.Entities
         /// <param name="id">The identifier.</param>
         /// <param name="name">The name of the object.</param>
         /// <param name="description">The description for this entity</param>
-        protected LaunchPadDomainEntityBase(ElementName name, ElementDescription description) : base()
+        protected DomainEntityBase(ElementName name, ElementDescription description) : base()
         {
             Culture = new CultureInfo("en-CA");
             CreatorUserId = Guid.NewGuid(); // TODO - default user account?
@@ -208,7 +211,7 @@ namespace Deploy.LaunchPad.Core.Entities
         /// Creates a new instance of the <see cref="DomainEntityBase">Entity</see> class given a key, and some metadata.
         /// </summary>
         /// <param name="id">The identifier.</param>
-        protected LaunchPadDomainEntityBase(TIdType id) : base()
+        protected DomainEntityBase(TIdType id) : base()
         {
             Id = id;
             Culture = new CultureInfo("en-CA");
@@ -225,7 +228,7 @@ namespace Deploy.LaunchPad.Core.Entities
         /// </summary>
         /// <param name="id">The identifier.</param>
         /// <param name="name">The name of the object.</param>
-        protected LaunchPadDomainEntityBase(TIdType id, string name) : base()
+        protected DomainEntityBase(TIdType id, string name) : base()
         {
             Id = id;
             Culture = new CultureInfo("en-CA");
@@ -242,7 +245,7 @@ namespace Deploy.LaunchPad.Core.Entities
         /// <param name="id">The identifier.</param>
         /// <param name="name">The name of the object.</param>
         /// <param name="culture">The culture for this entity</param>
-        protected LaunchPadDomainEntityBase(TIdType id, string name, CultureInfo culture) : base()
+        protected DomainEntityBase(TIdType id, string name, CultureInfo culture) : base()
         {
             Id = id;
             Culture = culture;
@@ -259,7 +262,7 @@ namespace Deploy.LaunchPad.Core.Entities
         /// <param name="id">The identifier.</param>
         /// <param name="name">The name of the object.</param>
         /// <param name="culture">The culture for this entity</param>
-        protected LaunchPadDomainEntityBase(TIdType id, ElementName name, CultureInfo culture) : base()
+        protected DomainEntityBase(TIdType id, ElementName name, CultureInfo culture) : base()
         {
             Id = id;
             Culture = culture;
@@ -276,7 +279,7 @@ namespace Deploy.LaunchPad.Core.Entities
         /// <param name="id">The identifier.</param>
         /// <param name="name">The name of the object.</param>
         /// <param name="culture">The culture for this entity</param>
-        protected LaunchPadDomainEntityBase(TIdType id, ElementName name, ElementDescription description, CultureInfo culture) : base()
+        protected DomainEntityBase(TIdType id, ElementName name, ElementDescription description, CultureInfo culture) : base()
         {
             Id = id;
             Culture = culture;
@@ -292,7 +295,7 @@ namespace Deploy.LaunchPad.Core.Entities
         /// </summary>
         /// <param name="info">The serialization info</param>
         /// <param name="context">The context of the stream</param>
-        protected LaunchPadDomainEntityBase(SerializationInfo info, StreamingContext context)
+        protected DomainEntityBase(SerializationInfo info, StreamingContext context)
         {
             Id = (TIdType)info.GetValue("Id", typeof(TIdType));
             Culture = (CultureInfo)info.GetValue("Culture", typeof(CultureInfo));
@@ -347,9 +350,9 @@ namespace Deploy.LaunchPad.Core.Entities
             // reconnect connection strings and other resources that won't be serialized
         }
 
-        public virtual LaunchPadDomainEntityBase<TIdType> CloneGeneric()
+        public virtual DomainEntityBase<TIdType> CloneGeneric()
         {
-            var clone = (LaunchPadDomainEntityBase<TIdType>)this.MemberwiseClone();
+            var clone = (DomainEntityBase<TIdType>)this.MemberwiseClone();
             // Deep clone reference-type fields as needed
             clone.Name = Name;
             //clone.Description = Description?.CloneGeneric(); // assuming ElementDescription has a Clone() method
@@ -366,7 +369,7 @@ namespace Deploy.LaunchPad.Core.Entities
         /// </summary>
         /// <param name="other">The other object of this type we are comparing to</param>
         /// <returns>System.Int32.</returns>
-        public virtual int CompareTo(LaunchPadDomainEntityBase<TIdType> other)
+        public virtual int CompareTo(DomainEntityBase<TIdType> other)
         {
             // put comparison of properties in here 
             // for base object we'll just sort by DisplayName
@@ -421,9 +424,9 @@ namespace Deploy.LaunchPad.Core.Entities
         /// <returns>True if the entities are the same according to business key value</returns>
         public override bool Equals(object obj)
         {
-            if (obj != null && obj is LaunchPadDomainEntityBase<TIdType>)
+            if (obj != null && obj is DomainEntityBase<TIdType>)
             {
-                return Equals(obj as LaunchPadDomainEntityBase<TIdType>);
+                return Equals(obj as DomainEntityBase<TIdType>);
             }
             return false;
         }
@@ -437,7 +440,7 @@ namespace Deploy.LaunchPad.Core.Entities
         /// </summary>
         /// <param name="obj">The other object of this type that we are testing equality with</param>
         /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
-        public virtual bool Equals(LaunchPadDomainEntityBase<TIdType> obj)
+        public virtual bool Equals(DomainEntityBase<TIdType> obj)
         {
             if (obj != null)
             {
@@ -475,7 +478,7 @@ namespace Deploy.LaunchPad.Core.Entities
         /// <param name="x">The first value</param>
         /// <param name="y">The second value</param>
         /// <returns>True if both objects are fully equal based on the Equals logic</returns>
-        public static bool operator ==(LaunchPadDomainEntityBase<TIdType> x, LaunchPadDomainEntityBase<TIdType> y)
+        public static bool operator ==(DomainEntityBase<TIdType> x, DomainEntityBase<TIdType> y)
         {
             if (x is null)
             {
@@ -494,7 +497,7 @@ namespace Deploy.LaunchPad.Core.Entities
         /// <param name="x">The first value</param>
         /// <param name="y">The second value</param>
         /// <returns>True if both objects are not equal based on the Equals logic</returns>
-        public static bool operator !=(LaunchPadDomainEntityBase<TIdType> x, LaunchPadDomainEntityBase<TIdType> y)
+        public static bool operator !=(DomainEntityBase<TIdType> x, DomainEntityBase<TIdType> y)
         {
             return !(x == y);
         }
@@ -513,5 +516,29 @@ namespace Deploy.LaunchPad.Core.Entities
                 ;
         }
 
+        string ILaunchPadEntityBaseOfTPrimaryKey<TIdType>.ComputeChecksum(string input)
+        {
+            throw new NotImplementedException();
+        }
+
+        bool ILaunchPadEntityBaseProperties<TIdType>.IsTransient()
+        {
+            throw new NotImplementedException();
+        }
+
+        int IComparable<FrameworkEntityBase<TIdType>>.CompareTo(FrameworkEntityBase<TIdType> other)
+        {
+            throw new NotImplementedException();
+        }
+
+        bool IEquatable<FrameworkEntityBase<TIdType>>.Equals(FrameworkEntityBase<TIdType> other)
+        {
+            throw new NotImplementedException();
+        }
+
+        FrameworkEntityBase<TIdType> IAmCloneable<FrameworkEntityBase<TIdType>>.CloneGeneric()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

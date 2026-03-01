@@ -29,7 +29,7 @@
 
 namespace Deploy.LaunchPad.Core.Abp.SoftwareApplications
 {
-    using Deploy.LaunchPad.Core.Entities;
+    using Deploy.LaunchPad.Core.Domain.Entities;
     using System;
     using System.ComponentModel;
     using System.ComponentModel.DataAnnotations.Schema;
@@ -39,7 +39,7 @@ namespace Deploy.LaunchPad.Core.Abp.SoftwareApplications
     /// Represents a tenant in an application.
     /// </summary>
     /// <typeparam name="TIdType">The type of the t identifier type.</typeparam>
-    public partial interface ITenantDetails<TIdType> : ILaunchPadDomainEntity<TIdType>
+    public partial interface ITenantDetails<TIdType> : IDomainEntity<TIdType>
     {
         /// <summary>
         /// Gets or sets the launch pad application identifier.

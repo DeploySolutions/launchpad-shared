@@ -11,24 +11,19 @@
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
-using Deploy.LaunchPad.Core.Domain.Entities;
 using Deploy.LaunchPad.Core.Metadata;
 using System;
 using System.ComponentModel;
 using System.Xml.Serialization;
 
-namespace Deploy.LaunchPad.Core.Entities
+namespace Deploy.LaunchPad.Core.Domain.Entities
 {
     /// <summary>
     /// Defines the minimum properties LaunchPad expects to have for a Domain Entity or Value Object.
     /// Note these deliberately correspond 1:1 to many of the properties found in various ABP domain entity interfaces, which would also be inherited by implementing classes.
     /// </summary>
     /// <typeparam name="TPrimaryKey">The type of the primary key.</typeparam>
-    public partial interface ILaunchPadDomainEntityProperties<TPrimaryKey> :
-        ILaunchPadMinimalProperties, 
-        IMustHaveId<TPrimaryKey>,
-        IMayHaveTags,
-        IMayHaveChecksumValue
+    public partial interface IDomainEntityProperties<TPrimaryKey> : ILaunchPadEntityBaseProperties<TPrimaryKey>      
     {
         /// <summary>
         /// If this object is a regular domain entity, an aggregate root, or an aggregate child

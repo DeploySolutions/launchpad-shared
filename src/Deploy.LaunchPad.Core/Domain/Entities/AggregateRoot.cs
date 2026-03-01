@@ -157,7 +157,7 @@ namespace Deploy.LaunchPad.Core.Domain.Entities
         }
     }
 
-    public partial class AggregateRoot<TPrimaryKey> : Entity<TPrimaryKey>, IAggregateRoot<TPrimaryKey>
+    public partial class AggregateRoot<TPrimaryKey> : FrameworkEntityBase<TPrimaryKey>, IAggregateRoot<TPrimaryKey>
     {
         [NotMapped]
         public virtual ICollection<IEventData> DomainEvents { get; }

@@ -38,21 +38,21 @@ namespace Deploy.LaunchPad.Core.Abp.Data
     using Deploy.LaunchPad.Files;
     using Deploy.LaunchPad.Core.Metadata;
     using Deploy.LaunchPad.Util.Elements;
-    using Deploy.LaunchPad.Core.Entities;
+    using Deploy.LaunchPad.Core.Domain.Entities;
 
 
     /// <summary>
     /// Class DataSet.
-    /// Implements the <see cref="LaunchPadDomainEntityBase{TPrimaryKey}" />
+    /// Implements the <see cref="DomainEntityBase{TPrimaryKey}" />
     /// Implements the <see cref="Abp.Domain.IDataSetDomainEntity{TPrimaryKey, TDictionaryKey, TDataPointPrimaryKey}" />
     /// </summary>
     /// <typeparam name="TPrimaryKey">The type of the t primary key.</typeparam>
     /// <typeparam name="TDictionaryKey">The type of the t dictionary key.</typeparam>
     /// <typeparam name="TDataPointPrimaryKey">The type of the t data point primary key.</typeparam>
     /// <typeparam name="TSchemaFormat">The type of the schema (ex a Json or XSD related generic type>.</typeparam>
-    /// <seealso cref="LaunchPadDomainEntityBase{TPrimaryKey}" />
+    /// <seealso cref="DomainEntityBase{TPrimaryKey}" />
     /// <seealso cref="Abp.Domain.IDataSetDomainEntity{TPrimaryKey, TDictionaryKey, TDataPointPrimaryKey}" />
-    public abstract partial class DatasetDomainEntity<TPrimaryKey, TDictionaryKey, TDataPointPrimaryKey, TSchemaFormat> : LaunchPadDomainEntityBase<TPrimaryKey>, IDataSetDomainEntity<TPrimaryKey, TDictionaryKey, TDataPointPrimaryKey, TSchemaFormat>
+    public abstract partial class DatasetDomainEntity<TPrimaryKey, TDictionaryKey, TDataPointPrimaryKey, TSchemaFormat> : DomainEntityBase<TPrimaryKey>, IDataSetDomainEntity<TPrimaryKey, TDictionaryKey, TDataPointPrimaryKey, TSchemaFormat>
         where TDictionaryKey : struct
         where TDataPointPrimaryKey : struct
     {

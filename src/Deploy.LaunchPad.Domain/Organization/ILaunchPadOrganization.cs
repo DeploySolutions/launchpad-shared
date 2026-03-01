@@ -31,7 +31,6 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Xml.Serialization;
 using Deploy.LaunchPad.Core.Metadata;
-using Deploy.LaunchPad.Core.Entities;
 using Deploy.LaunchPad.Util;
 
 namespace Deploy.LaunchPad.Domain.Organization
