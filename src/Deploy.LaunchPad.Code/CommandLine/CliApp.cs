@@ -66,7 +66,7 @@ namespace Deploy.LaunchPad.Code.CommandLine
                 return methodResult;
             }
 
-            logger.Debug($"Command instance resolved: {command.GetType()Name}");
+            logger.Debug($"Command instance resolved: {command.GetType().Name}");
 
             var method = command.GetType().GetMethod("ExecuteAsync");
             var genericMethod = method.MakeGenericMethod(commandType, valueType);

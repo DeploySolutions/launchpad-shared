@@ -174,7 +174,7 @@ namespace Deploy.LaunchPad.Util.Elements
         {
             // Create a new instance and copy all relevant properties
             return new ElementDescription(
-                fullDescription: this,
+                fullDescription: this.Full,
                 shortDescription: this.Short
             );
         }
