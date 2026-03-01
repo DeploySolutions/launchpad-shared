@@ -265,7 +265,7 @@ namespace Deploy.LaunchPad.Core.Metadata
         ///  constructor 
         /// </summary>
         [SetsRequiredMembers]
-        public LaunchPadCoreProperties(string name) : base(new ElementName(name), new ElementDescription(name))
+        public LaunchPadCoreProperties(string name) : base(new ElementName(name))
         {
         }
 

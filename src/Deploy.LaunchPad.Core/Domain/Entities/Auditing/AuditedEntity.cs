@@ -34,6 +34,7 @@ using Deploy.LaunchPad.Util.Elements;
 using Deploy.LaunchPad.Util.Timing;
 using System;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Runtime.Serialization;
@@ -44,6 +45,7 @@ namespace Deploy.LaunchPad.Core.Domain.Entities.Auditing
     /// A shortcut of <see cref="AuditedEntity{TPrimaryKey}"/> for most used primary key type (<see cref="System.Guid"/>).
     /// </summary>
     [Serializable]
+    [DebuggerDisplay("{_debugDisplay}")]
     public abstract partial class AuditedEntity : AuditedEntity<System.Guid>
     {
         /// <summary>
@@ -65,16 +67,6 @@ namespace Deploy.LaunchPad.Core.Domain.Entities.Auditing
         {
         }
 
-        /// <summary>
-        /// Creates a new instance of the <see cref="AuditedEntity">AuditedEntity</see> class given a key, and some metadata.
-        /// </summary>
-        /// <param name="id">The identifier.</param>
-        /// <param name="name">The name of the object.</param>
-        /// <param name="description">The description for this entity</param>
-        [SetsRequiredMembers]
-        protected AuditedEntity(ElementName name, ElementDescription description) : base(name, description)
-        {
-        }
 
         /// <summary>
         /// Creates a new instance of the <see cref="AuditedEntity">AuditedEntity</see> class given a key, and some metadata.
@@ -119,17 +111,6 @@ namespace Deploy.LaunchPad.Core.Domain.Entities.Auditing
         }
 
         /// <summary>
-        /// Creates a new instance of the <see cref="AuditedEntity">AuditedEntity</see> class given a key, and some metadata.
-        /// </summary>
-        /// <param name="id">The identifier.</param>
-        /// <param name="name">The name of the object.</param>
-        /// <param name="culture">The culture for this entity</param>
-        [SetsRequiredMembers]
-        protected AuditedEntity(System.Guid id, ElementName name, ElementDescription description, CultureInfo culture) : base(id, name, description,culture)
-        {
-        }
-
-        /// <summary>
         /// Serialization constructor used for deserialization
         /// </summary>
         /// <param name="info">The serialization info</param>
@@ -154,6 +135,7 @@ namespace Deploy.LaunchPad.Core.Domain.Entities.Auditing
     /// </summary>
     /// <typeparam name="TPrimaryKey">Type of the primary key of the entity</typeparam>
     [Serializable]
+    [DebuggerDisplay("{_debugDisplay}")]
     public abstract partial class AuditedEntity<TPrimaryKey> : CreationAuditedEntity<TPrimaryKey>, IAudited
     {
         /// <summary>
@@ -202,17 +184,6 @@ namespace Deploy.LaunchPad.Core.Domain.Entities.Auditing
         /// Creates a new instance of the <see cref="AuditedEntity">AuditedEntity</see> class given a key, and some metadata.
         /// </summary>
         /// <param name="id">The identifier.</param>
-        /// <param name="name">The name of the object.</param>
-        /// <param name="description">The description for this entity</param>
-        [SetsRequiredMembers]
-        protected AuditedEntity(ElementName name, ElementDescription description) : base(name, description)
-        {
-        }
-
-        /// <summary>
-        /// Creates a new instance of the <see cref="AuditedEntity">AuditedEntity</see> class given a key, and some metadata.
-        /// </summary>
-        /// <param name="id">The identifier.</param>
         [SetsRequiredMembers]
         protected AuditedEntity(TPrimaryKey id) : base(id)
         {
@@ -248,17 +219,6 @@ namespace Deploy.LaunchPad.Core.Domain.Entities.Auditing
         /// <param name="culture">The culture for this entity</param>
         [SetsRequiredMembers]
         protected AuditedEntity(TPrimaryKey id, ElementName name, CultureInfo culture) : base(id, name,culture)
-        {
-        }
-
-        /// <summary>
-        /// Creates a new instance of the <see cref="AuditedEntity">AuditedEntity</see> class given a key, and some metadata.
-        /// </summary>
-        /// <param name="id">The identifier.</param>
-        /// <param name="name">The name of the object.</param>
-        /// <param name="culture">The culture for this entity</param>
-        [SetsRequiredMembers]
-        protected AuditedEntity(TPrimaryKey id, ElementName name, ElementDescription description, CultureInfo culture) : base(id, name, description,culture)
         {
         }
 
@@ -340,17 +300,6 @@ namespace Deploy.LaunchPad.Core.Domain.Entities.Auditing
         /// Creates a new instance of the <see cref="AuditedEntity">AuditedEntity</see> class given a key, and some metadata.
         /// </summary>
         /// <param name="id">The identifier.</param>
-        /// <param name="name">The name of the object.</param>
-        /// <param name="description">The description for this entity</param>
-        [SetsRequiredMembers]
-        protected AuditedEntity(ElementName name, ElementDescription description) : base(name, description)
-        {
-        }
-
-        /// <summary>
-        /// Creates a new instance of the <see cref="AuditedEntity">AuditedEntity</see> class given a key, and some metadata.
-        /// </summary>
-        /// <param name="id">The identifier.</param>
         [SetsRequiredMembers]
         protected AuditedEntity(TPrimaryKey id) : base(id)
         {
@@ -386,17 +335,6 @@ namespace Deploy.LaunchPad.Core.Domain.Entities.Auditing
         /// <param name="culture">The culture for this entity</param>
         [SetsRequiredMembers]
         protected AuditedEntity(TPrimaryKey id, ElementName name, CultureInfo culture) : base(id, name,culture)
-        {
-        }
-
-        /// <summary>
-        /// Creates a new instance of the <see cref="AuditedEntity">AuditedEntity</see> class given a key, and some metadata.
-        /// </summary>
-        /// <param name="id">The identifier.</param>
-        /// <param name="name">The name of the object.</param>
-        /// <param name="culture">The culture for this entity</param>
-        [SetsRequiredMembers]
-        protected AuditedEntity(TPrimaryKey id, ElementName name, ElementDescription description, CultureInfo culture) : base(id, name, description,culture)
         {
         }
 

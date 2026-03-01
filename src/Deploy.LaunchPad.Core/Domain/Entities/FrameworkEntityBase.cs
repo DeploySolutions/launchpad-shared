@@ -154,18 +154,6 @@ namespace Deploy.LaunchPad.Core.Domain.Entities
         /// Creates a new instance of the <see cref="DomainEntityBase">Entity</see> class given a key, and some metadata.
         /// </summary>
         /// <param name="id">The identifier.</param>
-        /// <param name="name">The name of the object.</param>
-        /// <param name="description">The description for this entity</param>
-        [SetsRequiredMembers]
-        protected FrameworkEntityBase(ElementName name, ElementDescription description) : base(name, description)
-        {
-           
-        }
-
-        /// <summary>
-        /// Creates a new instance of the <see cref="DomainEntityBase">Entity</see> class given a key, and some metadata.
-        /// </summary>
-        /// <param name="id">The identifier.</param>
         [SetsRequiredMembers]
         protected FrameworkEntityBase(TPrimaryKey id) : base()
         {
@@ -226,19 +214,7 @@ namespace Deploy.LaunchPad.Core.Domain.Entities
         /// <param name="name">The name of the object.</param>
         /// <param name="culture">The culture for this entity</param>
         [SetsRequiredMembers]
-        protected FrameworkEntityBase(TPrimaryKey id, ElementName name, ElementDescription description) : base(name, description)
-        {
-            Id = id;
-        }
-
-        /// <summary>
-        /// Creates a new instance of the <see cref="DomainEntityBase">Entity</see> class given a key, and some metadata.
-        /// </summary>
-        /// <param name="id">The identifier.</param>
-        /// <param name="name">The name of the object.</param>
-        /// <param name="culture">The culture for this entity</param>
-        [SetsRequiredMembers]
-        protected FrameworkEntityBase(TPrimaryKey id, ElementName name, ElementDescription description, CultureInfo culture) : base(name, description)
+        protected FrameworkEntityBase(TPrimaryKey id, ElementName name, ElementDescription description, CultureInfo culture) : base(name)
         {
             Id = id;
         }
@@ -252,7 +228,6 @@ namespace Deploy.LaunchPad.Core.Domain.Entities
         {
             Id = (TPrimaryKey)info.GetValue("Id", typeof(TPrimaryKey));
             Name = (string)info.GetValue("Name", typeof(string));
-            //Description = (ElementDescription)info.GetValue("Description", typeof(ElementDescription));
             Checksum = info.GetString("Checksum");
             Tags = info.GetString("Tags");
         }

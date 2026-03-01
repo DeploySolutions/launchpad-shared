@@ -34,6 +34,7 @@ using Deploy.LaunchPad.Util.Elements;
 using Deploy.LaunchPad.Util.Timing;
 using System;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Runtime.Serialization;
@@ -44,6 +45,7 @@ namespace Deploy.LaunchPad.Core.Domain.Entities.Auditing
     /// A shortcut of <see cref="CreationAuditedEntity{TPrimaryKey}"/> for most used primary key type (<see cref="System.Guid"/>).
     /// </summary>
     [Serializable]
+    [DebuggerDisplay("{_debugDisplay}")]
     public abstract partial class CreationAuditedEntity : CreationAuditedEntity<System.Guid>, IFrameworkEntity
     {
 
@@ -54,6 +56,7 @@ namespace Deploy.LaunchPad.Core.Domain.Entities.Auditing
     /// </summary>
     /// <typeparam name="TPrimaryKey">Type of the primary key of the entity</typeparam>
     [Serializable]
+    [DebuggerDisplay("{_debugDisplay}")]
     public abstract partial class CreationAuditedEntity<TPrimaryKey> : FrameworkEntityBase<TPrimaryKey>, ICreationAudited
     {
         /// <summary>
@@ -104,18 +107,6 @@ namespace Deploy.LaunchPad.Core.Domain.Entities.Auditing
         /// Creates a new instance of the <see cref="CreationAuditedEntity">CreationAuditedEntity</see> class given a key, and some metadata.
         /// </summary>
         /// <param name="id">The identifier.</param>
-        /// <param name="name">The name of the object.</param>
-        /// <param name="description">The description for this entity</param>
-        [SetsRequiredMembers]
-        protected CreationAuditedEntity(ElementName name, ElementDescription description) : base(name, description)
-        {
-            CreationTime = Clock.Now.ToUniversalTime();
-        }
-
-        /// <summary>
-        /// Creates a new instance of the <see cref="CreationAuditedEntity">CreationAuditedEntity</see> class given a key, and some metadata.
-        /// </summary>
-        /// <param name="id">The identifier.</param>
         [SetsRequiredMembers]
         protected CreationAuditedEntity(TPrimaryKey id) : base(id)
         {
@@ -154,18 +145,6 @@ namespace Deploy.LaunchPad.Core.Domain.Entities.Auditing
         /// <param name="culture">The culture for this entity</param>
         [SetsRequiredMembers]
         protected CreationAuditedEntity(TPrimaryKey id, ElementName name, CultureInfo culture) : base(id, name)
-        {
-            CreationTime = Clock.Now.ToUniversalTime();
-        }
-
-        /// <summary>
-        /// Creates a new instance of the <see cref="CreationAuditedEntity">CreationAuditedEntity</see> class given a key, and some metadata.
-        /// </summary>
-        /// <param name="id">The identifier.</param>
-        /// <param name="name">The name of the object.</param>
-        /// <param name="culture">The culture for this entity</param>
-        [SetsRequiredMembers]
-        protected CreationAuditedEntity(TPrimaryKey id, ElementName name, ElementDescription description, CultureInfo culture) : base(id, name, description)
         {
             CreationTime = Clock.Now.ToUniversalTime();
         }
@@ -233,18 +212,6 @@ namespace Deploy.LaunchPad.Core.Domain.Entities.Auditing
         /// Creates a new instance of the <see cref="CreationAuditedEntity">CreationAuditedEntity</see> class given a key, and some metadata.
         /// </summary>
         /// <param name="id">The identifier.</param>
-        /// <param name="name">The name of the object.</param>
-        /// <param name="description">The description for this entity</param>
-        [SetsRequiredMembers]
-        protected CreationAuditedEntity(ElementName name, ElementDescription description) : base(name, description)
-        {
-
-        }
-
-        /// <summary>
-        /// Creates a new instance of the <see cref="CreationAuditedEntity">CreationAuditedEntity</see> class given a key, and some metadata.
-        /// </summary>
-        /// <param name="id">The identifier.</param>
         [SetsRequiredMembers]
         protected CreationAuditedEntity(TPrimaryKey id) : base(id)
         {
@@ -280,17 +247,6 @@ namespace Deploy.LaunchPad.Core.Domain.Entities.Auditing
         /// <param name="culture">The culture for this entity</param>
         [SetsRequiredMembers]
         protected CreationAuditedEntity(TPrimaryKey id, ElementName name, CultureInfo culture) : base(id, name,culture)
-        {
-        }
-
-        /// <summary>
-        /// Creates a new instance of the <see cref="CreationAuditedEntity">CreationAuditedEntity</see> class given a key, and some metadata.
-        /// </summary>
-        /// <param name="id">The identifier.</param>
-        /// <param name="name">The name of the object.</param>
-        /// <param name="culture">The culture for this entity</param>
-        [SetsRequiredMembers]
-        protected CreationAuditedEntity(TPrimaryKey id, ElementName name, ElementDescription description, CultureInfo culture) : base(id, name, description, culture)
         {
         }
 

@@ -79,17 +79,6 @@ namespace Deploy.LaunchPad.Core.Domain.Entities.Auditing
         /// Creates a new instance of the <see cref="FullAuditedAggregateRoot">FullAuditedAggregateRoot</see> class given a key, and some metadata.
         /// </summary>
         /// <param name="id">The identifier.</param>
-        /// <param name="name">The name of the object.</param>
-        /// <param name="description">The description for this entity</param>
-        [SetsRequiredMembers]
-        protected FullAuditedAggregateRoot(ElementName name, ElementDescription description) : base(name, description)
-        {
-        }
-
-        /// <summary>
-        /// Creates a new instance of the <see cref="FullAuditedAggregateRoot">FullAuditedAggregateRoot</see> class given a key, and some metadata.
-        /// </summary>
-        /// <param name="id">The identifier.</param>
         [SetsRequiredMembers]
         protected FullAuditedAggregateRoot(System.Guid id) : base(id)
         {
@@ -125,17 +114,6 @@ namespace Deploy.LaunchPad.Core.Domain.Entities.Auditing
         /// <param name="culture">The culture for this entity</param>
         [SetsRequiredMembers]
         protected FullAuditedAggregateRoot(System.Guid id, ElementName name, CultureInfo culture) : base(id, name, culture)
-        {
-        }
-
-        /// <summary>
-        /// Creates a new instance of the <see cref="FullAuditedAggregateRoot">FullAuditedAggregateRoot</see> class given a key, and some metadata.
-        /// </summary>
-        /// <param name="id">The identifier.</param>
-        /// <param name="name">The name of the object.</param>
-        /// <param name="culture">The culture for this entity</param>
-        [SetsRequiredMembers]
-        protected FullAuditedAggregateRoot(System.Guid id, ElementName name, ElementDescription description, CultureInfo culture) : base(id, name, description, culture)
         {
         }
 
@@ -218,17 +196,6 @@ namespace Deploy.LaunchPad.Core.Domain.Entities.Auditing
         /// Creates a new instance of the <see cref="FullAuditedAggregateRoot">FullAuditedAggregateRoot</see> class given a key, and some metadata.
         /// </summary>
         /// <param name="id">The identifier.</param>
-        /// <param name="name">The name of the object.</param>
-        /// <param name="description">The description for this entity</param>
-        [SetsRequiredMembers]
-        protected FullAuditedAggregateRoot(ElementName name, ElementDescription description) : base(name, description)
-        {
-        }
-
-        /// <summary>
-        /// Creates a new instance of the <see cref="FullAuditedAggregateRoot">FullAuditedAggregateRoot</see> class given a key, and some metadata.
-        /// </summary>
-        /// <param name="id">The identifier.</param>
         [SetsRequiredMembers]
         protected FullAuditedAggregateRoot(TPrimaryKey id) : base(id)
         {
@@ -264,17 +231,6 @@ namespace Deploy.LaunchPad.Core.Domain.Entities.Auditing
         /// <param name="culture">The culture for this entity</param>
         [SetsRequiredMembers]
         protected FullAuditedAggregateRoot(TPrimaryKey id, ElementName name, CultureInfo culture) : base(id, name, culture)
-        {
-        }
-
-        /// <summary>
-        /// Creates a new instance of the <see cref="FullAuditedAggregateRoot">FullAuditedAggregateRoot</see> class given a key, and some metadata.
-        /// </summary>
-        /// <param name="id">The identifier.</param>
-        /// <param name="name">The name of the object.</param>
-        /// <param name="culture">The culture for this entity</param>
-        [SetsRequiredMembers]
-        protected FullAuditedAggregateRoot(TPrimaryKey id, ElementName name, ElementDescription description, CultureInfo culture) : base(id, name, description, culture)
         {
         }
 
@@ -372,17 +328,6 @@ namespace Deploy.LaunchPad.Core.Domain.Entities.Auditing
         /// Creates a new instance of the <see cref="FullAuditedAggregateRoot">FullAuditedAggregateRoot</see> class given a key, and some metadata.
         /// </summary>
         /// <param name="id">The identifier.</param>
-        /// <param name="name">The name of the object.</param>
-        /// <param name="description">The description for this entity</param>
-        [SetsRequiredMembers]
-        protected FullAuditedAggregateRoot(ElementName name, ElementDescription description) : base(name, description)
-        {
-        }
-
-        /// <summary>
-        /// Creates a new instance of the <see cref="FullAuditedAggregateRoot">FullAuditedAggregateRoot</see> class given a key, and some metadata.
-        /// </summary>
-        /// <param name="id">The identifier.</param>
         [SetsRequiredMembers]
         protected FullAuditedAggregateRoot(TPrimaryKey id) : base(id)
         {
@@ -418,17 +363,6 @@ namespace Deploy.LaunchPad.Core.Domain.Entities.Auditing
         /// <param name="culture">The culture for this entity</param>
         [SetsRequiredMembers]
         protected FullAuditedAggregateRoot(TPrimaryKey id, ElementName name, CultureInfo culture) : base(id, name, culture)
-        {
-        }
-
-        /// <summary>
-        /// Creates a new instance of the <see cref="FullAuditedAggregateRoot">FullAuditedAggregateRoot</see> class given a key, and some metadata.
-        /// </summary>
-        /// <param name="id">The identifier.</param>
-        /// <param name="name">The name of the object.</param>
-        /// <param name="culture">The culture for this entity</param>
-        [SetsRequiredMembers]
-        protected FullAuditedAggregateRoot(TPrimaryKey id, ElementName name, ElementDescription description, CultureInfo culture) : base(id, name, description, culture)
         {
         }
 

@@ -54,12 +54,20 @@ namespace Deploy.LaunchPad.Core.Domain.Entities
     public abstract partial class DomainEntityBase<TIdType> : FullAuditedEntity<TIdType>,
          IDomainEntity<TIdType>
     {
-
         ///// <summary>
         ///// Controls the DebuggerDisplay attribute presentation (above). This will only appear during VS debugging sessions and should never be logged.
         ///// </summary>
         ///// <value>The debug display.</value>
-        //protected virtual string _debugDisplay => $"Name {Name}. Description {Description}";
+        protected override string _debugDisplay => $"Name {Name}. Description {Description}";
+
+        /// <summary>
+        /// A  description for this entity
+        /// </summary>
+        /// <value>The description.</value>
+        [DataObjectField(false)]
+        [XmlAttribute]
+        //[JsonPropertyName("description")]
+        public virtual ElementDescription Description { get; set; }
 
         protected bool _isActive = true;
         /// <summary>
@@ -153,14 +161,6 @@ namespace Deploy.LaunchPad.Core.Domain.Entities
 
         public override DomainEntityType EntityType { get; } = DomainEntityType.DomainEntity;
 
-        public virtual DateTime CreationTime { get; set; }
-        public virtual Guid? CreatorUserId { get; set; }
-        public virtual DateTime? LastModificationTime { get; set; }
-        public virtual Guid? LastModifierUserId { get; set; }
-        public virtual DateTime? DeletionTime { get; set; }
-        public virtual Guid? DeleterUserId { get; set; }
-        public virtual bool IsDeleted { get; set; }
-
 
         /// <summary>
         /// Initializes a new instance of the <see cref="DomainEntityBase">Entity</see> class
@@ -172,7 +172,7 @@ namespace Deploy.LaunchPad.Core.Domain.Entities
             IsDeleted = false;
             IsActive = true;
             Name = string.Empty;
-            //Description = new ElementDescription(string.Empty, string.Empty);
+            Description = new ElementDescription(string.Empty, string.Empty);
 
         }
 
@@ -189,7 +189,7 @@ namespace Deploy.LaunchPad.Core.Domain.Entities
             IsDeleted = false;
             IsActive = true;
             Name = name.Name;
-            //Description = new ElementDescription(name.Name);
+            Description = new ElementDescription(name.Name);
         }
 
         /// <summary>
@@ -205,7 +205,7 @@ namespace Deploy.LaunchPad.Core.Domain.Entities
             IsDeleted = false;
             IsActive = true;
             Name = name.Name;
-            //Description = description;
+            Description = description;
         }
 
         /// <summary>
@@ -220,7 +220,7 @@ namespace Deploy.LaunchPad.Core.Domain.Entities
             IsDeleted = false;
             IsActive = true;
             Name = Id.ToString();
-            //Description = new ElementDescription(string.Empty, string.Empty);
+            Description = new ElementDescription(string.Empty, string.Empty);
         }
 
 
@@ -237,7 +237,7 @@ namespace Deploy.LaunchPad.Core.Domain.Entities
             IsDeleted = false;
             IsActive = true;
             Name = name;
-            //Description = new ElementDescription(string.Empty, string.Empty);
+            Description = new ElementDescription(string.Empty, string.Empty);
         }
 
         /// <summary>
@@ -254,7 +254,7 @@ namespace Deploy.LaunchPad.Core.Domain.Entities
             IsDeleted = false;
             IsActive = true;
             Name = name;
-            //Description = new ElementDescription(string.Empty, string.Empty);
+            Description = new ElementDescription(string.Empty, string.Empty);
         }
 
         /// <summary>
@@ -271,7 +271,7 @@ namespace Deploy.LaunchPad.Core.Domain.Entities
             IsDeleted = false;
             IsActive = true;
             Name = name.Name;
-            //Description = new ElementDescription(string.Empty, string.Empty);
+            Description = new ElementDescription(string.Empty, string.Empty);
         }
 
         /// <summary>
@@ -288,7 +288,7 @@ namespace Deploy.LaunchPad.Core.Domain.Entities
             IsDeleted = false;
             IsActive = true;
             Name = name.Name;
-            //Description = description;
+            Description = description;
         }
 
         /// <summary>
@@ -301,7 +301,7 @@ namespace Deploy.LaunchPad.Core.Domain.Entities
             Id = (TIdType)info.GetValue("Id", typeof(TIdType));
             Culture = (CultureInfo)info.GetValue("Culture", typeof(CultureInfo));
             Name = (string)info.GetValue("Name", typeof(string));
-            //Description = (ElementDescription)info.GetValue("Description", typeof(ElementDescription));
+            Description = (ElementDescription)info.GetValue("Description", typeof(ElementDescription));
             Checksum = info.GetString("Checksum");
             Tags = info.GetString("Tags");
             CreationTime = info.GetDateTime("CreationTime");
@@ -325,7 +325,7 @@ namespace Deploy.LaunchPad.Core.Domain.Entities
             info.AddValue("Id", Id);
             info.AddValue("Culture", Culture);
             info.AddValue("Name", Name);
-            //info.AddValue("Description", Description);
+            info.AddValue("Description", Description);
             info.AddValue("Checksum", Checksum);
             info.AddValue("Tags", Tags);
             info.AddValue("CreationTime", CreationTime);
@@ -356,7 +356,7 @@ namespace Deploy.LaunchPad.Core.Domain.Entities
             var clone = (DomainEntityBase<TIdType>)this.MemberwiseClone();
             // Deep clone reference-type fields as needed
             clone.Name = Name;
-            //clone.Description = Description?.CloneGeneric(); // assuming ElementDescription has a Clone() method
+            clone.Description = Description?.CloneGeneric(); // assuming ElementDescription has a Clone() method
                                                         // ...repeat for other reference-type fields if needed
             return clone;
         }
@@ -401,7 +401,7 @@ namespace Deploy.LaunchPad.Core.Domain.Entities
             // LaunchPAD RAD properties
             sb.AppendFormat("Id={0};", Id);
             sb.AppendFormat("Name={0};", Name);
-            //sb.AppendFormat("Description={0};", Description);
+            sb.AppendFormat("Description={0};", Description);
             sb.AppendFormat("Checksum={0};", Checksum);
             sb.AppendFormat(" Tags={0};", Tags.ToString());
             sb.AppendFormat("SeqNum={0};", SeqNum);
@@ -465,7 +465,7 @@ namespace Deploy.LaunchPad.Core.Domain.Entities
                         // Subclasses should extend to include their own enhanced equality checks, as required.
                         return Id.Equals(obj.Id) && Culture.Equals(obj.Culture) 
                             && Name.Equals(obj.Name)
-                            //&& Description.Equals(obj.Description)
+                            && Description.Equals(obj.Description)
                             && IsActive.Equals(obj.IsActive) && IsDeleted.Equals(obj.IsDeleted);
                     }
                 }
@@ -517,29 +517,5 @@ namespace Deploy.LaunchPad.Core.Domain.Entities
                 ;
         }
 
-        string ILaunchPadEntityBaseOfTPrimaryKey<TIdType>.ComputeChecksum(string input)
-        {
-            throw new NotImplementedException();
-        }
-
-        bool ILaunchPadEntityBaseProperties<TIdType>.IsTransient()
-        {
-            throw new NotImplementedException();
-        }
-
-        int IComparable<FrameworkEntityBase<TIdType>>.CompareTo(FrameworkEntityBase<TIdType> other)
-        {
-            throw new NotImplementedException();
-        }
-
-        bool IEquatable<FrameworkEntityBase<TIdType>>.Equals(FrameworkEntityBase<TIdType> other)
-        {
-            throw new NotImplementedException();
-        }
-
-        FrameworkEntityBase<TIdType> IAmCloneable<FrameworkEntityBase<TIdType>>.CloneGeneric()
-        {
-            throw new NotImplementedException();
-        }
     }
 }

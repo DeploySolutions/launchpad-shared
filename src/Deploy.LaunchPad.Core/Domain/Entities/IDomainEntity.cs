@@ -46,7 +46,7 @@ namespace Deploy.LaunchPad.Core.Domain.Entities
         ICreationAudited, IModificationAudited, IDeletionAudited,
         IComparable<DomainEntityBase<TIdType>>, IEquatable<DomainEntityBase<TIdType>>,
         ICloneable, IAmCloneable<DomainEntityBase<TIdType>>,
-        IMustHaveCulture, IHavePassivable, IMayHaveTags, IHaveSoftDelete
+        IMustHaveCulture, IHavePassivable, IMayHaveTags, IHaveSoftDelete, IMustHaveElementDescription
     {
 
     }

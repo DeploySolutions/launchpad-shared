@@ -50,7 +50,7 @@ namespace Deploy.LaunchPad.Core.Abp.SoftwareApplications
     /// </summary>
     /// <typeparam name="TIdType">The type of the t identifier type.</typeparam>
     [Serializable()]
-    public partial class ApplicationDetails<TIdType> : FrameworkEntityBase<TIdType>, IApplicationDetails<TIdType>, IMayHaveTenant
+    public partial class ApplicationDetails<TIdType> : DomainEntityBase<TIdType>, IApplicationDetails<TIdType>, IMayHaveTenant
     {
         /// <summary>
         /// The default culture

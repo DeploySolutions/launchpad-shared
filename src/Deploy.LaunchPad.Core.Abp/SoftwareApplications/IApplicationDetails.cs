@@ -34,12 +34,14 @@ namespace Deploy.LaunchPad.Core.Abp.SoftwareApplications
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Xml.Serialization;
     using Deploy.LaunchPad.Core.Domain.Entities;
+    using Deploy.LaunchPad.Core.Metadata;
 
     /// <summary>
     /// Represents the specific settings of an application.
     /// </summary>
     /// <typeparam name="TIdType">The type of the t identifier type.</typeparam>
-    public partial interface IApplicationDetails<TIdType> : IDomainEntity<TIdType>
+    public partial interface IApplicationDetails<TIdType> : IDomainEntity<TIdType>, 
+        IMayHaveTenant
     {
         /// <summary>
         /// Gets or sets the launch pad application identifier.

@@ -25,30 +25,20 @@ namespace Deploy.LaunchPad.Core.Metadata
         [Column("core_name_full")]
         public virtual string Name { get; set;  }
 
-        ///// <summary>
-        ///// A  description for this entity
-        ///// </summary>
-        ///// <value>The description.</value>
-        //[DataObjectField(false)]
-        //[XmlAttribute]
-        ////[JsonPropertyName("description")]
-        //public virtual ElementDescription Description{ get; set; }
-
+        
         protected LaunchPadMinimalProperties()
         {
         }
 
-        public LaunchPadMinimalProperties(string name, string description = null)
+        public LaunchPadMinimalProperties(string name)
         {
             Name = name;
-            //Description = new ElementDescription(description);
         }
 
 
-        protected LaunchPadMinimalProperties(ElementName name, ElementDescription description = null)
+        protected LaunchPadMinimalProperties(ElementName name)
         {
             Name = name.Name;
-            //Description = description;
         }
 
         /// <summary>
