@@ -27,7 +27,9 @@
 #endregion
 
 
+using Deploy.LaunchPad.Core.Domain.Entities.Auditing;
 using Deploy.LaunchPad.Util;
+using Deploy.LaunchPad.Util.Elements;
 using Newtonsoft.Json;
 using System;
 using System.ComponentModel;
@@ -37,20 +39,19 @@ using System.Globalization;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Xml.Serialization;
-using Deploy.LaunchPad.Util.Elements;
 
 namespace Deploy.LaunchPad.Core.Domain.Entities
 {
 
     /// <summary>
     /// Base class for Domain Entities. Implements <see cref="IDomainEntity">IDomainEntity</see> and provides
-    /// base functionality for many of its methods. Inherits from FrameworkEntityBase class which is for AspNetBoilerplate's elements.
+    /// base functionality for many of its methods. Inherits from FullAuditedEntity (and further upstream FrameworkEntityBase class which is for AspNetBoilerplate's elements).
     /// Implements AspNetBoilerplate's auditing interfaces.
     /// </summary>
     /// <typeparam name="TIdType">The type of the t identifier type.</typeparam>
     [DebuggerDisplay("{_debugDisplay}")]
     [Serializable]
-    public abstract partial class DomainEntityBase<TIdType> : FrameworkEntityBase<TIdType>,
+    public abstract partial class DomainEntityBase<TIdType> : FullAuditedEntity<TIdType>,
          IDomainEntity<TIdType>
     {
 
