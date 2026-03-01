@@ -5,7 +5,7 @@ using System.Xml.Serialization;
 namespace Deploy.LaunchPad.Core.Metadata
 {
     
-    public partial interface IMustHaveDescription
+    public partial interface IMustHaveElementDescription
     {
         /// <summary>
         /// The description of this object

@@ -86,7 +86,7 @@ namespace Deploy.LaunchPad.AWS.S3
         public S3BucketStorageLocation() : base()
         {
             Id = Guid.NewGuid().ToString();
-            Name = new ElementName(Id);
+            Name = Id;
             Region = DEFAULT_REGION;
             S3Service = new AwsS3Service(Logger, Region);
             string bucketUri = string.Format("https://s3.{0}.amazonaws.com/{1}", Region, Id);
@@ -108,7 +108,7 @@ namespace Deploy.LaunchPad.AWS.S3
         public S3BucketStorageLocation(ILogger logger, string id, string bucketName, string region, string defaultPrefix = "") : base(logger)
         {
             Region = region;
-            Name = new ElementName(bucketName);
+            Name = bucketName;
             string bucketUri = string.Format("https://s3.{0}.amazonaws.com/{1}", Region, bucketName);
             string descriptionMessage = string.Format("AWS S3 bucket at '{0}'", bucketUri);
             Description = new ElementDescription(descriptionMessage);
@@ -180,7 +180,7 @@ namespace Deploy.LaunchPad.AWS.S3
         /// <returns>Uri.</returns>
         public override Uri GetRelativePathForFile<TFile, TFileContentType, TFileSchema>(TFile file)
         {
-            return new Uri("/" + DefaultPrefix + "/" + file.Name.Full.Replace(" ", "+"));
+            return new Uri("/" + DefaultPrefix + "/" + file.Name.Replace(" ", "+"));
         }
 
         /// <summary>
@@ -193,7 +193,7 @@ namespace Deploy.LaunchPad.AWS.S3
         /// <returns>Uri.</returns>
         public override Uri GetFullPathForFile<TFile, TFileContentType, TFileSchema>(TFile file)
         {
-            return new Uri("https://s3." + Region + ".amazonaws.com/" + Name + "/" + DefaultPrefix + "/" + file.Name.Full.Replace(" ", "+"));
+            return new Uri("https://s3." + Region + ".amazonaws.com/" + Name + "/" + DefaultPrefix + "/" + file.Name.Replace(" ", "+"));
         }
 
         /// <summary>
@@ -219,7 +219,7 @@ namespace Deploy.LaunchPad.AWS.S3
         /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
         public override bool FileExists<TFile, TFileContentType, TFileSchema>(TFile fileToCheck, bool shouldRecurseSubdirectories = false)
         {
-            return S3Service.CheckIfFileExists(Name.Full, fileToCheck.Name.Full.ToString()).Result;
+            return S3Service.CheckIfFileExists(Name, fileToCheck.Name.ToString()).Result;
         }
 
         /// <summary>
@@ -237,12 +237,12 @@ namespace Deploy.LaunchPad.AWS.S3
             bool succeeded = false;
             if (tempLocation!= null && tempLocation.IsUnc)
             {
-                succeeded = await S3Service.DownloadFileFromBucketToLocalviaTransferUtilityAsync(Name.Full, fileId, tempLocation.AbsolutePath, null, null);
+                succeeded = await S3Service.DownloadFileFromBucketToLocalviaTransferUtilityAsync(Name, fileId, tempLocation.AbsolutePath, null, null);
 
             }
             else
             {
-                succeeded = S3Service.GetFileFromBucketAsync(Name.Full, fileId).IsCompletedSuccessfully;
+                succeeded = S3Service.GetFileFromBucketAsync(Name, fileId).IsCompletedSuccessfully;
 
             }
             return file;
@@ -286,14 +286,14 @@ namespace Deploy.LaunchPad.AWS.S3
                     // Write the source file content to the temporary file
                     using (var writer = new StreamWriter(fileStream))
                     {
-                        await writer.WriteAsync(sourceFile.Name.Full); // Assuming sourceFile.Name.Full contains the file content
+                        await writer.WriteAsync(sourceFile.Name); // Assuming sourceFile.Name.Full contains the file content
                     }
                 }
 
                 // Upload the temporary file to the S3 bucket
                 bool succeeded = await S3Service.UploadLocalFileToBucketviaTransferUtilityAsync(
-                    Name.Full,
-                    sourceFile.Name.Full,
+                    Name,
+                    sourceFile.Name,
                     randomPath,
                     fileTags,
                     filePrefix,

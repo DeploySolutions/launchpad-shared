@@ -9,8 +9,8 @@ using System.Xml.Serialization;
 namespace Deploy.LaunchPad.Core.Metadata
 {
     public partial interface ILaunchPadMinimalProperties :
-        IMustHaveName,
-        IMustHaveDescription
+        IMustHaveFullName,
+        IMustHaveElementDescription
     {
 
 

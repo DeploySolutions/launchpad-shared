@@ -29,9 +29,9 @@ namespace Deploy.LaunchPad.Domain.Content
         protected LaunchPadContentPublishingCollectionItemBase(string name, LaunchPadContentItemType type)
         {
             ContentType = type;
-            Name = new ElementName(name);
+            Name = name;
             Description = new ElementDescription(name);
-            CreationTime = DateTime.Now;
+            CreationTime = DateTime.Now.ToUniversalTime();
             IsActive = true;
             Culture = "en";
             Tags = "{}";
@@ -44,7 +44,7 @@ namespace Deploy.LaunchPad.Domain.Content
         /// <param name="context">The context of the stream</param>
         protected LaunchPadContentPublishingCollectionItemBase(SerializationInfo info, StreamingContext context)
         {
-            Name = (ElementName)info.GetValue("Name", typeof(ElementName));
+            Name = (string)info.GetValue("Name", typeof(string));
             Description = (ElementDescription)info.GetValue("Description", typeof(ElementDescription));
             Culture = info.GetString("Culture");
             Checksum = info.GetString("Checksum");

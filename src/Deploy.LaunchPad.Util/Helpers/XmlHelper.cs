@@ -591,15 +591,15 @@ namespace Deploy.LaunchPad.Util.Helpers
 
             // Full property
             XmlElement fullChildElement = new XmlDocument().CreateElement("core:Full");
-            XmlCDataSection fullCdata = doc.CreateCDataSection(name.Full);
+            XmlCDataSection fullCdata = doc.CreateCDataSection(name.Name);
             fullChildElement.AppendChild(fullCdata);
             nameElement.AppendChild(fullChildElement);
 
             // Short property
-            if (!string.IsNullOrEmpty(name.Short))
+            if (!string.IsNullOrEmpty(name.ShortName))
             {
                 XmlElement shortChildElement = new XmlDocument().CreateElement("core:Short");
-                XmlCDataSection shortCdata = doc.CreateCDataSection(name.Short);
+                XmlCDataSection shortCdata = doc.CreateCDataSection(name.ShortName);
                 shortChildElement.AppendChild(shortCdata);
                 nameElement.AppendChild(shortChildElement);
             }
@@ -617,15 +617,15 @@ namespace Deploy.LaunchPad.Util.Helpers
 
             // Full property
             XmlElement fullChildElement = new XmlDocument().CreateElement("core:Full");
-            XmlCDataSection fullCdata = doc.CreateCDataSection(name.Full);
+            XmlCDataSection fullCdata = doc.CreateCDataSection(name.Name);
             fullChildElement.AppendChild(fullCdata);
             element.AppendChild(fullChildElement);
 
             // Short property
-            if (!string.IsNullOrEmpty(name.Short))
+            if (!string.IsNullOrEmpty(name.ShortName))
             {
                 XmlElement shortChildElement = new XmlDocument().CreateElement("core:Short");
-                XmlCDataSection shortCdata = doc.CreateCDataSection(name.Short);
+                XmlCDataSection shortCdata = doc.CreateCDataSection(name.ShortName);
                 shortChildElement.AppendChild(shortCdata);
                 element.AppendChild(shortChildElement);
             }
@@ -793,11 +793,11 @@ namespace Deploy.LaunchPad.Util.Helpers
 
             // add Name
             sbXml.Append(CreateXmlOpeningElementString(topLevelNodePrefix + "Name"));
-            sbXml.Append(CreateXmlElementString("core:Full", name.Full.Trim(), true));
+            sbXml.Append(CreateXmlElementString("core:Full", name.Name.Trim(), true));
 
-            if (!string.IsNullOrEmpty(name.Short))
+            if (!string.IsNullOrEmpty(name.ShortName))
             {
-                sbXml.Append(CreateXmlElementString("core:Short", name.Short.Trim(), true));
+                sbXml.Append(CreateXmlElementString("core:Short", name.ShortName.Trim(), true));
             }
             
             sbXml.Append(CreateXmlClosingElementString(topLevelNodePrefix + "Name"));

@@ -18,7 +18,7 @@ namespace Deploy.LaunchPad.AWS.S3
 
         public S3FolderInfo(string name)
         {
-            Name = new ElementName(name);
+            Name = name;
             Description = new ElementDescription(name);
             Items = new ReadOnlyS3FileCollection<IS3FileInfo>(_items);
         }

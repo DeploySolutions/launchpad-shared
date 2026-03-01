@@ -128,7 +128,7 @@ namespace Deploy.LaunchPad.Domain.Person
         /// <returns>System.Int32.</returns>
         public virtual int CompareTo(PersonBase<TIdType> other)
         {
-            return other == null ? 1 : String.Compare(Name.Full, other.Name.Full, StringComparison.InvariantCulture);
+            return other == null ? 1 : String.Compare(Name, other.Name, StringComparison.InvariantCulture);
         }
 
         ///// <summary>

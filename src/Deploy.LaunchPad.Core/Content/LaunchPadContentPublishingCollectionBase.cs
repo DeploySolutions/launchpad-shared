@@ -24,9 +24,9 @@ namespace Deploy.LaunchPad.Domain.Content
         protected LaunchPadContentPublishingCollectionBase()
         {
             string name = "New Bundle " + DateTime.UtcNow.ToString();
-            Name = new ElementName(name);
+            Name = name;
             Description = new ElementDescription(name);
-            CreationTime = DateTime.Now;
+            CreationTime = DateTime.Now.ToUniversalTime();
             IsActive = true;
             Culture = "en";
             Tags = "{}";
@@ -35,9 +35,9 @@ namespace Deploy.LaunchPad.Domain.Content
 
         protected LaunchPadContentPublishingCollectionBase(string name)
         {            
-            Name = new ElementName(name);
+            Name = name;
             Description = new ElementDescription(name);
-            CreationTime = DateTime.Now;
+            CreationTime = DateTime.Now.ToUniversalTime();
             IsActive = true;
             Culture = "en";
             Tags = "{}";
@@ -51,7 +51,7 @@ namespace Deploy.LaunchPad.Domain.Content
         /// <param name="context">The context of the stream</param>
         protected LaunchPadContentPublishingCollectionBase(SerializationInfo info, StreamingContext context)
         {
-            Name = (ElementName)info.GetValue("Name", typeof(ElementName));
+            Name = (string)info.GetValue("Name", typeof(string));
             Description = (ElementDescription)info.GetValue("Description", typeof(ElementDescription));
             Culture = info.GetString("Culture");
             Checksum = info.GetString("Checksum");

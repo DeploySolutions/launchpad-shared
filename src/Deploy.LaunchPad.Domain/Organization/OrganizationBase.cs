@@ -131,7 +131,7 @@ namespace Deploy.LaunchPad.Domain.Organization
         /// <returns>System.Int32.</returns>
         public virtual int CompareTo(OrganizationBase<TIdType> other)
         {
-            return other == null ? 1 : String.Compare(Name.Full, other.Name.Full, StringComparison.InvariantCulture);
+            return other == null ? 1 : String.Compare(Name, other.Name, StringComparison.InvariantCulture);
         }
 
         ///// <summary>

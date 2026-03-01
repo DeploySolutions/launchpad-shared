@@ -145,7 +145,7 @@ namespace Deploy.LaunchPad.Core.Abp.Data
         ) : base()
         {
 
-            Name = new ElementName(datasetName);
+            Name = datasetName;
             Description = new ElementDescription(datasetDescription);
         }
 
@@ -156,7 +156,7 @@ namespace Deploy.LaunchPad.Core.Abp.Data
         protected DatasetDomainEntity(System.Guid tenantId) : base()
         {
             TenantId = tenantId;
-            Name = new ElementName(String.Empty);
+            Name = String.Empty;
         }
 
 

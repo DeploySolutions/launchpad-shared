@@ -176,7 +176,7 @@ namespace Deploy.LaunchPad.Space.Satellites.GoC
                     cornerCoords
                 )
                 {
-                    Name = new ElementName(radarsatUniqueId),
+                    Name = radarsatUniqueId,
 
                     //Metadata.Description = radarsatUniqueId,
                     Copyright = copyright
@@ -237,7 +237,7 @@ namespace Deploy.LaunchPad.Space.Satellites.GoC
                 observationFiles.Nvol = new NvolFile<Guid>()
                 {
                     Id = Guid.NewGuid(),
-                    Name = new ElementName(Path.GetFileName(expectedFiles[0].Value)) 
+                    Name = Path.GetFileName(expectedFiles[0].Value) 
                 };
             }
             if (File.Exists(expectedFiles[1].Value))
@@ -245,7 +245,7 @@ namespace Deploy.LaunchPad.Space.Satellites.GoC
                 observationFiles.Sard = new SardFile<Guid>()
                 {
                     Id = Guid.NewGuid(),
-                    Name = new ElementName(Path.GetFileName(expectedFiles[1].Value))
+                    Name = Path.GetFileName(expectedFiles[1].Value)
                 };
             }
             if (File.Exists(expectedFiles[2].Value))
@@ -253,7 +253,7 @@ namespace Deploy.LaunchPad.Space.Satellites.GoC
                 observationFiles.Sarl = new SarlFile<Guid>()
                 {
                     Id = Guid.NewGuid(),
-                    Name = new ElementName(Path.GetFileName(expectedFiles[2].Value))
+                    Name = Path.GetFileName(expectedFiles[2].Value)
                 };
             }
             if (File.Exists(expectedFiles[3].Value))
@@ -261,7 +261,7 @@ namespace Deploy.LaunchPad.Space.Satellites.GoC
                 observationFiles.Sart = new SartFile<Guid>()
                 {
                     Id = Guid.NewGuid(),
-                    Name = new ElementName(Path.GetFileName(expectedFiles[3].Value))
+                    Name = Path.GetFileName(expectedFiles[3].Value)
                 };
             }
             if (File.Exists(expectedFiles[4].Value))
@@ -279,7 +279,7 @@ namespace Deploy.LaunchPad.Space.Satellites.GoC
                 observationFiles.Vol = new VolFile<Guid>()
                 {
                     Id = Guid.NewGuid(),
-                    Name = new ElementName(Path.GetFileName(expectedFiles[6].Value))
+                    Name = Path.GetFileName(expectedFiles[6].Value)
                 };
             }
             return observationFiles;

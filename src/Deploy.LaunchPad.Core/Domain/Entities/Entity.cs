@@ -248,7 +248,7 @@ namespace Deploy.LaunchPad.Core.Domain.Entities
         protected Entity(SerializationInfo info, StreamingContext context) : base(info, context)
         {
             Id = (TPrimaryKey)info.GetValue("Id", typeof(TPrimaryKey));
-            Name = (ElementName)info.GetValue("Name", typeof(ElementName));
+            Name = (string)info.GetValue("Name", typeof(string));
             Description = (ElementDescription)info.GetValue("Description", typeof(ElementDescription));
             Checksum = info.GetString("Checksum");
             Tags = info.GetString("Tags");
@@ -368,7 +368,7 @@ namespace Deploy.LaunchPad.Core.Domain.Entities
         {
             var clone = (Entity<TPrimaryKey>)this.MemberwiseClone();
             // Deep clone reference-type fields as needed
-            clone.Name = Name?.CloneGeneric(); // assuming ElementName has a Clone() method
+            clone.Name = Name; 
             clone.Description = Description?.CloneGeneric(); // assuming ElementDescription has a Clone() method
                                                                // ...repeat for other reference-type fields if needed
             return clone;

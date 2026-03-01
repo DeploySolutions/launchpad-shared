@@ -14,13 +14,13 @@ namespace Deploy.LaunchPad.Code.Methods
             RuleFor(x => x.Name)
                 .NotEmpty().WithMessage("Name is required.")
                 .WithSeverity(Severity.Error);
-            RuleFor(x => x.Name.Full)
+            RuleFor(x => x.Name.Name)
                 .NotEmpty().WithMessage("Full Name is required.")
                 .WithSeverity(Severity.Error);
-            RuleFor(x => x.Name.Full)
+            RuleFor(x => x.Name.Name)
                 .MaximumLength(5).WithMessage("Full Name should not exceed 5 characters.")
                 .WithSeverity(Severity.Warning);
-            RuleFor(x => x.Name.Short)
+            RuleFor(x => x.Name.ShortName)
                 .MaximumLength(5).WithMessage("Short Name cannot exceed 5 characters.")
                 .WithSeverity(Severity.Error);
         }

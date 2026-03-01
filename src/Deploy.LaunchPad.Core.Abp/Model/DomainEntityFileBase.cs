@@ -135,7 +135,7 @@ namespace Deploy.LaunchPad.Core.Entities
         /// <param name="fileName">Name of the file.</param>
         protected DomainEntityFileBase(string fileName) : base()
         {
-            Name = new ElementName(fileName, fileName);
+            Name = fileName;
             Description = new ElementDescription(string.Empty, string.Empty);
         }
 
@@ -147,7 +147,7 @@ namespace Deploy.LaunchPad.Core.Entities
         protected DomainEntityFileBase(TIdType id, string fileName) : base()
         {
             Id = id;
-            Name = new ElementName(fileName, fileName);
+            Name = fileName;
         }
 
         /// <summary>
@@ -159,7 +159,7 @@ namespace Deploy.LaunchPad.Core.Entities
         protected DomainEntityFileBase(TIdType id, string fileName, TFileContentType content) : base()
         {
             Id = id;
-            Name = new ElementName(fileName, fileName);
+            Name = fileName;
             Content = content;
         }
 

@@ -253,8 +253,8 @@ namespace Deploy.LaunchPad.Space.Satellites.GoC
             PixelSpacing = pixelSpacing;
             SceneCentre = sceneCentre;
             Corners = cornerCoordinates;
-            CreationTime = Clock.Now;
-            LastModificationTime = Clock.Now;
+            CreationTime = Clock.Now.ToUniversalTime();
+            LastModificationTime = Clock.Now.ToUniversalTime();
             CurrentLocation.PhysicalLocation = SceneCentre;
             CurrentLocation.TemporalInformation = temporalInfo;
         }

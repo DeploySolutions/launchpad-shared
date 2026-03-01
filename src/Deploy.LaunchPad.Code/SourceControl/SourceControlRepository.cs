@@ -68,7 +68,7 @@ namespace Deploy.LaunchPad.Code.SourceControl
         protected SourceControlRepository(ElementName name)
         {
             Name = name;
-            Description = new ElementDescription(name.Full);
+            Description = new ElementDescription(name.Name);
         }
 
         /// <summary>

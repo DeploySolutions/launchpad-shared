@@ -12,7 +12,7 @@ namespace Deploy.LaunchPad.AWS.S3
         
         public S3BucketInfo(string bucketName)
         {
-            Name = new ElementName(bucketName);
+            Name = bucketName;
             Description = new ElementDescription(bucketName);
         }
     }

@@ -184,7 +184,7 @@ namespace Deploy.LaunchPad.Core.Domain.Entities.Auditing
         /// </summary>
         protected CreationAuditedAggregateRoot()
         {
-            CreationTime = Clock.Now;
+            CreationTime = Clock.Now.ToUniversalTime();
         }
 
         /// <summary>
@@ -196,7 +196,7 @@ namespace Deploy.LaunchPad.Core.Domain.Entities.Auditing
         [SetsRequiredMembers]
         protected CreationAuditedAggregateRoot(string name) : base(name)
         {
-            CreationTime = Clock.Now;
+            CreationTime = Clock.Now.ToUniversalTime();
         }
 
         /// <summary>
@@ -208,7 +208,7 @@ namespace Deploy.LaunchPad.Core.Domain.Entities.Auditing
         [SetsRequiredMembers]
         protected CreationAuditedAggregateRoot(ElementName name) : base(name)
         {
-            CreationTime = Clock.Now;
+            CreationTime = Clock.Now.ToUniversalTime();
         }
 
         /// <summary>
@@ -220,7 +220,7 @@ namespace Deploy.LaunchPad.Core.Domain.Entities.Auditing
         [SetsRequiredMembers]
         protected CreationAuditedAggregateRoot(ElementName name, ElementDescription description) : base(name, description)
         {
-            CreationTime = Clock.Now;
+            CreationTime = Clock.Now.ToUniversalTime();
         }
 
         /// <summary>
@@ -230,7 +230,7 @@ namespace Deploy.LaunchPad.Core.Domain.Entities.Auditing
         [SetsRequiredMembers]
         protected CreationAuditedAggregateRoot(TPrimaryKey id) : base(id)
         {
-            CreationTime = Clock.Now;
+            CreationTime = Clock.Now.ToUniversalTime();
         }
 
 
@@ -242,7 +242,7 @@ namespace Deploy.LaunchPad.Core.Domain.Entities.Auditing
         [SetsRequiredMembers]
         protected CreationAuditedAggregateRoot(TPrimaryKey id, string name) : base(id, name)
         {
-            CreationTime = Clock.Now;
+            CreationTime = Clock.Now.ToUniversalTime();
         }
 
         /// <summary>
@@ -254,7 +254,7 @@ namespace Deploy.LaunchPad.Core.Domain.Entities.Auditing
         [SetsRequiredMembers]
         protected CreationAuditedAggregateRoot(TPrimaryKey id, string name, CultureInfo culture) : base(id, name)
         {
-            CreationTime = Clock.Now;
+            CreationTime = Clock.Now.ToUniversalTime();
         }
 
         /// <summary>
@@ -266,7 +266,7 @@ namespace Deploy.LaunchPad.Core.Domain.Entities.Auditing
         [SetsRequiredMembers]
         protected CreationAuditedAggregateRoot(TPrimaryKey id, ElementName name, CultureInfo culture) : base(id, name, culture)
         {
-            CreationTime = Clock.Now;
+            CreationTime = Clock.Now.ToUniversalTime();
         }
 
         /// <summary>
@@ -288,7 +288,7 @@ namespace Deploy.LaunchPad.Core.Domain.Entities.Auditing
         [SetsRequiredMembers]
         protected CreationAuditedAggregateRoot(SerializationInfo info, StreamingContext context) : base(info, context)
         {
-            CreationTime = Clock.Now;
+            CreationTime = Clock.Now.ToUniversalTime();
         }
 
         /// <summary>
@@ -325,7 +325,7 @@ namespace Deploy.LaunchPad.Core.Domain.Entities.Auditing
         /// </summary>
         protected CreationAuditedAggregateRoot()
         {
-            CreationTime = Clock.Now;
+            CreationTime = Clock.Now.ToUniversalTime();
         }
 
         /// <summary>
@@ -337,7 +337,7 @@ namespace Deploy.LaunchPad.Core.Domain.Entities.Auditing
         [SetsRequiredMembers]
         protected CreationAuditedAggregateRoot(string name) : base(name)
         {
-            CreationTime = Clock.Now;
+            CreationTime = Clock.Now.ToUniversalTime();
         }
 
         /// <summary>
@@ -349,7 +349,7 @@ namespace Deploy.LaunchPad.Core.Domain.Entities.Auditing
         [SetsRequiredMembers]
         protected CreationAuditedAggregateRoot(ElementName name) : base(name)
         {
-            CreationTime = Clock.Now;
+            CreationTime = Clock.Now.ToUniversalTime();
         }
 
         /// <summary>
@@ -361,7 +361,7 @@ namespace Deploy.LaunchPad.Core.Domain.Entities.Auditing
         [SetsRequiredMembers]
         protected CreationAuditedAggregateRoot(ElementName name, ElementDescription description) : base(name, description)
         {
-            CreationTime = Clock.Now;
+            CreationTime = Clock.Now.ToUniversalTime();
         }
 
         /// <summary>
@@ -371,7 +371,7 @@ namespace Deploy.LaunchPad.Core.Domain.Entities.Auditing
         [SetsRequiredMembers]
         protected CreationAuditedAggregateRoot(TPrimaryKey id) : base(id)
         {
-            CreationTime = Clock.Now;
+            CreationTime = Clock.Now.ToUniversalTime();
         }
 
 
@@ -383,7 +383,7 @@ namespace Deploy.LaunchPad.Core.Domain.Entities.Auditing
         [SetsRequiredMembers]
         protected CreationAuditedAggregateRoot(TPrimaryKey id, string name) : base(id, name)
         {
-            CreationTime = Clock.Now;
+            CreationTime = Clock.Now.ToUniversalTime();
         }
 
         /// <summary>
@@ -395,7 +395,7 @@ namespace Deploy.LaunchPad.Core.Domain.Entities.Auditing
         [SetsRequiredMembers]
         protected CreationAuditedAggregateRoot(TPrimaryKey id, string name, CultureInfo culture) : base(id, name)
         {
-            CreationTime = Clock.Now;
+            CreationTime = Clock.Now.ToUniversalTime();
         }
 
         /// <summary>
@@ -407,7 +407,7 @@ namespace Deploy.LaunchPad.Core.Domain.Entities.Auditing
         [SetsRequiredMembers]
         protected CreationAuditedAggregateRoot(TPrimaryKey id, ElementName name, CultureInfo culture) : base(id, name, culture)
         {
-            CreationTime = Clock.Now;
+            CreationTime = Clock.Now.ToUniversalTime();
         }
 
         /// <summary>

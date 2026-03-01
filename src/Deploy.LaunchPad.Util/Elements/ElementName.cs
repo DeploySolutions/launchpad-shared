@@ -28,13 +28,13 @@ namespace Deploy.LaunchPad.Util.Elements
         [JsonProperty("short", NullValueHandling = NullValueHandling.Ignore, DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
         [JsonConverter(typeof(JsonEmptyStringToNullConverter))]
         [Column("core_name_short")]
-        public virtual string Short
+        public virtual string ShortName
         {
             get
             {
                 if (string.IsNullOrEmpty(_shortName))
                 {
-                    return Full;
+                    return Name;
                 }
                 else
                 {
@@ -55,20 +55,20 @@ namespace Deploy.LaunchPad.Util.Elements
         [SetsRequiredMembers]
         public ElementName(string fullName) : base(fullName)
         {
-            Full = fullName;
+            Name = fullName;
             if (!string.IsNullOrEmpty(fullName))
             {
-                Short = fullName.Length > 50 ? fullName.Substring(0, 50) : fullName;
+                ShortName = fullName.Length > 50 ? fullName.Substring(0, 50) : fullName;
             }
         }
 
         [SetsRequiredMembers]
         public ElementName(string fullName, string shortName) : base(fullName, shortName)
         {
-            Full = fullName;
+            Name = fullName;
             if (!string.IsNullOrEmpty(shortName))
             {
-                Short = shortName.Length > 50 ? shortName.Substring(0, 50) : shortName;
+                ShortName = shortName.Length > 50 ? shortName.Substring(0, 50) : shortName;
             }
         }
 
@@ -76,10 +76,10 @@ namespace Deploy.LaunchPad.Util.Elements
         [SetsRequiredMembers]
         public ElementName(string fullName, string shortName, string prefix, string suffix) : base(fullName, shortName)
         {
-            Full = fullName;
+            Name = fullName;
             if (!string.IsNullOrEmpty(shortName))
             {
-                Short = shortName.Length > 50 ? shortName.Substring(0, 50) : shortName;
+                ShortName = shortName.Length > 50 ? shortName.Substring(0, 50) : shortName;
             }
         }
 
@@ -94,8 +94,8 @@ namespace Deploy.LaunchPad.Util.Elements
         {
             // put comparison of properties in here 
             // for base object we'll just sort by DisplayName
-            return Full.CompareTo(other.Full)
-                & Short.CompareTo(other.Short)
+            return Name.CompareTo(other.Name)
+                & ShortName.CompareTo(other.ShortName)
             ;
         }
 
@@ -105,7 +105,7 @@ namespace Deploy.LaunchPad.Util.Elements
         /// <returns>A string representation of the object.</returns>
         public override string ToString()
         {
-            return Short;
+            return ShortName;
         }
 
 
@@ -136,8 +136,8 @@ namespace Deploy.LaunchPad.Util.Elements
         {
             if (obj != null)
             {
-                return string.Equals(Full, obj.Full, StringComparison.Ordinal) &&
-                    string.Equals(Short, obj.Short, StringComparison.Ordinal)
+                return string.Equals(Name, obj.Name, StringComparison.Ordinal) &&
+                    string.Equals(ShortName, obj.ShortName, StringComparison.Ordinal)
                 ;
             }
             return false;
@@ -180,8 +180,8 @@ namespace Deploy.LaunchPad.Util.Elements
         /// <remarks>This method implements the <see cref="object">Object</see> method.</remarks>
         public override int GetHashCode()
         {
-            return Full.GetHashCode()
-                + Short.GetHashCode()
+            return Name.GetHashCode()
+                + ShortName.GetHashCode()
             ;
         }
 
@@ -189,8 +189,8 @@ namespace Deploy.LaunchPad.Util.Elements
         {
             // Create a new instance and copy all relevant properties
             return new ElementName(
-                fullName: this.Full,
-                shortName: this.Short
+                fullName: this.Name,
+                shortName: this.ShortName
             );
         }
         object ICloneable.Clone() => CloneGeneric();

@@ -70,7 +70,7 @@ namespace Deploy.LaunchPad.Code.Methods
         private Result<TestPoco> PerformOperation(TestPoco entity)
         {
             // Mock operation logic
-            if (entity.Name.Full == "something")
+            if (entity.Name.Name == "something")
             {
                 return Result.Fail<TestPoco>("Operation failed: Entity name cannot be something.");
             }
@@ -96,7 +96,7 @@ namespace Deploy.LaunchPad.Code.Methods
         public ValidateAndPerformOperationInputValidator()
         {
             RuleFor(x => x.TestPoco.Name).NotNull().WithMessage("TestPoco.Name is required.");
-            RuleFor(x => x.TestPoco.Name.Full).NotEmpty().WithMessage("TestPoco.Name.Full cannot be empty.");
+            RuleFor(x => x.TestPoco.Name.Name).NotEmpty().WithMessage("TestPoco.Name.Full cannot be empty.");
             RuleFor(x => x.SomeInput).NotNull().WithMessage("SomeInput is required.");
             RuleFor(x => x.TestPoco.SeqNum).InclusiveBetween(1, 3).WithMessage("For this complex validation, sequence number must be between 1 and 3.");
         }

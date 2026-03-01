@@ -297,7 +297,7 @@ namespace Deploy.LaunchPad.Code.CommandLine
                     }
                     else if (kvp.Value is IElementNameLight elementNameValue)
                     {
-                        return new[] { $"--{kvp.Key}", elementNameValue.Full };
+                        return new[] { $"--{kvp.Key}", elementNameValue.Name };
                     }
                     else if (kvp.Value is string stringValue || kvp.Value is int || kvp.Value is uint || kvp.Value is long || kvp.Value is double || kvp.Value is float || kvp.Value is decimal)
                     {

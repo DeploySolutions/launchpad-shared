@@ -31,10 +31,11 @@
 #endregion
 
 using Deploy.LaunchPad.Core.Runtime.Caching;
+using System;
 
 namespace Deploy.LaunchPad.Core.Domain.Entities.Caching
 {
-    public partial interface IEntityCache<TCacheItem> : IEntityCache<TCacheItem, int>
+    public partial interface IEntityCache<TCacheItem> : IEntityCache<TCacheItem, Guid>
     {
     }
 

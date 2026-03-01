@@ -27,7 +27,7 @@ namespace Deploy.LaunchPad.Code.CommandLine
 
         public CliApp(IEnumerable<ICommand> commands)
         {
-            _commands = commands.ToDictionary(c => c.Name.Full, StringComparer.OrdinalIgnoreCase).ToFrozenDictionary();
+            _commands = commands.ToDictionary(c => c.Name.Name, StringComparer.OrdinalIgnoreCase).ToFrozenDictionary();
         }
 
         public ICommand? TryGetCommand(string name) => _commands.GetValueOrDefault(name);

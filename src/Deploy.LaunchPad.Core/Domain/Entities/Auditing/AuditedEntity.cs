@@ -51,7 +51,7 @@ namespace Deploy.LaunchPad.Core.Domain.Entities.Auditing
         /// </summary>
         protected AuditedEntity() : base()
         {
-            CreationTime = Clock.Now;
+            CreationTime = Clock.Now.ToUniversalTime();
         }
 
         /// <summary>

@@ -69,7 +69,7 @@ namespace Deploy.LaunchPad.Core.Application.Services.Dto
         /// </summary>
         protected CreationAuditedEntityDto()
         {
-            CreationTime = Clock.Now;
+            CreationTime = Clock.Now.ToUniversalTime();
         }
     }
 }

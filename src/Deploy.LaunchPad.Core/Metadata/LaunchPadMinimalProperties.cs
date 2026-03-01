@@ -21,8 +21,8 @@ namespace Deploy.LaunchPad.Core.Metadata
         /// <value>The name.</value>
         [DataObjectField(false)]
         [XmlAttribute]
-        [JsonPropertyName("name")]
-        public virtual ElementName Name { get; set;  }
+        //[JsonPropertyName("name")]
+        public virtual string Name { get; set;  }
 
         /// <summary>
         /// A  description for this entity
@@ -30,7 +30,7 @@ namespace Deploy.LaunchPad.Core.Metadata
         /// <value>The description.</value>
         [DataObjectField(false)]
         [XmlAttribute]
-        [JsonPropertyName("description")]
+        //[JsonPropertyName("description")]
         public virtual ElementDescription Description{ get; set; }
 
         protected LaunchPadMinimalProperties()
@@ -39,14 +39,14 @@ namespace Deploy.LaunchPad.Core.Metadata
 
         public LaunchPadMinimalProperties(string name, string description = null)
         {
-            Name = new ElementName(name);
+            Name = name;
             Description = new ElementDescription(description);
         }
 
 
         protected LaunchPadMinimalProperties(ElementName name, ElementDescription description = null)
         {
-            Name = name;
+            Name = name.Name;
             Description = description;
         }
 
@@ -57,7 +57,7 @@ namespace Deploy.LaunchPad.Core.Metadata
         /// <param name="context">The context of the stream</param>
         protected LaunchPadMinimalProperties(SerializationInfo info, StreamingContext context)
         {
-            Name = (ElementName)info.GetValue("Name", typeof(ElementName));
+            Name = (string)info.GetValue("Name", typeof(string));
             Description = (ElementDescription)info.GetValue("Description", typeof(ElementDescription));
         }
 

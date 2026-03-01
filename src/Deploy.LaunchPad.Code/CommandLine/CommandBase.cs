@@ -190,17 +190,17 @@ namespace Deploy.LaunchPad.Code.CommandLine
         {
             if (args.Parameters != null)
             {
-                Logger.Debug($"Method {Name.Full} started with parameters: {args.Parameters}");
+                Logger.Debug($"Method {Name.Name} started with parameters: {args.Parameters}");
             }
             else
             {
-                Logger.Debug($"Method {Name.Full} started.");
+                Logger.Debug($"Method {Name.Name} started.");
             }
         }
 
         protected virtual void OnMethodEndHandler(object? sender, MethodEventArgs args)
         {
-            Logger.Debug($"Method {Name.Full} ended.");
+            Logger.Debug($"Method {Name.Name} ended.");
         }
 
     }

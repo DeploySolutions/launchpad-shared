@@ -71,7 +71,7 @@ namespace Deploy.LaunchPad.Core.Domain.Entities.Auditing
         /// </summary>
         protected CreationAuditedEntity() : base()
         {
-            CreationTime = Clock.Now;
+            CreationTime = Clock.Now.ToUniversalTime();
         }
 
         /// <summary>
@@ -83,7 +83,7 @@ namespace Deploy.LaunchPad.Core.Domain.Entities.Auditing
         [SetsRequiredMembers]
         protected CreationAuditedEntity(string name) : base(name)
         {
-            CreationTime = Clock.Now;
+            CreationTime = Clock.Now.ToUniversalTime();
         }
 
         /// <summary>
@@ -95,7 +95,7 @@ namespace Deploy.LaunchPad.Core.Domain.Entities.Auditing
         [SetsRequiredMembers]
         protected CreationAuditedEntity(ElementName name) : base(name)
         {
-            CreationTime = Clock.Now;
+            CreationTime = Clock.Now.ToUniversalTime();
         }
 
         /// <summary>
@@ -107,7 +107,7 @@ namespace Deploy.LaunchPad.Core.Domain.Entities.Auditing
         [SetsRequiredMembers]
         protected CreationAuditedEntity(ElementName name, ElementDescription description) : base(name, description)
         {
-            CreationTime = Clock.Now;
+            CreationTime = Clock.Now.ToUniversalTime();
         }
 
         /// <summary>
@@ -117,7 +117,7 @@ namespace Deploy.LaunchPad.Core.Domain.Entities.Auditing
         [SetsRequiredMembers]
         protected CreationAuditedEntity(TPrimaryKey id) : base(id)
         {
-            CreationTime = Clock.Now;
+            CreationTime = Clock.Now.ToUniversalTime();
         }
 
 
@@ -129,7 +129,7 @@ namespace Deploy.LaunchPad.Core.Domain.Entities.Auditing
         [SetsRequiredMembers]
         protected CreationAuditedEntity(TPrimaryKey id, string name) : base(id, name)
         {
-            CreationTime = Clock.Now;
+            CreationTime = Clock.Now.ToUniversalTime();
         }
 
         /// <summary>
@@ -141,7 +141,7 @@ namespace Deploy.LaunchPad.Core.Domain.Entities.Auditing
         [SetsRequiredMembers]
         protected CreationAuditedEntity(TPrimaryKey id, string name, CultureInfo culture) : base(id, name)
         {
-            CreationTime = Clock.Now;
+            CreationTime = Clock.Now.ToUniversalTime();
         }
 
         /// <summary>
@@ -153,7 +153,7 @@ namespace Deploy.LaunchPad.Core.Domain.Entities.Auditing
         [SetsRequiredMembers]
         protected CreationAuditedEntity(TPrimaryKey id, ElementName name, CultureInfo culture) : base(id, name)
         {
-            CreationTime = Clock.Now;
+            CreationTime = Clock.Now.ToUniversalTime();
         }
 
         /// <summary>
@@ -165,7 +165,7 @@ namespace Deploy.LaunchPad.Core.Domain.Entities.Auditing
         [SetsRequiredMembers]
         protected CreationAuditedEntity(TPrimaryKey id, ElementName name, ElementDescription description, CultureInfo culture) : base(id, name, description)
         {
-            CreationTime = Clock.Now;
+            CreationTime = Clock.Now.ToUniversalTime();
         }
 
         /// <summary>

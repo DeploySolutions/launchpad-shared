@@ -21,7 +21,7 @@ namespace Deploy.LaunchPad.Util.Elements
         /// Controls the DebuggerDisplay attribute presentation (above). This will only appear during VS debugging sessions and should never be logged.
         /// </summary>
         /// <value>The debug display.</value>
-        protected virtual string _debugDisplay => $"{Full}.";
+        protected virtual string _debugDisplay => $"{Name}.";
 
         /// <summary>
         /// The full name of this element
@@ -32,7 +32,7 @@ namespace Deploy.LaunchPad.Util.Elements
         [XmlAttribute]
         [JsonProperty("full")]
         [Column("core_name_full")]
-        public required virtual string Full { get; set; } = String.Empty;
+        public required virtual string Name { get; set; } = String.Empty;
 
         [SetsRequiredMembers]
         protected ElementNameLight() 
@@ -42,13 +42,13 @@ namespace Deploy.LaunchPad.Util.Elements
         [SetsRequiredMembers]
         public ElementNameLight(string fullName)
         {
-            Full = fullName;
+            Name = fullName;
         }
 
         [SetsRequiredMembers]
         public ElementNameLight(string fullName, string shortName)
         {
-            Full = fullName;
+            Name = fullName;
         }
 
 
@@ -63,7 +63,7 @@ namespace Deploy.LaunchPad.Util.Elements
         {
             // put comparison of properties in here 
             // for base object we'll just sort by DisplayName
-            return Full.CompareTo(other.Full)
+            return Name.CompareTo(other.Name)
             ;
         }
 
@@ -73,7 +73,7 @@ namespace Deploy.LaunchPad.Util.Elements
         /// <returns>A string representation of the object.</returns>
         public override string ToString()
         {
-            return Full;
+            return Name;
         }
 
 
@@ -104,7 +104,7 @@ namespace Deploy.LaunchPad.Util.Elements
         {
             if (obj != null)
             {
-                return Full.Equals(obj.Full)
+                return Name.Equals(obj.Name)
                 ;
             }
             return false;
@@ -147,7 +147,7 @@ namespace Deploy.LaunchPad.Util.Elements
         /// <remarks>This method implements the <see cref="object">Object</see> method.</remarks>
         public override int GetHashCode()
         {
-            return Full.GetHashCode()
+            return Name.GetHashCode()
             ;
         }
 
@@ -156,7 +156,7 @@ namespace Deploy.LaunchPad.Util.Elements
         {
             // Create a new instance and copy all relevant properties
             return new ElementNameLight(
-                fullName: this.Full
+                fullName: this.Name
             );
         }
         object ICloneable.Clone() => CloneGeneric();

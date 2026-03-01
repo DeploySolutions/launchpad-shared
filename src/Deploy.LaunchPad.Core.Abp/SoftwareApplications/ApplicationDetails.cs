@@ -156,9 +156,8 @@ namespace Deploy.LaunchPad.Core.Abp.SoftwareApplications
         }
 
         Domain.Entities.DomainEntityType ILaunchPadDomainEntityProperties<TIdType>.EntityType => throw new NotImplementedException();
-
-        ElementName Metadata.IMustHaveName.Name { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        ElementDescription Metadata.IMustHaveDescription.Description { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+    
+        ElementDescription Metadata.IMustHaveElementDescription.Description { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
         string Metadata.IMayHaveTags.Tags => throw new NotImplementedException();
 
@@ -325,7 +324,7 @@ namespace Deploy.LaunchPad.Core.Abp.SoftwareApplications
         /// <returns>System.Int32.</returns>
         public virtual int CompareTo(ApplicationDetails<TIdType> other)
         {
-            return other == null ? 1 : String.Compare(Name.Full, other.Name.Full, StringComparison.InvariantCulture);
+            return other == null ? 1 : String.Compare(Name, other.Name, StringComparison.InvariantCulture);
         }
 
         /// <summary>

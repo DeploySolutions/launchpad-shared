@@ -6,7 +6,7 @@ using System.Xml.Serialization;
 namespace Deploy.LaunchPad.Core.Metadata
 {
     
-    public partial interface IMustHaveName
+    public partial interface IMustHaveElementName
     {
         /// <summary>
         /// The name of this object

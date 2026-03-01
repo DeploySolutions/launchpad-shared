@@ -58,7 +58,7 @@ namespace Deploy.LaunchPad.Domain.Metadata
         /// </summary>
         protected LaunchPadModelBase() : base()
         {
-            Name = new ElementName(string.Empty, string.Empty);
+            Name = string.Empty;
             Description = new ElementDescription(string.Empty, string.Empty);
             Culture = "en";
             //TenantId = 0; // default tenant
@@ -74,7 +74,7 @@ namespace Deploy.LaunchPad.Domain.Metadata
         /// <param name="culture">The culture for this entity</param>
         protected LaunchPadModelBase(string culture) : base()
         {
-            Name = new ElementName(string.Empty, string.Empty);
+            Name = string.Empty;
             Description = new ElementDescription(string.Empty, string.Empty);
             Culture = culture;
             CreatorUserId = Guid.NewGuid(); // TODO - default user account?
@@ -90,7 +90,7 @@ namespace Deploy.LaunchPad.Domain.Metadata
         /// <param name="context">The context of the stream</param>
         protected LaunchPadModelBase(SerializationInfo info, StreamingContext context)
         {
-            Name = (ElementName)info.GetValue("Name", typeof(ElementName));
+            Name = (string)info.GetValue("Name", typeof(string));
             Description = (ElementDescription)info.GetValue("Description", typeof(ElementDescription));
             Culture = info.GetString("Culture");
             Checksum = info.GetString("Checksum");

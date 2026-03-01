@@ -109,7 +109,7 @@ namespace Deploy.LaunchPad.Files.Storage
         public GenericFileStorageLocation() : base()
         {
             Id = Guid.NewGuid().ToString();
-            Name = new ElementName("Generic File Storage Location for " + Id);
+            Name = "Generic File Storage Location for " + Id;
             Provider = FileStorageLocationTypeEnum.Unknown;
             Logger = NullLogger.Instance;
         }
@@ -123,7 +123,7 @@ namespace Deploy.LaunchPad.Files.Storage
         public GenericFileStorageLocation(ILogger logger, Uri rootUri) : base()
         {
             Id = Guid.NewGuid().ToString();
-            Name = new ElementName("Generic File Storage Location for " + Id);
+            Name = "Generic File Storage Location for " + Id;
             RootUri = rootUri;
             Provider = FileStorageLocationTypeEnum.Unknown;
             Logger = logger;
@@ -139,7 +139,7 @@ namespace Deploy.LaunchPad.Files.Storage
         public GenericFileStorageLocation(ILogger logger, Uri rootUri, string id) : base()
         {
             Id = id;
-            Name = new ElementName("Generic File Storage Location for " + Id);
+            Name = "Generic File Storage Location for " + Id;
             RootUri = rootUri;
             Provider = FileStorageLocationTypeEnum.Unknown;
             Logger = logger;
@@ -152,7 +152,7 @@ namespace Deploy.LaunchPad.Files.Storage
         public GenericFileStorageLocation(ILogger logger) : base()
         {
             Id = "GenericFile1";
-            Name = new ElementName("Generic File Storage Location for " + Id);
+            Name = "Generic File Storage Location for " + Id;
             Provider = FileStorageLocationTypeEnum.Unknown;
             Logger = logger;
         }
@@ -167,7 +167,7 @@ namespace Deploy.LaunchPad.Files.Storage
         public GenericFileStorageLocation(ILogger logger, string id, Uri rootUri, FileStorageLocationTypeEnum provider) : base()
         {
             Id = id;
-            Name = new ElementName("Generic File Storage Location for " + Id);
+            Name = "Generic File Storage Location for " + Id;
             RootUri = rootUri;
             Provider = provider;
             Logger = logger;
@@ -184,7 +184,7 @@ namespace Deploy.LaunchPad.Files.Storage
         public GenericFileStorageLocation(ILogger logger, string id, string name, Uri rootUri, FileStorageLocationTypeEnum provider) : base()
         {
             Id = id;
-            Name = new ElementName(name);
+            Name = name;
             RootUri = rootUri;
             Provider = provider;
             Logger = logger;
@@ -202,7 +202,7 @@ namespace Deploy.LaunchPad.Files.Storage
         public GenericFileStorageLocation(ILogger logger, string id, string name, Uri rootUri, FileStorageLocationTypeEnum provider, IEnumerable<MetadataTag> tags)
         {
             Id = id;
-            Name = new ElementName(name);
+            Name = name;
             RootUri = rootUri;
             Provider = provider;
             Logger = logger;

@@ -31,7 +31,7 @@
 #endregion
 
 
-namespace Deploy.LaunchPad.Util.Threading.BackgroundWorkers
+namespace Deploy.LaunchPad.Util.Threading
 {
     /// <summary>
     /// Used to manage background workers.

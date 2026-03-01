@@ -80,7 +80,7 @@ namespace Deploy.LaunchPad.Domain.Tests
         [Fact]
         public void Root_Folder_Name_Should_NotBeNullOrEmpty()
         {
-            Assert.NotNull(_fixture.SUT.Name.Full);
+            Assert.NotNull(_fixture.SUT.Name);
         }
 
 

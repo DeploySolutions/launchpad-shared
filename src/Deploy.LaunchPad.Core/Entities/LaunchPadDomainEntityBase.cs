@@ -167,7 +167,7 @@ namespace Deploy.LaunchPad.Core.Entities
             //TenantId = 0; // default tenant
             IsDeleted = false;
             IsActive = true;
-            Name = new ElementName(string.Empty, string.Empty);
+            Name = string.Empty;
             Description = new ElementDescription(string.Empty, string.Empty);
 
         }
@@ -184,8 +184,8 @@ namespace Deploy.LaunchPad.Core.Entities
             CreatorUserId = Guid.NewGuid(); // TODO - default user account?
             IsDeleted = false;
             IsActive = true;
-            Name = name;
-            Description = new ElementDescription(name.Full);
+            Name = name.Name;
+            Description = new ElementDescription(name.Name);
         }
 
         /// <summary>
@@ -200,7 +200,7 @@ namespace Deploy.LaunchPad.Core.Entities
             CreatorUserId = Guid.NewGuid(); // TODO - default user account?
             IsDeleted = false;
             IsActive = true;
-            Name = name;
+            Name = name.Name;
             Description = description;
         }
 
@@ -215,7 +215,7 @@ namespace Deploy.LaunchPad.Core.Entities
             CreatorUserId = Guid.NewGuid(); // TODO - default user account?
             IsDeleted = false;
             IsActive = true;
-            Name = new ElementName(Id.ToString(), Id.ToString());
+            Name = Id.ToString();
             Description = new ElementDescription(string.Empty, string.Empty);
         }
 
@@ -232,7 +232,7 @@ namespace Deploy.LaunchPad.Core.Entities
             CreatorUserId = Guid.NewGuid(); // TODO - default user account?
             IsDeleted = false;
             IsActive = true;
-            Name = new ElementName(name);
+            Name = name;
             Description = new ElementDescription(string.Empty, string.Empty);
         }
 
@@ -249,7 +249,7 @@ namespace Deploy.LaunchPad.Core.Entities
             CreatorUserId = Guid.NewGuid(); // TODO - default user account?
             IsDeleted = false;
             IsActive = true;
-            Name = new ElementName(name);
+            Name = name;
             Description = new ElementDescription(string.Empty, string.Empty);
         }
 
@@ -266,7 +266,7 @@ namespace Deploy.LaunchPad.Core.Entities
             CreatorUserId = Guid.NewGuid(); // TODO - default user account?
             IsDeleted = false;
             IsActive = true;
-            Name = name;
+            Name = name.Name;
             Description = new ElementDescription(string.Empty, string.Empty);
         }
 
@@ -283,7 +283,7 @@ namespace Deploy.LaunchPad.Core.Entities
             CreatorUserId = Guid.NewGuid(); // TODO - default user account?
             IsDeleted = false;
             IsActive = true;
-            Name = name;
+            Name = name.Name;
             Description = description;
         }
 
@@ -296,7 +296,7 @@ namespace Deploy.LaunchPad.Core.Entities
         {
             Id = (TIdType)info.GetValue("Id", typeof(TIdType));
             Culture = (CultureInfo)info.GetValue("Culture", typeof(CultureInfo));
-            Name = (ElementName)info.GetValue("Name", typeof(ElementName));
+            Name = (string)info.GetValue("Name", typeof(string));
             Description = (ElementDescription)info.GetValue("Description", typeof(ElementDescription));
             Checksum = info.GetString("Checksum");
             Tags = info.GetString("Tags");
@@ -351,7 +351,7 @@ namespace Deploy.LaunchPad.Core.Entities
         {
             var clone = (LaunchPadDomainEntityBase<TIdType>)this.MemberwiseClone();
             // Deep clone reference-type fields as needed
-            clone.Name = Name?.CloneGeneric(); // assuming ElementName has a Clone() method
+            clone.Name = Name;
             clone.Description = Description?.CloneGeneric(); // assuming ElementDescription has a Clone() method
                                                         // ...repeat for other reference-type fields if needed
             return clone;

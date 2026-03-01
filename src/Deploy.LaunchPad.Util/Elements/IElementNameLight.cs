@@ -3,10 +3,9 @@ using System;
 
 namespace Deploy.LaunchPad.Util.Elements
 {
-    public partial interface IElementNameLight : IComparable<ElementNameLight>, 
+    public partial interface IElementNameLight : IMustHaveFullName, IComparable<ElementNameLight>, 
         IEquatable<ElementNameLight>,
         ICloneable, IAmCloneable<ElementNameLight>
     {
-        public string Full { get; set; }
     }
 }

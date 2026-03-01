@@ -97,7 +97,7 @@ namespace Deploy.LaunchPad.Files
         /// </summary>
         protected FileBase(string fileName) : base(fileName)
         {
-            Name = new ElementName(fileName);
+            Name = fileName;
         }
 
 

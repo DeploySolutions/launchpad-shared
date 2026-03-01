@@ -44,7 +44,7 @@ namespace Deploy.LaunchPad.Code.CodeRepresentation
                 {
                     propertyRep.PropertyType = ElementType.GetTypeInformationForElement(Logger, property.PropertyType.FullName, false);
                 }
-                classRepresentation.Properties.TryAdd(propertyRep.Name.Full, propertyRep);
+                classRepresentation.Properties.TryAdd(propertyRep.Name.Name, propertyRep);
             }
 
             // Get methods
@@ -59,7 +59,7 @@ namespace Deploy.LaunchPad.Code.CodeRepresentation
                     var parameterRep = new MethodParameterRepresentation(parameter.Name, paramType);
                     methodRep.Parameters.Add(parameterRep);
                 }
-                classRepresentation.Methods.TryAdd(methodRep.Name.Full, methodRep);
+                classRepresentation.Methods.TryAdd(methodRep.Name.Name, methodRep);
             }
 
             return classRepresentation;

@@ -3,7 +3,7 @@
 namespace Deploy.LaunchPad.Core.Metadata
 {
     
-    public partial interface IMayHaveDescription
+    public partial interface IMayHaveElementDescription
     {
         /// <summary>
         /// Description for this entity.
