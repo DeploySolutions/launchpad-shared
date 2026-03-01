@@ -73,7 +73,7 @@ namespace Deploy.LaunchPad.Domain.Tests
                 Id = 1,
                 TenantId = GuidConstants.Default,
                 Name = "Device for testing DTOs",
-                Description = new ElementDescription("Short description", "Lorem ipsum et dolor sit amet bla bla bla"),
+                //Description = new ElementDescription("Short description", "Lorem ipsum et dolor sit amet bla bla bla"),
                 IsActive = true,
                 IsDeleted = false,
                 Culture = new System.Globalization.CultureInfo("en-CA"),

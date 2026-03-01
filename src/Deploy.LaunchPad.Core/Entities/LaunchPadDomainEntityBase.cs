@@ -168,7 +168,7 @@ namespace Deploy.LaunchPad.Core.Entities
             IsDeleted = false;
             IsActive = true;
             Name = string.Empty;
-            Description = new ElementDescription(string.Empty, string.Empty);
+            //Description = new ElementDescription(string.Empty, string.Empty);
 
         }
 
@@ -185,7 +185,7 @@ namespace Deploy.LaunchPad.Core.Entities
             IsDeleted = false;
             IsActive = true;
             Name = name.Name;
-            Description = new ElementDescription(name.Name);
+            //Description = new ElementDescription(name.Name);
         }
 
         /// <summary>
@@ -201,7 +201,7 @@ namespace Deploy.LaunchPad.Core.Entities
             IsDeleted = false;
             IsActive = true;
             Name = name.Name;
-            Description = description;
+            //Description = description;
         }
 
         /// <summary>
@@ -216,7 +216,7 @@ namespace Deploy.LaunchPad.Core.Entities
             IsDeleted = false;
             IsActive = true;
             Name = Id.ToString();
-            Description = new ElementDescription(string.Empty, string.Empty);
+            //Description = new ElementDescription(string.Empty, string.Empty);
         }
 
 
@@ -233,7 +233,7 @@ namespace Deploy.LaunchPad.Core.Entities
             IsDeleted = false;
             IsActive = true;
             Name = name;
-            Description = new ElementDescription(string.Empty, string.Empty);
+            //Description = new ElementDescription(string.Empty, string.Empty);
         }
 
         /// <summary>
@@ -250,7 +250,7 @@ namespace Deploy.LaunchPad.Core.Entities
             IsDeleted = false;
             IsActive = true;
             Name = name;
-            Description = new ElementDescription(string.Empty, string.Empty);
+            //Description = new ElementDescription(string.Empty, string.Empty);
         }
 
         /// <summary>
@@ -267,7 +267,7 @@ namespace Deploy.LaunchPad.Core.Entities
             IsDeleted = false;
             IsActive = true;
             Name = name.Name;
-            Description = new ElementDescription(string.Empty, string.Empty);
+            //Description = new ElementDescription(string.Empty, string.Empty);
         }
 
         /// <summary>
@@ -284,7 +284,7 @@ namespace Deploy.LaunchPad.Core.Entities
             IsDeleted = false;
             IsActive = true;
             Name = name.Name;
-            Description = description;
+            //Description = description;
         }
 
         /// <summary>
@@ -297,7 +297,7 @@ namespace Deploy.LaunchPad.Core.Entities
             Id = (TIdType)info.GetValue("Id", typeof(TIdType));
             Culture = (CultureInfo)info.GetValue("Culture", typeof(CultureInfo));
             Name = (string)info.GetValue("Name", typeof(string));
-            Description = (ElementDescription)info.GetValue("Description", typeof(ElementDescription));
+            //Description = (ElementDescription)info.GetValue("Description", typeof(ElementDescription));
             Checksum = info.GetString("Checksum");
             Tags = info.GetString("Tags");
             CreationTime = info.GetDateTime("CreationTime");
@@ -321,7 +321,7 @@ namespace Deploy.LaunchPad.Core.Entities
             info.AddValue("Id", Id);
             info.AddValue("Culture", Culture);
             info.AddValue("Name", Name);
-            info.AddValue("Description", Description);
+            //info.AddValue("Description", Description);
             info.AddValue("Checksum", Checksum);
             info.AddValue("Tags", Tags);
             info.AddValue("CreationTime", CreationTime);
@@ -352,7 +352,7 @@ namespace Deploy.LaunchPad.Core.Entities
             var clone = (LaunchPadDomainEntityBase<TIdType>)this.MemberwiseClone();
             // Deep clone reference-type fields as needed
             clone.Name = Name;
-            clone.Description = Description?.CloneGeneric(); // assuming ElementDescription has a Clone() method
+            //clone.Description = Description?.CloneGeneric(); // assuming ElementDescription has a Clone() method
                                                         // ...repeat for other reference-type fields if needed
             return clone;
         }
@@ -397,7 +397,7 @@ namespace Deploy.LaunchPad.Core.Entities
             // LaunchPAD RAD properties
             sb.AppendFormat("Id={0};", Id);
             sb.AppendFormat("Name={0};", Name);
-            sb.AppendFormat("Description={0};", Description);
+            //sb.AppendFormat("Description={0};", Description);
             sb.AppendFormat("Checksum={0};", Checksum);
             sb.AppendFormat(" Tags={0};", Tags.ToString());
             sb.AppendFormat("SeqNum={0};", SeqNum);
@@ -461,7 +461,7 @@ namespace Deploy.LaunchPad.Core.Entities
                         // Subclasses should extend to include their own enhanced equality checks, as required.
                         return Id.Equals(obj.Id) && Culture.Equals(obj.Culture) 
                             && Name.Equals(obj.Name)
-                            && Description.Equals(obj.Description)
+                            //&& Description.Equals(obj.Description)
                             && IsActive.Equals(obj.IsActive) && IsDeleted.Equals(obj.IsDeleted);
                     }
                 }

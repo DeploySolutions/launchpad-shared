@@ -24,14 +24,14 @@ namespace Deploy.LaunchPad.Core.Metadata
         //[JsonPropertyName("name")]
         public virtual string Name { get; set;  }
 
-        /// <summary>
-        /// A  description for this entity
-        /// </summary>
-        /// <value>The description.</value>
-        [DataObjectField(false)]
-        [XmlAttribute]
-        //[JsonPropertyName("description")]
-        public virtual ElementDescription Description{ get; set; }
+        ///// <summary>
+        ///// A  description for this entity
+        ///// </summary>
+        ///// <value>The description.</value>
+        //[DataObjectField(false)]
+        //[XmlAttribute]
+        ////[JsonPropertyName("description")]
+        //public virtual ElementDescription Description{ get; set; }
 
         protected LaunchPadMinimalProperties()
         {
@@ -40,14 +40,14 @@ namespace Deploy.LaunchPad.Core.Metadata
         public LaunchPadMinimalProperties(string name, string description = null)
         {
             Name = name;
-            Description = new ElementDescription(description);
+            //Description = new ElementDescription(description);
         }
 
 
         protected LaunchPadMinimalProperties(ElementName name, ElementDescription description = null)
         {
             Name = name.Name;
-            Description = description;
+            //Description = description;
         }
 
         /// <summary>
@@ -58,7 +58,7 @@ namespace Deploy.LaunchPad.Core.Metadata
         protected LaunchPadMinimalProperties(SerializationInfo info, StreamingContext context)
         {
             Name = (string)info.GetValue("Name", typeof(string));
-            Description = (ElementDescription)info.GetValue("Description", typeof(ElementDescription));
+            //Description = (ElementDescription)info.GetValue("Description", typeof(ElementDescription));
         }
 
         /// <summary>
@@ -69,7 +69,7 @@ namespace Deploy.LaunchPad.Core.Metadata
         public virtual void GetObjectData(SerializationInfo info, StreamingContext context)
         {
             info.AddValue("Name", Name);
-            info.AddValue("Description", Description);
+            //info.AddValue("Description", Description);
         }
 
     }

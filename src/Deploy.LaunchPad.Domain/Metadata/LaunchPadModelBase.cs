@@ -50,7 +50,7 @@ namespace Deploy.LaunchPad.Domain.Metadata
         /// Controls the DebuggerDisplay attribute presentation (above). This will only appear during VS debugging sessions and should never be logged.
         /// </summary>
         /// <value>The debug display.</value>
-        protected virtual string _debugDisplay => $"Name {Name}. Description {Description}";
+        protected virtual string _debugDisplay => $"Name {Name}.";
         
         
         /// <summary>
@@ -59,7 +59,7 @@ namespace Deploy.LaunchPad.Domain.Metadata
         protected LaunchPadModelBase() : base()
         {
             Name = string.Empty;
-            Description = new ElementDescription(string.Empty, string.Empty);
+            //Description = new ElementDescription(string.Empty, string.Empty);
             Culture = "en";
             //TenantId = 0; // default tenant
             IsDeleted = false;
@@ -75,7 +75,7 @@ namespace Deploy.LaunchPad.Domain.Metadata
         protected LaunchPadModelBase(string culture) : base()
         {
             Name = string.Empty;
-            Description = new ElementDescription(string.Empty, string.Empty);
+           // Description = new ElementDescription(string.Empty, string.Empty);
             Culture = culture;
             CreatorUserId = Guid.NewGuid(); // TODO - default user account?
             IsDeleted = false;
@@ -91,7 +91,7 @@ namespace Deploy.LaunchPad.Domain.Metadata
         protected LaunchPadModelBase(SerializationInfo info, StreamingContext context)
         {
             Name = (string)info.GetValue("Name", typeof(string));
-            Description = (ElementDescription)info.GetValue("Description", typeof(ElementDescription));
+            //Description = (ElementDescription)info.GetValue("Description", typeof(ElementDescription));
             Culture = info.GetString("Culture");
             Checksum = info.GetString("Checksum");
             Tags = info.GetString("Metadata");
@@ -115,7 +115,7 @@ namespace Deploy.LaunchPad.Domain.Metadata
         public override void GetObjectData(SerializationInfo info, StreamingContext context)
         {
             info.AddValue("Name", Name);
-            info.AddValue("Description", Description);
+            //info.AddValue("Description", Description);
             info.AddValue("Culture", Culture);
             info.AddValue("Checksum", Checksum);
             info.AddValue("Tags", Tags);
@@ -199,7 +199,7 @@ namespace Deploy.LaunchPad.Domain.Metadata
             StringBuilder sb = new StringBuilder();
             // LaunchPAD RAD properties
             sb.AppendFormat("Name={0};", Name);
-            sb.AppendFormat("Description={0};", Description);
+            //sb.AppendFormat("Description={0};", Description);
             sb.AppendFormat("Checksum={0};", Checksum);
             sb.AppendFormat(" Tags={0};", Tags.ToString());
             sb.AppendFormat("SeqNum={0};", SeqNum);
@@ -249,7 +249,7 @@ namespace Deploy.LaunchPad.Domain.Metadata
                 // Subclasses should extend to include their own enhanced equality checks, as required.
                 return Checksum.Equals(obj.Checksum) && Culture.Equals(obj.Culture)
                     && Name.Equals(obj.Name)
-                    && Description.Equals(obj.Description)
+                   // && Description.Equals(obj.Description)
                     && IsActive.Equals(obj.IsActive) && IsDeleted.Equals(obj.IsDeleted);
 
             }

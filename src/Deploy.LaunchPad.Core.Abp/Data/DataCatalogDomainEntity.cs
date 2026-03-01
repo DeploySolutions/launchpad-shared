@@ -119,7 +119,7 @@ namespace Deploy.LaunchPad.Core.Abp.Data
         {
             TenantId = tenantId;
             Name = _datacatalogueName;
-            Description = new ElementDescription(_datacatalogueDescription);
+            //Description = new ElementDescription(_datacatalogueDescription);
             ItemsCount = _totalNumberOfRecords;
         }
 

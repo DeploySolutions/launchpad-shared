@@ -73,7 +73,7 @@ namespace Deploy.LaunchPad.Core.Domain.Entities
         /// Controls the DebuggerDisplay attribute presentation (above). This will only appear during VS debugging sessions and should never be logged.
         /// </summary>
         /// <value>The debug display.</value>
-        protected virtual string _debugDisplay => $"Name {Name}. Description {Description}";
+        protected virtual string _debugDisplay => $"Name {Name}";
 
         /// <summary>
         /// Unique identifier for this entity.
@@ -249,7 +249,7 @@ namespace Deploy.LaunchPad.Core.Domain.Entities
         {
             Id = (TPrimaryKey)info.GetValue("Id", typeof(TPrimaryKey));
             Name = (string)info.GetValue("Name", typeof(string));
-            Description = (ElementDescription)info.GetValue("Description", typeof(ElementDescription));
+            //Description = (ElementDescription)info.GetValue("Description", typeof(ElementDescription));
             Checksum = info.GetString("Checksum");
             Tags = info.GetString("Tags");
         }
@@ -351,7 +351,7 @@ namespace Deploy.LaunchPad.Core.Domain.Entities
             // Concatenate the values of the properties you want to include in the checksum
             if (string.IsNullOrEmpty(input))
             {
-                input = $"{Name}{Description}";
+                input = $"{Name}"; // Description removed from checksum calculation
             }
             var bytes = checksum.GetSha256HashAsBytes(input);
 
@@ -369,7 +369,7 @@ namespace Deploy.LaunchPad.Core.Domain.Entities
             var clone = (Entity<TPrimaryKey>)this.MemberwiseClone();
             // Deep clone reference-type fields as needed
             clone.Name = Name; 
-            clone.Description = Description?.CloneGeneric(); // assuming ElementDescription has a Clone() method
+            //clone.Description = Description?.CloneGeneric(); // assuming ElementDescription has a Clone() method
                                                                // ...repeat for other reference-type fields if needed
             return clone;
         }
@@ -437,7 +437,7 @@ namespace Deploy.LaunchPad.Core.Domain.Entities
                         // Subclasses should extend to include their own enhanced equality checks, as required.
                         return Id.Equals(obj.Id) 
                             && Name.Equals(obj.Name)
-                            && Description.Equals(obj.Description)
+                            //&& Description.Equals(obj.Description)
                             && Tags.Equals(obj.Tags);
                     }
                 }
@@ -499,7 +499,7 @@ namespace Deploy.LaunchPad.Core.Domain.Entities
             StringBuilder sb = new StringBuilder();
             sb.AppendFormat("Id={0};", Id);
             sb.AppendFormat("Name={0};", Name);
-            sb.AppendFormat("Description={0};", Description);
+            //sb.AppendFormat("Description={0};", Description);
             sb.AppendFormat("Checksum={0};", Checksum);
             sb.AppendFormat("Tags={0};", Tags);
             return sb.ToString();
@@ -516,7 +516,7 @@ namespace Deploy.LaunchPad.Core.Domain.Entities
             return Id.GetHashCode()
                 + Checksum.GetHashCode()
                 + Name.GetHashCode()
-                + Description.GetHashCode()
+               // + Description.GetHashCode()
                 + Tags.GetHashCode()
             ;
         }

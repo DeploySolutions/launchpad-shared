@@ -276,7 +276,7 @@ namespace Deploy.LaunchPad.Files.Storage
             sb.AppendFormat("Id={0};", Id);
             sb.AppendFormat("Name={0};", Name);
             sb.AppendFormat("Provider={0};", Provider);
-            sb.AppendFormat("Description={0};", Description);
+           // sb.AppendFormat("Description={0};", Description);
             sb.AppendFormat("RootUri={0};", RootUri);
             sb.AppendFormat("DefaultPrefix={0};", DefaultPrefix);
             return sb.ToString();

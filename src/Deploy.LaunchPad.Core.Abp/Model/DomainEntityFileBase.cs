@@ -136,7 +136,7 @@ namespace Deploy.LaunchPad.Core.Entities
         protected DomainEntityFileBase(string fileName) : base()
         {
             Name = fileName;
-            Description = new ElementDescription(string.Empty, string.Empty);
+            //Description = new ElementDescription(string.Empty, string.Empty);
         }
 
         /// <summary>

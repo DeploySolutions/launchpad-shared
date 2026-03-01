@@ -91,7 +91,7 @@ namespace Deploy.LaunchPad.AWS.S3
             S3Service = new AwsS3Service(Logger, Region);
             string bucketUri = string.Format("https://s3.{0}.amazonaws.com/{1}", Region, Id);
             string descriptionMessage = string.Format("AWS S3 bucket at '{0}'", bucketUri);
-            Description = new ElementDescription( descriptionMessage);
+            //Description = new ElementDescription( descriptionMessage);
             RootUri = new Uri(bucketUri);
             Provider = FileStorageLocationTypeEnum.Aws_S3;
         }
@@ -111,7 +111,7 @@ namespace Deploy.LaunchPad.AWS.S3
             Name = bucketName;
             string bucketUri = string.Format("https://s3.{0}.amazonaws.com/{1}", Region, bucketName);
             string descriptionMessage = string.Format("AWS S3 bucket at '{0}'", bucketUri);
-            Description = new ElementDescription(descriptionMessage);
+            //Description = new ElementDescription(descriptionMessage);
             DefaultPrefix = defaultPrefix;
             RootUri = new Uri(bucketUri);
         }
@@ -128,7 +128,7 @@ namespace Deploy.LaunchPad.AWS.S3
             Region = DEFAULT_REGION;
             string bucketUri = string.Format("https://s3.{0}.amazonaws.com/{1}", Region, id);
             string descriptionMessage = string.Format("AWS S3 bucket at '{0}'", bucketUri);
-            Description = new ElementDescription(descriptionMessage);
+            //Description = new ElementDescription(descriptionMessage);
             RootUri = new Uri(bucketUri);
             Provider = FileStorageLocationTypeEnum.Aws_S3;
         }

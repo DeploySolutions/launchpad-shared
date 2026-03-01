@@ -157,8 +157,6 @@ namespace Deploy.LaunchPad.Core.Abp.SoftwareApplications
 
         Domain.Entities.DomainEntityType ILaunchPadDomainEntityProperties<TIdType>.EntityType => throw new NotImplementedException();
     
-        ElementDescription Metadata.IMustHaveElementDescription.Description { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-
         string Metadata.IMayHaveTags.Tags => throw new NotImplementedException();
 
         string Metadata.IMayHaveChecksumValue.Checksum { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }

@@ -25,7 +25,7 @@ namespace Deploy.LaunchPad.Domain.Content
         {
             string name = "New Bundle " + DateTime.UtcNow.ToString();
             Name = name;
-            Description = new ElementDescription(name);
+           // Description = new ElementDescription(name);
             CreationTime = DateTime.Now.ToUniversalTime();
             IsActive = true;
             Culture = "en";
@@ -36,7 +36,7 @@ namespace Deploy.LaunchPad.Domain.Content
         protected LaunchPadContentPublishingCollectionBase(string name)
         {            
             Name = name;
-            Description = new ElementDescription(name);
+            //Description = new ElementDescription(name);
             CreationTime = DateTime.Now.ToUniversalTime();
             IsActive = true;
             Culture = "en";
@@ -52,7 +52,7 @@ namespace Deploy.LaunchPad.Domain.Content
         protected LaunchPadContentPublishingCollectionBase(SerializationInfo info, StreamingContext context)
         {
             Name = (string)info.GetValue("Name", typeof(string));
-            Description = (ElementDescription)info.GetValue("Description", typeof(ElementDescription));
+           // Description = (ElementDescription)info.GetValue("Description", typeof(ElementDescription));
             Culture = info.GetString("Culture");
             Checksum = info.GetString("Checksum");
             Tags = info.GetString("Metadata");
@@ -77,7 +77,7 @@ namespace Deploy.LaunchPad.Domain.Content
         public virtual void GetObjectData(SerializationInfo info, StreamingContext context)
         {
             info.AddValue("Name", Name);
-            info.AddValue("Description", Description);
+           // info.AddValue("Description", Description);
             info.AddValue("Culture", Culture);
             info.AddValue("Checksum", Checksum);
             info.AddValue("Tags", Tags);

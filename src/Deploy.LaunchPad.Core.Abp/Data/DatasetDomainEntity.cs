@@ -146,7 +146,7 @@ namespace Deploy.LaunchPad.Core.Abp.Data
         {
 
             Name = datasetName;
-            Description = new ElementDescription(datasetDescription);
+            //Description = new ElementDescription(datasetDescription);
         }
 
         /// <summary>
