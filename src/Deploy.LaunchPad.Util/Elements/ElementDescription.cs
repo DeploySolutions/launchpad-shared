@@ -84,7 +84,7 @@ namespace Deploy.LaunchPad.Util.Elements
         /// <returns>System.Int32.</returns>
         public virtual int CompareTo(ElementDescription other)
         {
-            return Full.CompareTo(other.Full) & Short.CompareTo(other.Short);
+            return Full.CompareTo(other) & Short.CompareTo(other.Short);
         }
 
         /// <summary>
@@ -124,7 +124,7 @@ namespace Deploy.LaunchPad.Util.Elements
         {
             if (obj != null)
             {
-                return Short.Equals(obj.Short) && Full.Equals(obj.Full);
+                return Short.Equals(obj.Short) && Full.Equals(obj);
             }
             return false;
         }
@@ -174,7 +174,7 @@ namespace Deploy.LaunchPad.Util.Elements
         {
             // Create a new instance and copy all relevant properties
             return new ElementDescription(
-                fullDescription: this.Full,
+                fullDescription: this,
                 shortDescription: this.Short
             );
         }
