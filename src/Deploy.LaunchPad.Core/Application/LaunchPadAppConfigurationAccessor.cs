@@ -19,12 +19,12 @@ namespace Deploy.LaunchPad.Core.Application
 {
     /// <summary>
     /// Class LaunchPadAbpAppConfigurationAccessor.
-    /// Implements the <see cref="Deploy.LaunchPad.Core.Abp.AbpModuleConfig.ILaunchPadAppConfigurationAccessor" />
+    /// Implements the <see cref="Deploy.LaunchPad.Core.Application.ILaunchPadAppConfigurationAccessor" />
     /// Implements the <see cref="ISingletonDependency" />
     /// </summary>
-    /// <seealso cref="Deploy.LaunchPad.Core.Abp.AbpModuleConfig.ILaunchPadAppConfigurationAccessor" />
+    /// <seealso cref="Deploy.LaunchPad.Core.Application.ILaunchPadAppConfigurationAccessor" />
     /// <seealso cref="ISingletonDependency" />
-    public partial class LaunchPadAbpAppConfigurationAccessor : ILaunchPadAppConfigurationAccessor
+    public partial class LaunchPadAppConfigurationAccessor : ILaunchPadAppConfigurationAccessor
     {
         /// <summary>
         /// Gets the configuration.
@@ -34,10 +34,10 @@ namespace Deploy.LaunchPad.Core.Application
 
        
         /// <summary>
-        /// Initializes a new instance of the <see cref="LaunchPadAbpAppConfigurationAccessor"/> class.
+        /// Initializes a new instance of the <see cref="LaunchPadAppConfigurationAccessor"/> class.
         /// </summary>
         /// <param name="configuration">The configuration provided by DI.</param>
-        public LaunchPadAbpAppConfigurationAccessor(IConfiguration configuration)
+        public LaunchPadAppConfigurationAccessor(IConfiguration configuration)
         {
             // If you need IConfigurationRoot for reloading, cast; otherwise, just use IConfiguration
             Configuration = configuration as IConfigurationRoot
