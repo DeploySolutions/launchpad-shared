@@ -38,7 +38,8 @@
     <PropertyGroup>
       <!-- Define the build folder relative to the solution directory -->
       <BuildOutputFolder>$(SolutionDir)build\$(MSBuildProjectName)</BuildOutputFolder>
-      <SharedBuildOutputFolder>$(SolutionDir)build\shared</SharedBuildOutputFolder>
+      <!--<SharedBuildOutputFolder>B:\launchpad_shared</SharedBuildOutputFolder>-->
+      <SharedBuildOutputFolder>\Code\Libs\launchPad_shared</SharedBuildOutputFolder>     
     </PropertyGroup>
     <ItemGroup>
       <!-- Include the Debug assembly and its metadata -->
@@ -46,8 +47,14 @@
     </ItemGroup>
     <MakeDir Directories="$(BuildOutputFolder)" />
     <MakeDir Directories="$(SharedBuildOutputFolder)" />
-    <Copy SourceFiles="@(DebugAssemblies)" DestinationFolder="$(BuildOutputFolder)" />
-    <Copy SourceFiles="@(DebugAssemblies)" DestinationFolder="$(SharedBuildOutputFolder)" />
+    <Copy
+  SourceFiles="@(DebugAssemblies)"
+  DestinationFolder="$(BuildOutputFolder)"
+  OverwriteReadOnlyFiles="true" />
+    <Copy
+      SourceFiles="@(DebugAssemblies)"
+      DestinationFolder="$(SharedBuildOutputFolder)"
+      OverwriteReadOnlyFiles="true" />
   </Target>
 
 </Project>
