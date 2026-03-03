@@ -26,11 +26,6 @@ namespace Deploy.LaunchPad.Util
         public ElementNameLight Name { get; set; }
         public ElementDescriptionLight Description { get; set; }
 
-        /// <summary>
-        /// Gets or sets the logger.
-        /// </summary>
-        /// <value>The logger.</value>
-        public ILogger Logger { get; }
 
 
     }
