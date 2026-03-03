@@ -13,7 +13,6 @@
 // ***********************************************************************
 
 
-using Deploy.LaunchPad.Core.Metadata;
 
 namespace Deploy.LaunchPad.Data
 {

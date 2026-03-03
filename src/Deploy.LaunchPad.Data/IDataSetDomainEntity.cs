@@ -6,7 +6,7 @@
 // Last Modified By : Nicholas Kellett
 // Last Modified On : 07-26-2023
 // ***********************************************************************
-// <copyright file="IDataCatalogue.cs" company="Deploy Software Solutions, inc.">
+// <copyright file="IDataSet.cs" company="Deploy Software Solutions, inc.">
 //     2018-2024 Deploy Software Solutions, inc.
 // </copyright>
 // <summary></summary>
@@ -26,32 +26,29 @@
 //limitations under the License. 
 #endregion
 
-
-using Abp.Domain.Entities;
 using Deploy.LaunchPad.Core.Domain.Entities;
 using Deploy.LaunchPad.Data;
-using System.Collections.Generic;
-using IMayHaveTenant = Deploy.LaunchPad.Core.Metadata.IMayHaveTenant;
 
-namespace Deploy.LaunchPad.Core.Abp.Data
+namespace Deploy.LaunchPad.Data
 {
+
     /// <summary>
-    /// Interface IDataCatalogue
+    /// Interface IDataSet
     /// Extends the <see cref="IDomainEntity{TPrimaryKey}" />
-    /// Extends the <see cref="IMayHaveTenant" />
     /// </summary>
     /// <typeparam name="TPrimaryKey">The type of the t primary key.</typeparam>
     /// <typeparam name="TDictionaryKey">The type of the t dictionary key.</typeparam>
     /// <typeparam name="TDataPointPrimaryKey">The type of the t data point primary key.</typeparam>
     /// <seealso cref="IDomainEntity{TPrimaryKey}" />
-    /// <seealso cref="IMayHaveTenant" />
-    public partial interface IDataCatalogDomainEntity<TPrimaryKey, TDictionaryKey, TDataPointPrimaryKey, TSchemaFormat>  : 
-        ILaunchPadDataCatalog<TDictionaryKey, TSchemaFormat>, 
-        IDomainEntity<TPrimaryKey>, IMayHaveTenant
+    public partial interface IDataSetDomainEntity<TPrimaryKey, TDictionaryKey, TDataPointPrimaryKey, TSchemaFormat> : 
+        ILaunchPadDataSet<TDictionaryKey, TSchemaFormat>,
+        IDomainEntity<TPrimaryKey>
         where TDictionaryKey : struct
         where TDataPointPrimaryKey : struct
     {
+       
 
+       
 
     }
 }

@@ -6,7 +6,7 @@
 // Last Modified By : Nicholas Kellett
 // Last Modified On : 07-26-2023
 // ***********************************************************************
-// <copyright file="IDataPoint.cs" company="Deploy Software Solutions, inc.">
+// <copyright file="IDataCatalogue.cs" company="Deploy Software Solutions, inc.">
 //     2018-2024 Deploy Software Solutions, inc.
 // </copyright>
 // <summary></summary>
@@ -26,30 +26,26 @@
 //limitations under the License. 
 #endregion
 
-using Abp.Domain.Entities;
-using Deploy.LaunchPad.Data;
-using Deploy.LaunchPad.Core.Metadata;
-using IMayHaveTenant = Deploy.LaunchPad.Core.Metadata.IMayHaveTenant;
+
 using Deploy.LaunchPad.Core.Domain.Entities;
 
-
-namespace Deploy.LaunchPad.Core.Abp.Data
+namespace Deploy.LaunchPad.Data
 {
-
     /// <summary>
-    /// Interface IDataPoint
+    /// Interface IDataCatalogue
     /// Extends the <see cref="IDomainEntity{TPrimaryKey}" />
-    /// Extends the <see cref="IMayHaveTenant" />
     /// </summary>
     /// <typeparam name="TPrimaryKey">The type of the t primary key.</typeparam>
+    /// <typeparam name="TDictionaryKey">The type of the t dictionary key.</typeparam>
+    /// <typeparam name="TDataPointPrimaryKey">The type of the t data point primary key.</typeparam>
     /// <seealso cref="IDomainEntity{TPrimaryKey}" />
-    /// <seealso cref="IMayHaveTenant" />
-    public partial interface IDataPointDomainEntity<TPrimaryKey, TSchemaFormat> : ILaunchPadDataPoint, IDomainEntity<TPrimaryKey>, IMayHaveTenant
+    public partial interface IDataCatalogDomainEntity<TPrimaryKey, TDictionaryKey, TDataPointPrimaryKey, TSchemaFormat>  : 
+        ILaunchPadDataCatalog<TDictionaryKey, TSchemaFormat>, 
+        IDomainEntity<TPrimaryKey>
+        where TDictionaryKey : struct
+        where TDataPointPrimaryKey : struct
     {
-        /// <summary>
-        /// Describes the schema (where known) according to which this data is structured.
-        /// </summary>
-        /// <value>The schema.</value>
-        public ILaunchPadSchemaDetails<TSchemaFormat>? Schema { get; set; }
+
+
     }
 }

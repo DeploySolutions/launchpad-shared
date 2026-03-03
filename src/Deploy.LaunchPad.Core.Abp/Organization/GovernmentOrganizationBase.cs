@@ -50,7 +50,7 @@ namespace Deploy.LaunchPad.Core.Abp.Organization
         /// <summary>
         /// The schema
         /// </summary>
-        private GovernmentOrganization _schema;
+        protected  GovernmentOrganization _schema;
         /// <summary>
         /// Gets or sets the schema.
         /// </summary>
@@ -58,13 +58,6 @@ namespace Deploy.LaunchPad.Core.Abp.Organization
         [DataObjectField(false)]
         [XmlAttribute]
         public new GovernmentOrganization Schema { get => _schema; set => _schema = value; }
-
-
-        #region Implementation of ASP.NET Boilerplate's IEntity interface
-
-
-
-        #endregion
 
 
         /// <summary>

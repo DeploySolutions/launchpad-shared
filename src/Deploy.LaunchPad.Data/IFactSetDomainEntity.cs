@@ -11,10 +11,9 @@
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
-using Deploy.LaunchPad.Data;
 using System.Collections.Generic;
 
-namespace Deploy.LaunchPad.Core.Abp.Data
+namespace Deploy.LaunchPad.Data
 {
     /// <summary>
     /// Interface IFactSet
