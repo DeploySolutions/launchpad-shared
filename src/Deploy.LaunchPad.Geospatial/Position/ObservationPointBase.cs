@@ -26,22 +26,16 @@
 //limitations under the License. 
 #endregion
 
-using Abp.Domain.Entities;
 using Deploy.LaunchPad.Core.Domain.Entities;
-using Deploy.LaunchPad.Geospatial;
-using Deploy.LaunchPad.Geospatial.Position;
-using Deploy.LaunchPad.Geospatial.ReferencePoint;
 using Deploy.LaunchPad.Util.Guids;
 using NetTopologySuite.Geometries;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Xml.Serialization;
-using IMayHaveTenant = Deploy.LaunchPad.Core.Metadata.IMayHaveTenant;
 
-namespace Deploy.LaunchPad.Core.Abp.Geospatial
+namespace Deploy.LaunchPad.Geospatial.Position
 {
 
     /// <summary>
@@ -51,7 +45,7 @@ namespace Deploy.LaunchPad.Core.Abp.Geospatial
     /// <typeparam name="TParentAreaOfInterest">The type of the t parent area of interest.</typeparam>
     [Serializable()]
     public abstract partial class ObservationPointBase<TIdType, TParentAreaOfInterest> :
-        DomainEntityBase<TIdType>, IObservationPoint<TParentAreaOfInterest>, IMayHaveTenant
+        DomainEntityBase<TIdType>, IObservationPoint<TParentAreaOfInterest>
         where TParentAreaOfInterest : IAreaOfInterest
     {
         #region "Geographic Properties"
@@ -181,13 +175,7 @@ namespace Deploy.LaunchPad.Core.Abp.Geospatial
         /// <value>The parent aoi.</value>
         public virtual TParentAreaOfInterest? ParentAoi { get; set; }
 
-        /// <summary>
-        /// TenantId of this entity.
-        /// </summary>
-        /// <value>The tenant identifier.</value>
-        public virtual System.Guid? TenantId { get; set; }
-
-
+        
         /// <summary>
         /// Initializes a new instance of the <see cref="ObservationPointBase{TIdType, TParentAreaOfInterest}"/> class.
         /// </summary>
@@ -198,31 +186,18 @@ namespace Deploy.LaunchPad.Core.Abp.Geospatial
         /// <summary>
         /// Initializes a new instance of the <see cref="ObservationPointBase{TIdType, TParentAreaOfInterest}"/> class.
         /// </summary>
-        /// <param name="tenantId">The tenant identifier.</param>
-        protected ObservationPointBase(System.Guid? tenantId) : base()
-        {
-            TenantId = tenantId;
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="ObservationPointBase{TIdType, TParentAreaOfInterest}"/> class.
-        /// </summary>
-        /// <param name="tenantId">The tenant identifier.</param>
         /// <param name="parentAoi">The parent aoi.</param>
         protected ObservationPointBase(System.Guid? tenantId, TParentAreaOfInterest parentAoi) : base()
         {
-            TenantId = tenantId;
             ParentAoi = parentAoi;
         }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ObservationPointBase{TIdType, TParentAreaOfInterest}"/> class.
         /// </summary>
-        /// <param name="tenantId">The tenant identifier.</param>
         /// <param name="location">The location.</param>
-        protected ObservationPointBase(System.Guid? tenantId, IMustHaveGeographicPosition location) : base()
+        protected ObservationPointBase(IMustHaveGeographicPosition location) : base()
         {
-            TenantId = tenantId;
             GeospatialHelper helper = new GeospatialHelper();
             var position = helper.GetGeographicPositionDto(location.GeoJson);
             GeoJson = position.GeoJson;

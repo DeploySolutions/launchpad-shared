@@ -27,7 +27,6 @@
 #endregion
 
 using Deploy.LaunchPad.Geospatial.GeoJson;
-using Deploy.LaunchPad.Geospatial.ReferencePoint;
 using System.ComponentModel;
 using System.Xml.Serialization;
 

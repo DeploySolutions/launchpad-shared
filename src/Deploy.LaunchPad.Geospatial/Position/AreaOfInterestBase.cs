@@ -1,5 +1,5 @@
 ﻿// ***********************************************************************
-// Assembly         : Deploy.LaunchPad.Core.Abp
+// Assembly         : Deploy.LaunchPad.Geospatial
 // Author           : Nicholas Kellett
 // Created          : 11-19-2023
 //
@@ -26,11 +26,7 @@
 //limitations under the License. 
 #endregion
 
-using Abp.Domain.Entities;
 using Deploy.LaunchPad.Core.Domain.Entities;
-using Deploy.LaunchPad.Geospatial;
-using Deploy.LaunchPad.Geospatial.Position;
-using Deploy.LaunchPad.Geospatial.ReferencePoint;
 using Deploy.LaunchPad.Util.Guids;
 using NetTopologySuite.Geometries;
 using System;
@@ -38,9 +34,8 @@ using System.ComponentModel;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Xml.Serialization;
-using IMayHaveTenant = Deploy.LaunchPad.Core.Metadata.IMayHaveTenant;
 
-namespace Deploy.LaunchPad.Core.Abp.Geospatial
+namespace Deploy.LaunchPad.Geospatial.Position
 {
 
     /// <summary>
@@ -49,7 +44,7 @@ namespace Deploy.LaunchPad.Core.Abp.Geospatial
     /// <typeparam name="TIdType">The type of the t identifier type.</typeparam>
     [Serializable()]
     public abstract partial class AreaOfInterestBase<TIdType> :
-        DomainEntityBase<TIdType>, IAreaOfInterest, IMayHaveTenant
+        DomainEntityBase<TIdType>, IAreaOfInterest
     {
 
         #region "Geographic Properties"
@@ -176,12 +171,6 @@ namespace Deploy.LaunchPad.Core.Abp.Geospatial
         #endregion
 
         /// <summary>
-        /// TenantId of this entity.
-        /// </summary>
-        /// <value>The tenant identifier.</value>
-        public virtual System.Guid? TenantId { get; set; }
-
-        /// <summary>
         /// Initializes a new instance of the <see cref="AreaOfInterestBase{TIdType}"/> class.
         /// </summary>
         protected AreaOfInterestBase() : base()
@@ -192,20 +181,9 @@ namespace Deploy.LaunchPad.Core.Abp.Geospatial
         /// <summary>
         /// Initializes a new instance of the <see cref="AreaOfInterestBase{TIdType}"/> class.
         /// </summary>
-        /// <param name="tenantId">The tenant identifier.</param>
-        protected AreaOfInterestBase(System.Guid? tenantId) : base()
-        {
-            TenantId = tenantId;
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="AreaOfInterestBase{TIdType}"/> class.
-        /// </summary>
-        /// <param name="tenantId">The tenant identifier.</param>
         /// <param name="geoJson">The geo json.</param>
-        protected AreaOfInterestBase(System.Guid? tenantId, string geoJson) : base()
+        protected AreaOfInterestBase(string geoJson) : base()
         {
-            TenantId = tenantId;
             GeospatialHelper helper = new GeospatialHelper();
             var position = helper.GetGeographicPositionDto(geoJson);
             GeoJson = position.GeoJson;

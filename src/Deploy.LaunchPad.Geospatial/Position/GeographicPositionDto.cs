@@ -1,5 +1,4 @@
 ﻿using Deploy.LaunchPad.Geospatial;
-using Deploy.LaunchPad.Geospatial.ReferencePoint;
 using NetTopologySuite.Geometries;
 using System;
 using System.Collections.Generic;

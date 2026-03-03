@@ -6,7 +6,7 @@
 // Last Modified By : Nicholas Kellett
 // Last Modified On : 06-30-2025
 // ***********************************************************************
-// <copyright file="IElevation.cs" company="Deploy Software Solutions, inc.">
+// <copyright file="IMustHaveElevation.cs" company="Deploy Software Solutions, inc.">
 //     2018-2025 Deploy Software Solutions, inc.
 // </copyright>
 // <summary></summary>
@@ -21,19 +21,27 @@
 // Last Modified By : Nicholas Kellett
 // Last Modified On : 06-30-2025
 // ***********************************************************************
-// <copyright file="IElevation.cs" company="Deploy Software Solutions, inc.">
+// <copyright file="IMustHaveElevation.cs" company="Deploy Software Solutions, inc.">
 //     2018-2025 Deploy Software Solutions, inc.
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
 
-using Deploy.LaunchPad.Core.Metadata;
-
-namespace Deploy.LaunchPad.Geospatial.ReferencePoint
+namespace Deploy.LaunchPad.Geospatial.Position
 {
-    public partial interface IElevation : IMustHaveUnitOfMeasure, IMayHaveConfidence
+
+    /// <summary>
+    /// This interface defines the physical elevation of something
+    /// </summary>
+    public partial interface IMustHaveElevation
     {
-        public double Minimum { get; set; }
-        public double Maximum { get; set; }
+
+        /// <summary>
+        /// Gets or sets the elevation.
+        /// </summary>
+        /// <value>The elevation.</value>
+        public Elevation Elevation { get; set; }
+
+
     }
 }

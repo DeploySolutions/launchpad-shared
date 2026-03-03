@@ -1,5 +1,5 @@
 ﻿// ***********************************************************************
-// Assembly         : Deploy.LaunchPad.Core
+// Assembly         : Deploy.LaunchPad.Geospatial
 // Author           : Nicholas Kellett
 // Created          : 11-19-2023
 //
@@ -37,7 +37,6 @@ namespace Deploy.LaunchPad.Geospatial.Position
     using System.Xml.Serialization;
     using NetTopologySuite.Geometries;
     using Deploy.LaunchPad.Geospatial;
-    using Deploy.LaunchPad.Geospatial.ReferencePoint;
     using Deploy.LaunchPad.Util.Guids;
 
     /// <summary>
