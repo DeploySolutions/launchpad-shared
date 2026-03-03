@@ -32,7 +32,7 @@
 
 namespace Deploy.LaunchPad.Space.Satellites.GoC
 {
-    using Deploy.LaunchPad.Geospatial.ReferencePoint;
+    using Deploy.LaunchPad.Geospatial.Position;
     using Deploy.LaunchPad.Organizations.Canada;
     using Deploy.LaunchPad.Space.Satellites.Core;
     using System;
