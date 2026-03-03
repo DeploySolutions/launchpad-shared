@@ -31,6 +31,7 @@ using Deploy.LaunchPad.Util;
 using Deploy.LaunchPad.Code.Config;
 using Deploy.LaunchPad.Code.Services;
 using Deploy.LaunchPad.Core.Domain.Services;
+using Deploy.LaunchPad.Core.Application.Services;
 
 namespace Deploy.LaunchPad.Core.Entities
 {

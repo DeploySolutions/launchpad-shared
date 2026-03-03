@@ -13,6 +13,7 @@
 // ***********************************************************************
 using Castle.Core.Logging;
 using Deploy.LaunchPad.Code.Config;
+using Deploy.LaunchPad.Core.Application.Services;
 using Deploy.LaunchPad.Util;
 
 namespace Deploy.LaunchPad.Code.Services
@@ -20,7 +21,7 @@ namespace Deploy.LaunchPad.Code.Services
     /// <summary>
     /// Marker interface for integrating LaunchPad with some external service
     /// </summary>
-    public partial interface ILaunchPadSystemIntegrationService : ILaunchPadService
+    public partial interface ILaunchPadSystemIntegrationService : IApplicationService
     {
 
     }

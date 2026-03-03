@@ -11,6 +11,7 @@
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
+using Deploy.LaunchPad.Core.Application.Services;
 using System.Threading.Tasks;
 
 namespace Deploy.LaunchPad.Code.Services
@@ -18,7 +19,7 @@ namespace Deploy.LaunchPad.Code.Services
     /// <summary>
     /// This interface marks all LaunchPad App Services and ensures a consistent set of methods for manipulating the domain entities.
     /// </summary>
-    public partial interface ILaunchPadAppService
+    public partial interface ILaunchPadAppService : IApplicationService
     {
 
         /// <summary>

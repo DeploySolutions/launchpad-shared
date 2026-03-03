@@ -16,7 +16,7 @@ using Castle.Core.Logging;
 using Deploy.LaunchPad.Util.Elements;
 using Deploy.LaunchPad.Util;
 
-namespace Deploy.LaunchPad.Code.Services
+namespace Deploy.LaunchPad.Core.Application.Services
 {
     /// <summary>
     /// Base service for LaunchPad Services, ensuring they can have a name, description, and logger.

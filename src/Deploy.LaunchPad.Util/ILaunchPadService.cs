@@ -13,15 +13,15 @@
 // ***********************************************************************
 
 using Castle.Core.Logging;
+using Deploy.LaunchPad.Util.Dependency;
 using Deploy.LaunchPad.Util.Elements;
-using Deploy.LaunchPad.Util;
 
-namespace Deploy.LaunchPad.Code.Services
+namespace Deploy.LaunchPad.Util
 {
     /// <summary>
     /// Base service interface for LaunchPad
     /// </summary>
-    public partial interface ILaunchPadService
+    public partial interface ILaunchPadService : ITransientDependency
     {
         public ElementNameLight Name { get; set; }
         public ElementDescriptionLight Description { get; set; }

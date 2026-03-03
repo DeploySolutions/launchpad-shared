@@ -30,14 +30,14 @@
  */
 #endregion
 
-using Deploy.LaunchPad.Util.Dependency;
+using Deploy.LaunchPad.Util;
 
 namespace Deploy.LaunchPad.Core.Application.Services
 {
     /// <summary>
     /// This interface must be implemented by all application services to identify them by convention.
     /// </summary>
-    public partial interface IApplicationService : ITransientDependency
+    public partial interface IApplicationService : ILaunchPadService
     {
 
     }
