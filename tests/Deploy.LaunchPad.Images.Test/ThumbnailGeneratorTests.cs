@@ -33,9 +33,9 @@ namespace Deploy.LaunchPad.Images.Tests
     using System;
     using System.IO;
     using Xunit;
-    using Deploy.LaunchPad.Images.Domain;
     using ImageMagick;
     using System.Reflection;
+    using Deploy.LaunchPad.Files;
 
 
     /// <summary>

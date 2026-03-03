@@ -32,8 +32,8 @@ namespace Deploy.LaunchPad.Images.Tests
     using System;
     using System.IO;
     using Xunit;
-    using Deploy.LaunchPad.Images.Domain;
     using ImageMagick;
+    using Deploy.LaunchPad.Files;
 
 
     /// <summary>
@@ -72,7 +72,7 @@ namespace Deploy.LaunchPad.Images.Tests
             
             Action act = () => _fixture.SUT.CompareImages(imageA, imageB, _fixture.Settings);
             var ex = Assert.Throws<NullReferenceException>(act);
-            Assert.Equal(Deploy_LaunchPad_Images_Resources.Guard_ImageManager_Thumbnail_ImageA_NullReferenceException, ex.Message);
+            Assert.Equal(Deploy_LaunchPad_Files_Resources.Guard_ImageManager_Thumbnail_ImageA_NullReferenceException, ex.Message);
         }
 
         /// <summary>
@@ -86,7 +86,7 @@ namespace Deploy.LaunchPad.Images.Tests
             
             Action act = () => _fixture.SUT.CompareImages(imageA, imageB, _fixture.Settings);
             var ex = Assert.Throws<ArgumentException>(act);
-            Assert.Equal(Deploy_LaunchPad_Images_Resources.Exception_ImageManager_CompareImages_MagickMissingDelegateErrorException, ex.Message);
+            Assert.Equal(Deploy_LaunchPad_Files_Resources.Exception_ImageManager_CompareImages_MagickMissingDelegateErrorException, ex.Message);
         }
 
         /// <summary>
@@ -99,7 +99,7 @@ namespace Deploy.LaunchPad.Images.Tests
             byte[] imageB = null;
             Action act = () =>  _fixture.SUT.CompareImages(imageA, imageB, _fixture.Settings);
             var ex = Assert.Throws<NullReferenceException>(act);
-            Assert.Equal(Deploy_LaunchPad_Images_Resources.Guard_ImageManager_Thumbnail_ImageB_NullReferenceException, ex.Message);
+            Assert.Equal(Deploy_LaunchPad_Files_Resources.Guard_ImageManager_Thumbnail_ImageB_NullReferenceException, ex.Message);
         }
 
         /// <summary>
@@ -127,7 +127,7 @@ namespace Deploy.LaunchPad.Images.Tests
 
             Action act = () => _fixture.SUT.GetMagickImageFromFile(info);
             var ex = Assert.Throws<InvalidOperationException>(act);
-            Assert.Equal(Deploy_LaunchPad_Images_Resources.Exception_ImageManager_GetMagickImageFromFile_InvalidOperationException, ex.Message);
+            Assert.Equal(Deploy_LaunchPad_Files_Resources.Exception_ImageManager_GetMagickImageFromFile_InvalidOperationException, ex.Message);
         }
 
         /// <summary>

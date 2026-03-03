@@ -120,12 +120,6 @@
     <PackageVersion Include="NetTopologySuite.IO.GeoJSON4STJ" Version="4.0.0" />
   </ItemGroup>
   <!-- Geospatial Packages Ends -->
-  <!-- Images Packages Starts -->
-  <ItemGroup>
-    <PackageVersion Include="Magick.NET-Q16-AnyCPU" Version="14.10.2" />
-    <PackageVersion Include="Magick.NET.Core" Version="14.10.2" />
-  </ItemGroup>
-  <!-- Images Packages Ends -->
   <!-- Testing Packages Starts -->
   <ItemGroup>
     <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="18.0.1" />
@@ -156,6 +150,8 @@
     <PackageVersion Include="Hangfire.AspNetCore" Version="1.8.23" />
     <PackageVersion Include="JetBrains.Annotations" Version="2025.2.4" />
     <PackageVersion Include="JsonSubTypes" Version="2.0.1" />
+    <PackageVersion Include="Magick.NET-Q16-AnyCPU" Version="14.10.2" />
+    <PackageVersion Include="Magick.NET.Core" Version="14.10.3" />
     <PackageVersion Include="Markdig" Version="0.38.0" />
     <PackageVersion Include="MediatR" Version="12.4.1" />
     <PackageVersion Include="Newtonsoft.Json" Version="13.0.4" />
@@ -172,6 +168,5 @@
     <PackageVersion Include="System.Linq.Dynamic.Core" Version="1.7.1" />
     <PackageVersion Include="TimeZoneConverter" Version="7.2.0" />
   </ItemGroup>
-
   <!-- All Other Packages Ends -->
 </Project>

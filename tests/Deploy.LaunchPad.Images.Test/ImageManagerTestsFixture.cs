@@ -35,9 +35,9 @@ using Deploy.LaunchPad.Util;
 
 namespace Deploy.LaunchPad.Images.Tests
 {
+    using Deploy.LaunchPad.Files;
     using ImageMagick;
     using System;
-    using Deploy.LaunchPad.Images.Domain;
 
     /// <summary>
     /// Class ImageManagerTestsFixture.

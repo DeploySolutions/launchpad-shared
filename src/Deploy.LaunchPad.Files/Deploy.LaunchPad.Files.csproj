@@ -8,8 +8,10 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Castle.Core" />
-    <PackageReference Include="Newtonsoft.Json" />
     <PackageReference Include="File.TypeChecker" />
+    <PackageReference Include="Magick.NET-Q16-AnyCPU" />
+    <PackageReference Include="Magick.NET.Core" />
+    <PackageReference Include="Newtonsoft.Json" />
   </ItemGroup>
 
   <ItemGroup>

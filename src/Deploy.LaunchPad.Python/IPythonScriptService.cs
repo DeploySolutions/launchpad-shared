@@ -13,6 +13,7 @@
 // ***********************************************************************
 using Castle.Core.Logging;
 using Deploy.LaunchPad.Code.Services;
+using Deploy.LaunchPad.Util;
 
 namespace Deploy.LaunchPad.Python
 {

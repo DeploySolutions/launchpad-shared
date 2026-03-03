@@ -27,23 +27,23 @@
 #endregion
 
 using System.Diagnostics.CodeAnalysis;
+using Castle.Core.Logging;
+using Deploy.LaunchPad.Core.Application.Services;
+using Deploy.LaunchPad.Util;
+using ImageMagick;
+using System;
+using System.IO;
+using System.Reflection;
 
-namespace Deploy.LaunchPad.Images.Domain
+namespace Deploy.LaunchPad.Files
 {
-    using Castle.Core.Logging;
-    using Deploy.LaunchPad.Code.Services;
-    using Deploy.LaunchPad.Util;
-    using ImageMagick;
-    using System;
-    using System.IO;
-    using System.Reflection;
-
+    
     /// <summary>
     /// Domain service for handling Image domain entities.
     /// Important: MagickImage which we use has a dependency on ImageMagick, which you can download here: https://imagemagick.org/script/download.php#windows
     /// (please ensure you are compliant with their licensing).
     /// </summary>
-    public partial class ImageManager : SystemIntegrationServiceBase, IImageManager
+    public partial class ImageManager : LaunchPadServiceBase, IImageManager
     {
         /// <summary>
         /// The general size category of the thumbnail. Default dimensions are set for each size, but can be overriden by a user or developer
@@ -112,11 +112,11 @@ namespace Deploy.LaunchPad.Images.Domain
             catch (MagickException ex)
             {
                 Logger.Error(
-                    Deploy_LaunchPad_Images_Resources.Exception_ImageManager_GetMagickImageFromFile_InvalidOperationException
+                    Deploy_LaunchPad_Files_Resources.Exception_ImageManager_GetMagickImageFromFile_InvalidOperationException
                     + " : "
                     + ex.Message
                 );
-                throw new InvalidOperationException(Deploy_LaunchPad_Images_Resources.Exception_ImageManager_GetMagickImageFromFile_InvalidOperationException);
+                throw new InvalidOperationException(Deploy_LaunchPad_Files_Resources.Exception_ImageManager_GetMagickImageFromFile_InvalidOperationException);
             }
             return image;
         }
@@ -132,10 +132,10 @@ namespace Deploy.LaunchPad.Images.Domain
         [SuppressMessage("ReSharper", "PossibleNullReferenceException")]
         public byte[] CompareImages(byte[] imageA, byte[] imageB, CompareSettings settings)
         {
-            Guard.Against<NullReferenceException>(imageA == null, Deploy_LaunchPad_Images_Resources.Guard_ImageManager_Thumbnail_ImageA_NullReferenceException);
-            Guard.Against<NullReferenceException>(imageB == null, Deploy_LaunchPad_Images_Resources.Guard_ImageManager_Thumbnail_ImageB_NullReferenceException);
-            Guard.Against<ArgumentOutOfRangeException>(imageA.Length <= 0, Deploy_LaunchPad_Images_Resources.Guard_ImageManager_Thumbnail_ImageA_ArgumentOutOfRangeException);
-            Guard.Against<ArgumentOutOfRangeException>(imageB.Length <= 0, Deploy_LaunchPad_Images_Resources.Guard_ImageManager_Thumbnail_ImageB_ArgumentOutOfRangeException);
+            Guard.Against<NullReferenceException>(imageA == null, Deploy_LaunchPad_Files_Resources.Guard_ImageManager_Thumbnail_ImageA_NullReferenceException);
+            Guard.Against<NullReferenceException>(imageB == null, Deploy_LaunchPad_Files_Resources.Guard_ImageManager_Thumbnail_ImageB_NullReferenceException);
+            Guard.Against<ArgumentOutOfRangeException>(imageA.Length <= 0, Deploy_LaunchPad_Files_Resources.Guard_ImageManager_Thumbnail_ImageA_ArgumentOutOfRangeException);
+            Guard.Against<ArgumentOutOfRangeException>(imageB.Length <= 0, Deploy_LaunchPad_Files_Resources.Guard_ImageManager_Thumbnail_ImageB_ArgumentOutOfRangeException);
             byte[] diffImage;
             try
             {
@@ -144,11 +144,11 @@ namespace Deploy.LaunchPad.Images.Domain
             catch (MagickMissingDelegateErrorException ex)
             {
                 Logger.Error(
-                    Deploy_LaunchPad_Images_Resources.Exception_ImageManager_CompareImages_MagickMissingDelegateErrorException
+                    Deploy_LaunchPad_Files_Resources.Exception_ImageManager_CompareImages_MagickMissingDelegateErrorException
                     + " : "
                    + ex.Message
                 );
-                throw new ArgumentException(Deploy_LaunchPad_Images_Resources.Exception_ImageManager_CompareImages_MagickMissingDelegateErrorException);
+                throw new ArgumentException(Deploy_LaunchPad_Files_Resources.Exception_ImageManager_CompareImages_MagickMissingDelegateErrorException);
             }
             return diffImage;
         }
@@ -163,8 +163,8 @@ namespace Deploy.LaunchPad.Images.Domain
         /// <exception cref="System.ArgumentException"></exception>
         public byte[] CompareImages(MagickImage imageA, MagickImage imageB, CompareSettings settings)
         {
-            Guard.Against<NullReferenceException>(imageA == null, Deploy_LaunchPad_Images_Resources.Guard_ImageManager_Thumbnail_ImageA_NullReferenceException);
-            Guard.Against<NullReferenceException>(imageB == null, Deploy_LaunchPad_Images_Resources.Guard_ImageManager_Thumbnail_ImageB_NullReferenceException);
+            Guard.Against<NullReferenceException>(imageA == null, Deploy_LaunchPad_Files_Resources.Guard_ImageManager_Thumbnail_ImageA_NullReferenceException);
+            Guard.Against<NullReferenceException>(imageB == null, Deploy_LaunchPad_Files_Resources.Guard_ImageManager_Thumbnail_ImageB_NullReferenceException);
             byte[] diffImage;
             try
             {
@@ -173,11 +173,11 @@ namespace Deploy.LaunchPad.Images.Domain
             catch (MagickMissingDelegateErrorException ex)
             {
                 Logger.Error(
-                   Deploy_LaunchPad_Images_Resources.Exception_ImageManager_CompareImages_MagickMissingDelegateErrorException
+                   Deploy_LaunchPad_Files_Resources.Exception_ImageManager_CompareImages_MagickMissingDelegateErrorException
                    + " : "
                    + ex.Message
                );
-                throw new ArgumentException(Deploy_LaunchPad_Images_Resources.Exception_ImageManager_CompareImages_MagickMissingDelegateErrorException);
+                throw new ArgumentException(Deploy_LaunchPad_Files_Resources.Exception_ImageManager_CompareImages_MagickMissingDelegateErrorException);
             }
             return diffImage;
         }
@@ -191,7 +191,7 @@ namespace Deploy.LaunchPad.Images.Domain
         /// <returns>A <see cref="byte" /> array containing a new image that represents the thumbnail, in the appropriate size</returns>
         public byte[] GetThumbnailFromImage(byte[] originalImage, ThumbnailSize size)
         {
-            Guard.Against<ArgumentOutOfRangeException>(originalImage.Length <= 0, Deploy_LaunchPad_Images_Resources.Guard_ImageManager_Thumbnail_OriginalImage_ArgumentOutOfRangeException);
+            Guard.Against<ArgumentOutOfRangeException>(originalImage.Length <= 0, Deploy_LaunchPad_Files_Resources.Guard_ImageManager_Thumbnail_OriginalImage_ArgumentOutOfRangeException);
             byte[] thumbImage = null;
             if (size == ThumbnailSize.Small)
             {
@@ -219,7 +219,7 @@ namespace Deploy.LaunchPad.Images.Domain
         /// <returns>A <see cref="byte" /> array containing a new image that represents the thumbnail, in the appropriate size</returns>
         public byte[] GetThumbnailFromImage(byte[] originalImage, ThumbnailSize size, MagickFormat format)
         {
-            Guard.Against<ArgumentOutOfRangeException>(originalImage.Length <= 0, Deploy_LaunchPad_Images_Resources.Guard_ImageManager_Thumbnail_OriginalImage_ArgumentOutOfRangeException);
+            Guard.Against<ArgumentOutOfRangeException>(originalImage.Length <= 0, Deploy_LaunchPad_Files_Resources.Guard_ImageManager_Thumbnail_OriginalImage_ArgumentOutOfRangeException);
             byte[] thumbImage = null;
             if (size == ThumbnailSize.Small)
             {
@@ -246,7 +246,7 @@ namespace Deploy.LaunchPad.Images.Domain
         public byte[] GetThumbnailFromImage(MagickImage originalImage, ThumbnailSize size)
         {
             byte[] thumbImage = null;
-            Guard.Against<ArgumentNullException>(originalImage == null, Deploy_LaunchPad_Images_Resources.Guard_ImageManager_Thumbnail_OriginalImage_ArgumentNullException);
+            Guard.Against<ArgumentNullException>(originalImage == null, Deploy_LaunchPad_Files_Resources.Guard_ImageManager_Thumbnail_OriginalImage_ArgumentNullException);
             if (size == ThumbnailSize.Small)
             {
                 thumbImage = ThumbnailGenerator.GetThumbnailSmall(originalImage, MagickFormat.Jpeg);
@@ -273,7 +273,7 @@ namespace Deploy.LaunchPad.Images.Domain
         /// <returns>A <see cref="byte" /> array containing a new image that represents the thumbnail, in the appropriate size</returns>
         public byte[] GetThumbnailFromImage(MagickImage originalImage, ThumbnailSize size, MagickFormat format)
         {
-            Guard.Against<ArgumentOutOfRangeException>(originalImage == null, Deploy_LaunchPad_Images_Resources.Guard_ImageManager_Thumbnail_OriginalImage_ArgumentNullException);
+            Guard.Against<ArgumentOutOfRangeException>(originalImage == null, Deploy_LaunchPad_Files_Resources.Guard_ImageManager_Thumbnail_OriginalImage_ArgumentNullException);
             byte[] thumbImage = null;
             if (size == ThumbnailSize.Small)
             {
@@ -298,8 +298,8 @@ namespace Deploy.LaunchPad.Images.Domain
         /// <param name="height">The new height of this category</param>
         public void SetThumbnailSizeDimensions(ThumbnailSize size, int width, int height)
         {
-            Guard.Against<ArgumentOutOfRangeException>(width <= 0, Deploy_LaunchPad_Images_Resources.Guard_ImageManager_Thumbnail_Width_ArgumentOutOfRangeException);
-            Guard.Against<ArgumentOutOfRangeException>(height <= 0, Deploy_LaunchPad_Images_Resources.Guard_ImageManager_Thumbnail_Height_ArgumentOutOfRangeException);
+            Guard.Against<ArgumentOutOfRangeException>(width <= 0, Deploy_LaunchPad_Files_Resources.Guard_ImageManager_Thumbnail_Width_ArgumentOutOfRangeException);
+            Guard.Against<ArgumentOutOfRangeException>(height <= 0, Deploy_LaunchPad_Files_Resources.Guard_ImageManager_Thumbnail_Height_ArgumentOutOfRangeException);
             if (size == ThumbnailSize.Small)
             {
                 ThumbnailGenerator.ThumbnailSmallWidth = width;

@@ -776,5 +776,125 @@ namespace Deploy.LaunchPad.Files {
                 return ResourceManager.GetString("Validation_Token_Prefix_9CharsOrLess", resourceCulture);
             }
         }
+
+        /// <summary>
+        /// Looks up a localized string similar to ImageMagick does not know how to compare these formats. More information may be found by searching online for MagickMissingDelegateErrorException 'no encode delegate for this image format'.
+        /// </summary>
+        /// <value>The exception image manager compare images magick missing delegate error exception.</value>
+        public static string Exception_ImageManager_CompareImages_MagickMissingDelegateErrorException
+        {
+            get
+            {
+                return ResourceManager.GetString("Exception_ImageManager_CompareImages_MagickMissingDelegateErrorException", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        /// Looks up a localized string similar to ImageMagick threw an error when attempting to create a new MagickImage from the provide information.
+        /// </summary>
+        /// <value>The exception image manager get magick image from file invalid operation exception.</value>
+        public static string Exception_ImageManager_GetMagickImageFromFile_InvalidOperationException
+        {
+            get
+            {
+                return ResourceManager.GetString("Exception_ImageManager_GetMagickImageFromFile_InvalidOperationException", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        /// Looks up a localized string similar to Height must be greater than 0.
+        /// </summary>
+        /// <value>The guard image manager thumbnail height argument out of range exception.</value>
+        public static string Guard_ImageManager_Thumbnail_Height_ArgumentOutOfRangeException
+        {
+            get
+            {
+                return ResourceManager.GetString("Guard_ImageManager_Thumbnail_Height_ArgumentOutOfRangeException", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        /// Looks up a localized string similar to Image A is empty - byte size must be greater than 0.
+        /// </summary>
+        /// <value>The guard image manager thumbnail image a argument out of range exception.</value>
+        public static string Guard_ImageManager_Thumbnail_ImageA_ArgumentOutOfRangeException
+        {
+            get
+            {
+                return ResourceManager.GetString("Guard_ImageManager_Thumbnail_ImageA_ArgumentOutOfRangeException", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        /// Looks up a localized string similar to Image A is null.
+        /// </summary>
+        /// <value>The guard image manager thumbnail image a null reference exception.</value>
+        public static string Guard_ImageManager_Thumbnail_ImageA_NullReferenceException
+        {
+            get
+            {
+                return ResourceManager.GetString("Guard_ImageManager_Thumbnail_ImageA_NullReferenceException", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        /// Looks up a localized string similar to Image B is empty - byte size must be greater than 0.
+        /// </summary>
+        /// <value>The guard image manager thumbnail image b argument out of range exception.</value>
+        public static string Guard_ImageManager_Thumbnail_ImageB_ArgumentOutOfRangeException
+        {
+            get
+            {
+                return ResourceManager.GetString("Guard_ImageManager_Thumbnail_ImageB_ArgumentOutOfRangeException", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        /// Looks up a localized string similar to Image B is null.
+        /// </summary>
+        /// <value>The guard image manager thumbnail image b null reference exception.</value>
+        public static string Guard_ImageManager_Thumbnail_ImageB_NullReferenceException
+        {
+            get
+            {
+                return ResourceManager.GetString("Guard_ImageManager_Thumbnail_ImageB_NullReferenceException", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        /// Looks up a localized string similar to Original image is null.
+        /// </summary>
+        /// <value>The guard image manager thumbnail original image argument null exception.</value>
+        public static string Guard_ImageManager_Thumbnail_OriginalImage_ArgumentNullException
+        {
+            get
+            {
+                return ResourceManager.GetString("Guard_ImageManager_Thumbnail_OriginalImage_ArgumentNullException", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        /// Looks up a localized string similar to Original image is empty - byte size must be greater than 0.
+        /// </summary>
+        /// <value>The guard image manager thumbnail original image argument out of range exception.</value>
+        public static string Guard_ImageManager_Thumbnail_OriginalImage_ArgumentOutOfRangeException
+        {
+            get
+            {
+                return ResourceManager.GetString("Guard_ImageManager_Thumbnail_OriginalImage_ArgumentOutOfRangeException", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        /// Looks up a localized string similar to Width must be greater than 0.
+        /// </summary>
+        /// <value>The guard image manager thumbnail width argument out of range exception.</value>
+        public static string Guard_ImageManager_Thumbnail_Width_ArgumentOutOfRangeException
+        {
+            get
+            {
+                return ResourceManager.GetString("Guard_ImageManager_Thumbnail_Width_ArgumentOutOfRangeException", resourceCulture);
+            }
+        }
     }
 }

@@ -15,7 +15,7 @@ using ImageMagick;
 using ImageMagick.Configuration;
 using System.IO;
 
-namespace Deploy.LaunchPad.Images.Domain
+namespace Deploy.LaunchPad.Files
 {
     /// <summary>
     /// Configuration class for specifying the default settings of the ImageMagick utility

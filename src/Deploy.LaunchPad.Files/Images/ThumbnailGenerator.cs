@@ -28,23 +28,22 @@
 
 
 using Castle.Core.Logging;
-using Deploy.LaunchPad.Util;
+using Deploy.LaunchPad.Core.Application.Services;
 using Deploy.LaunchPad.Domain;
+using Deploy.LaunchPad.Util;
+using Deploy.LaunchPad.Util.Elements;
 using ImageMagick;
 using System;
 using System.IO;
 using System.Reflection;
-using Deploy.LaunchPad.Code.Services;
-using Deploy.LaunchPad.Util.Elements;
-using Deploy.LaunchPad.Core.Entities;
 
-namespace Deploy.LaunchPad.Images.Domain
+namespace Deploy.LaunchPad.Files
 {
 
     /// <summary>
     /// This class creates thumbnails from provided images, using Magick.NET library (ImageMagick wrapper)
     /// </summary>
-    public partial class ThumbnailGenerator : SystemIntegrationServiceBase
+    public partial class ThumbnailGenerator : LaunchPadServiceBase
     {
         /// <summary>
         /// The configuration

@@ -27,7 +27,7 @@
 #endregion
 
 
-namespace Deploy.LaunchPad.Images.Domain
+namespace Deploy.LaunchPad.Files
 {
     using ImageMagick;
 
