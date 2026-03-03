@@ -49,6 +49,12 @@ namespace Deploy.LaunchPad.Code.Services
 
 
         /// <summary>
+        /// Gets or sets the logger.
+        /// </summary>
+        /// <value>The logger.</value>
+        public virtual ILogger Logger { get; set; } = NullLogger.Instance;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="LaunchPadTokenService"/> class.
         /// </summary>
         public LaunchPadTokenService() : base()
@@ -66,8 +72,9 @@ namespace Deploy.LaunchPad.Code.Services
         /// <summary>
         /// Initializes a new instance of the <see cref="LaunchPadTokenService"/> class.
         /// </summary>
-        public LaunchPadTokenService(ILogger logger) : base(logger)
+        public LaunchPadTokenService(ILogger logger) : base()
         {
+            Logger = logger;
             string id = Guid.NewGuid().ToString();
             Name = new ElementName(string.Format("Token Service {0} ", id));
             Description = new ElementDescription(string.Format("Token Service {0} ", id));
@@ -80,8 +87,9 @@ namespace Deploy.LaunchPad.Code.Services
         /// <summary>
         /// Initializes a new instance of the <see cref="LaunchPadTokenService"/> class.
         /// </summary>
-        public LaunchPadTokenService(ILogger logger, string name) : base(logger, name)
+        public LaunchPadTokenService(ILogger logger, string name) : base(name)
         {          
+            Logger = logger;
             TokenizedText = string.Empty;
             var comparer = StringComparer.OrdinalIgnoreCase;
             MatchedTokens = new Dictionary<string, LaunchPadToken>(comparer);
@@ -91,8 +99,9 @@ namespace Deploy.LaunchPad.Code.Services
         /// <summary>
         /// Initializes a new instance of the <see cref="LaunchPadTokenService"/> class.
         /// </summary>
-        public LaunchPadTokenService(ILogger logger, string name, string description) : base(logger, name, description)
+        public LaunchPadTokenService(ILogger logger, string name, string description) : base(name, description)
         {
+            Logger = logger;
             TokenizedText = string.Empty;
             var comparer = StringComparer.OrdinalIgnoreCase;
             MatchedTokens = new Dictionary<string, LaunchPadToken>(comparer);

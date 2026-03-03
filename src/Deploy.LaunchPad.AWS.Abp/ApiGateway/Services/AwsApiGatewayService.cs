@@ -57,6 +57,7 @@ namespace Deploy.LaunchPad.AWS.Abp.ApiGateway.Services
             string localAwsProfileName,
             bool shouldUseLocalAwsProfile) : base(logger)
         {
+            Logger = logger;
             var secretHelperFactory = new AwsApiGatewayHelperFactory(logger, regionEndpointName);
             Helper = secretHelperFactory.Create(logger, apiGatewayBaseUri, regionEndpointName, localAwsProfileName, shouldUseLocalAwsProfile);
         }
@@ -69,6 +70,7 @@ namespace Deploy.LaunchPad.AWS.Abp.ApiGateway.Services
         public AwsApiGatewayService(ILogger logger, IAwsApiGatewayHelper helper) : base(logger)
         {
             Helper = helper;
+            Logger = logger;
         }
     }
 }

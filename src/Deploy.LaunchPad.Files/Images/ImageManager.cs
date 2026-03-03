@@ -75,6 +75,12 @@ namespace Deploy.LaunchPad.Files
         public readonly ThumbnailGenerator ThumbnailGenerator;
 
         /// <summary>
+        /// Gets or sets the logger.
+        /// </summary>
+        /// <value>The logger.</value>
+        public virtual ILogger Logger { get; set; } = NullLogger.Instance;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="ImageManager"/> class.
         /// </summary>
         public ImageManager()
@@ -92,8 +98,7 @@ namespace Deploy.LaunchPad.Files
             ";
             ImageMagickConfiguration config = new ImageMagickConfiguration(policyMap, temporaryImagesFilePath);
             _comparer = new ImageComparer(config);
-            ThumbnailGenerator = new ThumbnailGenerator(config);
-            Logger = NullLogger.Instance; // logger should be loaded by ABP property injection, but if not don't raise errors
+            ThumbnailGenerator = new ThumbnailGenerator(config);            
         }
 
         /// <summary>

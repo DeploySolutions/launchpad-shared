@@ -35,6 +35,12 @@ namespace Deploy.LaunchPad.Python
     public partial class PythonScriptService : LaunchPadServiceBase, ILaunchPadSystemIntegrationService, IPythonScriptService
     {
         /// <summary>
+        /// Gets or sets the logger.
+        /// </summary>
+        /// <value>The logger.</value>
+        public virtual ILogger Logger { get; set; } = NullLogger.Instance;
+
+        /// <summary>
         /// Gets or sets the script.
         /// </summary>
         /// <value>The script.</value>
@@ -59,13 +65,14 @@ namespace Deploy.LaunchPad.Python
         /// <param name="logger">The logger.</param>
         /// <param name="pythonInstallationFilePath">The python installation file path.</param>
         /// <param name="scriptFileName">Name of the script file.</param>
-        public PythonScriptService(ILogger logger, Uri pythonInstallationFilePath, string scriptFileName) : base(logger)
+        public PythonScriptService(ILogger logger, Uri pythonInstallationFilePath, string scriptFileName) : base()
         {
             string id = Guid.NewGuid().ToString();
             Name = new ElementName(string.Format("PythonScriptService {0} ", id));
             Description = new ElementDescription(string.Format("PythonScriptService {0} ", id));
             Python = new PythonInstallation(pythonInstallationFilePath, PythonMajorVersion.Three, PythonMinorVersion.Eight, 16);
             Script = new PythonScript(scriptFileName);
+            Logger = logger;
         }
 
         /// <summary>
@@ -76,13 +83,14 @@ namespace Deploy.LaunchPad.Python
         /// <param name="scriptFileName">Name of the script file.</param>
         /// <param name="moduleFilePaths">The module file paths.</param>
         public PythonScriptService(ILogger logger, Uri pythonInstallationFilePath, string scriptFileName, IDictionary<string, Uri> moduleFilePaths)
-            : base(logger)
+            : base()
         {
             string id = Guid.NewGuid().ToString();
             Name = new ElementName(string.Format("PythonScriptService {0} ", id));
             Description = new ElementDescription(string.Format("PythonScriptService {0} ", id));
             Python = new PythonInstallation(pythonInstallationFilePath, PythonMajorVersion.Three, PythonMinorVersion.Eight, 16, moduleFilePaths);
             Script = new PythonScript(scriptFileName);
+            Logger = logger;
         }
 
         /// <summary>

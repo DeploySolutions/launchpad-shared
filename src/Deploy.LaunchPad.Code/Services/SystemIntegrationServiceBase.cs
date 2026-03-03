@@ -26,7 +26,8 @@ namespace Deploy.LaunchPad.Code.Services
     /// </summary>
     /// <seealso cref="Deploy.LaunchPad.Code.Services.ILaunchPadSystemIntegrationService" />
     [Serializable()]
-    public abstract partial class SystemIntegrationServiceBase : LaunchPadServiceBase, ILaunchPadSystemIntegrationService
+    public abstract partial class SystemIntegrationServiceBase : LaunchPadServiceBase, 
+        ILaunchPadSystemIntegrationService
     {
         /// <summary>
         /// The configuration root
@@ -37,6 +38,12 @@ namespace Deploy.LaunchPad.Code.Services
         /// </summary>
         /// <value>The configuration root.</value>
         public IConfigurationRoot ConfigurationRoot { get { return _configurationRoot; } }
+
+        /// <summary>
+        /// Gets or sets the logger.
+        /// </summary>
+        /// <value>The logger.</value>
+        public virtual ILogger Logger { get; set; } = NullLogger.Instance;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="SystemIntegrationServiceBase"/> class.

@@ -21,7 +21,7 @@ namespace Deploy.LaunchPad.Code.Services
     /// <summary>
     /// Marker interface for integrating LaunchPad with some external service
     /// </summary>
-    public partial interface ILaunchPadSystemIntegrationService : IApplicationService
+    public partial interface ILaunchPadSystemIntegrationService : IApplicationService, IHaveCastleLogger
     {
 
     }
