@@ -33,7 +33,7 @@ namespace Deploy.LaunchPad.Code.Config
         /// <returns>IConfigurationRoot.</returns>
         public static IConfigurationRoot GetAppConfiguration(this IWebHostEnvironment env, string userSecretId = "", IList<string> jsonFiles = null)
         {
-            return LaunchPapAppConfigurationExtensions.Get(env.ContentRootPath, env.EnvironmentName, env.IsDevelopment(), userSecretId, jsonFiles);
+            return LaunchPadAppConfigurationExtensions.Get(env.ContentRootPath, env.EnvironmentName, env.IsDevelopment(), userSecretId, jsonFiles);
         }
     }
 }

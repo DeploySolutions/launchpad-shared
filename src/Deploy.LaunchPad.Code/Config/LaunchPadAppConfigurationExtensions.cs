@@ -22,7 +22,7 @@ namespace Deploy.LaunchPad.Code.Config
     /// <summary>
     /// Class LaunchPadAbpAppConfigurations.
     /// </summary>
-    public static partial class LaunchPapAppConfigurationExtensions
+    public static partial class LaunchPadAppConfigurationExtensions
     {
         /// <summary>
         /// The configuration cache
@@ -30,9 +30,9 @@ namespace Deploy.LaunchPad.Code.Config
         private static readonly ConcurrentDictionary<string, IConfigurationRoot> _configurationCache;
 
         /// <summary>
-        /// Initializes static members of the <see cref="LaunchPapAppConfigurationExtensions"/> class.
+        /// Initializes static members of the <see cref="LaunchPadAppConfigurationExtensions"/> class.
         /// </summary>
-        static LaunchPapAppConfigurationExtensions()
+        static LaunchPadAppConfigurationExtensions()
         {
             _configurationCache = new ConcurrentDictionary<string, IConfigurationRoot>();
         }
