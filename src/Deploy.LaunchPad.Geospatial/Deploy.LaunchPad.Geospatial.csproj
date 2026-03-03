@@ -8,8 +8,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Deploy.LaunchPad.Core\Deploy.LaunchPad.Core.csproj" />
     <ProjectReference Include="..\Deploy.LaunchPad.Util\Deploy.LaunchPad.Util.csproj" />
+    <ProjectReference Include="..\Deploy.LaunchPad.Core\Deploy.LaunchPad.Core.csproj" />
     <PackageReference Include="Microsoft.CodeAnalysis" />
     <PackageReference Include="NetTopologySuite" />
     <PackageReference Include="NetTopologySuite.IO.GeoJSON" />
