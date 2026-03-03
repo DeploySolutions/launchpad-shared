@@ -28,9 +28,13 @@
       <HintPath>F:\Deploy Solutions Dropbox\Main Team Folder\Code\Libs\boilerplate\Abp.FluentValidation.dll</HintPath>
     </Reference>
   </ItemGroup>
-  <ItemGroup>
-    <PackageReference Include="Schema.NET.Pending" />
-  </ItemGroup>
 
+
+  <ItemGroup>
+    <!--<PackageVersion Include="Schema.NET.Pending" Version="13.0.0" />-->
+    <Reference Include="Schema.NET.Pending">
+      <HintPath>F:\Deploy Solutions Dropbox\Main Team Folder\Code\Libs\launchpad_shared\Schema.NET.Pending.dll</HintPath>
+    </Reference>
+  </ItemGroup>
 
 </Project>
