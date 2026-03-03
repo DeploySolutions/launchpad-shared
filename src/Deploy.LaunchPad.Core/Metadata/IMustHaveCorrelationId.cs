@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Deploy.LaunchPad.Code.Services
+namespace Deploy.LaunchPad.Core.Metadata
 {
     public partial interface IMustHaveCorrelationId
     {
