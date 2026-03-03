@@ -49,10 +49,9 @@ namespace Deploy.LaunchPad.Space.Satellites.GoC
         /// <summary>
         /// Initializes a new instance of the <see cref="Radarsat1Satellite{TPrimaryKey}"/> class.
         /// </summary>
-        /// <param name="tenantId">The tenant identifier.</param>
-        protected Radarsat1Satellite(System.Guid? tenantId) : base()
+        protected Radarsat1Satellite() : base()
         {
-            var csaOperator = new CanadianSpaceAgency(tenantId)
+            var csaOperator = new CanadianSpaceAgency()
             {
                 Id = Guid.NewGuid()
             };

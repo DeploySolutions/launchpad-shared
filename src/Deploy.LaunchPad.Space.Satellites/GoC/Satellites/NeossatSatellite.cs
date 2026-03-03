@@ -49,14 +49,13 @@ namespace Deploy.LaunchPad.Space.Satellites.GoC
         /// <summary>
         /// Initializes a new instance of the <see cref="NeossatSatellite{TPrimaryKey}"/> class.
         /// </summary>
-        /// <param name="tenantId">The tenant identifier.</param>
-        protected NeossatSatellite(System.Guid? tenantId) : base()
+        protected NeossatSatellite() : base()
         {
-            var csaOperator = new CanadianSpaceAgency(tenantId)
+            var csaOperator = new CanadianSpaceAgency()
             {
                 Id = Guid.NewGuid()
             };
-            var drdcOperator = new DefenceResearchDevelopmentCanada(tenantId)
+            var drdcOperator = new DefenceResearchDevelopmentCanada()
             {
                 Id = Guid.NewGuid()
             };

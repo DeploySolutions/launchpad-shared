@@ -32,7 +32,7 @@ using System.Xml.Serialization;
 using Deploy.LaunchPad.Core.Metadata;
 using Deploy.LaunchPad.Util;
 
-namespace Deploy.LaunchPad.Domain.Person
+namespace Deploy.LaunchPad.Core.Domain.Entities
 {
     /// <summary>
     /// Interface ILaunchPadPerson

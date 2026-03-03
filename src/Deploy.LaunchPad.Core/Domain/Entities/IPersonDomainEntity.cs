@@ -6,7 +6,7 @@
 // Last Modified By : Nicholas Kellett
 // Last Modified On : 07-26-2023
 // ***********************************************************************
-// <copyright file="IOrganization.cs" company="Deploy Software Solutions, inc.">
+// <copyright file="IPersonDomainEntity.cs" company="Deploy Software Solutions, inc.">
 //     2018-2024 Deploy Software Solutions, inc.
 // </copyright>
 // <summary></summary>
@@ -26,46 +26,22 @@
 //limitations under the License. 
 #endregion
 
-using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Xml.Serialization;
-using Deploy.LaunchPad.Core.Metadata;
-using Deploy.LaunchPad.Util;
 
-namespace Deploy.LaunchPad.Domain.Organization
+namespace Deploy.LaunchPad.Core.Domain.Entities
 {
     /// <summary>
-    /// Interface ILaunchPadOrganization
+    /// Interface IPersonDomainEntity
+    /// Extends the <see cref="IDomainEntity{TPrimaryKey}" />
     /// </summary>
-    public partial interface ILaunchPadOrganization : ILaunchPadObject,
-        ILaunchPadCoreProperties
+    /// <typeparam name="TPrimaryKey">The type of the t primary key.</typeparam>
+    /// <seealso cref="IDomainEntity{TPrimaryKey}" />
+    public partial interface IPersonDomainEntity<TPrimaryKey> : 
+        IDomainEntity<TPrimaryKey>, ILaunchPadPerson
     {
-
-        ///<summary>
-        /// Parent organization can be listed (if it exists). Null if this is the root organization.
-        ///</summary>
-        [DataObjectField(false)]
-        [XmlAttribute]
-        public ILaunchPadOrganization Parent { get; set; }
-
-        /// <summary>
-        /// Gets the website.
-        /// </summary>
-        /// <value>The website.</value>
-        Uri Website { get; }
-
-        /// <summary>
-        /// Gets the headquarters address.
-        /// </summary>
-        /// <value>The headquarters address.</value>
-        string HeadquartersAddress { get; }
-
-        /// <summary>
-        /// Gets or sets the offices.
-        /// </summary>
-        /// <value>The offices.</value>
-        IList<string> Offices { get; set; }
+        
 
     }
 }

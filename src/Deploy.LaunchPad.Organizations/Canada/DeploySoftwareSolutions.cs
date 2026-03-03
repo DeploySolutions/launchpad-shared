@@ -46,8 +46,7 @@ namespace Deploy.LaunchPad.Organizations.Canada
         /// <summary>
         /// Initializes a new instance of the <see cref="DeploySolutions"/> class.
         /// </summary>
-        /// <param name="tenantId">The tenant identifier.</param>
-        public DeploySolutions(System.Guid? tenantId) : base(tenantId)
+        public DeploySolutions() : base()
         {
             Organization org = new Organization()
             {

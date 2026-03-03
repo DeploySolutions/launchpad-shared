@@ -26,14 +26,8 @@
 //limitations under the License. 
 #endregion
 
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Xml.Serialization;
-using Deploy.LaunchPad.Core.Domain.Entities;
-using Deploy.LaunchPad.Domain.Organization;
-using Schema.NET;
 
-namespace Deploy.LaunchPad.Core.Abp.Organization
+namespace Deploy.LaunchPad.Core.Domain.Entities
 {
     /// <summary>
     /// Interface IOrganization

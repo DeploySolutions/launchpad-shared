@@ -50,10 +50,9 @@ namespace Deploy.LaunchPad.Space.Satellites.GoC
         /// <summary>
         /// Initializes a new instance of the <see cref="RCMSatellite{TPrimaryKey}"/> class.
         /// </summary>
-        /// <param name="tenantId">The tenant identifier.</param>
-        protected RCMSatellite(System.Guid? tenantId) : base()
+        protected RCMSatellite() : base()
         {
-            var csaOperator = new CanadianSpaceAgency(tenantId)
+            var csaOperator = new CanadianSpaceAgency()
             {
                 Id = Guid.NewGuid()
             };

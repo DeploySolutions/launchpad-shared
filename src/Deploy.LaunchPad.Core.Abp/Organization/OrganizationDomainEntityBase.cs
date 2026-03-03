@@ -36,7 +36,6 @@ using System.ComponentModel;
 using System.Reflection;
 using System.Runtime.Serialization;
 using System.Xml.Serialization;
-using IMayHaveTenant = Deploy.LaunchPad.Core.Metadata.IMayHaveTenant;
 
 namespace Deploy.LaunchPad.Core.Abp.Organization
 {
@@ -48,7 +47,7 @@ namespace Deploy.LaunchPad.Core.Abp.Organization
     /// base functionality for many of its methods.
     /// </summary>
     /// <typeparam name="TIdType">The type of the t identifier type.</typeparam>
-    public abstract partial class OrganizationDomainEntityBase<TIdType> : DomainEntityBase<TIdType>, IOrganizationDomainEntity<TIdType>, IMayHaveTenant
+    public abstract partial class OrganizationDomainEntityBase<TIdType> : DomainEntityBase<TIdType>, IOrganizationDomainEntity<TIdType>
     {
 
         protected virtual Schema.NET.Organization? _schemaDotOrg { get; set; }
@@ -124,12 +123,6 @@ namespace Deploy.LaunchPad.Core.Abp.Organization
         [XmlAttribute]
         public virtual IList<string> Offices { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
         
-        /// <summary>
-        /// TenantId of this entity.
-        /// </summary>
-        /// <value>The tenant identifier.</value>
-        public virtual System.Guid? TenantId { get; set; }
-        
 
         /// <summary>
         /// Initializes a new instance of the <see cref="OrganizationDomainEntityBase&lt;TPrimaryKey&gt;">OrganizationBase&lt;TPrimaryKey&gt;</see> class
@@ -138,25 +131,13 @@ namespace Deploy.LaunchPad.Core.Abp.Organization
         {
         }
 
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="OrganizationDomainEntityBase&lt;TPrimaryKey&gt;">OrganizationBase&lt;TPrimaryKey&gt;</see> class
-        /// </summary>
-        /// <param name="tenantId">The tenant identifier.</param>
-        protected OrganizationDomainEntityBase(System.Guid? tenantId) : base()
-        {
-            TenantId = tenantId;
-        }
-
         /// <summary>
         /// Creates a new instance of the <see cref="OrganizationDomainEntityBase&lt;TPrimaryKey&gt;">OrganizationBase&lt;TPrimaryKey&gt;</see>
         /// class given a key, and some metadata.
         /// </summary>
-        /// <param name="tenantId">The tenant identifier.</param>
         /// <param name="id">The identifier.</param>
-        protected OrganizationDomainEntityBase(System.Guid? tenantId, TIdType id) : base()
+        protected OrganizationDomainEntityBase(TIdType id) : base()
         {
-            TenantId = tenantId;
         }
 
         /// <summary>

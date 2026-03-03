@@ -26,6 +26,7 @@
 //limitations under the License. 
 #endregion
 
+using Deploy.LaunchPad.Core.Domain.Entities;
 using Schema.NET;
 
 namespace Deploy.LaunchPad.Core.Abp.Organization

@@ -26,6 +26,7 @@
 //limitations under the License. 
 #endregion
 
+using Deploy.LaunchPad.Core.Domain.Entities;
 using Schema.NET;
 using System;
 using System.Collections.Generic;
@@ -75,20 +76,10 @@ namespace Deploy.LaunchPad.Core.Abp.Organization
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="GovernmentOrganizationBase">GovernmentOrganizationBase</see> class
-        /// </summary>
-        /// <param name="tenantId">The tenant identifier.</param>
-        protected GovernmentOrganizationBase(System.Guid? tenantId) : base(tenantId)
-        {
-
-        }
-
-        /// <summary>
         /// Creates a new instance of the <see cref="GovernmentOrganizationBase">GovernmentOrganizationBase</see> class given an id, and some metadata.
         /// </summary>
-        /// <param name="tenantId">The tenant identifier.</param>
         /// <param name="id">The identifier.</param>
-        protected GovernmentOrganizationBase(System.Guid? tenantId, TPrimaryKey id) : base(tenantId)
+        protected GovernmentOrganizationBase(TPrimaryKey id) : base()
         {
             Id = id;
         }
