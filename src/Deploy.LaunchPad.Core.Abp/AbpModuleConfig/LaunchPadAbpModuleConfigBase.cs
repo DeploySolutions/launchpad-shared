@@ -12,6 +12,7 @@
 // <summary></summary>
 // ***********************************************************************
 using Castle.Core.Logging;
+using Deploy.LaunchPad.Code.Secrets;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 
@@ -55,14 +56,14 @@ namespace Deploy.LaunchPad.Core.Abp.AbpModuleConfig
         /// Gets or sets the secret.
         /// </summary>
         /// <value>The secret.</value>
-        public virtual ILaunchPadAbpModuleSecretConfiguration Secret { get; protected set; }
+        public virtual ILaunchPadSecretConfiguration Secret { get; protected set; }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="LaunchPadAbpModuleConfigBase{THostEnvironment}"/> class.
         /// </summary>
         protected LaunchPadAbpModuleConfigBase()
         {
-            Secret = new LaunchPadAbpModuleSecretConfiguration();
+            Secret = new LaunchPadSecretConfiguration();
         }
 
         /// <summary>
@@ -72,7 +73,7 @@ namespace Deploy.LaunchPad.Core.Abp.AbpModuleConfig
         protected LaunchPadAbpModuleConfigBase(ILogger logger)
         {
             Logger = logger;
-            Secret = new LaunchPadAbpModuleSecretConfiguration();
+            Secret = new LaunchPadSecretConfiguration();
         }
 
     }

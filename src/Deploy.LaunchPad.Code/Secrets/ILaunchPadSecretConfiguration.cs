@@ -1,12 +1,12 @@
 ﻿// ***********************************************************************
-// Assembly         : Deploy.LaunchPad.Core.Abp
+// Assembly         : Deploy.LaunchPad.Code.Secrets
 // Author           : Nicholas Kellett
 // Created          : 11-19-2023
 //
 // Last Modified By : Nicholas Kellett
 // Last Modified On : 02-19-2023
 // ***********************************************************************
-// <copyright file="ILaunchPadAbpModuleSecretConfiguration.cs" company="Deploy Software Solutions, inc.">
+// <copyright file="ILaunchPadSecretConfiguration.cs" company="Deploy Software Solutions, inc.">
 //     2018-2024 Deploy Software Solutions, inc.
 // </copyright>
 // <summary></summary>
@@ -17,12 +17,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Deploy.LaunchPad.Core.Abp.AbpModuleConfig
+namespace Deploy.LaunchPad.Code.Secrets
 {
     /// <summary>
-    /// Interface ILaunchPadAbpModuleSecretConfiguration
+    /// Interface ILaunchPadSecretConfiguration
     /// </summary>
-    public partial interface ILaunchPadAbpModuleSecretConfiguration
+    public partial interface ILaunchPadSecretConfiguration
     {
         /// <summary>
         /// Gets the fields.
