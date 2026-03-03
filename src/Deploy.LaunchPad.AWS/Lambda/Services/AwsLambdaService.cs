@@ -12,11 +12,9 @@
 // <summary></summary>
 // ***********************************************************************
 using Castle.Core.Logging;
-using Deploy.LaunchPad.AWS.Lambda;
-using Deploy.LaunchPad.AWS.Lambda.Services;
-using Deploy.LaunchPad.Core.Abp.Services;
+using Deploy.LaunchPad.Code.Services;
 
-namespace Deploy.LaunchPad.AWS.Abp.Lambda.Services
+namespace Deploy.LaunchPad.AWS.Lambda.Services
 {
     /// <summary>
     /// Class AwsLambdaService.
@@ -25,7 +23,7 @@ namespace Deploy.LaunchPad.AWS.Abp.Lambda.Services
     /// </summary>
     /// <seealso cref="LaunchPadAbpSystemIntegrationServiceBase" />
     /// <seealso cref="IAwsLambdaService" />
-    public partial class AwsLambdaService : LaunchPadAbpSystemIntegrationServiceBase, IAwsLambdaService
+    public partial class AwsLambdaService : SystemIntegrationServiceBase, IAwsLambdaService
     {
         /// <summary>
         /// Gets or sets the helper.

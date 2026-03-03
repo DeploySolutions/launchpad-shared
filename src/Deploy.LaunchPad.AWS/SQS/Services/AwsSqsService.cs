@@ -12,20 +12,18 @@
 // <summary></summary>
 // ***********************************************************************
 using Castle.Core.Logging;
-using Deploy.LaunchPad.AWS.SQS;
-using Deploy.LaunchPad.AWS.SQS.Services;
-using Deploy.LaunchPad.Core.Abp.Services;
+using Deploy.LaunchPad.Code.Services;
 
-namespace Deploy.LaunchPad.AWS.Abp.SQS.Services
+namespace Deploy.LaunchPad.AWS.SQS.Services
 {
     /// <summary>
     /// Class AwsSQSService.
     /// Implements the <see cref="LaunchPadAbpSystemIntegrationServiceBase" />
     /// Implements the <see cref="IAwsSqsService" />
     /// </summary>
-    /// <seealso cref="LaunchPadAbpSystemIntegrationServiceBase" />
+    /// <seealso cref="SystemIntegrationServiceBase" />
     /// <seealso cref="IAwsSqsService" />
-    public partial class AwsSqsService : LaunchPadAbpSystemIntegrationServiceBase, IAwsSqsService
+    public partial class AwsSqsService : SystemIntegrationServiceBase, IAwsSqsService
     {
         /// <summary>
         /// Gets or sets the helper.
@@ -45,8 +43,8 @@ namespace Deploy.LaunchPad.AWS.Abp.SQS.Services
             string localAwsProfileName,
             bool shouldUseLocalAwsProfile) : base(logger)
         {
-            var secretHelperFactory = new AwsSqsHelperFactory(logger, regionEndpointName);
-            Helper = secretHelperFactory.Create(logger, regionEndpointName, localAwsProfileName, shouldUseLocalAwsProfile);
+            //var secretHelperFactory = new AwsSqsHelperFactory(logger, regionEndpointName);
+            //Helper = secretHelperFactory.Create(logger, regionEndpointName, localAwsProfileName, shouldUseLocalAwsProfile);
         }
 
         /// <summary>
