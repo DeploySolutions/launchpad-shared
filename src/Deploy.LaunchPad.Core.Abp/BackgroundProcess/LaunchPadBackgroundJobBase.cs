@@ -13,6 +13,7 @@
 // ***********************************************************************
 using Abp.BackgroundJobs;
 using Deploy.LaunchPad.Code.BackgroundProcess;
+using Deploy.LaunchPad.Core.BackgroundJobs;
 
 namespace Deploy.LaunchPad.Core.Abp.BackgroundProcess
 {

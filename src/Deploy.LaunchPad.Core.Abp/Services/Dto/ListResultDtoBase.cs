@@ -28,6 +28,7 @@
 
 using Abp.Application.Services.Dto;
 using Deploy.LaunchPad.Code.Services;
+using Deploy.LaunchPad.Core.Application.Services.Dto;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -51,7 +52,7 @@ namespace Deploy.LaunchPad.Code.Services.Dto
         /// <value>The total count.</value>
         [DataObjectField(false)]
         [XmlAttribute]
-        public int TotalCount { get; set; }
+        public long TotalCount { get; set; }
 
 
         #region "Constructors"
@@ -82,7 +83,7 @@ namespace Deploy.LaunchPad.Code.Services.Dto
         protected ListResultDtoBase(SerializationInfo info, StreamingContext context)
         {
             Items = (IReadOnlyList<TEntityType>)info.GetValue("Items", typeof(IReadOnlyList<TEntityType>));
-            TotalCount = info.GetInt32("TotalCount");
+            TotalCount = info.GetInt64("TotalCount");
         }
 
 

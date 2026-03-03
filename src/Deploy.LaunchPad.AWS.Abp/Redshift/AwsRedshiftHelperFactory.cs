@@ -15,6 +15,7 @@ using Abp.Dependency;
 using Amazon;
 using Amazon.Redshift;
 using Castle.Core.Logging;
+using Deploy.LaunchPad.Util.Dependency;
 using System;
 
 namespace Deploy.LaunchPad.AWS.Redshift

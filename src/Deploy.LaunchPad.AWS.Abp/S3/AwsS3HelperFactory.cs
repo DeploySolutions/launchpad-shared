@@ -17,6 +17,7 @@ using Amazon.S3;
 using Amazon.SecretsManager;
 using Castle.Core.Logging;
 using Deploy.LaunchPad.AWS.S3;
+using Deploy.LaunchPad.Util.Dependency;
 using System;
 
 namespace Deploy.LaunchPad.AWS.Abp.S3

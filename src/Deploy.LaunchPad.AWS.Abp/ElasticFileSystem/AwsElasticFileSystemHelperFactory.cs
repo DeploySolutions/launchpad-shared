@@ -16,6 +16,7 @@ using Amazon;
 using Amazon.ElasticFileSystem;
 using Castle.Core.Logging;
 using Deploy.LaunchPad.AWS.ElasticFileSystem;
+using Deploy.LaunchPad.Util.Dependency;
 using System;
 
 namespace Deploy.LaunchPad.AWS.Abp.ElasticFileSystem

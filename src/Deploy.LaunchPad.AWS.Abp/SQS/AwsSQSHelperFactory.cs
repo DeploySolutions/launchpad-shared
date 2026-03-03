@@ -16,6 +16,7 @@ using Amazon;
 using Amazon.SQS;
 using Castle.Core.Logging;
 using Deploy.LaunchPad.AWS.SQS;
+using Deploy.LaunchPad.Util.Dependency;
 using System;
 
 namespace Deploy.LaunchPad.AWS.Abp.SQS

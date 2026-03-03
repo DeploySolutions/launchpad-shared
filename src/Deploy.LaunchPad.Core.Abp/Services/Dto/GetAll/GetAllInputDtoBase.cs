@@ -27,6 +27,7 @@ using System.Xml.Serialization;
 using Deploy.LaunchPad.Domain;
 using Deploy.LaunchPad.Core;
 using Deploy.LaunchPad.Core.Metadata;
+using Deploy.LaunchPad.Core.Application.Services.Dto;
 
 namespace Deploy.LaunchPad.Code.Services.Dto
 {

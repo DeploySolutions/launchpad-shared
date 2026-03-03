@@ -14,6 +14,7 @@
 
 using Abp.Dependency;
 using Deploy.LaunchPad.Code.Config;
+using Deploy.LaunchPad.Util.Dependency;
 using Microsoft.Extensions.Configuration;
 using System.Collections.Generic;
 

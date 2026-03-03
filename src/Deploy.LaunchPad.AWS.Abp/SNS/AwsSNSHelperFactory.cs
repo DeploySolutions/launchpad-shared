@@ -16,6 +16,7 @@ using Amazon;
 using Amazon.SimpleNotificationService;
 using Castle.Core.Logging;
 using Deploy.LaunchPad.AWS.SNS;
+using Deploy.LaunchPad.Util.Dependency;
 using System;
 
 namespace Deploy.LaunchPad.AWS.Abp.SNS
