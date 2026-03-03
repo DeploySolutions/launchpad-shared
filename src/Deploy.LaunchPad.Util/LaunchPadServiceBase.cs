@@ -30,9 +30,10 @@ namespace Deploy.LaunchPad.Util
 
         protected LaunchPadServiceBase()
         {
+            string id = Guid.NewGuid().ToString();
             string name = GetType().Name;
-            Name = new ElementNameLight(string.Format("{0} {1} ", name));
-            Description = new ElementDescriptionLight(string.Format("{0} {1} ", name));
+            Name = new ElementNameLight(string.Format("{0} {1} ", name, id));
+            Description = new ElementDescriptionLight(string.Format("{0} {1} ", name, id));
         }
 
         protected LaunchPadServiceBase(string name)
