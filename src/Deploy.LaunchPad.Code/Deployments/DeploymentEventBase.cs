@@ -34,15 +34,15 @@ using System.Runtime.Serialization;
 using System.Text;
 using System.Xml.Serialization;
 using Deploy.LaunchPad.Code.Deployments;
-using Deploy.LaunchPad.Core.Entities;
+using Deploy.LaunchPad.Core.Domain.Entities;
 
-namespace Deploy.LaunchPad.Core.Abp.Deployments
+namespace Deploy.LaunchPad.Code.Deployments
 {
     /// <summary>
     /// Represents an event related to a deployment.
     /// </summary>
     /// <typeparam name="TPrimaryKey">The type of the Id</typeparam>
-    public abstract partial class DeploymentEventBase<TPrimaryKey> : TenantSpecificDomainEntityBase<TPrimaryKey>, IDeploymentEvent<TPrimaryKey>
+    public abstract partial class DeploymentEventBase<TPrimaryKey> : DomainEntityBase<TPrimaryKey>, IDeploymentEvent<TPrimaryKey>
     {
         /// <summary>
         /// The id of the release candidate this deployment is for
@@ -101,22 +101,12 @@ namespace Deploy.LaunchPad.Core.Abp.Deployments
         /// <summary>
         /// Initializes a new instance of the <see cref="DeploymentEventBase{TPrimaryKey}"/> class.
         /// </summary>
-        /// <param name="tenantId">The id of the tenant to which this entity belongs</param>
-        public DeploymentEventBase(System.Guid tenantId) : base()
-        {
-            TenantId = tenantId;
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="DeploymentEventBase{TPrimaryKey}"/> class.
-        /// </summary>
         /// <param name="tenantId">The tenant identifier.</param>
         /// <param name="id">The identifier.</param>
         /// <param name="cultureName">Name of the culture.</param>
         /// <param name="text">The text.</param>
-        public DeploymentEventBase(System.Guid tenantId, TPrimaryKey id, string cultureName, String text) : base(tenantId, id, cultureName)
+        public DeploymentEventBase(TPrimaryKey id, string cultureName, String text) : base(id, cultureName)
         {
-            TenantId = tenantId;
         }
 
         /// <summary>

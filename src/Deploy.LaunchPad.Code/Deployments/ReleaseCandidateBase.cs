@@ -27,7 +27,7 @@
 #endregion
 
 using Deploy.LaunchPad.Code.Deployments;
-using Deploy.LaunchPad.Core.Entities;
+using Deploy.LaunchPad.Core.Domain.Entities;
 using System;
 using System.Runtime.Serialization;
 using System.Text;
@@ -38,7 +38,7 @@ namespace Deploy.LaunchPad.Core.Abp.Deployments
     /// Represents a release (set of code, data, and resources) that is a candidate to be deployed to a destination environment.
     /// </summary>
     /// <typeparam name="TPrimaryKey">The type of the Id</typeparam>
-    public abstract partial class ReleaseCandidateBase<TPrimaryKey> : TenantSpecificDomainEntityBase<TPrimaryKey>, Code.Deployments.IReleaseCandidate<TPrimaryKey>
+    public abstract partial class ReleaseCandidateBase<TPrimaryKey> : DomainEntityBase<TPrimaryKey>, IReleaseCandidate<TPrimaryKey>
     {
 
         /// <summary>
@@ -76,26 +76,14 @@ namespace Deploy.LaunchPad.Core.Abp.Deployments
 
         }
 
-
         /// <summary>
         /// Initializes a new instance of the <see cref="ReleaseCandidateBase{TPrimaryKey}"/> class.
         /// </summary>
-        /// <param name="tenantId">The id of the tenant to which this entity belongs</param>
-        public ReleaseCandidateBase(System.Guid tenantId) : base()
-        {
-            TenantId = tenantId;
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="ReleaseCandidateBase{TPrimaryKey}"/> class.
-        /// </summary>
-        /// <param name="tenantId">The tenant identifier.</param>
         /// <param name="id">The identifier.</param>
         /// <param name="cultureName">Name of the culture.</param>
         /// <param name="text">The text.</param>
-        public ReleaseCandidateBase(System.Guid tenantId, TPrimaryKey id, string cultureName, String text) : base(tenantId, id, cultureName)
+        public ReleaseCandidateBase(TPrimaryKey id, string cultureName, String text) : base(id, cultureName)
         {
-            TenantId = tenantId;
         }
 
         /// <summary>
