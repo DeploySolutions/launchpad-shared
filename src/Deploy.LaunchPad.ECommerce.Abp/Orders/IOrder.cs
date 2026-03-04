@@ -11,22 +11,22 @@
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
-using Deploy.LaunchPad.Core.Entities;
+using Deploy.LaunchPad.Core.Domain.Entities;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Xml.Serialization;
 
-namespace Deploy.LaunchPad.ECommerce.Abp.Orders
+namespace Deploy.LaunchPad.ECommerce.Orders
 {
     /// <summary>
     /// Interface IOrder
-    /// Extends the <see cref="ILaunchPadAggregateRoot{TOrderId}" />
+    /// Extends the <see cref="IAggregateRoot{TOrderId}" />
     /// </summary>
     /// <typeparam name="TOrderId">The type of the t order identifier.</typeparam>
     /// <typeparam name="TItemId">The type of the t item identifier.</typeparam>
     /// <typeparam name="TUserId">The type of the t user identifier.</typeparam>
-    /// <seealso cref="ILaunchPadAggregateRoot{TOrderId}" />
-    public partial interface IOrder<TOrderId, TItemId, TUserId > : ILaunchPadAggregateRoot<TOrderId>
+    /// <seealso cref="IAggregateRoot{TOrderId}" />
+    public partial interface IOrder<TOrderId, TItemId, TUserId > : IAggregateRoot<TOrderId>
     {
         /// <summary>
         /// FK id for the User who placed the order

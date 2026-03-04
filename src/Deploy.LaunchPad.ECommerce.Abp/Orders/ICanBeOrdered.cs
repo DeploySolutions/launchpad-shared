@@ -12,7 +12,7 @@
 // <summary></summary>
 // ***********************************************************************
 
-namespace Deploy.LaunchPad.ECommerce.Abp.Orders
+namespace Deploy.LaunchPad.ECommerce.Orders
 {
     /// <summary>
     /// Interface ICanBeOrdered

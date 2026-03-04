@@ -11,27 +11,27 @@
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
-using Deploy.LaunchPad.Core.Entities;
-using Deploy.LaunchPad.ECommerce.Abp.Carts;
+using Deploy.LaunchPad.Core.Domain.Entities;
+using Deploy.LaunchPad.ECommerce.Carts;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Xml.Serialization;
 
-namespace Deploy.LaunchPad.ECommerce.Abp.Orders
+namespace Deploy.LaunchPad.ECommerce.Orders
 {
     /// <summary>
     /// Class CartBase.
-    /// Implements the <see cref="LaunchPadAggregateRootBase{TCartId}" />
+    /// Implements the <see cref="AggregateRoot{TCartId}" />
     /// Implements the <see cref="ICart{TCartId, TItemId, TUserId}" />
     /// </summary>
     /// <typeparam name="TCartId">The type of the t cart identifier.</typeparam>
     /// <typeparam name="TItemId">The type of the t item identifier.</typeparam>
     /// <typeparam name="TUserId">The type of the t user identifier.</typeparam>
-    /// <seealso cref="LaunchPadAggregateRootBase{TCartId}" />
+    /// <seealso cref="AggregateRoot{TCartId}" />
     /// <seealso cref="ICart{TCartId, TItemId, TUserId}" />
     [Serializable]
-    public abstract partial class CartBase<TCartId, TItemId, TUserId> : LaunchPadAggregateRootBase<TCartId>, ICart<TCartId, TItemId, TUserId>
+    public abstract partial class CartBase<TCartId, TItemId, TUserId> : AggregateRoot<TCartId>, ICart<TCartId, TItemId, TUserId>
     {
 
         /// <summary>

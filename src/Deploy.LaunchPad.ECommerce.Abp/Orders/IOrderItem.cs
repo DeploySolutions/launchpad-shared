@@ -15,16 +15,16 @@ using Deploy.LaunchPad.Core.Domain.Entities;
 using System.ComponentModel;
 using System.Xml.Serialization;
 
-namespace Deploy.LaunchPad.ECommerce.Abp.Orders
+namespace Deploy.LaunchPad.ECommerce.Orders
 {
     /// <summary>
     /// Interface IOrderItem
     /// Extends the <see cref="IDomainEntity{TItemId}" />
-    /// Extends the <see cref="Deploy.LaunchPad.ECommerce.Abp.Orders.ICanBeOrdered" />
+    /// Extends the <see cref="Deploy.LaunchPad.ECommerce.Orders.ICanBeOrdered" />
     /// </summary>
     /// <typeparam name="TItemId">The type of the t item identifier.</typeparam>
     /// <seealso cref="IDomainEntity{TItemId}" />
-    /// <seealso cref="Deploy.LaunchPad.ECommerce.Abp.Orders.ICanBeOrdered" />
+    /// <seealso cref="Deploy.LaunchPad.ECommerce.Orders.ICanBeOrdered" />
     public partial interface IOrderItem<TItemId> : IDomainEntity<TItemId>, ICanBeOrdered
     {
 

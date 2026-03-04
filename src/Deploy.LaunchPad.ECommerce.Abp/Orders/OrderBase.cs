@@ -12,13 +12,13 @@
 // <summary></summary>
 // ***********************************************************************
 
-using Deploy.LaunchPad.Core.Entities;
+using Deploy.LaunchPad.Core.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Xml.Serialization;
 
-namespace Deploy.LaunchPad.ECommerce.Abp.Orders
+namespace Deploy.LaunchPad.ECommerce.Orders
 {
     /// <summary>
     /// Class OrderBase.
@@ -29,7 +29,7 @@ namespace Deploy.LaunchPad.ECommerce.Abp.Orders
     /// <typeparam name="TUserId">The type of the t user identifier.</typeparam>
     /// <seealso cref="LaunchPadAggregateRootBase{TOrderId}" />
     [Serializable]
-    public abstract partial class OrderBase<TOrderId, TItemId, TUserId> : LaunchPadAggregateRootBase<TOrderId>
+    public abstract partial class OrderBase<TOrderId, TItemId, TUserId> : AggregateRoot<TOrderId>
     {
         /// <summary>
         /// The list of Order Items contained within

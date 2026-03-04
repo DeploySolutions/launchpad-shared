@@ -12,23 +12,23 @@
 // <summary></summary>
 // ***********************************************************************
 
-using Deploy.LaunchPad.Core.Entities;
-using Deploy.LaunchPad.ECommerce.Abp.Orders;
+using Deploy.LaunchPad.Core.Domain.Entities;
+using Deploy.LaunchPad.ECommerce.Orders;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Xml.Serialization;
 
-namespace Deploy.LaunchPad.ECommerce.Abp.Carts
+namespace Deploy.LaunchPad.ECommerce.Carts
 {
     /// <summary>
     /// Interface ICart
-    /// Extends the <see cref="ILaunchPadAggregateRoot{TCartId}" />
+    /// Extends the <see cref="IAggregateRoot{TCartId}" />
     /// </summary>
     /// <typeparam name="TCartId">The type of the t cart identifier.</typeparam>
     /// <typeparam name="TItemId">The type of the t item identifier.</typeparam>
     /// <typeparam name="TUserId">The type of the t user identifier.</typeparam>
-    /// <seealso cref="ILaunchPadAggregateRoot{TCartId}" />
-    public partial interface ICart<TCartId, TItemId, TUserId> : ILaunchPadAggregateRoot<TCartId>
+    /// <seealso cref="IAggregateRoot{TCartId}" />
+    public partial interface ICart<TCartId, TItemId, TUserId> : IAggregateRoot<TCartId>
     {
         /// <summary>
         /// FK id for the User who placed the order
