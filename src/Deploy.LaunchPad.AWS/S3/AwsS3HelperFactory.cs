@@ -11,7 +11,6 @@
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
-using Abp.Dependency;
 using Amazon;
 using Amazon.S3;
 using Amazon.SecretsManager;
@@ -84,40 +83,12 @@ namespace Deploy.LaunchPad.AWS.Abp.S3
             else // do not use a named local profile, instead try to determine the AWS client from the credential resolution order
             {
                 logger.Debug("AwsS3HelperFactory.Create() => shouldUseLocalAwsProfile is false.");
-
-                // attempt to load the registered instance, if any
-                if (IocManager.Instance != null)
-                {
-                    try
-                    {
-                        logger.Debug("AwsS3HelperFactory.Create() => IocManager.Instance != null, trying to resolve AwsS3Helper from IoC.");
-                        helper = IocManager.Instance.Resolve<AwsS3Helper>();
-                        logger.Debug("AwsS3HelperFactory.Create() => IocManager.Instance != null, resolved AwsS3Helper from IoC.");
-                    }
-                    catch (Exception ex)
-                    {
-                        // create the helper using the AWS credentials resolution pattern.
-                        // Since we are not using local profile here, we presumably load from EC2 role or environment
-                        var s3Client = GetS3Client(Region);
-                        helper = new AwsS3Helper(logger, awsRegionEndpointName, s3Client);
-                        logger.Debug("AwsS3Helper was not registered; returning a new instance.");
-                    }
-                }
-                else
-                {
-
-                    logger.Debug("AwsS3HelperFactory.Create() => IocManager.Instance was null.");
-                }
-                // after all that, load the helper
-                if (helper == null)
-                {
-                    logger.Debug("AwsS3Helper was null; returning a new instance.");
-                    // create the helper using the AWS credentials resolution pattern.
-                    // Since we are not using local profile here, we presumably load from EC2 role or environment
-                    var secretClient = GetS3Client(Region);
-                    helper = new AwsS3Helper(logger, awsRegionEndpointName, secretClient);
-                    logger.Debug("AwsS3Helper was null; returned a new instance.");
-                }
+                // create the helper using the AWS credentials resolution pattern.
+                // Since we are not using local profile here, we presumably load from EC2 role or environment
+                var secretClient = GetS3Client(Region);
+                helper = new AwsS3Helper(logger, awsRegionEndpointName, secretClient);
+                logger.Debug("AwsS3Helper was null; returned a new instance.");
+                
             }
             logger.Debug("AwsS3HelperFactory.Create() => ended.");
 

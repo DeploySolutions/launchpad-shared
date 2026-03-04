@@ -11,7 +11,6 @@
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
-using Abp.Dependency;
 using Amazon;
 using Amazon.APIGateway;
 using Castle.Core.Logging;
@@ -71,34 +70,10 @@ namespace Deploy.LaunchPad.AWS.Abp.ApiGateway
             }
             else // do not use a named local profile, instead try to determine the AWS client from the credential resolution order
             {
-                // attempt to load the registered instance, if any
-                if (IocManager.Instance != null)
-                {
-                    try
-                    {
-                        helper = IocManager.Instance.Resolve<AwsApiGatewayHelper>();
-                        logger.Debug("AwsApiGatewayHelper was registered; returning the resolved instance.");
-                    }
-                    catch (Exception ex)
-                    {
-                        // create the helper using the AWS credentials resolution pattern.
-                        // Since we are not using local profile here, we presumably load from EC2 role or environment
-                        helper = new AwsApiGatewayHelper(logger, awsRegionEndpointName, apiGatewayBaseUri);
-                        logger.Debug("AwsApiGatewayHelper was not registered; returning a new instance.");
-                    }
-                }
-                else
-                {
-
-                }
-                // after all that, load the helper
-                if (helper == null)
-                {
-                    // create the helper using the AWS credentials resolution pattern.
-                    // Since we are not using local profile here, we presumably load from EC2 role or environment
-                    helper = new AwsApiGatewayHelper(logger, awsRegionEndpointName, apiGatewayBaseUri);
-                    logger.Debug("AwsApiGatewayHelper was null; returning a new instance.");
-                }
+                // create the helper using the AWS credentials resolution pattern.
+                // Since we are not using local profile here, we presumably load from EC2 role or environment
+                helper = new AwsApiGatewayHelper(logger, awsRegionEndpointName, apiGatewayBaseUri);
+                logger.Debug("AwsApiGatewayHelper was null; returning a new instance.");
             }
 
             return helper;

@@ -49,7 +49,6 @@
     <Project Path="src/Deploy.LaunchPad.Util/Deploy.LaunchPad.Util.csproj" />
   </Folder>
   <Folder Name="/Src/Abp/">
-    <Project Path="src/Deploy.LaunchPad.AWS.Abp/Deploy.LaunchPad.AWS.Abp.csproj" />
     <Project Path="src/Deploy.LaunchPad.Core.Abp/Deploy.LaunchPad.Core.Abp.csproj" />
   </Folder>
   <Folder Name="/Tests/">

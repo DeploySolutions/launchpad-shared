@@ -11,7 +11,6 @@
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
-using Abp.Dependency;
 using Amazon;
 using Amazon.Redshift;
 using Castle.Core.Logging;
@@ -68,31 +67,10 @@ namespace Deploy.LaunchPad.AWS.Redshift
                 helper.ShouldUseLocalAwsProfile = true;
             }
             else // do not use a named local profile, instead try to determine the AWS client from the credential resolution order
-            {
-                // attempt to load the registered instance, if any
-                if (IocManager.Instance != null)
-                {
-                    try
-                    {
-                        helper = IocManager.Instance.Resolve<AwsRedshiftHelper>();
-                        logger.Debug("AwsRedshiftHelper was registered; returning the resolved instance.");
-                    }
-                    catch (Exception ex)
-                    {
-                        // create the helper using the AWS credentials resolution pattern.
-                        // Since we are not using local profile here, we presumably load from EC2 role or environment
-                        helper = new AwsRedshiftHelper(logger, awsRegionEndpointName);
-                        logger.Debug("AwsRedshiftHelper was not registered; returning a new instance.");
-                    }
-                }
-                // after all that, load the helper
-                if (helper == null)
-                {
-                    // create the helper using the AWS credentials resolution pattern.
-                    // Since we are not using local profile here, we presumably load from EC2 role or environment
-                    helper = new AwsRedshiftHelper(logger, awsRegionEndpointName);
-                    logger.Debug("AwsRedshiftHelper was null; returning a new instance.");
-                }
+            {                // create the helper using the AWS credentials resolution pattern.
+                // Since we are not using local profile here, we presumably load from EC2 role or environment
+                helper = new AwsRedshiftHelper(logger, awsRegionEndpointName);
+                logger.Debug("AwsRedshiftHelper was null; returning a new instance.");
             }
 
             return helper;
