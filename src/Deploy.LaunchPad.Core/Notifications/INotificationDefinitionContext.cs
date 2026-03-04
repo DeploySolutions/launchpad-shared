@@ -30,40 +30,16 @@
  */
 #endregion
 
-using Deploy.LaunchPad.Core.Runtime.Users;
-using System.Threading.Tasks;
-
-namespace Deploy.LaunchPad.Core.Authorization
+namespace Deploy.LaunchPad.Core.Notifications
 {
     /// <summary>
-    /// This class is used to permissions for users.
+    /// Used as a context while defining notifications.
     /// </summary>
-    public interface IPermissionChecker
+    public interface INotificationDefinitionContext
     {
         /// <summary>
-        /// Checks if current user is granted for a permission.
+        /// Gets the notification definition manager.
         /// </summary>
-        /// <param name="permissionName">Name of the permission</param>
-        Task<bool> IsGrantedAsync(string permissionName);
-
-        /// <summary>
-        /// Checks if current user is granted for a permission.
-        /// </summary>
-        /// <param name="permissionName">Name of the permission</param>
-        bool IsGranted(string permissionName);
-
-        /// <summary>
-        /// Checks if a user is granted for a permission.
-        /// </summary>
-        /// <param name="user">User to check</param>
-        /// <param name="permissionName">Name of the permission</param>
-        Task<bool> IsGrantedAsync(IUserIdentifier user, string permissionName);
-
-        /// <summary>
-        /// Checks if a user is granted for a permission.
-        /// </summary>
-        /// <param name="user">User to check</param>
-        /// <param name="permissionName">Name of the permission</param>
-        bool IsGranted(IUserIdentifier user, string permissionName);
+        INotificationDefinitionManager Manager { get; }
     }
 }

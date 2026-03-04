@@ -82,7 +82,7 @@ namespace Deploy.LaunchPad.Core.Runtime.Users
         /// - "userId@tenantId". Ex: "42@3" (for tenant users).
         /// - "userId". Ex: 1 (for host users)
         /// </param>
-        public static UserIdentifier Parse(string userIdentifierString)
+        public static IUserIdentifier Parse(string userIdentifierString)
         {
             if (userIdentifierString.IsNullOrEmpty())
             {

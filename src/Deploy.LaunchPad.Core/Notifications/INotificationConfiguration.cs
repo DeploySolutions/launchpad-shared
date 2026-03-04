@@ -30,40 +30,24 @@
  */
 #endregion
 
-using Deploy.LaunchPad.Core.Runtime.Users;
-using System.Threading.Tasks;
+using Deploy.LaunchPad.Util.Collections;
+using System;
 
-namespace Deploy.LaunchPad.Core.Authorization
+namespace Deploy.LaunchPad.Core.Notifications
 {
     /// <summary>
-    /// This class is used to permissions for users.
+    /// Used to configure notification system.
     /// </summary>
-    public interface IPermissionChecker
+    public interface INotificationConfiguration
     {
         /// <summary>
-        /// Checks if current user is granted for a permission.
+        /// Notification providers.
         /// </summary>
-        /// <param name="permissionName">Name of the permission</param>
-        Task<bool> IsGrantedAsync(string permissionName);
+        ITypeList<INotificationProvider> Providers { get; }
 
         /// <summary>
-        /// Checks if current user is granted for a permission.
+        /// A list of contributors for notification notifying process.
         /// </summary>
-        /// <param name="permissionName">Name of the permission</param>
-        bool IsGranted(string permissionName);
-
-        /// <summary>
-        /// Checks if a user is granted for a permission.
-        /// </summary>
-        /// <param name="user">User to check</param>
-        /// <param name="permissionName">Name of the permission</param>
-        Task<bool> IsGrantedAsync(IUserIdentifier user, string permissionName);
-
-        /// <summary>
-        /// Checks if a user is granted for a permission.
-        /// </summary>
-        /// <param name="user">User to check</param>
-        /// <param name="permissionName">Name of the permission</param>
-        bool IsGranted(IUserIdentifier user, string permissionName);
+        ITypeList<IRealTimeNotifier> Notifiers { get; }
     }
 }

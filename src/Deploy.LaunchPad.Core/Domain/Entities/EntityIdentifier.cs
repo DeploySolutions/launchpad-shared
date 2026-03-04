@@ -30,40 +30,54 @@
  */
 #endregion
 
-using Deploy.LaunchPad.Core.Runtime.Users;
-using System.Threading.Tasks;
+using System;
 
-namespace Deploy.LaunchPad.Core.Authorization
+namespace Deploy.LaunchPad.Core.Domain.Entities
 {
     /// <summary>
-    /// This class is used to permissions for users.
+    /// Used to identify an entity.
+    /// Can be used to store an entity <see cref="Type"/> and <see cref="Id"/>.
     /// </summary>
-    public interface IPermissionChecker
+    [Serializable]
+    public class EntityIdentifier
     {
         /// <summary>
-        /// Checks if current user is granted for a permission.
+        /// Entity Type.
         /// </summary>
-        /// <param name="permissionName">Name of the permission</param>
-        Task<bool> IsGrantedAsync(string permissionName);
+        public Type Type { get; private set; }
 
         /// <summary>
-        /// Checks if current user is granted for a permission.
+        /// Entity's Id.
         /// </summary>
-        /// <param name="permissionName">Name of the permission</param>
-        bool IsGranted(string permissionName);
+        public object Id { get; private set; }
 
         /// <summary>
-        /// Checks if a user is granted for a permission.
+        /// Added for serialization purposes.
         /// </summary>
-        /// <param name="user">User to check</param>
-        /// <param name="permissionName">Name of the permission</param>
-        Task<bool> IsGrantedAsync(IUserIdentifier user, string permissionName);
+        private EntityIdentifier()
+        {
+            
+        }
 
         /// <summary>
-        /// Checks if a user is granted for a permission.
+        /// Initializes a new instance of the <see cref="EntityIdentifier"/> class.
         /// </summary>
-        /// <param name="user">User to check</param>
-        /// <param name="permissionName">Name of the permission</param>
-        bool IsGranted(IUserIdentifier user, string permissionName);
+        /// <param name="type">Entity type.</param>
+        /// <param name="id">Id of the entity.</param>
+        public EntityIdentifier(Type type, object id)
+        {
+            if (type == null)
+            {
+                throw new ArgumentNullException("type");
+            }
+
+            if (id == null)
+            {
+                throw new ArgumentNullException("id");
+            }
+
+            Type = type;
+            Id = id;
+        }
     }
 }

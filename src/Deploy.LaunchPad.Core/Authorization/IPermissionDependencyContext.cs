@@ -44,7 +44,7 @@ namespace Deploy.LaunchPad.Core.Authorization
         /// <summary>
         /// The user which requires permission. Can be null if no user.
         /// </summary>
-        UserIdentifier User { get; }
+        IUserIdentifier User { get; }
 
         /// <summary>
         /// Gets the <see cref="IIocResolver"/>.

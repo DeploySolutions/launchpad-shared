@@ -80,7 +80,7 @@ namespace Deploy.LaunchPad.Core.Runtime.Session
         /// Returns null if <see cref="ILaunchPadSession.UserId"/> is null.
         /// </summary>
         /// <param name="session">The session.</param>
-        public static UserIdentifier ToUserIdentifier(this ILaunchPadSession session)
+        public static IUserIdentifier ToUserIdentifier(this ILaunchPadSession session)
         {
             return session.UserId == null
                 ? null

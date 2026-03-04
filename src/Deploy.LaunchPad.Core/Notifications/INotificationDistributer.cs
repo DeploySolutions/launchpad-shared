@@ -30,40 +30,21 @@
  */
 #endregion
 
-using Deploy.LaunchPad.Core.Runtime.Users;
+using System;
 using System.Threading.Tasks;
+using Deploy.LaunchPad.Core.Domain.Services;
 
-namespace Deploy.LaunchPad.Core.Authorization
+namespace Deploy.LaunchPad.Core.Notifications
 {
     /// <summary>
-    /// This class is used to permissions for users.
+    /// Used to distribute notifications to users.
     /// </summary>
-    public interface IPermissionChecker
+    public interface INotificationDistributer : IDomainService
     {
         /// <summary>
-        /// Checks if current user is granted for a permission.
+        /// Distributes given notification to users.
         /// </summary>
-        /// <param name="permissionName">Name of the permission</param>
-        Task<bool> IsGrantedAsync(string permissionName);
-
-        /// <summary>
-        /// Checks if current user is granted for a permission.
-        /// </summary>
-        /// <param name="permissionName">Name of the permission</param>
-        bool IsGranted(string permissionName);
-
-        /// <summary>
-        /// Checks if a user is granted for a permission.
-        /// </summary>
-        /// <param name="user">User to check</param>
-        /// <param name="permissionName">Name of the permission</param>
-        Task<bool> IsGrantedAsync(IUserIdentifier user, string permissionName);
-
-        /// <summary>
-        /// Checks if a user is granted for a permission.
-        /// </summary>
-        /// <param name="user">User to check</param>
-        /// <param name="permissionName">Name of the permission</param>
-        bool IsGranted(IUserIdentifier user, string permissionName);
+        /// <param name="notificationId">The notification id.</param>
+        Task DistributeAsync(Guid notificationId);
     }
 }

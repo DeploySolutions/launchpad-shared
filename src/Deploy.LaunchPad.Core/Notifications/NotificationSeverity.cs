@@ -30,40 +30,38 @@
  */
 #endregion
 
-using Deploy.LaunchPad.Core.Runtime.Users;
-using System.Threading.Tasks;
+using System;
 
-namespace Deploy.LaunchPad.Core.Authorization
+namespace Deploy.LaunchPad.Core.Notifications
 {
     /// <summary>
-    /// This class is used to permissions for users.
+    /// Notification severity.
     /// </summary>
-    public interface IPermissionChecker
+    public enum NotificationSeverity : byte
     {
         /// <summary>
-        /// Checks if current user is granted for a permission.
+        /// Info.
         /// </summary>
-        /// <param name="permissionName">Name of the permission</param>
-        Task<bool> IsGrantedAsync(string permissionName);
+        Info = 0,
+        
+        /// <summary>
+        /// Success.
+        /// </summary>
+        Success = 1,
+        
+        /// <summary>
+        /// Warn.
+        /// </summary>
+        Warn = 2,
+        
+        /// <summary>
+        /// Error.
+        /// </summary>
+        Error = 3,
 
         /// <summary>
-        /// Checks if current user is granted for a permission.
+        /// Fatal.
         /// </summary>
-        /// <param name="permissionName">Name of the permission</param>
-        bool IsGranted(string permissionName);
-
-        /// <summary>
-        /// Checks if a user is granted for a permission.
-        /// </summary>
-        /// <param name="user">User to check</param>
-        /// <param name="permissionName">Name of the permission</param>
-        Task<bool> IsGrantedAsync(IUserIdentifier user, string permissionName);
-
-        /// <summary>
-        /// Checks if a user is granted for a permission.
-        /// </summary>
-        /// <param name="user">User to check</param>
-        /// <param name="permissionName">Name of the permission</param>
-        bool IsGranted(IUserIdentifier user, string permissionName);
+        Fatal = 4
     }
 }
