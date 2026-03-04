@@ -26,7 +26,7 @@
 //limitations under the License. 
 #endregion
 
-using Deploy.LaunchPad.Core.Abp.Organization;
+using Deploy.LaunchPad.Domain.Organization;
 using Schema.NET;
 using System;
 
@@ -34,9 +34,9 @@ namespace Deploy.LaunchPad.Organizations.Canada
 {
     /// <summary>
     /// Class CanadaSpaceAgency.
-    /// Implements the <see cref="Deploy.LaunchPad.Core.Abp.GovernmentOrganizationBase{System.Guid}" />
+    /// Implements the <see cref="Deploy.LaunchPad.Domain.Organization.GovernmentOrganizationBase{System.Guid}" />
     /// </summary>
-    /// <seealso cref="Deploy.LaunchPad.Core.Abp.GovernmentOrganizationBase{System.Guid}" />
+    /// <seealso cref="Deploy.LaunchPad.Domain.Organization.GovernmentOrganizationBase{System.Guid}" />
     public partial class CanadianSpaceAgency : GovernmentOrganizationBase<Guid>
     {
 

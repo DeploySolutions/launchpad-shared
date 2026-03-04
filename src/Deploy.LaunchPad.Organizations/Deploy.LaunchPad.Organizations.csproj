@@ -9,26 +9,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Deploy.LaunchPad.Core.Abp\Deploy.LaunchPad.Core.Abp.csproj" />
-    <ProjectReference Include="..\Deploy.LaunchPad.Core\Deploy.LaunchPad.Core.csproj" />
     <ProjectReference Include="..\Deploy.LaunchPad.Util\Deploy.LaunchPad.Util.csproj" />
+    <ProjectReference Include="..\Deploy.LaunchPad.Core\Deploy.LaunchPad.Core.csproj" />
+    <ProjectReference Include="..\Deploy.LaunchPad.Domain\Deploy.LaunchPad.Domain.csproj" />
   </ItemGroup>
-
-  <ItemGroup>
-    <Reference Include="Abp">
-      <HintPath>F:\Deploy Solutions Dropbox\Main Team Folder\Code\Libs\boilerplate\Abp.dll</HintPath>
-    </Reference>
-    <Reference Include="Abp.AutoMapper">
-      <HintPath>F:\Deploy Solutions Dropbox\Main Team Folder\Code\Libs\boilerplate\Abp.AutoMapper.dll</HintPath>
-    </Reference>
-    <Reference Include="Abp.AspNetCore">
-      <HintPath>F:\Deploy Solutions Dropbox\Main Team Folder\Code\Libs\boilerplate\Abp.AspNetCore.dll</HintPath>
-    </Reference>
-    <Reference Include="Abp.FluentValidation">
-      <HintPath>F:\Deploy Solutions Dropbox\Main Team Folder\Code\Libs\boilerplate\Abp.FluentValidation.dll</HintPath>
-    </Reference>
-  </ItemGroup>
-
 
   <ItemGroup>
     <!--<PackageVersion Include="Schema.NET.Pending" Version="13.0.0" />-->

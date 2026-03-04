@@ -26,20 +26,16 @@
 //limitations under the License. 
 #endregion
 
+using Deploy.LaunchPad.Geospatial.Position;
+using Deploy.LaunchPad.Util.Licenses;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using Deploy.LaunchPad.Core.Metadata;
+using Deploy.LaunchPad.Util;
+
 namespace Deploy.LaunchPad.Space.Satellites.Core
 {
-    using Deploy.LaunchPad.Core.Abp;
-    using Deploy.LaunchPad.Domain.Metadata;
-    using Deploy.LaunchPad.Geospatial;
-    using Deploy.LaunchPad.Geospatial.Position;
-    using Deploy.LaunchPad.Util.Licenses;
-    using System;
-    using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-    using Deploy.LaunchPad.Core.Metadata;
-    using Deploy.LaunchPad.Core.Entities;
-    using Deploy.LaunchPad.Util;
-
     /// <summary>
     /// Interface IEarthObservationScene
     /// Extends the <see cref="ILaunchPadCoreProperties" />

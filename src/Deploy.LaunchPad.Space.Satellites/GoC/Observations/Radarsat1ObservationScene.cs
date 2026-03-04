@@ -30,21 +30,18 @@
 // For more information, please consult the terms and conditions of this license at
 // https://open.canada.ca/en/open-government-licence-canada 
 
-
+using Deploy.LaunchPad.Util.Timing;
+using Deploy.LaunchPad.Geospatial;
+using Deploy.LaunchPad.Geospatial.Position;
+using Deploy.LaunchPad.Geospatial.Temporal;
+using Deploy.LaunchPad.Space.Satellites.Core;
+using System;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using Deploy.LaunchPad.Files.Formats;
 
 namespace Deploy.LaunchPad.Space.Satellites.GoC
 {
-    using Deploy.LaunchPad.Util.Timing;
-    using Deploy.LaunchPad.Core.Abp;
-    using Deploy.LaunchPad.Domain;
-    using Deploy.LaunchPad.Geospatial;
-    using Deploy.LaunchPad.Geospatial.Position;
-    using Deploy.LaunchPad.Geospatial.Temporal;
-    using Deploy.LaunchPad.Space.Satellites.Core;
-    using System;
-    using System.ComponentModel.DataAnnotations;
-    using System.ComponentModel.DataAnnotations.Schema;
-    using Deploy.LaunchPad.Files.Formats;
 
     /// <summary>
     /// Class Radarsat1ObservationScene.
@@ -278,25 +275,25 @@ namespace Deploy.LaunchPad.Space.Satellites.GoC
             /// Gets or sets the nvol.
             /// </summary>
             /// <value>The nvol.</value>
-            public NvolFile<Guid> Nvol { get; set; }
+            public NvolFile Nvol { get; set; }
 
             /// <summary>
             /// Gets or sets the sard.
             /// </summary>
             /// <value>The sard.</value>
-            public SardFile<Guid> Sard { get; set; }
+            public SardFile Sard { get; set; }
 
             /// <summary>
             /// Gets or sets the sarl.
             /// </summary>
             /// <value>The sarl.</value>
-            public SarlFile<Guid> Sarl { get; set; }
+            public SarlFile Sarl { get; set; }
 
             /// <summary>
             /// Gets or sets the sart.
             /// </summary>
             /// <value>The sart.</value>
-            public SartFile<Guid> Sart { get; set; }
+            public SartFile Sart { get; set; }
 
             /// <summary>
             /// Gets or sets the tif.
@@ -314,7 +311,7 @@ namespace Deploy.LaunchPad.Space.Satellites.GoC
             /// Gets or sets the vol.
             /// </summary>
             /// <value>The vol.</value>
-            public VolFile<Guid> Vol { get; set; }
+            public VolFile Vol { get; set; }
         }
 
     }

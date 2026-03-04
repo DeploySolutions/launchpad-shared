@@ -15,6 +15,13 @@
     <ProjectReference Include="..\Deploy.LaunchPad.Core\Deploy.LaunchPad.Core.csproj" />
     <ProjectReference Include="..\Deploy.LaunchPad.Geospatial\Deploy.LaunchPad.Geospatial.csproj" />
   </ItemGroup>
+  
+  <ItemGroup>
+    <!--<PackageVersion Include="Schema.NET.Pending" Version="13.0.0" />-->
+    <Reference Include="Schema.NET.Pending">
+      <HintPath>F:\Deploy Solutions Dropbox\Main Team Folder\Code\Libs\launchpad_shared\Schema.NET.Pending.dll</HintPath>
+    </Reference>
+  </ItemGroup>
 
   <ItemGroup>
     <Compile Update="Deploy.LaunchPad.Domain.Resources.Designer.cs">

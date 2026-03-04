@@ -26,8 +26,7 @@
 //limitations under the License. 
 #endregion
 
-using Deploy.LaunchPad.Core.Abp;
-using Deploy.LaunchPad.Core.Abp.Organization;
+using Deploy.LaunchPad.Domain.Organization;
 using Schema.NET;
 using System;
 
@@ -37,9 +36,9 @@ namespace Deploy.LaunchPad.Organizations.Canada
 
     /// <summary>
     /// Class DeploySolutions.
-    /// Implements the <see cref="Deploy.LaunchPad.Core.Abp.OrganizationDomainEntityBase{System.Guid}" />
+    /// Implements the <see cref="Deploy.LaunchPad.Domain.Organization.OrganizationDomainEntityBase{System.Guid}" />
     /// </summary>
-    /// <seealso cref="Deploy.LaunchPad.Core.Abp.OrganizationDomainEntityBase{System.Guid}" />
+    /// <seealso cref="Deploy.LaunchPad.Domain.Organization.OrganizationDomainEntityBase{System.Guid}" />
     public partial class DeploySolutions : OrganizationDomainEntityBase<Guid>
     {
 

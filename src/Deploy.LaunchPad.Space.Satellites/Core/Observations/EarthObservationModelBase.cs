@@ -27,18 +27,16 @@
 #endregion
 
 
+using Deploy.LaunchPad.Geospatial;
+using Deploy.LaunchPad.Geospatial.Position;
+using Deploy.LaunchPad.Util.Licenses;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using Deploy.LaunchPad.Domain.Metadata;
+
 namespace Deploy.LaunchPad.Space.Satellites.Core
 {
-
-    using Deploy.LaunchPad.Core.Abp;
-    
-    using Deploy.LaunchPad.Geospatial;
-    using Deploy.LaunchPad.Geospatial.Position;
-    using Deploy.LaunchPad.Util.Licenses;
-    using System;
-    using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-    using Deploy.LaunchPad.Domain.Metadata;
 
     /// <summary>
     /// Class EarthObservationModelBase.

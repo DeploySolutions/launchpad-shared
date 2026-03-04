@@ -26,12 +26,10 @@
 //limitations under the License. 
 #endregion
 
+using Deploy.LaunchPad.Core.Domain.Entities;
 
 namespace Deploy.LaunchPad.Space.Satellites.Core
 {
-    using Deploy.LaunchPad.Core.Abp;
-    using Deploy.LaunchPad.Core.Abp.Organization;
-    using Deploy.LaunchPad.Core.Domain.Entities;
 
     /// <summary>
     /// Interface ISatelliteOperator

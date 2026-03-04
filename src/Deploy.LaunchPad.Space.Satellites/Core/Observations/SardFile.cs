@@ -28,19 +28,19 @@
 
 
 
-using Deploy.LaunchPad.Core.Entities;
+using Deploy.LaunchPad.Core.Domain.Entities;
+using Deploy.LaunchPad.Files;
 
 namespace Deploy.LaunchPad.Space.Satellites.Core
 {
-    
+
 
     /// <summary>
     /// Class SardFile.
-    /// Implements the <see cref="LaunchPad.Core.Abp.Domain.Model.DomainEntityFileBase{TPrimaryKey, System.Byte[]}" />
+    /// Implements the <see cref="Deploy.LaunchPad.Files.FileBase{System.Byte[]}" />
+    /// <seealso cref="Deploy.LaunchPad.Files.DomainEntityFileBase{System.Byte[]}" />
     /// </summary>
-    /// <typeparam name="TPrimaryKey">The type of the t primary key.</typeparam>
-    /// <seealso cref="LaunchPad.Core.Abp.Domain.Model.DomainEntityFileBase{TPrimaryKey, System.Byte[]}" />
-    public partial class SardFile<TPrimaryKey> : DomainEntityFileBase<TPrimaryKey, byte[], SardSchemaFormat>
+    public partial class SardFile : FileBase<byte[], SardSchemaFormat>
     {
         /// <summary>
         /// The extension of the file
@@ -51,11 +51,14 @@ namespace Deploy.LaunchPad.Space.Satellites.Core
             get { return ".sard"; }
         }
 
+
         /// <summary>
-        /// Initializes a new instance of the <see cref="SardFile{TPrimaryKey}"/> class.
+        /// Constructor
         /// </summary>
-        public SardFile() : base()
+        /// 
+        public SardFile(string fileName) : base(fileName)
         {
+            Name = fileName;
         }
     }
 }

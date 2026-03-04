@@ -17,7 +17,7 @@ using Deploy.LaunchPad.Domain.Metadata;
 using System;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
-using Deploy.LaunchPad.Core.Entities;
+using Deploy.LaunchPad.Core.Domain.Entities;
 using Deploy.LaunchPad.Util;
 
 namespace Deploy.LaunchPad.Space.Satellites.Core.Observations

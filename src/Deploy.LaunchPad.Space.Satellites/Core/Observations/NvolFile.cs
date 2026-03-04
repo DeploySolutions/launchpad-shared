@@ -28,19 +28,19 @@
 
 
 
-using Deploy.LaunchPad.Core.Entities;
+using Deploy.LaunchPad.Core.Domain.Entities;
+using Deploy.LaunchPad.Files;
 
 namespace Deploy.LaunchPad.Space.Satellites.Core
 {
-    
+
 
     /// <summary>
     /// Class NvolFile.
-    /// Implements the <see cref="LaunchPad.Core.Abp.Domain.Model.DomainEntityFileBase{TPrimaryKey, System.Byte[]}" />
+    /// Implements the <see cref="Deploy.LaunchPad.Files.FileBase{System.Byte[]}" />
+    /// <seealso cref="Deploy.LaunchPad.Files.DomainEntityFileBase{System.Byte[]}" />
     /// </summary>
-    /// <typeparam name="TPrimaryKey">The type of the t primary key.</typeparam>
-    /// <seealso cref="LaunchPad.Core.Abp.Domain.Model.DomainEntityFileBase{TPrimaryKey, System.Byte[]}" />
-    public partial class NvolFile<TPrimaryKey> : DomainEntityFileBase<TPrimaryKey, byte[], NvolSchemaFormat>
+    public partial class NvolFile : FileBase<byte[], NvolSchemaFormat>
     {
         /// <summary>
         /// The extension of the file
@@ -52,10 +52,12 @@ namespace Deploy.LaunchPad.Space.Satellites.Core
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="NvolFile{TPrimaryKey}"/> class.
+        /// Constructor
         /// </summary>
-        public NvolFile() : base()
+        /// 
+        public NvolFile(string fileName) : base(fileName)
         {
+            Name = fileName;
         }
 
     }

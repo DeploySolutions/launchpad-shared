@@ -29,7 +29,7 @@
 using Deploy.LaunchPad.Core.Domain.Entities;
 using Schema.NET;
 
-namespace Deploy.LaunchPad.Core.Abp.Organization
+namespace Deploy.LaunchPad.Domain.Organization
 {
     /// <summary>
     /// Interface IGovernmentOrganization

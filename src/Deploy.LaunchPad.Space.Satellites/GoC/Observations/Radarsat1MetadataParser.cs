@@ -26,28 +26,25 @@
 //limitations under the License. 
 #endregion
 
+using Deploy.LaunchPad.Files.Formats;
+using Deploy.LaunchPad.Files.Storage;
+using Deploy.LaunchPad.Geospatial.Position;
+using Deploy.LaunchPad.Space.Satellites.Core;
+using Deploy.LaunchPad.Util;
+using Deploy.LaunchPad.Util.Elements;
+using Deploy.LaunchPad.Util.Guids;
+using Deploy.LaunchPad.Util.Licenses;
+using NetTopologySuite.Geometries;
+using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.IO;
+using System.Text;
+using System.Text.RegularExpressions;
+using System.Xml.Linq;
 
 namespace Deploy.LaunchPad.Space.Satellites.GoC
 {
-    using Deploy.LaunchPad.Domain;
-    using Deploy.LaunchPad.Core.Abp;
-    using Deploy.LaunchPad.Domain.Metadata;
-    using Deploy.LaunchPad.Files;
-    using Deploy.LaunchPad.Files.Storage;
-    using Deploy.LaunchPad.Util;
-    using Deploy.LaunchPad.Space.Satellites.Core;
-    using NetTopologySuite.Geometries;
-    using System;
-    using System.Collections.Generic;
-    using System.Globalization;
-    using System.IO;
-    using System.Text;
-    using System.Text.RegularExpressions;
-    using Deploy.LaunchPad.Util.Licenses;
-    using Deploy.LaunchPad.Geospatial.Position;
-    using Deploy.LaunchPad.Util.Elements;
-    using Deploy.LaunchPad.Util.Guids;
-    using Deploy.LaunchPad.Files.Formats;
 
     /// <summary>
     /// Utility to parse a Radarsat1 image observation metadata file and populate a Radarsat1Observation object from it.
@@ -234,34 +231,27 @@ namespace Deploy.LaunchPad.Space.Satellites.GoC
             // add each expected file type (if it exists)
             if (File.Exists(expectedFiles[0].Value))
             {
-                observationFiles.Nvol = new NvolFile<Guid>()
+                observationFiles.Nvol = new NvolFile(Path.GetFileName(expectedFiles[0].Value))
                 {
-                    Id = Guid.NewGuid(),
-                    Name = Path.GetFileName(expectedFiles[0].Value) 
                 };
             }
             if (File.Exists(expectedFiles[1].Value))
             {
-                observationFiles.Sard = new SardFile<Guid>()
+                observationFiles.Sard = new SardFile(Path.GetFileName(expectedFiles[1].Value))
                 {
-                    Id = Guid.NewGuid(),
-                    Name = Path.GetFileName(expectedFiles[1].Value)
                 };
             }
             if (File.Exists(expectedFiles[2].Value))
             {
-                observationFiles.Sarl = new SarlFile<Guid>()
+                observationFiles.Sarl = new SarlFile(Path.GetFileName(expectedFiles[2].Value))
                 {
-                    Id = Guid.NewGuid(),
-                    Name = Path.GetFileName(expectedFiles[2].Value)
+                    
                 };
             }
             if (File.Exists(expectedFiles[3].Value))
             {
-                observationFiles.Sart = new SartFile<Guid>()
+                observationFiles.Sart = new SartFile(Path.GetFileName(expectedFiles[3].Value))
                 {
-                    Id = Guid.NewGuid(),
-                    Name = Path.GetFileName(expectedFiles[3].Value)
                 };
             }
             if (File.Exists(expectedFiles[4].Value))
@@ -276,10 +266,8 @@ namespace Deploy.LaunchPad.Space.Satellites.GoC
             }
             if (File.Exists(expectedFiles[6].Value))
             {
-                observationFiles.Vol = new VolFile<Guid>()
+                observationFiles.Vol = new VolFile(Path.GetFileName(expectedFiles[6].Value))
                 {
-                    Id = Guid.NewGuid(),
-                    Name = Path.GetFileName(expectedFiles[6].Value)
                 };
             }
             return observationFiles;
