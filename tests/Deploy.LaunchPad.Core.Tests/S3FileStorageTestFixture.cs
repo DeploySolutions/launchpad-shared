@@ -31,14 +31,10 @@ namespace Deploy.LaunchPad.Domain.Tests
 
     using System.IO;
     using System.Reflection;
-    using Deploy.LaunchPad.Domain;
-    using Deploy.LaunchPad.Util;
     using System;
-    using Deploy.LaunchPad.AWS;
     using Deploy.LaunchPad.AWS.S3;
-    using Deploy.LaunchPad.Core.Abp;
-    using Deploy.LaunchPad.Core.Abp;
     using Deploy.LaunchPad.Files.Formats;
+    using Deploy.LaunchPad.Files.Images;
 
     /// <summary>
     /// Class S3FileStorageTestsFixture.

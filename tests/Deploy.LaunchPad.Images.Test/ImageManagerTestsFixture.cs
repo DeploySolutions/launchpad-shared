@@ -35,7 +35,7 @@ using Deploy.LaunchPad.Util;
 
 namespace Deploy.LaunchPad.Images.Tests
 {
-    using Deploy.LaunchPad.Files;
+    using Deploy.LaunchPad.Files.Images;
     using ImageMagick;
     using System;
 

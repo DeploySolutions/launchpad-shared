@@ -28,14 +28,13 @@
 
 using System.Diagnostics.CodeAnalysis;
 using Castle.Core.Logging;
-using Deploy.LaunchPad.Core.Application.Services;
 using Deploy.LaunchPad.Util;
 using ImageMagick;
 using System;
 using System.IO;
 using System.Reflection;
 
-namespace Deploy.LaunchPad.Files
+namespace Deploy.LaunchPad.Files.Images
 {
     
     /// <summary>

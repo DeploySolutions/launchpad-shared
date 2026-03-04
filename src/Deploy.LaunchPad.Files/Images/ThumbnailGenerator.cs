@@ -27,9 +27,6 @@
 #endregion
 
 
-using Castle.Core.Logging;
-using Deploy.LaunchPad.Core.Application.Services;
-using Deploy.LaunchPad.Domain;
 using Deploy.LaunchPad.Util;
 using Deploy.LaunchPad.Util.Elements;
 using ImageMagick;
@@ -37,7 +34,7 @@ using System;
 using System.IO;
 using System.Reflection;
 
-namespace Deploy.LaunchPad.Files
+namespace Deploy.LaunchPad.Files.Images
 {
 
     /// <summary>

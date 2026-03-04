@@ -34,6 +34,7 @@ namespace Deploy.LaunchPad.Images.Tests
     using Xunit;
     using ImageMagick;
     using Deploy.LaunchPad.Files;
+    using Deploy.LaunchPad.Files.Images;
 
 
     /// <summary>

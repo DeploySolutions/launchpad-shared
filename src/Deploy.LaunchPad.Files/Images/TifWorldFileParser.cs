@@ -27,8 +27,6 @@
 #endregion
 
 
-using Deploy.LaunchPad.Core.Abp;
-using Deploy.LaunchPad.Domain;
 using Deploy.LaunchPad.Files.Formats;
 using Deploy.LaunchPad.Files.Storage;
 using System;
@@ -36,7 +34,7 @@ using System.Globalization;
 using System.IO;
 using System.Text;
 
-namespace Deploy.LaunchPad.Core.Abp
+namespace Deploy.LaunchPad.Files.Images
 {
     /// <summary>
     /// Class TifWorldFileParser.

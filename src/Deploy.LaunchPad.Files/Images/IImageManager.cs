@@ -12,7 +12,7 @@
 // <summary></summary>
 // ***********************************************************************
 
-namespace Deploy.LaunchPad.Files
+namespace Deploy.LaunchPad.Files.Images
 {
     using Deploy.LaunchPad.Core.Application.Services;
     using ImageMagick;
