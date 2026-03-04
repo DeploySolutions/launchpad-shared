@@ -17,20 +17,6 @@
     <ProjectReference Include="..\Deploy.LaunchPad.Organizations\Deploy.LaunchPad.Organizations.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="Abp">
-      <HintPath>F:\Deploy Solutions Dropbox\Main Team Folder\Code\Libs\boilerplate\Abp.dll</HintPath>
-    </Reference>
-    <Reference Include="Abp.AutoMapper">
-      <HintPath>F:\Deploy Solutions Dropbox\Main Team Folder\Code\Libs\boilerplate\Abp.AutoMapper.dll</HintPath>
-    </Reference>
-    <Reference Include="Abp.AspNetCore">
-      <HintPath>F:\Deploy Solutions Dropbox\Main Team Folder\Code\Libs\boilerplate\Abp.AspNetCore.dll</HintPath>
-    </Reference>
-    <Reference Include="Abp.FluentValidation">
-      <HintPath>F:\Deploy Solutions Dropbox\Main Team Folder\Code\Libs\boilerplate\Abp.FluentValidation.dll</HintPath>
-    </Reference>
-  </ItemGroup>
-  <ItemGroup>
     <Compile Update="Deploy.LaunchPad.Space.Resources.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
