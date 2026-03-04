@@ -26,15 +26,64 @@
 //limitations under the License. 
 #endregion
 
+using Deploy.LaunchPad.Util.Extensions;
+using JetBrains.Annotations;
 using System;
+using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace Deploy.LaunchPad.Util
 {
     /// <summary>
     /// Provides utility methods to guard parameter and local variables.
     /// </summary>
+    [DebuggerStepThrough]
     public static partial class Guard
     {
+        [ContractAnnotation("value:null => halt")]
+        public static T AgainstNotNull<T>(T value, [InvokerParameterName][NotNull] string parameterName)
+        {
+            if (value == null)
+            {
+                throw new ArgumentNullException(parameterName);
+            }
+
+            return value;
+        }
+
+        [ContractAnnotation("value:null => halt")]
+        public static string AgainstNotNullOrEmpty(string value, [InvokerParameterName][NotNull] string parameterName)
+        {
+            if (value.IsNullOrEmpty())
+            {
+                throw new ArgumentException($"{parameterName} can not be null or empty!", parameterName);
+            }
+
+            return value;
+        }
+
+        [ContractAnnotation("value:null => halt")]
+        public static string AgainstNotNullOrWhiteSpace(string value, [InvokerParameterName][NotNull] string parameterName)
+        {
+            if (value.IsNullOrWhiteSpace())
+            {
+                throw new ArgumentException($"{parameterName} can not be null, empty or white space!", parameterName);
+            }
+
+            return value;
+        }
+
+        [ContractAnnotation("value:null => halt")]
+        public static ICollection<T> AgainstNotNullOrEmpty<T>(ICollection<T> value, [InvokerParameterName][NotNull] string parameterName)
+        {
+            if (value.IsNullOrEmpty())
+            {
+                throw new ArgumentException(parameterName + " can not be null or empty!", parameterName);
+            }
+
+            return value;
+        }
+
         /// <summary>
         /// Throws an exception of type <typeparamref name="TException" /> with the specified message
         /// when the assertion statement is true.

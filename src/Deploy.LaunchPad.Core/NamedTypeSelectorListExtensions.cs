@@ -47,9 +47,9 @@ namespace Deploy.LaunchPad.Core
         /// <param name="types"></param>
         public static void Add(this IList<NamedTypeSelector> list, string name, params Type[] types)
         {
-            Check.NotNull(list, nameof(list));
-            Check.NotNull(name, nameof(name));
-            Check.NotNull(types, nameof(types));
+            Guard.AgainstNotNull(list, nameof(list));
+            Guard.AgainstNotNull(name, nameof(name));
+            Guard.AgainstNotNull(types, nameof(types));
 
             list.Add(new NamedTypeSelector(name, type => types.Any(type.IsAssignableFrom)));
         }
