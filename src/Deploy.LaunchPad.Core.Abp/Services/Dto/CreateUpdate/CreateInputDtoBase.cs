@@ -25,8 +25,8 @@ namespace Deploy.LaunchPad.Code.Services.Dto
     /// Base class to inherit a DTO object that contains Space Apps RAD basic DTO properties for input to a Create method in an app service
     /// Extends CreateUpdateInputDtoBase and overrides properties to make them required.
     /// </summary>
-    /// <typeparam name="TIdType">The type of the t identifier type.</typeparam>
-    public abstract partial class CreateInputDtoBase<TIdType> : EntityDtoBase<TIdType>, ICanBeAppServiceMethodInput
+    /// <typeparam name="TPrimaryKey">The type of the t identifier type.</typeparam>
+    public abstract partial class CreateInputDtoBase<TPrimaryKey> : EntityDtoBase<TPrimaryKey>, ICanBeAppServiceMethodInput
     {
         protected string _name;
         /// <summary>
@@ -68,7 +68,7 @@ namespace Deploy.LaunchPad.Code.Services.Dto
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="CreateInputDtoBase{TIdType}"/> class.
+        /// Initializes a new instance of the <see cref="CreateInputDtoBase{TPrimaryKey}"/> class.
         /// </summary>
         protected CreateInputDtoBase() : base()
         {

@@ -24,7 +24,7 @@ namespace Deploy.LaunchPad.Core.Metadata
     /// <summary>
     /// Defines the minimum properties LaunchPad expects to have for a versionable Domain Entity or Value Object.
     /// </summary>
-    /// <typeparam name="TIdType">The type of the t identifier type.</typeparam>
+    /// <typeparam name="TPrimaryKey">The type of the t identifier type.</typeparam>
     public partial interface IMustHaveVersionInformation
     {
 

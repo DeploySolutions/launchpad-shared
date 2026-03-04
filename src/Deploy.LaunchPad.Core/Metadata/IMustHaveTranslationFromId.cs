@@ -22,11 +22,11 @@ namespace Deploy.LaunchPad.Core.Metadata
     /// <summary>
     /// Useful if data can be "translated" from one language to another.
     /// </summary>
-    public partial interface IMustHaveTranslationFromId<TIdType>
+    public partial interface IMustHaveTranslationFromId<TPrimaryKey>
     {
         [DataObjectField(false)]
         [DataMember(Name = "translatedFromId", EmitDefaultValue = false)]
         [XmlAttribute]
-        public TIdType TranslatedFromId { get; set; }
+        public TPrimaryKey TranslatedFromId { get; set; }
     }
 }

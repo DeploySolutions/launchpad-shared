@@ -50,10 +50,10 @@ namespace Deploy.LaunchPad.Core.Abp.Devices
     /// <summary>
     /// This class represents a programmable hardware/software device (that is part of the Internet-of-Things or Web-of-Things world).
     /// </summary>
-    /// <typeparam name="TIdType">The type of the t identifier type.</typeparam>
+    /// <typeparam name="TPrimaryKey">The type of the t identifier type.</typeparam>
     [Serializable()]
-    public partial class Device<TIdType> : DomainEntityBase<TIdType>, IDevice,
-        IMayHaveTranslationFromId<TIdType>,
+    public partial class Device<TPrimaryKey> : DomainEntityBase<TPrimaryKey>, IDevice,
+        IMayHaveTranslationFromId<TPrimaryKey>,
         IMustBePhysicallyLocatable, IMayHaveTenant
 
     {
@@ -94,20 +94,6 @@ namespace Deploy.LaunchPad.Core.Abp.Devices
         /// <value>The tenant identifier.</value>
         public virtual System.Guid? TenantId { get; set; }
 
-        protected TIdType? _translatedFromId;
-        /// <summary>
-        /// If this object is not a translation this field will be null.
-        /// If this object is a translation, this id references the parent object.
-        /// </summary>
-        /// <value>The translated from identifier.</value>
-        [DataObjectField(false)]
-        [DataMember(Name = "translatedFromId", EmitDefaultValue = false)]
-        [XmlAttribute]
-        public virtual TIdType? TranslatedFromId
-        {
-            get { return _translatedFromId; }
-            set { _translatedFromId = value; }
-        }
 
         #region "Constructors"
 
@@ -138,7 +124,7 @@ namespace Deploy.LaunchPad.Core.Abp.Devices
         /// </summary>
         /// <param name="tenantId">The tenant identifier.</param>
         /// <param name="id">The identifier.</param>
-        public Device(System.Guid? tenantId, TIdType id) : base(id)
+        public Device(System.Guid? tenantId, TPrimaryKey id) : base(id)
         {
             Id = id;
             TenantId = tenantId;
@@ -153,7 +139,7 @@ namespace Deploy.LaunchPad.Core.Abp.Devices
         /// <param name="tenantId">The tenant identifier.</param>
         /// <param name="id">The identifier.</param>
         /// <param name="culture">The culture.</param>
-        public Device(System.Guid? tenantId, TIdType id, CultureInfo culture) : base(id)
+        public Device(System.Guid? tenantId, TPrimaryKey id, CultureInfo culture) : base(id)
         {
             Id = id;
             TenantId = tenantId;
@@ -169,7 +155,7 @@ namespace Deploy.LaunchPad.Core.Abp.Devices
         /// <param name="tenantId">The tenant identifier.</param>
         /// <param name="id">The identifier.</param>
         /// <param name="currentLocation">The current physical location of this device</param>
-        public Device(System.Guid? tenantId, TIdType id, SpaceTimeInformation currentLocation)
+        public Device(System.Guid? tenantId, TPrimaryKey id, SpaceTimeInformation currentLocation)
             : base()
         {
             Id = id;
@@ -186,7 +172,7 @@ namespace Deploy.LaunchPad.Core.Abp.Devices
         /// <param name="id">The identifier.</param>
         /// <param name="currentLocation">The current physical location of this device</param>
         /// <param name="previousLocations">The previous physical location(s) of this device</param>
-        public Device(System.Guid? tenantId, TIdType id, SpaceTimeInformation currentLocation, IList<SpaceTimeInformation> previousLocations)
+        public Device(System.Guid? tenantId, TPrimaryKey id, SpaceTimeInformation currentLocation, IList<SpaceTimeInformation> previousLocations)
             : base(id)
         {
             CurrentLocation = currentLocation;
@@ -201,7 +187,7 @@ namespace Deploy.LaunchPad.Core.Abp.Devices
         /// <param name="id">The unique identifier for this Device</param>
         /// <param name="currentLocation">The current physical location of this device</param>
         /// <param name="power">The current power level of this device</param>
-        public Device(System.Guid? tenantId, TIdType id, SpaceTimeInformation currentLocation, DevicePower power) :
+        public Device(System.Guid? tenantId, TPrimaryKey id, SpaceTimeInformation currentLocation, DevicePower power) :
             base()
         {
             Id = id;
@@ -257,12 +243,12 @@ namespace Deploy.LaunchPad.Core.Abp.Devices
         }
 
         /// <summary>
-        /// Performs an implicit conversion from <see cref="Device{System.Int32}"/> to <see cref="Device{TIdType}"/>.
+        /// Performs an implicit conversion from <see cref="Device{System.Int32}"/> to <see cref="Device{TPrimaryKey}"/>.
         /// </summary>
         /// <param name="v">The v.</param>
         /// <returns>The result of the conversion.</returns>
         /// <exception cref="System.NotImplementedException"></exception>
-        public static implicit operator Device<TIdType>(Device<int> v)
+        public static implicit operator Device<TPrimaryKey>(Device<int> v)
         {
             throw new NotImplementedException();
         }

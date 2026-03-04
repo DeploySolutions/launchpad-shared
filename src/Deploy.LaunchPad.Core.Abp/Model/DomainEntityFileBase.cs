@@ -43,15 +43,15 @@ namespace Deploy.LaunchPad.Core.Entities
 {
     /// <summary>
     /// Class FileBase.
-    /// Implements the <see cref="DomainEntityBase{TIdType}" />
-    /// Implements the <see cref="IDomainEntityFile{TIdType, TFileContentType}" />
+    /// Implements the <see cref="DomainEntityBase{TPrimaryKey}" />
+    /// Implements the <see cref="IDomainEntityFile{TPrimaryKey, TFileContentType}" />
     /// </summary>
-    /// <typeparam name="TIdType">The type of the t identifier type.</typeparam>
+    /// <typeparam name="TPrimaryKey">The type of the t identifier type.</typeparam>
     /// <typeparam name="TFileContentType">The type of the t file content type.</typeparam>
-    /// <seealso cref="DomainEntityBase{TIdType}" />
-    /// <seealso cref="IDomainEntityFile{TIdType, TFileContentType}" />
-    public abstract partial class DomainEntityFileBase<TIdType, TFileContentType, TSchemaFormat> : DomainEntityBase<TIdType>,
-        IDomainEntityFile<TIdType, TFileContentType, TSchemaFormat>
+    /// <seealso cref="DomainEntityBase{TPrimaryKey}" />
+    /// <seealso cref="IDomainEntityFile{TPrimaryKey, TFileContentType}" />
+    public abstract partial class DomainEntityFileBase<TPrimaryKey, TFileContentType, TSchemaFormat> : DomainEntityBase<TPrimaryKey>,
+        IDomainEntityFile<TPrimaryKey, TFileContentType, TSchemaFormat>
     {
 
         /// <summary>
@@ -114,7 +114,7 @@ namespace Deploy.LaunchPad.Core.Entities
         public virtual ILaunchPadSchemaDetails<TSchemaFormat> Schema { get; set; }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="DomainEntityFileBase{TIdType, TFileContentType}"/> class.
+        /// Initializes a new instance of the <see cref="DomainEntityFileBase{TPrimaryKey, TFileContentType}"/> class.
         /// </summary>
         protected DomainEntityFileBase()
         {
@@ -122,16 +122,16 @@ namespace Deploy.LaunchPad.Core.Entities
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="DomainEntityFileBase{TIdType, TFileContentType}"/> class.
+        /// Initializes a new instance of the <see cref="DomainEntityFileBase{TPrimaryKey, TFileContentType}"/> class.
         /// </summary>
         /// <param name="id">The identifier.</param>
-        protected DomainEntityFileBase(TIdType id) : base(id)
+        protected DomainEntityFileBase(TPrimaryKey id) : base(id)
         {
             Id = id;
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="DomainEntityFileBase{TIdType, TFileContentType}"/> class.
+        /// Initializes a new instance of the <see cref="DomainEntityFileBase{TPrimaryKey, TFileContentType}"/> class.
         /// </summary>
         /// <param name="fileName">Name of the file.</param>
         protected DomainEntityFileBase(string fileName) : base()
@@ -141,23 +141,23 @@ namespace Deploy.LaunchPad.Core.Entities
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="DomainEntityFileBase{TIdType, TFileContentType}"/> class.
+        /// Initializes a new instance of the <see cref="DomainEntityFileBase{TPrimaryKey, TFileContentType}"/> class.
         /// </summary>
         /// <param name="id">The identifier.</param>
         /// <param name="fileName">Name of the file.</param>
-        protected DomainEntityFileBase(TIdType id, string fileName) : base()
+        protected DomainEntityFileBase(TPrimaryKey id, string fileName) : base()
         {
             Id = id;
             Name = fileName;
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="DomainEntityFileBase{TIdType, TFileContentType}"/> class.
+        /// Initializes a new instance of the <see cref="DomainEntityFileBase{TPrimaryKey, TFileContentType}"/> class.
         /// </summary>
         /// <param name="id">The identifier.</param>
         /// <param name="fileName">Name of the file.</param>
         /// <param name="content">The content.</param>
-        protected DomainEntityFileBase(TIdType id, string fileName, TFileContentType content) : base()
+        protected DomainEntityFileBase(TPrimaryKey id, string fileName, TFileContentType content) : base()
         {
             Id = id;
             Name = fileName;

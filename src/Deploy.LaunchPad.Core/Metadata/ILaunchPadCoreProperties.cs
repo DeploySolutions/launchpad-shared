@@ -36,8 +36,7 @@ namespace Deploy.LaunchPad.Core.Metadata
         IMayHaveDeletionTime,
         IMayHaveLastModifierUserId,
         IMayHaveModificationTime,
-        IHavePassivable,
-        IMayHaveSequenceNumber
+        IHaveSoftDelete
     {
         
         /// <summary>
@@ -48,14 +47,6 @@ namespace Deploy.LaunchPad.Core.Metadata
         [DataObjectField(false)]
         [XmlAttribute]
         public string? DeleterUserName { get;}
-
-        /// <summary>
-        /// Used for preserving deletion status for a domain entity, obviously a Value Object can't be deleted.
-        /// </summary>
-        /// <value><c>true</c> if this instance is deleted; otherwise, <c>false</c>.</value>
-        [DataObjectField(false)]
-        [XmlElement]
-        public bool IsDeleted { get; }
 
         /// <summary>
         /// The name of the creating user

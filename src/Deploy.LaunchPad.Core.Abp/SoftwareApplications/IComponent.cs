@@ -37,9 +37,9 @@ namespace Deploy.LaunchPad.Core.Abp.SoftwareApplications
     /// <summary>
     /// Represents a comopnent in a software module.
     /// </summary>
-    /// <typeparam name="TIdType">The type of the t identifier type.</typeparam>
+    /// <typeparam name="TPrimaryKey">The type of the t identifier type.</typeparam>
     /// <typeparam name="TEntityIdType">The type of the t entity identifier type.</typeparam>
-    public partial interface IComponent<TIdType, TEntityIdType> : IDomainEntity<TIdType>
+    public partial interface IComponent<TPrimaryKey, TEntityIdType> : IDomainEntity<TPrimaryKey>
     {
         /// <summary>
         /// Each component can have 0 to many domain entities

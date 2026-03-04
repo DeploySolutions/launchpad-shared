@@ -39,8 +39,8 @@ namespace Deploy.LaunchPad.Core.Abp.Deployments
     /// <summary>
     /// Represents the process which a deployment will follow as it takes a release candidate (set of code, data, and resources) and places it in a destination environment.
     /// </summary>
-    /// <typeparam name="TIdType">The type of the Id</typeparam>
-    public abstract partial class DeploymentProcessBase<TIdType> : DomainEntityBase<TIdType>, IDeploymentProcess<TIdType>
+    /// <typeparam name="TPrimaryKey">The type of the Id</typeparam>
+    public abstract partial class DeploymentProcessBase<TPrimaryKey> : DomainEntityBase<TPrimaryKey>, IDeploymentProcess<TPrimaryKey>
     {
         /// <summary>
         /// The URI to the deployment documentation
@@ -62,7 +62,7 @@ namespace Deploy.LaunchPad.Core.Abp.Deployments
         #region "Constructors"
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="DeploymentProcessBase{TIdType}"/> class.
+        /// Initializes a new instance of the <see cref="DeploymentProcessBase{TPrimaryKey}"/> class.
         /// </summary>
         protected DeploymentProcessBase() : base()
         {
@@ -70,12 +70,12 @@ namespace Deploy.LaunchPad.Core.Abp.Deployments
 
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="DeploymentProcessBase{TIdType}"/> class.
+        /// Initializes a new instance of the <see cref="DeploymentProcessBase{TPrimaryKey}"/> class.
         /// </summary>
         /// <param name="id">The identifier.</param>
         /// <param name="cultureName">Name of the culture.</param>
         /// <param name="text">The text.</param>
-        protected DeploymentProcessBase(TIdType id, string cultureName, String text) : base(id, cultureName)
+        protected DeploymentProcessBase(TPrimaryKey id, string cultureName, String text) : base(id, cultureName)
         {
         }
 

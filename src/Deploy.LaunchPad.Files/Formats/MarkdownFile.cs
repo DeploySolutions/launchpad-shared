@@ -10,7 +10,7 @@ namespace Deploy.LaunchPad.Files.Formats
         public override string Extension => "." + FileExtension.md;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="MarkdownFile{TIdType}"/> class.
+        /// Initializes a new instance of the <see cref="MarkdownFile{TPrimaryKey}"/> class.
         /// </summary>
         /// <param name="fileName">Name of the file.</param>
         public MarkdownFile(string fileName) : base(fileName)

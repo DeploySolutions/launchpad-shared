@@ -20,11 +20,11 @@ namespace Deploy.LaunchPad.Core.Entities
     /// <summary>
     /// A set of files all of the same type, often contained in a specific location (such as in a folder, or as a subset of files within a folder).
     /// </summary>
-    /// <typeparam name="TIdType">The type of the t identifier type.</typeparam>
+    /// <typeparam name="TPrimaryKey">The type of the t identifier type.</typeparam>
     /// <typeparam name="TFileContentType">The type of the t file content type.</typeparam>
     /// <typeparam name="TFileStorageLocationType">The type of the t file storage location type.</typeparam>
-    public abstract partial class DomainEntityFileSetBase<TIdType, TFileContentType, TFileStorageLocationType, TSchemaFormat>
-        : DomainEntityBase<TIdType>        
+    public abstract partial class DomainEntityFileSetBase<TPrimaryKey, TFileContentType, TFileStorageLocationType, TSchemaFormat>
+        : DomainEntityBase<TPrimaryKey>        
         where TFileStorageLocationType : IFileStorageLocation, new()
     {
         /// <summary>
@@ -37,14 +37,14 @@ namespace Deploy.LaunchPad.Core.Entities
         /// Gets or sets the files.
         /// </summary>
         /// <value>The files.</value>
-        public IDictionary<string, IDomainEntityFile<TIdType, TFileContentType, TSchemaFormat>> Files { get; set; }
+        public IDictionary<string, IDomainEntityFile<TPrimaryKey, TFileContentType, TSchemaFormat>> Files { get; set; }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="DomainEntityFileSetBase{TIdType, TFileContentType, TFileStorageLocationType}"/> class.
+        /// Initializes a new instance of the <see cref="DomainEntityFileSetBase{TPrimaryKey, TFileContentType, TFileStorageLocationType}"/> class.
         /// </summary>
         public DomainEntityFileSetBase()
         {
-            Files = new Dictionary<string, IDomainEntityFile<TIdType, TFileContentType, TSchemaFormat>>();
+            Files = new Dictionary<string, IDomainEntityFile<TPrimaryKey, TFileContentType, TSchemaFormat>>();
         }
     }
 }

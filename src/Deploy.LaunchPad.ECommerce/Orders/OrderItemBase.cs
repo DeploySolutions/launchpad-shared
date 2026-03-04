@@ -21,14 +21,14 @@ namespace Deploy.LaunchPad.ECommerce.Orders
 {
     /// <summary>
     /// Class OrderItemBase.
-    /// Implements the <see cref="DomainEntityBase{TIdType}" />
-    /// Implements the <see cref="Deploy.LaunchPad.ECommerce.Abp.Orders.IOrderItem{TIdType}" />
+    /// Implements the <see cref="DomainEntityBase{TPrimaryKey}" />
+    /// Implements the <see cref="Deploy.LaunchPad.ECommerce.Abp.Orders.IOrderItem{TPrimaryKey}" />
     /// </summary>
-    /// <typeparam name="TIdType">The type of the t identifier type.</typeparam>
-    /// <seealso cref="DomainEntityBase{TIdType}" />
-    /// <seealso cref="Deploy.LaunchPad.ECommerce.Abp.Orders.IOrderItem{TIdType}" />
+    /// <typeparam name="TPrimaryKey">The type of the t identifier type.</typeparam>
+    /// <seealso cref="DomainEntityBase{TPrimaryKey}" />
+    /// <seealso cref="Deploy.LaunchPad.ECommerce.Abp.Orders.IOrderItem{TPrimaryKey}" />
     [Serializable]
-    public  abstract partial class OrderItemBase<TIdType> : DomainEntityBase<TIdType>, IOrderItem<TIdType>
+    public  abstract partial class OrderItemBase<TPrimaryKey> : DomainEntityBase<TPrimaryKey>, IOrderItem<TPrimaryKey>
     {
 
         /// <summary>
@@ -40,7 +40,7 @@ namespace Deploy.LaunchPad.ECommerce.Orders
         public virtual double Price { get; set; }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="OrderItemBase{TIdType}"/> class.
+        /// Initializes a new instance of the <see cref="OrderItemBase{TPrimaryKey}"/> class.
         /// </summary>
         protected OrderItemBase() { }
     }

@@ -10,7 +10,7 @@ namespace Deploy.LaunchPad.Files.Formats
 
         public override string Extension => "." + FileExtension.html;
 
-        /// Initializes a new instance of the <see cref="HtmlFile{TIdType}"/> class.
+        /// Initializes a new instance of the <see cref="HtmlFile{TPrimaryKey}"/> class.
         /// </summary>
         /// <param name="fileName">Name of the file.</param>
         public HtmlFile(string fileName) : base(fileName)

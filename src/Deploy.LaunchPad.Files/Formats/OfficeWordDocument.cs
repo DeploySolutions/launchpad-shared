@@ -11,7 +11,7 @@ namespace Deploy.LaunchPad.Files.Formats
         public override string Extension => "." + FileExtension.docx; // could also use Libre Office extensions
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="OfficeWordFile{TIdType}"/> class.
+        /// Initializes a new instance of the <see cref="OfficeWordFile{TPrimaryKey}"/> class.
         /// </summary>
         /// <param name="fileName">Name of the file.</param>
         public OfficeWordDocument(string fileName) : base(fileName)

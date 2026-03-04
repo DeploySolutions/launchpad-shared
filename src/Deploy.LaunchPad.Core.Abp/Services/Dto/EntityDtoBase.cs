@@ -42,10 +42,10 @@ namespace Deploy.LaunchPad.Code.Services.Dto
     /// Represents the minimum amount of base properties a LaunchPad Data Transfer Object should possess.
     /// Of course subclassing DTOs will contain additional properties.
     /// </summary>
-    /// <typeparam name="TIdType">The type of the Id</typeparam>
+    /// <typeparam name="TPrimaryKey">The type of the Id</typeparam>
 
-    public abstract partial class EntityDtoBase<TIdType> : IEntityDto<TIdType>,
-        IComparable<EntityDtoBase<TIdType>>, IEquatable<EntityDtoBase<TIdType>>
+    public abstract partial class EntityDtoBase<TPrimaryKey> : IEntityDto<TPrimaryKey>,
+        IComparable<EntityDtoBase<TPrimaryKey>>, IEquatable<EntityDtoBase<TPrimaryKey>>
     {
         /// <summary>
         /// The id of this object
@@ -53,7 +53,7 @@ namespace Deploy.LaunchPad.Code.Services.Dto
         /// <value>The identifier.</value>
         [DataObjectField(true)]
         [XmlAttribute]
-        public virtual TIdType Id { get; set; }
+        public virtual TPrimaryKey Id { get; set; }
 
 
         #region "Constructors"
@@ -69,7 +69,7 @@ namespace Deploy.LaunchPad.Code.Services.Dto
         /// Default constructor where the id is known
         /// </summary>
         /// <param name="id">The identifier.</param>
-        protected EntityDtoBase(TIdType id)
+        protected EntityDtoBase(TPrimaryKey id)
         {
             Id = id;
         }
@@ -82,7 +82,7 @@ namespace Deploy.LaunchPad.Code.Services.Dto
         /// <param name="context">The context of the stream</param>
         protected EntityDtoBase(SerializationInfo info, StreamingContext context)
         {
-            Id = (TIdType)info.GetValue("Id", typeof(TIdType));
+            Id = (TPrimaryKey)info.GetValue("Id", typeof(TPrimaryKey));
         }
 
         #endregion
@@ -130,7 +130,7 @@ namespace Deploy.LaunchPad.Code.Services.Dto
         /// </summary>
         /// <typeparam name="TEntity">The source entity to clone</typeparam>
         /// <returns>A shallow clone of the entity and its serializable properties</returns>
-        protected virtual TEntity Clone<TEntity>() where TEntity : EntityDtoBase<TIdType>, new()
+        protected virtual TEntity Clone<TEntity>() where TEntity : EntityDtoBase<TPrimaryKey>, new()
         {
             TEntity clone = new TEntity();
             foreach (PropertyInfo info in GetType().GetProperties())
@@ -153,7 +153,7 @@ namespace Deploy.LaunchPad.Code.Services.Dto
         /// <param name="other">The other object of this type we are comparing to</param>
         /// <returns>A value that indicates the relative order of the objects being compared. The return value has these meanings:
         /// <list type="table"><listheader><term> Value</term><description> Meaning</description></listheader><item><term> Less than zero</term><description> This instance precedes <paramref name="other" /> in the sort order.</description></item><item><term> Zero</term><description> This instance occurs in the same position in the sort order as <paramref name="other" />.</description></item><item><term> Greater than zero</term><description> This instance follows <paramref name="other" /> in the sort order.</description></item></list></returns>
-        public virtual int CompareTo(EntityDtoBase<TIdType> other)
+        public virtual int CompareTo(EntityDtoBase<TPrimaryKey> other)
         {
             // put comparison of properties in here 
             // for base object we'll just sort by id
@@ -167,9 +167,9 @@ namespace Deploy.LaunchPad.Code.Services.Dto
         /// <returns>True if the entities are the same according to business key value</returns>
         public override bool Equals(object obj)
         {
-            if (obj != null && obj is EntityDtoBase<TIdType>)
+            if (obj != null && obj is EntityDtoBase<TPrimaryKey>)
             {
-                return Equals(obj as EntityDtoBase<TIdType>);
+                return Equals(obj as EntityDtoBase<TPrimaryKey>);
             }
             return false;
         }
@@ -183,7 +183,7 @@ namespace Deploy.LaunchPad.Code.Services.Dto
         /// </summary>
         /// <param name="obj">The other object of this type that we are testing equality with</param>
         /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
-        public virtual bool Equals(EntityDtoBase<TIdType> obj)
+        public virtual bool Equals(EntityDtoBase<TPrimaryKey> obj)
         {
             if (obj != null)
             {
@@ -198,7 +198,7 @@ namespace Deploy.LaunchPad.Code.Services.Dto
         /// <param name="x">The first value</param>
         /// <param name="y">The second value</param>
         /// <returns>True if both objects are fully equal based on the Equals logic</returns>
-        public static bool operator ==(EntityDtoBase<TIdType> x, EntityDtoBase<TIdType> y)
+        public static bool operator ==(EntityDtoBase<TPrimaryKey> x, EntityDtoBase<TPrimaryKey> y)
         {
             if (x is null)
             {
@@ -217,7 +217,7 @@ namespace Deploy.LaunchPad.Code.Services.Dto
         /// <param name="x">The first value</param>
         /// <param name="y">The second value</param>
         /// <returns>True if both objects are not equal based on the Equals logic</returns>
-        public static bool operator !=(EntityDtoBase<TIdType> x, EntityDtoBase<TIdType> y)
+        public static bool operator !=(EntityDtoBase<TPrimaryKey> x, EntityDtoBase<TPrimaryKey> y)
         {
             return !(x == y);
         }

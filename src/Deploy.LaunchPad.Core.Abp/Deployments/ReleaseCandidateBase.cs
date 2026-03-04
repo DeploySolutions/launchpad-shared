@@ -37,8 +37,8 @@ namespace Deploy.LaunchPad.Core.Abp.Deployments
     /// <summary>
     /// Represents a release (set of code, data, and resources) that is a candidate to be deployed to a destination environment.
     /// </summary>
-    /// <typeparam name="TIdType">The type of the Id</typeparam>
-    public abstract partial class ReleaseCandidateBase<TIdType> : TenantSpecificDomainEntityBase<TIdType>, Code.Deployments.IReleaseCandidate<TIdType>
+    /// <typeparam name="TPrimaryKey">The type of the Id</typeparam>
+    public abstract partial class ReleaseCandidateBase<TPrimaryKey> : TenantSpecificDomainEntityBase<TPrimaryKey>, Code.Deployments.IReleaseCandidate<TPrimaryKey>
     {
 
         /// <summary>
@@ -69,7 +69,7 @@ namespace Deploy.LaunchPad.Core.Abp.Deployments
         #region "Constructors"
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="ReleaseCandidateBase{TIdType}"/> class.
+        /// Initializes a new instance of the <see cref="ReleaseCandidateBase{TPrimaryKey}"/> class.
         /// </summary>
         public ReleaseCandidateBase() : base()
         {
@@ -78,7 +78,7 @@ namespace Deploy.LaunchPad.Core.Abp.Deployments
 
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="ReleaseCandidateBase{TIdType}"/> class.
+        /// Initializes a new instance of the <see cref="ReleaseCandidateBase{TPrimaryKey}"/> class.
         /// </summary>
         /// <param name="tenantId">The id of the tenant to which this entity belongs</param>
         public ReleaseCandidateBase(System.Guid tenantId) : base()
@@ -87,13 +87,13 @@ namespace Deploy.LaunchPad.Core.Abp.Deployments
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="ReleaseCandidateBase{TIdType}"/> class.
+        /// Initializes a new instance of the <see cref="ReleaseCandidateBase{TPrimaryKey}"/> class.
         /// </summary>
         /// <param name="tenantId">The tenant identifier.</param>
         /// <param name="id">The identifier.</param>
         /// <param name="cultureName">Name of the culture.</param>
         /// <param name="text">The text.</param>
-        public ReleaseCandidateBase(System.Guid tenantId, TIdType id, string cultureName, String text) : base(tenantId, id, cultureName)
+        public ReleaseCandidateBase(System.Guid tenantId, TPrimaryKey id, string cultureName, String text) : base(tenantId, id, cultureName)
         {
             TenantId = tenantId;
         }

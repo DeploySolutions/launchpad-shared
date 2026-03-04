@@ -41,8 +41,8 @@ namespace Deploy.LaunchPad.Core.Abp.Deployments
     /// <summary>
     /// Represents a deployment that will take a release candidate (set of code, data, and resources) and place it in a destination environment.
     /// </summary>
-    /// <typeparam name="TIdType">The type of the Id</typeparam>
-    public abstract partial class DeploymentBase<TIdType> : TenantSpecificDomainEntityBase<TIdType>, IDeployment<TIdType>
+    /// <typeparam name="TPrimaryKey">The type of the Id</typeparam>
+    public abstract partial class DeploymentBase<TPrimaryKey> : TenantSpecificDomainEntityBase<TPrimaryKey>, IDeployment<TPrimaryKey>
     {
 
         /// <summary>
@@ -53,7 +53,7 @@ namespace Deploy.LaunchPad.Core.Abp.Deployments
         [XmlAttribute]
         [Required]
         [ForeignKey(nameof(ReleaseCandidateId))]
-        public virtual TIdType ReleaseCandidateId { get; set; }
+        public virtual TPrimaryKey ReleaseCandidateId { get; set; }
 
         /// <summary>
         /// The id of the process that will be followed during the deployment (if known)
@@ -62,7 +62,7 @@ namespace Deploy.LaunchPad.Core.Abp.Deployments
         [DataObjectField(false)]
         [XmlAttribute]
         [ForeignKey(nameof(DeploymentProcessId))]
-        public virtual TIdType DeploymentProcessId { get; set; }
+        public virtual TPrimaryKey DeploymentProcessId { get; set; }
 
         /// <summary>
         /// The intended deployment date and time
@@ -120,13 +120,13 @@ namespace Deploy.LaunchPad.Core.Abp.Deployments
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="DeploymentBase{TIdType}"/> class.
+        /// Initializes a new instance of the <see cref="DeploymentBase{TPrimaryKey}"/> class.
         /// </summary>
         /// <param name="tenantId">The tenant identifier.</param>
         /// <param name="id">The identifier.</param>
         /// <param name="cultureName">Name of the culture.</param>
         /// <param name="text">The text.</param>
-        public DeploymentBase(System.Guid tenantId, TIdType id, string cultureName, String text) : base(tenantId, id, cultureName)
+        public DeploymentBase(System.Guid tenantId, TPrimaryKey id, string cultureName, String text) : base(tenantId, id, cultureName)
         {
             DeploymentState = DeploymentState.Not_Started;
         }
@@ -139,8 +139,8 @@ namespace Deploy.LaunchPad.Core.Abp.Deployments
         protected DeploymentBase(SerializationInfo info, StreamingContext context) : base(info, context)
         {
             PrimaryDeployerUserId = info.GetInt64("PrimaryDeployerUserId");
-            ReleaseCandidateId = (TIdType)info.GetValue("ReleaseCandidateId", typeof(TIdType));
-            DeploymentProcessId = (TIdType)info.GetValue("DeploymentProcessId", typeof(TIdType));
+            ReleaseCandidateId = (TPrimaryKey)info.GetValue("ReleaseCandidateId", typeof(TPrimaryKey));
+            DeploymentProcessId = (TPrimaryKey)info.GetValue("DeploymentProcessId", typeof(TPrimaryKey));
             DeploymentState = (DeploymentState)info.GetValue("DeploymentState", typeof(DeploymentState));
             DateDeployed = info.GetDateTime("DateDeployed");
             DateScheduled = info.GetDateTime("DateScheduled");

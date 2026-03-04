@@ -77,20 +77,6 @@ namespace Deploy.LaunchPad.Core.Metadata
             set { _checksum = value; }
         }
 
-        protected int? _seqNum;
-        /// <summary>
-        /// The sequence number for this entity, if any (for sorting and ordering purposes).
-        /// </summary>
-        /// <value>The seq number.</value>
-        [DataObjectField(false)]
-        [DataMember(Name = "seqNum", EmitDefaultValue = false)]
-        [XmlElement]
-        public virtual int? SeqNum
-        {
-            get { return _seqNum; }
-            set { _seqNum = value; }
-        }
-
         protected string _tags = "{}";
         /// <summary>
         /// Each entity can have an open-ended set of tags applied to it, that help users find, markup, and display its information
@@ -103,19 +89,6 @@ namespace Deploy.LaunchPad.Core.Metadata
         {
             get { return _tags; }
             set { _tags = value; }
-        }
-
-        protected bool _isActive = true;
-        /// <summary>
-        /// Gets or sets a value indicating whether this instance is active.
-        /// </summary>
-        /// <value><c>true</c> if this instance is active; otherwise, <c>false</c>.</value>
-        [DataObjectField(false)]
-        [XmlAttribute]
-        public virtual bool IsActive
-        {
-            get { return _isActive; }
-            set { _isActive = value; }
         }
 
         protected DateTime _creationTime = DateTime.UtcNow;
@@ -287,8 +260,7 @@ namespace Deploy.LaunchPad.Core.Metadata
             IsDeleted = info.GetBoolean("IsDeleted");
             DeleterUserId = (Guid?)info.GetValue("DeleterUserId", typeof(Guid?));
             DeletionTime = info.GetDateTime("DeletionTime");
-            IsActive = info.GetBoolean("IsActive");
-            SeqNum = info.GetInt32("SeqNum");
+            
         }
 
         /// <summary>
@@ -309,32 +281,8 @@ namespace Deploy.LaunchPad.Core.Metadata
             info.AddValue("IsDeleted", IsDeleted);
             info.AddValue("DeleterUserId", DeleterUserId);
             info.AddValue("DeletionTime", DeletionTime);
-            info.AddValue("IsActive", IsActive);
-            info.AddValue("SeqNum", SeqNum);
         }
 
-        /// <summary>
-        /// A convenience readonly method to get a <see cref="CultureInfo">CultureInfo</see> instance from the current
-        /// culture code
-        /// </summary>
-        /// <returns>CultureInfo.</returns>
-        public virtual CultureInfo GetCultureInfo()
-        {
-            return new CultureInfo(Culture);
-        }
-
-        /// <summary>
-        /// Ensure the culture is one of the supported ones
-        /// </summary>
-        /// <param name="name">The name.</param>
-        /// <returns><c>true</c> if [is valid culture information name] [the specified name]; otherwise, <c>false</c>.</returns>
-        private static bool IsValidCultureInfoName(string name)
-        {
-            return
-                CultureInfo
-                .GetCultures(CultureTypes.SpecificCultures)
-                .Any(c => c.Name == name);
-        }
-
+        
     }
 }

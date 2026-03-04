@@ -28,13 +28,13 @@ namespace Deploy.LaunchPad.Code.Services.Dto
 {
     /// <summary>
     /// Class GetOutputDtoBase.
-    /// Implements the <see cref="Deploy.LaunchPad.Code.Services.Dto.EntityDtoBase{TIdType}" />
+    /// Implements the <see cref="Deploy.LaunchPad.Code.Services.Dto.EntityDtoBase{TPrimaryKey}" />
     /// Implements the <see cref="ICanBeAppServiceMethodOutput" />
     /// </summary>
-    /// <typeparam name="TIdType">The type of the t identifier type.</typeparam>
-    /// <seealso cref="Deploy.LaunchPad.Code.Services.Dto.EntityDtoBase{TIdType}" />
+    /// <typeparam name="TPrimaryKey">The type of the t identifier type.</typeparam>
+    /// <seealso cref="Deploy.LaunchPad.Code.Services.Dto.EntityDtoBase{TPrimaryKey}" />
     /// <seealso cref="ICanBeAppServiceMethodOutput" />
-    public abstract partial class GetOutputDtoBase<TIdType> : EntityDtoBase<TIdType>,
+    public abstract partial class GetOutputDtoBase<TPrimaryKey> : EntityDtoBase<TPrimaryKey>,
         ICanBeAppServiceMethodOutput
     {
         /// <summary>
@@ -72,7 +72,7 @@ namespace Deploy.LaunchPad.Code.Services.Dto
         /// </summary>
         protected GetOutputDtoBase() : base()
         {
-            Culture = ApplicationDetails<TIdType>.DEFAULT_CULTURE;
+            Culture = ApplicationDetails<TPrimaryKey>.DEFAULT_CULTURE;
             ExternalId = string.Empty;
         }
 
@@ -80,19 +80,19 @@ namespace Deploy.LaunchPad.Code.Services.Dto
         /// Default constructor where the id is known
         /// </summary>
         /// <param name="id">The identifier.</param>
-        protected GetOutputDtoBase(TIdType id) : base()
+        protected GetOutputDtoBase(TPrimaryKey id) : base()
         {
             Id = id;
-            Culture = ApplicationDetails<TIdType>.DEFAULT_CULTURE;
+            Culture = ApplicationDetails<TPrimaryKey>.DEFAULT_CULTURE;
             ExternalId = string.Empty;
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="GetOutputDtoBase{TIdType}"/> class.
+        /// Initializes a new instance of the <see cref="GetOutputDtoBase{TPrimaryKey}"/> class.
         /// </summary>
         /// <param name="id">The identifier.</param>
         /// <param name="culture">The culture.</param>
-        protected GetOutputDtoBase(TIdType id, String culture) : base()
+        protected GetOutputDtoBase(TPrimaryKey id, String culture) : base()
         {
             Id = id;
             Culture = culture;
@@ -163,7 +163,7 @@ namespace Deploy.LaunchPad.Code.Services.Dto
         /// </summary>
         /// <typeparam name="TEntity">The source entity to clone</typeparam>
         /// <returns>A shallow clone of the entity and its serializable properties</returns>
-        protected new TEntity Clone<TEntity>() where TEntity : GetOutputDtoBase<TIdType>, new()
+        protected new TEntity Clone<TEntity>() where TEntity : GetOutputDtoBase<TPrimaryKey>, new()
         {
             TEntity clone = new TEntity();
             foreach (PropertyInfo info in GetType().GetProperties())
@@ -185,7 +185,7 @@ namespace Deploy.LaunchPad.Code.Services.Dto
         /// </summary>
         /// <param name="other">The other object of this type we are comparing to</param>
         /// <returns>System.Int32.</returns>
-        public virtual int CompareTo(GetOutputDtoBase<TIdType> other)
+        public virtual int CompareTo(GetOutputDtoBase<TPrimaryKey> other)
         {
             // put comparison of properties in here 
             // for base object we'll just compare to ID
@@ -199,9 +199,9 @@ namespace Deploy.LaunchPad.Code.Services.Dto
         /// <returns>True if the entities are the same according to business key value</returns>
         public override bool Equals(object obj)
         {
-            if (obj != null && obj is GetOutputDtoBase<TIdType>)
+            if (obj != null && obj is GetOutputDtoBase<TPrimaryKey>)
             {
-                return Equals(obj as GetOutputDtoBase<TIdType>);
+                return Equals(obj as GetOutputDtoBase<TPrimaryKey>);
             }
             return false;
         }
@@ -215,7 +215,7 @@ namespace Deploy.LaunchPad.Code.Services.Dto
         /// </summary>
         /// <param name="obj">The other object of this type that we are testing equality with</param>
         /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
-        public virtual bool Equals(GetOutputDtoBase<TIdType> obj)
+        public virtual bool Equals(GetOutputDtoBase<TPrimaryKey> obj)
         {
             if (obj != null)
             {
@@ -231,7 +231,7 @@ namespace Deploy.LaunchPad.Code.Services.Dto
         /// <param name="x">The first value</param>
         /// <param name="y">The second value</param>
         /// <returns>True if both objects are fully equal based on the Equals logic</returns>
-        public static bool operator ==(GetOutputDtoBase<TIdType> x, GetOutputDtoBase<TIdType> y)
+        public static bool operator ==(GetOutputDtoBase<TPrimaryKey> x, GetOutputDtoBase<TPrimaryKey> y)
         {
             if (x is null)
             {
@@ -250,7 +250,7 @@ namespace Deploy.LaunchPad.Code.Services.Dto
         /// <param name="x">The first value</param>
         /// <param name="y">The second value</param>
         /// <returns>True if both objects are not equal based on the Equals logic</returns>
-        public static bool operator !=(GetOutputDtoBase<TIdType> x, GetOutputDtoBase<TIdType> y)
+        public static bool operator !=(GetOutputDtoBase<TPrimaryKey> x, GetOutputDtoBase<TPrimaryKey> y)
         {
             return !(x == y);
         }

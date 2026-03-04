@@ -39,8 +39,8 @@ namespace Deploy.LaunchPad.Domain.Person
     /// Implements <see cref="IPersonDomainEntity&lt;TPrimaryKey&gt;">IPersonDomainEntity&lt;TPrimaryKey&gt;</see> and provides
     /// base functionality for many of its methods.
     /// </summary>
-    /// <typeparam name="TIdType">The type of the t identifier type.</typeparam>
-    public abstract partial class PersonDomainEntityBase<TIdType> : DomainEntityBase<TIdType>, IPersonDomainEntity<TIdType>
+    /// <typeparam name="TPrimaryKey">The type of the t identifier type.</typeparam>
+    public abstract partial class PersonDomainEntityBase<TPrimaryKey> : DomainEntityBase<TPrimaryKey>, IPersonDomainEntity<TPrimaryKey>
     {
 
         protected virtual Schema.NET.Person? _schemaDotOrg { get; set; }
@@ -86,7 +86,7 @@ namespace Deploy.LaunchPad.Domain.Person
         /// class given a key, and some metadata.
         /// </summary>
         /// <param name="id">The identifier.</param>
-        protected PersonDomainEntityBase(TIdType id) : base()
+        protected PersonDomainEntityBase(TPrimaryKey id) : base()
         {
         }
 
@@ -121,7 +121,7 @@ namespace Deploy.LaunchPad.Domain.Person
         /// </summary>
         /// <typeparam name="TEntity">The source entity to clone</typeparam>
         /// <returns>A shallow clone of the entity and its serializable properties</returns>
-        protected new virtual TEntity Clone<TEntity>() where TEntity : IPersonDomainEntity<TIdType>, new()
+        protected new virtual TEntity Clone<TEntity>() where TEntity : IPersonDomainEntity<TPrimaryKey>, new()
         {
             TEntity clone = new TEntity();
             foreach (PropertyInfo info in GetType().GetProperties())
@@ -143,7 +143,7 @@ namespace Deploy.LaunchPad.Domain.Person
         /// </summary>
         /// <param name="other">The other object of this type we are comparing to</param>
         /// <returns>System.Int32.</returns>
-        public virtual int CompareTo(PersonDomainEntityBase<TIdType> other)
+        public virtual int CompareTo(PersonDomainEntityBase<TPrimaryKey> other)
         {
             return other == null ? 1 : String.Compare(Name, other.Name, StringComparison.InvariantCulture);
         }
@@ -172,9 +172,9 @@ namespace Deploy.LaunchPad.Domain.Person
         /// <returns>True if the entities are the same according to business key value</returns>
         public override bool Equals(object obj)
         {
-            if (obj != null && obj is PersonDomainEntityBase<TIdType>)
+            if (obj != null && obj is PersonDomainEntityBase<TPrimaryKey>)
             {
-                return Equals((PersonDomainEntityBase<TIdType>)obj);
+                return Equals((PersonDomainEntityBase<TPrimaryKey>)obj);
             }
             return false;
         }
@@ -188,7 +188,7 @@ namespace Deploy.LaunchPad.Domain.Person
         /// </summary>
         /// <param name="obj">The other object of this type that we are testing equality with</param>
         /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
-        public virtual bool Equals(PersonDomainEntityBase<TIdType> obj)
+        public virtual bool Equals(PersonDomainEntityBase<TPrimaryKey> obj)
         {
             if (obj != null)
             {
@@ -218,7 +218,7 @@ namespace Deploy.LaunchPad.Domain.Person
         /// <param name="x">The first value</param>
         /// <param name="y">The second value</param>
         /// <returns>True if both objects are fully equal based on the Equals logic</returns>
-        public static bool operator ==(PersonDomainEntityBase<TIdType> x, PersonDomainEntityBase<TIdType> y)
+        public static bool operator ==(PersonDomainEntityBase<TPrimaryKey> x, PersonDomainEntityBase<TPrimaryKey> y)
         {
             if (System.Object.ReferenceEquals(x, null))
             {
@@ -237,7 +237,7 @@ namespace Deploy.LaunchPad.Domain.Person
         /// <param name="x">The first value</param>
         /// <param name="y">The second value</param>
         /// <returns>True if both objects are not equal based on the Equals logic</returns>
-        public static bool operator !=(PersonDomainEntityBase<TIdType> x, PersonDomainEntityBase<TIdType> y)
+        public static bool operator !=(PersonDomainEntityBase<TPrimaryKey> x, PersonDomainEntityBase<TPrimaryKey> y)
         {
             return !(x == y);
         }

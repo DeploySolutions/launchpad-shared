@@ -11,29 +11,25 @@
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
+using Deploy.LaunchPad.Core.Metadata;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Diagnostics.CodeAnalysis;
 using System.Xml.Serialization;
 
-namespace Deploy.LaunchPad.Core.Metadata
+namespace Deploy.LaunchPad.Core.Domain.Entities
 {
     /// <summary>
-    /// Defines the minimum properties LaunchPad expects to have for a versionable Domain Entity or Value Object.
+    /// Defines the minimum properties LaunchPad expects to have for a Value Object.
     /// </summary>
-    /// <typeparam name="TPrimaryKey">The type of the t identifier type.</typeparam>
-    public partial interface IMayHaveVersionInformation
+    public partial interface IValueObjectMinimalProperties 
     {
-
         /// <summary>
-        /// Version number of this entity
-        /// </summary>        
+        /// If this object is a regular domain entity, an aggregate root, or an aggregate child
+        /// </summary>
+        /// <value>The type of the entity.</value>
         [DataObjectField(false)]
         [XmlAttribute]
-        public string? Version { get; set; }
+        public DomainEntityType EntityType { get; }
 
     }
 }

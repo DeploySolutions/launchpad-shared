@@ -22,12 +22,12 @@ namespace Deploy.LaunchPad.Core.Metadata
     /// <summary>
     /// Useful if data can be "translated" from one language to another.
     /// </summary>
-    /// <typeparam name="TIdType">The type of the t identifier type.</typeparam>
-    public partial interface IMayHaveTranslationFromId<TIdType>
+    /// <typeparam name="TPrimaryKey">The type of the t identifier type.</typeparam>
+    public partial interface IMayHaveTranslationFromId<TPrimaryKey>
     {
         [DataObjectField(false)]
         [DataMember(Name = "translatedFromId", EmitDefaultValue = false)]
         [XmlAttribute]
-        public TIdType? TranslatedFromId { get; set; }
+        public TPrimaryKey? TranslatedFromId { get; set; }
     }
 }

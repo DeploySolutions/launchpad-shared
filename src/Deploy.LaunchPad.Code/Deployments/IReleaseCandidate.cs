@@ -37,8 +37,8 @@ namespace Deploy.LaunchPad.Code.Deployments
     /// <summary>
     /// Represents a release (set of code, data, and resources) that is a candidate to be deployed to a destination environment.
     /// </summary>
-    /// <typeparam name="TIdType">The type of the Id</typeparam>
-    public partial interface IReleaseCandidate<TIdType> : IDomainEntity<TIdType>
+    /// <typeparam name="TPrimaryKey">The type of the Id</typeparam>
+    public partial interface IReleaseCandidate<TPrimaryKey> : IDomainEntity<TPrimaryKey>
     {
 
         /// <summary>

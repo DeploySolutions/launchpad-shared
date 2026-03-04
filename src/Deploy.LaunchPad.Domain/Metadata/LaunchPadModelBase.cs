@@ -63,7 +63,6 @@ namespace Deploy.LaunchPad.Domain.Metadata
             Culture = "en";
             //TenantId = 0; // default tenant
             IsDeleted = false;
-            IsActive = true;
 
         }
 
@@ -79,7 +78,6 @@ namespace Deploy.LaunchPad.Domain.Metadata
             Culture = culture;
             CreatorUserId = Guid.NewGuid(); // TODO - default user account?
             IsDeleted = false;
-            IsActive = true;
         }
 
 
@@ -102,8 +100,6 @@ namespace Deploy.LaunchPad.Domain.Metadata
             IsDeleted = info.GetBoolean("IsDeleted");
             DeleterUserId = (Guid?)info.GetValue("DeleterUserId", typeof(Guid?));
             DeletionTime = info.GetDateTime("DeletionTime");
-            IsActive = info.GetBoolean("IsActive");
-            SeqNum = info.GetInt32("SeqNum");
 
         }
 
@@ -119,7 +115,6 @@ namespace Deploy.LaunchPad.Domain.Metadata
             info.AddValue("Culture", Culture);
             info.AddValue("Checksum", Checksum);
             info.AddValue("Tags", Tags);
-            info.AddValue("SeqNum", SeqNum);
             info.AddValue("CreationTime", CreationTime);
             info.AddValue("CreatorUserId", CreatorUserId);
             info.AddValue("LastModificationTime", LastModificationTime);
@@ -127,7 +122,6 @@ namespace Deploy.LaunchPad.Domain.Metadata
             info.AddValue("IsDeleted", IsDeleted);
             info.AddValue("DeleterUserId", DeleterUserId);
             info.AddValue("DeletionTime", DeletionTime);
-            info.AddValue("IsActive", IsActive);
         }
 
         /// <summary>
@@ -202,14 +196,10 @@ namespace Deploy.LaunchPad.Domain.Metadata
             //sb.AppendFormat("Description={0};", Description);
             sb.AppendFormat("Checksum={0};", Checksum);
             sb.AppendFormat(" Tags={0};", Tags.ToString());
-            sb.AppendFormat("SeqNum={0};", SeqNum);
-            
-            // ABP properties
             sb.AppendFormat("CreationTime={0};", CreationTime);
             sb.AppendFormat("CreatorUserId={0};", CreatorUserId);
             sb.AppendFormat("LastModificationTime={0};", LastModificationTime);
             sb.AppendFormat("LastModifierUserId={0};", LastModifierUserId);
-            sb.AppendFormat("IsActive={0};", IsActive);
             sb.AppendFormat("IsDeleted={0};", IsDeleted);
             sb.AppendFormat("DeleterUserId={0};", DeleterUserId);
             sb.AppendFormat("DeletionTime={0};", DeletionTime);
@@ -250,7 +240,7 @@ namespace Deploy.LaunchPad.Domain.Metadata
                 return Checksum.Equals(obj.Checksum) && Culture.Equals(obj.Culture)
                     && Name.Equals(obj.Name)
                    // && Description.Equals(obj.Description)
-                    && IsActive.Equals(obj.IsActive) && IsDeleted.Equals(obj.IsDeleted);
+                    && IsDeleted.Equals(obj.IsDeleted);
 
             }
             return false;

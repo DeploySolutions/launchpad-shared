@@ -41,8 +41,8 @@ namespace Deploy.LaunchPad.Core.Abp.Deployments
     /// <summary>
     /// Represents an event related to a release (set of code, data, and resources).
     /// </summary>
-    /// <typeparam name="TIdType">The type of the Id</typeparam>
-    public abstract partial class ReleaseCandidateEventBase<TIdType> : TenantSpecificDomainEntityBase<TIdType>, IReleaseCandidateEvent<TIdType>
+    /// <typeparam name="TPrimaryKey">The type of the Id</typeparam>
+    public abstract partial class ReleaseCandidateEventBase<TPrimaryKey> : TenantSpecificDomainEntityBase<TPrimaryKey>, IReleaseCandidateEvent<TPrimaryKey>
     {
         /// <summary>
         /// The id of the release candidate this deployment is for
@@ -52,7 +52,7 @@ namespace Deploy.LaunchPad.Core.Abp.Deployments
         [XmlAttribute]
         [Required]
         [ForeignKey(nameof(ReleaseCandidateId))]
-        public virtual TIdType ReleaseCandidateId { get; set; }
+        public virtual TPrimaryKey ReleaseCandidateId { get; set; }
 
         /// <summary>
         /// The category of this release candidate event
@@ -91,7 +91,7 @@ namespace Deploy.LaunchPad.Core.Abp.Deployments
         #region "Constructors"
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="ReleaseCandidateEventBase{TIdType}"/> class.
+        /// Initializes a new instance of the <see cref="ReleaseCandidateEventBase{TPrimaryKey}"/> class.
         /// </summary>
         public ReleaseCandidateEventBase() : base()
         {
@@ -99,7 +99,7 @@ namespace Deploy.LaunchPad.Core.Abp.Deployments
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="ReleaseCandidateEventBase{TIdType}"/> class.
+        /// Initializes a new instance of the <see cref="ReleaseCandidateEventBase{TPrimaryKey}"/> class.
         /// </summary>
         /// <param name="tenantId">The id of the tenant to which this entity belongs</param>
         public ReleaseCandidateEventBase(System.Guid tenantId) : base()
@@ -108,13 +108,13 @@ namespace Deploy.LaunchPad.Core.Abp.Deployments
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="ReleaseCandidateEventBase{TIdType}"/> class.
+        /// Initializes a new instance of the <see cref="ReleaseCandidateEventBase{TPrimaryKey}"/> class.
         /// </summary>
         /// <param name="tenantId">The tenant identifier.</param>
         /// <param name="id">The identifier.</param>
         /// <param name="cultureName">Name of the culture.</param>
         /// <param name="text">The text.</param>
-        public ReleaseCandidateEventBase(System.Guid tenantId, TIdType id, string cultureName, String text) : base(tenantId, id, cultureName)
+        public ReleaseCandidateEventBase(System.Guid tenantId, TPrimaryKey id, string cultureName, String text) : base(tenantId, id, cultureName)
         {
             TenantId = tenantId;
         }
@@ -126,7 +126,7 @@ namespace Deploy.LaunchPad.Core.Abp.Deployments
         /// <param name="context">The context of the stream</param>
         protected ReleaseCandidateEventBase(SerializationInfo info, StreamingContext context) : base(info, context)
         {
-            ReleaseCandidateId = (TIdType)info.GetValue("ReleaseCandidateId", typeof(TIdType));
+            ReleaseCandidateId = (TPrimaryKey)info.GetValue("ReleaseCandidateId", typeof(TPrimaryKey));
             LogUri = (Uri)info.GetValue("LogUri", typeof(Uri));
             EventCategory = info.GetString("EventCategory");
             Started = info.GetDateTime("Started");

@@ -12,7 +12,7 @@ namespace Deploy.LaunchPad.Files.Formats
         public override string Extension => "." + FileExtension.cs;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="CSharpClassFile{TIdType}"/> class.
+        /// Initializes a new instance of the <see cref="CSharpClassFile{TPrimaryKey}"/> class.
         /// </summary>
         /// <param name="fileName">Name of the file.</param>
         public CSharpClassFile(string fileName) : base(fileName)

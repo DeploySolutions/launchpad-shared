@@ -43,8 +43,8 @@ namespace Deploy.LaunchPad.Domain.Organization
     /// Implements <see cref="IOrganization&lt;TPrimaryKey&gt;">IOrganization&lt;TPrimaryKey&gt;</see> and provides
     /// base functionality for many of its methods.
     /// </summary>
-    /// <typeparam name="TIdType">The type of the t identifier type.</typeparam>
-    public abstract partial class OrganizationDomainEntityBase<TIdType> : DomainEntityBase<TIdType>, IOrganizationDomainEntity<TIdType>
+    /// <typeparam name="TPrimaryKey">The type of the t identifier type.</typeparam>
+    public abstract partial class OrganizationDomainEntityBase<TPrimaryKey> : DomainEntityBase<TPrimaryKey>, IOrganizationDomainEntity<TPrimaryKey>
     {
 
         protected virtual Schema.NET.Organization? _schemaDotOrg { get; set; }
@@ -133,7 +133,7 @@ namespace Deploy.LaunchPad.Domain.Organization
         /// class given a key, and some metadata.
         /// </summary>
         /// <param name="id">The identifier.</param>
-        protected OrganizationDomainEntityBase(TIdType id) : base()
+        protected OrganizationDomainEntityBase(TPrimaryKey id) : base()
         {
         }
 
@@ -168,7 +168,7 @@ namespace Deploy.LaunchPad.Domain.Organization
         /// </summary>
         /// <typeparam name="TEntity">The source entity to clone</typeparam>
         /// <returns>A shallow clone of the entity and its serializable properties</returns>
-        protected new virtual TEntity Clone<TEntity>() where TEntity : IOrganizationDomainEntity<TIdType>, new()
+        protected new virtual TEntity Clone<TEntity>() where TEntity : IOrganizationDomainEntity<TPrimaryKey>, new()
         {
             TEntity clone = new TEntity();
             foreach (PropertyInfo info in GetType().GetProperties())
@@ -190,7 +190,7 @@ namespace Deploy.LaunchPad.Domain.Organization
         /// </summary>
         /// <param name="other">The other object of this type we are comparing to</param>
         /// <returns>System.Int32.</returns>
-        public virtual int CompareTo(OrganizationDomainEntityBase<TIdType> other)
+        public virtual int CompareTo(OrganizationDomainEntityBase<TPrimaryKey> other)
         {
             return other == null ? 1 : String.Compare(FullName, other.FullName, StringComparison.InvariantCulture);
         }
@@ -219,9 +219,9 @@ namespace Deploy.LaunchPad.Domain.Organization
         /// <returns>True if the entities are the same according to business key value</returns>
         public override bool Equals(object obj)
         {
-            if (obj != null && obj is OrganizationDomainEntityBase<TIdType>)
+            if (obj != null && obj is OrganizationDomainEntityBase<TPrimaryKey>)
             {
-                return Equals((OrganizationDomainEntityBase<TIdType>)obj);
+                return Equals((OrganizationDomainEntityBase<TPrimaryKey>)obj);
             }
             return false;
         }
@@ -235,7 +235,7 @@ namespace Deploy.LaunchPad.Domain.Organization
         /// </summary>
         /// <param name="obj">The other object of this type that we are testing equality with</param>
         /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
-        public virtual bool Equals(OrganizationDomainEntityBase<TIdType> obj)
+        public virtual bool Equals(OrganizationDomainEntityBase<TPrimaryKey> obj)
         {
             if (obj != null)
             {
@@ -265,7 +265,7 @@ namespace Deploy.LaunchPad.Domain.Organization
         /// <param name="x">The first value</param>
         /// <param name="y">The second value</param>
         /// <returns>True if both objects are fully equal based on the Equals logic</returns>
-        public static bool operator ==(OrganizationDomainEntityBase<TIdType> x, OrganizationDomainEntityBase<TIdType> y)
+        public static bool operator ==(OrganizationDomainEntityBase<TPrimaryKey> x, OrganizationDomainEntityBase<TPrimaryKey> y)
         {
             if (System.Object.ReferenceEquals(x, null))
             {
@@ -284,7 +284,7 @@ namespace Deploy.LaunchPad.Domain.Organization
         /// <param name="x">The first value</param>
         /// <param name="y">The second value</param>
         /// <returns>True if both objects are not equal based on the Equals logic</returns>
-        public static bool operator !=(OrganizationDomainEntityBase<TIdType> x, OrganizationDomainEntityBase<TIdType> y)
+        public static bool operator !=(OrganizationDomainEntityBase<TPrimaryKey> x, OrganizationDomainEntityBase<TPrimaryKey> y)
         {
             return !(x == y);
         }

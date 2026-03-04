@@ -38,8 +38,8 @@ namespace Deploy.LaunchPad.Core.Abp.SoftwareApplications
     /// <summary>
     /// Represents a tenant in an application.
     /// </summary>
-    /// <typeparam name="TIdType">The type of the t identifier type.</typeparam>
-    public partial interface ITenantDetails<TIdType> : IDomainEntity<TIdType>
+    /// <typeparam name="TPrimaryKey">The type of the t identifier type.</typeparam>
+    public partial interface ITenantDetails<TPrimaryKey> : IDomainEntity<TPrimaryKey>
     {
         /// <summary>
         /// Gets or sets the launch pad application identifier.
@@ -48,7 +48,7 @@ namespace Deploy.LaunchPad.Core.Abp.SoftwareApplications
         [DataObjectField(false)]
         [XmlAttribute]
         [ForeignKey(nameof(LaunchPadApplicationId))]
-        TIdType LaunchPadApplicationId { get; set; }
+        TPrimaryKey LaunchPadApplicationId { get; set; }
 
         /// <summary>
         /// The default culture of this tenant

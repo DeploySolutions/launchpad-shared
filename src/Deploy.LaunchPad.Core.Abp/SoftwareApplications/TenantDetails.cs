@@ -40,9 +40,9 @@ namespace Deploy.LaunchPad.Core.Abp.SoftwareApplications
     /// <summary>
     /// Base class for tenant-specific information
     /// </summary>
-    /// <typeparam name="TIdType">The type of the key id field</typeparam>
+    /// <typeparam name="TPrimaryKey">The type of the key id field</typeparam>
     [Serializable()]
-    public partial class TenantDetails<TIdType> : TenantSpecificDomainEntityBase<TIdType>, ITenantDetails<TIdType>
+    public partial class TenantDetails<TPrimaryKey> : TenantSpecificDomainEntityBase<TPrimaryKey>, ITenantDetails<TPrimaryKey>
     {
 
         /// <summary>
@@ -52,7 +52,7 @@ namespace Deploy.LaunchPad.Core.Abp.SoftwareApplications
         [DataObjectField(false)]
         [XmlAttribute]
         [ForeignKey(nameof(LaunchPadApplicationId))]
-        public virtual TIdType LaunchPadApplicationId { get; set; }
+        public virtual TPrimaryKey LaunchPadApplicationId { get; set; }
 
         /// <summary>
         /// The default culture of this tenant
@@ -105,52 +105,52 @@ namespace Deploy.LaunchPad.Core.Abp.SoftwareApplications
 
         #region "Constructors"
         /// <summary>
-        /// Initializes a new instance of the <see cref="TenantDetails{TIdType}"/> class.
+        /// Initializes a new instance of the <see cref="TenantDetails{TPrimaryKey}"/> class.
         /// </summary>
         public TenantDetails() : base()
         {
-            PrimaryColourHex = ApplicationDetails<TIdType>.DEFAULT_HEX_COlOUR;
-            CultureDefault = ApplicationDetails<TIdType>.DEFAULT_CULTURE;
-            CultureSupported = ApplicationDetails<TIdType>.DEFAULT_CULTURE;
+            PrimaryColourHex = ApplicationDetails<TPrimaryKey>.DEFAULT_HEX_COlOUR;
+            CultureDefault = ApplicationDetails<TPrimaryKey>.DEFAULT_CULTURE;
+            CultureSupported = ApplicationDetails<TPrimaryKey>.DEFAULT_CULTURE;
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="TenantDetails{TIdType}"/> class.
+        /// Initializes a new instance of the <see cref="TenantDetails{TPrimaryKey}"/> class.
         /// </summary>
         /// <param name="tenantId">The id of the tenant to which this entity belongs</param>
         public TenantDetails(System.Guid tenantId) : base(tenantId)
         {
-            PrimaryColourHex = ApplicationDetails<TIdType>.DEFAULT_HEX_COlOUR;
-            CultureDefault = ApplicationDetails<TIdType>.DEFAULT_CULTURE;
-            CultureSupported = ApplicationDetails<TIdType>.DEFAULT_CULTURE;
+            PrimaryColourHex = ApplicationDetails<TPrimaryKey>.DEFAULT_HEX_COlOUR;
+            CultureDefault = ApplicationDetails<TPrimaryKey>.DEFAULT_CULTURE;
+            CultureSupported = ApplicationDetails<TPrimaryKey>.DEFAULT_CULTURE;
 
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="TenantDetails{TIdType}"/> class.
+        /// Initializes a new instance of the <see cref="TenantDetails{TPrimaryKey}"/> class.
         /// </summary>
         /// <param name="tenantId">The tenant identifier.</param>
         /// <param name="id">The identifier.</param>
         /// <param name="cultureName">Name of the culture.</param>
         /// <param name="cultureDefault">The culture default.</param>
-        public TenantDetails(System.Guid tenantId, TIdType id, string cultureName, String cultureDefault) : base(tenantId, id, cultureName)
+        public TenantDetails(System.Guid tenantId, TPrimaryKey id, string cultureName, String cultureDefault) : base(tenantId, id, cultureName)
         {
-            PrimaryColourHex = ApplicationDetails<TIdType>.DEFAULT_HEX_COlOUR;
+            PrimaryColourHex = ApplicationDetails<TPrimaryKey>.DEFAULT_HEX_COlOUR;
             CultureDefault = cultureDefault;
             CultureSupported = cultureDefault;
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="TenantDetails{TIdType}"/> class.
+        /// Initializes a new instance of the <see cref="TenantDetails{TPrimaryKey}"/> class.
         /// </summary>
         /// <param name="tenantId">The tenant identifier.</param>
         /// <param name="id">The identifier.</param>
         /// <param name="cultureName">Name of the culture.</param>
         /// <param name="cultureDefault">The culture default.</param>
         /// <param name="cultureSupported">The culture supported.</param>
-        public TenantDetails(System.Guid tenantId, TIdType id, string cultureName, String cultureDefault, String cultureSupported) : base(tenantId, id, cultureName)
+        public TenantDetails(System.Guid tenantId, TPrimaryKey id, string cultureName, String cultureDefault, String cultureSupported) : base(tenantId, id, cultureName)
         {
-            PrimaryColourHex = ApplicationDetails<TIdType>.DEFAULT_HEX_COlOUR;
+            PrimaryColourHex = ApplicationDetails<TPrimaryKey>.DEFAULT_HEX_COlOUR;
             CultureDefault = cultureDefault;
             CultureSupported = cultureSupported;
         }
@@ -212,7 +212,7 @@ namespace Deploy.LaunchPad.Core.Abp.SoftwareApplications
         /// </summary>
         /// <typeparam name="TEntity">The source entity to clone</typeparam>
         /// <returns>A shallow clone of the entity and its serializable properties</returns>
-        protected new virtual TEntity Clone<TEntity>() where TEntity : ITenantDetails<TIdType>, new()
+        protected new virtual TEntity Clone<TEntity>() where TEntity : ITenantDetails<TPrimaryKey>, new()
         {
             TEntity clone = new TEntity();
             foreach (PropertyInfo info in GetType().GetProperties())
@@ -234,7 +234,7 @@ namespace Deploy.LaunchPad.Core.Abp.SoftwareApplications
         /// </summary>
         /// <param name="other">The other object of this type we are comparing to</param>
         /// <returns>System.Int32.</returns>
-        public virtual int CompareTo(TenantDetails<TIdType> other)
+        public virtual int CompareTo(TenantDetails<TPrimaryKey> other)
         {
             return other == null ? 1 : String.Compare(Name, other.Name, StringComparison.InvariantCulture);
         }
@@ -246,9 +246,9 @@ namespace Deploy.LaunchPad.Core.Abp.SoftwareApplications
         /// <returns>True if the entities are the same according to business key value</returns>
         public override bool Equals(object obj)
         {
-            if (obj != null && obj is TenantDetails<TIdType>)
+            if (obj != null && obj is TenantDetails<TPrimaryKey>)
             {
-                return Equals((TenantDetails<TIdType>)obj);
+                return Equals((TenantDetails<TPrimaryKey>)obj);
             }
             return false;
         }
@@ -262,7 +262,7 @@ namespace Deploy.LaunchPad.Core.Abp.SoftwareApplications
         /// </summary>
         /// <param name="obj">The other object of this type that we are testing equality with</param>
         /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
-        public virtual bool Equals(TenantDetails<TIdType> obj)
+        public virtual bool Equals(TenantDetails<TPrimaryKey> obj)
         {
             if (obj != null)
             {
@@ -293,7 +293,7 @@ namespace Deploy.LaunchPad.Core.Abp.SoftwareApplications
         /// <param name="x">The first value</param>
         /// <param name="y">The second value</param>
         /// <returns>True if both objects are fully equal based on the Equals logic</returns>
-        public static bool operator ==(TenantDetails<TIdType> x, TenantDetails<TIdType> y)
+        public static bool operator ==(TenantDetails<TPrimaryKey> x, TenantDetails<TPrimaryKey> y)
         {
             if (System.Object.ReferenceEquals(x, null))
             {
@@ -312,7 +312,7 @@ namespace Deploy.LaunchPad.Core.Abp.SoftwareApplications
         /// <param name="x">The first value</param>
         /// <param name="y">The second value</param>
         /// <returns>True if both objects are not equal based on the Equals logic</returns>
-        public static bool operator !=(TenantDetails<TIdType> x, TenantDetails<TIdType> y)
+        public static bool operator !=(TenantDetails<TPrimaryKey> x, TenantDetails<TPrimaryKey> y)
         {
             return !(x == y);
         }

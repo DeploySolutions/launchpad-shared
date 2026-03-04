@@ -26,6 +26,7 @@
 //limitations under the License. 
 #endregion
 
+using Deploy.LaunchPad.Core.Domain.Entities;
 using Deploy.LaunchPad.Util;
 using System;
 
@@ -37,7 +38,7 @@ namespace Deploy.LaunchPad.Core.Domain.ValueObjects
     /// ie. those that are not Domain Entities / have no specific identity, and are not persisted to database
     /// </summary>
     public partial interface ILaunchPadValueObject :
-        ILaunchPadObject
+        ILaunchPadObject, IValueObjectMinimalProperties
     {
         /// <summary>
         /// Values the equals.

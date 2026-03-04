@@ -36,9 +36,9 @@ namespace Deploy.LaunchPad.Code.Services.Dto
     /// Represents the minimal properties that may be used in order to filter an entity in a list
     /// </summary>
     /// <typeparam name="TEntityType">The type of the t entity type.</typeparam>
-    /// <typeparam name="TIdType">The type of the t identifier type.</typeparam>
-    public partial class FilterOutput<TEntityType, TIdType>
-        where TEntityType : DomainEntityBase<TIdType>
+    /// <typeparam name="TPrimaryKey">The type of the t identifier type.</typeparam>
+    public partial class FilterOutput<TEntityType, TPrimaryKey>
+        where TEntityType : DomainEntityBase<TPrimaryKey>
     {
         /// <summary>
         /// Gets or sets the filter.

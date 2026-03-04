@@ -37,11 +37,11 @@ namespace Deploy.LaunchPad.Code.Services.Dto
     /// Implements the <see cref="IPagedResultRequest" />
     /// Implements the <see cref="IMayHaveTenant" />
     /// </summary>
-    /// <typeparam name="TIdType">The type of the t identifier type.</typeparam>
+    /// <typeparam name="TPrimaryKey">The type of the t identifier type.</typeparam>
     /// <seealso cref="ICanBeAppServiceMethodInput" />
     /// <seealso cref="IPagedResultRequest" />
     /// <seealso cref="IMayHaveTenant" />
-    public abstract partial class GetAllInputDtoBase<TIdType> :
+    public abstract partial class GetAllInputDtoBase<TPrimaryKey> :
         ICanBeAppServiceMethodInput,
         IPagedResultRequest,
         IMayHaveTenant
@@ -185,7 +185,7 @@ namespace Deploy.LaunchPad.Code.Services.Dto
         /// </summary>
         protected GetAllInputDtoBase() : base()
         {
-            Culture = ApplicationDetails<TIdType>.DEFAULT_CULTURE;
+            Culture = ApplicationDetails<TPrimaryKey>.DEFAULT_CULTURE;
             Name = string.Empty;
             DescriptionShort = string.Empty;
             DescriptionFull = string.Empty;
@@ -201,7 +201,7 @@ namespace Deploy.LaunchPad.Code.Services.Dto
         protected GetAllInputDtoBase(System.Guid tenantId) : base()
         {
             TenantId = tenantId;
-            Culture = ApplicationDetails<TIdType>.DEFAULT_CULTURE;
+            Culture = ApplicationDetails<TPrimaryKey>.DEFAULT_CULTURE;
             Name = String.Empty;
             DescriptionShort = string.Empty;
             DescriptionFull = string.Empty;
@@ -211,7 +211,7 @@ namespace Deploy.LaunchPad.Code.Services.Dto
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="GetAllInputDtoBase{TIdType}"/> class.
+        /// Initializes a new instance of the <see cref="GetAllInputDtoBase{TPrimaryKey}"/> class.
         /// </summary>
         /// <param name="tenantId">The tenant identifier.</param>
         /// <param name="culture">The culture.</param>
@@ -311,7 +311,7 @@ namespace Deploy.LaunchPad.Code.Services.Dto
         /// </summary>
         /// <typeparam name="TEntity">The source entity to clone</typeparam>
         /// <returns>A shallow clone of the entity and its serializable properties</returns>
-        protected TEntity Clone<TEntity>() where TEntity : GetAllInputDtoBase<TIdType>, new()
+        protected TEntity Clone<TEntity>() where TEntity : GetAllInputDtoBase<TPrimaryKey>, new()
         {
             TEntity clone = new TEntity();
             foreach (PropertyInfo info in GetType().GetProperties())
@@ -333,7 +333,7 @@ namespace Deploy.LaunchPad.Code.Services.Dto
         /// </summary>
         /// <param name="other">The other object of this type we are comparing to</param>
         /// <returns>System.Int32.</returns>
-        public virtual int CompareTo(GetAllInputDtoBase<TIdType> other)
+        public virtual int CompareTo(GetAllInputDtoBase<TPrimaryKey> other)
         {
             // put comparison of properties in here 
             // for base object we'll just sort by id and culture
@@ -349,9 +349,9 @@ namespace Deploy.LaunchPad.Code.Services.Dto
         /// <returns>True if the entities are the same according to business key value</returns>
         public override bool Equals(object obj)
         {
-            if (obj != null && obj is GetAllInputDtoBase<TIdType>)
+            if (obj != null && obj is GetAllInputDtoBase<TPrimaryKey>)
             {
-                return Equals(obj as GetAllInputDtoBase<TIdType>);
+                return Equals(obj as GetAllInputDtoBase<TPrimaryKey>);
             }
             return false;
         }
@@ -365,7 +365,7 @@ namespace Deploy.LaunchPad.Code.Services.Dto
         /// </summary>
         /// <param name="obj">The other object of this type that we are testing equality with</param>
         /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
-        public virtual bool Equals(GetAllInputDtoBase<TIdType> obj)
+        public virtual bool Equals(GetAllInputDtoBase<TPrimaryKey> obj)
         {
             if (obj != null)
             {

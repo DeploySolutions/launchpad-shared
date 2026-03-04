@@ -37,8 +37,8 @@ namespace Deploy.LaunchPad.Code.Deployments
     /// <summary>
     /// Represents a an event that is related to a release candidate.
     /// </summary>
-    /// <typeparam name="TIdType">The type of the Id</typeparam>
-    public partial interface IReleaseCandidateEvent<TIdType> : IDomainEntity<TIdType>
+    /// <typeparam name="TPrimaryKey">The type of the Id</typeparam>
+    public partial interface IReleaseCandidateEvent<TPrimaryKey> : IDomainEntity<TPrimaryKey>
     {
         /// <summary>
         /// The id of the release candidate this deployment is for
@@ -47,7 +47,7 @@ namespace Deploy.LaunchPad.Code.Deployments
         [DataObjectField(false)]
         [XmlAttribute]
         [Required]
-        TIdType ReleaseCandidateId { get; set; }
+        TPrimaryKey ReleaseCandidateId { get; set; }
 
         /// <summary>
         /// The category of this release candidate event

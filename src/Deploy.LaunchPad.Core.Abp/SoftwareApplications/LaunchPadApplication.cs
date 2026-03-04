@@ -42,10 +42,10 @@ namespace Deploy.LaunchPad.Core.Abp.SoftwareApplications
     /// <summary>
     /// Base class for application-specific information
     /// </summary>
-    /// <typeparam name="TIdType">The type of the key id field</typeparam>
+    /// <typeparam name="TPrimaryKey">The type of the key id field</typeparam>
     /// <typeparam name="TEntityIdType">The base ID type of any domain entities contained within the application</typeparam>
     [Serializable()]
-    public partial class LaunchPadApplication<TIdType, TEntityIdType> : FrameworkEntityBase<TIdType>, ILaunchPadApplication<TIdType, TEntityIdType>, IMayHaveTenant
+    public partial class LaunchPadApplication<TPrimaryKey, TEntityIdType> : FrameworkEntityBase<TPrimaryKey>, ILaunchPadApplication<TPrimaryKey, TEntityIdType>, IMayHaveTenant
     {
 
         /// <summary>
@@ -54,7 +54,7 @@ namespace Deploy.LaunchPad.Core.Abp.SoftwareApplications
         /// <value>The application information.</value>
         [DataObjectField(false)]
         [XmlAttribute]
-        public virtual ApplicationDetails<TIdType> AppInfo
+        public virtual ApplicationDetails<TPrimaryKey> AppInfo
         {
             get; set;
         }
@@ -65,7 +65,7 @@ namespace Deploy.LaunchPad.Core.Abp.SoftwareApplications
         /// <value>The modules.</value>
         [DataObjectField(false)]
         [XmlAttribute]
-        public virtual List<Module<TIdType, TEntityIdType>> Modules { get; set; }
+        public virtual List<Module<TPrimaryKey, TEntityIdType>> Modules { get; set; }
 
 
         /// <summary>
@@ -74,7 +74,7 @@ namespace Deploy.LaunchPad.Core.Abp.SoftwareApplications
         /// <value>The tenant information.</value>
         [DataObjectField(false)]
         [XmlAttribute]
-        public virtual List<TenantDetails<TIdType>> TenantInfo { get; set; }
+        public virtual List<TenantDetails<TPrimaryKey>> TenantInfo { get; set; }
         /// <summary>
         /// TenantId of this entity.
         /// </summary>
@@ -85,42 +85,42 @@ namespace Deploy.LaunchPad.Core.Abp.SoftwareApplications
         #region "Constructors"
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="LaunchPadApplication{TIdType, TEntityIdType}"/> class.
+        /// Initializes a new instance of the <see cref="LaunchPadApplication{TPrimaryKey, TEntityIdType}"/> class.
         /// </summary>
         public LaunchPadApplication() : base()
         {
-            AppInfo = new ApplicationDetails<TIdType>();
-            TenantInfo = new List<TenantDetails<TIdType>>();
-            Modules = new List<Module<TIdType, TEntityIdType>>();
+            AppInfo = new ApplicationDetails<TPrimaryKey>();
+            TenantInfo = new List<TenantDetails<TPrimaryKey>>();
+            Modules = new List<Module<TPrimaryKey, TEntityIdType>>();
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="LaunchPadApplication{TIdType, TEntityIdType}"/> class.
+        /// Initializes a new instance of the <see cref="LaunchPadApplication{TPrimaryKey, TEntityIdType}"/> class.
         /// </summary>
         /// <param name="tenantId">The tenant identifier.</param>
         public LaunchPadApplication(System.Guid? tenantId) : base()
         {
             TenantId = tenantId;
-            AppInfo = new ApplicationDetails<TIdType>();
+            AppInfo = new ApplicationDetails<TPrimaryKey>();
             AppInfo.TenantId = tenantId;
-            TenantInfo = new List<TenantDetails<TIdType>>();
-            Modules = new List<Module<TIdType, TEntityIdType>>();
+            TenantInfo = new List<TenantDetails<TPrimaryKey>>();
+            Modules = new List<Module<TPrimaryKey, TEntityIdType>>();
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="LaunchPadApplication{TIdType, TEntityIdType}"/> class.
+        /// Initializes a new instance of the <see cref="LaunchPadApplication{TPrimaryKey, TEntityIdType}"/> class.
         /// </summary>
         /// <param name="tenantId">The tenant identifier.</param>
         /// <param name="id">The identifier.</param>
         /// <param name="cultureName">Name of the culture.</param>
         [SetsRequiredMembers]
-        public LaunchPadApplication(System.Guid? tenantId, TIdType id, string cultureName) : base(id, cultureName)
+        public LaunchPadApplication(System.Guid? tenantId, TPrimaryKey id, string cultureName) : base(id, cultureName)
         {
             TenantId = tenantId;
-            AppInfo = new ApplicationDetails<TIdType>();
+            AppInfo = new ApplicationDetails<TPrimaryKey>();
             AppInfo.TenantId = tenantId;
-            TenantInfo = new List<TenantDetails<TIdType>>();
-            Modules = new List<Module<TIdType, TEntityIdType>>();
+            TenantInfo = new List<TenantDetails<TPrimaryKey>>();
+            Modules = new List<Module<TPrimaryKey, TEntityIdType>>();
         }
 
         /// <summary>
@@ -130,9 +130,9 @@ namespace Deploy.LaunchPad.Core.Abp.SoftwareApplications
         /// <param name="context">The context of the stream</param>
         protected LaunchPadApplication(SerializationInfo info, StreamingContext context) : base(info, context)
         {
-            AppInfo = (ApplicationDetails<TIdType>)info.GetValue("Info", typeof(ApplicationDetails<TIdType>));
-            TenantInfo = (List<TenantDetails<TIdType>>)info.GetValue("TenantInfo", typeof(List<TenantDetails<TIdType>>));
-            Modules = (List<Module<TIdType, TEntityIdType>>)info.GetValue("Modules", typeof(List<Module<TIdType, TEntityIdType>>));
+            AppInfo = (ApplicationDetails<TPrimaryKey>)info.GetValue("Info", typeof(ApplicationDetails<TPrimaryKey>));
+            TenantInfo = (List<TenantDetails<TPrimaryKey>>)info.GetValue("TenantInfo", typeof(List<TenantDetails<TPrimaryKey>>));
+            Modules = (List<Module<TPrimaryKey, TEntityIdType>>)info.GetValue("Modules", typeof(List<Module<TPrimaryKey, TEntityIdType>>));
         }
 
         #endregion

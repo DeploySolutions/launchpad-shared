@@ -31,7 +31,6 @@ namespace Deploy.LaunchPad.Domain.Content
             Name = name;
             //Description = new ElementDescription(name);
             CreationTime = DateTime.Now.ToUniversalTime();
-            IsActive = true;
             Culture = "en";
             Tags = "{}";
         }
@@ -55,8 +54,6 @@ namespace Deploy.LaunchPad.Domain.Content
             IsDeleted = info.GetBoolean("IsDeleted");
             DeleterUserId = (Guid?)info.GetValue("DeleterUserId", typeof(Guid?));
             DeletionTime = info.GetDateTime("DeletionTime");
-            IsActive = info.GetBoolean("IsActive");
-            SeqNum = info.GetInt32("SeqNum");
             ContentType = (LaunchPadContentItemType)info.GetValue("ContentType", typeof(LaunchPadContentItemType));
         }
 
@@ -72,7 +69,6 @@ namespace Deploy.LaunchPad.Domain.Content
             info.AddValue("Culture", Culture);
             info.AddValue("Checksum", Checksum);
             info.AddValue("Tags", Tags);
-            info.AddValue("SeqNum", SeqNum);
             info.AddValue("CreationTime", CreationTime);
             info.AddValue("CreatorUserId", CreatorUserId);
             info.AddValue("LastModificationTime", LastModificationTime);
@@ -80,7 +76,6 @@ namespace Deploy.LaunchPad.Domain.Content
             info.AddValue("IsDeleted", IsDeleted);
             info.AddValue("DeleterUserId", DeleterUserId);
             info.AddValue("DeletionTime", DeletionTime);
-            info.AddValue("IsActive", IsActive);
             info.AddValue("ContentType", ContentType);
         }
 

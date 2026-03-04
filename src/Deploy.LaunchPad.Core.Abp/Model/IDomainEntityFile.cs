@@ -40,9 +40,9 @@ namespace Deploy.LaunchPad.Core.Entities
     /// If you just want to manipulate files in the regular manner, without tracking them as domain entities, use IFile.
     /// Each file is uniquely identified by its id, which could be a complex name or some other unique property like a GUID or integer.
     /// </summary>
-    /// <typeparam name="TIdType">The type of the t identifier type.</typeparam>
+    /// <typeparam name="TPrimaryKey">The type of the t identifier type.</typeparam>
     /// <typeparam name="TFileContentType">The type of the t file content type.</typeparam>
-    public partial interface IDomainEntityFile<TIdType, TFileContentType, TSchemaFormat> : IDomainEntity<TIdType>,
+    public partial interface IDomainEntityFile<TPrimaryKey, TFileContentType, TSchemaFormat> : IDomainEntity<TPrimaryKey>,
         IFile<TFileContentType, TSchemaFormat>
     {
 

@@ -22,11 +22,11 @@ namespace Deploy.LaunchPad.Code.Services.Dto
 {
     /// <summary>
     /// Class GetAllDetailOutputDtoBase.
-    /// Implements the <see cref="Deploy.LaunchPad.Code.Services.Dto.GetAllOutputDtoBase{TIdType}" />
+    /// Implements the <see cref="Deploy.LaunchPad.Code.Services.Dto.GetAllOutputDtoBase{TPrimaryKey}" />
     /// </summary>
-    /// <typeparam name="TIdType">The type of the t identifier type.</typeparam>
-    /// <seealso cref="Deploy.LaunchPad.Code.Services.Dto.GetAllOutputDtoBase{TIdType}" />
-    public abstract partial class GetAllDetailOutputDtoBase<TIdType> : GetAllOutputDtoBase<TIdType>
+    /// <typeparam name="TPrimaryKey">The type of the t identifier type.</typeparam>
+    /// <seealso cref="Deploy.LaunchPad.Code.Services.Dto.GetAllOutputDtoBase{TPrimaryKey}" />
+    public abstract partial class GetAllDetailOutputDtoBase<TPrimaryKey> : GetAllOutputDtoBase<TPrimaryKey>
     {
 
         /// <summary>

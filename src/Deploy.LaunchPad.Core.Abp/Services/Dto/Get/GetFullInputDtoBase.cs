@@ -20,13 +20,13 @@ namespace Deploy.LaunchPad.Code.Services.Dto
 {
     /// <summary>
     /// Class GetFullInputDtoBase.
-    /// Implements the <see cref="Deploy.LaunchPad.Code.Services.Dto.GetDetailInputDtoBase{TIdType}" />
+    /// Implements the <see cref="Deploy.LaunchPad.Code.Services.Dto.GetDetailInputDtoBase{TPrimaryKey}" />
     /// Implements the <see cref="ICanBeAppServiceMethodInput" />
     /// </summary>
-    /// <typeparam name="TIdType">The type of the t identifier type.</typeparam>
-    /// <seealso cref="Deploy.LaunchPad.Code.Services.Dto.GetDetailInputDtoBase{TIdType}" />
+    /// <typeparam name="TPrimaryKey">The type of the t identifier type.</typeparam>
+    /// <seealso cref="Deploy.LaunchPad.Code.Services.Dto.GetDetailInputDtoBase{TPrimaryKey}" />
     /// <seealso cref="ICanBeAppServiceMethodInput" />
-    public abstract partial class GetFullInputDtoBase<TIdType> : GetDetailInputDtoBase<TIdType>,
+    public abstract partial class GetFullInputDtoBase<TPrimaryKey> : GetDetailInputDtoBase<TPrimaryKey>,
         ICanBeAppServiceMethodInput
     {
         /// <summary>
@@ -36,7 +36,7 @@ namespace Deploy.LaunchPad.Code.Services.Dto
         [DataObjectField(true)]
         [XmlAttribute]
         [Required]
-        public override TIdType Id { get; set; }
+        public override TPrimaryKey Id { get; set; }
 
         #region "Constructors"
 

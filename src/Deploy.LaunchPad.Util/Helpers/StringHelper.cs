@@ -14,6 +14,7 @@
 using Castle.Core.Logging;
 using System;
 using System.ComponentModel;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 
@@ -144,6 +145,20 @@ namespace Deploy.LaunchPad.Util
 
             return stringBuilder.ToString();
         }
+
+        /// <summary>
+        /// Ensure the culture is one of the supported ones
+        /// </summary>
+        /// <param name="name">The name.</param>
+        /// <returns><c>true</c> if [is valid culture information name] [the specified name]; otherwise, <c>false</c>.</returns>
+        public virtual bool IsValidCultureInfoName(string name)
+        {
+            return
+                CultureInfo
+                .GetCultures(CultureTypes.SpecificCultures)
+                .Any(c => c.Name == name);
+        }
+
 
     }
 }

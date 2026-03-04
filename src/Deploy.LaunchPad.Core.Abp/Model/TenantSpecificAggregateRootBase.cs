@@ -42,14 +42,14 @@ namespace Deploy.LaunchPad.Core.Entities
 
     /// <summary>
     /// Base class for Aggregate Root entities that must be specifically related to tenants.
-    /// Inherits from <see cref="LaunchPadAggregateRootBase{TIdType}{TIdType}">AggregateRootBase{TIdType}</see> and provides
+    /// Inherits from <see cref="LaunchPadAggregateRootBase{TPrimaryKey}{TPrimaryKey}">AggregateRootBase{TPrimaryKey}</see> and provides
     /// base functionality for many of its methods.
     /// Implements AspNetBoilerplate's <see cref="IMustHaveTenant">IMustHaveTenant interface</see>, overriding the base interface where tenant may or may not exist.
     /// </summary>
-    /// <typeparam name="TIdType">The type of the t identifier type.</typeparam>
+    /// <typeparam name="TPrimaryKey">The type of the t identifier type.</typeparam>
     [Serializable]
-    public abstract partial class TenantSpecificAggregateRootBase<TIdType> :
-        LaunchPadAggregateRootBase<TIdType>, IMustHaveTenant
+    public abstract partial class TenantSpecificAggregateRootBase<TPrimaryKey> :
+        LaunchPadAggregateRootBase<TPrimaryKey>, IMustHaveTenant
 
     {
 
@@ -91,7 +91,7 @@ namespace Deploy.LaunchPad.Core.Entities
         /// <param name="tenantId">The tenant identifier.</param>
         /// <param name="id">The identifier.</param>
         /// <param name="cultureName">The culture for this entity</param>
-        protected TenantSpecificAggregateRootBase(System.Guid tenantId, TIdType id, string cultureName) : base(id, cultureName)
+        protected TenantSpecificAggregateRootBase(System.Guid tenantId, TPrimaryKey id, string cultureName) : base(id, cultureName)
         {
             TenantId = tenantId;
         }
@@ -102,7 +102,7 @@ namespace Deploy.LaunchPad.Core.Entities
         /// <param name="tenantId">The tenant identifier.</param>
         /// <param name="id">The identifier.</param>
         /// <param name="metadata">The desired metadata for this entity</param>
-        protected TenantSpecificAggregateRootBase(System.Guid tenantId, TIdType id, MetadataInformation metadata) : base(id)
+        protected TenantSpecificAggregateRootBase(System.Guid tenantId, TPrimaryKey id, MetadataInformation metadata) : base(id)
         {
 
             TenantId = tenantId;
@@ -147,7 +147,7 @@ namespace Deploy.LaunchPad.Core.Entities
         /// </summary>
         /// <param name="other">The other object of this type we are comparing to</param>
         /// <returns>System.Int32.</returns>
-        public virtual int CompareTo(TenantSpecificAggregateRootBase<TIdType> other)
+        public virtual int CompareTo(TenantSpecificAggregateRootBase<TPrimaryKey> other)
         {
             // put comparison of properties in here 
             // for base object we'll just sort by title
@@ -174,9 +174,9 @@ namespace Deploy.LaunchPad.Core.Entities
         /// <returns>True if the entities are the same according to business key value</returns>
         public override bool Equals(object obj)
         {
-            if (obj != null && obj is TenantSpecificAggregateRootBase<TIdType>)
+            if (obj != null && obj is TenantSpecificAggregateRootBase<TPrimaryKey>)
             {
-                return Equals(obj as TenantSpecificAggregateRootBase<TIdType>);
+                return Equals(obj as TenantSpecificAggregateRootBase<TPrimaryKey>);
             }
             return false;
         }
@@ -190,7 +190,7 @@ namespace Deploy.LaunchPad.Core.Entities
         /// </summary>
         /// <param name="obj">The other object of this type that we are testing equality with</param>
         /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
-        public virtual bool Equals(TenantSpecificAggregateRootBase<TIdType> obj)
+        public virtual bool Equals(TenantSpecificAggregateRootBase<TPrimaryKey> obj)
         {
             if (obj != null)
             {
@@ -218,7 +218,7 @@ namespace Deploy.LaunchPad.Core.Entities
         /// <param name="x">The first value</param>
         /// <param name="y">The second value</param>
         /// <returns>True if both objects are fully equal based on the Equals logic</returns>
-        public static bool operator ==(TenantSpecificAggregateRootBase<TIdType> x, TenantSpecificAggregateRootBase<TIdType> y)
+        public static bool operator ==(TenantSpecificAggregateRootBase<TPrimaryKey> x, TenantSpecificAggregateRootBase<TPrimaryKey> y)
         {
             if (ReferenceEquals(x, null))
             {
@@ -237,7 +237,7 @@ namespace Deploy.LaunchPad.Core.Entities
         /// <param name="x">The first value</param>
         /// <param name="y">The second value</param>
         /// <returns>True if both objects are not equal based on the Equals logic</returns>
-        public static bool operator !=(TenantSpecificAggregateRootBase<TIdType> x, TenantSpecificAggregateRootBase<TIdType> y)
+        public static bool operator !=(TenantSpecificAggregateRootBase<TPrimaryKey> x, TenantSpecificAggregateRootBase<TPrimaryKey> y)
         {
             return !(x == y);
         }

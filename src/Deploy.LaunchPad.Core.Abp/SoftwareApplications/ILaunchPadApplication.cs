@@ -38,9 +38,9 @@ namespace Deploy.LaunchPad.Core.Abp.SoftwareApplications
     /// <summary>
     /// Represents an application in the LaunchPad RAD framework.
     /// </summary>
-    /// <typeparam name="TIdType">The type of the t identifier type.</typeparam>
+    /// <typeparam name="TPrimaryKey">The type of the t identifier type.</typeparam>
     /// <typeparam name="TEntityIdType">The type of the t entity identifier type.</typeparam>
-    public partial interface ILaunchPadApplication<TIdType, TEntityIdType> : IFrameworkEntity<TIdType>
+    public partial interface ILaunchPadApplication<TPrimaryKey, TEntityIdType> : IFrameworkEntity<TPrimaryKey>
     {
 
         /// <summary>
@@ -49,7 +49,7 @@ namespace Deploy.LaunchPad.Core.Abp.SoftwareApplications
         /// <value>The application information.</value>
         [DataObjectField(false)]
         [XmlAttribute]
-        ApplicationDetails<TIdType> AppInfo
+        ApplicationDetails<TPrimaryKey> AppInfo
         {
             get; set;
         }
@@ -60,7 +60,7 @@ namespace Deploy.LaunchPad.Core.Abp.SoftwareApplications
         /// <value>The tenant information.</value>
         [DataObjectField(false)]
         [XmlAttribute]
-        List<TenantDetails<TIdType>> TenantInfo { get; set; }
+        List<TenantDetails<TPrimaryKey>> TenantInfo { get; set; }
 
         /// <summary>
         /// Each application can have an open-ended set of modules within that provide the functionality
@@ -68,7 +68,7 @@ namespace Deploy.LaunchPad.Core.Abp.SoftwareApplications
         /// <value>The modules.</value>
         [DataObjectField(false)]
         [XmlAttribute]
-        List<Module<TIdType, TEntityIdType>> Modules { get; set; }
+        List<Module<TPrimaryKey, TEntityIdType>> Modules { get; set; }
 
     }
 }

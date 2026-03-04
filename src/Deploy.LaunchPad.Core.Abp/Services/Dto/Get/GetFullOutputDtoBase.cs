@@ -27,11 +27,11 @@ namespace Deploy.LaunchPad.Code.Services.Dto
 {
     /// <summary>
     /// Class GetFullOutputDtoBase.
-    /// Implements the <see cref="Deploy.LaunchPad.Code.Services.Dto.GetOutputDtoBase{TIdType}" />
+    /// Implements the <see cref="Deploy.LaunchPad.Code.Services.Dto.GetOutputDtoBase{TPrimaryKey}" />
     /// </summary>
-    /// <typeparam name="TIdType">The type of the t identifier type.</typeparam>
-    /// <seealso cref="Deploy.LaunchPad.Code.Services.Dto.GetOutputDtoBase{TIdType}" />
-    public abstract partial class GetFullOutputDtoBase<TIdType> : GetOutputDtoBase<TIdType>
+    /// <typeparam name="TPrimaryKey">The type of the t identifier type.</typeparam>
+    /// <seealso cref="Deploy.LaunchPad.Code.Services.Dto.GetOutputDtoBase{TPrimaryKey}" />
+    public abstract partial class GetFullOutputDtoBase<TPrimaryKey> : GetOutputDtoBase<TPrimaryKey>
     {
         protected ElementNameDto _name;
         /// <summary>
@@ -125,7 +125,7 @@ namespace Deploy.LaunchPad.Code.Services.Dto
         /// </summary>
         protected GetFullOutputDtoBase() : base()
         {
-            Culture = ApplicationDetails<TIdType>.DEFAULT_CULTURE;
+            Culture = ApplicationDetails<TPrimaryKey>.DEFAULT_CULTURE;
             IsActive = true;
             Name = new ElementNameDto();
             Description = new ElementDescriptionDto();
@@ -135,21 +135,21 @@ namespace Deploy.LaunchPad.Code.Services.Dto
         /// Default constructor where the id is known
         /// </summary>
         /// <param name="id">The identifier.</param>
-        protected GetFullOutputDtoBase(TIdType id) : base(id)
+        protected GetFullOutputDtoBase(TPrimaryKey id) : base(id)
         {
             Id = id;
-            Culture = ApplicationDetails<TIdType>.DEFAULT_CULTURE;
+            Culture = ApplicationDetails<TPrimaryKey>.DEFAULT_CULTURE;
             IsActive = true;
             Name = new ElementNameDto();
             Description = new ElementDescriptionDto();
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="GetFullOutputDtoBase{TIdType}"/> class.
+        /// Initializes a new instance of the <see cref="GetFullOutputDtoBase{TPrimaryKey}"/> class.
         /// </summary>
         /// <param name="id">The identifier.</param>
         /// <param name="culture">The culture.</param>
-        protected GetFullOutputDtoBase(TIdType id, String culture) : base(id, culture)
+        protected GetFullOutputDtoBase(TPrimaryKey id, String culture) : base(id, culture)
         {
             Id = id;
             Culture = culture;
@@ -165,7 +165,7 @@ namespace Deploy.LaunchPad.Code.Services.Dto
         /// <param name="context">The context of the stream</param>
         protected GetFullOutputDtoBase(SerializationInfo info, StreamingContext context) : base(info, context)
         {
-            Id = (TIdType)info.GetValue("Id", typeof(TIdType));
+            Id = (TPrimaryKey)info.GetValue("Id", typeof(TPrimaryKey));
             Culture = info.GetString("Culture");
             Name = (ElementNameDto)info.GetValue("Name", typeof(ElementNameDto));
             Description = (ElementDescriptionDto)info.GetValue("Description", typeof(ElementDescriptionDto));
@@ -245,7 +245,7 @@ namespace Deploy.LaunchPad.Code.Services.Dto
         /// </summary>
         /// <typeparam name="TEntity">The source entity to clone</typeparam>
         /// <returns>A shallow clone of the entity and its serializable properties</returns>
-        protected new TEntity Clone<TEntity>() where TEntity : GetFullOutputDtoBase<TIdType>, new()
+        protected new TEntity Clone<TEntity>() where TEntity : GetFullOutputDtoBase<TPrimaryKey>, new()
         {
             TEntity clone = new TEntity();
             foreach (PropertyInfo info in GetType().GetProperties())
@@ -267,7 +267,7 @@ namespace Deploy.LaunchPad.Code.Services.Dto
         /// </summary>
         /// <param name="other">The other object of this type we are comparing to</param>
         /// <returns>System.Int32.</returns>
-        public virtual int CompareTo(GetFullOutputDtoBase<TIdType> other)
+        public virtual int CompareTo(GetFullOutputDtoBase<TPrimaryKey> other)
         {
             // put comparison of properties in here 
             // for base object we'll just sort by name and description short
@@ -281,9 +281,9 @@ namespace Deploy.LaunchPad.Code.Services.Dto
         /// <returns>True if the entities are the same according to business key value</returns>
         public override bool Equals(object obj)
         {
-            if (obj != null && obj is GetFullOutputDtoBase<TIdType>)
+            if (obj != null && obj is GetFullOutputDtoBase<TPrimaryKey>)
             {
-                return Equals(obj as GetFullOutputDtoBase<TIdType>);
+                return Equals(obj as GetFullOutputDtoBase<TPrimaryKey>);
             }
             return false;
         }
@@ -297,7 +297,7 @@ namespace Deploy.LaunchPad.Code.Services.Dto
         /// </summary>
         /// <param name="obj">The other object of this type that we are testing equality with</param>
         /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
-        public virtual bool Equals(GetFullOutputDtoBase<TIdType> obj)
+        public virtual bool Equals(GetFullOutputDtoBase<TPrimaryKey> obj)
         {
             if (obj != null)
             {
@@ -321,7 +321,7 @@ namespace Deploy.LaunchPad.Code.Services.Dto
         /// <param name="x">The first value</param>
         /// <param name="y">The second value</param>
         /// <returns>True if both objects are fully equal based on the Equals logic</returns>
-        public static bool operator ==(GetFullOutputDtoBase<TIdType> x, GetFullOutputDtoBase<TIdType> y)
+        public static bool operator ==(GetFullOutputDtoBase<TPrimaryKey> x, GetFullOutputDtoBase<TPrimaryKey> y)
         {
             if (x is null)
             {
@@ -340,7 +340,7 @@ namespace Deploy.LaunchPad.Code.Services.Dto
         /// <param name="x">The first value</param>
         /// <param name="y">The second value</param>
         /// <returns>True if both objects are not equal based on the Equals logic</returns>
-        public static bool operator !=(GetFullOutputDtoBase<TIdType> x, GetFullOutputDtoBase<TIdType> y)
+        public static bool operator !=(GetFullOutputDtoBase<TPrimaryKey> x, GetFullOutputDtoBase<TPrimaryKey> y)
         {
             return !(x == y);
         }

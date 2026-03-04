@@ -43,11 +43,11 @@ namespace Deploy.LaunchPad.Core.Entities
     /// Base class for Aggregate Child Entities (in Domain Driven Design). Inherits from <see cref="DomainEntityBase">DomainEntityBase</see>
     /// Implements AspNetBoilerplate's auditing interfaces.
     /// </summary>
-    /// <typeparam name="TIdType">The type of the t identifier type.</typeparam>
+    /// <typeparam name="TPrimaryKey">The type of the t identifier type.</typeparam>
     [Serializable]
-    public abstract partial class LaunchPadAggregateChildBase<TIdType> :
-        DomainEntityBase<TIdType>,
-        ILaunchPadAggregateChild<TIdType>
+    public abstract partial class LaunchPadAggregateChildBase<TPrimaryKey> :
+        DomainEntityBase<TPrimaryKey>,
+        ILaunchPadAggregateChild<TPrimaryKey>
 
     {
 
@@ -84,7 +84,7 @@ namespace Deploy.LaunchPad.Core.Entities
         /// Creates a new instance of the <see cref="LaunchPadAggregateChildBase">LaunchPadAggregateChildBase</see> class given a key, and some metadata.
         /// </summary>
         /// <param name="id">The identifier.</param>
-        protected LaunchPadAggregateChildBase(TIdType id) : base(id)
+        protected LaunchPadAggregateChildBase(TPrimaryKey id) : base(id)
         {
         }
 
@@ -94,7 +94,7 @@ namespace Deploy.LaunchPad.Core.Entities
         /// </summary>
         /// <param name="id">The identifier.</param>
         /// <param name="cultureName">The culture for this entity</param>
-        protected LaunchPadAggregateChildBase(TIdType id, string cultureName) : base(id, cultureName)
+        protected LaunchPadAggregateChildBase(TPrimaryKey id, string cultureName) : base(id, cultureName)
         {
         }
 
@@ -150,9 +150,9 @@ namespace Deploy.LaunchPad.Core.Entities
         /// <returns>True if the entities are the same according to business key value</returns>
         public override bool Equals(object obj)
         {
-            if (obj != null && obj is LaunchPadAggregateChildBase<TIdType>)
+            if (obj != null && obj is LaunchPadAggregateChildBase<TPrimaryKey>)
             {
-                return Equals(obj as LaunchPadAggregateChildBase<TIdType>);
+                return Equals(obj as LaunchPadAggregateChildBase<TPrimaryKey>);
             }
             return false;
         }
@@ -166,7 +166,7 @@ namespace Deploy.LaunchPad.Core.Entities
         /// </summary>
         /// <param name="obj">The other object of this type that we are testing equality with</param>
         /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
-        public virtual bool Equals(LaunchPadAggregateChildBase<TIdType> obj)
+        public virtual bool Equals(LaunchPadAggregateChildBase<TPrimaryKey> obj)
         {
             if (obj != null)
             {
@@ -194,7 +194,7 @@ namespace Deploy.LaunchPad.Core.Entities
         /// <param name="x">The first value</param>
         /// <param name="y">The second value</param>
         /// <returns>True if both objects are fully equal based on the Equals logic</returns>
-        public static bool operator ==(LaunchPadAggregateChildBase<TIdType> x, LaunchPadAggregateChildBase<TIdType> y)
+        public static bool operator ==(LaunchPadAggregateChildBase<TPrimaryKey> x, LaunchPadAggregateChildBase<TPrimaryKey> y)
         {
             if (ReferenceEquals(x, null))
             {
@@ -213,7 +213,7 @@ namespace Deploy.LaunchPad.Core.Entities
         /// <param name="x">The first value</param>
         /// <param name="y">The second value</param>
         /// <returns>True if both objects are not equal based on the Equals logic</returns>
-        public static bool operator !=(LaunchPadAggregateChildBase<TIdType> x, LaunchPadAggregateChildBase<TIdType> y)
+        public static bool operator !=(LaunchPadAggregateChildBase<TPrimaryKey> x, LaunchPadAggregateChildBase<TPrimaryKey> y)
         {
             return !(x == y);
         }

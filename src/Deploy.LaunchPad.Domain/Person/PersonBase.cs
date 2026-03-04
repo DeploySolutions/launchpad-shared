@@ -45,8 +45,8 @@ namespace Deploy.LaunchPad.Domain.Person
     /// Implements <see cref="ILaunchPadPerson">ILaunchPadPerson</see> and provides
     /// base functionality for many of its methods.
     /// </summary>
-    /// <typeparam name="TIdType">The type of the t identifier type.</typeparam>
-    public abstract partial class PersonBase<TIdType> : LaunchPadModelBase, ILaunchPadPerson
+    /// <typeparam name="TPrimaryKey">The type of the t identifier type.</typeparam>
+    public abstract partial class PersonBase<TPrimaryKey> : LaunchPadModelBase, ILaunchPadPerson
     {
 
        
@@ -127,7 +127,7 @@ namespace Deploy.LaunchPad.Domain.Person
         /// </summary>
         /// <param name="other">The other object of this type we are comparing to</param>
         /// <returns>System.Int32.</returns>
-        public virtual int CompareTo(PersonBase<TIdType> other)
+        public virtual int CompareTo(PersonBase<TPrimaryKey> other)
         {
             return other == null ? 1 : String.Compare(Name, other.Name, StringComparison.InvariantCulture);
         }
@@ -156,9 +156,9 @@ namespace Deploy.LaunchPad.Domain.Person
         /// <returns>True if the entities are the same according to business key value</returns>
         public override bool Equals(object obj)
         {
-            if (obj != null && obj is PersonBase<TIdType>)
+            if (obj != null && obj is PersonBase<TPrimaryKey>)
             {
-                return Equals((PersonBase<TIdType>)obj);
+                return Equals((PersonBase<TPrimaryKey>)obj);
             }
             return false;
         }
@@ -172,7 +172,7 @@ namespace Deploy.LaunchPad.Domain.Person
         /// </summary>
         /// <param name="obj">The other object of this type that we are testing equality with</param>
         /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
-        public virtual bool Equals(PersonBase<TIdType> obj)
+        public virtual bool Equals(PersonBase<TPrimaryKey> obj)
         {
             if (obj != null)
             {
@@ -193,7 +193,7 @@ namespace Deploy.LaunchPad.Domain.Person
         /// <param name="x">The first value</param>
         /// <param name="y">The second value</param>
         /// <returns>True if both objects are fully equal based on the Equals logic</returns>
-        public static bool operator ==(PersonBase<TIdType> x, PersonBase<TIdType> y)
+        public static bool operator ==(PersonBase<TPrimaryKey> x, PersonBase<TPrimaryKey> y)
         {
             if (System.Object.ReferenceEquals(x, null))
             {
@@ -212,7 +212,7 @@ namespace Deploy.LaunchPad.Domain.Person
         /// <param name="x">The first value</param>
         /// <param name="y">The second value</param>
         /// <returns>True if both objects are not equal based on the Equals logic</returns>
-        public static bool operator !=(PersonBase<TIdType> x, PersonBase<TIdType> y)
+        public static bool operator !=(PersonBase<TPrimaryKey> x, PersonBase<TPrimaryKey> y)
         {
             return !(x == y);
         }

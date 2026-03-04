@@ -38,9 +38,9 @@ namespace Deploy.LaunchPad.Core.Abp.SoftwareApplications
     /// <summary>
     /// Represents a module in an application.
     /// </summary>
-    /// <typeparam name="TIdType">The type of the t identifier type.</typeparam>
+    /// <typeparam name="TPrimaryKey">The type of the t identifier type.</typeparam>
     /// <typeparam name="TEntityIdType">The type of the t entity identifier type.</typeparam>
-    public partial interface IModule<TIdType, TEntityIdType> : IDomainEntity<TIdType>
+    public partial interface IModule<TPrimaryKey, TEntityIdType> : IDomainEntity<TPrimaryKey>
     {
 
         /// <summary>
@@ -71,7 +71,7 @@ namespace Deploy.LaunchPad.Core.Abp.SoftwareApplications
         /// <value>The components.</value>
         [DataObjectField(false)]
         [XmlAttribute]
-        IList<Component<TIdType, TEntityIdType>> Components { get; set; }
+        IList<Component<TPrimaryKey, TEntityIdType>> Components { get; set; }
 
     }
 }

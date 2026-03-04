@@ -44,8 +44,8 @@ namespace Deploy.LaunchPad.Domain.Organization
     /// Implements <see cref="ILaunchPadOrganization">ILaunchPadOrganization</see> and provides
     /// base functionality for many of its methods.
     /// </summary>
-    /// <typeparam name="TIdType">The type of the t identifier type.</typeparam>
-    public abstract partial class OrganizationBase<TIdType> : LaunchPadModelBase, ILaunchPadOrganization, IMayHaveOrganizationContactPointInformation
+    /// <typeparam name="TPrimaryKey">The type of the t identifier type.</typeparam>
+    public abstract partial class OrganizationBase<TPrimaryKey> : LaunchPadModelBase, ILaunchPadOrganization, IMayHaveOrganizationContactPointInformation
     {
 
         public virtual ILaunchPadOrganization Parent { get; set; }
@@ -130,7 +130,7 @@ namespace Deploy.LaunchPad.Domain.Organization
         /// </summary>
         /// <param name="other">The other object of this type we are comparing to</param>
         /// <returns>System.Int32.</returns>
-        public virtual int CompareTo(OrganizationBase<TIdType> other)
+        public virtual int CompareTo(OrganizationBase<TPrimaryKey> other)
         {
             return other == null ? 1 : String.Compare(Name, other.Name, StringComparison.InvariantCulture);
         }
@@ -159,9 +159,9 @@ namespace Deploy.LaunchPad.Domain.Organization
         /// <returns>True if the entities are the same according to business key value</returns>
         public override bool Equals(object obj)
         {
-            if (obj != null && obj is OrganizationBase<TIdType>)
+            if (obj != null && obj is OrganizationBase<TPrimaryKey>)
             {
-                return Equals((OrganizationBase<TIdType>)obj);
+                return Equals((OrganizationBase<TPrimaryKey>)obj);
             }
             return false;
         }
@@ -175,7 +175,7 @@ namespace Deploy.LaunchPad.Domain.Organization
         /// </summary>
         /// <param name="obj">The other object of this type that we are testing equality with</param>
         /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
-        public virtual bool Equals(OrganizationBase<TIdType> obj)
+        public virtual bool Equals(OrganizationBase<TPrimaryKey> obj)
         {
             if (obj != null)
             {
@@ -196,7 +196,7 @@ namespace Deploy.LaunchPad.Domain.Organization
         /// <param name="x">The first value</param>
         /// <param name="y">The second value</param>
         /// <returns>True if both objects are fully equal based on the Equals logic</returns>
-        public static bool operator ==(OrganizationBase<TIdType> x, OrganizationBase<TIdType> y)
+        public static bool operator ==(OrganizationBase<TPrimaryKey> x, OrganizationBase<TPrimaryKey> y)
         {
             if (System.Object.ReferenceEquals(x, null))
             {
@@ -215,7 +215,7 @@ namespace Deploy.LaunchPad.Domain.Organization
         /// <param name="x">The first value</param>
         /// <param name="y">The second value</param>
         /// <returns>True if both objects are not equal based on the Equals logic</returns>
-        public static bool operator !=(OrganizationBase<TIdType> x, OrganizationBase<TIdType> y)
+        public static bool operator !=(OrganizationBase<TPrimaryKey> x, OrganizationBase<TPrimaryKey> y)
         {
             return !(x == y);
         }

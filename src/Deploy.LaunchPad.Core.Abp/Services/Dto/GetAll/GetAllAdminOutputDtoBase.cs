@@ -17,11 +17,11 @@ namespace Deploy.LaunchPad.Code.Services.Dto
 {
     /// <summary>
     /// Class GetAllAdminOutputDtoBase.
-    /// Implements the <see cref="Deploy.LaunchPad.Code.Services.Dto.GetAllDetailOutputDtoBase{TIdType}" />
+    /// Implements the <see cref="Deploy.LaunchPad.Code.Services.Dto.GetAllDetailOutputDtoBase{TPrimaryKey}" />
     /// </summary>
-    /// <typeparam name="TIdType">The type of the t identifier type.</typeparam>
-    /// <seealso cref="Deploy.LaunchPad.Code.Services.Dto.GetAllDetailOutputDtoBase{TIdType}" />
-    public abstract partial class GetAllAdminOutputDtoBase<TIdType> : GetAllDetailOutputDtoBase<TIdType>
+    /// <typeparam name="TPrimaryKey">The type of the t identifier type.</typeparam>
+    /// <seealso cref="Deploy.LaunchPad.Code.Services.Dto.GetAllDetailOutputDtoBase{TPrimaryKey}" />
+    public abstract partial class GetAllAdminOutputDtoBase<TPrimaryKey> : GetAllDetailOutputDtoBase<TPrimaryKey>
     {
 
         #region "Constructors"

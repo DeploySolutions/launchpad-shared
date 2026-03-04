@@ -38,8 +38,8 @@ namespace Deploy.LaunchPad.Code.Deployments
     /// <summary>
     /// Represents a deployment that will take a release candidate (set of code, data, and resources) and place it in a destination environment.
     /// </summary>
-    /// <typeparam name="TIdType">The type of the Id</typeparam>
-    public partial interface IDeployment<TIdType> : IDomainEntity<TIdType>
+    /// <typeparam name="TPrimaryKey">The type of the Id</typeparam>
+    public partial interface IDeployment<TPrimaryKey> : IDomainEntity<TPrimaryKey>
     {
 
         /// <summary>
@@ -49,7 +49,7 @@ namespace Deploy.LaunchPad.Code.Deployments
         [DataObjectField(false)]
         [XmlAttribute]
         [Required]
-        TIdType ReleaseCandidateId { get; set; }
+        TPrimaryKey ReleaseCandidateId { get; set; }
 
         /// <summary>
         /// The id of the process that will be followed during the deployment (if known)
@@ -57,7 +57,7 @@ namespace Deploy.LaunchPad.Code.Deployments
         /// <value>The deployment process identifier.</value>
         [DataObjectField(false)]
         [XmlAttribute]
-        TIdType DeploymentProcessId { get; set; }
+        TPrimaryKey DeploymentProcessId { get; set; }
 
         /// <summary>
         /// The current state of the deployment

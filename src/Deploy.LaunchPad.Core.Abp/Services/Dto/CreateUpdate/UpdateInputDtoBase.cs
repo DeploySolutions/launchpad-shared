@@ -28,13 +28,13 @@ namespace Deploy.LaunchPad.Code.Services.Dto
 {
     /// <summary>
     /// Class UpdateInputDtoBase.
-    /// Implements the <see cref="Deploy.LaunchPad.Code.Services.Dto.EntityDtoBase{TIdType}" />
+    /// Implements the <see cref="Deploy.LaunchPad.Code.Services.Dto.EntityDtoBase{TPrimaryKey}" />
     /// Implements the <see cref="ICanBeAppServiceMethodInput" />
     /// </summary>
-    /// <typeparam name="TIdType">The type of the t identifier type.</typeparam>
-    /// <seealso cref="Deploy.LaunchPad.Code.Services.Dto.EntityDtoBase{TIdType}" />
+    /// <typeparam name="TPrimaryKey">The type of the t identifier type.</typeparam>
+    /// <seealso cref="Deploy.LaunchPad.Code.Services.Dto.EntityDtoBase{TPrimaryKey}" />
     /// <seealso cref="ICanBeAppServiceMethodInput" />
-    public abstract partial class UpdateInputDtoBase<TIdType> : EntityDtoBase<TIdType>, ICanBeAppServiceMethodInput
+    public abstract partial class UpdateInputDtoBase<TPrimaryKey> : EntityDtoBase<TPrimaryKey>, ICanBeAppServiceMethodInput
     {
         /// <summary>
         /// The id of this object
@@ -43,7 +43,7 @@ namespace Deploy.LaunchPad.Code.Services.Dto
         [DataObjectField(true)]
         [XmlAttribute]
         [Required]
-        public override TIdType Id { get; set; }
+        public override TPrimaryKey Id { get; set; }
 
         protected string _name;
         /// <summary>
@@ -115,7 +115,7 @@ namespace Deploy.LaunchPad.Code.Services.Dto
         protected UpdateInputDtoBase() : base()
         {
 
-            ExternalId = string.Empty; Culture = ApplicationDetails<TIdType>.DEFAULT_CULTURE;
+            ExternalId = string.Empty; Culture = ApplicationDetails<TPrimaryKey>.DEFAULT_CULTURE;
             Name = string.Empty;
             Description = string.Empty;            
         }
@@ -124,21 +124,21 @@ namespace Deploy.LaunchPad.Code.Services.Dto
         /// Default constructor where the id is known
         /// </summary>
         /// <param name="id">The identifier.</param>
-        protected UpdateInputDtoBase(TIdType id) : base()
+        protected UpdateInputDtoBase(TPrimaryKey id) : base()
         {
             Id = id;
             ExternalId = string.Empty;
-            Culture = ApplicationDetails<TIdType>.DEFAULT_CULTURE;
+            Culture = ApplicationDetails<TPrimaryKey>.DEFAULT_CULTURE;
             Name = string.Empty;
             Description = string.Empty;
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="UpdateInputDtoBase{TIdType}"/> class.
+        /// Initializes a new instance of the <see cref="UpdateInputDtoBase{TPrimaryKey}"/> class.
         /// </summary>
         /// <param name="id">The identifier.</param>
         /// <param name="culture">The culture.</param>
-        protected UpdateInputDtoBase(TIdType id, String culture) : base()
+        protected UpdateInputDtoBase(TPrimaryKey id, String culture) : base()
         {
             Id = id;
             ExternalId = string.Empty;
@@ -154,7 +154,7 @@ namespace Deploy.LaunchPad.Code.Services.Dto
         /// <param name="context">The context of the stream</param>
         protected UpdateInputDtoBase(SerializationInfo info, StreamingContext context)
         {
-            Id = (TIdType)info.GetValue("Id", typeof(TIdType));
+            Id = (TPrimaryKey)info.GetValue("Id", typeof(TPrimaryKey));
             ExternalId = info.GetString("ExternalId");
             Culture = info.GetString("Culture");
             Name = info.GetString("Name");
@@ -222,7 +222,7 @@ namespace Deploy.LaunchPad.Code.Services.Dto
         /// </summary>
         /// <typeparam name="TEntity">The source entity to clone</typeparam>
         /// <returns>A shallow clone of the entity and its serializable properties</returns>
-        protected new TEntity Clone<TEntity>() where TEntity : UpdateInputDtoBase<TIdType>, new()
+        protected new TEntity Clone<TEntity>() where TEntity : UpdateInputDtoBase<TPrimaryKey>, new()
         {
             TEntity clone = new TEntity();
             foreach (PropertyInfo info in GetType().GetProperties())
@@ -244,7 +244,7 @@ namespace Deploy.LaunchPad.Code.Services.Dto
         /// </summary>
         /// <param name="other">The other object of this type we are comparing to</param>
         /// <returns>System.Int32.</returns>
-        public virtual int CompareTo(UpdateInputDtoBase<TIdType> other)
+        public virtual int CompareTo(UpdateInputDtoBase<TPrimaryKey> other)
         {
             // put comparison of properties in here 
             // for base object we'll just sort by id and culture
@@ -260,9 +260,9 @@ namespace Deploy.LaunchPad.Code.Services.Dto
         /// <returns>True if the entities are the same according to business key value</returns>
         public override bool Equals(object obj)
         {
-            if (obj != null && obj is UpdateInputDtoBase<TIdType>)
+            if (obj != null && obj is UpdateInputDtoBase<TPrimaryKey>)
             {
-                return Equals(obj as UpdateInputDtoBase<TIdType>);
+                return Equals(obj as UpdateInputDtoBase<TPrimaryKey>);
             }
             return false;
         }
@@ -276,7 +276,7 @@ namespace Deploy.LaunchPad.Code.Services.Dto
         /// </summary>
         /// <param name="obj">The other object of this type that we are testing equality with</param>
         /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
-        public virtual bool Equals(UpdateInputDtoBase<TIdType> obj)
+        public virtual bool Equals(UpdateInputDtoBase<TPrimaryKey> obj)
         {
             if (obj != null)
             {
@@ -293,7 +293,7 @@ namespace Deploy.LaunchPad.Code.Services.Dto
         /// <param name="x">The first value</param>
         /// <param name="y">The second value</param>
         /// <returns>True if both objects are fully equal based on the Equals logic</returns>
-        public static bool operator ==(UpdateInputDtoBase<TIdType> x, UpdateInputDtoBase<TIdType> y)
+        public static bool operator ==(UpdateInputDtoBase<TPrimaryKey> x, UpdateInputDtoBase<TPrimaryKey> y)
         {
             if (x is null)
             {
@@ -312,7 +312,7 @@ namespace Deploy.LaunchPad.Code.Services.Dto
         /// <param name="x">The first value</param>
         /// <param name="y">The second value</param>
         /// <returns>True if both objects are not equal based on the Equals logic</returns>
-        public static bool operator !=(UpdateInputDtoBase<TIdType> x, UpdateInputDtoBase<TIdType> y)
+        public static bool operator !=(UpdateInputDtoBase<TPrimaryKey> x, UpdateInputDtoBase<TPrimaryKey> y)
         {
             return !(x == y);
         }

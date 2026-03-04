@@ -20,9 +20,9 @@ namespace Deploy.LaunchPad.Code.Services.Dto
     /// Class DeleteOutputDtoBase.
     /// Implements the <see cref="ICanBeAppServiceMethodOutput" />
     /// </summary>
-    /// <typeparam name="TIdType">The type of the t identifier type.</typeparam>
+    /// <typeparam name="TPrimaryKey">The type of the t identifier type.</typeparam>
     /// <seealso cref="ICanBeAppServiceMethodOutput" />
-    public abstract partial class DeleteOutputDtoBase<TIdType> : ICanBeAppServiceMethodOutput
+    public abstract partial class DeleteOutputDtoBase<TPrimaryKey> : ICanBeAppServiceMethodOutput
     {
         /// <summary>
         /// Determines if the delete operation succeeded. It is up to the implementer to determine what "success" means.

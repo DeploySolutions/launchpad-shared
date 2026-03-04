@@ -41,11 +41,11 @@ namespace Deploy.LaunchPad.Geospatial.Position
     /// <summary>
     /// This class defines the geographical boundaries of an Area of Interest being observed.
     /// </summary>
-    /// <typeparam name="TIdType">The type of the t identifier type.</typeparam>
+    /// <typeparam name="TPrimaryKey">The type of the t identifier type.</typeparam>
     /// <typeparam name="TParentAreaOfInterest">The type of the t parent area of interest.</typeparam>
     [Serializable()]
-    public abstract partial class ObservationPointBase<TIdType, TParentAreaOfInterest> :
-        DomainEntityBase<TIdType>, IObservationPoint<TParentAreaOfInterest>
+    public abstract partial class ObservationPointBase<TPrimaryKey, TParentAreaOfInterest> :
+        DomainEntityBase<TPrimaryKey>, IObservationPoint<TParentAreaOfInterest>
         where TParentAreaOfInterest : IAreaOfInterest
     {
         #region "Geographic Properties"
@@ -177,14 +177,14 @@ namespace Deploy.LaunchPad.Geospatial.Position
 
         
         /// <summary>
-        /// Initializes a new instance of the <see cref="ObservationPointBase{TIdType, TParentAreaOfInterest}"/> class.
+        /// Initializes a new instance of the <see cref="ObservationPointBase{TPrimaryKey, TParentAreaOfInterest}"/> class.
         /// </summary>
         protected ObservationPointBase() : base()
         {
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="ObservationPointBase{TIdType, TParentAreaOfInterest}"/> class.
+        /// Initializes a new instance of the <see cref="ObservationPointBase{TPrimaryKey, TParentAreaOfInterest}"/> class.
         /// </summary>
         /// <param name="parentAoi">The parent aoi.</param>
         protected ObservationPointBase(System.Guid? tenantId, TParentAreaOfInterest parentAoi) : base()
@@ -193,7 +193,7 @@ namespace Deploy.LaunchPad.Geospatial.Position
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="ObservationPointBase{TIdType, TParentAreaOfInterest}"/> class.
+        /// Initializes a new instance of the <see cref="ObservationPointBase{TPrimaryKey, TParentAreaOfInterest}"/> class.
         /// </summary>
         /// <param name="location">The location.</param>
         protected ObservationPointBase(IMustHaveGeographicPosition location) : base()
@@ -262,9 +262,9 @@ namespace Deploy.LaunchPad.Geospatial.Position
         /// <returns>True if the objects are the same</returns>
         public override bool Equals(object obj)
         {
-            if (obj != null && obj is ObservationPointBase<TIdType, TParentAreaOfInterest>)
+            if (obj != null && obj is ObservationPointBase<TPrimaryKey, TParentAreaOfInterest>)
             {
-                return Equals(obj as ObservationPointBase<TIdType, TParentAreaOfInterest>);
+                return Equals(obj as ObservationPointBase<TPrimaryKey, TParentAreaOfInterest>);
             }
             return false;
         }
@@ -277,7 +277,7 @@ namespace Deploy.LaunchPad.Geospatial.Position
         /// </summary>
         /// <param name="obj">The other object of this type we are testing equality with</param>
         /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
-        public bool Equals(ObservationPointBase<TIdType, TParentAreaOfInterest> obj)
+        public bool Equals(ObservationPointBase<TPrimaryKey, TParentAreaOfInterest> obj)
         {
             if (obj != null)
             {
@@ -302,7 +302,7 @@ namespace Deploy.LaunchPad.Geospatial.Position
         /// <param name="x">The first value</param>
         /// <param name="y">The second value</param>
         /// <returns>True if both objects are fully equal based on the Equals logic</returns>
-        public static bool operator ==(ObservationPointBase<TIdType, TParentAreaOfInterest> x, ObservationPointBase<TIdType, TParentAreaOfInterest> y)
+        public static bool operator ==(ObservationPointBase<TPrimaryKey, TParentAreaOfInterest> x, ObservationPointBase<TPrimaryKey, TParentAreaOfInterest> y)
         {
             if (ReferenceEquals(x, null))
             {
@@ -321,7 +321,7 @@ namespace Deploy.LaunchPad.Geospatial.Position
         /// <param name="x">The first value</param>
         /// <param name="y">The second value</param>
         /// <returns>True if both objects are not equal based on the Equals logic</returns>
-        public static bool operator !=(ObservationPointBase<TIdType, TParentAreaOfInterest> x, ObservationPointBase<TIdType, TParentAreaOfInterest> y)
+        public static bool operator !=(ObservationPointBase<TPrimaryKey, TParentAreaOfInterest> x, ObservationPointBase<TPrimaryKey, TParentAreaOfInterest> y)
         {
             return !(x == y);
         }

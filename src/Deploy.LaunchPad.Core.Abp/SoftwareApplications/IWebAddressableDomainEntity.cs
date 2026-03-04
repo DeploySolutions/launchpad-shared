@@ -43,8 +43,8 @@ namespace Deploy.LaunchPad.Core.Abp.SoftwareApplications
     /// set of <see cref="MetadataInformation">MetadataInformation</see>.
     /// Each entity also implements ASP.NET Boilerplate's IEntity interface.
     /// </summary>
-    /// <typeparam name="TIdType">The type of the t identifier type.</typeparam>
-    public partial interface IWebAddressableDomainEntity<TIdType> : IDomainEntity<TIdType>
+    /// <typeparam name="TPrimaryKey">The type of the t identifier type.</typeparam>
+    public partial interface IWebAddressableDomainEntity<TPrimaryKey> : IDomainEntity<TPrimaryKey>
     {
 
     }

@@ -40,13 +40,12 @@ namespace Deploy.LaunchPad.Core.Domain.Entities
     /// set of <see cref="MetadataInformation">MetadataInformation</see>.
     /// Each entity also implements ASP.NET Boilerplate's IEntity interface.
     /// </summary>
-    /// <typeparam name="TIdType">The type of the t identifier type.</typeparam>
-    public partial interface IDomainEntity<TIdType> :
-        IDomainEntityProperties<TIdType>, IFrameworkEntity<TIdType>,
+    /// <typeparam name="TPrimaryKey">The type of the t identifier type.</typeparam>
+    public partial interface IDomainEntity<TPrimaryKey> :
+        IDomainEntityProperties<TPrimaryKey>, IFrameworkEntity<TPrimaryKey>,
         ICreationAudited, IModificationAudited, IDeletionAudited,
-        IComparable<DomainEntityBase<TIdType>>, IEquatable<DomainEntityBase<TIdType>>,
-        ICloneable, IAmCloneable<DomainEntityBase<TIdType>>,
-        IMustHaveCulture, IHavePassivable, IMayHaveTags, IHaveSoftDelete, IMustHaveElementDescription
+        IComparable<DomainEntityBase<TPrimaryKey>>, IEquatable<DomainEntityBase<TPrimaryKey>>,
+        IAmCloneable<DomainEntityBase<TPrimaryKey>>
     {
 
     }

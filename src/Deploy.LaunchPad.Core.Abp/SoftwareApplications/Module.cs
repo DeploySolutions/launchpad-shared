@@ -42,10 +42,10 @@ namespace Deploy.LaunchPad.Core.Abp.SoftwareApplications
     /// <summary>
     /// Base class for application-specific information
     /// </summary>
-    /// <typeparam name="TIdType">The type of the t identifier type.</typeparam>
+    /// <typeparam name="TPrimaryKey">The type of the t identifier type.</typeparam>
     /// <typeparam name="TEntityIdType">The type of the t entity identifier type.</typeparam>
     [Serializable()]
-    public partial class Module<TIdType, TEntityIdType> : DomainEntityBase<TIdType>, IModule<TIdType, TEntityIdType>, IMayHaveTenant
+    public partial class Module<TPrimaryKey, TEntityIdType> : DomainEntityBase<TPrimaryKey>, IModule<TPrimaryKey, TEntityIdType>, IMayHaveTenant
     {
         /// <summary>
         /// The type of the module
@@ -75,7 +75,7 @@ namespace Deploy.LaunchPad.Core.Abp.SoftwareApplications
         /// <value>The components.</value>
         [DataObjectField(false)]
         [XmlAttribute]
-        public virtual IList<Component<TIdType, TEntityIdType>> Components { get; set; }
+        public virtual IList<Component<TPrimaryKey, TEntityIdType>> Components { get; set; }
         /// <summary>
         /// TenantId of this entity.
         /// </summary>
@@ -84,51 +84,51 @@ namespace Deploy.LaunchPad.Core.Abp.SoftwareApplications
 
         #region "Constructors"
         /// <summary>
-        /// Initializes a new instance of the <see cref="Module{TIdType, TEntityIdType}"/> class.
+        /// Initializes a new instance of the <see cref="Module{TPrimaryKey, TEntityIdType}"/> class.
         /// </summary>
         public Module() : base()
         {
             Type = string.Empty;
-            Components = new List<Component<TIdType, TEntityIdType>>();
+            Components = new List<Component<TPrimaryKey, TEntityIdType>>();
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Module{TIdType, TEntityIdType}"/> class.
+        /// Initializes a new instance of the <see cref="Module{TPrimaryKey, TEntityIdType}"/> class.
         /// </summary>
         /// <param name="tenantId">The tenant identifier.</param>
         public Module(System.Guid? tenantId) : base()
         {
             Type = string.Empty;
             TenantId = tenantId;
-            Components = new List<Component<TIdType, TEntityIdType>>();
+            Components = new List<Component<TPrimaryKey, TEntityIdType>>();
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Module{TIdType, TEntityIdType}"/> class.
+        /// Initializes a new instance of the <see cref="Module{TPrimaryKey, TEntityIdType}"/> class.
         /// </summary>
         /// <param name="tenantId">The tenant identifier.</param>
         /// <param name="id">The identifier.</param>
         /// <param name="cultureName">Name of the culture.</param>
-        public Module(System.Guid? tenantId, TIdType id, string cultureName) : base(id, cultureName)
+        public Module(System.Guid? tenantId, TPrimaryKey id, string cultureName) : base(id, cultureName)
         {
             Type = string.Empty;
             TenantId = tenantId;
             CultureDefault = cultureName;
-            Components = new List<Component<TIdType, TEntityIdType>>();
+            Components = new List<Component<TPrimaryKey, TEntityIdType>>();
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Module{TIdType, TEntityIdType}"/> class.
+        /// Initializes a new instance of the <see cref="Module{TPrimaryKey, TEntityIdType}"/> class.
         /// </summary>
         /// <param name="tenantId">The tenant identifier.</param>
         /// <param name="id">The identifier.</param>
         /// <param name="cultureName">Name of the culture.</param>
         /// <param name="cultureDefault">The culture default.</param>
-        public Module(System.Guid? tenantId, TIdType id, string cultureName, String cultureDefault) : base(id, cultureName)
+        public Module(System.Guid? tenantId, TPrimaryKey id, string cultureName, String cultureDefault) : base(id, cultureName)
         {
             Type = string.Empty;
             CultureDefault = cultureDefault;
-            Components = new List<Component<TIdType, TEntityIdType>>();
+            Components = new List<Component<TPrimaryKey, TEntityIdType>>();
         }
 
         /// <summary>
@@ -140,7 +140,7 @@ namespace Deploy.LaunchPad.Core.Abp.SoftwareApplications
         {
             Type = info.GetString("Type");
             CultureDefault = info.GetString("CultureDefault");
-            Components = (List<Component<TIdType, TEntityIdType>>)info.GetValue("Components", typeof(List<Component<TIdType, TEntityIdType>>));
+            Components = (List<Component<TPrimaryKey, TEntityIdType>>)info.GetValue("Components", typeof(List<Component<TPrimaryKey, TEntityIdType>>));
         }
 
         #endregion

@@ -20,8 +20,8 @@ namespace Deploy.LaunchPad.Domain.Metadata
     /// <summary>
     /// Defines the minimum properties LaunchPad expects to have for a child entity of an Aggregate Root.
     /// </summary>
-    /// <typeparam name="TIdType">The type of the t identifier type.</typeparam>
-    public partial interface ILaunchPadAggregateChildProperties<TIdType> : IDomainEntityProperties<TIdType>
+    /// <typeparam name="TPrimaryKey">The type of the t identifier type.</typeparam>
+    public partial interface ILaunchPadAggregateChildProperties<TPrimaryKey> : IDomainEntityProperties<TPrimaryKey>
     {
         /// <summary>
         /// The fully qualified type name of the parent Aggregate Root

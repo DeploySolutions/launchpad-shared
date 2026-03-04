@@ -42,10 +42,10 @@ namespace Deploy.LaunchPad.Core.Abp.SoftwareApplications
     /// <summary>
     /// Base class for components
     /// </summary>
-    /// <typeparam name="TIdType">The type of the key id field</typeparam>
+    /// <typeparam name="TPrimaryKey">The type of the key id field</typeparam>
     /// <typeparam name="TEntityIdType">The type of the t entity identifier type.</typeparam>
     [Serializable()]
-    public partial class Component<TIdType, TEntityIdType> : DomainEntityBase<TIdType>, IComponent<TIdType, TEntityIdType>, IMayHaveTenant
+    public partial class Component<TPrimaryKey, TEntityIdType> : DomainEntityBase<TPrimaryKey>, IComponent<TPrimaryKey, TEntityIdType>, IMayHaveTenant
     {
 
         /// <summary>
@@ -63,7 +63,7 @@ namespace Deploy.LaunchPad.Core.Abp.SoftwareApplications
 
         #region "Constructors"
         /// <summary>
-        /// Initializes a new instance of the <see cref="Component{TIdType, TEntityIdType}"/> class.
+        /// Initializes a new instance of the <see cref="Component{TPrimaryKey, TEntityIdType}"/> class.
         /// </summary>
         public Component() : base()
         {
@@ -71,7 +71,7 @@ namespace Deploy.LaunchPad.Core.Abp.SoftwareApplications
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Component{TIdType, TEntityIdType}"/> class.
+        /// Initializes a new instance of the <see cref="Component{TPrimaryKey, TEntityIdType}"/> class.
         /// </summary>
         /// <param name="tenantId">The tenant identifier.</param>
         public Component(System.Guid? tenantId) : base()

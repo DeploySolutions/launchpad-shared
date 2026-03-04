@@ -41,10 +41,10 @@ namespace Deploy.LaunchPad.Geospatial.Position
     /// <summary>
     /// This class defines the geographical boundaries of an Area of Interest being observed.
     /// </summary>
-    /// <typeparam name="TIdType">The type of the t identifier type.</typeparam>
+    /// <typeparam name="TPrimaryKey">The type of the t identifier type.</typeparam>
     [Serializable()]
-    public abstract partial class AreaOfInterestBase<TIdType> :
-        DomainEntityBase<TIdType>, IAreaOfInterest
+    public abstract partial class AreaOfInterestBase<TPrimaryKey> :
+        DomainEntityBase<TPrimaryKey>, IAreaOfInterest
     {
 
         #region "Geographic Properties"
@@ -171,7 +171,7 @@ namespace Deploy.LaunchPad.Geospatial.Position
         #endregion
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="AreaOfInterestBase{TIdType}"/> class.
+        /// Initializes a new instance of the <see cref="AreaOfInterestBase{TPrimaryKey}"/> class.
         /// </summary>
         protected AreaOfInterestBase() : base()
         {
@@ -179,7 +179,7 @@ namespace Deploy.LaunchPad.Geospatial.Position
 
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="AreaOfInterestBase{TIdType}"/> class.
+        /// Initializes a new instance of the <see cref="AreaOfInterestBase{TPrimaryKey}"/> class.
         /// </summary>
         /// <param name="geoJson">The geo json.</param>
         protected AreaOfInterestBase(string geoJson) : base()
@@ -252,9 +252,9 @@ namespace Deploy.LaunchPad.Geospatial.Position
         /// <returns>True if the objects are the same</returns>
         public override bool Equals(object obj)
         {
-            if (obj != null && obj is AreaOfInterestBase<TIdType>)
+            if (obj != null && obj is AreaOfInterestBase<TPrimaryKey>)
             {
-                return Equals(obj as AreaOfInterestBase<TIdType>);
+                return Equals(obj as AreaOfInterestBase<TPrimaryKey>);
             }
             return false;
         }
@@ -267,7 +267,7 @@ namespace Deploy.LaunchPad.Geospatial.Position
         /// </summary>
         /// <param name="obj">The other object of this type we are testing equality with</param>
         /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
-        public bool Equals(AreaOfInterestBase<TIdType> obj)
+        public bool Equals(AreaOfInterestBase<TPrimaryKey> obj)
         {
             if (obj != null)
             {
@@ -291,7 +291,7 @@ namespace Deploy.LaunchPad.Geospatial.Position
         /// <param name="x">The first value</param>
         /// <param name="y">The second value</param>
         /// <returns>True if both objects are fully equal based on the Equals logic</returns>
-        public static bool operator ==(AreaOfInterestBase<TIdType> x, AreaOfInterestBase<TIdType> y)
+        public static bool operator ==(AreaOfInterestBase<TPrimaryKey> x, AreaOfInterestBase<TPrimaryKey> y)
         {
             if (ReferenceEquals(x, null))
             {
@@ -310,7 +310,7 @@ namespace Deploy.LaunchPad.Geospatial.Position
         /// <param name="x">The first value</param>
         /// <param name="y">The second value</param>
         /// <returns>True if both objects are not equal based on the Equals logic</returns>
-        public static bool operator !=(AreaOfInterestBase<TIdType> x, AreaOfInterestBase<TIdType> y)
+        public static bool operator !=(AreaOfInterestBase<TPrimaryKey> x, AreaOfInterestBase<TPrimaryKey> y)
         {
             return !(x == y);
         }

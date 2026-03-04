@@ -23,11 +23,11 @@ namespace Deploy.LaunchPad.Code.Services.Dto
 {
     /// <summary>
     /// Class GetAllAdminInputDtoBase.
-    /// Implements the <see cref="Deploy.LaunchPad.Code.Services.Dto.GetAllDetailInputDtoBase{TIdType}" />
+    /// Implements the <see cref="Deploy.LaunchPad.Code.Services.Dto.GetAllDetailInputDtoBase{TPrimaryKey}" />
     /// </summary>
-    /// <typeparam name="TIdType">The type of the t identifier type.</typeparam>
-    /// <seealso cref="Deploy.LaunchPad.Code.Services.Dto.GetAllDetailInputDtoBase{TIdType}" />
-    public abstract partial class GetAllAdminInputDtoBase<TIdType> : GetAllDetailInputDtoBase<TIdType>
+    /// <typeparam name="TPrimaryKey">The type of the t identifier type.</typeparam>
+    /// <seealso cref="Deploy.LaunchPad.Code.Services.Dto.GetAllDetailInputDtoBase{TPrimaryKey}" />
+    public abstract partial class GetAllAdminInputDtoBase<TPrimaryKey> : GetAllDetailInputDtoBase<TPrimaryKey>
     {
 
         /// <summary>
@@ -63,7 +63,7 @@ namespace Deploy.LaunchPad.Code.Services.Dto
         /// </summary>
         protected GetAllAdminInputDtoBase() : base()
         {
-            Culture = ApplicationDetails<TIdType>.DEFAULT_CULTURE;
+            Culture = ApplicationDetails<TPrimaryKey>.DEFAULT_CULTURE;
         }
 
         /// <summary>
@@ -73,11 +73,11 @@ namespace Deploy.LaunchPad.Code.Services.Dto
         protected GetAllAdminInputDtoBase(System.Guid tenantId) : base()
         {
             TenantId = tenantId;
-            Culture = ApplicationDetails<TIdType>.DEFAULT_CULTURE;
+            Culture = ApplicationDetails<TPrimaryKey>.DEFAULT_CULTURE;
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="GetAllAdminInputDtoBase{TIdType}"/> class.
+        /// Initializes a new instance of the <see cref="GetAllAdminInputDtoBase{TPrimaryKey}"/> class.
         /// </summary>
         /// <param name="tenantId">The tenant identifier.</param>
         /// <param name="culture">The culture.</param>

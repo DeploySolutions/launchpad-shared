@@ -16,7 +16,7 @@ namespace Deploy.LaunchPad.Files.Formats
 
         public virtual bool ShouldGenerateDataPackage { get; set; } = true;
 
-        /// Initializes a new instance of the <see cref="FrictionlessSchemaFile{TIdType}"/> class.
+        /// Initializes a new instance of the <see cref="FrictionlessSchemaFile{TPrimaryKey}"/> class.
         /// </summary>
         /// <param name="fileName">Name of the file.</param>
         public FrictionlessFileSchema(string fileName) : base(fileName)

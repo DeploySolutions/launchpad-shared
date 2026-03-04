@@ -39,9 +39,9 @@ namespace Deploy.LaunchPad.Core.Abp
     /// <summary>
     /// Base class for Entities that can be owned by a User (contain UserId).  Inherits from DomainEntityBase abstract class.
     /// </summary>
-    /// <typeparam name="TIdType">The type of the t identifier type.</typeparam>
-    public abstract partial class UserOwnedDomainEntityBase<TIdType> :
-        DomainEntityBase<TIdType>, IDomainEntity<TIdType>
+    /// <typeparam name="TPrimaryKey">The type of the t identifier type.</typeparam>
+    public abstract partial class UserOwnedDomainEntityBase<TPrimaryKey> :
+        DomainEntityBase<TPrimaryKey>, IDomainEntity<TPrimaryKey>
     {
 
 
@@ -65,7 +65,7 @@ namespace Deploy.LaunchPad.Core.Abp
         /// Creates a new instance of the <see cref="UserOwnedDomainEntityBase">UserOwnedDomainEntityBase</see> class given a key, and some metadata.
         /// </summary>
         /// <param name="id">The identifier.</param>
-        protected UserOwnedDomainEntityBase(TIdType id) : base(id)
+        protected UserOwnedDomainEntityBase(TPrimaryKey id) : base(id)
         {
 
         }
@@ -75,7 +75,7 @@ namespace Deploy.LaunchPad.Core.Abp
         /// </summary>
         /// <param name="id">The identifier.</param>
         /// <param name="culture">The culture for this entity</param>
-        protected UserOwnedDomainEntityBase(TIdType id, string culture) : base(id, culture)
+        protected UserOwnedDomainEntityBase(TPrimaryKey id, string culture) : base(id, culture)
         {
         }
 
@@ -110,7 +110,7 @@ namespace Deploy.LaunchPad.Core.Abp
         /// </summary>
         /// <typeparam name="TEntity">The source entity to clone</typeparam>
         /// <returns>A shallow clone of the entity and its serializable properties</returns>
-        protected new TEntity Clone<TEntity>() where TEntity : UserOwnedDomainEntityBase<TIdType>, new()
+        protected new TEntity Clone<TEntity>() where TEntity : UserOwnedDomainEntityBase<TPrimaryKey>, new()
         {
             TEntity clone = new TEntity();
             foreach (PropertyInfo info in GetType().GetProperties())
@@ -132,7 +132,7 @@ namespace Deploy.LaunchPad.Core.Abp
         /// </summary>
         /// <param name="other">The other object of this type we are comparing to</param>
         /// <returns>System.Int32.</returns>
-        public virtual int CompareTo(UserOwnedDomainEntityBase<TIdType> other)
+        public virtual int CompareTo(UserOwnedDomainEntityBase<TPrimaryKey> other)
         {
             // put comparison of properties in here 
             // for base object we'll just sort by title
@@ -160,9 +160,9 @@ namespace Deploy.LaunchPad.Core.Abp
         /// <returns>True if the entities are the same according to business key value</returns>
         public override bool Equals(object obj)
         {
-            if (obj != null && obj is UserOwnedDomainEntityBase<TIdType>)
+            if (obj != null && obj is UserOwnedDomainEntityBase<TPrimaryKey>)
             {
-                return Equals(obj as UserOwnedDomainEntityBase<TIdType>);
+                return Equals(obj as UserOwnedDomainEntityBase<TPrimaryKey>);
             }
             return false;
         }
@@ -176,7 +176,7 @@ namespace Deploy.LaunchPad.Core.Abp
         /// </summary>
         /// <param name="obj">The other object of this type that we are testing equality with</param>
         /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
-        public virtual bool Equals(UserOwnedDomainEntityBase<TIdType> obj)
+        public virtual bool Equals(UserOwnedDomainEntityBase<TPrimaryKey> obj)
         {
             if (obj != null)
             {
@@ -192,9 +192,8 @@ namespace Deploy.LaunchPad.Core.Abp
                     // Base domain entities are functionally equal if their key and metadata are equal.
                     // Subclasses should extend to include their own enhanced equality checks, as required.
                     return Id.Equals(obj.Id) && Culture.Equals(obj.Culture)
-                        && IsActive.Equals(obj.IsActive) && IsDeleted.Equals(obj.IsDeleted) && UserId.Equals(obj.UserId);
+                        && IsDeleted.Equals(obj.IsDeleted) && UserId.Equals(obj.UserId);
                 }
-
             }
             return false;
         }
@@ -205,7 +204,7 @@ namespace Deploy.LaunchPad.Core.Abp
         /// <param name="x">The first value</param>
         /// <param name="y">The second value</param>
         /// <returns>True if both objects are fully equal based on the Equals logic</returns>
-        public static bool operator ==(UserOwnedDomainEntityBase<TIdType> x, UserOwnedDomainEntityBase<TIdType> y)
+        public static bool operator ==(UserOwnedDomainEntityBase<TPrimaryKey> x, UserOwnedDomainEntityBase<TPrimaryKey> y)
         {
             if (x is null)
             {
@@ -224,7 +223,7 @@ namespace Deploy.LaunchPad.Core.Abp
         /// <param name="x">The first value</param>
         /// <param name="y">The second value</param>
         /// <returns>True if both objects are not equal based on the Equals logic</returns>
-        public static bool operator !=(UserOwnedDomainEntityBase<TIdType> x, UserOwnedDomainEntityBase<TIdType> y)
+        public static bool operator !=(UserOwnedDomainEntityBase<TPrimaryKey> x, UserOwnedDomainEntityBase<TPrimaryKey> y)
         {
             return !(x == y);
         }

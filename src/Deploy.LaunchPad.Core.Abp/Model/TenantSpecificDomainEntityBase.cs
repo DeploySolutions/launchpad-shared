@@ -42,14 +42,14 @@ namespace Deploy.LaunchPad.Core.Entities
 {
 
     /// <summary>
-    /// Base class for Entities that must be specifically related to tenants. Inherits from <see cref="DomainEntityBase{TIdType}">DomainEntityBase{TIdType}</see> and provides
+    /// Base class for Entities that must be specifically related to tenants. Inherits from <see cref="DomainEntityBase{TPrimaryKey}">DomainEntityBase{TPrimaryKey}</see> and provides
     /// base functionality for many of its methods.
     /// Implements AspNetBoilerplate's <see cref="IMustHaveTenant">IMustHaveTenant interface</see>, overriding the base interface where tenant may or may not exist.
     /// </summary>
-    /// <typeparam name="TIdType">The type of the t identifier type.</typeparam>
+    /// <typeparam name="TPrimaryKey">The type of the t identifier type.</typeparam>
     [Serializable]
-    public abstract partial class TenantSpecificDomainEntityBase<TIdType> :
-        DomainEntityBase<TIdType>, IMustHaveTenant
+    public abstract partial class TenantSpecificDomainEntityBase<TPrimaryKey> :
+        DomainEntityBase<TPrimaryKey>, IMustHaveTenant
 
     {
 
@@ -69,7 +69,7 @@ namespace Deploy.LaunchPad.Core.Entities
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="DomainEntityBase{TIdType}">DomainEntityBase{TIdType}</see> abstract class
+        /// Initializes a new instance of the <see cref="DomainEntityBase{TPrimaryKey}">DomainEntityBase{TPrimaryKey}</see> abstract class
         /// </summary>
         protected TenantSpecificDomainEntityBase() : base()
         {
@@ -78,7 +78,7 @@ namespace Deploy.LaunchPad.Core.Entities
 
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="DomainEntityBase{TIdType}">DomainEntityBase{TIdType}</see> abstract class
+        /// Initializes a new instance of the <see cref="DomainEntityBase{TPrimaryKey}">DomainEntityBase{TPrimaryKey}</see> abstract class
         /// </summary>
         /// <param name="tenantId">The id of the tenant to which this entity belongs</param>
         protected TenantSpecificDomainEntityBase(System.Guid tenantId) : base()
@@ -87,23 +87,23 @@ namespace Deploy.LaunchPad.Core.Entities
         }
 
         /// <summary>
-        /// Creates a new instance of the <see cref="DomainEntityBase{TIdType}">DomainEntityBase{TIdType}</see> abstract class given a key, and some metadata.
+        /// Creates a new instance of the <see cref="DomainEntityBase{TPrimaryKey}">DomainEntityBase{TPrimaryKey}</see> abstract class given a key, and some metadata.
         /// </summary>
         /// <param name="tenantId">The id of the tenant to which this entity belongs</param>
         /// <param name="id">The identifier.</param>
         /// <param name="culture">The culture for this entity</param>
-        protected TenantSpecificDomainEntityBase(System.Guid tenantId, TIdType id, string culture) : base(id, culture)
+        protected TenantSpecificDomainEntityBase(System.Guid tenantId, TPrimaryKey id, string culture) : base(id, culture)
         {
             TenantId = tenantId;
         }
 
         /// <summary>
-        /// Creates a new instance of the <see cref="DomainEntityBase{TIdType}">DomainEntityBase{TIdType}</see> abstract class given a key, and some metadata.
+        /// Creates a new instance of the <see cref="DomainEntityBase{TPrimaryKey}">DomainEntityBase{TPrimaryKey}</see> abstract class given a key, and some metadata.
         /// </summary>
         /// <param name="tenantId">The id of the tenant to which this entity belongs</param>
         /// <param name="id">The identifier.</param>
         /// <param name="metadata">The desired metadata for this entity</param>
-        protected TenantSpecificDomainEntityBase(System.Guid tenantId, TIdType id, MetadataInformation metadata)
+        protected TenantSpecificDomainEntityBase(System.Guid tenantId, TPrimaryKey id, MetadataInformation metadata)
             : base(id)
         {
             TenantId = tenantId;
@@ -146,7 +146,7 @@ namespace Deploy.LaunchPad.Core.Entities
         /// </summary>
         /// <typeparam name="TEntity">The source entity to clone</typeparam>
         /// <returns>A shallow clone of the entity and its serializable properties</returns>
-        protected new TEntity Clone<TEntity>() where TEntity : TenantSpecificDomainEntityBase<TIdType>, new()
+        protected new TEntity Clone<TEntity>() where TEntity : TenantSpecificDomainEntityBase<TPrimaryKey>, new()
         {
             TEntity clone = new TEntity();
             foreach (PropertyInfo info in GetType().GetProperties())
@@ -168,7 +168,7 @@ namespace Deploy.LaunchPad.Core.Entities
         /// </summary>
         /// <param name="other">The other object of this type we are comparing to</param>
         /// <returns>System.Int32.</returns>
-        public virtual int CompareTo(TenantSpecificDomainEntityBase<TIdType> other)
+        public virtual int CompareTo(TenantSpecificDomainEntityBase<TPrimaryKey> other)
         {
             // put comparison of properties in here 
             // for base object we'll just sort by title
@@ -194,9 +194,9 @@ namespace Deploy.LaunchPad.Core.Entities
         /// <returns>True if the entities are the same according to business key value</returns>
         public override bool Equals(object obj)
         {
-            if (obj != null && obj is TenantSpecificDomainEntityBase<TIdType>)
+            if (obj != null && obj is TenantSpecificDomainEntityBase<TPrimaryKey>)
             {
-                return Equals(obj as TenantSpecificDomainEntityBase<TIdType>);
+                return Equals(obj as TenantSpecificDomainEntityBase<TPrimaryKey>);
             }
             return false;
         }
@@ -210,7 +210,7 @@ namespace Deploy.LaunchPad.Core.Entities
         /// </summary>
         /// <param name="obj">The other object of this type that we are testing equality with</param>
         /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
-        public virtual bool Equals(TenantSpecificDomainEntityBase<TIdType> obj)
+        public virtual bool Equals(TenantSpecificDomainEntityBase<TPrimaryKey> obj)
         {
             if (obj != null)
             {
@@ -226,7 +226,7 @@ namespace Deploy.LaunchPad.Core.Entities
                     // Base domain entities are functionally equal if their key and metadata are equal.
                     // Subclasses should extend to include their own enhanced equality checks, as required.
                     return Id.Equals(obj.Id) && Culture.Equals(obj.Culture)
-                        && IsActive.Equals(obj.IsActive) && IsDeleted.Equals(obj.IsDeleted) && TenantId.Equals(obj.TenantId);
+                        && IsDeleted.Equals(obj.IsDeleted) && TenantId.Equals(obj.TenantId);
                 }
 
             }
@@ -239,7 +239,7 @@ namespace Deploy.LaunchPad.Core.Entities
         /// <param name="x">The first value</param>
         /// <param name="y">The second value</param>
         /// <returns>True if both objects are fully equal based on the Equals logic</returns>
-        public static bool operator ==(TenantSpecificDomainEntityBase<TIdType> x, TenantSpecificDomainEntityBase<TIdType> y)
+        public static bool operator ==(TenantSpecificDomainEntityBase<TPrimaryKey> x, TenantSpecificDomainEntityBase<TPrimaryKey> y)
         {
             if (ReferenceEquals(x, null))
             {
@@ -258,7 +258,7 @@ namespace Deploy.LaunchPad.Core.Entities
         /// <param name="x">The first value</param>
         /// <param name="y">The second value</param>
         /// <returns>True if both objects are not equal based on the Equals logic</returns>
-        public static bool operator !=(TenantSpecificDomainEntityBase<TIdType> x, TenantSpecificDomainEntityBase<TIdType> y)
+        public static bool operator !=(TenantSpecificDomainEntityBase<TPrimaryKey> x, TenantSpecificDomainEntityBase<TPrimaryKey> y)
         {
             return !(x == y);
         }

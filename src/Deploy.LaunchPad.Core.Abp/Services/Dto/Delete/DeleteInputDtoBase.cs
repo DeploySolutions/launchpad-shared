@@ -20,13 +20,13 @@ namespace Deploy.LaunchPad.Code.Services.Dto
 {
     /// <summary>
     /// Class DeleteInputDtoBase.
-    /// Implements the <see cref="Deploy.LaunchPad.Code.Services.Dto.EntityDtoBase{TIdType}" />
+    /// Implements the <see cref="Deploy.LaunchPad.Code.Services.Dto.EntityDtoBase{TPrimaryKey}" />
     /// Implements the <see cref="ICanBeAppServiceMethodInput" />
     /// </summary>
-    /// <typeparam name="TIdType">The type of the t identifier type.</typeparam>
-    /// <seealso cref="Deploy.LaunchPad.Code.Services.Dto.EntityDtoBase{TIdType}" />
+    /// <typeparam name="TPrimaryKey">The type of the t identifier type.</typeparam>
+    /// <seealso cref="Deploy.LaunchPad.Code.Services.Dto.EntityDtoBase{TPrimaryKey}" />
     /// <seealso cref="ICanBeAppServiceMethodInput" />
-    public abstract partial class DeleteInputDtoBase<TIdType> : EntityDtoBase<TIdType>, ICanBeAppServiceMethodInput
+    public abstract partial class DeleteInputDtoBase<TPrimaryKey> : EntityDtoBase<TPrimaryKey>, ICanBeAppServiceMethodInput
     {
 
         #region "Constructors"

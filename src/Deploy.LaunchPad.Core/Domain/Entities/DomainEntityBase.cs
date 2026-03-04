@@ -48,11 +48,11 @@ namespace Deploy.LaunchPad.Core.Domain.Entities
     /// base functionality for many of its methods. Inherits from FullAuditedEntity (and further upstream FrameworkEntityBase class which is for AspNetBoilerplate's elements).
     /// Implements AspNetBoilerplate's auditing interfaces.
     /// </summary>
-    /// <typeparam name="TIdType">The type of the t identifier type.</typeparam>
+    /// <typeparam name="TPrimaryKey">The type of the t identifier type.</typeparam>
     [DebuggerDisplay("{_debugDisplay}")]
     [Serializable]
-    public abstract partial class DomainEntityBase<TIdType> : FullAuditedEntity<TIdType>,
-         IDomainEntity<TIdType>
+    public abstract partial class DomainEntityBase<TPrimaryKey> : FullAuditedEntity<TPrimaryKey>,
+         IDomainEntity<TPrimaryKey>
     {
         ///// <summary>
         ///// Controls the DebuggerDisplay attribute presentation (above). This will only appear during VS debugging sessions and should never be logged.
@@ -69,19 +69,20 @@ namespace Deploy.LaunchPad.Core.Domain.Entities
         //[JsonPropertyName("description")]
         public virtual ElementDescription Description { get; set; }
 
-        protected bool _isActive = true;
+        protected TPrimaryKey? _translatedFromId;
         /// <summary>
-        /// Gets or sets a value indicating whether this instance is active.
+        /// If this object is not a translation this field will be null.
+        /// If this object is a translation, this id references the parent object.
         /// </summary>
-        /// <value><c>true</c> if this instance is active; otherwise, <c>false</c>.</value>
+        /// <value>The translated from identifier.</value>
         [DataObjectField(false)]
+        [DataMember(Name = "translatedFromId", EmitDefaultValue = false)]
         [XmlAttribute]
-        public virtual bool IsActive
+        public virtual TPrimaryKey? TranslatedFromId
         {
-            get { return _isActive; }
-            set { _isActive = value; }
+            get { return _translatedFromId; }
+            set { _translatedFromId = value; }
         }
-
 
         protected int? _seqNum;
         /// <summary>
@@ -170,7 +171,6 @@ namespace Deploy.LaunchPad.Core.Domain.Entities
             Culture = new CultureInfo("en-CA");
             //TenantId = 0; // default tenant
             IsDeleted = false;
-            IsActive = true;
             Name = string.Empty;
             Description = new ElementDescription(string.Empty, string.Empty);
 
@@ -187,7 +187,6 @@ namespace Deploy.LaunchPad.Core.Domain.Entities
             Culture = new CultureInfo("en-CA");
             CreatorUserId = Guid.NewGuid(); // TODO - default user account?
             IsDeleted = false;
-            IsActive = true;
             Name = name.Name;
             Description = new ElementDescription(name.Name);
         }
@@ -203,7 +202,6 @@ namespace Deploy.LaunchPad.Core.Domain.Entities
             Culture = new CultureInfo("en-CA");
             CreatorUserId = Guid.NewGuid(); // TODO - default user account?
             IsDeleted = false;
-            IsActive = true;
             Name = name.Name;
             Description = description;
         }
@@ -212,13 +210,12 @@ namespace Deploy.LaunchPad.Core.Domain.Entities
         /// Creates a new instance of the <see cref="DomainEntityBase">Entity</see> class given a key, and some metadata.
         /// </summary>
         /// <param name="id">The identifier.</param>
-        protected DomainEntityBase(TIdType id) : base()
+        protected DomainEntityBase(TPrimaryKey id) : base()
         {
             Id = id;
             Culture = new CultureInfo("en-CA");
             CreatorUserId = Guid.NewGuid(); // TODO - default user account?
             IsDeleted = false;
-            IsActive = true;
             Name = Id.ToString();
             Description = new ElementDescription(string.Empty, string.Empty);
         }
@@ -229,13 +226,12 @@ namespace Deploy.LaunchPad.Core.Domain.Entities
         /// </summary>
         /// <param name="id">The identifier.</param>
         /// <param name="name">The name of the object.</param>
-        protected DomainEntityBase(TIdType id, string name) : base()
+        protected DomainEntityBase(TPrimaryKey id, string name) : base()
         {
             Id = id;
             Culture = new CultureInfo("en-CA");
             CreatorUserId = Guid.NewGuid(); // TODO - default user account?
             IsDeleted = false;
-            IsActive = true;
             Name = name;
             Description = new ElementDescription(string.Empty, string.Empty);
         }
@@ -246,13 +242,12 @@ namespace Deploy.LaunchPad.Core.Domain.Entities
         /// <param name="id">The identifier.</param>
         /// <param name="name">The name of the object.</param>
         /// <param name="culture">The culture for this entity</param>
-        protected DomainEntityBase(TIdType id, string name, CultureInfo culture) : base()
+        protected DomainEntityBase(TPrimaryKey id, string name, CultureInfo culture) : base()
         {
             Id = id;
             Culture = culture;
             CreatorUserId = Guid.NewGuid(); // TODO - default user account?
             IsDeleted = false;
-            IsActive = true;
             Name = name;
             Description = new ElementDescription(string.Empty, string.Empty);
         }
@@ -263,13 +258,12 @@ namespace Deploy.LaunchPad.Core.Domain.Entities
         /// <param name="id">The identifier.</param>
         /// <param name="name">The name of the object.</param>
         /// <param name="culture">The culture for this entity</param>
-        protected DomainEntityBase(TIdType id, ElementName name, CultureInfo culture) : base()
+        protected DomainEntityBase(TPrimaryKey id, ElementName name, CultureInfo culture) : base()
         {
             Id = id;
             Culture = culture;
             CreatorUserId = Guid.NewGuid(); // TODO - default user account?
             IsDeleted = false;
-            IsActive = true;
             Name = name.Name;
             Description = new ElementDescription(string.Empty, string.Empty);
         }
@@ -280,13 +274,12 @@ namespace Deploy.LaunchPad.Core.Domain.Entities
         /// <param name="id">The identifier.</param>
         /// <param name="name">The name of the object.</param>
         /// <param name="culture">The culture for this entity</param>
-        protected DomainEntityBase(TIdType id, ElementName name, ElementDescription description, CultureInfo culture) : base()
+        protected DomainEntityBase(TPrimaryKey id, ElementName name, ElementDescription description, CultureInfo culture) : base()
         {
             Id = id;
             Culture = culture;
             CreatorUserId = Guid.NewGuid(); // TODO - default user account?
             IsDeleted = false;
-            IsActive = true;
             Name = name.Name;
             Description = description;
         }
@@ -298,7 +291,7 @@ namespace Deploy.LaunchPad.Core.Domain.Entities
         /// <param name="context">The context of the stream</param>
         protected DomainEntityBase(SerializationInfo info, StreamingContext context)
         {
-            Id = (TIdType)info.GetValue("Id", typeof(TIdType));
+            Id = (TPrimaryKey)info.GetValue("Id", typeof(TPrimaryKey));
             Culture = (CultureInfo)info.GetValue("Culture", typeof(CultureInfo));
             Name = (string)info.GetValue("Name", typeof(string));
             Description = (ElementDescription)info.GetValue("Description", typeof(ElementDescription));
@@ -311,7 +304,6 @@ namespace Deploy.LaunchPad.Core.Domain.Entities
             IsDeleted = info.GetBoolean("IsDeleted");
             DeleterUserId = (Guid?)info.GetValue("DeleterUserId", typeof(Guid?));
             DeletionTime = info.GetDateTime("DeletionTime");
-            IsActive = info.GetBoolean("IsActive");
             SeqNum = info.GetInt32("SeqNum");
         }
 
@@ -335,7 +327,6 @@ namespace Deploy.LaunchPad.Core.Domain.Entities
             info.AddValue("IsDeleted", IsDeleted);
             info.AddValue("DeleterUserId", DeleterUserId);
             info.AddValue("DeletionTime", DeletionTime);
-            info.AddValue("IsActive", IsActive);
             info.AddValue("SeqNum", SeqNum);
 
         }
@@ -351,9 +342,9 @@ namespace Deploy.LaunchPad.Core.Domain.Entities
             // reconnect connection strings and other resources that won't be serialized
         }
 
-        public virtual DomainEntityBase<TIdType> CloneGeneric()
+        public virtual DomainEntityBase<TPrimaryKey> CloneGeneric()
         {
-            var clone = (DomainEntityBase<TIdType>)this.MemberwiseClone();
+            var clone = (DomainEntityBase<TPrimaryKey>)this.MemberwiseClone();
             // Deep clone reference-type fields as needed
             clone.Name = Name;
             clone.Description = Description?.CloneGeneric(); // assuming ElementDescription has a Clone() method
@@ -370,7 +361,7 @@ namespace Deploy.LaunchPad.Core.Domain.Entities
         /// </summary>
         /// <param name="other">The other object of this type we are comparing to</param>
         /// <returns>System.Int32.</returns>
-        public virtual int CompareTo(DomainEntityBase<TIdType> other)
+        public virtual int CompareTo(DomainEntityBase<TPrimaryKey> other)
         {
             // put comparison of properties in here 
             // for base object we'll just sort by DisplayName
@@ -411,7 +402,6 @@ namespace Deploy.LaunchPad.Core.Domain.Entities
             sb.AppendFormat("CreatorUserId={0};", CreatorUserId);
             sb.AppendFormat("LastModificationTime={0};", LastModificationTime);
             sb.AppendFormat("LastModifierUserId={0};", LastModifierUserId);
-            sb.AppendFormat("IsActive={0};", IsActive);
             sb.AppendFormat("IsDeleted={0};", IsDeleted);
             sb.AppendFormat("DeleterUserId={0};", DeleterUserId);
             sb.AppendFormat("DeletionTime={0};", DeletionTime);
@@ -425,9 +415,9 @@ namespace Deploy.LaunchPad.Core.Domain.Entities
         /// <returns>True if the entities are the same according to business key value</returns>
         public override bool Equals(object obj)
         {
-            if (obj != null && obj is DomainEntityBase<TIdType>)
+            if (obj != null && obj is DomainEntityBase<TPrimaryKey>)
             {
-                return Equals(obj as DomainEntityBase<TIdType>);
+                return Equals(obj as DomainEntityBase<TPrimaryKey>);
             }
             return false;
         }
@@ -441,7 +431,7 @@ namespace Deploy.LaunchPad.Core.Domain.Entities
         /// </summary>
         /// <param name="obj">The other object of this type that we are testing equality with</param>
         /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
-        public virtual bool Equals(DomainEntityBase<TIdType> obj)
+        public virtual bool Equals(DomainEntityBase<TPrimaryKey> obj)
         {
             if (obj != null)
             {
@@ -456,7 +446,7 @@ namespace Deploy.LaunchPad.Core.Domain.Entities
                     // if checksum is set, use it for equality
                     if (Checksum != null && obj.Checksum != null)
                     {
-                        return Checksum.Equals(obj.Checksum) && IsActive.Equals(obj.IsActive) && IsDeleted.Equals(obj.IsDeleted);
+                        return Checksum.Equals(obj.Checksum) && IsDeleted.Equals(obj.IsDeleted);
                     }
                     else
                     {
@@ -466,7 +456,7 @@ namespace Deploy.LaunchPad.Core.Domain.Entities
                         return Id.Equals(obj.Id) && Culture.Equals(obj.Culture) 
                             && Name.Equals(obj.Name)
                             && Description.Equals(obj.Description)
-                            && IsActive.Equals(obj.IsActive) && IsDeleted.Equals(obj.IsDeleted);
+                            && IsDeleted.Equals(obj.IsDeleted);
                     }
                 }
             }
@@ -479,7 +469,7 @@ namespace Deploy.LaunchPad.Core.Domain.Entities
         /// <param name="x">The first value</param>
         /// <param name="y">The second value</param>
         /// <returns>True if both objects are fully equal based on the Equals logic</returns>
-        public static bool operator ==(DomainEntityBase<TIdType> x, DomainEntityBase<TIdType> y)
+        public static bool operator ==(DomainEntityBase<TPrimaryKey> x, DomainEntityBase<TPrimaryKey> y)
         {
             if (x is null)
             {
@@ -498,7 +488,7 @@ namespace Deploy.LaunchPad.Core.Domain.Entities
         /// <param name="x">The first value</param>
         /// <param name="y">The second value</param>
         /// <returns>True if both objects are not equal based on the Equals logic</returns>
-        public static bool operator !=(DomainEntityBase<TIdType> x, DomainEntityBase<TIdType> y)
+        public static bool operator !=(DomainEntityBase<TPrimaryKey> x, DomainEntityBase<TPrimaryKey> y)
         {
             return !(x == y);
         }

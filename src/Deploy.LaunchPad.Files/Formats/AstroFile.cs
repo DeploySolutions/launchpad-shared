@@ -18,7 +18,7 @@ namespace Deploy.LaunchPad.Files.Formats
         public override string Extension => "." + FileExtension.astro;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="AstroFile{TIdType}"/> class.
+        /// Initializes a new instance of the <see cref="AstroFile{TPrimaryKey}"/> class.
         /// </summary>
         /// <param name="fileName">Name of the file.</param>
         public AstroFile(string fileName) : base(fileName)

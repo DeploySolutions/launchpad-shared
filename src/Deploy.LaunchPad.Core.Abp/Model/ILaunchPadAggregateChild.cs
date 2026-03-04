@@ -27,10 +27,10 @@ namespace Deploy.LaunchPad.Core.Entities
     /// set of <see cref="MetadataInformation">MetadataInformation</see>.
     /// Each entity also implements ASP.NET Boilerplate's IAggregateRoot interface.
     /// </summary>
-    /// <typeparam name="TIdType">The type of the t identifier type.</typeparam>
-    public partial interface ILaunchPadAggregateChild<TIdType> : IDomainEntity<TIdType>,
-        ILaunchPadAggregateChildProperties<TIdType>, 
-        IComparable<DomainEntityBase<TIdType>>, IEquatable<DomainEntityBase<TIdType>>
+    /// <typeparam name="TPrimaryKey">The type of the t identifier type.</typeparam>
+    public partial interface ILaunchPadAggregateChild<TPrimaryKey> : IDomainEntity<TPrimaryKey>,
+        ILaunchPadAggregateChildProperties<TPrimaryKey>, 
+        IComparable<DomainEntityBase<TPrimaryKey>>, IEquatable<DomainEntityBase<TPrimaryKey>>
     {
     }
 }
