@@ -31,7 +31,7 @@ using System.ComponentModel;
 using System.Xml.Serialization;
 using Deploy.LaunchPad.Core.Domain.Entities;
 
-namespace Deploy.LaunchPad.Core.Abp.Deployments
+namespace Deploy.LaunchPad.Code.Deployments
 {
 
     /// <summary>

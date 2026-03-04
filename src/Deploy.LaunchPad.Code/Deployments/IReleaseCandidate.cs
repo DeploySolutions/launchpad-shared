@@ -6,7 +6,7 @@
 // Last Modified By : Nicholas Kellett
 // Last Modified On : 07-26-2023
 // ***********************************************************************
-// <copyright file="IDeploymentEvent.cs" company="Deploy Software Solutions, inc.">
+// <copyright file="IReleaseCandidate.cs" company="Deploy Software Solutions, inc.">
 //     2018-2024 Deploy Software Solutions, inc.
 // </copyright>
 // <summary></summary>
@@ -26,63 +26,52 @@
 //limitations under the License. 
 #endregion
 
-using Abp.Domain.Entities;
 using Deploy.LaunchPad.Core.Domain.Entities;
 using System;
 using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
 using System.Xml.Serialization;
-using IMustHaveTenant = Deploy.LaunchPad.Core.Metadata.IMustHaveTenant;
 
-namespace Deploy.LaunchPad.Core.Abp.Deployments
+namespace Deploy.LaunchPad.Code.Deployments
 {
 
     /// <summary>
-    /// Represents a an event that is related to a deployment
+    /// Represents a release (set of code, data, and resources) that is a candidate to be deployed to a destination environment.
     /// </summary>
     /// <typeparam name="TIdType">The type of the Id</typeparam>
-    public partial interface IDeploymentEvent<TIdType> : IDomainEntity<TIdType>, IMustHaveTenant
+    public partial interface IReleaseCandidate<TIdType> : IDomainEntity<TIdType>
     {
-        /// <summary>
-        /// The id of the release candidate this deployment is for
-        /// </summary>
-        /// <value>The deployment identifier.</value>
-        [DataObjectField(false)]
-        [XmlAttribute]
-        [Required]
-        TIdType DeploymentId { get; set; }
 
         /// <summary>
-        /// The category of this deployment event
+        /// The version of this release candidate
         /// </summary>
-        /// <value>The event category.</value>
+        /// <value>The version.</value>
         [DataObjectField(false)]
         [XmlAttribute]
-        String EventCategory { get; set; }
+        String Version { get; set; }
 
         /// <summary>
-        /// The deployment event start date and time
+        /// The current state of the release candidate
         /// </summary>
-        /// <value>The started.</value>
+        /// <value>The state of the release.</value>
         [DataObjectField(false)]
         [XmlAttribute]
-        DateTime? Started { get; set; }
+        ReleaseState ReleaseState { get; set; }
 
         /// <summary>
-        /// The deployment end date and time. May be null if the event is ongoing
+        /// The release date and time
         /// </summary>
-        /// <value>The ended.</value>
+        /// <value>The release date.</value>
         [DataObjectField(false)]
         [XmlAttribute]
-        DateTime? Ended { get; set; }
+        DateTime? ReleaseDate { get; set; }
 
         /// <summary>
-        /// The URI where the deployment event log is located
+        /// The URI where the release candidate package is located
         /// </summary>
-        /// <value>The log URI.</value>
+        /// <value>The package URI.</value>
         [DataObjectField(false)]
         [XmlAttribute]
-        Uri LogUri { get; set; }
+        Uri PackageUri { get; set; }
 
     }
 }

@@ -26,6 +26,7 @@
 //limitations under the License. 
 #endregion
 
+using Deploy.LaunchPad.Code.Deployments;
 using Deploy.LaunchPad.Core.Entities;
 using System;
 using System.ComponentModel;

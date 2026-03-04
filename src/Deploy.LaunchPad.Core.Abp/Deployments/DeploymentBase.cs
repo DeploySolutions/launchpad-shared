@@ -26,6 +26,7 @@
 //limitations under the License. 
 #endregion
 
+using Deploy.LaunchPad.Code.Deployments;
 using Deploy.LaunchPad.Core.Entities;
 using System;
 using System.ComponentModel;
@@ -86,7 +87,7 @@ namespace Deploy.LaunchPad.Core.Abp.Deployments
         /// <value>The state of the deployment.</value>
         [DataObjectField(false)]
         [XmlAttribute]
-        public virtual DeploymentStates DeploymentState { get; set; }
+        public virtual DeploymentState DeploymentState { get; set; }
 
         /// <summary>
         /// The person primarily responsible for doing the deployment (if known)
@@ -97,29 +98,7 @@ namespace Deploy.LaunchPad.Core.Abp.Deployments
         [ForeignKey(nameof(PrimaryDeployerUserId))]
         public virtual long? PrimaryDeployerUserId { get; set; }
 
-        /// <summary>
-        /// The possible states in which this deployment can be
-        /// </summary>
-        public enum DeploymentStates
-        {
-            /// <summary>
-            /// The not started
-            /// </summary>
-            Not_Started = 0,
-            /// <summary>
-            /// The in progress
-            /// </summary>
-            In_Progress = 1,
-            /// <summary>
-            /// The succeeded
-            /// </summary>
-            Succeeded = 2,
-            /// <summary>
-            /// The failed
-            /// </summary>
-            Failed = 3
-        }
-
+        
         #region "Constructors"
 
         /// <summary>
@@ -127,7 +106,7 @@ namespace Deploy.LaunchPad.Core.Abp.Deployments
         /// </summary>
         public DeploymentBase() : base()
         {
-            DeploymentState = DeploymentStates.Not_Started;
+            DeploymentState = DeploymentState.Not_Started;
         }
 
 
@@ -137,7 +116,7 @@ namespace Deploy.LaunchPad.Core.Abp.Deployments
         /// <param name="tenantId">The id of the tenant to which this entity belongs</param>
         public DeploymentBase(System.Guid tenantId) : base(tenantId)
         {
-            DeploymentState = DeploymentStates.Not_Started;
+            DeploymentState = DeploymentState.Not_Started;
         }
 
         /// <summary>
@@ -149,7 +128,7 @@ namespace Deploy.LaunchPad.Core.Abp.Deployments
         /// <param name="text">The text.</param>
         public DeploymentBase(System.Guid tenantId, TIdType id, string cultureName, String text) : base(tenantId, id, cultureName)
         {
-            DeploymentState = DeploymentStates.Not_Started;
+            DeploymentState = DeploymentState.Not_Started;
         }
 
         /// <summary>
@@ -162,7 +141,7 @@ namespace Deploy.LaunchPad.Core.Abp.Deployments
             PrimaryDeployerUserId = info.GetInt64("PrimaryDeployerUserId");
             ReleaseCandidateId = (TIdType)info.GetValue("ReleaseCandidateId", typeof(TIdType));
             DeploymentProcessId = (TIdType)info.GetValue("DeploymentProcessId", typeof(TIdType));
-            DeploymentState = (DeploymentStates)info.GetValue("DeploymentState", typeof(DeploymentStates));
+            DeploymentState = (DeploymentState)info.GetValue("DeploymentState", typeof(DeploymentState));
             DateDeployed = info.GetDateTime("DateDeployed");
             DateScheduled = info.GetDateTime("DateScheduled");
         }

@@ -6,7 +6,7 @@
 // Last Modified By : Nicholas Kellett
 // Last Modified On : 07-26-2023
 // ***********************************************************************
-// <copyright file="IDeployment.cs" company="Deploy Software Solutions, inc.">
+// <copyright file="IReleaseCandidateEvent.cs" company="Deploy Software Solutions, inc.">
 //     2018-2024 Deploy Software Solutions, inc.
 // </copyright>
 // <summary></summary>
@@ -25,25 +25,21 @@
 //See the License for the specific language governing permissions and 
 //limitations under the License. 
 #endregion
-
-using Abp.Domain.Entities;
 using Deploy.LaunchPad.Core.Domain.Entities;
 using System;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Xml.Serialization;
-using IMustHaveTenant = Deploy.LaunchPad.Core.Metadata.IMustHaveTenant;
 
-namespace Deploy.LaunchPad.Core.Abp.Deployments
+namespace Deploy.LaunchPad.Code.Deployments
 {
 
     /// <summary>
-    /// Represents a deployment that will take a release candidate (set of code, data, and resources) and place it in a destination environment.
+    /// Represents a an event that is related to a release candidate.
     /// </summary>
     /// <typeparam name="TIdType">The type of the Id</typeparam>
-    public partial interface IDeployment<TIdType> : IDomainEntity<TIdType>, IMustHaveTenant
+    public partial interface IReleaseCandidateEvent<TIdType> : IDomainEntity<TIdType>
     {
-
         /// <summary>
         /// The id of the release candidate this deployment is for
         /// </summary>
@@ -54,44 +50,36 @@ namespace Deploy.LaunchPad.Core.Abp.Deployments
         TIdType ReleaseCandidateId { get; set; }
 
         /// <summary>
-        /// The id of the process that will be followed during the deployment (if known)
+        /// The category of this release candidate event
         /// </summary>
-        /// <value>The deployment process identifier.</value>
+        /// <value>The event category.</value>
         [DataObjectField(false)]
         [XmlAttribute]
-        TIdType DeploymentProcessId { get; set; }
+        String EventCategory { get; set; }
 
         /// <summary>
-        /// The current state of the deployment
+        /// The event start date and time
         /// </summary>
-        /// <value>The state of the deployment.</value>
+        /// <value>The started.</value>
         [DataObjectField(false)]
         [XmlAttribute]
-        DeploymentBase<TIdType>.DeploymentStates DeploymentState { get; set; }
+        DateTime? Started { get; set; }
 
         /// <summary>
-        /// The intended deployment date and time
+        /// The event end date and time. May be null if the event is ongoing
         /// </summary>
-        /// <value>The date scheduled.</value>
+        /// <value>The ended.</value>
         [DataObjectField(false)]
         [XmlAttribute]
-        DateTime? DateScheduled { get; set; }
+        DateTime? Ended { get; set; }
 
         /// <summary>
-        /// The actual deployment date and time
+        /// The URI where the release candidate event log is located
         /// </summary>
-        /// <value>The date deployed.</value>
+        /// <value>The log URI.</value>
         [DataObjectField(false)]
         [XmlAttribute]
-        DateTime? DateDeployed { get; set; }
-
-        /// <summary>
-        /// Gets or sets the primary deployer user identifier.
-        /// </summary>
-        /// <value>The primary deployer user identifier.</value>
-        [DataObjectField(false)]
-        [XmlAttribute]
-        long? PrimaryDeployerUserId { get; set; }
+        Uri LogUri { get; set; }
 
     }
 }

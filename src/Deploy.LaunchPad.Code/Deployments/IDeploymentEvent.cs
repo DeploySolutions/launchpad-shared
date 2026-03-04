@@ -6,7 +6,7 @@
 // Last Modified By : Nicholas Kellett
 // Last Modified On : 07-26-2023
 // ***********************************************************************
-// <copyright file="IReleaseCandidate.cs" company="Deploy Software Solutions, inc.">
+// <copyright file="IDeploymentEvent.cs" company="Deploy Software Solutions, inc.">
 //     2018-2024 Deploy Software Solutions, inc.
 // </copyright>
 // <summary></summary>
@@ -26,62 +26,61 @@
 //limitations under the License. 
 #endregion
 
-using Abp.Domain.Entities;
 using Deploy.LaunchPad.Core.Domain.Entities;
 using System;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.Xml.Serialization;
-using IMustHaveTenant = Deploy.LaunchPad.Core.Metadata.IMustHaveTenant;
 
-namespace Deploy.LaunchPad.Core.Abp.Deployments
+namespace Deploy.LaunchPad.Code.Deployments
 {
 
     /// <summary>
-    /// Represents a release (set of code, data, and resources) that is a candidate to be deployed to a destination environment.
+    /// Represents a an event that is related to a deployment
     /// </summary>
     /// <typeparam name="TIdType">The type of the Id</typeparam>
-    public partial interface IReleaseCandidate<TIdType> : IDomainEntity<TIdType>, IMustHaveTenant
+    public partial interface IDeploymentEvent<TIdType> : IDomainEntity<TIdType>
     {
-
         /// <summary>
-        /// The checksum of this release candidate
+        /// The id of the release candidate this deployment is for
         /// </summary>
-        /// <value>The checksum.</value>
+        /// <value>The deployment identifier.</value>
         [DataObjectField(false)]
         [XmlAttribute]
-        String Checksum { get; set; }
+        [Required]
+        TIdType DeploymentId { get; set; }
 
         /// <summary>
-        /// The version of this release candidate
+        /// The category of this deployment event
         /// </summary>
-        /// <value>The version.</value>
+        /// <value>The event category.</value>
         [DataObjectField(false)]
         [XmlAttribute]
-        String Version { get; set; }
+        String EventCategory { get; set; }
 
         /// <summary>
-        /// The current state of the release candidate
+        /// The deployment event start date and time
         /// </summary>
-        /// <value>The state of the release.</value>
+        /// <value>The started.</value>
         [DataObjectField(false)]
         [XmlAttribute]
-        ReleaseCandidateBase<TIdType>.ReleaseStates ReleaseState { get; set; }
+        DateTime? Started { get; set; }
 
         /// <summary>
-        /// The release date and time
+        /// The deployment end date and time. May be null if the event is ongoing
         /// </summary>
-        /// <value>The release date.</value>
+        /// <value>The ended.</value>
         [DataObjectField(false)]
         [XmlAttribute]
-        DateTime? ReleaseDate { get; set; }
+        DateTime? Ended { get; set; }
 
         /// <summary>
-        /// The URI where the release candidate package is located
+        /// The URI where the deployment event log is located
         /// </summary>
-        /// <value>The package URI.</value>
+        /// <value>The log URI.</value>
         [DataObjectField(false)]
         [XmlAttribute]
-        Uri PackageUri { get; set; }
+        Uri LogUri { get; set; }
 
     }
 }

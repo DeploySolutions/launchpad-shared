@@ -26,6 +26,7 @@
 //limitations under the License. 
 #endregion
 
+using Deploy.LaunchPad.Code.Deployments;
 using Deploy.LaunchPad.Core.Entities;
 using System;
 using System.Runtime.Serialization;
@@ -37,7 +38,7 @@ namespace Deploy.LaunchPad.Core.Abp.Deployments
     /// Represents a release (set of code, data, and resources) that is a candidate to be deployed to a destination environment.
     /// </summary>
     /// <typeparam name="TIdType">The type of the Id</typeparam>
-    public abstract partial class ReleaseCandidateBase<TIdType> : TenantSpecificDomainEntityBase<TIdType>, IReleaseCandidate<TIdType>
+    public abstract partial class ReleaseCandidateBase<TIdType> : TenantSpecificDomainEntityBase<TIdType>, Code.Deployments.IReleaseCandidate<TIdType>
     {
 
         /// <summary>
@@ -49,7 +50,7 @@ namespace Deploy.LaunchPad.Core.Abp.Deployments
         /// The current state of the release candidate
         /// </summary>
         /// <value>The state of the release.</value>
-        public virtual ReleaseStates ReleaseState { get; set; }
+        public virtual ReleaseState ReleaseState { get; set; }
 
         /// <summary>
         /// The date and time this release occurred
@@ -63,29 +64,7 @@ namespace Deploy.LaunchPad.Core.Abp.Deployments
         /// <value>The package URI.</value>
         public virtual Uri PackageUri { get; set; }
 
-        /// <summary>
-        /// Enum ReleaseStates
-        /// </summary>
-        public enum ReleaseStates
-        {
-            /// <summary>
-            /// The not started
-            /// </summary>
-            Not_Started = 0,
-            /// <summary>
-            /// The in progress
-            /// </summary>
-            In_Progress = 1,
-            /// <summary>
-            /// The succeeded
-            /// </summary>
-            Succeeded = 2,
-            /// <summary>
-            /// The failed
-            /// </summary>
-            Failed = 3
-        }
-
+        
 
         #region "Constructors"
 
@@ -128,7 +107,7 @@ namespace Deploy.LaunchPad.Core.Abp.Deployments
         {
             Version = info.GetString("Version");
             Checksum = info.GetString("Checksum");
-            ReleaseState = (ReleaseStates)info.GetValue("ReleaseState", typeof(ReleaseStates));
+            ReleaseState = (ReleaseState)info.GetValue("ReleaseState", typeof(ReleaseState));
             PackageUri = (Uri)info.GetValue("PackageUri", typeof(Uri));
             ReleaseDate = info.GetDateTime("ReleaseDate");
         }
