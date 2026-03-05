@@ -30,7 +30,6 @@
 namespace Deploy.LaunchPad.Core.Abp.SoftwareApplications
 {
     using Deploy.LaunchPad.Core.Domain.Entities;
-    using Deploy.LaunchPad.Core.Entities;
     using System.Collections.Generic;
     using System.ComponentModel;
     using System.Xml.Serialization;

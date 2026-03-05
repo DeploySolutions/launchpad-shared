@@ -24,7 +24,7 @@ namespace Deploy.LaunchPad.Code.BackgroundProcess
     /// <summary>
     /// Interface ICanBeLaunchPadBackgroundJobArgs
     /// </summary>
-    public partial interface ICanBeLaunchPadBackgroundJobArgs
+    public partial interface IBackgroundJobArgs
     {
         /// <summary>
         /// Gets or sets the identifier.

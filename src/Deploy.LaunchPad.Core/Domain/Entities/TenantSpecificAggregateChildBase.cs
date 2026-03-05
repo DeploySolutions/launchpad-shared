@@ -6,7 +6,7 @@
 // Last Modified By : Nicholas Kellett
 // Last Modified On : 10-27-2023
 // ***********************************************************************
-// <copyright file="TenantSpecificAggregateRootBase.cs" company="Deploy Software Solutions, inc.">
+// <copyright file="TenantSpecificAggregateChildBase.cs" company="Deploy Software Solutions, inc.">
 //     2018-2024 Deploy Software Solutions, inc.
 // </copyright>
 // <summary></summary>
@@ -34,27 +34,25 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Diagnostics.CodeAnalysis;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Xml.Serialization;
 
-namespace Deploy.LaunchPad.Core.Entities
+namespace Deploy.LaunchPad.Core.Domain.Entities
 {
 
     /// <summary>
-    /// Base class for Aggregate Root entities that must be specifically related to tenants.
-    /// Inherits from <see cref="AggregateRootBase{TPrimaryKey}{TPrimaryKey}">AggregateRootBase{TPrimaryKey}</see> and provides
+    /// Base class for Aggregate Root child entities that must be specifically related to tenants.
+    /// Inherits from <see cref="AggregateChildBase{TPrimaryKey}{TPrimaryKey}">LaunchPadAggregateChildBase{TPrimaryKey}</see> and provides
     /// base functionality for many of its methods.
     /// Implements AspNetBoilerplate's <see cref="IMustHaveTenant">IMustHaveTenant interface</see>, overriding the base interface where tenant may or may not exist.
     /// </summary>
     /// <typeparam name="TPrimaryKey">The type of the t identifier type.</typeparam>
     [Serializable]
-    public abstract partial class TenantSpecificAggregateRootBase<TPrimaryKey> :
-        AggregateRoot<TPrimaryKey>, IMustHaveTenant
+    public abstract partial class TenantSpecificAggregateChildBase<TPrimaryKey> :
+        AggregateChildBase<TPrimaryKey>, IMustHaveTenant
 
     {
-
         protected System.Guid _tenantId;
         /// <summary>
         /// The id of the tenant that domain entity this belongs to
@@ -71,18 +69,18 @@ namespace Deploy.LaunchPad.Core.Entities
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="AggregateRootBase">AggregateRootBase</see> class
+        /// Initializes a new instance of the <see cref="TenantSpecificAggregateChildBase">TenantSpecificAggregateChildBase</see> class
         /// </summary>
-        protected TenantSpecificAggregateRootBase() : base()
+        protected TenantSpecificAggregateChildBase() : base()
         {
             TenantId = GuidConstants.Default;
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="AggregateRootBase">AggregateRootBase</see> class
+        /// Initializes a new instance of the <see cref="TenantSpecificAggregateChildBase">TenantSpecificAggregateChildBase</see> class
         /// </summary>
         /// <param name="tenantId">The tenant identifier.</param>
-        protected TenantSpecificAggregateRootBase(System.Guid tenantId) : base()
+        protected TenantSpecificAggregateChildBase(System.Guid tenantId) : base()
         {
             TenantId = tenantId;
         }
@@ -93,8 +91,7 @@ namespace Deploy.LaunchPad.Core.Entities
         /// <param name="tenantId">The tenant identifier.</param>
         /// <param name="id">The identifier.</param>
         /// <param name="cultureName">The culture for this entity</param>
-        [SetsRequiredMembers]
-        protected TenantSpecificAggregateRootBase(System.Guid tenantId, TPrimaryKey id, string cultureName) : base(id, cultureName)
+        protected TenantSpecificAggregateChildBase(System.Guid tenantId, TPrimaryKey id, string cultureName) : base(id, cultureName)
         {
             TenantId = tenantId;
         }
@@ -105,9 +102,7 @@ namespace Deploy.LaunchPad.Core.Entities
         /// <param name="tenantId">The tenant identifier.</param>
         /// <param name="id">The identifier.</param>
         /// <param name="metadata">The desired metadata for this entity</param>
-
-        [SetsRequiredMembers]
-        protected TenantSpecificAggregateRootBase(System.Guid tenantId, TPrimaryKey id, MetadataInformation metadata) : base(id)
+        protected TenantSpecificAggregateChildBase(System.Guid tenantId, TPrimaryKey id, MetadataInformation metadata) : base(id)
         {
 
             TenantId = tenantId;
@@ -118,7 +113,7 @@ namespace Deploy.LaunchPad.Core.Entities
         /// </summary>
         /// <param name="info">The serialization info</param>
         /// <param name="context">The context of the stream</param>
-        protected TenantSpecificAggregateRootBase(SerializationInfo info, StreamingContext context) : base(info, context)
+        protected TenantSpecificAggregateChildBase(SerializationInfo info, StreamingContext context) : base(info, context)
         {
             TenantId = (System.Guid)info.GetValue("TenantId", typeof(System.Guid));
         }
@@ -134,6 +129,16 @@ namespace Deploy.LaunchPad.Core.Entities
             info.AddValue("TenantId", TenantId);
         }
 
+        /// <summary>
+        /// Event called once deserialization constructor finishes.
+        /// Useful for reattaching connections and other finite resources that
+        /// can't be serialized and deserialized.
+        /// </summary>
+        /// <param name="sender">The object that has been deserialized</param>
+        public override void OnDeserialization(object sender)
+        {
+            // reconnect connection strings and other resources that won't be serialized
+        }
 
         /// <summary>
         /// Comparison method between two objects of the same type, used for sorting.
@@ -142,7 +147,7 @@ namespace Deploy.LaunchPad.Core.Entities
         /// </summary>
         /// <param name="other">The other object of this type we are comparing to</param>
         /// <returns>System.Int32.</returns>
-        public virtual int CompareTo(TenantSpecificAggregateRootBase<TPrimaryKey> other)
+        public virtual int CompareTo(TenantSpecificAggregateChildBase<TPrimaryKey> other)
         {
             // put comparison of properties in here 
             // for base object we'll just sort by title
@@ -157,7 +162,6 @@ namespace Deploy.LaunchPad.Core.Entities
         {
             StringBuilder sb = new StringBuilder();
             //sb.AppendFormat(base.ToStringBaseProperties());
-            sb.AppendFormat("DomainEvents={0};", DomainEvents);
             sb.AppendFormat("TenantId={0};", TenantId);
             return sb.ToString();
         }
@@ -169,9 +173,9 @@ namespace Deploy.LaunchPad.Core.Entities
         /// <returns>True if the entities are the same according to business key value</returns>
         public override bool Equals(object obj)
         {
-            if (obj != null && obj is TenantSpecificAggregateRootBase<TPrimaryKey>)
+            if (obj != null && obj is TenantSpecificAggregateChildBase<TPrimaryKey>)
             {
-                return Equals(obj as TenantSpecificAggregateRootBase<TPrimaryKey>);
+                return Equals(obj as TenantSpecificAggregateChildBase<TPrimaryKey>);
             }
             return false;
         }
@@ -185,7 +189,7 @@ namespace Deploy.LaunchPad.Core.Entities
         /// </summary>
         /// <param name="obj">The other object of this type that we are testing equality with</param>
         /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
-        public virtual bool Equals(TenantSpecificAggregateRootBase<TPrimaryKey> obj)
+        public virtual bool Equals(TenantSpecificAggregateChildBase<TPrimaryKey> obj)
         {
             if (obj != null)
             {
@@ -200,7 +204,7 @@ namespace Deploy.LaunchPad.Core.Entities
                     // For safe equality we need to match on business key equality.
                     // Base domain entities are functionally equal if their key and metadata are equal.
                     // Subclasses should extend to include their own enhanced equality checks, as required.
-                    return Id.Equals(obj.Id) && TenantId.Equals(obj.TenantId);
+                    return Id.Equals(obj.Id) && Culture.Equals(obj.Culture) && TenantId.Equals(obj.TenantId);
                 }
 
             }
@@ -213,7 +217,7 @@ namespace Deploy.LaunchPad.Core.Entities
         /// <param name="x">The first value</param>
         /// <param name="y">The second value</param>
         /// <returns>True if both objects are fully equal based on the Equals logic</returns>
-        public static bool operator ==(TenantSpecificAggregateRootBase<TPrimaryKey> x, TenantSpecificAggregateRootBase<TPrimaryKey> y)
+        public static bool operator ==(TenantSpecificAggregateChildBase<TPrimaryKey> x, TenantSpecificAggregateChildBase<TPrimaryKey> y)
         {
             if (ReferenceEquals(x, null))
             {
@@ -232,7 +236,7 @@ namespace Deploy.LaunchPad.Core.Entities
         /// <param name="x">The first value</param>
         /// <param name="y">The second value</param>
         /// <returns>True if both objects are not equal based on the Equals logic</returns>
-        public static bool operator !=(TenantSpecificAggregateRootBase<TPrimaryKey> x, TenantSpecificAggregateRootBase<TPrimaryKey> y)
+        public static bool operator !=(TenantSpecificAggregateChildBase<TPrimaryKey> x, TenantSpecificAggregateChildBase<TPrimaryKey> y)
         {
             return !(x == y);
         }
@@ -244,7 +248,7 @@ namespace Deploy.LaunchPad.Core.Entities
         /// <remarks>This method implements the <see cref="object">Object</see> method.</remarks>
         public override int GetHashCode()
         {
-            return  Id.GetHashCode() + TenantId.GetHashCode();
+            return Culture.GetHashCode() + Id.GetHashCode() + TenantId.GetHashCode();
         }
 
     }

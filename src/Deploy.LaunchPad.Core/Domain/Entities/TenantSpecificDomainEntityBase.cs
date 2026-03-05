@@ -6,7 +6,7 @@
 // Last Modified By : Nicholas Kellett
 // Last Modified On : 10-27-2023
 // ***********************************************************************
-// <copyright file="TenantSpecificAggregateChildBase.cs" company="Deploy Software Solutions, inc.">
+// <copyright file="TenantSpecificDomainEntityBase.cs" company="Deploy Software Solutions, inc.">
 //     2018-2024 Deploy Software Solutions, inc.
 // </copyright>
 // <summary></summary>
@@ -30,29 +30,29 @@ using Deploy.LaunchPad.Core.Domain.Entities;
 using Deploy.LaunchPad.Core.Metadata;
 using Deploy.LaunchPad.Util.Guids;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Reflection;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Xml.Serialization;
 
-namespace Deploy.LaunchPad.Core.Entities
+namespace Deploy.LaunchPad.Core.Domain.Entities
 {
 
     /// <summary>
-    /// Base class for Aggregate Root child entities that must be specifically related to tenants.
-    /// Inherits from <see cref="AggregateChildBase{TPrimaryKey}{TPrimaryKey}">LaunchPadAggregateChildBase{TPrimaryKey}</see> and provides
+    /// Base class for Entities that must be specifically related to tenants. Inherits from <see cref="DomainEntityBase{TPrimaryKey}">DomainEntityBase{TPrimaryKey}</see> and provides
     /// base functionality for many of its methods.
     /// Implements AspNetBoilerplate's <see cref="IMustHaveTenant">IMustHaveTenant interface</see>, overriding the base interface where tenant may or may not exist.
     /// </summary>
     /// <typeparam name="TPrimaryKey">The type of the t identifier type.</typeparam>
     [Serializable]
-    public abstract partial class TenantSpecificAggregateChildBase<TPrimaryKey> :
-        AggregateChildBase<TPrimaryKey>, IMustHaveTenant
+    public abstract partial class TenantSpecificDomainEntityBase<TPrimaryKey> :
+        DomainEntityBase<TPrimaryKey>, IMustHaveTenant
 
     {
+
         protected System.Guid _tenantId;
         /// <summary>
         /// The id of the tenant that domain entity this belongs to
@@ -69,42 +69,43 @@ namespace Deploy.LaunchPad.Core.Entities
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="TenantSpecificAggregateChildBase">TenantSpecificAggregateChildBase</see> class
+        /// Initializes a new instance of the <see cref="DomainEntityBase{TPrimaryKey}">DomainEntityBase{TPrimaryKey}</see> abstract class
         /// </summary>
-        protected TenantSpecificAggregateChildBase() : base()
+        protected TenantSpecificDomainEntityBase() : base()
         {
             TenantId = GuidConstants.Default;
         }
 
+
         /// <summary>
-        /// Initializes a new instance of the <see cref="TenantSpecificAggregateChildBase">TenantSpecificAggregateChildBase</see> class
+        /// Initializes a new instance of the <see cref="DomainEntityBase{TPrimaryKey}">DomainEntityBase{TPrimaryKey}</see> abstract class
         /// </summary>
-        /// <param name="tenantId">The tenant identifier.</param>
-        protected TenantSpecificAggregateChildBase(System.Guid tenantId) : base()
+        /// <param name="tenantId">The id of the tenant to which this entity belongs</param>
+        protected TenantSpecificDomainEntityBase(System.Guid tenantId) : base()
         {
             TenantId = tenantId;
         }
 
         /// <summary>
-        /// Creates a new instance of the <see cref="TenantSpecificAggregateRootBase">TenantSpecificAggregateRootBase</see> class given a key, and some metadata.
+        /// Creates a new instance of the <see cref="DomainEntityBase{TPrimaryKey}">DomainEntityBase{TPrimaryKey}</see> abstract class given a key, and some metadata.
         /// </summary>
-        /// <param name="tenantId">The tenant identifier.</param>
+        /// <param name="tenantId">The id of the tenant to which this entity belongs</param>
         /// <param name="id">The identifier.</param>
-        /// <param name="cultureName">The culture for this entity</param>
-        protected TenantSpecificAggregateChildBase(System.Guid tenantId, TPrimaryKey id, string cultureName) : base(id, cultureName)
+        /// <param name="culture">The culture for this entity</param>
+        protected TenantSpecificDomainEntityBase(System.Guid tenantId, TPrimaryKey id, string culture) : base(id, culture)
         {
             TenantId = tenantId;
         }
 
         /// <summary>
-        /// Creates a new instance of the <see cref="TenantSpecificAggregateRootBase">TenantSpecificAggregateRootBase</see> class given a key, and some metadata.
+        /// Creates a new instance of the <see cref="DomainEntityBase{TPrimaryKey}">DomainEntityBase{TPrimaryKey}</see> abstract class given a key, and some metadata.
         /// </summary>
-        /// <param name="tenantId">The tenant identifier.</param>
+        /// <param name="tenantId">The id of the tenant to which this entity belongs</param>
         /// <param name="id">The identifier.</param>
         /// <param name="metadata">The desired metadata for this entity</param>
-        protected TenantSpecificAggregateChildBase(System.Guid tenantId, TPrimaryKey id, MetadataInformation metadata) : base(id)
+        protected TenantSpecificDomainEntityBase(System.Guid tenantId, TPrimaryKey id, MetadataInformation metadata)
+            : base(id)
         {
-
             TenantId = tenantId;
         }
 
@@ -113,7 +114,7 @@ namespace Deploy.LaunchPad.Core.Entities
         /// </summary>
         /// <param name="info">The serialization info</param>
         /// <param name="context">The context of the stream</param>
-        protected TenantSpecificAggregateChildBase(SerializationInfo info, StreamingContext context) : base(info, context)
+        protected TenantSpecificDomainEntityBase(SerializationInfo info, StreamingContext context) : base(info, context)
         {
             TenantId = (System.Guid)info.GetValue("TenantId", typeof(System.Guid));
         }
@@ -135,9 +136,29 @@ namespace Deploy.LaunchPad.Core.Entities
         /// can't be serialized and deserialized.
         /// </summary>
         /// <param name="sender">The object that has been deserialized</param>
-        public override void OnDeserialization(object sender)
+        public new void OnDeserialization(object sender)
         {
             // reconnect connection strings and other resources that won't be serialized
+        }
+
+        /// <summary>
+        /// Shallow clones the entity
+        /// </summary>
+        /// <typeparam name="TEntity">The source entity to clone</typeparam>
+        /// <returns>A shallow clone of the entity and its serializable properties</returns>
+        protected new TEntity Clone<TEntity>() where TEntity : TenantSpecificDomainEntityBase<TPrimaryKey>, new()
+        {
+            TEntity clone = new TEntity();
+            foreach (PropertyInfo info in GetType().GetProperties())
+            {
+                // ensure the property type is serializable
+                if (info.GetType().IsSerializable)
+                {
+                    PropertyInfo cloneInfo = GetType().GetProperty(info.Name);
+                    cloneInfo.SetValue(clone, info.GetValue(this, null), null);
+                }
+            }
+            return clone;
         }
 
         /// <summary>
@@ -147,7 +168,7 @@ namespace Deploy.LaunchPad.Core.Entities
         /// </summary>
         /// <param name="other">The other object of this type we are comparing to</param>
         /// <returns>System.Int32.</returns>
-        public virtual int CompareTo(TenantSpecificAggregateChildBase<TPrimaryKey> other)
+        public virtual int CompareTo(TenantSpecificDomainEntityBase<TPrimaryKey> other)
         {
             // put comparison of properties in here 
             // for base object we'll just sort by title
@@ -161,7 +182,7 @@ namespace Deploy.LaunchPad.Core.Entities
         public override string ToString()
         {
             StringBuilder sb = new StringBuilder();
-            //sb.AppendFormat(base.ToStringBaseProperties());
+            // sb.Append(ToStringBaseProperties());
             sb.AppendFormat("TenantId={0};", TenantId);
             return sb.ToString();
         }
@@ -173,9 +194,9 @@ namespace Deploy.LaunchPad.Core.Entities
         /// <returns>True if the entities are the same according to business key value</returns>
         public override bool Equals(object obj)
         {
-            if (obj != null && obj is TenantSpecificAggregateChildBase<TPrimaryKey>)
+            if (obj != null && obj is TenantSpecificDomainEntityBase<TPrimaryKey>)
             {
-                return Equals(obj as TenantSpecificAggregateChildBase<TPrimaryKey>);
+                return Equals(obj as TenantSpecificDomainEntityBase<TPrimaryKey>);
             }
             return false;
         }
@@ -189,7 +210,7 @@ namespace Deploy.LaunchPad.Core.Entities
         /// </summary>
         /// <param name="obj">The other object of this type that we are testing equality with</param>
         /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
-        public virtual bool Equals(TenantSpecificAggregateChildBase<TPrimaryKey> obj)
+        public virtual bool Equals(TenantSpecificDomainEntityBase<TPrimaryKey> obj)
         {
             if (obj != null)
             {
@@ -204,7 +225,8 @@ namespace Deploy.LaunchPad.Core.Entities
                     // For safe equality we need to match on business key equality.
                     // Base domain entities are functionally equal if their key and metadata are equal.
                     // Subclasses should extend to include their own enhanced equality checks, as required.
-                    return Id.Equals(obj.Id) && Culture.Equals(obj.Culture) && TenantId.Equals(obj.TenantId);
+                    return Id.Equals(obj.Id) && Culture.Equals(obj.Culture)
+                        && IsDeleted.Equals(obj.IsDeleted) && TenantId.Equals(obj.TenantId);
                 }
 
             }
@@ -217,7 +239,7 @@ namespace Deploy.LaunchPad.Core.Entities
         /// <param name="x">The first value</param>
         /// <param name="y">The second value</param>
         /// <returns>True if both objects are fully equal based on the Equals logic</returns>
-        public static bool operator ==(TenantSpecificAggregateChildBase<TPrimaryKey> x, TenantSpecificAggregateChildBase<TPrimaryKey> y)
+        public static bool operator ==(TenantSpecificDomainEntityBase<TPrimaryKey> x, TenantSpecificDomainEntityBase<TPrimaryKey> y)
         {
             if (ReferenceEquals(x, null))
             {
@@ -236,10 +258,11 @@ namespace Deploy.LaunchPad.Core.Entities
         /// <param name="x">The first value</param>
         /// <param name="y">The second value</param>
         /// <returns>True if both objects are not equal based on the Equals logic</returns>
-        public static bool operator !=(TenantSpecificAggregateChildBase<TPrimaryKey> x, TenantSpecificAggregateChildBase<TPrimaryKey> y)
+        public static bool operator !=(TenantSpecificDomainEntityBase<TPrimaryKey> x, TenantSpecificDomainEntityBase<TPrimaryKey> y)
         {
             return !(x == y);
         }
+
 
         /// <summary>
         /// Computes and retrieves a hash code for an object.
@@ -248,8 +271,11 @@ namespace Deploy.LaunchPad.Core.Entities
         /// <remarks>This method implements the <see cref="object">Object</see> method.</remarks>
         public override int GetHashCode()
         {
-            return Culture.GetHashCode() + Id.GetHashCode() + TenantId.GetHashCode();
+            return Culture.GetHashCode()
+                + Id.GetHashCode()
+                + TenantId.GetHashCode();
         }
+
 
     }
 }

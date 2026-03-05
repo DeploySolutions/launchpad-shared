@@ -30,6 +30,8 @@
  */
 #endregion
 
+using System.Threading.Tasks;
+
 namespace Deploy.LaunchPad.Core.BackgroundJobs
 {
     /// <summary>
@@ -42,5 +44,6 @@ namespace Deploy.LaunchPad.Core.BackgroundJobs
         /// </summary>
         /// <param name="args">Job arguments.</param>
         void Execute(TArgs args);
+
     }
 }
