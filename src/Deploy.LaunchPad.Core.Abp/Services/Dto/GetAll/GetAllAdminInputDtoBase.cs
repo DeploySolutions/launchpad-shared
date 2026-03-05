@@ -11,8 +11,8 @@
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
-using Deploy.LaunchPad.Core.Abp.SoftwareApplications;
 
+using Deploy.LaunchPad.Core.Application;
 using System;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations.Schema;

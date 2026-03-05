@@ -4,9 +4,9 @@
 // Created          : 11-19-2023
 //
 // Last Modified By : Nicholas Kellett
-// Last Modified On : 10-27-2023
+// Last Modified On : 07-26-2023
 // ***********************************************************************
-// <copyright file="ILaunchPadDomainEntity.cs" company="Deploy Software Solutions, inc.">
+// <copyright file="IComponent.cs" company="Deploy Software Solutions, inc.">
 //     2018-2024 Deploy Software Solutions, inc.
 // </copyright>
 // <summary></summary>
@@ -26,26 +26,26 @@
 //limitations under the License. 
 #endregion
 
-using Abp.Domain.Entities;
-using Abp.Domain.Entities.Auditing;
 using Deploy.LaunchPad.Core.Domain.Entities;
-
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Xml.Serialization;
 
-namespace Deploy.LaunchPad.Core.Abp.SoftwareApplications
+namespace Deploy.LaunchPad.Core.Application
 {
-
     /// <summary>
-    /// Marks any object as a regular (non-aggregate) Domain Entity that can be manipulated by the LaunchPad platform.
-    /// Each entity is uniquely identified by its DomainEntityKey, and contains a
-    /// set of <see cref="MetadataInformation">MetadataInformation</see>.
-    /// Each entity also implements ASP.NET Boilerplate's IEntity interface.
+    /// Represents a comopnent in a software module.
     /// </summary>
-    /// <typeparam name="TPrimaryKey">The type of the t identifier type.</typeparam>
-    public partial interface IWebAddressableDomainEntity<TPrimaryKey> : IDomainEntity<TPrimaryKey>
+    public partial interface ILaunchPadComponent : IDomainEntity<Guid>
     {
+        /// <summary>
+        /// Each component can have 0 to many domain entities
+        /// </summary>
+        /// <value>The domain entities.</value>
+        [DataObjectField(false)]
+        [XmlAttribute]
+        IDictionary<Guid, IDomainEntity<Guid>> DomainEntities { get; set; }
 
     }
 }

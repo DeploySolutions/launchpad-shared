@@ -36,7 +36,7 @@ using System.Runtime.Serialization;
 using System.Text;
 using System.Xml.Serialization;
 
-namespace Deploy.LaunchPad.Core.Abp.SoftwareApplications
+namespace Deploy.LaunchPad.Core.Application
 {
     /// <summary>
     /// Base class for tenant-specific information

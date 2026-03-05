@@ -6,7 +6,7 @@
 // Last Modified By : Nicholas Kellett
 // Last Modified On : 07-26-2023
 // ***********************************************************************
-// <copyright file="IModule.cs" company="Deploy Software Solutions, inc.">
+// <copyright file="IApplicationDetails.cs" company="Deploy Software Solutions, inc.">
 //     2018-2024 Deploy Software Solutions, inc.
 // </copyright>
 // <summary></summary>
@@ -26,52 +26,66 @@
 //limitations under the License. 
 #endregion
 
+using System;
+using System.ComponentModel;
+using System.Xml.Serialization;
+using Deploy.LaunchPad.Core.Domain.Entities;
+using Deploy.LaunchPad.Core.Metadata;
 
-namespace Deploy.LaunchPad.Core.Abp.SoftwareApplications
+namespace Deploy.LaunchPad.Core.Application
 {
-    using System;
-    using System.Collections.Generic;
-    using System.ComponentModel;
-    using System.Xml.Serialization;
-    using Deploy.LaunchPad.Core.Domain.Entities;
 
     /// <summary>
-    /// Represents a module in an application.
+    /// Represents the specific settings of an application.
     /// </summary>
-    /// <typeparam name="TPrimaryKey">The type of the t identifier type.</typeparam>
-    /// <typeparam name="TEntityIdType">The type of the t entity identifier type.</typeparam>
-    public partial interface IModule<TPrimaryKey, TEntityIdType> : IDomainEntity<TPrimaryKey>
+    public partial interface IApplicationDetails : IDomainEntity<System.Guid>
     {
+      
+        IHaveCultureDetails CultureDetails { get; set; }
+
+        Guid DefaultCreatorUserId { get; set; } 
 
         /// <summary>
-        /// The type of the module
+        /// The main theme
         /// </summary>
-        /// <value>The type.</value>
+        /// <value>The theme.</value>
         [DataObjectField(false)]
         [XmlAttribute]
-        String Type
+        string Theme { get; set; }
+
+        /// <summary>
+        /// The Uri for the logo to display in this application
+        /// </summary>
+        /// <value>The logo URI.</value>
+        [DataObjectField(false)]
+        [XmlAttribute]
+        Uri LogoUri
         {
             get; set;
         }
 
         /// <summary>
-        /// The default culture of this tenant
+        /// The primary colour (in HEX) for displays in this application.
+        /// (Colour is spelled correctly in Canadian, eh.)
         /// </summary>
-        /// <value>The culture default.</value>
+        /// <value>The primary colour hexadecimal.</value>
         [DataObjectField(false)]
         [XmlAttribute]
-        String CultureDefault
+        String PrimaryColourHex
         {
             get; set;
         }
 
         /// <summary>
-        /// Each module can have an open-ended set of components within that provide the functionality
+        /// The default display time zone of the application
         /// </summary>
-        /// <value>The components.</value>
+        /// <value>The default time zone.</value>
         [DataObjectField(false)]
         [XmlAttribute]
-        IList<Component<TPrimaryKey, TEntityIdType>> Components { get; set; }
+        String DefaultTimeZone
+        {
+            get; set;
+        }
 
     }
 }

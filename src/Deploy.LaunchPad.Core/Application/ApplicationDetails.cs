@@ -29,11 +29,8 @@
 using Deploy.LaunchPad.Core.Domain.Entities;
 using Deploy.LaunchPad.Core.Metadata;
 using Deploy.LaunchPad.Util;
-using Deploy.LaunchPad.Util.Elements;
-using Deploy.LaunchPad.Util.Guids;
 using System;
 using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
@@ -41,10 +38,9 @@ using System.Reflection;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Xml.Serialization;
-using IMayHaveTenant = Deploy.LaunchPad.Core.Metadata.IMayHaveTenant;
 
 
-namespace Deploy.LaunchPad.Core.Abp.SoftwareApplications
+namespace Deploy.LaunchPad.Core.Application
 {
     /// <summary>
     /// Base class for application-specific information

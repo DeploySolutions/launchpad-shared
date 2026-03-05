@@ -11,9 +11,6 @@
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
-using Deploy.LaunchPad.Core.Abp.SoftwareApplications;
-using Deploy.LaunchPad.Code.Services;
-using Deploy.LaunchPad.Util;
 using System;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
@@ -25,6 +22,7 @@ using Deploy.LaunchPad.Domain;
 using Deploy.LaunchPad.Core;
 using Deploy.LaunchPad.Core.Application.Services.Dto;
 using Deploy.LaunchPad.Core.Application.Services;
+using Deploy.LaunchPad.Core.Application;
 
 namespace Deploy.LaunchPad.Code.Services.Dto
 {

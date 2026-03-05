@@ -26,15 +26,15 @@
 //limitations under the License. 
 #endregion
 
+using Deploy.LaunchPad.Core.Domain.Entities;
+using Deploy.LaunchPad.Core.Metadata;
+using System;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Xml.Serialization;
 
-namespace Deploy.LaunchPad.Core.Abp.SoftwareApplications
+namespace Deploy.LaunchPad.Core.Application
 {
-    using Deploy.LaunchPad.Core.Domain.Entities;
-    using Deploy.LaunchPad.Core.Metadata;
-    using System;
-    using System.ComponentModel;
-    using System.ComponentModel.DataAnnotations.Schema;
-    using System.Xml.Serialization;
 
     /// <summary>
     /// Represents a tenant in an application.

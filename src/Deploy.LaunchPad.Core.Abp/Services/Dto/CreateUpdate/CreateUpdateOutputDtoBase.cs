@@ -12,11 +12,9 @@
 // <summary></summary>
 // ***********************************************************************
 using Deploy.LaunchPad.Code.Services.Dto.NameDescription;
-using Deploy.LaunchPad.Core.Abp.SoftwareApplications;
-using Deploy.LaunchPad.Util;
+using Deploy.LaunchPad.Core.Application;
 using System;
 using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
 using System.Reflection;
 using System.Runtime.Serialization;
 using System.Text;

@@ -26,7 +26,6 @@
 //limitations under the License. 
 #endregion
 
-using Abp.Domain.Entities;
 using Deploy.LaunchPad.Core.Domain.Entities;
 using System;
 using System.Collections.Generic;
@@ -34,18 +33,16 @@ using System.ComponentModel;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Xml.Serialization;
-using IMayHaveTenant = Deploy.LaunchPad.Core.Metadata.IMayHaveTenant;
 
 
-namespace Deploy.LaunchPad.Core.Abp.SoftwareApplications
+namespace Deploy.LaunchPad.Core.Application
 {
     /// <summary>
     /// Base class for components
     /// </summary>
-    /// <typeparam name="TPrimaryKey">The type of the key id field</typeparam>
-    /// <typeparam name="TEntityIdType">The type of the t entity identifier type.</typeparam>
     [Serializable()]
-    public partial class Component<TPrimaryKey, TEntityIdType> : DomainEntityBase<TPrimaryKey>, IComponent<TPrimaryKey, TEntityIdType>, IMayHaveTenant
+    public partial class LaunchPadComponent : DomainEntityBase<Guid>, 
+        ILaunchPadComponent
     {
 
         /// <summary>
@@ -54,31 +51,17 @@ namespace Deploy.LaunchPad.Core.Abp.SoftwareApplications
         /// <value>The domain entities.</value>
         [DataObjectField(false)]
         [XmlAttribute]
-        public virtual IList<DomainEntityBase<TEntityIdType>> DomainEntities { get; set; }
-        /// <summary>
-        /// TenantId of this entity.
-        /// </summary>
-        /// <value>The tenant identifier.</value>
-        public virtual System.Guid? TenantId { get; set; }
+        public virtual IDictionary<Guid, IDomainEntity<Guid>> DomainEntities { get; set; }
 
         #region "Constructors"
         /// <summary>
-        /// Initializes a new instance of the <see cref="Component{TPrimaryKey, TEntityIdType}"/> class.
+        /// Initializes a new instance of the <see cref="LaunchPadComponent"/> class.
         /// </summary>
-        public Component() : base()
+        public LaunchPadComponent() : base()
         {
-            DomainEntities = new List<DomainEntityBase<TEntityIdType>>();
+            DomainEntities = new Dictionary<Guid, IDomainEntity<Guid>>();
         }
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="Component{TPrimaryKey, TEntityIdType}"/> class.
-        /// </summary>
-        /// <param name="tenantId">The tenant identifier.</param>
-        public Component(System.Guid? tenantId) : base()
-        {
-            TenantId = tenantId;
-            DomainEntities = new List<DomainEntityBase<TEntityIdType>>();
-        }
 
 
         /// <summary>
@@ -86,9 +69,9 @@ namespace Deploy.LaunchPad.Core.Abp.SoftwareApplications
         /// </summary>
         /// <param name="info">The serialization info</param>
         /// <param name="context">The context of the stream</param>
-        protected Component(SerializationInfo info, StreamingContext context) : base(info, context)
+        protected LaunchPadComponent(SerializationInfo info, StreamingContext context) : base(info, context)
         {
-            DomainEntities = (IList<DomainEntityBase<TEntityIdType>>)info.GetValue("DomainEntities", typeof(List<DomainEntityBase<TEntityIdType>>));
+            DomainEntities = (IDictionary<Guid, IDomainEntity<Guid>>)info.GetValue("DomainEntities", typeof(Dictionary<Guid, IDomainEntity<Guid>>));
         }
 
         #endregion

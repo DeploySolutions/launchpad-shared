@@ -6,7 +6,7 @@
 // Last Modified By : Nicholas Kellett
 // Last Modified On : 07-26-2023
 // ***********************************************************************
-// <copyright file="IApplicationDetails.cs" company="Deploy Software Solutions, inc.">
+// <copyright file="ILaunchPadApplication.cs" company="Deploy Software Solutions, inc.">
 //     2018-2024 Deploy Software Solutions, inc.
 // </copyright>
 // <summary></summary>
@@ -26,67 +26,49 @@
 //limitations under the License. 
 #endregion
 
+using Deploy.LaunchPad.Core.Domain.Entities;
+using Deploy.LaunchPad.Util.Modules;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Xml.Serialization;
 
-namespace Deploy.LaunchPad.Core.Abp.SoftwareApplications
+namespace Deploy.LaunchPad.Core.Application
 {
-    using System;
-    using System.ComponentModel;
-    using System.ComponentModel.DataAnnotations.Schema;
-    using System.Xml.Serialization;
-    using Deploy.LaunchPad.Core.Domain.Entities;
-    using Deploy.LaunchPad.Core.Metadata;
 
     /// <summary>
-    /// Represents the specific settings of an application.
+    /// Represents an application in the LaunchPad RAD framework.
     /// </summary>
-    public partial interface IApplicationDetails : IDomainEntity<System.Guid>
+    /// <typeparam name="TPrimaryKey">The type of the t identifier type.</typeparam>
+    public partial interface ILaunchPadApplication : IDomainEntity<Guid>
     {
-      
-        IHaveCultureDetails CultureDetails { get; set; }
-
-        Guid DefaultCreatorUserId { get; set; } 
 
         /// <summary>
-        /// The main theme
+        /// The default culture of this application
         /// </summary>
-        /// <value>The theme.</value>
+        /// <value>The application information.</value>
         [DataObjectField(false)]
         [XmlAttribute]
-        string Theme { get; set; }
-
-        /// <summary>
-        /// The Uri for the logo to display in this application
-        /// </summary>
-        /// <value>The logo URI.</value>
-        [DataObjectField(false)]
-        [XmlAttribute]
-        Uri LogoUri
+        ApplicationDetails AppInfo
         {
             get; set;
         }
 
         /// <summary>
-        /// The primary colour (in HEX) for displays in this application.
-        /// (Colour is spelled correctly in Canadian, eh.)
+        /// Each application can have an open-ended set of modules within that provide the functionality
         /// </summary>
-        /// <value>The primary colour hexadecimal.</value>
+        /// <value>The tenant information.</value>
         [DataObjectField(false)]
         [XmlAttribute]
-        String PrimaryColourHex
-        {
-            get; set;
-        }
+        List<TenantDetails> TenantInfo { get; set; }
 
         /// <summary>
-        /// The default display time zone of the application
+        /// Each application can have an open-ended set of components within that provide the functionality
         /// </summary>
-        /// <value>The default time zone.</value>
+        /// <value>The dictionary of components.</value>
         [DataObjectField(false)]
         [XmlAttribute]
-        String DefaultTimeZone
-        {
-            get; set;
-        }
+        IDictionary<Guid, ILaunchPadComponent> Components { get; set; }
 
     }
 }

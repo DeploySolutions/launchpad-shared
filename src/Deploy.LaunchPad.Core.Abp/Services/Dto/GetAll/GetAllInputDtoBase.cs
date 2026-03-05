@@ -11,9 +11,6 @@
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
-using Abp.Application.Services.Dto;
-using Deploy.LaunchPad.Core.Abp.SoftwareApplications;
-using Deploy.LaunchPad.Code.Services;
 
 using Deploy.LaunchPad.Util;
 using System;
@@ -24,11 +21,11 @@ using System.Reflection;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Xml.Serialization;
-using Deploy.LaunchPad.Domain;
 using Deploy.LaunchPad.Core;
 using Deploy.LaunchPad.Core.Metadata;
 using Deploy.LaunchPad.Core.Application.Services.Dto;
 using Deploy.LaunchPad.Core.Application.Services;
+using Deploy.LaunchPad.Core.Application;
 
 namespace Deploy.LaunchPad.Code.Services.Dto
 {

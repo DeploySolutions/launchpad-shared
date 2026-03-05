@@ -11,7 +11,7 @@
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
-using Deploy.LaunchPad.Core.Abp.SoftwareApplications;
+using Deploy.LaunchPad.Core.Application;
 using System;
 using System.Runtime.Serialization;
 
