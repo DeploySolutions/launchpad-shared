@@ -173,6 +173,7 @@ namespace Deploy.LaunchPad.Space.Satellites.GoC
                     cornerCoords
                 )
                 {
+                    Id = Guid.NewGuid(),
                     Name = radarsatUniqueId,
 
                     //Metadata.Description = radarsatUniqueId,

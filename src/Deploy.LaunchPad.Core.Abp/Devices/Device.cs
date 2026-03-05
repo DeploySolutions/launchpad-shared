@@ -31,7 +31,6 @@ using Abp.Domain.Entities;
 using Deploy.LaunchPad.Core.Domain.Entities;
 using Deploy.LaunchPad.Core.Metadata;
 using Deploy.LaunchPad.Domain.Devices;
-using Deploy.LaunchPad.Domain.Metadata;
 using Deploy.LaunchPad.Geospatial;
 using Deploy.LaunchPad.Geospatial.Position;
 using System;

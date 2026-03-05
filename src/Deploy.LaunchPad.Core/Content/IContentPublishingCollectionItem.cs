@@ -4,17 +4,17 @@ using Deploy.LaunchPad.Util;
 
 namespace Deploy.LaunchPad.Domain.Content
 {
-    public partial interface ILaunchPadContentPublishingCollectionItem : 
+    public partial interface IContentPublishingCollectionItem : 
         ILaunchPadObject, 
         ILaunchPadCoreProperties, 
-        IMustHavePublishingInformation
+        IMustHavePublishingInformation, IMustHaveCulture
     {
-        public LaunchPadContentItemType ContentType { get; set; }
+        public ContentItemType ContentType { get; set; }
         public Uri? ResourceRelativeUri { get; set; }
     }
 
     public partial interface ILaunchPadContentPublishingItem:
-        ILaunchPadContentPublishingCollectionItem
+        IContentPublishingCollectionItem
     {        
     }
 }

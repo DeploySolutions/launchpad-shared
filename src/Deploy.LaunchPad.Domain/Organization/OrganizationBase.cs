@@ -27,7 +27,6 @@
 #endregion
 
 using Deploy.LaunchPad.Core.Domain.Entities;
-using Deploy.LaunchPad.Domain.Metadata;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -45,7 +44,7 @@ namespace Deploy.LaunchPad.Domain.Organization
     /// base functionality for many of its methods.
     /// </summary>
     /// <typeparam name="TPrimaryKey">The type of the t identifier type.</typeparam>
-    public abstract partial class OrganizationBase<TPrimaryKey> : LaunchPadModelBase, ILaunchPadOrganization, IMayHaveOrganizationContactPointInformation
+    public abstract partial class OrganizationBase<TPrimaryKey> : DomainEntityBase<TPrimaryKey>, ILaunchPadOrganization, IMayHaveOrganizationContactPointInformation
     {
 
         public virtual ILaunchPadOrganization Parent { get; set; }

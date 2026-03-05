@@ -1,18 +1,20 @@
-﻿using Deploy.LaunchPad.Core.Metadata;
+﻿using Deploy.LaunchPad.Core.Domain.Entities;
+using Deploy.LaunchPad.Core.Metadata;
 using Deploy.LaunchPad.Util;
 using Deploy.LaunchPad.Util.Elements;
 using System;
 using System.ComponentModel;
+using System.Globalization;
 using System.Runtime.Serialization;
 using System.Xml.Serialization;
 
 namespace Deploy.LaunchPad.Domain.Content
 {
 
-    public abstract partial class LaunchPadContentPublishingCollectionItemBase : LaunchPadCoreProperties,        
+    public abstract partial class ContentPublishingCollectionItemBase : DomainEntityBase<Guid>,        
         ILaunchPadContentPublishingItem
     {
-        public virtual LaunchPadContentItemType ContentType { get; set; }
+        public virtual ContentItemType ContentType { get; set; }
 
         public virtual bool IsPublished { get; set; }
         public virtual long PublisherUserId { get; set; }
@@ -25,13 +27,12 @@ namespace Deploy.LaunchPad.Domain.Content
         [XmlAttribute]
         public virtual Uri? ResourceRelativeUri { get; set; }
 
-        protected LaunchPadContentPublishingCollectionItemBase(string name, LaunchPadContentItemType type)
+        protected ContentPublishingCollectionItemBase(string name, ContentItemType type)
         {
             ContentType = type;
             Name = name;
             //Description = new ElementDescription(name);
             CreationTime = DateTime.Now.ToUniversalTime();
-            Culture = "en";
             Tags = "{}";
         }
 
@@ -40,11 +41,11 @@ namespace Deploy.LaunchPad.Domain.Content
         /// </summary>
         /// <param name="info">The serialization info</param>
         /// <param name="context">The context of the stream</param>
-        protected LaunchPadContentPublishingCollectionItemBase(SerializationInfo info, StreamingContext context)
+        protected ContentPublishingCollectionItemBase(SerializationInfo info, StreamingContext context)
         {
             Name = (string)info.GetValue("Name", typeof(string));
             //Description = (ElementDescription)info.GetValue("Description", typeof(ElementDescription));
-            Culture = info.GetString("Culture");
+            Culture = (CultureInfo)info.GetValue("Culture", typeof(CultureInfo));
             Checksum = info.GetString("Checksum");
             Tags = info.GetString("Metadata");
             CreationTime = info.GetDateTime("CreationTime");
@@ -54,7 +55,7 @@ namespace Deploy.LaunchPad.Domain.Content
             IsDeleted = info.GetBoolean("IsDeleted");
             DeleterUserId = (Guid?)info.GetValue("DeleterUserId", typeof(Guid?));
             DeletionTime = info.GetDateTime("DeletionTime");
-            ContentType = (LaunchPadContentItemType)info.GetValue("ContentType", typeof(LaunchPadContentItemType));
+            ContentType = (ContentItemType)info.GetValue("ContentType", typeof(ContentItemType));
         }
 
         /// <summary>

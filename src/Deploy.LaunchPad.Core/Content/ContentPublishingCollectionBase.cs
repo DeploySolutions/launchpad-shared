@@ -1,44 +1,44 @@
-﻿using Deploy.LaunchPad.Core.Metadata;
+﻿using Deploy.LaunchPad.Core.Domain.Entities;
+using Deploy.LaunchPad.Core.Metadata;
 using Deploy.LaunchPad.Util;
 using Deploy.LaunchPad.Util.Elements;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Runtime.Serialization;
 
 namespace Deploy.LaunchPad.Domain.Content
 {
 
-    public abstract partial class LaunchPadContentPublishingCollectionBase : LaunchPadCoreProperties, 
-        ILaunchPadContentPublishingCollection
+    public abstract partial class ContentPublishingCollectionBase : DomainEntityBase<Guid>, 
+        IContentPublishingCollection
     {
 
-        public virtual IList<ILaunchPadContentPublishingCollectionItem> Items { get; }
+        public virtual IList<IContentPublishingCollectionItem> Items { get; }
         public virtual bool IsPublished { get; set; }
         public virtual long PublisherUserId { get; set; }
         public virtual DateTimeOffset PublishedTimeInUtc { get; set; }
 
-        public abstract void AddItem(Guid id, ILaunchPadContentPublishingCollectionItem item, bool shouldPreventDuplicates = true);        
+        public abstract void AddItem(Guid id, IContentPublishingCollectionItem item, bool shouldPreventDuplicates = true);        
 
-        protected LaunchPadContentPublishingCollectionBase()
+        protected ContentPublishingCollectionBase()
         {
             string name = "New Bundle " + DateTime.UtcNow.ToString();
             Name = name;
            // Description = new ElementDescription(name);
             CreationTime = DateTime.Now.ToUniversalTime();
-            Culture = "en";
             Tags = "{}";
-            Items = new List<ILaunchPadContentPublishingCollectionItem>();
+            Items = new List<IContentPublishingCollectionItem>();
         }
 
-        protected LaunchPadContentPublishingCollectionBase(string name)
+        protected ContentPublishingCollectionBase(string name)
         {            
             Name = name;
             //Description = new ElementDescription(name);
             CreationTime = DateTime.Now.ToUniversalTime();
-            Culture = "en";
             Tags = "{}";
-            Items = new List<ILaunchPadContentPublishingCollectionItem>();
+            Items = new List<IContentPublishingCollectionItem>();
         }
 
         /// <summary>
@@ -46,11 +46,11 @@ namespace Deploy.LaunchPad.Domain.Content
         /// </summary>
         /// <param name="info">The serialization info</param>
         /// <param name="context">The context of the stream</param>
-        protected LaunchPadContentPublishingCollectionBase(SerializationInfo info, StreamingContext context)
+        protected ContentPublishingCollectionBase(SerializationInfo info, StreamingContext context)
         {
             Name = (string)info.GetValue("Name", typeof(string));
            // Description = (ElementDescription)info.GetValue("Description", typeof(ElementDescription));
-            Culture = info.GetString("Culture");
+            Culture = (CultureInfo)info.GetValue("Culture", typeof(CultureInfo));
             Checksum = info.GetString("Checksum");
             Tags = info.GetString("Metadata");
             CreationTime = info.GetDateTime("CreationTime");
@@ -60,7 +60,7 @@ namespace Deploy.LaunchPad.Domain.Content
             IsDeleted = info.GetBoolean("IsDeleted");
             DeleterUserId = (Guid?)info.GetValue("DeleterUserId", typeof(Guid?));
             DeletionTime = info.GetDateTime("DeletionTime");
-            Items = (IList<ILaunchPadContentPublishingCollectionItem>)info.GetValue("Items", typeof(IList<ILaunchPadContentPublishingCollectionItem>));            
+            Items = (IList<IContentPublishingCollectionItem>)info.GetValue("Items", typeof(IList<IContentPublishingCollectionItem>));            
 
         }
 

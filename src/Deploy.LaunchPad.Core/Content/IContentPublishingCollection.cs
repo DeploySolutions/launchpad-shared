@@ -9,14 +9,14 @@ using System.Threading.Tasks;
 namespace Deploy.LaunchPad.Domain.Content
 {
 
-    public partial interface ILaunchPadContentPublishingCollection : 
+    public partial interface IContentPublishingCollection : 
         ILaunchPadObject,
         IMustHavePublishingInformation
     {
-        public IList<ILaunchPadContentPublishingCollectionItem> Items { get; }
+        public IList<IContentPublishingCollectionItem> Items { get; }
 
 
-        public void AddItem(Guid id, ILaunchPadContentPublishingCollectionItem item, bool shouldPreventDuplicates = true);        
+        public void AddItem(Guid id, IContentPublishingCollectionItem item, bool shouldPreventDuplicates = true);        
     }
 
 }

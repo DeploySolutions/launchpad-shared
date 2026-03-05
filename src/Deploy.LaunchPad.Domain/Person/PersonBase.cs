@@ -27,14 +27,8 @@
 #endregion
 
 using Deploy.LaunchPad.Core.Domain.Entities;
-using Deploy.LaunchPad.Domain.Metadata;
-using Deploy.LaunchPad.Domain.Person;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Reflection;
 using System.Runtime.Serialization;
-using System.Xml.Serialization;
 
 namespace Deploy.LaunchPad.Domain.Person
 {
@@ -46,7 +40,7 @@ namespace Deploy.LaunchPad.Domain.Person
     /// base functionality for many of its methods.
     /// </summary>
     /// <typeparam name="TPrimaryKey">The type of the t identifier type.</typeparam>
-    public abstract partial class PersonBase<TPrimaryKey> : LaunchPadModelBase, ILaunchPadPerson
+    public abstract partial class PersonBase<TPrimaryKey> : DomainEntityBase<TPrimaryKey>, ILaunchPadPerson
     {
 
        

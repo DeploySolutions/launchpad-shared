@@ -13,7 +13,7 @@
 // ***********************************************************************
 using Deploy.LaunchPad.Core.Metadata;
 using Deploy.LaunchPad.Domain;
-using Deploy.LaunchPad.Domain.Metadata;
+
 using System;
 using System.Collections.Generic;
 using System.Runtime.Serialization;

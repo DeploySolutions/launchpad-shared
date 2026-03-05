@@ -29,16 +29,8 @@
 namespace Deploy.LaunchPad.Domain.Tests
 {
     using Xunit;
-    
-    using Deploy.LaunchPad.Domain;
-    using System.Collections.Generic;
-    using System;
     using Deploy.LaunchPad.Domain.Devices;
-    using Deploy.LaunchPad.Core.Abp;
-    using Deploy.LaunchPad.Domain.Metadata;
-    using Deploy.LaunchPad.Util;
     using Deploy.LaunchPad.Core.Abp.Devices;
-    using Deploy.LaunchPad.Util.Elements;
     using Deploy.LaunchPad.Util.Guids;
 
     /// <summary>

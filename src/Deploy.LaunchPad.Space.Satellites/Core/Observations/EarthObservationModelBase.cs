@@ -27,13 +27,14 @@
 #endregion
 
 
+using Deploy.LaunchPad.Core.Domain.Entities;
 using Deploy.LaunchPad.Geospatial;
 using Deploy.LaunchPad.Geospatial.Position;
 using Deploy.LaunchPad.Util.Licenses;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using Deploy.LaunchPad.Domain.Metadata;
+
 
 namespace Deploy.LaunchPad.Space.Satellites.Core
 {
@@ -45,7 +46,7 @@ namespace Deploy.LaunchPad.Space.Satellites.Core
     /// </summary>
     /// <seealso cref="LaunchPadModelBase" />
     /// <seealso cref="Deploy.LaunchPad.Space.Satellites.Core.IEarthObservationScene" />
-    public abstract partial class EarthObservationModelBase : LaunchPadModelBase,
+    public abstract partial class EarthObservationModelBase : DomainEntityBase<Guid>,
         IEarthObservationScene
 
     {

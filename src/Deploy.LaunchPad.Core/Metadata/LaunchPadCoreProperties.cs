@@ -45,7 +45,7 @@ namespace Deploy.LaunchPad.Core.Metadata
             "DataSetId"
         };
 
-        protected string _culture = "en";
+        protected CultureInfo _culture = new CultureInfo("en");
         /// <summary>
         /// The culture of this object
         /// </summary>
@@ -55,7 +55,7 @@ namespace Deploy.LaunchPad.Core.Metadata
         [DataObjectField(true)]
         [DataMember(Name = "culture", EmitDefaultValue = false)]
         [XmlAttribute]
-        public virtual string Culture
+        public virtual CultureInfo Culture
         {
             get { return _culture; }
             set { _culture = value; }
@@ -250,7 +250,7 @@ namespace Deploy.LaunchPad.Core.Metadata
         protected LaunchPadCoreProperties(SerializationInfo info, StreamingContext context)
             : base(info,context)
         {
-            Culture = info.GetString("Culture");
+            Culture = (CultureInfo)info.GetValue("Culture", typeof(CultureInfo));
             Checksum = info.GetString("Checksum");
             Tags = info.GetString("Tags");
             CreationTime = info.GetDateTime("CreationTime");
