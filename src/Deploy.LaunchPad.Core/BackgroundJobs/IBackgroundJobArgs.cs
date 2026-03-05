@@ -13,7 +13,7 @@
 // ***********************************************************************
 using System.ComponentModel.DataAnnotations;
 
-namespace Deploy.LaunchPad.Code.BackgroundProcess
+namespace Deploy.LaunchPad.Core.BackgroundJobs
 {
     //
     // Summary:
