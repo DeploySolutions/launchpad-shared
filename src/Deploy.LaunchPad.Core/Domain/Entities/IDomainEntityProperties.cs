@@ -36,7 +36,7 @@ namespace Deploy.LaunchPad.Core.Domain.Entities
         /// <value>The type of the entity.</value>
         [DataObjectField(false)]
         [XmlAttribute]
-        public DomainEntityType EntityType { get; }
+        public EntityType EntityType { get; }
 
     }
 }

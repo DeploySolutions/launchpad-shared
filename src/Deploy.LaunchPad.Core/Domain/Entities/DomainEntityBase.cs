@@ -160,7 +160,7 @@ namespace Deploy.LaunchPad.Core.Domain.Entities
             set { _deleterUserName = value; }
         }
 
-        public override DomainEntityType EntityType { get; } = DomainEntityType.DomainEntity;
+        public override EntityType EntityType { get; } = EntityType.DomainEntity;
 
 
         /// <summary>

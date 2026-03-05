@@ -1,6 +1,6 @@
 ﻿namespace Deploy.LaunchPad.Core.Notifications
 {
-    public interface INotificationProvider
+    public partial interface INotificationProvider
     {
         void SetNotifications(INotificationDefinitionContext context);
     }

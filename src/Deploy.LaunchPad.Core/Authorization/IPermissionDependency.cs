@@ -37,7 +37,7 @@ namespace Deploy.LaunchPad.Core.Authorization
     /// <summary>
     /// Defines interface to check a dependency.
     /// </summary>
-    public interface IPermissionDependency
+    public partial interface IPermissionDependency
     {
         /// <summary>
         /// Checks if permission dependency is satisfied.

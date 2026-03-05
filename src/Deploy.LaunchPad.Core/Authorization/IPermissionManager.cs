@@ -40,7 +40,7 @@ namespace Deploy.LaunchPad.Core.Authorization
     /// <summary>
     /// Permission manager.
     /// </summary>
-    public interface IPermissionManager
+    public partial interface IPermissionManager
     {
         /// <summary>
         /// Gets <see cref="Permission"/> object with given <paramref name="name"/> or throws exception

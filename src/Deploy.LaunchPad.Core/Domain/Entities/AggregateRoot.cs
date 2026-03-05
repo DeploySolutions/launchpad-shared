@@ -34,10 +34,12 @@ using Deploy.LaunchPad.Core.Events;
 using Deploy.LaunchPad.Util.Elements;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Runtime.Serialization;
+using System.Xml.Serialization;
 
 namespace Deploy.LaunchPad.Core.Domain.Entities
 {
@@ -139,6 +141,14 @@ namespace Deploy.LaunchPad.Core.Domain.Entities
     {
         [NotMapped]
         public virtual ICollection<IEventData> DomainEvents { get; }
+
+        /// <summary>
+        /// If this object is a regular domain entity, an aggregate root, or an aggregate child
+        /// </summary>
+        /// <value>The type of the entity.</value>
+        [DataObjectField(false)]
+        [XmlAttribute]
+        public override EntityType EntityType { get; } = EntityType.AggregateRoot;
 
         public AggregateRoot()
         {

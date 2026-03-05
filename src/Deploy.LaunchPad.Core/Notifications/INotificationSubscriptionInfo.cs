@@ -3,7 +3,7 @@ using System;
 
 namespace Deploy.LaunchPad.Core.Notifications
 {
-    public interface INotificationSubscriptionInfo : IMustHaveCreationTime, IMustHaveId<Guid>
+    public partial interface INotificationSubscriptionInfo : IMustHaveCreationTime, IMustHaveId<Guid>
     {
         string EntityId { get; set; }
         string EntityTypeAssemblyQualifiedName { get; set; }

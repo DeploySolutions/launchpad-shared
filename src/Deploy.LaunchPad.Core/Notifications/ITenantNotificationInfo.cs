@@ -3,7 +3,7 @@ using System;
 
 namespace Deploy.LaunchPad.Core.Notifications
 {
-    public interface ITenantNotificationInfo : IMustHaveId<Guid>, IMustHaveCreationTime
+    public partial interface ITenantNotificationInfo : IMustHaveId<Guid>, IMustHaveCreationTime
     {
         string Data { get; set; }
         string DataTypeName { get; set; }

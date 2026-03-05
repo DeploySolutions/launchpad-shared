@@ -38,7 +38,7 @@ namespace Deploy.LaunchPad.Core.Authorization
     /// <summary>
     /// This class is used to permissions for users.
     /// </summary>
-    public interface IPermissionChecker
+    public partial interface IPermissionChecker
     {
         /// <summary>
         /// Checks if current user is granted for a permission.

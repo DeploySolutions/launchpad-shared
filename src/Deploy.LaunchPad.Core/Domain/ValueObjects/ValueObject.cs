@@ -55,7 +55,7 @@ namespace Deploy.LaunchPad.Core.Domain.ValueObjects
         /// <value>The type of the entity.</value>
         [DataObjectField(false)]
         [XmlAttribute]
-        public virtual DomainEntityType EntityType { get; } = DomainEntityType.ValueObject;
+        public virtual EntityType EntityType { get; } = EntityType.ValueObject;
 
         public virtual bool ValueEquals(object obj)
         {

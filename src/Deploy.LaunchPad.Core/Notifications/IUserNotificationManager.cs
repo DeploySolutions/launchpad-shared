@@ -40,7 +40,7 @@ namespace Deploy.LaunchPad.Core.Notifications
     /// <summary>
     /// Used to manage user notifications.
     /// </summary>
-    public interface IUserNotificationManager
+    public partial interface IUserNotificationManager
     {
         /// <summary>
         /// Gets notifications for a user.

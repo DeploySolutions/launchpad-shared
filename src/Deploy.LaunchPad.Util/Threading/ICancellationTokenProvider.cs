@@ -35,7 +35,7 @@ using System.Threading;
 
 namespace Deploy.LaunchPad.Util.Threading
 {
-    public interface ICancellationTokenProvider
+    public partial interface ICancellationTokenProvider
     {
         CancellationToken Token { get; }
         IDisposable Use(CancellationToken cancellationToken);

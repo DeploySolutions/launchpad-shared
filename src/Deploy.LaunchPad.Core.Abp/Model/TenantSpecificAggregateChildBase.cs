@@ -26,6 +26,7 @@
 //limitations under the License. 
 #endregion
 
+using Deploy.LaunchPad.Core.Domain.Entities;
 using Deploy.LaunchPad.Core.Metadata;
 using Deploy.LaunchPad.Util.Guids;
 using System;
@@ -42,14 +43,14 @@ namespace Deploy.LaunchPad.Core.Entities
 
     /// <summary>
     /// Base class for Aggregate Root child entities that must be specifically related to tenants.
-    /// Inherits from <see cref="LaunchPadAggregateChildBase{TPrimaryKey}{TPrimaryKey}">LaunchPadAggregateChildBase{TPrimaryKey}</see> and provides
+    /// Inherits from <see cref="AggregateChildBase{TPrimaryKey}{TPrimaryKey}">LaunchPadAggregateChildBase{TPrimaryKey}</see> and provides
     /// base functionality for many of its methods.
     /// Implements AspNetBoilerplate's <see cref="IMustHaveTenant">IMustHaveTenant interface</see>, overriding the base interface where tenant may or may not exist.
     /// </summary>
     /// <typeparam name="TPrimaryKey">The type of the t identifier type.</typeparam>
     [Serializable]
     public abstract partial class TenantSpecificAggregateChildBase<TPrimaryKey> :
-        LaunchPadAggregateChildBase<TPrimaryKey>, IMustHaveTenant
+        AggregateChildBase<TPrimaryKey>, IMustHaveTenant
 
     {
         protected System.Guid _tenantId;

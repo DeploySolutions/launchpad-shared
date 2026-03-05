@@ -34,7 +34,7 @@ using System.Collections.Generic;
 
 namespace Deploy.LaunchPad.Core.Localization
 {
-    public interface ILanguageProvider
+    public partial interface ILanguageProvider
     {
         IReadOnlyList<ILanguageInfo> GetLanguages();
 

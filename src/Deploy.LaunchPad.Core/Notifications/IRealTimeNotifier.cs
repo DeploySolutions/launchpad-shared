@@ -37,7 +37,7 @@ namespace Deploy.LaunchPad.Core.Notifications
     /// <summary>
     /// Interface to send real time notifications to users.
     /// </summary>
-    public interface IRealTimeNotifier
+    public partial interface IRealTimeNotifier
     {
         /// <summary>
         /// This method tries to deliver real time notifications to specified users.

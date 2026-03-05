@@ -1,6 +1,6 @@
 ﻿namespace Deploy.LaunchPad.Core.Notifications
 {
-    public interface IUserNotificationInfoWithNotificationInfo
+    public partial interface IUserNotificationInfoWithNotificationInfo
     {
         ITenantNotificationInfo Notification { get; set; }
         IUserNotificationInfo UserNotification { get; set; }

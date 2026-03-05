@@ -2,7 +2,7 @@
 
 namespace Deploy.LaunchPad.Core.Authorization
 {
-    public interface IPermissionDictionary : IDictionary<string, IPermission>
+    public partial interface IPermissionDictionary : IDictionary<string, IPermission>
     {
         void AddAllPermissions();
     }

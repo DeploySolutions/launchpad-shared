@@ -40,7 +40,7 @@ namespace Deploy.LaunchPad.Core.Notifications
     /// <summary>
     /// Used to manage subscriptions for notifications.
     /// </summary>
-    public interface INotificationSubscriptionManager
+    public partial interface INotificationSubscriptionManager
     {
         /// <summary>
         /// Subscribes to a notification for given user and notification informations.

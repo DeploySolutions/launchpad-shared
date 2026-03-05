@@ -20,10 +20,10 @@ using System.Threading.Tasks;
 namespace Deploy.LaunchPad.Core.Domain.Entities
 {
     /// <summary>
-    /// Enum DomainEntityType
+    /// Enum EntityType
     /// </summary>
     [Serializable]
-    public enum DomainEntityType
+    public enum EntityType
     { 
         /// <summary>
         /// The LaunchPad/Boilerplate framework entity

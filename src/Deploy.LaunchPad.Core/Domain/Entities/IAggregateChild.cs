@@ -12,15 +12,16 @@
 // <summary></summary>
 // ***********************************************************************
 using Deploy.LaunchPad.Core.Domain.Entities;
-using Deploy.LaunchPad.Domain.Metadata;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Deploy.LaunchPad.Core.Entities
+namespace Deploy.LaunchPad.Core.Domain.Entities
 {
+    public partial interface IAggregateChild : IAggregateChild<System.Guid>, IFrameworkEntity
+    {
+
+    }
+
+
     /// <summary>
     /// Marks an object as a child of a particular Aggregate Root.
     /// Each entity is uniquely identified by its ID, and contains a
@@ -28,9 +29,8 @@ namespace Deploy.LaunchPad.Core.Entities
     /// Each entity also implements ASP.NET Boilerplate's IAggregateRoot interface.
     /// </summary>
     /// <typeparam name="TPrimaryKey">The type of the t identifier type.</typeparam>
-    public partial interface ILaunchPadAggregateChild<TPrimaryKey> : IDomainEntity<TPrimaryKey>,
-        ILaunchPadAggregateChildProperties<TPrimaryKey>, 
-        IComparable<DomainEntityBase<TPrimaryKey>>, IEquatable<DomainEntityBase<TPrimaryKey>>
+    public partial interface IAggregateChild<TPrimaryKey> : IFrameworkEntity<TPrimaryKey>,
+        IAggregateChildProperties<TPrimaryKey>
     {
     }
 }

@@ -38,7 +38,7 @@ namespace Deploy.LaunchPad.Core.Notifications
     /// <summary>
     /// Used to configure notification system.
     /// </summary>
-    public interface INotificationConfiguration
+    public partial interface INotificationConfiguration
     {
         /// <summary>
         /// Notification providers.

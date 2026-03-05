@@ -15,7 +15,7 @@ using System.Collections.Generic;
 using Deploy.LaunchPad.Core.Domain.Entities;
 using Deploy.LaunchPad.Files.Storage;
 
-namespace Deploy.LaunchPad.Core.Entities
+namespace Deploy.LaunchPad.Files
 {
     /// <summary>
     /// A set of files all of the same type, often contained in a specific location (such as in a folder, or as a subset of files within a folder).
@@ -23,9 +23,9 @@ namespace Deploy.LaunchPad.Core.Entities
     /// <typeparam name="TPrimaryKey">The type of the t identifier type.</typeparam>
     /// <typeparam name="TFileContentType">The type of the t file content type.</typeparam>
     /// <typeparam name="TFileStorageLocationType">The type of the t file storage location type.</typeparam>
-    public abstract partial class DomainEntityFileSetBase<TPrimaryKey, TFileContentType, TFileStorageLocationType, TSchemaFormat>
-        : DomainEntityBase<TPrimaryKey>        
-        where TFileStorageLocationType : IFileStorageLocation, new()
+    public abstract partial class DomainEntityFileSetBase<TPrimaryKey>
+        : DomainEntityBase<TPrimaryKey>, 
+        IDomainEntityFileSet<TPrimaryKey> 
     {
         /// <summary>
         /// Gets or sets the count.
@@ -37,7 +37,26 @@ namespace Deploy.LaunchPad.Core.Entities
         /// Gets or sets the files.
         /// </summary>
         /// <value>The files.</value>
-        public IDictionary<string, IDomainEntityFile<TPrimaryKey, TFileContentType, TSchemaFormat>> Files { get; set; }
+        public IDictionary<string, IDomainEntityFile<TPrimaryKey>> Files { get; set; }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DomainEntityFileSetBase{TPrimaryKey, TFileContentType, TFileStorageLocationType}"/> class.
+        /// </summary>
+        public DomainEntityFileSetBase()
+        {
+            Files = new Dictionary<string, IDomainEntityFile<TPrimaryKey>>();
+        }
+    }
+
+    public abstract partial class DomainEntityFileSetBase<TPrimaryKey, TFileContentType, TSchemaFormat>
+        : DomainEntityFileSetBase<TPrimaryKey>
+    {
+        
+        /// <summary>
+        /// Gets or sets the files.
+        /// </summary>
+        /// <value>The files.</value>
+        public new IDictionary<string, IDomainEntityFile<TPrimaryKey, TFileContentType, TSchemaFormat>> Files { get; set; }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="DomainEntityFileSetBase{TPrimaryKey, TFileContentType, TFileStorageLocationType}"/> class.

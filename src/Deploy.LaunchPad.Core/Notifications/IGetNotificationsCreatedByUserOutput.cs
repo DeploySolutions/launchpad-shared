@@ -2,7 +2,7 @@
 
 namespace Deploy.LaunchPad.Core.Notifications
 {
-    public interface IGetNotificationsCreatedByUserOutput
+    public partial interface IGetNotificationsCreatedByUserOutput
     {
         DateTime CreationTime { get; set; }
         string Data { get; set; }

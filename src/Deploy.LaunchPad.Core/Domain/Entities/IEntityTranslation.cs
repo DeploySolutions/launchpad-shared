@@ -35,12 +35,12 @@ using Deploy.LaunchPad.Core.Metadata;
 
 namespace Deploy.LaunchPade.Core.Domain.Entities
 {
-    public interface IEntityTranslation
+    public partial interface IEntityTranslation
     {
         string Language { get; set; }
     }
 
-    public interface IEntityTranslation<TMultiLingualEntity, TMultiLingualEntityPrimaryKey> : IEntityTranslation,
+    public partial interface IEntityTranslation<TMultiLingualEntity, TMultiLingualEntityPrimaryKey> : IEntityTranslation,
         IMustHaveTranslationFromId<TMultiLingualEntityPrimaryKey>
         //where TMultiLingualEntity : IEntity<TMultiLingualEntityPrimaryKey>
     {
@@ -48,7 +48,7 @@ namespace Deploy.LaunchPade.Core.Domain.Entities
 
     }
 
-    public interface IEntityTranslation<TMultiLingualEntity> : IEntityTranslation<TMultiLingualEntity, System.Guid>
+    public partial interface IEntityTranslation<TMultiLingualEntity> : IEntityTranslation<TMultiLingualEntity, System.Guid>
         where TMultiLingualEntity : IFrameworkEntity
     {
         

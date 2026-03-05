@@ -119,7 +119,7 @@ namespace Deploy.LaunchPad.Core.Domain.Entities
         /// <value>The type of the entity.</value>
         [DataObjectField(false)]
         [XmlAttribute]
-        public virtual DomainEntityType EntityType { get; } = DomainEntityType.FrameworkEntity;
+        public virtual EntityType EntityType { get; } = EntityType.FrameworkEntity;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="FrameworkEntityBase">Entity</see> class

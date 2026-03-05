@@ -37,7 +37,7 @@ using System.Threading.Tasks;
 
 namespace Deploy.LaunchPad.Core.Authorization
 {
-    public interface IAuthorizationHelper
+    public partial interface IAuthorizationHelper
     {
         Task AuthorizeAsync(IEnumerable<IAbpAuthorizeAttribute> authorizeAttributes);
         

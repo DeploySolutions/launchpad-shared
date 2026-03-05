@@ -40,7 +40,7 @@ namespace Deploy.LaunchPad.Core.Notifications
     /// <summary>
     /// Used to store (persist) notifications.
     /// </summary>
-    public interface INotificationStore
+    public partial interface INotificationStore
     {
         /// <summary>
         /// Inserts a notification subscription.

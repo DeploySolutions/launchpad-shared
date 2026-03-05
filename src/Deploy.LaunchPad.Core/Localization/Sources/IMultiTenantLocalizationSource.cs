@@ -39,7 +39,7 @@ namespace Deploy.LaunchPad.Core.Localization
     /// <summary>
     /// Extends <see cref="ILocalizationSource"/> to add tenant and database based localization.
     /// </summary>
-    public interface IMultiTenantLocalizationSource : ILocalizationSource
+    public partial interface IMultiTenantLocalizationSource : ILocalizationSource
     {
         /// <summary>
         /// Gets key for given value.

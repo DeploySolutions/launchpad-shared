@@ -35,7 +35,7 @@ namespace Deploy.LaunchPad.Core.Notifications
     /// <summary>
     /// Used as a context while defining notifications.
     /// </summary>
-    public interface INotificationDefinitionContext
+    public partial interface INotificationDefinitionContext
     {
         /// <summary>
         /// Gets the notification definition manager.

@@ -39,7 +39,7 @@ namespace Deploy.LaunchPad.Core.Notifications
     /// <summary>
     /// Used to manage notification definitions.
     /// </summary>
-    public interface INotificationDefinitionManager
+    public partial interface INotificationDefinitionManager
     {
         /// <summary>
         /// Adds the specified notification definition.

@@ -2,7 +2,7 @@
 
 namespace Deploy.LaunchPad.Core.Notifications
 {
-    public interface INotificationInfo
+    public partial interface INotificationInfo
     {
         string Data { get; set; }
         string DataTypeName { get; set; }

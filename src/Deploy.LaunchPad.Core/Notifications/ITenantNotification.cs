@@ -2,7 +2,7 @@
 
 namespace Deploy.LaunchPad.Core.Notifications
 {
-    public interface ITenantNotification
+    public partial interface ITenantNotification
     {
         DateTime CreationTime { get; set; }
         INotificationData Data { get; set; }

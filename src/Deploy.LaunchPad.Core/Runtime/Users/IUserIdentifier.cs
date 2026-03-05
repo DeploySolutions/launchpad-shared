@@ -35,7 +35,7 @@ namespace Deploy.LaunchPad.Core.Runtime.Users
     /// <summary>
     /// Interface to get a user identifier.
     /// </summary>
-    public interface IUserIdentifier
+    public partial interface IUserIdentifier
     {
         /// <summary>
         /// Tenant Id. Can be null for host users.

@@ -35,7 +35,7 @@ namespace Deploy.LaunchPad.Core.Authorization
     /// <summary>
     /// Defines standard interface for authorization attributes.
     /// </summary>
-    public interface IAbpAuthorizeAttribute
+    public partial interface IAbpAuthorizeAttribute
     {
         /// <summary>
         /// A list of permissions to authorize.

@@ -35,7 +35,7 @@ using System.Collections.Generic;
 
 namespace Deploy.LaunchPad.Core.Domain.Entities
 {
-    public interface IMultiLingualEntity<TTranslation> 
+    public partial interface IMultiLingualEntity<TTranslation> 
         where TTranslation : class, IEntityTranslation
     {
         ICollection<TTranslation> Translations { get; set; }

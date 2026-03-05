@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Deploy.LaunchPad.Core.Notifications
 {
-    public interface IUserNotificationInfo : IMustHaveId<Guid>
+    public partial interface IUserNotificationInfo : IMustHaveId<Guid>
     {
         DateTime CreationTime { get; set; }
         UserNotificationState State { get; set; }

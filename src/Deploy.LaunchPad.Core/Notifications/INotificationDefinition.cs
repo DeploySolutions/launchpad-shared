@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 namespace Deploy.LaunchPad.Core.Notifications
 {
-    public interface INotificationDefinition
+    public partial interface INotificationDefinition
     {
         object this[string key] { get; set; }
 

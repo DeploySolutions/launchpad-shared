@@ -26,34 +26,33 @@
 //limitations under the License. 
 #endregion
 
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Xml.Serialization;
+using Deploy.LaunchPad.Core.Metadata;
+using Deploy.LaunchPad.Util;
+
 namespace Deploy.LaunchPad.Files
 {
-    using System;
-    using System.Collections.Generic;
-    using System.ComponentModel;
-    using System.Xml.Serialization;
-    using Deploy.LaunchPad.Files.Formats;
-    using Deploy.LaunchPad.Core.Metadata;
-    using Deploy.LaunchPad.Util;
-
     /// <summary>
     /// Marks any object as a file that can be manipulated by the platform.
     /// </summary>
     /// <typeparam name="TFileContentType">The type of the file content.</typeparam>
-    public partial interface IFile<TFileContentType, TSchemaFormat> : 
-        ILaunchPadObject, 
+    public partial interface IFile :
+        ILaunchPadObject,
         ILaunchPadMinimalProperties,
         IMustHaveCreationTime,
         IMayHaveLastModificationTime
     {
-       
+
         /// <summary>
         /// The size of the file, in bytes
         /// </summary>
         /// <value>The size.</value>
         [DataObjectField(false)]
         [XmlAttribute]
-        public Int64 Size { get; set; }
+        public long Size { get; set; }
 
         /// <summary>
         /// The extension of the file
@@ -79,6 +78,16 @@ namespace Deploy.LaunchPad.Files
         [XmlAttribute]
         public String MimeType { get; set; }
 
+    }
+
+    /// <summary>
+    /// Marks any object as a file that can be manipulated by the platform.
+    /// </summary>
+    /// <typeparam name="TFileContentType">The type of the file content.</typeparam>
+    public partial interface IFile<TFileContentType, TSchemaFormat> :
+        IFile // imusthaveschema
+    {
+       
         /// <summary>
         /// The content of the file
         /// </summary>
@@ -87,7 +96,6 @@ namespace Deploy.LaunchPad.Files
         [XmlAttribute]
         public TFileContentType Content { get; set; }
 
-
         /// <summary>
         /// The schema of the file
         /// </summary>
@@ -95,9 +103,5 @@ namespace Deploy.LaunchPad.Files
         [DataObjectField(false)]
         [XmlAttribute]
         public ILaunchPadSchemaDetails<TSchemaFormat>? Schema { get; set; }
-
-
-
-
     }
 }

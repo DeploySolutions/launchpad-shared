@@ -27,19 +27,15 @@
 #endregion
 
 using Deploy.LaunchPad.Files.Storage;
-using Deploy.LaunchPad.Util;
-
-using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
 using System.Xml.Serialization;
 using Deploy.LaunchPad.Core.Metadata;
-using Deploy.LaunchPad.Util.Elements;
 using Deploy.LaunchPad.Core.Domain.Entities;
 
-namespace Deploy.LaunchPad.Core.Entities
+namespace Deploy.LaunchPad.Files
 {
     /// <summary>
     /// Class FileBase.
@@ -96,14 +92,6 @@ namespace Deploy.LaunchPad.Core.Entities
         [XmlAttribute]
         [Required]
         public virtual TFileContentType Content { get; set; }
-
-        /// <summary>
-        /// The size of the file, in bytes
-        /// </summary>
-        /// <value>The size.</value>
-        [DataObjectField(false)]
-        [XmlAttribute]
-        public virtual IList<IFileStorageLocation> Locations { get; set; } = new List<IFileStorageLocation>();
 
         /// <summary>
         /// The schema of the file
@@ -171,7 +159,6 @@ namespace Deploy.LaunchPad.Core.Entities
         /// <param name="context">The context of the stream</param>
         protected DomainEntityFileBase(SerializationInfo info, StreamingContext context) : base(info, context)
         {
-            Locations = (IList<IFileStorageLocation>)info.GetValue("Content", typeof(IList<IFileStorageLocation>));
             Content = (TFileContentType)info.GetValue("Content", typeof(TFileContentType));
             Schema = (ILaunchPadSchemaDetails<TSchemaFormat>)info.GetValue("Schema", typeof(ILaunchPadSchemaDetails<TSchemaFormat>));
             Size = info.GetInt64("Size");
@@ -188,7 +175,6 @@ namespace Deploy.LaunchPad.Core.Entities
         public override void GetObjectData(SerializationInfo info, StreamingContext context)
         {
             base.GetObjectData(info, context);
-            info.AddValue("Locations", Locations);
             info.AddValue("Size", Size);
             info.AddValue("MimeType", MimeType);
             info.AddValue("Extension", Extension);

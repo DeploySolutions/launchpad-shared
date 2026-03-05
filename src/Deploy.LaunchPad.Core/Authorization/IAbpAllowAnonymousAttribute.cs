@@ -32,7 +32,7 @@
 
 namespace Deploy.LaunchPad.Core.Authorization
 {
-    public interface IAbpAllowAnonymousAttribute
+    public partial interface IAbpAllowAnonymousAttribute
     {
     }
 }

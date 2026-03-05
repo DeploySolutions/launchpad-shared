@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Deploy.LaunchPad.Core.Notifications
 {
-    public interface IUserNotification
+    public partial interface IUserNotification
     {
         ITenantNotification Notification { get; set; }
         UserNotificationState State { get; set; }

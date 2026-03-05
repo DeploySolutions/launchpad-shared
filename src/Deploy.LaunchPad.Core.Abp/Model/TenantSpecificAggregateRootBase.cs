@@ -26,6 +26,7 @@
 //limitations under the License. 
 #endregion
 
+using Deploy.LaunchPad.Core.Domain.Entities;
 using Deploy.LaunchPad.Core.Metadata;
 using Deploy.LaunchPad.Util.Guids;
 using System;
@@ -33,6 +34,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Diagnostics.CodeAnalysis;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Xml.Serialization;
@@ -42,14 +44,14 @@ namespace Deploy.LaunchPad.Core.Entities
 
     /// <summary>
     /// Base class for Aggregate Root entities that must be specifically related to tenants.
-    /// Inherits from <see cref="LaunchPadAggregateRootBase{TPrimaryKey}{TPrimaryKey}">AggregateRootBase{TPrimaryKey}</see> and provides
+    /// Inherits from <see cref="AggregateRootBase{TPrimaryKey}{TPrimaryKey}">AggregateRootBase{TPrimaryKey}</see> and provides
     /// base functionality for many of its methods.
     /// Implements AspNetBoilerplate's <see cref="IMustHaveTenant">IMustHaveTenant interface</see>, overriding the base interface where tenant may or may not exist.
     /// </summary>
     /// <typeparam name="TPrimaryKey">The type of the t identifier type.</typeparam>
     [Serializable]
     public abstract partial class TenantSpecificAggregateRootBase<TPrimaryKey> :
-        LaunchPadAggregateRootBase<TPrimaryKey>, IMustHaveTenant
+        AggregateRoot<TPrimaryKey>, IMustHaveTenant
 
     {
 
@@ -91,6 +93,7 @@ namespace Deploy.LaunchPad.Core.Entities
         /// <param name="tenantId">The tenant identifier.</param>
         /// <param name="id">The identifier.</param>
         /// <param name="cultureName">The culture for this entity</param>
+        [SetsRequiredMembers]
         protected TenantSpecificAggregateRootBase(System.Guid tenantId, TPrimaryKey id, string cultureName) : base(id, cultureName)
         {
             TenantId = tenantId;
@@ -102,6 +105,8 @@ namespace Deploy.LaunchPad.Core.Entities
         /// <param name="tenantId">The tenant identifier.</param>
         /// <param name="id">The identifier.</param>
         /// <param name="metadata">The desired metadata for this entity</param>
+
+        [SetsRequiredMembers]
         protected TenantSpecificAggregateRootBase(System.Guid tenantId, TPrimaryKey id, MetadataInformation metadata) : base(id)
         {
 
@@ -129,16 +134,6 @@ namespace Deploy.LaunchPad.Core.Entities
             info.AddValue("TenantId", TenantId);
         }
 
-        /// <summary>
-        /// Event called once deserialization constructor finishes.
-        /// Useful for reattaching connections and other finite resources that
-        /// can't be serialized and deserialized.
-        /// </summary>
-        /// <param name="sender">The object that has been deserialized</param>
-        public override void OnDeserialization(object sender)
-        {
-            // reconnect connection strings and other resources that won't be serialized
-        }
 
         /// <summary>
         /// Comparison method between two objects of the same type, used for sorting.
@@ -205,7 +200,7 @@ namespace Deploy.LaunchPad.Core.Entities
                     // For safe equality we need to match on business key equality.
                     // Base domain entities are functionally equal if their key and metadata are equal.
                     // Subclasses should extend to include their own enhanced equality checks, as required.
-                    return Id.Equals(obj.Id) && Culture.Equals(obj.Culture) && TenantId.Equals(obj.TenantId);
+                    return Id.Equals(obj.Id) && TenantId.Equals(obj.TenantId);
                 }
 
             }
@@ -249,7 +244,7 @@ namespace Deploy.LaunchPad.Core.Entities
         /// <remarks>This method implements the <see cref="object">Object</see> method.</remarks>
         public override int GetHashCode()
         {
-            return Culture.GetHashCode() + Id.GetHashCode() + TenantId.GetHashCode();
+            return  Id.GetHashCode() + TenantId.GetHashCode();
         }
 
     }

@@ -39,7 +39,7 @@ namespace Deploy.LaunchPad.Core.Authorization
     /// <summary>
     /// Permission dependency context.
     /// </summary>
-    public interface IPermissionDependencyContext
+    public partial interface IPermissionDependencyContext
     {
         /// <summary>
         /// The user which requires permission. Can be null if no user.

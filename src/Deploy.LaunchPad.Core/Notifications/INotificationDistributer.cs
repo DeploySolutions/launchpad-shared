@@ -39,7 +39,7 @@ namespace Deploy.LaunchPad.Core.Notifications
     /// <summary>
     /// Used to distribute notifications to users.
     /// </summary>
-    public interface INotificationDistributer : IDomainService
+    public partial interface INotificationDistributer : IDomainService
     {
         /// <summary>
         /// Distributes given notification to users.

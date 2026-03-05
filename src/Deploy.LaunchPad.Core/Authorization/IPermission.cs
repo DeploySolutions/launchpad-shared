@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace Deploy.LaunchPad.Core.Authorization
 {
-    public interface IPermission
+    public partial interface IPermission
     {
         object this[string key] { get; set; }
 

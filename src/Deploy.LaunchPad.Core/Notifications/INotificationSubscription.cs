@@ -2,7 +2,7 @@
 
 namespace Deploy.LaunchPad.Core.Notifications
 {
-    public interface INotificationSubscription
+    public partial interface INotificationSubscription
     {
         DateTime CreationTime { get; set; }
         object EntityId { get; set; }

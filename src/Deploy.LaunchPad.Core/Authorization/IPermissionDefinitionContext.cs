@@ -40,7 +40,7 @@ namespace Deploy.LaunchPad.Core.Authorization
     /// <summary>
     /// This context is used on <see cref="AuthorizationProvider.SetPermissions"/> method.
     /// </summary>
-    public interface IPermissionDefinitionContext
+    public partial interface IPermissionDefinitionContext
     {
         /// <summary>
         /// Creates a new permission under this group.

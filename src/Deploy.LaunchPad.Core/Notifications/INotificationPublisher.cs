@@ -40,7 +40,7 @@ namespace Deploy.LaunchPad.Core.Notifications
     /// <summary>
     /// Used to publish notifications.
     /// </summary>
-    public interface INotificationPublisher
+    public partial interface INotificationPublisher
     {
         /// <summary>
         /// Publishes a new notification.
