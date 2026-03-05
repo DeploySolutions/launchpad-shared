@@ -28,6 +28,7 @@ using Deploy.LaunchPad.Domain;
 using Deploy.LaunchPad.Core;
 using Deploy.LaunchPad.Core.Metadata;
 using Deploy.LaunchPad.Core.Application.Services.Dto;
+using Deploy.LaunchPad.Core.Application.Services;
 
 namespace Deploy.LaunchPad.Code.Services.Dto
 {
@@ -185,7 +186,7 @@ namespace Deploy.LaunchPad.Code.Services.Dto
         /// </summary>
         protected GetAllInputDtoBase() : base()
         {
-            Culture = ApplicationDetails<TPrimaryKey>.DEFAULT_CULTURE;
+            Culture = ApplicationDetails.DEFAULT_CULTURE;
             Name = string.Empty;
             DescriptionShort = string.Empty;
             DescriptionFull = string.Empty;
@@ -201,7 +202,7 @@ namespace Deploy.LaunchPad.Code.Services.Dto
         protected GetAllInputDtoBase(System.Guid tenantId) : base()
         {
             TenantId = tenantId;
-            Culture = ApplicationDetails<TPrimaryKey>.DEFAULT_CULTURE;
+            Culture = ApplicationDetails.DEFAULT_CULTURE;
             Name = String.Empty;
             DescriptionShort = string.Empty;
             DescriptionFull = string.Empty;

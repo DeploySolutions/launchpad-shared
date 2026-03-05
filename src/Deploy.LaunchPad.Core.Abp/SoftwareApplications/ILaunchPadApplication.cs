@@ -48,7 +48,7 @@ namespace Deploy.LaunchPad.Core.Abp.SoftwareApplications
         /// <value>The application information.</value>
         [DataObjectField(false)]
         [XmlAttribute]
-        ApplicationDetails<TPrimaryKey> AppInfo
+        ApplicationDetails AppInfo
         {
             get; set;
         }
@@ -59,7 +59,7 @@ namespace Deploy.LaunchPad.Core.Abp.SoftwareApplications
         /// <value>The tenant information.</value>
         [DataObjectField(false)]
         [XmlAttribute]
-        List<TenantDetails<TPrimaryKey>> TenantInfo { get; set; }
+        List<TenantDetails> TenantInfo { get; set; }
 
         /// <summary>
         /// Each application can have an open-ended set of modules within that provide the functionality

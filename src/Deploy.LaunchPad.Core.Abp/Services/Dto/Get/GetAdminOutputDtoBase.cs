@@ -75,7 +75,7 @@ namespace Deploy.LaunchPad.Code.Services.Dto
         /// </summary>
         protected GetAdminOutputDtoBase() : base()
         {
-            Culture = ApplicationDetails<TPrimaryKey>.DEFAULT_CULTURE;
+            Culture = ApplicationDetails.DEFAULT_CULTURE;
             Name = new ElementNameDto();
             Description = new ElementDescriptionDto();
             IsActive = true;
@@ -89,7 +89,7 @@ namespace Deploy.LaunchPad.Code.Services.Dto
         protected GetAdminOutputDtoBase(TPrimaryKey id) : base()
         {
             Id = id;
-            Culture = ApplicationDetails<TPrimaryKey>.DEFAULT_CULTURE;
+            Culture = ApplicationDetails.DEFAULT_CULTURE;
             Name = new ElementNameDto();
             Description = new ElementDescriptionDto();
             IsActive = true;

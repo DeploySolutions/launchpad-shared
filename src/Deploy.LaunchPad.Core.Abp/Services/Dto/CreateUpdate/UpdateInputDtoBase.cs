@@ -23,6 +23,8 @@ using System.Text;
 using System.Xml.Serialization;
 using Deploy.LaunchPad.Domain;
 using Deploy.LaunchPad.Core;
+using Deploy.LaunchPad.Core.Application.Services.Dto;
+using Deploy.LaunchPad.Core.Application.Services;
 
 namespace Deploy.LaunchPad.Code.Services.Dto
 {
@@ -115,7 +117,7 @@ namespace Deploy.LaunchPad.Code.Services.Dto
         protected UpdateInputDtoBase() : base()
         {
 
-            ExternalId = string.Empty; Culture = ApplicationDetails<TPrimaryKey>.DEFAULT_CULTURE;
+            ExternalId = string.Empty; Culture = ApplicationDetails.DEFAULT_CULTURE;
             Name = string.Empty;
             Description = string.Empty;            
         }
@@ -128,7 +130,7 @@ namespace Deploy.LaunchPad.Code.Services.Dto
         {
             Id = id;
             ExternalId = string.Empty;
-            Culture = ApplicationDetails<TPrimaryKey>.DEFAULT_CULTURE;
+            Culture = ApplicationDetails.DEFAULT_CULTURE;
             Name = string.Empty;
             Description = string.Empty;
         }

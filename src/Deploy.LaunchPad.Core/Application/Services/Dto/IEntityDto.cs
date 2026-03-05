@@ -46,7 +46,9 @@ namespace Deploy.LaunchPad.Core.Application.Services.Dto
     /// Defines common properties for entity based DTOs.
     /// </summary>
     /// <typeparam name="TPrimaryKey"></typeparam>
-    public partial interface IEntityDto<TPrimaryKey> : IMustHaveId<TPrimaryKey>
+    public partial interface IEntityDto<TPrimaryKey> : 
+        IMustHaveId<TPrimaryKey>, 
+        IMayHaveSequenceNumber
     {
         
     }

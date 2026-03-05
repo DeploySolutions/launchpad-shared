@@ -27,6 +27,7 @@
 #endregion
 
 using Deploy.LaunchPad.Core.Domain.Entities;
+using Deploy.LaunchPad.Core.Metadata;
 using Deploy.LaunchPad.Util;
 using Deploy.LaunchPad.Util.Elements;
 using Deploy.LaunchPad.Util.Guids;
@@ -48,9 +49,10 @@ namespace Deploy.LaunchPad.Core.Abp.SoftwareApplications
     /// <summary>
     /// Base class for application-specific information
     /// </summary>
-    /// <typeparam name="TPrimaryKey">The type of the t identifier type.</typeparam>
+    /// <typeparam name="Guid">The type of the t identifier type.</typeparam>
     [Serializable()]
-    public partial class ApplicationDetails<TPrimaryKey> : DomainEntityBase<TPrimaryKey>, IApplicationDetails<TPrimaryKey>, IMayHaveTenant
+    public partial class ApplicationDetails : DomainEntityBase<System.Guid>, 
+        IApplicationDetails
     {
         /// <summary>
         /// The default culture
@@ -68,28 +70,16 @@ namespace Deploy.LaunchPad.Core.Abp.SoftwareApplications
         [DataObjectField(false)]
         [XmlAttribute]
         [ForeignKey(nameof(LaunchPadApplicationId))]
-        public virtual TPrimaryKey LaunchPadApplicationId { get; set; }
+        public virtual Guid LaunchPadApplicationId { get; set; }
 
         /// <summary>
-        /// The id of the tenant that domain entity this belongs to (if any)
+        /// Gets or sets the default id of the Creator user, when not otherwise specified
         /// </summary>
-        /// <value>The tenant identifier.</value>
+        /// <value>A valid user id that corresponds to the creator of an object.</value>
         [DataObjectField(false)]
         [XmlAttribute]
-        [Required]
-        [ForeignKey(nameof(TenantId))]
-        public virtual System.Guid? TenantId { get; set; }
-
-        /// <summary>
-        /// The default culture of this application
-        /// </summary>
-        /// <value>The application key.</value>
-        [DataObjectField(false)]
-        [XmlAttribute]
-        public virtual String ApplicationKey
-        {
-            get; set;
-        }
+        [ForeignKey(nameof(CreatorUserId))]
+        public virtual Guid DefaultCreatorUserId { get; set; }
 
         /// <summary>
         /// The default culture of this application
@@ -97,18 +87,7 @@ namespace Deploy.LaunchPad.Core.Abp.SoftwareApplications
         /// <value>The culture default.</value>
         [DataObjectField(false)]
         [XmlAttribute]
-        public virtual String CultureDefault
-        {
-            get; set;
-        }
-
-        /// <summary>
-        /// The supported cultures of this application
-        /// </summary>
-        /// <value>The culture supported.</value>
-        [DataObjectField(false)]
-        [XmlAttribute]
-        public virtual String CultureSupported
+        public virtual IHaveCultureDetails CultureDetails
         {
             get; set;
         }
@@ -154,67 +133,68 @@ namespace Deploy.LaunchPad.Core.Abp.SoftwareApplications
             get; set;
         }
 
-        string Metadata.IMayHaveTags.Tags => throw new NotImplementedException();
-
-        string Metadata.IMayHaveChecksumValue.Checksum { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        DateTime Metadata.IMustHaveCreationTime.CreationTime { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        Guid? Metadata.IMayHaveCreatorUserId.CreatorUserId { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        DateTime? Metadata.IMayHaveModificationTime.LastModificationTime { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        Guid? Metadata.IMayHaveLastModifierUserId.LastModifierUserId { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        DateTime? Metadata.IMayHaveDeletionTime.DeletionTime { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        Guid? Metadata.IMayHaveDeleterUserId.DeleterUserId { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        bool Metadata.IHaveSoftDelete.IsDeleted { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        CultureInfo Metadata.IMustHaveCulture.Culture { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
         #region "Constructors"
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="ApplicationDetails{TPrimaryKey}"/> class.
-        /// </summary>
-        /// <param name="tenantId">The tenant identifier.</param>
-        [SetsRequiredMembers]
-        public ApplicationDetails() : base()
-        {
-            TenantId = GuidConstants.Default;
-            PrimaryColourHex = DEFAULT_HEX_COlOUR;
-            CultureDefault = DEFAULT_CULTURE;
-            CultureSupported = DEFAULT_CULTURE;
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="ApplicationDetails{TPrimaryKey}"/> class.
+        /// Initializes a new instance of the <see cref="ApplicationDetails"/> class.
         /// </summary>
         /// <param name="tenantId">The tenant identifier.</param>
         /// <param name="id">The identifier.</param>
         /// <param name="cultureName">Name of the culture.</param>
         [SetsRequiredMembers]
-        public ApplicationDetails(System.Guid? tenantId, TPrimaryKey id, string cultureName) : base(id, cultureName)
+        public ApplicationDetails() : base()
         {
-            TenantId = tenantId;
             PrimaryColourHex = DEFAULT_HEX_COlOUR;
-            CultureDefault = DEFAULT_CULTURE;
-            CultureSupported = DEFAULT_CULTURE;
+            CultureDetails = new CultureDetails();
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="ApplicationDetails{TPrimaryKey}"/> class.
+        /// Initializes a new instance of the <see cref="ApplicationDetails"/> class.
+        /// </summary>
+        /// <param name="tenantId">The tenant identifier.</param>
+        /// <param name="id">The identifier.</param>
+        /// <param name="cultureName">Name of the culture.</param>
+        [SetsRequiredMembers]
+        public ApplicationDetails(Guid id) : base(id)
+        {
+            PrimaryColourHex = DEFAULT_HEX_COlOUR;
+            CultureDetails = new CultureDetails();
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ApplicationDetails"/> class.
+        /// </summary>
+        /// <param name="tenantId">The tenant identifier.</param>
+        /// <param name="id">The identifier.</param>
+        /// <param name="cultureName">Name of the culture.</param>
+        [SetsRequiredMembers]
+        public ApplicationDetails(Guid id, string cultureName) : base(id, cultureName)
+        {
+            PrimaryColourHex = DEFAULT_HEX_COlOUR;
+            CultureInfo culture = new CultureInfo(cultureName);
+            CultureDetails = new CultureDetails(culture);
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ApplicationDetails"/> class.
         /// </summary>
         /// <param name="tenantId">The tenant identifier.</param>
         /// <param name="id">The identifier.</param>
         /// <param name="cultureName">Name of the culture.</param>
         /// <param name="cultureDefault">The culture default.</param>
         [SetsRequiredMembers]
-        public ApplicationDetails(System.Guid? tenantId, TPrimaryKey id, string cultureName, String cultureDefault) : base(id, cultureName)
+        public ApplicationDetails(Guid id, string cultureName, Guid defaultCreatorUserId) : base(id, cultureName)
         {
-            TenantId = tenantId;
             Id = id;
-            PrimaryColourHex = ApplicationDetails<TPrimaryKey>.DEFAULT_HEX_COlOUR;
-            CultureDefault = cultureDefault;
-            CultureSupported = cultureDefault;
+            PrimaryColourHex = ApplicationDetails.DEFAULT_HEX_COlOUR;
+            CultureInfo culture = new CultureInfo(cultureName);
+            CultureDetails = new CultureDetails(culture);
+            DefaultCreatorUserId = defaultCreatorUserId;
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="ApplicationDetails{TPrimaryKey}"/> class.
+        /// Initializes a new instance of the <see cref="ApplicationDetails"/> class.
         /// </summary>
         /// <param name="tenantId">The tenant identifier.</param>
         /// <param name="id">The identifier.</param>
@@ -222,13 +202,11 @@ namespace Deploy.LaunchPad.Core.Abp.SoftwareApplications
         /// <param name="cultureDefault">The culture default.</param>
         /// <param name="cultureSupported">The culture supported.</param>
         [SetsRequiredMembers]
-        public ApplicationDetails(System.Guid? tenantId, TPrimaryKey id, string cultureName, String cultureDefault, String cultureSupported) : base(id, cultureName)
+        public ApplicationDetails(Guid id, IHaveCultureDetails cultureDetails) : base(id)
         {
-            TenantId = tenantId;
             Id = id;
-            PrimaryColourHex = ApplicationDetails<TPrimaryKey>.DEFAULT_HEX_COlOUR;
-            CultureDefault = cultureDefault;
-            CultureSupported = cultureSupported;
+            PrimaryColourHex = DEFAULT_HEX_COlOUR;
+            CultureDetails = cultureDetails;
         }
 
         /// <summary>
@@ -238,11 +216,9 @@ namespace Deploy.LaunchPad.Core.Abp.SoftwareApplications
         /// <param name="context">The context of the stream</param>
         protected ApplicationDetails(SerializationInfo info, StreamingContext context) : base(info, context)
         {
-            TenantId = (System.Guid?)info.GetValue("TenantId", typeof(System.Guid?));
-            ApplicationKey = info.GetString("ApplicationKey");
-            CultureDefault = info.GetString("CultureDefault");
-            CultureSupported = info.GetString("CultureSupported");
+            DefaultCreatorUserId = (Guid)info.GetValue("DefaultCreatorUserId", typeof(Uri));
             PrimaryColourHex = info.GetString("DisplayPrimaryColourHex");
+            CultureDetails = (IHaveCultureDetails)info.GetValue("CultureDetails", typeof(IHaveCultureDetails));
             LogoUri = (Uri)info.GetValue("DisplayLogoUri", typeof(Uri));
             Theme = info.GetString("DisplayThemeName");
             DefaultTimeZone = info.GetString("DisplayDefaultTimeZone");
@@ -258,10 +234,8 @@ namespace Deploy.LaunchPad.Core.Abp.SoftwareApplications
         public override void GetObjectData(SerializationInfo info, StreamingContext context)
         {
             base.GetObjectData(info, context);
-            info.AddValue("TenantId", TenantId);
-            info.AddValue("ApplicationKey", ApplicationKey);
-            info.AddValue("CultureDefault", CultureDefault);
-            info.AddValue("CultureSupported", CultureSupported);
+            info.AddValue("CultureDetails", CultureDetails);
+            info.AddValue("DefaultCreatorUserId", DefaultCreatorUserId);
             info.AddValue("PrimaryColourHex", PrimaryColourHex);
             info.AddValue("LogoUri", LogoUri);
             info.AddValue("Theme", Theme);
@@ -277,10 +251,8 @@ namespace Deploy.LaunchPad.Core.Abp.SoftwareApplications
             StringBuilder sb = new StringBuilder();
             sb.Append("[ApplicationInformation : ");
             sb.AppendFormat(ToStringBaseProperties());
-            sb.AppendFormat(" TenantId={0};", TenantId);
-            sb.AppendFormat(" ApplicationKey={0};", ApplicationKey);
-            sb.AppendFormat(" CultureDefault={0};", CultureDefault);
-            sb.AppendFormat(" CultureSupported={0};", CultureSupported);
+            sb.AppendFormat(" CultureDetails={0};", CultureDetails);
+            sb.AppendFormat(" DefaultCreatorUserId={0};", DefaultCreatorUserId);
             sb.AppendFormat(" PrimaryColourHex={0};", PrimaryColourHex);
             sb.AppendFormat(" LogoUri={0};", LogoUri);
             sb.AppendFormat(" Theme={0};", Theme);
@@ -294,7 +266,7 @@ namespace Deploy.LaunchPad.Core.Abp.SoftwareApplications
         /// </summary>
         /// <typeparam name="TEntity">The source entity to clone</typeparam>
         /// <returns>A shallow clone of the entity and its serializable properties</returns>
-        protected new virtual TEntity Clone<TEntity>() where TEntity : IApplicationDetails<TPrimaryKey>, new()
+        protected new virtual TEntity Clone<TEntity>() where TEntity : IApplicationDetails, new()
         {
             TEntity clone = new TEntity();
             foreach (PropertyInfo info in GetType().GetProperties())
@@ -316,7 +288,7 @@ namespace Deploy.LaunchPad.Core.Abp.SoftwareApplications
         /// </summary>
         /// <param name="other">The other object of this type we are comparing to</param>
         /// <returns>System.Int32.</returns>
-        public virtual int CompareTo(ApplicationDetails<TPrimaryKey> other)
+        public virtual int CompareTo(ApplicationDetails other)
         {
             return other == null ? 1 : String.Compare(Name, other.Name, StringComparison.InvariantCulture);
         }
@@ -328,7 +300,7 @@ namespace Deploy.LaunchPad.Core.Abp.SoftwareApplications
         /// <returns>True if the entities are the same according to business key value</returns>
         public override bool Equals(object obj)
         {
-            if (obj != null && obj is ApplicationDetails<TPrimaryKey> information)
+            if (obj != null && obj is ApplicationDetails information)
             {
                 return Equals(information);
             }
@@ -344,7 +316,7 @@ namespace Deploy.LaunchPad.Core.Abp.SoftwareApplications
         /// </summary>
         /// <param name="obj">The other object of this type that we are testing equality with</param>
         /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
-        public virtual bool Equals(ApplicationDetails<TPrimaryKey> obj)
+        public virtual bool Equals(ApplicationDetails obj)
         {
             if (obj != null)
             {
@@ -356,22 +328,9 @@ namespace Deploy.LaunchPad.Core.Abp.SoftwareApplications
                 }
                 else
                 {
-                    // For safe equality we need to match on business key equality.
-                    // Base domain entities are functionally equal if their key and metadata and tags are equal.
-                    // Subclasses should extend to include their own enhanced equality checks, as required.
-                    if (TenantId != null)
-                    {
-                        return Id.Equals(obj.Id)
-                        && ApplicationKey.Equals(obj.ApplicationKey)
-                        && Name.Equals(obj.Name);
-                    }
-                    else
-                    {
-                        return Id.Equals(obj.Id)
-                        && ApplicationKey.Equals(obj.ApplicationKey)
-                        && Name.Equals(obj.Name)
-                        && TenantId.Equals(obj.TenantId);
-                    }
+                    return Id.Equals(obj.Id)
+                    && DefaultCreatorUserId.Equals(obj.DefaultCreatorUserId)
+                    && Name.Equals(obj.Name);
 
                 }
 
@@ -385,7 +344,7 @@ namespace Deploy.LaunchPad.Core.Abp.SoftwareApplications
         /// <param name="x">The first value</param>
         /// <param name="y">The second value</param>
         /// <returns>True if both objects are fully equal based on the Equals logic</returns>
-        public static bool operator ==(ApplicationDetails<TPrimaryKey> x, ApplicationDetails<TPrimaryKey> y)
+        public static bool operator ==(ApplicationDetails x, ApplicationDetails y)
         {
             if (System.Object.ReferenceEquals(x, null))
             {
@@ -404,7 +363,7 @@ namespace Deploy.LaunchPad.Core.Abp.SoftwareApplications
         /// <param name="x">The first value</param>
         /// <param name="y">The second value</param>
         /// <returns>True if both objects are not equal based on the Equals logic</returns>
-        public static bool operator !=(ApplicationDetails<TPrimaryKey> x, ApplicationDetails<TPrimaryKey> y)
+        public static bool operator !=(ApplicationDetails x, ApplicationDetails y)
         {
             return !(x == y);
         }
@@ -416,30 +375,30 @@ namespace Deploy.LaunchPad.Core.Abp.SoftwareApplications
         /// <remarks>This method implements the <see cref="object">Object</see> method.</remarks>
         public override int GetHashCode()
         {
-            return Id.GetHashCode() + ApplicationKey.GetHashCode();
+            return Id.GetHashCode() + DefaultCreatorUserId.GetHashCode();
         }
 
-        int IComparable<Domain.Entities.FrameworkEntityBase<TPrimaryKey>>.CompareTo(Domain.Entities.FrameworkEntityBase<TPrimaryKey> other)
+        int IComparable<Domain.Entities.FrameworkEntityBase<Guid>>.CompareTo(Domain.Entities.FrameworkEntityBase<Guid> other)
         {
             throw new NotImplementedException();
         }
 
-        bool IEquatable<Domain.Entities.FrameworkEntityBase<TPrimaryKey>>.Equals(Domain.Entities.FrameworkEntityBase<TPrimaryKey> other)
+        bool IEquatable<Domain.Entities.FrameworkEntityBase<Guid>>.Equals(Domain.Entities.FrameworkEntityBase<Guid> other)
         {
             throw new NotImplementedException();
         }
 
-        Domain.Entities.FrameworkEntityBase<TPrimaryKey> IAmCloneable<Domain.Entities.FrameworkEntityBase<TPrimaryKey>>.CloneGeneric()
+        Domain.Entities.FrameworkEntityBase<Guid> IAmCloneable<Domain.Entities.FrameworkEntityBase<Guid>>.CloneGeneric()
         {
             throw new NotImplementedException();
         }
 
-        int IComparable<DomainEntityBase<TPrimaryKey>>.CompareTo(DomainEntityBase<TPrimaryKey> other)
+        int IComparable<DomainEntityBase<Guid>>.CompareTo(DomainEntityBase<Guid> other)
         {
             throw new NotImplementedException();
         }
 
-        bool IEquatable<DomainEntityBase<TPrimaryKey>>.Equals(DomainEntityBase<TPrimaryKey> other)
+        bool IEquatable<DomainEntityBase<Guid>>.Equals(DomainEntityBase<Guid> other)
         {
             throw new NotImplementedException();
         }
@@ -449,7 +408,7 @@ namespace Deploy.LaunchPad.Core.Abp.SoftwareApplications
             throw new NotImplementedException();
         }
 
-        DomainEntityBase<TPrimaryKey> IAmCloneable<DomainEntityBase<TPrimaryKey>>.CloneGeneric()
+        DomainEntityBase<Guid> IAmCloneable<DomainEntityBase<Guid>>.CloneGeneric()
         {
             throw new NotImplementedException();
         }

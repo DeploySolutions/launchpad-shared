@@ -52,7 +52,7 @@ namespace Deploy.LaunchPad.Core.Application.Services.Dto
     /// </summary>
     /// <typeparam name="TPrimaryKey">Type of primary key</typeparam>
     [Serializable]
-    public abstract partial class CreationAuditedEntityDto<TPrimaryKey> : EntityDto<TPrimaryKey>, ICreationAudited
+    public abstract partial class CreationAuditedEntityDto<TPrimaryKey> : EntityDtoBase<TPrimaryKey>, ICreationAudited
     {
         /// <summary>
         /// Creation date of this entity.

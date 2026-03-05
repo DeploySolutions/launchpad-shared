@@ -30,6 +30,7 @@
 namespace Deploy.LaunchPad.Core.Abp.SoftwareApplications
 {
     using Deploy.LaunchPad.Core.Domain.Entities;
+    using Deploy.LaunchPad.Core.Metadata;
     using System;
     using System.ComponentModel;
     using System.ComponentModel.DataAnnotations.Schema;
@@ -38,8 +39,7 @@ namespace Deploy.LaunchPad.Core.Abp.SoftwareApplications
     /// <summary>
     /// Represents a tenant in an application.
     /// </summary>
-    /// <typeparam name="TPrimaryKey">The type of the t identifier type.</typeparam>
-    public partial interface ITenantDetails<TPrimaryKey> : IDomainEntity<TPrimaryKey>
+    public partial interface ITenantDetails : IDomainEntity<Guid>
     {
         /// <summary>
         /// Gets or sets the launch pad application identifier.
@@ -47,30 +47,10 @@ namespace Deploy.LaunchPad.Core.Abp.SoftwareApplications
         /// <value>The launch pad application identifier.</value>
         [DataObjectField(false)]
         [XmlAttribute]
-        [ForeignKey(nameof(LaunchPadApplicationId))]
-        TPrimaryKey LaunchPadApplicationId { get; set; }
+        [ForeignKey(nameof(Id))]
+        Guid ApplicationId { get; set; }
 
-        /// <summary>
-        /// The default culture of this tenant
-        /// </summary>
-        /// <value>The culture default.</value>
-        [DataObjectField(false)]
-        [XmlAttribute]
-        String CultureDefault
-        {
-            get; set;
-        }
-
-        /// <summary>
-        /// The supported cultures of this tenant
-        /// </summary>
-        /// <value>The culture supported.</value>
-        [DataObjectField(false)]
-        [XmlAttribute]
-        String CultureSupported
-        {
-            get; set;
-        }
+        IHaveCultureDetails CultureDetails { get; set; }
 
         /// <summary>
         /// The account or primary owner of this tenant

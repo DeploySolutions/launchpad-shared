@@ -84,7 +84,7 @@ namespace Deploy.LaunchPad.Code.Services.Dto
         /// </summary>
         protected CreateUpdateOutputDtoBase() : base()
         {
-            Culture = ApplicationDetails<TPrimaryKey>.DEFAULT_CULTURE;
+            Culture = ApplicationDetails.DEFAULT_CULTURE;
             ExternalId = string.Empty;
         }
 
@@ -96,7 +96,7 @@ namespace Deploy.LaunchPad.Code.Services.Dto
         {
             Id = id;
             ExternalId = string.Empty;
-            Culture = ApplicationDetails<TPrimaryKey>.DEFAULT_CULTURE;
+            Culture = ApplicationDetails.DEFAULT_CULTURE;
         }
 
         /// <summary>

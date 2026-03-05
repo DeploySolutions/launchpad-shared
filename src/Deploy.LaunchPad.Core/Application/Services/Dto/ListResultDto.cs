@@ -32,6 +32,8 @@
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Xml.Serialization;
 
 namespace Deploy.LaunchPad.Core.Application.Services.Dto
 {
@@ -51,6 +53,15 @@ namespace Deploy.LaunchPad.Core.Application.Services.Dto
             set { _items = value; }
         }
         private IReadOnlyList<T> _items;
+
+        /// <summary>
+        /// The total Count of the items contained in this list.
+        /// </summary>
+        /// <value>The total count.</value>
+        [DataObjectField(false)]
+        [XmlAttribute]
+        public long TotalCount { get { return _items.Count; } }
+
 
         /// <summary>
         /// Creates a new <see cref="ListResultDto{T}"/> object.

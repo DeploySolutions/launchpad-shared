@@ -34,7 +34,7 @@ namespace Deploy.LaunchPad.Code.Services.Dto
         /// </summary>
         protected GetAllDetailInputDtoBase() : base()
         {
-            Culture = ApplicationDetails<TPrimaryKey>.DEFAULT_CULTURE;
+            Culture = ApplicationDetails.DEFAULT_CULTURE;
         }
 
         /// <summary>
@@ -44,7 +44,7 @@ namespace Deploy.LaunchPad.Code.Services.Dto
         protected GetAllDetailInputDtoBase(System.Guid tenantId) : base()
         {
             TenantId = tenantId;
-            Culture = ApplicationDetails<TPrimaryKey>.DEFAULT_CULTURE;
+            Culture = ApplicationDetails.DEFAULT_CULTURE;
         }
 
         /// <summary>

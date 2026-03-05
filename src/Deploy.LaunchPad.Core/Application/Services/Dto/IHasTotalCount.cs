@@ -40,6 +40,6 @@ namespace Deploy.LaunchPad.Core.Application.Services.Dto
         /// <summary>
         /// Total count of Items.
         /// </summary>
-        long TotalCount { get; set; }
+        long TotalCount { get; }
     }
 }

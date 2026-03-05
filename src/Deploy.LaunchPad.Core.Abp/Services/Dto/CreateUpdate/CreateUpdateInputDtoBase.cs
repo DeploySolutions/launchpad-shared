@@ -19,9 +19,9 @@ using System.Reflection;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Xml.Serialization;
-using Deploy.LaunchPad.Code.Services;
-using Deploy.LaunchPad.Domain;
 using Deploy.LaunchPad.Core;
+using Deploy.LaunchPad.Core.Application.Services.Dto;
+using Deploy.LaunchPad.Core.Application.Services;
 
 namespace Deploy.LaunchPad.Code.Services.Dto
 {
@@ -33,7 +33,8 @@ namespace Deploy.LaunchPad.Code.Services.Dto
     /// <typeparam name="TPrimaryKey">The type of the t identifier type.</typeparam>
     /// <seealso cref="Deploy.LaunchPad.Code.Services.Dto.EntityDtoBase{TPrimaryKey}" />
     /// <seealso cref="ICanBeAppServiceMethodInput" />
-    public abstract partial class CreateUpdateInputDtoBase<TPrimaryKey> : EntityDtoBase<TPrimaryKey>, ICanBeAppServiceMethodInput
+    public abstract partial class CreateUpdateInputDtoBase<TPrimaryKey> : EntityDtoBase<TPrimaryKey>, 
+        ICanBeAppServiceMethodInput
     {
         /// <summary>
         /// The culture of this object
@@ -117,7 +118,7 @@ namespace Deploy.LaunchPad.Code.Services.Dto
         protected CreateUpdateInputDtoBase() : base()
         {
 
-            ExternalId = string.Empty; Culture = ApplicationDetails<TPrimaryKey>.DEFAULT_CULTURE;
+            ExternalId = string.Empty; Culture = ApplicationDetails.DEFAULT_CULTURE;
             Name = string.Empty;
             DescriptionShort = string.Empty;
             DescriptionFull = string.Empty;
@@ -131,7 +132,7 @@ namespace Deploy.LaunchPad.Code.Services.Dto
         {
             Id = id;
             ExternalId = string.Empty;
-            Culture = ApplicationDetails<TPrimaryKey>.DEFAULT_CULTURE;
+            Culture = ApplicationDetails.DEFAULT_CULTURE;
             Name = string.Empty;
             DescriptionShort = string.Empty;
             DescriptionFull = string.Empty;

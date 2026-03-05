@@ -23,6 +23,8 @@ using System.Text;
 using System.Xml.Serialization;
 using Deploy.LaunchPad.Domain;
 using Deploy.LaunchPad.Core;
+using Deploy.LaunchPad.Core.Application.Services.Dto;
+using Deploy.LaunchPad.Core.Application.Services;
 
 namespace Deploy.LaunchPad.Code.Services.Dto
 {
@@ -72,7 +74,7 @@ namespace Deploy.LaunchPad.Code.Services.Dto
         /// </summary>
         protected GetOutputDtoBase() : base()
         {
-            Culture = ApplicationDetails<TPrimaryKey>.DEFAULT_CULTURE;
+            Culture = ApplicationDetails.DEFAULT_CULTURE;
             ExternalId = string.Empty;
         }
 
@@ -83,7 +85,7 @@ namespace Deploy.LaunchPad.Code.Services.Dto
         protected GetOutputDtoBase(TPrimaryKey id) : base()
         {
             Id = id;
-            Culture = ApplicationDetails<TPrimaryKey>.DEFAULT_CULTURE;
+            Culture = ApplicationDetails.DEFAULT_CULTURE;
             ExternalId = string.Empty;
         }
 

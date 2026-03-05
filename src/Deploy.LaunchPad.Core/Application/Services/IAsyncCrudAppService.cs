@@ -66,7 +66,7 @@ namespace Deploy.LaunchPad.Core.Application.Services
     }
 
     public partial interface IAsyncCrudAppService<TEntityDto, TPrimaryKey, in TGetAllInput, in TCreateInput, in TUpdateInput>
-        : IAsyncCrudAppService<TEntityDto, TPrimaryKey, TGetAllInput, TCreateInput, TUpdateInput, EntityDto<TPrimaryKey>>
+        : IAsyncCrudAppService<TEntityDto, TPrimaryKey, TGetAllInput, TCreateInput, TUpdateInput, EntityDtoBase<TPrimaryKey>>
         where TEntityDto : IEntityDto<TPrimaryKey>
         where TUpdateInput : IEntityDto<TPrimaryKey>
     {
@@ -74,7 +74,7 @@ namespace Deploy.LaunchPad.Core.Application.Services
     }
 
     public partial interface IAsyncCrudAppService<TEntityDto, TPrimaryKey, in TGetAllInput, in TCreateInput, in TUpdateInput, in TGetInput>
-        : IAsyncCrudAppService<TEntityDto, TPrimaryKey, TGetAllInput, TCreateInput, TUpdateInput, TGetInput, EntityDto<TPrimaryKey>>
+        : IAsyncCrudAppService<TEntityDto, TPrimaryKey, TGetAllInput, TCreateInput, TUpdateInput, TGetInput, EntityDtoBase<TPrimaryKey>>
         where TEntityDto : IEntityDto<TPrimaryKey>
         where TUpdateInput : IEntityDto<TPrimaryKey>
         where TGetInput : IEntityDto<TPrimaryKey>

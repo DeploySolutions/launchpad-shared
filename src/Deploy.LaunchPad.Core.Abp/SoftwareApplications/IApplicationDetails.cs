@@ -39,51 +39,12 @@ namespace Deploy.LaunchPad.Core.Abp.SoftwareApplications
     /// <summary>
     /// Represents the specific settings of an application.
     /// </summary>
-    /// <typeparam name="TPrimaryKey">The type of the t identifier type.</typeparam>
-    public partial interface IApplicationDetails<TPrimaryKey> : IDomainEntity<TPrimaryKey>, 
-        IMayHaveTenant
+    public partial interface IApplicationDetails : IDomainEntity<System.Guid>
     {
-        /// <summary>
-        /// Gets or sets the launch pad application identifier.
-        /// </summary>
-        /// <value>The launch pad application identifier.</value>
-        [DataObjectField(false)]
-        [XmlAttribute]
-        [ForeignKey(nameof(LaunchPadApplicationId))]
-        TPrimaryKey LaunchPadApplicationId { get; set; }
+      
+        IHaveCultureDetails CultureDetails { get; set; }
 
-        /// <summary>
-        /// The default culture of this application
-        /// </summary>
-        /// <value>The application key.</value>
-        [DataObjectField(false)]
-        [XmlAttribute]
-        String ApplicationKey
-        {
-            get; set;
-        }
-
-        /// <summary>
-        /// The default culture of this application
-        /// </summary>
-        /// <value>The culture default.</value>
-        [DataObjectField(false)]
-        [XmlAttribute]
-        String CultureDefault
-        {
-            get; set;
-        }
-
-        /// <summary>
-        /// The comma-delimited list of cultures supported by this application
-        /// </summary>
-        /// <value>The culture supported.</value>
-        [DataObjectField(false)]
-        [XmlAttribute]
-        String CultureSupported
-        {
-            get; set;
-        }
+        Guid DefaultCreatorUserId { get; set; } 
 
         /// <summary>
         /// The main theme

@@ -65,7 +65,7 @@ namespace Deploy.LaunchPad.Core.Application.Services
     }
 
     public partial interface ICrudAppService<TEntityDto, TPrimaryKey, in TGetAllInput, in TCreateInput, in TUpdateInput>
-        : ICrudAppService<TEntityDto, TPrimaryKey, TGetAllInput, TCreateInput, TUpdateInput, EntityDto<TPrimaryKey>>
+        : ICrudAppService<TEntityDto, TPrimaryKey, TGetAllInput, TCreateInput, TUpdateInput, EntityDtoBase<TPrimaryKey>>
         where TEntityDto : IEntityDto<TPrimaryKey>
         where TUpdateInput : IEntityDto<TPrimaryKey>
     {
@@ -73,7 +73,7 @@ namespace Deploy.LaunchPad.Core.Application.Services
     }
 
     public partial interface ICrudAppService<TEntityDto, TPrimaryKey, in TGetAllInput, in TCreateInput, in TUpdateInput, in TGetInput>
-    : ICrudAppService<TEntityDto, TPrimaryKey, TGetAllInput, TCreateInput, TUpdateInput, TGetInput, EntityDto<TPrimaryKey>>
+    : ICrudAppService<TEntityDto, TPrimaryKey, TGetAllInput, TCreateInput, TUpdateInput, TGetInput, EntityDtoBase<TPrimaryKey>>
         where TEntityDto : IEntityDto<TPrimaryKey>
         where TUpdateInput : IEntityDto<TPrimaryKey> 
         where TGetInput : IEntityDto<TPrimaryKey>

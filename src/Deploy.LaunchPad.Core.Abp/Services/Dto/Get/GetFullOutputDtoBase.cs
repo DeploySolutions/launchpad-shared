@@ -125,7 +125,7 @@ namespace Deploy.LaunchPad.Code.Services.Dto
         /// </summary>
         protected GetFullOutputDtoBase() : base()
         {
-            Culture = ApplicationDetails<TPrimaryKey>.DEFAULT_CULTURE;
+            Culture = ApplicationDetails.DEFAULT_CULTURE;
             IsActive = true;
             Name = new ElementNameDto();
             Description = new ElementDescriptionDto();
@@ -138,7 +138,7 @@ namespace Deploy.LaunchPad.Code.Services.Dto
         protected GetFullOutputDtoBase(TPrimaryKey id) : base(id)
         {
             Id = id;
-            Culture = ApplicationDetails<TPrimaryKey>.DEFAULT_CULTURE;
+            Culture = ApplicationDetails.DEFAULT_CULTURE;
             IsActive = true;
             Name = new ElementNameDto();
             Description = new ElementDescriptionDto();

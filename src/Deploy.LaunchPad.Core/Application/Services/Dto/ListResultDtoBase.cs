@@ -26,8 +26,7 @@
 //limitations under the License. 
 #endregion
 
-using Abp.Application.Services.Dto;
-using Deploy.LaunchPad.Code.Services;
+using Deploy.LaunchPad.Core.Application.Services;
 using Deploy.LaunchPad.Core.Application.Services.Dto;
 using System;
 using System.Collections.Generic;
@@ -46,13 +45,6 @@ namespace Deploy.LaunchPad.Code.Services.Dto
     /// <typeparam name="TEntityType">The type of the Id</typeparam>
     public abstract partial class ListResultDtoBase<TEntityType> : ListResultDto<TEntityType>, IHasTotalCount, ICanBeAppServiceMethodOutput
     {
-        /// <summary>
-        /// The total Count of the items contained in this list.
-        /// </summary>
-        /// <value>The total count.</value>
-        [DataObjectField(false)]
-        [XmlAttribute]
-        public long TotalCount { get; set; }
 
 
         #region "Constructors"
@@ -83,7 +75,6 @@ namespace Deploy.LaunchPad.Code.Services.Dto
         protected ListResultDtoBase(SerializationInfo info, StreamingContext context)
         {
             Items = (IReadOnlyList<TEntityType>)info.GetValue("Items", typeof(IReadOnlyList<TEntityType>));
-            TotalCount = info.GetInt64("TotalCount");
         }
 
 
@@ -98,7 +89,6 @@ namespace Deploy.LaunchPad.Code.Services.Dto
         public virtual void GetObjectData(SerializationInfo info, StreamingContext context)
         {
             info.AddValue("Items", Items);
-            info.AddValue("TotalCount", TotalCount);
         }
 
         /// <summary>

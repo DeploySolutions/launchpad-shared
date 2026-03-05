@@ -6,19 +6,19 @@
 // Last Modified By : Nicholas Kellett
 // Last Modified On : 01-08-2023
 // ***********************************************************************
-// <copyright file="ICanBeAppServiceMethodInput.cs" company="Deploy Software Solutions, inc.">
+// <copyright file="ICanBeAppServiceMethodOutput.cs" company="Deploy Software Solutions, inc.">
 //     2018-2024 Deploy Software Solutions, inc.
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
 
 
-namespace Deploy.LaunchPad.Code.Services
+namespace Deploy.LaunchPad.Core.Application.Services
 {
     /// <summary>
-    /// Interface ICanBeAppServiceMethodInput
+    /// Interface ICanBeAppServiceMethodOutput
     /// </summary>
-    public partial interface ICanBeAppServiceMethodInput
+    public partial interface ICanBeAppServiceMethodOutput
     {
     }
 }

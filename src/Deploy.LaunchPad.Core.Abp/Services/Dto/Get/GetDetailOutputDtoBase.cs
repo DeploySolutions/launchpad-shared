@@ -98,7 +98,7 @@ namespace Deploy.LaunchPad.Code.Services.Dto
         /// </summary>
         protected GetDetailOutputDtoBase() : base()
         {
-            Culture = ApplicationDetails<TPrimaryKey>.DEFAULT_CULTURE;
+            Culture = ApplicationDetails.DEFAULT_CULTURE;
             Name = new ElementNameDto();
             Description = new ElementDescriptionDto();
         }
@@ -110,7 +110,7 @@ namespace Deploy.LaunchPad.Code.Services.Dto
         protected GetDetailOutputDtoBase(TPrimaryKey id) : base(id)
         {
             Id = id;
-            Culture = ApplicationDetails<TPrimaryKey>.DEFAULT_CULTURE;
+            Culture = ApplicationDetails.DEFAULT_CULTURE;
             Name = new ElementNameDto();
             Description = new ElementDescriptionDto();
         }
