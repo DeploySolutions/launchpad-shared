@@ -12,9 +12,9 @@
 // <summary></summary>
 // ***********************************************************************
 
-using Abp.Dependency;
 using Deploy.LaunchPad.Code.Config;
 using Deploy.LaunchPad.Util.Dependency;
+using Deploy.LaunchPad.Util.Modules;
 using Microsoft.Extensions.Configuration;
 using System.Collections.Generic;
 
@@ -25,7 +25,7 @@ namespace Deploy.LaunchPad.Core.Abp.AbpModuleConfig
     /// Extends the <see cref="ISingletonDependency" />
     /// </summary>
     /// <seealso cref="ISingletonDependency" />
-    public partial interface ILaunchPadAbpModuleHelper : ISingletonDependency
+    public partial interface ILaunchPadAbpModuleHelper : ILaunchPadModuleHelper, ISingletonDependency
     {
         /// <summary>
         /// Gets the module secrets.

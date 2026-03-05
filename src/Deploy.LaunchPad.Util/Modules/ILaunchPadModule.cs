@@ -12,6 +12,12 @@ namespace Deploy.LaunchPad.Util.Modules
 
         ILaunchPadModuleHelper Helper { get; set; }
 
+        /// <summary>
+        /// Gets or sets the name of the internal module.
+        /// </summary>
+        /// <value>The name of the internal module.</value>
+        public string InternalModuleName { get; set; }
+
         static abstract List<Type> FindDependedModuleTypes(Type moduleType);
         static abstract List<Type> FindDependedModuleTypesRecursivelyIncludingGivenModule(Type moduleType);
         static abstract bool IsAbpModule(Type type);

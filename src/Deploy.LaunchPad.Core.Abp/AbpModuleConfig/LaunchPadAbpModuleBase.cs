@@ -18,6 +18,7 @@ using Deploy.LaunchPad.Code.Config;
 using Deploy.LaunchPad.Util;
 using Deploy.LaunchPad.Util.Dependency;
 using Deploy.LaunchPad.Util.Extensions;
+using Deploy.LaunchPad.Util.Modules;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using System;
@@ -36,7 +37,7 @@ namespace Deploy.LaunchPad.Core.Abp.AbpModuleConfig
     /// <seealso cref="Deploy.LaunchPad.Core.Abp.AbpModuleConfig.ILaunchPadAbpModule{TAbpModuleHelper}" />
     [Serializable()]
     public abstract partial class LaunchPadAbpModuleBase<TAbpModuleHelper> : AbpModule,
-        ILaunchPadAbpModule<TAbpModuleHelper>
+        ILaunchPadModule
         where TAbpModuleHelper : ILaunchPadAbpModuleHelper
     {
 
