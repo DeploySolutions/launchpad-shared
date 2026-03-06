@@ -29,6 +29,7 @@
 using Deploy.LaunchPad.Core.Domain.Entities;
 using System;
 using System.ComponentModel;
+using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
 using System.Runtime.Serialization;
 using System.Text;
@@ -65,9 +66,9 @@ namespace Deploy.LaunchPad.Core.Abp
         /// Creates a new instance of the <see cref="UserOwnedDomainEntityBase">UserOwnedDomainEntityBase</see> class given a key, and some metadata.
         /// </summary>
         /// <param name="id">The identifier.</param>
+        [SetsRequiredMembers]
         protected UserOwnedDomainEntityBase(TPrimaryKey id) : base(id)
         {
-
         }
 
         /// <summary>
@@ -75,6 +76,7 @@ namespace Deploy.LaunchPad.Core.Abp
         /// </summary>
         /// <param name="id">The identifier.</param>
         /// <param name="culture">The culture for this entity</param>
+        [SetsRequiredMembers]
         protected UserOwnedDomainEntityBase(TPrimaryKey id, string culture) : base(id, culture)
         {
         }

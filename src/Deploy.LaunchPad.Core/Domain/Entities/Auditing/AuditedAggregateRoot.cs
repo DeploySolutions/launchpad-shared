@@ -57,28 +57,6 @@ namespace Deploy.LaunchPad.Core.Domain.Entities.Auditing
         /// Creates a new instance of the <see cref="AuditedAggregateRoot">AuditedAggregateRoot</see> class given a key, and some metadata.
         /// </summary>
         /// <param name="id">The identifier.</param>
-        /// <param name="name">The name of the object.</param>
-        /// <param name="description">The description for this entity</param>
-        [SetsRequiredMembers]
-        protected AuditedAggregateRoot(string name) : base(name)
-        {
-        }
-
-        /// <summary>
-        /// Creates a new instance of the <see cref="AuditedAggregateRoot">AuditedAggregateRoot</see> class given a key, and some metadata.
-        /// </summary>
-        /// <param name="id">The identifier.</param>
-        /// <param name="name">The name of the object.</param>
-        /// <param name="description">The description for this entity</param>
-        [SetsRequiredMembers]
-        protected AuditedAggregateRoot(ElementName name) : base(name)
-        {
-        }
-
-        /// <summary>
-        /// Creates a new instance of the <see cref="AuditedAggregateRoot">AuditedAggregateRoot</see> class given a key, and some metadata.
-        /// </summary>
-        /// <param name="id">The identifier.</param>
         [SetsRequiredMembers]
         protected AuditedAggregateRoot(System.Guid id) : base(id)
         {
@@ -161,28 +139,6 @@ namespace Deploy.LaunchPad.Core.Domain.Entities.Auditing
         /// Constructor.
         /// </summary>
         protected AuditedAggregateRoot() : base()
-        {
-        }
-
-        /// <summary>
-        /// Creates a new instance of the <see cref="AuditedAggregateRoot">AuditedAggregateRoot</see> class given a key, and some metadata.
-        /// </summary>
-        /// <param name="id">The identifier.</param>
-        /// <param name="name">The name of the object.</param>
-        /// <param name="description">The description for this entity</param>
-        [SetsRequiredMembers]
-        protected AuditedAggregateRoot(string name) : base(name)
-        {
-        }
-
-        /// <summary>
-        /// Creates a new instance of the <see cref="AuditedAggregateRoot">AuditedAggregateRoot</see> class given a key, and some metadata.
-        /// </summary>
-        /// <param name="id">The identifier.</param>
-        /// <param name="name">The name of the object.</param>
-        /// <param name="description">The description for this entity</param>
-        [SetsRequiredMembers]
-        protected AuditedAggregateRoot(ElementName name) : base(name)
         {
         }
 
@@ -285,33 +241,10 @@ namespace Deploy.LaunchPad.Core.Domain.Entities.Auditing
         /// Creates a new instance of the <see cref="AuditedAggregateRoot">AuditedAggregateRoot</see> class given a key, and some metadata.
         /// </summary>
         /// <param name="id">The identifier.</param>
-        /// <param name="name">The name of the object.</param>
-        /// <param name="description">The description for this entity</param>
-        [SetsRequiredMembers]
-        protected AuditedAggregateRoot(string name) : base(name)
-        {
-        }
-
-        /// <summary>
-        /// Creates a new instance of the <see cref="AuditedAggregateRoot">AuditedAggregateRoot</see> class given a key, and some metadata.
-        /// </summary>
-        /// <param name="id">The identifier.</param>
-        /// <param name="name">The name of the object.</param>
-        /// <param name="description">The description for this entity</param>
-        [SetsRequiredMembers]
-        protected AuditedAggregateRoot(ElementName name) : base(name)
-        {
-        }
-
-        /// <summary>
-        /// Creates a new instance of the <see cref="AuditedAggregateRoot">AuditedAggregateRoot</see> class given a key, and some metadata.
-        /// </summary>
-        /// <param name="id">The identifier.</param>
         [SetsRequiredMembers]
         protected AuditedAggregateRoot(TPrimaryKey id) : base(id)
         {
         }
-
 
         /// <summary>
         /// Creates a new instance of the <see cref="AuditedAggregateRoot">AuditedAggregateRoot</see> class given a key, and some metadata.

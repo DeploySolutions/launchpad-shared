@@ -29,6 +29,7 @@
 using Deploy.LaunchPad.Code.Deployments;
 using Deploy.LaunchPad.Core.Domain.Entities;
 using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Runtime.Serialization;
 using System.Text;
 
@@ -82,6 +83,7 @@ namespace Deploy.LaunchPad.Core.Abp.Deployments
         /// <param name="id">The identifier.</param>
         /// <param name="cultureName">Name of the culture.</param>
         /// <param name="text">The text.</param>
+        [SetsRequiredMembers]
         public ReleaseCandidateBase(TPrimaryKey id, string cultureName, String text) : base(id, cultureName)
         {
         }

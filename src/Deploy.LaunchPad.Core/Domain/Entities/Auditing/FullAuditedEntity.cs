@@ -58,28 +58,6 @@ namespace Deploy.LaunchPad.Core.Domain.Entities.Auditing
         /// Creates a new instance of the <see cref="FullAuditedEntity">FullAuditedEntity</see> class given a key, and some metadata.
         /// </summary>
         /// <param name="id">The identifier.</param>
-        /// <param name="name">The name of the object.</param>
-        /// <param name="description">The description for this entity</param>
-        [SetsRequiredMembers]
-        protected FullAuditedEntity(string name) : base(name)
-        {
-        }
-
-        /// <summary>
-        /// Creates a new instance of the <see cref="FullAuditedEntity">FullAuditedEntity</see> class given a key, and some metadata.
-        /// </summary>
-        /// <param name="id">The identifier.</param>
-        /// <param name="name">The name of the object.</param>
-        /// <param name="description">The description for this entity</param>
-        [SetsRequiredMembers]
-        protected FullAuditedEntity(ElementName name) : base(name)
-        {
-        }
-
-        /// <summary>
-        /// Creates a new instance of the <see cref="FullAuditedEntity">FullAuditedEntity</see> class given a key, and some metadata.
-        /// </summary>
-        /// <param name="id">The identifier.</param>
         [SetsRequiredMembers]
         protected FullAuditedEntity(System.Guid id) : base(id)
         {
@@ -175,33 +153,10 @@ namespace Deploy.LaunchPad.Core.Domain.Entities.Auditing
         /// Creates a new instance of the <see cref="FullAuditedEntity">FullAuditedEntity</see> class given a key, and some metadata.
         /// </summary>
         /// <param name="id">The identifier.</param>
-        /// <param name="name">The name of the object.</param>
-        /// <param name="description">The description for this entity</param>
-        [SetsRequiredMembers]
-        protected FullAuditedEntity(string name) : base(name)
-        {
-        }
-
-        /// <summary>
-        /// Creates a new instance of the <see cref="FullAuditedEntity">FullAuditedEntity</see> class given a key, and some metadata.
-        /// </summary>
-        /// <param name="id">The identifier.</param>
-        /// <param name="name">The name of the object.</param>
-        /// <param name="description">The description for this entity</param>
-        [SetsRequiredMembers]
-        protected FullAuditedEntity(ElementName name) : base(name)
-        {
-        }
-
-        /// <summary>
-        /// Creates a new instance of the <see cref="FullAuditedEntity">FullAuditedEntity</see> class given a key, and some metadata.
-        /// </summary>
-        /// <param name="id">The identifier.</param>
         [SetsRequiredMembers]
         protected FullAuditedEntity(TPrimaryKey id) : base(id)
         {
         }
-
 
         /// <summary>
         /// Creates a new instance of the <see cref="FullAuditedEntity">FullAuditedEntity</see> class given a key, and some metadata.
@@ -305,33 +260,10 @@ namespace Deploy.LaunchPad.Core.Domain.Entities.Auditing
         /// Creates a new instance of the <see cref="FullAuditedEntity">FullAuditedEntity</see> class given a key, and some metadata.
         /// </summary>
         /// <param name="id">The identifier.</param>
-        /// <param name="name">The name of the object.</param>
-        /// <param name="description">The description for this entity</param>
-        [SetsRequiredMembers]
-        protected FullAuditedEntity(string name) : base(name)
-        {
-        }
-
-        /// <summary>
-        /// Creates a new instance of the <see cref="FullAuditedEntity">FullAuditedEntity</see> class given a key, and some metadata.
-        /// </summary>
-        /// <param name="id">The identifier.</param>
-        /// <param name="name">The name of the object.</param>
-        /// <param name="description">The description for this entity</param>
-        [SetsRequiredMembers]
-        protected FullAuditedEntity(ElementName name) : base(name)
-        {
-        }
-
-        /// <summary>
-        /// Creates a new instance of the <see cref="FullAuditedEntity">FullAuditedEntity</see> class given a key, and some metadata.
-        /// </summary>
-        /// <param name="id">The identifier.</param>
         [SetsRequiredMembers]
         protected FullAuditedEntity(TPrimaryKey id) : base(id)
         {
         }
-
 
         /// <summary>
         /// Creates a new instance of the <see cref="FullAuditedEntity">FullAuditedEntity</see> class given a key, and some metadata.

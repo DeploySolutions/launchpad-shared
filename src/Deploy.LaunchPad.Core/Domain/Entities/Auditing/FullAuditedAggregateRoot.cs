@@ -54,28 +54,6 @@ namespace Deploy.LaunchPad.Core.Domain.Entities.Auditing
         }
 
         /// <summary>
-        /// Creates a new instance of the <see cref="FullFullAuditedAggregateRoot">FullFullAuditedAggregateRoot</see> class given a key, and some metadata.
-        /// </summary>
-        /// <param name="id">The identifier.</param>
-        /// <param name="name">The name of the object.</param>
-        /// <param name="description">The description for this entity</param>
-        [SetsRequiredMembers]
-        protected FullAuditedAggregateRoot(string name) : base(name)
-        {
-        }
-
-        /// <summary>
-        /// Creates a new instance of the <see cref="FullAuditedAggregateRoot">FullAuditedAggregateRoot</see> class given a key, and some metadata.
-        /// </summary>
-        /// <param name="id">The identifier.</param>
-        /// <param name="name">The name of the object.</param>
-        /// <param name="description">The description for this entity</param>
-        [SetsRequiredMembers]
-        protected FullAuditedAggregateRoot(ElementName name) : base(name)
-        {
-        }
-
-        /// <summary>
         /// Creates a new instance of the <see cref="FullAuditedAggregateRoot">FullAuditedAggregateRoot</see> class given a key, and some metadata.
         /// </summary>
         /// <param name="id">The identifier.</param>
@@ -167,28 +145,6 @@ namespace Deploy.LaunchPad.Core.Domain.Entities.Auditing
         /// Constructor.
         /// </summary>
         protected FullAuditedAggregateRoot() : base()
-        {
-        }
-
-        /// <summary>
-        /// Creates a new instance of the <see cref="FullFullAuditedAggregateRoot">FullFullAuditedAggregateRoot</see> class given a key, and some metadata.
-        /// </summary>
-        /// <param name="id">The identifier.</param>
-        /// <param name="name">The name of the object.</param>
-        /// <param name="description">The description for this entity</param>
-        [SetsRequiredMembers]
-        protected FullAuditedAggregateRoot(string name) : base(name)
-        {
-        }
-
-        /// <summary>
-        /// Creates a new instance of the <see cref="FullAuditedAggregateRoot">FullAuditedAggregateRoot</see> class given a key, and some metadata.
-        /// </summary>
-        /// <param name="id">The identifier.</param>
-        /// <param name="name">The name of the object.</param>
-        /// <param name="description">The description for this entity</param>
-        [SetsRequiredMembers]
-        protected FullAuditedAggregateRoot(ElementName name) : base(name)
         {
         }
 
@@ -299,28 +255,6 @@ namespace Deploy.LaunchPad.Core.Domain.Entities.Auditing
         /// Constructor.
         /// </summary>
         protected FullAuditedAggregateRoot() : base()
-        {
-        }
-
-        /// <summary>
-        /// Creates a new instance of the <see cref="FullFullAuditedAggregateRoot">FullFullAuditedAggregateRoot</see> class given a key, and some metadata.
-        /// </summary>
-        /// <param name="id">The identifier.</param>
-        /// <param name="name">The name of the object.</param>
-        /// <param name="description">The description for this entity</param>
-        [SetsRequiredMembers]
-        protected FullAuditedAggregateRoot(string name) : base(name)
-        {
-        }
-
-        /// <summary>
-        /// Creates a new instance of the <see cref="FullAuditedAggregateRoot">FullAuditedAggregateRoot</see> class given a key, and some metadata.
-        /// </summary>
-        /// <param name="id">The identifier.</param>
-        /// <param name="name">The name of the object.</param>
-        /// <param name="description">The description for this entity</param>
-        [SetsRequiredMembers]
-        protected FullAuditedAggregateRoot(ElementName name) : base(name)
         {
         }
 

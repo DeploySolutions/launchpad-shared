@@ -35,6 +35,7 @@ using System;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Runtime.Serialization;
 using System.Text;
@@ -169,7 +170,6 @@ namespace Deploy.LaunchPad.Core.Domain.Entities
         protected DomainEntityBase() : base()
         {
             Culture = new CultureInfo("en-CA");
-            //TenantId = 0; // default tenant
             IsDeleted = false;
             Name = string.Empty;
             Description = new ElementDescription(string.Empty, string.Empty);
@@ -180,9 +180,24 @@ namespace Deploy.LaunchPad.Core.Domain.Entities
         /// Creates a new instance of the <see cref="DomainEntityBase">Entity</see> class given a key, and some metadata.
         /// </summary>
         /// <param name="id">The identifier.</param>
+        [SetsRequiredMembers]
+        protected DomainEntityBase(TPrimaryKey id) : base(id)
+        {
+            Culture = new CultureInfo("en-CA");
+            CreatorUserId = Guid.NewGuid(); // TODO - default user account?
+            IsDeleted = false;
+            Name = Id.ToString();
+            Description = new ElementDescription(string.Empty, string.Empty);
+        }
+
+        /// <summary>
+        /// Creates a new instance of the <see cref="DomainEntityBase">Entity</see> class given a key, and some metadata.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
         /// <param name="name">The name of the object.</param>
         /// <param name="description">The description for this entity</param>
-        protected DomainEntityBase(ElementName name) : base()
+        [SetsRequiredMembers]
+        protected DomainEntityBase(TPrimaryKey id, ElementName name) : base(id)
         {
             Culture = new CultureInfo("en-CA");
             CreatorUserId = Guid.NewGuid(); // TODO - default user account?
@@ -197,7 +212,8 @@ namespace Deploy.LaunchPad.Core.Domain.Entities
         /// <param name="id">The identifier.</param>
         /// <param name="name">The name of the object.</param>
         /// <param name="description">The description for this entity</param>
-        protected DomainEntityBase(ElementName name, ElementDescription description) : base()
+        [SetsRequiredMembers]
+        protected DomainEntityBase(TPrimaryKey id, ElementName name, ElementDescription description) : base()
         {
             Culture = new CultureInfo("en-CA");
             CreatorUserId = Guid.NewGuid(); // TODO - default user account?
@@ -206,33 +222,18 @@ namespace Deploy.LaunchPad.Core.Domain.Entities
             Description = description;
         }
 
-        /// <summary>
-        /// Creates a new instance of the <see cref="DomainEntityBase">Entity</see> class given a key, and some metadata.
-        /// </summary>
-        /// <param name="id">The identifier.</param>
-        protected DomainEntityBase(TPrimaryKey id) : base()
-        {
-            Id = id;
-            Culture = new CultureInfo("en-CA");
-            CreatorUserId = Guid.NewGuid(); // TODO - default user account?
-            IsDeleted = false;
-            Name = Id.ToString();
-            Description = new ElementDescription(string.Empty, string.Empty);
-        }
-
 
         /// <summary>
         /// Creates a new instance of the <see cref="DomainEntityBase">Entity</see> class given a key, and some metadata.
         /// </summary>
         /// <param name="id">The identifier.</param>
         /// <param name="name">The name of the object.</param>
-        protected DomainEntityBase(TPrimaryKey id, string name) : base()
+        [SetsRequiredMembers]
+        protected DomainEntityBase(TPrimaryKey id, string name) : base(id,name)
         {
-            Id = id;
             Culture = new CultureInfo("en-CA");
             CreatorUserId = Guid.NewGuid(); // TODO - default user account?
             IsDeleted = false;
-            Name = name;
             Description = new ElementDescription(string.Empty, string.Empty);
         }
 
@@ -242,13 +243,11 @@ namespace Deploy.LaunchPad.Core.Domain.Entities
         /// <param name="id">The identifier.</param>
         /// <param name="name">The name of the object.</param>
         /// <param name="culture">The culture for this entity</param>
-        protected DomainEntityBase(TPrimaryKey id, string name, CultureInfo culture) : base()
+        [SetsRequiredMembers]   
+        protected DomainEntityBase(TPrimaryKey id, string name, CultureInfo culture) : base(id, name, culture)
         {
-            Id = id;
-            Culture = culture;
             CreatorUserId = Guid.NewGuid(); // TODO - default user account?
             IsDeleted = false;
-            Name = name;
             Description = new ElementDescription(string.Empty, string.Empty);
         }
 

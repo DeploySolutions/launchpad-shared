@@ -83,30 +83,6 @@ namespace Deploy.LaunchPad.Core.Domain.Entities.Auditing
         /// Creates a new instance of the <see cref="CreationAuditedEntity">CreationAuditedEntity</see> class given a key, and some metadata.
         /// </summary>
         /// <param name="id">The identifier.</param>
-        /// <param name="name">The name of the object.</param>
-        /// <param name="description">The description for this entity</param>
-        [SetsRequiredMembers]
-        protected CreationAuditedEntity(string name) : base(name)
-        {
-            CreationTime = Clock.Now.ToUniversalTime();
-        }
-
-        /// <summary>
-        /// Creates a new instance of the <see cref="CreationAuditedEntity">CreationAuditedEntity</see> class given a key, and some metadata.
-        /// </summary>
-        /// <param name="id">The identifier.</param>
-        /// <param name="name">The name of the object.</param>
-        /// <param name="description">The description for this entity</param>
-        [SetsRequiredMembers]
-        protected CreationAuditedEntity(ElementName name) : base(name)
-        {
-            CreationTime = Clock.Now.ToUniversalTime();
-        }
-
-        /// <summary>
-        /// Creates a new instance of the <see cref="CreationAuditedEntity">CreationAuditedEntity</see> class given a key, and some metadata.
-        /// </summary>
-        /// <param name="id">The identifier.</param>
         [SetsRequiredMembers]
         protected CreationAuditedEntity(TPrimaryKey id) : base(id)
         {
@@ -194,17 +170,6 @@ namespace Deploy.LaunchPad.Core.Domain.Entities.Auditing
         /// Initializes a new instance of the <see cref="CreationAuditedEntity">CreationAuditedEntity</see> class
         /// </summary>
         protected CreationAuditedEntity() : base()
-        {
-        }
-
-        /// <summary>
-        /// Creates a new instance of the <see cref="CreationAuditedEntity">CreationAuditedEntity</see> class given a key, and some metadata.
-        /// </summary>
-        /// <param name="id">The identifier.</param>
-        /// <param name="name">The name of the object.</param>
-        /// <param name="description">The description for this entity</param>
-        [SetsRequiredMembers]
-        protected CreationAuditedEntity(ElementName name) : base(name)
         {
         }
 

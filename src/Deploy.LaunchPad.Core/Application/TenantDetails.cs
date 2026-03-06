@@ -31,6 +31,7 @@ using Deploy.LaunchPad.Core.Metadata;
 using System;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
 using System.Runtime.Serialization;
 using System.Text;
@@ -112,8 +113,10 @@ namespace Deploy.LaunchPad.Core.Application
         /// Initializes a new instance of the <see cref="TenantDetails{TPrimaryKey}"/> class.
         /// </summary>
         /// <param name="tenantId">The id of the tenant to which this entity belongs</param>
-        public TenantDetails(System.Guid tenantId) : base(tenantId)
+        [SetsRequiredMembers]
+        public TenantDetails(Guid id, Guid tenantId) : base(id, tenantId)
         {
+            TenantId = tenantId;
             PrimaryColourHex = ApplicationDetails.DEFAULT_HEX_COlOUR;
             CultureDetails = new CultureDetails();
 
@@ -126,7 +129,8 @@ namespace Deploy.LaunchPad.Core.Application
         /// <param name="id">The identifier.</param>
         /// <param name="cultureName">Name of the culture.</param>
         /// <param name="cultureDefault">The culture default.</param>
-        public TenantDetails(System.Guid tenantId, Guid id, string cultureName, String cultureDefault) : base(tenantId, id, cultureName)
+        [SetsRequiredMembers]
+        public TenantDetails(Guid id, Guid tenantId, string name, String cultureDefault) : base(id, tenantId, name)
         {
             PrimaryColourHex = ApplicationDetails.DEFAULT_HEX_COlOUR;
             CultureDetails = new CultureDetails();
@@ -140,6 +144,7 @@ namespace Deploy.LaunchPad.Core.Application
         /// <param name="cultureName">Name of the culture.</param>
         /// <param name="cultureDefault">The culture default.</param>
         /// <param name="cultureSupported">The culture supported.</param>
+        [SetsRequiredMembers]
         public TenantDetails(System.Guid tenantId, Guid id, string cultureName, String cultureDefault, String cultureSupported) : base(tenantId, id, cultureName)
         {
             PrimaryColourHex = ApplicationDetails.DEFAULT_HEX_COlOUR;

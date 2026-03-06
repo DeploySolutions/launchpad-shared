@@ -26,14 +26,15 @@
 //limitations under the License. 
 #endregion
 
+using Deploy.LaunchPad.Core.Domain.Entities;
+using Deploy.LaunchPad.Core.Metadata;
 using Deploy.LaunchPad.Files.Storage;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.Diagnostics.CodeAnalysis;
 using System.Runtime.Serialization;
 using System.Xml.Serialization;
-using Deploy.LaunchPad.Core.Metadata;
-using Deploy.LaunchPad.Core.Domain.Entities;
 
 namespace Deploy.LaunchPad.Files
 {
@@ -113,6 +114,7 @@ namespace Deploy.LaunchPad.Files
         /// Initializes a new instance of the <see cref="DomainEntityFileBase{TPrimaryKey, TFileContentType}"/> class.
         /// </summary>
         /// <param name="id">The identifier.</param>
+        [SetsRequiredMembers]
         protected DomainEntityFileBase(TPrimaryKey id) : base(id)
         {
             Id = id;

@@ -56,17 +56,6 @@ namespace Deploy.LaunchPad.Core.Domain.Entities.Auditing
             CreationTime = Clock.Now.ToUniversalTime();
         }
 
-        /// <summary>
-        /// Creates a new instance of the <see cref="AuditedEntity">AuditedEntity</see> class given a key, and some metadata.
-        /// </summary>
-        /// <param name="id">The identifier.</param>
-        /// <param name="name">The name of the object.</param>
-        /// <param name="description">The description for this entity</param>
-        [SetsRequiredMembers]
-        protected AuditedEntity(ElementName name) : base(name)
-        {
-        }
-
 
         /// <summary>
         /// Creates a new instance of the <see cref="AuditedEntity">AuditedEntity</see> class given a key, and some metadata.
@@ -158,27 +147,6 @@ namespace Deploy.LaunchPad.Core.Domain.Entities.Auditing
         {
         }
 
-        /// <summary>
-        /// Creates a new instance of the <see cref="FullAuditedEntity">FullAuditedEntity</see> class given a key, and some metadata.
-        /// </summary>
-        /// <param name="id">The identifier.</param>
-        /// <param name="name">The name of the object.</param>
-        /// <param name="description">The description for this entity</param>
-        [SetsRequiredMembers]
-        protected AuditedEntity(string name) : base(name)
-        {
-        }
-
-        /// <summary>
-        /// Creates a new instance of the <see cref="AuditedEntity">AuditedEntity</see> class given a key, and some metadata.
-        /// </summary>
-        /// <param name="id">The identifier.</param>
-        /// <param name="name">The name of the object.</param>
-        /// <param name="description">The description for this entity</param>
-        [SetsRequiredMembers]
-        protected AuditedEntity(ElementName name) : base(name)
-        {
-        }
 
         /// <summary>
         /// Creates a new instance of the <see cref="AuditedEntity">AuditedEntity</see> class given a key, and some metadata.
@@ -278,33 +246,10 @@ namespace Deploy.LaunchPad.Core.Domain.Entities.Auditing
         /// Creates a new instance of the <see cref="AuditedEntity">AuditedEntity</see> class given a key, and some metadata.
         /// </summary>
         /// <param name="id">The identifier.</param>
-        /// <param name="name">The name of the object.</param>
-        /// <param name="description">The description for this entity</param>
-        [SetsRequiredMembers]
-        protected AuditedEntity(string name) : base(name)
-        {
-        }
-
-        /// <summary>
-        /// Creates a new instance of the <see cref="AuditedEntity">AuditedEntity</see> class given a key, and some metadata.
-        /// </summary>
-        /// <param name="id">The identifier.</param>
-        /// <param name="name">The name of the object.</param>
-        /// <param name="description">The description for this entity</param>
-        [SetsRequiredMembers]
-        protected AuditedEntity(ElementName name) : base(name)
-        {
-        }
-
-        /// <summary>
-        /// Creates a new instance of the <see cref="AuditedEntity">AuditedEntity</see> class given a key, and some metadata.
-        /// </summary>
-        /// <param name="id">The identifier.</param>
         [SetsRequiredMembers]
         protected AuditedEntity(TPrimaryKey id) : base(id)
         {
         }
-
 
         /// <summary>
         /// Creates a new instance of the <see cref="AuditedEntity">AuditedEntity</see> class given a key, and some metadata.

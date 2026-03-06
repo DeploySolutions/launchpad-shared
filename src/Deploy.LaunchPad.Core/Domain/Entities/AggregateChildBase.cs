@@ -32,6 +32,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Diagnostics.CodeAnalysis;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Xml.Serialization;
@@ -84,6 +85,7 @@ namespace Deploy.LaunchPad.Core.Domain.Entities
         /// Creates a new instance of the <see cref="LaunchPadAggregateChildBase">LaunchPadAggregateChildBase</see> class given a key, and some metadata.
         /// </summary>
         /// <param name="id">The identifier.</param>
+        [SetsRequiredMembers]
         protected AggregateChildBase(TPrimaryKey id) : base(id)
         {
         }
@@ -94,6 +96,7 @@ namespace Deploy.LaunchPad.Core.Domain.Entities
         /// </summary>
         /// <param name="id">The identifier.</param>
         /// <param name="cultureName">The culture for this entity</param>
+        [SetsRequiredMembers]
         protected AggregateChildBase(TPrimaryKey id, string cultureName) : base(id, cultureName)
         {
         }

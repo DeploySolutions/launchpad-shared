@@ -36,6 +36,7 @@ using Deploy.LaunchPad.Geospatial.Position;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Runtime.Serialization;
 using System.Text;
@@ -123,6 +124,7 @@ namespace Deploy.LaunchPad.Core.Abp.Devices
         /// </summary>
         /// <param name="tenantId">The tenant identifier.</param>
         /// <param name="id">The identifier.</param>
+        [SetsRequiredMembers]
         public Device(System.Guid? tenantId, TPrimaryKey id) : base(id)
         {
             Id = id;
@@ -138,6 +140,7 @@ namespace Deploy.LaunchPad.Core.Abp.Devices
         /// <param name="tenantId">The tenant identifier.</param>
         /// <param name="id">The identifier.</param>
         /// <param name="culture">The culture.</param>
+        [SetsRequiredMembers]
         public Device(System.Guid? tenantId, TPrimaryKey id, CultureInfo culture) : base(id)
         {
             Id = id;
@@ -171,6 +174,7 @@ namespace Deploy.LaunchPad.Core.Abp.Devices
         /// <param name="id">The identifier.</param>
         /// <param name="currentLocation">The current physical location of this device</param>
         /// <param name="previousLocations">The previous physical location(s) of this device</param>
+        [SetsRequiredMembers]
         public Device(System.Guid? tenantId, TPrimaryKey id, SpaceTimeInformation currentLocation, IList<SpaceTimeInformation> previousLocations)
             : base(id)
         {

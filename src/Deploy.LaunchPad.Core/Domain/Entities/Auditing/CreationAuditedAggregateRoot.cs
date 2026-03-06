@@ -55,28 +55,6 @@ namespace Deploy.LaunchPad.Core.Domain.Entities.Auditing
         }
 
         /// <summary>
-        /// Creates a new instance of the <see cref="FullCreationAuditedAggregateRoot">FullCreationAuditedAggregateRoot</see> class given a key, and some metadata.
-        /// </summary>
-        /// <param name="id">The identifier.</param>
-        /// <param name="name">The name of the object.</param>
-        /// <param name="description">The description for this entity</param>
-        [SetsRequiredMembers]
-        protected CreationAuditedAggregateRoot(string name) : base(name)
-        {
-        }
-
-        /// <summary>
-        /// Creates a new instance of the <see cref="CreationAuditedAggregateRoot">CreationAuditedAggregateRoot</see> class given a key, and some metadata.
-        /// </summary>
-        /// <param name="id">The identifier.</param>
-        /// <param name="name">The name of the object.</param>
-        /// <param name="description">The description for this entity</param>
-        [SetsRequiredMembers]
-        protected CreationAuditedAggregateRoot(ElementName name) : base(name)
-        {
-        }
-
-        /// <summary>
         /// Creates a new instance of the <see cref="CreationAuditedAggregateRoot">CreationAuditedAggregateRoot</see> class given a key, and some metadata.
         /// </summary>
         /// <param name="id">The identifier.</param>
@@ -84,7 +62,6 @@ namespace Deploy.LaunchPad.Core.Domain.Entities.Auditing
         protected CreationAuditedAggregateRoot(System.Guid id) : base(id)
         {
         }
-
 
         /// <summary>
         /// Creates a new instance of the <see cref="CreationAuditedAggregateRoot">CreationAuditedAggregateRoot</see> class given a key, and some metadata.
@@ -163,30 +140,6 @@ namespace Deploy.LaunchPad.Core.Domain.Entities.Auditing
         /// Constructor.
         /// </summary>
         protected CreationAuditedAggregateRoot()
-        {
-            CreationTime = Clock.Now.ToUniversalTime();
-        }
-
-        /// <summary>
-        /// Creates a new instance of the <see cref="FullCreationAuditedAggregateRoot">FullCreationAuditedAggregateRoot</see> class given a key, and some metadata.
-        /// </summary>
-        /// <param name="id">The identifier.</param>
-        /// <param name="name">The name of the object.</param>
-        /// <param name="description">The description for this entity</param>
-        [SetsRequiredMembers]
-        protected CreationAuditedAggregateRoot(string name) : base(name)
-        {
-            CreationTime = Clock.Now.ToUniversalTime();
-        }
-
-        /// <summary>
-        /// Creates a new instance of the <see cref="CreationAuditedAggregateRoot">CreationAuditedAggregateRoot</see> class given a key, and some metadata.
-        /// </summary>
-        /// <param name="id">The identifier.</param>
-        /// <param name="name">The name of the object.</param>
-        /// <param name="description">The description for this entity</param>
-        [SetsRequiredMembers]
-        protected CreationAuditedAggregateRoot(ElementName name) : base(name)
         {
             CreationTime = Clock.Now.ToUniversalTime();
         }
@@ -281,30 +234,6 @@ namespace Deploy.LaunchPad.Core.Domain.Entities.Auditing
         /// Constructor.
         /// </summary>
         protected CreationAuditedAggregateRoot()
-        {
-            CreationTime = Clock.Now.ToUniversalTime();
-        }
-
-        /// <summary>
-        /// Creates a new instance of the <see cref="FullCreationAuditedAggregateRoot">FullCreationAuditedAggregateRoot</see> class given a key, and some metadata.
-        /// </summary>
-        /// <param name="id">The identifier.</param>
-        /// <param name="name">The name of the object.</param>
-        /// <param name="description">The description for this entity</param>
-        [SetsRequiredMembers]
-        protected CreationAuditedAggregateRoot(string name) : base(name)
-        {
-            CreationTime = Clock.Now.ToUniversalTime();
-        }
-
-        /// <summary>
-        /// Creates a new instance of the <see cref="CreationAuditedAggregateRoot">CreationAuditedAggregateRoot</see> class given a key, and some metadata.
-        /// </summary>
-        /// <param name="id">The identifier.</param>
-        /// <param name="name">The name of the object.</param>
-        /// <param name="description">The description for this entity</param>
-        [SetsRequiredMembers]
-        protected CreationAuditedAggregateRoot(ElementName name) : base(name)
         {
             CreationTime = Clock.Now.ToUniversalTime();
         }

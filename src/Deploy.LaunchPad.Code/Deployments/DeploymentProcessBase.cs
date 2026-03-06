@@ -30,6 +30,7 @@ using Deploy.LaunchPad.Code.Deployments;
 using Deploy.LaunchPad.Core.Domain.Entities;
 using System;
 using System.ComponentModel;
+using System.Diagnostics.CodeAnalysis;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Xml.Serialization;
@@ -75,6 +76,7 @@ namespace Deploy.LaunchPad.Code.Deployments
         /// <param name="id">The identifier.</param>
         /// <param name="cultureName">Name of the culture.</param>
         /// <param name="text">The text.</param>
+        [SetsRequiredMembers]
         protected DeploymentProcessBase(TPrimaryKey id, string cultureName, String text) : base(id, cultureName)
         {
         }

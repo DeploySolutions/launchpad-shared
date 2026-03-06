@@ -33,6 +33,7 @@ using System;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
 using System.Runtime.Serialization;
 using System.Text;
@@ -76,23 +77,23 @@ namespace Deploy.LaunchPad.Core.Domain.Entities
             TenantId = GuidConstants.Default;
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DomainEntityBase{TPrimaryKey}">DomainEntityBase{TPrimaryKey}</see> abstract class
+        /// </summary>
+        /// <param name="tenantId">The id of the tenant to which this entity belongs</param>
+        [SetsRequiredMembers]
+        protected TenantSpecificDomainEntityBase(TPrimaryKey id, Guid tenantId) : base(id)
+        {
+            TenantId = tenantId;
+        }
+
 
         /// <summary>
         /// Initializes a new instance of the <see cref="DomainEntityBase{TPrimaryKey}">DomainEntityBase{TPrimaryKey}</see> abstract class
         /// </summary>
         /// <param name="tenantId">The id of the tenant to which this entity belongs</param>
-        protected TenantSpecificDomainEntityBase(System.Guid tenantId) : base()
-        {
-            TenantId = tenantId;
-        }
-
-        /// <summary>
-        /// Creates a new instance of the <see cref="DomainEntityBase{TPrimaryKey}">DomainEntityBase{TPrimaryKey}</see> abstract class given a key, and some metadata.
-        /// </summary>
-        /// <param name="tenantId">The id of the tenant to which this entity belongs</param>
-        /// <param name="id">The identifier.</param>
-        /// <param name="culture">The culture for this entity</param>
-        protected TenantSpecificDomainEntityBase(System.Guid tenantId, TPrimaryKey id, string culture) : base(id, culture)
+        [SetsRequiredMembers]
+        protected TenantSpecificDomainEntityBase(TPrimaryKey id, Guid tenantId, string name) : base(id, name)
         {
             TenantId = tenantId;
         }
@@ -103,6 +104,7 @@ namespace Deploy.LaunchPad.Core.Domain.Entities
         /// <param name="tenantId">The id of the tenant to which this entity belongs</param>
         /// <param name="id">The identifier.</param>
         /// <param name="metadata">The desired metadata for this entity</param>
+        [SetsRequiredMembers]
         protected TenantSpecificDomainEntityBase(System.Guid tenantId, TPrimaryKey id, MetadataInformation metadata)
             : base(id)
         {

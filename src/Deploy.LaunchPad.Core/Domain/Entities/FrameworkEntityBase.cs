@@ -129,28 +129,6 @@ namespace Deploy.LaunchPad.Core.Domain.Entities
         }
 
         /// <summary>
-        /// Creates a new instance of the <see cref="FrameworkEntityBase">Entity</see> class given a key, and some metadata.
-        /// </summary>
-        /// <param name="id">The identifier.</param>
-        /// <param name="name">The name of the object.</param>
-        /// <param name="description">The description for this entity</param>
-        [SetsRequiredMembers]
-        protected FrameworkEntityBase(string name) : base(name)
-        {
-        }
-
-        /// <summary>
-        /// Creates a new instance of the <see cref="FrameworkEntityBase">Entity</see> class given a key, and some metadata.
-        /// </summary>
-        /// <param name="id">The identifier.</param>
-        /// <param name="name">The name of the object.</param>
-        /// <param name="description">The description for this entity</param>
-        [SetsRequiredMembers]
-        protected FrameworkEntityBase(ElementName name) : base(name)
-        {
-        }
-
-        /// <summary>
         /// Creates a new instance of the <see cref="DomainEntityBase">Entity</see> class given a key, and some metadata.
         /// </summary>
         /// <param name="id">The identifier.</param>
@@ -160,12 +138,12 @@ namespace Deploy.LaunchPad.Core.Domain.Entities
             Id = id;
         }
 
-
         /// <summary>
-        /// Creates a new instance of the <see cref="DomainEntityBase">Entity</see> class given a key, and some metadata.
+        /// Creates a new instance of the <see cref="FrameworkEntityBase">Entity</see> class given a key, and some metadata.
         /// </summary>
         /// <param name="id">The identifier.</param>
         /// <param name="name">The name of the object.</param>
+        /// <param name="description">The description for this entity</param>
         [SetsRequiredMembers]
         protected FrameworkEntityBase(TPrimaryKey id, string name) : base(name)
         {
@@ -173,10 +151,11 @@ namespace Deploy.LaunchPad.Core.Domain.Entities
         }
 
         /// <summary>
-        /// Creates a new instance of the <see cref="DomainEntityBase">Entity</see> class given a key, and some metadata.
+        /// Creates a new instance of the <see cref="FrameworkEntityBase">Entity</see> class given a key, and some metadata.
         /// </summary>
         /// <param name="id">The identifier.</param>
         /// <param name="name">The name of the object.</param>
+        /// <param name="description">The description for this entity</param>
         [SetsRequiredMembers]
         protected FrameworkEntityBase(TPrimaryKey id, ElementName name) : base(name)
         {

@@ -34,6 +34,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Diagnostics.CodeAnalysis;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Xml.Serialization;
@@ -91,6 +92,7 @@ namespace Deploy.LaunchPad.Core.Domain.Entities
         /// <param name="tenantId">The tenant identifier.</param>
         /// <param name="id">The identifier.</param>
         /// <param name="cultureName">The culture for this entity</param>
+        [SetsRequiredMembers]
         protected TenantSpecificAggregateChildBase(System.Guid tenantId, TPrimaryKey id, string cultureName) : base(id, cultureName)
         {
             TenantId = tenantId;
@@ -102,6 +104,7 @@ namespace Deploy.LaunchPad.Core.Domain.Entities
         /// <param name="tenantId">The tenant identifier.</param>
         /// <param name="id">The identifier.</param>
         /// <param name="metadata">The desired metadata for this entity</param>
+        [SetsRequiredMembers]
         protected TenantSpecificAggregateChildBase(System.Guid tenantId, TPrimaryKey id, MetadataInformation metadata) : base(id)
         {
 
