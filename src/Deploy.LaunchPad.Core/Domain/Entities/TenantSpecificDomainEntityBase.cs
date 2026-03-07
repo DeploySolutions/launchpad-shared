@@ -99,19 +99,6 @@ namespace Deploy.LaunchPad.Core.Domain.Entities
         }
 
         /// <summary>
-        /// Creates a new instance of the <see cref="DomainEntityBase{TPrimaryKey}">DomainEntityBase{TPrimaryKey}</see> abstract class given a key, and some metadata.
-        /// </summary>
-        /// <param name="tenantId">The id of the tenant to which this entity belongs</param>
-        /// <param name="id">The identifier.</param>
-        /// <param name="metadata">The desired metadata for this entity</param>
-        [SetsRequiredMembers]
-        protected TenantSpecificDomainEntityBase(System.Guid tenantId, TPrimaryKey id, MetadataInformation metadata)
-            : base(id)
-        {
-            TenantId = tenantId;
-        }
-
-        /// <summary>
         /// Serialization constructor used for deserialization
         /// </summary>
         /// <param name="info">The serialization info</param>

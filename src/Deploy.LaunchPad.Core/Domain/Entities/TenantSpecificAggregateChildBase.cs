@@ -105,7 +105,7 @@ namespace Deploy.LaunchPad.Core.Domain.Entities
         /// <param name="id">The identifier.</param>
         /// <param name="metadata">The desired metadata for this entity</param>
         [SetsRequiredMembers]
-        protected TenantSpecificAggregateChildBase(System.Guid tenantId, TPrimaryKey id, MetadataInformation metadata) : base(id)
+        protected TenantSpecificAggregateChildBase(System.Guid tenantId, TPrimaryKey id) : base(id)
         {
 
             TenantId = tenantId;

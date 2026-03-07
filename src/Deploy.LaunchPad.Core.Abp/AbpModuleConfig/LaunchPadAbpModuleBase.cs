@@ -174,7 +174,7 @@ namespace Deploy.LaunchPad.Core.Abp.AbpModuleConfig
                                   where field.Key.StartsWith(abpModuleKeyPrefix)
                                   select field)
             {
-                config.Secret.Fields.TryAdd(field.Key, field.Value);
+                config.Secrets.Fields.TryAdd(field.Key, field.Value);
             }
             return config;
         }

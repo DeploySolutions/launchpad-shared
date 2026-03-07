@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Linq;
@@ -55,6 +56,7 @@ namespace Deploy.LaunchPad.Core.Metadata
         [DataObjectField(true)]
         [DataMember(Name = "culture", EmitDefaultValue = false)]
         [XmlAttribute]
+        [Column("core_culture", TypeName = "varchar(5)")]
         public virtual CultureInfo Culture
         {
             get { return _culture; }
@@ -70,6 +72,7 @@ namespace Deploy.LaunchPad.Core.Metadata
         [MaxLength(40, ErrorMessageResourceName = "Validation_Checksum_40CharsOrLess", ErrorMessageResourceType = typeof(Deploy_LaunchPad_Core_Resources))]
         [DataObjectField(false)]
         [DataMember(Name = "checksum", EmitDefaultValue = false)]
+        [Column("core_checksum", TypeName = "varchar(64)")]
         [XmlAttribute]
         public virtual string Checksum
         {
@@ -98,6 +101,7 @@ namespace Deploy.LaunchPad.Core.Metadata
         /// <value>The creation time.</value>
         [DataObjectField(false)]
         [XmlAttribute]
+        [Column("core_temporal_datetime_utc_created")]
         public DateTime CreationTime
         {
             get { return _creationTime; }
@@ -111,6 +115,7 @@ namespace Deploy.LaunchPad.Core.Metadata
         /// <value>The creator user identifier.</value>
         [DataObjectField(false)]
         [XmlAttribute]
+        [Column("core_user_creator_id")]
         public Guid? CreatorUserId
         {
             get { return _creatorUserId; }
@@ -140,6 +145,7 @@ namespace Deploy.LaunchPad.Core.Metadata
         /// <value>The last modification time.</value>
         [DataObjectField(false)]
         [XmlAttribute]
+        [Column("core_temporal_datetime_utc_last_modified")]
         public DateTime? LastModificationTime
         {
             get { return _lastModificationTime; }
@@ -153,6 +159,7 @@ namespace Deploy.LaunchPad.Core.Metadata
         /// <value>The last modifier user identifier.</value>
         [DataObjectField(false)]
         [XmlAttribute]
+        [Column("core_user_last_modifier_id")]
         public Guid? LastModifierUserId
         {
             get { return _lastModifierUserId; }
@@ -183,6 +190,7 @@ namespace Deploy.LaunchPad.Core.Metadata
         /// <value>The deletion time.</value>
         [DataObjectField(false)]
         [XmlAttribute]
+        [Column("core_temporal_datetime_utc_deleted")]
         public DateTime? DeletionTime
         {
             get { return _deletionTime; }
@@ -197,6 +205,7 @@ namespace Deploy.LaunchPad.Core.Metadata
         /// <value>The deleter user identifier.</value>
         [DataObjectField(false)]
         [XmlAttribute]
+        [Column("core_user_deleter_id")]
         public Guid? DeleterUserId
         {
             get { return _deleterUserId; }

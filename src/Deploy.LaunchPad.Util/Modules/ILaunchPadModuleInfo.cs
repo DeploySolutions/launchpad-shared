@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Deploy.LaunchPad.Util.Secrets;
+using System;
 using System.Collections.Generic;
 using System.Reflection;
 
@@ -6,6 +7,13 @@ namespace Deploy.LaunchPad.Util.Modules
 {
     public partial interface ILaunchPadModuleInfo
     {
+        /// <summary>
+        /// Gets or sets the name of the internal module.
+        /// </summary>
+        /// <value>The name of the internal module.</value>
+        public string InternalModuleName { get;  }
+        public ILaunchPadSecretConfiguration Secrets { get; }
+
         Assembly Assembly { get; }
         List<ILaunchPadModuleInfo> Dependencies { get; }
         ILaunchPadModule Instance { get; }

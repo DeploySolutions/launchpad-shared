@@ -17,13 +17,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Deploy.LaunchPad.Code.Secrets
+namespace Deploy.LaunchPad.Util.Secrets
 {
     /// <summary>
     /// Class LaunchPadAbpModuleSecretConfiguration.
-    /// Implements the <see cref="Deploy.LaunchPad.Code.Secrets.ILaunchPadSecretConfiguration" />
+    /// Implements the <see cref="Deploy.LaunchPad.Util.Secrets.ILaunchPadSecretConfiguration" />
     /// </summary>
-    /// <seealso cref="Deploy.LaunchPad.Code.Secrets.ILaunchPadSecretConfiguration" />
+    /// <seealso cref="Deploy.LaunchPad.Util.Secrets.ILaunchPadSecretConfiguration" />
     public partial class LaunchPadSecretConfiguration : ILaunchPadSecretConfiguration
     {
         /// <summary>

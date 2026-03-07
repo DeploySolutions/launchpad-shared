@@ -1,22 +1,17 @@
 ﻿using Castle.Core.Logging;
 using Deploy.LaunchPad.Util.Modules;
+using Deploy.LaunchPad.Util.Secrets;
 using System;
 using System.Collections.Generic;
 using System.Reflection;
 
 namespace Deploy.LaunchPad.Util.Modules
 {
-    public partial interface ILaunchPadModule
+    public partial interface ILaunchPadModule : ILaunchPadModuleInfo
     {
         ILogger Logger { get; set; }
 
         ILaunchPadModuleHelper Helper { get; set; }
-
-        /// <summary>
-        /// Gets or sets the name of the internal module.
-        /// </summary>
-        /// <value>The name of the internal module.</value>
-        public string InternalModuleName { get; set; }
 
         static abstract List<Type> FindDependedModuleTypes(Type moduleType);
         static abstract List<Type> FindDependedModuleTypesRecursivelyIncludingGivenModule(Type moduleType);
