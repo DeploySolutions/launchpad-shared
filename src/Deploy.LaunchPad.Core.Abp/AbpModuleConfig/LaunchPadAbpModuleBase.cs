@@ -41,12 +41,6 @@ namespace Deploy.LaunchPad.Core.Abp.AbpModuleConfig
         where TAbpModuleHelper : ILaunchPadAbpModuleHelper
     {
 
-        /// <summary>
-        /// Gets or sets the name of the internal module.
-        /// </summary>
-        /// <value>The name of the internal module.</value>
-        public virtual string InternalModuleName { get; set; }
-
 
         /// <summary>
         /// The abp module helper

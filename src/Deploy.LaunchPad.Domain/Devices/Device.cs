@@ -27,7 +27,6 @@
 #endregion
 
 
-using Abp.Domain.Entities;
 using Deploy.LaunchPad.Core.Domain.Entities;
 using Deploy.LaunchPad.Core.Metadata;
 using Deploy.LaunchPad.Domain.Devices;
@@ -41,9 +40,8 @@ using System.Globalization;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Xml.Serialization;
-using IMayHaveTenant = Deploy.LaunchPad.Core.Metadata.IMayHaveTenant;
 
-namespace Deploy.LaunchPad.Core.Abp.Devices
+namespace Deploy.LaunchPad.Domain.Devices
 {
 
 

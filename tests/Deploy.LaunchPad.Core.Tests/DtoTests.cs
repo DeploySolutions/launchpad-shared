@@ -30,8 +30,8 @@ namespace Deploy.LaunchPad.Domain.Tests
 {
     using Xunit;
     using Deploy.LaunchPad.Domain.Devices;
-    using Deploy.LaunchPad.Core.Abp.Devices;
     using Deploy.LaunchPad.Util.Guids;
+    using System;
 
     /// <summary>
     /// Class DtoTests.
@@ -60,15 +60,14 @@ namespace Deploy.LaunchPad.Domain.Tests
             this._fixture = fixture;
             DevicePower power = new DevicePower();
             power.PowerLevel = DevicePowerChargeLevel.Charged;
-            Device<int> device = new Device<int>()
+            Device<Guid> device = new Device<Guid>()
             {
-                Id = 1,
+                Id = Guid.NewGuid(),
                 TenantId = GuidConstants.Default,
                 Name = "Device for testing DTOs",
                 //Description = new ElementDescription("Short description", "Lorem ipsum et dolor sit amet bla bla bla"),
                 IsDeleted = false,
                 Culture = new System.Globalization.CultureInfo("en-CA"),
-                TranslatedFromId = 1,
                 Power = power
             };
             this._fixture.Initialize(device);

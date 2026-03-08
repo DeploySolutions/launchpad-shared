@@ -35,7 +35,6 @@ namespace Deploy.LaunchPad.Domain.Tests
     using Deploy.LaunchPad.Core.Abp;
     using Deploy.LaunchPad.Domain.Devices;
     using NetTopologySuite.Geometries;
-    using Deploy.LaunchPad.Core.Abp.Devices;
     using Deploy.LaunchPad.Geospatial;
     using Deploy.LaunchPad.Geospatial.Position;
 
@@ -64,9 +63,9 @@ namespace Deploy.LaunchPad.Domain.Tests
         public DeviceTests(DeviceTestsFixture fixture)
         {
             this._fixture = fixture;
-            Device<int> device = new Device<int>()
+            Device<Guid> device = new Device<Guid>()
             {
-                Id = 1
+                Id = Guid.NewGuid()
             };
             this._fixture.Initialize(device);
         }

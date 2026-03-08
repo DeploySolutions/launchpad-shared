@@ -28,10 +28,9 @@
 
 namespace Deploy.LaunchPad.Domain.Tests
 {
-    using Deploy.LaunchPad.Core.Abp;
-    using Deploy.LaunchPad.Core.Abp.Devices;
     
     using Deploy.LaunchPad.Domain;
+    using Deploy.LaunchPad.Domain.Devices;
     using Deploy.LaunchPad.Util;
     using System;
     using Xunit;

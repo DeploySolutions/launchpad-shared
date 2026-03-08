@@ -11,9 +11,8 @@
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
-using Deploy.LaunchPad.Core.Abp;
-using Deploy.LaunchPad.Core.Abp.Devices;
 using Deploy.LaunchPad.Domain;
+using Deploy.LaunchPad.Domain.Devices;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -31,7 +30,7 @@ namespace Deploy.LaunchPad.Domain.Tests
         /// Gets or sets the sut.
         /// </summary>
         /// <value>The sut.</value>
-        public Device<int> SUT { get; set; }
+        public Device<Guid> SUT { get; set; }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="DtoTestsFixture"/> class.
@@ -44,7 +43,7 @@ namespace Deploy.LaunchPad.Domain.Tests
         /// Initializes the specified device.
         /// </summary>
         /// <param name="device">The device.</param>
-        public void Initialize(Device<int> device)
+        public void Initialize(Device<Guid> device)
         {
             SUT = device;
         }
