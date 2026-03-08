@@ -41,7 +41,7 @@ namespace Deploy.LaunchPad.Core.Application.Services.Dto
     /// A shortcut of <see cref="EntityDtoBase{TPrimaryKey}"/> for most used primary key type (<see cref="System.Guid"/>).
     /// </summary>
     [Serializable]
-    public partial class EntityDtoBase : EntityDtoBase<System.Guid>, IEntityDto
+    public abstract partial class EntityDtoBase : EntityDtoBase<System.Guid>, IEntityDto
     {
         /// <summary>
         /// Creates a new <see cref="EntityDto"/> object.

@@ -1,0 +1,23 @@
+﻿using Deploy.LaunchPad.Util.Elements;
+using Deploy.LaunchPad.Util;
+using Newtonsoft.Json;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Xml.Serialization;
+
+namespace Deploy.LaunchPad.Core.Application.Services.Dto.NameDescription
+{
+    [Serializable]
+    //[AutoMap(typeof(ElementName))]
+    public partial class ElementNameLightDto : IElementNameLightDto
+    {
+
+        [DataObjectField(false)]
+        [XmlAttribute]
+        public virtual string Full { get; set; } = string.Empty;
+    }
+}
