@@ -46,8 +46,8 @@ namespace Deploy.LaunchPad.Util.Specifications
         /// <returns>The combined specification instance.</returns>
         public static ISpecification<T> And<T>([NotNull] this ISpecification<T> specification, [NotNull] ISpecification<T> other)
         {
-            Guard.AgainstNotNull(specification, nameof(specification));
-            Guard.AgainstNotNull(other, nameof(other));
+            Guard.AgainstNull(specification, nameof(specification));
+            Guard.AgainstNull(other, nameof(other));
 
             return new AndSpecification<T>(specification, other);
         }
@@ -63,8 +63,8 @@ namespace Deploy.LaunchPad.Util.Specifications
         /// <returns>The combined specification instance.</returns>
         public static ISpecification<T> Or<T>([NotNull] this ISpecification<T> specification, [NotNull] ISpecification<T> other)
         {
-            Guard.AgainstNotNull(specification, nameof(specification));
-            Guard.AgainstNotNull(other, nameof(other));
+            Guard.AgainstNull(specification, nameof(specification));
+            Guard.AgainstNull(other, nameof(other));
 
             return new OrSpecification<T>(specification, other);
         }
@@ -80,8 +80,8 @@ namespace Deploy.LaunchPad.Util.Specifications
         /// <returns>The combined specification instance.</returns>
         public static ISpecification<T> AndNot<T>([NotNull] this ISpecification<T> specification, [NotNull] ISpecification<T> other)
         {
-            Guard.AgainstNotNull(specification, nameof(specification));
-            Guard.AgainstNotNull(other, nameof(other));
+            Guard.AgainstNull(specification, nameof(specification));
+            Guard.AgainstNull(other, nameof(other));
 
             return new AndNotSpecification<T>(specification, other);
         }
@@ -93,7 +93,7 @@ namespace Deploy.LaunchPad.Util.Specifications
         /// <returns>The reversed specification instance.</returns>
         public static ISpecification<T> Not<T>([NotNull] this ISpecification<T> specification)
         {
-            Guard.AgainstNotNull(specification, nameof(specification));
+            Guard.AgainstNull(specification, nameof(specification));
 
             return new NotSpecification<T>(specification);
         }
