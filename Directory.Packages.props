@@ -26,6 +26,14 @@
   <!-- ABP Packages Ends -->
   <!-- Microsoft Packages Starts -->
   <ItemGroup>
+    <PackageVersion Include="Microsoft.AspNetCore.Hosting.Abstractions" Version="2.3.9" />
+    <PackageVersion Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="9.0.0" />
+    <PackageVersion Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="9.0.0" />
+    <PackageVersion Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.3.9" />
+    <PackageVersion Include="Microsoft.AspNetCore.TestHost" Version="10.0.3" />
+    <PackageVersion Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="10.0.3" />
+    <PackageVersion Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="10.0.3" />
+    <PackageVersion Include="Microsoft.AspNetCore.OData" Version="9.4.1" />
     <PackageVersion Include="Microsoft.CodeAnalysis" Version="5.0.0" />
     <PackageVersion Include="Microsoft.CodeAnalysis.CSharp" Version="4.14.0" />
     <PackageVersion Include="Microsoft.CodeAnalysis.CSharp.Workspaces" Version="4.14.0" />
@@ -58,25 +66,18 @@
     <PackageVersion Include="Microsoft.IdentityModel.JsonWebTokens" Version="8.16.0" />
     <PackageVersion Include="Microsoft.IdentityModel.Tokens" Version="8.16.0" />
     <PackageVersion Include="Microsoft.OpenApi" Version="2.6.1" />
-    <PackageVersion Include="OpenIddict.Abstractions" Version="7.2.0" />
+    <PackageVersion Include="Microsoft.OData.ModelBuilder" Version="2.0.0" />
+    <PackageVersion Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="10.0.2">
+      <PrivateAssets>all</PrivateAssets>
+    </PackageVersion>
     <PackageVersion Include="Microsoft.NET.Build.Containers" Version="9.0.0" />
     <PackageVersion Include="System.Configuration.ConfigurationManager" Version="10.0.3" />
     <PackageVersion Include="System.Collections" Version="4.3.0" />
     <PackageVersion Include="System.Data.Common" Version="4.3.0" />
     <PackageVersion Include="System.DirectoryServices.AccountManagement" Version="10.0.3" />
     <PackageVersion Include="System.DirectoryServices.Protocols" Version="10.0.3" />
-    <PackageVersion Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="10.0.2">
-      <PrivateAssets>all</PrivateAssets>
-    </PackageVersion>
     <PackageVersion Include="System.Runtime" Version="4.3.1" />
-    <PackageVersion Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="9.0.0" />
-    <PackageVersion Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="9.0.0" />
-    <PackageVersion Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.3.9" />
-    <PackageVersion Include="Microsoft.AspNetCore.TestHost" Version="10.0.3" />
-    <PackageVersion Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="10.0.3" />
-    <PackageVersion Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="10.0.3" />
-    <PackageVersion Include="Microsoft.AspNetCore.OData" Version="9.4.1" />
-    <PackageVersion Include="Microsoft.OData.ModelBuilder" Version="2.0.0" />
+    
   </ItemGroup>
   <!-- Microsoft Packages Ends -->
   <!-- AWS Packages Starts -->
@@ -161,6 +162,7 @@
     <PackageVersion Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="8.0.11" />
     <PackageVersion Include="NUglify" Version="1.21.17" />
     <PackageVersion Include="OpenIddict.AspNetCore" Version="7.2.0" />
+    <PackageVersion Include="OpenIddict.Abstractions" Version="7.2.0" />
     <PackageVersion Include="OpenIddict.Core" Version="7.2.0" />
     <PackageVersion Include="OpenIddict.EntityFrameworkCore" Version="7.2.0" />
     <PackageVersion Include="Polly" Version="8.6.5" />

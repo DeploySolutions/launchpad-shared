@@ -12,8 +12,13 @@
   <ItemGroup>
     <PackageReference Include="Castle.Core" />
     <PackageReference Include="JetBrains.Annotations" />
+    <PackageReference Include="FluentValidation" />
+    <PackageReference Include="Microsoft.AspNetCore.Hosting.Abstractions" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" />
+    <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" />
     <PackageReference Include="Microsoft.Extensions.Configuration" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" />
+    <PackageReference Include="Microsoft.Extensions.Hosting" />
   </ItemGroup>
 
   <ItemGroup>
