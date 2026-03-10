@@ -48,9 +48,6 @@
     <Project Path="src/Deploy.LaunchPad.Space.Satellites/Deploy.LaunchPad.Space.Satellites.csproj" />
     <Project Path="src/Deploy.LaunchPad.Util/Deploy.LaunchPad.Util.csproj" />
   </Folder>
-  <Folder Name="/Src/Abp/">
-    <Project Path="src/Deploy.LaunchPad.Core.Abp/Deploy.LaunchPad.Core.Abp.csproj" />
-  </Folder>
   <Folder Name="/Tests/">
     <Project Path="tests/Deploy.LaunchPad.Core.Tests/Deploy.LaunchPad.Core.Tests.csproj" />
     <Project Path="tests/Deploy.LaunchPad.Domain.Tests/Deploy.LaunchPad.Domain.Tests.csproj" Id="0d4183a8-0e1e-4095-a26c-a859567166e5" />

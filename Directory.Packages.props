@@ -2,28 +2,6 @@
   <PropertyGroup>
     <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
   </PropertyGroup>
-  <!-- Global Packages Starts -->
-  <ItemGroup>
-  </ItemGroup>
-  <!-- Global Packages Ends -->
-  <!-- Deploy Solutions Packages Starts -->
-  <!-- Deploy Solutions Packages Ends -->
-  <!-- ABP Packages Starts -->
-  <!-- 
-  <ItemGroup>
-    <PackageVersion Include="Abp" Version="10.3.0" />
-    <PackageVersion Include="Abp.AutoMapper" Version="10.3.0" />
-    <PackageVersion Include="Abp.AspNetCore" Version="10.3.0" />
-    <PackageVersion Include="Abp.AspNetCore.OData" Version="10.3.0" />
-    <PackageVersion Include="Abp.AspNetCore.SignalR" Version="10.3.0" />
-    <PackageVersion Include="Abp.HangFire.AspNetCore" Version="10.3.0" />
-    <PackageVersion Include="Abp.FluentValidation" Version="10.3.0" />
-    <PackageVersion Include="Abp.HtmlSanitizer" Version="10.3.0" />
-    <PackageVersion Include="Abp.ZeroCore" Version="10.3.0" />
-    <PackageVersion Include="Abp.ZeroCore.EntityFrameworkCore" Version="10.3.0" />
-  </ItemGroup>
-   -->
-  <!-- ABP Packages Ends -->
   <!-- Microsoft Packages Starts -->
   <ItemGroup>
     <PackageVersion Include="Microsoft.AspNetCore.Hosting.Abstractions" Version="2.3.9" />
