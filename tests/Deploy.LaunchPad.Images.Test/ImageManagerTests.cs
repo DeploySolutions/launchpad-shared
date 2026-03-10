@@ -26,17 +26,15 @@
 //limitations under the License. 
 #endregion
 
+using System;
+using System.IO;
+using Xunit;
+using ImageMagick;
+using Deploy.LaunchPad.Files;
+using Deploy.LaunchPad.Files.Images;
+
 namespace Deploy.LaunchPad.Images.Tests
 {
-    
-    using System;
-    using System.IO;
-    using Xunit;
-    using ImageMagick;
-    using Deploy.LaunchPad.Files;
-    using Deploy.LaunchPad.Files.Images;
-
-
     /// <summary>
     /// Class ImageManagerTests.
     /// Implements the <see cref="Xunit.IClassFixture{Deploy.LaunchPad.Images.Tests.ImageManagerTestsFixture}" />

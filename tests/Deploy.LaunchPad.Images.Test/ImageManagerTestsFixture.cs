@@ -31,13 +31,13 @@ using System.Drawing;
 using System.IO;
 using System.Resources;
 using Deploy.LaunchPad.Domain;
+using Deploy.LaunchPad.Files.Images;
+using ImageMagick;
+using System;
 using Deploy.LaunchPad.Util;
 
 namespace Deploy.LaunchPad.Images.Tests
 {
-    using Deploy.LaunchPad.Files.Images;
-    using ImageMagick;
-    using System;
 
     /// <summary>
     /// Class ImageManagerTestsFixture.

@@ -32,7 +32,6 @@ namespace Deploy.LaunchPad.Domain.Tests
     
     using System.Collections.Generic;
     using System;
-    using Deploy.LaunchPad.Core.Abp;
     using Deploy.LaunchPad.Domain.Devices;
     using NetTopologySuite.Geometries;
     using Deploy.LaunchPad.Geospatial;
