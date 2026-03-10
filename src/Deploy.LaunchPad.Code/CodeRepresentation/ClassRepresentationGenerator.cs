@@ -1,6 +1,4 @@
 ﻿using Castle.Core.Logging;
-using Deploy.LaunchPad.Code.Services;
-using Deploy.LaunchPad.Code.Config;
 using Deploy.LaunchPad.Util;
 using System;
 using System.Collections.Generic;

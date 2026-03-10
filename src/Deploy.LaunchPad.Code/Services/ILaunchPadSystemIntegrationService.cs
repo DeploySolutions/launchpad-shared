@@ -11,8 +11,6 @@
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
-using Castle.Core.Logging;
-using Deploy.LaunchPad.Code.Config;
 using Deploy.LaunchPad.Core.Application.Services;
 using Deploy.LaunchPad.Util;
 
