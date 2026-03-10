@@ -14,7 +14,7 @@
 using Castle.Core.Logging;
 using Deploy.LaunchPad.Domain;
 using Deploy.LaunchPad.Code.Services;
-using Deploy.LaunchPad.Code.Config;
+using Deploy.LaunchPad.Core.Application.Config;
 using Deploy.LaunchPad.Util;
 using System;
 using System.Collections.Generic;

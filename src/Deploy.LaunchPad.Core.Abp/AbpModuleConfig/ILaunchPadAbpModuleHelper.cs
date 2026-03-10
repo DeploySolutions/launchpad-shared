@@ -12,9 +12,10 @@
 // <summary></summary>
 // ***********************************************************************
 
-using Deploy.LaunchPad.Code.Config;
+using Deploy.LaunchPad.Core.Application.Config;
 using Deploy.LaunchPad.Util.Dependency;
 using Deploy.LaunchPad.Util.Modules;
+using Deploy.LaunchPad.Util.Secrets;
 using Microsoft.Extensions.Configuration;
 using System.Collections.Generic;
 

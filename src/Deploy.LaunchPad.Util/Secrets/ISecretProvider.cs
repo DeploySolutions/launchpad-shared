@@ -17,7 +17,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Net;
 using System.Threading.Tasks;
 
-namespace Deploy.LaunchPad.Code.Config
+namespace Deploy.LaunchPad.Util.Secrets
 {
     /// <summary>
     /// Interface ISecretProvider

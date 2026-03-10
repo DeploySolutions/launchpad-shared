@@ -16,7 +16,7 @@ using FluentValidation;
 using System;
 using System.Collections.Generic;
 
-namespace Deploy.LaunchPad.Code.Config
+namespace Deploy.LaunchPad.Util.Secrets
 {
     /// <summary>
     /// Validates a dictionary of secret vaults and their properties

@@ -11,7 +11,10 @@
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
-using Deploy.LaunchPad.Code.Config;
+
+using Deploy.LaunchPad.Core.Application.Config;
+using Deploy.LaunchPad.Util.Secrets;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Deploy.LaunchPad.AWS
 {
@@ -29,6 +32,7 @@ namespace Deploy.LaunchPad.AWS
         /// <summary>
         /// Initializes a new instance of the <see cref="AwsSecretVault"/> class.
         /// </summary>
+        [SetsRequiredMembers]
         public AwsSecretVault() : base()
         {
 
@@ -38,6 +42,7 @@ namespace Deploy.LaunchPad.AWS
         /// Initializes a new instance of the <see cref="AwsSecretVault"/> class.
         /// </summary>
         /// <param name="arn">The arn.</param>
+        [SetsRequiredMembers]
         public AwsSecretVault(string arn) : base()
         {
             Name = arn;
@@ -50,6 +55,7 @@ namespace Deploy.LaunchPad.AWS
         /// </summary>
         /// <param name="arn">The arn.</param>
         /// <param name="name">The name.</param>
+        [SetsRequiredMembers]
         public AwsSecretVault(string arn, string name) : base()
         {
             Name = name;

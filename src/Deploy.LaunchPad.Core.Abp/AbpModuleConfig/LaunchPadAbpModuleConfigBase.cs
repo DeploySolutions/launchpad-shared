@@ -56,14 +56,14 @@ namespace Deploy.LaunchPad.Core.Abp.AbpModuleConfig
         /// Gets or sets the secret.
         /// </summary>
         /// <value>The secret.</value>
-        public virtual ILaunchPadSecretConfiguration Secrets { get; protected set; }
+        public virtual ILaunchPadSecretFields Secrets { get; protected set; }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="LaunchPadAbpModuleConfigBase{THostEnvironment}"/> class.
         /// </summary>
         protected LaunchPadAbpModuleConfigBase()
         {
-            Secrets = new LaunchPadSecretConfiguration();
+            Secrets = new LaunchPadSecretFields();
         }
 
         /// <summary>
@@ -73,7 +73,7 @@ namespace Deploy.LaunchPad.Core.Abp.AbpModuleConfig
         protected LaunchPadAbpModuleConfigBase(ILogger logger)
         {
             Logger = logger;
-            Secrets = new LaunchPadSecretConfiguration();
+            Secrets = new LaunchPadSecretFields();
         }
 
     }

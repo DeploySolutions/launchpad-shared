@@ -11,21 +11,16 @@
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
+using Deploy.LaunchPad.Util.Secrets;
 using System.Collections.Generic;
 
-namespace Deploy.LaunchPad.Code.Config
+namespace Deploy.LaunchPad.Util.Secrets
 {
     /// <summary>
     /// Interface ISecretVault
     /// </summary>
-    public partial interface ISecretVault
+    public partial interface ISecretVault : ILaunchPadSecretFields
     {
-        /// <summary>
-        /// Gets or sets the fields.
-        /// </summary>
-        /// <value>The fields.</value>
-        public IDictionary<string, string> Fields { get; set; }
-
         /// <summary>
         /// Gets or sets the name.
         /// </summary>
@@ -55,23 +50,6 @@ namespace Deploy.LaunchPad.Code.Config
         /// </summary>
         /// <value>The provider identifier.</value>
         public string ProviderId { get; set; }
-
-        /// <summary>
-        /// Gets the value.
-        /// </summary>
-        /// <param name="key">The key.</param>
-        /// <param name="caller">The caller.</param>
-        /// <returns>System.String.</returns>
-        public string GetValue(string key, string caller, bool keyIsCaseInsensitive = true);
-
-        /// <summary>
-        /// Finds the values for keys.
-        /// </summary>
-        /// <param name="keys">The keys.</param>
-        /// <param name="caller">The caller.</param>
-        /// <returns>IDictionary&lt;System.String, System.String&gt;.</returns>
-        public IDictionary<string, string> FindValuesForKeys(IList<string> keys, string caller, bool keyIsCaseInsensitive = true);
-
 
     }
 }

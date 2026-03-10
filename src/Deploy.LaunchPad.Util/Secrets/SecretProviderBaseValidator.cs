@@ -16,7 +16,7 @@ using FluentValidation;
 using System;
 using System.Collections.Generic;
 
-namespace Deploy.LaunchPad.Code.Config
+namespace Deploy.LaunchPad.Util.Secrets
 {
     /// <summary>
     /// Validates the SecretProviderBase and its properties

@@ -30,44 +30,17 @@
  */
 #endregion
 
-using System;
-using System.Runtime.Serialization;
+using Deploy.LaunchPad.Util.Collections;
 
-namespace Deploy.LaunchPad.Util
+namespace Deploy.LaunchPad.Util.Secrets
 {
-    /// <summary>
-    /// Base exception type for those exceptions that are thrown by LaunchPad system for specific exceptions.
-    /// </summary>
-    [Serializable]
-    public class LaunchPadException : Exception
+    public interface ISecretProviderConfiguration
     {
+        
         /// <summary>
-        /// Creates a new <see cref="LaunchPadException"/> object.
+        /// Secret providers.
         /// </summary>
-        public LaunchPadException()
-        {
+        ITypeList<SecretProviderBase> Providers { get; }
 
-        }
-
-        /// <summary>
-        /// Creates a new <see cref="LaunchPadException"/> object.
-        /// </summary>
-        /// <param name="message">Exception message</param>
-        public LaunchPadException(string message)
-            : base(message)
-        {
-
-        }
-
-        /// <summary>
-        /// Creates a new <see cref="LaunchPadException"/> object.
-        /// </summary>
-        /// <param name="message">Exception message</param>
-        /// <param name="innerException">Inner exception</param>
-        public LaunchPadException(string message, Exception innerException)
-            : base(message, innerException)
-        {
-
-        }
     }
 }

@@ -14,8 +14,8 @@
 using Abp.Configuration;
 using Abp.Dependency;
 using Castle.Core.Logging;
-using Deploy.LaunchPad.Code.Config;
 using Deploy.LaunchPad.Util;
+using Deploy.LaunchPad.Util.Secrets;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;

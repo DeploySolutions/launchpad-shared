@@ -14,11 +14,12 @@
 using Abp.AutoMapper;
 using Abp.Modules;
 using Castle.Core.Logging;
-using Deploy.LaunchPad.Code.Config;
+using Deploy.LaunchPad.Core.Application.Config;
 using Deploy.LaunchPad.Util;
 using Deploy.LaunchPad.Util.Dependency;
 using Deploy.LaunchPad.Util.Extensions;
 using Deploy.LaunchPad.Util.Modules;
+using Deploy.LaunchPad.Util.Secrets;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using System;

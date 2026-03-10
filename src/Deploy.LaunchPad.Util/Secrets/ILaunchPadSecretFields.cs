@@ -6,7 +6,7 @@
 // Last Modified By : Nicholas Kellett
 // Last Modified On : 02-19-2023
 // ***********************************************************************
-// <copyright file="LaunchPadSecretConfiguration.cs" company="Deploy Software Solutions, inc.">
+// <copyright file="ILaunchPadSecretConfiguration.cs" company="Deploy Software Solutions, inc.">
 //     2018-2024 Deploy Software Solutions, inc.
 // </copyright>
 // <summary></summary>
@@ -20,24 +20,31 @@ using System.Threading.Tasks;
 namespace Deploy.LaunchPad.Util.Secrets
 {
     /// <summary>
-    /// Class LaunchPadAbpModuleSecretConfiguration.
-    /// Implements the <see cref="Deploy.LaunchPad.Util.Secrets.ILaunchPadSecretConfiguration" />
+    /// Interface ILaunchPadSecretFields
     /// </summary>
-    /// <seealso cref="Deploy.LaunchPad.Util.Secrets.ILaunchPadSecretConfiguration" />
-    public partial class LaunchPadSecretConfiguration : ILaunchPadSecretConfiguration
+    public partial interface ILaunchPadSecretFields
     {
         /// <summary>
         /// Gets the fields.
         /// </summary>
         /// <value>The fields.</value>
-        public virtual IDictionary<string, string> Fields { get; protected set; }
+        public IDictionary<string, string> Fields { get; set; }
+
+        public bool AddField(string key, string value);
+
+        public bool UpdateField(string key, string value);
+
+        public bool RemoveField(string key, string value);
+
+        public string GetValue(string key, string caller, bool keyIsCaseInsensitive = true);
+
         /// <summary>
-        /// Initializes a new instance of the <see cref="LaunchPadSecretConfiguration"/> class.
+        /// Finds the values for keys.
         /// </summary>
-        public LaunchPadSecretConfiguration()
-        {
-            var comparer = StringComparer.OrdinalIgnoreCase;
-            Fields = new Dictionary<string, string>(comparer);
-        }
+        /// <param name="keys">The keys.</param>
+        /// <param name="caller">The caller.</param>
+        /// <returns>IDictionary&lt;System.String, System.String&gt;.</returns>
+        public IDictionary<string, string> FindValuesForKeys(IList<string> keys, string caller, bool keyIsCaseInsensitive = true);
+
     }
 }

@@ -15,7 +15,7 @@ using Castle.Core.Logging;
 using FluentValidation;
 using System;
 
-namespace Deploy.LaunchPad.Code.Config
+namespace Deploy.LaunchPad.Util.Secrets
 {
     /// <summary>
     /// Validates the SecretVaultBase and its properties

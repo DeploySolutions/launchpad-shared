@@ -5,14 +5,13 @@ using System.Reflection;
 
 namespace Deploy.LaunchPad.Util.Modules
 {
-    public partial interface ILaunchPadModuleInfo
+    public partial interface ILaunchPadModuleInfo : ISecretProviderConfiguration
     {
         /// <summary>
         /// Gets or sets the name of the internal module.
         /// </summary>
         /// <value>The name of the internal module.</value>
         public string InternalModuleName { get;  }
-        public ILaunchPadSecretConfiguration Secrets { get; }
 
         Assembly Assembly { get; }
         List<ILaunchPadModuleInfo> Dependencies { get; }

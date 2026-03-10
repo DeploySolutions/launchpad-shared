@@ -11,24 +11,22 @@
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
+using Deploy.LaunchPad.Util.Secrets;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 
-namespace Deploy.LaunchPad.Code.Config
+namespace Deploy.LaunchPad.Util.Secrets
 {
     /// <summary>
     /// Class SecretVaultBase.
     /// Implements the <see cref="Deploy.LaunchPad.Code.Config.ISecretVault" />
     /// </summary>
     /// <seealso cref="Deploy.LaunchPad.Code.Config.ISecretVault" />
-    public abstract partial class SecretVaultBase : ISecretVault
+    public abstract partial class SecretVaultBase : LaunchPadSecretFields, ISecretVault
     {
-        /// <summary>
-        /// Gets or sets the fields.
-        /// </summary>
-        /// <value>The fields.</value>
-        public virtual IDictionary<string, string> Fields { get; set; }
+        
         /// <summary>
         /// Gets or sets the name.
         /// </summary>
@@ -67,6 +65,7 @@ namespace Deploy.LaunchPad.Code.Config
         /// <summary>
         /// Initializes a new instance of the <see cref="SecretVaultBase"/> class.
         /// </summary>
+        [SetsRequiredMembers]
         public SecretVaultBase()
         {
             Name = string.Empty;
@@ -84,6 +83,7 @@ namespace Deploy.LaunchPad.Code.Config
         /// <param name="providerId">The provider identifier.</param>
         /// <param name="vaultId">The vault identifier.</param>
         /// <param name="vaultName">Name of the vault.</param>
+        [SetsRequiredMembers]
         public SecretVaultBase(string providerId, string vaultId, string vaultName)
         {
             Name = vaultName;
@@ -103,6 +103,7 @@ namespace Deploy.LaunchPad.Code.Config
         /// <param name="vaultName">Name of the vault.</param>
         /// <param name="fields">The fields.</param>
         /// <param name="description">The description.</param>
+        [SetsRequiredMembers]
         public SecretVaultBase(string providerId, string vaultId, string vaultName, IDictionary<string, string> fields, string description = "")
         {
             Name = vaultName;
@@ -117,48 +118,6 @@ namespace Deploy.LaunchPad.Code.Config
                 Description = description;
             }
             Fields = fields;
-        }
-
-        /// <summary>
-        /// Gets the value.
-        /// </summary>
-        /// <param name="key">The key.</param>
-        /// <param name="caller">The caller.</param>
-        /// <returns>System.String.</returns>
-        public virtual string GetValue(string key, string caller, bool keyIsCaseInsensitive = true)
-        {
-            string value = string.Empty;
-            if(keyIsCaseInsensitive)
-            {
-                value = Fields.FirstOrDefault(k => k.Key.ToLower() == key.ToLower()).Value;
-            }
-            else
-            {
-                value = Fields.FirstOrDefault(k => k.Key == key).Value;
-            }
-            return value;
-        }
-
-        /// <summary>
-        /// Finds the values for keys.
-        /// </summary>
-        /// <param name="keys">The keys.</param>
-        /// <param name="caller">The caller.</param>
-        /// <returns>IDictionary&lt;System.String, System.String&gt;.</returns>
-        public virtual IDictionary<string, string> FindValuesForKeys(IList<string> keys, string caller, bool keyIsCaseInsensitive = true)
-        {
-            IDictionary<string, string> kvps = new Dictionary<string, string>();
-            // loop through the desired set of keys to find the corresponding values in the JSON
-            if (keyIsCaseInsensitive)
-            {
-                kvps = (IDictionary<string, string>)keys.Where(k => Fields.ContainsKey(k.ToLower()));
-            }
-            else
-            {
-                kvps = (IDictionary<string, string>)keys.Where(k => Fields.ContainsKey(k));
-            }
-
-            return kvps;
         }
 
     }
