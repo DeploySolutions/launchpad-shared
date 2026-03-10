@@ -60,14 +60,6 @@ namespace Deploy.LaunchPad.Core.Domain.Entities
 
         }
 
-        /// <summary>
-        /// Creates a new <see cref="EntityNotFoundException"/> object.
-        /// </summary>
-        public EntityNotFoundException(SerializationInfo serializationInfo, StreamingContext context)
-            : base(serializationInfo, context)
-        {
-
-        }
         
         /// <summary>
         /// Creates a new <see cref="EntityNotFoundException"/> object.
