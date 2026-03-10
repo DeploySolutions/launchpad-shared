@@ -17,7 +17,7 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.IO;
 
-namespace Deploy.LaunchPad.Code.Config
+namespace Deploy.LaunchPad.Core.Application.Config
 {
     /// <summary>
     /// Class LaunchPadAbpAppConfigurations.

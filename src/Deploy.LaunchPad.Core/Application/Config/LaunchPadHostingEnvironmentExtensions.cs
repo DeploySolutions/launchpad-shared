@@ -17,7 +17,7 @@ using Microsoft.Extensions.Hosting;
 using System.Collections;
 using System.Collections.Generic;
 
-namespace Deploy.LaunchPad.Code.Config
+namespace Deploy.LaunchPad.Core.Application.Config
 {
     /// <summary>
     /// Class LaunchPadHostingEnvironmentExtensions.
@@ -31,7 +31,7 @@ namespace Deploy.LaunchPad.Code.Config
         /// <param name="userSecretId">The user secret identifier.</param>
         /// <param name="jsonFiles">The json files.</param>
         /// <returns>IConfigurationRoot.</returns>
-        public static IConfigurationRoot GetAppConfiguration(this IWebHostEnvironment env, string userSecretId = "", IList<string> jsonFiles = null)
+        public static IConfigurationRoot GetAppConfiguration(this IHostEnvironment env, string userSecretId = "", IList<string> jsonFiles = null)
         {
             return LaunchPadAppConfigurationExtensions.Get(env.ContentRootPath, env.EnvironmentName, env.IsDevelopment(), userSecretId, jsonFiles);
         }
