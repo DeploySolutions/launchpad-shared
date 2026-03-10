@@ -9,6 +9,5 @@ namespace Deploy.LaunchPad.Util.Elements
         IEquatable<ElementName>,
         ICloneable, IAmCloneable<ElementName>
     {
-        public string ShortName { get; set; }
     }
 }
