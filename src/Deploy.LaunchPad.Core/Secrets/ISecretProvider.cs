@@ -15,9 +15,10 @@ using Castle.Core.Logging;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Net;
+using System.Threading;
 using System.Threading.Tasks;
 
-namespace Deploy.LaunchPad.Util.Secrets
+namespace Deploy.LaunchPad.Core.Secrets
 {
     /// <summary>
     /// Interface ISecretProvider
@@ -44,16 +45,12 @@ namespace Deploy.LaunchPad.Util.Secrets
         public string Name { get; set; }
 
         /// <summary>
-        /// Gets the type.
-        /// </summary>
-        /// <value>The type.</value>
-        public string Type { get; }
-
-        /// <summary>
         /// Gets or sets the description.
         /// </summary>
         /// <value>The description.</value>
         public string Description { get; set; }
+
+        public SecretProviderType ProviderType { get; set; }
 
         /// <summary>
         /// Contains a dictionary of "secret vaults", keyed using the friendly name of the vault.
@@ -221,6 +218,19 @@ namespace Deploy.LaunchPad.Util.Secrets
         /// <param name="caller">The caller.</param>
         /// <returns>A status code with the result of the request</returns>
         public Task<HttpStatusCode> UpdateFieldsInSecretVaultAsync(ISecretVault secretVault, IDictionary<string, string> fieldsToInsertOrUpdate, string caller);
+        
+        //Task<string?> GetOrNullAsync(
+        //SettingSecretProviderDescriptor source,
+        //ISettingDefinition definition,
+        //int? tenantId = null,
+        //long? userId = null,
+        //CancellationToken cancellationToken = default);
+
+        //string? GetOrNull(
+        //    SettingSecretProviderDescriptor source,
+        //    ISettingDefinition definition,
+        //    int? tenantId = null,
+        //    long? userId = null);
 
     }
 }

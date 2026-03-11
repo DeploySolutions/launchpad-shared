@@ -48,7 +48,8 @@ namespace Deploy.LaunchPad.Core.Application
     /// <typeparam name="Guid">The type of the t identifier type.</typeparam>
     [Serializable()]
     public partial class ApplicationDetails : DomainEntityBase<System.Guid>, 
-        IApplicationDetails
+        IApplicationDetails,
+        IAmCloneable<ApplicationDetails>
     {
         /// <summary>
         /// The default culture
@@ -404,7 +405,7 @@ namespace Deploy.LaunchPad.Core.Application
             throw new NotImplementedException();
         }
 
-        DomainEntityBase<Guid> IAmCloneable<DomainEntityBase<Guid>>.CloneGeneric()
+        ApplicationDetails IAmCloneable<ApplicationDetails>.CloneGeneric()
         {
             throw new NotImplementedException();
         }

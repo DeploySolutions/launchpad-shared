@@ -30,17 +30,27 @@
  */
 #endregion
 
-using Deploy.LaunchPad.Util.Collections;
+using System.Collections.Generic;
 
-namespace Deploy.LaunchPad.Util.Secrets
+namespace Deploy.LaunchPad.Core.Configuration
 {
-    public interface ISecretProviderConfiguration
+    /// <summary>
+    /// Defines setting definition manager.
+    /// </summary>
+    public interface ISettingDefinitionManager
     {
-        
         /// <summary>
-        /// Secret providers.
+        /// Gets the <see cref="SettingDefinition"/> object with given unique name.
+        /// Throws exception if can not find the setting.
         /// </summary>
-        ITypeList<SecretProviderBase> SecretProviders { get; }
+        /// <param name="name">Unique name of the setting</param>
+        /// <returns>The <see cref="SettingDefinition"/> object.</returns>
+        ISettingDefinition GetSettingDefinition(string name);
 
+        /// <summary>
+        /// Gets a list of all setting definitions.
+        /// </summary>
+        /// <returns>All settings.</returns>
+        IReadOnlyList<ISettingDefinition> GetAllSettingDefinitions();
     }
 }

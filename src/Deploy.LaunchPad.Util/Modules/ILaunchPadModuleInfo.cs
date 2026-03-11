@@ -1,11 +1,10 @@
-﻿using Deploy.LaunchPad.Util.Secrets;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Reflection;
 
 namespace Deploy.LaunchPad.Util.Modules
 {
-    public partial interface ILaunchPadModuleInfo : ISecretProviderConfiguration
+    public partial interface ILaunchPadModuleInfo
     {
         /// <summary>
         /// Gets or sets the name of the internal module.

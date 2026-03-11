@@ -17,7 +17,7 @@ using Amazon.SecretsManager;
 using Amazon.SecretsManager.Model;
 using Deploy.LaunchPad.AWS.SecretsManager;
 using Deploy.LaunchPad.Core.Application.Config;
-using Deploy.LaunchPad.Util.Secrets;
+using Deploy.LaunchPad.Core.Secrets;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;

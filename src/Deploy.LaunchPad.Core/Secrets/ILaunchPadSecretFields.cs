@@ -17,7 +17,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Deploy.LaunchPad.Util.Secrets
+namespace Deploy.LaunchPad.Core.Secrets
 {
     /// <summary>
     /// Interface ILaunchPadSecretFields

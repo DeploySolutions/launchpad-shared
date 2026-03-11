@@ -11,13 +11,12 @@
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
-using Deploy.LaunchPad.Util.Secrets;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 
-namespace Deploy.LaunchPad.Util.Secrets
+namespace Deploy.LaunchPad.Core.Secrets
 {
     /// <summary>
     /// Class SecretVaultBase.

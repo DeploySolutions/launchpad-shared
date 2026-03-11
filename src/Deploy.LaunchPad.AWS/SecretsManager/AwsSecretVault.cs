@@ -12,8 +12,7 @@
 // <summary></summary>
 // ***********************************************************************
 
-using Deploy.LaunchPad.Core.Application.Config;
-using Deploy.LaunchPad.Util.Secrets;
+using Deploy.LaunchPad.Core.Secrets;
 using System.Diagnostics.CodeAnalysis;
 
 namespace Deploy.LaunchPad.AWS

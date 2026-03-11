@@ -341,16 +341,6 @@ namespace Deploy.LaunchPad.Core.Domain.Entities
             // reconnect connection strings and other resources that won't be serialized
         }
 
-        public virtual DomainEntityBase<TPrimaryKey> CloneGeneric()
-        {
-            var clone = (DomainEntityBase<TPrimaryKey>)this.MemberwiseClone();
-            // Deep clone reference-type fields as needed
-            clone.Name = Name;
-            clone.Description = Description?.CloneGeneric(); // assuming ElementDescription has a Clone() method
-                                                        // ...repeat for other reference-type fields if needed
-            return clone;
-        }
-
         object ICloneable.Clone() => CloneGeneric();
 
         /// <summary>

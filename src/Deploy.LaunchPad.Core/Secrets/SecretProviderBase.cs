@@ -17,9 +17,10 @@ using Newtonsoft.Json.Linq;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Net;
+using System.Threading;
 using System.Threading.Tasks;
 
-namespace Deploy.LaunchPad.Util.Secrets
+namespace Deploy.LaunchPad.Core.Secrets
 {
     /// <summary>
     /// Class SecretProviderBase.
@@ -68,6 +69,9 @@ namespace Deploy.LaunchPad.Util.Secrets
         /// </summary>
         /// <value>The logger.</value>
         public virtual ILogger Logger { get; set; } = NullLogger.Instance;
+
+
+        public virtual SecretProviderType ProviderType { get; set; } = SecretProviderType.UserSecrets;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="SecretProviderBase"/> class.
@@ -335,6 +339,7 @@ namespace Deploy.LaunchPad.Util.Secrets
         /// <returns>System.String.</returns>
         public abstract string CreateOrUpdateFieldInSecretVault(ISecretVault secretVault, string originalSecretJson, string key, string value, string caller);
 
+        
         /// <summary>
         /// Class Root.
         /// </summary>

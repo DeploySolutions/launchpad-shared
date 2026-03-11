@@ -44,8 +44,8 @@ namespace Deploy.LaunchPad.Core.Domain.Entities
     public partial interface IDomainEntity<TPrimaryKey> :
         IDomainEntityProperties<TPrimaryKey>, IFrameworkEntity<TPrimaryKey>,
         ICreationAudited, IModificationAudited, IDeletionAudited,
-        IComparable<DomainEntityBase<TPrimaryKey>>, IEquatable<DomainEntityBase<TPrimaryKey>>,
-        IAmCloneable<DomainEntityBase<TPrimaryKey>>
+        IComparable<DomainEntityBase<TPrimaryKey>>, IEquatable<DomainEntityBase<TPrimaryKey>>
+    //,IAmCloneable<DomainEntityBase<TPrimaryKey>>
     {
 
     }
