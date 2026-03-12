@@ -32,7 +32,6 @@
 
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Deploy.LaunchPad.Core.Authorization;
 using Deploy.LaunchPad.Core.MultiTenancy;
 
 namespace Deploy.LaunchPad.Core.Authorization
