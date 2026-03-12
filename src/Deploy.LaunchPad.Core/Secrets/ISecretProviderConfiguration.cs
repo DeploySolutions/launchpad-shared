@@ -36,11 +36,16 @@ namespace Deploy.LaunchPad.Core.Secrets
 {
     public interface ISecretProviderConfiguration
     {
-        
+        /// <summary>
+        /// Gets/sets default connection string used by ORM module.
+        /// It can be name of a connection string in application's config file or can be full connection string.
+        /// </summary>
+        public string DefaultConnectionString { get; set; }
+
         /// <summary>
         /// Secret providers.
         /// </summary>
-        ITypeList<SecretProviderBase> SecretProviders { get; }
+        ITypeList<SecretProviderBase> Providers { get; }
 
     }
 }

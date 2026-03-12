@@ -35,8 +35,6 @@ namespace Deploy.LaunchPad.Core.Secrets
                 .NotNull().NotEmpty();
             RuleFor(x => x.Name)
                 .NotNull().NotEmpty();
-            RuleFor(x => x.Type)
-                .NotNull().NotEmpty();
             RuleForEach(x => x.SecretVaults).ChildRules(order =>
             {
                 order.RuleFor(x => x.Value as ISecretVault).SetValidator(new SecretVaultValidator(logger));

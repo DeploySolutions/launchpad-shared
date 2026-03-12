@@ -12,6 +12,9 @@
 // <summary></summary>
 // ***********************************************************************
 using Castle.Core.Logging;
+using Deploy.LaunchPad.Core.Configuration;
+using Deploy.LaunchPad.Util.Dependency;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Net;
@@ -218,19 +221,15 @@ namespace Deploy.LaunchPad.Core.Secrets
         /// <param name="caller">The caller.</param>
         /// <returns>A status code with the result of the request</returns>
         public Task<HttpStatusCode> UpdateFieldsInSecretVaultAsync(ISecretVault secretVault, IDictionary<string, string> fieldsToInsertOrUpdate, string caller);
-        
-        //Task<string?> GetOrNullAsync(
-        //SettingSecretProviderDescriptor source,
-        //ISettingDefinition definition,
-        //int? tenantId = null,
-        //long? userId = null,
-        //CancellationToken cancellationToken = default);
 
-        //string? GetOrNull(
-        //    SettingSecretProviderDescriptor source,
-        //    ISettingDefinition definition,
-        //    int? tenantId = null,
-        //    long? userId = null);
+        Task<string?> GetValueOrNullAsync(
+            SettingSecretProviderDescriptor source,
+            ISettingDefinition definition,
+            CancellationToken cancellationToken = default);
+
+        string? GetValueOrNull(
+            SettingSecretProviderDescriptor source,
+            ISettingDefinition definition);
 
     }
 }

@@ -17,6 +17,7 @@ using Amazon.SecretsManager;
 using Amazon.SecretsManager.Model;
 using Deploy.LaunchPad.AWS.SecretsManager;
 using Deploy.LaunchPad.Core.Application.Config;
+using Deploy.LaunchPad.Core.Configuration;
 using Deploy.LaunchPad.Core.Secrets;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -24,9 +25,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using System.Threading;
 using System.Threading.Tasks;
 
-namespace Deploy.LaunchPad.AWS
+namespace Deploy.LaunchPad.AWS.SecretsManager
 {
     /// <summary>
     /// Class AwsSecretProvider.
@@ -49,12 +51,7 @@ namespace Deploy.LaunchPad.AWS
         [JsonIgnore]
         public IAmazonSecretsManager SecretClient { get { return _secretClient; } }
 
-        /// <summary>
-        /// Gets the type.
-        /// </summary>
-        /// <value>The type.</value>
-        public override string Type { get; protected set; } = "Deploy.LaunchPad.AWS.AwsSecretProvider";
-
+        public override SecretProviderType ProviderType => SecretProviderType.AwsSecretsManager;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="AwsSecretProvider"/> class.
@@ -458,7 +455,20 @@ namespace Deploy.LaunchPad.AWS
         }
 
 
+        public override async Task<string?> GetValueOrNullAsync(
+            SettingSecretProviderDescriptor source,
+            ISettingDefinition definition,
+            CancellationToken cancellationToken = default)
+        {
+            return await Task.FromResult(GetValueOrNull(source, definition));
+        }
 
-
+        public override string? GetValueOrNull(
+            SettingSecretProviderDescriptor source,
+            ISettingDefinition definition)
+        {
+            // lookup from AWS
+            return null;
+        }
     }
 }

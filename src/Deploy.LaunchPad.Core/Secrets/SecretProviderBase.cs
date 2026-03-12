@@ -12,8 +12,10 @@
 // <summary></summary>
 // ***********************************************************************
 using Castle.Core.Logging;
+using Deploy.LaunchPad.Core.Configuration;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Net;
@@ -59,17 +61,10 @@ namespace Deploy.LaunchPad.Core.Secrets
         public virtual string Description { get; set; }
 
         /// <summary>
-        /// Gets the type.
-        /// </summary>
-        /// <value>The type.</value>
-        public virtual string Type { get; protected set; }
-
-        /// <summary>
         /// Gets or sets the logger.
         /// </summary>
         /// <value>The logger.</value>
         public virtual ILogger Logger { get; set; } = NullLogger.Instance;
-
 
         public virtual SecretProviderType ProviderType { get; set; } = SecretProviderType.UserSecrets;
 
@@ -134,7 +129,7 @@ namespace Deploy.LaunchPad.Core.Secrets
         /// <param name="key">The key.</param>
         /// <param name="caller">The caller.</param>
         /// <returns>System.String.</returns>
-        public string GetValueFromSecretVault(ISecretVault secretVault, string key, string caller, bool keyIsCaseInsensitive = true)
+        public virtual string GetValueFromSecretVault(ISecretVault secretVault, string key, string caller, bool keyIsCaseInsensitive = true)
         {
             return GetValueFromSecretVaultAsync(secretVault, key, caller, keyIsCaseInsensitive).Result;
         }
@@ -147,7 +142,7 @@ namespace Deploy.LaunchPad.Core.Secrets
         /// <param name="key">The key.</param>
         /// <param name="caller">The caller.</param>
         /// <returns>A Task&lt;System.String&gt; representing the asynchronous operation.</returns>
-        public async Task<string> GetValueFromSecretVaultAsync(ISecretVault secretVault, string key, string caller, bool keyIsCaseInsensitive = true)
+        public virtual async Task<string> GetValueFromSecretVaultAsync(ISecretVault secretVault, string key, string caller, bool keyIsCaseInsensitive = true)
         {
             string secretStringJson = await GetJsonFromSecretVaultAsync(secretVault, caller);
             string val = string.Empty;
@@ -160,6 +155,15 @@ namespace Deploy.LaunchPad.Core.Secrets
             return val;
         }
 
+        public abstract Task<string?> GetValueOrNullAsync(
+            SettingSecretProviderDescriptor source,
+            ISettingDefinition definition,
+            CancellationToken cancellationToken = default);
+
+        public abstract string? GetValueOrNull(
+            SettingSecretProviderDescriptor source,
+            ISettingDefinition definition);
+
         /// <summary>
         /// Returns the set of all key value pairs, which are part of a given secret ARN
         /// The field names do not have to be known ahead of time.
@@ -167,7 +171,7 @@ namespace Deploy.LaunchPad.Core.Secrets
         /// <param name="secretVault">The secret vault.</param>
         /// <param name="caller">The caller.</param>
         /// <returns>A Task&lt;IDictionary`2&gt; representing the asynchronous operation.</returns>
-        public async Task<IDictionary<string, string>> GetAllValuesFromSecretVaultAsync(ISecretVault secretVault, string caller)
+        public virtual async Task<IDictionary<string, string>> GetAllValuesFromSecretVaultAsync(ISecretVault secretVault, string caller)
         {
             string secretStringJson = await GetJsonFromSecretVaultAsync(secretVault, caller);
             IDictionary<string, string> kvps = null;
@@ -298,7 +302,7 @@ namespace Deploy.LaunchPad.Core.Secrets
         /// Refreshes all secret vaults.
         /// </summary>
         /// <param name="caller">The caller.</param>
-        public void RefreshAllSecretVaults(string caller)
+        public virtual void RefreshAllSecretVaults(string caller)
         {
             foreach (var vault in SecretVaults.Values)
             {
