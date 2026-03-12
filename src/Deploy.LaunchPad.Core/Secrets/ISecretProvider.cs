@@ -85,45 +85,13 @@ namespace Deploy.LaunchPad.Core.Secrets
         public Task<ISecretVault> GetSecretVaultByIdAsync(string id, string caller);
 
         /// <summary>
-        /// Gets the secret vault by vault identifier.
-        /// </summary>
-        /// <param name="vaultId">The vault identifier.</param>
-        /// <param name="caller">The caller.</param>
-        /// <returns>ISecretVault.</returns>
-        public ISecretVault GetSecretVaultByVaultId(string vaultId, string caller);
-
-        /// <summary>
-        /// Gets the secret vault by vault identifier asynchronous.
-        /// </summary>
-        /// <param name="vaultId">The vault identifier.</param>
-        /// <param name="caller">The caller.</param>
-        /// <returns>Task&lt;ISecretVault&gt;.</returns>
-        public Task<ISecretVault> GetSecretVaultByVaultIdAsync(string vaultId, string caller);
-
-        // Vault-related methods
-        /// <summary>
-        /// Gets the json from secret vault.
-        /// </summary>
-        /// <param name="secretVault">The secret vault.</param>
-        /// <param name="caller">The caller.</param>
-        /// <returns>System.String.</returns>
-        public string GetJsonFromSecretVault(ISecretVault secretVault, string caller, bool keyIsCaseInsensitive = true);
-        /// <summary>
-        /// Gets the json from secret vault asynchronous.
-        /// </summary>
-        /// <param name="secretVault">The secret vault.</param>
-        /// <param name="caller">The caller.</param>
-        /// <returns>Task&lt;System.String&gt;.</returns>
-        public Task<string> GetJsonFromSecretVaultAsync(ISecretVault secretVault, string caller, bool keyIsCaseInsensitive = true);
-
-        /// <summary>
         /// Gets the value from secret vault.
         /// </summary>
         /// <param name="secretVault">The secret vault.</param>
         /// <param name="key">The key.</param>
         /// <param name="caller">The caller.</param>
         /// <returns>System.String.</returns>
-        public string GetValueFromSecretVault(ISecretVault secretVault, string key, string caller, bool keyIsCaseInsensitive = true);
+        public ISettingDefinition GetValueFromSecretVault(ISecretVault secretVault, string key, string caller, bool keyIsCaseInsensitive = true);
         /// <summary>
         /// Gets the value from secret vault asynchronous.
         /// </summary>
@@ -131,7 +99,7 @@ namespace Deploy.LaunchPad.Core.Secrets
         /// <param name="key">The key.</param>
         /// <param name="caller">The caller.</param>
         /// <returns>Task&lt;System.String&gt;.</returns>
-        public Task<string> GetValueFromSecretVaultAsync(ISecretVault secretVault, string key, string caller, bool keyIsCaseInsensitive = true);
+        public Task<ISettingDefinition> GetValueFromSecretVaultAsync(ISecretVault secretVault, string key, string caller, bool keyIsCaseInsensitive = true);
 
 
         /// <summary>
@@ -141,7 +109,7 @@ namespace Deploy.LaunchPad.Core.Secrets
         /// <param name="keys">The keys.</param>
         /// <param name="caller">The caller.</param>
         /// <returns>Task&lt;IDictionary&lt;System.String, System.String&gt;&gt;.</returns>
-        public Task<IDictionary<string, string>> FindValuesForKeysAsync(ISecretVault secretVault, IList<string> keys, string caller, bool keyIsCaseInsensitive = true);
+        public Task<IDictionary<string, ISettingDefinition>> GetValuesForKeysAsync(ISecretVault secretVault, IList<string> keys, string caller, bool keyIsCaseInsensitive = true);
 
         /// <summary>
         /// Gets all values from secret vault asynchronous.
@@ -149,7 +117,7 @@ namespace Deploy.LaunchPad.Core.Secrets
         /// <param name="secretVault">The secret vault.</param>
         /// <param name="caller">The caller.</param>
         /// <returns>Task&lt;IDictionary&lt;System.String, System.String&gt;&gt;.</returns>
-        public Task<IDictionary<string, string>> GetAllValuesFromSecretVaultAsync(ISecretVault secretVault, string caller);
+        public Task<IDictionary<string, ISettingDefinition>> GetAllValuesFromSecretVaultAsync(ISecretVault secretVault, string caller);
 
         // refresh method
         /// <summary>
@@ -202,7 +170,7 @@ namespace Deploy.LaunchPad.Core.Secrets
         /// <param name="value">The value.</param>
         /// <param name="caller">The caller.</param>
         /// <returns>System.String.</returns>
-        public string CreateOrUpdateFieldInSecretVault(ISecretVault secretVault, string originalSecretJson, string key, string value, string caller);
+        public ISettingDefinition CreateOrUpdateFieldInSecretVault(ISecretVault secretVault, string originalSecretJson, string key, ISettingDefinition value, string caller);
 
         /// <summary>
         /// Writes the text value of a particular key, to a given secret ARN
@@ -211,7 +179,7 @@ namespace Deploy.LaunchPad.Core.Secrets
         /// <param name="fieldsToInsertOrUpdate">The fields to insert or update.</param>
         /// <param name="caller">The caller.</param>
         /// <returns>A status code with the result of the request</returns>
-        public abstract HttpStatusCode UpdateFieldsInSecretVault(ISecretVault secretVault, IDictionary<string, string> fieldsToInsertOrUpdate, string caller);
+        public abstract HttpStatusCode UpdateFieldsInSecretVault(ISecretVault secretVault, IDictionary<string, ISettingDefinition> fieldsToInsertOrUpdate, string caller);
 
         /// <summary>
         /// Writes the text value of a particular key, to a given secret vault
@@ -220,14 +188,14 @@ namespace Deploy.LaunchPad.Core.Secrets
         /// <param name="fieldsToInsertOrUpdate">The fields to insert or update.</param>
         /// <param name="caller">The caller.</param>
         /// <returns>A status code with the result of the request</returns>
-        public Task<HttpStatusCode> UpdateFieldsInSecretVaultAsync(ISecretVault secretVault, IDictionary<string, string> fieldsToInsertOrUpdate, string caller);
+        public Task<HttpStatusCode> UpdateFieldsInSecretVaultAsync(ISecretVault secretVault, IDictionary<string, ISettingDefinition> fieldsToInsertOrUpdate, string caller);
 
-        Task<string?> GetValueOrNullAsync(
+        Task<string?> GetValueOrNullForSettingSecretProviderDescriptorAsync(
             SettingSecretProviderDescriptor source,
             ISettingDefinition definition,
             CancellationToken cancellationToken = default);
 
-        string? GetValueOrNull(
+        string? GetValueOrNullForSettingSecretProviderDescriptor(
             SettingSecretProviderDescriptor source,
             ISettingDefinition definition);
 

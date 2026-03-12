@@ -19,6 +19,7 @@ using Deploy.LaunchPad.AWS.SecretsManager;
 using Deploy.LaunchPad.Core.Application.Config;
 using Deploy.LaunchPad.Core.Configuration;
 using Deploy.LaunchPad.Core.Secrets;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
@@ -37,7 +38,7 @@ namespace Deploy.LaunchPad.AWS.SecretsManager
     /// </summary>
     /// <seealso cref="SecretProviderBase" />
     /// <seealso cref="ISecretProvider" />
-    public partial class AwsSecretProvider : SecretProviderBase, ISecretProvider
+    public partial class AwsSecretProvider : SecretProviderBase
     {
         /// <summary>
         /// The secret client
@@ -65,7 +66,87 @@ namespace Deploy.LaunchPad.AWS.SecretsManager
             _secretClient = GetSecretClient(region, awsProfileName, shouldUseLocalAwsProfile);
         }
 
+        public override async Task<string?> GetValueOrNullForSettingSecretProviderDescriptorAsync(
+            SettingSecretProviderDescriptor source,
+            ISettingDefinition definition,
+            CancellationToken cancellationToken = default)
+        {
+            return await Task.FromResult(GetValueOrNullForSettingSecretProviderDescriptor(source, definition));
+        }
 
+        public override string? GetValueOrNullForSettingSecretProviderDescriptor(
+            SettingSecretProviderDescriptor source,
+            ISettingDefinition definition)
+        {
+            // lookup from AWS
+            return null;
+        }
+
+        /// <summary>
+        /// Returns the set of key value pairs for a given set of keys, which are part of a given secret vault's fields
+        /// </summary>
+        /// <param name="secretVault">The secret vault in which these keys are fields</param>
+        /// <param name="keys">The list of keys you are looking for</param>
+        /// <param name="caller">The caller.</param>
+        /// <returns>A Task&lt;IDictionary`2&gt; representing the asynchronous operation.</returns>
+        public override async Task<IDictionary<string, ISettingDefinition>> GetValuesForKeysAsync(ISecretVault secretVault, IList<string> keys, string caller, bool keyIsCaseInsensitive = true)
+        {
+            string secretStringJson = await GetJsonFromSecretVaultAsync(secretVault, caller, keyIsCaseInsensitive);
+        IDictionary<string, ISettingDefinition> kvps = null;
+
+            // Decrypt the secret
+            if (!string.IsNullOrEmpty(secretStringJson))
+            {
+                dynamic secretObj = JObject.Parse(secretStringJson);
+        kvps = new Dictionary<string, ISettingDefinition>();
+                // loop through the desired set of keys to find the corresponding values in the JSON
+                foreach (string key in keys)
+                {
+                    ISettingDefinition value = null;
+                    if (keyIsCaseInsensitive)
+                    {
+                        value = secretObj[key.ToLower()];
+                    }
+                    else
+                    {
+                        value = secretObj[key];
+                    }
+                    if (value != null)
+                    {
+                        kvps.Add(key, value);
+                    }
+                }
+            }
+            return kvps;
+        }
+
+        /// <summary>
+        /// Returns the set of all key value pairs, which are part of a given secret ARN
+        /// The field names do not have to be known ahead of time.
+        /// </summary>
+        /// <param name="secretVault">The secret vault.</param>
+        /// <param name="caller">The caller.</param>
+        /// <returns>A Task&lt;IDictionary`2&gt; representing the asynchronous operation.</returns>
+        public override async Task<IDictionary<string, ISettingDefinition>> GetAllValuesFromSecretVaultAsync(ISecretVault secretVault, string caller)
+        {
+            string secretStringJson = await GetJsonFromSecretVaultAsync(secretVault, caller);
+        IDictionary<string, ISettingDefinition> kvps = null;
+
+            // Decrypt the secret
+            if (!string.IsNullOrEmpty(secretStringJson))
+            {
+                kvps = new Dictionary<string, ISettingDefinition>();
+                dynamic secretJson = JValue.Parse(secretStringJson);
+                // loop through the desired set of keys to find the corresponding values in the JSON
+                foreach (Newtonsoft.Json.Linq.JProperty jproperty in secretJson)
+                {
+                    ISettingDefinition settingDefinition = new SettingDefinition
+                    (jproperty.Name, jproperty.Value.ToString(), null, null, null, SettingScopes.Application, false, false, null);
+        kvps.Add(jproperty.Name, settingDefinition);
+                }
+}
+return kvps;
+        }
 
         /// <summary>
         /// Get secret vault by identifier as an asynchronous operation.
@@ -81,18 +162,182 @@ namespace Deploy.LaunchPad.AWS.SecretsManager
             return vault;
         }
 
+        // Refresh methods
         /// <summary>
-        /// Get secret vault by vault identifier as an asynchronous operation.
+        /// Refreshes the secret vault.
+        /// </summary>
+        /// <param name="arn">The arn.</param>
+        /// <param name="caller">The caller.</param>
+        /// <returns>ISecretVault.</returns>
+        public override ISecretVault RefreshSecretVault(string arn, string caller)
+        {
+            return GetSecretVaultByIdAsync(arn, caller).Result;
+        }
+
+        /// <summary>
+        /// Refresh secret vault as an asynchronous operation.
         /// </summary>
         /// <param name="arn">The arn.</param>
         /// <param name="caller">The caller.</param>
         /// <returns>A Task&lt;ISecretVault&gt; representing the asynchronous operation.</returns>
-        public async override Task<ISecretVault> GetSecretVaultByVaultIdAsync(string arn, string caller)
+        public override async Task<ISecretVault> RefreshSecretVaultAsync(string arn, string caller)
         {
-            AwsSecretVault vault = new AwsSecretVault();
-            vault.VaultId = arn;
-            vault.Fields = await GetAllValuesFromSecretVaultAsync(vault, caller);
+            var vault = await GetSecretVaultByIdAsync(arn, "AwsSecretProvier.RefreshSecretVault(string vaultId, string caller)");
             return vault;
+        }
+
+
+        /// <summary>
+        /// Refreshes the secret vault.
+        /// </summary>
+        /// <param name="secretVault">The secret vault.</param>
+        /// <param name="caller">The caller.</param>
+        /// <returns>ISecretVault.</returns>
+        public override ISecretVault RefreshSecretVault(ISecretVault secretVault, string caller)
+        {
+            return RefreshSecretVaultAsync(secretVault, caller).Result;
+        }
+
+        /// <summary>
+        /// Refresh secret vault as an asynchronous operation.
+        /// </summary>
+        /// <param name="secretVault">The secret vault.</param>
+        /// <param name="caller">The caller.</param>
+        /// <returns>A Task&lt;ISecretVault&gt; representing the asynchronous operation.</returns>
+        public override async Task<ISecretVault> RefreshSecretVaultAsync(ISecretVault secretVault, string caller)
+        {
+            secretVault.Fields = await GetAllValuesFromSecretVaultAsync(secretVault, caller);
+            return secretVault;
+        }
+
+        // update methods
+        /// <summary>
+        /// Creates the or update field in secret vault.
+        /// </summary>
+        /// <param name="secretVault">The secret vault.</param>
+        /// <param name="originalSecretJson">The original secret json.</param>
+        /// <param name="key">The key.</param>
+        /// <param name="value">The value.</param>
+        /// <param name="caller">The caller.</param>
+        /// <returns>ISettingDefinition.</returns>
+        public override ISettingDefinition CreateOrUpdateFieldInSecretVault(ISecretVault secretVault, string originalSecretJson, string key, ISettingDefinition value, string caller)
+        {
+            Logger.Info(string.Format(Deploy_LaunchPad_AWS_Resources.Logger_Info_UpdateJsonForSecret_Updating, value, key, secretVault.Id));
+            Logger.Debug(string.Format("Caller = '{0}'.", caller));
+            string updatedJsonString = originalSecretJson;
+
+            JObject jObject = Newtonsoft.Json.JsonConvert.DeserializeObject(originalSecretJson) as JObject;
+
+            // Try to select the nested property (if it exists) using the key
+            // but also check a parameterized version in format ['key.abc'] in case it contains periods or special characters.
+            string parameterizedJsonKey = "['" + key + "']";
+            var jTokenValues = jObject.Root.Values<JToken>();
+            JToken jToken = jTokenValues.FirstOrDefault(x => x.Path == key || x.Path == parameterizedJsonKey);
+            if (jToken != null)
+            {
+                // The property exists - update its value
+                //jToken.Replace(value);
+                jObject[jToken.Path] = value.DefaultValue;
+            }
+            else // The property does not exist, insert a new one
+            {
+                JProperty newProperty = new JProperty(key, value);
+                jObject.Add(newProperty);
+            }
+            // Convert the JObject back to a string to get the resulting Json from the updated secret
+            updatedJsonString = jObject.ToString();
+            ISettingDefinition updatedSetting = new SettingDefinition(key, updatedJsonString);
+            Logger.Info(string.Format(Deploy_LaunchPad_AWS_Resources.Logger_Info_UpdateJsonForSecret_Updated, value, key, secretVault.Id));
+            return updatedSetting;
+        }
+
+        /// <summary>
+        /// Writes the text value of a particular key, to a given secret ARN
+        /// </summary>
+        /// <param name="secretVault">The secret vault.</param>
+        /// <param name="fieldsToInsertOrUpdate">The fields to insert or update.</param>
+        /// <param name="caller">The caller.</param>
+        /// <returns>A status code with the result of the request</returns>
+        public override HttpStatusCode UpdateFieldsInSecretVault(ISecretVault secretVault, IDictionary<string, ISettingDefinition> fieldsToInsertOrUpdate, string caller)
+        {
+            return UpdateFieldsInSecretVaultAsync(secretVault, fieldsToInsertOrUpdate, caller).Result;
+        }
+
+        /// <summary>
+        /// Writes the text value of a particular key, to a given secret ARN
+        /// </summary>
+        /// <param name="secretVault">The secret vault in which the field is stored</param>
+        /// <param name="fieldsToInsertOrUpdate">The fields to insert or update.</param>
+        /// <param name="caller">The caller.</param>
+        /// <returns>A status code with the result of the request</returns>
+        public async override Task<HttpStatusCode> UpdateFieldsInSecretVaultAsync(ISecretVault secretVault, IDictionary<string, ISettingDefinition> fieldsToInsertOrUpdate, string caller)
+        {
+            string originalSecretJson = await GetJsonFromSecretVaultAsync(secretVault, caller);
+
+            // for each value in the dictionary, try to update the JSON
+            string sbUpdatedSecretJson = originalSecretJson;
+            foreach (var field in fieldsToInsertOrUpdate)
+            {
+                sbUpdatedSecretJson = CreateOrUpdateFieldInSecretVault(secretVault, sbUpdatedSecretJson, field.Key, field.Value, caller).DefaultValue;
+            }
+
+            PutSecretValueResponse response = null;
+
+            // Now update the secret
+            if (!string.IsNullOrEmpty(sbUpdatedSecretJson))
+            {
+                PutSecretValueRequest request = new PutSecretValueRequest();
+                request.SecretId = secretVault.VaultId;
+                request.SecretString = sbUpdatedSecretJson;
+                try
+                {
+                    response = await SecretClient.PutSecretValueAsync(request);
+                }
+                catch (EncryptionFailureException e)
+                {
+                    // Secrets Manager can't encrypt the protected secret text using the provided KMS key.\
+                    Logger.Error(string.Format(Deploy_LaunchPad_AWS_Resources.Logger_Error_WriteValueToSecret_Exception, secretVault.Id, e.Message));
+                    throw;
+                }
+                catch (InternalServiceErrorException e)
+                {
+                    // An error occurred on the server side.
+                    Logger.Error(string.Format(Deploy_LaunchPad_AWS_Resources.Logger_Error_WriteValueToSecret_Exception, secretVault.Id, e.Message));
+                    throw;
+                }
+                catch (InvalidParameterException e)
+                {
+                    // You provided an invalid value for a parameter.
+                    Logger.Error(string.Format(Deploy_LaunchPad_AWS_Resources.Logger_Error_WriteValueToSecret_Exception, secretVault.Id, e.Message));
+                    throw;
+                }
+                catch (InvalidRequestException e)
+                {
+                    // You provided a parameter value that is not valid for the current state of the resource.
+                    Logger.Error(string.Format(Deploy_LaunchPad_AWS_Resources.Logger_Error_WriteValueToSecret_Exception, secretVault.Id, e.Message));
+                    throw;
+                }
+                catch (ResourceNotFoundException e)
+                {
+                    // We can't find the resource that you asked for.
+                    Logger.Error(string.Format(Deploy_LaunchPad_AWS_Resources.Logger_Error_WriteValueToSecret_Exception, secretVault.Id, e.Message));
+                    throw;
+                }
+                catch (ResourceExistsException e)
+                {
+                    // A resource with the ID you requested already exists.
+                    Logger.Error(string.Format(Deploy_LaunchPad_AWS_Resources.Logger_Error_WriteValueToSecret_Exception, secretVault.Id, e.Message));
+                    throw;
+                }
+                catch (AggregateException e)
+                {
+                    // More than one of the above exceptions were triggered.
+                    Logger.Error(string.Format(Deploy_LaunchPad_AWS_Resources.Logger_Error_WriteValueToSecret_Exception, secretVault.Id, e.Message));
+                    throw;
+                }
+
+            }
+            return response.HttpStatusCode;
         }
 
 
@@ -102,7 +347,7 @@ namespace Deploy.LaunchPad.AWS.SecretsManager
         /// <param name="secretVault">The secret vault.</param>
         /// <param name="caller">The caller.</param>
         /// <returns>A Task&lt;System.String&gt; representing the asynchronous operation.</returns>
-        public async override Task<string> GetJsonFromSecretVaultAsync(ISecretVault secretVault, string caller, bool keyIsCaseInsensitive = true)
+        public async virtual Task<string> GetJsonFromSecretVaultAsync(ISecretVault secretVault, string caller, bool keyIsCaseInsensitive = true)
         {
             Logger.Info(string.Format(Deploy_LaunchPad_AWS_Resources.Logger_Info_GetJsonFromSecret_Getting,
                 secretVault.Id,
@@ -169,7 +414,7 @@ namespace Deploy.LaunchPad.AWS.SecretsManager
         /// <returns>IAM credentials if value, or null</returns>
         public virtual ImmutableCredentials GetCredentialsFromSecret(string arn)
         {
-            AwsSecretVault vault = (AwsSecretVault)GetSecretVaultByVaultId(arn, "AwsSecretProvier.GetCredentialsFromSecret(string secretVaultIdentifier)");
+            AwsSecretVault vault = (AwsSecretVault)GetSecretVaultById(arn, "AwsSecretProvier.GetCredentialsFromSecret(string secretVaultIdentifier)");
             return GetCredentialsFromSecret(vault);
         }
 
@@ -276,199 +521,52 @@ namespace Deploy.LaunchPad.AWS.SecretsManager
             return client;
 
         }
-        // Refresh methods
-        /// <summary>
-        /// Refreshes the secret vault.
-        /// </summary>
-        /// <param name="arn">The arn.</param>
-        /// <param name="caller">The caller.</param>
-        /// <returns>ISecretVault.</returns>
-        public override ISecretVault RefreshSecretVault(string arn, string caller)
+
+        public override ISettingDefinition GetValueFromSecretVault(ISecretVault secretVault, string key, string caller, bool keyIsCaseInsensitive = true)
         {
-            return GetSecretVaultByIdAsync(arn, caller).Result;
+            return GetValueFromSecretVaultAsync(secretVault, key, caller, keyIsCaseInsensitive).Result;
         }
 
-        /// <summary>
-        /// Refresh secret vault as an asynchronous operation.
-        /// </summary>
-        /// <param name="arn">The arn.</param>
-        /// <param name="caller">The caller.</param>
-        /// <returns>A Task&lt;ISecretVault&gt; representing the asynchronous operation.</returns>
-        public override async Task<ISecretVault> RefreshSecretVaultAsync(string arn, string caller)
+        public override async Task<ISettingDefinition> GetValueFromSecretVaultAsync(ISecretVault secretVault, string key, string caller, bool keyIsCaseInsensitive = true)
         {
-            var vault = await GetSecretVaultByIdAsync(arn, "AwsSecretProvier.RefreshSecretVault(string vaultId, string caller)");
-            return vault;
-        }
-
-
-        /// <summary>
-        /// Refreshes the secret vault.
-        /// </summary>
-        /// <param name="secretVault">The secret vault.</param>
-        /// <param name="caller">The caller.</param>
-        /// <returns>ISecretVault.</returns>
-        public override ISecretVault RefreshSecretVault(ISecretVault secretVault, string caller)
-        {
-            return RefreshSecretVaultAsync(secretVault, caller).Result;
-        }
-
-        /// <summary>
-        /// Refresh secret vault as an asynchronous operation.
-        /// </summary>
-        /// <param name="secretVault">The secret vault.</param>
-        /// <param name="caller">The caller.</param>
-        /// <returns>A Task&lt;ISecretVault&gt; representing the asynchronous operation.</returns>
-        public override async Task<ISecretVault> RefreshSecretVaultAsync(ISecretVault secretVault, string caller)
-        {
-            secretVault.Fields = await GetAllValuesFromSecretVaultAsync(secretVault, caller);
-            return secretVault;
-        }
-
-        // update methods
-        /// <summary>
-        /// Creates the or update field in secret vault.
-        /// </summary>
-        /// <param name="secretVault">The secret vault.</param>
-        /// <param name="originalSecretJson">The original secret json.</param>
-        /// <param name="key">The key.</param>
-        /// <param name="value">The value.</param>
-        /// <param name="caller">The caller.</param>
-        /// <returns>System.String.</returns>
-        public override string CreateOrUpdateFieldInSecretVault(ISecretVault secretVault, string originalSecretJson, string key, string value, string caller)
-        {
-            Logger.Info(string.Format(Deploy_LaunchPad_AWS_Resources.Logger_Info_UpdateJsonForSecret_Updating, value, key, secretVault.Id));
-            Logger.Debug(string.Format("Caller = '{0}'.", caller));
-            string updatedJsonString = originalSecretJson;
-
-            JObject jObject = Newtonsoft.Json.JsonConvert.DeserializeObject(originalSecretJson) as JObject;
-
-            // Try to select the nested property (if it exists) using the key
-            // but also check a parameterized version in format ['key.abc'] in case it contains periods or special characters.
-            string parameterizedJsonKey = "['" + key + "']";
-            var jTokenValues = jObject.Root.Values<JToken>();
-            JToken jToken = jTokenValues.FirstOrDefault(x => x.Path == key || x.Path == parameterizedJsonKey);
-            if (jToken != null)
+            // Get the secret value from AWS Secrets Manager
+            var request = new Amazon.SecretsManager.Model.GetSecretValueRequest
             {
-                // The property exists - update its value
-                //jToken.Replace(value);
-                jObject[jToken.Path] = value;
-            }
-            else // The property does not exist, insert a new one
+                SecretId = secretVault.Id,
+                VersionStage = "AWSCURRENT"
+            };
+
+            var response = await SecretClient.GetSecretValueAsync(request);
+            if (string.IsNullOrEmpty(response.SecretString))
             {
-                JProperty newProperty = new JProperty(key, value);
-                jObject.Add(newProperty);
-            }
-            // Convert the JObject back to a string to get the resulting Json from the updated secret
-            updatedJsonString = jObject.ToString();
-
-            Logger.Info(string.Format(Deploy_LaunchPad_AWS_Resources.Logger_Info_UpdateJsonForSecret_Updated, value, key, secretVault.Id));
-            return updatedJsonString;
-        }
-
-        /// <summary>
-        /// Writes the text value of a particular key, to a given secret ARN
-        /// </summary>
-        /// <param name="secretVault">The secret vault.</param>
-        /// <param name="fieldsToInsertOrUpdate">The fields to insert or update.</param>
-        /// <param name="caller">The caller.</param>
-        /// <returns>A status code with the result of the request</returns>
-        public override HttpStatusCode UpdateFieldsInSecretVault(ISecretVault secretVault, IDictionary<string, string> fieldsToInsertOrUpdate, string caller)
-        {
-            return UpdateFieldsInSecretVaultAsync(secretVault, fieldsToInsertOrUpdate, caller).Result;
-        }
-
-        /// <summary>
-        /// Writes the text value of a particular key, to a given secret ARN
-        /// </summary>
-        /// <param name="secretVault">The secret vault in which the field is stored</param>
-        /// <param name="fieldsToInsertOrUpdate">The fields to insert or update.</param>
-        /// <param name="caller">The caller.</param>
-        /// <returns>A status code with the result of the request</returns>
-        public async override Task<HttpStatusCode> UpdateFieldsInSecretVaultAsync(ISecretVault secretVault, IDictionary<string, string> fieldsToInsertOrUpdate, string caller)
-        {
-            string originalSecretJson = await GetJsonFromSecretVaultAsync(secretVault, caller);
-
-            // for each value in the dictionary, try to update the JSON
-            string sbUpdatedSecretJson = originalSecretJson;
-            foreach (var field in fieldsToInsertOrUpdate)
-            {
-                sbUpdatedSecretJson = CreateOrUpdateFieldInSecretVault(secretVault, sbUpdatedSecretJson, field.Key, field.Value, caller);
+                return null;
             }
 
-            PutSecretValueResponse response = null;
+            var secretObj = JObject.Parse(response.SecretString);
 
-            // Now update the secret
-            if (!string.IsNullOrEmpty(sbUpdatedSecretJson))
+            string value = null;
+            if (keyIsCaseInsensitive)
             {
-                PutSecretValueRequest request = new PutSecretValueRequest();
-                request.SecretId = secretVault.VaultId;
-                request.SecretString = sbUpdatedSecretJson;
-                try
+                // Find the key in a case-insensitive manner
+                var property = secretObj.Properties()
+                    .FirstOrDefault(p => string.Equals(p.Name, key, StringComparison.OrdinalIgnoreCase));
+                if (property != null)
                 {
-                    response = await SecretClient.PutSecretValueAsync(request);
+                    value = property.Value.ToString();
                 }
-                catch (EncryptionFailureException e)
-                {
-                    // Secrets Manager can't encrypt the protected secret text using the provided KMS key.\
-                    Logger.Error(string.Format(Deploy_LaunchPad_AWS_Resources.Logger_Error_WriteValueToSecret_Exception, secretVault.Id, e.Message));
-                    throw;
-                }
-                catch (InternalServiceErrorException e)
-                {
-                    // An error occurred on the server side.
-                    Logger.Error(string.Format(Deploy_LaunchPad_AWS_Resources.Logger_Error_WriteValueToSecret_Exception, secretVault.Id, e.Message));
-                    throw;
-                }
-                catch (InvalidParameterException e)
-                {
-                    // You provided an invalid value for a parameter.
-                    Logger.Error(string.Format(Deploy_LaunchPad_AWS_Resources.Logger_Error_WriteValueToSecret_Exception, secretVault.Id, e.Message));
-                    throw;
-                }
-                catch (InvalidRequestException e)
-                {
-                    // You provided a parameter value that is not valid for the current state of the resource.
-                    Logger.Error(string.Format(Deploy_LaunchPad_AWS_Resources.Logger_Error_WriteValueToSecret_Exception, secretVault.Id, e.Message));
-                    throw;
-                }
-                catch (ResourceNotFoundException e)
-                {
-                    // We can't find the resource that you asked for.
-                    Logger.Error(string.Format(Deploy_LaunchPad_AWS_Resources.Logger_Error_WriteValueToSecret_Exception, secretVault.Id, e.Message));
-                    throw;
-                }
-                catch (ResourceExistsException e)
-                {
-                    // A resource with the ID you requested already exists.
-                    Logger.Error(string.Format(Deploy_LaunchPad_AWS_Resources.Logger_Error_WriteValueToSecret_Exception, secretVault.Id, e.Message));
-                    throw;
-                }
-                catch (AggregateException e)
-                {
-                    // More than one of the above exceptions were triggered.
-                    Logger.Error(string.Format(Deploy_LaunchPad_AWS_Resources.Logger_Error_WriteValueToSecret_Exception, secretVault.Id, e.Message));
-                    throw;
-                }
-
             }
-            return response.HttpStatusCode;
-        }
+            else
+            {
+                value = secretObj[key]?.ToString();
+            }
 
+            if (value == null)
+            {
+                return null;
+            }
 
-        public override async Task<string?> GetValueOrNullAsync(
-            SettingSecretProviderDescriptor source,
-            ISettingDefinition definition,
-            CancellationToken cancellationToken = default)
-        {
-            return await Task.FromResult(GetValueOrNull(source, definition));
-        }
-
-        public override string? GetValueOrNull(
-            SettingSecretProviderDescriptor source,
-            ISettingDefinition definition)
-        {
-            // lookup from AWS
-            return null;
+            // Create a SettingDefinition (constructor may need adjustment based on your actual implementation)
+            return new SettingDefinition(key, value);
         }
     }
 }

@@ -11,6 +11,7 @@
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
+using Deploy.LaunchPad.Core.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,15 +29,15 @@ namespace Deploy.LaunchPad.Core.Secrets
         /// Gets the fields.
         /// </summary>
         /// <value>The fields.</value>
-        public IDictionary<string, string> Fields { get; set; }
+        public IDictionary<string, ISettingDefinition> Fields { get; set; }
 
-        public bool AddField(string key, string value);
+        public bool AddField(string key, ISettingDefinition value);
 
-        public bool UpdateField(string key, string value);
+        public bool UpdateField(string key, ISettingDefinition value);
 
-        public bool RemoveField(string key, string value);
+        public bool RemoveField(string key, ISettingDefinition value);
 
-        public string GetValue(string key, string caller, bool keyIsCaseInsensitive = true);
+        public ISettingDefinition GetValue(string key, string caller, bool keyIsCaseInsensitive = true);
 
         /// <summary>
         /// Finds the values for keys.
@@ -44,7 +45,7 @@ namespace Deploy.LaunchPad.Core.Secrets
         /// <param name="keys">The keys.</param>
         /// <param name="caller">The caller.</param>
         /// <returns>IDictionary&lt;System.String, System.String&gt;.</returns>
-        public IDictionary<string, string> FindValuesForKeys(IList<string> keys, string caller, bool keyIsCaseInsensitive = true);
+        public IDictionary<string, ISettingDefinition> FindValuesForKeys(IList<string> keys, string caller, bool keyIsCaseInsensitive = true);
 
     }
 }

@@ -92,105 +92,6 @@ namespace Deploy.LaunchPad.Core.Secrets
         // get methods
 
         /// <summary>
-        /// Gets the json from secret vault.
-        /// </summary>
-        /// <param name="secretVault">The secret vault.</param>
-        /// <param name="caller">The caller.</param>
-        /// <returns>System.String.</returns>
-        public virtual string GetJsonFromSecretVault(ISecretVault secretVault, string caller, bool keyIsCaseInsensitive = true)
-        {
-            return GetJsonFromSecretVaultAsync(secretVault, caller, keyIsCaseInsensitive).Result;
-        }
-
-        /// <summary>
-        /// Gets the json from secret vault asynchronous.
-        /// </summary>
-        /// <param name="secretVault">The secret vault.</param>
-        /// <param name="caller">The caller.</param>
-        /// <returns>Task&lt;System.String&gt;.</returns>
-        public abstract Task<string> GetJsonFromSecretVaultAsync(ISecretVault secretVault, string caller, bool keyIsCaseInsensitive = true);
-
-        /// <summary>
-        /// Gets the value from secret vault.
-        /// </summary>
-        /// <param name="secretVaultIdentifier">The secret vault identifier.</param>
-        /// <param name="key">The key.</param>
-        /// <param name="caller">The caller.</param>
-        /// <returns>System.String.</returns>
-        public virtual string GetValueFromSecretVault(string secretVaultIdentifier, string key, string caller)
-        {
-            var secretVault = GetSecretVaultById(secretVaultIdentifier, caller);
-            return GetValueFromSecretVaultAsync(secretVault, key, caller).Result;
-        }
-        /// <summary>
-        /// Returns the text value of of a particular key, from a given secret ARN
-        /// </summary>
-        /// <param name="secretVault">The secret vault.</param>
-        /// <param name="key">The key.</param>
-        /// <param name="caller">The caller.</param>
-        /// <returns>System.String.</returns>
-        public virtual string GetValueFromSecretVault(ISecretVault secretVault, string key, string caller, bool keyIsCaseInsensitive = true)
-        {
-            return GetValueFromSecretVaultAsync(secretVault, key, caller, keyIsCaseInsensitive).Result;
-        }
-
-
-        /// <summary>
-        /// Returns the text value of of a particular key, from a given secret ARN
-        /// </summary>
-        /// <param name="secretVault">The secret vault.</param>
-        /// <param name="key">The key.</param>
-        /// <param name="caller">The caller.</param>
-        /// <returns>A Task&lt;System.String&gt; representing the asynchronous operation.</returns>
-        public virtual async Task<string> GetValueFromSecretVaultAsync(ISecretVault secretVault, string key, string caller, bool keyIsCaseInsensitive = true)
-        {
-            string secretStringJson = await GetJsonFromSecretVaultAsync(secretVault, caller);
-            string val = string.Empty;
-            // Decrypts secret
-            if (!string.IsNullOrEmpty(secretStringJson))
-            {
-                dynamic secretObj = JObject.Parse(secretStringJson);
-                val = secretObj[key];
-            }
-            return val;
-        }
-
-        public abstract Task<string?> GetValueOrNullAsync(
-            SettingSecretProviderDescriptor source,
-            ISettingDefinition definition,
-            CancellationToken cancellationToken = default);
-
-        public abstract string? GetValueOrNull(
-            SettingSecretProviderDescriptor source,
-            ISettingDefinition definition);
-
-        /// <summary>
-        /// Returns the set of all key value pairs, which are part of a given secret ARN
-        /// The field names do not have to be known ahead of time.
-        /// </summary>
-        /// <param name="secretVault">The secret vault.</param>
-        /// <param name="caller">The caller.</param>
-        /// <returns>A Task&lt;IDictionary`2&gt; representing the asynchronous operation.</returns>
-        public virtual async Task<IDictionary<string, string>> GetAllValuesFromSecretVaultAsync(ISecretVault secretVault, string caller)
-        {
-            string secretStringJson = await GetJsonFromSecretVaultAsync(secretVault, caller);
-            IDictionary<string, string> kvps = null;
-
-            // Decrypt the secret
-            if (!string.IsNullOrEmpty(secretStringJson))
-            {
-                kvps = new Dictionary<string, string>();
-                dynamic secretJson = JValue.Parse(secretStringJson);
-                // loop through the desired set of keys to find the corresponding values in the JSON
-                foreach (Newtonsoft.Json.Linq.JProperty jproperty in secretJson)
-                {
-                    kvps.Add(jproperty.Name, jproperty.Value.ToString());
-                }
-            }
-            return kvps;
-        }
-
-        /// <summary>
         /// Gets the secret vault by identifier.
         /// </summary>
         /// <param name="id">The identifier.</param>
@@ -208,24 +109,32 @@ namespace Deploy.LaunchPad.Core.Secrets
         /// <returns>Task&lt;ISecretVault&gt;.</returns>
         public abstract Task<ISecretVault> GetSecretVaultByIdAsync(string id, string caller);
 
-        /// <summary>
-        /// Gets the secret vault by vault identifier.
-        /// </summary>
-        /// <param name="vaultId">The vault identifier.</param>
-        /// <param name="caller">The caller.</param>
-        /// <returns>ISecretVault.</returns>
-        public virtual ISecretVault GetSecretVaultByVaultId(string vaultId, string caller)
-        {
-            return GetSecretVaultByVaultIdAsync(vaultId, caller).Result;
-        }
+        public abstract Task<string?> GetValueOrNullForSettingSecretProviderDescriptorAsync(
+            SettingSecretProviderDescriptor source,
+            ISettingDefinition definition,
+            CancellationToken cancellationToken = default);
+
+        public abstract string? GetValueOrNullForSettingSecretProviderDescriptor(
+            SettingSecretProviderDescriptor source,
+            ISettingDefinition definition);
 
         /// <summary>
-        /// Gets the secret vault by vault identifier asynchronous.
+        /// Gets the value from secret vault.
         /// </summary>
-        /// <param name="vaultId">The vault identifier.</param>
+        /// <param name="secretVaultIdentifier">The secret vault identifier.</param>
+        /// <param name="key">The key.</param>
         /// <param name="caller">The caller.</param>
-        /// <returns>Task&lt;ISecretVault&gt;.</returns>
-        public abstract Task<ISecretVault> GetSecretVaultByVaultIdAsync(string vaultId, string caller);
+        /// <returns>System.String.</returns>
+        public abstract ISettingDefinition GetValueFromSecretVault(ISecretVault secretVault, string key, string caller, bool keyIsCaseInsensitive = true);
+
+        /// <summary>
+        /// Returns the text value of of a particular key, from a given secret key
+        /// </summary>
+        /// <param name="secretVault">The secret vault.</param>
+        /// <param name="key">The key.</param>
+        /// <param name="caller">The caller.</param>
+        /// <returns>System.String.</returns>
+        public abstract Task<ISettingDefinition> GetValueFromSecretVaultAsync(ISecretVault secretVault, string key, string caller, bool keyIsCaseInsensitive = true);
 
         /// <summary>
         /// Returns the set of key value pairs for a given set of keys, which are part of a given secret vault's fields
@@ -234,36 +143,64 @@ namespace Deploy.LaunchPad.Core.Secrets
         /// <param name="keys">The list of keys you are looking for</param>
         /// <param name="caller">The caller.</param>
         /// <returns>A Task&lt;IDictionary`2&gt; representing the asynchronous operation.</returns>
-        public virtual async Task<IDictionary<string, string>> FindValuesForKeysAsync(ISecretVault secretVault, IList<string> keys, string caller, bool keyIsCaseInsensitive = true)
-        {
-            string secretStringJson = await GetJsonFromSecretVaultAsync(secretVault, caller, keyIsCaseInsensitive);
-            IDictionary<string, string> kvps = null;
+        public abstract Task<IDictionary<string, ISettingDefinition>> GetValuesForKeysAsync(ISecretVault secretVault, IList<string> keys, string caller, bool keyIsCaseInsensitive = true);
+        //{
+        //    string secretStringJson = await GetJsonFromSecretVaultAsync(secretVault, caller, keyIsCaseInsensitive);
+        //    IDictionary<string, ISettingDefinition> kvps = null;
 
-            // Decrypt the secret
-            if (!string.IsNullOrEmpty(secretStringJson))
-            {
-                dynamic secretObj = JObject.Parse(secretStringJson);
-                kvps = new Dictionary<string, string>();
-                // loop through the desired set of keys to find the corresponding values in the JSON
-                foreach (string key in keys)
-                {
-                    string value = string.Empty;
-                    if (keyIsCaseInsensitive)
-                    {
-                        value = secretObj[key.ToLower()];
-                    }
-                    else
-                    {
-                        value = secretObj[key];
-                    }
-                    if (!string.IsNullOrEmpty(value))
-                    {
-                        kvps.Add(key, value);
-                    }
-                }
-            }
-            return kvps;
-        }
+        //    // Decrypt the secret
+        //    if (!string.IsNullOrEmpty(secretStringJson))
+        //    {
+        //        dynamic secretObj = JObject.Parse(secretStringJson);
+        //        kvps = new Dictionary<string, ISettingDefinition>();
+        //        // loop through the desired set of keys to find the corresponding values in the JSON
+        //        foreach (string key in keys)
+        //        {
+        //            ISettingDefinition value = null;
+        //            if (keyIsCaseInsensitive)
+        //            {
+        //                value = secretObj[key.ToLower()];
+        //            }
+        //            else
+        //            {
+        //                value = secretObj[key];
+        //            }
+        //            if (value != null)
+        //            {
+        //                kvps.Add(key, value);
+        //            }
+        //        }
+        //    }
+        //    return kvps;
+        //}
+
+        /// <summary>
+        /// Returns the set of all key value pairs, which are part of a given secret ARN
+        /// The field names do not have to be known ahead of time.
+        /// </summary>
+        /// <param name="secretVault">The secret vault.</param>
+        /// <param name="caller">The caller.</param>
+        /// <returns>A Task&lt;IDictionary`2&gt; representing the asynchronous operation.</returns>
+        public abstract  Task<IDictionary<string, ISettingDefinition>> GetAllValuesFromSecretVaultAsync(ISecretVault secretVault, string caller);
+        //{
+        //    string secretStringJson = await GetJsonFromSecretVaultAsync(secretVault, caller);
+        //    IDictionary<string, ISettingDefinition> kvps = null;
+
+        //    // Decrypt the secret
+        //    if (!string.IsNullOrEmpty(secretStringJson))
+        //    {
+        //        kvps = new Dictionary<string, ISettingDefinition>();
+        //        dynamic secretJson = JValue.Parse(secretStringJson);
+        //        // loop through the desired set of keys to find the corresponding values in the JSON
+        //        foreach (Newtonsoft.Json.Linq.JProperty jproperty in secretJson)
+        //        {
+        //            ISettingDefinition settingDefinition = new SettingDefinition
+        //            (jproperty.Name, jproperty.Value.ToString(), null,null,null, SettingScopes.Application, false,false,null);
+        //            kvps.Add(jproperty.Name, settingDefinition);
+        //        }
+        //    }
+        //    return kvps;
+        //}
 
         // Refresh methods
         /// <summary>
@@ -321,7 +258,7 @@ namespace Deploy.LaunchPad.Core.Secrets
         /// <param name="fieldsToInsertOrUpdate">The fields to insert or update.</param>
         /// <param name="caller">The caller.</param>
         /// <returns>A status code with the result of the request</returns>
-        public abstract HttpStatusCode UpdateFieldsInSecretVault(ISecretVault secretVault, IDictionary<string, string> fieldsToInsertOrUpdate, string caller);
+        public abstract HttpStatusCode UpdateFieldsInSecretVault(ISecretVault secretVault, IDictionary<string, ISettingDefinition> fieldsToInsertOrUpdate, string caller);
 
         /// <summary>
         /// Writes the text value of a particular key, to a given secret ARN
@@ -330,7 +267,7 @@ namespace Deploy.LaunchPad.Core.Secrets
         /// <param name="fieldsToInsertOrUpdate">The fields to insert or update.</param>
         /// <param name="caller">The caller.</param>
         /// <returns>A status code with the result of the request</returns>
-        public abstract Task<HttpStatusCode> UpdateFieldsInSecretVaultAsync(ISecretVault secretVault, IDictionary<string, string> fieldsToInsertOrUpdate, string caller);
+        public abstract Task<HttpStatusCode> UpdateFieldsInSecretVaultAsync(ISecretVault secretVault, IDictionary<string, ISettingDefinition> fieldsToInsertOrUpdate, string caller);
 
         /// <summary>
         /// Creates the or update field in secret vault.
@@ -340,8 +277,8 @@ namespace Deploy.LaunchPad.Core.Secrets
         /// <param name="key">The key.</param>
         /// <param name="value">The value.</param>
         /// <param name="caller">The caller.</param>
-        /// <returns>System.String.</returns>
-        public abstract string CreateOrUpdateFieldInSecretVault(ISecretVault secretVault, string originalSecretJson, string key, string value, string caller);
+        /// <returns>ISettingDefinition.</returns>
+        public abstract ISettingDefinition CreateOrUpdateFieldInSecretVault(ISecretVault secretVault, string originalSecretJson, string key, ISettingDefinition value, string caller);
 
         
         /// <summary>

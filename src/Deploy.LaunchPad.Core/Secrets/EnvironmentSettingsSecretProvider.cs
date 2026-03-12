@@ -12,22 +12,12 @@ namespace Deploy.LaunchPad.Core.Secrets
     {
         public override SecretProviderType ProviderType => SecretProviderType.EnvironmentVariable;
 
-        public override string CreateOrUpdateFieldInSecretVault(ISecretVault secretVault, string originalSecretJson, string key, string value, string caller)
-        {
-            throw new NotImplementedException();
-        }
-
-        public override Task<string> GetJsonFromSecretVaultAsync(ISecretVault secretVault, string caller, bool keyIsCaseInsensitive = true)
+        public override ISettingDefinition CreateOrUpdateFieldInSecretVault(ISecretVault secretVault, string originalSecretJson, string key, ISettingDefinition value, string caller)
         {
             throw new NotImplementedException();
         }
 
         public override Task<ISecretVault> GetSecretVaultByIdAsync(string id, string caller)
-        {
-            throw new NotImplementedException();
-        }
-
-        public override Task<ISecretVault> GetSecretVaultByVaultIdAsync(string vaultId, string caller)
         {
             throw new NotImplementedException();
         }
@@ -52,31 +42,50 @@ namespace Deploy.LaunchPad.Core.Secrets
             throw new NotImplementedException();
         }
 
-        public override HttpStatusCode UpdateFieldsInSecretVault(ISecretVault secretVault, IDictionary<string, string> fieldsToInsertOrUpdate, string caller)
+        public override HttpStatusCode UpdateFieldsInSecretVault(ISecretVault secretVault, IDictionary<string, ISettingDefinition> fieldsToInsertOrUpdate, string caller)
         {
             throw new NotImplementedException();
         }
 
-        public override Task<HttpStatusCode> UpdateFieldsInSecretVaultAsync(ISecretVault secretVault, IDictionary<string, string> fieldsToInsertOrUpdate, string caller)
+        public override Task<HttpStatusCode> UpdateFieldsInSecretVaultAsync(ISecretVault secretVault, IDictionary<string, ISettingDefinition> fieldsToInsertOrUpdate, string caller)
         {
             throw new NotImplementedException();
         }
 
 
-        public override async Task<string?> GetValueOrNullAsync(
+        public override async Task<string?> GetValueOrNullForSettingSecretProviderDescriptorAsync(
             SettingSecretProviderDescriptor source,
             ISettingDefinition definition,
             CancellationToken cancellationToken = default)
         {
-            return await Task.FromResult(GetValueOrNull(source, definition));
+            return await Task.FromResult(GetValueOrNullForSettingSecretProviderDescriptor(source, definition));
         }
 
-        public override string? GetValueOrNull(
+        public override string? GetValueOrNullForSettingSecretProviderDescriptor(
             SettingSecretProviderDescriptor source,
             ISettingDefinition definition)
         {
             return Environment.GetEnvironmentVariable(source.Key);
         }
 
+        public override ISettingDefinition GetValueFromSecretVault(ISecretVault secretVault, string key, string caller, bool keyIsCaseInsensitive = true)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override Task<ISettingDefinition> GetValueFromSecretVaultAsync(ISecretVault secretVault, string key, string caller, bool keyIsCaseInsensitive = true)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override Task<IDictionary<string, ISettingDefinition>> GetValuesForKeysAsync(ISecretVault secretVault, IList<string> keys, string caller, bool keyIsCaseInsensitive = true)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override Task<IDictionary<string, ISettingDefinition>> GetAllValuesFromSecretVaultAsync(ISecretVault secretVault, string caller)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

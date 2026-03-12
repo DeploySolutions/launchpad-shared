@@ -11,6 +11,7 @@
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
+using Deploy.LaunchPad.Core.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
@@ -72,7 +73,7 @@ namespace Deploy.LaunchPad.Core.Secrets
             ProviderId = string.Empty;
             VaultId = string.Empty;
             var comparer = StringComparer.OrdinalIgnoreCase;
-            Fields = new Dictionary<string, string>(comparer);
+            Fields = new Dictionary<string, ISettingDefinition>(comparer);
 
         }
 
@@ -90,7 +91,7 @@ namespace Deploy.LaunchPad.Core.Secrets
             VaultId = vaultId;
             Description = "Vault for " + providerId + "." + vaultName;
             var comparer = StringComparer.OrdinalIgnoreCase;
-            Fields = new Dictionary<string, string>(comparer);
+            Fields = new Dictionary<string, ISettingDefinition>(comparer);
 
         }
 
@@ -103,7 +104,7 @@ namespace Deploy.LaunchPad.Core.Secrets
         /// <param name="fields">The fields.</param>
         /// <param name="description">The description.</param>
         [SetsRequiredMembers]
-        public SecretVaultBase(string providerId, string vaultId, string vaultName, IDictionary<string, string> fields, string description = "")
+        public SecretVaultBase(string providerId, string vaultId, string vaultName, IDictionary<string, ISettingDefinition> fields, string description = "")
         {
             Name = vaultName;
             ProviderId = providerId;

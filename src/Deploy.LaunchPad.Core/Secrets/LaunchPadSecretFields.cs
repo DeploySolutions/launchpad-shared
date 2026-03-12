@@ -11,6 +11,7 @@
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
+using Deploy.LaunchPad.Core.Configuration;
 using Deploy.LaunchPad.Util;
 using System;
 using System.Collections.Generic;
@@ -32,7 +33,7 @@ namespace Deploy.LaunchPad.Core.Secrets
         /// Gets the fields.
         /// </summary>
         /// <value>The fields.</value>
-        public required virtual IDictionary<string, string> Fields { get; set; }
+        public required virtual IDictionary<string, ISettingDefinition> Fields { get; set; }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="LaunchPadSecretFields"/> class.
@@ -41,13 +42,13 @@ namespace Deploy.LaunchPad.Core.Secrets
         public LaunchPadSecretFields()
         {
             var comparer = StringComparer.OrdinalIgnoreCase;
-            Fields = new Dictionary<string, string>(comparer);
+            Fields = new Dictionary<string, ISettingDefinition>(comparer);
         }
 
-        public virtual bool AddField(string key, string value)
+        public virtual bool AddField(string key, ISettingDefinition value)
         {
             Guard.AgainstNullOrEmpty(key, nameof(key));
-            Guard.AgainstNullOrEmpty(value, nameof(value));
+            Guard.AgainstNull(value, nameof(value));
             if (Fields.ContainsKey(key))
             {
                 return false;
@@ -56,10 +57,10 @@ namespace Deploy.LaunchPad.Core.Secrets
             return true;
         }
 
-        public virtual bool UpdateField(string key, string value)
+        public virtual bool UpdateField(string key, ISettingDefinition value)
         {
             Guard.AgainstNullOrEmpty(key, nameof(key));
-            Guard.AgainstNullOrEmpty(value, nameof(value));
+            Guard.AgainstNull(value, nameof(value));
             if (!Fields.ContainsKey(key))
             {
                 return false;
@@ -68,10 +69,10 @@ namespace Deploy.LaunchPad.Core.Secrets
             return true;
         }
 
-        public virtual bool RemoveField(string key, string value)
+        public virtual bool RemoveField(string key, ISettingDefinition value)
         {
             Guard.AgainstNullOrEmpty(key, nameof(key));
-            Guard.AgainstNullOrEmpty(value, nameof(value));
+            Guard.AgainstNull(value, nameof(value));
             if (!Fields.ContainsKey(key))
             {
                 return false;
@@ -86,9 +87,9 @@ namespace Deploy.LaunchPad.Core.Secrets
         /// <param name="key">The key.</param>
         /// <param name="caller">The caller.</param>
         /// <returns>System.String.</returns>
-        public virtual string GetValue(string key, string caller, bool keyIsCaseInsensitive = true)
+        public virtual ISettingDefinition GetValue(string key, string caller, bool keyIsCaseInsensitive = true)
         {
-            string value = string.Empty;
+            ISettingDefinition value = null;
             if (keyIsCaseInsensitive)
             {
                 value = Fields.FirstOrDefault(k => k.Key.ToLower() == key.ToLower()).Value;
@@ -105,18 +106,18 @@ namespace Deploy.LaunchPad.Core.Secrets
         /// </summary>
         /// <param name="keys">The keys.</param>
         /// <param name="caller">The caller.</param>
-        /// <returns>IDictionary&lt;System.String, System.String&gt;.</returns>
-        public virtual IDictionary<string, string> FindValuesForKeys(IList<string> keys, string caller, bool keyIsCaseInsensitive = true)
+        /// <returns>IDictionary&lt;System.String, ISettingDefinition&gt;.</returns>
+        public virtual IDictionary<string, ISettingDefinition> FindValuesForKeys(IList<string> keys, string caller, bool keyIsCaseInsensitive = true)
         {
-            IDictionary<string, string> kvps = new Dictionary<string, string>();
+            IDictionary<string, ISettingDefinition> kvps = new Dictionary<string, ISettingDefinition>();
             // loop through the desired set of keys to find the corresponding values in the JSON
             if (keyIsCaseInsensitive)
             {
-                kvps = (IDictionary<string, string>)keys.Where(k => Fields.ContainsKey(k.ToLower()));
+                kvps = (IDictionary<string, ISettingDefinition>)keys.Where(k => Fields.ContainsKey(k.ToLower()));
             }
             else
             {
-                kvps = (IDictionary<string, string>)keys.Where(k => Fields.ContainsKey(k));
+                kvps = (IDictionary<string, ISettingDefinition>)keys.Where(k => Fields.ContainsKey(k));
             }
 
             return kvps;

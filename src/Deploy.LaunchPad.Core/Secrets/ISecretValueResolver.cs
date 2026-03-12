@@ -56,7 +56,7 @@ namespace Deploy.LaunchPad.Core.Secrets
                     continue;
                 }
 
-                var value = await provider.GetValueOrNullAsync(
+                var value = await provider.GetValueOrNullForSettingSecretProviderDescriptorAsync(
                     source,
                     settingDefinition,
                     cancellationToken);
@@ -93,7 +93,7 @@ namespace Deploy.LaunchPad.Core.Secrets
                     continue;
                 }
 
-                var value = provider.GetValueOrNull(source, settingDefinition);
+                var value = provider.GetValueOrNullForSettingSecretProviderDescriptor(source, settingDefinition);
 
                 if (!string.IsNullOrEmpty(value))
                 {
