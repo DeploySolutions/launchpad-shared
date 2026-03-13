@@ -43,7 +43,7 @@ namespace Deploy.LaunchPad.Core.Secrets
         /// <summary>
         /// All secret providers defined in the application.
         /// </summary>
-        IDictionary<string, ISecretProvider> Providers { get; }
+        IDictionary<string, SecretProviderBase> Providers { get; }
 
         /// <summary>
         /// Gets a list of all secrets grouped by provider. These are also listed individually in the Providers property.

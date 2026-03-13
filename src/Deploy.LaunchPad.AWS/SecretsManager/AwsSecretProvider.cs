@@ -11,10 +11,12 @@
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
+using Amazon.CloudFront.Model;
 using Amazon.Runtime.Internal.Transform;
 using Castle.Core.Logging;
 using Deploy.LaunchPad.Core.Configuration;
 using Deploy.LaunchPad.Core.Secrets;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Deploy.LaunchPad.AWS.SecretsManager
@@ -117,11 +119,22 @@ namespace Deploy.LaunchPad.AWS.SecretsManager
         {
             // add environment variables
             EnvironmentVariablesSecretVault environmentVariables = new EnvironmentVariablesSecretVault(Logger, "EnvironmentVariables");
-            var newSecret = new SettingDefinition("AWS_ACCESS_KEY_ID", "AWS Access Key Id");
+            var newSecret = new SettingDefinition("AWS_ACCESS_KEY_ID", "AWS Access Key Id")
+            { 
+                SecretSources = new List<SettingSecretProviderDescriptor>() {
+                    new SettingSecretProviderDescriptor()
+                    {
+                        VaultId = environmentVariables.VaultId,
+                        Key = "AWS_ACCESS_KEY_ID"
+                    }
+                },
+                ClientVisibilityProvider = new HiddenSettingClientVisibilityProvider(),
+                IsEncrypted = true
+            };
             environmentVariables.AddField(newSecret.Name, newSecret);
             SecretVaults.Add(environmentVariables.VaultId, environmentVariables);
             // add usersecrets.json
-
+            context.Manager.Secrets.Add(newSecret.Name,newSecret);
 
         }
     }
