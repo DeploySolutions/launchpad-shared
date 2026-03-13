@@ -30,11 +30,12 @@
  */
 #endregion
 
-using Deploy.LaunchPad.Core.Localization;
 using Deploy.LaunchPad.Core.Configuration;
+using Deploy.LaunchPad.Core.Localization;
+using Deploy.LaunchPad.Core.Secrets;
 using System;
 using System.Collections.Generic;
-using Deploy.LaunchPad.Core.Secrets;
+using System.Diagnostics;
 
 namespace Deploy.LaunchPad.Core.Configuration
 {
@@ -42,8 +43,15 @@ namespace Deploy.LaunchPad.Core.Configuration
     /// Defines a setting.
     /// A setting is used to configure and change behavior of the application.
     /// </summary>
+    [DebuggerDisplay("{_debugDisplay}")]
     public partial class SettingDefinition : ISettingDefinition
     {
+        /// <summary>
+        /// Controls the DebuggerDisplay attribute presentation (above). This will only appear during VS debugging sessions and should never be logged.
+        /// </summary>
+        /// <value>The debug display.</value>
+        protected virtual string _debugDisplay => $"{Name}.{DefaultValue}";
+
         /// <summary>
         /// Unique name of the setting.
         /// </summary>
