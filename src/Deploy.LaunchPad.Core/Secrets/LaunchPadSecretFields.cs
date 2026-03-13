@@ -89,6 +89,17 @@ namespace Deploy.LaunchPad.Core.Secrets
         /// <returns>System.String.</returns>
         public virtual ISettingDefinition GetValue(string key, string caller, bool keyIsCaseInsensitive = true)
         {
+            return GetValueAsync(key, caller, keyIsCaseInsensitive).GetAwaiter().GetResult();
+        }
+
+        /// <summary>
+        /// Gets the value.
+        /// </summary>
+        /// <param name="key">The key.</param>
+        /// <param name="caller">The caller.</param>
+        /// <returns>System.String.</returns>
+        public virtual async Task<ISettingDefinition> GetValueAsync(string key, string caller, bool keyIsCaseInsensitive = true)
+        {
             ISettingDefinition value = null;
             if (keyIsCaseInsensitive)
             {
@@ -98,7 +109,7 @@ namespace Deploy.LaunchPad.Core.Secrets
             {
                 value = Fields.FirstOrDefault(k => k.Key == key).Value;
             }
-            return value;
+            return await Task.FromResult(value);
         }
 
         /// <summary>

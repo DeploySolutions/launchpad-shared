@@ -38,6 +38,8 @@ namespace Deploy.LaunchPad.Core.Secrets
         public bool RemoveField(string key, ISettingDefinition value);
 
         public ISettingDefinition GetValue(string key, string caller, bool keyIsCaseInsensitive = true);
+        
+        public Task<ISettingDefinition> GetValueAsync(string key, string caller, bool keyIsCaseInsensitive = true);
 
         /// <summary>
         /// Finds the values for keys.

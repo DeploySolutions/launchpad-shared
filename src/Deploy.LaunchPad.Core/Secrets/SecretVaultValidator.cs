@@ -30,15 +30,13 @@ namespace Deploy.LaunchPad.Core.Secrets
         /// <param name="logger">The logger.</param>
         public SecretVaultValidator(ILogger logger)
         {
-            RuleFor(x => x.Id)
-                .NotNull().NotEmpty();
-            RuleFor(x => x.Name)
+            RuleFor(x => x.ProviderId)
                 .NotNull().NotEmpty();
             RuleFor(x => x.VaultId)
                 .NotNull().NotEmpty().Must(id => !id.StartsWith("{{p:"))
                 .WithMessage("The vault id must not start with a token value i.e. {{");
-            RuleFor(x => x.ProviderId)
-                .NotNull().NotEmpty();
+            RuleFor(x => x.Name)
+                .NotNull().NotEmpty(); 
             RuleFor(x => x.Fields)
                 .NotNull().NotEmpty();
 

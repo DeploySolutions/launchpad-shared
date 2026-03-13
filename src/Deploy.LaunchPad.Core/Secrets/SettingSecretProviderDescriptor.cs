@@ -6,7 +6,8 @@ namespace Deploy.LaunchPad.Core.Secrets
 {
     public sealed class SettingSecretProviderDescriptor
     {
-        public SecretProviderType Provider { get; set; }
+
+        public string VaultId { get; set; }
 
         public string Key { get; init; } = default;
 

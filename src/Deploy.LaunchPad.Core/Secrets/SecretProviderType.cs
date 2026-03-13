@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Deploy.LaunchPad.Core.Secrets
 {
-    public enum SecretProviderType
+    public enum SecretSource
     {
         None = 0,
         EnvironmentVariable = 1,
