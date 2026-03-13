@@ -65,6 +65,8 @@ namespace Deploy.LaunchPad.Core.Secrets
 
         public virtual SecretSource Source { get; set; } = SecretSource.None;
 
+        public virtual bool IsReadOnly { get; set; } = true;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="SecretVaultBase"/> class.
         /// </summary>
