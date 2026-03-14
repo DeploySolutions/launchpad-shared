@@ -133,8 +133,10 @@ namespace Deploy.LaunchPad.AWS.SecretsManager
             };
             environmentVariables.AddField(newSecret.Name, newSecret);
             SecretVaults.Add(environmentVariables.VaultId, environmentVariables);
-            // add usersecrets.json
             context.Manager.Secrets.Add(newSecret.Name,newSecret);
+
+            // add user secrets json
+
 
         }
     }
