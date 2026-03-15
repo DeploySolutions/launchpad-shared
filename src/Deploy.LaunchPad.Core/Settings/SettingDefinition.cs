@@ -44,70 +44,14 @@ namespace Deploy.LaunchPad.Core.Configuration
     /// A setting is used to configure and change behavior of the application.
     /// </summary>
     [DebuggerDisplay("{_debugDisplay}")]
-    public partial class SettingDefinition : ISettingDefinition
+    public partial class SettingDefinition : SettingDefinitionBase
     {
         /// <summary>
         /// Controls the DebuggerDisplay attribute presentation (above). This will only appear during VS debugging sessions and should never be logged.
         /// </summary>
         /// <value>The debug display.</value>
         protected virtual string _debugDisplay => $"{Name}.{DefaultValue}";
-
-        /// <summary>
-        /// Unique name of the setting.
-        /// </summary>
-        public virtual string Name { get; set; }
-
-        /// <summary>
-        /// Display name of the setting.
-        /// This can be used to show setting to the user.
-        /// </summary>
-        public virtual ILocalizableString DisplayName { get; set; }
-
-        /// <summary>
-        /// A brief description for this setting.
-        /// </summary>
-        public virtual ILocalizableString Description { get; set; }
-
-        /// <summary>
-        /// Scopes of this setting.
-        /// Default value: <see cref="SettingScopes.Application"/>.
-        /// </summary>
-        public virtual SettingScopes Scopes { get; set; }
-
-        /// <summary>
-        /// Is this setting inherited from parent scopes.
-        /// Default: True.
-        /// </summary>
-        public virtual bool IsInherited { get; set; }
-
-        /// <summary>
-        /// Gets/sets group for this setting.
-        /// </summary>
-        public virtual ISettingDefinitionGroup Group { get; set; }
-
-        /// <summary>
-        /// Default value of the setting.
-        /// </summary>
-        public virtual string DefaultValue { get; set; }
-
-        /// <summary>
-        /// Client visibility definition for the setting.
-        /// </summary>
-        public virtual ISettingClientVisibilityProvider ClientVisibilityProvider { get; set; }
-
-        /// <summary>
-        /// Can be used to store a custom object related to this setting.
-        /// </summary>
-        public virtual object CustomData { get; set; }
-
-        /// <summary>
-        /// Is this setting stored as encrypted in the data source.
-        /// Default: False.
-        /// </summary>
-        public virtual bool IsEncrypted { get; set; }
-
-        public virtual IReadOnlyList<SettingSecretProviderDescriptor> SecretSources { get; init; } = Array.Empty<SettingSecretProviderDescriptor>();
-
+        
         /// <summary>
         /// Creates a new <see cref="SettingDefinition"/> object.
         /// </summary>

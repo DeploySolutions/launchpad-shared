@@ -65,7 +65,7 @@ namespace Deploy.LaunchPad.Core.Secrets
 
         public virtual SecretSource Source { get; set; } = SecretSource.None;
 
-        public virtual bool IsReadOnly { get; set; } = true;
+        public virtual bool IsWritable { get; set; } = false;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="SecretVaultBase"/> class.
@@ -203,10 +203,28 @@ namespace Deploy.LaunchPad.Core.Secrets
 
         public abstract Task<string> GetValueOrNullForSettingSecretProviderDescriptorAsync(SettingSecretProviderDescriptor source, ISettingDefinition definition, CancellationToken cancellationToken = default);
         public abstract string GetValueOrNullForSettingSecretProviderDescriptor(SettingSecretProviderDescriptor source, ISettingDefinition definition);
-        public abstract ISettingDefinition GetValue(string key, string caller, bool keyIsCaseInsensitive = true);
-        public abstract Task<ISettingDefinition> GetValueAsync(string key, string caller, bool keyIsCaseInsensitive = true);
-        public abstract ISettingDefinition CreateOrUpdateField(string originalSecretJson, string key, ISettingDefinition value, string caller);
-        public abstract HttpStatusCode BatchUpdateFields(IDictionary<string, ISettingDefinition> fieldsToInsertOrUpdate, string caller);
-        public abstract Task<HttpStatusCode> BatchUpdateFieldsAsync(IDictionary<string, ISettingDefinition> fieldsToInsertOrUpdate, string caller);
+        
+        public virtual ISettingDefinition CreateOrUpdateField(string originalSecretJson, string key, ISettingDefinition value, string caller)
+        {
+            if (IsWritable)
+            {
+                throw new NotImplementedException();
+            }
+            return null;
+        }
+
+        public virtual HttpStatusCode BatchUpdateFields(IDictionary<string, ISettingDefinition> fieldsToInsertOrUpdate, string caller)
+        {
+            return BatchUpdateFieldsAsync(fieldsToInsertOrUpdate, caller).Result;
+        }
+
+        public virtual Task<HttpStatusCode> BatchUpdateFieldsAsync(IDictionary<string, ISettingDefinition> fieldsToInsertOrUpdate, string caller)
+        {
+            if (IsWritable)
+            {
+                throw new NotImplementedException();
+            }
+            return Task.FromResult(HttpStatusCode.NotImplemented);
+        }
     }
 }

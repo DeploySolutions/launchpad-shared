@@ -12,14 +12,14 @@ namespace Deploy.LaunchPad.Core.Configuration
     public partial interface ISettingDefinition : IMustHaveDisplayName, IMustHaveFullName
     {
         
-        ISettingClientVisibilityProvider ClientVisibilityProvider { get; set; }
-        object CustomData { get; set; }
-        string DefaultValue { get; set; }
-        ILocalizableString Description { get; set; }
-        ISettingDefinitionGroup Group { get; set; }
-        bool IsEncrypted { get; set; }
-        bool IsInherited { get; set; }
-        SettingScopes Scopes { get; set; }
+        ISettingClientVisibilityProvider ClientVisibilityProvider { get; }
+        object CustomData { get; }
+        string DefaultValue { get; }
+        ILocalizableString Description { get;  }
+        ISettingDefinitionGroup Group { get;  }
+        bool IsEncrypted { get; }
+        bool IsInherited { get;  }
+        SettingScopes Scopes { get;  }
 
         IReadOnlyList<SettingSecretProviderDescriptor> SecretSources { get; }
     }

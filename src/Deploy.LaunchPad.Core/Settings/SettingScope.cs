@@ -41,6 +41,11 @@ namespace Deploy.LaunchPad.Core.Configuration
     public enum SettingScopes
     {
         /// <summary>
+        /// Represents a placeholder setting that isn't relevent to scoping
+        /// </summary>
+        None = 0,
+
+        /// <summary>
         /// Represents a setting that can be configured/changed for the application level.
         /// </summary>
         Application = 1,

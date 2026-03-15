@@ -37,7 +37,7 @@ namespace Deploy.LaunchPad.AWS
     /// </summary>
     /// <seealso cref="SecretVaultBase" />
     /// <seealso cref="ISecretVault" />
-    public partial class EnvironmentVariablesSecretVault : SecretVaultBase, ISecretVault
+    public partial class EnvironmentVariablesSecretVault : SecretVaultBase
     {
 
 
@@ -113,46 +113,6 @@ namespace Deploy.LaunchPad.AWS
         /// <param name="caller">The caller.</param>
         /// <returns>A Task&lt;IDictionary`2&gt; representing the asynchronous operation.</returns>
         public override async Task<IDictionary<string, ISettingDefinition>> GetAllValuesAsync(string caller)
-        {
-            throw new NotImplementedException();
-        }
-
-
-        // update methods
-        /// <summary>
-        /// Creates the or update field in secret vault.
-        /// </summary>
-        /// <param name="secretVault">The secret vault.</param>
-        /// <param name="originalSecretJson">The original secret json.</param>
-        /// <param name="key">The key.</param>
-        /// <param name="value">The value.</param>
-        /// <param name="caller">The caller.</param>
-        /// <returns>ISettingDefinition.</returns>
-        public override ISettingDefinition CreateOrUpdateField(string originalSecretJson, string key, ISettingDefinition value, string caller)
-        {
-            throw new NotImplementedException();
-        }
-
-        /// <summary>
-        /// Writes the text value of a particular key, to a given secret ARN
-        /// </summary>
-        /// <param name="secretVault">The secret vault.</param>
-        /// <param name="fieldsToInsertOrUpdate">The fields to insert or update.</param>
-        /// <param name="caller">The caller.</param>
-        /// <returns>A status code with the result of the request</returns>
-        public override HttpStatusCode BatchUpdateFields(IDictionary<string, ISettingDefinition> fieldsToInsertOrUpdate, string caller)
-        {
-            throw new NotImplementedException();
-        }
-
-        /// <summary>
-        /// Writes the text value of a particular key, to a given secret ARN
-        /// </summary>
-        /// <param name="secretVault">The secret vault in which the field is stored</param>
-        /// <param name="fieldsToInsertOrUpdate">The fields to insert or update.</param>
-        /// <param name="caller">The caller.</param>
-        /// <returns>A status code with the result of the request</returns>
-        public async override Task<HttpStatusCode> BatchUpdateFieldsAsync(IDictionary<string, ISettingDefinition> fieldsToInsertOrUpdate, string caller)
         {
             throw new NotImplementedException();
         }

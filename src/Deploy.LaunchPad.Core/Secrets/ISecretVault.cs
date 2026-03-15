@@ -51,7 +51,7 @@ namespace Deploy.LaunchPad.Core.Secrets
 
         public SecretSource Source { get; set; }
 
-        public bool IsReadOnly { get; set; }
+        public bool IsWritable { get; set; }
 
         // Get methods
         Task<string?> GetValueOrNullForSettingSecretProviderDescriptorAsync(
