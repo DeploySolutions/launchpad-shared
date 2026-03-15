@@ -21,7 +21,7 @@ namespace Deploy.LaunchPad.Core.Configuration
         public override IReadOnlyList<SettingSecretProviderDescriptor> SecretSources { get; set; } = Array.Empty<SettingSecretProviderDescriptor>();
 
         // IMustHaveDisplayName
-        public override ILocalizableString DisplayName { get; set; }
+        public override ILocalizableString DisplayName { get; set; } = new NullableLocalizableString();
 
         // IMustHaveFullName
         public override string Name { get; set; } = string.Empty;

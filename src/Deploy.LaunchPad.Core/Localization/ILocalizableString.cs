@@ -40,6 +40,17 @@ namespace Deploy.LaunchPad.Core.Localization
     public partial interface ILocalizableString
     {
         /// <summary>
+        /// Unique name of the localization source.
+        /// </summary>
+        public string SourceName { get; }
+
+        /// <summary>
+        /// Unique Name of the string to be localized.
+        /// </summary>
+        public  string Name { get;  }
+
+
+        /// <summary>
         /// Localizes the string in current culture.
         /// </summary>
         /// <param name="context">Localization context</param>
