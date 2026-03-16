@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace Deploy.LaunchPad.Core.Secrets
 {
-    public partial class UserSecretsVault : SecretVaultBase
+    public partial class UserSecretsVault : SecretVault
     {
         public override SecretSource Source { get; set; } = SecretSource.UserSecrets;
 

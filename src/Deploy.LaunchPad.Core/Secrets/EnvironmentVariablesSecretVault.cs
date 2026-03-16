@@ -32,12 +32,12 @@ namespace Deploy.LaunchPad.AWS
 {
     /// <summary>
     /// Class AwsSecretVault.
-    /// Implements the <see cref="SecretVaultBase" />
+    /// Implements the <see cref="SecretVault" />
     /// Implements the <see cref="ISecretVault" />
     /// </summary>
-    /// <seealso cref="SecretVaultBase" />
+    /// <seealso cref="SecretVault" />
     /// <seealso cref="ISecretVault" />
-    public partial class EnvironmentVariablesSecretVault : SecretVaultBase
+    public partial class EnvironmentVariablesSecretVault : SecretVault
     {
 
 

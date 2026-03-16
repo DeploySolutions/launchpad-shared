@@ -26,11 +26,11 @@ using System.Threading.Tasks;
 namespace Deploy.LaunchPad.Core.Secrets
 {
     /// <summary>
-    /// Class SecretVaultBase.
+    /// Class SecretVault.
     /// Implements the <see cref="Deploy.LaunchPad.Code.Config.ISecretVault" />
     /// </summary>
     /// <seealso cref="Deploy.LaunchPad.Code.Config.ISecretVault" />
-    public abstract partial class SecretVaultBase : LaunchPadSecretFields, ISecretVault
+    public partial class SecretVault : LaunchPadSecretFields, ISecretVault
     {
 
         /// <summary>
@@ -68,10 +68,23 @@ namespace Deploy.LaunchPad.Core.Secrets
         public virtual bool IsWritable { get; set; } = false;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="SecretVaultBase"/> class.
+        /// Initializes a new instance of the <see cref="SecretVault"/> class.
         /// </summary>
         [SetsRequiredMembers]
-        public SecretVaultBase(ILogger logger, string vaultId)
+        public SecretVault()
+        {
+            Name = string.Empty;
+            Description = string.Empty;
+            VaultId = string.Empty;
+            var comparer = StringComparer.OrdinalIgnoreCase;
+            Fields = new Dictionary<string, ISettingDefinition>(comparer);
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="SecretVault"/> class.
+        /// </summary>
+        [SetsRequiredMembers]
+        public SecretVault(ILogger logger, string vaultId)
         {
             Name = vaultId;
             Description = string.Empty;
@@ -82,12 +95,12 @@ namespace Deploy.LaunchPad.Core.Secrets
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="SecretVaultBase"/> class.
+        /// Initializes a new instance of the <see cref="SecretVault"/> class.
         /// </summary>
         /// <param name="vaultId">The vault identifier.</param>
         /// <param name="vaultName">Name of the vault.</param>
         [SetsRequiredMembers]
-        public SecretVaultBase(ILogger logger, string vaultId, string vaultName)
+        public SecretVault(ILogger logger, string vaultId, string vaultName)
         {
             Name = vaultName;
             VaultId = vaultId;
@@ -98,7 +111,7 @@ namespace Deploy.LaunchPad.Core.Secrets
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="SecretVaultBase"/> class.
+        /// Initializes a new instance of the <see cref="SecretVault"/> class.
         /// </summary>
         /// <param name="providerId">The provider identifier.</param>
         /// <param name="vaultId">The vault identifier.</param>
@@ -106,7 +119,7 @@ namespace Deploy.LaunchPad.Core.Secrets
         /// <param name="fields">The fields.</param>
         /// <param name="description">The description.</param>
         [SetsRequiredMembers]
-        public SecretVaultBase(ILogger logger, string vaultId, string vaultName, string providerId, IDictionary<string, ISettingDefinition> fields, string description = "")
+        public SecretVault(ILogger logger, string vaultId, string vaultName, string providerId, IDictionary<string, ISettingDefinition> fields, string description = "")
         {
             Name = vaultName;
             ProviderId = providerId;
@@ -128,36 +141,10 @@ namespace Deploy.LaunchPad.Core.Secrets
         /// <param name="keys">The list of keys you are looking for</param>
         /// <param name="caller">The caller.</param>
         /// <returns>A Task&lt;IDictionary`2&gt; representing the asynchronous operation.</returns>
-        public abstract Task<IDictionary<string, ISettingDefinition>> GetValuesForKeysAsync(IList<string> keys, string caller, bool keyIsCaseInsensitive = true);
-        //{
-        //    string secretStringJson = await GetJsonFromSecretVaultAsync(secretVault, caller, keyIsCaseInsensitive);
-        //    IDictionary<string, ISettingDefinition> kvps = null;
-
-        //    // Decrypt the secret
-        //    if (!string.IsNullOrEmpty(secretStringJson))
-        //    {
-        //        dynamic secretObj = JObject.Parse(secretStringJson);
-        //        kvps = new Dictionary<string, ISettingDefinition>();
-        //        // loop through the desired set of keys to find the corresponding values in the JSON
-        //        foreach (string key in keys)
-        //        {
-        //            ISettingDefinition value = null;
-        //            if (keyIsCaseInsensitive)
-        //            {
-        //                value = secretObj[key.ToLower()];
-        //            }
-        //            else
-        //            {
-        //                value = secretObj[key];
-        //            }
-        //            if (value != null)
-        //            {
-        //                kvps.Add(key, value);
-        //            }
-        //        }
-        //    }
-        //    return kvps;
-        //}
+        public virtual Task<IDictionary<string, ISettingDefinition>> GetValuesForKeysAsync(IList<string> keys, string caller, bool keyIsCaseInsensitive = true)
+        {
+            throw new NotImplementedException();
+        }
 
         /// <summary>
         /// Returns the set of all key value pairs, which are part of a given secret ARN
@@ -166,26 +153,10 @@ namespace Deploy.LaunchPad.Core.Secrets
         /// <param name="secretVault">The secret vault.</param>
         /// <param name="caller">The caller.</param>
         /// <returns>A Task&lt;IDictionary`2&gt; representing the asynchronous operation.</returns>
-        public abstract Task<IDictionary<string, ISettingDefinition>> GetAllValuesAsync(string caller);
-        //{
-        //    string secretStringJson = await GetJsonFromSecretVaultAsync(secretVault, caller);
-        //    IDictionary<string, ISettingDefinition> kvps = null;
-
-        //    // Decrypt the secret
-        //    if (!string.IsNullOrEmpty(secretStringJson))
-        //    {
-        //        kvps = new Dictionary<string, ISettingDefinition>();
-        //        dynamic secretJson = JValue.Parse(secretStringJson);
-        //        // loop through the desired set of keys to find the corresponding values in the JSON
-        //        foreach (Newtonsoft.Json.Linq.JProperty jproperty in secretJson)
-        //        {
-        //            ISettingDefinition settingDefinition = new SettingDefinition
-        //            (jproperty.Name, jproperty.Value.ToString(), null,null,null, SettingScopes.Application, false,false,null);
-        //            kvps.Add(jproperty.Name, settingDefinition);
-        //        }
-        //    }
-        //    return kvps;
-        //}
+        public virtual Task<IDictionary<string, ISettingDefinition>> GetAllValuesAsync(string caller)
+        {
+            throw new NotImplementedException();
+        }
 
         /// <summary>
         /// Class Root.
@@ -201,9 +172,16 @@ namespace Deploy.LaunchPad.Core.Secrets
         }
 
 
-        public abstract Task<string> GetValueOrNullForSettingSecretProviderDescriptorAsync(SettingSecretProviderDescriptor source, ISettingDefinition definition, CancellationToken cancellationToken = default);
-        public abstract string GetValueOrNullForSettingSecretProviderDescriptor(SettingSecretProviderDescriptor source, ISettingDefinition definition);
-        
+        public virtual Task<string> GetValueOrNullForSettingSecretProviderDescriptorAsync(SettingSecretProviderDescriptor source, ISettingDefinition definition, CancellationToken cancellationToken = default)
+        {
+            throw new NotImplementedException();
+        }
+
+        public virtual string GetValueOrNullForSettingSecretProviderDescriptor(SettingSecretProviderDescriptor source, ISettingDefinition definition)
+        {
+            throw new NotImplementedException();
+        }
+
         public virtual ISettingDefinition CreateOrUpdateField(string originalSecretJson, string key, ISettingDefinition value, string caller)
         {
             if (IsWritable)
