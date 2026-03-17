@@ -14,6 +14,7 @@
 using Castle.Core.Logging;
 using Deploy.LaunchPad.Core.Configuration;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
@@ -46,12 +47,6 @@ namespace Deploy.LaunchPad.Core.Secrets
         public required virtual string VaultId { get; set; }
 
         /// <summary>
-        /// Gets or sets the provider identifier.
-        /// </summary>
-        /// <value>The provider identifier.</value>
-        public virtual string? ProviderId { get; set; }
-
-        /// <summary>
         /// Gets or sets the name.
         /// </summary>
         /// <value>The name.</value>
@@ -63,6 +58,7 @@ namespace Deploy.LaunchPad.Core.Secrets
         /// <value>The description.</value>
         public virtual string Description { get; set; }
 
+        [JsonConverter(typeof(StringEnumConverter))]
         public virtual SecretSource Source { get; set; } = SecretSource.None;
 
         public virtual bool IsWritable { get; set; } = false;
@@ -113,20 +109,18 @@ namespace Deploy.LaunchPad.Core.Secrets
         /// <summary>
         /// Initializes a new instance of the <see cref="SecretVault"/> class.
         /// </summary>
-        /// <param name="providerId">The provider identifier.</param>
         /// <param name="vaultId">The vault identifier.</param>
         /// <param name="vaultName">Name of the vault.</param>
         /// <param name="fields">The fields.</param>
         /// <param name="description">The description.</param>
         [SetsRequiredMembers]
-        public SecretVault(ILogger logger, string vaultId, string vaultName, string providerId, IDictionary<string, ISettingDefinition> fields, string description = "")
+        public SecretVault(ILogger logger, string vaultId, string vaultName, IDictionary<string, ISettingDefinition> fields, string description = "")
         {
             Name = vaultName;
-            ProviderId = providerId;
             VaultId = vaultId;
             if (description == string.Empty)
             {
-                Description = "Vault for " + providerId + "." + vaultName;
+                Description = "Vault for " + vaultName;
             }
             else
             {

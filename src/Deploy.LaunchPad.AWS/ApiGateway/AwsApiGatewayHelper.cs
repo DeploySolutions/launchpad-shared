@@ -252,7 +252,6 @@ namespace Deploy.LaunchPad.AWS
 
             if (Token == null)
             {
-                AwsSecretProvider provider = new AwsSecretProvider(Logger);
                 AwsSecretVault vault = new AwsSecretVault(Logger, secretArn, Region.SystemName, AwsProfileName, ShouldUseLocalAwsProfile);
                
                 Token = await GetOAuthTokenUsingSecretCredentialsAsync(vault);

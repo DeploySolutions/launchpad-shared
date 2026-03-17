@@ -14,6 +14,7 @@
 using Castle.Core.Logging;
 using Deploy.LaunchPad.Core.Configuration;
 using Deploy.LaunchPad.Util.Dependency;
+using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
@@ -32,11 +33,7 @@ namespace Deploy.LaunchPad.Core.Secrets
     /// <seealso cref="Deploy.LaunchPad.Code.Config.ISecretProvider" />
     public abstract partial class SecretProviderBase : ISecretProvider, ITransientDependency
     {
-        /// <summary>
-        /// Used to populate secret vaults
-        /// </summary>
-        /// <param name="context">SecretProvider context</param>
-        public abstract void PopulateSecretVaults(ISecretProviderContext context);
+        protected readonly IDictionary<string, ISettingDefinition> _secrets = new Dictionary<string, ISettingDefinition>();
 
         /// <summary>
         /// Contains an outer dictionary of "secret vaults".
@@ -48,6 +45,11 @@ namespace Deploy.LaunchPad.Core.Secrets
         [NotMapped]
         [JsonIgnore]
         public virtual Dictionary<string, ISecretVault> SecretVaults { get; set; }
+
+        /// <summary>
+        /// Gets a list of all secrets grouped by provider. These are also listed individually in the Providers property.
+        /// </summary>
+        public virtual IDictionary<string, ISettingDefinition> Secrets { get { return _secrets; } }
 
         /// <summary>
         /// Gets or sets the identifier.
@@ -93,6 +95,21 @@ namespace Deploy.LaunchPad.Core.Secrets
             }
             SecretVaults = new Dictionary<string, ISecretVault>();
         }
+        
+        /// <summary>
+        /// Used to populate secret vaults
+        /// </summary>
+        /// <param name="context">SecretProvider context</param>
+        public abstract void LoadSecretVault<TVault>(IConfigurationRoot configurationRoot)
+            where TVault : SecretVault;
+
+        /// <summary>
+        /// Used to populate secret vaults
+        /// </summary>
+        /// <param name="context">SecretProvider context</param>
+        public abstract void LoadSecretVault<TVault>(IConfigurationRoot configurationRoot, ISecretProviderContext context)
+            where TVault : SecretVault;
+
 
         // get methods
 

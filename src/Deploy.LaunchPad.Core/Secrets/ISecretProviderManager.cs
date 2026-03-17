@@ -31,6 +31,7 @@
 #endregion
 
 using Deploy.LaunchPad.Core.Configuration;
+using Microsoft.Extensions.Configuration;
 using System.Collections.Generic;
 
 namespace Deploy.LaunchPad.Core.Secrets
@@ -40,14 +41,12 @@ namespace Deploy.LaunchPad.Core.Secrets
     /// </summary>
     public interface ISecretProviderManager
     {
-        /// <summary>
-        /// All secret providers defined in the application.
-        /// </summary>
-        IDictionary<string, SecretProviderBase> Providers { get; }
+        public void Initialize();
 
         /// <summary>
-        /// Gets a list of all secrets grouped by provider. These are also listed individually in the Providers property.
+        /// The secret providers defined for the application.
         /// </summary>
-        IDictionary<string, ISettingDefinition> Secrets { get; }
+        ISecretProvider Provider { get; set; }
+
     }
 }

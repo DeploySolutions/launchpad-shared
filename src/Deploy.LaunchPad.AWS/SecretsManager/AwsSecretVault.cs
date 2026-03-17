@@ -55,6 +55,15 @@ namespace Deploy.LaunchPad.AWS
         public IAmazonSecretsManager SecretClient { get { return _secretClient; } }
 
         public override SecretSource Source => SecretSource.AwsSecretsManager;
+        
+        /// <summary>
+        /// Initializes a new instance of the <see cref="AwsSecretVault"/> class.
+        /// </summary>
+        /// <param name="arn">The arn.</param>
+        [SetsRequiredMembers]
+        public AwsSecretVault() : base()
+        {
+        }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="AwsSecretVault"/> class.

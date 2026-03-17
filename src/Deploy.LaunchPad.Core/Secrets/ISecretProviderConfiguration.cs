@@ -45,7 +45,7 @@ namespace Deploy.LaunchPad.Core.Secrets
         /// <summary>
         /// Secret providers.
         /// </summary>
-        ITypeList<SecretProviderBase> Providers { get; }
+        ISecretProvider Provider { get; set; }
 
     }
 }

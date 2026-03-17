@@ -17,9 +17,16 @@ namespace Deploy.LaunchPad.Core.Secrets
         public override SecretSource Source { get; set; } = SecretSource.UserSecrets;
 
         [SetsRequiredMembers]
-        public UserSecretsVault(ILogger logger) : base(logger, "userSecrets.json")
+        public UserSecretsVault() : base()
         {
             
+        }
+
+
+        [SetsRequiredMembers]
+        public UserSecretsVault(ILogger logger) : base(logger, "secrets.json")
+        {
+
         }
 
 

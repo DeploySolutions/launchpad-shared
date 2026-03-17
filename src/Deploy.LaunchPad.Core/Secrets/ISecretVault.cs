@@ -32,12 +32,6 @@ namespace Deploy.LaunchPad.Core.Secrets
         public string VaultId { get; set; }
 
         /// <summary>
-        /// Gets or sets the provider identifier.
-        /// </summary>
-        /// <value>The provider identifier.</value>
-        public string ProviderId { get; set; }
-
-        /// <summary>
         /// Gets or sets the name.
         /// </summary>
         /// <value>The name.</value>

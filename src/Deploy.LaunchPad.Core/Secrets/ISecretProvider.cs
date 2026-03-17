@@ -12,7 +12,9 @@
 // <summary></summary>
 // ***********************************************************************
 using Castle.Core.Logging;
+using Deploy.LaunchPad.Core.Configuration;
 using Deploy.LaunchPad.Util.Dependency;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -58,13 +60,18 @@ namespace Deploy.LaunchPad.Core.Secrets
         /// </summary>
         /// <value>The secret vaults.</value>
         [NotMapped]
-        public Dictionary<string, ISecretVault> SecretVaults { get; set; }
+        public Dictionary<string, ISecretVault> SecretVaults { get; }
+        public IDictionary<string, ISettingDefinition> Secrets { get; }
 
         /// <summary>
         /// Used to populate secret vaults
         /// </summary>
         /// <param name="context">SecretProvider context</param>
-        public void PopulateSecretVaults(ISecretProviderContext context);
+        public abstract void LoadSecretVault<TVault>(IConfigurationRoot configurationRoot)
+            where TVault : SecretVault;
+
+        public abstract void LoadSecretVault<TVault>(IConfigurationRoot configurationRoot, ISecretProviderContext context)
+           where TVault : SecretVault;
 
         // get methods
 
