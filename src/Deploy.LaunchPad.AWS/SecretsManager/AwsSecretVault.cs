@@ -56,6 +56,8 @@ namespace Deploy.LaunchPad.AWS
 
         public override SecretSource Source => SecretSource.AwsSecretsManager;
         
+        public string RegionName { get; set; } = "us-east-1";
+
         /// <summary>
         /// Initializes a new instance of the <see cref="AwsSecretVault"/> class.
         /// </summary>

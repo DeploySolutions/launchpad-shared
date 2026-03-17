@@ -11,7 +11,11 @@
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
+using Amazon;
+using Amazon.SecretsManager;
 using Deploy.LaunchPad.Code.Services;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Deploy.LaunchPad.AWS.SecretsManager.Services
 {
@@ -22,5 +26,14 @@ namespace Deploy.LaunchPad.AWS.SecretsManager.Services
     /// <seealso cref="ILaunchPadSystemIntegrationService" />
     public partial interface IAwsSecretsManagerService : ILaunchPadSystemIntegrationService
     {
+        public IAmazonSecretsManager Client { get; }
+
+        public RegionEndpoint Region { get; }
+
+        public Task<string> GetPlaintextFromFromSecretVaultAsync(string arn);
+        
+        public Task<T> GetObjectFromSecretVaultAsync<T>(string arn);
+
+        public Task<Dictionary<string, string>> GetDictionaryFromSecretAsync(string arn);
     }
 }
