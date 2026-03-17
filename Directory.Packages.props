@@ -61,7 +61,6 @@
   <ItemGroup>
     <PackageVersion Include="AWSSDK.APIGateway" Version="4.0.6" />
     <PackageVersion Include="AWSSDK.CloudFront" Version="4.0.12.3" />
-    <PackageVersion Include="Amazon.CDK.Lib" Version="2.158.0" />
     <PackageVersion Include="AWSSDK.Core" Version="4.0.3.18" />
     <PackageVersion Include="AWSSDK.ElasticFileSystem" Version="4.0.3.16" />
     <PackageVersion Include="AWSSDK.Lambda" Version="4.0.13.4" />
