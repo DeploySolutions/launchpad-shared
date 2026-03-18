@@ -1,7 +1,6 @@
 ﻿using Deploy.LaunchPad.Core.Metadata;
-using Deploy.LaunchPad.Core.Secrets;
+using Deploy.LaunchPad.Core.Secrets.Reference;
 using Deploy.LaunchPad.Util.Elements;
-using Microsoft.EntityFrameworkCore.Metadata;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -10,14 +9,10 @@ using System.Diagnostics.CodeAnalysis;
 using System.Text;
 using System.Text.Json.Serialization;
 
-namespace Deploy.LaunchPad.Core.Application.Connections.Database
+namespace Deploy.LaunchPad.Core.Application.Connections.Database.Definitions
 {
-    /// <summary>
-    /// This is the runtime model of the Database Connection Definition. 
-    /// It contains materialized secret values and helper properties for actual connection usage.
-    /// </summary>
     [Serializable]
-    public partial class ResolvedDatabaseConnection
+    public partial class LaunchPadDatabaseConnectionDefinition : ILaunchPadDatabaseConnectionDefinition
     {
         public virtual ConnectionType ConnectionType { get; init; } = ConnectionType.PostgresDatabase;
 
@@ -33,6 +28,19 @@ namespace Deploy.LaunchPad.Core.Application.Connections.Database
         
         public virtual int Port { get; init; } = 5432;
 
+        [NotMapped]
+        [JsonIgnore]
+        public virtual ISecretFieldReference? UsernameSecretRef { get; set; }
+
+        [NotMapped]
+        [JsonIgnore]
+
+        public virtual ISecretFieldReference? PasswordSecretRef { get; set; }
+
+        [NotMapped]
+        [JsonIgnore]
+        public virtual ISecretFieldReference? ConnectionStringSecretRef { get; set; }
+
         /// <summary>
         /// Gets/sets a timeout value for the connection (if supported).
         /// </summary>
@@ -42,30 +50,16 @@ namespace Deploy.LaunchPad.Core.Application.Connections.Database
 
         public virtual bool IsActive { get; set; } = true;
 
-        // Resolved secret values
-        [NotMapped]
-        [JsonIgnore]
-        public virtual string? Username { get; set; }
-
-        [NotMapped]
-        [JsonIgnore]
-        public virtual string? Password { get; set; }
-
-        [NotMapped]
-        [JsonIgnore]
-        public virtual string? ConnectionString { get; set; }
-        public virtual bool HasCredentials =>
-            !string.IsNullOrWhiteSpace(Username) ||
-            !string.IsNullOrWhiteSpace(Password) ||
-            !string.IsNullOrWhiteSpace(ConnectionString);
-
+        ISecretFieldReference? ILaunchPadDatabaseConnectionDefinition.UsernameSecret => UsernameSecretRef;
+        ISecretFieldReference? ILaunchPadDatabaseConnectionDefinition.PasswordSecret => PasswordSecretRef;
+        ISecretFieldReference? ILaunchPadDatabaseConnectionDefinition.ConnectionStringSecret => ConnectionStringSecretRef;
 
         [SetsRequiredMembers]
-        public ResolvedDatabaseConnection(string name, 
+        public LaunchPadDatabaseConnectionDefinition(string name, 
             string hostName, 
             string databaseName, 
-            string userName,
-            string password, 
+            ISecretFieldReference userNameSecretRef,
+            ISecretFieldReference passwordSecretRef, 
             int port = 5432, 
             string version="", 
             ConnectionType connectionType = ConnectionType.PostgresDatabase,
@@ -76,8 +70,8 @@ namespace Deploy.LaunchPad.Core.Application.Connections.Database
             Description = new ElementDescription(name);
             HostName = hostName;
             DatabaseName = databaseName;
-            Username = userName;
-            Password = password;
+            UsernameSecretRef = userNameSecretRef;
+            PasswordSecretRef = passwordSecretRef;
             Port = port;
             Version = version;
             ConnectionType = connectionType;
@@ -85,12 +79,12 @@ namespace Deploy.LaunchPad.Core.Application.Connections.Database
         }
 
         [SetsRequiredMembers]
-        public ResolvedDatabaseConnection(string name, 
+        public LaunchPadDatabaseConnectionDefinition(string name, 
             ElementDescription description, 
             string hostName, 
             string databaseName,
-            string userName,
-            string password,
+            ISecretFieldReference userNameSecretRef,
+            ISecretFieldReference passwordSecretRef,
             int port = 5432, 
             string version = "", 
             ConnectionType connectionType = ConnectionType.PostgresDatabase,
@@ -101,8 +95,8 @@ namespace Deploy.LaunchPad.Core.Application.Connections.Database
             Description = description;
             HostName = hostName;
             DatabaseName = databaseName;
-            Username = userName;
-            Password = password;
+            UsernameSecretRef = userNameSecretRef;
+            PasswordSecretRef = passwordSecretRef;
             Port = port;
             Version = version;
             ConnectionType = connectionType;
