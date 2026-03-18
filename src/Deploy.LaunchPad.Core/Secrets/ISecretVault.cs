@@ -13,6 +13,7 @@
 // ***********************************************************************
 
 using Deploy.LaunchPad.Core.Configuration;
+using Deploy.LaunchPad.Core.Secrets.References;
 using System.Collections.Generic;
 using System.Net;
 using System.Threading;
@@ -43,18 +44,18 @@ namespace Deploy.LaunchPad.Core.Secrets
         /// <value>The description.</value>
         public string Description { get; set; }
 
-        public SecretSource Source { get; set; }
+        public SecretVaultType Source { get; set; }
 
         public bool IsWritable { get; set; }
 
         // Get methods
-        Task<string?> GetValueOrNullForSettingSecretProviderDescriptorAsync(
-            SettingSecretProviderDescriptor source,
+        Task<string?> GetValueOrNullFromSecretReferenceAsync(
+            ISecretFieldReference source,
             ISettingDefinition definition,
             CancellationToken cancellationToken = default);
 
-        string? GetValueOrNullForSettingSecretProviderDescriptor(
-            SettingSecretProviderDescriptor source,
+        string? GetValueOrNullFromSecretReference(
+            ISecretFieldReference source,
             ISettingDefinition definition);
 
         /// <summary>

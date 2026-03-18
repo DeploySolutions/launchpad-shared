@@ -13,6 +13,7 @@
 // ***********************************************************************
 using Castle.Core.Logging;
 using Deploy.LaunchPad.Core.Configuration;
+using Deploy.LaunchPad.Core.Secrets.References;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Linq;
@@ -59,7 +60,7 @@ namespace Deploy.LaunchPad.Core.Secrets
         public virtual string Description { get; set; }
 
         [JsonConverter(typeof(StringEnumConverter))]
-        public virtual SecretSource Source { get; set; } = SecretSource.None;
+        public virtual SecretVaultType Source { get; set; } = SecretVaultType.None;
 
         public virtual bool IsWritable { get; set; } = false;
 
@@ -166,12 +167,12 @@ namespace Deploy.LaunchPad.Core.Secrets
         }
 
 
-        public virtual Task<string> GetValueOrNullForSettingSecretProviderDescriptorAsync(SettingSecretProviderDescriptor source, ISettingDefinition definition, CancellationToken cancellationToken = default)
+        public virtual Task<string> GetValueOrNullFromSecretReferenceAsync(ISecretFieldReference source, ISettingDefinition definition, CancellationToken cancellationToken = default)
         {
             throw new NotImplementedException();
         }
 
-        public virtual string GetValueOrNullForSettingSecretProviderDescriptor(SettingSecretProviderDescriptor source, ISettingDefinition definition)
+        public virtual string GetValueOrNullFromSecretReference(ISecretFieldReference source, ISettingDefinition definition)
         {
             throw new NotImplementedException();
         }

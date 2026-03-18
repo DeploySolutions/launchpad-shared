@@ -1,6 +1,6 @@
 ﻿using Deploy.LaunchPad.Core.Localization;
 using Deploy.LaunchPad.Core.Metadata;
-using Deploy.LaunchPad.Core.Secrets;
+using Deploy.LaunchPad.Core.Secrets.References;
 using Deploy.LaunchPad.Util.Elements;
 using System;
 using System.Collections.Generic;
@@ -21,6 +21,11 @@ namespace Deploy.LaunchPad.Core.Configuration
         bool IsInherited { get;  }
         SettingScopes Scopes { get;  }
 
-        IReadOnlyList<SettingSecretProviderDescriptor> SecretSources { get; }
+        /// <summary>
+        /// If this setting has sensitive fields, first attempt to load them from the secret source(s)
+        /// before attempting to load from the default value or any other value source. 
+        /// This allows for secrets to be stored in a secure vault, and only resolved at runtime when needed.
+        /// </summary>
+        IReadOnlyList<ISecretFieldReference> SecretSources { get; }
     }
 }

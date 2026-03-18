@@ -1,5 +1,5 @@
 using Deploy.LaunchPad.Core.Localization;
-using Deploy.LaunchPad.Core.Secrets;
+using Deploy.LaunchPad.Core.Secrets.References;
 using System;
 using System.Collections.Generic;
 
@@ -18,7 +18,13 @@ namespace Deploy.LaunchPad.Core.Configuration
         public virtual bool IsEncrypted { get; set; }
         public virtual bool IsInherited { get; set; }
         public virtual SettingScopes Scopes { get; set; }
-        public virtual IReadOnlyList<SettingSecretProviderDescriptor> SecretSources { get; set; } = Array.Empty<SettingSecretProviderDescriptor>();
+
+        /// <summary>
+        /// If this setting has sensitive fields, first attempt to load them from the secret source(s)
+        /// before attempting to load from the default value or any other value source. 
+        /// This allows for secrets to be stored in a secure vault, and only resolved at runtime when needed.
+        /// </summary>
+        public virtual IReadOnlyList<ISecretFieldReference> SecretSources { get; set; } = Array.Empty<ISecretFieldReference>();
 
         // IMustHaveDisplayName
         public virtual ILocalizableString DisplayName { get; set; }

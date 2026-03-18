@@ -32,7 +32,7 @@
 
 using Deploy.LaunchPad.Core.Configuration;
 using Deploy.LaunchPad.Core.Localization;
-using Deploy.LaunchPad.Core.Secrets;
+using Deploy.LaunchPad.Core.Secrets.References;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -78,7 +78,7 @@ namespace Deploy.LaunchPad.Core.Configuration
             object customData = null,
             ISettingClientVisibilityProvider clientVisibilityProvider = null,
             bool isEncrypted = false,
-            IReadOnlyList<SettingSecretProviderDescriptor> secretSources = null
+            IReadOnlyList<ISecretFieldReference> secretSources = null
             )
         {
             if (string.IsNullOrEmpty(name))

@@ -20,6 +20,7 @@ using Castle.Core.Logging;
 using Deploy.LaunchPad.AWS.SecretsManager;
 using Deploy.LaunchPad.Core.Configuration;
 using Deploy.LaunchPad.Core.Secrets;
+using Deploy.LaunchPad.Core.Secrets.References;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
@@ -54,7 +55,7 @@ namespace Deploy.LaunchPad.AWS
         [JsonIgnore]
         public IAmazonSecretsManager SecretClient { get { return _secretClient; } }
 
-        public override SecretSource Source => SecretSource.AwsSecretsManager;
+        public override SecretVaultType Source => SecretVaultType.AwsSecretsManager;
         
         public string RegionName { get; set; } = "us-east-1";
 
@@ -78,16 +79,16 @@ namespace Deploy.LaunchPad.AWS
             _secretClient = GetSecretClient(region, awsProfileName, shouldUseLocalAwsProfile);
         }
 
-        public override async Task<string?> GetValueOrNullForSettingSecretProviderDescriptorAsync(
-            SettingSecretProviderDescriptor source,
+        public override async Task<string?> GetValueOrNullFromSecretReferenceAsync(
+            ISecretFieldReference source,
             ISettingDefinition definition,
             CancellationToken cancellationToken = default)
         {
-            return await Task.FromResult(GetValueOrNullForSettingSecretProviderDescriptor(source, definition));
+            return await Task.FromResult(GetValueOrNullFromSecretReference(source, definition));
         }
 
-        public override string? GetValueOrNullForSettingSecretProviderDescriptor(
-            SettingSecretProviderDescriptor source,
+        public override string? GetValueOrNullFromSecretReference(
+            ISecretFieldReference source,
             ISettingDefinition definition)
         {
             // lookup from AWS

@@ -1,6 +1,6 @@
 ﻿using Castle.Core.Logging;
 using Deploy.LaunchPad.Core.Configuration;
-using Deploy.LaunchPad.Core.Secrets;
+using Deploy.LaunchPad.Core.Secrets.References;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
@@ -14,7 +14,7 @@ namespace Deploy.LaunchPad.Core.Secrets
 {
     public partial class UserSecretsVault : SecretVault
     {
-        public override SecretSource Source { get; set; } = SecretSource.UserSecrets;
+        public override SecretVaultType Source { get; set; } = SecretVaultType.UserSecrets;
 
         [SetsRequiredMembers]
         public UserSecretsVault() : base()
@@ -60,12 +60,12 @@ namespace Deploy.LaunchPad.Core.Secrets
             throw new NotImplementedException();
         }
 
-        public override string GetValueOrNullForSettingSecretProviderDescriptor(SettingSecretProviderDescriptor source, ISettingDefinition definition)
+        public override string GetValueOrNullFromSecretReference(ISecretFieldReference source, ISettingDefinition definition)
         {
             throw new NotImplementedException();
         }
 
-        public override Task<string> GetValueOrNullForSettingSecretProviderDescriptorAsync(SettingSecretProviderDescriptor source, ISettingDefinition definition, CancellationToken cancellationToken = default)
+        public override Task<string> GetValueOrNullFromSecretReferenceAsync(ISecretFieldReference source, ISettingDefinition definition, CancellationToken cancellationToken = default)
         {
             throw new NotImplementedException();
         }
