@@ -34,32 +34,27 @@ namespace Deploy.LaunchPad.Core.Secrets.Resolver
             Guid? userId = null,
             CancellationToken cancellationToken = default)
         {
-            if (settingDefinition.SecretSources == null || settingDefinition.SecretSources.Count == 0)
+            if (settingDefinition.SecretReference == null ||
+                !_provider.SecretVaults.ContainsKey(settingDefinition.SecretReference.VaultId)
+            )
             {
                 return new SecretResolutionResult(settingDefinition.Name);
             }
 
-            foreach (var source in settingDefinition.SecretSources)
-            {
-                if (!_provider.SecretVaults.ContainsKey(source.VaultId))
-                {
-                    continue;
-                }
-                ISecretVault vault = _provider.GetSecretVaultById(source.VaultId, $"SecretValueResolver.TryResolveAsync for setting {settingDefinition.Name} for tenant {tenantId} and user {userId}");
-                var value = await vault.GetValueOrNullFromSecretReferenceAsync(
-                    source,
-                    settingDefinition,
-                    cancellationToken);
+            ISecretVault vault = _provider.GetSecretVaultById(settingDefinition.SecretReference.VaultId, $"SecretValueResolver.TryResolveAsync for setting {settingDefinition.Name} for tenant {tenantId} and user {userId}");
+            var value = await vault.GetValueOrNullFromSecretReferenceAsync(
+                settingDefinition.SecretReference,
+                settingDefinition,
+                cancellationToken);
 
-                if (!string.IsNullOrEmpty(value))
-                {
-                    return new SecretResolutionResult(
-                        source.FieldName,
-                        value,
-                        true,
-                        source
-                    );
-                }
+            if (!string.IsNullOrEmpty(value))
+            {
+                return new SecretResolutionResult(
+                    settingDefinition.SecretReference.FieldName,
+                    value,
+                    true,
+                    settingDefinition.SecretReference
+                );
             }
             return new SecretResolutionResult(settingDefinition.Name);
         }

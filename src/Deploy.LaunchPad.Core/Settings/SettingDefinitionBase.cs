@@ -24,7 +24,7 @@ namespace Deploy.LaunchPad.Core.Configuration
         /// before attempting to load from the default value or any other value source. 
         /// This allows for secrets to be stored in a secure vault, and only resolved at runtime when needed.
         /// </summary>
-        public virtual IReadOnlyList<ISecretFieldReference> SecretSources { get; set; } = Array.Empty<ISecretFieldReference>();
+        public virtual ISecretFieldReference SecretReference { get; set; }
 
         // IMustHaveDisplayName
         public virtual ILocalizableString DisplayName { get; set; }

@@ -22,10 +22,10 @@ namespace Deploy.LaunchPad.Core.Configuration
         SettingScopes Scopes { get;  }
 
         /// <summary>
-        /// If this setting has sensitive fields, first attempt to load them from the secret source(s)
+        /// If this setting is a sensitive field, first attempt to load it from the secret source
         /// before attempting to load from the default value or any other value source. 
         /// This allows for secrets to be stored in a secure vault, and only resolved at runtime when needed.
         /// </summary>
-        IReadOnlyList<ISecretFieldReference> SecretSources { get; }
+        ISecretFieldReference SecretReference { get; }
     }
 }

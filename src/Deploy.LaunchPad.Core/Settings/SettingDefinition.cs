@@ -78,7 +78,7 @@ namespace Deploy.LaunchPad.Core.Configuration
             object customData = null,
             ISettingClientVisibilityProvider clientVisibilityProvider = null,
             bool isEncrypted = false,
-            IReadOnlyList<ISecretFieldReference> secretSources = null
+            ISecretFieldReference secretReference = null
             )
         {
             if (string.IsNullOrEmpty(name))
@@ -106,15 +106,12 @@ namespace Deploy.LaunchPad.Core.Configuration
             {
                 ClientVisibilityProvider = clientVisibilityProvider;
             }
-            if (secretSources != null)
+            if (secretReference != null)
             {
-                SecretSources = secretSources;
-                // as a safety, always mark this as needing encryption if it is ever persisted and hide from client
-                if (secretSources.Count > 0) 
-                {
-                    IsEncrypted = true;
-                    ClientVisibilityProvider = new HiddenSettingClientVisibilityProvider();
-                }
+                // the value is kept in a secret reference, so we should always hide from clients and mark as encrypted, regardless of the other parameters.
+                SecretReference = secretReference;
+                IsEncrypted = true;
+                ClientVisibilityProvider = new HiddenSettingClientVisibilityProvider();
             }
         }
     }

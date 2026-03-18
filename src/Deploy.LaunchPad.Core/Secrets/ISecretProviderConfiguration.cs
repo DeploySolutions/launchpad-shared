@@ -30,7 +30,6 @@
  */
 #endregion
 
-using Deploy.LaunchPad.Core.Application.Connections.Database;
 using Deploy.LaunchPad.Util.Collections;
 using System.Collections;
 using System.Collections.Generic;
@@ -39,14 +38,9 @@ namespace Deploy.LaunchPad.Core.Secrets
 {
     public interface ISecretProviderConfiguration
     {
-        /// <summary>
-        /// Gets/sets the name of the default connection string used by ORM module.
-        /// It must be the key of a Connection defined in the Connections dictionary of this configuration object.
-        /// </summary>
-        public string DefaultConnectionStringName { get; set; }
 
         /// <summary>
-        /// Secret providers.
+        /// Secret provider.
         /// </summary>
         ISecretProvider Provider { get; set; }
 

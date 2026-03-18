@@ -18,13 +18,13 @@ namespace Deploy.LaunchPad.Core.Configuration
         public override bool IsEncrypted { get; set; } = false;
         public override bool IsInherited { get; set; } = false;
         public override SettingScopes Scopes { get; set; } = SettingScopes.None;
-        
+
         /// <summary>
-        /// If this setting has sensitive fields, first attempt to load them from the secret source(s)
+        /// If this setting is a sensitive field, first attempt to load it from the secret source
         /// before attempting to load from the default value or any other value source. 
         /// This allows for secrets to be stored in a secure vault, and only resolved at runtime when needed.
         /// </summary>
-        public override IReadOnlyList<ISecretFieldReference> SecretSources { get; set; } = Array.Empty<ISecretFieldReference>();
+        public override ISecretFieldReference SecretReference { get; set; } = null;
 
         // IMustHaveDisplayName
         public override ILocalizableString DisplayName { get; set; } = new NullableLocalizableString();
