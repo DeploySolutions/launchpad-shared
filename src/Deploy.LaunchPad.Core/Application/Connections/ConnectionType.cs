@@ -6,7 +6,7 @@ namespace Deploy.LaunchPad.Core.Application.Connections
 {
     public enum ConnectionType
     {
-        None = 0,
+        Unknown = 0,
         PostgresDatabase = 1,
         SqliteDatabase = 2,
         RestfulWebService = 3

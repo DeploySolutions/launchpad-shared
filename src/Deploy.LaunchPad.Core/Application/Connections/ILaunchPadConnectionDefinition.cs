@@ -1,5 +1,6 @@
 ﻿using Deploy.LaunchPad.Core.Domain.ValueObjects;
 using Deploy.LaunchPad.Core.Metadata;
+using Deploy.LaunchPad.Core.Secrets;
 using Deploy.LaunchPad.Util;
 using System;
 using System.Collections.Generic;
@@ -10,11 +11,15 @@ namespace Deploy.LaunchPad.Core.Application.Connections
     /// <summary>
     /// Represents a connection to an external system such as a database, REST service, or message broker
     /// </summary>
-    public partial interface ILaunchPadConnection : ILaunchPadObject, 
+    public partial interface ILaunchPadConnectionDefinition : ILaunchPadObject, 
         ILaunchPadMinimalProperties,
-        IMustHaveElementDescription
+        IMustHaveElementDescription,
+        IHavePassivable
     {
         public ConnectionType ConnectionType { get; }
+        public ConnectionAuthMode ConnectionAuthMode { get; }
+
+        IReadOnlyDictionary<string, string?> Metadata { get; }
 
         /// <summary>
         /// Gets/sets a timeout value for the connection (implementors may or may not support).
