@@ -1,11 +1,11 @@
-﻿using Deploy.LaunchPad.Core.Application.Connections.Database.Definitions;
+﻿using Deploy.LaunchPad.Core.Connections.Database.Definitions;
 using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Deploy.LaunchPad.Core.Application.Connections.Database.Resolutions
+namespace Deploy.LaunchPad.Core.Connections.Database.Resolutions
 {
     /// <summary>
     /// Interface boundary between the Database Connection Definition and 

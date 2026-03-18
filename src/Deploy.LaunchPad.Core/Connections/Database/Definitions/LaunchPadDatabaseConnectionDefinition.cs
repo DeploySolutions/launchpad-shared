@@ -1,4 +1,5 @@
-﻿using Deploy.LaunchPad.Core.Metadata;
+﻿using Deploy.LaunchPad.Core.Connections;
+using Deploy.LaunchPad.Core.Metadata;
 using Deploy.LaunchPad.Core.Secrets.Reference;
 using Deploy.LaunchPad.Util.Elements;
 using System;
@@ -9,7 +10,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Text;
 using System.Text.Json.Serialization;
 
-namespace Deploy.LaunchPad.Core.Application.Connections.Database.Definitions
+namespace Deploy.LaunchPad.Core.Connections.Database.Definitions
 {
     [Serializable]
     public partial class LaunchPadDatabaseConnectionDefinition : ILaunchPadDatabaseConnectionDefinition

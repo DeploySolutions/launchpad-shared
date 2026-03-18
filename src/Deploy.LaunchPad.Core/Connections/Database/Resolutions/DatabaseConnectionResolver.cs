@@ -1,6 +1,7 @@
-﻿using Deploy.LaunchPad.Core.Application.Connections.Configuration;
-using Deploy.LaunchPad.Core.Application.Connections.Database.Definitions;
-using Deploy.LaunchPad.Core.Configuration;
+﻿using Deploy.LaunchPad.Core.Configuration;
+using Deploy.LaunchPad.Core.Connections;
+using Deploy.LaunchPad.Core.Connections.Configuration;
+using Deploy.LaunchPad.Core.Connections.Database.Definitions;
 using Deploy.LaunchPad.Core.Secrets.Resolver;
 using Deploy.LaunchPad.Util.Dependency;
 using System;
@@ -9,7 +10,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Deploy.LaunchPad.Core.Application.Connections.Database.Resolutions
+namespace Deploy.LaunchPad.Core.Connections.Database.Resolutions
 {
     public partial class DatabaseConnectionResolver : IDatabaseConnectionResolver, ITransientDependency
     {

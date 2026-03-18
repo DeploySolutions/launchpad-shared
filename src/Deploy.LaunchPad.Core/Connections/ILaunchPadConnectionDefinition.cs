@@ -6,7 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Deploy.LaunchPad.Core.Application.Connections
+namespace Deploy.LaunchPad.Core.Connections
 {
     /// <summary>
     /// Represents a connection to an external system such as a database, REST service, or message broker

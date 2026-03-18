@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Deploy.LaunchPad.Core.Application.Connections
+namespace Deploy.LaunchPad.Core.Connections
 {
     public enum ConnectionType
     {

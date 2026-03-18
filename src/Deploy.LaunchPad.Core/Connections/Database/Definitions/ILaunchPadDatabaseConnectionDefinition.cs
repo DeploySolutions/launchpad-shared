@@ -1,9 +1,10 @@
-﻿using Deploy.LaunchPad.Core.Secrets.Reference;
+﻿using Deploy.LaunchPad.Core.Connections;
+using Deploy.LaunchPad.Core.Secrets.Reference;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Deploy.LaunchPad.Core.Application.Connections.Database.Definitions
+namespace Deploy.LaunchPad.Core.Connections.Database.Definitions
 {
     /// <summary>
     /// This is the configuration-facing abstraction of a Database Connection's settings. 

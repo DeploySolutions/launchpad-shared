@@ -1,4 +1,5 @@
-﻿using Deploy.LaunchPad.Core.Metadata;
+﻿using Deploy.LaunchPad.Core.Connections;
+using Deploy.LaunchPad.Core.Metadata;
 using Deploy.LaunchPad.Core.Secrets;
 using Deploy.LaunchPad.Util.Elements;
 using Microsoft.EntityFrameworkCore.Metadata;
@@ -10,7 +11,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Text;
 using System.Text.Json.Serialization;
 
-namespace Deploy.LaunchPad.Core.Application.Connections.Database.Resolutions
+namespace Deploy.LaunchPad.Core.Connections.Database.Resolutions
 {
     /// <summary>
     /// This is the runtime model of the Database Connection Definition. 
