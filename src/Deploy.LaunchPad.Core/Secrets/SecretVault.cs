@@ -13,7 +13,7 @@
 // ***********************************************************************
 using Castle.Core.Logging;
 using Deploy.LaunchPad.Core.Configuration;
-using Deploy.LaunchPad.Core.Secrets.References;
+using Deploy.LaunchPad.Core.Secrets.Reference;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Linq;

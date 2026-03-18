@@ -13,7 +13,7 @@
 // ***********************************************************************
 
 using Deploy.LaunchPad.Core.Configuration;
-using Deploy.LaunchPad.Core.Secrets.References;
+using Deploy.LaunchPad.Core.Secrets.Reference;
 using System.Collections.Generic;
 using System.Net;
 using System.Threading;

@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Deploy.LaunchPad.Core.Secrets.Resolutions
+namespace Deploy.LaunchPad.Core.Secrets.Resolver
 {
     /// <summary>
     /// A class that resolves the value of a secret setting/field by looking up the setting's secret sources 

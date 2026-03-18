@@ -17,7 +17,7 @@ using Castle.Core.Logging;
 using Deploy.LaunchPad.Core;
 using Deploy.LaunchPad.Core.Configuration;
 using Deploy.LaunchPad.Core.Secrets;
-using Deploy.LaunchPad.Core.Secrets.References;
+using Deploy.LaunchPad.Core.Secrets.Reference;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Schema.NET;

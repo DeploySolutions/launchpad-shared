@@ -1,6 +1,6 @@
 ﻿using Castle.Core.Logging;
 using Deploy.LaunchPad.Core.Configuration;
-using Deploy.LaunchPad.Core.Secrets.References;
+using Deploy.LaunchPad.Core.Secrets.Reference;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;

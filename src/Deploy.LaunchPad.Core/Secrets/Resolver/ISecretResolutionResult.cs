@@ -1,6 +1,6 @@
-﻿using Deploy.LaunchPad.Core.Secrets.References;
+﻿using Deploy.LaunchPad.Core.Secrets.Reference;
 
-namespace Deploy.LaunchPad.Core.Secrets.Resolutions
+namespace Deploy.LaunchPad.Core.Secrets.Resolver
 {
     public interface ISecretResolutionResult
     {

@@ -1,6 +1,6 @@
 ﻿using Deploy.LaunchPad.Core.Localization;
 using Deploy.LaunchPad.Core.Metadata;
-using Deploy.LaunchPad.Core.Secrets.References;
+using Deploy.LaunchPad.Core.Secrets.Reference;
 using Deploy.LaunchPad.Util.Elements;
 using System;
 using System.Collections.Generic;

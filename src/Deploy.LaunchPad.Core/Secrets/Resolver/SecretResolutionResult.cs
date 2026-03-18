@@ -1,10 +1,10 @@
-﻿using Deploy.LaunchPad.Core.Secrets.References;
+﻿using Deploy.LaunchPad.Core.Secrets.Reference;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Text;
 
-namespace Deploy.LaunchPad.Core.Secrets.Resolutions
+namespace Deploy.LaunchPad.Core.Secrets.Resolver
 {
     /// <summary>
     /// When an attempt is made to resolve a secret value, this is the result object that is returned. 

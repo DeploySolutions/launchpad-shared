@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Text;
 
-namespace Deploy.LaunchPad.Core.Secrets.References
+namespace Deploy.LaunchPad.Core.Secrets.Reference
 {
     /// <summary>
     /// /// <summary>

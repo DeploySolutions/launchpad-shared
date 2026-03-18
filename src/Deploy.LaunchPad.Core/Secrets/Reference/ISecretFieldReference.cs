@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Deploy.LaunchPad.Core.Secrets.References
+namespace Deploy.LaunchPad.Core.Secrets.Reference
 {
     /// <summary>
     /// This lets a class refer to secrets without storing the actual secret values.
