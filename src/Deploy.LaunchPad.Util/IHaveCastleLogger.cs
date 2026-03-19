@@ -41,6 +41,7 @@ namespace Deploy.LaunchPad.Util
     {
         /// <summary>
         /// </summary>
-        ILogger Logger { get; set; }
+        ILogger Logger { get; }
+
     }
 }

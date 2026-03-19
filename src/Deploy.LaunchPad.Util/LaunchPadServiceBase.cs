@@ -22,11 +22,16 @@ namespace Deploy.LaunchPad.Util
     /// <summary>
     /// Base service interface for LaunchPad
     /// </summary>
-    public abstract partial class LaunchPadServiceBase : ILaunchPadService
+    public abstract partial class LaunchPadServiceBase : ILaunchPadService, IHaveCastleLogger
     {
         public virtual ElementNameLight Name { get; set; }
         public virtual ElementDescriptionLight Description { get; set; }
 
+        /// <summary>
+        /// Gets or sets the logger.
+        /// </summary>
+        /// <value>The logger.</value>
+        public virtual ILogger Logger { get; set; } = NullLogger.Instance;
 
         protected LaunchPadServiceBase()
         {
