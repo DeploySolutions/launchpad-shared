@@ -7,14 +7,19 @@ using System.Text;
 namespace Deploy.LaunchPad.Core.Connections.Configuration
 {
     [Serializable]
-    public partial class ConnectionConfiguration : IConnectionConfiguration
+    public partial class DefaultConnectionConfiguration : IConnectionConfiguration
     {
         public virtual List<ILaunchPadConnectionDefinition> Connections { get; set; } = new();
 
         IReadOnlyList<ILaunchPadConnectionDefinition> IConnectionConfiguration.Connections => Connections;
 
-        string IConnectionConfiguration.DefaultConnectionStringName { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        IConnectionProvider IConnectionConfiguration.Provider { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public string DefaultConnectionStringName { get; set; }
+        public IConnectionProvider Provider { get; set; }
+
+        public DefaultConnectionConfiguration()
+        {
+            Provider = new ConnectionProvider();
+        }
 
         public virtual ILaunchPadConnectionDefinition? GetOrNull(string name)
         {

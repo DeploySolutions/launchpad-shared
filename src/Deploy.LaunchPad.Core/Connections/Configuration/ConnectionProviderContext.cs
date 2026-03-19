@@ -30,16 +30,24 @@
  */
 #endregion
 
+using Deploy.LaunchPad.Core.Secrets;
+
 namespace Deploy.LaunchPad.Core.Connections.Configuration
 {
     /// <summary>
     /// Provides infrastructure to set connections.
     /// </summary>
-    public interface IConnectionContext
+    public partial class ConnectionProviderContext : IConnectionProviderContext
     {
+
         /// <summary>
         /// Gets a reference to the Connection manager.
         /// </summary>
-        IConnectionManager Manager { get; }
+        public IConnectionManager Manager { get; private set; }
+
+        public ConnectionProviderContext(IConnectionManager manager)
+        {
+            Manager = manager;
+        }
     }
 }

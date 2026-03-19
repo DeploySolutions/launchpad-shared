@@ -57,7 +57,8 @@ namespace Deploy.LaunchPad.Core.Connections.Configuration
         [NotMapped]
         public Dictionary<string, ILaunchPadConnectionDefinition> Connections { get; }
 
-
+        public void AddConnection(ILaunchPadConnectionDefinition connectionDefinition);
+        public void RemoveConnection(string connectionDefinitionName);
 
     }
 }

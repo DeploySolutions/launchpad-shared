@@ -20,6 +20,7 @@ using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
 using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
@@ -28,10 +29,10 @@ namespace Deploy.LaunchPad.Core.Connections.Configuration
 {
     /// <summary>
     /// Class SecretProviderBase.
-    /// Implements the <see cref="Core.Config.ConnectionProviderBase" />
+    /// Implements the <see cref="Core.Config.ConnectionProvider" />
     /// </summary>
-    /// <seealso cref="Core.Config.ConnectionProviderBase" />
-    public abstract partial class ConnectionProviderBase : IConnectionProvider, ITransientDependency
+    /// <seealso cref="Core.Config.ConnectionProvider" />
+    public partial class ConnectionProvider : IConnectionProvider, ITransientDependency
     {
         protected readonly IDictionary<string, ILaunchPadConnectionDefinition> _connections = new Dictionary<string, ILaunchPadConnectionDefinition>();
 
@@ -44,7 +45,13 @@ namespace Deploy.LaunchPad.Core.Connections.Configuration
         /// <value>The secret vaults.</value>
         [NotMapped]
         [JsonIgnore]
-        public virtual Dictionary<string, ILaunchPadConnectionDefinition> Connections { get; set; }
+        public virtual Dictionary<string, ILaunchPadConnectionDefinition> Connections
+        {
+            get
+            {
+                return _connections.ToDictionary();
+            }
+        }
 
         /// <summary>
         /// Gets or sets the identifier.
@@ -73,7 +80,7 @@ namespace Deploy.LaunchPad.Core.Connections.Configuration
         /// <summary>
         /// Initializes a new instance of the <see cref="SecretProviderBase"/> class.
         /// </summary>
-        public ConnectionProviderBase()
+        public ConnectionProvider()
         {
         }
 
@@ -81,14 +88,22 @@ namespace Deploy.LaunchPad.Core.Connections.Configuration
         /// Initializes a new instance of the <see cref="SecretProviderBase"/> class.
         /// </summary>
         /// <param name="logger">The logger.</param>
-        public ConnectionProviderBase(ILogger logger)
+        public ConnectionProvider(ILogger logger)
         {
             if (logger != null)
             {
                 Logger = logger;
             }
         }
-        
 
+        public void AddConnection(ILaunchPadConnectionDefinition connectionDefinition)
+        {
+            _connections.TryAdd(connectionDefinition.Name, connectionDefinition);
+        }
+
+        public void RemoveConnection(string connectionDefinitionName)
+        {
+            _connections.Remove(connectionDefinitionName);
+        }
     }
 }
