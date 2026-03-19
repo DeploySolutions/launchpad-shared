@@ -41,7 +41,7 @@ namespace Deploy.LaunchPad.Core.Secrets
     /// </summary>
     public interface ISecretProviderManager
     {
-        public void Initialize();
+        public void PreInitialize();
 
         /// <summary>
         /// The secret provider defined for the application.
