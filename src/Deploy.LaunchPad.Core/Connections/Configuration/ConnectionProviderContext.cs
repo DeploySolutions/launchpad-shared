@@ -43,7 +43,7 @@ namespace Deploy.LaunchPad.Core.Connections.Configuration
         /// <summary>
         /// Gets a reference to the Connection manager.
         /// </summary>
-        public IConnectionManager Manager { get; private set; }
+        public virtual IConnectionManager Manager { get; private set; }
 
         public ConnectionProviderContext(IConnectionManager manager)
         {

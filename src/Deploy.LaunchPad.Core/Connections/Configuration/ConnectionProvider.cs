@@ -102,12 +102,12 @@ namespace Deploy.LaunchPad.Core.Connections.Configuration
             _secretProvider = secretProvider;
         }
 
-        public void AddConnection(ILaunchPadConnectionDefinition connectionDefinition)
+        public virtual void AddConnection(ILaunchPadConnectionDefinition connectionDefinition)
         {
             _connections.TryAdd(connectionDefinition.Name, connectionDefinition);
         }
 
-        public void RemoveConnection(string connectionDefinitionName)
+        public virtual void RemoveConnection(string connectionDefinitionName)
         {
             _connections.Remove(connectionDefinitionName);
         }

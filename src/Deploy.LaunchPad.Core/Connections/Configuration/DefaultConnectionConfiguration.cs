@@ -14,8 +14,8 @@ namespace Deploy.LaunchPad.Core.Connections.Configuration
 
         IReadOnlyList<ILaunchPadConnectionDefinition> IConnectionConfiguration.Connections => Connections;
 
-        public string DefaultConnectionStringName { get; set; }
-        public IConnectionProvider Provider { get; set; }
+        public virtual string DefaultConnectionStringName { get; set; }
+        public virtual IConnectionProvider Provider { get; set; }
 
         public DefaultConnectionConfiguration(ISecretProvider secretProvider)
         {
