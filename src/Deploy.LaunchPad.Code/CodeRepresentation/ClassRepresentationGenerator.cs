@@ -14,11 +14,6 @@ namespace Deploy.LaunchPad.Code.CodeRepresentation
     public partial class ClassRepresentationGeneratorService: LaunchPadServiceBase, ILaunchPadService
     {
 
-        /// <summary>
-        /// Gets or sets the logger.
-        /// </summary>
-        /// <value>The logger.</value>
-        public virtual ILogger Logger { get; set; } = NullLogger.Instance;
 
         public ClassRepresentationGeneratorService() : base()
         {

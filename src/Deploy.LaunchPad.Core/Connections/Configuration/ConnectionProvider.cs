@@ -14,6 +14,7 @@
 using Castle.Core.Logging;
 using Deploy.LaunchPad.Core.Configuration;
 using Deploy.LaunchPad.Core.Secrets.Configuration;
+using Deploy.LaunchPad.Util;
 using Deploy.LaunchPad.Util.Dependency;
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
@@ -33,7 +34,7 @@ namespace Deploy.LaunchPad.Core.Connections.Configuration
     /// Implements the <see cref="Core.Config.ConnectionProvider" />
     /// </summary>
     /// <seealso cref="Core.Config.ConnectionProvider" />
-    public partial class ConnectionProvider : IConnectionProvider, ITransientDependency
+    public partial class ConnectionProvider : LaunchPadServiceBase, IConnectionProvider, ITransientDependency
     {
 
         protected readonly ISecretProvider _secretProvider;
@@ -62,25 +63,7 @@ namespace Deploy.LaunchPad.Core.Connections.Configuration
         /// </summary>
         /// <value>The identifier.</value>
         public virtual string Id { get; set; }
-
-        /// <summary>
-        /// Gets or sets the name.
-        /// </summary>
-        /// <value>The name.</value>
-        public virtual string Name { get; set; }
-
-        /// <summary>
-        /// Gets or sets the description.
-        /// </summary>
-        /// <value>The description.</value>
-        public virtual string Description { get; set; }
-
-        /// <summary>
-        /// Gets or sets the logger.
-        /// </summary>
-        /// <value>The logger.</value>
-        public virtual ILogger Logger { get; set; } = NullLogger.Instance;
-
+        
         /// <summary>
         /// Initializes a new instance of the <see cref="SecretProviderBase"/> class.
         /// </summary>

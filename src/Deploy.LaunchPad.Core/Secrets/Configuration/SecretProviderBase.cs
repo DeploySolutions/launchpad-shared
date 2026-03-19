@@ -13,6 +13,7 @@
 // ***********************************************************************
 using Castle.Core.Logging;
 using Deploy.LaunchPad.Core.Configuration;
+using Deploy.LaunchPad.Util;
 using Deploy.LaunchPad.Util.Dependency;
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
@@ -31,7 +32,7 @@ namespace Deploy.LaunchPad.Core.Secrets.Configuration
     /// Implements the <see cref="Code.Config.ISecretProvider" />
     /// </summary>
     /// <seealso cref="Code.Config.ISecretProvider" />
-    public abstract partial class SecretProviderBase : ISecretProvider, ITransientDependency
+    public abstract partial class SecretProviderBase :  LaunchPadServiceBase, ISecretProvider, ITransientDependency
     {
         protected readonly IDictionary<string, ISettingDefinition> _secrets = new Dictionary<string, ISettingDefinition>();
 
