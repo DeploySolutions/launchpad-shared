@@ -15,7 +15,7 @@
 using Microsoft.Extensions.Configuration;
 using System;
 
-namespace Deploy.LaunchPad.Core.Application.Config
+namespace Deploy.LaunchPad.Core.Configuration
 {
     /// <summary>
     /// Class LaunchPadAbpAppConfigurationAccessor.

@@ -17,7 +17,7 @@ using Microsoft.Extensions.Hosting;
 using System.Collections;
 using System.Collections.Generic;
 
-namespace Deploy.LaunchPad.Core.Application.Config
+namespace Deploy.LaunchPad.Core.Configuration
 {
     /// <summary>
     /// Class LaunchPadHostingEnvironmentExtensions.
