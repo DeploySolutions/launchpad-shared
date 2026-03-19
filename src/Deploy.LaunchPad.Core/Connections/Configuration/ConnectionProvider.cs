@@ -13,6 +13,7 @@
 // ***********************************************************************
 using Castle.Core.Logging;
 using Deploy.LaunchPad.Core.Configuration;
+using Deploy.LaunchPad.Core.Secrets;
 using Deploy.LaunchPad.Util.Dependency;
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
@@ -34,6 +35,9 @@ namespace Deploy.LaunchPad.Core.Connections.Configuration
     /// <seealso cref="Core.Config.ConnectionProvider" />
     public partial class ConnectionProvider : IConnectionProvider, ITransientDependency
     {
+
+        protected readonly ISecretProvider _secretProvider;
+
         protected readonly IDictionary<string, ILaunchPadConnectionDefinition> _connections = new Dictionary<string, ILaunchPadConnectionDefinition>();
 
         /// <summary>
@@ -80,20 +84,22 @@ namespace Deploy.LaunchPad.Core.Connections.Configuration
         /// <summary>
         /// Initializes a new instance of the <see cref="SecretProviderBase"/> class.
         /// </summary>
-        public ConnectionProvider()
+        public ConnectionProvider(ISecretProvider secretProvider)
         {
+                _secretProvider = secretProvider;
         }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="SecretProviderBase"/> class.
         /// </summary>
         /// <param name="logger">The logger.</param>
-        public ConnectionProvider(ILogger logger)
+        public ConnectionProvider(ILogger logger, ISecretProvider secretProvider)
         {
             if (logger != null)
             {
                 Logger = logger;
             }
+            _secretProvider = secretProvider;
         }
 
         public void AddConnection(ILaunchPadConnectionDefinition connectionDefinition)

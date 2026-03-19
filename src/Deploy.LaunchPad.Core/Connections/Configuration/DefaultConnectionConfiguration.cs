@@ -1,4 +1,5 @@
 ﻿using Deploy.LaunchPad.Core.Connections;
+using Deploy.LaunchPad.Core.Secrets;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,9 +17,9 @@ namespace Deploy.LaunchPad.Core.Connections.Configuration
         public string DefaultConnectionStringName { get; set; }
         public IConnectionProvider Provider { get; set; }
 
-        public DefaultConnectionConfiguration()
+        public DefaultConnectionConfiguration(ISecretProvider secretProvider)
         {
-            Provider = new ConnectionProvider();
+            Provider = new ConnectionProvider(secretProvider);
         }
 
         public virtual ILaunchPadConnectionDefinition? GetOrNull(string name)
