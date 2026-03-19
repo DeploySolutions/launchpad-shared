@@ -40,7 +40,7 @@ namespace Deploy.LaunchPad.Core.Domain.Entities
     /// This exception is thrown if an entity excepted to be found but not found.
     /// </summary>
     [Serializable]
-    public class EntityNotFoundException : LaunchPadException
+    public partial class EntityNotFoundException : LaunchPadException
     {
         /// <summary>
         /// Type of the entity.

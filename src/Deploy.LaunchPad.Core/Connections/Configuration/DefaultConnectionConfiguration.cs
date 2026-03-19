@@ -1,5 +1,5 @@
 ﻿using Deploy.LaunchPad.Core.Connections;
-using Deploy.LaunchPad.Core.Secrets;
+using Deploy.LaunchPad.Core.Secrets.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Linq;

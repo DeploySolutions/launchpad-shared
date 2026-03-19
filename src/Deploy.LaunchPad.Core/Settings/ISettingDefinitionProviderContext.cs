@@ -1,6 +1,6 @@
 ﻿namespace Deploy.LaunchPad.Core.Configuration
 {
-    public interface ISettingDefinitionProviderContext
+    public partial interface ISettingDefinitionProviderContext
     {
         ISettingDefinitionManager Manager { get; }
     }

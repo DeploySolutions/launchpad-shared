@@ -35,7 +35,7 @@ using Deploy.LaunchPad.Util.Dependency;
 
 namespace Deploy.LaunchPad.Core.Configuration
 {
-    public interface ISettingClientVisibilityProvider
+    public partial interface ISettingClientVisibilityProvider
     {
         Task<bool> CheckVisible(IScopedIocResolver scope);
     }

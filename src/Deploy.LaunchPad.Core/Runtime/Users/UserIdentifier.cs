@@ -41,7 +41,7 @@ namespace Deploy.LaunchPad.Core.Runtime.Users
     /// Used to identify a user.
     /// </summary>
     [Serializable]
-    public class UserIdentifier : IUserIdentifier
+    public partial class UserIdentifier : IUserIdentifier
     {
         /// <summary>
         /// Tenant Id of the user.

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Deploy.LaunchPad.Core.Configuration
 {
-    public interface ISettingDefinitionGroup
+    public partial interface ISettingDefinitionGroup
     {
         IReadOnlyList<ISettingDefinitionGroup> Children { get; }
         ILocalizableString DisplayName { get; }

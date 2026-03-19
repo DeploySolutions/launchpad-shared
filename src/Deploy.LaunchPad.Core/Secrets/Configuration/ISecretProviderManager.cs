@@ -34,12 +34,12 @@ using Deploy.LaunchPad.Core.Configuration;
 using Microsoft.Extensions.Configuration;
 using System.Collections.Generic;
 
-namespace Deploy.LaunchPad.Core.Secrets
+namespace Deploy.LaunchPad.Core.Secrets.Configuration
 {
     /// <summary>
     /// Manages secrets in the application.
     /// </summary>
-    public interface ISecretProviderManager
+    public partial interface ISecretProviderManager
     {
         public void PreInitialize();
 

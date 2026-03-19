@@ -2,7 +2,7 @@
 
 namespace Deploy.LaunchPad.Core.Configuration
 {
-    public interface ISettingInfo
+    public partial interface ISettingInfo
     {
         string Name { get; set; }
         Guid? TenantId { get; set; }

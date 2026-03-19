@@ -34,9 +34,9 @@ using Deploy.LaunchPad.Util.Collections;
 using System.Collections;
 using System.Collections.Generic;
 
-namespace Deploy.LaunchPad.Core.Secrets
+namespace Deploy.LaunchPad.Core.Secrets.Configuration
 {
-    public interface ISecretProviderConfiguration
+    public partial interface ISecretProviderConfiguration
     {
 
         /// <summary>

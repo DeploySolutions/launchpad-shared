@@ -38,7 +38,7 @@ using Deploy.LaunchPad.Core.Configuration;
 
 namespace Deploy.LaunchPad.Core.Configuration
 {
-    public class RequiresPermissionSettingClientVisibilityProvider : ISettingClientVisibilityProvider
+    public partial class RequiresPermissionSettingClientVisibilityProvider : ISettingClientVisibilityProvider
     {
         private readonly IPermissionDependency _permissionDependency;
 

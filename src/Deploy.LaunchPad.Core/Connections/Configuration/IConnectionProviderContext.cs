@@ -35,7 +35,7 @@ namespace Deploy.LaunchPad.Core.Connections.Configuration
     /// <summary>
     /// Provides infrastructure to set connections.
     /// </summary>
-    public interface IConnectionProviderContext
+    public partial interface IConnectionProviderContext
     {
         /// <summary>
         /// Gets a reference to the Connection manager.

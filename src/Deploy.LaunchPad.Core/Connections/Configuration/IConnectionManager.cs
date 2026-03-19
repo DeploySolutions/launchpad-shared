@@ -39,7 +39,7 @@ namespace Deploy.LaunchPad.Core.Connections.Configuration
     /// <summary>
     /// Manages connections in the application.
     /// </summary>
-    public interface IConnectionManager
+    public partial interface IConnectionManager
     {
         public void Initialize();
 

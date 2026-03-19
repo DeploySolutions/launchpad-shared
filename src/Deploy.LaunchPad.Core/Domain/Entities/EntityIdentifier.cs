@@ -39,7 +39,7 @@ namespace Deploy.LaunchPad.Core.Domain.Entities
     /// Can be used to store an entity <see cref="Type"/> and <see cref="Id"/>.
     /// </summary>
     [Serializable]
-    public class EntityIdentifier
+    public partial class EntityIdentifier
     {
         /// <summary>
         /// Entity Type.

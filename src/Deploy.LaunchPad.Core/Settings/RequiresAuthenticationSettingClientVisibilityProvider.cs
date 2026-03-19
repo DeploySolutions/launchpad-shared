@@ -36,7 +36,7 @@ using Deploy.LaunchPad.Util.Dependency;
 
 namespace Deploy.LaunchPad.Core.Configuration
 {
-    public class RequiresAuthenticationSettingClientVisibilityProvider : ISettingClientVisibilityProvider
+    public partial class RequiresAuthenticationSettingClientVisibilityProvider : ISettingClientVisibilityProvider
     {
         public async Task<bool> CheckVisible(IScopedIocResolver scope)
         {

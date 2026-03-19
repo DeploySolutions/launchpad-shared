@@ -4,7 +4,7 @@ using System.Globalization;
 
 namespace Deploy.LaunchPad.Util.ValueConverters
 {
-    public class CultureInfoEntityFrameworkConverter : ValueConverter<CultureInfo, string>
+    public partial class CultureInfoEntityFrameworkConverter : ValueConverter<CultureInfo, string>
     {
         public CultureInfoEntityFrameworkConverter()
             : base(

@@ -13,7 +13,7 @@
 // ***********************************************************************
 using Castle.Core.Logging;
 using Deploy.LaunchPad.Core.Configuration;
-using Deploy.LaunchPad.Core.Secrets;
+using Deploy.LaunchPad.Core.Secrets.Configuration;
 using Deploy.LaunchPad.Util.Dependency;
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;

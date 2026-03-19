@@ -35,7 +35,7 @@ using Deploy.LaunchPad.Util.Dependency;
 
 namespace Deploy.LaunchPad.Core.Authorization
 {
-    public class PermissionDependencyContext : IPermissionDependencyContext, ITransientDependency
+    public partial class PermissionDependencyContext : IPermissionDependencyContext, ITransientDependency
     {
         public IUserIdentifier User { get; set; }
 

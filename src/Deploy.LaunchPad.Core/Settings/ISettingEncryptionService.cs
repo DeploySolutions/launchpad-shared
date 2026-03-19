@@ -34,7 +34,7 @@ using JetBrains.Annotations;
 
 namespace Deploy.LaunchPad.Core.Configuration
 {
-    public interface ISettingEncryptionService
+    public partial interface ISettingEncryptionService
     {
         [CanBeNull]
         string Encrypt([NotNull]ISettingDefinition settingDefinition, [CanBeNull] string plainValue);

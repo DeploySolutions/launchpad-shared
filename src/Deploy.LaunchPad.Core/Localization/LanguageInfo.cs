@@ -37,7 +37,7 @@ namespace Deploy.LaunchPad.Core.Localization
     /// <summary>
     /// Represents an available language for the application.
     /// </summary>
-    public class LanguageInfo : ILanguageInfo
+    public partial class LanguageInfo : ILanguageInfo
     {
         /// <summary>
         /// Code name of the language.

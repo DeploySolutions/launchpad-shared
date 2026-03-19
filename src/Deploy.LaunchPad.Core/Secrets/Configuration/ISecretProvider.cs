@@ -20,7 +20,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Threading.Tasks;
 
-namespace Deploy.LaunchPad.Core.Secrets
+namespace Deploy.LaunchPad.Core.Secrets.Configuration
 {
     /// <summary>
     /// Interface ISecretProvider

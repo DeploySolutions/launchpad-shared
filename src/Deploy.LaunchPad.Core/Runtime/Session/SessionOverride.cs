@@ -34,7 +34,7 @@ using System;
 
 namespace Deploy.LaunchPad.Core.Runtime.Session
 {
-    public class SessionOverride
+    public partial class SessionOverride
     {
         public Guid? UserId { get; }
 

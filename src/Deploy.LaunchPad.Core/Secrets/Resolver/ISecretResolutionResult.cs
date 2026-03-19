@@ -2,7 +2,7 @@
 
 namespace Deploy.LaunchPad.Core.Secrets.Resolver
 {
-    public interface ISecretResolutionResult
+    public partial interface ISecretResolutionResult
     {
         string FieldName { get; init; }
         string FieldValue { get; init; }

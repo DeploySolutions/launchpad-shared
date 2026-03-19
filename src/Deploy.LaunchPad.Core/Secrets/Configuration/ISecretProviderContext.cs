@@ -30,12 +30,12 @@
  */
 #endregion
 
-namespace Deploy.LaunchPad.Core.Secrets
+namespace Deploy.LaunchPad.Core.Secrets.Configuration
 {
     /// <summary>
     /// Provides infrastructure to set navigation.
     /// </summary>
-    public interface ISecretProviderContext
+    public partial interface ISecretProviderContext
     {
         /// <summary>
         /// Gets a reference to the Secret Provider manager.

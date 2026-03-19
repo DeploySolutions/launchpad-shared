@@ -43,7 +43,7 @@ namespace Deploy.LaunchPad.Core.Authorization
     /// Represents a permission.
     /// A permission is used to restrict functionalities of the application from unauthorized users.
     /// </summary>
-    public class Permission : IPermission
+    public partial class Permission : IPermission
     {
         /// <summary>
         /// Parent of this permission if one exists.

@@ -37,7 +37,7 @@ namespace Deploy.LaunchPad.Core.Configuration
     /// <summary>
     /// Defines interface to use a dictionary to make configurations.
     /// </summary>
-    public interface IDictionaryBasedConfig
+    public partial interface IDictionaryBasedConfig
     {
         /// <summary>
         /// Used to set a string named configuration.

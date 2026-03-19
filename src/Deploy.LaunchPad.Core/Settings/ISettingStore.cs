@@ -38,7 +38,7 @@ namespace Deploy.LaunchPad.Core.Configuration
     /// <summary>
     /// This interface is used to get/set settings from/to a data source (database).
     /// </summary>
-    public interface ISettingStore
+    public partial interface ISettingStore
     {
         /// <summary>
         /// Gets a setting or null.

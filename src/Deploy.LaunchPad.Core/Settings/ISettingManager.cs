@@ -40,7 +40,7 @@ namespace Deploy.LaunchPad.Core.Configuration
     /// <summary>
     /// This is the main interface that must be implemented to be able to load/change values of settings.
     /// </summary>
-    public interface ISettingManager
+    public partial interface ISettingManager
     {
         /// <summary>
         /// Gets current value of a setting.

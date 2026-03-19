@@ -36,7 +36,7 @@ using System.Linq;
 
 namespace Deploy.LaunchPad.Util.Dependency
 {
-    public class ScopedIocResolver : IScopedIocResolver
+    public partial class ScopedIocResolver : IScopedIocResolver
     {
         private readonly IIocResolver _iocResolver;
         private readonly List<object> _resolvedObjects;

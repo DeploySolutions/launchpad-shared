@@ -37,7 +37,7 @@ namespace Deploy.LaunchPad.Core.Configuration
     /// <summary>
     /// Defines setting definition manager.
     /// </summary>
-    public interface ISettingDefinitionManager
+    public partial interface ISettingDefinitionManager
     {
         /// <summary>
         /// Gets the <see cref="SettingDefinition"/> object with given unique name.

@@ -39,7 +39,7 @@ namespace Deploy.LaunchPad.Util
     /// Base exception type for those exceptions that are thrown by LaunchPad system for specific exceptions.
     /// </summary>
     [Serializable]
-    public class LaunchPadException : Exception
+    public partial class LaunchPadException : Exception
     {
         /// <summary>
         /// Creates a new <see cref="LaunchPadException"/> object.

@@ -37,7 +37,7 @@ using System.Threading;
 
 namespace Deploy.LaunchPad.Util.Threading
 {
-    public class CancellationTokenOverride
+    public partial class CancellationTokenOverride
     {
         public CancellationToken CancellationToken { get; }
 

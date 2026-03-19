@@ -35,7 +35,7 @@ namespace Deploy.LaunchPad.Core.Configuration
     /// <summary>
     /// Represents value of a setting.
     /// </summary>
-    public interface ISettingValue
+    public partial interface ISettingValue
     {
         /// <summary>
         /// Unique name of the setting.

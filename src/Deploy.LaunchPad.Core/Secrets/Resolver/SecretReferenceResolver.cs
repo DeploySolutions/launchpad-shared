@@ -1,4 +1,5 @@
 ﻿using Deploy.LaunchPad.Core.Configuration;
+using Deploy.LaunchPad.Core.Secrets.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Text;

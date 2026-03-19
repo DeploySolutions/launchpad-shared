@@ -40,7 +40,7 @@ namespace Deploy.LaunchPad.Core.Localization
     /// This class can be used to serialize <see cref="ILocalizableString"/> to <see cref="string"/> during serialization.
     /// It does not work for deserialization.
     /// </summary>
-    public class LocalizableStringToStringJsonConverter : JsonConverter
+    public partial class LocalizableStringToStringJsonConverter : JsonConverter
     {
         private readonly ILocalizationContext _localizationContext;
 

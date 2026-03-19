@@ -24,13 +24,13 @@ using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Deploy.LaunchPad.Core.Secrets
+namespace Deploy.LaunchPad.Core.Secrets.Configuration
 {
     /// <summary>
     /// Class SecretProviderBase.
-    /// Implements the <see cref="Deploy.LaunchPad.Code.Config.ISecretProvider" />
+    /// Implements the <see cref="Code.Config.ISecretProvider" />
     /// </summary>
-    /// <seealso cref="Deploy.LaunchPad.Code.Config.ISecretProvider" />
+    /// <seealso cref="Code.Config.ISecretProvider" />
     public abstract partial class SecretProviderBase : ISecretProvider, ITransientDependency
     {
         protected readonly IDictionary<string, ISettingDefinition> _secrets = new Dictionary<string, ISettingDefinition>();

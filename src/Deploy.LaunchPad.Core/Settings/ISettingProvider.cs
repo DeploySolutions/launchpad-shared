@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Deploy.LaunchPad.Core.Configuration
 {
-    public interface ISettingProvider : ITransientDependency
+    public partial interface ISettingProvider : ITransientDependency
     {
         IEnumerable<ISettingDefinition> GetSettingDefinitions(ISettingDefinitionProviderContext context);
     }
