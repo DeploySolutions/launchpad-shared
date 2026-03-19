@@ -15,14 +15,14 @@
 using Microsoft.Extensions.Configuration;
 using System;
 
-namespace Deploy.LaunchPad.Core.Application
+namespace Deploy.LaunchPad.Core.Application.Config
 {
     /// <summary>
     /// Class LaunchPadAbpAppConfigurationAccessor.
-    /// Implements the <see cref="Deploy.LaunchPad.Core.Application.ILaunchPadAppConfigurationAccessor" />
+    /// Implements the <see cref="ILaunchPadAppConfigurationAccessor" />
     /// Implements the <see cref="ISingletonDependency" />
     /// </summary>
-    /// <seealso cref="Deploy.LaunchPad.Core.Application.ILaunchPadAppConfigurationAccessor" />
+    /// <seealso cref="ILaunchPadAppConfigurationAccessor" />
     /// <seealso cref="ISingletonDependency" />
     public partial class LaunchPadAppConfigurationAccessor : ILaunchPadAppConfigurationAccessor
     {
