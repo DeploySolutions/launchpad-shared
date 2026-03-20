@@ -40,6 +40,6 @@ namespace Deploy.LaunchPad.Core.Secrets.Configuration
         /// <summary>
         /// Gets a reference to the Secret Provider manager.
         /// </summary>
-        ISecretProviderManager Manager { get; }
+        ISecretManager Manager { get; }
     }
 }

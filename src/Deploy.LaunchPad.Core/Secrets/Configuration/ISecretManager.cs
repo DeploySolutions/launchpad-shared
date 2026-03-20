@@ -39,7 +39,7 @@ namespace Deploy.LaunchPad.Core.Secrets.Configuration
     /// <summary>
     /// Manages secrets in the application.
     /// </summary>
-    public partial interface ISecretProviderManager
+    public partial interface ISecretManager
     {
         public void PreInitialize();
 
