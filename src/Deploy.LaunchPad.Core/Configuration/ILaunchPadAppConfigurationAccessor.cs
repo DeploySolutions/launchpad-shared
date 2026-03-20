@@ -14,7 +14,7 @@
 using Deploy.LaunchPad.Util.Dependency;
 using Microsoft.Extensions.Configuration;
 
-namespace Deploy.LaunchPad.Core.Application.Config
+namespace Deploy.LaunchPad.Core.Configuration
 {
     /// <summary>
     /// Interface ILaunchPadAppConfigurationAccessor
