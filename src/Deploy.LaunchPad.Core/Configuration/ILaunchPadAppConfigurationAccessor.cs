@@ -11,8 +11,10 @@
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
+using Castle.Core.Logging;
 using Deploy.LaunchPad.Util.Dependency;
 using Microsoft.Extensions.Configuration;
+using System.Collections.Generic;
 
 namespace Deploy.LaunchPad.Core.Configuration
 {
@@ -27,6 +29,7 @@ namespace Deploy.LaunchPad.Core.Configuration
         /// Gets the configuration.
         /// </summary>
         /// <value>The configuration.</value>
-        IConfigurationRoot Configuration { get; }
+        static IConfigurationRoot Configuration { get; }
+
     }
 }
