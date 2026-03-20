@@ -12,8 +12,6 @@
 // <summary></summary>
 // ***********************************************************************
 using Deploy.LaunchPad.Core.Metadata;
-using Schema.NET;
-using System;
 using System.ComponentModel;
 using System.Xml.Serialization;
 
