@@ -13,9 +13,7 @@
     <PackageReference Include="Castle.Core" />
     <PackageReference Include="JetBrains.Annotations" />
     <PackageReference Include="FluentValidation" />
-    <PackageReference Include="Microsoft.AspNetCore.Hosting.Abstractions" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" />
-    <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" />
     <PackageReference Include="Microsoft.Extensions.Configuration" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" />
     <PackageReference Include="Microsoft.Extensions.Hosting" />
@@ -49,13 +47,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Deploy.LaunchPad.Util\Deploy.LaunchPad.Util.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <!--<PackageVersion Include="Schema.NET.Pending" Version="13.0.0" />-->
-    <Reference Include="Schema.NET.Pending">
-      <HintPath>F:\Deploy Solutions Dropbox\Main Team Folder\Code\Libs\launchpad_shared\Schema.NET.Pending.dll</HintPath>
-    </Reference>
   </ItemGroup>
 
 </Project>
