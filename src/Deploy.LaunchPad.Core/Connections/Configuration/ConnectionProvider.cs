@@ -13,7 +13,9 @@
 // ***********************************************************************
 using Castle.Core.Logging;
 using Deploy.LaunchPad.Core.Configuration;
+using Deploy.LaunchPad.Core.Connections.Database.Definitions;
 using Deploy.LaunchPad.Core.Secrets.Configuration;
+using Deploy.LaunchPad.Core.Secrets.Reference;
 using Deploy.LaunchPad.Util;
 using Deploy.LaunchPad.Util.Dependency;
 using Microsoft.Extensions.Configuration;
@@ -42,34 +44,11 @@ namespace Deploy.LaunchPad.Core.Connections.Configuration
         protected readonly IDictionary<string, ILaunchPadConnectionDefinition> _connections = new Dictionary<string, ILaunchPadConnectionDefinition>();
 
         /// <summary>
-        /// Contains an outer dictionary of "secret vaults".
-        /// Each secret vault contains an inner dictionary of string pairs representing a unique field contained within the vault, and the field's value.
-        /// The outer dictionary key is the unique identifer (such as Azure Key Vault identifier or AWS ARN) of the secret in which the secrets are stored.
-        /// Note to implementers: Do not store or record this information!
-        /// </summary>
-        /// <value>The secret vaults.</value>
-        [NotMapped]
-        [JsonIgnore]
-        public virtual Dictionary<string, ILaunchPadConnectionDefinition> Connections
-        {
-            get
-            {
-                return _connections.ToDictionary();
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets the identifier.
-        /// </summary>
-        /// <value>The identifier.</value>
-        public virtual string Id { get; set; }
-        
-        /// <summary>
         /// Initializes a new instance of the <see cref="SecretProviderBase"/> class.
         /// </summary>
         public ConnectionProvider(ISecretProvider secretProvider)
         {
-                _secretProvider = secretProvider;
+            _secretProvider = secretProvider;
         }
 
         /// <summary>
@@ -93,6 +72,35 @@ namespace Deploy.LaunchPad.Core.Connections.Configuration
         public virtual void RemoveConnection(string connectionDefinitionName)
         {
             _connections.Remove(connectionDefinitionName);
+        }
+
+        public virtual ILaunchPadDatabaseConnectionDefinition SetDefaultDatabaseConnection(string connectionName)
+        {
+            Guard.AgainstNullOrEmpty(connectionName, nameof(connectionName));
+            if (_connections.TryGetValue(connectionName, out var connectionDefinition) &&
+                connectionDefinition is ILaunchPadDatabaseConnectionDefinition dbConnection)
+            {
+                return dbConnection;
+            }
+            throw new InvalidOperationException("SetDefaultDatabaseConnection failed, could not find a matching connectionName. Is it present in the _connections dictionary?)");
+        }
+
+        public virtual void LoadConnectionsFromSecrets()
+        {
+            // foreach secret vault, load all secrets that are tagged as connection definitions, and add them to the connections collection
+            string name = "test";
+            string hostName = "test";
+            string databaseName = "test";
+            ISecretFieldReference userNameSecretRef = new SecretFieldReference("field:database:name", "PRR Secret Vault", Secrets.SecretVaultType.AwsSecretsManager);
+            ISecretFieldReference passwordSecretRef = new SecretFieldReference("field:database:name", "PRR Secret Vault", Secrets.SecretVaultType.AwsSecretsManager);
+            ISecretFieldReference nameSecretRef = new SecretFieldReference("field:database:name", "PRR Secret Vault", Secrets.SecretVaultType.AwsSecretsManager);
+            ILaunchPadConnectionDefinition connectionDefinition = new LaunchPadDatabaseConnectionDefinition(name, hostName, databaseName, userNameSecretRef, passwordSecretRef);
+            AddConnection(connectionDefinition);
+        }
+
+        public virtual string GetDatabaseConnectionString(string connectionName)
+        {
+            return "User ID=postgres;Password=g6E0!pzVK*tX.hDdZ8MS[mJ*$(:W;Host=dss-prr-crm-dev.c4cq6vdw0ezp.us-east-1.rds.amazonaws.com;Port=5432;Database=boilerplate_zero;";
         }
     }
 }

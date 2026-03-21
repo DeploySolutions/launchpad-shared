@@ -19,6 +19,7 @@ using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace Deploy.LaunchPad.Core.Secrets.Configuration
@@ -29,22 +30,13 @@ namespace Deploy.LaunchPad.Core.Secrets.Configuration
     public partial interface ISecretProvider :  ITransientDependency, ILaunchPadService
     {
 
-        /// <summary>
-        /// Gets or sets the identifier.
-        /// </summary>
-        /// <value>The identifier.</value>
-        public string Id { get; set; }
-
-        /// <summary>
-        /// Contains a dictionary of "secret vaults", keyed using the friendly name of the vault.
-        /// Each secret vault contains within it an inner dictionary of key value pairs representing a unique field contained within the vault, and the field's value.
-        /// The secret vault also contains the unique identifer (such as Azure Key Vault identifier or AWS ARN) of the secret in which the secrets are stored.
-        /// Note to implementers: Do not store or record this information!
-        /// </summary>
-        /// <value>The secret vaults.</value>
         [NotMapped]
-        public Dictionary<string, ISecretVault> SecretVaults { get; }
+        [JsonIgnore]
         public IDictionary<string, ISettingDefinition> Secrets { get; }
+
+        [NotMapped]
+        [JsonIgnore]
+        public IDictionary<string, ISecretVault> Vaults { get; }
 
         /// <summary>
         /// Used to populate secret vaults

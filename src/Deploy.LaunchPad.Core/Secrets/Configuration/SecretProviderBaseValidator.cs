@@ -31,13 +31,13 @@ namespace Deploy.LaunchPad.Core.Secrets.Configuration
         /// <param name="logger">The logger.</param>
         public SecretProviderBaseValidator(ILogger logger)
         {
-            RuleFor(x => x.Id)
-                .NotNull().NotEmpty();
-            RuleFor(x => x.Name)
-                .NotNull().NotEmpty();
-            RuleForEach(x => x.SecretVaults).ChildRules(order =>
+            //RuleFor(x => x.Id)
+            //    .NotNull().NotEmpty();
+            //RuleFor(x => x.Name)
+            //    .NotNull().NotEmpty();
+            RuleForEach(x => x.Vaults).ChildRules(order =>
             {
-                order.RuleFor(x => x.Value as ISecretVault).SetValidator(new SecretVaultValidator(logger));
+                order.RuleFor(x => x.Value).SetValidator(new SecretVaultValidator(logger));
             });
         }
 

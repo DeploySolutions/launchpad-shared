@@ -14,11 +14,11 @@ namespace Deploy.LaunchPad.Core.Secrets.Resolver
     /// </summary>
     public partial class SecretReferenceResolver : ISecretReferenceResolver
     {
-        private readonly ISecretProvider _provider;
+        private readonly ISecretConfiguration _secretConfiguration;
 
-        public SecretReferenceResolver(ISecretProvider provider)
+        public SecretReferenceResolver(ISecretConfiguration secretConfiguration)
         {
-            _provider = provider;
+            _secretConfiguration = secretConfiguration;
         }
 
         public virtual ISecretResolutionResult TryResolve(
@@ -36,13 +36,13 @@ namespace Deploy.LaunchPad.Core.Secrets.Resolver
             CancellationToken cancellationToken = default)
         {
             if (settingDefinition.SecretReference == null ||
-                !_provider.SecretVaults.ContainsKey(settingDefinition.SecretReference.VaultId)
+                !_secretConfiguration.Vaults.ContainsKey(settingDefinition.SecretReference.VaultId)
             )
             {
                 return new SecretResolutionResult(settingDefinition.Name);
             }
 
-            ISecretVault vault = _provider.GetSecretVaultById(settingDefinition.SecretReference.VaultId, $"SecretValueResolver.TryResolveAsync for setting {settingDefinition.Name} for tenant {tenantId} and user {userId}");
+            ISecretVault vault = _secretConfiguration.Provider.GetSecretVaultById(settingDefinition.SecretReference.VaultId, $"SecretValueResolver.TryResolveAsync for setting {settingDefinition.Name} for tenant {tenantId} and user {userId}");
             var value = await vault.GetValueOrNullFromSecretReferenceAsync(
                 settingDefinition.SecretReference,
                 settingDefinition,

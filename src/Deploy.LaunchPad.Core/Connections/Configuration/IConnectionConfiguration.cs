@@ -1,5 +1,7 @@
 ﻿using Deploy.LaunchPad.Core.Connections;
+using Deploy.LaunchPad.Core.Connections.Database.Definitions;
 using Deploy.LaunchPad.Core.Secrets;
+using Deploy.LaunchPad.Core.Secrets.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -9,17 +11,24 @@ namespace Deploy.LaunchPad.Core.Connections.Configuration
     public partial interface IConnectionConfiguration
     {
         /// <summary>
-        /// Gets/sets the name of the default connection string used by ORM module.
-        /// It must be the key of a Connection defined in the Connections dictionary of this configuration object.
+        /// Connection provider.
         /// </summary>
-        public string DefaultConnectionStringName { get; set; }
-
-        IReadOnlyList<ILaunchPadConnectionDefinition> Connections { get; }
+        IConnectionProvider Provider { get; init; }
 
         /// <summary>
-        /// The connection provider
+        /// Gets/sets the name of the default database connection string used by ORM module.
+        /// It must be the key of a Connection defined in the Connections dictionary of this configuration object.
         /// </summary>
-        IConnectionProvider Provider { get; set; }
+        public string DefaultDatabaseConnectionStringName{ get; }
+
+
+        /// <summary>
+        /// Gets/sets the name of the default database connection string used by ORM module.
+        /// It must be the key of a Connection defined in the Connections dictionary of this configuration object.
+        /// </summary>
+        public ILaunchPadDatabaseConnectionDefinition DefaultDatabaseConnection { get; set; }
+
+        IReadOnlyList<ILaunchPadConnectionDefinition> Connections { get; }
 
         ILaunchPadConnectionDefinition? GetOrNull(string name);
     }

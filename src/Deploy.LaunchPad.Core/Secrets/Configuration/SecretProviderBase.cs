@@ -36,52 +36,19 @@ namespace Deploy.LaunchPad.Core.Secrets.Configuration
     {
         protected readonly IDictionary<string, ISettingDefinition> _secrets = new Dictionary<string, ISettingDefinition>();
 
-        /// <summary>
-        /// Contains an outer dictionary of "secret vaults".
-        /// Each secret vault contains an inner dictionary of string pairs representing a unique field contained within the vault, and the field's value.
-        /// The outer dictionary key is the unique identifer (such as Azure Key Vault identifier or AWS ARN) of the secret in which the secrets are stored.
-        /// Note to implementers: Do not store or record this information!
-        /// </summary>
-        /// <value>The secret vaults.</value>
-        [NotMapped]
-        [JsonIgnore]
-        public virtual Dictionary<string, ISecretVault> SecretVaults { get; set; }
+        protected readonly IDictionary<string, ISecretVault> _vaults = new Dictionary<string, ISecretVault>();
 
-        /// <summary>
-        /// Gets a list of all secrets grouped by provider. These are also listed individually in the Providers property.
-        /// </summary>
+
         public virtual IDictionary<string, ISettingDefinition> Secrets { get { return _secrets; } }
 
-        /// <summary>
-        /// Gets or sets the identifier.
-        /// </summary>
-        /// <value>The identifier.</value>
-        public virtual string Id { get; set; }
+        public virtual IDictionary<string, ISecretVault> Vaults { get { return _vaults; } }
 
-        /// <summary>
-        /// Gets or sets the name.
-        /// </summary>
-        /// <value>The name.</value>
-        public virtual string Name { get; set; }
-
-        /// <summary>
-        /// Gets or sets the description.
-        /// </summary>
-        /// <value>The description.</value>
-        public virtual string Description { get; set; }
-
-        /// <summary>
-        /// Gets or sets the logger.
-        /// </summary>
-        /// <value>The logger.</value>
-        public virtual ILogger Logger { get; set; } = NullLogger.Instance;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="SecretProviderBase"/> class.
         /// </summary>
         public SecretProviderBase()
         {
-            SecretVaults = new Dictionary<string, ISecretVault>();
         }
 
         /// <summary>
@@ -94,7 +61,6 @@ namespace Deploy.LaunchPad.Core.Secrets.Configuration
             {
                 Logger = logger;
             }
-            SecretVaults = new Dictionary<string, ISecretVault>();
         }
         
         /// <summary>
@@ -172,7 +138,7 @@ namespace Deploy.LaunchPad.Core.Secrets.Configuration
         /// <param name="caller">The caller.</param>
         public virtual void RefreshAllSecretVaults(string caller)
         {
-            foreach (var vault in SecretVaults.Values)
+            foreach (var vault in Vaults.Values)
             {
                 // update the vaults in our dictionary
                 RefreshSecretVault(vault, caller);

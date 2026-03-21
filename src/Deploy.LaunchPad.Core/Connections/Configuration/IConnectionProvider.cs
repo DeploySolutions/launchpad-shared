@@ -13,6 +13,7 @@
 // ***********************************************************************
 using Castle.Core.Logging;
 using Deploy.LaunchPad.Core.Connections;
+using Deploy.LaunchPad.Core.Connections.Database.Definitions;
 using Deploy.LaunchPad.Util;
 using Deploy.LaunchPad.Util.Dependency;
 using System;
@@ -26,23 +27,20 @@ namespace Deploy.LaunchPad.Core.Connections.Configuration
     /// </summary>
     public partial interface IConnectionProvider :  ITransientDependency, ILaunchPadService
     {
-
         
-        /// <summary>
-        /// Gets or sets the identifier.
-        /// </summary>
-        /// <value>The identifier.</value>
-        public string Id { get; set; }
-
         /// <summary>
         /// Contains a dictionary of "connections"
         /// </summary>
         /// <value>The secret vaults.</value>
-        [NotMapped]
-        public Dictionary<string, ILaunchPadConnectionDefinition> Connections { get; }
+        //[NotMapped]
+        //public Dictionary<string, ILaunchPadConnectionDefinition> Connections { get; }
 
         public void AddConnection(ILaunchPadConnectionDefinition connectionDefinition);
         public void RemoveConnection(string connectionDefinitionName);
+        public void LoadConnectionsFromSecrets();
+
+        public string GetDatabaseConnectionString(string connectionName);
+        public ILaunchPadDatabaseConnectionDefinition SetDefaultDatabaseConnection(string connectionName);
 
     }
 }

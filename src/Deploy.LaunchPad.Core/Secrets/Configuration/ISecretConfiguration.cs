@@ -30,19 +30,37 @@
  */
 #endregion
 
+using Deploy.LaunchPad.Core.Configuration;
 using Deploy.LaunchPad.Util.Collections;
+using Newtonsoft.Json;
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Deploy.LaunchPad.Core.Secrets.Configuration
 {
-    public partial interface ISecretProviderConfiguration
+    public partial interface ISecretConfiguration
     {
 
         /// <summary>
         /// Secret provider.
         /// </summary>
-        ISecretProvider Provider { get; set; }
+        ISecretProvider Provider { get; init; }
+
+        /// <summary>
+        /// Contains a dictionary of "secret vaults", keyed using the friendly name of the vault.
+        /// Each secret vault contains within it an inner dictionary of key value pairs representing a unique field contained within the vault, and the field's value.
+        /// The secret vault also contains the unique identifer (such as Azure Key Vault identifier or AWS ARN) of the secret in which the secrets are stored.
+        /// Note to implementers: Do not store or record this information!
+        /// </summary>
+        /// <value>The secret vaults.</value>
+        [NotMapped]
+        [JsonIgnore]
+        public Dictionary<string, ISecretVault> Vaults { get; }
+
+        [NotMapped]
+        [JsonIgnore]
+        public IDictionary<string, ISettingDefinition> Secrets { get; }
 
     }
 }

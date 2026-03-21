@@ -30,9 +30,6 @@
  */
 #endregion
 
-using Deploy.LaunchPad.Core.Configuration;
-using Microsoft.Extensions.Configuration;
-using System.Collections.Generic;
 
 namespace Deploy.LaunchPad.Core.Connections.Configuration
 {
@@ -41,7 +38,7 @@ namespace Deploy.LaunchPad.Core.Connections.Configuration
     /// </summary>
     public partial interface IConnectionManager
     {
-        public void Initialize();
+        public void PreInitialize();
 
         /// <summary>
         /// The connection provider defined for the application.
