@@ -27,7 +27,15 @@ namespace Deploy.LaunchPad.Core.Connections.Configuration
     /// </summary>
     public partial interface IConnectionProvider :  ITransientDependency, ILaunchPadService
     {
-        
+
+        /// <summary>
+        /// Gets/sets the name of the default database connection string used by ORM module.
+        /// It must be the key of a Connection defined in the Connections dictionary of this configuration object.
+        /// </summary>
+        public ILaunchPadDatabaseConnectionDefinition DefaultDatabaseConnection { get; set; }
+
+        public string DefaultConnectionStringName { get; set; }
+
         /// <summary>
         /// Contains a dictionary of "connections"
         /// </summary>
@@ -41,7 +49,7 @@ namespace Deploy.LaunchPad.Core.Connections.Configuration
         public IDictionary<string, ILaunchPadConnectionDefinition> GetConnectionsFromSecrets();
 
         public string GetDatabaseConnectionString(string connectionName);
-        public ILaunchPadDatabaseConnectionDefinition SetDefaultDatabaseConnection();
+        public ILaunchPadDatabaseConnectionDefinition SetDefaultDatabaseConnection(string defaultConnectionStringName);
 
     }
 }

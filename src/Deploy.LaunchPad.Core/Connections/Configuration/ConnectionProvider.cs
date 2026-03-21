@@ -42,6 +42,11 @@ namespace Deploy.LaunchPad.Core.Connections.Configuration
         protected readonly ISecretProvider _secretProvider;
 
         protected readonly IDictionary<string, ILaunchPadConnectionDefinition> _connections = new Dictionary<string, ILaunchPadConnectionDefinition>();
+        
+        public ILaunchPadDatabaseConnectionDefinition DefaultDatabaseConnection { get; set; }
+
+        public string DefaultConnectionStringName { get; set; }
+
 
         /// <summary>
         /// Initializes a new instance of the <see cref="SecretProviderBase"/> class.
@@ -74,12 +79,14 @@ namespace Deploy.LaunchPad.Core.Connections.Configuration
             _connections.Remove(connectionDefinitionName);
         }
 
-        public virtual ILaunchPadDatabaseConnectionDefinition SetDefaultDatabaseConnection()
+        public virtual ILaunchPadDatabaseConnectionDefinition SetDefaultDatabaseConnection(string defaultConnectionStringName)
         {
-            string defaultConnectionStringName = "postgresql_default_connection";
+            Guard.AgainstNullOrEmpty(defaultConnectionStringName, nameof(defaultConnectionStringName));
             if (_connections.TryGetValue(defaultConnectionStringName, out var connectionDefinition) &&
                 connectionDefinition is ILaunchPadDatabaseConnectionDefinition dbConnection)
             {
+                DefaultDatabaseConnection = dbConnection;
+                DefaultConnectionStringName = dbConnection.Name;
                 return dbConnection;
             }
             throw new InvalidOperationException("SetDefaultDatabaseConnection failed, could not find a matching connectionName. Is it present in the _connections dictionary?)");
@@ -101,7 +108,12 @@ namespace Deploy.LaunchPad.Core.Connections.Configuration
 
         public virtual string GetDatabaseConnectionString(string connectionName)
         {
-            return "User ID=postgres;Password=g6E0!pzVK*tX.hDdZ8MS[mJ*$(:W;Host=dss-prr-crm-dev.c4cq6vdw0ezp.us-east-1.rds.amazonaws.com;Port=5432;Database=boilerplate_zero;";
+            var databaseConnection = GetConnectionsFromSecrets()[connectionName] as ILaunchPadDatabaseConnectionDefinition;
+            if (databaseConnection != null)
+            {
+                return databaseConnection.ConnectionString;
+            }
+            throw new InvalidOperationException($"GetDatabaseConnectionString failed, could not find a matching connectionName. Is it present in the _connections dictionary?)");
         }
     }
 }
