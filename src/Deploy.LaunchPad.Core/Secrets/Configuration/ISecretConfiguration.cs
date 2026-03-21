@@ -56,7 +56,7 @@ namespace Deploy.LaunchPad.Core.Secrets.Configuration
         /// <value>The secret vaults.</value>
         [NotMapped]
         [JsonIgnore]
-        public Dictionary<string, ISecretVault> Vaults { get; }
+        public IDictionary<string, ISecretVault> Vaults { get; }
 
         [NotMapped]
         [JsonIgnore]
