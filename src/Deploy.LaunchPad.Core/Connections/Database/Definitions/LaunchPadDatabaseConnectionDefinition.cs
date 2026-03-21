@@ -22,6 +22,11 @@ namespace Deploy.LaunchPad.Core.Connections.Database.Definitions
         public required virtual string Name { get; set; }
         public virtual ElementDescription Description { get; set; }
 
+        /// <summary>
+        /// Gets the database connection string.
+        /// </summary>
+        public virtual string ConnectionString { get; init; }
+
         public required virtual string HostName { get; init; }
         public required virtual string DatabaseName { get; init; }
 
@@ -77,6 +82,7 @@ namespace Deploy.LaunchPad.Core.Connections.Database.Definitions
             Version = version;
             ConnectionType = connectionType;
             ConnectionAuthMode = connectionAuthMode;
+            ConnectionString = GetConnectionString();
         }
 
         [SetsRequiredMembers]
@@ -102,6 +108,7 @@ namespace Deploy.LaunchPad.Core.Connections.Database.Definitions
             Version = version;
             ConnectionType = connectionType;
             ConnectionAuthMode = connectionAuthMode;
+            ConnectionString = GetConnectionString();
         }
 
 

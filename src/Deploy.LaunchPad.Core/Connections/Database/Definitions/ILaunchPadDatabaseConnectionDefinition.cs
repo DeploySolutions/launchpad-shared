@@ -20,6 +20,11 @@ namespace Deploy.LaunchPad.Core.Connections.Database.Definitions
 
         public string DatabaseName { get; }
 
+        /// <summary>
+        /// Gets the database connection string.
+        /// </summary>
+        public string ConnectionString { get; }
+
         public ISecretFieldReference? UsernameSecret { get; }
 
         public ISecretFieldReference? PasswordSecret { get; }

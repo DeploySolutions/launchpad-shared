@@ -19,16 +19,9 @@ namespace Deploy.LaunchPad.Core.Connections.Configuration
         /// Gets/sets the name of the default database connection string used by ORM module.
         /// It must be the key of a Connection defined in the Connections dictionary of this configuration object.
         /// </summary>
-        public string DefaultDatabaseConnectionStringName{ get; }
-
-
-        /// <summary>
-        /// Gets/sets the name of the default database connection string used by ORM module.
-        /// It must be the key of a Connection defined in the Connections dictionary of this configuration object.
-        /// </summary>
         public ILaunchPadDatabaseConnectionDefinition DefaultDatabaseConnection { get; set; }
 
-        IReadOnlyList<ILaunchPadConnectionDefinition> Connections { get; }
+        IDictionary<string, ILaunchPadConnectionDefinition> Connections { get; }
 
         ILaunchPadConnectionDefinition? GetOrNull(string name);
     }

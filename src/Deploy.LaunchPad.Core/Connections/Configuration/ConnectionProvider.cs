@@ -74,10 +74,10 @@ namespace Deploy.LaunchPad.Core.Connections.Configuration
             _connections.Remove(connectionDefinitionName);
         }
 
-        public virtual ILaunchPadDatabaseConnectionDefinition SetDefaultDatabaseConnection(string connectionName)
+        public virtual ILaunchPadDatabaseConnectionDefinition SetDefaultDatabaseConnection()
         {
-            Guard.AgainstNullOrEmpty(connectionName, nameof(connectionName));
-            if (_connections.TryGetValue(connectionName, out var connectionDefinition) &&
+            string defaultConnectionStringName = "postgresql_default_connection";
+            if (_connections.TryGetValue(defaultConnectionStringName, out var connectionDefinition) &&
                 connectionDefinition is ILaunchPadDatabaseConnectionDefinition dbConnection)
             {
                 return dbConnection;
@@ -85,7 +85,7 @@ namespace Deploy.LaunchPad.Core.Connections.Configuration
             throw new InvalidOperationException("SetDefaultDatabaseConnection failed, could not find a matching connectionName. Is it present in the _connections dictionary?)");
         }
 
-        public virtual void LoadConnectionsFromSecrets()
+        public virtual IDictionary<string, ILaunchPadConnectionDefinition> GetConnectionsFromSecrets()
         {
             // foreach secret vault, load all secrets that are tagged as connection definitions, and add them to the connections collection
             string name = "test";
@@ -96,6 +96,7 @@ namespace Deploy.LaunchPad.Core.Connections.Configuration
             ISecretFieldReference nameSecretRef = new SecretFieldReference("field:database:name", "PRR Secret Vault", Secrets.SecretVaultType.AwsSecretsManager);
             ILaunchPadConnectionDefinition connectionDefinition = new LaunchPadDatabaseConnectionDefinition(name, hostName, databaseName, userNameSecretRef, passwordSecretRef);
             AddConnection(connectionDefinition);
+            return _connections;
         }
 
         public virtual string GetDatabaseConnectionString(string connectionName)

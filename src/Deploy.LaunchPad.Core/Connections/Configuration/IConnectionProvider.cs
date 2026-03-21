@@ -37,10 +37,11 @@ namespace Deploy.LaunchPad.Core.Connections.Configuration
 
         public void AddConnection(ILaunchPadConnectionDefinition connectionDefinition);
         public void RemoveConnection(string connectionDefinitionName);
-        public void LoadConnectionsFromSecrets();
+
+        public IDictionary<string, ILaunchPadConnectionDefinition> GetConnectionsFromSecrets();
 
         public string GetDatabaseConnectionString(string connectionName);
-        public ILaunchPadDatabaseConnectionDefinition SetDefaultDatabaseConnection(string connectionName);
+        public ILaunchPadDatabaseConnectionDefinition SetDefaultDatabaseConnection();
 
     }
 }

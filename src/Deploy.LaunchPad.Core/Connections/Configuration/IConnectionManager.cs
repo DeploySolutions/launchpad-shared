@@ -40,6 +40,8 @@ namespace Deploy.LaunchPad.Core.Connections.Configuration
     {
         public void PreInitialize();
 
+        public void Initialize();
+
         /// <summary>
         /// The connection provider defined for the application.
         /// </summary>
