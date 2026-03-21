@@ -14,11 +14,12 @@
     <ProjectReference Include="..\Deploy.LaunchPad.Domain\Deploy.LaunchPad.Domain.csproj" />
   </ItemGroup>
 
+
   <ItemGroup>
-    <!--<PackageVersion Include="Schema.NET.Pending" Version="13.0.0" />-->
     <Reference Include="Schema.NET.Pending">
-      <HintPath>F:\Deploy Solutions Dropbox\Main Team Folder\Code\Libs\launchpad_shared\Schema.NET.Pending.dll</HintPath>
+      <HintPath>F:\Dev\External\Schema.NET\build\Schema.NET.Pending\Schema.NET.Pending.dll</HintPath>
     </Reference>
   </ItemGroup>
+
 
 </Project>

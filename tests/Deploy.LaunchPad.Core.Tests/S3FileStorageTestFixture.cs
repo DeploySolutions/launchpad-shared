@@ -32,7 +32,7 @@ namespace Deploy.LaunchPad.Domain.Tests
     using System.IO;
     using System.Reflection;
     using System;
-    using Deploy.LaunchPad.AWS.S3;
+    using Deploy.LaunchPad.Infra.AWS.S3;
     using Deploy.LaunchPad.Files.Formats;
     using Deploy.LaunchPad.Files.Images;
 

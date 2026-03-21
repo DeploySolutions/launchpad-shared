@@ -35,7 +35,7 @@
     <File Path="Xunit.License.md" />
   </Folder>
   <Folder Name="/Src/">
-    <Project Path="src/Deploy.LaunchPad.AWS/Deploy.LaunchPad.AWS.csproj" />
+    <Project Path="src/Deploy.LaunchPad.Infra.AWS/Deploy.LaunchPad.Infra.AWS.csproj" />
     <Project Path="src/Deploy.LaunchPad.Code/Deploy.LaunchPad.Code.csproj" Id="267ef999-9ad6-40db-a06e-fcf8454bf2d3" />
     <Project Path="src/Deploy.LaunchPad.Core/Deploy.LaunchPad.Core.csproj" />
     <Project Path="src/Deploy.LaunchPad.Data/Deploy.LaunchPad.Data.csproj" Id="28374291-c6a8-4326-9ceb-237398ceaa4e" />

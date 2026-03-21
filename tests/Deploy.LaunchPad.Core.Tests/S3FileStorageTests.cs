@@ -30,7 +30,7 @@
 namespace Deploy.LaunchPad.Domain.Tests
 {
     using Deploy.LaunchPad.AWS;
-    using Deploy.LaunchPad.AWS.S3;
+    using Deploy.LaunchPad.Infra.AWS.S3;
     using Deploy.LaunchPad.Domain;
     
     using Xunit;

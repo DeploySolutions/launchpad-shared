@@ -1,0 +1,82 @@
+﻿// ***********************************************************************
+// Assembly         : Deploy.LaunchPad.Infra.AWS.Abp
+// Author           : Nicholas Kellett
+// Created          : 11-19-2023
+//
+// Last Modified By : Nicholas Kellett
+// Last Modified On : 01-08-2023
+// ***********************************************************************
+// <copyright file="AwsSNSHelperFactory.cs" company="Deploy Software Solutions, inc.">
+//     2021-2023 Deploy Software Solutions, inc.
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
+using Amazon;
+using Amazon.SimpleNotificationService;
+using Castle.Core.Logging;
+using Deploy.LaunchPad.Infra.AWS.SNS;
+using Deploy.LaunchPad.Util.Dependency;
+using System;
+
+namespace Deploy.LaunchPad.Infra.AWS.Abp.SNS
+{
+    /// <summary>
+    /// Class AwsSNSHelperFactory.
+    /// Implements the <see cref="Deploy.LaunchPad.Infra.AWS.AwsHelperBase{Amazon.SimpleNotificationService.AmazonSimpleNotificationServiceConfig}" />
+    /// Implements the <see cref="ISingletonDependency" />
+    /// </summary>
+    /// <seealso cref="Deploy.LaunchPad.Infra.AWS.AwsHelperBase{Amazon.SimpleNotificationService.AmazonSimpleNotificationServiceConfig}" />
+    /// <seealso cref="ISingletonDependency" />
+    public partial class AwsSnsHelperFactory : AwsHelperBase<AmazonSimpleNotificationServiceConfig>, ISingletonDependency
+    {
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="AwsSnsHelperFactory"/> class.
+        /// </summary>
+        /// <param name="logger">The logger.</param>
+        /// <param name="awsRegionEndpointName">Name of the aws region endpoint.</param>
+        public AwsSnsHelperFactory(ILogger logger, string awsRegionEndpointName) : base(logger, awsRegionEndpointName)
+        {
+
+        }
+
+        /// <summary>
+        /// Creates the specified logger.
+        /// </summary>
+        /// <param name="logger">The logger.</param>
+        /// <param name="awsRegionEndpointName">Name of the aws region endpoint.</param>
+        /// <param name="awsProfileName">Name of the aws profile.</param>
+        /// <param name="shouldUseLocalAwsProfile">if set to <c>true</c> [should use local aws profile].</param>
+        /// <returns>AwsSNSHelper.</returns>
+        public virtual AwsSnsHelper Create(
+            ILogger logger,
+            string awsRegionEndpointName = DefaultRegionEndpointName,
+            string awsProfileName = DefaultLocalAwsProfileName,
+            bool shouldUseLocalAwsProfile = DefaultShouldUseLocalAwsProfile)
+        {
+            AwsSnsHelper helper = null;
+            if (logger == null)
+            {
+                logger = NullLogger.Instance;
+            }
+            TryGetRegionEndpoint(awsRegionEndpointName, out RegionEndpoint region);
+            Region = region;
+            AwsProfileName = awsProfileName;
+            if (shouldUseLocalAwsProfile)
+            {
+                helper = new AwsSnsHelper(logger, awsRegionEndpointName);
+                helper.ShouldUseLocalAwsProfile = true;
+            }
+            else // do not use a named local profile, instead try to determine the AWS client from the credential resolution order
+            {
+                // create the helper using the AWS credentials resolution pattern.
+                // Since we are not using local profile here, we presumably load from EC2 role or environment
+                helper = new AwsSnsHelper(logger, awsRegionEndpointName);
+                logger.Debug("AwsSNSHelper was null; returning a new instance.");
+            }
+
+            return helper;
+        }
+
+    }
+}
