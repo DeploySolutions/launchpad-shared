@@ -30,14 +30,17 @@
  */
 #endregion
 
+using Deploy.LaunchPad.Util.Json.SystemTextJson;
 using JetBrains.Annotations;
+using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Concurrent;
+using System.Collections.Generic;
+using System.Linq;
 using System.Text.Encodings.Web;
 using System.Text.Json;
 using System.Text.Json.Serialization;
-using Deploy.LaunchPad.Util.Json.SystemTextJson;
 using JsonSerializer = System.Text.Json.JsonSerializer;
 
 namespace Deploy.LaunchPad.Util.Json
@@ -58,6 +61,43 @@ namespace Deploy.LaunchPad.Util.Json
             SharedAbpContractResolver = new AbpContractResolver();
             JsonSerializerOptionsCache = new ConcurrentDictionary<object, JsonSerializerOptions>();
             UseNewtonsoft = false;
+        }
+        /// <summary>
+        /// Turns a section from IConfigurationRoot into a JSON string. 
+        /// This is useful for converting configuration sections into dynamic objects or dictionaries.
+        /// </summary>
+        /// <param name="section"></param>
+        /// <returns></returns>
+        public static string GetJsonFromConfigurationSection(this IConfigurationSection section)
+        {
+            var connectionsList = new List<string>();
+            foreach (var child in section.GetChildren())
+            {
+                var obj = child.ToObject();
+                var json = JsonConvert.SerializeObject(obj);
+                connectionsList.Add(json);
+            }
+            var connectionsJson = "[" + string.Join(",", connectionsList) + "]";
+            return connectionsJson;
+        }
+
+        /// <summary>
+        /// Turns a section from IConfigurationRoot into a plain object. 
+        /// This is useful for converting configuration sections into dynamic objects or dictionaries.
+        /// </summary>
+        /// <param name="section"></param>
+        /// <returns></returns>
+        public static object ToObject(this IConfigurationSection section)
+        {
+            var children = section.GetChildren().ToList();
+            if (!children.Any())
+                return section.Value;
+            var dict = new Dictionary<string, object?>();
+            foreach (var child in children)
+            {
+                dict[child.Key] = ToObject(child);
+            }
+            return dict;
         }
 
         /// <summary>
