@@ -1,7 +1,9 @@
 ﻿using Deploy.LaunchPad.Core.Connections;
 using Deploy.LaunchPad.Core.Secrets.Reference;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
 namespace Deploy.LaunchPad.Core.Connections.Database.Definitions
@@ -23,12 +25,13 @@ namespace Deploy.LaunchPad.Core.Connections.Database.Definitions
         /// <summary>
         /// Gets the database connection string.
         /// </summary>
+        [JsonIgnore]
+        [NotMapped]
         public string ConnectionString { get; }
 
         public ISecretFieldReference? UsernameSecret { get; }
 
         public ISecretFieldReference? PasswordSecret { get; }
-        public ISecretFieldReference? ConnectionStringSecret { get; }
 
         public string GetConnectionString();
 

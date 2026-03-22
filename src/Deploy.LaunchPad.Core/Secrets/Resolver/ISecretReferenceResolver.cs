@@ -1,4 +1,6 @@
 ﻿using Deploy.LaunchPad.Core.Configuration;
+using Deploy.LaunchPad.Core.Connections.Configuration;
+using Deploy.LaunchPad.Core.Secrets.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,23 +17,23 @@ namespace Deploy.LaunchPad.Core.Secrets.Resolver
     public partial interface ISecretReferenceResolver
     {
         ISecretResolutionResult TryResolve(
-            ISettingDefinition settingDefinition,
+            ISettingDefinition definition,
             Guid? tenantId = null,
             Guid? userId = null);
 
         Task<ISecretResolutionResult> TryResolveAsync(
-            ISettingDefinition settingDefinition,
+            ISettingDefinition definition,
             Guid? tenantId = null,
             Guid? userId = null,
             CancellationToken cancellationToken = default);
 
-        ISecretResolutionResult TryResolveBySettingName(
-            string settingName,
+        ISecretResolutionResult TryResolveBySecretName(
+            string secretName,
             Guid? tenantId = null,
             Guid? userId = null);
 
-        Task<ISecretResolutionResult> TryResolveBySettingNameAsync(
-        string settingName,
+        Task<ISecretResolutionResult> TryResolveBySecretNameAsync(
+        string secretName,
         Guid? tenantId = null,
         Guid? userId = null,
         CancellationToken cancellationToken = default);

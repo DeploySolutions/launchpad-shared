@@ -22,54 +22,54 @@ namespace Deploy.LaunchPad.Core.Secrets.Resolver
         }
 
         public virtual ISecretResolutionResult TryResolve(
-            ISettingDefinition settingDefinition,
+            ISettingDefinition definition,
             Guid? tenantId = null,
             Guid? userId = null)
         {
-            return TryResolveAsync(settingDefinition, tenantId, userId).Result;
+            return TryResolveAsync(definition, tenantId, userId).Result;
         }
 
         public virtual async Task<ISecretResolutionResult> TryResolveAsync(
-            ISettingDefinition settingDefinition,
+            ISettingDefinition definition,
             Guid? tenantId = null,
             Guid? userId = null,
             CancellationToken cancellationToken = default)
         {
-            if (settingDefinition.SecretReference == null ||
-                !_secretConfiguration.Vaults.ContainsKey(settingDefinition.SecretReference.VaultId)
+            if (definition.SecretReference == null ||
+                !_secretConfiguration.Vaults.ContainsKey(definition.SecretReference.VaultId)
             )
             {
-                return new SecretResolutionResult(settingDefinition.Name);
+                return new SecretResolutionResult(definition.Name);
             }
 
-            ISecretVault vault = _secretConfiguration.Provider.GetSecretVaultById(settingDefinition.SecretReference.VaultId, $"SecretValueResolver.TryResolveAsync for setting {settingDefinition.Name} for tenant {tenantId} and user {userId}");
+            ISecretVault vault = _secretConfiguration.Provider.GetSecretVaultById(definition.SecretReference.VaultId, $"SecretValueResolver.TryResolveAsync for setting {definition.Name} for tenant {tenantId} and user {userId}");
             var value = await vault.GetValueOrNullFromSecretReferenceAsync(
-                settingDefinition.SecretReference,
-                settingDefinition,
+                definition.SecretReference,
+                definition,
                 cancellationToken);
 
             if (!string.IsNullOrEmpty(value))
             {
                 return new SecretResolutionResult(
-                    settingDefinition.SecretReference.FieldName,
+                    definition.SecretReference.FieldName,
                     value,
                     true,
-                    settingDefinition.SecretReference
+                    definition.SecretReference
                 );
             }
-            return new SecretResolutionResult(settingDefinition.Name);
+            return new SecretResolutionResult(definition.Name);
         }
 
-        ISecretResolutionResult ISecretReferenceResolver.TryResolveBySettingName(string settingName, Guid? tenantId, Guid? userId)
+        ISecretResolutionResult ISecretReferenceResolver.TryResolveBySecretName(string secretName, Guid? tenantId, Guid? userId)
         {
-            ISettingDefinition definition = new SettingDefinition(settingName,null);
+            ISettingDefinition definition = new SettingDefinition(secretName,null);
             return TryResolve(definition, tenantId, userId);
 
         }
 
-        Task<ISecretResolutionResult> ISecretReferenceResolver.TryResolveBySettingNameAsync(string settingName, Guid? tenantId, Guid? userId, CancellationToken cancellationToken)
+        Task<ISecretResolutionResult> ISecretReferenceResolver.TryResolveBySecretNameAsync(string secretName, Guid? tenantId, Guid? userId, CancellationToken cancellationToken)
         {
-            ISettingDefinition definition = new SettingDefinition(settingName, null);
+            ISettingDefinition definition = new SettingDefinition(secretName, null);
             return TryResolveAsync(definition, tenantId, userId, cancellationToken);
         }
     }

@@ -70,11 +70,11 @@ namespace Deploy.LaunchPad.Core.Connections.Database.Resolutions
                 tenantId,
                 userId,
                 cancellationToken);
-            string connectionString = await TryResolveSettingValueAsync(
-                definition.ConnectionStringSecret.FieldName,
-                tenantId,
-                userId,
-                cancellationToken);
+            //string connectionString = await TryResolveSettingValueAsync(
+            //    definition.ConnectionStringSecret.FieldName,
+            //    tenantId,
+            //    userId,
+            //    cancellationToken);
 
             var resolved = new ResolvedDatabaseConnection
             (definition.Name, definition.HostName, definition.DatabaseName,

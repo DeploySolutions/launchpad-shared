@@ -25,7 +25,9 @@ namespace Deploy.LaunchPad.Core.Connections.Database.Definitions
         /// <summary>
         /// Gets the database connection string.
         /// </summary>
-        public virtual string ConnectionString { get; init; }
+        [JsonIgnore]
+        [NotMapped]
+        public virtual string ConnectionString { get => GetConnectionString(); }
 
         public required virtual string HostName { get; init; }
         public required virtual string DatabaseName { get; init; }
@@ -43,10 +45,6 @@ namespace Deploy.LaunchPad.Core.Connections.Database.Definitions
 
         public virtual ISecretFieldReference? PasswordSecretRef { get; set; }
 
-        [NotMapped]
-        [JsonIgnore]
-        public virtual ISecretFieldReference? ConnectionStringSecretRef { get; set; }
-
         /// <summary>
         /// Gets/sets a timeout value for the connection (if supported).
         /// </summary>
@@ -58,8 +56,7 @@ namespace Deploy.LaunchPad.Core.Connections.Database.Definitions
 
         ISecretFieldReference? ILaunchPadDatabaseConnectionDefinition.UsernameSecret => UsernameSecretRef;
         ISecretFieldReference? ILaunchPadDatabaseConnectionDefinition.PasswordSecret => PasswordSecretRef;
-        ISecretFieldReference? ILaunchPadDatabaseConnectionDefinition.ConnectionStringSecret => ConnectionStringSecretRef;
-
+        
         [SetsRequiredMembers]
         public LaunchPadDatabaseConnectionDefinition(string name, 
             string hostName, 
@@ -82,7 +79,6 @@ namespace Deploy.LaunchPad.Core.Connections.Database.Definitions
             Version = version;
             ConnectionType = connectionType;
             ConnectionAuthMode = connectionAuthMode;
-            ConnectionString = GetConnectionString();
         }
 
         [SetsRequiredMembers]
@@ -108,15 +104,19 @@ namespace Deploy.LaunchPad.Core.Connections.Database.Definitions
             Version = version;
             ConnectionType = connectionType;
             ConnectionAuthMode = connectionAuthMode;
-            ConnectionString = GetConnectionString();
         }
 
-
+        /// <summary>
+        /// Returns the connection string for this database connection definition, resolving secrets as needed.
+        /// </summary>
+        /// <returns></returns>
         public virtual string GetConnectionString()
         {
             DbConnectionStringBuilder builder = null;
             string userId = string.Empty; // resolve using Secret Manager and the resolver
             string password = string.Empty;
+            userId = "postgres";
+            password = "g6E0!pzVK*tX.hDdZ8MS[mJ*$(:W";
             if (ConnectionType == ConnectionType.PostgresDatabase)
             {
                 builder = new DbConnectionStringBuilder();
