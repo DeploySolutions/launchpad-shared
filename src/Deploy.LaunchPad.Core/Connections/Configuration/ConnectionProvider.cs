@@ -44,7 +44,8 @@ namespace Deploy.LaunchPad.Core.Connections.Configuration
         protected readonly ISecretProvider _secretProvider;
 
         protected readonly IDictionary<string, ILaunchPadConnection> _connections = new Dictionary<string, ILaunchPadConnection>();
-        
+        public IDictionary<string, ILaunchPadConnection> Connections => _connections;
+
         public ILaunchPadDatabaseConnection DefaultDatabaseConnection { get; set; }
 
         public string DefaultConnectionStringName { get; set; }
@@ -84,8 +85,9 @@ namespace Deploy.LaunchPad.Core.Connections.Configuration
         public virtual ILaunchPadDatabaseConnection SetDefaultDatabaseConnection(string defaultConnectionStringName)
         {
             Guard.AgainstNullOrEmpty(defaultConnectionStringName, nameof(defaultConnectionStringName));
-            if (_connections.TryGetValue(defaultConnectionStringName, out var connectionDefinition) &&
-                connectionDefinition is ILaunchPadDatabaseConnection dbConnection)
+            var key = _connections.Keys
+                .FirstOrDefault(k => string.Equals(k, defaultConnectionStringName, StringComparison.OrdinalIgnoreCase));
+            if (key != null && _connections[key] is ILaunchPadDatabaseConnection dbConnection)
             {
                 DefaultDatabaseConnection = dbConnection;
                 DefaultConnectionStringName = dbConnection.Name;
@@ -93,11 +95,12 @@ namespace Deploy.LaunchPad.Core.Connections.Configuration
             }
             throw new InvalidOperationException("SetDefaultDatabaseConnection failed, could not find a matching connectionName. Is it present in the _connections dictionary?)");
         }
-        public virtual IDictionary<string, ILaunchPadDatabaseConnection> LoadDatabaseConnections()
-        {
-            return new Dictionary<string, ILaunchPadDatabaseConnection>();
-        }
-        public virtual IDictionary<string, ILaunchPadDatabaseConnection> LoadDatabaseConnections(ISecretConfiguration secretConfiguration, string connectionsJson)
+
+        public virtual void LoadDatabaseConnectionsFromConfiguration(
+            ISecretConfiguration secretConfiguration, 
+            string connectionsJson,
+            string defaultConnectionStringName = null
+        )
         {
             var settings = new JsonSerializerSettings
             {
@@ -107,17 +110,21 @@ namespace Deploy.LaunchPad.Core.Connections.Configuration
 
             var connectionsList = JsonConvert.DeserializeObject<List<LaunchPadDatabaseConnection>>(connectionsJson, settings);
             ISecretReferenceResolver resolver = new SecretReferenceResolver(secretConfiguration);
-            var connections = new Dictionary<string, ILaunchPadDatabaseConnection>();
             foreach (var connection in connectionsList)
             {
                 connection.HostNameSecretRef.ResolvedValue = resolver.TryResolve(connection.HostNameSecretRef.FieldName).FieldValue;
                 connection.DatabaseSecretRef.ResolvedValue = resolver.TryResolve(connection.DatabaseSecretRef.FieldName).FieldValue;
                 connection.UsernameSecretRef.ResolvedValue = resolver.TryResolve(connection.UsernameSecretRef.FieldName).FieldValue;
                 connection.PasswordSecretRef.ResolvedValue = resolver.TryResolve(connection.PasswordSecretRef.FieldName).FieldValue;
-                connections.TryAdd(connection.Name, connection);
+                _connections.TryAdd(connection.Name, connection);
+            } 
+            if(string.IsNullOrEmpty(defaultConnectionStringName))
+            {
+                 defaultConnectionStringName = "default";
             }
-            return connections;
 
+            DefaultConnectionStringName = defaultConnectionStringName;
+            SetDefaultDatabaseConnection(defaultConnectionStringName);
         }
 
         public virtual string GetDatabaseConnectionString(string connectionName)
