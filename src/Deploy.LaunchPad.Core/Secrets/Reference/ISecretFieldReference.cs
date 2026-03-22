@@ -10,7 +10,9 @@ namespace Deploy.LaunchPad.Core.Secrets.Reference
     public partial interface ISecretFieldReference
     {
         string FieldName { get; }
-        string VaultId { get; }
-        public SecretVaultType VaultType { get; init; }
+        
+        string VaultName { get; }
+
+        string? ResolvedValue { get; set; }
     }
 }

@@ -13,18 +13,17 @@ namespace Deploy.LaunchPad.Core.Secrets.Reference
     [Serializable]
     public partial class SecretFieldReference : ISecretFieldReference
     {
+
         public required virtual string FieldName { get; init; }
 
-        public required virtual string VaultId { get; init; }
-        
-        public required virtual SecretVaultType VaultType { get; init; }
+        public required virtual string VaultName { get; init; }
+        public virtual string? ResolvedValue { get; set; }
 
         [SetsRequiredMembers]
-        public SecretFieldReference(string fieldName, string vaultId, SecretVaultType vaultType)
+        public SecretFieldReference(string fieldName, string vaultName)
         {
             FieldName = fieldName;
-            VaultId = vaultId;
-            VaultType = vaultType;  
+            VaultName = vaultName;
         }
 
     }
