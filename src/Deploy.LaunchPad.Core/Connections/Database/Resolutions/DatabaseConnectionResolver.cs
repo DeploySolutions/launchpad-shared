@@ -59,26 +59,41 @@ namespace Deploy.LaunchPad.Core.Connections.Database.Resolutions
             {
                 throw new ArgumentNullException(nameof(definition));
             }
+            string hostName = await TryResolveSettingValueAsync(
+                definition.HostNameSecret.FieldName,
+                tenantId,
+                userId,
+                cancellationToken);
+            definition.HostNameSecret.ResolvedValue = hostName;
+
+            string database = await TryResolveSettingValueAsync(
+                definition.DatabaseSecret.FieldName,
+                tenantId,
+                userId,
+                cancellationToken);
+            definition.DatabaseSecret.ResolvedValue = database;
 
             string username = await TryResolveSettingValueAsync(
                 definition.UsernameSecret.FieldName,
                 tenantId,
                 userId,
                 cancellationToken);
+            definition.UsernameSecret.ResolvedValue = username;
+
             string password = await TryResolveSettingValueAsync(
                 definition.PasswordSecret.FieldName,
                 tenantId,
                 userId,
                 cancellationToken);
-            //string connectionString = await TryResolveSettingValueAsync(
-            //    definition.ConnectionStringSecret.FieldName,
-            //    tenantId,
-            //    userId,
-            //    cancellationToken);
+            definition.PasswordSecret.ResolvedValue = password;
 
             var resolved = new ResolvedDatabaseConnection
-            (definition.Name, definition.HostName, definition.DatabaseName,
-            username,password, definition.Port,null, definition.ConnectionType, definition.ConnectionAuthMode
+            (definition.Name, 
+            definition.HostNameSecret.ResolvedValue,
+            definition.DatabaseSecret.ResolvedValue,
+            definition.UsernameSecret.ResolvedValue, 
+            definition.PasswordSecret.ResolvedValue, 
+            definition.Port,null, definition.ConnectionType, definition.ConnectionAuthMode
                 )
             {
                 Timeout = definition.Timeout,
