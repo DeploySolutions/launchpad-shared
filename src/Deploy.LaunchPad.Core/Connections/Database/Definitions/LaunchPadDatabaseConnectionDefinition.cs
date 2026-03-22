@@ -1,14 +1,11 @@
-﻿using Deploy.LaunchPad.Core.Connections;
-using Deploy.LaunchPad.Core.Metadata;
-using Deploy.LaunchPad.Core.Secrets.Reference;
+﻿using Deploy.LaunchPad.Core.Secrets.Reference;
 using Deploy.LaunchPad.Util.Elements;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Common;
 using System.Diagnostics.CodeAnalysis;
-using System.Text;
-using System.Text.Json.Serialization;
 
 namespace Deploy.LaunchPad.Core.Connections.Database.Definitions
 {
@@ -20,7 +17,10 @@ namespace Deploy.LaunchPad.Core.Connections.Database.Definitions
         public virtual ConnectionAuthMode ConnectionAuthMode { get; init; } = ConnectionAuthMode.ConnectionString;
 
         public required virtual string Name { get; set; }
+
         public virtual ElementDescription Description { get; set; }
+
+        public virtual string DefaultSchema { get; set; } = "public";
 
         /// <summary>
         /// Gets the database connection string.
@@ -29,8 +29,13 @@ namespace Deploy.LaunchPad.Core.Connections.Database.Definitions
         [NotMapped]
         public virtual string ConnectionString { get => GetConnectionString(); }
 
-        public required virtual string HostName { get; init; }
-        public required virtual string DatabaseName { get; init; }
+        [NotMapped]
+        [JsonIgnore]
+        public required virtual ISecretFieldReference? HostNameSecretRef { get; set; }
+
+        [NotMapped]
+        [JsonIgnore]
+        public required virtual ISecretFieldReference? DatabaseSecretRef { get; set; }
 
         public virtual string Version { get; } = string.Empty;
         
@@ -38,12 +43,12 @@ namespace Deploy.LaunchPad.Core.Connections.Database.Definitions
 
         [NotMapped]
         [JsonIgnore]
-        public virtual ISecretFieldReference? UsernameSecretRef { get; set; }
+        public required virtual ISecretFieldReference? UsernameSecretRef { get; set; }
 
         [NotMapped]
         [JsonIgnore]
 
-        public virtual ISecretFieldReference? PasswordSecretRef { get; set; }
+        public required virtual ISecretFieldReference? PasswordSecretRef { get; set; }
 
         /// <summary>
         /// Gets/sets a timeout value for the connection (if supported).
@@ -54,13 +59,16 @@ namespace Deploy.LaunchPad.Core.Connections.Database.Definitions
 
         public virtual bool IsActive { get; set; } = true;
 
+        ISecretFieldReference ILaunchPadDatabaseConnectionDefinition.DatabaseSecret => DatabaseSecretRef;
+        ISecretFieldReference? ILaunchPadDatabaseConnectionDefinition.HostNameSecret => HostNameSecretRef;
         ISecretFieldReference? ILaunchPadDatabaseConnectionDefinition.UsernameSecret => UsernameSecretRef;
         ISecretFieldReference? ILaunchPadDatabaseConnectionDefinition.PasswordSecret => PasswordSecretRef;
         
         [SetsRequiredMembers]
-        public LaunchPadDatabaseConnectionDefinition(string name, 
-            string hostName, 
-            string databaseName, 
+        [JsonConstructor]
+        public LaunchPadDatabaseConnectionDefinition(string name,
+            ISecretFieldReference hostNameSecretRef,
+            ISecretFieldReference databaseSecretRef,
             ISecretFieldReference userNameSecretRef,
             ISecretFieldReference passwordSecretRef, 
             int port = 5432, 
@@ -70,9 +78,9 @@ namespace Deploy.LaunchPad.Core.Connections.Database.Definitions
         )
         {
             Name = name;
+            HostNameSecretRef = hostNameSecretRef;
             Description = new ElementDescription(name);
-            HostName = hostName;
-            DatabaseName = databaseName;
+            DatabaseSecretRef = databaseSecretRef;
             UsernameSecretRef = userNameSecretRef;
             PasswordSecretRef = passwordSecretRef;
             Port = port;
@@ -83,9 +91,9 @@ namespace Deploy.LaunchPad.Core.Connections.Database.Definitions
 
         [SetsRequiredMembers]
         public LaunchPadDatabaseConnectionDefinition(string name, 
-            ElementDescription description, 
-            string hostName, 
-            string databaseName,
+            ElementDescription description,
+            ISecretFieldReference hostNameSecretRef,
+            ISecretFieldReference databaseSecretRef,
             ISecretFieldReference userNameSecretRef,
             ISecretFieldReference passwordSecretRef,
             int port = 5432, 
@@ -96,8 +104,8 @@ namespace Deploy.LaunchPad.Core.Connections.Database.Definitions
         {
             Name = name;
             Description = description;
-            HostName = hostName;
-            DatabaseName = databaseName;
+            HostNameSecretRef = hostNameSecretRef;
+            DatabaseSecretRef = databaseSecretRef;
             UsernameSecretRef = userNameSecretRef;
             PasswordSecretRef = passwordSecretRef;
             Port = port;
@@ -113,25 +121,29 @@ namespace Deploy.LaunchPad.Core.Connections.Database.Definitions
         public virtual string GetConnectionString()
         {
             DbConnectionStringBuilder builder = null;
-            string userId = string.Empty; // resolve using Secret Manager and the resolver
+            // resolve using Secret Manager and the resolver
+            string userId = string.Empty; 
             string password = string.Empty;
+            string hostName = string.Empty;
+            string database = string.Empty;
             userId = "postgres";
             password = "g6E0!pzVK*tX.hDdZ8MS[mJ*$(:W";
+            hostName = "";
             if (ConnectionType == ConnectionType.PostgresDatabase)
             {
                 builder = new DbConnectionStringBuilder();
                 builder["User ID"] = userId;
                 builder["Password"] = password;
-                builder["Host"] = HostName;
+                builder["Host"] = hostName;
                 builder["Port"] = Port;
-                builder["Database"] = DatabaseName;
+                builder["Database"] = database;
                 builder["Timeout"] = Timeout.TotalSeconds;
                 // Add other Postgres-specific options as needed
             }
             else if (ConnectionType == ConnectionType.SqliteDatabase)
             {
                 builder = new DbConnectionStringBuilder();
-                builder["Data Source"] = DatabaseName;
+                builder["Data Source"] = database;
                 if (!string.IsNullOrEmpty(Version))
                     builder["Version"] = Version;
                 // SQLite does not use user/password/host/port

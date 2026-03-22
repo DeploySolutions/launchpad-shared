@@ -14,13 +14,18 @@ namespace Deploy.LaunchPad.Core.Connections.Database.Definitions
     /// </summary>
     public partial interface ILaunchPadDatabaseConnectionDefinition : ILaunchPadConnectionDefinition
     {
-        public string HostName { get;  }
+        public ISecretFieldReference? HostNameSecret { get; }
+        public string DefaultSchema { get; }
 
         public int Port { get; }
 
         public string Version { get; }
 
-        public string DatabaseName { get; }
+        public ISecretFieldReference? DatabaseSecret { get; }
+
+        public ISecretFieldReference? UsernameSecret { get; }
+
+        public ISecretFieldReference? PasswordSecret { get; }
 
         /// <summary>
         /// Gets the database connection string.
@@ -28,10 +33,6 @@ namespace Deploy.LaunchPad.Core.Connections.Database.Definitions
         [JsonIgnore]
         [NotMapped]
         public string ConnectionString { get; }
-
-        public ISecretFieldReference? UsernameSecret { get; }
-
-        public ISecretFieldReference? PasswordSecret { get; }
 
         public string GetConnectionString();
 
