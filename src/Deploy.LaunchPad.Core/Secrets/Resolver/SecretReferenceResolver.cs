@@ -16,20 +16,20 @@ namespace Deploy.LaunchPad.Core.Secrets.Resolver
     /// </summary>
     public partial class SecretReferenceResolver : ISecretReferenceResolver
     {
-        private readonly ISecretConfiguration _secretConfiguration;
+        private readonly IDictionary<string, ISettingDefinition> _secrets;
 
-        public SecretReferenceResolver(ISecretConfiguration secretConfiguration)
+        public SecretReferenceResolver(IDictionary<string, ISettingDefinition> secrets)
         {
-            _secretConfiguration = secretConfiguration;
+            _secrets = secrets;
         }
 
         public virtual ISecretResolutionResult TryResolve(string fieldName)
         {
             Guard.AgainstNullOrWhiteSpace(fieldName, nameof(fieldName));
             ISecretResolutionResult result = null;
-            if (_secretConfiguration.Secrets.ContainsKey(fieldName))
+            if (_secrets.ContainsKey(fieldName))
             {
-                result = new SecretResolutionResult(fieldName, _secretConfiguration.Secrets[fieldName].DefaultValue);
+                result = new SecretResolutionResult(fieldName, _secrets[fieldName].DefaultValue);
 
             }
             else

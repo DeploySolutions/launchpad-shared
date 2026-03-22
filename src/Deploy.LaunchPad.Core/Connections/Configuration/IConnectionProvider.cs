@@ -49,7 +49,14 @@ namespace Deploy.LaunchPad.Core.Connections.Configuration
         public void AddConnection(ILaunchPadConnection connectionDefinition);
         public void RemoveConnection(string connectionDefinitionName);
 
-        public void LoadDatabaseConnectionsFromConfiguration(ISecretConfiguration secretConfiguration,
+        public List<LaunchPadDatabaseConnection> LoadDatabaseConnectionsFromConfiguration(
+            ISecretProvider secretProvider,
+            string connectionsJson,
+            string defaultConnectionStringName = null
+        );
+
+        public List<LaunchPadDatabaseConnection> LoadDatabaseConnectionsFromConfiguration(
+            ISecretConfiguration secretConfiguration,
             string connectionsJson,
             string defaultConnectionStringName = null
         );

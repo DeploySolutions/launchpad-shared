@@ -96,8 +96,17 @@ namespace Deploy.LaunchPad.Core.Connections.Configuration
             throw new InvalidOperationException("SetDefaultDatabaseConnection failed, could not find a matching connectionName. Is it present in the _connections dictionary?)");
         }
 
-        public virtual void LoadDatabaseConnectionsFromConfiguration(
-            ISecretConfiguration secretConfiguration, 
+        public virtual List<LaunchPadDatabaseConnection> LoadDatabaseConnectionsFromConfiguration(
+            ISecretConfiguration secretConfiguration,
+            string connectionsJson,
+            string defaultConnectionStringName = null
+        )
+        {
+            return LoadDatabaseConnectionsFromConfiguration(secretConfiguration.Provider, connectionsJson, defaultConnectionStringName);
+        }
+
+        public virtual List<LaunchPadDatabaseConnection> LoadDatabaseConnectionsFromConfiguration(
+            ISecretProvider secretProvider, 
             string connectionsJson,
             string defaultConnectionStringName = null
         )
@@ -109,7 +118,7 @@ namespace Deploy.LaunchPad.Core.Connections.Configuration
             };
 
             var connectionsList = JsonConvert.DeserializeObject<List<LaunchPadDatabaseConnection>>(connectionsJson, settings);
-            ISecretReferenceResolver resolver = new SecretReferenceResolver(secretConfiguration);
+            ISecretReferenceResolver resolver = new SecretReferenceResolver(secretProvider.Secrets);
             foreach (var connection in connectionsList)
             {
                 connection.HostNameSecretRef.ResolvedValue = resolver.TryResolve(connection.HostNameSecretRef.FieldName).FieldValue;
@@ -125,6 +134,7 @@ namespace Deploy.LaunchPad.Core.Connections.Configuration
 
             DefaultConnectionStringName = defaultConnectionStringName;
             SetDefaultDatabaseConnection(defaultConnectionStringName);
+            return connectionsList;
         }
 
         public virtual string GetDatabaseConnectionString(string connectionName)
