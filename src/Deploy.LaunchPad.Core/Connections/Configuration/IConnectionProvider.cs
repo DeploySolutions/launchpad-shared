@@ -14,6 +14,7 @@
 using Castle.Core.Logging;
 using Deploy.LaunchPad.Core.Connections;
 using Deploy.LaunchPad.Core.Connections.Database.Definitions;
+using Deploy.LaunchPad.Core.Secrets.Configuration;
 using Deploy.LaunchPad.Util;
 using Deploy.LaunchPad.Util.Dependency;
 using System;
@@ -46,10 +47,12 @@ namespace Deploy.LaunchPad.Core.Connections.Configuration
         public void AddConnection(ILaunchPadConnection connectionDefinition);
         public void RemoveConnection(string connectionDefinitionName);
 
-        public IDictionary<string, ILaunchPadConnection> GetConnectionsFromSecrets();
+        public IDictionary<string, ILaunchPadDatabaseConnection> LoadDatabaseConnections();
 
-        public string GetDatabaseConnectionString(string connectionName);
+        public IDictionary<string, ILaunchPadDatabaseConnection> LoadDatabaseConnections(ISecretConfiguration secretConfiguration, string connectionsJson);
+
         public ILaunchPadDatabaseConnection SetDefaultDatabaseConnection(string defaultConnectionStringName);
+        public string GetDatabaseConnectionString(string connectionName);
 
     }
 }

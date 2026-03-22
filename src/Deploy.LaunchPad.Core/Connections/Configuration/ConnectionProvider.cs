@@ -13,9 +13,11 @@
 // ***********************************************************************
 using Castle.Core.Logging;
 using Deploy.LaunchPad.Core.Configuration;
+using Deploy.LaunchPad.Core.Connections.Database;
 using Deploy.LaunchPad.Core.Connections.Database.Definitions;
 using Deploy.LaunchPad.Core.Secrets.Configuration;
 using Deploy.LaunchPad.Core.Secrets.Reference;
+using Deploy.LaunchPad.Core.Secrets.Resolver;
 using Deploy.LaunchPad.Util;
 using Deploy.LaunchPad.Util.Dependency;
 using Microsoft.Extensions.Configuration;
@@ -41,9 +43,9 @@ namespace Deploy.LaunchPad.Core.Connections.Configuration
 
         protected readonly ISecretProvider _secretProvider;
 
-        protected readonly IDictionary<string, ILaunchPadConnectionDefinition> _connections = new Dictionary<string, ILaunchPadConnectionDefinition>();
+        protected readonly IDictionary<string, ILaunchPadConnection> _connections = new Dictionary<string, ILaunchPadConnection>();
         
-        public ILaunchPadDatabaseConnectionDefinition DefaultDatabaseConnection { get; set; }
+        public ILaunchPadDatabaseConnection DefaultDatabaseConnection { get; set; }
 
         public string DefaultConnectionStringName { get; set; }
 
@@ -69,7 +71,7 @@ namespace Deploy.LaunchPad.Core.Connections.Configuration
             _secretProvider = secretProvider;
         }
 
-        public virtual void AddConnection(ILaunchPadConnectionDefinition connectionDefinition)
+        public virtual void AddConnection(ILaunchPadConnection connectionDefinition)
         {
             _connections.TryAdd(connectionDefinition.Name, connectionDefinition);
         }
@@ -79,11 +81,11 @@ namespace Deploy.LaunchPad.Core.Connections.Configuration
             _connections.Remove(connectionDefinitionName);
         }
 
-        public virtual ILaunchPadDatabaseConnectionDefinition SetDefaultDatabaseConnection(string defaultConnectionStringName)
+        public virtual ILaunchPadDatabaseConnection SetDefaultDatabaseConnection(string defaultConnectionStringName)
         {
             Guard.AgainstNullOrEmpty(defaultConnectionStringName, nameof(defaultConnectionStringName));
             if (_connections.TryGetValue(defaultConnectionStringName, out var connectionDefinition) &&
-                connectionDefinition is ILaunchPadDatabaseConnectionDefinition dbConnection)
+                connectionDefinition is ILaunchPadDatabaseConnection dbConnection)
             {
                 DefaultDatabaseConnection = dbConnection;
                 DefaultConnectionStringName = dbConnection.Name;
@@ -91,25 +93,38 @@ namespace Deploy.LaunchPad.Core.Connections.Configuration
             }
             throw new InvalidOperationException("SetDefaultDatabaseConnection failed, could not find a matching connectionName. Is it present in the _connections dictionary?)");
         }
-
-        public virtual IDictionary<string, ILaunchPadConnectionDefinition> GetConnectionsFromSecrets()
+        public virtual IDictionary<string, ILaunchPadDatabaseConnection> LoadDatabaseConnections()
         {
-            // foreach secret vault, load all secrets that are tagged as connection definitions, and add them to the connections collection
-            string name = "test";
-            string hostName = "test";
-            string databaseName = "test";
-            ISecretFieldReference userNameSecretRef = new SecretFieldReference("field:database:name", "PRR Secret Vault", Secrets.SecretVaultType.AwsSecretsManager);
-            ISecretFieldReference passwordSecretRef = new SecretFieldReference("field:database:name", "PRR Secret Vault", Secrets.SecretVaultType.AwsSecretsManager);
-            ISecretFieldReference nameSecretRef = new SecretFieldReference("field:database:name", "PRR Secret Vault", Secrets.SecretVaultType.AwsSecretsManager);
-            ILaunchPadConnectionDefinition connectionDefinition = new LaunchPadDatabaseConnectionDefinition(name, hostName, databaseName, userNameSecretRef, passwordSecretRef);
-            AddConnection(connectionDefinition);
-            return _connections;
+            return new Dictionary<string, ILaunchPadDatabaseConnection>();
+        }
+        public virtual IDictionary<string, ILaunchPadDatabaseConnection> LoadDatabaseConnections(ISecretConfiguration secretConfiguration, string connectionsJson)
+        {
+            var settings = new JsonSerializerSettings
+            {
+                TypeNameHandling = TypeNameHandling.None,
+                Converters = new List<JsonConverter> { new SecretFieldReferenceConverter() }
+            };
+
+            var connectionsList = JsonConvert.DeserializeObject<List<LaunchPadDatabaseConnection>>(connectionsJson, settings);
+            ISecretReferenceResolver resolver = new SecretReferenceResolver(secretConfiguration);
+            var connections = new Dictionary<string, ILaunchPadDatabaseConnection>();
+            foreach (var connection in connectionsList)
+            {
+                connection.HostNameSecretRef.ResolvedValue = resolver.TryResolve(connection.HostNameSecretRef.FieldName).FieldValue;
+                connection.DatabaseSecretRef.ResolvedValue = resolver.TryResolve(connection.DatabaseSecretRef.FieldName).FieldValue;
+                connection.UsernameSecretRef.ResolvedValue = resolver.TryResolve(connection.UsernameSecretRef.FieldName).FieldValue;
+                connection.PasswordSecretRef.ResolvedValue = resolver.TryResolve(connection.PasswordSecretRef.FieldName).FieldValue;
+                connections.TryAdd(connection.Name, connection);
+            }
+            return connections;
+
         }
 
         public virtual string GetDatabaseConnectionString(string connectionName)
         {
-            var databaseConnection = GetConnectionsFromSecrets()[connectionName] as ILaunchPadDatabaseConnectionDefinition;
-            if (databaseConnection != null)
+            var key = _connections.Keys
+            .FirstOrDefault(k => string.Equals(k, connectionName, StringComparison.OrdinalIgnoreCase));
+            if (key != null && _connections[key] is ILaunchPadDatabaseConnection databaseConnection)
             {
                 return databaseConnection.ConnectionString;
             }
