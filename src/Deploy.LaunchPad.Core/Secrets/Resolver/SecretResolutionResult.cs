@@ -19,30 +19,22 @@ namespace Deploy.LaunchPad.Core.Secrets.Resolver
 
         public bool WasFound { get; init; } = false;
 
-        public ISecretFieldReference? ResolvedBy { get; init; }
-
         [SetsRequiredMembers]
         public SecretResolutionResult(string fieldName)
         {
             FieldName = fieldName;
+            WasFound = false;
         }
 
         [SetsRequiredMembers]
-        public SecretResolutionResult(string fieldName, string fieldValue,ISecretFieldReference resolvedBy)
+        public SecretResolutionResult(string fieldName, string fieldValue)
         {
             FieldName = fieldName;
             FieldValue = fieldValue;
-            ResolvedBy = resolvedBy;
-            WasFound = true;
-        }
-
-        [SetsRequiredMembers]
-        public SecretResolutionResult(string fieldName, string? fieldValue, bool wasFound, ISecretFieldReference? resolvedBy)
-        {
-            FieldName = fieldName;
-            FieldValue = fieldValue;
-            WasFound = wasFound;
-            ResolvedBy = resolvedBy;
+            if(!string.IsNullOrEmpty(fieldValue))
+            {
+                WasFound = true;
+            }
         }
 
     }

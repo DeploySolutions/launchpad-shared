@@ -10,7 +10,7 @@ using System.Diagnostics.CodeAnalysis;
 namespace Deploy.LaunchPad.Core.Connections.Database.Definitions
 {
     [Serializable]
-    public partial class LaunchPadDatabaseConnectionDefinition : ILaunchPadDatabaseConnectionDefinition
+    public partial class LaunchPadDatabaseConnection : ILaunchPadDatabaseConnection
     {
         public virtual ConnectionType ConnectionType { get; init; } = ConnectionType.PostgresDatabase;
 
@@ -31,7 +31,15 @@ namespace Deploy.LaunchPad.Core.Connections.Database.Definitions
 
         [NotMapped]
         [JsonIgnore]
+        public virtual string? HostName => HostNameSecretRef.ResolvedValue;
+
+        [NotMapped]
+        [JsonIgnore]
         public required virtual ISecretFieldReference? HostNameSecretRef { get; set; }
+
+        [NotMapped]
+        [JsonIgnore]
+        public virtual string? Database => DatabaseSecretRef.ResolvedValue;
 
         [NotMapped]
         [JsonIgnore]
@@ -41,9 +49,19 @@ namespace Deploy.LaunchPad.Core.Connections.Database.Definitions
         
         public virtual int Port { get; init; } = 5432;
 
+
+        [NotMapped]
+        [JsonIgnore]
+        public virtual string? UserName => UsernameSecretRef.ResolvedValue;
+
         [NotMapped]
         [JsonIgnore]
         public required virtual ISecretFieldReference? UsernameSecretRef { get; set; }
+
+
+        [NotMapped]
+        [JsonIgnore]
+        public virtual string? Password => PasswordSecretRef.ResolvedValue;
 
         [NotMapped]
         [JsonIgnore]
@@ -59,14 +77,10 @@ namespace Deploy.LaunchPad.Core.Connections.Database.Definitions
 
         public virtual bool IsActive { get; set; } = true;
 
-        ISecretFieldReference ILaunchPadDatabaseConnectionDefinition.DatabaseSecret => DatabaseSecretRef;
-        ISecretFieldReference? ILaunchPadDatabaseConnectionDefinition.HostNameSecret => HostNameSecretRef;
-        ISecretFieldReference? ILaunchPadDatabaseConnectionDefinition.UsernameSecret => UsernameSecretRef;
-        ISecretFieldReference? ILaunchPadDatabaseConnectionDefinition.PasswordSecret => PasswordSecretRef;
-        
+
         [SetsRequiredMembers]
         [JsonConstructor]
-        public LaunchPadDatabaseConnectionDefinition(string name,
+        public LaunchPadDatabaseConnection(string name,
             ISecretFieldReference hostNameSecretRef,
             ISecretFieldReference databaseSecretRef,
             ISecretFieldReference userNameSecretRef,
@@ -90,7 +104,7 @@ namespace Deploy.LaunchPad.Core.Connections.Database.Definitions
         }
 
         [SetsRequiredMembers]
-        public LaunchPadDatabaseConnectionDefinition(string name, 
+        public LaunchPadDatabaseConnection(string name, 
             ElementDescription description,
             ISecretFieldReference hostNameSecretRef,
             ISecretFieldReference databaseSecretRef,

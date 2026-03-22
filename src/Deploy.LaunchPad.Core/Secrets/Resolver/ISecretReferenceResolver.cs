@@ -16,27 +16,9 @@ namespace Deploy.LaunchPad.Core.Secrets.Resolver
     /// </summary>
     public partial interface ISecretReferenceResolver
     {
-        ISecretResolutionResult TryResolve(
-            ISettingDefinition definition,
-            Guid? tenantId = null,
-            Guid? userId = null);
+        ISecretResolutionResult TryResolve(string fieldName);
 
-        Task<ISecretResolutionResult> TryResolveAsync(
-            ISettingDefinition definition,
-            Guid? tenantId = null,
-            Guid? userId = null,
-            CancellationToken cancellationToken = default);
-
-        ISecretResolutionResult TryResolveBySecretName(
-            string secretName,
-            Guid? tenantId = null,
-            Guid? userId = null);
-
-        Task<ISecretResolutionResult> TryResolveBySecretNameAsync(
-        string secretName,
-        Guid? tenantId = null,
-        Guid? userId = null,
-        CancellationToken cancellationToken = default);
+        ISecretResolutionResult TryResolve(ISettingDefinition settingDefinition);
 
     }
     

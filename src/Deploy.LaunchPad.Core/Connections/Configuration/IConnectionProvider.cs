@@ -32,7 +32,7 @@ namespace Deploy.LaunchPad.Core.Connections.Configuration
         /// Gets/sets the name of the default database connection string used by ORM module.
         /// It must be the key of a Connection defined in the Connections dictionary of this configuration object.
         /// </summary>
-        public ILaunchPadDatabaseConnectionDefinition DefaultDatabaseConnection { get; set; }
+        public ILaunchPadDatabaseConnection DefaultDatabaseConnection { get; set; }
 
         public string DefaultConnectionStringName { get; set; }
 
@@ -43,13 +43,13 @@ namespace Deploy.LaunchPad.Core.Connections.Configuration
         //[NotMapped]
         //public Dictionary<string, ILaunchPadConnectionDefinition> Connections { get; }
 
-        public void AddConnection(ILaunchPadConnectionDefinition connectionDefinition);
+        public void AddConnection(ILaunchPadConnection connectionDefinition);
         public void RemoveConnection(string connectionDefinitionName);
 
-        public IDictionary<string, ILaunchPadConnectionDefinition> GetConnectionsFromSecrets();
+        public IDictionary<string, ILaunchPadConnection> GetConnectionsFromSecrets();
 
         public string GetDatabaseConnectionString(string connectionName);
-        public ILaunchPadDatabaseConnectionDefinition SetDefaultDatabaseConnection(string defaultConnectionStringName);
+        public ILaunchPadDatabaseConnection SetDefaultDatabaseConnection(string defaultConnectionStringName);
 
     }
 }

@@ -11,7 +11,7 @@ namespace Deploy.LaunchPad.Core.Connections
     /// <summary>
     /// Represents a connection to an external system such as a database, REST service, or message broker
     /// </summary>
-    public partial interface ILaunchPadConnectionDefinition : ILaunchPadObject, 
+    public partial interface ILaunchPadConnection : ILaunchPadObject, 
         ILaunchPadMinimalProperties,
         IMustHaveElementDescription,
         IHavePassivable

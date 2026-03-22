@@ -6,7 +6,6 @@ namespace Deploy.LaunchPad.Core.Secrets.Resolver
     {
         string FieldName { get; init; }
         string FieldValue { get; init; }
-        ISecretFieldReference ResolvedBy { get; init; }
         bool WasFound { get; init; }
     }
 }

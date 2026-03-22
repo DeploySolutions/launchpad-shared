@@ -12,20 +12,20 @@ namespace Deploy.LaunchPad.Core.Connections.Database.Definitions
     /// This is the configuration-facing abstraction of a Database Connection's settings. 
     /// It is intentionally entirely non-secret, with secret references only where needed.
     /// </summary>
-    public partial interface ILaunchPadDatabaseConnectionDefinition : ILaunchPadConnectionDefinition
+    public partial interface ILaunchPadDatabaseConnection : ILaunchPadConnection
     {
-        public ISecretFieldReference? HostNameSecret { get; }
+        public ISecretFieldReference? HostNameSecretRef { get; }
         public string DefaultSchema { get; }
 
         public int Port { get; }
 
         public string Version { get; }
 
-        public ISecretFieldReference? DatabaseSecret { get; }
+        public ISecretFieldReference? DatabaseSecretRef { get; }
 
-        public ISecretFieldReference? UsernameSecret { get; }
+        public ISecretFieldReference? UsernameSecretRef { get; }
 
-        public ISecretFieldReference? PasswordSecret { get; }
+        public ISecretFieldReference? PasswordSecretRef { get; }
 
         /// <summary>
         /// Gets the database connection string.
