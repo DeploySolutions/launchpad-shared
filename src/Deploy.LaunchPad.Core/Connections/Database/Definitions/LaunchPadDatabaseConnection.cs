@@ -136,28 +136,21 @@ namespace Deploy.LaunchPad.Core.Connections.Database.Definitions
         {
             DbConnectionStringBuilder builder = null;
             // resolve using Secret Manager and the resolver
-            string userId = string.Empty; 
-            string password = string.Empty;
-            string hostName = string.Empty;
-            string database = string.Empty;
-            userId = "postgres";
-            password = "g6E0!pzVK*tX.hDdZ8MS[mJ*$(:W";
-            hostName = "";
             if (ConnectionType == ConnectionType.PostgresDatabase)
             {
                 builder = new DbConnectionStringBuilder();
-                builder["User ID"] = userId;
-                builder["Password"] = password;
-                builder["Host"] = hostName;
+                builder["User ID"] = UsernameSecretRef.ResolvedValue;
+                builder["Password"] = PasswordSecretRef.ResolvedValue;
+                builder["Host"] = HostNameSecretRef.ResolvedValue;
                 builder["Port"] = Port;
-                builder["Database"] = database;
+                builder["Database"] = DatabaseSecretRef.ResolvedValue;
                 builder["Timeout"] = Timeout.TotalSeconds;
                 // Add other Postgres-specific options as needed
             }
             else if (ConnectionType == ConnectionType.SqliteDatabase)
             {
                 builder = new DbConnectionStringBuilder();
-                builder["Data Source"] = database;
+                builder["Data Source"] = DatabaseSecretRef.ResolvedValue;
                 if (!string.IsNullOrEmpty(Version))
                     builder["Version"] = Version;
                 // SQLite does not use user/password/host/port
