@@ -59,6 +59,7 @@ namespace Deploy.LaunchPad.Core.Connections.Configuration
         public ConnectionProvider(ISecretProvider secretProvider)
         {
             _secretProvider = secretProvider;
+            SecretReferenceResolver = new SecretReferenceResolver();
         }
 
         /// <summary>
