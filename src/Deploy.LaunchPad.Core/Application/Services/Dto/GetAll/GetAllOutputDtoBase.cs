@@ -17,7 +17,7 @@ using System.Runtime.Serialization;
 using System.Xml.Serialization;
 using Deploy.LaunchPad.Core.Application.Services.Dto.Get;
 using Deploy.LaunchPad.Core.Application.Services.Dto.NameDescription;
-using Deploy.LaunchPad.Core.Metadata;
+using Deploy.LaunchPad.Util.Metadata;
 
 namespace Deploy.LaunchPad.Core.Application.Services.Dto.GetAll
 {

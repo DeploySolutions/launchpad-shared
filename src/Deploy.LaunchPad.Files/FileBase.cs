@@ -1,16 +1,9 @@
-﻿using Deploy.LaunchPad.Core.Metadata;
-using Deploy.LaunchPad.Files.Formats;
-using Deploy.LaunchPad.Util;
-using Deploy.LaunchPad.Util.Elements;
+﻿using Deploy.LaunchPad.Util.Elements;
+using Deploy.LaunchPad.Util.Metadata;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
-using System.Diagnostics.CodeAnalysis;
-using System.Linq;
 using System.Runtime.Serialization;
-using System.Text;
-using System.Threading.Tasks;
 using System.Xml.Serialization;
 
 
@@ -21,8 +14,12 @@ namespace Deploy.LaunchPad.Files
     /// </summary>
     /// <typeparam name="TFileContentType">The type of the content which will be stored within.</typeparam>
     /// <typeparam name="TSchemaFormat">The format of the file schema, used to validate it or ensure output is correct.</typeparam>
-    public abstract partial class FileBase<TFileContentType, TSchemaFormat> : LaunchPadMinimalProperties, IFile<TFileContentType, TSchemaFormat>
+    public abstract partial class FileBase<TFileContentType, TSchemaFormat> : IMustHaveFullName, IFile<TFileContentType, TSchemaFormat>
     {
+        [DataObjectField(false)]
+        [XmlAttribute]
+        public virtual string Name { get; set; }
+
         /// <summary>
         /// The size of the file, in bytes
         /// </summary>
@@ -95,7 +92,7 @@ namespace Deploy.LaunchPad.Files
         /// <summary>
         /// Constructor
         /// </summary>
-        protected FileBase(string fileName) : base(fileName)
+        protected FileBase(string fileName) : base()
         {
             Name = fileName;
         }
@@ -106,7 +103,7 @@ namespace Deploy.LaunchPad.Files
         /// </summary>
         /// <param name="info">The serialization info</param>
         /// <param name="context">The context of the stream</param>
-        protected FileBase(SerializationInfo info, StreamingContext context) : base(info, context)
+        protected FileBase(SerializationInfo info, StreamingContext context)
         {
             Content = (TFileContentType)info.GetValue("Content", typeof(TFileContentType));
             Schema = (ILaunchPadSchemaDetails<TSchemaFormat>)info.GetValue("Schema", typeof(ILaunchPadSchemaDetails<TSchemaFormat>));
@@ -119,7 +116,6 @@ namespace Deploy.LaunchPad.Files
 
         public virtual void GetObjectData(SerializationInfo info, StreamingContext context)
         {
-            base.GetObjectData(info, context);
             info.AddValue("Size", Size);
             info.AddValue("MimeType", MimeType);
             info.AddValue("Extension", Extension);

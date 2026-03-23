@@ -12,7 +12,7 @@
 // <summary></summary>
 // ***********************************************************************
 using Deploy.LaunchPad.Core;
-using Deploy.LaunchPad.Core.Metadata;
+using Deploy.LaunchPad.Util.Metadata;
 using Deploy.LaunchPad.Domain.Content;
 using System;
 using System.Collections.Generic;

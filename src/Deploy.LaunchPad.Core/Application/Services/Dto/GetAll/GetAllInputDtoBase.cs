@@ -21,11 +21,7 @@ using System.Reflection;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Xml.Serialization;
-using Deploy.LaunchPad.Core;
-using Deploy.LaunchPad.Core.Metadata;
-using Deploy.LaunchPad.Core.Application.Services.Dto;
-using Deploy.LaunchPad.Core.Application.Services;
-using Deploy.LaunchPad.Core.Application;
+using Deploy.LaunchPad.Util.Metadata;
 
 namespace Deploy.LaunchPad.Core.Application.Services.Dto.GetAll
 {

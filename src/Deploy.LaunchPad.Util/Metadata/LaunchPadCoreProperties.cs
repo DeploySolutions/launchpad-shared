@@ -1,0 +1,297 @@
+﻿using Deploy.LaunchPad.Util;
+using Deploy.LaunchPad.Util.Elements;
+using Newtonsoft.Json;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Diagnostics.CodeAnalysis;
+using System.Globalization;
+using System.Linq;
+using System.Runtime.Serialization;
+using System.Text;
+using System.Text.RegularExpressions;
+using System.Threading.Tasks;
+using System.Xml.Linq;
+using System.Xml.Serialization;
+
+namespace Deploy.LaunchPad.Util.Metadata
+{
+    public partial class LaunchPadCoreProperties : LaunchPadMinimalProperties, ILaunchPadCoreProperties
+    {
+        // List of common property names (including some like ID that are not present here but are common in domain entities)
+        public static readonly IList<string> CommonProperties = new List<string>
+        {
+            "Id",
+            "Name",
+            "Description",
+            "Culture",
+            "Checksum",
+            "SeqNum",
+            "Tags",
+            "IsActive",
+            "DeletionTime",
+            "DeleterUserId",
+            "DeleterUserName",
+            "IsDeleted",
+            "CreationTime",
+            "CreatorUserId",
+            "CreatorUserName",
+            "LastModifierUserId",
+            "LastModificationTime",
+            "LastModifierUserName",
+            "TranslatedFromId",
+            "DataSet",
+            "DataSetId"
+        };
+
+        protected CultureInfo _culture = new CultureInfo("en");
+        /// <summary>
+        /// The culture of this object
+        /// </summary>
+        /// <value>The culture.</value>
+        [Required]
+        [MaxLength(5, ErrorMessageResourceName = "Validation_Culture_5CharsOrLess", ErrorMessageResourceType = typeof(Deploy_LaunchPad_Util_Resources))]
+        [DataObjectField(true)]
+        [DataMember(Name = "culture", EmitDefaultValue = false)]
+        [XmlAttribute]
+        [Column("core_culture", TypeName = "varchar(5)")]
+        public virtual CultureInfo Culture
+        {
+            get { return _culture; }
+            set { _culture = value; }
+        }
+
+
+        protected string _checksum = string.Empty;
+        /// <summary>
+        /// The checksum for this  object, if any
+        /// </summary>
+        /// <value>The checksum.</value>
+        [MaxLength(40, ErrorMessageResourceName = "Validation_Checksum_40CharsOrLess", ErrorMessageResourceType = typeof(Deploy_LaunchPad_Util_Resources))]
+        [DataObjectField(false)]
+        [DataMember(Name = "checksum", EmitDefaultValue = false)]
+        [Column("core_checksum", TypeName = "varchar(64)")]
+        [XmlAttribute]
+        public virtual string Checksum
+        {
+            get { return _checksum; }
+            set { _checksum = value; }
+        }
+
+        protected string _tags = "{}";
+        /// <summary>
+        /// Each entity can have an open-ended set of tags applied to it, that help users find, markup, and display its information
+        /// </summary>
+        /// <value>The tags.</value>
+        [DataObjectField(false)]
+        [DataMember(Name = "tags", EmitDefaultValue = false)]
+        [XmlAttribute]
+        public virtual string Tags
+        {
+            get { return _tags; }
+            set { _tags = value; }
+        }
+
+        protected DateTime _creationTime = DateTime.UtcNow;
+        /// <summary>
+        /// Gets or sets the creation time.
+        /// </summary>
+        /// <value>The creation time.</value>
+        [DataObjectField(false)]
+        [XmlAttribute]
+        [Column("core_temporal_datetime_utc_created")]
+        public DateTime CreationTime
+        {
+            get { return _creationTime; }
+            set { _creationTime = value; }
+        }
+
+        protected Guid? _creatorUserId;
+        /// <summary>
+        /// The id of the User Agent which created this value object
+        /// </summary>
+        /// <value>The creator user identifier.</value>
+        [DataObjectField(false)]
+        [XmlAttribute]
+        [Column("core_user_creator_id")]
+        public Guid? CreatorUserId
+        {
+            get { return _creatorUserId; }
+            set { _creatorUserId = value; }
+        }
+
+
+        protected string _creatorUserName;
+        /// <summary>
+        /// The name of the creating user
+        /// </summary>
+        /// <value>The name of the creator user.</value>
+        [MaxLength(256, ErrorMessageResourceName = "Validation_Name_256CharsOrLess", ErrorMessageResourceType = typeof(Deploy_LaunchPad_Util_Resources))]
+        [DataObjectField(false)]
+        [XmlAttribute]
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        public string? CreatorUserName
+        {
+            get { return _creatorUserName; }
+            set { _creatorUserName = value; }
+        }
+
+        protected DateTime? _lastModificationTime;
+        /// <summary>
+        /// Gets or sets the last modification time.
+        /// </summary>
+        /// <value>The last modification time.</value>
+        [DataObjectField(false)]
+        [XmlAttribute]
+        [Column("core_temporal_datetime_utc_last_modified")]
+        public DateTime? LastModificationTime
+        {
+            get { return _lastModificationTime; }
+            set { _lastModificationTime = value; }
+        }
+
+        protected Guid? _lastModifierUserId;
+        /// <summary>
+        /// The id of the User Agent which last modified this object.
+        /// </summary>
+        /// <value>The last modifier user identifier.</value>
+        [DataObjectField(false)]
+        [XmlAttribute]
+        [Column("core_user_last_modifier_id")]
+        public Guid? LastModifierUserId
+        {
+            get { return _lastModifierUserId; }
+            set { _lastModifierUserId = value; }
+        }
+
+
+        protected string _lastModifierUserName;
+        /// <summary>
+        /// The name of the modifying user
+        /// </summary>
+        /// <value>The last name of the modifier user.</value>
+        [MaxLength(256, ErrorMessageResourceName = "Validation_Name_256CharsOrLess",
+            ErrorMessageResourceType = typeof(Deploy_LaunchPad_Util_Resources))]
+        [DataObjectField(false)]
+        [XmlAttribute]
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        public string? LastModifierUserName
+        {
+            get { return _lastModifierUserName; }
+            set { _lastModifierUserName = value; }
+        }
+
+        protected DateTime? _deletionTime;
+        /// <summary>
+        /// Used for preserving deletion time for a domain entity, obviously a Value Object can't be deleted.
+        /// </summary>
+        /// <value>The deletion time.</value>
+        [DataObjectField(false)]
+        [XmlAttribute]
+        [Column("core_temporal_datetime_utc_deleted")]
+        public DateTime? DeletionTime
+        {
+            get { return _deletionTime; }
+            set { _deletionTime = value; }
+        }
+
+
+        protected Guid? _deleterUserId;
+        /// <summary>
+        /// The id of the user which deleted. Used for preserving information for a domain entity, obviously a Value Object can't be deleted.
+        /// </summary>
+        /// <value>The deleter user identifier.</value>
+        [DataObjectField(false)]
+        [XmlAttribute]
+        [Column("core_user_deleter_id")]
+        public Guid? DeleterUserId
+        {
+            get { return _deleterUserId; }
+            set { _deleterUserId = value; }
+        }
+
+        /// <summary>
+        /// Used for preserving deletion status for a domain entity, obviously a Value Object can't be deleted.
+        /// </summary>
+        /// <value><c>true</c> if this instance is deleted; otherwise, <c>false</c>.</value>
+        [DataObjectField(false)]
+        [XmlAttribute]
+        public bool IsDeleted { get; set; } = false;
+
+        protected string _deleterUserName;
+        /// <summary>
+        /// The name of the deleting user
+        /// </summary>
+        /// <value>The name of the deleter user.</value>
+        [MaxLength(256, ErrorMessageResourceName = "Validation_Name_256CharsOrLess", ErrorMessageResourceType = typeof(Deploy_LaunchPad_Util_Resources))]
+        [DataObjectField(false)]
+        [XmlAttribute]
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        public string? DeleterUserName
+        {
+            get { return _deleterUserName; }
+            set { _deleterUserName = value; }
+        }
+
+        /// <summary>
+        ///  constructor 
+        /// </summary>
+        public LaunchPadCoreProperties() : base()
+        {
+          
+        }
+
+        /// <summary>
+        ///  constructor 
+        /// </summary>
+        [SetsRequiredMembers]
+        public LaunchPadCoreProperties(string name) : base(new ElementName(name))
+        {
+        }
+
+        /// <summary>
+        /// Serialization constructor used for deserialization
+        /// </summary>
+        /// <param name="info">The serialization info</param>
+        /// <param name="context">The context of the stream</param>
+        protected LaunchPadCoreProperties(SerializationInfo info, StreamingContext context)
+            : base(info,context)
+        {
+            Culture = (CultureInfo)info.GetValue("Culture", typeof(CultureInfo));
+            Checksum = info.GetString("Checksum");
+            Tags = info.GetString("Tags");
+            CreationTime = info.GetDateTime("CreationTime");
+            CreatorUserId = (Guid?)info.GetValue("CreatorUserId", typeof(Guid?));
+            LastModificationTime = info.GetDateTime("LastModificationTime");
+            LastModifierUserId = (Guid?)info.GetValue("LastModifierUserId", typeof(Guid?));
+            IsDeleted = info.GetBoolean("IsDeleted");
+            DeleterUserId = (Guid?)info.GetValue("DeleterUserId", typeof(Guid?));
+            DeletionTime = info.GetDateTime("DeletionTime");
+            
+        }
+
+        /// <summary>
+        /// The method required for implementing ISerializable
+        /// </summary>
+        /// <param name="info">The information.</param>
+        /// <param name="context">The context.</param>
+        public override void GetObjectData(SerializationInfo info, StreamingContext context)
+        {
+            base.GetObjectData(info, context);
+            info.AddValue("Culture", Culture);
+            info.AddValue("Checksum", Checksum);
+            info.AddValue("Tags", Tags);
+            info.AddValue("CreationTime", CreationTime);
+            info.AddValue("CreatorUserId", CreatorUserId);
+            info.AddValue("LastModificationTime", LastModificationTime);
+            info.AddValue("LastModifierUserId", LastModifierUserId);
+            info.AddValue("IsDeleted", IsDeleted);
+            info.AddValue("DeleterUserId", DeleterUserId);
+            info.AddValue("DeletionTime", DeletionTime);
+        }
+
+        
+    }
+}

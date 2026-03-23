@@ -31,7 +31,7 @@ using Deploy.LaunchPad.Util.Licenses;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using Deploy.LaunchPad.Core.Metadata;
+using Deploy.LaunchPad.Util.Metadata;
 using Deploy.LaunchPad.Util;
 
 namespace Deploy.LaunchPad.Space.Satellites.Core

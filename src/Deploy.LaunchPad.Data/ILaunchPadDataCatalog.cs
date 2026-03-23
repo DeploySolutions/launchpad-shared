@@ -27,7 +27,7 @@
 #endregion
 
 
-using Deploy.LaunchPad.Core.Metadata;
+using Deploy.LaunchPad.Util.Metadata;
 using System.Collections.Generic;
 
 namespace Deploy.LaunchPad.Data

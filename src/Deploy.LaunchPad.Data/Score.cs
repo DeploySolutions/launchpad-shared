@@ -11,7 +11,7 @@ using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
-using Deploy.LaunchPad.Core.Metadata;
+using Deploy.LaunchPad.Util.Metadata;
 using Deploy.LaunchPad.Util.Elements;
 
 namespace Deploy.LaunchPad.Data

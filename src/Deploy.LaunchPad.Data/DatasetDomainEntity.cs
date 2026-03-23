@@ -34,7 +34,7 @@ namespace Deploy.LaunchPad.Core.Abp.Data
     using System.Text;
     using Deploy.LaunchPad.Data;
     using Deploy.LaunchPad.Util.Licenses;
-    using Deploy.LaunchPad.Core.Metadata;
+    using Deploy.LaunchPad.Util.Metadata;
     using Deploy.LaunchPad.Core.Domain.Entities;
 
 

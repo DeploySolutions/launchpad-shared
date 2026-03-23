@@ -30,7 +30,7 @@
  */
 #endregion
 
-using Deploy.LaunchPad.Core.Metadata;
+using Deploy.LaunchPad.Util.Metadata;
 
 namespace Deploy.LaunchPad.Core.Application.Services.Dto
 {

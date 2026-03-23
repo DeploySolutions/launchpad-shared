@@ -1,4 +1,4 @@
-﻿using Deploy.LaunchPad.Core.Metadata;
+﻿using Deploy.LaunchPad.Util.Metadata;
 using System;
 using Deploy.LaunchPad.Util;
 

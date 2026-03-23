@@ -1,0 +1,23 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Xml.Serialization;
+
+namespace Deploy.LaunchPad.Util.Metadata
+{
+    
+    public partial interface IMustHaveId<TPrimaryKey>
+    {
+        /// <summary>
+        /// Unique identifier for this entity.
+        /// </summary>
+        /// 
+        [Column("core_id")]
+        public TPrimaryKey Id { get; set; }
+
+    }
+}

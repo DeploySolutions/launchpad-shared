@@ -26,7 +26,7 @@
 //limitations under the License. 
 #endregion
 
-using Deploy.LaunchPad.Core.Metadata;
+using Deploy.LaunchPad.Util.Metadata;
 using Deploy.LaunchPad.Core.Domain.Entities;
 
 

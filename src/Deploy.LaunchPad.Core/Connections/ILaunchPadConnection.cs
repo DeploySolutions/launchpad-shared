@@ -1,7 +1,6 @@
-﻿using Deploy.LaunchPad.Core.Domain.ValueObjects;
-using Deploy.LaunchPad.Core.Metadata;
-using Deploy.LaunchPad.Core.Secrets;
+﻿
 using Deploy.LaunchPad.Util;
+using Deploy.LaunchPad.Util.Metadata;
 using System;
 using System.Collections.Generic;
 using System.Text;

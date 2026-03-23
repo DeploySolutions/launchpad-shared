@@ -27,13 +27,10 @@
 #endregion
 
 using Castle.Core.Logging;
-using Deploy.LaunchPad.Util;
-using Deploy.LaunchPad.Util.Elements;
-using Deploy.LaunchPad.Core.Metadata;
+using Deploy.LaunchPad.Util.Metadata;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
 using System.Diagnostics;
 using System.Runtime.Serialization;
 using System.Text;

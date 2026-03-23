@@ -3,7 +3,7 @@ using Deploy.LaunchPad.Util.Elements;
 using System;
 using System.Collections.Generic;
 using System.Text;
-using Deploy.LaunchPad.Core.Metadata;
+using Deploy.LaunchPad.Util.Metadata;
 
 namespace Deploy.LaunchPad.Infra.AWS.S3
 {

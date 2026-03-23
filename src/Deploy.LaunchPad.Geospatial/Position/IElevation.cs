@@ -57,7 +57,7 @@
 // <summary></summary>
 // ***********************************************************************
 
-using Deploy.LaunchPad.Core.Metadata;
+using Deploy.LaunchPad.Util.Metadata;
 
 namespace Deploy.LaunchPad.Geospatial.Position
 {

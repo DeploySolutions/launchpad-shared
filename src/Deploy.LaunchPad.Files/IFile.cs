@@ -26,12 +26,12 @@
 //limitations under the License. 
 #endregion
 
+using Deploy.LaunchPad.Util;
+using Deploy.LaunchPad.Util.Elements;
+using Deploy.LaunchPad.Util.Metadata;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Xml.Serialization;
-using Deploy.LaunchPad.Core.Metadata;
-using Deploy.LaunchPad.Util;
 
 namespace Deploy.LaunchPad.Files
 {
@@ -41,7 +41,7 @@ namespace Deploy.LaunchPad.Files
     /// <typeparam name="TFileContentType">The type of the file content.</typeparam>
     public partial interface IFile :
         ILaunchPadObject,
-        ILaunchPadMinimalProperties,
+        IMustHaveFullName,
         IMustHaveCreationTime,
         IMayHaveLastModificationTime
     {

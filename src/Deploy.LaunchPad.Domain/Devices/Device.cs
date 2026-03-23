@@ -28,7 +28,7 @@
 
 
 using Deploy.LaunchPad.Core.Domain.Entities;
-using Deploy.LaunchPad.Core.Metadata;
+using Deploy.LaunchPad.Util.Metadata;
 using Deploy.LaunchPad.Domain.Devices;
 using Deploy.LaunchPad.Geospatial;
 using Deploy.LaunchPad.Geospatial.Position;
