@@ -16,20 +16,18 @@ namespace Deploy.LaunchPad.Core.Secrets.Resolver
     /// </summary>
     public partial class SecretReferenceResolver : ISecretReferenceResolver
     {
-        private readonly IDictionary<string, ISettingDefinition> _secrets;
 
-        public SecretReferenceResolver(IDictionary<string, ISettingDefinition> secrets)
+        public SecretReferenceResolver()
         {
-            _secrets = secrets;
         }
 
-        public virtual ISecretResolutionResult TryResolve(string fieldName)
+        public virtual ISecretResolutionResult TryResolve(IDictionary<string, ISettingDefinition> secrets, string fieldName)
         {
             Guard.AgainstNullOrWhiteSpace(fieldName, nameof(fieldName));
             ISecretResolutionResult result = null;
-            if (_secrets.ContainsKey(fieldName))
+            if (secrets.ContainsKey(fieldName))
             {
-                result = new SecretResolutionResult(fieldName, _secrets[fieldName].DefaultValue);
+                result = new SecretResolutionResult(fieldName, secrets[fieldName].DefaultValue);
 
             }
             else
@@ -40,10 +38,10 @@ namespace Deploy.LaunchPad.Core.Secrets.Resolver
         }
 
         public virtual ISecretResolutionResult TryResolve(
-            ISettingDefinition settingDefinition)
+            IDictionary<string, ISettingDefinition> secrets, ISettingDefinition settingDefinition)
         {
             Guard.AgainstNull(settingDefinition, nameof(settingDefinition));
-            return TryResolve(settingDefinition.SecretReference.FieldName);
+            return TryResolve(secrets, settingDefinition.SecretReference.FieldName);
         }
 
     }

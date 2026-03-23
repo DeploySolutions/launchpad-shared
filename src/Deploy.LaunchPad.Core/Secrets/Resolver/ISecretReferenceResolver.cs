@@ -16,9 +16,10 @@ namespace Deploy.LaunchPad.Core.Secrets.Resolver
     /// </summary>
     public partial interface ISecretReferenceResolver
     {
-        ISecretResolutionResult TryResolve(string fieldName);
 
-        ISecretResolutionResult TryResolve(ISettingDefinition settingDefinition);
+        ISecretResolutionResult TryResolve(IDictionary<string, ISettingDefinition> secrets, string fieldName);
+
+        ISecretResolutionResult TryResolve(IDictionary<string, ISettingDefinition> secrets, ISettingDefinition settingDefinition);
 
     }
     

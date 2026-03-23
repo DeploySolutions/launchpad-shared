@@ -44,11 +44,13 @@ namespace Deploy.LaunchPad.Core.Connections.Configuration
         protected readonly ISecretProvider _secretProvider;
 
         protected readonly IDictionary<string, ILaunchPadConnection> _connections = new Dictionary<string, ILaunchPadConnection>();
-        public IDictionary<string, ILaunchPadConnection> Connections => _connections;
+        public virtual IDictionary<string, ILaunchPadConnection> Connections => _connections;
 
-        public ILaunchPadDatabaseConnection DefaultDatabaseConnection { get; set; }
+        public virtual ILaunchPadDatabaseConnection DefaultDatabaseConnection { get; set; }
 
-        public string DefaultConnectionStringName { get; set; }
+        public virtual ISecretReferenceResolver SecretReferenceResolver { get; set; }
+
+        public virtual string DefaultConnectionStringName { get; set; }
 
 
         /// <summary>
@@ -118,13 +120,12 @@ namespace Deploy.LaunchPad.Core.Connections.Configuration
             };
 
             var connectionsList = JsonConvert.DeserializeObject<List<LaunchPadDatabaseConnection>>(connectionsJson, settings);
-            ISecretReferenceResolver resolver = new SecretReferenceResolver(secretProvider.Secrets);
             foreach (var connection in connectionsList)
             {
-                connection.HostNameSecretRef.ResolvedValue = resolver.TryResolve(connection.HostNameSecretRef.FieldName).FieldValue;
-                connection.DatabaseSecretRef.ResolvedValue = resolver.TryResolve(connection.DatabaseSecretRef.FieldName).FieldValue;
-                connection.UsernameSecretRef.ResolvedValue = resolver.TryResolve(connection.UsernameSecretRef.FieldName).FieldValue;
-                connection.PasswordSecretRef.ResolvedValue = resolver.TryResolve(connection.PasswordSecretRef.FieldName).FieldValue;
+                connection.HostNameSecretRef.ResolvedValue = SecretReferenceResolver.TryResolve(secretProvider.Secrets, connection.HostNameSecretRef.FieldName).FieldValue;
+                connection.DatabaseSecretRef.ResolvedValue = SecretReferenceResolver.TryResolve(secretProvider.Secrets, connection.DatabaseSecretRef.FieldName).FieldValue;
+                connection.UsernameSecretRef.ResolvedValue = SecretReferenceResolver.TryResolve(secretProvider.Secrets, connection.UsernameSecretRef.FieldName).FieldValue;
+                connection.PasswordSecretRef.ResolvedValue = SecretReferenceResolver.TryResolve(secretProvider.Secrets, connection.PasswordSecretRef.FieldName).FieldValue;
                 _connections.TryAdd(connection.Name, connection);
             } 
             if(string.IsNullOrEmpty(defaultConnectionStringName))
