@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Deploy.LaunchPad.Core.Templates
+namespace Deploy.LaunchPad.Files.Templates
 {
     public partial interface ILaunchPadTemplate : IFile
     {

@@ -12,9 +12,9 @@
 // <summary></summary>
 // ***********************************************************************
 
-using Deploy.LaunchPad.Core.Connections.Database.Definitions;
 using Deploy.LaunchPad.Core.Secrets.Configuration;
 using Deploy.LaunchPad.Core.Secrets.Resolver;
+using Deploy.LaunchPad.Files.Templates;
 using Deploy.LaunchPad.Util;
 using Deploy.LaunchPad.Util.Dependency;
 using System.Collections.Generic;
@@ -38,16 +38,14 @@ namespace Deploy.LaunchPad.Core.Templates.Configuration
         public void AddTemplate(ILaunchPadTemplate templateDefinition);
         public void RemoveTemplate(string templateDefinitionName);
 
-        public List<LaunchPadDatabaseConnection> LoadTemplateFromConfiguration(
+        public List<ILaunchPadTemplate> LoadTemplatesFromConfiguration(
             ISecretProvider secretProvider,
-            string templatesJson,
-            string defaultConnectionStringName = null
+            string templatesJson
         );
 
-        public List<LaunchPadDatabaseConnection> LoadTemplateFromConfiguration(
+        public List<ILaunchPadTemplate> LoadTemplatesFromConfiguration(
             ISecretConfiguration secretConfiguration,
-            string templatesJson,
-            string defaultConnectionStringName = null
+            string templatesJson
         );
 
 

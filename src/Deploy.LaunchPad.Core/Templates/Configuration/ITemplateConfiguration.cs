@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using Deploy.LaunchPad.Files.Templates;
+using Deploy.LaunchPad.Util.Collections;
+using System.Collections.Generic;
 using System.Text;
 
 namespace Deploy.LaunchPad.Core.Templates.Configuration
@@ -8,7 +10,7 @@ namespace Deploy.LaunchPad.Core.Templates.Configuration
         /// <summary>
         /// Template provider.
         /// </summary>
-        ITemplateProvider Provider { get; init; }
+        ITypeList<TemplateProvider> Providers { get; }
 
         IDictionary<string, ILaunchPadTemplate> Templates { get; }
 
