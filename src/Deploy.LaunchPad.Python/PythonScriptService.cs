@@ -31,12 +31,7 @@ namespace Deploy.LaunchPad.Python
     /// <seealso cref="Deploy.LaunchPad.Python.IPythonScriptService" />
     public partial class PythonScriptService : LaunchPadServiceBase, ILaunchPadSystemIntegrationService, IPythonScriptService
     {
-        /// <summary>
-        /// Gets or sets the logger.
-        /// </summary>
-        /// <value>The logger.</value>
-        public virtual ILogger Logger { get; set; } = NullLogger.Instance;
-
+        
         /// <summary>
         /// Gets or sets the script.
         /// </summary>

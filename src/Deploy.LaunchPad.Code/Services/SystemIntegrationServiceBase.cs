@@ -29,21 +29,6 @@ namespace Deploy.LaunchPad.Code.Services
     public abstract partial class SystemIntegrationServiceBase : LaunchPadServiceBase, 
         ILaunchPadSystemIntegrationService
     {
-        /// <summary>
-        /// The configuration root
-        /// </summary>
-        protected readonly IConfigurationRoot _configurationRoot;
-        /// <summary>
-        /// Gets the configuration root.
-        /// </summary>
-        /// <value>The configuration root.</value>
-        public IConfigurationRoot ConfigurationRoot { get { return _configurationRoot; } }
-
-        /// <summary>
-        /// Gets or sets the logger.
-        /// </summary>
-        /// <value>The logger.</value>
-        public virtual ILogger Logger { get; set; } = NullLogger.Instance;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="SystemIntegrationServiceBase"/> class.
@@ -67,20 +52,5 @@ namespace Deploy.LaunchPad.Code.Services
             Description = new ElementDescription(string.Format("SystemIntegrationServiceBase {0} ", id));
             Logger = logger;
         }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="SystemIntegrationServiceBase"/> class.
-        /// </summary>
-        /// <param name="logger">The logger.</param>
-        /// <param name="configurationRoot">The configuration root.</param>
-        protected SystemIntegrationServiceBase(ILogger logger, IConfigurationRoot configurationRoot)
-        {
-            string id = Guid.NewGuid().ToString();
-            Name = new ElementName(string.Format("SystemIntegrationServiceBase {0} ", id));
-            Description = new ElementDescription(string.Format("SystemIntegrationServiceBase {0} ", id));
-            Logger = logger;
-            _configurationRoot = configurationRoot;
-        }
-
     }
 }

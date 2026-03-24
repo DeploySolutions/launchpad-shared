@@ -47,13 +47,6 @@ namespace Deploy.LaunchPad.Code.Services
         /// <value>The tokenized text.</value>
         public string TokenizedText { get; set; }
 
-
-        /// <summary>
-        /// Gets or sets the logger.
-        /// </summary>
-        /// <value>The logger.</value>
-        public virtual ILogger Logger { get; set; } = NullLogger.Instance;
-
         /// <summary>
         /// Initializes a new instance of the <see cref="LaunchPadTokenService"/> class.
         /// </summary>
