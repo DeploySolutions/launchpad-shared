@@ -20,6 +20,7 @@ using Deploy.LaunchPad.Core.Secrets.Reference;
 using Deploy.LaunchPad.Core.Secrets.Resolver;
 using Deploy.LaunchPad.Util;
 using Deploy.LaunchPad.Util.Dependency;
+using Deploy.LaunchPad.Util.Json;
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -99,21 +100,27 @@ namespace Deploy.LaunchPad.Core.Connections.Configuration
             throw new InvalidOperationException("SetDefaultDatabaseConnection failed, could not find a matching connectionName. Is it present in the _connections dictionary?)");
         }
 
-        public virtual List<LaunchPadDatabaseConnection> LoadDatabaseConnectionsFromConfiguration(
+        public virtual List<LaunchPadDatabaseConnection> LoadAllDatabaseConnectionsFromConfigurationRoot(
+            IConfigurationRoot configurationRoot,
             ISecretConfiguration secretConfiguration,
-            string connectionsJson,
             string defaultConnectionStringName = null
         )
         {
-            return LoadDatabaseConnectionsFromConfiguration(secretConfiguration.Provider, connectionsJson, defaultConnectionStringName);
+            return LoadAllDatabaseConnectionsFromConfigurationRoot(configurationRoot, secretConfiguration.Provider, defaultConnectionStringName);
         }
 
-        public virtual List<LaunchPadDatabaseConnection> LoadDatabaseConnectionsFromConfiguration(
-            ISecretProvider secretProvider, 
-            string connectionsJson,
+        public virtual List<LaunchPadDatabaseConnection> LoadAllDatabaseConnectionsFromConfigurationRoot(
+            IConfigurationRoot configurationRoot, 
+            ISecretProvider secretProvider,
             string defaultConnectionStringName = null
         )
         {
+            Guard.AgainstNull(configurationRoot, nameof(configurationRoot));
+            Guard.AgainstNull(secretProvider, nameof(secretProvider));
+            string connectionsSectionName = Constants_LaunchPadCore.LaunchPadConfigurationRootSectionName + ":" + Constants_LaunchPadCore.ConnectionsConfigurationSectionName;
+            IConfigurationSection connectionsSection = configurationRoot.GetSection(connectionsSectionName);
+            var connectionsJson = connectionsSection.GetJsonFromConfigurationSection();
+
             var settings = new JsonSerializerSettings
             {
                 TypeNameHandling = TypeNameHandling.None,

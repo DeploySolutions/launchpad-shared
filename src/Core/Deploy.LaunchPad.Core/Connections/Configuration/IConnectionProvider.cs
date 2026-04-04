@@ -11,6 +11,7 @@
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
+using Castle.Core.Configuration;
 using Castle.Core.Logging;
 using Deploy.LaunchPad.Core.Connections;
 using Deploy.LaunchPad.Core.Connections.Database.Definitions;
@@ -18,6 +19,7 @@ using Deploy.LaunchPad.Core.Secrets.Configuration;
 using Deploy.LaunchPad.Core.Secrets.Resolver;
 using Deploy.LaunchPad.Util;
 using Deploy.LaunchPad.Util.Dependency;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -52,15 +54,15 @@ namespace Deploy.LaunchPad.Core.Connections.Configuration
         public void AddConnection(ILaunchPadConnection connectionDefinition);
         public void RemoveConnection(string connectionDefinitionName);
 
-        public List<LaunchPadDatabaseConnection> LoadDatabaseConnectionsFromConfiguration(
+        public List<LaunchPadDatabaseConnection> LoadAllDatabaseConnectionsFromConfigurationRoot(
+            IConfigurationRoot configuration,
             ISecretProvider secretProvider,
-            string connectionsJson,
             string defaultConnectionStringName = null
         );
 
-        public List<LaunchPadDatabaseConnection> LoadDatabaseConnectionsFromConfiguration(
+        public List<LaunchPadDatabaseConnection> LoadAllDatabaseConnectionsFromConfigurationRoot(
+            IConfigurationRoot configuration, 
             ISecretConfiguration secretConfiguration,
-            string connectionsJson,
             string defaultConnectionStringName = null
         );
 
