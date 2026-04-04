@@ -42,30 +42,9 @@ namespace Deploy.LaunchPad.Core.Secrets.Configuration
         /// Used to populate secret vaults
         /// </summary>
         /// <param name="context">SecretProvider context</param>
-        public abstract void LoadSecretVault<TVault>(IConfigurationRoot configurationRoot)
-            where TVault : SecretVault;
-
-        public abstract void LoadSecretVault<TVault>(IConfigurationRoot configurationRoot, ISecretProviderContext context)
-           where TVault : SecretVault;
+        public abstract void LoadAllSecretVaultsFromConfigurationRoot(IConfigurationRoot configurationRoot, ISecretProviderContext context = null);
 
         // get methods
-
-
-        /// <summary>
-        /// Gets the secret vault by identifier.
-        /// </summary>
-        /// <param name="id">The identifier.</param>
-        /// <param name="caller">The caller.</param>
-        /// <returns>ISecretVault.</returns>
-        public ISecretVault GetSecretVaultById(string id, string caller);
-
-        /// <summary>
-        /// Gets the secret vault by identifier asynchronous.
-        /// </summary>
-        /// <param name="id">The identifier.</param>
-        /// <param name="caller">The caller.</param>
-        /// <returns>Task&lt;ISecretVault&gt;.</returns>
-        public Task<ISecretVault> GetSecretVaultByIdAsync(string id, string caller);
 
         // refresh method
         /// <summary>

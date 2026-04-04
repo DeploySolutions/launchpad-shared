@@ -6,5 +6,7 @@ namespace Deploy.LaunchPad.Core
     public static class Constants_LaunchPadCore
     {
         // put constants here
+        public const string LaunchPadConfigurationRootSectionName = "_launchPad";
+        public const string VaultsConfigurationSectionName = "Vaults";
     }
 }

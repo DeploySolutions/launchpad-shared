@@ -5,6 +5,8 @@ namespace Deploy.LaunchPad.Infra.Aws
     /// </summary>
     public static class Constants_LaunchPadInfraAWS
     {
-        // put constants here
+        public const string DefaultProfileNameConfigurationKey = "_launchPad:comp_hub:infra:aws:credentials:localProfileName";
+        public const string DefaultLocalProfileName = "default";
+        public const string DefaultRegionEndpointName = "us-east-1";
     }
 }
