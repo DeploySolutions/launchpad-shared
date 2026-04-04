@@ -10,6 +10,7 @@ using Deploy.LaunchPad.Infra.Aws;
 using Deploy.LaunchPad.Infra.AWS.Application.Configuration;
 using Deploy.LaunchPad.Infra.AWS.SecretsManager;
 using Deploy.LaunchPad.Infra.AWS.SecretsManager.Services;
+using Deploy.LaunchPad.Util;
 using Deploy.LaunchPad.Util.Dependency;
 using Microsoft.Extensions.Configuration;
 using System;
@@ -24,6 +25,7 @@ namespace Deploy.LaunchPad.Infra.AWS
     {
         public override void LoadAllSecretVaultsFromConfigurationRoot(IConfigurationRoot configurationRoot, ISecretProviderContext context = null)
         {
+            Guard.AgainstNull(configurationRoot, nameof(configurationRoot));
             string infraSectionName = Constants_LaunchPadCore.LaunchPadConfigurationRootSectionName + ":comp_hub:infra:aws";
             IConfigurationSection infraSection = configurationRoot.GetSection(infraSectionName);
             AwsCloudConfiguration awsConfig = infraSection.Get<AwsCloudConfiguration>();
@@ -39,6 +41,8 @@ namespace Deploy.LaunchPad.Infra.AWS
         public virtual void LoadValuesFromSecretVault<TVault>(IConfigurationSection vaultSection, AwsCloudConfiguration cloudConfiguration)
             where TVault : ISecretVault, new()
         {
+            Guard.AgainstNull(vaultSection, nameof(vaultSection));
+            Guard.AgainstNull(cloudConfiguration, nameof(cloudConfiguration));
             var vault = vaultSection.Get<TVault>() ?? new TVault();
             // try to load the secret fields from the vault configuration
             if (vault.Source == SecretVaultType.AwsSecretsManager)
