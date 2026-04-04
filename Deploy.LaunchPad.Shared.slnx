@@ -34,25 +34,32 @@
     <File Path="schemaNET.License.md" />
     <File Path="Xunit.License.md" />
   </Folder>
-  <Folder Name="/Src/">
-    <Project Path="src/Deploy.LaunchPad.Infra.AWS/Deploy.LaunchPad.Infra.AWS.csproj" />
-    <Project Path="src/Deploy.LaunchPad.Code/Deploy.LaunchPad.Code.csproj" Id="267ef999-9ad6-40db-a06e-fcf8454bf2d3" />
-    <Project Path="src/Deploy.LaunchPad.Core/Deploy.LaunchPad.Core.csproj" />
-    <Project Path="src/Deploy.LaunchPad.Data/Deploy.LaunchPad.Data.csproj" Id="28374291-c6a8-4326-9ceb-237398ceaa4e" />
-    <Project Path="src/Deploy.LaunchPad.Domain/Deploy.LaunchPad.Domain.csproj" Id="87416154-2b42-4c1a-9ce6-5e75bc0f0859" />
-    <Project Path="src/Deploy.LaunchPad.ECommerce/Deploy.LaunchPad.ECommerce.csproj" />
-    <Project Path="src/Deploy.LaunchPad.Files/Deploy.LaunchPad.Files.csproj" Id="56426fe1-9576-42aa-9fd9-5e27dcfa45f2" />
-    <Project Path="src/Deploy.LaunchPad.Geospatial/Deploy.LaunchPad.Geospatial.csproj" Id="7bd6f153-e784-49c4-8eed-7a9998f29258" />
-    <Project Path="src/Deploy.LaunchPad.Organizations/Deploy.LaunchPad.Organizations.csproj" />
-    <Project Path="src/Deploy.LaunchPad.Python/Deploy.LaunchPad.Python.csproj" />
-    <Project Path="src/Deploy.LaunchPad.Space.Satellites/Deploy.LaunchPad.Space.Satellites.csproj" />
-    <Project Path="src/Deploy.LaunchPad.Util/Deploy.LaunchPad.Util.csproj" />
+  <Folder Name="/Src/Core/">
+    <Project Path="src/Core/Deploy.LaunchPad.Core/Deploy.LaunchPad.Core.csproj" />
+    <Project Path="src/Core/Deploy.LaunchPad.Data/Deploy.LaunchPad.Data.csproj" Id="28374291-c6a8-4326-9ceb-237398ceaa4e" />
+    <Project Path="src/Core/Deploy.LaunchPad.Files/Deploy.LaunchPad.Files.csproj" Id="56426fe1-9576-42aa-9fd9-5e27dcfa45f2" />
+    <Project Path="src/Core/Deploy.LaunchPad.Geospatial/Deploy.LaunchPad.Geospatial.csproj" Id="7bd6f153-e784-49c4-8eed-7a9998f29258" />
+    <Project Path="src/Core/Deploy.LaunchPad.Util/Deploy.LaunchPad.Util.csproj" />
+  </Folder>
+  <Folder Name="/Src/" />
+  <Folder Name="/Src/Code/">
+    <Project Path="src/Code/Deploy.LaunchPad.Code.Python/Deploy.LaunchPad.Code.Python.csproj" />
+    <Project Path="src/Code/Deploy.LaunchPad.Code/Deploy.LaunchPad.Code.csproj" Id="267ef999-9ad6-40db-a06e-fcf8454bf2d3" />
+  </Folder>
+  <Folder Name="/Src/Domain/">
+    <Project Path="src/Core/Deploy.LaunchPad.ECommerce/Deploy.LaunchPad.Domain.ECommerce.csproj" />
+    <Project Path="src/Domain/Deploy.LaunchPad.Domain.Organizations/Deploy.LaunchPad.Domain.Organizations.csproj" />
+    <Project Path="src/Domain/Deploy.LaunchPad.Domain.Space/Deploy.LaunchPad.Domain.Space.csproj" />
+    <Project Path="src/Domain/Deploy.LaunchPad.Domain/Deploy.LaunchPad.Domain.csproj" Id="87416154-2b42-4c1a-9ce6-5e75bc0f0859" />
+  </Folder>
+  <Folder Name="/Src/Infra/">
+    <Project Path="src/Infra/Deploy.LaunchPad.Infra.AWS/Deploy.LaunchPad.Infra.AWS.csproj" />
   </Folder>
   <Folder Name="/Tests/">
     <Project Path="tests/Deploy.LaunchPad.Core.Tests/Deploy.LaunchPad.Core.Tests.csproj" />
     <Project Path="tests/Deploy.LaunchPad.Domain.Tests/Deploy.LaunchPad.Domain.Tests.csproj" Id="0d4183a8-0e1e-4095-a26c-a859567166e5" />
     <Project Path="tests/Deploy.LaunchPad.Geospatial.Tests/Deploy.LaunchPad.Geospatial.Tests.csproj" Id="7daa09a4-6046-40f9-b5b2-c908231097fd" />
     <Project Path="tests/Deploy.LaunchPad.Images.Test/Deploy.LaunchPad.Images.Tests.csproj" />
-    <Project Path="tests/Deploy.LaunchPad.Space.Tests/Deploy.LaunchPad.Space.Tests.csproj" />
+    <Project Path="tests/Deploy.LaunchPad.Space.Tests/Deploy.LaunchPad.Domain.Space.Tests.csproj" />
   </Folder>
 </Solution>

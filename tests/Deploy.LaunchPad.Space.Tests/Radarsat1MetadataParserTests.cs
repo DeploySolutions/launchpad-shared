@@ -1,12 +1,12 @@
 ﻿// ***********************************************************************
-// Assembly         : Deploy.LaunchPad.Space.Tests
+// Assembly         : Deploy.LaunchPad.Domain.Space.Tests
 // Author           : Nicholas Kellett
 // Created          : 11-19-2023
 //
 // Last Modified By : Nicholas Kellett
 // Last Modified On : 01-22-2023
 // ***********************************************************************
-// <copyright file="Radarsat1MetadataParserTests.cs" company="Deploy.LaunchPad.Space.Tests">
+// <copyright file="Radarsat1MetadataParserTests.cs" company="Deploy.LaunchPad.Domain.Space.Tests">
 //     Copyright (c) Deploy Software Solutions, Inc.. All rights reserved.
 // </copyright>
 // <summary></summary>
@@ -27,7 +27,7 @@
 #endregion
 
 
-namespace Deploy.LaunchPad.Space.Tests
+namespace Deploy.LaunchPad.Domain.Space.Tests
 {
 
     using System;
@@ -35,16 +35,16 @@ namespace Deploy.LaunchPad.Space.Tests
     
     using Deploy.LaunchPad.Util;
     using Deploy.LaunchPad.Domain;
-    using Deploy.LaunchPad.Space.Satellites;
+    using Deploy.LaunchPad.Domain.Space;
     using Deploy.LaunchPad.Util.Licenses;
     using Deploy.LaunchPad.Core;
     using Deploy.LaunchPad.Util.Elements;
 
     /// <summary>
     /// Class Radarsat1MetadataParserTests.
-    /// Implements the <see cref="Xunit.IClassFixture{Deploy.LaunchPad.Space.Tests.Radarsat1MetadataFileFixture}" />
+    /// Implements the <see cref="Xunit.IClassFixture{Deploy.LaunchPad.Domain.Space.Tests.Radarsat1MetadataFileFixture}" />
     /// </summary>
-    /// <seealso cref="Xunit.IClassFixture{Deploy.LaunchPad.Space.Tests.Radarsat1MetadataFileFixture}" />
+    /// <seealso cref="Xunit.IClassFixture{Deploy.LaunchPad.Domain.Space.Tests.Radarsat1MetadataFileFixture}" />
     public partial class Radarsat1MetadataParserTests : IClassFixture<Radarsat1MetadataFileFixture>
     {
         #region "Test Classes"

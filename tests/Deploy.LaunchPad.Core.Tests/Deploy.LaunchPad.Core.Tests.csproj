@@ -30,9 +30,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\Deploy.LaunchPad.Infra.AWS\Deploy.LaunchPad.Infra.AWS.csproj" />
-    <ProjectReference Include="..\..\src\Deploy.LaunchPad.Core\Deploy.LaunchPad.Core.csproj" />
-    <ProjectReference Include="..\..\src\Deploy.LaunchPad.Util\Deploy.LaunchPad.Util.csproj" />
+    <ProjectReference Include="..\..\src\Core\Deploy.LaunchPad.Core\Deploy.LaunchPad.Core.csproj" />
+    <ProjectReference Include="..\..\src\Core\Deploy.LaunchPad.Util\Deploy.LaunchPad.Util.csproj" />
+    <ProjectReference Include="..\..\src\Infra\Deploy.LaunchPad.Infra.AWS\Deploy.LaunchPad.Infra.AWS.csproj" />
   </ItemGroup>
 
 </Project>

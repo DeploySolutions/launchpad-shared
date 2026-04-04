@@ -17,9 +17,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\Deploy.LaunchPad.Core\Deploy.LaunchPad.Core.csproj" />
-    <ProjectReference Include="..\..\src\Deploy.LaunchPad.Geospatial\Deploy.LaunchPad.Geospatial.csproj" />
-    <ProjectReference Include="..\..\src\Deploy.LaunchPad.Util\Deploy.LaunchPad.Util.csproj" />
+    <ProjectReference Include="..\..\src\Core\Deploy.LaunchPad.Core\Deploy.LaunchPad.Core.csproj" />
+    <ProjectReference Include="..\..\src\Core\Deploy.LaunchPad.Geospatial\Deploy.LaunchPad.Geospatial.csproj" />
+    <ProjectReference Include="..\..\src\Core\Deploy.LaunchPad.Util\Deploy.LaunchPad.Util.csproj" />
   </ItemGroup>
 
 </Project>

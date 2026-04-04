@@ -1,0 +1,52 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <Import Project="..\..\..\common.props" />
+  <Import Project="..\..\..\configureawait.props" />
+  <PropertyGroup>
+    <Version>11.0.0</Version>
+    <Description>Shared code for LaunchPad AWS usage.</Description>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AWSSDK.APIGateway" />
+    <PackageReference Include="AWSSDK.CloudFront" />
+    <PackageReference Include="AWSSDK.Core" />
+    <PackageReference Include="AWSSDK.ElasticFileSystem" />
+    <PackageReference Include="AWSSDK.Lambda" />
+    <PackageReference Include="AWSSDK.Redshift" />
+    <PackageReference Include="AWSSDK.S3" />
+    <PackageReference Include="AWSSDK.SecretsManager" />
+    <PackageReference Include="AWSSDK.SimpleNotificationService" />
+    <PackageReference Include="AWSSDK.SimpleSystemsManagement" />
+    <PackageReference Include="AWSSDK.SQS" />
+    <PackageReference Include="AwsSignatureVersion4" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" />
+    <PackageReference Include="Newtonsoft.Json" />
+    <PackageReference Include="RestSharp" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Core\Deploy.LaunchPad.Core\Deploy.LaunchPad.Core.csproj" />
+    <ProjectReference Include="..\..\Core\Deploy.LaunchPad.Data\Deploy.LaunchPad.Data.csproj" />
+    <ProjectReference Include="..\..\Core\Deploy.LaunchPad.Files\Deploy.LaunchPad.Files.csproj" />
+    <ProjectReference Include="..\..\Core\Deploy.LaunchPad.Util\Deploy.LaunchPad.Util.csproj" />
+    <ProjectReference Include="..\..\Code\Deploy.LaunchPad.Code\Deploy.LaunchPad.Code.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Deploy.LaunchPad.AWS.Resources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Deploy.LaunchPad.AWS.Resources.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Deploy.LaunchPad.AWS.Resources.resx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Deploy.LaunchPad.AWS.Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+
+</Project>

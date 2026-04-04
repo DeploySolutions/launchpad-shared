@@ -1,0 +1,35 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <Import Project="..\..\..\common.props" />
+  <Import Project="..\..\..\configureawait.props" />
+
+  <PropertyGroup>
+    <Version>11.0.0</Version>
+    <Description>Satellite-related code for LaunchPad framework.</Description>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Core\Deploy.LaunchPad.Util\Deploy.LaunchPad.Util.csproj" />
+    <ProjectReference Include="..\..\Core\Deploy.LaunchPad.Core\Deploy.LaunchPad.Core.csproj" />
+    <ProjectReference Include="..\..\Core\Deploy.LaunchPad.Files\Deploy.LaunchPad.Files.csproj" />
+    <ProjectReference Include="..\..\Core\Deploy.LaunchPad.Geospatial\Deploy.LaunchPad.Geospatial.csproj" />
+    <ProjectReference Include="..\Deploy.LaunchPad.Domain.Organizations\Deploy.LaunchPad.Domain.Organizations.csproj" />
+    <ProjectReference Include="..\Deploy.LaunchPad.Domain\Deploy.LaunchPad.Domain.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Update="Deploy.LaunchPad.Space.Resources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Deploy.LaunchPad.Space.Resources.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Deploy.LaunchPad.Space.Resources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Deploy.LaunchPad.Space.Resources.Designer.cs</LastGenOutput>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+  </ItemGroup>
+
+</Project>

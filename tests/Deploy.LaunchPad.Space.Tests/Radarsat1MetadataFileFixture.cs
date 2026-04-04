@@ -1,12 +1,12 @@
 ﻿// ***********************************************************************
-// Assembly         : Deploy.LaunchPad.Space.Tests
+// Assembly         : Deploy.LaunchPad.Domain.Space.Tests
 // Author           : Nicholas Kellett
 // Created          : 11-19-2023
 //
 // Last Modified By : Nicholas Kellett
 // Last Modified On : 07-26-2023
 // ***********************************************************************
-// <copyright file="Radarsat1MetadataFileFixture.cs" company="Deploy.LaunchPad.Space.Tests">
+// <copyright file="Radarsat1MetadataFileFixture.cs" company="Deploy.LaunchPad.Domain.Space.Tests">
 //     Copyright (c) Deploy Software Solutions, Inc.. All rights reserved.
 // </copyright>
 // <summary></summary>
@@ -26,9 +26,9 @@
 //limitations under the License. 
 #endregion
 
-namespace Deploy.LaunchPad.Space.Tests
+namespace Deploy.LaunchPad.Domain.Space.Tests
 {
-    using Deploy.LaunchPad.Space.Satellites.GoC;
+    using Deploy.LaunchPad.Domain.Space.GoC;
     using System;
     using Deploy.LaunchPad.Files.Storage;
 

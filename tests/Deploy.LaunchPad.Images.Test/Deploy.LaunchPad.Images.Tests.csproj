@@ -15,15 +15,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="logoDark.png" />
-    <None Remove="logoWhite.png" />
-    <None Include="..\..\LICENSE">
-      <Pack>True</Pack>
-      <PackagePath></PackagePath>
-    </None>
-  </ItemGroup>
-
-  <ItemGroup>
     <EmbeddedResource Include="logoDark.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
@@ -43,9 +34,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\Deploy.LaunchPad.Core\Deploy.LaunchPad.Core.csproj" />
-    <ProjectReference Include="..\..\src\Deploy.LaunchPad.Util\Deploy.LaunchPad.Util.csproj" />
-    <ProjectReference Include="..\..\src\Deploy.LaunchPad.Files\Deploy.LaunchPad.Files.csproj" />
+    <ProjectReference Include="..\..\src\Core\Deploy.LaunchPad.Core\Deploy.LaunchPad.Core.csproj" />
+    <ProjectReference Include="..\..\src\Core\Deploy.LaunchPad.Util\Deploy.LaunchPad.Util.csproj" />
+    <ProjectReference Include="..\..\src\Core\Deploy.LaunchPad.Files\Deploy.LaunchPad.Files.csproj" />
   </ItemGroup>
 
 </Project>
