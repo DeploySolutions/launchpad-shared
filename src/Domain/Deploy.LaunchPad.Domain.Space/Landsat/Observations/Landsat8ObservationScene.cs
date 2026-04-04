@@ -14,7 +14,6 @@
 using Deploy.LaunchPad.Domain;
 using Deploy.LaunchPad.Files.Storage;
 using Deploy.LaunchPad.Domain.Space.Core;
-using Deploy.LaunchPad.Files.Storage;
 
 namespace Deploy.LaunchPad.Domain.Space.Landsat
 {
