@@ -47,10 +47,10 @@
     <Project Path="src/Code/Deploy.LaunchPad.Code/Deploy.LaunchPad.Code.csproj" Id="267ef999-9ad6-40db-a06e-fcf8454bf2d3" />
   </Folder>
   <Folder Name="/Src/Domain/">
-    <Project Path="src/Core/Deploy.LaunchPad.ECommerce/Deploy.LaunchPad.Domain.ECommerce.csproj" />
+    <Project Path="src/Domain/Deploy.LaunchPad.Domain/Deploy.LaunchPad.Domain.csproj" Id="87416154-2b42-4c1a-9ce6-5e75bc0f0859" />
+    <Project Path="src/Domain/Deploy.LaunchPad.Domain.ECommerce/Deploy.LaunchPad.Domain.ECommerce.csproj" />
     <Project Path="src/Domain/Deploy.LaunchPad.Domain.Organizations/Deploy.LaunchPad.Domain.Organizations.csproj" />
     <Project Path="src/Domain/Deploy.LaunchPad.Domain.Space/Deploy.LaunchPad.Domain.Space.csproj" />
-    <Project Path="src/Domain/Deploy.LaunchPad.Domain/Deploy.LaunchPad.Domain.csproj" Id="87416154-2b42-4c1a-9ce6-5e75bc0f0859" />
   </Folder>
   <Folder Name="/Src/Infra/">
     <Project Path="src/Infra/Deploy.LaunchPad.Infra.AWS/Deploy.LaunchPad.Infra.AWS.csproj" />
