@@ -39,7 +39,7 @@ namespace Deploy.LaunchPad.Infra.AWS
             }
         }
 
-        public virtual AwsSecretVault GetAwsSecretVault(ILogger logger, string arn, AwsCloudConfiguration cloudConfiguration)            
+        public virtual AwsSecretVault GetAwsSecretVault(string arn, AwsCloudConfiguration cloudConfiguration)            
         {
             Guard.AgainstNullOrEmpty(arn, nameof(arn));
             Guard.AgainstNull(cloudConfiguration, nameof(cloudConfiguration));
@@ -48,7 +48,7 @@ namespace Deploy.LaunchPad.Infra.AWS
             AWSCredentials creds;
             string awsProfileName = cloudConfiguration.Credentials.LocalProfileName ?? Constants_LaunchPadInfraAWS.DefaultLocalProfileName;
             bool didGetCredentials = chain.TryGetAWSCredentials(awsProfileName, out creds);
-            AwsSecretVault vault = new AwsSecretVault(logger, arn);
+            AwsSecretVault vault = new AwsSecretVault(Logger, arn);
             var regionEndpoint = Amazon.RegionEndpoint.GetBySystemName(cloudConfiguration.RegionEndpointName);
             AmazonSecretsManagerClient secretClient = new AmazonSecretsManagerClient(creds, regionEndpoint);
             AwsSecretsManagerService service = new AwsSecretsManagerService(secretClient);
@@ -68,30 +68,13 @@ namespace Deploy.LaunchPad.Infra.AWS
         {
             Guard.AgainstNull(vaultSection, nameof(vaultSection));
             Guard.AgainstNull(cloudConfiguration, nameof(cloudConfiguration));
-            var vault = vaultSection.Get<TVault>() ?? new TVault();
+            var vaultConfiguration = vaultSection.Get<TVault>() ?? new TVault();
             // try to load the secret fields from the vault configuration
-            if (vault.Source == SecretVaultType.AwsSecretsManager)
+            if (vaultConfiguration.Source == SecretVaultType.AwsSecretsManager)
             {
-                var chain = new CredentialProfileStoreChain();
-                AWSCredentials creds;
-                string awsProfileName = cloudConfiguration.Credentials.LocalProfileName ?? Constants_LaunchPadInfraAWS.DefaultLocalProfileName;
-                bool didGetCredentials = chain.TryGetAWSCredentials(awsProfileName, out creds);
-                AwsSecretVault awsSecretVault = new AwsSecretVault();
-                var regionEndpoint = Amazon.RegionEndpoint.GetBySystemName(cloudConfiguration.RegionEndpointName);
-                AmazonSecretsManagerClient secretClient = new AmazonSecretsManagerClient(creds, regionEndpoint);
-                AwsSecretsManagerService service = new AwsSecretsManagerService(secretClient);
-                string arn = vault.VaultId;
-                string result = service.GetPlaintextFromFromSecretVaultAsync(arn).Result;
-                var dictionary = service.GetDictionaryFromSecretAsync(arn).Result;
-                foreach(var item in dictionary)
-                {
-                    ISettingDefinition fieldSetting = new SettingDefinition(item.Key, item.Value);
-                    vault.Fields.TryAdd(item.Key, fieldSetting);
-                    Secrets.TryAdd(item.Key, fieldSetting);
-                }
-
+                var vault = GetAwsSecretVault(vaultConfiguration.VaultId, cloudConfiguration);
+                Vaults.TryAdd(vault.VaultId, vault);
             }
-            Vaults.TryAdd(vault.VaultId, vault);
         }
 
         public virtual void LoadValuesFromSecretVault<TVault>(IConfigurationSection configurationSection, AwsCloudConfiguration cloudConfiguration, ISecretProviderContext context)
