@@ -2,6 +2,7 @@
 using Amazon.Runtime.CredentialManagement;
 using Amazon.SecretsManager;
 using Amazon.SimpleSystemsManagement;
+using Castle.Core.Logging;
 using Deploy.LaunchPad.Core;
 using Deploy.LaunchPad.Core.Configuration;
 using Deploy.LaunchPad.Core.Secrets;
@@ -36,6 +37,30 @@ namespace Deploy.LaunchPad.Infra.AWS
             {
                 LoadValuesFromSecretVault<SecretVault>(secretVaultSection, awsConfig, context);
             }
+        }
+
+        public virtual AwsSecretVault GetAwsSecretVault(ILogger logger, string arn, AwsCloudConfiguration cloudConfiguration)            
+        {
+            Guard.AgainstNullOrEmpty(arn, nameof(arn));
+            Guard.AgainstNull(cloudConfiguration, nameof(cloudConfiguration));
+            // try to load the secret fields from the vault configuration
+            var chain = new CredentialProfileStoreChain();
+            AWSCredentials creds;
+            string awsProfileName = cloudConfiguration.Credentials.LocalProfileName ?? Constants_LaunchPadInfraAWS.DefaultLocalProfileName;
+            bool didGetCredentials = chain.TryGetAWSCredentials(awsProfileName, out creds);
+            AwsSecretVault vault = new AwsSecretVault(logger, arn);
+            var regionEndpoint = Amazon.RegionEndpoint.GetBySystemName(cloudConfiguration.RegionEndpointName);
+            AmazonSecretsManagerClient secretClient = new AmazonSecretsManagerClient(creds, regionEndpoint);
+            AwsSecretsManagerService service = new AwsSecretsManagerService(secretClient);
+            string result = service.GetPlaintextFromFromSecretVaultAsync(arn).Result;
+            var dictionary = service.GetDictionaryFromSecretAsync(arn).Result;
+            foreach (var item in dictionary)
+            {
+                ISettingDefinition fieldSetting = new SettingDefinition(item.Key, item.Value);
+                vault.Fields.TryAdd(item.Key, fieldSetting);
+                Secrets.TryAdd(item.Key, fieldSetting);
+            }
+            return vault;
         }
 
         public virtual void LoadValuesFromSecretVault<TVault>(IConfigurationSection vaultSection, AwsCloudConfiguration cloudConfiguration)
