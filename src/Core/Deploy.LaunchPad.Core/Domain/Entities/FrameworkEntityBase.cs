@@ -79,7 +79,7 @@ namespace Deploy.LaunchPad.Core.Domain.Entities
         /// Unique identifier for this entity.
         /// </summary>
         [Column("core_id")]
-        public virtual required TPrimaryKey Id { get; set; }
+        public virtual TPrimaryKey Id { get; set; }
 
         protected string _checksumValue = string.Empty;
         /// <summary>
