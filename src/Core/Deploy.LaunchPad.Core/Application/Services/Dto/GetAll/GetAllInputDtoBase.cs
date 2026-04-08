@@ -37,6 +37,7 @@ namespace Deploy.LaunchPad.Core.Application.Services.Dto.GetAll
     /// <seealso cref="IMayHaveTenant" />
     public abstract partial class GetAllInputDtoBase<TPrimaryKey> :
         ICanBeAppServiceMethodInput,
+        IHavePassivable,
         IPagedResultRequest,
         IMayHaveTenant
     {
