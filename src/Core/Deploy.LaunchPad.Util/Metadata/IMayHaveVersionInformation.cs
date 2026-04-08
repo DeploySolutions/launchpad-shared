@@ -33,7 +33,7 @@ namespace Deploy.LaunchPad.Util.Metadata
         /// </summary>        
         [DataObjectField(false)]
         [XmlAttribute]
-        public string? Version { get; set; }
+        public string? Version { get; }
 
     }
 }
