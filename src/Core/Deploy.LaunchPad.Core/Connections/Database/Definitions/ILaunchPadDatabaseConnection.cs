@@ -1,5 +1,6 @@
 ﻿using Deploy.LaunchPad.Core.Connections;
 using Deploy.LaunchPad.Core.Secrets.Reference;
+using Deploy.LaunchPad.Util.Metadata;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -18,8 +19,6 @@ namespace Deploy.LaunchPad.Core.Connections.Database.Definitions
         public string DefaultSchema { get; }
 
         public int Port { get; }
-
-        public string Version { get; }
 
         public ISecretFieldReference? DatabaseSecretRef { get; }
 

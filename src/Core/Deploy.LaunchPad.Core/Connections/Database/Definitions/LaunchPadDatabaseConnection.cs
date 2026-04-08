@@ -17,6 +17,7 @@ namespace Deploy.LaunchPad.Core.Connections.Database.Definitions
         public virtual ConnectionAuthMode ConnectionAuthMode { get; init; } = ConnectionAuthMode.ConnectionString;
 
         public required virtual string Name { get; set; }
+        public virtual string ProviderName { get; set; }
 
         public virtual ElementDescription Description { get; set; }
 
@@ -45,7 +46,7 @@ namespace Deploy.LaunchPad.Core.Connections.Database.Definitions
         [JsonIgnore]
         public required virtual ISecretFieldReference? DatabaseSecretRef { get; set; }
 
-        public virtual string Version { get; } = string.Empty;
+        public virtual string Version { get; init; } = string.Empty;
         
         public virtual int Port { get; init; } = 5432;
 

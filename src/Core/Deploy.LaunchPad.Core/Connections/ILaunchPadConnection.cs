@@ -13,9 +13,13 @@ namespace Deploy.LaunchPad.Core.Connections
     public partial interface ILaunchPadConnection : ILaunchPadObject, 
         ILaunchPadMinimalProperties,
         IMustHaveElementDescription,
-        IHavePassivable
+        IHavePassivable,
+        IMayHaveVersionInformation
     {
+        string ProviderName { get; }          // ex: PostgreSql, OpenSearch, OpenAI, RestApi
+
         public ConnectionType ConnectionType { get; }
+
         public ConnectionAuthMode ConnectionAuthMode { get; }
 
         IReadOnlyDictionary<string, string?> Metadata { get; }
