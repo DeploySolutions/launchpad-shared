@@ -1,5 +1,4 @@
-﻿using Deploy.LaunchPad.Util.Elements;
-using Deploy.LaunchPad.Util.Metadata;
+﻿using Deploy.LaunchPad.Util.Metadata;
 using System;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;

@@ -27,7 +27,6 @@
 #endregion
 
 using Deploy.LaunchPad.Util;
-using Deploy.LaunchPad.Util.Elements;
 using Deploy.LaunchPad.Util.Metadata;
 using System;
 using System.ComponentModel;

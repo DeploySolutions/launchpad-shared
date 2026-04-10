@@ -1,7 +1,6 @@
 ﻿using Deploy.LaunchPad.Core.Localization;
 using Deploy.LaunchPad.Util.Metadata;
 using Deploy.LaunchPad.Core.Secrets.Reference;
-using Deploy.LaunchPad.Util.Elements;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Deploy.LaunchPad.Util.Elements
+namespace Deploy.LaunchPad.Util.Metadata
 {
     public partial interface IMustHaveFullName
     {
