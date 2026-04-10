@@ -1,13 +1,15 @@
-﻿using System.ComponentModel;
+﻿using Deploy.LaunchPad.Util.ValueConverters;
+using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Diagnostics;
-using System.Xml.Serialization;
-using System;
-using Newtonsoft.Json;
-using Deploy.LaunchPad.Util.ValueConverters;
 using System.Diagnostics.CodeAnalysis;
-using Microsoft.EntityFrameworkCore;
+using System.Xml.Serialization;
 
 namespace Deploy.LaunchPad.Util.Elements
 {
@@ -47,9 +49,74 @@ namespace Deploy.LaunchPad.Util.Elements
             }
         }
 
+        protected string? _suffix;
+        /// <summary>
+        /// The suffix of this element, if any (ex. "jr", or "MD")
+        /// </summary>
+        /// <value>The fully qualified name of the element.</value>
+        [MaxLength(50, ErrorMessageResourceName = "Validation_Name_Short_50CharsOrLess", ErrorMessageResourceType = typeof(Deploy_LaunchPad_Util_Resources))]
+        [DataObjectField(false)]
+        [XmlAttribute]
+        [JsonProperty("suffix", NullValueHandling = NullValueHandling.Ignore, DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
+        [JsonConverter(typeof(JsonEmptyStringToNullConverter))]
+        [Column("core_name_suffix")]
+        public virtual string? Suffix
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(_suffix))
+                {
+                    return Name;
+                }
+                else
+                {
+                    return _suffix;
+                }
+            }
+            set
+            {
+                _suffix = value;
+            }
+        }
+
+        protected string? _prefix;
+        /// <summary>
+        /// The prefix of this element, if any (ex. "Dr.")
+        /// </summary>
+        /// <value>The fully qualified name of the element.</value>
+        [MaxLength(50, ErrorMessageResourceName = "Validation_Name_Short_50CharsOrLess", ErrorMessageResourceType = typeof(Deploy_LaunchPad_Util_Resources))]
+        [DataObjectField(false)]
+        [XmlAttribute]
+        [JsonProperty("prefix", NullValueHandling = NullValueHandling.Ignore, DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
+        [JsonConverter(typeof(JsonEmptyStringToNullConverter))]
+        [Column("core_name_prefix")]
+        public virtual string? Prefix
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(_prefix))
+                {
+                    return Name;
+                }
+                else
+                {
+                    return _prefix;
+                }
+            }
+            set
+            {
+                _prefix = value;
+            }
+        }
+
+        public IDictionary<string, string> AlternateNames { get; set; }
+
         [SetsRequiredMembers]
         protected ElementName() : base()
         {
+            StringComparer comparer = StringComparer.OrdinalIgnoreCase;
+            AlternateNames = new Dictionary<string, string>(comparer);
+            AlternateNames.TryAdd(ShortName, ShortName);
         }
 
         [SetsRequiredMembers]
@@ -60,6 +127,9 @@ namespace Deploy.LaunchPad.Util.Elements
             {
                 ShortName = fullName.Length > 50 ? fullName.Substring(0, 50) : fullName;
             }
+            StringComparer comparer = StringComparer.OrdinalIgnoreCase;
+            AlternateNames = new Dictionary<string, string>(comparer);
+            AlternateNames.TryAdd(ShortName, ShortName);
         }
 
         [SetsRequiredMembers]
@@ -70,6 +140,9 @@ namespace Deploy.LaunchPad.Util.Elements
             {
                 ShortName = shortName.Length > 50 ? shortName.Substring(0, 50) : shortName;
             }
+            StringComparer comparer = StringComparer.OrdinalIgnoreCase;
+            AlternateNames = new Dictionary<string, string>(comparer);
+            AlternateNames.TryAdd(ShortName, ShortName);
         }
 
 
@@ -81,6 +154,9 @@ namespace Deploy.LaunchPad.Util.Elements
             {
                 ShortName = shortName.Length > 50 ? shortName.Substring(0, 50) : shortName;
             }
+            StringComparer comparer = StringComparer.OrdinalIgnoreCase;
+            AlternateNames = new Dictionary<string, string>(comparer);
+            AlternateNames.TryAdd(ShortName, ShortName);
         }
 
         /// <summary>

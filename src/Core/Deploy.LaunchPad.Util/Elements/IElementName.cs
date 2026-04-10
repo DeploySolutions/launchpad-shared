@@ -5,7 +5,7 @@ using System;
 namespace Deploy.LaunchPad.Util.Elements
 {
     public partial interface IElementName : IMustHaveFullName, 
-        IMustHaveShortName,
+        IMayHaveAlternateNames,
         IComparable<ElementName>, 
         IEquatable<ElementName>,
         ICloneable, IAmCloneable<ElementName>
