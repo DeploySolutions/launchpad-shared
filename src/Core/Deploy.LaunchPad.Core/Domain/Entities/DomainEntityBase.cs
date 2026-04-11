@@ -27,18 +27,24 @@
 #endregion
 
 
+using Deploy.LaunchPad.AWS;
 using Deploy.LaunchPad.Core.Domain.Entities.Auditing;
 using Deploy.LaunchPad.Util;
 using Deploy.LaunchPad.Util.Elements;
 using Newtonsoft.Json;
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
+using System.Linq;
 using System.Runtime.Serialization;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Xml.Serialization;
 
 namespace Deploy.LaunchPad.Core.Domain.Entities
@@ -62,13 +68,39 @@ namespace Deploy.LaunchPad.Core.Domain.Entities
         protected override string _debugDisplay => $"Name {Name}. Description {Description}";
 
         /// <summary>
-        /// A  description for this entity
+        /// A Full Name for this entity
+        /// </summary>
+        /// <value>The Full Name.</value>
+        [DataObjectField(false)]
+        [XmlAttribute]
+        //[JsonPropertyName("description")]
+        public virtual string ShortName { get; set; }
+
+        [DataObjectField(false)]
+        [XmlAttribute]
+        [NotMapped]
+        public virtual IDictionary<string,string> AlternateNames { get; set; }
+
+        [Column("core_names_alternates")]
+        public string AlternateNamesSerialized
+        {
+            get => string.Join(";", AlternateNames.Select(kvp => $"{kvp.Key}={kvp.Value}"));
+            set => AlternateNames = string.IsNullOrWhiteSpace(value)
+                ? new Dictionary<string, string>()
+                : value.Split(';')
+                    .Select(part => part.Split('='))
+                    .Where(parts => parts.Length == 2)
+                    .ToDictionary(parts => parts[0], parts => parts[1]);
+        }
+
+        /// <summary>
+        /// A short description for this entity
         /// </summary>
         /// <value>The description.</value>
         [DataObjectField(false)]
         [XmlAttribute]
         //[JsonPropertyName("description")]
-        public virtual ElementDescription Description { get; set; }
+        public virtual string ShortDescription { get; set; }
 
         protected TPrimaryKey? _translatedFromId;
         /// <summary>
@@ -85,21 +117,20 @@ namespace Deploy.LaunchPad.Core.Domain.Entities
             set { _translatedFromId = value; }
         }
 
-        protected int? _seqNum;
         /// <summary>
-        /// The sequence number for this entity, if any (for sorting and ordering purposes).
+        /// The CultureInfo of this object
         /// </summary>
-        /// <value>The seq number.</value>
+        /// <value>The CultureInfo.</value>
         [DataObjectField(false)]
-        [DataMember(Name = "seqNum", EmitDefaultValue = false)]
-        [XmlElement]
-        public virtual int? SeqNum
+        [XmlAttribute]
+        [Newtonsoft.Json.JsonIgnore]
+        [NotMapped]
+        public virtual CultureInfo Culture
         {
-            get { return _seqNum; }
-            set { _seqNum = value; }
+            get { return new CultureInfo(_cultureName); }
         }
 
-        protected CultureInfo _culture;
+        protected string _cultureName;
         /// <summary>
         /// The culture of this object
         /// </summary>
@@ -109,10 +140,19 @@ namespace Deploy.LaunchPad.Core.Domain.Entities
         [DataObjectField(false)]
         [DataMember(Name = "culture", EmitDefaultValue = false)]
         [XmlAttribute]
-        public virtual CultureInfo Culture
+        public virtual string CultureName
         {
-            get { return _culture; }
-            set { _culture = value; }
+            get { return _cultureName; }
+            set { 
+                if(CultureInfo.GetCultures(CultureTypes.AllCultures).Any(c => c.Name == value))
+                {
+                    _cultureName = value;
+                }
+                else
+                {
+                    throw new ArgumentOutOfRangeException($"Culture name {value} is not a valid culture identifier.");
+                }
+            }
         }
 
         protected string _creatorUserName;
@@ -169,11 +209,12 @@ namespace Deploy.LaunchPad.Core.Domain.Entities
         /// </summary>
         protected DomainEntityBase() : base()
         {
-            Culture = new CultureInfo("en-CA");
+            CultureName = "en-CA";
             IsDeleted = false;
             Name = string.Empty;
-            Description = new ElementDescription(string.Empty, string.Empty);
-
+            Description = string.Empty;
+            StringComparer comparer = StringComparer.OrdinalIgnoreCase;
+            AlternateNames = new Dictionary<string, string>(comparer);
         }
 
         /// <summary>
@@ -183,11 +224,15 @@ namespace Deploy.LaunchPad.Core.Domain.Entities
         [SetsRequiredMembers]
         protected DomainEntityBase(TPrimaryKey id) : base(id)
         {
-            Culture = new CultureInfo("en-CA");
+            CultureName = "en-CA";
             CreatorUserId = Guid.NewGuid(); // TODO - default user account?
             IsDeleted = false;
             Name = Id.ToString();
-            Description = new ElementDescription(string.Empty, string.Empty);
+            ShortName = Id.ToString();
+            Description = Id.ToString();
+            ShortDescription = Id.ToString();
+            StringComparer comparer = StringComparer.OrdinalIgnoreCase;
+            AlternateNames = new Dictionary<string, string>(comparer);
         }
 
         /// <summary>
@@ -199,11 +244,15 @@ namespace Deploy.LaunchPad.Core.Domain.Entities
         [SetsRequiredMembers]
         protected DomainEntityBase(TPrimaryKey id, ElementName name) : base(id)
         {
-            Culture = new CultureInfo("en-CA");
+            CultureName = "en-CA";
             CreatorUserId = Guid.NewGuid(); // TODO - default user account?
             IsDeleted = false;
             Name = name.Name;
-            Description = new ElementDescription(name.Name);
+            ShortName = name.ShortName;
+            Description = name.Name;
+            ShortDescription = name.ShortName;
+            StringComparer comparer = StringComparer.OrdinalIgnoreCase;
+            AlternateNames = new Dictionary<string, string>(comparer);
         }
 
         /// <summary>
@@ -215,11 +264,15 @@ namespace Deploy.LaunchPad.Core.Domain.Entities
         [SetsRequiredMembers]
         protected DomainEntityBase(TPrimaryKey id, ElementName name, ElementDescription description) : base()
         {
-            Culture = new CultureInfo("en-CA");
+            CultureName = "en-CA";
             CreatorUserId = Guid.NewGuid(); // TODO - default user account?
             IsDeleted = false;
             Name = name.Name;
-            Description = description;
+            ShortName = name.ShortName;
+            Description = description.Description;
+            ShortDescription = description.ShortDescription;
+            StringComparer comparer = StringComparer.OrdinalIgnoreCase;
+            AlternateNames = new Dictionary<string, string>(comparer);
         }
 
 
@@ -231,10 +284,15 @@ namespace Deploy.LaunchPad.Core.Domain.Entities
         [SetsRequiredMembers]
         protected DomainEntityBase(TPrimaryKey id, string name) : base(id,name)
         {
-            Culture = new CultureInfo("en-CA");
+            CultureName = "en-CA";
             CreatorUserId = Guid.NewGuid(); // TODO - default user account?
             IsDeleted = false;
-            Description = new ElementDescription(string.Empty, string.Empty);
+            Name = name;
+            ShortName = name;
+            Description = name;
+            ShortDescription = name;
+            StringComparer comparer = StringComparer.OrdinalIgnoreCase;
+            AlternateNames = new Dictionary<string, string>(comparer);
         }
 
         /// <summary>
@@ -246,9 +304,15 @@ namespace Deploy.LaunchPad.Core.Domain.Entities
         [SetsRequiredMembers]   
         protected DomainEntityBase(TPrimaryKey id, string name, CultureInfo culture) : base(id, name, culture)
         {
+            CultureName = culture.Name;
             CreatorUserId = Guid.NewGuid(); // TODO - default user account?
             IsDeleted = false;
-            Description = new ElementDescription(string.Empty, string.Empty);
+            Name = name;
+            ShortName = name;
+            Description = name;
+            ShortDescription = name;
+            StringComparer comparer = StringComparer.OrdinalIgnoreCase;
+            AlternateNames = new Dictionary<string, string>(comparer);
         }
 
         /// <summary>
@@ -260,11 +324,15 @@ namespace Deploy.LaunchPad.Core.Domain.Entities
         protected DomainEntityBase(TPrimaryKey id, ElementName name, CultureInfo culture) : base()
         {
             Id = id;
-            Culture = culture;
+            CultureName = culture.Name;
             CreatorUserId = Guid.NewGuid(); // TODO - default user account?
             IsDeleted = false;
             Name = name.Name;
-            Description = new ElementDescription(string.Empty, string.Empty);
+            ShortName = name.ShortName;
+            Description = name.Name;
+            ShortDescription = name.ShortName;
+            StringComparer comparer = StringComparer.OrdinalIgnoreCase;
+            AlternateNames = new Dictionary<string, string>(comparer);
         }
 
         /// <summary>
@@ -276,11 +344,15 @@ namespace Deploy.LaunchPad.Core.Domain.Entities
         protected DomainEntityBase(TPrimaryKey id, ElementName name, ElementDescription description, CultureInfo culture) : base()
         {
             Id = id;
-            Culture = culture;
+            CultureName = culture.Name;
             CreatorUserId = Guid.NewGuid(); // TODO - default user account?
             IsDeleted = false;
             Name = name.Name;
-            Description = description;
+            ShortName = name.ShortName;
+            Description = description.Description;
+            ShortDescription = description.ShortDescription;
+            StringComparer comparer = StringComparer.OrdinalIgnoreCase;
+            AlternateNames = new Dictionary<string, string>(comparer);
         }
 
         /// <summary>
@@ -291,9 +363,12 @@ namespace Deploy.LaunchPad.Core.Domain.Entities
         protected DomainEntityBase(SerializationInfo info, StreamingContext context)
         {
             Id = (TPrimaryKey)info.GetValue("Id", typeof(TPrimaryKey));
-            Culture = (CultureInfo)info.GetValue("Culture", typeof(CultureInfo));
-            Name = (string)info.GetValue("Name", typeof(string));
-            Description = (ElementDescription)info.GetValue("Description", typeof(ElementDescription));
+            CultureName = info.GetString("CultureName");
+            Name = info.GetString("Name");
+            ShortName = info.GetString("ShortName");
+            Description = info.GetString("Description");
+            ShortDescription = info.GetString("ShortDescription");
+            AlternateNames = (IDictionary<string, string>)info.GetValue("AlternateNames", typeof(IDictionary<string, string>));
             Checksum = info.GetString("Checksum");
             Tags = info.GetString("Tags");
             CreationTime = info.GetDateTime("CreationTime");
@@ -303,7 +378,6 @@ namespace Deploy.LaunchPad.Core.Domain.Entities
             IsDeleted = info.GetBoolean("IsDeleted");
             DeleterUserId = (Guid?)info.GetValue("DeleterUserId", typeof(Guid?));
             DeletionTime = info.GetDateTime("DeletionTime");
-            SeqNum = info.GetInt32("SeqNum");
         }
 
         /// <summary>
@@ -311,12 +385,14 @@ namespace Deploy.LaunchPad.Core.Domain.Entities
         /// </summary>
         /// <param name="info">The information.</param>
         /// <param name="context">The context.</param>
-        public virtual void GetObjectData(SerializationInfo info, StreamingContext context)
+        public override void GetObjectData(SerializationInfo info, StreamingContext context)
         {
             info.AddValue("Id", Id);
             info.AddValue("Culture", Culture);
             info.AddValue("Name", Name);
+            info.AddValue("ShortName", ShortName);
             info.AddValue("Description", Description);
+            info.AddValue("ShortDescription", ShortDescription);
             info.AddValue("Checksum", Checksum);
             info.AddValue("Tags", Tags);
             info.AddValue("CreationTime", CreationTime);
@@ -326,7 +402,6 @@ namespace Deploy.LaunchPad.Core.Domain.Entities
             info.AddValue("IsDeleted", IsDeleted);
             info.AddValue("DeleterUserId", DeleterUserId);
             info.AddValue("DeletionTime", DeletionTime);
-            info.AddValue("SeqNum", SeqNum);
 
         }
 
@@ -384,7 +459,6 @@ namespace Deploy.LaunchPad.Core.Domain.Entities
             sb.AppendFormat("Description={0};", Description);
             sb.AppendFormat("Checksum={0};", Checksum);
             sb.AppendFormat(" Tags={0};", Tags.ToString());
-            sb.AppendFormat("SeqNum={0};", SeqNum);
 
             // ABP properties
             sb.AppendFormat("CreationTime={0};", CreationTime);

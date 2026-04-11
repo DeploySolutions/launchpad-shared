@@ -49,8 +49,18 @@ namespace Deploy.LaunchPad.Util.Metadata
         /// <value>The culture (using the .NET culture values).</value>
         [DataObjectField(true)]
         [XmlAttribute]
+        [NotMapped]
+        [JsonIgnore]
+        CultureInfo? Culture { get; }
+
+        /// <summary>
+        /// The culture of this entity
+        /// </summary>
+        /// <value>The culture name (using the .NET culture values).</value>
+        [DataObjectField(true)]
+        [XmlAttribute]
         [Column("core_culture")]
-        CultureInfo? Culture { get; set; }
+        string? CultureName { get; set; }
 
     }
 }

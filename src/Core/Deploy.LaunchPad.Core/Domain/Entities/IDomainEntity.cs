@@ -43,6 +43,11 @@ namespace Deploy.LaunchPad.Core.Domain.Entities
     /// <typeparam name="TPrimaryKey">The type of the t identifier type.</typeparam>
     public partial interface IDomainEntity<TPrimaryKey> :
         IDomainEntityProperties<TPrimaryKey>, IFrameworkEntity<TPrimaryKey>,
+        IMayHaveAlternateNames,
+        IMustHaveShortDescription,
+        IMustHaveCulture,
+        IMayHaveTranslationFromId<TPrimaryKey>,
+        IMayHaveChecksumValue,
         ICreationAudited, IModificationAudited, IDeletionAudited,
         IComparable<DomainEntityBase<TPrimaryKey>>, IEquatable<DomainEntityBase<TPrimaryKey>>
     //,IAmCloneable<DomainEntityBase<TPrimaryKey>>

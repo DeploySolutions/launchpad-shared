@@ -158,12 +158,12 @@ namespace Deploy.LaunchPad.Domain.Tests
             {
                 Id = new Guid("9fa65d30-ecc4-446f-b9ad-6ca29be9dab8")
             }; ;
-            a.Culture = new System.Globalization.CultureInfo("en-CA");
+            a.CultureName = "en-CA";
             Device<Guid> b = new Device<Guid>()
             {
                 Id = new Guid("9fa65d30-ecc4-446f-b9ad-6ca29be9dab8")
             }; ;
-            b.Culture = new System.Globalization.CultureInfo("en-CA");
+            b.CultureName = "en-CA";
             Assert.Equal(a, b);
         }
     }

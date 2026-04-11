@@ -42,7 +42,7 @@ namespace Deploy.LaunchPad.Domain.Content
         {
             Name = (string)info.GetValue("Name", typeof(string));
             //Description = (ElementDescription)info.GetValue("Description", typeof(ElementDescription));
-            Culture = (CultureInfo)info.GetValue("Culture", typeof(CultureInfo));
+            CultureName = info.GetString("CultureName");
             Checksum = info.GetString("Checksum");
             Tags = info.GetString("Metadata");
             CreationTime = info.GetDateTime("CreationTime");

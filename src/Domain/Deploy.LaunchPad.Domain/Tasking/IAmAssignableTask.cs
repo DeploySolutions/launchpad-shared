@@ -17,10 +17,10 @@ namespace Deploy.LaunchPad.Domain.Tasking
 {
     /// <summary>
     /// Interface IAmAssignableTask
-    /// Extends the <see cref="ILaunchPadCoreProperties" />
+    /// Extends the <see cref="ILaunchPadCommonProperties" />
     /// </summary>
-    /// <seealso cref="ILaunchPadCoreProperties" />
-    public partial interface IAmAssignableTask : ILaunchPadCoreProperties, IMayHaveAPriority
+    /// <seealso cref="ILaunchPadCommonProperties" />
+    public partial interface IAmAssignableTask : ILaunchPadCommonProperties, IMayHaveAPriority
     {
         public TaskInstruction Instructions { get; set; }
 

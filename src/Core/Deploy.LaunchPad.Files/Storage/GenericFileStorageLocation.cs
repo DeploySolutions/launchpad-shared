@@ -46,7 +46,7 @@ namespace Deploy.LaunchPad.Files.Storage
     /// <seealso cref="Domain.IFileStorageLocation" />
     [DebuggerDisplay("{_debugDisplay}")]
     [Serializable]
-    public partial class GenericFileStorageLocation : LaunchPadMinimalProperties, IFileStorageLocation
+    public partial class GenericFileStorageLocation : IFileStorageLocation
     {
         /// <summary>
         /// Controls the DebuggerDisplay attribute presentation (above). This will only appear during VS debugging sessions and should never be logged.
@@ -61,6 +61,15 @@ namespace Deploy.LaunchPad.Files.Storage
         [DataObjectField(true)]
         [XmlAttribute]
         public virtual string Id { get; set; } = string.Empty;
+
+        /// <summary>
+        /// A Full Name for this entity
+        /// </summary>
+        /// <value>The Full Name.</value>
+        [DataObjectField(false)]
+        [XmlAttribute]
+        //[JsonPropertyName("description")]
+        public virtual string Name { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether this instance is read only.
@@ -210,7 +219,7 @@ namespace Deploy.LaunchPad.Files.Storage
         /// </summary>
         /// <param name="info">The serialization info</param>
         /// <param name="context">The context of the stream</param>
-        protected GenericFileStorageLocation(SerializationInfo info, StreamingContext context) : base(info, context)
+        protected GenericFileStorageLocation(SerializationInfo info, StreamingContext context)
         {
             Id = info.GetString(Id);
             IsReadOnly = info.GetBoolean("IsReadOnly");
@@ -226,7 +235,6 @@ namespace Deploy.LaunchPad.Files.Storage
         /// <param name="context">The context.</param>
         public virtual void GetObjectData(SerializationInfo info, StreamingContext context)
         {
-            base.GetObjectData(info, context);
             info.AddValue("Id", Id);
             info.AddValue("IsReadOnly", IsReadOnly);
             info.AddValue("RootUri", RootUri);

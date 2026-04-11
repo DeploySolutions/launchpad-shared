@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Deploy.LaunchPad.Infra.AWS.S3
 {
-    public partial interface IS3FolderInfo<out TFileInfo> : ILaunchPadMinimalProperties
+    public partial interface IS3FolderInfo<out TFileInfo> : IMustHaveFullName
         where TFileInfo : S3FileInfo
     {
         long FileCount { get; set; }

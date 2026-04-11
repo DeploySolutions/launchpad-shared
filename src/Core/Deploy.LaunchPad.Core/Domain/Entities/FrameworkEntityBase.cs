@@ -67,13 +67,31 @@ namespace Deploy.LaunchPad.Core.Domain.Entities
     /// <typeparam name="TPrimaryKey">Type of the primary key of the entity</typeparam>
     [DebuggerDisplay("{_debugDisplay}")]
     [Serializable]
-    public abstract partial class FrameworkEntityBase<TPrimaryKey> : LaunchPadMinimalProperties, IFrameworkEntity<TPrimaryKey>
+    public abstract partial class FrameworkEntityBase<TPrimaryKey> : IFrameworkEntity<TPrimaryKey>
     {
         /// <summary>
         /// Controls the DebuggerDisplay attribute presentation (above). This will only appear during VS debugging sessions and should never be logged.
         /// </summary>
         /// <value>The debug display.</value>
         protected virtual string _debugDisplay => $"Name {Name}";
+
+        /// <summary>
+        /// A Full Name for this entity
+        /// </summary>
+        /// <value>The Full Name.</value>
+        [DataObjectField(false)]
+        [XmlAttribute]
+        //[JsonPropertyName("description")]
+        public virtual string Name { get; set; }
+
+        /// <summary>
+        /// A  description for this entity
+        /// </summary>
+        /// <value>The description.</value>
+        [DataObjectField(false)]
+        [XmlAttribute]
+        //[JsonPropertyName("description")]
+        public virtual string Description { get; set; }
 
         /// <summary>
         /// Unique identifier for this entity.
@@ -96,7 +114,6 @@ namespace Deploy.LaunchPad.Core.Domain.Entities
             get { return _checksumValue; }
             set { _checksumValue = value; }
         }
-
 
         protected string _tags = "{}";
         /// <summary>
@@ -145,7 +162,7 @@ namespace Deploy.LaunchPad.Core.Domain.Entities
         /// <param name="name">The name of the object.</param>
         /// <param name="description">The description for this entity</param>
         [SetsRequiredMembers]
-        protected FrameworkEntityBase(TPrimaryKey id, string name) : base(name)
+        protected FrameworkEntityBase(TPrimaryKey id, string name) : base()
         {
             Id = id;
         }
@@ -157,7 +174,7 @@ namespace Deploy.LaunchPad.Core.Domain.Entities
         /// <param name="name">The name of the object.</param>
         /// <param name="description">The description for this entity</param>
         [SetsRequiredMembers]
-        protected FrameworkEntityBase(TPrimaryKey id, ElementName name) : base(name)
+        protected FrameworkEntityBase(TPrimaryKey id, ElementName name) : base()
         {
             Id = id;
         }
@@ -169,7 +186,7 @@ namespace Deploy.LaunchPad.Core.Domain.Entities
         /// <param name="name">The name of the object.</param>
         /// <param name="culture">The culture for this entity</param>
         [SetsRequiredMembers]
-        protected FrameworkEntityBase(TPrimaryKey id, string name, CultureInfo culture) : base(name)
+        protected FrameworkEntityBase(TPrimaryKey id, string name, CultureInfo culture) : base()
         {
             Id = id;
         }
@@ -181,7 +198,7 @@ namespace Deploy.LaunchPad.Core.Domain.Entities
         /// <param name="name">The name of the object.</param>
         /// <param name="culture">The culture for this entity</param>
         [SetsRequiredMembers]
-        protected FrameworkEntityBase(TPrimaryKey id, ElementName name, CultureInfo culture) : base(name)
+        protected FrameworkEntityBase(TPrimaryKey id, ElementName name, CultureInfo culture) : base()
         {
             Id = id;
         }
@@ -193,7 +210,7 @@ namespace Deploy.LaunchPad.Core.Domain.Entities
         /// <param name="name">The name of the object.</param>
         /// <param name="culture">The culture for this entity</param>
         [SetsRequiredMembers]
-        protected FrameworkEntityBase(TPrimaryKey id, ElementName name, ElementDescription description, CultureInfo culture) : base(name)
+        protected FrameworkEntityBase(TPrimaryKey id, ElementName name, ElementDescription description, CultureInfo culture) : base()
         {
             Id = id;
         }
@@ -203,7 +220,7 @@ namespace Deploy.LaunchPad.Core.Domain.Entities
         /// </summary>
         /// <param name="info">The serialization info</param>
         /// <param name="context">The context of the stream</param>
-        protected FrameworkEntityBase(SerializationInfo info, StreamingContext context) : base(info, context)
+        protected FrameworkEntityBase(SerializationInfo info, StreamingContext context)
         {
             Id = (TPrimaryKey)info.GetValue("Id", typeof(TPrimaryKey));
             Name = (string)info.GetValue("Name", typeof(string));
@@ -216,9 +233,8 @@ namespace Deploy.LaunchPad.Core.Domain.Entities
         /// </summary>
         /// <param name="info">The information.</param>
         /// <param name="context">The context.</param>
-        public override void GetObjectData(SerializationInfo info, StreamingContext context)
+        public virtual void GetObjectData(SerializationInfo info, StreamingContext context)
         {
-            base.GetObjectData(info, context);
             info.AddValue("Id", Id);
             info.AddValue("Checksum", Checksum);
             info.AddValue("Tags", Tags);

@@ -143,7 +143,7 @@ namespace Deploy.LaunchPad.Domain.Devices
         {
             Id = id;
             TenantId = tenantId;
-            Culture = culture;
+            CultureName = culture.Name;
             CurrentLocation = new SpaceTimeInformation();
             PreviousLocations = new List<SpaceTimeInformation>();
             Power = new DevicePower();

@@ -18,19 +18,16 @@ using System.Xml.Serialization;
 
 namespace Deploy.LaunchPad.Util.Metadata
 {
-    public partial class LaunchPadCoreProperties : LaunchPadMinimalProperties, ILaunchPadCoreProperties
+    public partial class LaunchPadCommonProperties : ILaunchPadCommonProperties
     {
         // List of common property names (including some like ID that are not present here but are common in domain entities)
         public static readonly IList<string> CommonProperties = new List<string>
         {
             "Id",
             "Name",
-            "Description",
-            "Culture",
+            "FullDescription",
             "Checksum",
-            "SeqNum",
             "Tags",
-            "IsActive",
             "DeletionTime",
             "DeleterUserId",
             "DeleterUserName",
@@ -45,24 +42,6 @@ namespace Deploy.LaunchPad.Util.Metadata
             "DataSet",
             "DataSetId"
         };
-
-        protected CultureInfo _culture = new CultureInfo("en");
-        /// <summary>
-        /// The culture of this object
-        /// </summary>
-        /// <value>The culture.</value>
-        [Required]
-        [MaxLength(5, ErrorMessageResourceName = "Validation_Culture_5CharsOrLess", ErrorMessageResourceType = typeof(Deploy_LaunchPad_Util_Resources))]
-        [DataObjectField(true)]
-        [DataMember(Name = "culture", EmitDefaultValue = false)]
-        [XmlAttribute]
-        [Column("core_culture", TypeName = "varchar(5)")]
-        public virtual CultureInfo Culture
-        {
-            get { return _culture; }
-            set { _culture = value; }
-        }
-
 
         protected string _checksum = string.Empty;
         /// <summary>
@@ -238,7 +217,7 @@ namespace Deploy.LaunchPad.Util.Metadata
         /// <summary>
         ///  constructor 
         /// </summary>
-        public LaunchPadCoreProperties() : base()
+        public LaunchPadCommonProperties() : base()
         {
           
         }
@@ -247,7 +226,7 @@ namespace Deploy.LaunchPad.Util.Metadata
         ///  constructor 
         /// </summary>
         [SetsRequiredMembers]
-        public LaunchPadCoreProperties(string name) : base(new ElementName(name))
+        public LaunchPadCommonProperties(string name)
         {
         }
 
@@ -256,10 +235,8 @@ namespace Deploy.LaunchPad.Util.Metadata
         /// </summary>
         /// <param name="info">The serialization info</param>
         /// <param name="context">The context of the stream</param>
-        protected LaunchPadCoreProperties(SerializationInfo info, StreamingContext context)
-            : base(info,context)
+        protected LaunchPadCommonProperties(SerializationInfo info, StreamingContext context)
         {
-            Culture = (CultureInfo)info.GetValue("Culture", typeof(CultureInfo));
             Checksum = info.GetString("Checksum");
             Tags = info.GetString("Tags");
             CreationTime = info.GetDateTime("CreationTime");
@@ -277,10 +254,8 @@ namespace Deploy.LaunchPad.Util.Metadata
         /// </summary>
         /// <param name="info">The information.</param>
         /// <param name="context">The context.</param>
-        public override void GetObjectData(SerializationInfo info, StreamingContext context)
+        public virtual void GetObjectData(SerializationInfo info, StreamingContext context)
         {
-            base.GetObjectData(info, context);
-            info.AddValue("Culture", Culture);
             info.AddValue("Checksum", Checksum);
             info.AddValue("Tags", Tags);
             info.AddValue("CreationTime", CreationTime);

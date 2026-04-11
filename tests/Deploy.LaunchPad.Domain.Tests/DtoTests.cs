@@ -67,7 +67,7 @@ namespace Deploy.LaunchPad.Domain.Tests
                 Name = "Device for testing DTOs",
                 //Description = new ElementDescription("Short description", "Lorem ipsum et dolor sit amet bla bla bla"),
                 IsDeleted = false,
-                Culture = new System.Globalization.CultureInfo("en-CA"),
+                CultureName = "en-CA",
                 Power = power
             };
             this._fixture.Initialize(device);

@@ -28,13 +28,13 @@ namespace Deploy.LaunchPad.Util.Elements
         [JsonProperty("short", NullValueHandling = NullValueHandling.Ignore, DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
         [JsonConverter(typeof(JsonEmptyStringToNullConverter))]
         [Column("core_description_short")]
-        public virtual string Short
+        public virtual string ShortDescription
         {
             get
             {
                 if (string.IsNullOrEmpty(_shortDescription))
                 {
-                    return Full;
+                    return Description;
                 }
                 else
                 {
@@ -57,8 +57,8 @@ namespace Deploy.LaunchPad.Util.Elements
         {
             if (!string.IsNullOrEmpty(fullDescription))
             {
-                Full = fullDescription;
-                Short = fullDescription.Length > 255 ? fullDescription.Substring(0, 255) : fullDescription;
+                Description = fullDescription;
+                ShortDescription = fullDescription.Length > 255 ? fullDescription.Substring(0, 255) : fullDescription;
             }
         }
 
@@ -67,11 +67,11 @@ namespace Deploy.LaunchPad.Util.Elements
         {
             if (!string.IsNullOrEmpty(fullDescription))
             {
-                Full = fullDescription;
+                Description = fullDescription;
             }
             if (!string.IsNullOrEmpty(shortDescription))
             {
-                Short = shortDescription.Length > 255 ? shortDescription.Substring(0, 255) : shortDescription;
+                ShortDescription = shortDescription.Length > 255 ? shortDescription.Substring(0, 255) : shortDescription;
             }
         }
 
@@ -84,7 +84,7 @@ namespace Deploy.LaunchPad.Util.Elements
         /// <returns>System.Int32.</returns>
         public virtual int CompareTo(ElementDescription other)
         {
-            return Full.CompareTo(other) & Short.CompareTo(other.Short);
+            return Description.CompareTo(other.Description) & ShortDescription.CompareTo(other.ShortDescription);
         }
 
         /// <summary>
@@ -93,7 +93,7 @@ namespace Deploy.LaunchPad.Util.Elements
         /// <returns>A string representation of the object.</returns>
         public override string ToString()
         {
-            return Full;
+            return Description;
         }
 
 
@@ -124,7 +124,7 @@ namespace Deploy.LaunchPad.Util.Elements
         {
             if (obj != null)
             {
-                return Short.Equals(obj.Short) && Full.Equals(obj);
+                return ShortDescription.Equals(obj.ShortDescription) && Description.Equals(obj.Description);
             }
             return false;
         }
@@ -166,16 +166,16 @@ namespace Deploy.LaunchPad.Util.Elements
         /// <remarks>This method implements the <see cref="object">Object</see> method.</remarks>
         public override int GetHashCode()
         {
-            return Short.GetHashCode()
-                + Full.GetHashCode();
+            return ShortDescription.GetHashCode()
+                + Description.GetHashCode();
         }
 
         public ElementDescription CloneGeneric()
         {
             // Create a new instance and copy all relevant properties
             return new ElementDescription(
-                fullDescription: this.Full,
-                shortDescription: this.Short
+                fullDescription: this.Description,
+                shortDescription: this.ShortDescription
             );
         }
         object ICloneable.Clone() => CloneGeneric();

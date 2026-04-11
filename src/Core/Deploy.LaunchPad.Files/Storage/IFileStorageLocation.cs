@@ -39,7 +39,7 @@ namespace Deploy.LaunchPad.Files.Storage
     /// <summary>
     /// The storage location of the file bytes.
     /// </summary>
-    public partial interface IFileStorageLocation : ILaunchPadObject, ILaunchPadMinimalProperties,
+    public partial interface IFileStorageLocation : ILaunchPadObject, IMustHaveFullName,
         IComparable<GenericFileStorageLocation>, IEquatable<GenericFileStorageLocation>
     {
         /// <summary>

@@ -8,21 +8,14 @@ using Deploy.LaunchPad.Util.Metadata;
 
 namespace Deploy.LaunchPad.Code.CommandLine
 {
-    public abstract partial class CommandValueBase : LaunchPadMethodResultValueBase
+    public abstract partial class CommandValueBase : LaunchPadMethodResultValueBase, IMustHaveFullName
     {
-        public required LaunchPadMinimalProperties Core { get; init; }
+        public required string Name { get; set; }
 
         [SetsRequiredMembers]
         public CommandValueBase(string name)
         {
-            Core = new LaunchPadMinimalProperties(name);
-        }
-
-        [SetsRequiredMembers]
-        public CommandValueBase(LaunchPadMinimalProperties minimalProperties)
-        {
-            Guard.Against<ArgumentNullException>(minimalProperties == null, "minimalProperties cannot be null.");
-            Core = minimalProperties;
+            Name = name;
         }
 
     }

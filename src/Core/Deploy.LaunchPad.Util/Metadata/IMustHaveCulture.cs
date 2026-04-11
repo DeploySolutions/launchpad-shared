@@ -44,12 +44,23 @@ namespace Deploy.LaunchPad.Util.Metadata
     public partial interface IMustHaveCulture
     {
         /// <summary>
-        /// The culture of this entity
+        /// The CultureInfo of this entity
         /// </summary>
-        /// <value>The culture (using the .NET culture values).</value>
+        /// <value>The CultureInfo (using the .NET culture values).</value>
         [DataObjectField(true)]
         [XmlAttribute]
-        CultureInfo Culture { get; set; }
+        [NotMapped]
+        [JsonIgnore]
+        CultureInfo? Culture { get; }
+
+        /// <summary>
+        /// The culture of this entity
+        /// </summary>
+        /// <value>The culture name (using the .NET culture values).</value>
+        [DataObjectField(true)]
+        [XmlAttribute]
+        [Column("core_culture")]
+        string? CultureName { get; set; }
 
     }
 }

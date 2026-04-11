@@ -6,6 +6,6 @@ namespace Deploy.LaunchPad.Util.Metadata
 {
     public partial interface IMustHaveShortDescription
     {
-        string Short { get; set; }
+        string ShortDescription { get; set; }
     }
 }

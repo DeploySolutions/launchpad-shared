@@ -20,7 +20,7 @@ namespace Deploy.LaunchPad.Util.Elements
         /// Controls the DebuggerDisplay attribute presentation (above). This will only appear during VS debugging sessions and should never be logged.
         /// </summary>
         /// <value>The debug display.</value>
-        protected virtual string _debugDisplay => $"{Full}.";
+        protected virtual string _debugDisplay => $"{Description}.";
 
         /// <summary>
         /// The full description for this object
@@ -29,9 +29,9 @@ namespace Deploy.LaunchPad.Util.Elements
         [MaxLength(8096, ErrorMessageResourceName = "Validation_ElementDescription_Full_8096CharsOrLess", ErrorMessageResourceType = typeof(Deploy_LaunchPad_Util_Resources))]
         [DataObjectField(false)]
         [XmlElement]
-        [JsonProperty("full")]
+        [JsonProperty("description")]
         [Column("core_description_full")]        
-        public virtual required string Full { get; set; } = string.Empty;
+        public virtual required string Description { get; set; } = string.Empty;
 
         [SetsRequiredMembers]
         protected ElementDescriptionLight()
@@ -41,13 +41,13 @@ namespace Deploy.LaunchPad.Util.Elements
         [SetsRequiredMembers]
         public ElementDescriptionLight(string fullDescription)
         {
-            Full = fullDescription;
+            Description = fullDescription;
         }
 
         [SetsRequiredMembers]
         public ElementDescriptionLight(string fullDescription, string shortDescription)
         {
-            Full = fullDescription;
+            Description = fullDescription;
         }
 
         /// <summary>
@@ -59,7 +59,7 @@ namespace Deploy.LaunchPad.Util.Elements
         /// <returns>System.Int32.</returns>
         public virtual int CompareTo(ElementDescriptionLight other)
         {
-            return Full.CompareTo(other.Full);
+            return Description.CompareTo(other.Description);
         }
 
         /// <summary>
@@ -68,7 +68,7 @@ namespace Deploy.LaunchPad.Util.Elements
         /// <returns>A string representation of the object.</returns>
         public override string ToString()
         {
-            return Full;
+            return Description;
         }
 
 
@@ -99,7 +99,7 @@ namespace Deploy.LaunchPad.Util.Elements
         {
             if (obj != null)
             {
-                return Full.Equals(obj.Full);
+                return Description.Equals(obj.Description);
             }
             return false;
         }
@@ -141,14 +141,14 @@ namespace Deploy.LaunchPad.Util.Elements
         /// <remarks>This method implements the <see cref="object">Object</see> method.</remarks>
         public override int GetHashCode()
         {
-            return Full.GetHashCode();
+            return Description.GetHashCode();
         }
 
         public ElementDescriptionLight CloneGeneric()
         {
             // Create a new instance and copy all relevant properties
             return new ElementDescriptionLight(
-                fullDescription: this.Full
+                fullDescription: this.Description
             );
         }
         object ICloneable.Clone() => CloneGeneric();

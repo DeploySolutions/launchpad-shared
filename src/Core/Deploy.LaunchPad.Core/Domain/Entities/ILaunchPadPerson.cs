@@ -38,7 +38,7 @@ namespace Deploy.LaunchPad.Core.Domain.Entities
     /// Interface ILaunchPadPerson
     /// </summary>
     public partial interface ILaunchPadPerson : ILaunchPadObject,
-        ILaunchPadCoreProperties
+        ILaunchPadCommonProperties
     {
         ///<summary>
         /// Parents can be listed (if they exist).

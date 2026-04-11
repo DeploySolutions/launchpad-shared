@@ -24,9 +24,9 @@ namespace Deploy.LaunchPad.Core.Domain.Entities
     /// </summary>
     /// <typeparam name="TPrimaryKey">The type of the primary key.</typeparam>
     public partial interface ILaunchPadEntityBaseProperties<TPrimaryKey> :
-        ILaunchPadMinimalProperties, 
         IMustHaveId<TPrimaryKey>,
-        IMayHaveChecksumValue
+        IMustHaveFullName,
+        IMustHaveFullDescription
     {
         /// <summary>
         /// Checks if this entity is transient (not persisted to database and it has not an <see cref="Id"/>).

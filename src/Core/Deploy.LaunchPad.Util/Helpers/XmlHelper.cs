@@ -812,11 +812,11 @@ namespace Deploy.LaunchPad.Util.Helpers
 
             // add Description
             sbXml.Append(CreateXmlOpeningElementString(topLevelNodePrefix + "Description"));
-            sbXml.Append(CreateXmlElementString("core:Full", description.Full.Trim(), true));
+            sbXml.Append(CreateXmlElementString("core:Full", description.Description.Trim(), true));
 
-            if (!string.IsNullOrEmpty(description.Short))
+            if (!string.IsNullOrEmpty(description.ShortDescription))
             {
-                sbXml.Append(CreateXmlElementString("core:Short", description.Short.Trim(), true));
+                sbXml.Append(CreateXmlElementString("core:Short", description.ShortDescription.Trim(), true));
             }
             sbXml.Append(CreateXmlClosingElementString(topLevelNodePrefix + "Description"));
 
@@ -844,9 +844,9 @@ namespace Deploy.LaunchPad.Util.Helpers
             root.Add(descriptionElement);
             var fullElement = new XElement(coreNs + "Full", "Some content");
             descriptionElement.Add(fullElement);
-            if (!string.IsNullOrEmpty(description.Short))
+            if (!string.IsNullOrEmpty(description.ShortDescription))
             {
-                var shortElement = new XElement(coreNs + "Short", description.Short.Trim());
+                var shortElement = new XElement(coreNs + "Short", description.ShortDescription.Trim());
                 descriptionElement.Add(shortElement);
             }
             // Convert to XmlDocument

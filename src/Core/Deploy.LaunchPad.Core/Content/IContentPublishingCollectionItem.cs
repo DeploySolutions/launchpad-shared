@@ -6,7 +6,7 @@ namespace Deploy.LaunchPad.Domain.Content
 {
     public partial interface IContentPublishingCollectionItem : 
         ILaunchPadObject, 
-        ILaunchPadCoreProperties, 
+        ILaunchPadCommonProperties, 
         IMustHavePublishingInformation, IMustHaveCulture
     {
         public ContentItemType ContentType { get; set; }

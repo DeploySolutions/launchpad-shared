@@ -23,10 +23,7 @@ namespace Deploy.LaunchPad.Core.Domain.Entities
     /// </summary>
     /// <typeparam name="TPrimaryKey">The type of the primary key.</typeparam>
     public partial interface IDomainEntityProperties<TPrimaryKey> : ILaunchPadEntityBaseProperties<TPrimaryKey>,
-        ILaunchPadCoreProperties,
-        IMustHaveElementDescription,
-        IMustHaveCulture, 
-        IMayHaveTranslationFromId<TPrimaryKey>
+        ILaunchPadCommonProperties
     {
         /// <summary>
         /// If this object is a regular domain entity, an aggregate root, or an aggregate child

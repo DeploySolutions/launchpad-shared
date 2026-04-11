@@ -17,9 +17,10 @@ namespace Deploy.LaunchPad.Core.Connections.Database.Definitions
         public virtual ConnectionAuthMode ConnectionAuthMode { get; init; } = ConnectionAuthMode.ConnectionString;
 
         public required virtual string Name { get; set; }
-        public virtual string ProviderName { get; set; }
 
-        public virtual ElementDescription Description { get; set; }
+        public virtual string Description { get; set; } = string.Empty;
+
+        public virtual string ProviderName { get; set; }
 
         public virtual string DefaultSchema { get; set; } = "public";
 
@@ -94,7 +95,7 @@ namespace Deploy.LaunchPad.Core.Connections.Database.Definitions
         {
             Name = name;
             HostNameSecretRef = hostNameSecretRef;
-            Description = new ElementDescription(name);
+            Description = name;
             DatabaseSecretRef = databaseSecretRef;
             UsernameSecretRef = userNameSecretRef;
             PasswordSecretRef = passwordSecretRef;
@@ -106,7 +107,7 @@ namespace Deploy.LaunchPad.Core.Connections.Database.Definitions
 
         [SetsRequiredMembers]
         public LaunchPadDatabaseConnection(string name, 
-            ElementDescription description,
+            string description,
             ISecretFieldReference hostNameSecretRef,
             ISecretFieldReference databaseSecretRef,
             ISecretFieldReference userNameSecretRef,
